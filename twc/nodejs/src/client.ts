@@ -77,6 +77,64 @@ export class Config extends $tea.Model {
   }
 }
 
+// 文件key和文件名称
+export class FileInfo extends $tea.Model {
+  // 文件key
+  fileKey: string;
+  // 文件名称
+  fileName: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileKey: 'file_key',
+      fileName: 'file_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileKey: 'string',
+      fileName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 租赁分期履约信息
+export class RentalInstallmentPerformance extends $tea.Model {
+  // 被申请人还款期数
+  repaymentPeriod: number;
+  // 被申请人第几期租金支付方式
+  rentPaymentType: string;
+  // 被申请人第几期还款时间
+  appliedRepaymentTime: string;
+  // 被申请人第几期还款金额
+  appliedRepaymentAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      repaymentPeriod: 'repayment_period',
+      rentPaymentType: 'rent_payment_type',
+      appliedRepaymentTime: 'applied_repayment_time',
+      appliedRepaymentAmount: 'applied_repayment_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      repaymentPeriod: 'number',
+      rentPaymentType: 'string',
+      appliedRepaymentTime: 'string',
+      appliedRepaymentAmount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 订单商品信息
 export class OrderItem extends $tea.Model {
   // 产品名称
@@ -155,173 +213,61 @@ export class RentalStagingInformation extends $tea.Model {
   }
 }
 
-// 文件key和文件名称
-export class FileInfo extends $tea.Model {
-  // 文件key
-  fileKey: string;
-  // 文件名称
-  fileName: string;
+// 存证关联实体（个人/企业）的身份识别信息
+export class NotaryUser extends $tea.Model {
+  // 用户类型，PERSON或者ENTERPRISE
+  userType: string;
+  // 证件类型
+  // ● 个人：支持身份证IDENTITY_CARD
+  // ● 企业：支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号）
+  certType: string;
+  // 证件用户名称
+  // ● 个人：身份证姓名
+  // ● 企业：企业名称
+  certName: string;
+  // 证件号
+  // ● 个人：身份证号
+  // ● 企业：社会统一信用代码或企业工商注册号，与证件类型保持一致即可
+  certNo: string;
+  // 个人必填，用户手机号码
+  personMobileNo?: string;
+  // 企业选填，法人证件类型，仅支持身份证，IDENTITY_CARD
+  legalPersonCertType?: string;
+  // 企业选填，法人身份证姓名
+  legalPersonCertName?: string;
+  // 企业选填，法人身份证号
+  legalPersonCertNo?: string;
+  // 企业选填，法人手机号
+  legalPersonMobileNo?: string;
+  // 扩展属性
+  properties?: string;
   static names(): { [key: string]: string } {
     return {
-      fileKey: 'file_key',
-      fileName: 'file_name',
+      userType: 'user_type',
+      certType: 'cert_type',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      personMobileNo: 'person_mobile_no',
+      legalPersonCertType: 'legal_person_cert_type',
+      legalPersonCertName: 'legal_person_cert_name',
+      legalPersonCertNo: 'legal_person_cert_no',
+      legalPersonMobileNo: 'legal_person_mobile_no',
+      properties: 'properties',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      fileKey: 'string',
-      fileName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 租赁分期履约信息
-export class RentalInstallmentPerformance extends $tea.Model {
-  // 被申请人还款期数
-  repaymentPeriod: number;
-  // 被申请人第几期租金支付方式
-  rentPaymentType: string;
-  // 被申请人第几期还款时间
-  appliedRepaymentTime: string;
-  // 被申请人第几期还款金额
-  appliedRepaymentAmount: string;
-  static names(): { [key: string]: string } {
-    return {
-      repaymentPeriod: 'repayment_period',
-      rentPaymentType: 'rent_payment_type',
-      appliedRepaymentTime: 'applied_repayment_time',
-      appliedRepaymentAmount: 'applied_repayment_amount',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      repaymentPeriod: 'number',
-      rentPaymentType: 'string',
-      appliedRepaymentTime: 'string',
-      appliedRepaymentAmount: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 承诺信息
-export class CommitmentInfo extends $tea.Model {
-  // 租金总额
-  totalRent: string;
-  // 租赁分期信息
-  rentalStagingInformation: RentalStagingInformation[];
-  static names(): { [key: string]: string } {
-    return {
-      totalRent: 'total_rent',
-      rentalStagingInformation: 'rental_staging_information',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      totalRent: 'string',
-      rentalStagingInformation: { 'type': 'array', 'itemType': RentalStagingInformation },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 答辩人为自然人对象
-export class NaturalPerson extends $tea.Model {
-  // 自然人姓名
-  name: string;
-  // 自然人手机号码
-  mobileNumber: string;
-  // 自然人身份号码
-  idNumber: string;
-  // 自然人民族
-  nation?: string;
-  // 自然人身份地址
-  address?: string;
-  // 自然人电子邮箱
-  email?: string;
-  // 自然人身份证正反面照片
-  // 文件信息 列表（先调用接口获取上传url和fileKey）
-  idNumberFile?: FileInfo[];
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      mobileNumber: 'mobile_number',
-      idNumber: 'id_number',
-      nation: 'nation',
-      address: 'address',
-      email: 'email',
-      idNumberFile: 'id_number_file',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      mobileNumber: 'string',
-      idNumber: 'string',
-      nation: 'string',
-      address: 'string',
-      email: 'string',
-      idNumberFile: { 'type': 'array', 'itemType': FileInfo },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 当被申请人为法人
-export class LegalPerson extends $tea.Model {
-  // 被申请人姓名
-  name: string;
-  // 法人统一社会信用编码
-  idNumber: string;
-  // 法定代表人姓名
-  representativeName?: string;
-  // 联系方式
-  legalPhoneNumber?: string;
-  // 住所地（同营业执照地址）
-  legalAddress?: string;
-  // 企业经营地址
-  legalBusinessAddress?: string;
-  // 营业执照照片
-  // 文件信息列表（先调用接口获取上传url和fileKey）
-  legalIdNumberFile?: FileInfo[];
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      idNumber: 'id_number',
-      representativeName: 'representative_name',
-      legalPhoneNumber: 'legal_phone_number',
-      legalAddress: 'legal_address',
-      legalBusinessAddress: 'legal_business_address',
-      legalIdNumberFile: 'legal_id_number_file',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      idNumber: 'string',
-      representativeName: 'string',
-      legalPhoneNumber: 'string',
-      legalAddress: 'string',
-      legalBusinessAddress: 'string',
-      legalIdNumberFile: { 'type': 'array', 'itemType': FileInfo },
+      userType: 'string',
+      certType: 'string',
+      certName: 'string',
+      certNo: 'string',
+      personMobileNo: 'string',
+      legalPersonCertType: 'string',
+      legalPersonCertName: 'string',
+      legalPersonCertNo: 'string',
+      legalPersonMobileNo: 'string',
+      properties: 'string',
     };
   }
 
@@ -399,35 +345,6 @@ export class OrderInfo extends $tea.Model {
   }
 }
 
-// 履约信息
-export class PerformanceInfo extends $tea.Model {
-  // 支付租金总额
-  rentPayTotal: string;
-  // 买断金额
-  buyoutAmount: string;
-  // 租赁分期履约信息
-  rentalInstallmentPerformance?: RentalInstallmentPerformance[];
-  static names(): { [key: string]: string } {
-    return {
-      rentPayTotal: 'rent_pay_total',
-      buyoutAmount: 'buyout_amount',
-      rentalInstallmentPerformance: 'rental_installment_performance',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      rentPayTotal: 'string',
-      buyoutAmount: 'string',
-      rentalInstallmentPerformance: { 'type': 'array', 'itemType': RentalInstallmentPerformance },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 物流信息
 export class LogisticsInfo extends $tea.Model {
   // 发货时间
@@ -461,12 +378,12 @@ export class LogisticsInfo extends $tea.Model {
   }
 }
 
-// 自动进件履约信息
-export class LeasePerformanceInfo extends $tea.Model {
+// 履约信息
+export class PerformanceInfo extends $tea.Model {
   // 支付租金总额
   rentPayTotal: string;
   // 买断金额
-  buyoutAmount?: string;
+  buyoutAmount: string;
   // 租赁分期履约信息
   rentalInstallmentPerformance?: RentalInstallmentPerformance[];
   static names(): { [key: string]: string } {
@@ -559,55 +476,23 @@ export class LeaseOrderInfo extends $tea.Model {
   }
 }
 
-// 签字人
-export class ContractFlowSigner extends $tea.Model {
-  // 签署顺序
-  signOrder?: number;
-  // 签署状态, 0-待签, 1-未签, 2-已签 3-待审批 4-拒签
-  signStatus?: number;
-  // 签署人账号id
-  signerAccountId?: string;
-  // 签署人名称
-  signerName?: string;
-  // 签署人是否已实名
-  signerRealName?: boolean;
-  // 签约主体的账号id（个人/企业）；如签署人本签署，则返回签署人账号id；如签署人代机构签署，则返回机构账号id
-  signerAuthorizedAccountId?: string;
-  // 签约主体名称
-  signerAuthorizedAccountName?: string;
-  // 签署主体是否已实名
-  signerAuthorizedAccountRealName?: boolean;
-  // 签署主体类型, 0-个人, 1-机构
-  signerAuthorizedAccountType?: number;
-  // 本次签署任务对应指定的第三方业务流水号id，当存在多个第三方业务流水号id时，返回多个，并逗号隔开
-  thirdOrderNo?: string;
+// 承诺信息
+export class CommitmentInfo extends $tea.Model {
+  // 租金总额
+  totalRent: string;
+  // 租赁分期信息
+  rentalStagingInformation: RentalStagingInformation[];
   static names(): { [key: string]: string } {
     return {
-      signOrder: 'sign_order',
-      signStatus: 'sign_status',
-      signerAccountId: 'signer_account_id',
-      signerName: 'signer_name',
-      signerRealName: 'signer_real_name',
-      signerAuthorizedAccountId: 'signer_authorized_account_id',
-      signerAuthorizedAccountName: 'signer_authorized_account_name',
-      signerAuthorizedAccountRealName: 'signer_authorized_account_real_name',
-      signerAuthorizedAccountType: 'signer_authorized_account_type',
-      thirdOrderNo: 'third_order_no',
+      totalRent: 'total_rent',
+      rentalStagingInformation: 'rental_staging_information',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      signOrder: 'number',
-      signStatus: 'number',
-      signerAccountId: 'string',
-      signerName: 'string',
-      signerRealName: 'boolean',
-      signerAuthorizedAccountId: 'string',
-      signerAuthorizedAccountName: 'string',
-      signerAuthorizedAccountRealName: 'boolean',
-      signerAuthorizedAccountType: 'number',
-      thirdOrderNo: 'string',
+      totalRent: 'string',
+      rentalStagingInformation: { 'type': 'array', 'itemType': RentalStagingInformation },
     };
   }
 
@@ -616,271 +501,44 @@ export class ContractFlowSigner extends $tea.Model {
   }
 }
 
-// 共享项目，资产端的采购平台回传的订单商品信息
-export class SupplierOrderProductInfo extends $tea.Model {
-  // 商品id
-  productId: string;
-  // 商品采购单价，单位：毫厘
-  productPrice: number;
-  // 商品的sn信息
-  snList: string[];
+// 当被申请人为法人
+export class LegalPerson extends $tea.Model {
+  // 被申请人姓名
+  name: string;
+  // 法人统一社会信用编码
+  idNumber: string;
+  // 法定代表人姓名
+  representativeName?: string;
+  // 联系方式
+  legalPhoneNumber?: string;
+  // 住所地（同营业执照地址）
+  legalAddress?: string;
+  // 企业经营地址
+  legalBusinessAddress?: string;
+  // 营业执照照片
+  // 文件信息列表（先调用接口获取上传url和fileKey）
+  legalIdNumberFile?: FileInfo[];
   static names(): { [key: string]: string } {
     return {
-      productId: 'product_id',
-      productPrice: 'product_price',
-      snList: 'sn_list',
+      name: 'name',
+      idNumber: 'id_number',
+      representativeName: 'representative_name',
+      legalPhoneNumber: 'legal_phone_number',
+      legalAddress: 'legal_address',
+      legalBusinessAddress: 'legal_business_address',
+      legalIdNumberFile: 'legal_id_number_file',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      productId: 'string',
-      productPrice: 'number',
-      snList: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 个人信息
-export class PersonInfo extends $tea.Model {
-  // 个人证件名称
-  certName: string;
-  // 个人证件号码
-  certNo: string;
-  // 证件类型, 默认身份证 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
-  certType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      certName: 'cert_name',
-      certNo: 'cert_no',
-      certType: 'cert_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      certName: 'string',
-      certNo: 'string',
-      certType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 答辩人对象
-export class PleaderObject extends $tea.Model {
-  // 法人或自然人标识，法人为1，自然人为0
-  partyType: number;
-  // 自然人信息
-  // 当partyType=1必填
-  naturalPerson?: NaturalPerson;
-  // 法人信息
-  // 当partyType=0必填
-  legalPerson?: LegalPerson;
-  static names(): { [key: string]: string } {
-    return {
-      partyType: 'party_type',
-      naturalPerson: 'natural_person',
-      legalPerson: 'legal_person',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      partyType: 'number',
-      naturalPerson: NaturalPerson,
-      legalPerson: LegalPerson,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 供应商对应的产品详细信息
-export class SupplierProductInfo extends $tea.Model {
-  // 产品额外信息
-  extraInfo?: string;
-  // 产品id
-  productId: string;
-  // 电子商品唯一标识码
-  productImeiId: string;
-  // 产品名称
-  productName: string;
-  // 采购产品的个数
-  productNumber: number;
-  // 采购产品的价格，精确到毫厘，如12.34元表示为123400
-  productPrice: number;
-  // 产品版本
-  supplierVersion?: string;
-  static names(): { [key: string]: string } {
-    return {
-      extraInfo: 'extra_info',
-      productId: 'product_id',
-      productImeiId: 'product_imei_id',
-      productName: 'product_name',
-      productNumber: 'product_number',
-      productPrice: 'product_price',
-      supplierVersion: 'supplier_version',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      extraInfo: 'string',
-      productId: 'string',
-      productImeiId: 'string',
-      productName: 'string',
-      productNumber: 'number',
-      productPrice: 'number',
-      supplierVersion: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 可信存证身份识别信息
-export class Identity extends $tea.Model {
-  // 经办人姓名，企业认证选填
-  agent?: string;
-  // 经办人身份证，企业认证选填
-  agentId?: string;
-  // 用户名称
-  certName: string;
-  // 证件号
-  certNo: string;
-  // 证件类型，个人只支持身份证IDENTITY_CARD，企业支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号）
-  certType: string;
-  // 法人姓名，企业认证必选
-  legalPerson?: string;
-  // 法人身份证，企业认证必选
-  legalPersonId?: string;
-  // 用户手机号码
-  mobileNo?: string;
-  // 扩展属性
-  properties?: string;
-  // 用户类型，PERSON或者ENTERPRISE
-  userType: string;
-  // 经办人证件类型，企业认证选填
-  agentCertType?: string;
-  // 法人证件类型，企业认证必选
-  legalPersonCertType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      agent: 'agent',
-      agentId: 'agent_id',
-      certName: 'cert_name',
-      certNo: 'cert_no',
-      certType: 'cert_type',
-      legalPerson: 'legal_person',
-      legalPersonId: 'legal_person_id',
-      mobileNo: 'mobile_no',
-      properties: 'properties',
-      userType: 'user_type',
-      agentCertType: 'agent_cert_type',
-      legalPersonCertType: 'legal_person_cert_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      agent: 'string',
-      agentId: 'string',
-      certName: 'string',
-      certNo: 'string',
-      certType: 'string',
-      legalPerson: 'string',
-      legalPersonId: 'string',
-      mobileNo: 'string',
-      properties: 'string',
-      userType: 'string',
-      agentCertType: 'string',
-      legalPersonCertType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 融资租赁订单额外信息
-export class LeaseOrderExtra extends $tea.Model {
-  // 额外信息的主键
-  key: string;
-  // 额外信息的值
-  value: string;
-  static names(): { [key: string]: string } {
-    return {
-      key: 'key',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      key: 'string',
-      value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 平台方自动签署区信息
-export class ContractPlatformSignField extends $tea.Model {
-  // 是否添加签署时间戳，默认不添加，时间格式如"2019-03-11 10:12:12"
-  addSignTime?: boolean;
-  // 签署区顺序，默认1,且不小于1，顺序越小越先处理
-  order?: number;
-  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
-  posPage: string;
-  // x坐标转为字符串的值，默认空
-  posX?: string;
-  // y坐标转为字符串的值
-  posY: string;
-  // 印章id ，如不传，则采用账号下的默认印章
-  sealId?: string;
-  // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
-  thirdOrderNo?: string;
-  // 签署区宽，默认印章宽度
-  width?: string;
-  static names(): { [key: string]: string } {
-    return {
-      addSignTime: 'add_sign_time',
-      order: 'order',
-      posPage: 'pos_page',
-      posX: 'pos_x',
-      posY: 'pos_y',
-      sealId: 'seal_id',
-      thirdOrderNo: 'third_order_no',
-      width: 'width',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      addSignTime: 'boolean',
-      order: 'number',
-      posPage: 'string',
-      posX: 'string',
-      posY: 'string',
-      sealId: 'string',
-      thirdOrderNo: 'string',
-      width: 'string',
+      name: 'string',
+      idNumber: 'string',
+      representativeName: 'string',
+      legalPhoneNumber: 'string',
+      legalAddress: 'string',
+      legalBusinessAddress: 'string',
+      legalIdNumberFile: { 'type': 'array', 'itemType': FileInfo },
     };
   }
 
@@ -919,35 +577,27 @@ export class PhaseNotary extends $tea.Model {
   }
 }
 
-// 电子合同存证合同文档信息
-export class ContractNotaryDocumentInfo extends $tea.Model {
-  // 签署完成的合同hash
-  content: string;
-  // 签署人ID（支持多个，不同ID间用“,”分隔开）
-  signatories: string;
-  // 存证结束时间，UNIX时间戳(毫秒)
-  timestamp: string;
-  // 存证凭据，仅在批量核验时需要填写
-  txHash?: string;
-  // 签署的文件ID
-  fileId: string;
+// 自动进件履约信息
+export class LeasePerformanceInfo extends $tea.Model {
+  // 支付租金总额
+  rentPayTotal: string;
+  // 买断金额
+  buyoutAmount?: string;
+  // 租赁分期履约信息
+  rentalInstallmentPerformance?: RentalInstallmentPerformance[];
   static names(): { [key: string]: string } {
     return {
-      content: 'content',
-      signatories: 'signatories',
-      timestamp: 'timestamp',
-      txHash: 'tx_hash',
-      fileId: 'file_id',
+      rentPayTotal: 'rent_pay_total',
+      buyoutAmount: 'buyout_amount',
+      rentalInstallmentPerformance: 'rental_installment_performance',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      content: 'string',
-      signatories: 'string',
-      timestamp: 'string',
-      txHash: 'string',
-      fileId: 'string',
+      rentPayTotal: 'string',
+      buyoutAmount: 'string',
+      rentalInstallmentPerformance: { 'type': 'array', 'itemType': RentalInstallmentPerformance },
     };
   }
 
@@ -956,85 +606,44 @@ export class ContractNotaryDocumentInfo extends $tea.Model {
   }
 }
 
-// 订单商品
-export class LeaseOrderProductInfo extends $tea.Model {
-  // 商品编码 长度不可超过50
-  productId: string;
-  // 产品版本，每个版本可以对应一个价格 长度不可超过50，版本号未正整数，示例"123"
-  productVersion: string;
-  // 商品名称 长度不可超过50
-  productName: string;
-  // 采购价  精确到毫厘，即123400表示12.34元
-  productPrice: number;
-  // 供应商Id，用以做索引 长度不可超过50
-  supplierIsvAccount: string;
+// 答辩人为自然人对象
+export class NaturalPerson extends $tea.Model {
+  // 自然人姓名
+  name: string;
+  // 自然人手机号码
+  mobileNumber: string;
+  // 自然人身份号码
+  idNumber: string;
+  // 自然人民族
+  nation?: string;
+  // 自然人身份地址
+  address?: string;
+  // 自然人电子邮箱
+  email?: string;
+  // 自然人身份证正反面照片
+  // 文件信息 列表（先调用接口获取上传url和fileKey）
+  idNumberFile?: FileInfo[];
   static names(): { [key: string]: string } {
     return {
-      productId: 'product_id',
-      productVersion: 'product_version',
-      productName: 'product_name',
-      productPrice: 'product_price',
-      supplierIsvAccount: 'supplier_isv_account',
+      name: 'name',
+      mobileNumber: 'mobile_number',
+      idNumber: 'id_number',
+      nation: 'nation',
+      address: 'address',
+      email: 'email',
+      idNumberFile: 'id_number_file',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      productId: 'string',
-      productVersion: 'string',
-      productName: 'string',
-      productPrice: 'number',
-      supplierIsvAccount: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 智能合同个人账号信息
-export class ContractAccount extends $tea.Model {
-  static names(): { [key: string]: string } {
-    return {
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 见证流程文档确认数据
-export class WitnessConfirmData extends $tea.Model {
-  // 文档fileKey
-  docFileKey?: string;
-  // 文档摘要算法，SHA256
-  hashAlgorithm: string;
-  // 签署后文档摘要值
-  signedHash: string;
-  // 第三方文档id
-  thirdDocId: string;
-  static names(): { [key: string]: string } {
-    return {
-      docFileKey: 'doc_file_key',
-      hashAlgorithm: 'hash_algorithm',
-      signedHash: 'signed_hash',
-      thirdDocId: 'third_doc_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      docFileKey: 'string',
-      hashAlgorithm: 'string',
-      signedHash: 'string',
-      thirdDocId: 'string',
+      name: 'string',
+      mobileNumber: 'string',
+      idNumber: 'string',
+      nation: 'string',
+      address: 'string',
+      email: 'string',
+      idNumberFile: { 'type': 'array', 'itemType': FileInfo },
     };
   }
 
@@ -1092,6 +701,47 @@ export class Location extends $tea.Model {
   }
 }
 
+// 自动进件案件基础信息
+export class CaseBasicInfo extends $tea.Model {
+  // 案件租户id
+  bizTenantId: string;
+  // 案件类型:LEASE：租赁，FINANCIAL：金融，OTHER：其他
+  caseType: string;
+  // 标的金额（单位元）
+  amount?: string;
+  // 业务来源主键
+  inputSourceId: string;
+  // 案件进件来源 
+  inputSource: string;
+  // 根据业务来源主键对应订单号下的租赁事实报告和证据列表页面的嵌入URL
+  caseExt?: string;
+  static names(): { [key: string]: string } {
+    return {
+      bizTenantId: 'biz_tenant_id',
+      caseType: 'case_type',
+      amount: 'amount',
+      inputSourceId: 'input_source_id',
+      inputSource: 'input_source',
+      caseExt: 'case_ext',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizTenantId: 'string',
+      caseType: 'string',
+      amount: 'string',
+      inputSourceId: 'string',
+      inputSource: 'string',
+      caseExt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 电子合同存证代扣计划执行操作信息
 export class ContractNotaryDeductExecutionInfo extends $tea.Model {
   // 付款方的区块链合同签署账号
@@ -1133,59 +783,27 @@ export class ContractNotaryDeductExecutionInfo extends $tea.Model {
   }
 }
 
-// 创建电子合同签署盖章区时的申请信息
-export class ContractSignFieldApplication extends $tea.Model {
-  // 是否添加签署时间戳，默认不添加，时间格式如"2019-03-11 10:12:12"
-  addSignTime?: boolean;
-  // 签约主体账号标识， 将使用该主体账号对应的数字证书完成本次签署，如：当存在签署操作人代某机构签署时，需要传入该机构的账号id
-  authorizedAccountId: string;
-  // 电子合同文件ID
-  fileId: string;
-  // 签署区顺序，默认1,且不小于1，顺序越小越先处理
-  order?: number;
-  // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字
-  posPage: string;
-  // x坐标转为字符串的值，默认空，页面签章必填，骑缝签章不填写
-  posX?: string;
-  // y坐标转为字符串的值
-  posY: string;
-  // 印章id ，如不传，则采用账号下的默认印章
-  sealId?: string;
-  // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
-  thirdOrderNo?: string;
-  // 签署区宽，默认印章宽度	
-  width?: string;
-  // 签署类型，1-单页签署，2-骑缝签署，默认1
-  signType?: number;
+// 数字票根计量字段
+export class MetricInfo extends $tea.Model {
+  // 实际计收金额，单位：分。如传100，即为100分，1元
+  collectAmount: number;
+  // 计收受理时间
+  collectTime: string;
+  // 计收的订单流水号
+  collectSerialNumber: string;
   static names(): { [key: string]: string } {
     return {
-      addSignTime: 'add_sign_time',
-      authorizedAccountId: 'authorized_account_id',
-      fileId: 'file_id',
-      order: 'order',
-      posPage: 'pos_page',
-      posX: 'pos_x',
-      posY: 'pos_y',
-      sealId: 'seal_id',
-      thirdOrderNo: 'third_order_no',
-      width: 'width',
-      signType: 'sign_type',
+      collectAmount: 'collect_amount',
+      collectTime: 'collect_time',
+      collectSerialNumber: 'collect_serial_number',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      addSignTime: 'boolean',
-      authorizedAccountId: 'string',
-      fileId: 'string',
-      order: 'number',
-      posPage: 'string',
-      posX: 'string',
-      posY: 'string',
-      sealId: 'string',
-      thirdOrderNo: 'string',
-      width: 'string',
-      signType: 'number',
+      collectAmount: 'number',
+      collectTime: 'string',
+      collectSerialNumber: 'string',
     };
   }
 
@@ -1194,68 +812,60 @@ export class ContractSignFieldApplication extends $tea.Model {
   }
 }
 
-// 融资租赁商品出租详细信息
-export class RentInfo extends $tea.Model {
-  // 租金
-  rentPrice: number;
-  // 租期
-  rentTerm: number;
-  // 手续费
-  commission: number;
-  // 买断价
-  buyoutPrice: number;
-  // 留购价
-  retainedPrice: number;
-  static names(): { [key: string]: string } {
-    return {
-      rentPrice: 'rent_price',
-      rentTerm: 'rent_term',
-      commission: 'commission',
-      buyoutPrice: 'buyout_price',
-      retainedPrice: 'retained_price',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      rentPrice: 'number',
-      rentTerm: 'number',
-      commission: 'number',
-      buyoutPrice: 'number',
-      retainedPrice: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 支付扣款详情
-export class PaymentDetail extends $tea.Model {
-  // 业务自定义扣款id，长度不能超过64
-  bizTradeId: string;
-  // 扣款期数
-  period: number;
-  // 支付金额，单位：分
+// 融资租赁资方承诺
+export class LeaseCreditPromiseInfo extends $tea.Model {
+  // 租期index
+  term: number;
+  // 应还金额
   payMoney: number;
-  // 计划扣款时间，格式"yyyy-MM-dd HH:mm:ss"
+  // 应还款时间
   payDate: string;
+  // 垫付日
+  payInAdvanceTime: string;
+  // 垫付金额
+  payInAdvanceMoney: number;
   static names(): { [key: string]: string } {
     return {
-      bizTradeId: 'biz_trade_id',
-      period: 'period',
+      term: 'term',
       payMoney: 'pay_money',
       payDate: 'pay_date',
+      payInAdvanceTime: 'pay_in_advance_time',
+      payInAdvanceMoney: 'pay_in_advance_money',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      bizTradeId: 'string',
-      period: 'number',
+      term: 'number',
       payMoney: 'number',
       payDate: 'string',
+      payInAdvanceTime: 'string',
+      payInAdvanceMoney: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 融资租赁订单额外信息
+export class LeaseOrderExtra extends $tea.Model {
+  // 额外信息的主键
+  key: string;
+  // 额外信息的值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'string',
     };
   }
 
@@ -1349,86 +959,27 @@ export class ProposerObject extends $tea.Model {
   }
 }
 
-// 案件基础信息
-export class CaseBaseInfo extends $tea.Model {
-  // caseID
-  caseId: string;
-  // PENDING_RIGHTS_PROTECTION(1, "待发起维权"),
-  // TO_BE_SUBMITTED(2, "待提交"),
-  // ACCEPTED_AND_PROCESSED(3, "收案处理中"),
-  // RESULTS_TO_BE_CONFIRMED(4, "结果待确认"),
-  // CLOSED(5, "已关闭"),
-  casePhase: string;
-  // 维权ID
-  recordId: string;
-  // MEDIATION(1, "调解"),
-  // LITIGATION(2, "诉讼"),
-  // ARBITRATION(3, "仲裁"),
-  // CARRIED_OUT(4, "执行"),
-  recordType: string;
-  // MATERIAL_PREPARATION(1, "材料准备中"),
-  // SUBMITTED(2, "已提交"),
-  // FILED(3, "已立案"),
-  // CLOSED(4, "已结案"),
-  // WITHDRAW_THE_CASE(5, "撤案"),
-  // REVOKE(6, "撤销"),
-  // INADMISSIBLE(7, "不予受理"),
-  // SUBMITTING(8, "提交中"),
-  // SUBMISSION_FAILED(9, "提交失败"),
-  // FINAL_RULING(10, "裁定终本"),
-  // CARRIED_OUT_FINISHED(11, "执行完毕"),
-  // TO_BE_SIGNED(12, "签署中"),
-  // SIGNING_TIMED_OUT(13, "签署超时"),
-  // SIGN_REJECTED(14, "签署被拒绝"),
-  // SIGN_REVOCATION(15, "签署撤销"),
-  // WITHDRAW_THE_CASE_ING(16, "撤案处理中"),
-  // WITHDRAW_SIGNING_TIMED_OUT(17, "撤案签署超时"),
-  // WITHDRAW_SIGN_REJECTED(18, "撤案签署被拒绝"),
-  // WITHDRAW_SIGN_REVOCATION(19, "撤案签署撤销"),
-  // SIGNED(20, "签署完成"),
-  // WITHDRAW_SIGNED(21, "撤案签署完成"),
-  caseStatus: string;
-  // 案件提交时间
-  submitTime: string;
-  // 维权机构
-  arbitralBody: string;
-  // 结案时间 如没有则为""
-  closeTime?: string;
-  // 案号 如没有则为""
-  acceptanceNumber?: string;
-  // 案件回款金额,两位小数 单位(元) 如没有则为""
-  casePaymentActualAmount?: string;
-  // 是否能够下载 true可以下载 false没有可下载文件
-  canDownload: string;
+// 融资租赁人脸认证提前还款租期记录
+export class FinanceCertifyRentalInfo extends $tea.Model {
+  // 租期
+  rentTerm: number;
+  // 本期扣款金额，123400表示12.34元
+  rentalMoney: number;
+  // 还款日期，格式为"2019-07-31 12:00:00"
+  rentalReturnTime: string;
   static names(): { [key: string]: string } {
     return {
-      caseId: 'case_id',
-      casePhase: 'case_phase',
-      recordId: 'record_id',
-      recordType: 'record_type',
-      caseStatus: 'case_status',
-      submitTime: 'submit_time',
-      arbitralBody: 'arbitral_body',
-      closeTime: 'close_time',
-      acceptanceNumber: 'acceptance_number',
-      casePaymentActualAmount: 'case_payment_actual_amount',
-      canDownload: 'can_download',
+      rentTerm: 'rent_term',
+      rentalMoney: 'rental_money',
+      rentalReturnTime: 'rental_return_time',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      caseId: 'string',
-      casePhase: 'string',
-      recordId: 'string',
-      recordType: 'string',
-      caseStatus: 'string',
-      submitTime: 'string',
-      arbitralBody: 'string',
-      closeTime: 'string',
-      acceptanceNumber: 'string',
-      casePaymentActualAmount: 'string',
-      canDownload: 'string',
+      rentTerm: 'number',
+      rentalMoney: 'number',
+      rentalReturnTime: 'string',
     };
   }
 
@@ -1437,39 +988,100 @@ export class CaseBaseInfo extends $tea.Model {
   }
 }
 
-// 平台方经办人信息
-export class ContractPlatformAccountApplication extends $tea.Model {
-  // 邮箱地址
-  email?: string;
-  // 证件号
-  idNumber: string;
-  // 证件类型
-  idType: string;
-  // 手机号码
-  mobile?: string;
-  // 姓名
-  name: string;
-  // 用户唯一标识，可传入第三方平台的个人用户id等
-  userId: string;
+// 创建电子合同签署盖章区时的申请信息
+export class ContractSignFieldApplication extends $tea.Model {
+  // 是否添加签署时间戳，默认不添加，时间格式如"2019-03-11 10:12:12"
+  addSignTime?: boolean;
+  // 签约主体账号标识， 将使用该主体账号对应的数字证书完成本次签署，如：当存在签署操作人代某机构签署时，需要传入该机构的账号id
+  authorizedAccountId: string;
+  // 电子合同文件ID
+  fileId: string;
+  // 签署区顺序，默认1,且不小于1，顺序越小越先处理
+  order?: number;
+  // 页码信息：当签署区signType为2时, 页码可以_-_分割, 例如1到15页，填"1-15"； 其他情况只能是数字
+  posPage: string;
+  // x坐标转为字符串的值，默认空，页面签章必填，骑缝签章不填写
+  posX?: string;
+  // y坐标转为字符串的值
+  posY: string;
+  // 印章id ，如不传，则采用账号下的默认印章
+  sealId?: string;
+  // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+  thirdOrderNo?: string;
+  // 签署区宽，默认印章宽度	
+  width?: string;
+  // 签署类型，1-单页签署，2-骑缝签署，默认1
+  signType?: number;
   static names(): { [key: string]: string } {
     return {
-      email: 'email',
+      addSignTime: 'add_sign_time',
+      authorizedAccountId: 'authorized_account_id',
+      fileId: 'file_id',
+      order: 'order',
+      posPage: 'pos_page',
+      posX: 'pos_x',
+      posY: 'pos_y',
+      sealId: 'seal_id',
+      thirdOrderNo: 'third_order_no',
+      width: 'width',
+      signType: 'sign_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      addSignTime: 'boolean',
+      authorizedAccountId: 'string',
+      fileId: 'string',
+      order: 'number',
+      posPage: 'string',
+      posX: 'string',
+      posY: 'string',
+      sealId: 'string',
+      thirdOrderNo: 'string',
+      width: 'string',
+      signType: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 机构信息
+export class ContractUserOrganizationApplication extends $tea.Model {
+  // 证件号，该字段只有为空才允许修改
+  idNumber?: string;
+  // 证件类型 ，默认CRED_ORG_USCC
+  idType?: string;
+  // 企业法定代表人名称
+  legalPerson?: string;
+  // 企业法定代表人证件号
+  legalPersonId?: string;
+  // 机构名称
+  name?: string;
+  // 机构账号id
+  organizationId: string;
+  static names(): { [key: string]: string } {
+    return {
       idNumber: 'id_number',
       idType: 'id_type',
-      mobile: 'mobile',
+      legalPerson: 'legal_person',
+      legalPersonId: 'legal_person_id',
       name: 'name',
-      userId: 'user_id',
+      organizationId: 'organization_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      email: 'string',
       idNumber: 'string',
       idType: 'string',
-      mobile: 'string',
+      legalPerson: 'string',
+      legalPersonId: 'string',
       name: 'string',
-      userId: 'string',
+      organizationId: 'string',
     };
   }
 
@@ -1478,59 +1090,31 @@ export class ContractPlatformAccountApplication extends $tea.Model {
   }
 }
 
-// 融资租赁里的产品详细信息
-export class ProductInfo extends $tea.Model {
-  // 是否需要创建did
-  needDid?: boolean;
-  // 产品品牌，长度不超过50
-  productBrand?: string;
-  // 产品Id，长度不超过50
-  productId: string;
-  // 唯一标识码，imeiID，长度不超过50
-  productImeiId?: string;
-  // 产品规格型号，长度不超过255
-  productModel?: string;
-  // 产品名称，长度不超过50
-  productName: string;
-  // 产品数量
-  productNumber: number;
-  // 产品采购含税价 精确到毫厘，即123400表示12.34元
-  productPrice: number;
-  // 供应商id
-  supplierId?: string;
-  // 供应商对应的产品版本，每个版本可以对应一个价格
-  supplierVersion?: string;
-  // 额外字段
-  extraInfo?: string;
+// 自动进件证据要素
+export class LeaseEvidentialElement extends $tea.Model {
+  // 订单信息
+  leaseOrderInfo: LeaseOrderInfo;
+  // 承诺信息
+  commitmentInfo: CommitmentInfo;
+  // 物流信息
+  logisticsInfo: LogisticsInfo;
+  // 履约信息
+  performanceInfo: LeasePerformanceInfo;
   static names(): { [key: string]: string } {
     return {
-      needDid: 'need_did',
-      productBrand: 'product_brand',
-      productId: 'product_id',
-      productImeiId: 'product_imei_id',
-      productModel: 'product_model',
-      productName: 'product_name',
-      productNumber: 'product_number',
-      productPrice: 'product_price',
-      supplierId: 'supplier_id',
-      supplierVersion: 'supplier_version',
-      extraInfo: 'extra_info',
+      leaseOrderInfo: 'lease_order_info',
+      commitmentInfo: 'commitment_info',
+      logisticsInfo: 'logistics_info',
+      performanceInfo: 'performance_info',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      needDid: 'boolean',
-      productBrand: 'string',
-      productId: 'string',
-      productImeiId: 'string',
-      productModel: 'string',
-      productName: 'string',
-      productNumber: 'number',
-      productPrice: 'number',
-      supplierId: 'string',
-      supplierVersion: 'string',
-      extraInfo: 'string',
+      leaseOrderInfo: LeaseOrderInfo,
+      commitmentInfo: CommitmentInfo,
+      logisticsInfo: LogisticsInfo,
+      performanceInfo: LeasePerformanceInfo,
     };
   }
 
@@ -1539,48 +1123,27 @@ export class ProductInfo extends $tea.Model {
   }
 }
 
-// 阶段存证进度查询结果
-export class PhaseQueryResult extends $tea.Model {
-  // 阶段ID
-  phaseId: string;
-  // 阶段存证的链上交易Hash，只有status为FINISH才会返回
-  txHash: string;
-  // 阶段存证状态
-  status: string;
+// 电子合同签署盖章区
+export class ContractSignField extends $tea.Model {
+  // 电子合同用户ID
+  accountId: string;
+  // 电子合同文档ID
+  fileId: string;
+  // 电子合同签署区id
+  signfieldId: string;
   static names(): { [key: string]: string } {
     return {
-      phaseId: 'phase_id',
-      txHash: 'tx_hash',
-      status: 'status',
+      accountId: 'account_id',
+      fileId: 'file_id',
+      signfieldId: 'signfield_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      phaseId: 'string',
-      txHash: 'string',
-      status: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 共享项目，资产端的采购平台回传的物流信息
-export class SupplierLogisticInfo extends $tea.Model {
-  // 采购平台的物流单号
-  logisticOrderId: string;
-  static names(): { [key: string]: string } {
-    return {
-      logisticOrderId: 'logistic_order_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      logisticOrderId: 'string',
+      accountId: 'string',
+      fileId: 'string',
+      signfieldId: 'string',
     };
   }
 
@@ -1694,39 +1257,39 @@ export class ContractSignFieldDetail extends $tea.Model {
   }
 }
 
-// 智能合同个人账户创建申请信息
-export class ContractAccountApplication extends $tea.Model {
-  // 邮箱地址，默认空
-  email?: string;
-  // 证件号
-  idNumber: string;
-  // 目前仅支持CRED_PSN_CH_IDCARD，即身份证号码
-  idType: string;
-  // 手机号码，默认空
-  mobile?: string;
-  // 姓名
-  name: string;
-  // 用户唯一标识，可传入第三方平台的个人用户id等
-  userId: string;
+// 采购供应商初始化 
+export class SupplierInfo extends $tea.Model {
+  // 供应商id
+  agentSupplierId: string;
+  // 被代理机构社会统一信用码
+  agentSupplierCorpId: string;
+  // 被代理机构名称
+  agentSupplierCorpName: string;
+  // 被代理供应商名称
+  agentSupplierName: string;
+  // 被代理机构的法人名称
+  agentSupplierCorpOwnerName: string;
+  // 额外信息
+  extraInfo?: string;
   static names(): { [key: string]: string } {
     return {
-      email: 'email',
-      idNumber: 'id_number',
-      idType: 'id_type',
-      mobile: 'mobile',
-      name: 'name',
-      userId: 'user_id',
+      agentSupplierId: 'agent_supplier_id',
+      agentSupplierCorpId: 'agent_supplier_corp_id',
+      agentSupplierCorpName: 'agent_supplier_corp_name',
+      agentSupplierName: 'agent_supplier_name',
+      agentSupplierCorpOwnerName: 'agent_supplier_corp_owner_name',
+      extraInfo: 'extra_info',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      email: 'string',
-      idNumber: 'string',
-      idType: 'string',
-      mobile: 'string',
-      name: 'string',
-      userId: 'string',
+      agentSupplierId: 'string',
+      agentSupplierCorpId: 'string',
+      agentSupplierCorpName: 'string',
+      agentSupplierName: 'string',
+      agentSupplierCorpOwnerName: 'string',
+      extraInfo: 'string',
     };
   }
 
@@ -1735,35 +1298,31 @@ export class ContractAccountApplication extends $tea.Model {
   }
 }
 
-// 平台方企业信息
-export class ContractPlatformOrganizationApplication extends $tea.Model {
-  // 证件号
-  idNumber: string;
-  // 证件类型
-  idType: string;
-  // 企业法人名称
-  orgLegalName?: string;
-  // 企业法人证件号
-  orgLegalIdNumber?: string;
-  // 机构名称
-  name: string;
+// 电子合同存证代扣计划信息
+export class ContractNotaryDeductPlanInfo extends $tea.Model {
+  // PAYERIDNUMBER
+  payerId: string;
+  // “总金额：”+总金额“+”“总期数：”+总期数，“+”每期金额时间（X期金额，时间）
+  deductPlanInfo: string;
+  // AGREEMEND_ID_NUMBER
+  agreementNo: string;
+  // 代扣计划发起时间
+  timestamp: string;
   static names(): { [key: string]: string } {
     return {
-      idNumber: 'id_number',
-      idType: 'id_type',
-      orgLegalName: 'org_legal_name',
-      orgLegalIdNumber: 'org_legal_id_number',
-      name: 'name',
+      payerId: 'payer_id',
+      deductPlanInfo: 'deduct_plan_info',
+      agreementNo: 'agreement_no',
+      timestamp: 'timestamp',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      idNumber: 'string',
-      idType: 'string',
-      orgLegalName: 'string',
-      orgLegalIdNumber: 'string',
-      name: 'string',
+      payerId: 'string',
+      deductPlanInfo: 'string',
+      agreementNo: 'string',
+      timestamp: 'string',
     };
   }
 
@@ -1772,27 +1331,480 @@ export class ContractPlatformOrganizationApplication extends $tea.Model {
   }
 }
 
-// 融资租赁中IOT设备详情
-export class LeaseIotItemInfo extends $tea.Model {
-  // 证据的时间
-  date: string;
-  // 证据的txHash
-  txHash: string;
-  // 证据的原始数据，默认为空或加密状态，除非调用方为授权用户（如出资方等
-  rawData: string;
+// 电子合同存证结束信息
+export class ContractNotaryFinishInfo extends $tea.Model {
+  // 本阶段存证内容哈希值
+  content: string;
+  // 签署文件份数
+  fileNum: number;
+  // 发起人ID
+  initiator: string;
+  // 签署人ID（支持多个，不同ID间用“,”分隔开）
+  signatories: string;
+  // 存证阶段发生时间，UNIX时间戳(毫秒)
+  timestamp: string;
+  // 存证凭据，仅在批量核验时需要填写
+  txHash?: string;
+  // signatories对应的用户类型
+  userTypes?: string;
+  // 签署合同所属行业
+  businessType?: string;
+  // 合同对应的金额，如果不涉及金额，填充为0，个数与file_num对应
+  amounts?: string;
+  // 签署方数量
+  signPartyCount?: number;
+  // 发起人名称
+  intiatorName?: string;
+  // 签署人名称,多个逗号隔开
+  signatorNames?: string;
+  // 详细文件哈希
+  detailInfoFileHash?: string;
   static names(): { [key: string]: string } {
     return {
-      date: 'date',
+      content: 'content',
+      fileNum: 'file_num',
+      initiator: 'initiator',
+      signatories: 'signatories',
+      timestamp: 'timestamp',
       txHash: 'tx_hash',
-      rawData: 'raw_data',
+      userTypes: 'user_types',
+      businessType: 'business_type',
+      amounts: 'amounts',
+      signPartyCount: 'sign_party_count',
+      intiatorName: 'intiator_name',
+      signatorNames: 'signator_names',
+      detailInfoFileHash: 'detail_info_file_hash',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      date: 'string',
+      content: 'string',
+      fileNum: 'number',
+      initiator: 'string',
+      signatories: 'string',
+      timestamp: 'string',
       txHash: 'string',
-      rawData: 'string',
+      userTypes: 'string',
+      businessType: 'string',
+      amounts: 'string',
+      signPartyCount: 'number',
+      intiatorName: 'string',
+      signatorNames: 'string',
+      detailInfoFileHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 见证流程文档检验数据
+export class WitnessDocs extends $tea.Model {
+  // 文档摘要值
+  docHash: string;
+  // 第三方文档id
+  thirdDocId: string;
+  static names(): { [key: string]: string } {
+    return {
+      docHash: 'doc_hash',
+      thirdDocId: 'third_doc_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      docHash: 'string',
+      thirdDocId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 平台方自动签署区信息
+export class ContractPlatformSignField extends $tea.Model {
+  // 是否添加签署时间戳，默认不添加，时间格式如"2019-03-11 10:12:12"
+  addSignTime?: boolean;
+  // 签署区顺序，默认1,且不小于1，顺序越小越先处理
+  order?: number;
+  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
+  posPage: string;
+  // x坐标转为字符串的值，默认空
+  posX?: string;
+  // y坐标转为字符串的值
+  posY: string;
+  // 印章id ，如不传，则采用账号下的默认印章
+  sealId?: string;
+  // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+  thirdOrderNo?: string;
+  // 签署区宽，默认印章宽度
+  width?: string;
+  static names(): { [key: string]: string } {
+    return {
+      addSignTime: 'add_sign_time',
+      order: 'order',
+      posPage: 'pos_page',
+      posX: 'pos_x',
+      posY: 'pos_y',
+      sealId: 'seal_id',
+      thirdOrderNo: 'third_order_no',
+      width: 'width',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      addSignTime: 'boolean',
+      order: 'number',
+      posPage: 'string',
+      posX: 'string',
+      posY: 'string',
+      sealId: 'string',
+      thirdOrderNo: 'string',
+      width: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 见证流程签署数据
+export class WitnessSignData extends $tea.Model {
+  // 印章图片fileKey列表
+  sealFileKeys?: string[];
+  // 印章id列表
+  sealIds?: string[];
+  // 待签署文档摘要值，批量签时必传
+  signHash?: string;
+  // 签署位置信息
+  signPosData?: string;
+  // 第三方文档id，批量签时必传
+  thirdDocId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      sealFileKeys: 'seal_file_keys',
+      sealIds: 'seal_ids',
+      signHash: 'sign_hash',
+      signPosData: 'sign_pos_data',
+      thirdDocId: 'third_doc_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sealFileKeys: { 'type': 'array', 'itemType': 'string' },
+      sealIds: { 'type': 'array', 'itemType': 'string' },
+      signHash: 'string',
+      signPosData: 'string',
+      thirdDocId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 案件基础信息
+export class CaseBaseInfo extends $tea.Model {
+  // caseID
+  caseId: string;
+  // PENDING_RIGHTS_PROTECTION(1, "待发起维权"),
+  // TO_BE_SUBMITTED(2, "待提交"),
+  // ACCEPTED_AND_PROCESSED(3, "收案处理中"),
+  // RESULTS_TO_BE_CONFIRMED(4, "结果待确认"),
+  // CLOSED(5, "已关闭"),
+  casePhase: string;
+  // 维权ID
+  recordId: string;
+  // MEDIATION(1, "调解"),
+  // LITIGATION(2, "诉讼"),
+  // ARBITRATION(3, "仲裁"),
+  // CARRIED_OUT(4, "执行"),
+  recordType: string;
+  // MATERIAL_PREPARATION(1, "材料准备中"),
+  // SUBMITTED(2, "已提交"),
+  // FILED(3, "已立案"),
+  // CLOSED(4, "已结案"),
+  // WITHDRAW_THE_CASE(5, "撤案"),
+  // REVOKE(6, "撤销"),
+  // INADMISSIBLE(7, "不予受理"),
+  // SUBMITTING(8, "提交中"),
+  // SUBMISSION_FAILED(9, "提交失败"),
+  // FINAL_RULING(10, "裁定终本"),
+  // CARRIED_OUT_FINISHED(11, "执行完毕"),
+  // TO_BE_SIGNED(12, "签署中"),
+  // SIGNING_TIMED_OUT(13, "签署超时"),
+  // SIGN_REJECTED(14, "签署被拒绝"),
+  // SIGN_REVOCATION(15, "签署撤销"),
+  // WITHDRAW_THE_CASE_ING(16, "撤案处理中"),
+  // WITHDRAW_SIGNING_TIMED_OUT(17, "撤案签署超时"),
+  // WITHDRAW_SIGN_REJECTED(18, "撤案签署被拒绝"),
+  // WITHDRAW_SIGN_REVOCATION(19, "撤案签署撤销"),
+  // SIGNED(20, "签署完成"),
+  // WITHDRAW_SIGNED(21, "撤案签署完成"),
+  caseStatus: string;
+  // 案件提交时间
+  submitTime: string;
+  // 维权机构
+  arbitralBody: string;
+  // 结案时间 如没有则为""
+  closeTime?: string;
+  // 案号 如没有则为""
+  acceptanceNumber?: string;
+  // 案件回款金额,两位小数 单位(元) 如没有则为""
+  casePaymentActualAmount?: string;
+  // 是否能够下载 true可以下载 false没有可下载文件
+  canDownload: string;
+  static names(): { [key: string]: string } {
+    return {
+      caseId: 'case_id',
+      casePhase: 'case_phase',
+      recordId: 'record_id',
+      recordType: 'record_type',
+      caseStatus: 'case_status',
+      submitTime: 'submit_time',
+      arbitralBody: 'arbitral_body',
+      closeTime: 'close_time',
+      acceptanceNumber: 'acceptance_number',
+      casePaymentActualAmount: 'case_payment_actual_amount',
+      canDownload: 'can_download',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      caseId: 'string',
+      casePhase: 'string',
+      recordId: 'string',
+      recordType: 'string',
+      caseStatus: 'string',
+      submitTime: 'string',
+      arbitralBody: 'string',
+      closeTime: 'string',
+      acceptanceNumber: 'string',
+      casePaymentActualAmount: 'string',
+      canDownload: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 电子合同存证合同文档信息
+export class ContractNotaryDocumentInfo extends $tea.Model {
+  // 签署完成的合同hash
+  content: string;
+  // 签署人ID（支持多个，不同ID间用“,”分隔开）
+  signatories: string;
+  // 存证结束时间，UNIX时间戳(毫秒)
+  timestamp: string;
+  // 存证凭据，仅在批量核验时需要填写
+  txHash?: string;
+  // 签署的文件ID
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      content: 'content',
+      signatories: 'signatories',
+      timestamp: 'timestamp',
+      txHash: 'tx_hash',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      content: 'string',
+      signatories: 'string',
+      timestamp: 'string',
+      txHash: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 关键字位置列表
+export class KeywordsPosition extends $tea.Model {
+  // 关键字
+  keyword: string;
+  // 页码
+  pageIndex: number;
+  // x坐标
+  posX: string;
+  // y坐标
+  posY: string;
+  static names(): { [key: string]: string } {
+    return {
+      keyword: 'keyword',
+      pageIndex: 'page_index',
+      posX: 'pos_x',
+      posY: 'pos_y',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      keyword: 'string',
+      pageIndex: 'number',
+      posX: 'string',
+      posY: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 电子合同文档的下载地址
+export class ContractDocAddress extends $tea.Model {
+  // 电子合同文档ID
+  fileId: string;
+  // 电子合同文档名称，默认文件名称
+  fileName: string;
+  // 电子合同下载文档地址, 有效时间1小时
+  fileUrl: string;
+  // 合同文件的存证地址
+  txHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileId: 'file_id',
+      fileName: 'file_name',
+      fileUrl: 'file_url',
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileId: 'string',
+      fileName: 'string',
+      fileUrl: 'string',
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数字票根通用字段
+export class StubCommonInfo extends $tea.Model {
+  // 项目名称
+  projectName: string;
+  // 客户名称（三方合约中甲方名称：景区或服务商）
+  sceneName: string;
+  // 业务类型。目前只有数字票根这一个情景，枚举为：TICKET_STUB
+  bizType: string;
+  // 业务来源；Alipay：支付宝，Scene：景区
+  bizSource: string;
+  // 订单id。若bizSource为支付宝情况下传支付宝流水号（业务系统的出票流水号）；若bizSource为景区时传上游生成的订单号
+  orderId: string;
+  // 订单名称
+  orderName?: string;
+  // 订单总金额，单位：分。如传100，即为100分，1元
+  orderAmount: number;
+  // 下单时间
+  orderTime: string;
+  // 待分账金额，单位：分。如传100，即为100分，1元
+  stubAmount: number;
+  static names(): { [key: string]: string } {
+    return {
+      projectName: 'project_name',
+      sceneName: 'scene_name',
+      bizType: 'biz_type',
+      bizSource: 'biz_source',
+      orderId: 'order_id',
+      orderName: 'order_name',
+      orderAmount: 'order_amount',
+      orderTime: 'order_time',
+      stubAmount: 'stub_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      projectName: 'string',
+      sceneName: 'string',
+      bizType: 'string',
+      bizSource: 'string',
+      orderId: 'string',
+      orderName: 'string',
+      orderAmount: 'number',
+      orderTime: 'string',
+      stubAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 见证流程创建响应数据
+export class WitnessFlowConfig extends $tea.Model {
+  // 企业实名认证方式,对公打款：1；企业芝麻认证：3；法定代表授权：4；
+  organRealnameTypes?: number[];
+  // 个人实名认证方式, 银行四要素：2；芝麻认证-人脸识别：3；微众-人脸识别：4；
+  personRealnameTypes?: number[];
+  // 是否需要实名认证
+  realNameCert?: boolean;
+  // 意愿认证方式, 芝麻认证-人脸识别：2；短信验证码：3；微众-人脸识别：4；ukey认证：5；签署密码认证：6；
+  willingnessTypes?: number[];
+  static names(): { [key: string]: string } {
+    return {
+      organRealnameTypes: 'organ_realname_types',
+      personRealnameTypes: 'person_realname_types',
+      realNameCert: 'real_name_cert',
+      willingnessTypes: 'willingness_types',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      organRealnameTypes: { 'type': 'array', 'itemType': 'number' },
+      personRealnameTypes: { 'type': 'array', 'itemType': 'number' },
+      realNameCert: 'boolean',
+      willingnessTypes: { 'type': 'array', 'itemType': 'number' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 见证流程审批数据
+export class WitnessApprovalData extends $tea.Model {
+  // 审批流程id
+  approvalFlowId?: string;
+  // 印章id列表
+  sealIds?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      approvalFlowId: 'approval_flow_id',
+      sealIds: 'seal_ids',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      approvalFlowId: 'string',
+      sealIds: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -1890,6 +1902,259 @@ export class SupplierProductItem extends $tea.Model {
   }
 }
 
+// 阶段存证进度查询结果
+export class PhaseQueryResult extends $tea.Model {
+  // 阶段ID
+  phaseId: string;
+  // 阶段存证的链上交易Hash，只有status为FINISH才会返回
+  txHash: string;
+  // 阶段存证状态
+  status: string;
+  // 阶段注册成功时间戳
+  registerTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      phaseId: 'phase_id',
+      txHash: 'tx_hash',
+      status: 'status',
+      registerTime: 'register_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      phaseId: 'string',
+      txHash: 'string',
+      status: 'string',
+      registerTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 采购商品信息
+export class ApplySupplierOrderProductInput extends $tea.Model {
+  // 采购商品id
+  productId: string;
+  // 采购商品数量
+  productNum: number;
+  static names(): { [key: string]: string } {
+    return {
+      productId: 'product_id',
+      productNum: 'product_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productId: 'string',
+      productNum: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 智能合同机构账户创建申请信息
+export class ContractOrganizationApplication extends $tea.Model {
+  // 证件号
+  idNumber: string;
+  // 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://tech.antfin.com/docs/2/155166）
+  idType: string;
+  // 企业法人名称
+  legalPerson?: string;
+  // 企业法人证件号
+  legalPersonId?: string;
+  // 机构名称
+  name: string;
+  // 机构唯一标识，可传入第三方平台的机构用户id等
+  organizationId?: string;
+  // 机构子类型：ENTERPRISE（企业）、SELF-EMPLOYED（个体工商户）、SUBSIDIARY（分公司）、OTHERORG（其他机构）。若填入这些类型，将会进行相应参数校验，例如：企业类型要求进行企业四要素校验，企业证件号必须是91开头，并且企业类型在签署时会需要授权后才可进行签署；个体工商户要求证件号必须是92开头，其余类型无其他校验。不填入此参数不会进行校验。
+  orgType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      idNumber: 'id_number',
+      idType: 'id_type',
+      legalPerson: 'legal_person',
+      legalPersonId: 'legal_person_id',
+      name: 'name',
+      organizationId: 'organization_id',
+      orgType: 'org_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      idNumber: 'string',
+      idType: 'string',
+      legalPerson: 'string',
+      legalPersonId: 'string',
+      name: 'string',
+      organizationId: 'string',
+      orgType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阶段存证结果
+export class PhaseCreateResult extends $tea.Model {
+  // 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
+  phaseNo: number;
+  // 阶段ID，阶段存证的唯一标记
+  phaseId: string;
+  // 业务方原始数据ID，方便与业务方进行数据核对使用，并且如果同一个阶段多次存证，则需要根据业务方原始数据ID识别不同的阶段存证响应
+  originDataId: string;
+  static names(): { [key: string]: string } {
+    return {
+      phaseNo: 'phase_no',
+      phaseId: 'phase_id',
+      originDataId: 'origin_data_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      phaseNo: 'number',
+      phaseId: 'string',
+      originDataId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 证据清单
+export class EvidentialCheckList extends $tea.Model {
+  // 证据名称英文 
+  evidentialNameEn: string;
+  // 文件名称
+  ossFileName: string;
+  // 文件fileKey ，调用获取文件上传链接时对应的fileKey
+  ossFileKey: string;
+  // 证据来源
+  // BUSINESS_UPLOAD	业务传入
+  // ADD_MANULLY	手动添加
+  sourcesOfEvidence: string;
+  // 证据类型
+  // BLOCKCHAIN_DEPOSIT	区块链存证
+  // USER_UPLOAD	用户上传
+  evidenceType: string;
+  // 存证类型
+  // TEXT	文本
+  // FILE	文件
+  depositType: string;
+  // 存证哈希 当为区块链存证必填
+  txHash?: string;
+  // 存证时间 当为区块链存证必填
+  depositTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      evidentialNameEn: 'evidential_name_en',
+      ossFileName: 'oss_file_name',
+      ossFileKey: 'oss_file_key',
+      sourcesOfEvidence: 'sources_of_evidence',
+      evidenceType: 'evidence_type',
+      depositType: 'deposit_type',
+      txHash: 'tx_hash',
+      depositTime: 'deposit_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      evidentialNameEn: 'string',
+      ossFileName: 'string',
+      ossFileKey: 'string',
+      sourcesOfEvidence: 'string',
+      evidenceType: 'string',
+      depositType: 'string',
+      txHash: 'string',
+      depositTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 见证流程签署结果数据
+export class WitnessSignResult extends $tea.Model {
+  // 签名结果，外部用户签署返回
+  signResult?: string;
+  // 签署日志id，外部用户签署返回
+  signlogId?: string;
+  // 第三方文档id
+  thirdDocId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      signResult: 'sign_result',
+      signlogId: 'signlog_id',
+      thirdDocId: 'third_doc_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      signResult: 'string',
+      signlogId: 'string',
+      thirdDocId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 核验请求时对应的存证元数据
+export class NotaryCheckMeta extends $tea.Model {
+  // 对应的法院编号
+  agencyCode?: string;
+  // 哈希算法, notary_type 为 HASH 时此参数必填
+  hashAlgorithm?: string;
+  // 存证内容
+  notaryContent: string;
+  // 交易哈希
+  txHash: string;
+  // 应用ID
+  applicationCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      agencyCode: 'agency_code',
+      hashAlgorithm: 'hash_algorithm',
+      notaryContent: 'notary_content',
+      txHash: 'tx_hash',
+      applicationCode: 'application_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      agencyCode: 'string',
+      hashAlgorithm: 'string',
+      notaryContent: 'string',
+      txHash: 'string',
+      applicationCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 电子合同存证代扣计划退款信息
 export class ContractNotaryDeductRefundInfo extends $tea.Model {
   // PAYERIDNUMBER
@@ -1923,67 +2188,19 @@ export class ContractNotaryDeductRefundInfo extends $tea.Model {
   }
 }
 
-// 融资租赁资金方还款条目信息
-export class LeaseRepaymentInfo extends $tea.Model {
-  // 融资租赁还款流水
-  repaymentUniqueId: string;
-  // 还款批次
-  returnIndex: string;
-  // 还款日期
-  returnTime: string;
-  // 还款总额,本金+利息，精确到毫厘，即123400表示12.34元
-  returnMoney: number;
-  // 还款结果状态,1.成功 2.失败
-  returnStatus: number;
-  // 还款结果简要描述,长度不超过256
-  returnDescription: string;
-  // 还款来源,1.共管账号，2.网商清分
-  source: number;
-  // 剩余应还期数
-  remainReturnTerm: number;
-  // 本期剩余应还金额，精确到毫厘，即123400表示12.34元
-  remainReturnMoney: number;
-  // 逾期状态,0为未逾期，1表示逾期
-  overdueStatus: number;
-  // 逾期利率（日利率）,精确到小数点后四位 12.34% 表示为1234
-  overdueRate: number;
-  // 逾期天数,支用到期日开始计算
-  overdueDay: number;
-  // 逾期应还款总额,本金+利息+逾期利息,精确到毫厘，即123400表示12.34元
-  overdueMoney: number;
+// 共享项目，资产端的采购平台回传的物流信息
+export class SupplierLogisticInfo extends $tea.Model {
+  // 采购平台的物流单号
+  logisticOrderId: string;
   static names(): { [key: string]: string } {
     return {
-      repaymentUniqueId: 'repayment_unique_id',
-      returnIndex: 'return_index',
-      returnTime: 'return_time',
-      returnMoney: 'return_money',
-      returnStatus: 'return_status',
-      returnDescription: 'return_description',
-      source: 'source',
-      remainReturnTerm: 'remain_return_term',
-      remainReturnMoney: 'remain_return_money',
-      overdueStatus: 'overdue_status',
-      overdueRate: 'overdue_rate',
-      overdueDay: 'overdue_day',
-      overdueMoney: 'overdue_money',
+      logisticOrderId: 'logistic_order_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      repaymentUniqueId: 'string',
-      returnIndex: 'string',
-      returnTime: 'string',
-      returnMoney: 'number',
-      returnStatus: 'number',
-      returnDescription: 'string',
-      source: 'number',
-      remainReturnTerm: 'number',
-      remainReturnMoney: 'number',
-      overdueStatus: 'number',
-      overdueRate: 'number',
-      overdueDay: 'number',
-      overdueMoney: 'number',
+      logisticOrderId: 'string',
     };
   }
 
@@ -1992,27 +2209,166 @@ export class LeaseRepaymentInfo extends $tea.Model {
   }
 }
 
-// 阶段存证结果
-export class PhaseCreateResult extends $tea.Model {
-  // 阶段编号，与模板阶段编号保持一致，不同阶段阶段编号不一样，要与阶段存证内容保持一致
-  phaseNo: number;
-  // 阶段ID，阶段存证的唯一标记
-  phaseId: string;
-  // 业务方原始数据ID，方便与业务方进行数据核对使用，并且如果同一个阶段多次存证，则需要根据业务方原始数据ID识别不同的阶段存证响应
-  originDataId: string;
+// 电子合同签署流程的配置信息
+export class ContractSignFlowConfig extends $tea.Model {
+  // 回调通知地址 ,默认取项目配置通知地址
+  noticeDeveloperUrl?: string;
+  // 签署通知和审批通知的通知方式，传 "" 表示不需要通知，传"1"表示短信通知。短信功能需要联系售后开白名单才会生效。
+  noticeType: string;
+  // 签署成功或者流程结束后的默认重定向地址，默认签署完成停在当前页面
+  redirectUrl?: string;
+  // 签署平台，逗号分割，1-开放服务h5，2-支付宝签 ，默认值1
+  signPlatform?: string;
+  // 签署失败时的跳转地址，如果不做单独配置，默认与redirect_url一致（配合twc.notary.contract.signflow.create接口使用）
+  redirectUrlOnFailure?: string;
+  // 是否允许自由签署，默认false（配合twc.notary.contract.signflow.create接口使用）
+  freeSignature?: boolean;
   static names(): { [key: string]: string } {
     return {
-      phaseNo: 'phase_no',
-      phaseId: 'phase_id',
-      originDataId: 'origin_data_id',
+      noticeDeveloperUrl: 'notice_developer_url',
+      noticeType: 'notice_type',
+      redirectUrl: 'redirect_url',
+      signPlatform: 'sign_platform',
+      redirectUrlOnFailure: 'redirect_url_on_failure',
+      freeSignature: 'free_signature',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      phaseNo: 'number',
-      phaseId: 'string',
-      originDataId: 'string',
+      noticeDeveloperUrl: 'string',
+      noticeType: 'string',
+      redirectUrl: 'string',
+      signPlatform: 'string',
+      redirectUrlOnFailure: 'string',
+      freeSignature: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 融资租赁商品出租详细信息
+export class RentInfo extends $tea.Model {
+  // 租金
+  rentPrice: number;
+  // 租期
+  rentTerm: number;
+  // 手续费
+  commission: number;
+  // 买断价
+  buyoutPrice: number;
+  // 留购价
+  retainedPrice: number;
+  static names(): { [key: string]: string } {
+    return {
+      rentPrice: 'rent_price',
+      rentTerm: 'rent_term',
+      commission: 'commission',
+      buyoutPrice: 'buyout_price',
+      retainedPrice: 'retained_price',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      rentPrice: 'number',
+      rentTerm: 'number',
+      commission: 'number',
+      buyoutPrice: 'number',
+      retainedPrice: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 融资租赁清分信息
+export class LeaseClearingInfo extends $tea.Model {
+  // 还款批次
+  returnIndex: number;
+  // 清分状态
+  clearingState: number;
+  // 清分金额,精确到毫厘，即123400表示12.34元
+  clearingMoney: number;
+  // 开始清分时间
+  startTime: string;
+  // 结束清分时间
+  endTime: string;
+  // 清分单号
+  clearingOrderId: string;
+  // 清分收款账号
+  clearingAccount: string;
+  // 清分额外说明
+  memo: string;
+  static names(): { [key: string]: string } {
+    return {
+      returnIndex: 'return_index',
+      clearingState: 'clearing_state',
+      clearingMoney: 'clearing_money',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      clearingOrderId: 'clearing_order_id',
+      clearingAccount: 'clearing_account',
+      memo: 'memo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      returnIndex: 'number',
+      clearingState: 'number',
+      clearingMoney: 'number',
+      startTime: 'string',
+      endTime: 'string',
+      clearingOrderId: 'string',
+      clearingAccount: 'string',
+      memo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业四要素校验
+export class CompanyFourMetaInfo extends $tea.Model {
+  // 企业证件名称
+  companyCertName: string;
+  // 企业证件号码
+  companyCertNo: string;
+  // 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
+  companyCertType?: string;
+  // 法人证件名称
+  legalPersonCertName: string;
+  // 法人证件号码
+  legalPersonCertNo: string;
+  // 法人证件类型 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
+  legalPersonCertType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      companyCertName: 'company_cert_name',
+      companyCertNo: 'company_cert_no',
+      companyCertType: 'company_cert_type',
+      legalPersonCertName: 'legal_person_cert_name',
+      legalPersonCertNo: 'legal_person_cert_no',
+      legalPersonCertType: 'legal_person_cert_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      companyCertName: 'string',
+      companyCertNo: 'string',
+      companyCertType: 'string',
+      legalPersonCertName: 'string',
+      legalPersonCertNo: 'string',
+      legalPersonCertType: 'string',
     };
   }
 
@@ -2094,27 +2450,29 @@ export class MediationCaseDetailInfo extends $tea.Model {
   }
 }
 
-// 见证流程签署结果数据
-export class WitnessSignResult extends $tea.Model {
-  // 签名结果，外部用户签署返回
-  signResult?: string;
-  // 签署日志id，外部用户签署返回
-  signlogId?: string;
-  // 第三方文档id
-  thirdDocId?: string;
+// 答辩人对象
+export class PleaderObject extends $tea.Model {
+  // 法人或自然人标识，法人为1，自然人为0
+  partyType: number;
+  // 自然人信息
+  // 当partyType=1必填
+  naturalPerson?: NaturalPerson;
+  // 法人信息
+  // 当partyType=0必填
+  legalPerson?: LegalPerson;
   static names(): { [key: string]: string } {
     return {
-      signResult: 'sign_result',
-      signlogId: 'signlog_id',
-      thirdDocId: 'third_doc_id',
+      partyType: 'party_type',
+      naturalPerson: 'natural_person',
+      legalPerson: 'legal_person',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      signResult: 'string',
-      signlogId: 'string',
-      thirdDocId: 'string',
+      partyType: 'number',
+      naturalPerson: NaturalPerson,
+      legalPerson: LegalPerson,
     };
   }
 
@@ -2123,35 +2481,224 @@ export class WitnessSignResult extends $tea.Model {
   }
 }
 
-// 采购订单信息
-export class ApplySupplierOrderProductOutput extends $tea.Model {
-  // 订单id
-  orderId: string;
-  // 链上采购单id
-  purOrderId: string;
-  // 待采购：READY_DELIVER
-  // 已采购：DELIVERED
-  // 已拒发：REJECTED
-  // 已退货：RETURNED
-  // 已取消：CANCELED
-  purOrderStatus: string;
-  // 供应商id
-  supplierId?: string;
+// 电子合同存证签署信息
+export class ContractNotarySignInfo extends $tea.Model {
+  // 本阶段存证内容哈希值
+  content: string;
+  // 电子合同文件hash，可能一次性签署多个文件，不同文件的hash间用“,”分隔开
+  contractHash: string;
+  // 签署人ID
+  signatory: string;
+  // 存证阶段发生时间，UNIX时间戳(毫秒)
+  timestamp: string;
+  // 存证凭据，仅在批量核验时需要填写
+  txHash?: string;
+  // 发起人名称
+  intiatorName?: string;
+  // 签署人名称,多个逗号隔开
+  signatorNames?: string;
+  // 详细文件哈希
+  detailInfoFileHash?: string;
   static names(): { [key: string]: string } {
     return {
-      orderId: 'order_id',
-      purOrderId: 'pur_order_id',
-      purOrderStatus: 'pur_order_status',
-      supplierId: 'supplier_id',
+      content: 'content',
+      contractHash: 'contract_hash',
+      signatory: 'signatory',
+      timestamp: 'timestamp',
+      txHash: 'tx_hash',
+      intiatorName: 'intiator_name',
+      signatorNames: 'signator_names',
+      detailInfoFileHash: 'detail_info_file_hash',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      orderId: 'string',
-      purOrderId: 'string',
-      purOrderStatus: 'string',
-      supplierId: 'string',
+      content: 'string',
+      contractHash: 'string',
+      signatory: 'string',
+      timestamp: 'string',
+      txHash: 'string',
+      intiatorName: 'string',
+      signatorNames: 'string',
+      detailInfoFileHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 存证信息说明
+export class NotaryInfo extends $tea.Model {
+  // 存证内容的哈希值，默认采用SHA256算法
+  contentHash: string;
+  // 合作人（版权存证函专用），会展示在存证证明中
+  cooperation?: string;
+  // 作品名称类型（版权存证函使用），会展示在存证证明中
+  creationType?: string;
+  // 如果是文件存证，可填写文件名称
+  fileName?: string;
+  // 计算content_hash的哈希算法，目前只支持SHA256
+  hashAlgorithm?: string;
+  // 申请平台名，用于在存证函上显示用名称
+  platform?: string;
+  // 文件容量，默认为0
+  size?: number;
+  // 发起存证成功后，返回的存证凭据
+  txHash: string;
+  // 存证事务ID
+  transactionId: string;
+  static names(): { [key: string]: string } {
+    return {
+      contentHash: 'content_hash',
+      cooperation: 'cooperation',
+      creationType: 'creation_type',
+      fileName: 'file_name',
+      hashAlgorithm: 'hash_algorithm',
+      platform: 'platform',
+      size: 'size',
+      txHash: 'tx_hash',
+      transactionId: 'transaction_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      contentHash: 'string',
+      cooperation: 'string',
+      creationType: 'string',
+      fileName: 'string',
+      hashAlgorithm: 'string',
+      platform: 'string',
+      size: 'number',
+      txHash: 'string',
+      transactionId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 合同存证信息
+export class ContractNotaryInfo extends $tea.Model {
+  // 存证地址
+  txHash: string;
+  // 存证相关联的文档ID
+  docId?: string;
+  // 存证的内容哈希值
+  contentHash?: string;
+  // 存证事务ID
+  transactionId: string;
+  static names(): { [key: string]: string } {
+    return {
+      txHash: 'tx_hash',
+      docId: 'doc_id',
+      contentHash: 'content_hash',
+      transactionId: 'transaction_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      txHash: 'string',
+      docId: 'string',
+      contentHash: 'string',
+      transactionId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 个人信息
+export class PersonInfo extends $tea.Model {
+  // 个人证件名称
+  certName: string;
+  // 个人证件号码
+  certNo: string;
+  // 证件类型, 默认身份证 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
+  certType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      certType: 'cert_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      certName: 'string',
+      certNo: 'string',
+      certType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 共享项目，资产端的采购平台回传的订单商品信息
+export class SupplierOrderProductInfo extends $tea.Model {
+  // 商品id
+  productId: string;
+  // 商品采购单价，单位：毫厘
+  productPrice: number;
+  // 商品的sn信息
+  snList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      productId: 'product_id',
+      productPrice: 'product_price',
+      snList: 'sn_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productId: 'string',
+      productPrice: 'number',
+      snList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 电子合同文档
+export class ContractDoc extends $tea.Model {
+  // 上传的电子合同文档是否被加密过，0-未被加密，1-被加密过，默认0
+  encryption?: number;
+  // 电子合同文档的ID
+  fileId: string;
+  // 电子合同文档名称，默认文件名称
+  fileName?: string;
+  // 电子合同文档密码, 如果encryption值为1, 文档密码不能为空，默认没有密码
+  filePassword?: string;
+  static names(): { [key: string]: string } {
+    return {
+      encryption: 'encryption',
+      fileId: 'file_id',
+      fileName: 'file_name',
+      filePassword: 'file_password',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      encryption: 'number',
+      fileId: 'string',
+      fileName: 'string',
+      filePassword: 'string',
     };
   }
 
@@ -2217,276 +2764,19 @@ export class ContractSeal extends $tea.Model {
   }
 }
 
-// 企业四要素校验
-export class CompanyFourMetaInfo extends $tea.Model {
-  // 企业证件名称
-  companyCertName: string;
-  // 企业证件号码
-  companyCertNo: string;
-  // 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
-  companyCertType?: string;
-  // 法人证件名称
-  legalPersonCertName: string;
-  // 法人证件号码
-  legalPersonCertNo: string;
-  // 法人证件类型 RESIDENT：居民身份证号，PASSPORT：护照，MILITARY：军官证
-  legalPersonCertType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      companyCertName: 'company_cert_name',
-      companyCertNo: 'company_cert_no',
-      companyCertType: 'company_cert_type',
-      legalPersonCertName: 'legal_person_cert_name',
-      legalPersonCertNo: 'legal_person_cert_no',
-      legalPersonCertType: 'legal_person_cert_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      companyCertName: 'string',
-      companyCertNo: 'string',
-      companyCertType: 'string',
-      legalPersonCertName: 'string',
-      legalPersonCertNo: 'string',
-      legalPersonCertType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 再融资订单信息
-export class RefinanceOrderInfoResponse extends $tea.Model {
-  // 订单id
-  orderId: string;
-  // 合约id
-  applicationId: string;
-  static names(): { [key: string]: string } {
-    return {
-      orderId: 'order_id',
-      applicationId: 'application_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      orderId: 'string',
-      applicationId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 见证流程签署数据
-export class WitnessSignData extends $tea.Model {
-  // 印章图片fileKey列表
-  sealFileKeys?: string[];
-  // 印章id列表
-  sealIds?: string[];
-  // 待签署文档摘要值，批量签时必传
-  signHash?: string;
-  // 签署位置信息
-  signPosData?: string;
-  // 第三方文档id，批量签时必传
-  thirdDocId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      sealFileKeys: 'seal_file_keys',
-      sealIds: 'seal_ids',
-      signHash: 'sign_hash',
-      signPosData: 'sign_pos_data',
-      thirdDocId: 'third_doc_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      sealFileKeys: { 'type': 'array', 'itemType': 'string' },
-      sealIds: { 'type': 'array', 'itemType': 'string' },
-      signHash: 'string',
-      signPosData: 'string',
-      thirdDocId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 采购商品信息
-export class ApplySupplierOrderProductInput extends $tea.Model {
-  // 采购商品id
-  productId: string;
-  // 采购商品数量
-  productNum: number;
-  static names(): { [key: string]: string } {
-    return {
-      productId: 'product_id',
-      productNum: 'product_num',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      productId: 'string',
-      productNum: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 关键字位置列表
-export class KeywordsPosition extends $tea.Model {
-  // 关键字
-  keyword: string;
-  // 页码
-  pageIndex: number;
-  // x坐标
-  posX: string;
-  // y坐标
-  posY: string;
-  static names(): { [key: string]: string } {
-    return {
-      keyword: 'keyword',
-      pageIndex: 'page_index',
-      posX: 'pos_x',
-      posY: 'pos_y',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      keyword: 'string',
-      pageIndex: 'number',
-      posX: 'string',
-      posY: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 自动进件案件基础信息
-export class CaseBasicInfo extends $tea.Model {
-  // 案件租户id
-  bizTenantId: string;
-  // 案件类型:LEASE：租赁，FINANCIAL：金融，OTHER：其他
-  caseType: string;
-  // 标的金额（单位元）
-  amount?: string;
-  // 业务来源主键
-  inputSourceId: string;
-  // 案件进件来源 
-  inputSource: string;
-  // 根据业务来源主键对应订单号下的租赁事实报告和证据列表页面的嵌入URL
-  caseExt?: string;
-  static names(): { [key: string]: string } {
-    return {
-      bizTenantId: 'biz_tenant_id',
-      caseType: 'case_type',
-      amount: 'amount',
-      inputSourceId: 'input_source_id',
-      inputSource: 'input_source',
-      caseExt: 'case_ext',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizTenantId: 'string',
-      caseType: 'string',
-      amount: 'string',
-      inputSourceId: 'string',
-      inputSource: 'string',
-      caseExt: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 见证流程文档检验数据
-export class WitnessDocs extends $tea.Model {
-  // 文档摘要值
-  docHash: string;
-  // 第三方文档id
-  thirdDocId: string;
-  static names(): { [key: string]: string } {
-    return {
-      docHash: 'doc_hash',
-      thirdDocId: 'third_doc_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      docHash: 'string',
-      thirdDocId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 普通代扣规则
-export class RepaymentOrderRequest extends $tea.Model {
-  // 代扣触发时间，精确到毫秒
-  // java.lang.System#currentTimeMillis()
-  payDate: number;
-  // 代扣金额，整数 精确到分
-  payMoney: number;
-  // 是否用户签署成功后立即触发第一期代扣
-  triggerImmediately?: number;
-  static names(): { [key: string]: string } {
-    return {
-      payDate: 'pay_date',
-      payMoney: 'pay_money',
-      triggerImmediately: 'trigger_immediately',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      payDate: 'number',
-      payMoney: 'number',
-      triggerImmediately: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 个人信息
-export class ContractUserAccountApplication extends $tea.Model {
-  // 邮箱地址，默认不变
+// 智能合同个人账户创建申请信息
+export class ContractAccountApplication extends $tea.Model {
+  // 邮箱地址，默认空
   email?: string;
-  // 证件号，该字段只有为空才允许修改
-  idNumber?: string;
-  // 证件类型，默认为身份证
-  idType?: string;
-  // 手机号码，默认不变
+  // 证件号
+  idNumber: string;
+  // 目前仅支持CRED_PSN_CH_IDCARD，即身份证号码
+  idType: string;
+  // 手机号码，默认空
   mobile?: string;
-  // 姓名，默认不变
-  name?: string;
-  // 用户/经办人账号id
+  // 姓名
+  name: string;
+  // 用户唯一标识，可传入第三方平台的个人用户id等
   userId: string;
   static names(): { [key: string]: string } {
     return {
@@ -2515,184 +2805,55 @@ export class ContractUserAccountApplication extends $tea.Model {
   }
 }
 
-// 可信时间信息结构
-export class TsrResponse extends $tea.Model {
-  // 可信时间请求结果状态吗
-  code: string;
-  // hash后的信息
-  hashedMessage: string;
-  // 哈希算法
-  hashAlgorithm: string;
-  // 请求失败时候的错误信息
-  message?: string;
-  // 时间
-  ts: string;
-  // 精简后的时间戳完整编码（在校验时需要提交）
-  ctsr: string;
-  // 凭证序列号 （在校验的时需要先填写凭证编号）
-  // 
-  sn: string;
-  static names(): { [key: string]: string } {
-    return {
-      code: 'code',
-      hashedMessage: 'hashed_message',
-      hashAlgorithm: 'hash_algorithm',
-      message: 'message',
-      ts: 'ts',
-      ctsr: 'ctsr',
-      sn: 'sn',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      code: 'string',
-      hashedMessage: 'string',
-      hashAlgorithm: 'string',
-      message: 'string',
-      ts: 'string',
-      ctsr: 'string',
-      sn: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 采购供应商初始化 
-export class SupplierInfo extends $tea.Model {
-  // 供应商id
-  agentSupplierId: string;
-  // 被代理机构社会统一信用码
-  agentSupplierCorpId: string;
-  // 被代理机构名称
-  agentSupplierCorpName: string;
-  // 被代理供应商名称
-  agentSupplierName: string;
-  // 被代理机构的法人名称
-  agentSupplierCorpOwnerName: string;
-  // 额外信息
-  extraInfo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      agentSupplierId: 'agent_supplier_id',
-      agentSupplierCorpId: 'agent_supplier_corp_id',
-      agentSupplierCorpName: 'agent_supplier_corp_name',
-      agentSupplierName: 'agent_supplier_name',
-      agentSupplierCorpOwnerName: 'agent_supplier_corp_owner_name',
-      extraInfo: 'extra_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      agentSupplierId: 'string',
-      agentSupplierCorpId: 'string',
-      agentSupplierCorpName: 'string',
-      agentSupplierName: 'string',
-      agentSupplierCorpOwnerName: 'string',
-      extraInfo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 核验请求时对应的存证元数据
-export class NotaryCheckMeta extends $tea.Model {
-  // 对应的法院编号
-  agencyCode?: string;
-  // 哈希算法, notary_type 为 HASH 时此参数必填
-  hashAlgorithm?: string;
-  // 存证内容
-  notaryContent: string;
-  // 交易哈希
-  txHash: string;
-  // 应用ID
-  applicationCode?: string;
-  static names(): { [key: string]: string } {
-    return {
-      agencyCode: 'agency_code',
-      hashAlgorithm: 'hash_algorithm',
-      notaryContent: 'notary_content',
-      txHash: 'tx_hash',
-      applicationCode: 'application_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      agencyCode: 'string',
-      hashAlgorithm: 'string',
-      notaryContent: 'string',
-      txHash: 'string',
-      applicationCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 企业信息
-export class CompanyTwoMetaInfo extends $tea.Model {
-  // 企业证件名称
-  certName: string;
-  // 企业证件号码
-  certNo: string;
-  // 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
-  certType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      certName: 'cert_name',
-      certNo: 'cert_no',
-      certType: 'cert_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      certName: 'string',
-      certNo: 'string',
-      certType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 电子合同文档的下载地址
-export class ContractDocAddress extends $tea.Model {
-  // 电子合同文档ID
+// 签署区列表数据
+export class ContractPlatformSignFieldApplication extends $tea.Model {
+  // 文件file id
   fileId: string;
-  // 电子合同文档名称，默认文件名称
-  fileName: string;
-  // 电子合同下载文档地址, 有效时间1小时
-  fileUrl: string;
-  // 合同文件的存证地址
-  txHash?: string;
+  // 签署顺序，默认1,且不小于1，顺序越小越先处理
+  order?: number;
+  // 印章id， 仅限企业公章，暂不支持指定企业法定代表人印章 ，如不传，则采用账号下的默认印章
+  sealId?: string;
+  // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
+  thirdOrderNo?: string;
+  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
+  posPage: string;
+  // x坐标，默认空
+  posX?: string;
+  // y坐标
+  posY: string;
+  // 签署区宽，默认印章宽度
+  width?: string;
+  // 是否添加签署时间戳， 默认不添加，默认格式 yyyy-MM-dd HH : mm : ss
+  addSignTime?: boolean;
+  // 签署类型， 1-单页签署，2-骑缝签署，默认1
+  signType?: number;
   static names(): { [key: string]: string } {
     return {
       fileId: 'file_id',
-      fileName: 'file_name',
-      fileUrl: 'file_url',
-      txHash: 'tx_hash',
+      order: 'order',
+      sealId: 'seal_id',
+      thirdOrderNo: 'third_order_no',
+      posPage: 'pos_page',
+      posX: 'pos_x',
+      posY: 'pos_y',
+      width: 'width',
+      addSignTime: 'add_sign_time',
+      signType: 'sign_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       fileId: 'string',
-      fileName: 'string',
-      fileUrl: 'string',
-      txHash: 'string',
+      order: 'number',
+      sealId: 'string',
+      thirdOrderNo: 'string',
+      posPage: 'string',
+      posX: 'string',
+      posY: 'string',
+      width: 'string',
+      addSignTime: 'boolean',
+      signType: 'number',
     };
   }
 
@@ -2701,383 +2862,23 @@ export class ContractDocAddress extends $tea.Model {
   }
 }
 
-// 核验结果
-export class NotaryCheckResult extends $tea.Model {
-  // 存证所在区块高度
-  blockHeight: number;
-  // 核验结果错误码
-  errorCode: number;
-  // 错误信息
-  errorMessage: string;
-  // 存证时间
-  notaryTime: string;
-  // 存证类型
-  notaryType: string;
-  // 核验是否成功
-  result: boolean;
-  // 存证事务ID
-  transactionId: string;
-  // 交易哈希
-  txHash: string;
-  // 区块哈希
-  blockHash: string;
+// 租赁业务存证信息记录
+export class LeaseNotaryRecord extends $tea.Model {
   // 存证阶段
   phase: string;
-  static names(): { [key: string]: string } {
-    return {
-      blockHeight: 'block_height',
-      errorCode: 'error_code',
-      errorMessage: 'error_message',
-      notaryTime: 'notary_time',
-      notaryType: 'notary_type',
-      result: 'result',
-      transactionId: 'transaction_id',
-      txHash: 'tx_hash',
-      blockHash: 'block_hash',
-      phase: 'phase',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      blockHeight: 'number',
-      errorCode: 'number',
-      errorMessage: 'string',
-      notaryTime: 'string',
-      notaryType: 'string',
-      result: 'boolean',
-      transactionId: 'string',
-      txHash: 'string',
-      blockHash: 'string',
-      phase: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 用户端承诺信息
-export class LeasePromiseInfo extends $tea.Model {
-  // 租期index
-  term: number;
-  // 应还款金额
-  payMoney: number;
-  // 应还款时间
-  payDate: string;
-  static names(): { [key: string]: string } {
-    return {
-      term: 'term',
-      payMoney: 'pay_money',
-      payDate: 'pay_date',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      term: 'number',
-      payMoney: 'number',
-      payDate: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 融资租赁资方承诺
-export class LeaseCreditPromiseInfo extends $tea.Model {
-  // 租期index
-  term: number;
-  // 应还金额
-  payMoney: number;
-  // 应还款时间
-  payDate: string;
-  // 垫付日
-  payInAdvanceTime: string;
-  // 垫付金额
-  payInAdvanceMoney: number;
-  static names(): { [key: string]: string } {
-    return {
-      term: 'term',
-      payMoney: 'pay_money',
-      payDate: 'pay_date',
-      payInAdvanceTime: 'pay_in_advance_time',
-      payInAdvanceMoney: 'pay_in_advance_money',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      term: 'number',
-      payMoney: 'number',
-      payDate: 'string',
-      payInAdvanceTime: 'string',
-      payInAdvanceMoney: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 电子合同签署盖章区
-export class ContractSignField extends $tea.Model {
-  // 电子合同用户ID
-  accountId: string;
-  // 电子合同文档ID
-  fileId: string;
-  // 电子合同签署区id
-  signfieldId: string;
-  static names(): { [key: string]: string } {
-    return {
-      accountId: 'account_id',
-      fileId: 'file_id',
-      signfieldId: 'signfield_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      accountId: 'string',
-      fileId: 'string',
-      signfieldId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 签署区列表包含印章id数据
-export class ContractSignFieldSealId extends $tea.Model {
-  // 文件file id
-  fileId?: string;
-  // 流程id
-  flowId?: string;
-  // 印章id
-  sealId?: string;
-  // 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
-  sealType?: string;
-  // 签署区Id
-  signfieldId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      fileId: 'file_id',
-      flowId: 'flow_id',
-      sealId: 'seal_id',
-      sealType: 'seal_type',
-      signfieldId: 'signfield_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      fileId: 'string',
-      flowId: 'string',
-      sealId: 'string',
-      sealType: 'string',
-      signfieldId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 电子合同存证签署信息
-export class ContractNotarySignInfo extends $tea.Model {
-  // 本阶段存证内容哈希值
-  content: string;
-  // 电子合同文件hash，可能一次性签署多个文件，不同文件的hash间用“,”分隔开
-  contractHash: string;
-  // 签署人ID
-  signatory: string;
-  // 存证阶段发生时间，UNIX时间戳(毫秒)
-  timestamp: string;
-  // 存证凭据，仅在批量核验时需要填写
-  txHash?: string;
-  // 发起人名称
-  intiatorName?: string;
-  // 签署人名称,多个逗号隔开
-  signatorNames?: string;
-  // 详细文件哈希
-  detailInfoFileHash?: string;
-  static names(): { [key: string]: string } {
-    return {
-      content: 'content',
-      contractHash: 'contract_hash',
-      signatory: 'signatory',
-      timestamp: 'timestamp',
-      txHash: 'tx_hash',
-      intiatorName: 'intiator_name',
-      signatorNames: 'signator_names',
-      detailInfoFileHash: 'detail_info_file_hash',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      content: 'string',
-      contractHash: 'string',
-      signatory: 'string',
-      timestamp: 'string',
-      txHash: 'string',
-      intiatorName: 'string',
-      signatorNames: 'string',
-      detailInfoFileHash: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 合同存证信息
-export class ContractNotaryInfo extends $tea.Model {
-  // 存证地址
+  // 交易哈希，存证记录唯一标识
   txHash: string;
-  // 存证相关联的文档ID
-  docId?: string;
-  // 存证的内容哈希值
-  contentHash?: string;
-  // 存证事务ID
-  transactionId: string;
   static names(): { [key: string]: string } {
     return {
+      phase: 'phase',
       txHash: 'tx_hash',
-      docId: 'doc_id',
-      contentHash: 'content_hash',
-      transactionId: 'transaction_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      phase: 'string',
       txHash: 'string',
-      docId: 'string',
-      contentHash: 'string',
-      transactionId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 电子合同存证结束信息
-export class ContractNotaryFinishInfo extends $tea.Model {
-  // 本阶段存证内容哈希值
-  content: string;
-  // 签署文件份数
-  fileNum: number;
-  // 发起人ID
-  initiator: string;
-  // 签署人ID（支持多个，不同ID间用“,”分隔开）
-  signatories: string;
-  // 存证阶段发生时间，UNIX时间戳(毫秒)
-  timestamp: string;
-  // 存证凭据，仅在批量核验时需要填写
-  txHash?: string;
-  // signatories对应的用户类型
-  userTypes?: string;
-  // 签署合同所属行业
-  businessType?: string;
-  // 合同对应的金额，如果不涉及金额，填充为0，个数与file_num对应
-  amounts?: string;
-  // 签署方数量
-  signPartyCount?: number;
-  // 发起人名称
-  intiatorName?: string;
-  // 签署人名称,多个逗号隔开
-  signatorNames?: string;
-  // 详细文件哈希
-  detailInfoFileHash?: string;
-  static names(): { [key: string]: string } {
-    return {
-      content: 'content',
-      fileNum: 'file_num',
-      initiator: 'initiator',
-      signatories: 'signatories',
-      timestamp: 'timestamp',
-      txHash: 'tx_hash',
-      userTypes: 'user_types',
-      businessType: 'business_type',
-      amounts: 'amounts',
-      signPartyCount: 'sign_party_count',
-      intiatorName: 'intiator_name',
-      signatorNames: 'signator_names',
-      detailInfoFileHash: 'detail_info_file_hash',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      content: 'string',
-      fileNum: 'number',
-      initiator: 'string',
-      signatories: 'string',
-      timestamp: 'string',
-      txHash: 'string',
-      userTypes: 'string',
-      businessType: 'string',
-      amounts: 'string',
-      signPartyCount: 'number',
-      intiatorName: 'string',
-      signatorNames: 'string',
-      detailInfoFileHash: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 智能合同机构账户创建申请信息
-export class ContractOrganizationApplication extends $tea.Model {
-  // 证件号
-  idNumber: string;
-  // 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://tech.antfin.com/docs/2/155166）
-  idType: string;
-  // 企业法人名称
-  legalPerson?: string;
-  // 企业法人证件号
-  legalPersonId?: string;
-  // 机构名称
-  name: string;
-  // 机构唯一标识，可传入第三方平台的机构用户id等
-  organizationId?: string;
-  // 机构子类型：ENTERPRISE（企业）、SELF-EMPLOYED（个体工商户）、SUBSIDIARY（分公司）、OTHERORG（其他机构）。若填入这些类型，将会进行相应参数校验，例如：企业类型要求进行企业四要素校验，企业证件号必须是91开头，并且企业类型在签署时会需要授权后才可进行签署；个体工商户要求证件号必须是92开头，其余类型无其他校验。不填入此参数不会进行校验。
-  orgType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      idNumber: 'id_number',
-      idType: 'id_type',
-      legalPerson: 'legal_person',
-      legalPersonId: 'legal_person_id',
-      name: 'name',
-      organizationId: 'organization_id',
-      orgType: 'org_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      idNumber: 'string',
-      idType: 'string',
-      legalPerson: 'string',
-      legalPersonId: 'string',
-      name: 'string',
-      organizationId: 'string',
-      orgType: 'string',
     };
   }
 
@@ -3135,7 +2936,7 @@ export class ContractHandSignFieldApplication extends $tea.Model {
   posY?: string;
   // 印章id
   sealId?: string;
-  // 是否需要添加签署日期，0-禁止 1-必须 2-不限制，默认0
+  // 是否需要添加签署日期，0-禁止 1-必须 ，默认0
   signDateBeanType?: number;
   // 签章日期字体大小,默认12
   signDateFontSize?: number;
@@ -3208,23 +3009,23 @@ export class ContractHandSignFieldApplication extends $tea.Model {
   }
 }
 
-// 见证流程审批数据
-export class WitnessApprovalData extends $tea.Model {
-  // 审批流程id
-  approvalFlowId?: string;
-  // 印章id列表
-  sealIds?: string[];
+// 再融资订单信息
+export class RefinanceOrderInfoResponse extends $tea.Model {
+  // 订单id
+  orderId: string;
+  // 合约id
+  applicationId: string;
   static names(): { [key: string]: string } {
     return {
-      approvalFlowId: 'approval_flow_id',
-      sealIds: 'seal_ids',
+      orderId: 'order_id',
+      applicationId: 'application_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      approvalFlowId: 'string',
-      sealIds: { 'type': 'array', 'itemType': 'string' },
+      orderId: 'string',
+      applicationId: 'string',
     };
   }
 
@@ -3233,39 +3034,158 @@ export class WitnessApprovalData extends $tea.Model {
   }
 }
 
-// 机构信息
-export class ContractUserOrganizationApplication extends $tea.Model {
-  // 证件号，该字段只有为空才允许修改
-  idNumber?: string;
-  // 证件类型 ，默认CRED_ORG_USCC
-  idType?: string;
-  // 企业法定代表人名称
-  legalPerson?: string;
-  // 企业法定代表人证件号
-  legalPersonId?: string;
-  // 机构名称
-  name?: string;
-  // 机构账号id
-  organizationId: string;
+// 供应商对应的产品详细信息
+export class SupplierProductInfo extends $tea.Model {
+  // 产品额外信息
+  extraInfo?: string;
+  // 产品id
+  productId: string;
+  // 电子商品唯一标识码
+  productImeiId: string;
+  // 产品名称
+  productName: string;
+  // 采购产品的个数
+  productNumber: number;
+  // 采购产品的价格，精确到毫厘，如12.34元表示为123400
+  productPrice: number;
+  // 产品版本
+  supplierVersion?: string;
   static names(): { [key: string]: string } {
     return {
+      extraInfo: 'extra_info',
+      productId: 'product_id',
+      productImeiId: 'product_imei_id',
+      productName: 'product_name',
+      productNumber: 'product_number',
+      productPrice: 'product_price',
+      supplierVersion: 'supplier_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      extraInfo: 'string',
+      productId: 'string',
+      productImeiId: 'string',
+      productName: 'string',
+      productNumber: 'number',
+      productPrice: 'number',
+      supplierVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单商品
+export class LeaseOrderProductInfo extends $tea.Model {
+  // 商品编码 长度不可超过50
+  productId: string;
+  // 产品版本，每个版本可以对应一个价格 长度不可超过50，版本号未正整数，示例"123"
+  productVersion: string;
+  // 商品名称 长度不可超过50
+  productName: string;
+  // 采购价  精确到毫厘，即123400表示12.34元
+  productPrice: number;
+  // 供应商Id，用以做索引 长度不可超过50
+  supplierIsvAccount: string;
+  static names(): { [key: string]: string } {
+    return {
+      productId: 'product_id',
+      productVersion: 'product_version',
+      productName: 'product_name',
+      productPrice: 'product_price',
+      supplierIsvAccount: 'supplier_isv_account',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productId: 'string',
+      productVersion: 'string',
+      productName: 'string',
+      productPrice: 'number',
+      supplierIsvAccount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数字票根一键全流程存证相关参数
+export class OnestepFlowNotaryInfo extends $tea.Model {
+  // 全流程模板id，需要提前创建好模板才能获取
+  templateId: string;
+  // 流程名称，同一个租户下同一个模板，建议唯一不重复
+  flowName: string;
+  // 存证关联实体（个人/企业）的身份识别信息
+  notaryUser: NotaryUser;
+  // 阶段存证内容列表，根据模板定义传入
+  phaseNotaryList: PhaseNotary[];
+  // 扩展属性
+  properties?: string;
+  static names(): { [key: string]: string } {
+    return {
+      templateId: 'template_id',
+      flowName: 'flow_name',
+      notaryUser: 'notary_user',
+      phaseNotaryList: 'phase_notary_list',
+      properties: 'properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      templateId: 'string',
+      flowName: 'string',
+      notaryUser: NotaryUser,
+      phaseNotaryList: { 'type': 'array', 'itemType': PhaseNotary },
+      properties: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 更新后平台方经办人信息
+export class ContractCreatorApplication extends $tea.Model {
+  // 邮箱地址
+  email?: string;
+  // 证件号
+  idNumber: string;
+  // 证件类型
+  idType: string;
+  // 手机号码
+  mobile?: string;
+  // 姓名
+  name: string;
+  // 创建人ID
+  creatorId: string;
+  static names(): { [key: string]: string } {
+    return {
+      email: 'email',
       idNumber: 'id_number',
       idType: 'id_type',
-      legalPerson: 'legal_person',
-      legalPersonId: 'legal_person_id',
+      mobile: 'mobile',
       name: 'name',
-      organizationId: 'organization_id',
+      creatorId: 'creator_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      email: 'string',
       idNumber: 'string',
       idType: 'string',
-      legalPerson: 'string',
-      legalPersonId: 'string',
+      mobile: 'string',
       name: 'string',
-      organizationId: 'string',
+      creatorId: 'string',
     };
   }
 
@@ -3274,53 +3194,59 @@ export class ContractUserOrganizationApplication extends $tea.Model {
   }
 }
 
-// 证据清单
-export class EvidentialCheckList extends $tea.Model {
-  // 证据名称英文 
-  evidentialNameEn: string;
-  // 文件名称
-  ossFileName: string;
-  // 文件fileKey ，调用获取文件上传链接时对应的fileKey
-  ossFileKey: string;
-  // 证据来源
-  // BUSINESS_UPLOAD	业务传入
-  // ADD_MANULLY	手动添加
-  sourcesOfEvidence: string;
-  // 证据类型
-  // BLOCKCHAIN_DEPOSIT	区块链存证
-  // USER_UPLOAD	用户上传
-  evidenceType: string;
-  // 存证类型
-  // TEXT	文本
-  // FILE	文件
-  depositType: string;
-  // 存证哈希 当为区块链存证必填
-  txHash?: string;
-  // 存证时间 当为区块链存证必填
-  depositTime?: string;
+// 融资租赁里的产品详细信息
+export class ProductInfo extends $tea.Model {
+  // 是否需要创建did
+  needDid?: boolean;
+  // 产品品牌，长度不超过50
+  productBrand?: string;
+  // 产品Id，长度不超过50
+  productId: string;
+  // 唯一标识码，imeiID，长度不超过50
+  productImeiId?: string;
+  // 产品规格型号，长度不超过255
+  productModel?: string;
+  // 产品名称，长度不超过50
+  productName: string;
+  // 产品数量
+  productNumber: number;
+  // 产品采购含税价 精确到毫厘，即123400表示12.34元
+  productPrice: number;
+  // 供应商id
+  supplierId?: string;
+  // 供应商对应的产品版本，每个版本可以对应一个价格
+  supplierVersion?: string;
+  // 额外字段
+  extraInfo?: string;
   static names(): { [key: string]: string } {
     return {
-      evidentialNameEn: 'evidential_name_en',
-      ossFileName: 'oss_file_name',
-      ossFileKey: 'oss_file_key',
-      sourcesOfEvidence: 'sources_of_evidence',
-      evidenceType: 'evidence_type',
-      depositType: 'deposit_type',
-      txHash: 'tx_hash',
-      depositTime: 'deposit_time',
+      needDid: 'need_did',
+      productBrand: 'product_brand',
+      productId: 'product_id',
+      productImeiId: 'product_imei_id',
+      productModel: 'product_model',
+      productName: 'product_name',
+      productNumber: 'product_number',
+      productPrice: 'product_price',
+      supplierId: 'supplier_id',
+      supplierVersion: 'supplier_version',
+      extraInfo: 'extra_info',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      evidentialNameEn: 'string',
-      ossFileName: 'string',
-      ossFileKey: 'string',
-      sourcesOfEvidence: 'string',
-      evidenceType: 'string',
-      depositType: 'string',
-      txHash: 'string',
-      depositTime: 'string',
+      needDid: 'boolean',
+      productBrand: 'string',
+      productId: 'string',
+      productImeiId: 'string',
+      productModel: 'string',
+      productName: 'string',
+      productNumber: 'number',
+      productPrice: 'number',
+      supplierId: 'string',
+      supplierVersion: 'string',
+      extraInfo: 'string',
     };
   }
 
@@ -3329,142 +3255,31 @@ export class EvidentialCheckList extends $tea.Model {
   }
 }
 
-// 存证信息说明
-export class NotaryInfo extends $tea.Model {
-  // 存证内容的哈希值，默认采用SHA256算法
-  contentHash: string;
-  // 合作人（版权存证函专用），会展示在存证证明中
-  cooperation?: string;
-  // 作品名称类型（版权存证函使用），会展示在存证证明中
-  creationType?: string;
-  // 如果是文件存证，可填写文件名称
-  fileName?: string;
-  // 计算content_hash的哈希算法，目前只支持SHA256
-  hashAlgorithm?: string;
-  // 申请平台名，用于在存证函上显示用名称
-  platform?: string;
-  // 文件容量，默认为0
-  size?: number;
-  // 发起存证成功后，返回的存证凭据
-  txHash: string;
-  // 存证事务ID
-  transactionId: string;
+// 支付扣款详情
+export class PaymentDetail extends $tea.Model {
+  // 业务自定义扣款id，长度不能超过64
+  bizTradeId: string;
+  // 扣款期数
+  period: number;
+  // 支付金额，单位：分
+  payMoney: number;
+  // 计划扣款时间，格式"yyyy-MM-dd HH:mm:ss"
+  payDate: string;
   static names(): { [key: string]: string } {
     return {
-      contentHash: 'content_hash',
-      cooperation: 'cooperation',
-      creationType: 'creation_type',
-      fileName: 'file_name',
-      hashAlgorithm: 'hash_algorithm',
-      platform: 'platform',
-      size: 'size',
-      txHash: 'tx_hash',
-      transactionId: 'transaction_id',
+      bizTradeId: 'biz_trade_id',
+      period: 'period',
+      payMoney: 'pay_money',
+      payDate: 'pay_date',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      contentHash: 'string',
-      cooperation: 'string',
-      creationType: 'string',
-      fileName: 'string',
-      hashAlgorithm: 'string',
-      platform: 'string',
-      size: 'number',
-      txHash: 'string',
-      transactionId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 自动进件证据要素
-export class LeaseEvidentialElement extends $tea.Model {
-  // 订单信息
-  leaseOrderInfo: LeaseOrderInfo;
-  // 承诺信息
-  commitmentInfo: CommitmentInfo;
-  // 物流信息
-  logisticsInfo: LogisticsInfo;
-  // 履约信息
-  performanceInfo: LeasePerformanceInfo;
-  static names(): { [key: string]: string } {
-    return {
-      leaseOrderInfo: 'lease_order_info',
-      commitmentInfo: 'commitment_info',
-      logisticsInfo: 'logistics_info',
-      performanceInfo: 'performance_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      leaseOrderInfo: LeaseOrderInfo,
-      commitmentInfo: CommitmentInfo,
-      logisticsInfo: LogisticsInfo,
-      performanceInfo: LeasePerformanceInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 租赁业务存证信息记录
-export class LeaseNotaryRecord extends $tea.Model {
-  // 存证阶段
-  phase: string;
-  // 交易哈希，存证记录唯一标识
-  txHash: string;
-  static names(): { [key: string]: string } {
-    return {
-      phase: 'phase',
-      txHash: 'tx_hash',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      phase: 'string',
-      txHash: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 电子合同文档
-export class ContractDoc extends $tea.Model {
-  // 上传的电子合同文档是否被加密过，0-未被加密，1-被加密过，默认0
-  encryption?: number;
-  // 电子合同文档的ID
-  fileId: string;
-  // 电子合同文档名称，默认文件名称
-  fileName?: string;
-  // 电子合同文档密码, 如果encryption值为1, 文档密码不能为空，默认没有密码
-  filePassword?: string;
-  static names(): { [key: string]: string } {
-    return {
-      encryption: 'encryption',
-      fileId: 'file_id',
-      fileName: 'file_name',
-      filePassword: 'file_password',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      encryption: 'number',
-      fileId: 'string',
-      fileName: 'string',
-      filePassword: 'string',
+      bizTradeId: 'string',
+      period: 'number',
+      payMoney: 'number',
+      payDate: 'string',
     };
   }
 
@@ -3506,72 +3321,39 @@ export class ContractNotaryDeductCancelInfo extends $tea.Model {
   }
 }
 
-// 电子合同存证代扣计划信息
-export class ContractNotaryDeductPlanInfo extends $tea.Model {
-  // PAYERIDNUMBER
-  payerId: string;
-  // “总金额：”+总金额“+”“总期数：”+总期数，“+”每期金额时间（X期金额，时间）
-  deductPlanInfo: string;
-  // AGREEMEND_ID_NUMBER
-  agreementNo: string;
-  // 代扣计划发起时间
-  timestamp: string;
+// 平台方经办人信息
+export class ContractPlatformAccountApplication extends $tea.Model {
+  // 邮箱地址
+  email?: string;
+  // 证件号
+  idNumber: string;
+  // 证件类型
+  idType: string;
+  // 手机号码
+  mobile?: string;
+  // 姓名
+  name: string;
+  // 用户唯一标识，可传入第三方平台的个人用户id等
+  userId: string;
   static names(): { [key: string]: string } {
     return {
-      payerId: 'payer_id',
-      deductPlanInfo: 'deduct_plan_info',
-      agreementNo: 'agreement_no',
-      timestamp: 'timestamp',
+      email: 'email',
+      idNumber: 'id_number',
+      idType: 'id_type',
+      mobile: 'mobile',
+      name: 'name',
+      userId: 'user_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      payerId: 'string',
-      deductPlanInfo: 'string',
-      agreementNo: 'string',
-      timestamp: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 电子合同签署流程的配置信息
-export class ContractSignFlowConfig extends $tea.Model {
-  // 回调通知地址 ,默认取项目配置通知地址
-  noticeDeveloperUrl?: string;
-  // 签署通知和审批通知的通知方式，传 "" 表示不需要通知，传"1"表示短信通知。短信功能需要联系售后开白名单才会生效。
-  noticeType: string;
-  // 签署成功或者流程结束后的默认重定向地址，默认签署完成停在当前页面
-  redirectUrl?: string;
-  // 签署平台，逗号分割，1-开放服务h5，2-支付宝签 ，默认值1
-  signPlatform?: string;
-  // 签署失败时的跳转地址，如果不做单独配置，默认与redirect_url一致（配合twc.notary.contract.signflow.create接口使用）
-  redirectUrlOnFailure?: string;
-  // 是否允许自由签署，默认false（配合twc.notary.contract.signflow.create接口使用）
-  freeSignature?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      noticeDeveloperUrl: 'notice_developer_url',
-      noticeType: 'notice_type',
-      redirectUrl: 'redirect_url',
-      signPlatform: 'sign_platform',
-      redirectUrlOnFailure: 'redirect_url_on_failure',
-      freeSignature: 'free_signature',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      noticeDeveloperUrl: 'string',
-      noticeType: 'string',
-      redirectUrl: 'string',
-      signPlatform: 'string',
-      redirectUrlOnFailure: 'string',
-      freeSignature: 'boolean',
+      email: 'string',
+      idNumber: 'string',
+      idType: 'string',
+      mobile: 'string',
+      name: 'string',
+      userId: 'string',
     };
   }
 
@@ -3621,27 +3403,384 @@ export class ContractPlatformApplication extends $tea.Model {
   }
 }
 
-// 存证证明的证书信息
-export class CertificateInfo extends $tea.Model {
-  // 存证证明的证书内容的SHA256哈希值
-  hash: string;
-  // 存证证明的证书文件名
-  resourceName: string;
-  // 存证证明的证书下载地址
-  resourceUrl: string;
+// 融资租赁用户侧还款条目
+export class LeaseRentalInfo extends $tea.Model {
+  // 租期编号
+  term: number;
+  // 租金归还状态，1.足额归还2.部分归还3.未归还
+  rentalReturnState: number;
+  // 租金归还金额,精确到毫厘，即123400表示12.34元
+  rentalMoney: number;
+  // 归还时间
+  returnTime: string;
+  // 归还方式，1.预授权代扣2.支付宝代扣3.主动还款4.其他，5网商直付通代扣
+  returnWay: number;
+  // 还款凭证类型，1.支付宝2.平台代收（客户主动还款）3.其他
+  returnVoucherType: number;
+  // 还款凭证编号，不超过128字符，支付宝流水号
+  returnVoucherSerial: string;
+  // 剩余归还期数
+  remainTerm: number;
   static names(): { [key: string]: string } {
     return {
-      hash: 'hash',
-      resourceName: 'resource_name',
-      resourceUrl: 'resource_url',
+      term: 'term',
+      rentalReturnState: 'rental_return_state',
+      rentalMoney: 'rental_money',
+      returnTime: 'return_time',
+      returnWay: 'return_way',
+      returnVoucherType: 'return_voucher_type',
+      returnVoucherSerial: 'return_voucher_serial',
+      remainTerm: 'remain_term',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      hash: 'string',
-      resourceName: 'string',
-      resourceUrl: 'string',
+      term: 'number',
+      rentalReturnState: 'number',
+      rentalMoney: 'number',
+      returnTime: 'string',
+      returnWay: 'number',
+      returnVoucherType: 'number',
+      returnVoucherSerial: 'string',
+      remainTerm: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 核验结果
+export class NotaryCheckResult extends $tea.Model {
+  // 存证所在区块高度
+  blockHeight: number;
+  // 核验结果错误码
+  errorCode: number;
+  // 错误信息
+  errorMessage: string;
+  // 存证时间
+  notaryTime: string;
+  // 存证类型
+  notaryType: string;
+  // 核验是否成功
+  result: boolean;
+  // 存证事务ID
+  transactionId: string;
+  // 交易哈希
+  txHash: string;
+  // 区块哈希
+  blockHash: string;
+  // 存证阶段
+  phase: string;
+  static names(): { [key: string]: string } {
+    return {
+      blockHeight: 'block_height',
+      errorCode: 'error_code',
+      errorMessage: 'error_message',
+      notaryTime: 'notary_time',
+      notaryType: 'notary_type',
+      result: 'result',
+      transactionId: 'transaction_id',
+      txHash: 'tx_hash',
+      blockHash: 'block_hash',
+      phase: 'phase',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      blockHeight: 'number',
+      errorCode: 'number',
+      errorMessage: 'string',
+      notaryTime: 'string',
+      notaryType: 'string',
+      result: 'boolean',
+      transactionId: 'string',
+      txHash: 'string',
+      blockHash: 'string',
+      phase: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 融资租赁资金方还款条目信息
+export class LeaseRepaymentInfo extends $tea.Model {
+  // 融资租赁还款流水
+  repaymentUniqueId: string;
+  // 还款批次
+  returnIndex: string;
+  // 还款日期
+  returnTime: string;
+  // 还款总额,本金+利息，精确到毫厘，即123400表示12.34元
+  returnMoney: number;
+  // 还款结果状态,1.成功 2.失败
+  returnStatus: number;
+  // 还款结果简要描述,长度不超过256
+  returnDescription: string;
+  // 还款来源,1.共管账号，2.网商清分
+  source: number;
+  // 剩余应还期数
+  remainReturnTerm: number;
+  // 本期剩余应还金额，精确到毫厘，即123400表示12.34元
+  remainReturnMoney: number;
+  // 逾期状态,0为未逾期，1表示逾期
+  overdueStatus: number;
+  // 逾期利率（日利率）,精确到小数点后四位 12.34% 表示为1234
+  overdueRate: number;
+  // 逾期天数,支用到期日开始计算
+  overdueDay: number;
+  // 逾期应还款总额,本金+利息+逾期利息,精确到毫厘，即123400表示12.34元
+  overdueMoney: number;
+  static names(): { [key: string]: string } {
+    return {
+      repaymentUniqueId: 'repayment_unique_id',
+      returnIndex: 'return_index',
+      returnTime: 'return_time',
+      returnMoney: 'return_money',
+      returnStatus: 'return_status',
+      returnDescription: 'return_description',
+      source: 'source',
+      remainReturnTerm: 'remain_return_term',
+      remainReturnMoney: 'remain_return_money',
+      overdueStatus: 'overdue_status',
+      overdueRate: 'overdue_rate',
+      overdueDay: 'overdue_day',
+      overdueMoney: 'overdue_money',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      repaymentUniqueId: 'string',
+      returnIndex: 'string',
+      returnTime: 'string',
+      returnMoney: 'number',
+      returnStatus: 'number',
+      returnDescription: 'string',
+      source: 'number',
+      remainReturnTerm: 'number',
+      remainReturnMoney: 'number',
+      overdueStatus: 'number',
+      overdueRate: 'number',
+      overdueDay: 'number',
+      overdueMoney: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数字票根扩展字段
+export class StubExtraInfo extends $tea.Model {
+  // C端用户的支付宝id
+  customerId: string;
+  // 票面视觉
+  ticketVision?: string;
+  static names(): { [key: string]: string } {
+    return {
+      customerId: 'customer_id',
+      ticketVision: 'ticket_vision',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      customerId: 'string',
+      ticketVision: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户端承诺信息
+export class LeasePromiseInfo extends $tea.Model {
+  // 租期index
+  term: number;
+  // 应还款金额
+  payMoney: number;
+  // 应还款时间
+  payDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      term: 'term',
+      payMoney: 'pay_money',
+      payDate: 'pay_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      term: 'number',
+      payMoney: 'number',
+      payDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 个人信息
+export class ContractUserAccountApplication extends $tea.Model {
+  // 邮箱地址，默认不变
+  email?: string;
+  // 证件号，该字段只有为空才允许修改
+  idNumber?: string;
+  // 证件类型，默认为身份证
+  idType?: string;
+  // 手机号码，默认不变
+  mobile?: string;
+  // 姓名，默认不变
+  name?: string;
+  // 用户/经办人账号id
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      email: 'email',
+      idNumber: 'id_number',
+      idType: 'id_type',
+      mobile: 'mobile',
+      name: 'name',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      email: 'string',
+      idNumber: 'string',
+      idType: 'string',
+      mobile: 'string',
+      name: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业信息
+export class CompanyTwoMetaInfo extends $tea.Model {
+  // 企业证件名称
+  certName: string;
+  // 企业证件号码
+  certNo: string;
+  // 证件类型, 默认社会统一信用代码  NATIONAL_LEGAL_MERGE:统一社会信用代码，NATIONAL_LEGAL：营业执照号码
+  certType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      certType: 'cert_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      certName: 'string',
+      certNo: 'string',
+      certType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 签字人
+export class ContractFlowSigner extends $tea.Model {
+  // 签署顺序
+  signOrder?: number;
+  // 签署状态, 0-待签, 1-未签, 2-已签 3-待审批 4-拒签
+  signStatus?: number;
+  // 签署人账号id
+  signerAccountId?: string;
+  // 签署人名称
+  signerName?: string;
+  // 签署人是否已实名
+  signerRealName?: boolean;
+  // 签约主体的账号id（个人/企业）；如签署人本签署，则返回签署人账号id；如签署人代机构签署，则返回机构账号id
+  signerAuthorizedAccountId?: string;
+  // 签约主体名称
+  signerAuthorizedAccountName?: string;
+  // 签署主体是否已实名
+  signerAuthorizedAccountRealName?: boolean;
+  // 签署主体类型, 0-个人, 1-机构
+  signerAuthorizedAccountType?: number;
+  // 本次签署任务对应指定的第三方业务流水号id，当存在多个第三方业务流水号id时，返回多个，并逗号隔开
+  thirdOrderNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      signOrder: 'sign_order',
+      signStatus: 'sign_status',
+      signerAccountId: 'signer_account_id',
+      signerName: 'signer_name',
+      signerRealName: 'signer_real_name',
+      signerAuthorizedAccountId: 'signer_authorized_account_id',
+      signerAuthorizedAccountName: 'signer_authorized_account_name',
+      signerAuthorizedAccountRealName: 'signer_authorized_account_real_name',
+      signerAuthorizedAccountType: 'signer_authorized_account_type',
+      thirdOrderNo: 'third_order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      signOrder: 'number',
+      signStatus: 'number',
+      signerAccountId: 'string',
+      signerName: 'string',
+      signerRealName: 'boolean',
+      signerAuthorizedAccountId: 'string',
+      signerAuthorizedAccountName: 'string',
+      signerAuthorizedAccountRealName: 'boolean',
+      signerAuthorizedAccountType: 'number',
+      thirdOrderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 普通代扣规则
+export class RepaymentOrderRequest extends $tea.Model {
+  // 代扣触发时间，精确到毫秒
+  // java.lang.System#currentTimeMillis()
+  payDate: number;
+  // 代扣金额，整数 精确到分
+  payMoney: number;
+  // 是否用户签署成功后立即触发第一期代扣
+  triggerImmediately?: number;
+  static names(): { [key: string]: string } {
+    return {
+      payDate: 'pay_date',
+      payMoney: 'pay_money',
+      triggerImmediately: 'trigger_immediately',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      payDate: 'number',
+      payMoney: 'number',
+      triggerImmediately: 'number',
     };
   }
 
@@ -3735,55 +3874,6 @@ export class OneStepSignField extends $tea.Model {
   }
 }
 
-// 融资租赁用户侧还款条目
-export class LeaseRentalInfo extends $tea.Model {
-  // 租期编号
-  term: number;
-  // 租金归还状态，1.足额归还2.部分归还3.未归还
-  rentalReturnState: number;
-  // 租金归还金额,精确到毫厘，即123400表示12.34元
-  rentalMoney: number;
-  // 归还时间
-  returnTime: string;
-  // 归还方式，1.预授权代扣2.支付宝代扣3.主动还款4.其他，5网商直付通代扣
-  returnWay: number;
-  // 还款凭证类型，1.支付宝2.平台代收（客户主动还款）3.其他
-  returnVoucherType: number;
-  // 还款凭证编号，不超过128字符，支付宝流水号
-  returnVoucherSerial: string;
-  // 剩余归还期数
-  remainTerm: number;
-  static names(): { [key: string]: string } {
-    return {
-      term: 'term',
-      rentalReturnState: 'rental_return_state',
-      rentalMoney: 'rental_money',
-      returnTime: 'return_time',
-      returnWay: 'return_way',
-      returnVoucherType: 'return_voucher_type',
-      returnVoucherSerial: 'return_voucher_serial',
-      remainTerm: 'remain_term',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      term: 'number',
-      rentalReturnState: 'number',
-      rentalMoney: 'number',
-      returnTime: 'string',
-      returnWay: 'number',
-      returnVoucherType: 'number',
-      returnVoucherSerial: 'string',
-      remainTerm: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 电子合同存证初始化信息
 export class ContractNotaryInitInfo extends $tea.Model {
   // 本阶段存证内容哈希值
@@ -3837,31 +3927,203 @@ export class ContractNotaryInitInfo extends $tea.Model {
   }
 }
 
-// 见证流程创建响应数据
-export class WitnessFlowConfig extends $tea.Model {
-  // 企业实名认证方式,对公打款：1；企业芝麻认证：3；法定代表授权：4；
-  organRealnameTypes?: number[];
-  // 个人实名认证方式, 银行四要素：2；芝麻认证-人脸识别：3；微众-人脸识别：4；
-  personRealnameTypes?: number[];
-  // 是否需要实名认证
-  realNameCert?: boolean;
-  // 意愿认证方式, 芝麻认证-人脸识别：2；短信验证码：3；微众-人脸识别：4；ukey认证：5；签署密码认证：6；
-  willingnessTypes?: number[];
+// 可信存证身份识别信息
+export class Identity extends $tea.Model {
+  // 经办人姓名，企业认证选填
+  agent?: string;
+  // 经办人身份证，企业认证选填
+  agentId?: string;
+  // 用户名称
+  certName: string;
+  // 证件号
+  certNo: string;
+  // 证件类型，个人只支持身份证IDENTITY_CARD，企业支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号）
+  certType: string;
+  // 法人姓名，企业认证必选
+  legalPerson?: string;
+  // 法人身份证，企业认证必选
+  legalPersonId?: string;
+  // 用户手机号码
+  mobileNo?: string;
+  // 扩展属性
+  properties?: string;
+  // 用户类型，PERSON或者ENTERPRISE
+  userType: string;
+  // 经办人证件类型，企业认证选填
+  agentCertType?: string;
+  // 法人证件类型，企业认证必选
+  legalPersonCertType?: string;
   static names(): { [key: string]: string } {
     return {
-      organRealnameTypes: 'organ_realname_types',
-      personRealnameTypes: 'person_realname_types',
-      realNameCert: 'real_name_cert',
-      willingnessTypes: 'willingness_types',
+      agent: 'agent',
+      agentId: 'agent_id',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      certType: 'cert_type',
+      legalPerson: 'legal_person',
+      legalPersonId: 'legal_person_id',
+      mobileNo: 'mobile_no',
+      properties: 'properties',
+      userType: 'user_type',
+      agentCertType: 'agent_cert_type',
+      legalPersonCertType: 'legal_person_cert_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      organRealnameTypes: { 'type': 'array', 'itemType': 'number' },
-      personRealnameTypes: { 'type': 'array', 'itemType': 'number' },
-      realNameCert: 'boolean',
-      willingnessTypes: { 'type': 'array', 'itemType': 'number' },
+      agent: 'string',
+      agentId: 'string',
+      certName: 'string',
+      certNo: 'string',
+      certType: 'string',
+      legalPerson: 'string',
+      legalPersonId: 'string',
+      mobileNo: 'string',
+      properties: 'string',
+      userType: 'string',
+      agentCertType: 'string',
+      legalPersonCertType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 存证证明的证书信息
+export class CertificateInfo extends $tea.Model {
+  // 存证证明的证书内容的SHA256哈希值
+  hash: string;
+  // 存证证明的证书文件名
+  resourceName: string;
+  // 存证证明的证书下载地址
+  resourceUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      hash: 'hash',
+      resourceName: 'resource_name',
+      resourceUrl: 'resource_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      hash: 'string',
+      resourceName: 'string',
+      resourceUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 采购订单信息
+export class ApplySupplierOrderProductOutput extends $tea.Model {
+  // 订单id
+  orderId: string;
+  // 链上采购单id
+  purOrderId: string;
+  // 待采购：READY_DELIVER
+  // 已采购：DELIVERED
+  // 已拒发：REJECTED
+  // 已退货：RETURNED
+  // 已取消：CANCELED
+  purOrderStatus: string;
+  // 供应商id
+  supplierId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      purOrderId: 'pur_order_id',
+      purOrderStatus: 'pur_order_status',
+      supplierId: 'supplier_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      purOrderId: 'string',
+      purOrderStatus: 'string',
+      supplierId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 平台方企业信息
+export class ContractPlatformOrganizationApplication extends $tea.Model {
+  // 证件号
+  idNumber: string;
+  // 证件类型
+  idType: string;
+  // 企业法人名称
+  orgLegalName?: string;
+  // 企业法人证件号
+  orgLegalIdNumber?: string;
+  // 机构名称
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      idNumber: 'id_number',
+      idType: 'id_type',
+      orgLegalName: 'org_legal_name',
+      orgLegalIdNumber: 'org_legal_id_number',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      idNumber: 'string',
+      idType: 'string',
+      orgLegalName: 'string',
+      orgLegalIdNumber: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 签署区列表包含印章id数据
+export class ContractSignFieldSealId extends $tea.Model {
+  // 文件file id
+  fileId?: string;
+  // 流程id
+  flowId?: string;
+  // 印章id
+  sealId?: string;
+  // 印章类型，支持多种类型时逗号分割，0-手绘印章，1-模版印章，为空不限制
+  sealType?: string;
+  // 签署区Id
+  signfieldId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileId: 'file_id',
+      flowId: 'flow_id',
+      sealId: 'seal_id',
+      sealType: 'seal_type',
+      signfieldId: 'signfield_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileId: 'string',
+      flowId: 'string',
+      sealId: 'string',
+      sealType: 'string',
+      signfieldId: 'string',
     };
   }
 
@@ -3943,27 +4205,44 @@ export class ContractTemplateStructComponent extends $tea.Model {
   }
 }
 
-// 融资租赁人脸认证提前还款租期记录
-export class FinanceCertifyRentalInfo extends $tea.Model {
-  // 租期
-  rentTerm: number;
-  // 本期扣款金额，123400表示12.34元
-  rentalMoney: number;
-  // 还款日期，格式为"2019-07-31 12:00:00"
-  rentalReturnTime: string;
+// 可信时间信息结构
+export class TsrResponse extends $tea.Model {
+  // 可信时间请求结果状态吗
+  code: string;
+  // hash后的信息
+  hashedMessage: string;
+  // 哈希算法
+  hashAlgorithm: string;
+  // 请求失败时候的错误信息
+  message?: string;
+  // 时间
+  ts: string;
+  // 精简后的时间戳完整编码（在校验时需要提交）
+  ctsr: string;
+  // 凭证序列号 （在校验的时需要先填写凭证编号）
+  // 
+  sn: string;
   static names(): { [key: string]: string } {
     return {
-      rentTerm: 'rent_term',
-      rentalMoney: 'rental_money',
-      rentalReturnTime: 'rental_return_time',
+      code: 'code',
+      hashedMessage: 'hashed_message',
+      hashAlgorithm: 'hash_algorithm',
+      message: 'message',
+      ts: 'ts',
+      ctsr: 'ctsr',
+      sn: 'sn',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      rentTerm: 'number',
-      rentalMoney: 'number',
-      rentalReturnTime: 'string',
+      code: 'string',
+      hashedMessage: 'string',
+      hashAlgorithm: 'string',
+      message: 'string',
+      ts: 'string',
+      ctsr: 'string',
+      sn: 'string',
     };
   }
 
@@ -3972,47 +4251,27 @@ export class FinanceCertifyRentalInfo extends $tea.Model {
   }
 }
 
-// 融资租赁清分信息
-export class LeaseClearingInfo extends $tea.Model {
-  // 还款批次
-  returnIndex: number;
-  // 清分状态
-  clearingState: number;
-  // 清分金额,精确到毫厘，即123400表示12.34元
-  clearingMoney: number;
-  // 开始清分时间
-  startTime: string;
-  // 结束清分时间
-  endTime: string;
-  // 清分单号
-  clearingOrderId: string;
-  // 清分收款账号
-  clearingAccount: string;
-  // 清分额外说明
-  memo: string;
+// 融资租赁中IOT设备详情
+export class LeaseIotItemInfo extends $tea.Model {
+  // 证据的时间
+  date: string;
+  // 证据的txHash
+  txHash: string;
+  // 证据的原始数据，默认为空或加密状态，除非调用方为授权用户（如出资方等
+  rawData: string;
   static names(): { [key: string]: string } {
     return {
-      returnIndex: 'return_index',
-      clearingState: 'clearing_state',
-      clearingMoney: 'clearing_money',
-      startTime: 'start_time',
-      endTime: 'end_time',
-      clearingOrderId: 'clearing_order_id',
-      clearingAccount: 'clearing_account',
-      memo: 'memo',
+      date: 'date',
+      txHash: 'tx_hash',
+      rawData: 'raw_data',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      returnIndex: 'number',
-      clearingState: 'number',
-      clearingMoney: 'number',
-      startTime: 'string',
-      endTime: 'string',
-      clearingOrderId: 'string',
-      clearingAccount: 'string',
-      memo: 'string',
+      date: 'string',
+      txHash: 'string',
+      rawData: 'string',
     };
   }
 
@@ -4021,39 +4280,31 @@ export class LeaseClearingInfo extends $tea.Model {
   }
 }
 
-// 更新后平台方经办人信息
-export class ContractCreatorApplication extends $tea.Model {
-  // 邮箱地址
-  email?: string;
-  // 证件号
-  idNumber: string;
-  // 证件类型
-  idType: string;
-  // 手机号码
-  mobile?: string;
-  // 姓名
-  name: string;
-  // 创建人ID
-  creatorId: string;
+// 见证流程文档确认数据
+export class WitnessConfirmData extends $tea.Model {
+  // 文档fileKey
+  docFileKey?: string;
+  // 文档摘要算法，SHA256
+  hashAlgorithm: string;
+  // 签署后文档摘要值
+  signedHash: string;
+  // 第三方文档id
+  thirdDocId: string;
   static names(): { [key: string]: string } {
     return {
-      email: 'email',
-      idNumber: 'id_number',
-      idType: 'id_type',
-      mobile: 'mobile',
-      name: 'name',
-      creatorId: 'creator_id',
+      docFileKey: 'doc_file_key',
+      hashAlgorithm: 'hash_algorithm',
+      signedHash: 'signed_hash',
+      thirdDocId: 'third_doc_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      email: 'string',
-      idNumber: 'string',
-      idType: 'string',
-      mobile: 'string',
-      name: 'string',
-      creatorId: 'string',
+      docFileKey: 'string',
+      hashAlgorithm: 'string',
+      signedHash: 'string',
+      thirdDocId: 'string',
     };
   }
 
@@ -4062,118 +4313,15 @@ export class ContractCreatorApplication extends $tea.Model {
   }
 }
 
-// 签署区列表数据
-export class ContractPlatformSignFieldApplication extends $tea.Model {
-  // 文件file id
-  fileId: string;
-  // 签署顺序，默认1,且不小于1，顺序越小越先处理
-  order?: number;
-  // 印章id， 仅限企业公章，暂不支持指定企业法定代表人印章 ，如不传，则采用账号下的默认印章
-  sealId?: string;
-  // 第三方业务流水号id，保证相同签署人、相同签约主体、相同签署顺序的任务，对应的第三方业务流水id唯一，默认空
-  thirdOrderNo?: string;
-  // 页码信息，当签署区signType为2时, 页码可以_-_分割, 其他情况只能是数字
-  posPage: string;
-  // x坐标，默认空
-  posX?: string;
-  // y坐标
-  posY: string;
-  // 签署区宽，默认印章宽度
-  width?: string;
-  // 是否添加签署时间戳， 默认不添加，默认格式 yyyy-MM-dd HH : mm : ss
-  addSignTime?: boolean;
-  // 签署类型， 1-单页签署，2-骑缝签署，默认1
-  signType?: number;
+// 智能合同个人账号信息
+export class ContractAccount extends $tea.Model {
   static names(): { [key: string]: string } {
     return {
-      fileId: 'file_id',
-      order: 'order',
-      sealId: 'seal_id',
-      thirdOrderNo: 'third_order_no',
-      posPage: 'pos_page',
-      posX: 'pos_x',
-      posY: 'pos_y',
-      width: 'width',
-      addSignTime: 'add_sign_time',
-      signType: 'sign_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      fileId: 'string',
-      order: 'number',
-      sealId: 'string',
-      thirdOrderNo: 'string',
-      posPage: 'string',
-      posX: 'string',
-      posY: 'string',
-      width: 'string',
-      addSignTime: 'boolean',
-      signType: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 存证关联实体（个人/企业）的身份识别信息
-export class NotaryUser extends $tea.Model {
-  // 用户类型，PERSON或者ENTERPRISE
-  userType: string;
-  // 证件类型
-  // ● 个人：支持身份证IDENTITY_CARD
-  // ● 企业：支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号）
-  certType: string;
-  // 证件用户名称
-  // ● 个人：身份证姓名
-  // ● 企业：企业名称
-  certName: string;
-  // 证件号
-  // ● 个人：身份证号
-  // ● 企业：社会统一信用代码或企业工商注册号，与证件类型保持一致即可
-  certNo: string;
-  // 个人必填，用户手机号码
-  personMobileNo?: string;
-  // 企业选填，法人证件类型，仅支持身份证，IDENTITY_CARD
-  legalPersonCertType?: string;
-  // 企业选填，法人身份证姓名
-  legalPersonCertName?: string;
-  // 企业选填，法人身份证号
-  legalPersonCertNo?: string;
-  // 企业选填，法人手机号
-  legalPersonMobileNo?: string;
-  // 扩展属性
-  properties?: string;
-  static names(): { [key: string]: string } {
-    return {
-      userType: 'user_type',
-      certType: 'cert_type',
-      certName: 'cert_name',
-      certNo: 'cert_no',
-      personMobileNo: 'person_mobile_no',
-      legalPersonCertType: 'legal_person_cert_type',
-      legalPersonCertName: 'legal_person_cert_name',
-      legalPersonCertNo: 'legal_person_cert_no',
-      legalPersonMobileNo: 'legal_person_mobile_no',
-      properties: 'properties',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      userType: 'string',
-      certType: 'string',
-      certName: 'string',
-      certNo: 'string',
-      personMobileNo: 'string',
-      legalPersonCertType: 'string',
-      legalPersonCertName: 'string',
-      legalPersonCertNo: 'string',
-      legalPersonMobileNo: 'string',
-      properties: 'string',
     };
   }
 
@@ -10147,7 +10295,7 @@ export class ApplyContractMerchantRequest extends $tea.Model {
   productInstanceId?: string;
   // 入驻信息，必须是json字符串
   bizContent: string;
-  // 代理商户账户ID，此参数不填默认平台机构账户入驻
+  // 代理商户账户ID，此参数传null默认平台机构账户入驻，不允许传空字符串
   agentAccountId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -11198,7 +11346,7 @@ export class BindContractMerchantRequest extends $tea.Model {
   smid: string;
   // 商户证件号
   certNo: string;
-  // 代理用户id，不填默认挂接平台方
+  // 代理用户id，传null默认挂接平台方，不允许传空字符串
   agentAccountId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -14619,6 +14767,129 @@ export class DownloadJusticeCasefileResponse extends $tea.Model {
       code: 'number',
       downloadUrl: 'string',
       message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseProductinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 合约id
+  applicationId?: string;
+  // 保证金  精确到毫厘，即123400表示12.34元
+  depositPrice: number;
+  // 安装拆卸费 精确到毫厘，即123400表示12.34元
+  installPrice: number;
+  // 租赁服务平台id
+  leaseId: string;
+  // 一级分类
+  mainClass: string;
+  // 商品编码 长度不可超过50
+  productId: string;
+  // 商品名称
+  productName: string;
+  // 采购价  精确到毫厘，即123400表示12.34元
+  productPrice: number;
+  // 出租详细信息
+  rentinfos: RentInfo[];
+  // 二级分类
+  subClass: string;
+  // 供应商id
+  supplierId?: string;
+  // 供应商
+  supplierName: string;
+  // 供应商对该产品版本
+  supplierVersion?: string;
+  // 商品目录额外信息
+  extraInfo?: string;
+  // 商品规格
+  productModel?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicationId: 'application_id',
+      depositPrice: 'deposit_price',
+      installPrice: 'install_price',
+      leaseId: 'lease_id',
+      mainClass: 'main_class',
+      productId: 'product_id',
+      productName: 'product_name',
+      productPrice: 'product_price',
+      rentinfos: 'rentinfos',
+      subClass: 'sub_class',
+      supplierId: 'supplier_id',
+      supplierName: 'supplier_name',
+      supplierVersion: 'supplier_version',
+      extraInfo: 'extra_info',
+      productModel: 'product_model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicationId: 'string',
+      depositPrice: 'number',
+      installPrice: 'number',
+      leaseId: 'string',
+      mainClass: 'string',
+      productId: 'string',
+      productName: 'string',
+      productPrice: 'number',
+      rentinfos: { 'type': 'array', 'itemType': RentInfo },
+      subClass: 'string',
+      supplierId: 'string',
+      supplierName: 'string',
+      supplierVersion: 'string',
+      extraInfo: 'string',
+      productModel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseProductinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态码 0表示成功
+  code?: number;
+  // 错误信息
+  errMessage?: string;
+  // 用户信息存储到合约中对应的区块链交易哈希
+  responseData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      errMessage: 'err_message',
+      responseData: 'response_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      errMessage: 'string',
+      responseData: 'string',
     };
   }
 
@@ -18126,129 +18397,6 @@ export class DeployLeaseContractResponse extends $tea.Model {
   // 错误信息
   errMessage?: string;
   // 合约部署成功的交易哈希
-  responseData?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      code: 'code',
-      errMessage: 'err_message',
-      responseData: 'response_data',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      code: 'number',
-      errMessage: 'string',
-      responseData: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class CreateLeaseProductinfoRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 合约id
-  applicationId?: string;
-  // 保证金  精确到毫厘，即123400表示12.34元
-  depositPrice: number;
-  // 安装拆卸费 精确到毫厘，即123400表示12.34元
-  installPrice: number;
-  // 租赁服务平台id
-  leaseId: string;
-  // 一级分类
-  mainClass: string;
-  // 商品编码 长度不可超过50
-  productId: string;
-  // 商品名称
-  productName: string;
-  // 采购价  精确到毫厘，即123400表示12.34元
-  productPrice: number;
-  // 出租详细信息
-  rentinfos: RentInfo[];
-  // 二级分类
-  subClass: string;
-  // 供应商id
-  supplierId?: string;
-  // 供应商
-  supplierName: string;
-  // 供应商对该产品版本
-  supplierVersion?: string;
-  // 商品目录额外信息
-  extraInfo?: string;
-  // 商品规格
-  productModel?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      applicationId: 'application_id',
-      depositPrice: 'deposit_price',
-      installPrice: 'install_price',
-      leaseId: 'lease_id',
-      mainClass: 'main_class',
-      productId: 'product_id',
-      productName: 'product_name',
-      productPrice: 'product_price',
-      rentinfos: 'rentinfos',
-      subClass: 'sub_class',
-      supplierId: 'supplier_id',
-      supplierName: 'supplier_name',
-      supplierVersion: 'supplier_version',
-      extraInfo: 'extra_info',
-      productModel: 'product_model',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      applicationId: 'string',
-      depositPrice: 'number',
-      installPrice: 'number',
-      leaseId: 'string',
-      mainClass: 'string',
-      productId: 'string',
-      productName: 'string',
-      productPrice: 'number',
-      rentinfos: { 'type': 'array', 'itemType': RentInfo },
-      subClass: 'string',
-      supplierId: 'string',
-      supplierName: 'string',
-      supplierVersion: 'string',
-      extraInfo: 'string',
-      productModel: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class CreateLeaseProductinfoResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 状态码 0表示成功
-  code?: number;
-  // 错误信息
-  errMessage?: string;
-  // 用户信息存储到合约中对应的区块链交易哈希
   responseData?: string;
   static names(): { [key: string]: string } {
     return {
@@ -23940,6 +24088,8 @@ export class QueryFlowPhaseResponse extends $tea.Model {
   txHash?: string;
   // 存证状态，FINISH(生成完毕)、INIT(初始化中)、FAILED(生成失败)
   status?: string;
+  // 阶段注册成功时间戳
+  registerTime?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -23947,6 +24097,7 @@ export class QueryFlowPhaseResponse extends $tea.Model {
       resultMsg: 'result_msg',
       txHash: 'tx_hash',
       status: 'status',
+      registerTime: 'register_time',
     };
   }
 
@@ -23957,6 +24108,7 @@ export class QueryFlowPhaseResponse extends $tea.Model {
       resultMsg: 'string',
       txHash: 'string',
       status: 'string',
+      registerTime: 'number',
     };
   }
 
@@ -24022,6 +24174,8 @@ export class DetailFlowPhaseResponse extends $tea.Model {
   blockHash?: string;
   // 交易所在的区块高
   blockHeight?: string;
+  // 阶段注册成功时间戳
+  registerTime?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -24034,6 +24188,7 @@ export class DetailFlowPhaseResponse extends $tea.Model {
       url: 'url',
       blockHash: 'block_hash',
       blockHeight: 'block_height',
+      registerTime: 'register_time',
     };
   }
 
@@ -24049,6 +24204,7 @@ export class DetailFlowPhaseResponse extends $tea.Model {
       url: 'string',
       blockHash: 'string',
       blockHeight: 'string',
+      registerTime: 'number',
     };
   }
 
@@ -24353,6 +24509,298 @@ export class QueryFlowCertificateResponse extends $tea.Model {
   }
 }
 
+export class ApplyStubCertificateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id
+  flowId: string;
+  // 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
+  certificationType: string;
+  // 公证处ID，OrgCertification（公证处存证证明）选填，不填则为默认公证处
+  orgId: string;
+  // 是否需要legal码，默认为false即不需要，true表示需要
+  needLegalCode?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      certificationType: 'certification_type',
+      orgId: 'org_id',
+      needLegalCode: 'need_legal_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      certificationType: 'string',
+      orgId: 'string',
+      needLegalCode: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyStubCertificateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 出证订单号
+  orderNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryStubCertificateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id
+  flowId: string;
+  // 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
+  certificationType: string;
+  // 通过twc.notary.stub.certificate.apply(数字票根全流程出证申请)获取到的订单号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      certificationType: 'certification_type',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      certificationType: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryStubCertificateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 存证证明下载地址，有效期1个小时
+  certificateUrl?: string;
+  // Legal码H5页面URL
+  legalCodeUrl?: string;
+  // Legal码证书H5页面URL
+  legalShowUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certificateUrl: 'certificate_url',
+      legalCodeUrl: 'legal_code_url',
+      legalShowUrl: 'legal_show_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certificateUrl: 'string',
+      legalCodeUrl: 'string',
+      legalShowUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryStubRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id，通过twc.notary.stub.create接口获取
+  flowId: string;
+  // 是否需要legal标，默认为false，如果需要则填true
+  needLegalLogo?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      needLegalLogo: 'need_legal_logo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      needLegalLogo: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryStubResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数字票根存证全流程状态，FINISH(完结)、PROCESSING(上链中)、DISABLE(失效)、FAILED(失败)
+  status?: string;
+  // 阶段存证查询结果列表
+  phaseQueryResultList?: PhaseQueryResult[];
+  // legal标URL，只有当入参needLegalLogo为true且响应status为FINISH时才会返回
+  legalLogoUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      phaseQueryResultList: 'phase_query_result_list',
+      legalLogoUrl: 'legal_logo_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      phaseQueryResultList: { 'type': 'array', 'itemType': PhaseQueryResult },
+      legalLogoUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateStubRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数字票根全流程存证内容
+  onestepFlowNotaryInfo: OnestepFlowNotaryInfo;
+  // 数字票根通用业务字段
+  stubCommonInfo: StubCommonInfo;
+  // 数字票根扩展字段
+  stubExtraInfo?: StubExtraInfo;
+  // 数字票根计量字段
+  metricInfo?: MetricInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      onestepFlowNotaryInfo: 'onestep_flow_notary_info',
+      stubCommonInfo: 'stub_common_info',
+      stubExtraInfo: 'stub_extra_info',
+      metricInfo: 'metric_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      onestepFlowNotaryInfo: OnestepFlowNotaryInfo,
+      stubCommonInfo: StubCommonInfo,
+      stubExtraInfo: StubExtraInfo,
+      metricInfo: MetricInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateStubResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回流程ID，全局唯一
+  flowId?: string;
+  // 阶段存证结果列表
+  phaseCreateResultList?: PhaseCreateResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      flowId: 'flow_id',
+      phaseCreateResultList: 'phase_create_result_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      flowId: 'string',
+      phaseCreateResultList: { 'type': 'array', 'itemType': PhaseCreateResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -24466,7 +24914,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.34",
+          sdk_version: "1.7.39",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -26911,6 +27359,25 @@ export default class Client {
   }
 
   /**
+   * Description: 融资服务平台上传商品类别信息
+   * Summary: 融资服务平台上传商品类别信息
+   */
+  async createLeaseProductinfo(request: CreateLeaseProductinfoRequest): Promise<CreateLeaseProductinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createLeaseProductinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 融资服务平台上传商品类别信息
+   * Summary: 融资服务平台上传商品类别信息
+   */
+  async createLeaseProductinfoEx(request: CreateLeaseProductinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseProductinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateLeaseProductinfoResponse>(await this.doRequest("1.0", "twc.notary.lease.productinfo.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLeaseProductinfoResponse({}));
+  }
+
+  /**
    * Description: 升级融资租赁合约
    * Summary: 升级融资租赁合约
    */
@@ -27687,25 +28154,6 @@ export default class Client {
   async deployLeaseContractEx(request: DeployLeaseContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeployLeaseContractResponse> {
     Util.validateModel(request);
     return $tea.cast<DeployLeaseContractResponse>(await this.doRequest("1.0", "twc.notary.lease.contract.deploy", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeployLeaseContractResponse({}));
-  }
-
-  /**
-   * Description: 融资服务平台上传商品类别信息
-   * Summary: 融资服务平台上传商品类别信息
-   */
-  async createLeaseProductinfo(request: CreateLeaseProductinfoRequest): Promise<CreateLeaseProductinfoResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.createLeaseProductinfoEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 融资服务平台上传商品类别信息
-   * Summary: 融资服务平台上传商品类别信息
-   */
-  async createLeaseProductinfoEx(request: CreateLeaseProductinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseProductinfoResponse> {
-    Util.validateModel(request);
-    return $tea.cast<CreateLeaseProductinfoResponse>(await this.doRequest("1.0", "twc.notary.lease.productinfo.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLeaseProductinfoResponse({}));
   }
 
   /**
@@ -28960,6 +29408,82 @@ export default class Client {
   async queryFlowCertificateEx(request: QueryFlowCertificateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFlowCertificateResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryFlowCertificateResponse>(await this.doRequest("1.0", "twc.notary.flow.certificate.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFlowCertificateResponse({}));
+  }
+
+  /**
+   * Description: 数字票根全流程出证申请
+   * Summary: 数字票根全流程出证申请
+   */
+  async applyStubCertificate(request: ApplyStubCertificateRequest): Promise<ApplyStubCertificateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyStubCertificateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字票根全流程出证申请
+   * Summary: 数字票根全流程出证申请
+   */
+  async applyStubCertificateEx(request: ApplyStubCertificateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyStubCertificateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyStubCertificateResponse>(await this.doRequest("1.0", "twc.notary.stub.certificate.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyStubCertificateResponse({}));
+  }
+
+  /**
+   * Description: 数字票根全流程证明出证进度查询
+   * Summary: 数字票根全流程证明出证进度查询
+   */
+  async queryStubCertificate(request: QueryStubCertificateRequest): Promise<QueryStubCertificateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryStubCertificateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字票根全流程证明出证进度查询
+   * Summary: 数字票根全流程证明出证进度查询
+   */
+  async queryStubCertificateEx(request: QueryStubCertificateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryStubCertificateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryStubCertificateResponse>(await this.doRequest("1.0", "twc.notary.stub.certificate.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryStubCertificateResponse({}));
+  }
+
+  /**
+   * Description: 数字票根全流程存证进度查询
+   * Summary: 数字票根全流程存证进度查询
+   */
+  async queryStub(request: QueryStubRequest): Promise<QueryStubResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryStubEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字票根全流程存证进度查询
+   * Summary: 数字票根全流程存证进度查询
+   */
+  async queryStubEx(request: QueryStubRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryStubResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryStubResponse>(await this.doRequest("1.0", "twc.notary.stub.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryStubResponse({}));
+  }
+
+  /**
+   * Description: 数字票根全流程存证创建
+   * Summary: 数字票根全流程存证创建
+   */
+  async createStub(request: CreateStubRequest): Promise<CreateStubResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createStubEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字票根全流程存证创建
+   * Summary: 数字票根全流程存证创建
+   */
+  async createStubEx(request: CreateStubRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateStubResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateStubResponse>(await this.doRequest("1.0", "twc.notary.stub.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateStubResponse({}));
   }
 
 }
