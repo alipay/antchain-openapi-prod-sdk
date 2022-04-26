@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class QueryFlowPhaseResponse : TeaModel {
+    public class QueryStubResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 交易Hash
-        [NameInMap("tx_hash")]
-        [Validation(Required=false)]
-        public string TxHash { get; set; }
-
-        // 存证状态，FINISH(生成完毕)、INIT(初始化中)、FAILED(生成失败)
+        // 数字票根存证全流程状态，FINISH(完结)、PROCESSING(上链中)、DISABLE(失效)、FAILED(失败)
         [NameInMap("status")]
         [Validation(Required=false)]
         public string Status { get; set; }
 
-        // 阶段注册成功时间戳
-        [NameInMap("register_time")]
+        // 阶段存证查询结果列表
+        [NameInMap("phase_query_result_list")]
         [Validation(Required=false)]
-        public long? RegisterTime { get; set; }
+        public List<PhaseQueryResult> PhaseQueryResultList { get; set; }
+
+        // legal标URL，只有当入参needLegalLogo为true且响应status为FINISH时才会返回
+        [NameInMap("legal_logo_url")]
+        [Validation(Required=false)]
+        public string LegalLogoUrl { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class QueryFlowPhaseResponse : TeaModel {
+    public class CreateStubResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,15 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 交易Hash
-        [NameInMap("tx_hash")]
+        // 返回流程ID，全局唯一
+        [NameInMap("flow_id")]
         [Validation(Required=false)]
-        public string TxHash { get; set; }
+        public string FlowId { get; set; }
 
-        // 存证状态，FINISH(生成完毕)、INIT(初始化中)、FAILED(生成失败)
-        [NameInMap("status")]
+        // 阶段存证结果列表
+        [NameInMap("phase_create_result_list")]
         [Validation(Required=false)]
-        public string Status { get; set; }
-
-        // 阶段注册成功时间戳
-        [NameInMap("register_time")]
-        [Validation(Required=false)]
-        public long? RegisterTime { get; set; }
+        public List<PhaseCreateResult> PhaseCreateResultList { get; set; }
 
     }
 

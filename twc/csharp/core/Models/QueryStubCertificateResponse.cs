@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class QueryFlowPhaseResponse : TeaModel {
+    public class QueryStubCertificateResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,20 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 交易Hash
-        [NameInMap("tx_hash")]
+        // 存证证明下载地址，有效期1个小时
+        [NameInMap("certificate_url")]
         [Validation(Required=false)]
-        public string TxHash { get; set; }
+        public string CertificateUrl { get; set; }
 
-        // 存证状态，FINISH(生成完毕)、INIT(初始化中)、FAILED(生成失败)
-        [NameInMap("status")]
+        // Legal码H5页面URL
+        [NameInMap("legal_code_url")]
         [Validation(Required=false)]
-        public string Status { get; set; }
+        public string LegalCodeUrl { get; set; }
 
-        // 阶段注册成功时间戳
-        [NameInMap("register_time")]
+        // Legal码证书H5页面URL
+        [NameInMap("legal_show_url")]
         [Validation(Required=false)]
-        public long? RegisterTime { get; set; }
+        public string LegalShowUrl { get; set; }
 
     }
 

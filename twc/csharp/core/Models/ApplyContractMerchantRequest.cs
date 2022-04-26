@@ -23,7 +23,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string BizContent { get; set; }
 
-        // 代理商户账户ID，此参数不填默认平台机构账户入驻
+        // 代理商户账户ID，此参数传null默认平台机构账户入驻，不允许传空字符串
         [NameInMap("agent_account_id")]
         [Validation(Required=false)]
         public string AgentAccountId { get; set; }

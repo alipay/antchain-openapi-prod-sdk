@@ -60,6 +60,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string BlockHeight { get; set; }
 
+        // 阶段注册成功时间戳
+        [NameInMap("register_time")]
+        [Validation(Required=false)]
+        public long? RegisterTime { get; set; }
+
     }
 
 }

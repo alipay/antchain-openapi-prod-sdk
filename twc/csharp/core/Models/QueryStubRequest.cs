@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class BindContractMerchantRequest : TeaModel {
+    public class QueryStubRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,15 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 商户ID
-        [NameInMap("smid")]
+        // 流程id，通过twc.notary.stub.create接口获取
+        [NameInMap("flow_id")]
         [Validation(Required=true)]
-        public string Smid { get; set; }
+        public string FlowId { get; set; }
 
-        // 商户证件号
-        [NameInMap("cert_no")]
-        [Validation(Required=true)]
-        public string CertNo { get; set; }
-
-        // 代理用户id，传null默认挂接平台方，不允许传空字符串
-        [NameInMap("agent_account_id")]
+        // 是否需要legal标，默认为false，如果需要则填true
+        [NameInMap("need_legal_logo")]
         [Validation(Required=false)]
-        public string AgentAccountId { get; set; }
+        public bool? NeedLegalLogo { get; set; }
 
     }
 

@@ -25,6 +25,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string Status { get; set; }
 
+        // 阶段注册成功时间戳
+        [NameInMap("register_time")]
+        [Validation(Required=true)]
+        public long? RegisterTime { get; set; }
+
     }
 
 }
