@@ -25,13 +25,13 @@ class CreateDeviceRelationRequest extends Model
      */
     public $subjectChainDeviceId;
 
-    // 关系谓语，目前的取值范围：SUB_DEVICE（子设备）、MAIN_DEVICE（主设备）
+    // 关系谓语，目前的取值范围：SUB_DEVICE（子设备）
     /**
      * @var string
      */
     public $predicate;
 
-    // 目标设备链上id列表
+    // 关联设备链上id列表
     /**
      * @var string[]
      */

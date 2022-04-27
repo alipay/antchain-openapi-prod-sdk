@@ -33,6 +33,8 @@ use AntChain\BOT\Models\AddUserRoleRequest;
 use AntChain\BOT\Models\AddUserRoleResponse;
 use AntChain\BOT\Models\ApplyMqtokenRequest;
 use AntChain\BOT\Models\ApplyMqtokenResponse;
+use AntChain\BOT\Models\CertifyIotbasicDeviceRequest;
+use AntChain\BOT\Models\CertifyIotbasicDeviceResponse;
 use AntChain\BOT\Models\CreateAcsDeviceRequest;
 use AntChain\BOT\Models\CreateAcsDeviceResponse;
 use AntChain\BOT\Models\CreateConsumerRequest;
@@ -103,6 +105,10 @@ use AntChain\BOT\Models\LoadTsmCertificatetsmRequest;
 use AntChain\BOT\Models\LoadTsmCertificatetsmResponse;
 use AntChain\BOT\Models\LoadTsmResourcefileRequest;
 use AntChain\BOT\Models\LoadTsmResourcefileResponse;
+use AntChain\BOT\Models\NotifyPullstrategyChangestatusRequest;
+use AntChain\BOT\Models\NotifyPullstrategyChangestatusResponse;
+use AntChain\BOT\Models\NotifyPullstrategyChargeorderinfoRequest;
+use AntChain\BOT\Models\NotifyPullstrategyChargeorderinfoResponse;
 use AntChain\BOT\Models\OfflineDeviceByunregisterRequest;
 use AntChain\BOT\Models\OfflineDeviceByunregisterResponse;
 use AntChain\BOT\Models\OfflineDeviceRequest;
@@ -125,6 +131,10 @@ use AntChain\BOT\Models\PagequeryTenantRequest;
 use AntChain\BOT\Models\PagequeryTenantResponse;
 use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
+use AntChain\BOT\Models\PushCollectotBychainidRequest;
+use AntChain\BOT\Models\PushCollectotBychainidResponse;
+use AntChain\BOT\Models\QueryAiidentificationQrcodeRequest;
+use AntChain\BOT\Models\QueryAiidentificationQrcodeResponse;
 use AntChain\BOT\Models\QueryAnalysisRequest;
 use AntChain\BOT\Models\QueryAnalysisResponse;
 use AntChain\BOT\Models\QueryAsyncRequestRequest;
@@ -366,7 +376,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.75',
+                    'sdk_version'      => '1.6.86',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -644,6 +654,39 @@ class Client
     }
 
     /**
+     * Description: AI二维码验真
+     * Summary: AI二维码验真
+     *
+     * @param QueryAiidentificationQrcodeRequest $request
+     *
+     * @return QueryAiidentificationQrcodeResponse
+     */
+    public function queryAiidentificationQrcode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAiidentificationQrcodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AI二维码验真
+     * Summary: AI二维码验真
+     *
+     * @param QueryAiidentificationQrcodeRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryAiidentificationQrcodeResponse
+     */
+    public function queryAiidentificationQrcodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAiidentificationQrcodeResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.qrcode.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: biot 私有化 设备注册接口
      * Summary: biot 私有化 设备注册接口.
      *
@@ -773,6 +816,39 @@ class Client
         Utils::validateModel($request);
 
         return RecognizeIotbasicCustomerResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.customer.recognize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-设备认证
+     * Summary: IoT设备平台-设备认证
+     *
+     * @param CertifyIotbasicDeviceRequest $request
+     *
+     * @return CertifyIotbasicDeviceResponse
+     */
+    public function certifyIotbasicDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->certifyIotbasicDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备认证
+     * Summary: IoT设备平台-设备认证
+     *
+     * @param CertifyIotbasicDeviceRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CertifyIotbasicDeviceResponse
+     */
+    public function certifyIotbasicDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CertifyIotbasicDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.device.certify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3314,6 +3390,105 @@ class Client
         Utils::validateModel($request);
 
         return DeleteDeviceRelationResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.relation.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 推送单个设备所产生的设备数据
+     * Summary: 推送设备数据.
+     *
+     * @param PushCollectotBychainidRequest $request
+     *
+     * @return PushCollectotBychainidResponse
+     */
+    public function pushCollectotBychainid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushCollectotBychainidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 推送单个设备所产生的设备数据
+     * Summary: 推送设备数据.
+     *
+     * @param PushCollectotBychainidRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return PushCollectotBychainidResponse
+     */
+    public function pushCollectotBychainidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushCollectotBychainidResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.collectot.bychainid.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 推送设备状态变更信息
+     * Summary: 推送设备状态变更信息.
+     *
+     * @param NotifyPullstrategyChangestatusRequest $request
+     *
+     * @return NotifyPullstrategyChangestatusResponse
+     */
+    public function notifyPullstrategyChangestatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyPullstrategyChangestatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 推送设备状态变更信息
+     * Summary: 推送设备状态变更信息.
+     *
+     * @param NotifyPullstrategyChangestatusRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return NotifyPullstrategyChangestatusResponse
+     */
+    public function notifyPullstrategyChangestatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyPullstrategyChangestatusResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.pullstrategy.changestatus.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 推送订单信息
+     * Summary: 推送订单信息.
+     *
+     * @param NotifyPullstrategyChargeorderinfoRequest $request
+     *
+     * @return NotifyPullstrategyChargeorderinfoResponse
+     */
+    public function notifyPullstrategyChargeorderinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyPullstrategyChargeorderinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 推送订单信息
+     * Summary: 推送订单信息.
+     *
+     * @param NotifyPullstrategyChargeorderinfoRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return NotifyPullstrategyChargeorderinfoResponse
+     */
+    public function notifyPullstrategyChargeorderinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyPullstrategyChargeorderinfoResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.pullstrategy.chargeorderinfo.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
