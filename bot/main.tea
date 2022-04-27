@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.75',
+    sdk_version = '1.6.86',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -326,6 +326,12 @@ model PermissionedTenantModel {
   gatewayPrivateKey?: string(name='gateway_private_key', example='MEUCIDxNw...'),
   // 网关公钥
   gatewayPublicKey?: string(name='gateway_public_key', example='MEUCID...'),
+}
+
+// 二维码验真接口返回值
+model BaiQrcodeComparisonResponse {
+  // 返回的结果
+  data: string(name='data', example='{"identificationResult":"1"}'),
 }
 
 // Sdk分页查询结果
@@ -751,6 +757,24 @@ model LabelTrace {
   isSuccess?: boolean(name='is_success', example='true, false'),
   // 标签对应资产版本号
   version?: long(name='version', example='1'),
+}
+
+// 充电明细信息
+model ChargeDetail {
+  // 开始时间
+  detailStartTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='detail_start_time', example='2018-10-10 10:10:00'),
+  // 结束时间
+  detailEndTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='detail_end_time', example='2018-10-10 10:10:00'),
+  // 时段电价，小数点后4位
+  elecPrice?: string(name='elec_price', example='10.1010'),
+  // 时段服务费价格，小数点后4位
+  servicePrice?: string(name='service_price', example='12.6222'),
+  // 时段充电量，单位：度，小数点后2位
+  detailPower: string(name='detail_power', example='12.12'),
+  // 时段电费，小数点后2位
+  detailElecMoney?: string(name='detail_elec_money', example='10.10'),
+  // 时段服务费，小数点后2位
+  detailServiceMoney?: string(name='detail_service_money', example='10.10'),
 }
 
 // 外围设备信息
@@ -1495,6 +1519,48 @@ async function queryBaiOcrEx(request: QueryBaiOcrRequest, headers: map[string]st
   return doRequest('1.0' ,'blockchain.bot.bai.ocr.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryAiidentificationQrcodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户身份标识
+  appKey: string(name='app_key'),
+  // 图片内容的base64字符串
+  queryImageBase64: string(name='query_image_base64'),
+  // 底图内容的base64字符串
+  galleryImageBase64: string(name='gallery_image_base64'),
+}
+
+model QueryAiidentificationQrcodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  data?: string(name='data'),
+}
+
+/**
+ * Description: AI二维码验真
+ * Summary: AI二维码验真
+ */
+async function queryAiidentificationQrcode(request: QueryAiidentificationQrcodeRequest): QueryAiidentificationQrcodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAiidentificationQrcodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: AI二维码验真
+ * Summary: AI二维码验真
+ */
+async function queryAiidentificationQrcodeEx(request: QueryAiidentificationQrcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAiidentificationQrcodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.aiidentification.qrcode.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateAcsDeviceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1701,6 +1767,60 @@ async function recognizeIotbasicCustomer(request: RecognizeIotbasicCustomerReque
 async function recognizeIotbasicCustomerEx(request: RecognizeIotbasicCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RecognizeIotbasicCustomerResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.iotbasic.customer.recognize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CertifyIotbasicDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备序列号
+  deviceSn: string(name='device_sn'),
+  // 设备厂商
+  corpName: string(name='corp_name'),
+}
+
+model CertifyIotbasicDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 设备名称
+  deviceName?: string(name='device_name'),
+  // 设备型号
+  deviceModel?: string(name='device_model'),
+  // 设备状态
+  deviceStatus?: string(name='device_status'),
+  // 注册时间
+  registerTime?: string(name='register_time'),
+  // 客户名称
+  customerName?: string(name='customer_name'),
+  // 客户对应租户ID
+  tenantId?: string(name='tenant_id'),
+  // 客户端版本
+  appVersion?: string(name='app_version'),
+  // 服务状态
+  serviceStatus?: string(name='service_status'),
+}
+
+/**
+ * Description: IoT设备平台-设备认证
+ * Summary: IoT设备平台-设备认证
+ */
+async function certifyIotbasicDevice(request: CertifyIotbasicDeviceRequest): CertifyIotbasicDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return certifyIotbasicDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-设备认证
+ * Summary: IoT设备平台-设备认证
+ */
+async function certifyIotbasicDeviceEx(request: CertifyIotbasicDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CertifyIotbasicDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.device.certify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
@@ -5345,9 +5465,9 @@ model CreateDeviceRelationRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 主设备链上id
   subjectChainDeviceId: string(name='subject_chain_device_id'),
-  // 关系谓语，目前的取值范围：SUB_DEVICE（子设备）、MAIN_DEVICE（主设备）
+  // 关系谓语，目前的取值范围：SUB_DEVICE（子设备）
   predicate: string(name='predicate'),
-  // 目标设备链上id列表
+  // 关联设备链上id列表
   objectChainDeviceIdList: [ string ](name='object_chain_device_id_list'),
 }
 
@@ -5385,9 +5505,9 @@ model DeleteDeviceRelationRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 主设备链上id
   subjectChainDeviceId: string(name='subject_chain_device_id'),
-  // 关系谓语，目前取值范围：SUB_DEVICE、MAIN_DEVICE
+  // 关系谓语，目前取值范围：SUB_DEVICE（子设备）
   predicate: string(name='predicate'),
-  // 目标设备链上id
+  // 关联设备链上id
   objectChainDeviceId: string(name='object_chain_device_id'),
 }
 
@@ -5417,6 +5537,162 @@ async function deleteDeviceRelation(request: DeleteDeviceRelationRequest): Delet
 async function deleteDeviceRelationEx(request: DeleteDeviceRelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteDeviceRelationResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.device.relation.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushCollectotBychainidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链上设备Id
+  chainDeviceId: string(name='chain_device_id'),
+  // 收集数据
+  collectContentList: [ CollectContent ](name='collect_content_list'),
+  // 随机数，防重放
+  nonce: string(name='nonce'),
+  // 数据模型Id
+  dataModelId?: string(name='data_model_id'),
+}
+
+model PushCollectotBychainidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 推送结果
+  pushResult?: boolean(name='push_result'),
+}
+
+/**
+ * Description: 推送单个设备所产生的设备数据
+ * Summary: 推送设备数据
+ */
+async function pushCollectotBychainid(request: PushCollectotBychainidRequest): PushCollectotBychainidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushCollectotBychainidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 推送单个设备所产生的设备数据
+ * Summary: 推送设备数据
+ */
+async function pushCollectotBychainidEx(request: PushCollectotBychainidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushCollectotBychainidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.collectot.bychainid.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyPullstrategyChangestatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 运营商标识
+  operatorId: string(name='operator_id'),
+  // 加密后的核心数据
+  data: string(name='data'),
+  // 接口请求时的时间戳信息，格式为yyyyMMddHHmmss
+  timeStamp: string(name='time_stamp'),
+  // 自增序列，4位自增序列取自时间戳，同一秒内按序列自增长，新秒重计
+  seq: string(name='seq'),
+  // 参数签名，原文为operatorId+data+timeStamp+seq
+  sig: string(name='sig'),
+  // 场景码
+  scene: string(name='scene'),
+  // 数据模型ID，用于校验data原文数据
+  dataModelId?: string(name='data_model_id'),
+}
+
+model NotifyPullstrategyChangestatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回参数密文
+  data?: string(name='data'),
+  // 返回消息
+  msg?: string(name='msg'),
+  // 返回值
+  ret?: long(name='ret'),
+  // 签名，原文为ret+msg+data密文
+  sig?: string(name='sig'),
+}
+
+/**
+ * Description: 推送设备状态变更信息
+ * Summary: 推送设备状态变更信息
+ */
+async function notifyPullstrategyChangestatus(request: NotifyPullstrategyChangestatusRequest): NotifyPullstrategyChangestatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyPullstrategyChangestatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 推送设备状态变更信息
+ * Summary: 推送设备状态变更信息
+ */
+async function notifyPullstrategyChangestatusEx(request: NotifyPullstrategyChangestatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyPullstrategyChangestatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.pullstrategy.changestatus.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyPullstrategyChargeorderinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 运营商标识
+  operatorId: string(name='operator_id'),
+  // 加密后的核心数据
+  data: string(name='data'),
+  // 接口请求时的时间戳信息，格式为yyyyMMddHHmmss
+  timeStamp: string(name='time_stamp'),
+  // 自增序列，4位自增序列取自时间戳，同一秒内按序列自增长，新秒重计
+  seq: string(name='seq'),
+  // 参数签名，原文为operatorId+data+timeStamp+seq
+  sig: string(name='sig'),
+  // 场景码
+  scene: string(name='scene'),
+  // 数据模型ID，用于校验data原文数据
+  dataModelId?: string(name='data_model_id'),
+}
+
+model NotifyPullstrategyChargeorderinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回参数密文
+  data?: string(name='data'),
+  // 返回消息
+  msg?: string(name='msg'),
+  // 返回值
+  ret?: long(name='ret'),
+  // 签名，原文为ret+msg+data密文
+  sig?: string(name='sig'),
+}
+
+/**
+ * Description: 推送订单信息
+ * Summary: 推送订单信息
+ */
+async function notifyPullstrategyChargeorderinfo(request: NotifyPullstrategyChargeorderinfoRequest): NotifyPullstrategyChargeorderinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyPullstrategyChargeorderinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 推送订单信息
+ * Summary: 推送订单信息
+ */
+async function notifyPullstrategyChargeorderinfoEx(request: NotifyPullstrategyChargeorderinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyPullstrategyChargeorderinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.pullstrategy.chargeorderinfo.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
