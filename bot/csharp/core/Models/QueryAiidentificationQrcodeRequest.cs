@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class DeleteDeviceRelationRequest : TeaModel {
+    public class QueryAiidentificationQrcodeRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,20 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 主设备链上id
-        [NameInMap("subject_chain_device_id")]
+        // 用户身份标识
+        [NameInMap("app_key")]
         [Validation(Required=true)]
-        public string SubjectChainDeviceId { get; set; }
+        public string AppKey { get; set; }
 
-        // 关系谓语，目前取值范围：SUB_DEVICE（子设备）
-        [NameInMap("predicate")]
+        // 图片内容的base64字符串
+        [NameInMap("query_image_base64")]
         [Validation(Required=true)]
-        public string Predicate { get; set; }
+        public string QueryImageBase64 { get; set; }
 
-        // 关联设备链上id
-        [NameInMap("object_chain_device_id")]
+        // 底图内容的base64字符串
+        [NameInMap("gallery_image_base64")]
         [Validation(Required=true)]
-        public string ObjectChainDeviceId { get; set; }
+        public string GalleryImageBase64 { get; set; }
 
     }
 

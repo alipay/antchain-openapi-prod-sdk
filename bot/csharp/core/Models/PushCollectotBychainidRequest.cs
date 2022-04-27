@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class DeleteDeviceRelationRequest : TeaModel {
+    public class PushCollectotBychainidRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,25 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 主设备链上id
-        [NameInMap("subject_chain_device_id")]
+        // 链上设备Id
+        [NameInMap("chain_device_id")]
         [Validation(Required=true)]
-        public string SubjectChainDeviceId { get; set; }
+        public string ChainDeviceId { get; set; }
 
-        // 关系谓语，目前取值范围：SUB_DEVICE（子设备）
-        [NameInMap("predicate")]
+        // 收集数据
+        [NameInMap("collect_content_list")]
         [Validation(Required=true)]
-        public string Predicate { get; set; }
+        public List<CollectContent> CollectContentList { get; set; }
 
-        // 关联设备链上id
-        [NameInMap("object_chain_device_id")]
+        // 随机数，防重放
+        [NameInMap("nonce")]
         [Validation(Required=true)]
-        public string ObjectChainDeviceId { get; set; }
+        public string Nonce { get; set; }
+
+        // 数据模型Id
+        [NameInMap("data_model_id")]
+        [Validation(Required=false)]
+        public string DataModelId { get; set; }
 
     }
 

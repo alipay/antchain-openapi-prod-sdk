@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class DeleteDeviceRelationRequest : TeaModel {
+    public class CertifyIotbasicDeviceRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 主设备链上id
-        [NameInMap("subject_chain_device_id")]
+        // 设备序列号
+        [NameInMap("device_sn")]
         [Validation(Required=true)]
-        public string SubjectChainDeviceId { get; set; }
+        public string DeviceSn { get; set; }
 
-        // 关系谓语，目前取值范围：SUB_DEVICE（子设备）
-        [NameInMap("predicate")]
+        // 设备厂商
+        [NameInMap("corp_name")]
         [Validation(Required=true)]
-        public string Predicate { get; set; }
-
-        // 关联设备链上id
-        [NameInMap("object_chain_device_id")]
-        [Validation(Required=true)]
-        public string ObjectChainDeviceId { get; set; }
+        public string CorpName { get; set; }
 
     }
 
