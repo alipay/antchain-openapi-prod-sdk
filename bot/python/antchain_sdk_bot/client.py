@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.75'
+                    'sdk_version': '1.6.86'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.75'
+                    'sdk_version': '1.6.86'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -649,6 +649,60 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bot.bai.ocr.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_aiidentification_qrcode(
+        self,
+        request: bot_models.QueryAiidentificationQrcodeRequest,
+    ) -> bot_models.QueryAiidentificationQrcodeResponse:
+        """
+        Description: AI二维码验真
+        Summary: AI二维码验真
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aiidentification_qrcode_ex(request, headers, runtime)
+
+    async def query_aiidentification_qrcode_async(
+        self,
+        request: bot_models.QueryAiidentificationQrcodeRequest,
+    ) -> bot_models.QueryAiidentificationQrcodeResponse:
+        """
+        Description: AI二维码验真
+        Summary: AI二维码验真
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aiidentification_qrcode_ex_async(request, headers, runtime)
+
+    def query_aiidentification_qrcode_ex(
+        self,
+        request: bot_models.QueryAiidentificationQrcodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAiidentificationQrcodeResponse:
+        """
+        Description: AI二维码验真
+        Summary: AI二维码验真
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryAiidentificationQrcodeResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.aiidentification.qrcode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aiidentification_qrcode_ex_async(
+        self,
+        request: bot_models.QueryAiidentificationQrcodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAiidentificationQrcodeResponse:
+        """
+        Description: AI二维码验真
+        Summary: AI二维码验真
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryAiidentificationQrcodeResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.aiidentification.qrcode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_acs_device(
         self,
         request: bot_models.CreateAcsDeviceRequest,
@@ -863,6 +917,60 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.RecognizeIotbasicCustomerResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.customer.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def certify_iotbasic_device(
+        self,
+        request: bot_models.CertifyIotbasicDeviceRequest,
+    ) -> bot_models.CertifyIotbasicDeviceResponse:
+        """
+        Description: IoT设备平台-设备认证
+        Summary: IoT设备平台-设备认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.certify_iotbasic_device_ex(request, headers, runtime)
+
+    async def certify_iotbasic_device_async(
+        self,
+        request: bot_models.CertifyIotbasicDeviceRequest,
+    ) -> bot_models.CertifyIotbasicDeviceResponse:
+        """
+        Description: IoT设备平台-设备认证
+        Summary: IoT设备平台-设备认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.certify_iotbasic_device_ex_async(request, headers, runtime)
+
+    def certify_iotbasic_device_ex(
+        self,
+        request: bot_models.CertifyIotbasicDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CertifyIotbasicDeviceResponse:
+        """
+        Description: IoT设备平台-设备认证
+        Summary: IoT设备平台-设备认证
+        """
+        UtilClient.validate_model(request)
+        return bot_models.CertifyIotbasicDeviceResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.iotbasic.device.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def certify_iotbasic_device_ex_async(
+        self,
+        request: bot_models.CertifyIotbasicDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CertifyIotbasicDeviceResponse:
+        """
+        Description: IoT设备平台-设备认证
+        Summary: IoT设备平台-设备认证
+        """
+        UtilClient.validate_model(request)
+        return bot_models.CertifyIotbasicDeviceResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.device.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
@@ -5021,6 +5129,168 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.DeleteDeviceRelationResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.device.relation.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_collectot_bychainid(
+        self,
+        request: bot_models.PushCollectotBychainidRequest,
+    ) -> bot_models.PushCollectotBychainidResponse:
+        """
+        Description: 推送单个设备所产生的设备数据
+        Summary: 推送设备数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_collectot_bychainid_ex(request, headers, runtime)
+
+    async def push_collectot_bychainid_async(
+        self,
+        request: bot_models.PushCollectotBychainidRequest,
+    ) -> bot_models.PushCollectotBychainidResponse:
+        """
+        Description: 推送单个设备所产生的设备数据
+        Summary: 推送设备数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_collectot_bychainid_ex_async(request, headers, runtime)
+
+    def push_collectot_bychainid_ex(
+        self,
+        request: bot_models.PushCollectotBychainidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushCollectotBychainidResponse:
+        """
+        Description: 推送单个设备所产生的设备数据
+        Summary: 推送设备数据
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PushCollectotBychainidResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.collectot.bychainid.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_collectot_bychainid_ex_async(
+        self,
+        request: bot_models.PushCollectotBychainidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushCollectotBychainidResponse:
+        """
+        Description: 推送单个设备所产生的设备数据
+        Summary: 推送设备数据
+        """
+        UtilClient.validate_model(request)
+        return bot_models.PushCollectotBychainidResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.collectot.bychainid.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_pullstrategy_changestatus(
+        self,
+        request: bot_models.NotifyPullstrategyChangestatusRequest,
+    ) -> bot_models.NotifyPullstrategyChangestatusResponse:
+        """
+        Description: 推送设备状态变更信息
+        Summary: 推送设备状态变更信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_pullstrategy_changestatus_ex(request, headers, runtime)
+
+    async def notify_pullstrategy_changestatus_async(
+        self,
+        request: bot_models.NotifyPullstrategyChangestatusRequest,
+    ) -> bot_models.NotifyPullstrategyChangestatusResponse:
+        """
+        Description: 推送设备状态变更信息
+        Summary: 推送设备状态变更信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_pullstrategy_changestatus_ex_async(request, headers, runtime)
+
+    def notify_pullstrategy_changestatus_ex(
+        self,
+        request: bot_models.NotifyPullstrategyChangestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.NotifyPullstrategyChangestatusResponse:
+        """
+        Description: 推送设备状态变更信息
+        Summary: 推送设备状态变更信息
+        """
+        UtilClient.validate_model(request)
+        return bot_models.NotifyPullstrategyChangestatusResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.pullstrategy.changestatus.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_pullstrategy_changestatus_ex_async(
+        self,
+        request: bot_models.NotifyPullstrategyChangestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.NotifyPullstrategyChangestatusResponse:
+        """
+        Description: 推送设备状态变更信息
+        Summary: 推送设备状态变更信息
+        """
+        UtilClient.validate_model(request)
+        return bot_models.NotifyPullstrategyChangestatusResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.pullstrategy.changestatus.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_pullstrategy_chargeorderinfo(
+        self,
+        request: bot_models.NotifyPullstrategyChargeorderinfoRequest,
+    ) -> bot_models.NotifyPullstrategyChargeorderinfoResponse:
+        """
+        Description: 推送订单信息
+        Summary: 推送订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_pullstrategy_chargeorderinfo_ex(request, headers, runtime)
+
+    async def notify_pullstrategy_chargeorderinfo_async(
+        self,
+        request: bot_models.NotifyPullstrategyChargeorderinfoRequest,
+    ) -> bot_models.NotifyPullstrategyChargeorderinfoResponse:
+        """
+        Description: 推送订单信息
+        Summary: 推送订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_pullstrategy_chargeorderinfo_ex_async(request, headers, runtime)
+
+    def notify_pullstrategy_chargeorderinfo_ex(
+        self,
+        request: bot_models.NotifyPullstrategyChargeorderinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.NotifyPullstrategyChargeorderinfoResponse:
+        """
+        Description: 推送订单信息
+        Summary: 推送订单信息
+        """
+        UtilClient.validate_model(request)
+        return bot_models.NotifyPullstrategyChargeorderinfoResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.pullstrategy.chargeorderinfo.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_pullstrategy_chargeorderinfo_ex_async(
+        self,
+        request: bot_models.NotifyPullstrategyChargeorderinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.NotifyPullstrategyChargeorderinfoResponse:
+        """
+        Description: 推送订单信息
+        Summary: 推送订单信息
+        """
+        UtilClient.validate_model(request)
+        return bot_models.NotifyPullstrategyChargeorderinfoResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.pullstrategy.chargeorderinfo.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
