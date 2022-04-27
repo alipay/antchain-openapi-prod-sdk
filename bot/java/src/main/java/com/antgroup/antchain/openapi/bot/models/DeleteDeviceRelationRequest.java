@@ -16,12 +16,12 @@ public class DeleteDeviceRelationRequest extends TeaModel {
     @Validation(required = true)
     public String subjectChainDeviceId;
 
-    // 关系谓语，目前取值范围：SUB_DEVICE、MAIN_DEVICE
+    // 关系谓语，目前取值范围：SUB_DEVICE（子设备）
     @NameInMap("predicate")
     @Validation(required = true)
     public String predicate;
 
-    // 目标设备链上id
+    // 关联设备链上id
     @NameInMap("object_chain_device_id")
     @Validation(required = true)
     public String objectChainDeviceId;

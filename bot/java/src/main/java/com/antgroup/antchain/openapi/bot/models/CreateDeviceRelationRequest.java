@@ -16,12 +16,12 @@ public class CreateDeviceRelationRequest extends TeaModel {
     @Validation(required = true)
     public String subjectChainDeviceId;
 
-    // 关系谓语，目前的取值范围：SUB_DEVICE（子设备）、MAIN_DEVICE（主设备）
+    // 关系谓语，目前的取值范围：SUB_DEVICE（子设备）
     @NameInMap("predicate")
     @Validation(required = true)
     public String predicate;
 
-    // 目标设备链上id列表
+    // 关联设备链上id列表
     @NameInMap("object_chain_device_id_list")
     @Validation(required = true)
     public java.util.List<String> objectChainDeviceIdList;
