@@ -9111,6 +9111,169 @@ func (s *FinishRbbRegdatasyncScheduleResponse) SetResultMsg(v string) *FinishRbb
 	return s
 }
 
+type ApplyRbbCompanyGuardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业名称、统一社会信用代码或注册号
+	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty" require:"true"`
+	// 规则ID
+	RuleId *int64 `json:"rule_id,omitempty" xml:"rule_id,omitempty" require:"true"`
+	// 额外参数，与具体规则相关
+	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+}
+
+func (s ApplyRbbCompanyGuardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyRbbCompanyGuardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyRbbCompanyGuardRequest) SetAuthToken(v string) *ApplyRbbCompanyGuardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyGuardRequest) SetProductInstanceId(v string) *ApplyRbbCompanyGuardRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyGuardRequest) SetKeyword(v string) *ApplyRbbCompanyGuardRequest {
+	s.Keyword = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyGuardRequest) SetRuleId(v int64) *ApplyRbbCompanyGuardRequest {
+	s.RuleId = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyGuardRequest) SetParams(v string) *ApplyRbbCompanyGuardRequest {
+	s.Params = &v
+	return s
+}
+
+type ApplyRbbCompanyGuardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询token
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+}
+
+func (s ApplyRbbCompanyGuardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyRbbCompanyGuardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyRbbCompanyGuardResponse) SetReqMsgId(v string) *ApplyRbbCompanyGuardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyGuardResponse) SetResultCode(v string) *ApplyRbbCompanyGuardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyGuardResponse) SetResultMsg(v string) *ApplyRbbCompanyGuardResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyGuardResponse) SetToken(v string) *ApplyRbbCompanyGuardResponse {
+	s.Token = &v
+	return s
+}
+
+type QueryRbbCompanyGuardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+}
+
+func (s QueryRbbCompanyGuardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRbbCompanyGuardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRbbCompanyGuardRequest) SetAuthToken(v string) *QueryRbbCompanyGuardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRbbCompanyGuardRequest) SetProductInstanceId(v string) *QueryRbbCompanyGuardRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRbbCompanyGuardRequest) SetToken(v string) *QueryRbbCompanyGuardRequest {
+	s.Token = &v
+	return s
+}
+
+type QueryRbbCompanyGuardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 决策结果，ACCEPT/REJECT/TBD
+	//
+	Decision *string `json:"decision,omitempty" xml:"decision,omitempty"`
+	// 准入执行结果的快照
+	//
+	Results *string `json:"results,omitempty" xml:"results,omitempty"`
+}
+
+func (s QueryRbbCompanyGuardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRbbCompanyGuardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRbbCompanyGuardResponse) SetReqMsgId(v string) *QueryRbbCompanyGuardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRbbCompanyGuardResponse) SetResultCode(v string) *QueryRbbCompanyGuardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRbbCompanyGuardResponse) SetResultMsg(v string) *QueryRbbCompanyGuardResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRbbCompanyGuardResponse) SetDecision(v string) *QueryRbbCompanyGuardResponse {
+	s.Decision = &v
+	return s
+}
+
+func (s *QueryRbbCompanyGuardResponse) SetResults(v string) *QueryRbbCompanyGuardResponse {
+	s.Results = &v
+	return s
+}
+
 type QueryRpgwSignUrlRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -13324,6 +13487,112 @@ func (s *BatchqueryUmktRtTailmarketingResponse) SetQueryResult(v []*CustomerUmkt
 	return s
 }
 
+type QueryUmktScenestrategyTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 查询模版
+	QueryTemplate *string `json:"query_template,omitempty" xml:"query_template,omitempty"`
+	// 用户查询凭证列表
+	//
+	CustomerKeys []*string `json:"customer_keys,omitempty" xml:"customer_keys,omitempty" require:"true" type:"Repeated"`
+	// 业务方流水号
+	BizSerialNo *string `json:"biz_serial_no,omitempty" xml:"biz_serial_no,omitempty" require:"true"`
+	// 伪装租户id
+	PretendTenant *string `json:"pretend_tenant,omitempty" xml:"pretend_tenant,omitempty" require:"true"`
+}
+
+func (s QueryUmktScenestrategyTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktScenestrategyTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktScenestrategyTestRequest) SetAuthToken(v string) *QueryUmktScenestrategyTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUmktScenestrategyTestRequest) SetProductInstanceId(v string) *QueryUmktScenestrategyTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUmktScenestrategyTestRequest) SetSceneStrategyId(v int64) *QueryUmktScenestrategyTestRequest {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *QueryUmktScenestrategyTestRequest) SetQueryTemplate(v string) *QueryUmktScenestrategyTestRequest {
+	s.QueryTemplate = &v
+	return s
+}
+
+func (s *QueryUmktScenestrategyTestRequest) SetCustomerKeys(v []*string) *QueryUmktScenestrategyTestRequest {
+	s.CustomerKeys = v
+	return s
+}
+
+func (s *QueryUmktScenestrategyTestRequest) SetBizSerialNo(v string) *QueryUmktScenestrategyTestRequest {
+	s.BizSerialNo = &v
+	return s
+}
+
+func (s *QueryUmktScenestrategyTestRequest) SetPretendTenant(v string) *QueryUmktScenestrategyTestRequest {
+	s.PretendTenant = &v
+	return s
+}
+
+type QueryUmktScenestrategyTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 处理结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 实时营销单条结果
+	QueryResult []*CustomerUmktInfoModel `json:"query_result,omitempty" xml:"query_result,omitempty" type:"Repeated"`
+}
+
+func (s QueryUmktScenestrategyTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktScenestrategyTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktScenestrategyTestResponse) SetReqMsgId(v string) *QueryUmktScenestrategyTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUmktScenestrategyTestResponse) SetResultCode(v string) *QueryUmktScenestrategyTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUmktScenestrategyTestResponse) SetResultMsg(v string) *QueryUmktScenestrategyTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUmktScenestrategyTestResponse) SetSuccess(v bool) *QueryUmktScenestrategyTestResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryUmktScenestrategyTestResponse) SetQueryResult(v []*CustomerUmktInfoModel) *QueryUmktScenestrategyTestResponse {
+	s.QueryResult = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -13566,7 +13835,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.5"),
+				"sdk_version":      tea.String("1.11.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -15446,6 +15715,74 @@ func (client *Client) FinishRbbRegdatasyncScheduleEx(request *FinishRbbRegdatasy
 }
 
 /**
+ * Description: 提交准入规则的执行请求
+ * Summary: 企业准入申请
+ */
+func (client *Client) ApplyRbbCompanyGuard(request *ApplyRbbCompanyGuardRequest) (_result *ApplyRbbCompanyGuardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyRbbCompanyGuardResponse{}
+	_body, _err := client.ApplyRbbCompanyGuardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提交准入规则的执行请求
+ * Summary: 企业准入申请
+ */
+func (client *Client) ApplyRbbCompanyGuardEx(request *ApplyRbbCompanyGuardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyRbbCompanyGuardResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyRbbCompanyGuardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.company.guard.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业准入结果查询
+ * Summary: 企业准入结果查询
+ */
+func (client *Client) QueryRbbCompanyGuard(request *QueryRbbCompanyGuardRequest) (_result *QueryRbbCompanyGuardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRbbCompanyGuardResponse{}
+	_body, _err := client.QueryRbbCompanyGuardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业准入结果查询
+ * Summary: 企业准入结果查询
+ */
+func (client *Client) QueryRbbCompanyGuardEx(request *QueryRbbCompanyGuardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRbbCompanyGuardResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRbbCompanyGuardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.company.guard.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 获取签约接口
  * Summary: 获取签约接口
  */
@@ -16761,6 +17098,40 @@ func (client *Client) BatchqueryUmktRtTailmarketingEx(request *BatchqueryUmktRtT
 	}
 	_result = &BatchqueryUmktRtTailmarketingResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.rt.tailmarketing.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 实时圈客场景策略测试
+ * Summary: 实时圈客场景策略测试功能
+ */
+func (client *Client) QueryUmktScenestrategyTest(request *QueryUmktScenestrategyTestRequest) (_result *QueryUmktScenestrategyTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUmktScenestrategyTestResponse{}
+	_body, _err := client.QueryUmktScenestrategyTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 实时圈客场景策略测试
+ * Summary: 实时圈客场景策略测试功能
+ */
+func (client *Client) QueryUmktScenestrategyTestEx(request *QueryUmktScenestrategyTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktScenestrategyTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUmktScenestrategyTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.scenestrategy.test.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
