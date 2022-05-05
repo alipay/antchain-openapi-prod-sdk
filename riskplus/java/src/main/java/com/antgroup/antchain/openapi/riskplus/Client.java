@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.5")
+                    new TeaPair("sdk_version", "1.11.3")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1188,6 +1188,44 @@ public class Client {
     }
 
     /**
+     * Description: 提交准入规则的执行请求
+     * Summary: 企业准入申请
+     */
+    public ApplyRbbCompanyGuardResponse applyRbbCompanyGuard(ApplyRbbCompanyGuardRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyRbbCompanyGuardEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 提交准入规则的执行请求
+     * Summary: 企业准入申请
+     */
+    public ApplyRbbCompanyGuardResponse applyRbbCompanyGuardEx(ApplyRbbCompanyGuardRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.company.guard.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyRbbCompanyGuardResponse());
+    }
+
+    /**
+     * Description: 企业准入结果查询
+     * Summary: 企业准入结果查询
+     */
+    public QueryRbbCompanyGuardResponse queryRbbCompanyGuard(QueryRbbCompanyGuardRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRbbCompanyGuardEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企业准入结果查询
+     * Summary: 企业准入结果查询
+     */
+    public QueryRbbCompanyGuardResponse queryRbbCompanyGuardEx(QueryRbbCompanyGuardRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.company.guard.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRbbCompanyGuardResponse());
+    }
+
+    /**
      * Description: 获取签约接口
      * Summary: 获取签约接口
      */
@@ -1930,6 +1968,25 @@ public class Client {
     public BatchqueryUmktRtTailmarketingResponse batchqueryUmktRtTailmarketingEx(BatchqueryUmktRtTailmarketingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.rt.tailmarketing.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryUmktRtTailmarketingResponse());
+    }
+
+    /**
+     * Description: 实时圈客场景策略测试
+     * Summary: 实时圈客场景策略测试功能
+     */
+    public QueryUmktScenestrategyTestResponse queryUmktScenestrategyTest(QueryUmktScenestrategyTestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUmktScenestrategyTestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 实时圈客场景策略测试
+     * Summary: 实时圈客场景策略测试功能
+     */
+    public QueryUmktScenestrategyTestResponse queryUmktScenestrategyTestEx(QueryUmktScenestrategyTestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.scenestrategy.test.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktScenestrategyTestResponse());
     }
 
     /**
