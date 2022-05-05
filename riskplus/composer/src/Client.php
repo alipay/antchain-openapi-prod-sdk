@@ -21,6 +21,8 @@ use AntChain\RISKPLUS\Models\ApplyDubheUsecreditRequest;
 use AntChain\RISKPLUS\Models\ApplyDubheUsecreditResponse;
 use AntChain\RISKPLUS\Models\ApplyRbbCompanyCreditRequest;
 use AntChain\RISKPLUS\Models\ApplyRbbCompanyCreditResponse;
+use AntChain\RISKPLUS\Models\ApplyRbbCompanyGuardRequest;
+use AntChain\RISKPLUS\Models\ApplyRbbCompanyGuardResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtMarketingResponse;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtTailmarketingRequest;
@@ -113,6 +115,8 @@ use AntChain\RISKPLUS\Models\QueryMdipDataserviceRequest;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceResponse;
 use AntChain\RISKPLUS\Models\QueryRbbCompanyCreditRequest;
 use AntChain\RISKPLUS\Models\QueryRbbCompanyCreditResponse;
+use AntChain\RISKPLUS\Models\QueryRbbCompanyGuardRequest;
+use AntChain\RISKPLUS\Models\QueryRbbCompanyGuardResponse;
 use AntChain\RISKPLUS\Models\QueryRbbGeneralRequest;
 use AntChain\RISKPLUS\Models\QueryRbbGeneralResponse;
 use AntChain\RISKPLUS\Models\QueryRbbGenericInvokeRequest;
@@ -163,6 +167,8 @@ use AntChain\RISKPLUS\Models\QuerySecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QuerySecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventRequest;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventResponse;
+use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestRequest;
+use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestResponse;
 use AntChain\RISKPLUS\Models\RegisterRpgwUserEinvoiceRequest;
 use AntChain\RISKPLUS\Models\RegisterRpgwUserEinvoiceResponse;
 use AntChain\RISKPLUS\Models\RepayDubheRepayCheckstandRequest;
@@ -342,7 +348,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.5',
+                    'sdk_version'      => '1.11.3',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2156,6 +2162,72 @@ class Client
     }
 
     /**
+     * Description: 提交准入规则的执行请求
+     * Summary: 企业准入申请.
+     *
+     * @param ApplyRbbCompanyGuardRequest $request
+     *
+     * @return ApplyRbbCompanyGuardResponse
+     */
+    public function applyRbbCompanyGuard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyRbbCompanyGuardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交准入规则的执行请求
+     * Summary: 企业准入申请.
+     *
+     * @param ApplyRbbCompanyGuardRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ApplyRbbCompanyGuardResponse
+     */
+    public function applyRbbCompanyGuardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyRbbCompanyGuardResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.company.guard.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业准入结果查询
+     * Summary: 企业准入结果查询.
+     *
+     * @param QueryRbbCompanyGuardRequest $request
+     *
+     * @return QueryRbbCompanyGuardResponse
+     */
+    public function queryRbbCompanyGuard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRbbCompanyGuardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业准入结果查询
+     * Summary: 企业准入结果查询.
+     *
+     * @param QueryRbbCompanyGuardRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryRbbCompanyGuardResponse
+     */
+    public function queryRbbCompanyGuardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRbbCompanyGuardResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.company.guard.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 获取签约接口
      * Summary: 获取签约接口.
      *
@@ -3427,6 +3499,39 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryUmktRtTailmarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.tailmarketing.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 实时圈客场景策略测试
+     * Summary: 实时圈客场景策略测试功能.
+     *
+     * @param QueryUmktScenestrategyTestRequest $request
+     *
+     * @return QueryUmktScenestrategyTestResponse
+     */
+    public function queryUmktScenestrategyTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUmktScenestrategyTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 实时圈客场景策略测试
+     * Summary: 实时圈客场景策略测试功能.
+     *
+     * @param QueryUmktScenestrategyTestRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryUmktScenestrategyTestResponse
+     */
+    public function queryUmktScenestrategyTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUmktScenestrategyTestResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.scenestrategy.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
