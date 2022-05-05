@@ -6845,6 +6845,138 @@ export class FinishRbbRegdatasyncScheduleResponse extends $tea.Model {
   }
 }
 
+export class ApplyRbbCompanyGuardRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 企业名称、统一社会信用代码或注册号
+  keyword: string;
+  // 规则ID
+  ruleId: number;
+  // 额外参数，与具体规则相关
+  params?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      keyword: 'keyword',
+      ruleId: 'rule_id',
+      params: 'params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      keyword: 'string',
+      ruleId: 'number',
+      params: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyRbbCompanyGuardResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询token
+  token?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRbbCompanyGuardRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询token
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRbbCompanyGuardResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 决策结果，ACCEPT/REJECT/TBD
+  // 
+  decision?: string;
+  // 准入执行结果的快照
+  // 
+  results?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      decision: 'decision',
+      results: 'results',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      decision: 'string',
+      results: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryRpgwSignUrlRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -9975,6 +10107,86 @@ export class BatchqueryUmktRtTailmarketingResponse extends $tea.Model {
   }
 }
 
+export class QueryUmktScenestrategyTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  // 查询模版
+  queryTemplate?: string;
+  // 用户查询凭证列表
+  // 
+  customerKeys: string[];
+  // 业务方流水号
+  bizSerialNo: string;
+  // 伪装租户id
+  pretendTenant: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneStrategyId: 'scene_strategy_id',
+      queryTemplate: 'query_template',
+      customerKeys: 'customer_keys',
+      bizSerialNo: 'biz_serial_no',
+      pretendTenant: 'pretend_tenant',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneStrategyId: 'number',
+      queryTemplate: 'string',
+      customerKeys: { 'type': 'array', 'itemType': 'string' },
+      bizSerialNo: 'string',
+      pretendTenant: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktScenestrategyTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 处理结果
+  success?: boolean;
+  // 实时营销单条结果
+  queryResult?: CustomerUmktInfoModel[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      queryResult: 'query_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      queryResult: { 'type': 'array', 'itemType': CustomerUmktInfoModel },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -10176,7 +10388,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.5",
+          sdk_version: "1.11.3",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -11251,6 +11463,44 @@ export default class Client {
   }
 
   /**
+   * Description: 提交准入规则的执行请求
+   * Summary: 企业准入申请
+   */
+  async applyRbbCompanyGuard(request: ApplyRbbCompanyGuardRequest): Promise<ApplyRbbCompanyGuardResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyRbbCompanyGuardEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 提交准入规则的执行请求
+   * Summary: 企业准入申请
+   */
+  async applyRbbCompanyGuardEx(request: ApplyRbbCompanyGuardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyRbbCompanyGuardResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyRbbCompanyGuardResponse>(await this.doRequest("1.0", "riskplus.rbb.company.guard.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyRbbCompanyGuardResponse({}));
+  }
+
+  /**
+   * Description: 企业准入结果查询
+   * Summary: 企业准入结果查询
+   */
+  async queryRbbCompanyGuard(request: QueryRbbCompanyGuardRequest): Promise<QueryRbbCompanyGuardResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRbbCompanyGuardEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企业准入结果查询
+   * Summary: 企业准入结果查询
+   */
+  async queryRbbCompanyGuardEx(request: QueryRbbCompanyGuardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRbbCompanyGuardResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRbbCompanyGuardResponse>(await this.doRequest("1.0", "riskplus.rbb.company.guard.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRbbCompanyGuardResponse({}));
+  }
+
+  /**
    * Description: 获取签约接口
    * Summary: 获取签约接口
    */
@@ -11993,6 +12243,25 @@ export default class Client {
   async batchqueryUmktRtTailmarketingEx(request: BatchqueryUmktRtTailmarketingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryUmktRtTailmarketingResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryUmktRtTailmarketingResponse>(await this.doRequest("1.0", "riskplus.umkt.rt.tailmarketing.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryUmktRtTailmarketingResponse({}));
+  }
+
+  /**
+   * Description: 实时圈客场景策略测试
+   * Summary: 实时圈客场景策略测试功能
+   */
+  async queryUmktScenestrategyTest(request: QueryUmktScenestrategyTestRequest): Promise<QueryUmktScenestrategyTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUmktScenestrategyTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 实时圈客场景策略测试
+   * Summary: 实时圈客场景策略测试功能
+   */
+  async queryUmktScenestrategyTestEx(request: QueryUmktScenestrategyTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktScenestrategyTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUmktScenestrategyTestResponse>(await this.doRequest("1.0", "riskplus.umkt.scenestrategy.test.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktScenestrategyTestResponse({}));
   }
 
   /**
