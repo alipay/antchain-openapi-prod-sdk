@@ -10618,6 +10618,194 @@ class FinishRbbRegdatasyncScheduleResponse(TeaModel):
         return self
 
 
+class ApplyRbbCompanyGuardRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        keyword: str = None,
+        rule_id: int = None,
+        params: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 企业名称、统一社会信用代码或注册号
+        self.keyword = keyword
+        # 规则ID
+        self.rule_id = rule_id
+        # 额外参数，与具体规则相关
+        self.params = params
+
+    def validate(self):
+        self.validate_required(self.keyword, 'keyword')
+        self.validate_required(self.rule_id, 'rule_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.keyword is not None:
+            result['keyword'] = self.keyword
+        if self.rule_id is not None:
+            result['rule_id'] = self.rule_id
+        if self.params is not None:
+            result['params'] = self.params
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('keyword') is not None:
+            self.keyword = m.get('keyword')
+        if m.get('rule_id') is not None:
+            self.rule_id = m.get('rule_id')
+        if m.get('params') is not None:
+            self.params = m.get('params')
+        return self
+
+
+class ApplyRbbCompanyGuardResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        token: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 查询token
+        self.token = token
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
+class QueryRbbCompanyGuardRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 查询token
+        self.token = token
+
+    def validate(self):
+        self.validate_required(self.token, 'token')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
+class QueryRbbCompanyGuardResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        decision: str = None,
+        results: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 决策结果，ACCEPT/REJECT/TBD
+        # 
+        self.decision = decision
+        # 准入执行结果的快照
+        # 
+        self.results = results
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.decision is not None:
+            result['decision'] = self.decision
+        if self.results is not None:
+            result['results'] = self.results
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('decision') is not None:
+            self.decision = m.get('decision')
+        if m.get('results') is not None:
+            self.results = m.get('results')
+        return self
+
+
 class QueryRpgwSignUrlRequest(TeaModel):
     def __init__(
         self,
@@ -15679,6 +15867,135 @@ class BatchqueryUmktRtTailmarketingResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        self.query_result = []
+        if m.get('query_result') is not None:
+            for k in m.get('query_result'):
+                temp_model = CustomerUmktInfoModel()
+                self.query_result.append(temp_model.from_map(k))
+        return self
+
+
+class QueryUmktScenestrategyTestRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_strategy_id: int = None,
+        query_template: str = None,
+        customer_keys: List[str] = None,
+        biz_serial_no: str = None,
+        pretend_tenant: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+        # 查询模版
+        self.query_template = query_template
+        # 用户查询凭证列表
+        # 
+        self.customer_keys = customer_keys
+        # 业务方流水号
+        self.biz_serial_no = biz_serial_no
+        # 伪装租户id
+        self.pretend_tenant = pretend_tenant
+
+    def validate(self):
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+        self.validate_required(self.customer_keys, 'customer_keys')
+        self.validate_required(self.biz_serial_no, 'biz_serial_no')
+        self.validate_required(self.pretend_tenant, 'pretend_tenant')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        if self.query_template is not None:
+            result['query_template'] = self.query_template
+        if self.customer_keys is not None:
+            result['customer_keys'] = self.customer_keys
+        if self.biz_serial_no is not None:
+            result['biz_serial_no'] = self.biz_serial_no
+        if self.pretend_tenant is not None:
+            result['pretend_tenant'] = self.pretend_tenant
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('query_template') is not None:
+            self.query_template = m.get('query_template')
+        if m.get('customer_keys') is not None:
+            self.customer_keys = m.get('customer_keys')
+        if m.get('biz_serial_no') is not None:
+            self.biz_serial_no = m.get('biz_serial_no')
+        if m.get('pretend_tenant') is not None:
+            self.pretend_tenant = m.get('pretend_tenant')
+        return self
+
+
+class QueryUmktScenestrategyTestResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        query_result: List[CustomerUmktInfoModel] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 处理结果
+        self.success = success
+        # 实时营销单条结果
+        self.query_result = query_result
+
+    def validate(self):
+        if self.query_result:
+            for k in self.query_result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        result['query_result'] = []
+        if self.query_result is not None:
+            for k in self.query_result:
+                result['query_result'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
         self.query_result = []
         if m.get('query_result') is not None:
             for k in m.get('query_result'):

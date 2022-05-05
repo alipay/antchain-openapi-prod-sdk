@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.5'
+                    'sdk_version': '1.11.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.5'
+                    'sdk_version': '1.11.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -3167,6 +3167,114 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.rbb.regdatasync.schedule.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def apply_rbb_company_guard(
+        self,
+        request: riskplus_models.ApplyRbbCompanyGuardRequest,
+    ) -> riskplus_models.ApplyRbbCompanyGuardResponse:
+        """
+        Description: 提交准入规则的执行请求
+        Summary: 企业准入申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_rbb_company_guard_ex(request, headers, runtime)
+
+    async def apply_rbb_company_guard_async(
+        self,
+        request: riskplus_models.ApplyRbbCompanyGuardRequest,
+    ) -> riskplus_models.ApplyRbbCompanyGuardResponse:
+        """
+        Description: 提交准入规则的执行请求
+        Summary: 企业准入申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_rbb_company_guard_ex_async(request, headers, runtime)
+
+    def apply_rbb_company_guard_ex(
+        self,
+        request: riskplus_models.ApplyRbbCompanyGuardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyRbbCompanyGuardResponse:
+        """
+        Description: 提交准入规则的执行请求
+        Summary: 企业准入申请
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.ApplyRbbCompanyGuardResponse().from_map(
+            self.do_request('1.0', 'riskplus.rbb.company.guard.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_rbb_company_guard_ex_async(
+        self,
+        request: riskplus_models.ApplyRbbCompanyGuardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyRbbCompanyGuardResponse:
+        """
+        Description: 提交准入规则的执行请求
+        Summary: 企业准入申请
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.ApplyRbbCompanyGuardResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.rbb.company.guard.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rbb_company_guard(
+        self,
+        request: riskplus_models.QueryRbbCompanyGuardRequest,
+    ) -> riskplus_models.QueryRbbCompanyGuardResponse:
+        """
+        Description: 企业准入结果查询
+        Summary: 企业准入结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rbb_company_guard_ex(request, headers, runtime)
+
+    async def query_rbb_company_guard_async(
+        self,
+        request: riskplus_models.QueryRbbCompanyGuardRequest,
+    ) -> riskplus_models.QueryRbbCompanyGuardResponse:
+        """
+        Description: 企业准入结果查询
+        Summary: 企业准入结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rbb_company_guard_ex_async(request, headers, runtime)
+
+    def query_rbb_company_guard_ex(
+        self,
+        request: riskplus_models.QueryRbbCompanyGuardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRbbCompanyGuardResponse:
+        """
+        Description: 企业准入结果查询
+        Summary: 企业准入结果查询
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryRbbCompanyGuardResponse().from_map(
+            self.do_request('1.0', 'riskplus.rbb.company.guard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rbb_company_guard_ex_async(
+        self,
+        request: riskplus_models.QueryRbbCompanyGuardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRbbCompanyGuardResponse:
+        """
+        Description: 企业准入结果查询
+        Summary: 企业准入结果查询
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryRbbCompanyGuardResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.rbb.company.guard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_rpgw_sign_url(
         self,
         request: riskplus_models.QueryRpgwSignUrlRequest,
@@ -5255,6 +5363,60 @@ class Client:
         UtilClient.validate_model(request)
         return riskplus_models.BatchqueryUmktRtTailmarketingResponse().from_map(
             await self.do_request_async('1.0', 'riskplus.umkt.rt.tailmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_umkt_scenestrategy_test(
+        self,
+        request: riskplus_models.QueryUmktScenestrategyTestRequest,
+    ) -> riskplus_models.QueryUmktScenestrategyTestResponse:
+        """
+        Description: 实时圈客场景策略测试
+        Summary: 实时圈客场景策略测试功能
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_umkt_scenestrategy_test_ex(request, headers, runtime)
+
+    async def query_umkt_scenestrategy_test_async(
+        self,
+        request: riskplus_models.QueryUmktScenestrategyTestRequest,
+    ) -> riskplus_models.QueryUmktScenestrategyTestResponse:
+        """
+        Description: 实时圈客场景策略测试
+        Summary: 实时圈客场景策略测试功能
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_umkt_scenestrategy_test_ex_async(request, headers, runtime)
+
+    def query_umkt_scenestrategy_test_ex(
+        self,
+        request: riskplus_models.QueryUmktScenestrategyTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktScenestrategyTestResponse:
+        """
+        Description: 实时圈客场景策略测试
+        Summary: 实时圈客场景策略测试功能
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryUmktScenestrategyTestResponse().from_map(
+            self.do_request('1.0', 'riskplus.umkt.scenestrategy.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_umkt_scenestrategy_test_ex_async(
+        self,
+        request: riskplus_models.QueryUmktScenestrategyTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktScenestrategyTestResponse:
+        """
+        Description: 实时圈客场景策略测试
+        Summary: 实时圈客场景策略测试功能
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryUmktScenestrategyTestResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.umkt.scenestrategy.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
