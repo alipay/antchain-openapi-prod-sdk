@@ -13398,7 +13398,7 @@ type BatchqueryUmktRtTailmarketingRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 营销计划id
-	PlanId *int64 `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
+	PlanId *string `json:"plan_id,omitempty" xml:"plan_id,omitempty" require:"true"`
 	//
 	// 用户列表传输模版
 	QueryTemplate *string `json:"query_template,omitempty" xml:"query_template,omitempty" require:"true"`
@@ -13427,7 +13427,7 @@ func (s *BatchqueryUmktRtTailmarketingRequest) SetProductInstanceId(v string) *B
 	return s
 }
 
-func (s *BatchqueryUmktRtTailmarketingRequest) SetPlanId(v int64) *BatchqueryUmktRtTailmarketingRequest {
+func (s *BatchqueryUmktRtTailmarketingRequest) SetPlanId(v string) *BatchqueryUmktRtTailmarketingRequest {
 	s.PlanId = &v
 	return s
 }
@@ -13835,7 +13835,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.3"),
+				"sdk_version":      tea.String("1.11.4"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
