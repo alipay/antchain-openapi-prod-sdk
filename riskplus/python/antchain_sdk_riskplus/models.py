@@ -15763,7 +15763,7 @@ class BatchqueryUmktRtTailmarketingRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        plan_id: int = None,
+        plan_id: str = None,
         query_template: str = None,
         customer_keys: List[str] = None,
         biz_serial_no: str = None,
