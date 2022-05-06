@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.3',
+    sdk_version = '1.11.4',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -5699,7 +5699,7 @@ model BatchqueryUmktRtTailmarketingRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 营销计划id
-  planId: long(name='plan_id'),
+  planId: string(name='plan_id'),
   // 	
   // 用户列表传输模版
   queryTemplate: string(name='query_template'),
