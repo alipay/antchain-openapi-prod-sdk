@@ -14,7 +14,7 @@ public class BatchqueryUmktRtTailmarketingRequest extends TeaModel {
     // 营销计划id
     @NameInMap("plan_id")
     @Validation(required = true)
-    public Long planId;
+    public String planId;
 
     // 	
     // 用户列表传输模版
@@ -54,11 +54,11 @@ public class BatchqueryUmktRtTailmarketingRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public BatchqueryUmktRtTailmarketingRequest setPlanId(Long planId) {
+    public BatchqueryUmktRtTailmarketingRequest setPlanId(String planId) {
         this.planId = planId;
         return this;
     }
-    public Long getPlanId() {
+    public String getPlanId() {
         return this.planId;
     }
 
