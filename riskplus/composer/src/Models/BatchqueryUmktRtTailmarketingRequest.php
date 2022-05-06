@@ -21,7 +21,7 @@ class BatchqueryUmktRtTailmarketingRequest extends Model
 
     // 营销计划id
     /**
-     * @var int
+     * @var string
      */
     public $planId;
 
