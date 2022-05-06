@@ -10038,7 +10038,7 @@ export class BatchqueryUmktRtTailmarketingRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 营销计划id
-  planId: number;
+  planId: string;
   // 	
   // 用户列表传输模版
   queryTemplate: string;
@@ -10062,7 +10062,7 @@ export class BatchqueryUmktRtTailmarketingRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      planId: 'number',
+      planId: 'string',
       queryTemplate: 'string',
       customerKeys: { 'type': 'array', 'itemType': 'string' },
       bizSerialNo: 'string',
@@ -10388,7 +10388,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.3",
+          sdk_version: "1.11.4",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
