@@ -1346,6 +1346,43 @@ export class RtopRiskStormCompanyAnnualReport extends $tea.Model {
   }
 }
 
+// 营销盾场景策略上传结果
+export class StrategyUploadResult extends $tea.Model {
+  // 元数据id
+  ruleMetaId?: number;
+  // 场景id
+  sceneId?: number;
+  // 租户场景id
+  tenantSceneId?: number;
+  // 圈客规则id
+  decisionRuleId?: number;
+  // 场景策略id
+  sceneStrategyId?: number;
+  static names(): { [key: string]: string } {
+    return {
+      ruleMetaId: 'rule_meta_id',
+      sceneId: 'scene_id',
+      tenantSceneId: 'tenant_scene_id',
+      decisionRuleId: 'decision_rule_id',
+      sceneStrategyId: 'scene_strategy_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ruleMetaId: 'number',
+      sceneId: 'number',
+      tenantSceneId: 'number',
+      decisionRuleId: 'number',
+      sceneStrategyId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 全局动态中的企业
 export class RtopRiskyCompany extends $tea.Model {
   // 企业ID
@@ -5488,7 +5525,7 @@ export class QueryDubbridgeRiskinfoEnterprisescoreRequest extends $tea.Model {
   // 统一信用代码
   socialCreditCode: string;
   // MD5
-  mobileMd5: string;
+  mobile?: string;
   // 客户号
   customerNo: string;
   // 渠道号
@@ -5498,7 +5535,7 @@ export class QueryDubbridgeRiskinfoEnterprisescoreRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       socialCreditCode: 'social_credit_code',
-      mobileMd5: 'mobile_md5',
+      mobile: 'mobile',
       customerNo: 'customer_no',
       channelCode: 'channel_code',
     };
@@ -5509,7 +5546,7 @@ export class QueryDubbridgeRiskinfoEnterprisescoreRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       socialCreditCode: 'string',
-      mobileMd5: 'string',
+      mobile: 'string',
       customerNo: 'string',
       channelCode: 'string',
     };
@@ -10012,11 +10049,17 @@ export class ImportUmktSceneUploadResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 请求结果
+  success?: boolean;
+  // 场景构建结果体
+  uploadResult?: StrategyUploadResult;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      success: 'success',
+      uploadResult: 'upload_result',
     };
   }
 
@@ -10025,6 +10068,8 @@ export class ImportUmktSceneUploadResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      success: 'boolean',
+      uploadResult: StrategyUploadResult,
     };
   }
 
@@ -10388,7 +10433,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.4",
+          sdk_version: "1.11.7",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
