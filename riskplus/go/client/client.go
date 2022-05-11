@@ -1842,6 +1842,53 @@ func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportYear(v string) *RtopRi
 	return s
 }
 
+// 营销盾场景策略上传结果
+type StrategyUploadResult struct {
+	// 元数据id
+	RuleMetaId *int64 `json:"rule_meta_id,omitempty" xml:"rule_meta_id,omitempty"`
+	// 场景id
+	SceneId *int64 `json:"scene_id,omitempty" xml:"scene_id,omitempty"`
+	// 租户场景id
+	TenantSceneId *int64 `json:"tenant_scene_id,omitempty" xml:"tenant_scene_id,omitempty"`
+	// 圈客规则id
+	DecisionRuleId *int64 `json:"decision_rule_id,omitempty" xml:"decision_rule_id,omitempty"`
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty"`
+}
+
+func (s StrategyUploadResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StrategyUploadResult) GoString() string {
+	return s.String()
+}
+
+func (s *StrategyUploadResult) SetRuleMetaId(v int64) *StrategyUploadResult {
+	s.RuleMetaId = &v
+	return s
+}
+
+func (s *StrategyUploadResult) SetSceneId(v int64) *StrategyUploadResult {
+	s.SceneId = &v
+	return s
+}
+
+func (s *StrategyUploadResult) SetTenantSceneId(v int64) *StrategyUploadResult {
+	s.TenantSceneId = &v
+	return s
+}
+
+func (s *StrategyUploadResult) SetDecisionRuleId(v int64) *StrategyUploadResult {
+	s.DecisionRuleId = &v
+	return s
+}
+
+func (s *StrategyUploadResult) SetSceneStrategyId(v int64) *StrategyUploadResult {
+	s.SceneStrategyId = &v
+	return s
+}
+
 // 全局动态中的企业
 type RtopRiskyCompany struct {
 	// 企业ID
@@ -7396,7 +7443,7 @@ type QueryDubbridgeRiskinfoEnterprisescoreRequest struct {
 	// 统一信用代码
 	SocialCreditCode *string `json:"social_credit_code,omitempty" xml:"social_credit_code,omitempty" require:"true"`
 	// MD5
-	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty" require:"true"`
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
 	// 客户号
 	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty" require:"true"`
 	// 渠道号
@@ -7426,8 +7473,8 @@ func (s *QueryDubbridgeRiskinfoEnterprisescoreRequest) SetSocialCreditCode(v str
 	return s
 }
 
-func (s *QueryDubbridgeRiskinfoEnterprisescoreRequest) SetMobileMd5(v string) *QueryDubbridgeRiskinfoEnterprisescoreRequest {
-	s.MobileMd5 = &v
+func (s *QueryDubbridgeRiskinfoEnterprisescoreRequest) SetMobile(v string) *QueryDubbridgeRiskinfoEnterprisescoreRequest {
+	s.Mobile = &v
 	return s
 }
 
@@ -13368,6 +13415,10 @@ type ImportUmktSceneUploadResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 场景构建结果体
+	UploadResult *StrategyUploadResult `json:"upload_result,omitempty" xml:"upload_result,omitempty"`
 }
 
 func (s ImportUmktSceneUploadResponse) String() string {
@@ -13390,6 +13441,16 @@ func (s *ImportUmktSceneUploadResponse) SetResultCode(v string) *ImportUmktScene
 
 func (s *ImportUmktSceneUploadResponse) SetResultMsg(v string) *ImportUmktSceneUploadResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *ImportUmktSceneUploadResponse) SetSuccess(v bool) *ImportUmktSceneUploadResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ImportUmktSceneUploadResponse) SetUploadResult(v *StrategyUploadResult) *ImportUmktSceneUploadResponse {
+	s.UploadResult = v
 	return s
 }
 
@@ -13835,7 +13896,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.4"),
+				"sdk_version":      tea.String("1.11.7"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
