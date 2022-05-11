@@ -25,10 +25,24 @@ class ImportUmktSceneUploadResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 请求结果
+    /**
+     * @var bool
+     */
+    public $success;
+
+    // 场景构建结果体
+    /**
+     * @var StrategyUploadResult
+     */
+    public $uploadResult;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'success'      => 'success',
+        'uploadResult' => 'upload_result',
     ];
 
     public function validate()
@@ -46,6 +60,12 @@ class ImportUmktSceneUploadResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
+        }
+        if (null !== $this->uploadResult) {
+            $res['upload_result'] = null !== $this->uploadResult ? $this->uploadResult->toMap() : null;
         }
 
         return $res;
@@ -67,6 +87,12 @@ class ImportUmktSceneUploadResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['success'])) {
+            $model->success = $map['success'];
+        }
+        if (isset($map['upload_result'])) {
+            $model->uploadResult = StrategyUploadResult::fromMap($map['upload_result']);
         }
 
         return $model;
