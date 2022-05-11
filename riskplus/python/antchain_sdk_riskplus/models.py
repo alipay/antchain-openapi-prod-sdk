@@ -2141,6 +2141,58 @@ class RtopRiskStormCompanyAnnualReport(TeaModel):
         return self
 
 
+class StrategyUploadResult(TeaModel):
+    def __init__(
+        self,
+        rule_meta_id: int = None,
+        scene_id: int = None,
+        tenant_scene_id: int = None,
+        decision_rule_id: int = None,
+        scene_strategy_id: int = None,
+    ):
+        # 元数据id
+        self.rule_meta_id = rule_meta_id
+        # 场景id
+        self.scene_id = scene_id
+        # 租户场景id
+        self.tenant_scene_id = tenant_scene_id
+        # 圈客规则id
+        self.decision_rule_id = decision_rule_id
+        # 场景策略id
+        self.scene_strategy_id = scene_strategy_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.rule_meta_id is not None:
+            result['rule_meta_id'] = self.rule_meta_id
+        if self.scene_id is not None:
+            result['scene_id'] = self.scene_id
+        if self.tenant_scene_id is not None:
+            result['tenant_scene_id'] = self.tenant_scene_id
+        if self.decision_rule_id is not None:
+            result['decision_rule_id'] = self.decision_rule_id
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('rule_meta_id') is not None:
+            self.rule_meta_id = m.get('rule_meta_id')
+        if m.get('scene_id') is not None:
+            self.scene_id = m.get('scene_id')
+        if m.get('tenant_scene_id') is not None:
+            self.tenant_scene_id = m.get('tenant_scene_id')
+        if m.get('decision_rule_id') is not None:
+            self.decision_rule_id = m.get('decision_rule_id')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        return self
+
+
 class RtopRiskyCompany(TeaModel):
     def __init__(
         self,
@@ -8606,7 +8658,7 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         social_credit_code: str = None,
-        mobile_md_5: str = None,
+        mobile: str = None,
         customer_no: str = None,
         channel_code: str = None,
     ):
@@ -8616,7 +8668,7 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest(TeaModel):
         # 统一信用代码
         self.social_credit_code = social_credit_code
         # MD5
-        self.mobile_md_5 = mobile_md_5
+        self.mobile = mobile
         # 客户号
         self.customer_no = customer_no
         # 渠道号
@@ -8624,7 +8676,6 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.social_credit_code, 'social_credit_code')
-        self.validate_required(self.mobile_md_5, 'mobile_md_5')
         self.validate_required(self.customer_no, 'customer_no')
         self.validate_required(self.channel_code, 'channel_code')
 
@@ -8636,8 +8687,8 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.social_credit_code is not None:
             result['social_credit_code'] = self.social_credit_code
-        if self.mobile_md_5 is not None:
-            result['mobile_md5'] = self.mobile_md_5
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
         if self.customer_no is not None:
             result['customer_no'] = self.customer_no
         if self.channel_code is not None:
@@ -8652,8 +8703,8 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('social_credit_code') is not None:
             self.social_credit_code = m.get('social_credit_code')
-        if m.get('mobile_md5') is not None:
-            self.mobile_md_5 = m.get('mobile_md5')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
         if m.get('customer_no') is not None:
             self.customer_no = m.get('customer_no')
         if m.get('channel_code') is not None:
@@ -15726,6 +15777,8 @@ class ImportUmktSceneUploadResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        success: bool = None,
+        upload_result: StrategyUploadResult = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -15733,9 +15786,14 @@ class ImportUmktSceneUploadResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 请求结果
+        self.success = success
+        # 场景构建结果体
+        self.upload_result = upload_result
 
     def validate(self):
-        pass
+        if self.upload_result:
+            self.upload_result.validate()
 
     def to_map(self):
         result = dict()
@@ -15745,6 +15803,10 @@ class ImportUmktSceneUploadResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.upload_result is not None:
+            result['upload_result'] = self.upload_result.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -15755,6 +15817,11 @@ class ImportUmktSceneUploadResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('upload_result') is not None:
+            temp_model = StrategyUploadResult()
+            self.upload_result = temp_model.from_map(m['upload_result'])
         return self
 
 
