@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.4',
+    sdk_version = '1.11.7',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -668,6 +668,20 @@ model RtopRiskStormCompanyAnnualReport {
   annualReportTotalTax?: string(name='annual_report_total_tax', example='1000'),
   // 年报报送年度
   annualReportYear?: string(name='annual_report_year', example='2018'),
+}
+
+// 营销盾场景策略上传结果
+model StrategyUploadResult {
+  // 元数据id
+  ruleMetaId?: long(name='rule_meta_id', example=''),
+  // 场景id
+  sceneId?: long(name='scene_id', example=''),
+  // 租户场景id
+  tenantSceneId?: long(name='tenant_scene_id', example=''),
+  // 圈客规则id
+  decisionRuleId?: long(name='decision_rule_id', example=''),
+  // 场景策略id
+  sceneStrategyId?: long(name='scene_strategy_id', example=''),
 }
 
 // 全局动态中的企业
@@ -2901,7 +2915,7 @@ model QueryDubbridgeRiskinfoEnterprisescoreRequest = {
   // 统一信用代码
   socialCreditCode: string(name='social_credit_code'),
   // MD5
-  mobileMd5: string(name='mobile_md5'),
+  mobile?: string(name='mobile'),
   // 客户号
   customerNo: string(name='customer_no'),
   // 渠道号
@@ -5673,6 +5687,10 @@ model ImportUmktSceneUploadResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 请求结果
+  success?: boolean(name='success'),
+  // 场景构建结果体
+  uploadResult?: StrategyUploadResult(name='upload_result'),
 }
 
 /**
