@@ -16,6 +16,14 @@ public class ImportUmktSceneUploadResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 请求结果
+    @NameInMap("success")
+    public Boolean success;
+
+    // 场景构建结果体
+    @NameInMap("upload_result")
+    public StrategyUploadResult uploadResult;
+
     public static ImportUmktSceneUploadResponse build(java.util.Map<String, ?> map) throws Exception {
         ImportUmktSceneUploadResponse self = new ImportUmktSceneUploadResponse();
         return TeaModel.build(map, self);
@@ -43,6 +51,22 @@ public class ImportUmktSceneUploadResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public ImportUmktSceneUploadResponse setSuccess(Boolean success) {
+        this.success = success;
+        return this;
+    }
+    public Boolean getSuccess() {
+        return this.success;
+    }
+
+    public ImportUmktSceneUploadResponse setUploadResult(StrategyUploadResult uploadResult) {
+        this.uploadResult = uploadResult;
+        return this;
+    }
+    public StrategyUploadResult getUploadResult() {
+        return this.uploadResult;
     }
 
 }

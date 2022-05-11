@@ -17,9 +17,8 @@ public class QueryDubbridgeRiskinfoEnterprisescoreRequest extends TeaModel {
     public String socialCreditCode;
 
     // MD5
-    @NameInMap("mobile_md5")
-    @Validation(required = true)
-    public String mobileMd5;
+    @NameInMap("mobile")
+    public String mobile;
 
     // 客户号
     @NameInMap("customer_no")
@@ -60,12 +59,12 @@ public class QueryDubbridgeRiskinfoEnterprisescoreRequest extends TeaModel {
         return this.socialCreditCode;
     }
 
-    public QueryDubbridgeRiskinfoEnterprisescoreRequest setMobileMd5(String mobileMd5) {
-        this.mobileMd5 = mobileMd5;
+    public QueryDubbridgeRiskinfoEnterprisescoreRequest setMobile(String mobile) {
+        this.mobile = mobile;
         return this;
     }
-    public String getMobileMd5() {
-        return this.mobileMd5;
+    public String getMobile() {
+        return this.mobile;
     }
 
     public QueryDubbridgeRiskinfoEnterprisescoreRequest setCustomerNo(String customerNo) {
