@@ -6,7 +6,7 @@ namespace AntChain\CAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class MiddlewareCluster extends Model
+class MiddlewareClusterInstance extends Model
 {
     // cluster_id
     /**
@@ -47,12 +47,30 @@ class MiddlewareCluster extends Model
      * @var string
      */
     public $acvipEndpoint;
+
+    // instance_id
+    /**
+     * @example instance_id
+     *
+     * @var string
+     */
+    public $instanceId;
+
+    // workspace_group_name
+    /**
+     * @example workspace_group_name
+     *
+     * @var string
+     */
+    public $workspaceGroupName;
     protected $_name = [
-        'clusterId'     => 'cluster_id',
-        'clusterName'   => 'cluster_name',
-        'regionIds'     => 'region_ids',
-        'zoneIds'       => 'zone_ids',
-        'acvipEndpoint' => 'acvip_endpoint',
+        'clusterId'          => 'cluster_id',
+        'clusterName'        => 'cluster_name',
+        'regionIds'          => 'region_ids',
+        'zoneIds'            => 'zone_ids',
+        'acvipEndpoint'      => 'acvip_endpoint',
+        'instanceId'         => 'instance_id',
+        'workspaceGroupName' => 'workspace_group_name',
     ];
 
     public function validate()
@@ -81,6 +99,12 @@ class MiddlewareCluster extends Model
         if (null !== $this->acvipEndpoint) {
             $res['acvip_endpoint'] = $this->acvipEndpoint;
         }
+        if (null !== $this->instanceId) {
+            $res['instance_id'] = $this->instanceId;
+        }
+        if (null !== $this->workspaceGroupName) {
+            $res['workspace_group_name'] = $this->workspaceGroupName;
+        }
 
         return $res;
     }
@@ -88,7 +112,7 @@ class MiddlewareCluster extends Model
     /**
      * @param array $map
      *
-     * @return MiddlewareCluster
+     * @return MiddlewareClusterInstance
      */
     public static function fromMap($map = [])
     {
@@ -111,6 +135,12 @@ class MiddlewareCluster extends Model
         }
         if (isset($map['acvip_endpoint'])) {
             $model->acvipEndpoint = $map['acvip_endpoint'];
+        }
+        if (isset($map['instance_id'])) {
+            $model->instanceId = $map['instance_id'];
+        }
+        if (isset($map['workspace_group_name'])) {
+            $model->workspaceGroupName = $map['workspace_group_name'];
         }
 
         return $model;

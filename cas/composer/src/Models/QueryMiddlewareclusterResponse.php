@@ -28,14 +28,14 @@ class QueryMiddlewareclusterResponse extends Model
 
     // data
     /**
-     * @var MiddlewareCluster[]
+     * @var MiddlewareClusterInstance[]
      */
-    public $data;
+    public $instances;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'data'       => 'data',
+        'instances'  => 'instances',
     ];
 
     public function validate()
@@ -54,12 +54,12 @@ class QueryMiddlewareclusterResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->data) {
-            $res['data'] = [];
-            if (null !== $this->data && \is_array($this->data)) {
+        if (null !== $this->instances) {
+            $res['instances'] = [];
+            if (null !== $this->instances && \is_array($this->instances)) {
                 $n = 0;
-                foreach ($this->data as $item) {
-                    $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->instances as $item) {
+                    $res['instances'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -84,12 +84,12 @@ class QueryMiddlewareclusterResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['data'])) {
-            if (!empty($map['data'])) {
-                $model->data = [];
-                $n           = 0;
-                foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? MiddlewareCluster::fromMap($item) : $item;
+        if (isset($map['instances'])) {
+            if (!empty($map['instances'])) {
+                $model->instances = [];
+                $n                = 0;
+                foreach ($map['instances'] as $item) {
+                    $model->instances[$n++] = null !== $item ? MiddlewareClusterInstance::fromMap($item) : $item;
                 }
             }
         }
