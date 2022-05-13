@@ -48,6 +48,11 @@ public class StubCommonInfo extends TeaModel {
     @Validation(required = true)
     public Long stubAmount;
 
+    // 客户id。支付宝情况下传支付宝id，2088打头；景区时可传自定义的客户id
+    @NameInMap("customer_id")
+    @Validation(required = true)
+    public String customerId;
+
     public static StubCommonInfo build(java.util.Map<String, ?> map) throws Exception {
         StubCommonInfo self = new StubCommonInfo();
         return TeaModel.build(map, self);
@@ -123,6 +128,14 @@ public class StubCommonInfo extends TeaModel {
     }
     public Long getStubAmount() {
         return this.stubAmount;
+    }
+
+    public StubCommonInfo setCustomerId(String customerId) {
+        this.customerId = customerId;
+        return this;
+    }
+    public String getCustomerId() {
+        return this.customerId;
     }
 
 }

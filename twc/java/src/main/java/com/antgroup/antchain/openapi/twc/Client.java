@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.39")
+                    new TeaPair("sdk_version", "1.7.41")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -4683,5 +4683,24 @@ public class Client {
     public CreateStubResponse createStubEx(CreateStubRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.stub.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateStubResponse());
+    }
+
+    /**
+     * Description: 查询数字票根是否存在
+     * Summary: 查询数字票根是否存在
+     */
+    public ExistStubResponse existStub(ExistStubRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.existStubEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询数字票根是否存在
+     * Summary: 查询数字票根是否存在
+     */
+    public ExistStubResponse existStubEx(ExistStubRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.stub.exist", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExistStubResponse());
     }
 }
