@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.39',
+    sdk_version = '1.7.41',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -845,6 +845,8 @@ model StubCommonInfo {
   orderTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='order_time', example='2022-04-15 17:05:37'),
   // 待分账金额，单位：分。如传100，即为100分，1元
   stubAmount: long(name='stub_amount', example='100'),
+  // 客户id。支付宝情况下传支付宝id，2088打头；景区时可传自定义的客户id
+  customerId: string(name='customer_id', example='2088xxxxx'),
 }
 
 // 见证流程创建响应数据
@@ -1571,8 +1573,6 @@ model LeaseRepaymentInfo {
 
 // 数字票根扩展字段
 model StubExtraInfo {
-  // C端用户的支付宝id
-  customerId: string(name='customer_id', example='2088xxxxx'),
   // 票面视觉
   ticketVision?: string(name='ticket_vision', example='https://www.xx.com'),
 }
@@ -14204,5 +14204,47 @@ async function createStub(request: CreateStubRequest): CreateStubResponse {
 async function createStubEx(request: CreateStubRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateStubResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.stub.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExistStubRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 客户id。支付宝情况下传支付宝id，2088打头；景区情况下为自定义的客户id
+  customerId: string(name='customer_id'),
+  // 景区名称
+  sceneName: string(name='scene_name'),
+}
+
+model ExistStubResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否存在数字票根。true：存在；false：不存在
+  exist?: boolean(name='exist'),
+}
+
+/**
+ * Description: 查询数字票根是否存在
+ * Summary: 查询数字票根是否存在
+ */
+async function existStub(request: ExistStubRequest): ExistStubResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return existStubEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数字票根是否存在
+ * Summary: 查询数字票根是否存在
+ */
+async function existStubEx(request: ExistStubRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExistStubResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.stub.exist', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
