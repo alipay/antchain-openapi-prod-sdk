@@ -8340,61 +8340,6 @@ class RouteTable(TeaModel):
         return self
 
 
-class MiddlewareCluster(TeaModel):
-    def __init__(
-        self,
-        cluster_id: str = None,
-        cluster_name: str = None,
-        region_ids: List[str] = None,
-        zone_ids: List[str] = None,
-        acvip_endpoint: str = None,
-    ):
-        # cluster_id
-        self.cluster_id = cluster_id
-        # cluster_name
-        self.cluster_name = cluster_name
-        # region_ids
-        self.region_ids = region_ids
-        # zone_ids
-        self.zone_ids = zone_ids
-        # acvip_endpoint
-        self.acvip_endpoint = acvip_endpoint
-
-    def validate(self):
-        self.validate_required(self.cluster_id, 'cluster_id')
-        self.validate_required(self.cluster_name, 'cluster_name')
-        self.validate_required(self.region_ids, 'region_ids')
-        self.validate_required(self.acvip_endpoint, 'acvip_endpoint')
-
-    def to_map(self):
-        result = dict()
-        if self.cluster_id is not None:
-            result['cluster_id'] = self.cluster_id
-        if self.cluster_name is not None:
-            result['cluster_name'] = self.cluster_name
-        if self.region_ids is not None:
-            result['region_ids'] = self.region_ids
-        if self.zone_ids is not None:
-            result['zone_ids'] = self.zone_ids
-        if self.acvip_endpoint is not None:
-            result['acvip_endpoint'] = self.acvip_endpoint
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('cluster_id') is not None:
-            self.cluster_id = m.get('cluster_id')
-        if m.get('cluster_name') is not None:
-            self.cluster_name = m.get('cluster_name')
-        if m.get('region_ids') is not None:
-            self.region_ids = m.get('region_ids')
-        if m.get('zone_ids') is not None:
-            self.zone_ids = m.get('zone_ids')
-        if m.get('acvip_endpoint') is not None:
-            self.acvip_endpoint = m.get('acvip_endpoint')
-        return self
-
-
 class SLSConfig(TeaModel):
     def __init__(
         self,
@@ -11744,6 +11689,75 @@ class DatabaseSchema(TeaModel):
             self.name = m.get('name')
         if m.get('is_serial') is not None:
             self.is_serial = m.get('is_serial')
+        return self
+
+
+class MiddlewareClusterInstance(TeaModel):
+    def __init__(
+        self,
+        cluster_id: str = None,
+        cluster_name: str = None,
+        region_ids: List[str] = None,
+        zone_ids: List[str] = None,
+        acvip_endpoint: str = None,
+        instance_id: str = None,
+        workspace_group_name: str = None,
+    ):
+        # cluster_id
+        self.cluster_id = cluster_id
+        # cluster_name
+        self.cluster_name = cluster_name
+        # region_ids
+        self.region_ids = region_ids
+        # zone_ids
+        self.zone_ids = zone_ids
+        # acvip_endpoint
+        self.acvip_endpoint = acvip_endpoint
+        # instance_id
+        self.instance_id = instance_id
+        # workspace_group_name
+        self.workspace_group_name = workspace_group_name
+
+    def validate(self):
+        self.validate_required(self.cluster_id, 'cluster_id')
+        self.validate_required(self.cluster_name, 'cluster_name')
+        self.validate_required(self.region_ids, 'region_ids')
+        self.validate_required(self.acvip_endpoint, 'acvip_endpoint')
+
+    def to_map(self):
+        result = dict()
+        if self.cluster_id is not None:
+            result['cluster_id'] = self.cluster_id
+        if self.cluster_name is not None:
+            result['cluster_name'] = self.cluster_name
+        if self.region_ids is not None:
+            result['region_ids'] = self.region_ids
+        if self.zone_ids is not None:
+            result['zone_ids'] = self.zone_ids
+        if self.acvip_endpoint is not None:
+            result['acvip_endpoint'] = self.acvip_endpoint
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.workspace_group_name is not None:
+            result['workspace_group_name'] = self.workspace_group_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cluster_id') is not None:
+            self.cluster_id = m.get('cluster_id')
+        if m.get('cluster_name') is not None:
+            self.cluster_name = m.get('cluster_name')
+        if m.get('region_ids') is not None:
+            self.region_ids = m.get('region_ids')
+        if m.get('zone_ids') is not None:
+            self.zone_ids = m.get('zone_ids')
+        if m.get('acvip_endpoint') is not None:
+            self.acvip_endpoint = m.get('acvip_endpoint')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('workspace_group_name') is not None:
+            self.workspace_group_name = m.get('workspace_group_name')
         return self
 
 
@@ -36989,7 +37003,7 @@ class QueryMiddlewareclusterResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        data: List[MiddlewareCluster] = None,
+        instances: List[MiddlewareClusterInstance] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -36998,11 +37012,11 @@ class QueryMiddlewareclusterResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # data
-        self.data = data
+        self.instances = instances
 
     def validate(self):
-        if self.data:
-            for k in self.data:
+        if self.instances:
+            for k in self.instances:
                 if k:
                     k.validate()
 
@@ -37014,10 +37028,10 @@ class QueryMiddlewareclusterResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        result['data'] = []
-        if self.data is not None:
-            for k in self.data:
-                result['data'].append(k.to_map() if k else None)
+        result['instances'] = []
+        if self.instances is not None:
+            for k in self.instances:
+                result['instances'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -37028,11 +37042,11 @@ class QueryMiddlewareclusterResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        self.data = []
-        if m.get('data') is not None:
-            for k in m.get('data'):
-                temp_model = MiddlewareCluster()
-                self.data.append(temp_model.from_map(k))
+        self.instances = []
+        if m.get('instances') is not None:
+            for k in m.get('instances'):
+                temp_model = MiddlewareClusterInstance()
+                self.instances.append(temp_model.from_map(k))
         return self
 
 

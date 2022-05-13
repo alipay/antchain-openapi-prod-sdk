@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_cas.
 
-Created on 06/04/2022
+Created on 13/05/2022
 
 @author: Ant Chain SDK
 """
