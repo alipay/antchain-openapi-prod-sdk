@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.11',
+    sdk_version = '1.4.13',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -2283,20 +2283,6 @@ model RouteTable {
   vRouterId?: string(name='v_router_id', example='vtb-bp1krxxzp0c29fmon****'),
 }
 
-// 中间件集群
-model MiddlewareCluster {
-  // cluster_id
-  clusterId: string(name='cluster_id', example='cluster_id'),
-  // cluster_name
-  clusterName: string(name='cluster_name', example='cluster_name'),
-  // region_ids
-  regionIds: [ string ](name='region_ids', example=''),
-  // zone_ids
-  zoneIds?: [ string ](name='zone_ids', example=''),
-  // acvip_endpoint
-  acvipEndpoint: string(name='acvip_endpoint', example='1.1.1.1'),
-}
-
 // 阿里云日志服务(SLS)-日志配置
 model SLSConfig {
   // Logtail配置名称，同一Project下配置名必须唯一。
@@ -3169,6 +3155,24 @@ model DatabaseSchema {
   name: string(name='name', example='ddd'),
   // 序列号是否连续。默认为 false
   isSerial?: boolean(name='is_serial', example='true, false'),
+}
+
+// 中间件集群实例
+model MiddlewareClusterInstance {
+  // cluster_id
+  clusterId: string(name='cluster_id', example='cluster_id'),
+  // cluster_name
+  clusterName: string(name='cluster_name', example='cluster_name'),
+  // region_ids
+  regionIds: [ string ](name='region_ids', example=''),
+  // zone_ids
+  zoneIds?: [ string ](name='zone_ids', example=''),
+  // acvip_endpoint
+  acvipEndpoint: string(name='acvip_endpoint', example='1.1.1.1'),
+  // instance_id
+  instanceId?: string(name='instance_id', example='instance_id'),
+  // workspace_group_name
+  workspaceGroupName?: string(name='workspace_group_name', example='workspace_group_name'),
 }
 
 // LoadBalancerImportVO
@@ -13844,7 +13848,7 @@ model QueryMiddlewareclusterResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
-  data?: [ MiddlewareCluster ](name='data'),
+  instances?: [ MiddlewareClusterInstance ](name='instances'),
 }
 
 /**
