@@ -79,6 +79,14 @@ class StubCommonInfo extends Model
      * @var int
      */
     public $stubAmount;
+
+    // 客户id。支付宝情况下传支付宝id，2088打头；景区时可传自定义的客户id
+    /**
+     * @example 2088xxxxx
+     *
+     * @var string
+     */
+    public $customerId;
     protected $_name = [
         'projectName' => 'project_name',
         'sceneName'   => 'scene_name',
@@ -89,6 +97,7 @@ class StubCommonInfo extends Model
         'orderAmount' => 'order_amount',
         'orderTime'   => 'order_time',
         'stubAmount'  => 'stub_amount',
+        'customerId'  => 'customer_id',
     ];
 
     public function validate()
@@ -101,6 +110,7 @@ class StubCommonInfo extends Model
         Model::validateRequired('orderAmount', $this->orderAmount, true);
         Model::validateRequired('orderTime', $this->orderTime, true);
         Model::validateRequired('stubAmount', $this->stubAmount, true);
+        Model::validateRequired('customerId', $this->customerId, true);
         Model::validatePattern('orderTime', $this->orderTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
@@ -133,6 +143,9 @@ class StubCommonInfo extends Model
         }
         if (null !== $this->stubAmount) {
             $res['stub_amount'] = $this->stubAmount;
+        }
+        if (null !== $this->customerId) {
+            $res['customer_id'] = $this->customerId;
         }
 
         return $res;
@@ -172,6 +185,9 @@ class StubCommonInfo extends Model
         }
         if (isset($map['stub_amount'])) {
             $model->stubAmount = $map['stub_amount'];
+        }
+        if (isset($map['customer_id'])) {
+            $model->customerId = $map['customer_id'];
         }
 
         return $model;

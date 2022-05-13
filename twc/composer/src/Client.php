@@ -241,6 +241,8 @@ use AntChain\TWC\Models\DownloadJusticeCasefileRequest;
 use AntChain\TWC\Models\DownloadJusticeCasefileResponse;
 use AntChain\TWC\Models\ExecContractCourtdeductRequest;
 use AntChain\TWC\Models\ExecContractCourtdeductResponse;
+use AntChain\TWC\Models\ExistStubRequest;
+use AntChain\TWC\Models\ExistStubResponse;
 use AntChain\TWC\Models\FinishFlowInstanceRequest;
 use AntChain\TWC\Models\FinishFlowInstanceResponse;
 use AntChain\TWC\Models\FinishLeaseSupplierstatusRequest;
@@ -634,7 +636,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.39',
+                    'sdk_version'      => '1.7.41',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -8536,5 +8538,38 @@ class Client
         Utils::validateModel($request);
 
         return CreateStubResponse::fromMap($this->doRequest('1.0', 'twc.notary.stub.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询数字票根是否存在
+     * Summary: 查询数字票根是否存在.
+     *
+     * @param ExistStubRequest $request
+     *
+     * @return ExistStubResponse
+     */
+    public function existStub($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->existStubEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询数字票根是否存在
+     * Summary: 查询数字票根是否存在.
+     *
+     * @param ExistStubRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return ExistStubResponse
+     */
+    public function existStubEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExistStubResponse::fromMap($this->doRequest('1.0', 'twc.notary.stub.exist', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
