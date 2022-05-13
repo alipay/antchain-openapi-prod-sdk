@@ -7194,53 +7194,6 @@ func (s *RouteTable) SetVRouterId(v string) *RouteTable {
 	return s
 }
 
-// 中间件集群
-type MiddlewareCluster struct {
-	// cluster_id
-	ClusterId *string `json:"cluster_id,omitempty" xml:"cluster_id,omitempty" require:"true"`
-	// cluster_name
-	ClusterName *string `json:"cluster_name,omitempty" xml:"cluster_name,omitempty" require:"true"`
-	// region_ids
-	RegionIds []*string `json:"region_ids,omitempty" xml:"region_ids,omitempty" require:"true" type:"Repeated"`
-	// zone_ids
-	ZoneIds []*string `json:"zone_ids,omitempty" xml:"zone_ids,omitempty" type:"Repeated"`
-	// acvip_endpoint
-	AcvipEndpoint *string `json:"acvip_endpoint,omitempty" xml:"acvip_endpoint,omitempty" require:"true"`
-}
-
-func (s MiddlewareCluster) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MiddlewareCluster) GoString() string {
-	return s.String()
-}
-
-func (s *MiddlewareCluster) SetClusterId(v string) *MiddlewareCluster {
-	s.ClusterId = &v
-	return s
-}
-
-func (s *MiddlewareCluster) SetClusterName(v string) *MiddlewareCluster {
-	s.ClusterName = &v
-	return s
-}
-
-func (s *MiddlewareCluster) SetRegionIds(v []*string) *MiddlewareCluster {
-	s.RegionIds = v
-	return s
-}
-
-func (s *MiddlewareCluster) SetZoneIds(v []*string) *MiddlewareCluster {
-	s.ZoneIds = v
-	return s
-}
-
-func (s *MiddlewareCluster) SetAcvipEndpoint(v string) *MiddlewareCluster {
-	s.AcvipEndpoint = &v
-	return s
-}
-
 // 阿里云日志服务(SLS)-日志配置
 type SLSConfig struct {
 	// Logtail配置名称，同一Project下配置名必须唯一。
@@ -10176,6 +10129,67 @@ func (s *DatabaseSchema) SetName(v string) *DatabaseSchema {
 
 func (s *DatabaseSchema) SetIsSerial(v bool) *DatabaseSchema {
 	s.IsSerial = &v
+	return s
+}
+
+// 中间件集群实例
+type MiddlewareClusterInstance struct {
+	// cluster_id
+	ClusterId *string `json:"cluster_id,omitempty" xml:"cluster_id,omitempty" require:"true"`
+	// cluster_name
+	ClusterName *string `json:"cluster_name,omitempty" xml:"cluster_name,omitempty" require:"true"`
+	// region_ids
+	RegionIds []*string `json:"region_ids,omitempty" xml:"region_ids,omitempty" require:"true" type:"Repeated"`
+	// zone_ids
+	ZoneIds []*string `json:"zone_ids,omitempty" xml:"zone_ids,omitempty" type:"Repeated"`
+	// acvip_endpoint
+	AcvipEndpoint *string `json:"acvip_endpoint,omitempty" xml:"acvip_endpoint,omitempty" require:"true"`
+	// instance_id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty"`
+	// workspace_group_name
+	WorkspaceGroupName *string `json:"workspace_group_name,omitempty" xml:"workspace_group_name,omitempty"`
+}
+
+func (s MiddlewareClusterInstance) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MiddlewareClusterInstance) GoString() string {
+	return s.String()
+}
+
+func (s *MiddlewareClusterInstance) SetClusterId(v string) *MiddlewareClusterInstance {
+	s.ClusterId = &v
+	return s
+}
+
+func (s *MiddlewareClusterInstance) SetClusterName(v string) *MiddlewareClusterInstance {
+	s.ClusterName = &v
+	return s
+}
+
+func (s *MiddlewareClusterInstance) SetRegionIds(v []*string) *MiddlewareClusterInstance {
+	s.RegionIds = v
+	return s
+}
+
+func (s *MiddlewareClusterInstance) SetZoneIds(v []*string) *MiddlewareClusterInstance {
+	s.ZoneIds = v
+	return s
+}
+
+func (s *MiddlewareClusterInstance) SetAcvipEndpoint(v string) *MiddlewareClusterInstance {
+	s.AcvipEndpoint = &v
+	return s
+}
+
+func (s *MiddlewareClusterInstance) SetInstanceId(v string) *MiddlewareClusterInstance {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *MiddlewareClusterInstance) SetWorkspaceGroupName(v string) *MiddlewareClusterInstance {
+	s.WorkspaceGroupName = &v
 	return s
 }
 
@@ -31304,7 +31318,7 @@ type QueryMiddlewareclusterResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
-	Data []*MiddlewareCluster `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	Instances []*MiddlewareClusterInstance `json:"instances,omitempty" xml:"instances,omitempty" type:"Repeated"`
 }
 
 func (s QueryMiddlewareclusterResponse) String() string {
@@ -31330,8 +31344,8 @@ func (s *QueryMiddlewareclusterResponse) SetResultMsg(v string) *QueryMiddleware
 	return s
 }
 
-func (s *QueryMiddlewareclusterResponse) SetData(v []*MiddlewareCluster) *QueryMiddlewareclusterResponse {
-	s.Data = v
+func (s *QueryMiddlewareclusterResponse) SetInstances(v []*MiddlewareClusterInstance) *QueryMiddlewareclusterResponse {
+	s.Instances = v
 	return s
 }
 
@@ -31521,7 +31535,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.11"),
+				"sdk_version":      tea.String("1.4.13"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
