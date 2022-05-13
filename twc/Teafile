@@ -12,7 +12,7 @@
   "releases": {
     "java": "com.antgroup.antchain.openapi:openapi-twc:1.7.42",
     "go": "github.com/antchain-openapi-sdk-go/twc/client:v1.7.42",
-    "csharp": "AntChain.SDK.TWC:1.7.34",
+    "csharp": "AntChain.SDK.TWC:1.7.42",
     "ts": "@antchain/twc:1.7.42",
     "php": "antchain/twc:1.7.42",
     "python": "antchain_sdk_twc:1.7.42"
