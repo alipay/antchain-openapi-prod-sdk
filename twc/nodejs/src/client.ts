@@ -1722,6 +1722,8 @@ export class StubCommonInfo extends $tea.Model {
   orderTime: string;
   // 待分账金额，单位：分。如传100，即为100分，1元
   stubAmount: number;
+  // 客户id。支付宝情况下传支付宝id，2088打头；景区时可传自定义的客户id
+  customerId: string;
   static names(): { [key: string]: string } {
     return {
       projectName: 'project_name',
@@ -1733,6 +1735,7 @@ export class StubCommonInfo extends $tea.Model {
       orderAmount: 'order_amount',
       orderTime: 'order_time',
       stubAmount: 'stub_amount',
+      customerId: 'customer_id',
     };
   }
 
@@ -1747,6 +1750,7 @@ export class StubCommonInfo extends $tea.Model {
       orderAmount: 'number',
       orderTime: 'string',
       stubAmount: 'number',
+      customerId: 'string',
     };
   }
 
@@ -3580,20 +3584,16 @@ export class LeaseRepaymentInfo extends $tea.Model {
 
 // 数字票根扩展字段
 export class StubExtraInfo extends $tea.Model {
-  // C端用户的支付宝id
-  customerId: string;
   // 票面视觉
   ticketVision?: string;
   static names(): { [key: string]: string } {
     return {
-      customerId: 'customer_id',
       ticketVision: 'ticket_vision',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      customerId: 'string',
       ticketVision: 'string',
     };
   }
@@ -24801,6 +24801,73 @@ export class CreateStubResponse extends $tea.Model {
   }
 }
 
+export class ExistStubRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id
+  flowId: string;
+  // 客户id。支付宝情况下传支付宝id，2088打头；景区情况下为自定义的客户id
+  customerId: string;
+  // 景区名称
+  sceneName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      customerId: 'customer_id',
+      sceneName: 'scene_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      customerId: 'string',
+      sceneName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExistStubResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否存在数字票根。true：存在；false：不存在
+  exist?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      exist: 'exist',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      exist: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -24914,7 +24981,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.39",
+          sdk_version: "1.7.41",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -29484,6 +29551,25 @@ export default class Client {
   async createStubEx(request: CreateStubRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateStubResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateStubResponse>(await this.doRequest("1.0", "twc.notary.stub.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateStubResponse({}));
+  }
+
+  /**
+   * Description: 查询数字票根是否存在
+   * Summary: 查询数字票根是否存在
+   */
+  async existStub(request: ExistStubRequest): Promise<ExistStubResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.existStubEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询数字票根是否存在
+   * Summary: 查询数字票根是否存在
+   */
+  async existStubEx(request: ExistStubRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExistStubResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExistStubResponse>(await this.doRequest("1.0", "twc.notary.stub.exist", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExistStubResponse({}));
   }
 
 }
