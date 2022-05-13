@@ -17,8 +17,8 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
     public String resultMsg;
 
     // data
-    @NameInMap("data")
-    public java.util.List<MiddlewareCluster> data;
+    @NameInMap("instances")
+    public java.util.List<MiddlewareClusterInstance> instances;
 
     public static QueryMiddlewareclusterResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryMiddlewareclusterResponse self = new QueryMiddlewareclusterResponse();
@@ -49,12 +49,12 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryMiddlewareclusterResponse setData(java.util.List<MiddlewareCluster> data) {
-        this.data = data;
+    public QueryMiddlewareclusterResponse setInstances(java.util.List<MiddlewareClusterInstance> instances) {
+        this.instances = instances;
         return this;
     }
-    public java.util.List<MiddlewareCluster> getData() {
-        return this.data;
+    public java.util.List<MiddlewareClusterInstance> getInstances() {
+        return this.instances;
     }
 
 }

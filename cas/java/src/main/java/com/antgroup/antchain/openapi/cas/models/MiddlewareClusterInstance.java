@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.cas.models;
 
 import com.aliyun.tea.*;
 
-public class MiddlewareCluster extends TeaModel {
+public class MiddlewareClusterInstance extends TeaModel {
     // cluster_id
     @NameInMap("cluster_id")
     @Validation(required = true)
@@ -28,12 +28,20 @@ public class MiddlewareCluster extends TeaModel {
     @Validation(required = true)
     public String acvipEndpoint;
 
-    public static MiddlewareCluster build(java.util.Map<String, ?> map) throws Exception {
-        MiddlewareCluster self = new MiddlewareCluster();
+    // instance_id
+    @NameInMap("instance_id")
+    public String instanceId;
+
+    // workspace_group_name
+    @NameInMap("workspace_group_name")
+    public String workspaceGroupName;
+
+    public static MiddlewareClusterInstance build(java.util.Map<String, ?> map) throws Exception {
+        MiddlewareClusterInstance self = new MiddlewareClusterInstance();
         return TeaModel.build(map, self);
     }
 
-    public MiddlewareCluster setClusterId(String clusterId) {
+    public MiddlewareClusterInstance setClusterId(String clusterId) {
         this.clusterId = clusterId;
         return this;
     }
@@ -41,7 +49,7 @@ public class MiddlewareCluster extends TeaModel {
         return this.clusterId;
     }
 
-    public MiddlewareCluster setClusterName(String clusterName) {
+    public MiddlewareClusterInstance setClusterName(String clusterName) {
         this.clusterName = clusterName;
         return this;
     }
@@ -49,7 +57,7 @@ public class MiddlewareCluster extends TeaModel {
         return this.clusterName;
     }
 
-    public MiddlewareCluster setRegionIds(java.util.List<String> regionIds) {
+    public MiddlewareClusterInstance setRegionIds(java.util.List<String> regionIds) {
         this.regionIds = regionIds;
         return this;
     }
@@ -57,7 +65,7 @@ public class MiddlewareCluster extends TeaModel {
         return this.regionIds;
     }
 
-    public MiddlewareCluster setZoneIds(java.util.List<String> zoneIds) {
+    public MiddlewareClusterInstance setZoneIds(java.util.List<String> zoneIds) {
         this.zoneIds = zoneIds;
         return this;
     }
@@ -65,12 +73,28 @@ public class MiddlewareCluster extends TeaModel {
         return this.zoneIds;
     }
 
-    public MiddlewareCluster setAcvipEndpoint(String acvipEndpoint) {
+    public MiddlewareClusterInstance setAcvipEndpoint(String acvipEndpoint) {
         this.acvipEndpoint = acvipEndpoint;
         return this;
     }
     public String getAcvipEndpoint() {
         return this.acvipEndpoint;
+    }
+
+    public MiddlewareClusterInstance setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+        return this;
+    }
+    public String getInstanceId() {
+        return this.instanceId;
+    }
+
+    public MiddlewareClusterInstance setWorkspaceGroupName(String workspaceGroupName) {
+        this.workspaceGroupName = workspaceGroupName;
+        return this;
+    }
+    public String getWorkspaceGroupName() {
+        return this.workspaceGroupName;
     }
 
 }
