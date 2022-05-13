@@ -5042,43 +5042,6 @@ export class RouteTable extends $tea.Model {
   }
 }
 
-// 中间件集群
-export class MiddlewareCluster extends $tea.Model {
-  // cluster_id
-  clusterId: string;
-  // cluster_name
-  clusterName: string;
-  // region_ids
-  regionIds: string[];
-  // zone_ids
-  zoneIds?: string[];
-  // acvip_endpoint
-  acvipEndpoint: string;
-  static names(): { [key: string]: string } {
-    return {
-      clusterId: 'cluster_id',
-      clusterName: 'cluster_name',
-      regionIds: 'region_ids',
-      zoneIds: 'zone_ids',
-      acvipEndpoint: 'acvip_endpoint',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      clusterId: 'string',
-      clusterName: 'string',
-      regionIds: { 'type': 'array', 'itemType': 'string' },
-      zoneIds: { 'type': 'array', 'itemType': 'string' },
-      acvipEndpoint: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 阿里云日志服务(SLS)-日志配置
 export class SLSConfig extends $tea.Model {
   // Logtail配置名称，同一Project下配置名必须唯一。
@@ -7192,6 +7155,51 @@ export class DatabaseSchema extends $tea.Model {
       isAutoName: 'boolean',
       name: 'string',
       isSerial: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 中间件集群实例
+export class MiddlewareClusterInstance extends $tea.Model {
+  // cluster_id
+  clusterId: string;
+  // cluster_name
+  clusterName: string;
+  // region_ids
+  regionIds: string[];
+  // zone_ids
+  zoneIds?: string[];
+  // acvip_endpoint
+  acvipEndpoint: string;
+  // instance_id
+  instanceId?: string;
+  // workspace_group_name
+  workspaceGroupName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      clusterId: 'cluster_id',
+      clusterName: 'cluster_name',
+      regionIds: 'region_ids',
+      zoneIds: 'zone_ids',
+      acvipEndpoint: 'acvip_endpoint',
+      instanceId: 'instance_id',
+      workspaceGroupName: 'workspace_group_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      clusterId: 'string',
+      clusterName: 'string',
+      regionIds: { 'type': 'array', 'itemType': 'string' },
+      zoneIds: { 'type': 'array', 'itemType': 'string' },
+      acvipEndpoint: 'string',
+      instanceId: 'string',
+      workspaceGroupName: 'string',
     };
   }
 
@@ -24115,13 +24123,13 @@ export class QueryMiddlewareclusterResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // data
-  data?: MiddlewareCluster[];
+  instances?: MiddlewareClusterInstance[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      data: 'data',
+      instances: 'instances',
     };
   }
 
@@ -24130,7 +24138,7 @@ export class QueryMiddlewareclusterResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: { 'type': 'array', 'itemType': MiddlewareCluster },
+      instances: { 'type': 'array', 'itemType': MiddlewareClusterInstance },
     };
   }
 
@@ -24308,7 +24316,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.11",
+          sdk_version: "1.4.13",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
