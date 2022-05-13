@@ -2700,6 +2700,7 @@ class StubCommonInfo(TeaModel):
         order_amount: int = None,
         order_time: str = None,
         stub_amount: int = None,
+        customer_id: str = None,
     ):
         # 项目名称
         self.project_name = project_name
@@ -2719,6 +2720,8 @@ class StubCommonInfo(TeaModel):
         self.order_time = order_time
         # 待分账金额，单位：分。如传100，即为100分，1元
         self.stub_amount = stub_amount
+        # 客户id。支付宝情况下传支付宝id，2088打头；景区时可传自定义的客户id
+        self.customer_id = customer_id
 
     def validate(self):
         self.validate_required(self.project_name, 'project_name')
@@ -2731,6 +2734,7 @@ class StubCommonInfo(TeaModel):
         if self.order_time is not None:
             self.validate_pattern(self.order_time, 'order_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
         self.validate_required(self.stub_amount, 'stub_amount')
+        self.validate_required(self.customer_id, 'customer_id')
 
     def to_map(self):
         result = dict()
@@ -2752,6 +2756,8 @@ class StubCommonInfo(TeaModel):
             result['order_time'] = self.order_time
         if self.stub_amount is not None:
             result['stub_amount'] = self.stub_amount
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
         return result
 
     def from_map(self, m: dict = None):
@@ -2774,6 +2780,8 @@ class StubCommonInfo(TeaModel):
             self.order_time = m.get('order_time')
         if m.get('stub_amount') is not None:
             self.stub_amount = m.get('stub_amount')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
         return self
 
 
@@ -5582,29 +5590,22 @@ class LeaseRepaymentInfo(TeaModel):
 class StubExtraInfo(TeaModel):
     def __init__(
         self,
-        customer_id: str = None,
         ticket_vision: str = None,
     ):
-        # C端用户的支付宝id
-        self.customer_id = customer_id
         # 票面视觉
         self.ticket_vision = ticket_vision
 
     def validate(self):
-        self.validate_required(self.customer_id, 'customer_id')
+        pass
 
     def to_map(self):
         result = dict()
-        if self.customer_id is not None:
-            result['customer_id'] = self.customer_id
         if self.ticket_vision is not None:
             result['ticket_vision'] = self.ticket_vision
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('customer_id') is not None:
-            self.customer_id = m.get('customer_id')
         if m.get('ticket_vision') is not None:
             self.ticket_vision = m.get('ticket_vision')
         return self
@@ -38675,6 +38676,104 @@ class CreateStubResponse(TeaModel):
             for k in m.get('phase_create_result_list'):
                 temp_model = PhaseCreateResult()
                 self.phase_create_result_list.append(temp_model.from_map(k))
+        return self
+
+
+class ExistStubRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        flow_id: str = None,
+        customer_id: str = None,
+        scene_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 流程id
+        self.flow_id = flow_id
+        # 客户id。支付宝情况下传支付宝id，2088打头；景区情况下为自定义的客户id
+        self.customer_id = customer_id
+        # 景区名称
+        self.scene_name = scene_name
+
+    def validate(self):
+        self.validate_required(self.flow_id, 'flow_id')
+        self.validate_required(self.customer_id, 'customer_id')
+        self.validate_required(self.scene_name, 'scene_name')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        if self.scene_name is not None:
+            result['scene_name'] = self.scene_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        if m.get('scene_name') is not None:
+            self.scene_name = m.get('scene_name')
+        return self
+
+
+class ExistStubResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        exist: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否存在数字票根。true：存在；false：不存在
+        self.exist = exist
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.exist is not None:
+            result['exist'] = self.exist
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('exist') is not None:
+            self.exist = m.get('exist')
         return self
 
 

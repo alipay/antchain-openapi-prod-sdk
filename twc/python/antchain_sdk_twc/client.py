@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.39'
+                    'sdk_version': '1.7.41'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.39'
+                    'sdk_version': '1.7.41'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -13129,4 +13129,58 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.CreateStubResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.stub.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exist_stub(
+        self,
+        request: twc_models.ExistStubRequest,
+    ) -> twc_models.ExistStubResponse:
+        """
+        Description: 查询数字票根是否存在
+        Summary: 查询数字票根是否存在
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exist_stub_ex(request, headers, runtime)
+
+    async def exist_stub_async(
+        self,
+        request: twc_models.ExistStubRequest,
+    ) -> twc_models.ExistStubResponse:
+        """
+        Description: 查询数字票根是否存在
+        Summary: 查询数字票根是否存在
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exist_stub_ex_async(request, headers, runtime)
+
+    def exist_stub_ex(
+        self,
+        request: twc_models.ExistStubRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ExistStubResponse:
+        """
+        Description: 查询数字票根是否存在
+        Summary: 查询数字票根是否存在
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ExistStubResponse().from_map(
+            self.do_request('1.0', 'twc.notary.stub.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exist_stub_ex_async(
+        self,
+        request: twc_models.ExistStubRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ExistStubResponse:
+        """
+        Description: 查询数字票根是否存在
+        Summary: 查询数字票根是否存在
+        """
+        UtilClient.validate_model(request)
+        return twc_models.ExistStubResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.stub.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
