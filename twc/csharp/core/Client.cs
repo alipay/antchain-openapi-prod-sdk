@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.39"},
+                        {"sdk_version", "1.7.42"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.39"},
+                        {"sdk_version", "1.7.42"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -10319,6 +10319,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateStubResponse>(await DoRequestAsync("1.0", "twc.notary.stub.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询数字票根是否存在
+         * Summary: 查询数字票根是否存在
+         */
+        public ExistStubResponse ExistStub(ExistStubRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExistStubEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询数字票根是否存在
+         * Summary: 查询数字票根是否存在
+         */
+        public async Task<ExistStubResponse> ExistStubAsync(ExistStubRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExistStubExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询数字票根是否存在
+         * Summary: 查询数字票根是否存在
+         */
+        public ExistStubResponse ExistStubEx(ExistStubRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExistStubResponse>(DoRequest("1.0", "twc.notary.stub.exist", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询数字票根是否存在
+         * Summary: 查询数字票根是否存在
+         */
+        public async Task<ExistStubResponse> ExistStubExAsync(ExistStubRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExistStubResponse>(await DoRequestAsync("1.0", "twc.notary.stub.exist", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

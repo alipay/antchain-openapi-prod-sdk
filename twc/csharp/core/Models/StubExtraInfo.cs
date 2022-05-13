@@ -10,11 +10,6 @@ namespace AntChain.SDK.TWC.Models
 {
     // 数字票根扩展字段
     public class StubExtraInfo : TeaModel {
-        // C端用户的支付宝id
-        [NameInMap("customer_id")]
-        [Validation(Required=true)]
-        public string CustomerId { get; set; }
-
         // 票面视觉
         [NameInMap("ticket_vision")]
         [Validation(Required=false)]

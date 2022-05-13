@@ -55,6 +55,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public long? StubAmount { get; set; }
 
+        // 客户id。支付宝情况下传支付宝id，2088打头；景区时可传自定义的客户id
+        [NameInMap("customer_id")]
+        [Validation(Required=true)]
+        public string CustomerId { get; set; }
+
     }
 
 }
