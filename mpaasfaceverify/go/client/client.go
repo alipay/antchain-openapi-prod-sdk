@@ -819,6 +819,133 @@ func (s *CertifyServermodeResponse) SetResultMsgSub(v string) *CertifyServermode
 	return s
 }
 
+type InitCertifyRecordRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	//
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty" require:"true"`
+	// 用户身份信息
+	IdentityParam *string `json:"identity_param,omitempty" xml:"identity_param,omitempty" require:"true"`
+	// metainfo环境参数
+	Metainfo *string `json:"metainfo,omitempty" xml:"metainfo,omitempty" require:"true"`
+	// 操作类型
+	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty" require:"true"`
+	// 比对源图片
+	RefImg *string `json:"ref_img,omitempty" xml:"ref_img,omitempty" require:"true"`
+}
+
+func (s InitCertifyRecordRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitCertifyRecordRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitCertifyRecordRequest) SetAuthToken(v string) *InitCertifyRecordRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitCertifyRecordRequest) SetProductInstanceId(v string) *InitCertifyRecordRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitCertifyRecordRequest) SetBizId(v string) *InitCertifyRecordRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *InitCertifyRecordRequest) SetExternParam(v string) *InitCertifyRecordRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *InitCertifyRecordRequest) SetIdentityParam(v string) *InitCertifyRecordRequest {
+	s.IdentityParam = &v
+	return s
+}
+
+func (s *InitCertifyRecordRequest) SetMetainfo(v string) *InitCertifyRecordRequest {
+	s.Metainfo = &v
+	return s
+}
+
+func (s *InitCertifyRecordRequest) SetOperationType(v string) *InitCertifyRecordRequest {
+	s.OperationType = &v
+	return s
+}
+
+func (s *InitCertifyRecordRequest) SetRefImg(v string) *InitCertifyRecordRequest {
+	s.RefImg = &v
+	return s
+}
+
+type InitCertifyRecordResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 预留扩展结果
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 产品结果明细，不影响决策
+	ResultCodeSub *string `json:"result_code_sub,omitempty" xml:"result_code_sub,omitempty"`
+	// result_code_sub对应的文案
+	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
+	// 认证单据号
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+}
+
+func (s InitCertifyRecordResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitCertifyRecordResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitCertifyRecordResponse) SetReqMsgId(v string) *InitCertifyRecordResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitCertifyRecordResponse) SetResultCode(v string) *InitCertifyRecordResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitCertifyRecordResponse) SetResultMsg(v string) *InitCertifyRecordResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitCertifyRecordResponse) SetExternInfo(v string) *InitCertifyRecordResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *InitCertifyRecordResponse) SetResultCodeSub(v string) *InitCertifyRecordResponse {
+	s.ResultCodeSub = &v
+	return s
+}
+
+func (s *InitCertifyRecordResponse) SetResultMsgSub(v string) *InitCertifyRecordResponse {
+	s.ResultMsgSub = &v
+	return s
+}
+
+func (s *InitCertifyRecordResponse) SetCertifyId(v string) *InitCertifyRecordResponse {
+	s.CertifyId = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -941,7 +1068,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.5"),
+				"sdk_version":      tea.String("1.1.6"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1186,6 +1313,40 @@ func (client *Client) CertifyServermodeEx(request *CertifyServermodeRequest, hea
 	}
 	_result = &CertifyServermodeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antfin.mpaasfaceverify.servermode.certify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
+ * Summary: 人脸认证单据初始化服务
+ */
+func (client *Client) InitCertifyRecord(request *InitCertifyRecordRequest) (_result *InitCertifyRecordResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitCertifyRecordResponse{}
+	_body, _err := client.InitCertifyRecordEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
+ * Summary: 人脸认证单据初始化服务
+ */
+func (client *Client) InitCertifyRecordEx(request *InitCertifyRecordRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitCertifyRecordResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitCertifyRecordResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antfin.mpaasfaceverify.certify.record.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
