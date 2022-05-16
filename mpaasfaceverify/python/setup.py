@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_mpaasfaceverify.
 
-Created on 18/04/2022
+Created on 16/05/2022
 
 @author: Ant Chain SDK
 """
