@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.mpaasfaceverify.models;
 
 import com.aliyun.tea.*;
 
-public class InitCertifyRecordRequest extends TeaModel {
+public class InitCertifyrecordRealpersonRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -42,12 +42,12 @@ public class InitCertifyRecordRequest extends TeaModel {
     @Validation(required = true)
     public String refImg;
 
-    public static InitCertifyRecordRequest build(java.util.Map<String, ?> map) throws Exception {
-        InitCertifyRecordRequest self = new InitCertifyRecordRequest();
+    public static InitCertifyrecordRealpersonRequest build(java.util.Map<String, ?> map) throws Exception {
+        InitCertifyrecordRealpersonRequest self = new InitCertifyrecordRealpersonRequest();
         return TeaModel.build(map, self);
     }
 
-    public InitCertifyRecordRequest setAuthToken(String authToken) {
+    public InitCertifyrecordRealpersonRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -55,7 +55,7 @@ public class InitCertifyRecordRequest extends TeaModel {
         return this.authToken;
     }
 
-    public InitCertifyRecordRequest setProductInstanceId(String productInstanceId) {
+    public InitCertifyrecordRealpersonRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -63,7 +63,7 @@ public class InitCertifyRecordRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public InitCertifyRecordRequest setBizId(String bizId) {
+    public InitCertifyrecordRealpersonRequest setBizId(String bizId) {
         this.bizId = bizId;
         return this;
     }
@@ -71,7 +71,7 @@ public class InitCertifyRecordRequest extends TeaModel {
         return this.bizId;
     }
 
-    public InitCertifyRecordRequest setExternParam(String externParam) {
+    public InitCertifyrecordRealpersonRequest setExternParam(String externParam) {
         this.externParam = externParam;
         return this;
     }
@@ -79,7 +79,7 @@ public class InitCertifyRecordRequest extends TeaModel {
         return this.externParam;
     }
 
-    public InitCertifyRecordRequest setIdentityParam(String identityParam) {
+    public InitCertifyrecordRealpersonRequest setIdentityParam(String identityParam) {
         this.identityParam = identityParam;
         return this;
     }
@@ -87,7 +87,7 @@ public class InitCertifyRecordRequest extends TeaModel {
         return this.identityParam;
     }
 
-    public InitCertifyRecordRequest setMetainfo(String metainfo) {
+    public InitCertifyrecordRealpersonRequest setMetainfo(String metainfo) {
         this.metainfo = metainfo;
         return this;
     }
@@ -95,7 +95,7 @@ public class InitCertifyRecordRequest extends TeaModel {
         return this.metainfo;
     }
 
-    public InitCertifyRecordRequest setOperationType(String operationType) {
+    public InitCertifyrecordRealpersonRequest setOperationType(String operationType) {
         this.operationType = operationType;
         return this;
     }
@@ -103,7 +103,7 @@ public class InitCertifyRecordRequest extends TeaModel {
         return this.operationType;
     }
 
-    public InitCertifyRecordRequest setRefImg(String refImg) {
+    public InitCertifyrecordRealpersonRequest setRefImg(String refImg) {
         this.refImg = refImg;
         return this;
     }

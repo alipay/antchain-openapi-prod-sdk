@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.mpaasfaceverify.models;
 
 import com.aliyun.tea.*;
 
-public class InitCertifyRecordResponse extends TeaModel {
+public class InitCertifyrecordResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -32,12 +32,12 @@ public class InitCertifyRecordResponse extends TeaModel {
     @NameInMap("certify_id")
     public String certifyId;
 
-    public static InitCertifyRecordResponse build(java.util.Map<String, ?> map) throws Exception {
-        InitCertifyRecordResponse self = new InitCertifyRecordResponse();
+    public static InitCertifyrecordResponse build(java.util.Map<String, ?> map) throws Exception {
+        InitCertifyrecordResponse self = new InitCertifyrecordResponse();
         return TeaModel.build(map, self);
     }
 
-    public InitCertifyRecordResponse setReqMsgId(String reqMsgId) {
+    public InitCertifyrecordResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -45,7 +45,7 @@ public class InitCertifyRecordResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public InitCertifyRecordResponse setResultCode(String resultCode) {
+    public InitCertifyrecordResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -53,7 +53,7 @@ public class InitCertifyRecordResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public InitCertifyRecordResponse setResultMsg(String resultMsg) {
+    public InitCertifyrecordResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -61,7 +61,7 @@ public class InitCertifyRecordResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public InitCertifyRecordResponse setExternInfo(String externInfo) {
+    public InitCertifyrecordResponse setExternInfo(String externInfo) {
         this.externInfo = externInfo;
         return this;
     }
@@ -69,7 +69,7 @@ public class InitCertifyRecordResponse extends TeaModel {
         return this.externInfo;
     }
 
-    public InitCertifyRecordResponse setResultCodeSub(String resultCodeSub) {
+    public InitCertifyrecordResponse setResultCodeSub(String resultCodeSub) {
         this.resultCodeSub = resultCodeSub;
         return this;
     }
@@ -77,7 +77,7 @@ public class InitCertifyRecordResponse extends TeaModel {
         return this.resultCodeSub;
     }
 
-    public InitCertifyRecordResponse setResultMsgSub(String resultMsgSub) {
+    public InitCertifyrecordResponse setResultMsgSub(String resultMsgSub) {
         this.resultMsgSub = resultMsgSub;
         return this;
     }
@@ -85,7 +85,7 @@ public class InitCertifyRecordResponse extends TeaModel {
         return this.resultMsgSub;
     }
 
-    public InitCertifyRecordResponse setCertifyId(String certifyId) {
+    public InitCertifyrecordResponse setCertifyId(String certifyId) {
         this.certifyId = certifyId;
         return this;
     }

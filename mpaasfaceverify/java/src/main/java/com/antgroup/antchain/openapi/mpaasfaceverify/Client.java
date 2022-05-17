@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.6")
+                    new TeaPair("sdk_version", "1.1.7")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -274,21 +274,40 @@ public class Client {
     }
 
     /**
-     * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-     * Summary: 人脸认证单据初始化服务
+     * Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+     * Summary: 实人认证单据初始化服务
      */
-    public InitCertifyRecordResponse initCertifyRecord(InitCertifyRecordRequest request) throws Exception {
+    public InitCertifyrecordRealpersonResponse initCertifyrecordRealperson(InitCertifyrecordRealpersonRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.initCertifyRecordEx(request, headers, runtime);
+        return this.initCertifyrecordRealpersonEx(request, headers, runtime);
     }
 
     /**
-     * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-     * Summary: 人脸认证单据初始化服务
+     * Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+     * Summary: 实人认证单据初始化服务
      */
-    public InitCertifyRecordResponse initCertifyRecordEx(InitCertifyRecordRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitCertifyrecordRealpersonResponse initCertifyrecordRealpersonEx(InitCertifyrecordRealpersonRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.certify.record.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitCertifyRecordResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.realperson.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitCertifyrecordRealpersonResponse());
+    }
+
+    /**
+     * Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+     * Summary: 认证单据初始化服务(无身份)
+     */
+    public InitCertifyrecordResponse initCertifyrecord(InitCertifyrecordRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initCertifyrecordEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+     * Summary: 认证单据初始化服务(无身份)
+     */
+    public InitCertifyrecordResponse initCertifyrecordEx(InitCertifyrecordRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitCertifyrecordResponse());
     }
 }
