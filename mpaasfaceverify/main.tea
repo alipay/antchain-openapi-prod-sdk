@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.6',
+    sdk_version = '1.1.7',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -463,7 +463,7 @@ async function certifyServermodeEx(request: CertifyServermodeRequest, headers: m
   return doRequest('1.0' ,'antfin.mpaasfaceverify.servermode.certify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model InitCertifyRecordRequest = {
+model InitCertifyrecordRealpersonRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -482,7 +482,7 @@ model InitCertifyRecordRequest = {
   refImg: string(name='ref_img'),
 }
 
-model InitCertifyRecordResponse = {
+model InitCertifyrecordRealpersonResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -500,21 +500,73 @@ model InitCertifyRecordResponse = {
 }
 
 /**
- * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
- * Summary: 人脸认证单据初始化服务
+ * Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+ * Summary: 实人认证单据初始化服务
  */
-async function initCertifyRecord(request: InitCertifyRecordRequest): InitCertifyRecordResponse {
+async function initCertifyrecordRealperson(request: InitCertifyrecordRealpersonRequest): InitCertifyrecordRealpersonResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return initCertifyRecordEx(request, headers, runtime);
+  return initCertifyrecordRealpersonEx(request, headers, runtime);
 }
 
 /**
- * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
- * Summary: 人脸认证单据初始化服务
+ * Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+ * Summary: 实人认证单据初始化服务
  */
-async function initCertifyRecordEx(request: InitCertifyRecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitCertifyRecordResponse {
+async function initCertifyrecordRealpersonEx(request: InitCertifyrecordRealpersonRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitCertifyrecordRealpersonResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antfin.mpaasfaceverify.certify.record.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antfin.mpaasfaceverify.certifyrecord.realperson.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitCertifyrecordRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string(name='biz_id'),
+  // 预留扩展业务参数
+  externParam: string(name='extern_param'),
+  // metainfo环境参数
+  metainfo: string(name='metainfo'),
+  // 操作类型
+  operationType: string(name='operation_type'),
+  // 比对源图片
+  refImg: string(name='ref_img'),
+}
+
+model InitCertifyrecordResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  externInfo?: string(name='extern_info'),
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string(name='result_code_sub'),
+  // result_code_sub对应的文案
+  resultMsgSub?: string(name='result_msg_sub'),
+  // 认证单据号
+  certifyId?: string(name='certify_id'),
+}
+
+/**
+ * Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+ * Summary: 认证单据初始化服务(无身份)
+ */
+async function initCertifyrecord(request: InitCertifyrecordRequest): InitCertifyrecordResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initCertifyrecordEx(request, headers, runtime);
+}
+
+/**
+ * Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+ * Summary: 认证单据初始化服务(无身份)
+ */
+async function initCertifyrecordEx(request: InitCertifyrecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitCertifyrecordResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antfin.mpaasfaceverify.certifyrecord.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
