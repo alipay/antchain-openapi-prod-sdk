@@ -13,8 +13,10 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\MPAASFACEVERIFY\Models\CertifyServermodeRequest;
 use AntChain\MPAASFACEVERIFY\Models\CertifyServermodeResponse;
-use AntChain\MPAASFACEVERIFY\Models\InitCertifyRecordRequest;
-use AntChain\MPAASFACEVERIFY\Models\InitCertifyRecordResponse;
+use AntChain\MPAASFACEVERIFY\Models\InitCertifyrecordRealpersonRequest;
+use AntChain\MPAASFACEVERIFY\Models\InitCertifyrecordRealpersonResponse;
+use AntChain\MPAASFACEVERIFY\Models\InitCertifyrecordRequest;
+use AntChain\MPAASFACEVERIFY\Models\InitCertifyrecordResponse;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceauthRequest;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceauthResponse;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceplusRequest;
@@ -171,7 +173,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.6',
+                    'sdk_version'      => '1.1.7',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -416,35 +418,68 @@ class Client
     }
 
     /**
-     * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-     * Summary: 人脸认证单据初始化服务
+     * Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+     * Summary: 实人认证单据初始化服务
      *
-     * @param InitCertifyRecordRequest $request
+     * @param InitCertifyrecordRealpersonRequest $request
      *
-     * @return InitCertifyRecordResponse
+     * @return InitCertifyrecordRealpersonResponse
      */
-    public function initCertifyRecord($request)
+    public function initCertifyrecordRealperson($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->initCertifyRecordEx($request, $headers, $runtime);
+        return $this->initCertifyrecordRealpersonEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-     * Summary: 人脸认证单据初始化服务
+     * Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+     * Summary: 实人认证单据初始化服务
      *
-     * @param InitCertifyRecordRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
+     * @param InitCertifyrecordRealpersonRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
      *
-     * @return InitCertifyRecordResponse
+     * @return InitCertifyrecordRealpersonResponse
      */
-    public function initCertifyRecordEx($request, $headers, $runtime)
+    public function initCertifyrecordRealpersonEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return InitCertifyRecordResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.certify.record.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return InitCertifyrecordRealpersonResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.certifyrecord.realperson.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+     * Summary: 认证单据初始化服务(无身份).
+     *
+     * @param InitCertifyrecordRequest $request
+     *
+     * @return InitCertifyrecordResponse
+     */
+    public function initCertifyrecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initCertifyrecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+     * Summary: 认证单据初始化服务(无身份).
+     *
+     * @param InitCertifyrecordRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return InitCertifyrecordResponse
+     */
+    public function initCertifyrecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitCertifyrecordResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.certifyrecord.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

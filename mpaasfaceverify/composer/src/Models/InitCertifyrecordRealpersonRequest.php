@@ -6,7 +6,7 @@ namespace AntChain\MPAASFACEVERIFY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitCertifyRecordRequest extends Model
+class InitCertifyrecordRealpersonRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -110,7 +110,7 @@ class InitCertifyRecordRequest extends Model
     /**
      * @param array $map
      *
-     * @return InitCertifyRecordRequest
+     * @return InitCertifyrecordRealpersonRequest
      */
     public static function fromMap($map = [])
     {

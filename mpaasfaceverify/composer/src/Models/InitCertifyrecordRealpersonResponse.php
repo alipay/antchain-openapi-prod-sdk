@@ -6,7 +6,7 @@ namespace AntChain\MPAASFACEVERIFY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitCertifyRecordResponse extends Model
+class InitCertifyrecordRealpersonResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -94,7 +94,7 @@ class InitCertifyRecordResponse extends Model
     /**
      * @param array $map
      *
-     * @return InitCertifyRecordResponse
+     * @return InitCertifyrecordRealpersonResponse
      */
     public static function fromMap($map = [])
     {
