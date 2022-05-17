@@ -2642,6 +2642,81 @@ func (s *SecurityGroupRule) SetSourceCidrIp(v string) *SecurityGroupRule {
 	return s
 }
 
+// 应用画像应用ECS节点列表
+type AppPortraitAppNodeEcsList struct {
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// zone_id
+	ZoneId *string `json:"zone_id,omitempty" xml:"zone_id,omitempty"`
+	// ip
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
+	// load_balancer_spec
+	LoadBalancerSpec *string `json:"load_balancer_spec,omitempty" xml:"load_balancer_spec,omitempty"`
+	// cpu
+	Cpu *string `json:"cpu,omitempty" xml:"cpu,omitempty"`
+	// memory
+	Memory *string `json:"memory,omitempty" xml:"memory,omitempty"`
+	// version
+	Version *string `json:"version,omitempty" xml:"version,omitempty"`
+	// name
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s AppPortraitAppNodeEcsList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitAppNodeEcsList) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitAppNodeEcsList) SetId(v string) *AppPortraitAppNodeEcsList {
+	s.Id = &v
+	return s
+}
+
+func (s *AppPortraitAppNodeEcsList) SetZoneId(v string) *AppPortraitAppNodeEcsList {
+	s.ZoneId = &v
+	return s
+}
+
+func (s *AppPortraitAppNodeEcsList) SetIp(v string) *AppPortraitAppNodeEcsList {
+	s.Ip = &v
+	return s
+}
+
+func (s *AppPortraitAppNodeEcsList) SetLoadBalancerSpec(v string) *AppPortraitAppNodeEcsList {
+	s.LoadBalancerSpec = &v
+	return s
+}
+
+func (s *AppPortraitAppNodeEcsList) SetCpu(v string) *AppPortraitAppNodeEcsList {
+	s.Cpu = &v
+	return s
+}
+
+func (s *AppPortraitAppNodeEcsList) SetMemory(v string) *AppPortraitAppNodeEcsList {
+	s.Memory = &v
+	return s
+}
+
+func (s *AppPortraitAppNodeEcsList) SetVersion(v string) *AppPortraitAppNodeEcsList {
+	s.Version = &v
+	return s
+}
+
+func (s *AppPortraitAppNodeEcsList) SetName(v string) *AppPortraitAppNodeEcsList {
+	s.Name = &v
+	return s
+}
+
+func (s *AppPortraitAppNodeEcsList) SetStatus(v string) *AppPortraitAppNodeEcsList {
+	s.Status = &v
+	return s
+}
+
 // 查询用的DbSchema
 type DbSchema struct {
 	// charSet
@@ -5438,6 +5513,53 @@ func (s *AppQuery) SetQueryType(v string) *AppQuery {
 	return s
 }
 
+// 应用画像可用性结构体
+type AppPortraitAppUsability struct {
+	// 应用id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 应用名称
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty" require:"true"`
+	// 应用可用性
+	AppUsability *int64 `json:"app_usability,omitempty" xml:"app_usability,omitempty"`
+	// 年同比
+	Y2y *string `json:"y2y,omitempty" xml:"y2y,omitempty"`
+	// 原因列表
+	ReasonList []*string `json:"reason_list,omitempty" xml:"reason_list,omitempty" type:"Repeated"`
+}
+
+func (s AppPortraitAppUsability) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitAppUsability) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitAppUsability) SetAppId(v string) *AppPortraitAppUsability {
+	s.AppId = &v
+	return s
+}
+
+func (s *AppPortraitAppUsability) SetAppName(v string) *AppPortraitAppUsability {
+	s.AppName = &v
+	return s
+}
+
+func (s *AppPortraitAppUsability) SetAppUsability(v int64) *AppPortraitAppUsability {
+	s.AppUsability = &v
+	return s
+}
+
+func (s *AppPortraitAppUsability) SetY2y(v string) *AppPortraitAppUsability {
+	s.Y2y = &v
+	return s
+}
+
+func (s *AppPortraitAppUsability) SetReasonList(v []*string) *AppPortraitAppUsability {
+	s.ReasonList = v
+	return s
+}
+
 // 应用分级查询
 type AppLevelQuery struct {
 	// appCountInclude
@@ -5748,6 +5870,100 @@ func (s *Zone) SetProperties(v []*Property) *Zone {
 	return s
 }
 
+// 应用画像容器利用率列表结构体
+type AppPortraitContainerUsageList struct {
+	// namespace
+	Namespace *string `json:"namespace,omitempty" xml:"namespace,omitempty" require:"true"`
+	// request_cpu
+	RequestCpu *int64 `json:"request_cpu,omitempty" xml:"request_cpu,omitempty" require:"true"`
+	// request_mem
+	RequestMem *int64 `json:"request_mem,omitempty" xml:"request_mem,omitempty" require:"true"`
+	// limit_cpu
+	LimitCpu *int64 `json:"limit_cpu,omitempty" xml:"limit_cpu,omitempty" require:"true"`
+	// limit_mem
+	LimitMem *int64 `json:"limit_mem,omitempty" xml:"limit_mem,omitempty" require:"true"`
+	// average_cpu
+	AverageCpu *int64 `json:"average_cpu,omitempty" xml:"average_cpu,omitempty" require:"true"`
+	// average_mem
+	AverageMem *int64 `json:"average_mem,omitempty" xml:"average_mem,omitempty" require:"true"`
+}
+
+func (s AppPortraitContainerUsageList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitContainerUsageList) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitContainerUsageList) SetNamespace(v string) *AppPortraitContainerUsageList {
+	s.Namespace = &v
+	return s
+}
+
+func (s *AppPortraitContainerUsageList) SetRequestCpu(v int64) *AppPortraitContainerUsageList {
+	s.RequestCpu = &v
+	return s
+}
+
+func (s *AppPortraitContainerUsageList) SetRequestMem(v int64) *AppPortraitContainerUsageList {
+	s.RequestMem = &v
+	return s
+}
+
+func (s *AppPortraitContainerUsageList) SetLimitCpu(v int64) *AppPortraitContainerUsageList {
+	s.LimitCpu = &v
+	return s
+}
+
+func (s *AppPortraitContainerUsageList) SetLimitMem(v int64) *AppPortraitContainerUsageList {
+	s.LimitMem = &v
+	return s
+}
+
+func (s *AppPortraitContainerUsageList) SetAverageCpu(v int64) *AppPortraitContainerUsageList {
+	s.AverageCpu = &v
+	return s
+}
+
+func (s *AppPortraitContainerUsageList) SetAverageMem(v int64) *AppPortraitContainerUsageList {
+	s.AverageMem = &v
+	return s
+}
+
+// 应用画像告警数趋势结构体
+type AppPortraitAlertCountTrend struct {
+	// 日期
+	Day *string `json:"day,omitempty" xml:"day,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 本周期
+	NowCycle *string `json:"now_cycle,omitempty" xml:"now_cycle,omitempty" require:"true"`
+	// 上周期
+	LastCycle *string `json:"last_cycle,omitempty" xml:"last_cycle,omitempty" require:"true"`
+}
+
+func (s AppPortraitAlertCountTrend) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitAlertCountTrend) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitAlertCountTrend) SetDay(v string) *AppPortraitAlertCountTrend {
+	s.Day = &v
+	return s
+}
+
+func (s *AppPortraitAlertCountTrend) SetNowCycle(v string) *AppPortraitAlertCountTrend {
+	s.NowCycle = &v
+	return s
+}
+
+func (s *AppPortraitAlertCountTrend) SetLastCycle(v string) *AppPortraitAlertCountTrend {
+	s.LastCycle = &v
+	return s
+}
+
 // 数据库Grant
 type Grant struct {
 	// account
@@ -5778,6 +5994,39 @@ func (s *Grant) SetPrivilege(v string) *Grant {
 
 func (s *Grant) SetSchema(v *DbSchema) *Grant {
 	s.Schema = v
+	return s
+}
+
+// 应用画像操作记录查询
+type AppPortraitActionTrailQuery struct {
+	// 操作时间
+	ActiontrailTimestamp *string `json:"actiontrail_timestamp,omitempty" xml:"actiontrail_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// title
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s AppPortraitActionTrailQuery) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitActionTrailQuery) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitActionTrailQuery) SetActiontrailTimestamp(v string) *AppPortraitActionTrailQuery {
+	s.ActiontrailTimestamp = &v
+	return s
+}
+
+func (s *AppPortraitActionTrailQuery) SetTitle(v string) *AppPortraitActionTrailQuery {
+	s.Title = &v
+	return s
+}
+
+func (s *AppPortraitActionTrailQuery) SetStatus(v string) *AppPortraitActionTrailQuery {
+	s.Status = &v
 	return s
 }
 
@@ -6008,6 +6257,32 @@ func (s *ComputerQuota) SetMemory(v int64) *ComputerQuota {
 
 func (s *ComputerQuota) SetDisk(v int64) *ComputerQuota {
 	s.Disk = &v
+	return s
+}
+
+// 可用性趋势查询
+type AppPortraitAppUsabilityTrendQuery struct {
+	// 时间以天为单位
+	Day *string `json:"day,omitempty" xml:"day,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 应用可用性
+	AppUsability *int64 `json:"app_usability,omitempty" xml:"app_usability,omitempty"`
+}
+
+func (s AppPortraitAppUsabilityTrendQuery) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitAppUsabilityTrendQuery) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitAppUsabilityTrendQuery) SetDay(v string) *AppPortraitAppUsabilityTrendQuery {
+	s.Day = &v
+	return s
+}
+
+func (s *AppPortraitAppUsabilityTrendQuery) SetAppUsability(v int64) *AppPortraitAppUsabilityTrendQuery {
+	s.AppUsability = &v
 	return s
 }
 
@@ -6955,6 +7230,53 @@ func (s *WorkspaceDnsProvider) SetUtcModified(v string) *WorkspaceDnsProvider {
 
 func (s *WorkspaceDnsProvider) SetDescription(v string) *WorkspaceDnsProvider {
 	s.Description = &v
+	return s
+}
+
+// 应用健康分查询
+type AppPortraitAppHealthScoreQuery struct {
+	// 应用id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// app_name
+	AppName *string `json:"app_name,omitempty" xml:"app_name,omitempty"`
+	// health_score
+	HealthScore *int64 `json:"health_score,omitempty" xml:"health_score,omitempty"`
+	// 同比上升下降分数
+	Y2y *int64 `json:"y2y,omitempty" xml:"y2y,omitempty"`
+	// 上升下降原因列表
+	ReasonList []*string `json:"reason_list,omitempty" xml:"reason_list,omitempty" type:"Repeated"`
+}
+
+func (s AppPortraitAppHealthScoreQuery) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitAppHealthScoreQuery) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitAppHealthScoreQuery) SetAppId(v string) *AppPortraitAppHealthScoreQuery {
+	s.AppId = &v
+	return s
+}
+
+func (s *AppPortraitAppHealthScoreQuery) SetAppName(v string) *AppPortraitAppHealthScoreQuery {
+	s.AppName = &v
+	return s
+}
+
+func (s *AppPortraitAppHealthScoreQuery) SetHealthScore(v int64) *AppPortraitAppHealthScoreQuery {
+	s.HealthScore = &v
+	return s
+}
+
+func (s *AppPortraitAppHealthScoreQuery) SetY2y(v int64) *AppPortraitAppHealthScoreQuery {
+	s.Y2y = &v
+	return s
+}
+
+func (s *AppPortraitAppHealthScoreQuery) SetReasonList(v []*string) *AppPortraitAppHealthScoreQuery {
+	s.ReasonList = v
 	return s
 }
 
@@ -8989,6 +9311,46 @@ func (s *OperationTask) SetResultMsg(v string) *OperationTask {
 	return s
 }
 
+// 应用画像应用节点列表结构体
+type AppPortraitAppNodeList struct {
+	// 返回ecs节点数据
+	Ecs []*AppPortraitAppNodeEcsList `json:"ecs,omitempty" xml:"ecs,omitempty" type:"Repeated"`
+	// 返回slb节点数据
+	Slb *AppPortraitAppNodeEcsList `json:"slb,omitempty" xml:"slb,omitempty"`
+	// 返回rds节点数据
+	Rds *AppPortraitAppNodeEcsList `json:"rds,omitempty" xml:"rds,omitempty"`
+	// 返回pod节点数据
+	Pod *AppPortraitAppNodeEcsList `json:"pod,omitempty" xml:"pod,omitempty"`
+}
+
+func (s AppPortraitAppNodeList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitAppNodeList) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitAppNodeList) SetEcs(v []*AppPortraitAppNodeEcsList) *AppPortraitAppNodeList {
+	s.Ecs = v
+	return s
+}
+
+func (s *AppPortraitAppNodeList) SetSlb(v *AppPortraitAppNodeEcsList) *AppPortraitAppNodeList {
+	s.Slb = v
+	return s
+}
+
+func (s *AppPortraitAppNodeList) SetRds(v *AppPortraitAppNodeEcsList) *AppPortraitAppNodeList {
+	s.Rds = v
+	return s
+}
+
+func (s *AppPortraitAppNodeList) SetPod(v *AppPortraitAppNodeEcsList) *AppPortraitAppNodeList {
+	s.Pod = v
+	return s
+}
+
 // 阿里云日志服务(SLS)-日志项目
 type SLSProject struct {
 	// 项目描述
@@ -9019,6 +9381,39 @@ func (s *SLSProject) SetName(v string) *SLSProject {
 
 func (s *SLSProject) SetRegion(v string) *SLSProject {
 	s.Region = &v
+	return s
+}
+
+// 查询应用画像ecs利用率
+type AppPortraitEcsUsageGet struct {
+	// cpu平均利用率
+	AverageCpu *int64 `json:"average_cpu,omitempty" xml:"average_cpu,omitempty" require:"true"`
+	// 内存平均利用率
+	AverageMem *int64 `json:"average_mem,omitempty" xml:"average_mem,omitempty" require:"true"`
+	// 磁盘平均利用率
+	AverageDisk *int64 `json:"average_disk,omitempty" xml:"average_disk,omitempty" require:"true"`
+}
+
+func (s AppPortraitEcsUsageGet) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitEcsUsageGet) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitEcsUsageGet) SetAverageCpu(v int64) *AppPortraitEcsUsageGet {
+	s.AverageCpu = &v
+	return s
+}
+
+func (s *AppPortraitEcsUsageGet) SetAverageMem(v int64) *AppPortraitEcsUsageGet {
+	s.AverageMem = &v
+	return s
+}
+
+func (s *AppPortraitEcsUsageGet) SetAverageDisk(v int64) *AppPortraitEcsUsageGet {
+	s.AverageDisk = &v
 	return s
 }
 
@@ -9418,6 +9813,74 @@ func (s *SecurityGroupVO) SetInstanceCount(v int64) *SecurityGroupVO {
 	return s
 }
 
+// 应用画像应用列表返回数据
+type AppPortraitAppList struct {
+	// 应用id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 应用名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 应用分组名称
+	AppGroupName *string `json:"app_group_name,omitempty" xml:"app_group_name,omitempty"`
+	// 应用所属分组id
+	AppGroupId *string `json:"app_group_id,omitempty" xml:"app_group_id,omitempty"`
+	// 应用负责人
+	OwnerDisplayName *string `json:"owner_display_name,omitempty" xml:"owner_display_name,omitempty"`
+	// 应用描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 技术栈名称
+	BuildpackName *string `json:"buildpack_name,omitempty" xml:"buildpack_name,omitempty"`
+	// 技术栈版本
+	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty"`
+}
+
+func (s AppPortraitAppList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitAppList) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitAppList) SetId(v string) *AppPortraitAppList {
+	s.Id = &v
+	return s
+}
+
+func (s *AppPortraitAppList) SetName(v string) *AppPortraitAppList {
+	s.Name = &v
+	return s
+}
+
+func (s *AppPortraitAppList) SetAppGroupName(v string) *AppPortraitAppList {
+	s.AppGroupName = &v
+	return s
+}
+
+func (s *AppPortraitAppList) SetAppGroupId(v string) *AppPortraitAppList {
+	s.AppGroupId = &v
+	return s
+}
+
+func (s *AppPortraitAppList) SetOwnerDisplayName(v string) *AppPortraitAppList {
+	s.OwnerDisplayName = &v
+	return s
+}
+
+func (s *AppPortraitAppList) SetDescription(v string) *AppPortraitAppList {
+	s.Description = &v
+	return s
+}
+
+func (s *AppPortraitAppList) SetBuildpackName(v string) *AppPortraitAppList {
+	s.BuildpackName = &v
+	return s
+}
+
+func (s *AppPortraitAppList) SetBuildpackVersion(v string) *AppPortraitAppList {
+	s.BuildpackVersion = &v
+	return s
+}
+
 // staragent info
 type StarAgentInfo struct {
 	// computer serial number
@@ -9462,6 +9925,32 @@ func (s *StarAgentInfo) SetIpList(v string) *StarAgentInfo {
 
 func (s *StarAgentInfo) SetStatus(v string) *StarAgentInfo {
 	s.Status = &v
+	return s
+}
+
+// 应用画像健康分趋势查询结构体
+type AppPortraitAppHealthScoreTrendQuery struct {
+	// 日期
+	Day *string `json:"day,omitempty" xml:"day,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 健康分分值
+	HealthScore *int64 `json:"health_score,omitempty" xml:"health_score,omitempty"`
+}
+
+func (s AppPortraitAppHealthScoreTrendQuery) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitAppHealthScoreTrendQuery) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitAppHealthScoreTrendQuery) SetDay(v string) *AppPortraitAppHealthScoreTrendQuery {
+	s.Day = &v
+	return s
+}
+
+func (s *AppPortraitAppHealthScoreTrendQuery) SetHealthScore(v int64) *AppPortraitAppHealthScoreTrendQuery {
+	s.HealthScore = &v
 	return s
 }
 
@@ -9747,6 +10236,60 @@ func (s *IaasConnMetadata) SetUtcCreate(v string) *IaasConnMetadata {
 	return s
 }
 
+// 应用画像告警明细列表
+type AppPortraitAlertList struct {
+	// 告警节点ID
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
+	// 节点名
+	NodeName *string `json:"node_name,omitempty" xml:"node_name,omitempty" require:"true"`
+	// 告警指标
+	Metric *string `json:"metric,omitempty" xml:"metric,omitempty" require:"true"`
+	// 告警级别
+	Severity *string `json:"severity,omitempty" xml:"severity,omitempty" require:"true"`
+	// 告警内容
+	AlertContent *string `json:"alert_content,omitempty" xml:"alert_content,omitempty" require:"true"`
+	// 告警时间
+	GmtOccurTimestamp *string `json:"gmt_occur_timestamp,omitempty" xml:"gmt_occur_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s AppPortraitAlertList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitAlertList) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitAlertList) SetNodeId(v string) *AppPortraitAlertList {
+	s.NodeId = &v
+	return s
+}
+
+func (s *AppPortraitAlertList) SetNodeName(v string) *AppPortraitAlertList {
+	s.NodeName = &v
+	return s
+}
+
+func (s *AppPortraitAlertList) SetMetric(v string) *AppPortraitAlertList {
+	s.Metric = &v
+	return s
+}
+
+func (s *AppPortraitAlertList) SetSeverity(v string) *AppPortraitAlertList {
+	s.Severity = &v
+	return s
+}
+
+func (s *AppPortraitAlertList) SetAlertContent(v string) *AppPortraitAlertList {
+	s.AlertContent = &v
+	return s
+}
+
+func (s *AppPortraitAlertList) SetGmtOccurTimestamp(v string) *AppPortraitAlertList {
+	s.GmtOccurTimestamp = &v
+	return s
+}
+
 // 应用服务查询
 type AppServiceQuery struct {
 	// 根据 id 查询
@@ -9861,6 +10404,81 @@ func (s *AppServiceQuery) SetQueryType(v string) *AppServiceQuery {
 
 func (s *AppServiceQuery) SetConditions(v string) *AppServiceQuery {
 	s.Conditions = &v
+	return s
+}
+
+// 获取应用详情信息包括对应workspace下的appservices
+type AppPortraitAppGet struct {
+	// 应用id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 应用名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 应用分组名称
+	AppGroupName *string `json:"app_group_name,omitempty" xml:"app_group_name,omitempty"`
+	// 应用所属分组id
+	AppGroupId *string `json:"app_group_id,omitempty" xml:"app_group_id,omitempty"`
+	// 应用负责人
+	OwnerDisplayName *string `json:"owner_display_name,omitempty" xml:"owner_display_name,omitempty"`
+	// description
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 技术栈名称
+	BuildpackName *string `json:"buildpack_name,omitempty" xml:"buildpack_name,omitempty"`
+	// 技术栈版本
+	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty"`
+	// workspace下应用所关联的应用服务列表
+	Appservices []*string `json:"appservices,omitempty" xml:"appservices,omitempty" type:"Repeated"`
+}
+
+func (s AppPortraitAppGet) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppPortraitAppGet) GoString() string {
+	return s.String()
+}
+
+func (s *AppPortraitAppGet) SetId(v string) *AppPortraitAppGet {
+	s.Id = &v
+	return s
+}
+
+func (s *AppPortraitAppGet) SetName(v string) *AppPortraitAppGet {
+	s.Name = &v
+	return s
+}
+
+func (s *AppPortraitAppGet) SetAppGroupName(v string) *AppPortraitAppGet {
+	s.AppGroupName = &v
+	return s
+}
+
+func (s *AppPortraitAppGet) SetAppGroupId(v string) *AppPortraitAppGet {
+	s.AppGroupId = &v
+	return s
+}
+
+func (s *AppPortraitAppGet) SetOwnerDisplayName(v string) *AppPortraitAppGet {
+	s.OwnerDisplayName = &v
+	return s
+}
+
+func (s *AppPortraitAppGet) SetDescription(v string) *AppPortraitAppGet {
+	s.Description = &v
+	return s
+}
+
+func (s *AppPortraitAppGet) SetBuildpackName(v string) *AppPortraitAppGet {
+	s.BuildpackName = &v
+	return s
+}
+
+func (s *AppPortraitAppGet) SetBuildpackVersion(v string) *AppPortraitAppGet {
+	s.BuildpackVersion = &v
+	return s
+}
+
+func (s *AppPortraitAppGet) SetAppservices(v []*string) *AppPortraitAppGet {
+	s.Appservices = v
 	return s
 }
 
@@ -13708,6 +14326,1300 @@ func (s *GetAppgrayconfigsResponse) SetResultMsg(v string) *GetAppgrayconfigsRes
 }
 
 func (s *GetAppgrayconfigsResponse) SetData(v []*MapStringToBooleanEntity) *GetAppgrayconfigsResponse {
+	s.Data = v
+	return s
+}
+
+type ListAppportraitAppRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 应用名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 应用分组名称
+	AppGroupName *string `json:"app_group_name,omitempty" xml:"app_group_name,omitempty"`
+	// 应用负责人
+	OwnerDisplayName *string `json:"owner_display_name,omitempty" xml:"owner_display_name,omitempty"`
+	// 技术栈名称
+	BuildpackName *string `json:"buildpack_name,omitempty" xml:"buildpack_name,omitempty"`
+	// 技术栈版本
+	BuildpackVersion *string `json:"buildpack_version,omitempty" xml:"buildpack_version,omitempty"`
+	// TenantId
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// TenantName
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+}
+
+func (s ListAppportraitAppRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitAppRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitAppRequest) SetAuthToken(v string) *ListAppportraitAppRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAppportraitAppRequest) SetName(v string) *ListAppportraitAppRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *ListAppportraitAppRequest) SetAppGroupName(v string) *ListAppportraitAppRequest {
+	s.AppGroupName = &v
+	return s
+}
+
+func (s *ListAppportraitAppRequest) SetOwnerDisplayName(v string) *ListAppportraitAppRequest {
+	s.OwnerDisplayName = &v
+	return s
+}
+
+func (s *ListAppportraitAppRequest) SetBuildpackName(v string) *ListAppportraitAppRequest {
+	s.BuildpackName = &v
+	return s
+}
+
+func (s *ListAppportraitAppRequest) SetBuildpackVersion(v string) *ListAppportraitAppRequest {
+	s.BuildpackVersion = &v
+	return s
+}
+
+func (s *ListAppportraitAppRequest) SetTenantId(v string) *ListAppportraitAppRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ListAppportraitAppRequest) SetTenantName(v string) *ListAppportraitAppRequest {
+	s.TenantName = &v
+	return s
+}
+
+type ListAppportraitAppResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 应用名称列表数据
+	Data []*AppPortraitAppList `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListAppportraitAppResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitAppResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitAppResponse) SetReqMsgId(v string) *ListAppportraitAppResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListAppportraitAppResponse) SetResultCode(v string) *ListAppportraitAppResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListAppportraitAppResponse) SetResultMsg(v string) *ListAppportraitAppResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListAppportraitAppResponse) SetData(v []*AppPortraitAppList) *ListAppportraitAppResponse {
+	s.Data = v
+	return s
+}
+
+type GetAppportraitAppRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 待查询的应用名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// TenantId
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// TenantName
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+}
+
+func (s GetAppportraitAppRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAppportraitAppRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetAppportraitAppRequest) SetAuthToken(v string) *GetAppportraitAppRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAppportraitAppRequest) SetName(v string) *GetAppportraitAppRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *GetAppportraitAppRequest) SetTenantId(v string) *GetAppportraitAppRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *GetAppportraitAppRequest) SetTenantName(v string) *GetAppportraitAppRequest {
+	s.TenantName = &v
+	return s
+}
+
+type GetAppportraitAppResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回应用详情信息
+	Data []*AppPortraitAppGet `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s GetAppportraitAppResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAppportraitAppResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetAppportraitAppResponse) SetReqMsgId(v string) *GetAppportraitAppResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetAppportraitAppResponse) SetResultCode(v string) *GetAppportraitAppResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetAppportraitAppResponse) SetResultMsg(v string) *GetAppportraitAppResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetAppportraitAppResponse) SetData(v []*AppPortraitAppGet) *GetAppportraitAppResponse {
+	s.Data = v
+	return s
+}
+
+type GetAppportraitYearusabilityRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 工作空间名称Id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 租户名称
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 查询的年份
+	Year *int64 `json:"year,omitempty" xml:"year,omitempty" require:"true"`
+}
+
+func (s GetAppportraitYearusabilityRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAppportraitYearusabilityRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetAppportraitYearusabilityRequest) SetAuthToken(v string) *GetAppportraitYearusabilityRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAppportraitYearusabilityRequest) SetWorkspaceId(v string) *GetAppportraitYearusabilityRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *GetAppportraitYearusabilityRequest) SetTenantId(v string) *GetAppportraitYearusabilityRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *GetAppportraitYearusabilityRequest) SetTenantName(v string) *GetAppportraitYearusabilityRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *GetAppportraitYearusabilityRequest) SetAppId(v string) *GetAppportraitYearusabilityRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *GetAppportraitYearusabilityRequest) SetYear(v int64) *GetAppportraitYearusabilityRequest {
+	s.Year = &v
+	return s
+}
+
+type GetAppportraitYearusabilityResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data *AppPortraitAppUsability `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s GetAppportraitYearusabilityResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAppportraitYearusabilityResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetAppportraitYearusabilityResponse) SetReqMsgId(v string) *GetAppportraitYearusabilityResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetAppportraitYearusabilityResponse) SetResultCode(v string) *GetAppportraitYearusabilityResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetAppportraitYearusabilityResponse) SetResultMsg(v string) *GetAppportraitYearusabilityResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetAppportraitYearusabilityResponse) SetData(v *AppPortraitAppUsability) *GetAppportraitYearusabilityResponse {
+	s.Data = v
+	return s
+}
+
+type GetAppportraitMonthusabilityRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 工作空间名称Id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 租户名称
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 查询的月份
+	Month *int64 `json:"month,omitempty" xml:"month,omitempty" require:"true"`
+}
+
+func (s GetAppportraitMonthusabilityRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAppportraitMonthusabilityRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetAppportraitMonthusabilityRequest) SetAuthToken(v string) *GetAppportraitMonthusabilityRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAppportraitMonthusabilityRequest) SetWorkspaceId(v string) *GetAppportraitMonthusabilityRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *GetAppportraitMonthusabilityRequest) SetTenantId(v string) *GetAppportraitMonthusabilityRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *GetAppportraitMonthusabilityRequest) SetTenantName(v string) *GetAppportraitMonthusabilityRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *GetAppportraitMonthusabilityRequest) SetAppId(v string) *GetAppportraitMonthusabilityRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *GetAppportraitMonthusabilityRequest) SetMonth(v int64) *GetAppportraitMonthusabilityRequest {
+	s.Month = &v
+	return s
+}
+
+type GetAppportraitMonthusabilityResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data *AppPortraitAppUsability `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s GetAppportraitMonthusabilityResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAppportraitMonthusabilityResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetAppportraitMonthusabilityResponse) SetReqMsgId(v string) *GetAppportraitMonthusabilityResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetAppportraitMonthusabilityResponse) SetResultCode(v string) *GetAppportraitMonthusabilityResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetAppportraitMonthusabilityResponse) SetResultMsg(v string) *GetAppportraitMonthusabilityResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetAppportraitMonthusabilityResponse) SetData(v *AppPortraitAppUsability) *GetAppportraitMonthusabilityResponse {
+	s.Data = v
+	return s
+}
+
+type QueryAppportraitUsabilitytrendRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// tenant_name
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 查询开始时间
+	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 查询结束时间
+	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s QueryAppportraitUsabilitytrendRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppportraitUsabilitytrendRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppportraitUsabilitytrendRequest) SetAuthToken(v string) *QueryAppportraitUsabilitytrendRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppportraitUsabilitytrendRequest) SetWorkspaceId(v string) *QueryAppportraitUsabilitytrendRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *QueryAppportraitUsabilitytrendRequest) SetTenantName(v string) *QueryAppportraitUsabilitytrendRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *QueryAppportraitUsabilitytrendRequest) SetTenantId(v string) *QueryAppportraitUsabilitytrendRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryAppportraitUsabilitytrendRequest) SetAppId(v string) *QueryAppportraitUsabilitytrendRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *QueryAppportraitUsabilitytrendRequest) SetStartTimestamp(v string) *QueryAppportraitUsabilitytrendRequest {
+	s.StartTimestamp = &v
+	return s
+}
+
+func (s *QueryAppportraitUsabilitytrendRequest) SetEndTimestamp(v string) *QueryAppportraitUsabilitytrendRequest {
+	s.EndTimestamp = &v
+	return s
+}
+
+type QueryAppportraitUsabilitytrendResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 应用可用性趋势列表
+	Data []*AppPortraitAppUsabilityTrendQuery `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAppportraitUsabilitytrendResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppportraitUsabilitytrendResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppportraitUsabilitytrendResponse) SetReqMsgId(v string) *QueryAppportraitUsabilitytrendResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAppportraitUsabilitytrendResponse) SetResultCode(v string) *QueryAppportraitUsabilitytrendResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAppportraitUsabilitytrendResponse) SetResultMsg(v string) *QueryAppportraitUsabilitytrendResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAppportraitUsabilitytrendResponse) SetData(v []*AppPortraitAppUsabilityTrendQuery) *QueryAppportraitUsabilitytrendResponse {
+	s.Data = v
+	return s
+}
+
+type QueryAppportraitHealthscoreRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// tenant_name
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 查询开始时间
+	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 查询结束时间
+	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s QueryAppportraitHealthscoreRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppportraitHealthscoreRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppportraitHealthscoreRequest) SetAuthToken(v string) *QueryAppportraitHealthscoreRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoreRequest) SetWorkspaceId(v string) *QueryAppportraitHealthscoreRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoreRequest) SetTenantName(v string) *QueryAppportraitHealthscoreRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoreRequest) SetTenantId(v string) *QueryAppportraitHealthscoreRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoreRequest) SetAppId(v string) *QueryAppportraitHealthscoreRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoreRequest) SetStartTimestamp(v string) *QueryAppportraitHealthscoreRequest {
+	s.StartTimestamp = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoreRequest) SetEndTimestamp(v string) *QueryAppportraitHealthscoreRequest {
+	s.EndTimestamp = &v
+	return s
+}
+
+type QueryAppportraitHealthscoreResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 应用健康分查询结果
+	Data *AppPortraitAppHealthScoreQuery `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryAppportraitHealthscoreResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppportraitHealthscoreResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppportraitHealthscoreResponse) SetReqMsgId(v string) *QueryAppportraitHealthscoreResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoreResponse) SetResultCode(v string) *QueryAppportraitHealthscoreResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoreResponse) SetResultMsg(v string) *QueryAppportraitHealthscoreResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoreResponse) SetData(v *AppPortraitAppHealthScoreQuery) *QueryAppportraitHealthscoreResponse {
+	s.Data = v
+	return s
+}
+
+type QueryAppportraitHealthscoretrendRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 工作空间id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 租户名称
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// 应用id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 查询开始时间
+	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 查询结束时间
+	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s QueryAppportraitHealthscoretrendRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppportraitHealthscoretrendRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppportraitHealthscoretrendRequest) SetAuthToken(v string) *QueryAppportraitHealthscoretrendRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoretrendRequest) SetWorkspaceId(v string) *QueryAppportraitHealthscoretrendRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoretrendRequest) SetTenantId(v string) *QueryAppportraitHealthscoretrendRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoretrendRequest) SetTenantName(v string) *QueryAppportraitHealthscoretrendRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoretrendRequest) SetAppId(v string) *QueryAppportraitHealthscoretrendRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoretrendRequest) SetStartTimestamp(v string) *QueryAppportraitHealthscoretrendRequest {
+	s.StartTimestamp = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoretrendRequest) SetEndTimestamp(v string) *QueryAppportraitHealthscoretrendRequest {
+	s.EndTimestamp = &v
+	return s
+}
+
+type QueryAppportraitHealthscoretrendResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 应用画像健康分趋势
+	Data []*AppPortraitAppHealthScoreTrendQuery `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAppportraitHealthscoretrendResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppportraitHealthscoretrendResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppportraitHealthscoretrendResponse) SetReqMsgId(v string) *QueryAppportraitHealthscoretrendResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoretrendResponse) SetResultCode(v string) *QueryAppportraitHealthscoretrendResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoretrendResponse) SetResultMsg(v string) *QueryAppportraitHealthscoretrendResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAppportraitHealthscoretrendResponse) SetData(v []*AppPortraitAppHealthScoreTrendQuery) *QueryAppportraitHealthscoretrendResponse {
+	s.Data = v
+	return s
+}
+
+type QueryAppportraitAlertcounttrendRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// tenant_name
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 查询开始时间
+	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 查询结束时间
+	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s QueryAppportraitAlertcounttrendRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppportraitAlertcounttrendRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppportraitAlertcounttrendRequest) SetAuthToken(v string) *QueryAppportraitAlertcounttrendRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppportraitAlertcounttrendRequest) SetWorkspaceId(v string) *QueryAppportraitAlertcounttrendRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *QueryAppportraitAlertcounttrendRequest) SetTenantId(v string) *QueryAppportraitAlertcounttrendRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryAppportraitAlertcounttrendRequest) SetTenantName(v string) *QueryAppportraitAlertcounttrendRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *QueryAppportraitAlertcounttrendRequest) SetAppId(v string) *QueryAppportraitAlertcounttrendRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *QueryAppportraitAlertcounttrendRequest) SetStartTimestamp(v string) *QueryAppportraitAlertcounttrendRequest {
+	s.StartTimestamp = &v
+	return s
+}
+
+func (s *QueryAppportraitAlertcounttrendRequest) SetEndTimestamp(v string) *QueryAppportraitAlertcounttrendRequest {
+	s.EndTimestamp = &v
+	return s
+}
+
+type QueryAppportraitAlertcounttrendResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 应用画像告警数趋势
+	Data []*AppPortraitAlertCountTrend `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAppportraitAlertcounttrendResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppportraitAlertcounttrendResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppportraitAlertcounttrendResponse) SetReqMsgId(v string) *QueryAppportraitAlertcounttrendResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAppportraitAlertcounttrendResponse) SetResultCode(v string) *QueryAppportraitAlertcounttrendResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAppportraitAlertcounttrendResponse) SetResultMsg(v string) *QueryAppportraitAlertcounttrendResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAppportraitAlertcounttrendResponse) SetData(v []*AppPortraitAlertCountTrend) *QueryAppportraitAlertcounttrendResponse {
+	s.Data = v
+	return s
+}
+
+type ListAppportraitAlertRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// tenant_name
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 查询开始时间
+	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 查询结束时间
+	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 当前页码，从1开始
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+}
+
+func (s ListAppportraitAlertRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitAlertRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitAlertRequest) SetAuthToken(v string) *ListAppportraitAlertRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAppportraitAlertRequest) SetWorkspaceId(v string) *ListAppportraitAlertRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *ListAppportraitAlertRequest) SetTenantId(v string) *ListAppportraitAlertRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ListAppportraitAlertRequest) SetTenantName(v string) *ListAppportraitAlertRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *ListAppportraitAlertRequest) SetAppId(v string) *ListAppportraitAlertRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *ListAppportraitAlertRequest) SetStartTimestamp(v string) *ListAppportraitAlertRequest {
+	s.StartTimestamp = &v
+	return s
+}
+
+func (s *ListAppportraitAlertRequest) SetEndTimestamp(v string) *ListAppportraitAlertRequest {
+	s.EndTimestamp = &v
+	return s
+}
+
+func (s *ListAppportraitAlertRequest) SetPageSize(v int64) *ListAppportraitAlertRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListAppportraitAlertRequest) SetPageNum(v int64) *ListAppportraitAlertRequest {
+	s.PageNum = &v
+	return s
+}
+
+type ListAppportraitAlertResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data []*AppPortraitAlertList `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListAppportraitAlertResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitAlertResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitAlertResponse) SetReqMsgId(v string) *ListAppportraitAlertResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListAppportraitAlertResponse) SetResultCode(v string) *ListAppportraitAlertResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListAppportraitAlertResponse) SetResultMsg(v string) *ListAppportraitAlertResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListAppportraitAlertResponse) SetData(v []*AppPortraitAlertList) *ListAppportraitAlertResponse {
+	s.Data = v
+	return s
+}
+
+type GetAppportraitEcsusageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// tenant_name
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 查询开始时间
+	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 查询结束时间
+	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s GetAppportraitEcsusageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAppportraitEcsusageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetAppportraitEcsusageRequest) SetAuthToken(v string) *GetAppportraitEcsusageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetAppportraitEcsusageRequest) SetWorkspaceId(v string) *GetAppportraitEcsusageRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *GetAppportraitEcsusageRequest) SetTenantId(v string) *GetAppportraitEcsusageRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *GetAppportraitEcsusageRequest) SetTenantName(v string) *GetAppportraitEcsusageRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *GetAppportraitEcsusageRequest) SetAppId(v string) *GetAppportraitEcsusageRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *GetAppportraitEcsusageRequest) SetStartTimestamp(v string) *GetAppportraitEcsusageRequest {
+	s.StartTimestamp = &v
+	return s
+}
+
+func (s *GetAppportraitEcsusageRequest) SetEndTimestamp(v string) *GetAppportraitEcsusageRequest {
+	s.EndTimestamp = &v
+	return s
+}
+
+type GetAppportraitEcsusageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data *AppPortraitEcsUsageGet `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s GetAppportraitEcsusageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAppportraitEcsusageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetAppportraitEcsusageResponse) SetReqMsgId(v string) *GetAppportraitEcsusageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetAppportraitEcsusageResponse) SetResultCode(v string) *GetAppportraitEcsusageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetAppportraitEcsusageResponse) SetResultMsg(v string) *GetAppportraitEcsusageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetAppportraitEcsusageResponse) SetData(v *AppPortraitEcsUsageGet) *GetAppportraitEcsusageResponse {
+	s.Data = v
+	return s
+}
+
+type QueryAppportraitContainerusageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// tenant_name
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 查询开始时间
+	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 查询结束时间
+	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s QueryAppportraitContainerusageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppportraitContainerusageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppportraitContainerusageRequest) SetAuthToken(v string) *QueryAppportraitContainerusageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppportraitContainerusageRequest) SetWorkspaceId(v string) *QueryAppportraitContainerusageRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *QueryAppportraitContainerusageRequest) SetTenantId(v string) *QueryAppportraitContainerusageRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryAppportraitContainerusageRequest) SetTenantName(v string) *QueryAppportraitContainerusageRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *QueryAppportraitContainerusageRequest) SetAppId(v string) *QueryAppportraitContainerusageRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *QueryAppportraitContainerusageRequest) SetStartTimestamp(v string) *QueryAppportraitContainerusageRequest {
+	s.StartTimestamp = &v
+	return s
+}
+
+func (s *QueryAppportraitContainerusageRequest) SetEndTimestamp(v string) *QueryAppportraitContainerusageRequest {
+	s.EndTimestamp = &v
+	return s
+}
+
+type QueryAppportraitContainerusageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data []*AppPortraitContainerUsageList `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAppportraitContainerusageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppportraitContainerusageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppportraitContainerusageResponse) SetReqMsgId(v string) *QueryAppportraitContainerusageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAppportraitContainerusageResponse) SetResultCode(v string) *QueryAppportraitContainerusageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAppportraitContainerusageResponse) SetResultMsg(v string) *QueryAppportraitContainerusageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAppportraitContainerusageResponse) SetData(v []*AppPortraitContainerUsageList) *QueryAppportraitContainerusageResponse {
+	s.Data = v
+	return s
+}
+
+type ListAppportraitActiontrailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// tenant_name
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+	// 应用id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 查询开始时间
+	StartTimestamp *string `json:"start_timestamp,omitempty" xml:"start_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 查询结束时间
+	EndTimestamp *string `json:"end_timestamp,omitempty" xml:"end_timestamp,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 分页大小，默认为10，默
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 当前页码，从1开始
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
+}
+
+func (s ListAppportraitActiontrailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitActiontrailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitActiontrailRequest) SetAuthToken(v string) *ListAppportraitActiontrailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAppportraitActiontrailRequest) SetWorkspaceId(v string) *ListAppportraitActiontrailRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *ListAppportraitActiontrailRequest) SetTenantId(v string) *ListAppportraitActiontrailRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ListAppportraitActiontrailRequest) SetTenantName(v string) *ListAppportraitActiontrailRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *ListAppportraitActiontrailRequest) SetAppId(v string) *ListAppportraitActiontrailRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *ListAppportraitActiontrailRequest) SetStartTimestamp(v string) *ListAppportraitActiontrailRequest {
+	s.StartTimestamp = &v
+	return s
+}
+
+func (s *ListAppportraitActiontrailRequest) SetEndTimestamp(v string) *ListAppportraitActiontrailRequest {
+	s.EndTimestamp = &v
+	return s
+}
+
+func (s *ListAppportraitActiontrailRequest) SetPageSize(v int64) *ListAppportraitActiontrailRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListAppportraitActiontrailRequest) SetPageNum(v int64) *ListAppportraitActiontrailRequest {
+	s.PageNum = &v
+	return s
+}
+
+type ListAppportraitActiontrailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data []*AppPortraitActionTrailQuery `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 页数
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页大小，默认10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总数
+	Total *string `json:"total,omitempty" xml:"total,omitempty"`
+}
+
+func (s ListAppportraitActiontrailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitActiontrailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitActiontrailResponse) SetReqMsgId(v string) *ListAppportraitActiontrailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListAppportraitActiontrailResponse) SetResultCode(v string) *ListAppportraitActiontrailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListAppportraitActiontrailResponse) SetResultMsg(v string) *ListAppportraitActiontrailResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListAppportraitActiontrailResponse) SetData(v []*AppPortraitActionTrailQuery) *ListAppportraitActiontrailResponse {
+	s.Data = v
+	return s
+}
+
+func (s *ListAppportraitActiontrailResponse) SetPageNum(v int64) *ListAppportraitActiontrailResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *ListAppportraitActiontrailResponse) SetPageSize(v int64) *ListAppportraitActiontrailResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ListAppportraitActiontrailResponse) SetTotal(v string) *ListAppportraitActiontrailResponse {
+	s.Total = &v
+	return s
+}
+
+type ListAppportraitNodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// workspace_id
+	WorkspaceId *string `json:"workspace_id,omitempty" xml:"workspace_id,omitempty" require:"true"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// tenant_id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// tenant_name
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
+}
+
+func (s ListAppportraitNodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitNodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitNodeRequest) SetAuthToken(v string) *ListAppportraitNodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAppportraitNodeRequest) SetWorkspaceId(v string) *ListAppportraitNodeRequest {
+	s.WorkspaceId = &v
+	return s
+}
+
+func (s *ListAppportraitNodeRequest) SetAppId(v string) *ListAppportraitNodeRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *ListAppportraitNodeRequest) SetTenantId(v string) *ListAppportraitNodeRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ListAppportraitNodeRequest) SetTenantName(v string) *ListAppportraitNodeRequest {
+	s.TenantName = &v
+	return s
+}
+
+type ListAppportraitNodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data *AppPortraitAppNodeList `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ListAppportraitNodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAppportraitNodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListAppportraitNodeResponse) SetReqMsgId(v string) *ListAppportraitNodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListAppportraitNodeResponse) SetResultCode(v string) *ListAppportraitNodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListAppportraitNodeResponse) SetResultMsg(v string) *ListAppportraitNodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListAppportraitNodeResponse) SetData(v *AppPortraitAppNodeList) *ListAppportraitNodeResponse {
 	s.Data = v
 	return s
 }
@@ -31318,7 +33230,7 @@ type QueryMiddlewareclusterResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// data
-	Instances []*MiddlewareClusterInstance `json:"instances,omitempty" xml:"instances,omitempty" type:"Repeated"`
+	Data []*MiddlewareClusterInstance `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
 
 func (s QueryMiddlewareclusterResponse) String() string {
@@ -31344,8 +33256,8 @@ func (s *QueryMiddlewareclusterResponse) SetResultMsg(v string) *QueryMiddleware
 	return s
 }
 
-func (s *QueryMiddlewareclusterResponse) SetInstances(v []*MiddlewareClusterInstance) *QueryMiddlewareclusterResponse {
-	s.Instances = v
+func (s *QueryMiddlewareclusterResponse) SetData(v []*MiddlewareClusterInstance) *QueryMiddlewareclusterResponse {
+	s.Data = v
 	return s
 }
 
@@ -31535,7 +33447,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.13"),
+				"sdk_version":      tea.String("1.4.14"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -32902,6 +34814,448 @@ func (client *Client) GetAppgrayconfigsEx(request *GetAppgrayconfigsRequest, hea
 	}
 	_result = &GetAppgrayconfigsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appgrayconfigs.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用画像获取应用名称列表
+ * Summary: 应用画像获取应用名称列表
+ */
+func (client *Client) ListAppportraitApp(request *ListAppportraitAppRequest) (_result *ListAppportraitAppResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListAppportraitAppResponse{}
+	_body, _err := client.ListAppportraitAppEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用画像获取应用名称列表
+ * Summary: 应用画像获取应用名称列表
+ */
+func (client *Client) ListAppportraitAppEx(request *ListAppportraitAppRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAppportraitAppResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListAppportraitAppResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.app.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取应用详情信息
+ * Summary: 获取应用详情信息
+ */
+func (client *Client) GetAppportraitApp(request *GetAppportraitAppRequest) (_result *GetAppportraitAppResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetAppportraitAppResponse{}
+	_body, _err := client.GetAppportraitAppEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取应用详情信息
+ * Summary: 获取应用详情信息
+ */
+func (client *Client) GetAppportraitAppEx(request *GetAppportraitAppRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAppportraitAppResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetAppportraitAppResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.app.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 年维度应用可用性查询
+ * Summary: 年维度应用可用性查询
+ */
+func (client *Client) GetAppportraitYearusability(request *GetAppportraitYearusabilityRequest) (_result *GetAppportraitYearusabilityResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetAppportraitYearusabilityResponse{}
+	_body, _err := client.GetAppportraitYearusabilityEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 年维度应用可用性查询
+ * Summary: 年维度应用可用性查询
+ */
+func (client *Client) GetAppportraitYearusabilityEx(request *GetAppportraitYearusabilityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAppportraitYearusabilityResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetAppportraitYearusabilityResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.yearusability.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 月维度应用可用性查询
+ * Summary: 月维度应用可用性查询
+ */
+func (client *Client) GetAppportraitMonthusability(request *GetAppportraitMonthusabilityRequest) (_result *GetAppportraitMonthusabilityResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetAppportraitMonthusabilityResponse{}
+	_body, _err := client.GetAppportraitMonthusabilityEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 月维度应用可用性查询
+ * Summary: 月维度应用可用性查询
+ */
+func (client *Client) GetAppportraitMonthusabilityEx(request *GetAppportraitMonthusabilityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAppportraitMonthusabilityResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetAppportraitMonthusabilityResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.monthusability.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 可用性趋势
+ * Summary: 可用性趋势
+ */
+func (client *Client) QueryAppportraitUsabilitytrend(request *QueryAppportraitUsabilitytrendRequest) (_result *QueryAppportraitUsabilitytrendResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAppportraitUsabilitytrendResponse{}
+	_body, _err := client.QueryAppportraitUsabilitytrendEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 可用性趋势
+ * Summary: 可用性趋势
+ */
+func (client *Client) QueryAppportraitUsabilitytrendEx(request *QueryAppportraitUsabilitytrendRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAppportraitUsabilitytrendResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAppportraitUsabilitytrendResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.usabilitytrend.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用画像健康分
+ * Summary: 应用画像健康分
+ */
+func (client *Client) QueryAppportraitHealthscore(request *QueryAppportraitHealthscoreRequest) (_result *QueryAppportraitHealthscoreResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAppportraitHealthscoreResponse{}
+	_body, _err := client.QueryAppportraitHealthscoreEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用画像健康分
+ * Summary: 应用画像健康分
+ */
+func (client *Client) QueryAppportraitHealthscoreEx(request *QueryAppportraitHealthscoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAppportraitHealthscoreResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAppportraitHealthscoreResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.healthscore.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用健康分趋势查询
+ * Summary: 应用健康分趋势查询
+ */
+func (client *Client) QueryAppportraitHealthscoretrend(request *QueryAppportraitHealthscoretrendRequest) (_result *QueryAppportraitHealthscoretrendResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAppportraitHealthscoretrendResponse{}
+	_body, _err := client.QueryAppportraitHealthscoretrendEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用健康分趋势查询
+ * Summary: 应用健康分趋势查询
+ */
+func (client *Client) QueryAppportraitHealthscoretrendEx(request *QueryAppportraitHealthscoretrendRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAppportraitHealthscoretrendResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAppportraitHealthscoretrendResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.healthscoretrend.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用画像告警数趋势查询
+ * Summary: 应用画像告警数趋势查询
+ */
+func (client *Client) QueryAppportraitAlertcounttrend(request *QueryAppportraitAlertcounttrendRequest) (_result *QueryAppportraitAlertcounttrendResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAppportraitAlertcounttrendResponse{}
+	_body, _err := client.QueryAppportraitAlertcounttrendEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用画像告警数趋势查询
+ * Summary: 应用画像告警数趋势查询
+ */
+func (client *Client) QueryAppportraitAlertcounttrendEx(request *QueryAppportraitAlertcounttrendRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAppportraitAlertcounttrendResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAppportraitAlertcounttrendResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.alertcounttrend.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询应用画像告警明细列表
+ * Summary: 应用画像告警明细列表
+ */
+func (client *Client) ListAppportraitAlert(request *ListAppportraitAlertRequest) (_result *ListAppportraitAlertResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListAppportraitAlertResponse{}
+	_body, _err := client.ListAppportraitAlertEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询应用画像告警明细列表
+ * Summary: 应用画像告警明细列表
+ */
+func (client *Client) ListAppportraitAlertEx(request *ListAppportraitAlertRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAppportraitAlertResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListAppportraitAlertResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.alert.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用画像应用ecs利用率
+ * Summary: 应用画像应用ecs利用率
+ */
+func (client *Client) GetAppportraitEcsusage(request *GetAppportraitEcsusageRequest) (_result *GetAppportraitEcsusageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetAppportraitEcsusageResponse{}
+	_body, _err := client.GetAppportraitEcsusageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用画像应用ecs利用率
+ * Summary: 应用画像应用ecs利用率
+ */
+func (client *Client) GetAppportraitEcsusageEx(request *GetAppportraitEcsusageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAppportraitEcsusageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetAppportraitEcsusageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.ecsusage.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询应用画像容器利用率
+ * Summary: 应用画像容器利用率
+ */
+func (client *Client) QueryAppportraitContainerusage(request *QueryAppportraitContainerusageRequest) (_result *QueryAppportraitContainerusageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAppportraitContainerusageResponse{}
+	_body, _err := client.QueryAppportraitContainerusageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询应用画像容器利用率
+ * Summary: 应用画像容器利用率
+ */
+func (client *Client) QueryAppportraitContainerusageEx(request *QueryAppportraitContainerusageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAppportraitContainerusageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAppportraitContainerusageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.containerusage.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用画像应用操作记录
+ * Summary: 应用画像应用操作记录
+ */
+func (client *Client) ListAppportraitActiontrail(request *ListAppportraitActiontrailRequest) (_result *ListAppportraitActiontrailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListAppportraitActiontrailResponse{}
+	_body, _err := client.ListAppportraitActiontrailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用画像应用操作记录
+ * Summary: 应用画像应用操作记录
+ */
+func (client *Client) ListAppportraitActiontrailEx(request *ListAppportraitActiontrailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAppportraitActiontrailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListAppportraitActiontrailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.actiontrail.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用画像应用服务关联资源节点信息
+ * Summary: 应用画像应用服务关联资源节点信息
+ */
+func (client *Client) ListAppportraitNode(request *ListAppportraitNodeRequest) (_result *ListAppportraitNodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListAppportraitNodeResponse{}
+	_body, _err := client.ListAppportraitNodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用画像应用服务关联资源节点信息
+ * Summary: 应用画像应用服务关联资源节点信息
+ */
+func (client *Client) ListAppportraitNodeEx(request *ListAppportraitNodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAppportraitNodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListAppportraitNodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cas.appportrait.node.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
