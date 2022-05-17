@@ -3019,6 +3019,86 @@ class SecurityGroupRule(TeaModel):
         return self
 
 
+class AppPortraitAppNodeEcsList(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        zone_id: str = None,
+        ip: str = None,
+        load_balancer_spec: str = None,
+        cpu: str = None,
+        memory: str = None,
+        version: str = None,
+        name: str = None,
+        status: str = None,
+    ):
+        # id
+        self.id = id
+        # zone_id
+        self.zone_id = zone_id
+        # ip
+        self.ip = ip
+        # load_balancer_spec
+        self.load_balancer_spec = load_balancer_spec
+        # cpu
+        self.cpu = cpu
+        # memory
+        self.memory = memory
+        # version
+        self.version = version
+        # name
+        self.name = name
+        # status
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.zone_id is not None:
+            result['zone_id'] = self.zone_id
+        if self.ip is not None:
+            result['ip'] = self.ip
+        if self.load_balancer_spec is not None:
+            result['load_balancer_spec'] = self.load_balancer_spec
+        if self.cpu is not None:
+            result['cpu'] = self.cpu
+        if self.memory is not None:
+            result['memory'] = self.memory
+        if self.version is not None:
+            result['version'] = self.version
+        if self.name is not None:
+            result['name'] = self.name
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('zone_id') is not None:
+            self.zone_id = m.get('zone_id')
+        if m.get('ip') is not None:
+            self.ip = m.get('ip')
+        if m.get('load_balancer_spec') is not None:
+            self.load_balancer_spec = m.get('load_balancer_spec')
+        if m.get('cpu') is not None:
+            self.cpu = m.get('cpu')
+        if m.get('memory') is not None:
+            self.memory = m.get('memory')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
 class DbSchema(TeaModel):
     def __init__(
         self,
@@ -6243,6 +6323,59 @@ class AppQuery(TeaModel):
         return self
 
 
+class AppPortraitAppUsability(TeaModel):
+    def __init__(
+        self,
+        app_id: str = None,
+        app_name: str = None,
+        app_usability: int = None,
+        y_2y: str = None,
+        reason_list: List[str] = None,
+    ):
+        # 应用id
+        self.app_id = app_id
+        # 应用名称
+        self.app_name = app_name
+        # 应用可用性
+        self.app_usability = app_usability
+        # 年同比
+        self.y_2y = y_2y
+        # 原因列表
+        self.reason_list = reason_list
+
+    def validate(self):
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.app_name, 'app_name')
+
+    def to_map(self):
+        result = dict()
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.app_name is not None:
+            result['app_name'] = self.app_name
+        if self.app_usability is not None:
+            result['app_usability'] = self.app_usability
+        if self.y_2y is not None:
+            result['y2y'] = self.y_2y
+        if self.reason_list is not None:
+            result['reason_list'] = self.reason_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('app_name') is not None:
+            self.app_name = m.get('app_name')
+        if m.get('app_usability') is not None:
+            self.app_usability = m.get('app_usability')
+        if m.get('y2y') is not None:
+            self.y_2y = m.get('y2y')
+        if m.get('reason_list') is not None:
+            self.reason_list = m.get('reason_list')
+        return self
+
+
 class AppLevelQuery(TeaModel):
     def __init__(
         self,
@@ -6605,6 +6738,120 @@ class Zone(TeaModel):
         return self
 
 
+class AppPortraitContainerUsageList(TeaModel):
+    def __init__(
+        self,
+        namespace: str = None,
+        request_cpu: int = None,
+        request_mem: int = None,
+        limit_cpu: int = None,
+        limit_mem: int = None,
+        average_cpu: int = None,
+        average_mem: int = None,
+    ):
+        # namespace
+        self.namespace = namespace
+        # request_cpu
+        self.request_cpu = request_cpu
+        # request_mem
+        self.request_mem = request_mem
+        # limit_cpu
+        self.limit_cpu = limit_cpu
+        # limit_mem
+        self.limit_mem = limit_mem
+        # average_cpu
+        self.average_cpu = average_cpu
+        # average_mem
+        self.average_mem = average_mem
+
+    def validate(self):
+        self.validate_required(self.namespace, 'namespace')
+        self.validate_required(self.request_cpu, 'request_cpu')
+        self.validate_required(self.request_mem, 'request_mem')
+        self.validate_required(self.limit_cpu, 'limit_cpu')
+        self.validate_required(self.limit_mem, 'limit_mem')
+        self.validate_required(self.average_cpu, 'average_cpu')
+        self.validate_required(self.average_mem, 'average_mem')
+
+    def to_map(self):
+        result = dict()
+        if self.namespace is not None:
+            result['namespace'] = self.namespace
+        if self.request_cpu is not None:
+            result['request_cpu'] = self.request_cpu
+        if self.request_mem is not None:
+            result['request_mem'] = self.request_mem
+        if self.limit_cpu is not None:
+            result['limit_cpu'] = self.limit_cpu
+        if self.limit_mem is not None:
+            result['limit_mem'] = self.limit_mem
+        if self.average_cpu is not None:
+            result['average_cpu'] = self.average_cpu
+        if self.average_mem is not None:
+            result['average_mem'] = self.average_mem
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('namespace') is not None:
+            self.namespace = m.get('namespace')
+        if m.get('request_cpu') is not None:
+            self.request_cpu = m.get('request_cpu')
+        if m.get('request_mem') is not None:
+            self.request_mem = m.get('request_mem')
+        if m.get('limit_cpu') is not None:
+            self.limit_cpu = m.get('limit_cpu')
+        if m.get('limit_mem') is not None:
+            self.limit_mem = m.get('limit_mem')
+        if m.get('average_cpu') is not None:
+            self.average_cpu = m.get('average_cpu')
+        if m.get('average_mem') is not None:
+            self.average_mem = m.get('average_mem')
+        return self
+
+
+class AppPortraitAlertCountTrend(TeaModel):
+    def __init__(
+        self,
+        day: str = None,
+        now_cycle: str = None,
+        last_cycle: str = None,
+    ):
+        # 日期
+        self.day = day
+        # 本周期
+        self.now_cycle = now_cycle
+        # 上周期
+        self.last_cycle = last_cycle
+
+    def validate(self):
+        self.validate_required(self.day, 'day')
+        if self.day is not None:
+            self.validate_pattern(self.day, 'day', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.now_cycle, 'now_cycle')
+        self.validate_required(self.last_cycle, 'last_cycle')
+
+    def to_map(self):
+        result = dict()
+        if self.day is not None:
+            result['day'] = self.day
+        if self.now_cycle is not None:
+            result['now_cycle'] = self.now_cycle
+        if self.last_cycle is not None:
+            result['last_cycle'] = self.last_cycle
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('day') is not None:
+            self.day = m.get('day')
+        if m.get('now_cycle') is not None:
+            self.now_cycle = m.get('now_cycle')
+        if m.get('last_cycle') is not None:
+            self.last_cycle = m.get('last_cycle')
+        return self
+
+
 class Grant(TeaModel):
     def __init__(
         self,
@@ -6648,6 +6895,48 @@ class Grant(TeaModel):
         if m.get('schema') is not None:
             temp_model = DbSchema()
             self.schema = temp_model.from_map(m['schema'])
+        return self
+
+
+class AppPortraitActionTrailQuery(TeaModel):
+    def __init__(
+        self,
+        actiontrail_timestamp: str = None,
+        title: str = None,
+        status: str = None,
+    ):
+        # 操作时间
+        self.actiontrail_timestamp = actiontrail_timestamp
+        # title
+        self.title = title
+        # 状态
+        self.status = status
+
+    def validate(self):
+        self.validate_required(self.actiontrail_timestamp, 'actiontrail_timestamp')
+        if self.actiontrail_timestamp is not None:
+            self.validate_pattern(self.actiontrail_timestamp, 'actiontrail_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.title, 'title')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        result = dict()
+        if self.actiontrail_timestamp is not None:
+            result['actiontrail_timestamp'] = self.actiontrail_timestamp
+        if self.title is not None:
+            result['title'] = self.title
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('actiontrail_timestamp') is not None:
+            self.actiontrail_timestamp = m.get('actiontrail_timestamp')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         return self
 
 
@@ -6947,6 +7236,38 @@ class ComputerQuota(TeaModel):
             self.memory = m.get('memory')
         if m.get('disk') is not None:
             self.disk = m.get('disk')
+        return self
+
+
+class AppPortraitAppUsabilityTrendQuery(TeaModel):
+    def __init__(
+        self,
+        day: str = None,
+        app_usability: int = None,
+    ):
+        # 时间以天为单位
+        self.day = day
+        # 应用可用性
+        self.app_usability = app_usability
+
+    def validate(self):
+        if self.day is not None:
+            self.validate_pattern(self.day, 'day', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.day is not None:
+            result['day'] = self.day
+        if self.app_usability is not None:
+            result['app_usability'] = self.app_usability
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('day') is not None:
+            self.day = m.get('day')
+        if m.get('app_usability') is not None:
+            self.app_usability = m.get('app_usability')
         return self
 
 
@@ -8068,6 +8389,58 @@ class WorkspaceDnsProvider(TeaModel):
             self.utc_modified = m.get('utc_modified')
         if m.get('description') is not None:
             self.description = m.get('description')
+        return self
+
+
+class AppPortraitAppHealthScoreQuery(TeaModel):
+    def __init__(
+        self,
+        app_id: str = None,
+        app_name: str = None,
+        health_score: int = None,
+        y_2y: int = None,
+        reason_list: List[str] = None,
+    ):
+        # 应用id
+        self.app_id = app_id
+        # app_name
+        self.app_name = app_name
+        # health_score
+        self.health_score = health_score
+        # 同比上升下降分数
+        self.y_2y = y_2y
+        # 上升下降原因列表
+        self.reason_list = reason_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.app_name is not None:
+            result['app_name'] = self.app_name
+        if self.health_score is not None:
+            result['health_score'] = self.health_score
+        if self.y_2y is not None:
+            result['y2y'] = self.y_2y
+        if self.reason_list is not None:
+            result['reason_list'] = self.reason_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('app_name') is not None:
+            self.app_name = m.get('app_name')
+        if m.get('health_score') is not None:
+            self.health_score = m.get('health_score')
+        if m.get('y2y') is not None:
+            self.y_2y = m.get('y2y')
+        if m.get('reason_list') is not None:
+            self.reason_list = m.get('reason_list')
         return self
 
 
@@ -10363,6 +10736,68 @@ class OperationTask(TeaModel):
         return self
 
 
+class AppPortraitAppNodeList(TeaModel):
+    def __init__(
+        self,
+        ecs: List[AppPortraitAppNodeEcsList] = None,
+        slb: AppPortraitAppNodeEcsList = None,
+        rds: AppPortraitAppNodeEcsList = None,
+        pod: AppPortraitAppNodeEcsList = None,
+    ):
+        # 返回ecs节点数据
+        self.ecs = ecs
+        # 返回slb节点数据
+        self.slb = slb
+        # 返回rds节点数据
+        self.rds = rds
+        # 返回pod节点数据
+        self.pod = pod
+
+    def validate(self):
+        if self.ecs:
+            for k in self.ecs:
+                if k:
+                    k.validate()
+        if self.slb:
+            self.slb.validate()
+        if self.rds:
+            self.rds.validate()
+        if self.pod:
+            self.pod.validate()
+
+    def to_map(self):
+        result = dict()
+        result['ecs'] = []
+        if self.ecs is not None:
+            for k in self.ecs:
+                result['ecs'].append(k.to_map() if k else None)
+        if self.slb is not None:
+            result['slb'] = self.slb.to_map()
+        if self.rds is not None:
+            result['rds'] = self.rds.to_map()
+        if self.pod is not None:
+            result['pod'] = self.pod.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.ecs = []
+        if m.get('ecs') is not None:
+            for k in m.get('ecs'):
+                temp_model = AppPortraitAppNodeEcsList()
+                self.ecs.append(temp_model.from_map(k))
+        if m.get('slb') is not None:
+            temp_model = AppPortraitAppNodeEcsList()
+            self.slb = temp_model.from_map(m['slb'])
+        if m.get('rds') is not None:
+            temp_model = AppPortraitAppNodeEcsList()
+            self.rds = temp_model.from_map(m['rds'])
+        if m.get('pod') is not None:
+            temp_model = AppPortraitAppNodeEcsList()
+            self.pod = temp_model.from_map(m['pod'])
+        return self
+
+
 class SLSProject(TeaModel):
     def __init__(
         self,
@@ -10398,6 +10833,46 @@ class SLSProject(TeaModel):
             self.name = m.get('name')
         if m.get('region') is not None:
             self.region = m.get('region')
+        return self
+
+
+class AppPortraitEcsUsageGet(TeaModel):
+    def __init__(
+        self,
+        average_cpu: int = None,
+        average_mem: int = None,
+        average_disk: int = None,
+    ):
+        # cpu平均利用率
+        self.average_cpu = average_cpu
+        # 内存平均利用率
+        self.average_mem = average_mem
+        # 磁盘平均利用率
+        self.average_disk = average_disk
+
+    def validate(self):
+        self.validate_required(self.average_cpu, 'average_cpu')
+        self.validate_required(self.average_mem, 'average_mem')
+        self.validate_required(self.average_disk, 'average_disk')
+
+    def to_map(self):
+        result = dict()
+        if self.average_cpu is not None:
+            result['average_cpu'] = self.average_cpu
+        if self.average_mem is not None:
+            result['average_mem'] = self.average_mem
+        if self.average_disk is not None:
+            result['average_disk'] = self.average_disk
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('average_cpu') is not None:
+            self.average_cpu = m.get('average_cpu')
+        if m.get('average_mem') is not None:
+            self.average_mem = m.get('average_mem')
+        if m.get('average_disk') is not None:
+            self.average_disk = m.get('average_disk')
         return self
 
 
@@ -10856,6 +11331,80 @@ class SecurityGroupVO(TeaModel):
         return self
 
 
+class AppPortraitAppList(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        name: str = None,
+        app_group_name: str = None,
+        app_group_id: str = None,
+        owner_display_name: str = None,
+        description: str = None,
+        buildpack_name: str = None,
+        buildpack_version: str = None,
+    ):
+        # 应用id
+        self.id = id
+        # 应用名称
+        self.name = name
+        # 应用分组名称
+        self.app_group_name = app_group_name
+        # 应用所属分组id
+        self.app_group_id = app_group_id
+        # 应用负责人
+        self.owner_display_name = owner_display_name
+        # 应用描述
+        self.description = description
+        # 技术栈名称
+        self.buildpack_name = buildpack_name
+        # 技术栈版本
+        self.buildpack_version = buildpack_version
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.app_group_name is not None:
+            result['app_group_name'] = self.app_group_name
+        if self.app_group_id is not None:
+            result['app_group_id'] = self.app_group_id
+        if self.owner_display_name is not None:
+            result['owner_display_name'] = self.owner_display_name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.buildpack_name is not None:
+            result['buildpack_name'] = self.buildpack_name
+        if self.buildpack_version is not None:
+            result['buildpack_version'] = self.buildpack_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('app_group_name') is not None:
+            self.app_group_name = m.get('app_group_name')
+        if m.get('app_group_id') is not None:
+            self.app_group_id = m.get('app_group_id')
+        if m.get('owner_display_name') is not None:
+            self.owner_display_name = m.get('owner_display_name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('buildpack_name') is not None:
+            self.buildpack_name = m.get('buildpack_name')
+        if m.get('buildpack_version') is not None:
+            self.buildpack_version = m.get('buildpack_version')
+        return self
+
+
 class StarAgentInfo(TeaModel):
     def __init__(
         self,
@@ -10905,6 +11454,38 @@ class StarAgentInfo(TeaModel):
             self.ip_list = m.get('ip_list')
         if m.get('status') is not None:
             self.status = m.get('status')
+        return self
+
+
+class AppPortraitAppHealthScoreTrendQuery(TeaModel):
+    def __init__(
+        self,
+        day: str = None,
+        health_score: int = None,
+    ):
+        # 日期
+        self.day = day
+        # 健康分分值
+        self.health_score = health_score
+
+    def validate(self):
+        if self.day is not None:
+            self.validate_pattern(self.day, 'day', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.day is not None:
+            result['day'] = self.day
+        if self.health_score is not None:
+            result['health_score'] = self.health_score
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('day') is not None:
+            self.day = m.get('day')
+        if m.get('health_score') is not None:
+            self.health_score = m.get('health_score')
         return self
 
 
@@ -11254,6 +11835,72 @@ class IaasConnMetadata(TeaModel):
         return self
 
 
+class AppPortraitAlertList(TeaModel):
+    def __init__(
+        self,
+        node_id: str = None,
+        node_name: str = None,
+        metric: str = None,
+        severity: str = None,
+        alert_content: str = None,
+        gmt_occur_timestamp: str = None,
+    ):
+        # 告警节点ID
+        self.node_id = node_id
+        # 节点名
+        self.node_name = node_name
+        # 告警指标
+        self.metric = metric
+        # 告警级别
+        self.severity = severity
+        # 告警内容
+        self.alert_content = alert_content
+        # 告警时间
+        self.gmt_occur_timestamp = gmt_occur_timestamp
+
+    def validate(self):
+        self.validate_required(self.node_id, 'node_id')
+        self.validate_required(self.node_name, 'node_name')
+        self.validate_required(self.metric, 'metric')
+        self.validate_required(self.severity, 'severity')
+        self.validate_required(self.alert_content, 'alert_content')
+        self.validate_required(self.gmt_occur_timestamp, 'gmt_occur_timestamp')
+        if self.gmt_occur_timestamp is not None:
+            self.validate_pattern(self.gmt_occur_timestamp, 'gmt_occur_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.node_id is not None:
+            result['node_id'] = self.node_id
+        if self.node_name is not None:
+            result['node_name'] = self.node_name
+        if self.metric is not None:
+            result['metric'] = self.metric
+        if self.severity is not None:
+            result['severity'] = self.severity
+        if self.alert_content is not None:
+            result['alert_content'] = self.alert_content
+        if self.gmt_occur_timestamp is not None:
+            result['gmt_occur_timestamp'] = self.gmt_occur_timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('node_id') is not None:
+            self.node_id = m.get('node_id')
+        if m.get('node_name') is not None:
+            self.node_name = m.get('node_name')
+        if m.get('metric') is not None:
+            self.metric = m.get('metric')
+        if m.get('severity') is not None:
+            self.severity = m.get('severity')
+        if m.get('alert_content') is not None:
+            self.alert_content = m.get('alert_content')
+        if m.get('gmt_occur_timestamp') is not None:
+            self.gmt_occur_timestamp = m.get('gmt_occur_timestamp')
+        return self
+
+
 class AppServiceQuery(TeaModel):
     def __init__(
         self,
@@ -11373,6 +12020,87 @@ class AppServiceQuery(TeaModel):
             self.query_type = m.get('query_type')
         if m.get('conditions') is not None:
             self.conditions = m.get('conditions')
+        return self
+
+
+class AppPortraitAppGet(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        name: str = None,
+        app_group_name: str = None,
+        app_group_id: str = None,
+        owner_display_name: str = None,
+        description: str = None,
+        buildpack_name: str = None,
+        buildpack_version: str = None,
+        appservices: List[str] = None,
+    ):
+        # 应用id
+        self.id = id
+        # 应用名称
+        self.name = name
+        # 应用分组名称
+        self.app_group_name = app_group_name
+        # 应用所属分组id
+        self.app_group_id = app_group_id
+        # 应用负责人
+        self.owner_display_name = owner_display_name
+        # description
+        self.description = description
+        # 技术栈名称
+        self.buildpack_name = buildpack_name
+        # 技术栈版本
+        self.buildpack_version = buildpack_version
+        # workspace下应用所关联的应用服务列表
+        self.appservices = appservices
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.app_group_name is not None:
+            result['app_group_name'] = self.app_group_name
+        if self.app_group_id is not None:
+            result['app_group_id'] = self.app_group_id
+        if self.owner_display_name is not None:
+            result['owner_display_name'] = self.owner_display_name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.buildpack_name is not None:
+            result['buildpack_name'] = self.buildpack_name
+        if self.buildpack_version is not None:
+            result['buildpack_version'] = self.buildpack_version
+        if self.appservices is not None:
+            result['appservices'] = self.appservices
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('app_group_name') is not None:
+            self.app_group_name = m.get('app_group_name')
+        if m.get('app_group_id') is not None:
+            self.app_group_id = m.get('app_group_id')
+        if m.get('owner_display_name') is not None:
+            self.owner_display_name = m.get('owner_display_name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('buildpack_name') is not None:
+            self.buildpack_name = m.get('buildpack_name')
+        if m.get('buildpack_version') is not None:
+            self.buildpack_version = m.get('buildpack_version')
+        if m.get('appservices') is not None:
+            self.appservices = m.get('appservices')
         return self
 
 
@@ -16036,6 +16764,1593 @@ class GetAppgrayconfigsResponse(TeaModel):
             for k in m.get('data'):
                 temp_model = MapStringToBooleanEntity()
                 self.data.append(temp_model.from_map(k))
+        return self
+
+
+class ListAppportraitAppRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        name: str = None,
+        app_group_name: str = None,
+        owner_display_name: str = None,
+        buildpack_name: str = None,
+        buildpack_version: str = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 应用名称
+        self.name = name
+        # 应用分组名称
+        self.app_group_name = app_group_name
+        # 应用负责人
+        self.owner_display_name = owner_display_name
+        # 技术栈名称
+        self.buildpack_name = buildpack_name
+        # 技术栈版本
+        self.buildpack_version = buildpack_version
+        # TenantId
+        self.tenant_id = tenant_id
+        # TenantName
+        self.tenant_name = tenant_name
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.name is not None:
+            result['name'] = self.name
+        if self.app_group_name is not None:
+            result['app_group_name'] = self.app_group_name
+        if self.owner_display_name is not None:
+            result['owner_display_name'] = self.owner_display_name
+        if self.buildpack_name is not None:
+            result['buildpack_name'] = self.buildpack_name
+        if self.buildpack_version is not None:
+            result['buildpack_version'] = self.buildpack_version
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('app_group_name') is not None:
+            self.app_group_name = m.get('app_group_name')
+        if m.get('owner_display_name') is not None:
+            self.owner_display_name = m.get('owner_display_name')
+        if m.get('buildpack_name') is not None:
+            self.buildpack_name = m.get('buildpack_name')
+        if m.get('buildpack_version') is not None:
+            self.buildpack_version = m.get('buildpack_version')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        return self
+
+
+class ListAppportraitAppResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[AppPortraitAppList] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 应用名称列表数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = AppPortraitAppList()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class GetAppportraitAppRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        name: str = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 待查询的应用名称
+        self.name = name
+        # TenantId
+        self.tenant_id = tenant_id
+        # TenantName
+        self.tenant_name = tenant_name
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.name is not None:
+            result['name'] = self.name
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        return self
+
+
+class GetAppportraitAppResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[AppPortraitAppGet] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回应用详情信息
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = AppPortraitAppGet()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class GetAppportraitYearusabilityRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+        app_id: str = None,
+        year: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 工作空间名称Id
+        self.workspace_id = workspace_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 租户名称
+        self.tenant_name = tenant_name
+        # app_id
+        self.app_id = app_id
+        # 查询的年份
+        self.year = year
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.year, 'year')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.year is not None:
+            result['year'] = self.year
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('year') is not None:
+            self.year = m.get('year')
+        return self
+
+
+class GetAppportraitYearusabilityResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: AppPortraitAppUsability = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = AppPortraitAppUsability()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class GetAppportraitMonthusabilityRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+        app_id: str = None,
+        month: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 工作空间名称Id
+        self.workspace_id = workspace_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 租户名称
+        self.tenant_name = tenant_name
+        # app_id
+        self.app_id = app_id
+        # 查询的月份
+        self.month = month
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.month, 'month')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.month is not None:
+            result['month'] = self.month
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('month') is not None:
+            self.month = m.get('month')
+        return self
+
+
+class GetAppportraitMonthusabilityResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: AppPortraitAppUsability = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = AppPortraitAppUsability()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class QueryAppportraitUsabilitytrendRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        tenant_name: str = None,
+        tenant_id: str = None,
+        app_id: str = None,
+        start_timestamp: str = None,
+        end_timestamp: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # tenant_name
+        self.tenant_name = tenant_name
+        # tenant_id
+        self.tenant_id = tenant_id
+        # app_id
+        self.app_id = app_id
+        # 查询开始时间
+        self.start_timestamp = start_timestamp
+        # 查询结束时间
+        self.end_timestamp = end_timestamp
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.start_timestamp, 'start_timestamp')
+        if self.start_timestamp is not None:
+            self.validate_pattern(self.start_timestamp, 'start_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.end_timestamp, 'end_timestamp')
+        if self.end_timestamp is not None:
+            self.validate_pattern(self.end_timestamp, 'end_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.start_timestamp is not None:
+            result['start_timestamp'] = self.start_timestamp
+        if self.end_timestamp is not None:
+            result['end_timestamp'] = self.end_timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('start_timestamp') is not None:
+            self.start_timestamp = m.get('start_timestamp')
+        if m.get('end_timestamp') is not None:
+            self.end_timestamp = m.get('end_timestamp')
+        return self
+
+
+class QueryAppportraitUsabilitytrendResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[AppPortraitAppUsabilityTrendQuery] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 应用可用性趋势列表
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = AppPortraitAppUsabilityTrendQuery()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryAppportraitHealthscoreRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        tenant_name: str = None,
+        tenant_id: str = None,
+        app_id: str = None,
+        start_timestamp: str = None,
+        end_timestamp: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # tenant_name
+        self.tenant_name = tenant_name
+        # tenant_id
+        self.tenant_id = tenant_id
+        # app_id
+        self.app_id = app_id
+        # 查询开始时间
+        self.start_timestamp = start_timestamp
+        # 查询结束时间
+        self.end_timestamp = end_timestamp
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.start_timestamp, 'start_timestamp')
+        if self.start_timestamp is not None:
+            self.validate_pattern(self.start_timestamp, 'start_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.end_timestamp, 'end_timestamp')
+        if self.end_timestamp is not None:
+            self.validate_pattern(self.end_timestamp, 'end_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.start_timestamp is not None:
+            result['start_timestamp'] = self.start_timestamp
+        if self.end_timestamp is not None:
+            result['end_timestamp'] = self.end_timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('start_timestamp') is not None:
+            self.start_timestamp = m.get('start_timestamp')
+        if m.get('end_timestamp') is not None:
+            self.end_timestamp = m.get('end_timestamp')
+        return self
+
+
+class QueryAppportraitHealthscoreResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: AppPortraitAppHealthScoreQuery = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 应用健康分查询结果
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = AppPortraitAppHealthScoreQuery()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class QueryAppportraitHealthscoretrendRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+        app_id: str = None,
+        start_timestamp: str = None,
+        end_timestamp: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 工作空间id
+        self.workspace_id = workspace_id
+        # tenant_id
+        self.tenant_id = tenant_id
+        # 租户名称
+        self.tenant_name = tenant_name
+        # 应用id
+        self.app_id = app_id
+        # 查询开始时间
+        self.start_timestamp = start_timestamp
+        # 查询结束时间
+        self.end_timestamp = end_timestamp
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.start_timestamp, 'start_timestamp')
+        if self.start_timestamp is not None:
+            self.validate_pattern(self.start_timestamp, 'start_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.end_timestamp, 'end_timestamp')
+        if self.end_timestamp is not None:
+            self.validate_pattern(self.end_timestamp, 'end_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.start_timestamp is not None:
+            result['start_timestamp'] = self.start_timestamp
+        if self.end_timestamp is not None:
+            result['end_timestamp'] = self.end_timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('start_timestamp') is not None:
+            self.start_timestamp = m.get('start_timestamp')
+        if m.get('end_timestamp') is not None:
+            self.end_timestamp = m.get('end_timestamp')
+        return self
+
+
+class QueryAppportraitHealthscoretrendResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[AppPortraitAppHealthScoreTrendQuery] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 应用画像健康分趋势
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = AppPortraitAppHealthScoreTrendQuery()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryAppportraitAlertcounttrendRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+        app_id: str = None,
+        start_timestamp: str = None,
+        end_timestamp: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # tenant_id
+        self.tenant_id = tenant_id
+        # tenant_name
+        self.tenant_name = tenant_name
+        # app_id
+        self.app_id = app_id
+        # 查询开始时间
+        self.start_timestamp = start_timestamp
+        # 查询结束时间
+        self.end_timestamp = end_timestamp
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.start_timestamp, 'start_timestamp')
+        if self.start_timestamp is not None:
+            self.validate_pattern(self.start_timestamp, 'start_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.end_timestamp, 'end_timestamp')
+        if self.end_timestamp is not None:
+            self.validate_pattern(self.end_timestamp, 'end_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.start_timestamp is not None:
+            result['start_timestamp'] = self.start_timestamp
+        if self.end_timestamp is not None:
+            result['end_timestamp'] = self.end_timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('start_timestamp') is not None:
+            self.start_timestamp = m.get('start_timestamp')
+        if m.get('end_timestamp') is not None:
+            self.end_timestamp = m.get('end_timestamp')
+        return self
+
+
+class QueryAppportraitAlertcounttrendResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[AppPortraitAlertCountTrend] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 应用画像告警数趋势
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = AppPortraitAlertCountTrend()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class ListAppportraitAlertRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+        app_id: str = None,
+        start_timestamp: str = None,
+        end_timestamp: str = None,
+        page_size: int = None,
+        page_num: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # tenant_id
+        self.tenant_id = tenant_id
+        # tenant_name
+        self.tenant_name = tenant_name
+        # app_id
+        self.app_id = app_id
+        # 查询开始时间
+        self.start_timestamp = start_timestamp
+        # 查询结束时间
+        self.end_timestamp = end_timestamp
+        # 分页大小
+        self.page_size = page_size
+        # 当前页码，从1开始
+        self.page_num = page_num
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.start_timestamp, 'start_timestamp')
+        if self.start_timestamp is not None:
+            self.validate_pattern(self.start_timestamp, 'start_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.end_timestamp, 'end_timestamp')
+        if self.end_timestamp is not None:
+            self.validate_pattern(self.end_timestamp, 'end_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.start_timestamp is not None:
+            result['start_timestamp'] = self.start_timestamp
+        if self.end_timestamp is not None:
+            result['end_timestamp'] = self.end_timestamp
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('start_timestamp') is not None:
+            self.start_timestamp = m.get('start_timestamp')
+        if m.get('end_timestamp') is not None:
+            self.end_timestamp = m.get('end_timestamp')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        return self
+
+
+class ListAppportraitAlertResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[AppPortraitAlertList] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = AppPortraitAlertList()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class GetAppportraitEcsusageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+        app_id: str = None,
+        start_timestamp: str = None,
+        end_timestamp: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # tenant_id
+        self.tenant_id = tenant_id
+        # tenant_name
+        self.tenant_name = tenant_name
+        # app_id
+        self.app_id = app_id
+        # 查询开始时间
+        self.start_timestamp = start_timestamp
+        # 查询结束时间
+        self.end_timestamp = end_timestamp
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.start_timestamp, 'start_timestamp')
+        if self.start_timestamp is not None:
+            self.validate_pattern(self.start_timestamp, 'start_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.end_timestamp, 'end_timestamp')
+        if self.end_timestamp is not None:
+            self.validate_pattern(self.end_timestamp, 'end_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.start_timestamp is not None:
+            result['start_timestamp'] = self.start_timestamp
+        if self.end_timestamp is not None:
+            result['end_timestamp'] = self.end_timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('start_timestamp') is not None:
+            self.start_timestamp = m.get('start_timestamp')
+        if m.get('end_timestamp') is not None:
+            self.end_timestamp = m.get('end_timestamp')
+        return self
+
+
+class GetAppportraitEcsusageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: AppPortraitEcsUsageGet = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = AppPortraitEcsUsageGet()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class QueryAppportraitContainerusageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+        app_id: str = None,
+        start_timestamp: str = None,
+        end_timestamp: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # tenant_id
+        self.tenant_id = tenant_id
+        # tenant_name
+        self.tenant_name = tenant_name
+        # app_id
+        self.app_id = app_id
+        # 查询开始时间
+        self.start_timestamp = start_timestamp
+        # 查询结束时间
+        self.end_timestamp = end_timestamp
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.start_timestamp, 'start_timestamp')
+        if self.start_timestamp is not None:
+            self.validate_pattern(self.start_timestamp, 'start_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.end_timestamp, 'end_timestamp')
+        if self.end_timestamp is not None:
+            self.validate_pattern(self.end_timestamp, 'end_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.start_timestamp is not None:
+            result['start_timestamp'] = self.start_timestamp
+        if self.end_timestamp is not None:
+            result['end_timestamp'] = self.end_timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('start_timestamp') is not None:
+            self.start_timestamp = m.get('start_timestamp')
+        if m.get('end_timestamp') is not None:
+            self.end_timestamp = m.get('end_timestamp')
+        return self
+
+
+class QueryAppportraitContainerusageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[AppPortraitContainerUsageList] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = AppPortraitContainerUsageList()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class ListAppportraitActiontrailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+        app_id: str = None,
+        start_timestamp: str = None,
+        end_timestamp: str = None,
+        page_size: int = None,
+        page_num: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # tenant_id
+        self.tenant_id = tenant_id
+        # tenant_name
+        self.tenant_name = tenant_name
+        # 应用id
+        self.app_id = app_id
+        # 查询开始时间
+        self.start_timestamp = start_timestamp
+        # 查询结束时间
+        self.end_timestamp = end_timestamp
+        # 分页大小，默认为10，默
+        self.page_size = page_size
+        # 当前页码，从1开始
+        self.page_num = page_num
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.start_timestamp, 'start_timestamp')
+        if self.start_timestamp is not None:
+            self.validate_pattern(self.start_timestamp, 'start_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.end_timestamp, 'end_timestamp')
+        if self.end_timestamp is not None:
+            self.validate_pattern(self.end_timestamp, 'end_timestamp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.page_num, 'page_num')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.start_timestamp is not None:
+            result['start_timestamp'] = self.start_timestamp
+        if self.end_timestamp is not None:
+            result['end_timestamp'] = self.end_timestamp
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('start_timestamp') is not None:
+            self.start_timestamp = m.get('start_timestamp')
+        if m.get('end_timestamp') is not None:
+            self.end_timestamp = m.get('end_timestamp')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        return self
+
+
+class ListAppportraitActiontrailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[AppPortraitActionTrailQuery] = None,
+        page_num: int = None,
+        page_size: int = None,
+        total: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回数据
+        self.data = data
+        # 页数
+        self.page_num = page_num
+        # 每页大小，默认10
+        self.page_size = page_size
+        # 总数
+        self.total = total
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total is not None:
+            result['total'] = self.total
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = AppPortraitActionTrailQuery()
+                self.data.append(temp_model.from_map(k))
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        return self
+
+
+class ListAppportraitNodeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        workspace_id: str = None,
+        app_id: str = None,
+        tenant_id: str = None,
+        tenant_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # workspace_id
+        self.workspace_id = workspace_id
+        # app_id
+        self.app_id = app_id
+        # tenant_id
+        self.tenant_id = tenant_id
+        # tenant_name
+        self.tenant_name = tenant_name
+
+    def validate(self):
+        self.validate_required(self.workspace_id, 'workspace_id')
+        self.validate_required(self.app_id, 'app_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.workspace_id is not None:
+            result['workspace_id'] = self.workspace_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.tenant_name is not None:
+            result['tenant_name'] = self.tenant_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('workspace_id') is not None:
+            self.workspace_id = m.get('workspace_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('tenant_name') is not None:
+            self.tenant_name = m.get('tenant_name')
+        return self
+
+
+class ListAppportraitNodeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: AppPortraitAppNodeList = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = AppPortraitAppNodeList()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
@@ -37003,7 +39318,7 @@ class QueryMiddlewareclusterResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        instances: List[MiddlewareClusterInstance] = None,
+        data: List[MiddlewareClusterInstance] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -37012,11 +39327,11 @@ class QueryMiddlewareclusterResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # data
-        self.instances = instances
+        self.data = data
 
     def validate(self):
-        if self.instances:
-            for k in self.instances:
+        if self.data:
+            for k in self.data:
                 if k:
                     k.validate()
 
@@ -37028,10 +39343,10 @@ class QueryMiddlewareclusterResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        result['instances'] = []
-        if self.instances is not None:
-            for k in self.instances:
-                result['instances'].append(k.to_map() if k else None)
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -37042,11 +39357,11 @@ class QueryMiddlewareclusterResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        self.instances = []
-        if m.get('instances') is not None:
-            for k in m.get('instances'):
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
                 temp_model = MiddlewareClusterInstance()
-                self.instances.append(temp_model.from_map(k))
+                self.data.append(temp_model.from_map(k))
         return self
 
 

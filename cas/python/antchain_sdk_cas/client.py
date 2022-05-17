@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.13'
+                    'sdk_version': '1.4.14'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.13'
+                    'sdk_version': '1.4.14'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -2375,6 +2375,708 @@ class Client:
         UtilClient.validate_model(request)
         return cas_models.GetAppgrayconfigsResponse().from_map(
             await self.do_request_async('1.0', 'antcloud.cas.appgrayconfigs.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_appportrait_app(
+        self,
+        request: cas_models.ListAppportraitAppRequest,
+    ) -> cas_models.ListAppportraitAppResponse:
+        """
+        Description: 应用画像获取应用名称列表
+        Summary: 应用画像获取应用名称列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_appportrait_app_ex(request, headers, runtime)
+
+    async def list_appportrait_app_async(
+        self,
+        request: cas_models.ListAppportraitAppRequest,
+    ) -> cas_models.ListAppportraitAppResponse:
+        """
+        Description: 应用画像获取应用名称列表
+        Summary: 应用画像获取应用名称列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_appportrait_app_ex_async(request, headers, runtime)
+
+    def list_appportrait_app_ex(
+        self,
+        request: cas_models.ListAppportraitAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.ListAppportraitAppResponse:
+        """
+        Description: 应用画像获取应用名称列表
+        Summary: 应用画像获取应用名称列表
+        """
+        UtilClient.validate_model(request)
+        return cas_models.ListAppportraitAppResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.appportrait.app.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_appportrait_app_ex_async(
+        self,
+        request: cas_models.ListAppportraitAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.ListAppportraitAppResponse:
+        """
+        Description: 应用画像获取应用名称列表
+        Summary: 应用画像获取应用名称列表
+        """
+        UtilClient.validate_model(request)
+        return cas_models.ListAppportraitAppResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.appportrait.app.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_appportrait_app(
+        self,
+        request: cas_models.GetAppportraitAppRequest,
+    ) -> cas_models.GetAppportraitAppResponse:
+        """
+        Description: 获取应用详情信息
+        Summary: 获取应用详情信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_appportrait_app_ex(request, headers, runtime)
+
+    async def get_appportrait_app_async(
+        self,
+        request: cas_models.GetAppportraitAppRequest,
+    ) -> cas_models.GetAppportraitAppResponse:
+        """
+        Description: 获取应用详情信息
+        Summary: 获取应用详情信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_appportrait_app_ex_async(request, headers, runtime)
+
+    def get_appportrait_app_ex(
+        self,
+        request: cas_models.GetAppportraitAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.GetAppportraitAppResponse:
+        """
+        Description: 获取应用详情信息
+        Summary: 获取应用详情信息
+        """
+        UtilClient.validate_model(request)
+        return cas_models.GetAppportraitAppResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.appportrait.app.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_appportrait_app_ex_async(
+        self,
+        request: cas_models.GetAppportraitAppRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.GetAppportraitAppResponse:
+        """
+        Description: 获取应用详情信息
+        Summary: 获取应用详情信息
+        """
+        UtilClient.validate_model(request)
+        return cas_models.GetAppportraitAppResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.appportrait.app.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_appportrait_yearusability(
+        self,
+        request: cas_models.GetAppportraitYearusabilityRequest,
+    ) -> cas_models.GetAppportraitYearusabilityResponse:
+        """
+        Description: 年维度应用可用性查询
+        Summary: 年维度应用可用性查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_appportrait_yearusability_ex(request, headers, runtime)
+
+    async def get_appportrait_yearusability_async(
+        self,
+        request: cas_models.GetAppportraitYearusabilityRequest,
+    ) -> cas_models.GetAppportraitYearusabilityResponse:
+        """
+        Description: 年维度应用可用性查询
+        Summary: 年维度应用可用性查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_appportrait_yearusability_ex_async(request, headers, runtime)
+
+    def get_appportrait_yearusability_ex(
+        self,
+        request: cas_models.GetAppportraitYearusabilityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.GetAppportraitYearusabilityResponse:
+        """
+        Description: 年维度应用可用性查询
+        Summary: 年维度应用可用性查询
+        """
+        UtilClient.validate_model(request)
+        return cas_models.GetAppportraitYearusabilityResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.appportrait.yearusability.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_appportrait_yearusability_ex_async(
+        self,
+        request: cas_models.GetAppportraitYearusabilityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.GetAppportraitYearusabilityResponse:
+        """
+        Description: 年维度应用可用性查询
+        Summary: 年维度应用可用性查询
+        """
+        UtilClient.validate_model(request)
+        return cas_models.GetAppportraitYearusabilityResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.appportrait.yearusability.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_appportrait_monthusability(
+        self,
+        request: cas_models.GetAppportraitMonthusabilityRequest,
+    ) -> cas_models.GetAppportraitMonthusabilityResponse:
+        """
+        Description: 月维度应用可用性查询
+        Summary: 月维度应用可用性查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_appportrait_monthusability_ex(request, headers, runtime)
+
+    async def get_appportrait_monthusability_async(
+        self,
+        request: cas_models.GetAppportraitMonthusabilityRequest,
+    ) -> cas_models.GetAppportraitMonthusabilityResponse:
+        """
+        Description: 月维度应用可用性查询
+        Summary: 月维度应用可用性查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_appportrait_monthusability_ex_async(request, headers, runtime)
+
+    def get_appportrait_monthusability_ex(
+        self,
+        request: cas_models.GetAppportraitMonthusabilityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.GetAppportraitMonthusabilityResponse:
+        """
+        Description: 月维度应用可用性查询
+        Summary: 月维度应用可用性查询
+        """
+        UtilClient.validate_model(request)
+        return cas_models.GetAppportraitMonthusabilityResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.appportrait.monthusability.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_appportrait_monthusability_ex_async(
+        self,
+        request: cas_models.GetAppportraitMonthusabilityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.GetAppportraitMonthusabilityResponse:
+        """
+        Description: 月维度应用可用性查询
+        Summary: 月维度应用可用性查询
+        """
+        UtilClient.validate_model(request)
+        return cas_models.GetAppportraitMonthusabilityResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.appportrait.monthusability.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_appportrait_usabilitytrend(
+        self,
+        request: cas_models.QueryAppportraitUsabilitytrendRequest,
+    ) -> cas_models.QueryAppportraitUsabilitytrendResponse:
+        """
+        Description: 可用性趋势
+        Summary: 可用性趋势
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_appportrait_usabilitytrend_ex(request, headers, runtime)
+
+    async def query_appportrait_usabilitytrend_async(
+        self,
+        request: cas_models.QueryAppportraitUsabilitytrendRequest,
+    ) -> cas_models.QueryAppportraitUsabilitytrendResponse:
+        """
+        Description: 可用性趋势
+        Summary: 可用性趋势
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_appportrait_usabilitytrend_ex_async(request, headers, runtime)
+
+    def query_appportrait_usabilitytrend_ex(
+        self,
+        request: cas_models.QueryAppportraitUsabilitytrendRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryAppportraitUsabilitytrendResponse:
+        """
+        Description: 可用性趋势
+        Summary: 可用性趋势
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryAppportraitUsabilitytrendResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.appportrait.usabilitytrend.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_appportrait_usabilitytrend_ex_async(
+        self,
+        request: cas_models.QueryAppportraitUsabilitytrendRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryAppportraitUsabilitytrendResponse:
+        """
+        Description: 可用性趋势
+        Summary: 可用性趋势
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryAppportraitUsabilitytrendResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.appportrait.usabilitytrend.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_appportrait_healthscore(
+        self,
+        request: cas_models.QueryAppportraitHealthscoreRequest,
+    ) -> cas_models.QueryAppportraitHealthscoreResponse:
+        """
+        Description: 应用画像健康分
+        Summary: 应用画像健康分
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_appportrait_healthscore_ex(request, headers, runtime)
+
+    async def query_appportrait_healthscore_async(
+        self,
+        request: cas_models.QueryAppportraitHealthscoreRequest,
+    ) -> cas_models.QueryAppportraitHealthscoreResponse:
+        """
+        Description: 应用画像健康分
+        Summary: 应用画像健康分
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_appportrait_healthscore_ex_async(request, headers, runtime)
+
+    def query_appportrait_healthscore_ex(
+        self,
+        request: cas_models.QueryAppportraitHealthscoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryAppportraitHealthscoreResponse:
+        """
+        Description: 应用画像健康分
+        Summary: 应用画像健康分
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryAppportraitHealthscoreResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.appportrait.healthscore.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_appportrait_healthscore_ex_async(
+        self,
+        request: cas_models.QueryAppportraitHealthscoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryAppportraitHealthscoreResponse:
+        """
+        Description: 应用画像健康分
+        Summary: 应用画像健康分
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryAppportraitHealthscoreResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.appportrait.healthscore.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_appportrait_healthscoretrend(
+        self,
+        request: cas_models.QueryAppportraitHealthscoretrendRequest,
+    ) -> cas_models.QueryAppportraitHealthscoretrendResponse:
+        """
+        Description: 应用健康分趋势查询
+        Summary: 应用健康分趋势查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_appportrait_healthscoretrend_ex(request, headers, runtime)
+
+    async def query_appportrait_healthscoretrend_async(
+        self,
+        request: cas_models.QueryAppportraitHealthscoretrendRequest,
+    ) -> cas_models.QueryAppportraitHealthscoretrendResponse:
+        """
+        Description: 应用健康分趋势查询
+        Summary: 应用健康分趋势查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_appportrait_healthscoretrend_ex_async(request, headers, runtime)
+
+    def query_appportrait_healthscoretrend_ex(
+        self,
+        request: cas_models.QueryAppportraitHealthscoretrendRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryAppportraitHealthscoretrendResponse:
+        """
+        Description: 应用健康分趋势查询
+        Summary: 应用健康分趋势查询
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryAppportraitHealthscoretrendResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.appportrait.healthscoretrend.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_appportrait_healthscoretrend_ex_async(
+        self,
+        request: cas_models.QueryAppportraitHealthscoretrendRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryAppportraitHealthscoretrendResponse:
+        """
+        Description: 应用健康分趋势查询
+        Summary: 应用健康分趋势查询
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryAppportraitHealthscoretrendResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.appportrait.healthscoretrend.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_appportrait_alertcounttrend(
+        self,
+        request: cas_models.QueryAppportraitAlertcounttrendRequest,
+    ) -> cas_models.QueryAppportraitAlertcounttrendResponse:
+        """
+        Description: 应用画像告警数趋势查询
+        Summary: 应用画像告警数趋势查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_appportrait_alertcounttrend_ex(request, headers, runtime)
+
+    async def query_appportrait_alertcounttrend_async(
+        self,
+        request: cas_models.QueryAppportraitAlertcounttrendRequest,
+    ) -> cas_models.QueryAppportraitAlertcounttrendResponse:
+        """
+        Description: 应用画像告警数趋势查询
+        Summary: 应用画像告警数趋势查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_appportrait_alertcounttrend_ex_async(request, headers, runtime)
+
+    def query_appportrait_alertcounttrend_ex(
+        self,
+        request: cas_models.QueryAppportraitAlertcounttrendRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryAppportraitAlertcounttrendResponse:
+        """
+        Description: 应用画像告警数趋势查询
+        Summary: 应用画像告警数趋势查询
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryAppportraitAlertcounttrendResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.appportrait.alertcounttrend.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_appportrait_alertcounttrend_ex_async(
+        self,
+        request: cas_models.QueryAppportraitAlertcounttrendRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryAppportraitAlertcounttrendResponse:
+        """
+        Description: 应用画像告警数趋势查询
+        Summary: 应用画像告警数趋势查询
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryAppportraitAlertcounttrendResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.appportrait.alertcounttrend.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_appportrait_alert(
+        self,
+        request: cas_models.ListAppportraitAlertRequest,
+    ) -> cas_models.ListAppportraitAlertResponse:
+        """
+        Description: 查询应用画像告警明细列表
+        Summary: 应用画像告警明细列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_appportrait_alert_ex(request, headers, runtime)
+
+    async def list_appportrait_alert_async(
+        self,
+        request: cas_models.ListAppportraitAlertRequest,
+    ) -> cas_models.ListAppportraitAlertResponse:
+        """
+        Description: 查询应用画像告警明细列表
+        Summary: 应用画像告警明细列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_appportrait_alert_ex_async(request, headers, runtime)
+
+    def list_appportrait_alert_ex(
+        self,
+        request: cas_models.ListAppportraitAlertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.ListAppportraitAlertResponse:
+        """
+        Description: 查询应用画像告警明细列表
+        Summary: 应用画像告警明细列表
+        """
+        UtilClient.validate_model(request)
+        return cas_models.ListAppportraitAlertResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.appportrait.alert.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_appportrait_alert_ex_async(
+        self,
+        request: cas_models.ListAppportraitAlertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.ListAppportraitAlertResponse:
+        """
+        Description: 查询应用画像告警明细列表
+        Summary: 应用画像告警明细列表
+        """
+        UtilClient.validate_model(request)
+        return cas_models.ListAppportraitAlertResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.appportrait.alert.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_appportrait_ecsusage(
+        self,
+        request: cas_models.GetAppportraitEcsusageRequest,
+    ) -> cas_models.GetAppportraitEcsusageResponse:
+        """
+        Description: 应用画像应用ecs利用率
+        Summary: 应用画像应用ecs利用率
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_appportrait_ecsusage_ex(request, headers, runtime)
+
+    async def get_appportrait_ecsusage_async(
+        self,
+        request: cas_models.GetAppportraitEcsusageRequest,
+    ) -> cas_models.GetAppportraitEcsusageResponse:
+        """
+        Description: 应用画像应用ecs利用率
+        Summary: 应用画像应用ecs利用率
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_appportrait_ecsusage_ex_async(request, headers, runtime)
+
+    def get_appportrait_ecsusage_ex(
+        self,
+        request: cas_models.GetAppportraitEcsusageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.GetAppportraitEcsusageResponse:
+        """
+        Description: 应用画像应用ecs利用率
+        Summary: 应用画像应用ecs利用率
+        """
+        UtilClient.validate_model(request)
+        return cas_models.GetAppportraitEcsusageResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.appportrait.ecsusage.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_appportrait_ecsusage_ex_async(
+        self,
+        request: cas_models.GetAppportraitEcsusageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.GetAppportraitEcsusageResponse:
+        """
+        Description: 应用画像应用ecs利用率
+        Summary: 应用画像应用ecs利用率
+        """
+        UtilClient.validate_model(request)
+        return cas_models.GetAppportraitEcsusageResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.appportrait.ecsusage.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_appportrait_containerusage(
+        self,
+        request: cas_models.QueryAppportraitContainerusageRequest,
+    ) -> cas_models.QueryAppportraitContainerusageResponse:
+        """
+        Description: 查询应用画像容器利用率
+        Summary: 应用画像容器利用率
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_appportrait_containerusage_ex(request, headers, runtime)
+
+    async def query_appportrait_containerusage_async(
+        self,
+        request: cas_models.QueryAppportraitContainerusageRequest,
+    ) -> cas_models.QueryAppportraitContainerusageResponse:
+        """
+        Description: 查询应用画像容器利用率
+        Summary: 应用画像容器利用率
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_appportrait_containerusage_ex_async(request, headers, runtime)
+
+    def query_appportrait_containerusage_ex(
+        self,
+        request: cas_models.QueryAppportraitContainerusageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryAppportraitContainerusageResponse:
+        """
+        Description: 查询应用画像容器利用率
+        Summary: 应用画像容器利用率
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryAppportraitContainerusageResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.appportrait.containerusage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_appportrait_containerusage_ex_async(
+        self,
+        request: cas_models.QueryAppportraitContainerusageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.QueryAppportraitContainerusageResponse:
+        """
+        Description: 查询应用画像容器利用率
+        Summary: 应用画像容器利用率
+        """
+        UtilClient.validate_model(request)
+        return cas_models.QueryAppportraitContainerusageResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.appportrait.containerusage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_appportrait_actiontrail(
+        self,
+        request: cas_models.ListAppportraitActiontrailRequest,
+    ) -> cas_models.ListAppportraitActiontrailResponse:
+        """
+        Description: 应用画像应用操作记录
+        Summary: 应用画像应用操作记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_appportrait_actiontrail_ex(request, headers, runtime)
+
+    async def list_appportrait_actiontrail_async(
+        self,
+        request: cas_models.ListAppportraitActiontrailRequest,
+    ) -> cas_models.ListAppportraitActiontrailResponse:
+        """
+        Description: 应用画像应用操作记录
+        Summary: 应用画像应用操作记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_appportrait_actiontrail_ex_async(request, headers, runtime)
+
+    def list_appportrait_actiontrail_ex(
+        self,
+        request: cas_models.ListAppportraitActiontrailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.ListAppportraitActiontrailResponse:
+        """
+        Description: 应用画像应用操作记录
+        Summary: 应用画像应用操作记录
+        """
+        UtilClient.validate_model(request)
+        return cas_models.ListAppportraitActiontrailResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.appportrait.actiontrail.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_appportrait_actiontrail_ex_async(
+        self,
+        request: cas_models.ListAppportraitActiontrailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.ListAppportraitActiontrailResponse:
+        """
+        Description: 应用画像应用操作记录
+        Summary: 应用画像应用操作记录
+        """
+        UtilClient.validate_model(request)
+        return cas_models.ListAppportraitActiontrailResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.appportrait.actiontrail.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_appportrait_node(
+        self,
+        request: cas_models.ListAppportraitNodeRequest,
+    ) -> cas_models.ListAppportraitNodeResponse:
+        """
+        Description: 应用画像应用服务关联资源节点信息
+        Summary: 应用画像应用服务关联资源节点信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_appportrait_node_ex(request, headers, runtime)
+
+    async def list_appportrait_node_async(
+        self,
+        request: cas_models.ListAppportraitNodeRequest,
+    ) -> cas_models.ListAppportraitNodeResponse:
+        """
+        Description: 应用画像应用服务关联资源节点信息
+        Summary: 应用画像应用服务关联资源节点信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_appportrait_node_ex_async(request, headers, runtime)
+
+    def list_appportrait_node_ex(
+        self,
+        request: cas_models.ListAppportraitNodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.ListAppportraitNodeResponse:
+        """
+        Description: 应用画像应用服务关联资源节点信息
+        Summary: 应用画像应用服务关联资源节点信息
+        """
+        UtilClient.validate_model(request)
+        return cas_models.ListAppportraitNodeResponse().from_map(
+            self.do_request('1.0', 'antcloud.cas.appportrait.node.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_appportrait_node_ex_async(
+        self,
+        request: cas_models.ListAppportraitNodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> cas_models.ListAppportraitNodeResponse:
+        """
+        Description: 应用画像应用服务关联资源节点信息
+        Summary: 应用画像应用服务关联资源节点信息
+        """
+        UtilClient.validate_model(request)
+        return cas_models.ListAppportraitNodeResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.cas.appportrait.node.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_computer(
