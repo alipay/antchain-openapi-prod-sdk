@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.cas.models;
 
 import com.aliyun.tea.*;
 
-public class QueryMiddlewareclusterResponse extends TeaModel {
+public class QueryAppportraitHealthscoretrendResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // data
+    // 应用画像健康分趋势
     @NameInMap("data")
-    public java.util.List<MiddlewareClusterInstance> data;
+    public java.util.List<AppPortraitAppHealthScoreTrendQuery> data;
 
-    public static QueryMiddlewareclusterResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryMiddlewareclusterResponse self = new QueryMiddlewareclusterResponse();
+    public static QueryAppportraitHealthscoretrendResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryAppportraitHealthscoretrendResponse self = new QueryAppportraitHealthscoretrendResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryMiddlewareclusterResponse setReqMsgId(String reqMsgId) {
+    public QueryAppportraitHealthscoretrendResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryMiddlewareclusterResponse setResultCode(String resultCode) {
+    public QueryAppportraitHealthscoretrendResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryMiddlewareclusterResponse setResultMsg(String resultMsg) {
+    public QueryAppportraitHealthscoretrendResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryMiddlewareclusterResponse setData(java.util.List<MiddlewareClusterInstance> data) {
+    public QueryAppportraitHealthscoretrendResponse setData(java.util.List<AppPortraitAppHealthScoreTrendQuery> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<MiddlewareClusterInstance> getData() {
+    public java.util.List<AppPortraitAppHealthScoreTrendQuery> getData() {
         return this.data;
     }
 

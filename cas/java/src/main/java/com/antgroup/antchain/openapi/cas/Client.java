@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.13")
+                    new TeaPair("sdk_version", "1.4.14")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -898,6 +898,253 @@ public class Client {
     public GetAppgrayconfigsResponse getAppgrayconfigsEx(GetAppgrayconfigsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appgrayconfigs.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAppgrayconfigsResponse());
+    }
+
+    /**
+     * Description: 应用画像获取应用名称列表
+     * Summary: 应用画像获取应用名称列表
+     */
+    public ListAppportraitAppResponse listAppportraitApp(ListAppportraitAppRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAppportraitAppEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用画像获取应用名称列表
+     * Summary: 应用画像获取应用名称列表
+     */
+    public ListAppportraitAppResponse listAppportraitAppEx(ListAppportraitAppRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.app.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAppportraitAppResponse());
+    }
+
+    /**
+     * Description: 获取应用详情信息
+     * Summary: 获取应用详情信息
+     */
+    public GetAppportraitAppResponse getAppportraitApp(GetAppportraitAppRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAppportraitAppEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取应用详情信息
+     * Summary: 获取应用详情信息
+     */
+    public GetAppportraitAppResponse getAppportraitAppEx(GetAppportraitAppRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.app.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAppportraitAppResponse());
+    }
+
+    /**
+     * Description: 年维度应用可用性查询
+     * Summary: 年维度应用可用性查询
+     */
+    public GetAppportraitYearusabilityResponse getAppportraitYearusability(GetAppportraitYearusabilityRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAppportraitYearusabilityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 年维度应用可用性查询
+     * Summary: 年维度应用可用性查询
+     */
+    public GetAppportraitYearusabilityResponse getAppportraitYearusabilityEx(GetAppportraitYearusabilityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.yearusability.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAppportraitYearusabilityResponse());
+    }
+
+    /**
+     * Description: 月维度应用可用性查询
+     * Summary: 月维度应用可用性查询
+     */
+    public GetAppportraitMonthusabilityResponse getAppportraitMonthusability(GetAppportraitMonthusabilityRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAppportraitMonthusabilityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 月维度应用可用性查询
+     * Summary: 月维度应用可用性查询
+     */
+    public GetAppportraitMonthusabilityResponse getAppportraitMonthusabilityEx(GetAppportraitMonthusabilityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.monthusability.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAppportraitMonthusabilityResponse());
+    }
+
+    /**
+     * Description: 可用性趋势
+     * Summary: 可用性趋势
+     */
+    public QueryAppportraitUsabilitytrendResponse queryAppportraitUsabilitytrend(QueryAppportraitUsabilitytrendRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAppportraitUsabilitytrendEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 可用性趋势
+     * Summary: 可用性趋势
+     */
+    public QueryAppportraitUsabilitytrendResponse queryAppportraitUsabilitytrendEx(QueryAppportraitUsabilitytrendRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.usabilitytrend.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAppportraitUsabilitytrendResponse());
+    }
+
+    /**
+     * Description: 应用画像健康分
+     * Summary: 应用画像健康分
+     */
+    public QueryAppportraitHealthscoreResponse queryAppportraitHealthscore(QueryAppportraitHealthscoreRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAppportraitHealthscoreEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用画像健康分
+     * Summary: 应用画像健康分
+     */
+    public QueryAppportraitHealthscoreResponse queryAppportraitHealthscoreEx(QueryAppportraitHealthscoreRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.healthscore.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAppportraitHealthscoreResponse());
+    }
+
+    /**
+     * Description: 应用健康分趋势查询
+     * Summary: 应用健康分趋势查询
+     */
+    public QueryAppportraitHealthscoretrendResponse queryAppportraitHealthscoretrend(QueryAppportraitHealthscoretrendRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAppportraitHealthscoretrendEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用健康分趋势查询
+     * Summary: 应用健康分趋势查询
+     */
+    public QueryAppportraitHealthscoretrendResponse queryAppportraitHealthscoretrendEx(QueryAppportraitHealthscoretrendRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.healthscoretrend.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAppportraitHealthscoretrendResponse());
+    }
+
+    /**
+     * Description: 应用画像告警数趋势查询
+     * Summary: 应用画像告警数趋势查询
+     */
+    public QueryAppportraitAlertcounttrendResponse queryAppportraitAlertcounttrend(QueryAppportraitAlertcounttrendRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAppportraitAlertcounttrendEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用画像告警数趋势查询
+     * Summary: 应用画像告警数趋势查询
+     */
+    public QueryAppportraitAlertcounttrendResponse queryAppportraitAlertcounttrendEx(QueryAppportraitAlertcounttrendRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.alertcounttrend.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAppportraitAlertcounttrendResponse());
+    }
+
+    /**
+     * Description: 查询应用画像告警明细列表
+     * Summary: 应用画像告警明细列表
+     */
+    public ListAppportraitAlertResponse listAppportraitAlert(ListAppportraitAlertRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAppportraitAlertEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询应用画像告警明细列表
+     * Summary: 应用画像告警明细列表
+     */
+    public ListAppportraitAlertResponse listAppportraitAlertEx(ListAppportraitAlertRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.alert.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAppportraitAlertResponse());
+    }
+
+    /**
+     * Description: 应用画像应用ecs利用率
+     * Summary: 应用画像应用ecs利用率
+     */
+    public GetAppportraitEcsusageResponse getAppportraitEcsusage(GetAppportraitEcsusageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAppportraitEcsusageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用画像应用ecs利用率
+     * Summary: 应用画像应用ecs利用率
+     */
+    public GetAppportraitEcsusageResponse getAppportraitEcsusageEx(GetAppportraitEcsusageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.ecsusage.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAppportraitEcsusageResponse());
+    }
+
+    /**
+     * Description: 查询应用画像容器利用率
+     * Summary: 应用画像容器利用率
+     */
+    public QueryAppportraitContainerusageResponse queryAppportraitContainerusage(QueryAppportraitContainerusageRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAppportraitContainerusageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询应用画像容器利用率
+     * Summary: 应用画像容器利用率
+     */
+    public QueryAppportraitContainerusageResponse queryAppportraitContainerusageEx(QueryAppportraitContainerusageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.containerusage.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAppportraitContainerusageResponse());
+    }
+
+    /**
+     * Description: 应用画像应用操作记录
+     * Summary: 应用画像应用操作记录
+     */
+    public ListAppportraitActiontrailResponse listAppportraitActiontrail(ListAppportraitActiontrailRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAppportraitActiontrailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用画像应用操作记录
+     * Summary: 应用画像应用操作记录
+     */
+    public ListAppportraitActiontrailResponse listAppportraitActiontrailEx(ListAppportraitActiontrailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.actiontrail.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAppportraitActiontrailResponse());
+    }
+
+    /**
+     * Description: 应用画像应用服务关联资源节点信息
+     * Summary: 应用画像应用服务关联资源节点信息
+     */
+    public ListAppportraitNodeResponse listAppportraitNode(ListAppportraitNodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAppportraitNodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用画像应用服务关联资源节点信息
+     * Summary: 应用画像应用服务关联资源节点信息
+     */
+    public ListAppportraitNodeResponse listAppportraitNodeEx(ListAppportraitNodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cas.appportrait.node.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAppportraitNodeResponse());
     }
 
     /**

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.cas.models;
 
 import com.aliyun.tea.*;
 
-public class QueryMiddlewareclusterResponse extends TeaModel {
+public class QueryAppportraitAlertcounttrendResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // data
+    // 应用画像告警数趋势
     @NameInMap("data")
-    public java.util.List<MiddlewareClusterInstance> data;
+    public java.util.List<AppPortraitAlertCountTrend> data;
 
-    public static QueryMiddlewareclusterResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryMiddlewareclusterResponse self = new QueryMiddlewareclusterResponse();
+    public static QueryAppportraitAlertcounttrendResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryAppportraitAlertcounttrendResponse self = new QueryAppportraitAlertcounttrendResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryMiddlewareclusterResponse setReqMsgId(String reqMsgId) {
+    public QueryAppportraitAlertcounttrendResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryMiddlewareclusterResponse setResultCode(String resultCode) {
+    public QueryAppportraitAlertcounttrendResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryMiddlewareclusterResponse setResultMsg(String resultMsg) {
+    public QueryAppportraitAlertcounttrendResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryMiddlewareclusterResponse setData(java.util.List<MiddlewareClusterInstance> data) {
+    public QueryAppportraitAlertcounttrendResponse setData(java.util.List<AppPortraitAlertCountTrend> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<MiddlewareClusterInstance> getData() {
+    public java.util.List<AppPortraitAlertCountTrend> getData() {
         return this.data;
     }
 

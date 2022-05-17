@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.cas.models;
 
 import com.aliyun.tea.*;
 
-public class QueryMiddlewareclusterResponse extends TeaModel {
+public class GetAppportraitEcsusageResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // data
+    // 返回数据
     @NameInMap("data")
-    public java.util.List<MiddlewareClusterInstance> data;
+    public AppPortraitEcsUsageGet data;
 
-    public static QueryMiddlewareclusterResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryMiddlewareclusterResponse self = new QueryMiddlewareclusterResponse();
+    public static GetAppportraitEcsusageResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetAppportraitEcsusageResponse self = new GetAppportraitEcsusageResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryMiddlewareclusterResponse setReqMsgId(String reqMsgId) {
+    public GetAppportraitEcsusageResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryMiddlewareclusterResponse setResultCode(String resultCode) {
+    public GetAppportraitEcsusageResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryMiddlewareclusterResponse setResultMsg(String resultMsg) {
+    public GetAppportraitEcsusageResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class QueryMiddlewareclusterResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryMiddlewareclusterResponse setData(java.util.List<MiddlewareClusterInstance> data) {
+    public GetAppportraitEcsusageResponse setData(AppPortraitEcsUsageGet data) {
         this.data = data;
         return this;
     }
-    public java.util.List<MiddlewareClusterInstance> getData() {
+    public AppPortraitEcsUsageGet getData() {
         return this.data;
     }
 
