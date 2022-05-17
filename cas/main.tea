@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.13',
+    sdk_version = '1.4.14',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -919,6 +919,28 @@ model SecurityGroupRule {
   // 
   // 默认值：0.0.0.0/0。
   sourceCidrIp?: string(name='source_cidr_ip', example='10.0.0.0/8'),
+}
+
+// 应用画像应用ECS节点列表
+model AppPortraitAppNodeEcsList {
+  // id
+  id?: string(name='id', example='id'),
+  // zone_id
+  zoneId?: string(name='zone_id', example='zone_id'),
+  // ip
+  ip?: string(name='ip', example='ip'),
+  // load_balancer_spec
+  loadBalancerSpec?: string(name='load_balancer_spec', example='load_balancer_spec'),
+  // cpu
+  cpu?: string(name='cpu', example='cpu'),
+  // memory
+  memory?: string(name='memory', example='memory'),
+  // version
+  version?: string(name='version', example='version'),
+  // name
+  name?: string(name='name', example='name'),
+  // status
+  status?: string(name='status', example='running'),
 }
 
 // 查询用的DbSchema
@@ -1762,6 +1784,20 @@ model AppQuery {
   queryType?: string(name='query_type', example='FUZZY, ACCURATE, START_WITH'),
 }
 
+// 应用画像可用性结构体
+model AppPortraitAppUsability {
+  // 应用id
+  appId: string(name='app_id', example='app_id'),
+  // 应用名称
+  appName: string(name='app_name', example='app_name'),
+  // 应用可用性
+  appUsability?: long(name='app_usability', example='0.9998'),
+  // 年同比
+  y2y?: string(name='y2y', example='0.06'),
+  // 原因列表
+  reasonList?: [ string ](name='reason_list', example='["2022-01-01 发生端口8080不可用", "2022-03-01 发生端口8080不可用"]'),
+}
+
 // 应用分级查询
 model AppLevelQuery {
   // appCountInclude
@@ -1854,6 +1890,34 @@ model Zone {
   properties: [ Property ](name='properties', example='properties'),
 }
 
+// 应用画像容器利用率列表结构体
+model AppPortraitContainerUsageList {
+  // namespace
+  namespace: string(name='namespace', example='dev'),
+  // request_cpu
+  requestCpu: long(name='request_cpu', example='2'),
+  // request_mem
+  requestMem: long(name='request_mem', example='5'),
+  // limit_cpu
+  limitCpu: long(name='limit_cpu', example='4'),
+  // limit_mem
+  limitMem: long(name='limit_mem', example='8'),
+  // average_cpu
+  averageCpu: long(name='average_cpu', example='0.1'),
+  // average_mem
+  averageMem: long(name='average_mem', example='0.7'),
+}
+
+// 应用画像告警数趋势结构体
+model AppPortraitAlertCountTrend {
+  // 日期
+  day: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='day', example='2018-10-10T10:10:00Z'),
+  // 本周期
+  nowCycle: string(name='now_cycle', example='80'),
+  // 上周期
+  lastCycle: string(name='last_cycle', example='30'),
+}
+
 // 数据库Grant
 model Grant {
   // account
@@ -1862,6 +1926,16 @@ model Grant {
   privilege: string(name='privilege', example='privilege'),
   // schema
   schema: DbSchema(name='schema', example=''),
+}
+
+// 应用画像操作记录查询
+model AppPortraitActionTrailQuery {
+  // 操作时间
+  actiontrailTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='actiontrail_timestamp', example='2018-10-10T10:10:00Z'),
+  // title
+  title: string(name='title', example='title'),
+  // 状态
+  status: string(name='status', example='成功'),
 }
 
 // 旧版应用管理-发布包上传策略
@@ -1930,6 +2004,14 @@ model ComputerQuota {
   memory?: long(name='memory', example=''),
   // disk
   disk?: long(name='disk', example=''),
+}
+
+// 可用性趋势查询
+model AppPortraitAppUsabilityTrendQuery {
+  // 时间以天为单位
+  day?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='day', example='2018-10-10'),
+  // 应用可用性
+  appUsability?: long(name='app_usability', example='0.9999'),
 }
 
 // RegionDto
@@ -2209,6 +2291,20 @@ model WorkspaceDnsProvider {
   utcModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_modified', example='2018-10-10T10:10:00Z'),
   // description
   description: string(name='description', example='description'),
+}
+
+// 应用健康分查询
+model AppPortraitAppHealthScoreQuery {
+  // 应用id
+  appId?: string(name='app_id', example='app_id'),
+  // app_name
+  appName?: string(name='app_name', example='app_name'),
+  // health_score
+  healthScore?: long(name='health_score', example='95'),
+  // 同比上升下降分数
+  y2y?: long(name='y2y', example='20'),
+  // 上升下降原因列表
+  reasonList?: [ string ](name='reason_list', example='["2022-01-01 发生端口8080不可用", "2022-03-01 发生端口8080不可用"]'),
 }
 
 // rmc vpc 详细信息
@@ -2819,6 +2915,18 @@ model OperationTask {
   resultMsg?: string(name='result_msg', example='resultMsg'),
 }
 
+// 应用画像应用节点列表结构体
+model AppPortraitAppNodeList {
+  // 返回ecs节点数据
+  ecs?: [ AppPortraitAppNodeEcsList ](name='ecs', example=''),
+  // 返回slb节点数据
+  slb?: AppPortraitAppNodeEcsList(name='slb', example=''),
+  // 返回rds节点数据
+  rds?: AppPortraitAppNodeEcsList(name='rds', example=''),
+  // 返回pod节点数据
+  pod?: AppPortraitAppNodeEcsList(name='pod', example=''),
+}
+
 // 阿里云日志服务(SLS)-日志项目
 model SLSProject {
   // 项目描述
@@ -2827,6 +2935,16 @@ model SLSProject {
   name: string(name='name', example='k8s-log-custom-pbyyzncn-aks1128test-test'),
   // 阿里云返回的regionName，仅作展示用
   region?: string(name='region', example='region'),
+}
+
+// 查询应用画像ecs利用率
+model AppPortraitEcsUsageGet {
+  // cpu平均利用率
+  averageCpu: long(name='average_cpu', example='0.6'),
+  // 内存平均利用率
+  averageMem: long(name='average_mem', example='0.7'),
+  // 磁盘平均利用率
+  averageDisk: long(name='average_disk', example='0.2'),
 }
 
 // 阿里云日志服务(SLS)-日志库
@@ -2945,6 +3063,26 @@ model SecurityGroupVO {
   instanceCount?: long(name='instance_count', example=''),
 }
 
+// 应用画像应用列表返回数据
+model AppPortraitAppList {
+  // 应用id
+  id: string(name='id', example='app_id'),
+  // 应用名称
+  name: string(name='name', example='app_name'),
+  // 应用分组名称
+  appGroupName?: string(name='app_group_name', example='app_group_name'),
+  // 应用所属分组id
+  appGroupId?: string(name='app_group_id', example='app_group_id'),
+  // 应用负责人
+  ownerDisplayName?: string(name='owner_display_name', example='owner_display_name'),
+  // 应用描述
+  description?: string(name='description', example='description'),
+  // 技术栈名称
+  buildpackName?: string(name='buildpack_name', example='buildpack_name'),
+  // 技术栈版本
+  buildpackVersion?: string(name='buildpack_version', example='buildpack_version'),
+}
+
 // staragent info
 model StarAgentInfo {
   // computer serial number
@@ -2957,6 +3095,14 @@ model StarAgentInfo {
   ipList?: string(name='ip_list', example='iplist'),
   // 状态取值：RUNNING，ERROR，REGISTER，NOFIND
   status?: string(name='status', example='RUNNING'),
+}
+
+// 应用画像健康分趋势查询结构体
+model AppPortraitAppHealthScoreTrendQuery {
+  // 日期
+  day?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='day', example='2018-10-10T10:10:00Z'),
+  // 健康分分值
+  healthScore?: long(name='health_score', example='88'),
 }
 
 // CellGroup
@@ -3043,6 +3189,22 @@ model IaasConnMetadata {
   utcCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='utc_create', example='2018-10-10T10:10:00Z'),
 }
 
+// 应用画像告警明细列表
+model AppPortraitAlertList {
+  // 告警节点ID
+  nodeId: string(name='node_id', example='node_id'),
+  // 节点名
+  nodeName: string(name='node_name', example='node_name'),
+  // 告警指标
+  metric: string(name='metric', example='metric'),
+  // 告警级别
+  severity: string(name='severity', example='INFO'),
+  // 告警内容
+  alertContent: string(name='alert_content', example='告警内容'),
+  // 告警时间
+  gmtOccurTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_occur_timestamp', example='2018-10-10T10:10:00Z'),
+}
+
 // 应用服务查询
 model AppServiceQuery {
   // 根据 id 查询
@@ -3075,6 +3237,28 @@ model AppServiceQuery {
   queryType?: string(name='query_type', example='FUZZY,  ACCURATE, START_WITH'),
   // Map<String, String>
   conditions?: string(name='conditions', example='"{}"'),
+}
+
+// 获取应用详情信息包括对应workspace下的appservices
+model AppPortraitAppGet {
+  // 应用id
+  id: string(name='id', example='id'),
+  // 应用名称
+  name: string(name='name', example='name'),
+  // 应用分组名称
+  appGroupName?: string(name='app_group_name', example='app_group_name'),
+  // 应用所属分组id
+  appGroupId?: string(name='app_group_id', example='app_group_id'),
+  // 应用负责人
+  ownerDisplayName?: string(name='owner_display_name', example='owner_display_name'),
+  // description
+  description?: string(name='description', example='description'),
+  // 技术栈名称
+  buildpackName?: string(name='buildpack_name', example='buildpack_name'),
+  // 技术栈版本
+  buildpackVersion?: string(name='buildpack_version', example='buildpack_version'),
+  // workspace下应用所关联的应用服务列表
+  appservices?: [ string ](name='appservices', example='["应用服务1","应用服务2"]'),
 }
 
 // ListenerSecurityIp
@@ -4921,6 +5105,619 @@ async function getAppgrayconfigs(request: GetAppgrayconfigsRequest): GetAppgrayc
 async function getAppgrayconfigsEx(request: GetAppgrayconfigsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAppgrayconfigsResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.cas.appgrayconfigs.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAppportraitAppRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 应用名称
+  name?: string(name='name'),
+  // 应用分组名称
+  appGroupName?: string(name='app_group_name'),
+  // 应用负责人
+  ownerDisplayName?: string(name='owner_display_name'),
+  // 技术栈名称
+  buildpackName?: string(name='buildpack_name'),
+  // 技术栈版本
+  buildpackVersion?: string(name='buildpack_version'),
+  // TenantId
+  tenantId?: string(name='tenant_id'),
+  // TenantName
+  tenantName?: string(name='tenant_name'),
+}
+
+model ListAppportraitAppResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 应用名称列表数据
+  data?: [ AppPortraitAppList ](name='data'),
+}
+
+/**
+ * Description: 应用画像获取应用名称列表
+ * Summary: 应用画像获取应用名称列表
+ */
+async function listAppportraitApp(request: ListAppportraitAppRequest): ListAppportraitAppResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAppportraitAppEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用画像获取应用名称列表
+ * Summary: 应用画像获取应用名称列表
+ */
+async function listAppportraitAppEx(request: ListAppportraitAppRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppportraitAppResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.app.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAppportraitAppRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 待查询的应用名称
+  name: string(name='name'),
+  // TenantId
+  tenantId?: string(name='tenant_id'),
+  // TenantName
+  tenantName?: string(name='tenant_name'),
+}
+
+model GetAppportraitAppResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回应用详情信息
+  data?: [ AppPortraitAppGet ](name='data'),
+}
+
+/**
+ * Description: 获取应用详情信息
+ * Summary: 获取应用详情信息
+ */
+async function getAppportraitApp(request: GetAppportraitAppRequest): GetAppportraitAppResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAppportraitAppEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取应用详情信息
+ * Summary: 获取应用详情信息
+ */
+async function getAppportraitAppEx(request: GetAppportraitAppRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAppportraitAppResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.app.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAppportraitYearusabilityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 工作空间名称Id
+  workspaceId: string(name='workspace_id'),
+  // 租户id
+  tenantId?: string(name='tenant_id'),
+  // 租户名称
+  tenantName?: string(name='tenant_name'),
+  // app_id
+  appId: string(name='app_id'),
+  // 查询的年份
+  year: long(name='year'),
+}
+
+model GetAppportraitYearusabilityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: AppPortraitAppUsability(name='data'),
+}
+
+/**
+ * Description: 年维度应用可用性查询
+ * Summary: 年维度应用可用性查询
+ */
+async function getAppportraitYearusability(request: GetAppportraitYearusabilityRequest): GetAppportraitYearusabilityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAppportraitYearusabilityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 年维度应用可用性查询
+ * Summary: 年维度应用可用性查询
+ */
+async function getAppportraitYearusabilityEx(request: GetAppportraitYearusabilityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAppportraitYearusabilityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.yearusability.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAppportraitMonthusabilityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 工作空间名称Id
+  workspaceId: string(name='workspace_id'),
+  // 租户id
+  tenantId?: string(name='tenant_id'),
+  // 租户名称
+  tenantName?: string(name='tenant_name'),
+  // app_id
+  appId: string(name='app_id'),
+  // 查询的月份
+  month: long(name='month'),
+}
+
+model GetAppportraitMonthusabilityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: AppPortraitAppUsability(name='data'),
+}
+
+/**
+ * Description: 月维度应用可用性查询
+ * Summary: 月维度应用可用性查询
+ */
+async function getAppportraitMonthusability(request: GetAppportraitMonthusabilityRequest): GetAppportraitMonthusabilityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAppportraitMonthusabilityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 月维度应用可用性查询
+ * Summary: 月维度应用可用性查询
+ */
+async function getAppportraitMonthusabilityEx(request: GetAppportraitMonthusabilityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAppportraitMonthusabilityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.monthusability.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAppportraitUsabilitytrendRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // tenant_name
+  tenantName?: string(name='tenant_name'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+  // app_id
+  appId: string(name='app_id'),
+  // 查询开始时间
+  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
+  // 查询结束时间
+  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+}
+
+model QueryAppportraitUsabilitytrendResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 应用可用性趋势列表
+  data?: [ AppPortraitAppUsabilityTrendQuery ](name='data'),
+}
+
+/**
+ * Description: 可用性趋势
+ * Summary: 可用性趋势
+ */
+async function queryAppportraitUsabilitytrend(request: QueryAppportraitUsabilitytrendRequest): QueryAppportraitUsabilitytrendResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAppportraitUsabilitytrendEx(request, headers, runtime);
+}
+
+/**
+ * Description: 可用性趋势
+ * Summary: 可用性趋势
+ */
+async function queryAppportraitUsabilitytrendEx(request: QueryAppportraitUsabilitytrendRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAppportraitUsabilitytrendResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.usabilitytrend.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAppportraitHealthscoreRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // tenant_name
+  tenantName?: string(name='tenant_name'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+  // app_id
+  appId: string(name='app_id'),
+  // 查询开始时间
+  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
+  // 查询结束时间
+  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+}
+
+model QueryAppportraitHealthscoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 应用健康分查询结果
+  data?: AppPortraitAppHealthScoreQuery(name='data'),
+}
+
+/**
+ * Description: 应用画像健康分
+ * Summary: 应用画像健康分
+ */
+async function queryAppportraitHealthscore(request: QueryAppportraitHealthscoreRequest): QueryAppportraitHealthscoreResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAppportraitHealthscoreEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用画像健康分
+ * Summary: 应用画像健康分
+ */
+async function queryAppportraitHealthscoreEx(request: QueryAppportraitHealthscoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAppportraitHealthscoreResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.healthscore.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAppportraitHealthscoretrendRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 工作空间id
+  workspaceId: string(name='workspace_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+  // 租户名称
+  tenantName?: string(name='tenant_name'),
+  // 应用id
+  appId: string(name='app_id'),
+  // 查询开始时间
+  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
+  // 查询结束时间
+  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+}
+
+model QueryAppportraitHealthscoretrendResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 应用画像健康分趋势
+  data?: [ AppPortraitAppHealthScoreTrendQuery ](name='data'),
+}
+
+/**
+ * Description: 应用健康分趋势查询
+ * Summary: 应用健康分趋势查询
+ */
+async function queryAppportraitHealthscoretrend(request: QueryAppportraitHealthscoretrendRequest): QueryAppportraitHealthscoretrendResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAppportraitHealthscoretrendEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用健康分趋势查询
+ * Summary: 应用健康分趋势查询
+ */
+async function queryAppportraitHealthscoretrendEx(request: QueryAppportraitHealthscoretrendRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAppportraitHealthscoretrendResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.healthscoretrend.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAppportraitAlertcounttrendRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+  // tenant_name
+  tenantName?: string(name='tenant_name'),
+  // app_id
+  appId: string(name='app_id'),
+  // 查询开始时间
+  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
+  // 查询结束时间
+  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+}
+
+model QueryAppportraitAlertcounttrendResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 应用画像告警数趋势
+  data?: [ AppPortraitAlertCountTrend ](name='data'),
+}
+
+/**
+ * Description: 应用画像告警数趋势查询
+ * Summary: 应用画像告警数趋势查询
+ */
+async function queryAppportraitAlertcounttrend(request: QueryAppportraitAlertcounttrendRequest): QueryAppportraitAlertcounttrendResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAppportraitAlertcounttrendEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用画像告警数趋势查询
+ * Summary: 应用画像告警数趋势查询
+ */
+async function queryAppportraitAlertcounttrendEx(request: QueryAppportraitAlertcounttrendRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAppportraitAlertcounttrendResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.alertcounttrend.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAppportraitAlertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+  // tenant_name
+  tenantName?: string(name='tenant_name'),
+  // app_id
+  appId: string(name='app_id'),
+  // 查询开始时间
+  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
+  // 查询结束时间
+  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 当前页码，从1开始
+  pageNum?: long(name='page_num'),
+}
+
+model ListAppportraitAlertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: [ AppPortraitAlertList ](name='data'),
+}
+
+/**
+ * Description: 查询应用画像告警明细列表
+ * Summary: 应用画像告警明细列表
+ */
+async function listAppportraitAlert(request: ListAppportraitAlertRequest): ListAppportraitAlertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAppportraitAlertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询应用画像告警明细列表
+ * Summary: 应用画像告警明细列表
+ */
+async function listAppportraitAlertEx(request: ListAppportraitAlertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppportraitAlertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.alert.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAppportraitEcsusageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+  // tenant_name
+  tenantName?: string(name='tenant_name'),
+  // app_id
+  appId: string(name='app_id'),
+  // 查询开始时间
+  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
+  // 查询结束时间
+  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+}
+
+model GetAppportraitEcsusageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: AppPortraitEcsUsageGet(name='data'),
+}
+
+/**
+ * Description: 应用画像应用ecs利用率
+ * Summary: 应用画像应用ecs利用率
+ */
+async function getAppportraitEcsusage(request: GetAppportraitEcsusageRequest): GetAppportraitEcsusageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAppportraitEcsusageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用画像应用ecs利用率
+ * Summary: 应用画像应用ecs利用率
+ */
+async function getAppportraitEcsusageEx(request: GetAppportraitEcsusageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAppportraitEcsusageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.ecsusage.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAppportraitContainerusageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+  // tenant_name
+  tenantName?: string(name='tenant_name'),
+  // app_id
+  appId: string(name='app_id'),
+  // 查询开始时间
+  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
+  // 查询结束时间
+  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+}
+
+model QueryAppportraitContainerusageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: [ AppPortraitContainerUsageList ](name='data'),
+}
+
+/**
+ * Description: 查询应用画像容器利用率
+ * Summary: 应用画像容器利用率
+ */
+async function queryAppportraitContainerusage(request: QueryAppportraitContainerusageRequest): QueryAppportraitContainerusageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAppportraitContainerusageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询应用画像容器利用率
+ * Summary: 应用画像容器利用率
+ */
+async function queryAppportraitContainerusageEx(request: QueryAppportraitContainerusageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAppportraitContainerusageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.containerusage.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAppportraitActiontrailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+  // tenant_name
+  tenantName?: string(name='tenant_name'),
+  // 应用id
+  appId: string(name='app_id'),
+  // 查询开始时间
+  startTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_timestamp'),
+  // 查询结束时间
+  endTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_timestamp'),
+  // 分页大小，默认为10，默
+  pageSize: long(name='page_size'),
+  // 当前页码，从1开始
+  pageNum: long(name='page_num'),
+}
+
+model ListAppportraitActiontrailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: [ AppPortraitActionTrailQuery ](name='data'),
+  // 页数
+  pageNum?: long(name='page_num'),
+  // 每页大小，默认10
+  pageSize?: long(name='page_size'),
+  // 总数
+  total?: string(name='total'),
+}
+
+/**
+ * Description: 应用画像应用操作记录
+ * Summary: 应用画像应用操作记录
+ */
+async function listAppportraitActiontrail(request: ListAppportraitActiontrailRequest): ListAppportraitActiontrailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAppportraitActiontrailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用画像应用操作记录
+ * Summary: 应用画像应用操作记录
+ */
+async function listAppportraitActiontrailEx(request: ListAppportraitActiontrailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppportraitActiontrailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.actiontrail.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAppportraitNodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // workspace_id
+  workspaceId: string(name='workspace_id'),
+  // app_id
+  appId: string(name='app_id'),
+  // tenant_id
+  tenantId?: string(name='tenant_id'),
+  // tenant_name
+  tenantName?: string(name='tenant_name'),
+}
+
+model ListAppportraitNodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: AppPortraitAppNodeList(name='data'),
+}
+
+/**
+ * Description: 应用画像应用服务关联资源节点信息
+ * Summary: 应用画像应用服务关联资源节点信息
+ */
+async function listAppportraitNode(request: ListAppportraitNodeRequest): ListAppportraitNodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAppportraitNodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用画像应用服务关联资源节点信息
+ * Summary: 应用画像应用服务关联资源节点信息
+ */
+async function listAppportraitNodeEx(request: ListAppportraitNodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAppportraitNodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.cas.appportrait.node.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateComputerRequest = {
@@ -13848,7 +14645,7 @@ model QueryMiddlewareclusterResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // data
-  instances?: [ MiddlewareClusterInstance ](name='instances'),
+  data?: [ MiddlewareClusterInstance ](name='data'),
 }
 
 /**
