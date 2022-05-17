@@ -577,7 +577,7 @@ export class CertifyServermodeResponse extends $tea.Model {
   }
 }
 
-export class InitCertifyRecordRequest extends $tea.Model {
+export class InitCertifyrecordRealpersonRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -625,7 +625,94 @@ export class InitCertifyRecordRequest extends $tea.Model {
   }
 }
 
-export class InitCertifyRecordResponse extends $tea.Model {
+export class InitCertifyrecordRealpersonResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 预留扩展结果
+  externInfo?: string;
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string;
+  // result_code_sub对应的文案
+  resultMsgSub?: string;
+  // 认证单据号
+  certifyId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+      resultCodeSub: 'result_code_sub',
+      resultMsgSub: 'result_msg_sub',
+      certifyId: 'certify_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+      resultCodeSub: 'string',
+      resultMsgSub: 'string',
+      certifyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitCertifyrecordRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string;
+  // 预留扩展业务参数
+  externParam: string;
+  // metainfo环境参数
+  metainfo: string;
+  // 操作类型
+  operationType: string;
+  // 比对源图片
+  refImg: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      externParam: 'extern_param',
+      metainfo: 'metainfo',
+      operationType: 'operation_type',
+      refImg: 'ref_img',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      externParam: 'string',
+      metainfo: 'string',
+      operationType: 'string',
+      refImg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitCertifyrecordResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -782,7 +869,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.6",
+          sdk_version: "1.1.7",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -943,22 +1030,41 @@ export default class Client {
   }
 
   /**
-   * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-   * Summary: 人脸认证单据初始化服务
+   * Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+   * Summary: 实人认证单据初始化服务
    */
-  async initCertifyRecord(request: InitCertifyRecordRequest): Promise<InitCertifyRecordResponse> {
+  async initCertifyrecordRealperson(request: InitCertifyrecordRealpersonRequest): Promise<InitCertifyrecordRealpersonResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.initCertifyRecordEx(request, headers, runtime);
+    return await this.initCertifyrecordRealpersonEx(request, headers, runtime);
   }
 
   /**
-   * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-   * Summary: 人脸认证单据初始化服务
+   * Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+   * Summary: 实人认证单据初始化服务
    */
-  async initCertifyRecordEx(request: InitCertifyRecordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitCertifyRecordResponse> {
+  async initCertifyrecordRealpersonEx(request: InitCertifyrecordRealpersonRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitCertifyrecordRealpersonResponse> {
     Util.validateModel(request);
-    return $tea.cast<InitCertifyRecordResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.certify.record.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitCertifyRecordResponse({}));
+    return $tea.cast<InitCertifyrecordRealpersonResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.realperson.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitCertifyrecordRealpersonResponse({}));
+  }
+
+  /**
+   * Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+   * Summary: 认证单据初始化服务(无身份)
+   */
+  async initCertifyrecord(request: InitCertifyrecordRequest): Promise<InitCertifyrecordResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initCertifyrecordEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+   * Summary: 认证单据初始化服务(无身份)
+   */
+  async initCertifyrecordEx(request: InitCertifyrecordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitCertifyrecordResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitCertifyrecordResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitCertifyrecordResponse({}));
   }
 
 }
