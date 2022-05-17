@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.6'
+                    'sdk_version': '1.1.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -235,7 +235,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.6'
+                    'sdk_version': '1.1.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -593,56 +593,110 @@ class Client:
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.servermode.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def init_certify_record(
+    def init_certifyrecord_realperson(
         self,
-        request: mpaasfaceverify_models.InitCertifyRecordRequest,
-    ) -> mpaasfaceverify_models.InitCertifyRecordResponse:
+        request: mpaasfaceverify_models.InitCertifyrecordRealpersonRequest,
+    ) -> mpaasfaceverify_models.InitCertifyrecordRealpersonResponse:
         """
-        Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-        Summary: 人脸认证单据初始化服务
+        Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+        Summary: 实人认证单据初始化服务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.init_certify_record_ex(request, headers, runtime)
+        return self.init_certifyrecord_realperson_ex(request, headers, runtime)
 
-    async def init_certify_record_async(
+    async def init_certifyrecord_realperson_async(
         self,
-        request: mpaasfaceverify_models.InitCertifyRecordRequest,
-    ) -> mpaasfaceverify_models.InitCertifyRecordResponse:
+        request: mpaasfaceverify_models.InitCertifyrecordRealpersonRequest,
+    ) -> mpaasfaceverify_models.InitCertifyrecordRealpersonResponse:
         """
-        Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-        Summary: 人脸认证单据初始化服务
+        Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+        Summary: 实人认证单据初始化服务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.init_certify_record_ex_async(request, headers, runtime)
+        return await self.init_certifyrecord_realperson_ex_async(request, headers, runtime)
 
-    def init_certify_record_ex(
+    def init_certifyrecord_realperson_ex(
         self,
-        request: mpaasfaceverify_models.InitCertifyRecordRequest,
+        request: mpaasfaceverify_models.InitCertifyrecordRealpersonRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> mpaasfaceverify_models.InitCertifyRecordResponse:
+    ) -> mpaasfaceverify_models.InitCertifyrecordRealpersonResponse:
         """
-        Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-        Summary: 人脸认证单据初始化服务
+        Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+        Summary: 实人认证单据初始化服务
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.InitCertifyRecordResponse().from_map(
-            self.do_request('1.0', 'antfin.mpaasfaceverify.certify.record.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return mpaasfaceverify_models.InitCertifyrecordRealpersonResponse().from_map(
+            self.do_request('1.0', 'antfin.mpaasfaceverify.certifyrecord.realperson.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def init_certify_record_ex_async(
+    async def init_certifyrecord_realperson_ex_async(
         self,
-        request: mpaasfaceverify_models.InitCertifyRecordRequest,
+        request: mpaasfaceverify_models.InitCertifyrecordRealpersonRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> mpaasfaceverify_models.InitCertifyRecordResponse:
+    ) -> mpaasfaceverify_models.InitCertifyrecordRealpersonResponse:
         """
-        Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-        Summary: 人脸认证单据初始化服务
+        Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+        Summary: 实人认证单据初始化服务
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.InitCertifyRecordResponse().from_map(
-            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.certify.record.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return mpaasfaceverify_models.InitCertifyrecordRealpersonResponse().from_map(
+            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.certifyrecord.realperson.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_certifyrecord(
+        self,
+        request: mpaasfaceverify_models.InitCertifyrecordRequest,
+    ) -> mpaasfaceverify_models.InitCertifyrecordResponse:
+        """
+        Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+        Summary: 认证单据初始化服务(无身份)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_certifyrecord_ex(request, headers, runtime)
+
+    async def init_certifyrecord_async(
+        self,
+        request: mpaasfaceverify_models.InitCertifyrecordRequest,
+    ) -> mpaasfaceverify_models.InitCertifyrecordResponse:
+        """
+        Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+        Summary: 认证单据初始化服务(无身份)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_certifyrecord_ex_async(request, headers, runtime)
+
+    def init_certifyrecord_ex(
+        self,
+        request: mpaasfaceverify_models.InitCertifyrecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.InitCertifyrecordResponse:
+        """
+        Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+        Summary: 认证单据初始化服务(无身份)
+        """
+        UtilClient.validate_model(request)
+        return mpaasfaceverify_models.InitCertifyrecordResponse().from_map(
+            self.do_request('1.0', 'antfin.mpaasfaceverify.certifyrecord.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_certifyrecord_ex_async(
+        self,
+        request: mpaasfaceverify_models.InitCertifyrecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.InitCertifyrecordResponse:
+        """
+        Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+        Summary: 认证单据初始化服务(无身份)
+        """
+        UtilClient.validate_model(request)
+        return mpaasfaceverify_models.InitCertifyrecordResponse().from_map(
+            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.certifyrecord.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
