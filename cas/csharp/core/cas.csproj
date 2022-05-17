@@ -7,8 +7,10 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>AntChain.SDK.CAS</AssemblyName>
-    <Version>1.4.11</Version>
+    <Version>1.4.14</Version>
     <LangVersion>5</LangVersion>
+    <Authors>Ant Chain, Inc</Authors>
+    <Description>Ant Chain CAS SDK Library for .NET</Description>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
     <DefineConstants>NETSTANDARD2_0</DefineConstants>

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.CAS.Models
 {
-    public class QueryMiddlewareclusterResponse : TeaModel {
+    public class ListAppportraitActiontrailResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,25 @@ namespace AntChain.SDK.CAS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // data
+        // 返回数据
         [NameInMap("data")]
         [Validation(Required=false)]
-        public List<MiddlewareClusterInstance> Data { get; set; }
+        public List<AppPortraitActionTrailQuery> Data { get; set; }
+
+        // 页数
+        [NameInMap("page_num")]
+        [Validation(Required=false)]
+        public long? PageNum { get; set; }
+
+        // 每页大小，默认10
+        [NameInMap("page_size")]
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
+
+        // 总数
+        [NameInMap("total")]
+        [Validation(Required=false)]
+        public string Total { get; set; }
 
     }
 

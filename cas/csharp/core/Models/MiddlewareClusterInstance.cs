@@ -8,8 +8,8 @@ using Tea;
 
 namespace AntChain.SDK.CAS.Models
 {
-    // 中间件集群
-    public class MiddlewareCluster : TeaModel {
+    // 中间件集群实例
+    public class MiddlewareClusterInstance : TeaModel {
         // cluster_id
         [NameInMap("cluster_id")]
         [Validation(Required=true)]
@@ -34,6 +34,16 @@ namespace AntChain.SDK.CAS.Models
         [NameInMap("acvip_endpoint")]
         [Validation(Required=true)]
         public string AcvipEndpoint { get; set; }
+
+        // instance_id
+        [NameInMap("instance_id")]
+        [Validation(Required=false)]
+        public string InstanceId { get; set; }
+
+        // workspace_group_name
+        [NameInMap("workspace_group_name")]
+        [Validation(Required=false)]
+        public string WorkspaceGroupName { get; set; }
 
     }
 

@@ -137,7 +137,7 @@ namespace AntChain.SDK.CAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.11"},
+                        {"sdk_version", "1.4.14"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.CAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.11"},
+                        {"sdk_version", "1.4.14"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1953,6 +1953,552 @@ namespace AntChain.SDK.CAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetAppgrayconfigsResponse>(await DoRequestAsync("1.0", "antcloud.cas.appgrayconfigs.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用画像获取应用名称列表
+         * Summary: 应用画像获取应用名称列表
+         */
+        public ListAppportraitAppResponse ListAppportraitApp(ListAppportraitAppRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAppportraitAppEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用画像获取应用名称列表
+         * Summary: 应用画像获取应用名称列表
+         */
+        public async Task<ListAppportraitAppResponse> ListAppportraitAppAsync(ListAppportraitAppRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAppportraitAppExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用画像获取应用名称列表
+         * Summary: 应用画像获取应用名称列表
+         */
+        public ListAppportraitAppResponse ListAppportraitAppEx(ListAppportraitAppRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitAppResponse>(DoRequest("1.0", "antcloud.cas.appportrait.app.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用画像获取应用名称列表
+         * Summary: 应用画像获取应用名称列表
+         */
+        public async Task<ListAppportraitAppResponse> ListAppportraitAppExAsync(ListAppportraitAppRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitAppResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.app.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取应用详情信息
+         * Summary: 获取应用详情信息
+         */
+        public GetAppportraitAppResponse GetAppportraitApp(GetAppportraitAppRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAppportraitAppEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取应用详情信息
+         * Summary: 获取应用详情信息
+         */
+        public async Task<GetAppportraitAppResponse> GetAppportraitAppAsync(GetAppportraitAppRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAppportraitAppExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取应用详情信息
+         * Summary: 获取应用详情信息
+         */
+        public GetAppportraitAppResponse GetAppportraitAppEx(GetAppportraitAppRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAppportraitAppResponse>(DoRequest("1.0", "antcloud.cas.appportrait.app.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取应用详情信息
+         * Summary: 获取应用详情信息
+         */
+        public async Task<GetAppportraitAppResponse> GetAppportraitAppExAsync(GetAppportraitAppRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAppportraitAppResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.app.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 年维度应用可用性查询
+         * Summary: 年维度应用可用性查询
+         */
+        public GetAppportraitYearusabilityResponse GetAppportraitYearusability(GetAppportraitYearusabilityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAppportraitYearusabilityEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 年维度应用可用性查询
+         * Summary: 年维度应用可用性查询
+         */
+        public async Task<GetAppportraitYearusabilityResponse> GetAppportraitYearusabilityAsync(GetAppportraitYearusabilityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAppportraitYearusabilityExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 年维度应用可用性查询
+         * Summary: 年维度应用可用性查询
+         */
+        public GetAppportraitYearusabilityResponse GetAppportraitYearusabilityEx(GetAppportraitYearusabilityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAppportraitYearusabilityResponse>(DoRequest("1.0", "antcloud.cas.appportrait.yearusability.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 年维度应用可用性查询
+         * Summary: 年维度应用可用性查询
+         */
+        public async Task<GetAppportraitYearusabilityResponse> GetAppportraitYearusabilityExAsync(GetAppportraitYearusabilityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAppportraitYearusabilityResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.yearusability.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 月维度应用可用性查询
+         * Summary: 月维度应用可用性查询
+         */
+        public GetAppportraitMonthusabilityResponse GetAppportraitMonthusability(GetAppportraitMonthusabilityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAppportraitMonthusabilityEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 月维度应用可用性查询
+         * Summary: 月维度应用可用性查询
+         */
+        public async Task<GetAppportraitMonthusabilityResponse> GetAppportraitMonthusabilityAsync(GetAppportraitMonthusabilityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAppportraitMonthusabilityExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 月维度应用可用性查询
+         * Summary: 月维度应用可用性查询
+         */
+        public GetAppportraitMonthusabilityResponse GetAppportraitMonthusabilityEx(GetAppportraitMonthusabilityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAppportraitMonthusabilityResponse>(DoRequest("1.0", "antcloud.cas.appportrait.monthusability.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 月维度应用可用性查询
+         * Summary: 月维度应用可用性查询
+         */
+        public async Task<GetAppportraitMonthusabilityResponse> GetAppportraitMonthusabilityExAsync(GetAppportraitMonthusabilityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAppportraitMonthusabilityResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.monthusability.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 可用性趋势
+         * Summary: 可用性趋势
+         */
+        public QueryAppportraitUsabilitytrendResponse QueryAppportraitUsabilitytrend(QueryAppportraitUsabilitytrendRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAppportraitUsabilitytrendEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 可用性趋势
+         * Summary: 可用性趋势
+         */
+        public async Task<QueryAppportraitUsabilitytrendResponse> QueryAppportraitUsabilitytrendAsync(QueryAppportraitUsabilitytrendRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAppportraitUsabilitytrendExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 可用性趋势
+         * Summary: 可用性趋势
+         */
+        public QueryAppportraitUsabilitytrendResponse QueryAppportraitUsabilitytrendEx(QueryAppportraitUsabilitytrendRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAppportraitUsabilitytrendResponse>(DoRequest("1.0", "antcloud.cas.appportrait.usabilitytrend.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 可用性趋势
+         * Summary: 可用性趋势
+         */
+        public async Task<QueryAppportraitUsabilitytrendResponse> QueryAppportraitUsabilitytrendExAsync(QueryAppportraitUsabilitytrendRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAppportraitUsabilitytrendResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.usabilitytrend.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用画像健康分
+         * Summary: 应用画像健康分
+         */
+        public QueryAppportraitHealthscoreResponse QueryAppportraitHealthscore(QueryAppportraitHealthscoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAppportraitHealthscoreEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用画像健康分
+         * Summary: 应用画像健康分
+         */
+        public async Task<QueryAppportraitHealthscoreResponse> QueryAppportraitHealthscoreAsync(QueryAppportraitHealthscoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAppportraitHealthscoreExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用画像健康分
+         * Summary: 应用画像健康分
+         */
+        public QueryAppportraitHealthscoreResponse QueryAppportraitHealthscoreEx(QueryAppportraitHealthscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAppportraitHealthscoreResponse>(DoRequest("1.0", "antcloud.cas.appportrait.healthscore.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用画像健康分
+         * Summary: 应用画像健康分
+         */
+        public async Task<QueryAppportraitHealthscoreResponse> QueryAppportraitHealthscoreExAsync(QueryAppportraitHealthscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAppportraitHealthscoreResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.healthscore.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用健康分趋势查询
+         * Summary: 应用健康分趋势查询
+         */
+        public QueryAppportraitHealthscoretrendResponse QueryAppportraitHealthscoretrend(QueryAppportraitHealthscoretrendRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAppportraitHealthscoretrendEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用健康分趋势查询
+         * Summary: 应用健康分趋势查询
+         */
+        public async Task<QueryAppportraitHealthscoretrendResponse> QueryAppportraitHealthscoretrendAsync(QueryAppportraitHealthscoretrendRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAppportraitHealthscoretrendExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用健康分趋势查询
+         * Summary: 应用健康分趋势查询
+         */
+        public QueryAppportraitHealthscoretrendResponse QueryAppportraitHealthscoretrendEx(QueryAppportraitHealthscoretrendRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAppportraitHealthscoretrendResponse>(DoRequest("1.0", "antcloud.cas.appportrait.healthscoretrend.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用健康分趋势查询
+         * Summary: 应用健康分趋势查询
+         */
+        public async Task<QueryAppportraitHealthscoretrendResponse> QueryAppportraitHealthscoretrendExAsync(QueryAppportraitHealthscoretrendRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAppportraitHealthscoretrendResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.healthscoretrend.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用画像告警数趋势查询
+         * Summary: 应用画像告警数趋势查询
+         */
+        public QueryAppportraitAlertcounttrendResponse QueryAppportraitAlertcounttrend(QueryAppportraitAlertcounttrendRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAppportraitAlertcounttrendEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用画像告警数趋势查询
+         * Summary: 应用画像告警数趋势查询
+         */
+        public async Task<QueryAppportraitAlertcounttrendResponse> QueryAppportraitAlertcounttrendAsync(QueryAppportraitAlertcounttrendRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAppportraitAlertcounttrendExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用画像告警数趋势查询
+         * Summary: 应用画像告警数趋势查询
+         */
+        public QueryAppportraitAlertcounttrendResponse QueryAppportraitAlertcounttrendEx(QueryAppportraitAlertcounttrendRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAppportraitAlertcounttrendResponse>(DoRequest("1.0", "antcloud.cas.appportrait.alertcounttrend.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用画像告警数趋势查询
+         * Summary: 应用画像告警数趋势查询
+         */
+        public async Task<QueryAppportraitAlertcounttrendResponse> QueryAppportraitAlertcounttrendExAsync(QueryAppportraitAlertcounttrendRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAppportraitAlertcounttrendResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.alertcounttrend.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询应用画像告警明细列表
+         * Summary: 应用画像告警明细列表
+         */
+        public ListAppportraitAlertResponse ListAppportraitAlert(ListAppportraitAlertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAppportraitAlertEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询应用画像告警明细列表
+         * Summary: 应用画像告警明细列表
+         */
+        public async Task<ListAppportraitAlertResponse> ListAppportraitAlertAsync(ListAppportraitAlertRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAppportraitAlertExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询应用画像告警明细列表
+         * Summary: 应用画像告警明细列表
+         */
+        public ListAppportraitAlertResponse ListAppportraitAlertEx(ListAppportraitAlertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitAlertResponse>(DoRequest("1.0", "antcloud.cas.appportrait.alert.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询应用画像告警明细列表
+         * Summary: 应用画像告警明细列表
+         */
+        public async Task<ListAppportraitAlertResponse> ListAppportraitAlertExAsync(ListAppportraitAlertRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitAlertResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.alert.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用画像应用ecs利用率
+         * Summary: 应用画像应用ecs利用率
+         */
+        public GetAppportraitEcsusageResponse GetAppportraitEcsusage(GetAppportraitEcsusageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAppportraitEcsusageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用画像应用ecs利用率
+         * Summary: 应用画像应用ecs利用率
+         */
+        public async Task<GetAppportraitEcsusageResponse> GetAppportraitEcsusageAsync(GetAppportraitEcsusageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAppportraitEcsusageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用画像应用ecs利用率
+         * Summary: 应用画像应用ecs利用率
+         */
+        public GetAppportraitEcsusageResponse GetAppportraitEcsusageEx(GetAppportraitEcsusageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAppportraitEcsusageResponse>(DoRequest("1.0", "antcloud.cas.appportrait.ecsusage.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用画像应用ecs利用率
+         * Summary: 应用画像应用ecs利用率
+         */
+        public async Task<GetAppportraitEcsusageResponse> GetAppportraitEcsusageExAsync(GetAppportraitEcsusageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAppportraitEcsusageResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.ecsusage.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询应用画像容器利用率
+         * Summary: 应用画像容器利用率
+         */
+        public QueryAppportraitContainerusageResponse QueryAppportraitContainerusage(QueryAppportraitContainerusageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAppportraitContainerusageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询应用画像容器利用率
+         * Summary: 应用画像容器利用率
+         */
+        public async Task<QueryAppportraitContainerusageResponse> QueryAppportraitContainerusageAsync(QueryAppportraitContainerusageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAppportraitContainerusageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询应用画像容器利用率
+         * Summary: 应用画像容器利用率
+         */
+        public QueryAppportraitContainerusageResponse QueryAppportraitContainerusageEx(QueryAppportraitContainerusageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAppportraitContainerusageResponse>(DoRequest("1.0", "antcloud.cas.appportrait.containerusage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询应用画像容器利用率
+         * Summary: 应用画像容器利用率
+         */
+        public async Task<QueryAppportraitContainerusageResponse> QueryAppportraitContainerusageExAsync(QueryAppportraitContainerusageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAppportraitContainerusageResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.containerusage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用画像应用操作记录
+         * Summary: 应用画像应用操作记录
+         */
+        public ListAppportraitActiontrailResponse ListAppportraitActiontrail(ListAppportraitActiontrailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAppportraitActiontrailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用画像应用操作记录
+         * Summary: 应用画像应用操作记录
+         */
+        public async Task<ListAppportraitActiontrailResponse> ListAppportraitActiontrailAsync(ListAppportraitActiontrailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAppportraitActiontrailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用画像应用操作记录
+         * Summary: 应用画像应用操作记录
+         */
+        public ListAppportraitActiontrailResponse ListAppportraitActiontrailEx(ListAppportraitActiontrailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitActiontrailResponse>(DoRequest("1.0", "antcloud.cas.appportrait.actiontrail.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用画像应用操作记录
+         * Summary: 应用画像应用操作记录
+         */
+        public async Task<ListAppportraitActiontrailResponse> ListAppportraitActiontrailExAsync(ListAppportraitActiontrailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitActiontrailResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.actiontrail.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用画像应用服务关联资源节点信息
+         * Summary: 应用画像应用服务关联资源节点信息
+         */
+        public ListAppportraitNodeResponse ListAppportraitNode(ListAppportraitNodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAppportraitNodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用画像应用服务关联资源节点信息
+         * Summary: 应用画像应用服务关联资源节点信息
+         */
+        public async Task<ListAppportraitNodeResponse> ListAppportraitNodeAsync(ListAppportraitNodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAppportraitNodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用画像应用服务关联资源节点信息
+         * Summary: 应用画像应用服务关联资源节点信息
+         */
+        public ListAppportraitNodeResponse ListAppportraitNodeEx(ListAppportraitNodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitNodeResponse>(DoRequest("1.0", "antcloud.cas.appportrait.node.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用画像应用服务关联资源节点信息
+         * Summary: 应用画像应用服务关联资源节点信息
+         */
+        public async Task<ListAppportraitNodeResponse> ListAppportraitNodeExAsync(ListAppportraitNodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAppportraitNodeResponse>(await DoRequestAsync("1.0", "antcloud.cas.appportrait.node.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
