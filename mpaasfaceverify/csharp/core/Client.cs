@@ -137,7 +137,7 @@ namespace AntChain.SDK.MPAASFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.6"},
+                        {"sdk_version", "1.1.7"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.MPAASFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.6"},
+                        {"sdk_version", "1.1.7"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -570,45 +570,87 @@ namespace AntChain.SDK.MPAASFACEVERIFY
         }
 
         /**
-         * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-         * Summary: 人脸认证单据初始化服务
+         * Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+         * Summary: 实人认证单据初始化服务
          */
-        public InitCertifyRecordResponse InitCertifyRecord(InitCertifyRecordRequest request)
+        public InitCertifyrecordRealpersonResponse InitCertifyrecordRealperson(InitCertifyrecordRealpersonRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return InitCertifyRecordEx(request, headers, runtime);
+            return InitCertifyrecordRealpersonEx(request, headers, runtime);
         }
 
         /**
-         * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-         * Summary: 人脸认证单据初始化服务
+         * Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+         * Summary: 实人认证单据初始化服务
          */
-        public async Task<InitCertifyRecordResponse> InitCertifyRecordAsync(InitCertifyRecordRequest request)
+        public async Task<InitCertifyrecordRealpersonResponse> InitCertifyrecordRealpersonAsync(InitCertifyrecordRealpersonRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await InitCertifyRecordExAsync(request, headers, runtime);
+            return await InitCertifyrecordRealpersonExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-         * Summary: 人脸认证单据初始化服务
+         * Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+         * Summary: 实人认证单据初始化服务
          */
-        public InitCertifyRecordResponse InitCertifyRecordEx(InitCertifyRecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public InitCertifyrecordRealpersonResponse InitCertifyrecordRealpersonEx(InitCertifyrecordRealpersonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<InitCertifyRecordResponse>(DoRequest("1.0", "antfin.mpaasfaceverify.certify.record.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<InitCertifyrecordRealpersonResponse>(DoRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.realperson.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 调用”人脸认证单据初始化服务“接口，生成业务认证单据，返回单据号
-         * Summary: 人脸认证单据初始化服务
+         * Description: 调用”实人认证单据初始化服务“接口，生成业务认证单据，返回单据号
+         * Summary: 实人认证单据初始化服务
          */
-        public async Task<InitCertifyRecordResponse> InitCertifyRecordExAsync(InitCertifyRecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<InitCertifyrecordRealpersonResponse> InitCertifyrecordRealpersonExAsync(InitCertifyrecordRealpersonRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<InitCertifyRecordResponse>(await DoRequestAsync("1.0", "antfin.mpaasfaceverify.certify.record.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<InitCertifyrecordRealpersonResponse>(await DoRequestAsync("1.0", "antfin.mpaasfaceverify.certifyrecord.realperson.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+         * Summary: 认证单据初始化服务(无身份)
+         */
+        public InitCertifyrecordResponse InitCertifyrecord(InitCertifyrecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitCertifyrecordEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+         * Summary: 认证单据初始化服务(无身份)
+         */
+        public async Task<InitCertifyrecordResponse> InitCertifyrecordAsync(InitCertifyrecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitCertifyrecordExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+         * Summary: 认证单据初始化服务(无身份)
+         */
+        public InitCertifyrecordResponse InitCertifyrecordEx(InitCertifyrecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitCertifyrecordResponse>(DoRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用”认证单据初始化服务“接口，生成业务认证单据，返回单据号
+         * Summary: 认证单据初始化服务(无身份)
+         */
+        public async Task<InitCertifyrecordResponse> InitCertifyrecordExAsync(InitCertifyrecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitCertifyrecordResponse>(await DoRequestAsync("1.0", "antfin.mpaasfaceverify.certifyrecord.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

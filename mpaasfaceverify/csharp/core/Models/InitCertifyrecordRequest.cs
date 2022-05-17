@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.MPAASFACEVERIFY.Models
 {
-    public class InitCertifyRecordRequest : TeaModel {
+    public class InitCertifyrecordRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,16 +23,10 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
         [Validation(Required=true)]
         public string BizId { get; set; }
 
-        // 	
         // 预留扩展业务参数
         [NameInMap("extern_param")]
         [Validation(Required=true)]
         public string ExternParam { get; set; }
-
-        // 用户身份信息
-        [NameInMap("identity_param")]
-        [Validation(Required=true)]
-        public string IdentityParam { get; set; }
 
         // metainfo环境参数
         [NameInMap("metainfo")]
