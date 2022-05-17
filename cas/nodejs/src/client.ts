@@ -1865,6 +1865,59 @@ export class SecurityGroupRule extends $tea.Model {
   }
 }
 
+// 应用画像应用ECS节点列表
+export class AppPortraitAppNodeEcsList extends $tea.Model {
+  // id
+  id?: string;
+  // zone_id
+  zoneId?: string;
+  // ip
+  ip?: string;
+  // load_balancer_spec
+  loadBalancerSpec?: string;
+  // cpu
+  cpu?: string;
+  // memory
+  memory?: string;
+  // version
+  version?: string;
+  // name
+  name?: string;
+  // status
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      zoneId: 'zone_id',
+      ip: 'ip',
+      loadBalancerSpec: 'load_balancer_spec',
+      cpu: 'cpu',
+      memory: 'memory',
+      version: 'version',
+      name: 'name',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      zoneId: 'string',
+      ip: 'string',
+      loadBalancerSpec: 'string',
+      cpu: 'string',
+      memory: 'string',
+      version: 'string',
+      name: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 查询用的DbSchema
 export class DbSchema extends $tea.Model {
   // charSet
@@ -3782,6 +3835,43 @@ export class AppQuery extends $tea.Model {
   }
 }
 
+// 应用画像可用性结构体
+export class AppPortraitAppUsability extends $tea.Model {
+  // 应用id
+  appId: string;
+  // 应用名称
+  appName: string;
+  // 应用可用性
+  appUsability?: number;
+  // 年同比
+  y2y?: string;
+  // 原因列表
+  reasonList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      appId: 'app_id',
+      appName: 'app_name',
+      appUsability: 'app_usability',
+      y2y: 'y2y',
+      reasonList: 'reason_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      appId: 'string',
+      appName: 'string',
+      appUsability: 'number',
+      y2y: 'string',
+      reasonList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 应用分级查询
 export class AppLevelQuery extends $tea.Model {
   // appCountInclude
@@ -4020,6 +4110,80 @@ export class Zone extends $tea.Model {
   }
 }
 
+// 应用画像容器利用率列表结构体
+export class AppPortraitContainerUsageList extends $tea.Model {
+  // namespace
+  namespace: string;
+  // request_cpu
+  requestCpu: number;
+  // request_mem
+  requestMem: number;
+  // limit_cpu
+  limitCpu: number;
+  // limit_mem
+  limitMem: number;
+  // average_cpu
+  averageCpu: number;
+  // average_mem
+  averageMem: number;
+  static names(): { [key: string]: string } {
+    return {
+      namespace: 'namespace',
+      requestCpu: 'request_cpu',
+      requestMem: 'request_mem',
+      limitCpu: 'limit_cpu',
+      limitMem: 'limit_mem',
+      averageCpu: 'average_cpu',
+      averageMem: 'average_mem',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      namespace: 'string',
+      requestCpu: 'number',
+      requestMem: 'number',
+      limitCpu: 'number',
+      limitMem: 'number',
+      averageCpu: 'number',
+      averageMem: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应用画像告警数趋势结构体
+export class AppPortraitAlertCountTrend extends $tea.Model {
+  // 日期
+  day: string;
+  // 本周期
+  nowCycle: string;
+  // 上周期
+  lastCycle: string;
+  static names(): { [key: string]: string } {
+    return {
+      day: 'day',
+      nowCycle: 'now_cycle',
+      lastCycle: 'last_cycle',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      day: 'string',
+      nowCycle: 'string',
+      lastCycle: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 数据库Grant
 export class Grant extends $tea.Model {
   // account
@@ -4041,6 +4205,35 @@ export class Grant extends $tea.Model {
       account: DatabaseAccount,
       privilege: 'string',
       schema: DbSchema,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应用画像操作记录查询
+export class AppPortraitActionTrailQuery extends $tea.Model {
+  // 操作时间
+  actiontrailTimestamp: string;
+  // title
+  title: string;
+  // 状态
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      actiontrailTimestamp: 'actiontrail_timestamp',
+      title: 'title',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      actiontrailTimestamp: 'string',
+      title: 'string',
+      status: 'string',
     };
   }
 
@@ -4213,6 +4406,31 @@ export class ComputerQuota extends $tea.Model {
       cpu: 'number',
       memory: 'number',
       disk: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 可用性趋势查询
+export class AppPortraitAppUsabilityTrendQuery extends $tea.Model {
+  // 时间以天为单位
+  day?: string;
+  // 应用可用性
+  appUsability?: number;
+  static names(): { [key: string]: string } {
+    return {
+      day: 'day',
+      appUsability: 'app_usability',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      day: 'string',
+      appUsability: 'number',
     };
   }
 
@@ -4867,6 +5085,43 @@ export class WorkspaceDnsProvider extends $tea.Model {
       utcCreate: 'string',
       utcModified: 'string',
       description: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应用健康分查询
+export class AppPortraitAppHealthScoreQuery extends $tea.Model {
+  // 应用id
+  appId?: string;
+  // app_name
+  appName?: string;
+  // health_score
+  healthScore?: number;
+  // 同比上升下降分数
+  y2y?: number;
+  // 上升下降原因列表
+  reasonList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      appId: 'app_id',
+      appName: 'app_name',
+      healthScore: 'health_score',
+      y2y: 'y2y',
+      reasonList: 'reason_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      appId: 'string',
+      appName: 'string',
+      healthScore: 'number',
+      y2y: 'number',
+      reasonList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -6307,6 +6562,39 @@ export class OperationTask extends $tea.Model {
   }
 }
 
+// 应用画像应用节点列表结构体
+export class AppPortraitAppNodeList extends $tea.Model {
+  // 返回ecs节点数据
+  ecs?: AppPortraitAppNodeEcsList[];
+  // 返回slb节点数据
+  slb?: AppPortraitAppNodeEcsList;
+  // 返回rds节点数据
+  rds?: AppPortraitAppNodeEcsList;
+  // 返回pod节点数据
+  pod?: AppPortraitAppNodeEcsList;
+  static names(): { [key: string]: string } {
+    return {
+      ecs: 'ecs',
+      slb: 'slb',
+      rds: 'rds',
+      pod: 'pod',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ecs: { 'type': 'array', 'itemType': AppPortraitAppNodeEcsList },
+      slb: AppPortraitAppNodeEcsList,
+      rds: AppPortraitAppNodeEcsList,
+      pod: AppPortraitAppNodeEcsList,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 阿里云日志服务(SLS)-日志项目
 export class SLSProject extends $tea.Model {
   // 项目描述
@@ -6328,6 +6616,35 @@ export class SLSProject extends $tea.Model {
       description: 'string',
       name: 'string',
       region: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 查询应用画像ecs利用率
+export class AppPortraitEcsUsageGet extends $tea.Model {
+  // cpu平均利用率
+  averageCpu: number;
+  // 内存平均利用率
+  averageMem: number;
+  // 磁盘平均利用率
+  averageDisk: number;
+  static names(): { [key: string]: string } {
+    return {
+      averageCpu: 'average_cpu',
+      averageMem: 'average_mem',
+      averageDisk: 'average_disk',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      averageCpu: 'number',
+      averageMem: 'number',
+      averageDisk: 'number',
     };
   }
 
@@ -6613,6 +6930,55 @@ export class SecurityGroupVO extends $tea.Model {
   }
 }
 
+// 应用画像应用列表返回数据
+export class AppPortraitAppList extends $tea.Model {
+  // 应用id
+  id: string;
+  // 应用名称
+  name: string;
+  // 应用分组名称
+  appGroupName?: string;
+  // 应用所属分组id
+  appGroupId?: string;
+  // 应用负责人
+  ownerDisplayName?: string;
+  // 应用描述
+  description?: string;
+  // 技术栈名称
+  buildpackName?: string;
+  // 技术栈版本
+  buildpackVersion?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+      appGroupName: 'app_group_name',
+      appGroupId: 'app_group_id',
+      ownerDisplayName: 'owner_display_name',
+      description: 'description',
+      buildpackName: 'buildpack_name',
+      buildpackVersion: 'buildpack_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+      appGroupName: 'string',
+      appGroupId: 'string',
+      ownerDisplayName: 'string',
+      description: 'string',
+      buildpackName: 'string',
+      buildpackVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // staragent info
 export class StarAgentInfo extends $tea.Model {
   // computer serial number
@@ -6642,6 +7008,31 @@ export class StarAgentInfo extends $tea.Model {
       ip: 'string',
       ipList: 'string',
       status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应用画像健康分趋势查询结构体
+export class AppPortraitAppHealthScoreTrendQuery extends $tea.Model {
+  // 日期
+  day?: string;
+  // 健康分分值
+  healthScore?: number;
+  static names(): { [key: string]: string } {
+    return {
+      day: 'day',
+      healthScore: 'health_score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      day: 'string',
+      healthScore: 'number',
     };
   }
 
@@ -6872,6 +7263,47 @@ export class IaasConnMetadata extends $tea.Model {
   }
 }
 
+// 应用画像告警明细列表
+export class AppPortraitAlertList extends $tea.Model {
+  // 告警节点ID
+  nodeId: string;
+  // 节点名
+  nodeName: string;
+  // 告警指标
+  metric: string;
+  // 告警级别
+  severity: string;
+  // 告警内容
+  alertContent: string;
+  // 告警时间
+  gmtOccurTimestamp: string;
+  static names(): { [key: string]: string } {
+    return {
+      nodeId: 'node_id',
+      nodeName: 'node_name',
+      metric: 'metric',
+      severity: 'severity',
+      alertContent: 'alert_content',
+      gmtOccurTimestamp: 'gmt_occur_timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      nodeId: 'string',
+      nodeName: 'string',
+      metric: 'string',
+      severity: 'string',
+      alertContent: 'string',
+      gmtOccurTimestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 应用服务查询
 export class AppServiceQuery extends $tea.Model {
   // 根据 id 查询
@@ -6941,6 +7373,59 @@ export class AppServiceQuery extends $tea.Model {
       orders: { 'type': 'array', 'itemType': 'string' },
       queryType: 'string',
       conditions: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 获取应用详情信息包括对应workspace下的appservices
+export class AppPortraitAppGet extends $tea.Model {
+  // 应用id
+  id: string;
+  // 应用名称
+  name: string;
+  // 应用分组名称
+  appGroupName?: string;
+  // 应用所属分组id
+  appGroupId?: string;
+  // 应用负责人
+  ownerDisplayName?: string;
+  // description
+  description?: string;
+  // 技术栈名称
+  buildpackName?: string;
+  // 技术栈版本
+  buildpackVersion?: string;
+  // workspace下应用所关联的应用服务列表
+  appservices?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+      appGroupName: 'app_group_name',
+      appGroupId: 'app_group_id',
+      ownerDisplayName: 'owner_display_name',
+      description: 'description',
+      buildpackName: 'buildpack_name',
+      buildpackVersion: 'buildpack_version',
+      appservices: 'appservices',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+      appGroupName: 'string',
+      appGroupId: 'string',
+      ownerDisplayName: 'string',
+      description: 'string',
+      buildpackName: 'string',
+      buildpackVersion: 'string',
+      appservices: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -10035,6 +10520,998 @@ export class GetAppgrayconfigsResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: { 'type': 'array', 'itemType': MapStringToBooleanEntity },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAppportraitAppRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 应用名称
+  name?: string;
+  // 应用分组名称
+  appGroupName?: string;
+  // 应用负责人
+  ownerDisplayName?: string;
+  // 技术栈名称
+  buildpackName?: string;
+  // 技术栈版本
+  buildpackVersion?: string;
+  // TenantId
+  tenantId?: string;
+  // TenantName
+  tenantName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      name: 'name',
+      appGroupName: 'app_group_name',
+      ownerDisplayName: 'owner_display_name',
+      buildpackName: 'buildpack_name',
+      buildpackVersion: 'buildpack_version',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      name: 'string',
+      appGroupName: 'string',
+      ownerDisplayName: 'string',
+      buildpackName: 'string',
+      buildpackVersion: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAppportraitAppResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 应用名称列表数据
+  data?: AppPortraitAppList[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': AppPortraitAppList },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAppportraitAppRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 待查询的应用名称
+  name: string;
+  // TenantId
+  tenantId?: string;
+  // TenantName
+  tenantName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      name: 'name',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      name: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAppportraitAppResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回应用详情信息
+  data?: AppPortraitAppGet[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': AppPortraitAppGet },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAppportraitYearusabilityRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 工作空间名称Id
+  workspaceId: string;
+  // 租户id
+  tenantId?: string;
+  // 租户名称
+  tenantName?: string;
+  // app_id
+  appId: string;
+  // 查询的年份
+  year: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      appId: 'app_id',
+      year: 'year',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      appId: 'string',
+      year: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAppportraitYearusabilityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据
+  data?: AppPortraitAppUsability;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: AppPortraitAppUsability,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAppportraitMonthusabilityRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 工作空间名称Id
+  workspaceId: string;
+  // 租户id
+  tenantId?: string;
+  // 租户名称
+  tenantName?: string;
+  // app_id
+  appId: string;
+  // 查询的月份
+  month: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      appId: 'app_id',
+      month: 'month',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      appId: 'string',
+      month: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAppportraitMonthusabilityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据
+  data?: AppPortraitAppUsability;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: AppPortraitAppUsability,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAppportraitUsabilitytrendRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // tenant_name
+  tenantName?: string;
+  // tenant_id
+  tenantId?: string;
+  // app_id
+  appId: string;
+  // 查询开始时间
+  startTimestamp: string;
+  // 查询结束时间
+  endTimestamp: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      tenantName: 'tenant_name',
+      tenantId: 'tenant_id',
+      appId: 'app_id',
+      startTimestamp: 'start_timestamp',
+      endTimestamp: 'end_timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      tenantName: 'string',
+      tenantId: 'string',
+      appId: 'string',
+      startTimestamp: 'string',
+      endTimestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAppportraitUsabilitytrendResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 应用可用性趋势列表
+  data?: AppPortraitAppUsabilityTrendQuery[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': AppPortraitAppUsabilityTrendQuery },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAppportraitHealthscoreRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // tenant_name
+  tenantName?: string;
+  // tenant_id
+  tenantId?: string;
+  // app_id
+  appId: string;
+  // 查询开始时间
+  startTimestamp: string;
+  // 查询结束时间
+  endTimestamp: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      tenantName: 'tenant_name',
+      tenantId: 'tenant_id',
+      appId: 'app_id',
+      startTimestamp: 'start_timestamp',
+      endTimestamp: 'end_timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      tenantName: 'string',
+      tenantId: 'string',
+      appId: 'string',
+      startTimestamp: 'string',
+      endTimestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAppportraitHealthscoreResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 应用健康分查询结果
+  data?: AppPortraitAppHealthScoreQuery;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: AppPortraitAppHealthScoreQuery,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAppportraitHealthscoretrendRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 工作空间id
+  workspaceId: string;
+  // tenant_id
+  tenantId?: string;
+  // 租户名称
+  tenantName?: string;
+  // 应用id
+  appId: string;
+  // 查询开始时间
+  startTimestamp: string;
+  // 查询结束时间
+  endTimestamp: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      appId: 'app_id',
+      startTimestamp: 'start_timestamp',
+      endTimestamp: 'end_timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      appId: 'string',
+      startTimestamp: 'string',
+      endTimestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAppportraitHealthscoretrendResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 应用画像健康分趋势
+  data?: AppPortraitAppHealthScoreTrendQuery[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': AppPortraitAppHealthScoreTrendQuery },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAppportraitAlertcounttrendRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // tenant_id
+  tenantId?: string;
+  // tenant_name
+  tenantName?: string;
+  // app_id
+  appId: string;
+  // 查询开始时间
+  startTimestamp: string;
+  // 查询结束时间
+  endTimestamp: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      appId: 'app_id',
+      startTimestamp: 'start_timestamp',
+      endTimestamp: 'end_timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      appId: 'string',
+      startTimestamp: 'string',
+      endTimestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAppportraitAlertcounttrendResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 应用画像告警数趋势
+  data?: AppPortraitAlertCountTrend[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': AppPortraitAlertCountTrend },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAppportraitAlertRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // tenant_id
+  tenantId?: string;
+  // tenant_name
+  tenantName?: string;
+  // app_id
+  appId: string;
+  // 查询开始时间
+  startTimestamp: string;
+  // 查询结束时间
+  endTimestamp: string;
+  // 分页大小
+  pageSize?: number;
+  // 当前页码，从1开始
+  pageNum?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      appId: 'app_id',
+      startTimestamp: 'start_timestamp',
+      endTimestamp: 'end_timestamp',
+      pageSize: 'page_size',
+      pageNum: 'page_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      appId: 'string',
+      startTimestamp: 'string',
+      endTimestamp: 'string',
+      pageSize: 'number',
+      pageNum: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAppportraitAlertResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据
+  data?: AppPortraitAlertList[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': AppPortraitAlertList },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAppportraitEcsusageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // tenant_id
+  tenantId?: string;
+  // tenant_name
+  tenantName?: string;
+  // app_id
+  appId: string;
+  // 查询开始时间
+  startTimestamp: string;
+  // 查询结束时间
+  endTimestamp: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      appId: 'app_id',
+      startTimestamp: 'start_timestamp',
+      endTimestamp: 'end_timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      appId: 'string',
+      startTimestamp: 'string',
+      endTimestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAppportraitEcsusageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据
+  data?: AppPortraitEcsUsageGet;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: AppPortraitEcsUsageGet,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAppportraitContainerusageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // tenant_id
+  tenantId?: string;
+  // tenant_name
+  tenantName?: string;
+  // app_id
+  appId: string;
+  // 查询开始时间
+  startTimestamp: string;
+  // 查询结束时间
+  endTimestamp: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      appId: 'app_id',
+      startTimestamp: 'start_timestamp',
+      endTimestamp: 'end_timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      appId: 'string',
+      startTimestamp: 'string',
+      endTimestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAppportraitContainerusageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据
+  data?: AppPortraitContainerUsageList[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': AppPortraitContainerUsageList },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAppportraitActiontrailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // tenant_id
+  tenantId?: string;
+  // tenant_name
+  tenantName?: string;
+  // 应用id
+  appId: string;
+  // 查询开始时间
+  startTimestamp: string;
+  // 查询结束时间
+  endTimestamp: string;
+  // 分页大小，默认为10，默
+  pageSize: number;
+  // 当前页码，从1开始
+  pageNum: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+      appId: 'app_id',
+      startTimestamp: 'start_timestamp',
+      endTimestamp: 'end_timestamp',
+      pageSize: 'page_size',
+      pageNum: 'page_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+      appId: 'string',
+      startTimestamp: 'string',
+      endTimestamp: 'string',
+      pageSize: 'number',
+      pageNum: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAppportraitActiontrailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据
+  data?: AppPortraitActionTrailQuery[];
+  // 页数
+  pageNum?: number;
+  // 每页大小，默认10
+  pageSize?: number;
+  // 总数
+  total?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      total: 'total',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': AppPortraitActionTrailQuery },
+      pageNum: 'number',
+      pageSize: 'number',
+      total: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAppportraitNodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // workspace_id
+  workspaceId: string;
+  // app_id
+  appId: string;
+  // tenant_id
+  tenantId?: string;
+  // tenant_name
+  tenantName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceId: 'workspace_id',
+      appId: 'app_id',
+      tenantId: 'tenant_id',
+      tenantName: 'tenant_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceId: 'string',
+      appId: 'string',
+      tenantId: 'string',
+      tenantName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAppportraitNodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回数据
+  data?: AppPortraitAppNodeList;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: AppPortraitAppNodeList,
     };
   }
 
@@ -24123,13 +25600,13 @@ export class QueryMiddlewareclusterResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // data
-  instances?: MiddlewareClusterInstance[];
+  data?: MiddlewareClusterInstance[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      instances: 'instances',
+      data: 'data',
     };
   }
 
@@ -24138,7 +25615,7 @@ export class QueryMiddlewareclusterResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      instances: { 'type': 'array', 'itemType': MiddlewareClusterInstance },
+      data: { 'type': 'array', 'itemType': MiddlewareClusterInstance },
     };
   }
 
@@ -24316,7 +25793,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.13",
+          sdk_version: "1.4.14",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -25101,6 +26578,253 @@ export default class Client {
   async getAppgrayconfigsEx(request: GetAppgrayconfigsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAppgrayconfigsResponse> {
     Util.validateModel(request);
     return $tea.cast<GetAppgrayconfigsResponse>(await this.doRequest("1.0", "antcloud.cas.appgrayconfigs.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAppgrayconfigsResponse({}));
+  }
+
+  /**
+   * Description: 应用画像获取应用名称列表
+   * Summary: 应用画像获取应用名称列表
+   */
+  async listAppportraitApp(request: ListAppportraitAppRequest): Promise<ListAppportraitAppResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listAppportraitAppEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 应用画像获取应用名称列表
+   * Summary: 应用画像获取应用名称列表
+   */
+  async listAppportraitAppEx(request: ListAppportraitAppRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAppportraitAppResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListAppportraitAppResponse>(await this.doRequest("1.0", "antcloud.cas.appportrait.app.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAppportraitAppResponse({}));
+  }
+
+  /**
+   * Description: 获取应用详情信息
+   * Summary: 获取应用详情信息
+   */
+  async getAppportraitApp(request: GetAppportraitAppRequest): Promise<GetAppportraitAppResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAppportraitAppEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取应用详情信息
+   * Summary: 获取应用详情信息
+   */
+  async getAppportraitAppEx(request: GetAppportraitAppRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAppportraitAppResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAppportraitAppResponse>(await this.doRequest("1.0", "antcloud.cas.appportrait.app.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAppportraitAppResponse({}));
+  }
+
+  /**
+   * Description: 年维度应用可用性查询
+   * Summary: 年维度应用可用性查询
+   */
+  async getAppportraitYearusability(request: GetAppportraitYearusabilityRequest): Promise<GetAppportraitYearusabilityResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAppportraitYearusabilityEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 年维度应用可用性查询
+   * Summary: 年维度应用可用性查询
+   */
+  async getAppportraitYearusabilityEx(request: GetAppportraitYearusabilityRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAppportraitYearusabilityResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAppportraitYearusabilityResponse>(await this.doRequest("1.0", "antcloud.cas.appportrait.yearusability.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAppportraitYearusabilityResponse({}));
+  }
+
+  /**
+   * Description: 月维度应用可用性查询
+   * Summary: 月维度应用可用性查询
+   */
+  async getAppportraitMonthusability(request: GetAppportraitMonthusabilityRequest): Promise<GetAppportraitMonthusabilityResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAppportraitMonthusabilityEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 月维度应用可用性查询
+   * Summary: 月维度应用可用性查询
+   */
+  async getAppportraitMonthusabilityEx(request: GetAppportraitMonthusabilityRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAppportraitMonthusabilityResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAppportraitMonthusabilityResponse>(await this.doRequest("1.0", "antcloud.cas.appportrait.monthusability.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAppportraitMonthusabilityResponse({}));
+  }
+
+  /**
+   * Description: 可用性趋势
+   * Summary: 可用性趋势
+   */
+  async queryAppportraitUsabilitytrend(request: QueryAppportraitUsabilitytrendRequest): Promise<QueryAppportraitUsabilitytrendResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAppportraitUsabilitytrendEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 可用性趋势
+   * Summary: 可用性趋势
+   */
+  async queryAppportraitUsabilitytrendEx(request: QueryAppportraitUsabilitytrendRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAppportraitUsabilitytrendResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAppportraitUsabilitytrendResponse>(await this.doRequest("1.0", "antcloud.cas.appportrait.usabilitytrend.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAppportraitUsabilitytrendResponse({}));
+  }
+
+  /**
+   * Description: 应用画像健康分
+   * Summary: 应用画像健康分
+   */
+  async queryAppportraitHealthscore(request: QueryAppportraitHealthscoreRequest): Promise<QueryAppportraitHealthscoreResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAppportraitHealthscoreEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 应用画像健康分
+   * Summary: 应用画像健康分
+   */
+  async queryAppportraitHealthscoreEx(request: QueryAppportraitHealthscoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAppportraitHealthscoreResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAppportraitHealthscoreResponse>(await this.doRequest("1.0", "antcloud.cas.appportrait.healthscore.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAppportraitHealthscoreResponse({}));
+  }
+
+  /**
+   * Description: 应用健康分趋势查询
+   * Summary: 应用健康分趋势查询
+   */
+  async queryAppportraitHealthscoretrend(request: QueryAppportraitHealthscoretrendRequest): Promise<QueryAppportraitHealthscoretrendResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAppportraitHealthscoretrendEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 应用健康分趋势查询
+   * Summary: 应用健康分趋势查询
+   */
+  async queryAppportraitHealthscoretrendEx(request: QueryAppportraitHealthscoretrendRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAppportraitHealthscoretrendResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAppportraitHealthscoretrendResponse>(await this.doRequest("1.0", "antcloud.cas.appportrait.healthscoretrend.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAppportraitHealthscoretrendResponse({}));
+  }
+
+  /**
+   * Description: 应用画像告警数趋势查询
+   * Summary: 应用画像告警数趋势查询
+   */
+  async queryAppportraitAlertcounttrend(request: QueryAppportraitAlertcounttrendRequest): Promise<QueryAppportraitAlertcounttrendResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAppportraitAlertcounttrendEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 应用画像告警数趋势查询
+   * Summary: 应用画像告警数趋势查询
+   */
+  async queryAppportraitAlertcounttrendEx(request: QueryAppportraitAlertcounttrendRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAppportraitAlertcounttrendResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAppportraitAlertcounttrendResponse>(await this.doRequest("1.0", "antcloud.cas.appportrait.alertcounttrend.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAppportraitAlertcounttrendResponse({}));
+  }
+
+  /**
+   * Description: 查询应用画像告警明细列表
+   * Summary: 应用画像告警明细列表
+   */
+  async listAppportraitAlert(request: ListAppportraitAlertRequest): Promise<ListAppportraitAlertResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listAppportraitAlertEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询应用画像告警明细列表
+   * Summary: 应用画像告警明细列表
+   */
+  async listAppportraitAlertEx(request: ListAppportraitAlertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAppportraitAlertResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListAppportraitAlertResponse>(await this.doRequest("1.0", "antcloud.cas.appportrait.alert.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAppportraitAlertResponse({}));
+  }
+
+  /**
+   * Description: 应用画像应用ecs利用率
+   * Summary: 应用画像应用ecs利用率
+   */
+  async getAppportraitEcsusage(request: GetAppportraitEcsusageRequest): Promise<GetAppportraitEcsusageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAppportraitEcsusageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 应用画像应用ecs利用率
+   * Summary: 应用画像应用ecs利用率
+   */
+  async getAppportraitEcsusageEx(request: GetAppportraitEcsusageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAppportraitEcsusageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAppportraitEcsusageResponse>(await this.doRequest("1.0", "antcloud.cas.appportrait.ecsusage.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAppportraitEcsusageResponse({}));
+  }
+
+  /**
+   * Description: 查询应用画像容器利用率
+   * Summary: 应用画像容器利用率
+   */
+  async queryAppportraitContainerusage(request: QueryAppportraitContainerusageRequest): Promise<QueryAppportraitContainerusageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAppportraitContainerusageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询应用画像容器利用率
+   * Summary: 应用画像容器利用率
+   */
+  async queryAppportraitContainerusageEx(request: QueryAppportraitContainerusageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAppportraitContainerusageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAppportraitContainerusageResponse>(await this.doRequest("1.0", "antcloud.cas.appportrait.containerusage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAppportraitContainerusageResponse({}));
+  }
+
+  /**
+   * Description: 应用画像应用操作记录
+   * Summary: 应用画像应用操作记录
+   */
+  async listAppportraitActiontrail(request: ListAppportraitActiontrailRequest): Promise<ListAppportraitActiontrailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listAppportraitActiontrailEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 应用画像应用操作记录
+   * Summary: 应用画像应用操作记录
+   */
+  async listAppportraitActiontrailEx(request: ListAppportraitActiontrailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAppportraitActiontrailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListAppportraitActiontrailResponse>(await this.doRequest("1.0", "antcloud.cas.appportrait.actiontrail.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAppportraitActiontrailResponse({}));
+  }
+
+  /**
+   * Description: 应用画像应用服务关联资源节点信息
+   * Summary: 应用画像应用服务关联资源节点信息
+   */
+  async listAppportraitNode(request: ListAppportraitNodeRequest): Promise<ListAppportraitNodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listAppportraitNodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 应用画像应用服务关联资源节点信息
+   * Summary: 应用画像应用服务关联资源节点信息
+   */
+  async listAppportraitNodeEx(request: ListAppportraitNodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAppportraitNodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListAppportraitNodeResponse>(await this.doRequest("1.0", "antcloud.cas.appportrait.node.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAppportraitNodeResponse({}));
   }
 
   /**
