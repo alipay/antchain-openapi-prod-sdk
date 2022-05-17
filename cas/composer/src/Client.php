@@ -193,6 +193,14 @@ use AntChain\CAS\Models\GetApplicationPackagedownloadurlRequest;
 use AntChain\CAS\Models\GetApplicationPackagedownloadurlResponse;
 use AntChain\CAS\Models\GetApplicationPackageuploadpolicyRequest;
 use AntChain\CAS\Models\GetApplicationPackageuploadpolicyResponse;
+use AntChain\CAS\Models\GetAppportraitAppRequest;
+use AntChain\CAS\Models\GetAppportraitAppResponse;
+use AntChain\CAS\Models\GetAppportraitEcsusageRequest;
+use AntChain\CAS\Models\GetAppportraitEcsusageResponse;
+use AntChain\CAS\Models\GetAppportraitMonthusabilityRequest;
+use AntChain\CAS\Models\GetAppportraitMonthusabilityResponse;
+use AntChain\CAS\Models\GetAppportraitYearusabilityRequest;
+use AntChain\CAS\Models\GetAppportraitYearusabilityResponse;
 use AntChain\CAS\Models\GetAppserviceDefaultRequest;
 use AntChain\CAS\Models\GetAppserviceDefaultResponse;
 use AntChain\CAS\Models\GetAppserviceDetailRequest;
@@ -243,6 +251,14 @@ use AntChain\CAS\Models\ListApplicationPackageRequest;
 use AntChain\CAS\Models\ListApplicationPackageResponse;
 use AntChain\CAS\Models\ListApplicationRequest;
 use AntChain\CAS\Models\ListApplicationResponse;
+use AntChain\CAS\Models\ListAppportraitActiontrailRequest;
+use AntChain\CAS\Models\ListAppportraitActiontrailResponse;
+use AntChain\CAS\Models\ListAppportraitAlertRequest;
+use AntChain\CAS\Models\ListAppportraitAlertResponse;
+use AntChain\CAS\Models\ListAppportraitAppRequest;
+use AntChain\CAS\Models\ListAppportraitAppResponse;
+use AntChain\CAS\Models\ListAppportraitNodeRequest;
+use AntChain\CAS\Models\ListAppportraitNodeResponse;
 use AntChain\CAS\Models\ListAppserviceCellRequest;
 use AntChain\CAS\Models\ListAppserviceCellResponse;
 use AntChain\CAS\Models\ListAppserviceRequest;
@@ -291,6 +307,16 @@ use AntChain\CAS\Models\ListVpcCidrblockRequest;
 use AntChain\CAS\Models\ListVpcCidrblockResponse;
 use AntChain\CAS\Models\ListVpcImportRequest;
 use AntChain\CAS\Models\ListVpcImportResponse;
+use AntChain\CAS\Models\QueryAppportraitAlertcounttrendRequest;
+use AntChain\CAS\Models\QueryAppportraitAlertcounttrendResponse;
+use AntChain\CAS\Models\QueryAppportraitContainerusageRequest;
+use AntChain\CAS\Models\QueryAppportraitContainerusageResponse;
+use AntChain\CAS\Models\QueryAppportraitHealthscoreRequest;
+use AntChain\CAS\Models\QueryAppportraitHealthscoreResponse;
+use AntChain\CAS\Models\QueryAppportraitHealthscoretrendRequest;
+use AntChain\CAS\Models\QueryAppportraitHealthscoretrendResponse;
+use AntChain\CAS\Models\QueryAppportraitUsabilitytrendRequest;
+use AntChain\CAS\Models\QueryAppportraitUsabilitytrendResponse;
 use AntChain\CAS\Models\QueryAppserviceRequest;
 use AntChain\CAS\Models\QueryAppserviceResponse;
 use AntChain\CAS\Models\QueryBuildpackRequest;
@@ -648,7 +674,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.13',
+                    'sdk_version'      => '1.4.14',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1979,6 +2005,435 @@ class Client
         Utils::validateModel($request);
 
         return GetAppgrayconfigsResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appgrayconfigs.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用画像获取应用名称列表
+     * Summary: 应用画像获取应用名称列表.
+     *
+     * @param ListAppportraitAppRequest $request
+     *
+     * @return ListAppportraitAppResponse
+     */
+    public function listAppportraitApp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAppportraitAppEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用画像获取应用名称列表
+     * Summary: 应用画像获取应用名称列表.
+     *
+     * @param ListAppportraitAppRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ListAppportraitAppResponse
+     */
+    public function listAppportraitAppEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAppportraitAppResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.app.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取应用详情信息
+     * Summary: 获取应用详情信息.
+     *
+     * @param GetAppportraitAppRequest $request
+     *
+     * @return GetAppportraitAppResponse
+     */
+    public function getAppportraitApp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAppportraitAppEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取应用详情信息
+     * Summary: 获取应用详情信息.
+     *
+     * @param GetAppportraitAppRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return GetAppportraitAppResponse
+     */
+    public function getAppportraitAppEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAppportraitAppResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.app.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 年维度应用可用性查询
+     * Summary: 年维度应用可用性查询.
+     *
+     * @param GetAppportraitYearusabilityRequest $request
+     *
+     * @return GetAppportraitYearusabilityResponse
+     */
+    public function getAppportraitYearusability($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAppportraitYearusabilityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 年维度应用可用性查询
+     * Summary: 年维度应用可用性查询.
+     *
+     * @param GetAppportraitYearusabilityRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return GetAppportraitYearusabilityResponse
+     */
+    public function getAppportraitYearusabilityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAppportraitYearusabilityResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.yearusability.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 月维度应用可用性查询
+     * Summary: 月维度应用可用性查询.
+     *
+     * @param GetAppportraitMonthusabilityRequest $request
+     *
+     * @return GetAppportraitMonthusabilityResponse
+     */
+    public function getAppportraitMonthusability($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAppportraitMonthusabilityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 月维度应用可用性查询
+     * Summary: 月维度应用可用性查询.
+     *
+     * @param GetAppportraitMonthusabilityRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return GetAppportraitMonthusabilityResponse
+     */
+    public function getAppportraitMonthusabilityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAppportraitMonthusabilityResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.monthusability.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可用性趋势
+     * Summary: 可用性趋势
+     *
+     * @param QueryAppportraitUsabilitytrendRequest $request
+     *
+     * @return QueryAppportraitUsabilitytrendResponse
+     */
+    public function queryAppportraitUsabilitytrend($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAppportraitUsabilitytrendEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可用性趋势
+     * Summary: 可用性趋势
+     *
+     * @param QueryAppportraitUsabilitytrendRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryAppportraitUsabilitytrendResponse
+     */
+    public function queryAppportraitUsabilitytrendEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAppportraitUsabilitytrendResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.usabilitytrend.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用画像健康分
+     * Summary: 应用画像健康分.
+     *
+     * @param QueryAppportraitHealthscoreRequest $request
+     *
+     * @return QueryAppportraitHealthscoreResponse
+     */
+    public function queryAppportraitHealthscore($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAppportraitHealthscoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用画像健康分
+     * Summary: 应用画像健康分.
+     *
+     * @param QueryAppportraitHealthscoreRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryAppportraitHealthscoreResponse
+     */
+    public function queryAppportraitHealthscoreEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAppportraitHealthscoreResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.healthscore.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用健康分趋势查询
+     * Summary: 应用健康分趋势查询.
+     *
+     * @param QueryAppportraitHealthscoretrendRequest $request
+     *
+     * @return QueryAppportraitHealthscoretrendResponse
+     */
+    public function queryAppportraitHealthscoretrend($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAppportraitHealthscoretrendEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用健康分趋势查询
+     * Summary: 应用健康分趋势查询.
+     *
+     * @param QueryAppportraitHealthscoretrendRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryAppportraitHealthscoretrendResponse
+     */
+    public function queryAppportraitHealthscoretrendEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAppportraitHealthscoretrendResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.healthscoretrend.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用画像告警数趋势查询
+     * Summary: 应用画像告警数趋势查询.
+     *
+     * @param QueryAppportraitAlertcounttrendRequest $request
+     *
+     * @return QueryAppportraitAlertcounttrendResponse
+     */
+    public function queryAppportraitAlertcounttrend($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAppportraitAlertcounttrendEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用画像告警数趋势查询
+     * Summary: 应用画像告警数趋势查询.
+     *
+     * @param QueryAppportraitAlertcounttrendRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryAppportraitAlertcounttrendResponse
+     */
+    public function queryAppportraitAlertcounttrendEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAppportraitAlertcounttrendResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.alertcounttrend.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询应用画像告警明细列表
+     * Summary: 应用画像告警明细列表.
+     *
+     * @param ListAppportraitAlertRequest $request
+     *
+     * @return ListAppportraitAlertResponse
+     */
+    public function listAppportraitAlert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAppportraitAlertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询应用画像告警明细列表
+     * Summary: 应用画像告警明细列表.
+     *
+     * @param ListAppportraitAlertRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ListAppportraitAlertResponse
+     */
+    public function listAppportraitAlertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAppportraitAlertResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.alert.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用画像应用ecs利用率
+     * Summary: 应用画像应用ecs利用率.
+     *
+     * @param GetAppportraitEcsusageRequest $request
+     *
+     * @return GetAppportraitEcsusageResponse
+     */
+    public function getAppportraitEcsusage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAppportraitEcsusageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用画像应用ecs利用率
+     * Summary: 应用画像应用ecs利用率.
+     *
+     * @param GetAppportraitEcsusageRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return GetAppportraitEcsusageResponse
+     */
+    public function getAppportraitEcsusageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAppportraitEcsusageResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.ecsusage.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询应用画像容器利用率
+     * Summary: 应用画像容器利用率.
+     *
+     * @param QueryAppportraitContainerusageRequest $request
+     *
+     * @return QueryAppportraitContainerusageResponse
+     */
+    public function queryAppportraitContainerusage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAppportraitContainerusageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询应用画像容器利用率
+     * Summary: 应用画像容器利用率.
+     *
+     * @param QueryAppportraitContainerusageRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryAppportraitContainerusageResponse
+     */
+    public function queryAppportraitContainerusageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAppportraitContainerusageResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.containerusage.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用画像应用操作记录
+     * Summary: 应用画像应用操作记录.
+     *
+     * @param ListAppportraitActiontrailRequest $request
+     *
+     * @return ListAppportraitActiontrailResponse
+     */
+    public function listAppportraitActiontrail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAppportraitActiontrailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用画像应用操作记录
+     * Summary: 应用画像应用操作记录.
+     *
+     * @param ListAppportraitActiontrailRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ListAppportraitActiontrailResponse
+     */
+    public function listAppportraitActiontrailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAppportraitActiontrailResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.actiontrail.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用画像应用服务关联资源节点信息
+     * Summary: 应用画像应用服务关联资源节点信息.
+     *
+     * @param ListAppportraitNodeRequest $request
+     *
+     * @return ListAppportraitNodeResponse
+     */
+    public function listAppportraitNode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAppportraitNodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用画像应用服务关联资源节点信息
+     * Summary: 应用画像应用服务关联资源节点信息.
+     *
+     * @param ListAppportraitNodeRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ListAppportraitNodeResponse
+     */
+    public function listAppportraitNodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAppportraitNodeResponse::fromMap($this->doRequest('1.0', 'antcloud.cas.appportrait.node.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

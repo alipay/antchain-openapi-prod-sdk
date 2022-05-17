@@ -6,7 +6,7 @@ namespace AntChain\CAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryMiddlewareclusterResponse extends Model
+class ListAppportraitActiontrailResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,37 @@ class QueryMiddlewareclusterResponse extends Model
      */
     public $resultMsg;
 
-    // data
+    // 返回数据
     /**
-     * @var MiddlewareClusterInstance[]
+     * @var AppPortraitActionTrailQuery[]
      */
     public $data;
+
+    // 页数
+    /**
+     * @var int
+     */
+    public $pageNum;
+
+    // 每页大小，默认10
+    /**
+     * @var int
+     */
+    public $pageSize;
+
+    // 总数
+    /**
+     * @var string
+     */
+    public $total;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'data'       => 'data',
+        'pageNum'    => 'page_num',
+        'pageSize'   => 'page_size',
+        'total'      => 'total',
     ];
 
     public function validate()
@@ -63,6 +84,15 @@ class QueryMiddlewareclusterResponse extends Model
                 }
             }
         }
+        if (null !== $this->pageNum) {
+            $res['page_num'] = $this->pageNum;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->total) {
+            $res['total'] = $this->total;
+        }
 
         return $res;
     }
@@ -70,7 +100,7 @@ class QueryMiddlewareclusterResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryMiddlewareclusterResponse
+     * @return ListAppportraitActiontrailResponse
      */
     public static function fromMap($map = [])
     {
@@ -89,9 +119,18 @@ class QueryMiddlewareclusterResponse extends Model
                 $model->data = [];
                 $n           = 0;
                 foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? MiddlewareClusterInstance::fromMap($item) : $item;
+                    $model->data[$n++] = null !== $item ? AppPortraitActionTrailQuery::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['page_num'])) {
+            $model->pageNum = $map['page_num'];
+        }
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['total'])) {
+            $model->total = $map['total'];
         }
 
         return $model;

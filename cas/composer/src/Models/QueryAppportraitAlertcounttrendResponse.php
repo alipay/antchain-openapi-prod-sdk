@@ -6,7 +6,7 @@ namespace AntChain\CAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryMiddlewareclusterResponse extends Model
+class QueryAppportraitAlertcounttrendResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,9 +26,9 @@ class QueryMiddlewareclusterResponse extends Model
      */
     public $resultMsg;
 
-    // data
+    // 应用画像告警数趋势
     /**
-     * @var MiddlewareClusterInstance[]
+     * @var AppPortraitAlertCountTrend[]
      */
     public $data;
     protected $_name = [
@@ -70,7 +70,7 @@ class QueryMiddlewareclusterResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryMiddlewareclusterResponse
+     * @return QueryAppportraitAlertcounttrendResponse
      */
     public static function fromMap($map = [])
     {
@@ -89,7 +89,7 @@ class QueryMiddlewareclusterResponse extends Model
                 $model->data = [];
                 $n           = 0;
                 foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? MiddlewareClusterInstance::fromMap($item) : $item;
+                    $model->data[$n++] = null !== $item ? AppPortraitAlertCountTrend::fromMap($item) : $item;
                 }
             }
         }
