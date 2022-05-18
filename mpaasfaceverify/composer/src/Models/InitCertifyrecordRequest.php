@@ -25,6 +25,12 @@ class InitCertifyrecordRequest extends Model
      */
     public $bizId;
 
+    // 计费规则码
+    /**
+     * @var string
+     */
+    public $chargeCode;
+
     // 预留扩展业务参数
     /**
      * @var string
@@ -52,6 +58,7 @@ class InitCertifyrecordRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'bizId'             => 'biz_id',
+        'chargeCode'        => 'charge_code',
         'externParam'       => 'extern_param',
         'metainfo'          => 'metainfo',
         'operationType'     => 'operation_type',
@@ -61,6 +68,7 @@ class InitCertifyrecordRequest extends Model
     public function validate()
     {
         Model::validateRequired('bizId', $this->bizId, true);
+        Model::validateRequired('chargeCode', $this->chargeCode, true);
         Model::validateRequired('externParam', $this->externParam, true);
         Model::validateRequired('metainfo', $this->metainfo, true);
         Model::validateRequired('operationType', $this->operationType, true);
@@ -78,6 +86,9 @@ class InitCertifyrecordRequest extends Model
         }
         if (null !== $this->bizId) {
             $res['biz_id'] = $this->bizId;
+        }
+        if (null !== $this->chargeCode) {
+            $res['charge_code'] = $this->chargeCode;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
@@ -111,6 +122,9 @@ class InitCertifyrecordRequest extends Model
         }
         if (isset($map['biz_id'])) {
             $model->bizId = $map['biz_id'];
+        }
+        if (isset($map['charge_code'])) {
+            $model->chargeCode = $map['charge_code'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];
