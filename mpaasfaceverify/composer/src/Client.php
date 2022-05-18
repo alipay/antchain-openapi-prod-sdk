@@ -21,6 +21,8 @@ use AntChain\MPAASFACEVERIFY\Models\InitFaceauthRequest;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceauthResponse;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceplusRequest;
 use AntChain\MPAASFACEVERIFY\Models\InitFaceplusResponse;
+use AntChain\MPAASFACEVERIFY\Models\QueryCertifyrecordRequest;
+use AntChain\MPAASFACEVERIFY\Models\QueryCertifyrecordResponse;
 use AntChain\MPAASFACEVERIFY\Models\QueryFaceauthFileRequest;
 use AntChain\MPAASFACEVERIFY\Models\QueryFaceauthFileResponse;
 use AntChain\MPAASFACEVERIFY\Models\QueryFaceauthRequest;
@@ -173,7 +175,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.9',
+                    'sdk_version'      => '1.1.10',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -481,5 +483,38 @@ class Client
         Utils::validateModel($request);
 
         return InitCertifyrecordResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.certifyrecord.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+     * Summary: 实人认证查询(certifyId).
+     *
+     * @param QueryCertifyrecordRequest $request
+     *
+     * @return QueryCertifyrecordResponse
+     */
+    public function queryCertifyrecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCertifyrecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+     * Summary: 实人认证查询(certifyId).
+     *
+     * @param QueryCertifyrecordRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryCertifyrecordResponse
+     */
+    public function queryCertifyrecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCertifyrecordResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.certifyrecord.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

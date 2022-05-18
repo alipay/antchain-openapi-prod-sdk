@@ -6,7 +6,7 @@ namespace AntChain\MPAASFACEVERIFY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitCertifyrecordRequest extends Model
+class QueryCertifyrecordRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,50 +25,29 @@ class InitCertifyrecordRequest extends Model
      */
     public $bizId;
 
-    // 计费规则码
-    /**
-     * @var string
-     */
-    public $chargeCode;
-
     // 预留扩展业务参数
     /**
      * @var string
      */
     public $externParam;
 
-    // metainfo环境参数
+    // certifyId，用于查询认证结果
     /**
      * @var string
      */
-    public $metainfo;
-
-    // 操作类型
-    /**
-     * @var string
-     */
-    public $operationType;
-
-    // 比对源图片
-    /**
-     * @var string
-     */
-    public $refImg;
+    public $certifyId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'bizId'             => 'biz_id',
-        'chargeCode'        => 'charge_code',
         'externParam'       => 'extern_param',
-        'metainfo'          => 'metainfo',
-        'operationType'     => 'operation_type',
-        'refImg'            => 'ref_img',
+        'certifyId'         => 'certify_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('bizId', $this->bizId, true);
-        Model::validateRequired('chargeCode', $this->chargeCode, true);
+        Model::validateRequired('certifyId', $this->certifyId, true);
     }
 
     public function toMap()
@@ -83,20 +62,11 @@ class InitCertifyrecordRequest extends Model
         if (null !== $this->bizId) {
             $res['biz_id'] = $this->bizId;
         }
-        if (null !== $this->chargeCode) {
-            $res['charge_code'] = $this->chargeCode;
-        }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
         }
-        if (null !== $this->metainfo) {
-            $res['metainfo'] = $this->metainfo;
-        }
-        if (null !== $this->operationType) {
-            $res['operation_type'] = $this->operationType;
-        }
-        if (null !== $this->refImg) {
-            $res['ref_img'] = $this->refImg;
+        if (null !== $this->certifyId) {
+            $res['certify_id'] = $this->certifyId;
         }
 
         return $res;
@@ -105,7 +75,7 @@ class InitCertifyrecordRequest extends Model
     /**
      * @param array $map
      *
-     * @return InitCertifyrecordRequest
+     * @return QueryCertifyrecordRequest
      */
     public static function fromMap($map = [])
     {
@@ -119,20 +89,11 @@ class InitCertifyrecordRequest extends Model
         if (isset($map['biz_id'])) {
             $model->bizId = $map['biz_id'];
         }
-        if (isset($map['charge_code'])) {
-            $model->chargeCode = $map['charge_code'];
-        }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];
         }
-        if (isset($map['metainfo'])) {
-            $model->metainfo = $map['metainfo'];
-        }
-        if (isset($map['operation_type'])) {
-            $model->operationType = $map['operation_type'];
-        }
-        if (isset($map['ref_img'])) {
-            $model->refImg = $map['ref_img'];
+        if (isset($map['certify_id'])) {
+            $model->certifyId = $map['certify_id'];
         }
 
         return $model;

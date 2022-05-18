@@ -77,11 +77,7 @@ class InitCertifyrecordRealpersonRequest extends Model
     {
         Model::validateRequired('bizId', $this->bizId, true);
         Model::validateRequired('chargeCode', $this->chargeCode, true);
-        Model::validateRequired('externParam', $this->externParam, true);
         Model::validateRequired('identityParam', $this->identityParam, true);
-        Model::validateRequired('metainfo', $this->metainfo, true);
-        Model::validateRequired('operationType', $this->operationType, true);
-        Model::validateRequired('refImg', $this->refImg, true);
     }
 
     public function toMap()
