@@ -996,6 +996,7 @@ class InitCertifyrecordRealpersonResponse(TeaModel):
         result_code_sub: str = None,
         result_msg_sub: str = None,
         certify_id: str = None,
+        certify_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1011,6 +1012,8 @@ class InitCertifyrecordRealpersonResponse(TeaModel):
         self.result_msg_sub = result_msg_sub
         # 认证单据号
         self.certify_id = certify_id
+        # 认证h5 url
+        self.certify_url = certify_url
 
     def validate(self):
         pass
@@ -1031,6 +1034,8 @@ class InitCertifyrecordRealpersonResponse(TeaModel):
             result['result_msg_sub'] = self.result_msg_sub
         if self.certify_id is not None:
             result['certify_id'] = self.certify_id
+        if self.certify_url is not None:
+            result['certify_url'] = self.certify_url
         return result
 
     def from_map(self, m: dict = None):
@@ -1049,6 +1054,8 @@ class InitCertifyrecordRealpersonResponse(TeaModel):
             self.result_msg_sub = m.get('result_msg_sub')
         if m.get('certify_id') is not None:
             self.certify_id = m.get('certify_id')
+        if m.get('certify_url') is not None:
+            self.certify_url = m.get('certify_url')
         return self
 
 
@@ -1139,6 +1146,7 @@ class InitCertifyrecordResponse(TeaModel):
         result_code_sub: str = None,
         result_msg_sub: str = None,
         certify_id: str = None,
+        certify_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1154,6 +1162,8 @@ class InitCertifyrecordResponse(TeaModel):
         self.result_msg_sub = result_msg_sub
         # 认证单据号
         self.certify_id = certify_id
+        # 认证h5 url
+        self.certify_url = certify_url
 
     def validate(self):
         pass
@@ -1174,6 +1184,8 @@ class InitCertifyrecordResponse(TeaModel):
             result['result_msg_sub'] = self.result_msg_sub
         if self.certify_id is not None:
             result['certify_id'] = self.certify_id
+        if self.certify_url is not None:
+            result['certify_url'] = self.certify_url
         return result
 
     def from_map(self, m: dict = None):
@@ -1192,6 +1204,8 @@ class InitCertifyrecordResponse(TeaModel):
             self.result_msg_sub = m.get('result_msg_sub')
         if m.get('certify_id') is not None:
             self.certify_id = m.get('certify_id')
+        if m.get('certify_url') is not None:
+            self.certify_url = m.get('certify_url')
         return self
 
 
