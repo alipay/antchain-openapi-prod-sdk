@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.9'
+                    'sdk_version': '1.1.10'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -235,7 +235,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.9'
+                    'sdk_version': '1.1.10'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -699,4 +699,58 @@ class Client:
         UtilClient.validate_model(request)
         return mpaasfaceverify_models.InitCertifyrecordResponse().from_map(
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.certifyrecord.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_certifyrecord(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyrecordRequest,
+    ) -> mpaasfaceverify_models.QueryCertifyrecordResponse:
+        """
+        Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+        Summary: 实人认证查询(certifyId)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_certifyrecord_ex(request, headers, runtime)
+
+    async def query_certifyrecord_async(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyrecordRequest,
+    ) -> mpaasfaceverify_models.QueryCertifyrecordResponse:
+        """
+        Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+        Summary: 实人认证查询(certifyId)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_certifyrecord_ex_async(request, headers, runtime)
+
+    def query_certifyrecord_ex(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyrecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.QueryCertifyrecordResponse:
+        """
+        Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+        Summary: 实人认证查询(certifyId)
+        """
+        UtilClient.validate_model(request)
+        return mpaasfaceverify_models.QueryCertifyrecordResponse().from_map(
+            self.do_request('1.0', 'antfin.mpaasfaceverify.certifyrecord.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_certifyrecord_ex_async(
+        self,
+        request: mpaasfaceverify_models.QueryCertifyrecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.QueryCertifyrecordResponse:
+        """
+        Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+        Summary: 实人认证查询(certifyId)
+        """
+        UtilClient.validate_model(request)
+        return mpaasfaceverify_models.QueryCertifyrecordResponse().from_map(
+            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.certifyrecord.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
