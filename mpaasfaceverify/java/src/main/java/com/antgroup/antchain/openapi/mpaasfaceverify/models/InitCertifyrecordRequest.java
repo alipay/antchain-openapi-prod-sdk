@@ -23,22 +23,18 @@ public class InitCertifyrecordRequest extends TeaModel {
 
     // 预留扩展业务参数
     @NameInMap("extern_param")
-    @Validation(required = true)
     public String externParam;
 
     // metainfo环境参数
     @NameInMap("metainfo")
-    @Validation(required = true)
     public String metainfo;
 
     // 操作类型
     @NameInMap("operation_type")
-    @Validation(required = true)
     public String operationType;
 
     // 比对源图片
     @NameInMap("ref_img")
-    @Validation(required = true)
     public String refImg;
 
     public static InitCertifyrecordRequest build(java.util.Map<String, ?> map) throws Exception {

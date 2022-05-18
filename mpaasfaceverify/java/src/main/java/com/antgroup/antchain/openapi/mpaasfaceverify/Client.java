@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.9")
+                    new TeaPair("sdk_version", "1.1.10")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -309,5 +309,24 @@ public class Client {
     public InitCertifyrecordResponse initCertifyrecordEx(InitCertifyrecordRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitCertifyrecordResponse());
+    }
+
+    /**
+     * Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+     * Summary: 实人认证查询(certifyId)
+     */
+    public QueryCertifyrecordResponse queryCertifyrecord(QueryCertifyrecordRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCertifyrecordEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+     * Summary: 实人认证查询(certifyId)
+     */
+    public QueryCertifyrecordResponse queryCertifyrecordEx(QueryCertifyrecordRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCertifyrecordResponse());
     }
 }

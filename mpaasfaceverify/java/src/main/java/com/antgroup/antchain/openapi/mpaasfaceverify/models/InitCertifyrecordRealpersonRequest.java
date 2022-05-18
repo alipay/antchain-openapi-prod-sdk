@@ -24,7 +24,6 @@ public class InitCertifyrecordRealpersonRequest extends TeaModel {
     // 	
     // 预留扩展业务参数
     @NameInMap("extern_param")
-    @Validation(required = true)
     public String externParam;
 
     // 用户身份信息
@@ -34,17 +33,14 @@ public class InitCertifyrecordRealpersonRequest extends TeaModel {
 
     // metainfo环境参数
     @NameInMap("metainfo")
-    @Validation(required = true)
     public String metainfo;
 
     // 操作类型
     @NameInMap("operation_type")
-    @Validation(required = true)
     public String operationType;
 
     // 比对源图片
     @NameInMap("ref_img")
-    @Validation(required = true)
     public String refImg;
 
     public static InitCertifyrecordRealpersonRequest build(java.util.Map<String, ?> map) throws Exception {
