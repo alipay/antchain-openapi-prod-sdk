@@ -908,6 +908,8 @@ type InitCertifyrecordRealpersonResponse struct {
 	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
 	// 认证单据号
 	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 认证h5 url
+	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
 }
 
 func (s InitCertifyrecordRealpersonResponse) String() string {
@@ -950,6 +952,11 @@ func (s *InitCertifyrecordRealpersonResponse) SetResultMsgSub(v string) *InitCer
 
 func (s *InitCertifyrecordRealpersonResponse) SetCertifyId(v string) *InitCertifyrecordRealpersonResponse {
 	s.CertifyId = &v
+	return s
+}
+
+func (s *InitCertifyrecordRealpersonResponse) SetCertifyUrl(v string) *InitCertifyrecordRealpersonResponse {
+	s.CertifyUrl = &v
 	return s
 }
 
@@ -1034,6 +1041,8 @@ type InitCertifyrecordResponse struct {
 	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
 	// 认证单据号
 	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 认证h5 url
+	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
 }
 
 func (s InitCertifyrecordResponse) String() string {
@@ -1076,6 +1085,11 @@ func (s *InitCertifyrecordResponse) SetResultMsgSub(v string) *InitCertifyrecord
 
 func (s *InitCertifyrecordResponse) SetCertifyId(v string) *InitCertifyrecordResponse {
 	s.CertifyId = &v
+	return s
+}
+
+func (s *InitCertifyrecordResponse) SetCertifyUrl(v string) *InitCertifyrecordResponse {
+	s.CertifyUrl = &v
 	return s
 }
 
@@ -1201,7 +1215,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.8"),
+				"sdk_version":      tea.String("1.1.9"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
