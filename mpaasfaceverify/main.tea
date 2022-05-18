@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.7',
+    sdk_version = '1.1.8',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -469,6 +469,8 @@ model InitCertifyrecordRealpersonRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
   bizId: string(name='biz_id'),
+  // 计费规则码
+  chargeCode: string(name='charge_code'),
   // 	
   // 预留扩展业务参数
   externParam: string(name='extern_param'),
@@ -524,6 +526,8 @@ model InitCertifyrecordRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
   bizId: string(name='biz_id'),
+  // 计费规则码
+  chargeCode: string(name='charge_code'),
   // 预留扩展业务参数
   externParam: string(name='extern_param'),
   // metainfo环境参数
