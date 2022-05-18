@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.8',
+    sdk_version = '1.1.9',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -499,6 +499,8 @@ model InitCertifyrecordRealpersonResponse = {
   resultMsgSub?: string(name='result_msg_sub'),
   // 认证单据号
   certifyId?: string(name='certify_id'),
+  // 认证h5 url
+  certifyUrl?: string(name='certify_url'),
 }
 
 /**
@@ -553,6 +555,8 @@ model InitCertifyrecordResponse = {
   resultMsgSub?: string(name='result_msg_sub'),
   // 认证单据号
   certifyId?: string(name='certify_id'),
+  // 认证h5 url
+  certifyUrl?: string(name='certify_url'),
 }
 
 /**
