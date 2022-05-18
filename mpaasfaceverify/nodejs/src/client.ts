@@ -583,6 +583,8 @@ export class InitCertifyrecordRealpersonRequest extends $tea.Model {
   productInstanceId?: string;
   // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
   bizId: string;
+  // 计费规则码
+  chargeCode: string;
   // 	
   // 预留扩展业务参数
   externParam: string;
@@ -599,6 +601,7 @@ export class InitCertifyrecordRealpersonRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       bizId: 'biz_id',
+      chargeCode: 'charge_code',
       externParam: 'extern_param',
       identityParam: 'identity_param',
       metainfo: 'metainfo',
@@ -612,6 +615,7 @@ export class InitCertifyrecordRealpersonRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       bizId: 'string',
+      chargeCode: 'string',
       externParam: 'string',
       identityParam: 'string',
       metainfo: 'string',
@@ -675,6 +679,8 @@ export class InitCertifyrecordRequest extends $tea.Model {
   productInstanceId?: string;
   // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
   bizId: string;
+  // 计费规则码
+  chargeCode: string;
   // 预留扩展业务参数
   externParam: string;
   // metainfo环境参数
@@ -688,6 +694,7 @@ export class InitCertifyrecordRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       bizId: 'biz_id',
+      chargeCode: 'charge_code',
       externParam: 'extern_param',
       metainfo: 'metainfo',
       operationType: 'operation_type',
@@ -700,6 +707,7 @@ export class InitCertifyrecordRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       bizId: 'string',
+      chargeCode: 'string',
       externParam: 'string',
       metainfo: 'string',
       operationType: 'string',
@@ -869,7 +877,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.7",
+          sdk_version: "1.1.8",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
