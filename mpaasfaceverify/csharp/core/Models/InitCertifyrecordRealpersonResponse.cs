@@ -44,6 +44,11 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
         [Validation(Required=false)]
         public string CertifyId { get; set; }
 
+        // 认证h5 url
+        [NameInMap("certify_url")]
+        [Validation(Required=false)]
+        public string CertifyUrl { get; set; }
+
     }
 
 }
