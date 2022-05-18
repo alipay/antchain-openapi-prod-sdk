@@ -587,15 +587,15 @@ export class InitCertifyrecordRealpersonRequest extends $tea.Model {
   chargeCode: string;
   // 	
   // 预留扩展业务参数
-  externParam: string;
+  externParam?: string;
   // 用户身份信息
   identityParam: string;
   // metainfo环境参数
-  metainfo: string;
+  metainfo?: string;
   // 操作类型
-  operationType: string;
+  operationType?: string;
   // 比对源图片
-  refImg: string;
+  refImg?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -686,13 +686,13 @@ export class InitCertifyrecordRequest extends $tea.Model {
   // 计费规则码
   chargeCode: string;
   // 预留扩展业务参数
-  externParam: string;
+  externParam?: string;
   // metainfo环境参数
-  metainfo: string;
+  metainfo?: string;
   // 操作类型
-  operationType: string;
+  operationType?: string;
   // 比对源图片
-  refImg: string;
+  refImg?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -764,6 +764,81 @@ export class InitCertifyrecordResponse extends $tea.Model {
       resultMsgSub: 'string',
       certifyId: 'string',
       certifyUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCertifyrecordRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string;
+  // 预留扩展业务参数
+  externParam?: string;
+  // certifyId，用于查询认证结果
+  certifyId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      externParam: 'extern_param',
+      certifyId: 'certify_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      externParam: 'string',
+      certifyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCertifyrecordResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 预留扩展结果
+  externInfo?: string;
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string;
+  // result_code_sub对应的文案
+  resultMsgSub?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+      resultCodeSub: 'result_code_sub',
+      resultMsgSub: 'result_msg_sub',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+      resultCodeSub: 'string',
+      resultMsgSub: 'string',
     };
   }
 
@@ -885,7 +960,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.9",
+          sdk_version: "1.1.10",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1081,6 +1156,25 @@ export default class Client {
   async initCertifyrecordEx(request: InitCertifyrecordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitCertifyrecordResponse> {
     Util.validateModel(request);
     return $tea.cast<InitCertifyrecordResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitCertifyrecordResponse({}));
+  }
+
+  /**
+   * Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+   * Summary: 实人认证查询(certifyId)
+   */
+  async queryCertifyrecord(request: QueryCertifyrecordRequest): Promise<QueryCertifyrecordResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCertifyrecordEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+   * Summary: 实人认证查询(certifyId)
+   */
+  async queryCertifyrecordEx(request: QueryCertifyrecordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCertifyrecordResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCertifyrecordResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCertifyrecordResponse({}));
   }
 
 }
