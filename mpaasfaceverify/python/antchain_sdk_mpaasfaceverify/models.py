@@ -906,6 +906,7 @@ class InitCertifyrecordRealpersonRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         biz_id: str = None,
+        charge_code: str = None,
         extern_param: str = None,
         identity_param: str = None,
         metainfo: str = None,
@@ -917,6 +918,8 @@ class InitCertifyrecordRealpersonRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
         self.biz_id = biz_id
+        # 计费规则码
+        self.charge_code = charge_code
         # 
         # 预留扩展业务参数
         self.extern_param = extern_param
@@ -931,6 +934,7 @@ class InitCertifyrecordRealpersonRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.charge_code, 'charge_code')
         self.validate_required(self.extern_param, 'extern_param')
         self.validate_required(self.identity_param, 'identity_param')
         self.validate_required(self.metainfo, 'metainfo')
@@ -945,6 +949,8 @@ class InitCertifyrecordRealpersonRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.biz_id is not None:
             result['biz_id'] = self.biz_id
+        if self.charge_code is not None:
+            result['charge_code'] = self.charge_code
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
         if self.identity_param is not None:
@@ -965,6 +971,8 @@ class InitCertifyrecordRealpersonRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('biz_id') is not None:
             self.biz_id = m.get('biz_id')
+        if m.get('charge_code') is not None:
+            self.charge_code = m.get('charge_code')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
         if m.get('identity_param') is not None:
@@ -1050,6 +1058,7 @@ class InitCertifyrecordRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         biz_id: str = None,
+        charge_code: str = None,
         extern_param: str = None,
         metainfo: str = None,
         operation_type: str = None,
@@ -1060,6 +1069,8 @@ class InitCertifyrecordRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
         self.biz_id = biz_id
+        # 计费规则码
+        self.charge_code = charge_code
         # 预留扩展业务参数
         self.extern_param = extern_param
         # metainfo环境参数
@@ -1071,6 +1082,7 @@ class InitCertifyrecordRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.charge_code, 'charge_code')
         self.validate_required(self.extern_param, 'extern_param')
         self.validate_required(self.metainfo, 'metainfo')
         self.validate_required(self.operation_type, 'operation_type')
@@ -1084,6 +1096,8 @@ class InitCertifyrecordRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.biz_id is not None:
             result['biz_id'] = self.biz_id
+        if self.charge_code is not None:
+            result['charge_code'] = self.charge_code
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
         if self.metainfo is not None:
@@ -1102,6 +1116,8 @@ class InitCertifyrecordRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('biz_id') is not None:
             self.biz_id = m.get('biz_id')
+        if m.get('charge_code') is not None:
+            self.charge_code = m.get('charge_code')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
         if m.get('metainfo') is not None:
