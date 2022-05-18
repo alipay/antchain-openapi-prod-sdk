@@ -32,6 +32,10 @@ public class InitCertifyrecordRealpersonResponse extends TeaModel {
     @NameInMap("certify_id")
     public String certifyId;
 
+    // 认证h5 url
+    @NameInMap("certify_url")
+    public String certifyUrl;
+
     public static InitCertifyrecordRealpersonResponse build(java.util.Map<String, ?> map) throws Exception {
         InitCertifyrecordRealpersonResponse self = new InitCertifyrecordRealpersonResponse();
         return TeaModel.build(map, self);
@@ -91,6 +95,14 @@ public class InitCertifyrecordRealpersonResponse extends TeaModel {
     }
     public String getCertifyId() {
         return this.certifyId;
+    }
+
+    public InitCertifyrecordRealpersonResponse setCertifyUrl(String certifyUrl) {
+        this.certifyUrl = certifyUrl;
+        return this;
+    }
+    public String getCertifyUrl() {
+        return this.certifyUrl;
     }
 
 }
