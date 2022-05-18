@@ -16,6 +16,11 @@ public class InitCertifyrecordRequest extends TeaModel {
     @Validation(required = true)
     public String bizId;
 
+    // 计费规则码
+    @NameInMap("charge_code")
+    @Validation(required = true)
+    public String chargeCode;
+
     // 预留扩展业务参数
     @NameInMap("extern_param")
     @Validation(required = true)
@@ -63,6 +68,14 @@ public class InitCertifyrecordRequest extends TeaModel {
     }
     public String getBizId() {
         return this.bizId;
+    }
+
+    public InitCertifyrecordRequest setChargeCode(String chargeCode) {
+        this.chargeCode = chargeCode;
+        return this;
+    }
+    public String getChargeCode() {
+        return this.chargeCode;
     }
 
     public InitCertifyrecordRequest setExternParam(String externParam) {

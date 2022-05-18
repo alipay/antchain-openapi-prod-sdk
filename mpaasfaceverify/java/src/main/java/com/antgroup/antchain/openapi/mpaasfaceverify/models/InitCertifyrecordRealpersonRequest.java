@@ -16,6 +16,11 @@ public class InitCertifyrecordRealpersonRequest extends TeaModel {
     @Validation(required = true)
     public String bizId;
 
+    // 计费规则码
+    @NameInMap("charge_code")
+    @Validation(required = true)
+    public String chargeCode;
+
     // 	
     // 预留扩展业务参数
     @NameInMap("extern_param")
@@ -69,6 +74,14 @@ public class InitCertifyrecordRealpersonRequest extends TeaModel {
     }
     public String getBizId() {
         return this.bizId;
+    }
+
+    public InitCertifyrecordRealpersonRequest setChargeCode(String chargeCode) {
+        this.chargeCode = chargeCode;
+        return this;
+    }
+    public String getChargeCode() {
+        return this.chargeCode;
     }
 
     public InitCertifyrecordRealpersonRequest setExternParam(String externParam) {
