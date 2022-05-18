@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.9',
+    sdk_version = '1.1.10',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -473,15 +473,15 @@ model InitCertifyrecordRealpersonRequest = {
   chargeCode: string(name='charge_code'),
   // 	
   // 预留扩展业务参数
-  externParam: string(name='extern_param'),
+  externParam?: string(name='extern_param'),
   // 用户身份信息
   identityParam: string(name='identity_param'),
   // metainfo环境参数
-  metainfo: string(name='metainfo'),
+  metainfo?: string(name='metainfo'),
   // 操作类型
-  operationType: string(name='operation_type'),
+  operationType?: string(name='operation_type'),
   // 比对源图片
-  refImg: string(name='ref_img'),
+  refImg?: string(name='ref_img'),
 }
 
 model InitCertifyrecordRealpersonResponse = {
@@ -531,13 +531,13 @@ model InitCertifyrecordRequest = {
   // 计费规则码
   chargeCode: string(name='charge_code'),
   // 预留扩展业务参数
-  externParam: string(name='extern_param'),
+  externParam?: string(name='extern_param'),
   // metainfo环境参数
-  metainfo: string(name='metainfo'),
+  metainfo?: string(name='metainfo'),
   // 操作类型
-  operationType: string(name='operation_type'),
+  operationType?: string(name='operation_type'),
   // 比对源图片
-  refImg: string(name='ref_img'),
+  refImg?: string(name='ref_img'),
 }
 
 model InitCertifyrecordResponse = {
@@ -576,5 +576,51 @@ async function initCertifyrecord(request: InitCertifyrecordRequest): InitCertify
 async function initCertifyrecordEx(request: InitCertifyrecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitCertifyrecordResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antfin.mpaasfaceverify.certifyrecord.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCertifyrecordRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string(name='biz_id'),
+  // 预留扩展业务参数
+  externParam?: string(name='extern_param'),
+  // certifyId，用于查询认证结果
+  certifyId: string(name='certify_id'),
+}
+
+model QueryCertifyrecordResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  externInfo?: string(name='extern_info'),
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string(name='result_code_sub'),
+  // result_code_sub对应的文案
+  resultMsgSub?: string(name='result_msg_sub'),
+}
+
+/**
+ * Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+ * Summary: 实人认证查询(certifyId)
+ */
+async function queryCertifyrecord(request: QueryCertifyrecordRequest): QueryCertifyrecordResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCertifyrecordEx(request, headers, runtime);
+}
+
+/**
+ * Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+ * Summary: 实人认证查询(certifyId)
+ */
+async function queryCertifyrecordEx(request: QueryCertifyrecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCertifyrecordResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antfin.mpaasfaceverify.certifyrecord.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
