@@ -30,22 +30,22 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
 
         // 预留扩展业务参数
         [NameInMap("extern_param")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ExternParam { get; set; }
 
         // metainfo环境参数
         [NameInMap("metainfo")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Metainfo { get; set; }
 
         // 操作类型
         [NameInMap("operation_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string OperationType { get; set; }
 
         // 比对源图片
         [NameInMap("ref_img")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string RefImg { get; set; }
 
     }

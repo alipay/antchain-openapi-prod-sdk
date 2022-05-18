@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.MPAASFACEVERIFY.Models
 {
-    public class InitCertifyrecordRealpersonRequest : TeaModel {
+    public class QueryCertifyrecordRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,36 +23,15 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
         [Validation(Required=true)]
         public string BizId { get; set; }
 
-        // 计费规则码
-        [NameInMap("charge_code")]
-        [Validation(Required=true)]
-        public string ChargeCode { get; set; }
-
-        // 	
         // 预留扩展业务参数
         [NameInMap("extern_param")]
         [Validation(Required=false)]
         public string ExternParam { get; set; }
 
-        // 用户身份信息
-        [NameInMap("identity_param")]
+        // certifyId，用于查询认证结果
+        [NameInMap("certify_id")]
         [Validation(Required=true)]
-        public string IdentityParam { get; set; }
-
-        // metainfo环境参数
-        [NameInMap("metainfo")]
-        [Validation(Required=false)]
-        public string Metainfo { get; set; }
-
-        // 操作类型
-        [NameInMap("operation_type")]
-        [Validation(Required=false)]
-        public string OperationType { get; set; }
-
-        // 比对源图片
-        [NameInMap("ref_img")]
-        [Validation(Required=false)]
-        public string RefImg { get; set; }
+        public string CertifyId { get; set; }
 
     }
 

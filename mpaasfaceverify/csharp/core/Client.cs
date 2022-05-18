@@ -137,7 +137,7 @@ namespace AntChain.SDK.MPAASFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.9"},
+                        {"sdk_version", "1.1.10"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.MPAASFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.9"},
+                        {"sdk_version", "1.1.10"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -651,6 +651,48 @@ namespace AntChain.SDK.MPAASFACEVERIFY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<InitCertifyrecordResponse>(await DoRequestAsync("1.0", "antfin.mpaasfaceverify.certifyrecord.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+         * Summary: 实人认证查询(certifyId)
+         */
+        public QueryCertifyrecordResponse QueryCertifyrecord(QueryCertifyrecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCertifyrecordEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+         * Summary: 实人认证查询(certifyId)
+         */
+        public async Task<QueryCertifyrecordResponse> QueryCertifyrecordAsync(QueryCertifyrecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCertifyrecordExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+         * Summary: 实人认证查询(certifyId)
+         */
+        public QueryCertifyrecordResponse QueryCertifyrecordEx(QueryCertifyrecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCertifyrecordResponse>(DoRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用“实人认证结果查询(certifyId)”接口可以通过certifyId查询当次认证的结果
+         * Summary: 实人认证查询(certifyId)
+         */
+        public async Task<QueryCertifyrecordResponse> QueryCertifyrecordExAsync(QueryCertifyrecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCertifyrecordResponse>(await DoRequestAsync("1.0", "antfin.mpaasfaceverify.certifyrecord.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
