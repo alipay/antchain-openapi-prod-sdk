@@ -644,6 +644,8 @@ export class InitCertifyrecordRealpersonResponse extends $tea.Model {
   resultMsgSub?: string;
   // 认证单据号
   certifyId?: string;
+  // 认证h5 url
+  certifyUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -653,6 +655,7 @@ export class InitCertifyrecordRealpersonResponse extends $tea.Model {
       resultCodeSub: 'result_code_sub',
       resultMsgSub: 'result_msg_sub',
       certifyId: 'certify_id',
+      certifyUrl: 'certify_url',
     };
   }
 
@@ -665,6 +668,7 @@ export class InitCertifyrecordRealpersonResponse extends $tea.Model {
       resultCodeSub: 'string',
       resultMsgSub: 'string',
       certifyId: 'string',
+      certifyUrl: 'string',
     };
   }
 
@@ -735,6 +739,8 @@ export class InitCertifyrecordResponse extends $tea.Model {
   resultMsgSub?: string;
   // 认证单据号
   certifyId?: string;
+  // 认证h5 url
+  certifyUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -744,6 +750,7 @@ export class InitCertifyrecordResponse extends $tea.Model {
       resultCodeSub: 'result_code_sub',
       resultMsgSub: 'result_msg_sub',
       certifyId: 'certify_id',
+      certifyUrl: 'certify_url',
     };
   }
 
@@ -756,6 +763,7 @@ export class InitCertifyrecordResponse extends $tea.Model {
       resultCodeSub: 'string',
       resultMsgSub: 'string',
       certifyId: 'string',
+      certifyUrl: 'string',
     };
   }
 
@@ -877,7 +885,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.8",
+          sdk_version: "1.1.9",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
