@@ -49,6 +49,12 @@ class InitCertifyrecordRealpersonResponse extends Model
      * @var string
      */
     public $certifyId;
+
+    // 认证h5 url
+    /**
+     * @var string
+     */
+    public $certifyUrl;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
@@ -57,6 +63,7 @@ class InitCertifyrecordRealpersonResponse extends Model
         'resultCodeSub' => 'result_code_sub',
         'resultMsgSub'  => 'result_msg_sub',
         'certifyId'     => 'certify_id',
+        'certifyUrl'    => 'certify_url',
     ];
 
     public function validate()
@@ -86,6 +93,9 @@ class InitCertifyrecordRealpersonResponse extends Model
         }
         if (null !== $this->certifyId) {
             $res['certify_id'] = $this->certifyId;
+        }
+        if (null !== $this->certifyUrl) {
+            $res['certify_url'] = $this->certifyUrl;
         }
 
         return $res;
@@ -119,6 +129,9 @@ class InitCertifyrecordRealpersonResponse extends Model
         }
         if (isset($map['certify_id'])) {
             $model->certifyId = $map['certify_id'];
+        }
+        if (isset($map['certify_url'])) {
+            $model->certifyUrl = $map['certify_url'];
         }
 
         return $model;
