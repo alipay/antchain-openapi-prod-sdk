@@ -1206,22 +1206,18 @@ class QueryCertifyrecordRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        biz_id: str = None,
         extern_param: str = None,
         certify_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
-        self.biz_id = biz_id
         # 预留扩展业务参数
         self.extern_param = extern_param
         # certifyId，用于查询认证结果
         self.certify_id = certify_id
 
     def validate(self):
-        self.validate_required(self.biz_id, 'biz_id')
         self.validate_required(self.certify_id, 'certify_id')
 
     def to_map(self):
@@ -1230,8 +1226,6 @@ class QueryCertifyrecordRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.biz_id is not None:
-            result['biz_id'] = self.biz_id
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
         if self.certify_id is not None:
@@ -1244,8 +1238,6 @@ class QueryCertifyrecordRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('biz_id') is not None:
-            self.biz_id = m.get('biz_id')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
         if m.get('certify_id') is not None:
