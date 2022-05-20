@@ -776,8 +776,6 @@ export class QueryCertifyrecordRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
-  bizId: string;
   // 预留扩展业务参数
   externParam?: string;
   // certifyId，用于查询认证结果
@@ -786,7 +784,6 @@ export class QueryCertifyrecordRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      bizId: 'biz_id',
       externParam: 'extern_param',
       certifyId: 'certify_id',
     };
@@ -796,7 +793,6 @@ export class QueryCertifyrecordRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      bizId: 'string',
       externParam: 'string',
       certifyId: 'string',
     };
@@ -960,7 +956,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.10",
+          sdk_version: "1.1.11",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
