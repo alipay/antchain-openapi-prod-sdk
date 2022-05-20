@@ -18,11 +18,6 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
-        [NameInMap("biz_id")]
-        [Validation(Required=true)]
-        public string BizId { get; set; }
-
         // 预留扩展业务参数
         [NameInMap("extern_param")]
         [Validation(Required=false)]
