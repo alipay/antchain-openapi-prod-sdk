@@ -19,12 +19,6 @@ class QueryCertifyrecordRequest extends Model
      */
     public $productInstanceId;
 
-    // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
-    /**
-     * @var string
-     */
-    public $bizId;
-
     // 预留扩展业务参数
     /**
      * @var string
@@ -39,14 +33,12 @@ class QueryCertifyrecordRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'bizId'             => 'biz_id',
         'externParam'       => 'extern_param',
         'certifyId'         => 'certify_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('bizId', $this->bizId, true);
         Model::validateRequired('certifyId', $this->certifyId, true);
     }
 
@@ -58,9 +50,6 @@ class QueryCertifyrecordRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->bizId) {
-            $res['biz_id'] = $this->bizId;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
@@ -85,9 +74,6 @@ class QueryCertifyrecordRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['biz_id'])) {
-            $model->bizId = $map['biz_id'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];
