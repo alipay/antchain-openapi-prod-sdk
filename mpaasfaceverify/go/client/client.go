@@ -1097,8 +1097,6 @@ type QueryCertifyrecordRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
-	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
 	// 预留扩展业务参数
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 	// certifyId，用于查询认证结果
@@ -1120,11 +1118,6 @@ func (s *QueryCertifyrecordRequest) SetAuthToken(v string) *QueryCertifyrecordRe
 
 func (s *QueryCertifyrecordRequest) SetProductInstanceId(v string) *QueryCertifyrecordRequest {
 	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryCertifyrecordRequest) SetBizId(v string) *QueryCertifyrecordRequest {
-	s.BizId = &v
 	return s
 }
 
@@ -1313,7 +1306,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.10"),
+				"sdk_version":      tea.String("1.1.11"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
