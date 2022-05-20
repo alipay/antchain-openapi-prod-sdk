@@ -11,11 +11,6 @@ public class QueryCertifyrecordRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
-    @NameInMap("biz_id")
-    @Validation(required = true)
-    public String bizId;
-
     // 预留扩展业务参数
     @NameInMap("extern_param")
     public String externParam;
@@ -44,14 +39,6 @@ public class QueryCertifyrecordRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public QueryCertifyrecordRequest setBizId(String bizId) {
-        this.bizId = bizId;
-        return this;
-    }
-    public String getBizId() {
-        return this.bizId;
     }
 
     public QueryCertifyrecordRequest setExternParam(String externParam) {
