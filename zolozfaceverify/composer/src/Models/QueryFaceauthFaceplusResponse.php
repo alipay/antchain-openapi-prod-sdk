@@ -6,7 +6,7 @@ namespace AntChain\ZOLOZFACEVERIFY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitFaceauthFaceLiteResponse extends Model
+class QueryFaceauthFaceplusResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,44 +26,30 @@ class InitFaceauthFaceLiteResponse extends Model
      */
     public $resultMsg;
 
-    // 扩展结果
-    /**
-     * @var string
-     */
-    public $externInfo;
-
-    // 人脸协议
-    /**
-     * @var string
-     */
-    public $protocol;
-
-    // 产品结果明细，不影响决策
+    // 结果码
     /**
      * @var string
      */
     public $resultCodeSub;
 
-    // 明细返回码对应的文案
+    // 结果信息
     /**
      * @var string
      */
     public $resultMsgSub;
 
-    // 刷脸认证唯一标识。如果初始化失败则为空，可通过返回码分析具体原因
+    // 外部参数
     /**
      * @var string
      */
-    public $zimId;
+    public $externInfo;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
         'resultMsg'     => 'result_msg',
-        'externInfo'    => 'extern_info',
-        'protocol'      => 'protocol',
         'resultCodeSub' => 'result_code_sub',
         'resultMsgSub'  => 'result_msg_sub',
-        'zimId'         => 'zim_id',
+        'externInfo'    => 'extern_info',
     ];
 
     public function validate()
@@ -82,20 +68,14 @@ class InitFaceauthFaceLiteResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->externInfo) {
-            $res['extern_info'] = $this->externInfo;
-        }
-        if (null !== $this->protocol) {
-            $res['protocol'] = $this->protocol;
-        }
         if (null !== $this->resultCodeSub) {
             $res['result_code_sub'] = $this->resultCodeSub;
         }
         if (null !== $this->resultMsgSub) {
             $res['result_msg_sub'] = $this->resultMsgSub;
         }
-        if (null !== $this->zimId) {
-            $res['zim_id'] = $this->zimId;
+        if (null !== $this->externInfo) {
+            $res['extern_info'] = $this->externInfo;
         }
 
         return $res;
@@ -104,7 +84,7 @@ class InitFaceauthFaceLiteResponse extends Model
     /**
      * @param array $map
      *
-     * @return InitFaceauthFaceLiteResponse
+     * @return QueryFaceauthFaceplusResponse
      */
     public static function fromMap($map = [])
     {
@@ -118,20 +98,14 @@ class InitFaceauthFaceLiteResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['extern_info'])) {
-            $model->externInfo = $map['extern_info'];
-        }
-        if (isset($map['protocol'])) {
-            $model->protocol = $map['protocol'];
-        }
         if (isset($map['result_code_sub'])) {
             $model->resultCodeSub = $map['result_code_sub'];
         }
         if (isset($map['result_msg_sub'])) {
             $model->resultMsgSub = $map['result_msg_sub'];
         }
-        if (isset($map['zim_id'])) {
-            $model->zimId = $map['zim_id'];
+        if (isset($map['extern_info'])) {
+            $model->externInfo = $map['extern_info'];
         }
 
         return $model;

@@ -14,7 +14,6 @@ class InitFaceauthWebsdkRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */
@@ -55,6 +54,12 @@ class InitFaceauthWebsdkRequest extends Model
      * @var string
      */
     public $refImg;
+
+    // 比对源照片oss方式中转
+    /**
+     * @var string
+     */
+    public $refImgOssObj;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -64,6 +69,7 @@ class InitFaceauthWebsdkRequest extends Model
         'metainfo'          => 'metainfo',
         'operationType'     => 'operation_type',
         'refImg'            => 'ref_img',
+        'refImgOssObj'      => 'ref_img_oss_obj',
     ];
 
     public function validate()
@@ -97,6 +103,9 @@ class InitFaceauthWebsdkRequest extends Model
         }
         if (null !== $this->refImg) {
             $res['ref_img'] = $this->refImg;
+        }
+        if (null !== $this->refImgOssObj) {
+            $res['ref_img_oss_obj'] = $this->refImgOssObj;
         }
 
         return $res;
@@ -133,6 +142,9 @@ class InitFaceauthWebsdkRequest extends Model
         }
         if (isset($map['ref_img'])) {
             $model->refImg = $map['ref_img'];
+        }
+        if (isset($map['ref_img_oss_obj'])) {
+            $model->refImgOssObj = $map['ref_img_oss_obj'];
         }
 
         return $model;

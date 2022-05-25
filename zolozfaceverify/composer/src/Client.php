@@ -24,6 +24,10 @@ use AntChain\ZOLOZFACEVERIFY\Models\IdentityFaceauthServermodeRequest;
 use AntChain\ZOLOZFACEVERIFY\Models\IdentityFaceauthServermodeResponse;
 use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthFaceLiteRequest;
 use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthFaceLiteResponse;
+use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthFaceplusRequest;
+use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthFaceplusResponse;
+use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthFaceWishRequest;
+use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthFaceWishResponse;
 use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthWebsdkRequest;
 use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthWebsdkResponse;
 use AntChain\ZOLOZFACEVERIFY\Models\InitFaceauthZimRequest;
@@ -32,6 +36,8 @@ use AntChain\ZOLOZFACEVERIFY\Models\InitializeFaceauthWebRequest;
 use AntChain\ZOLOZFACEVERIFY\Models\InitializeFaceauthWebResponse;
 use AntChain\ZOLOZFACEVERIFY\Models\QueryFaceauthDataRequest;
 use AntChain\ZOLOZFACEVERIFY\Models\QueryFaceauthDataResponse;
+use AntChain\ZOLOZFACEVERIFY\Models\QueryFaceauthFaceplusRequest;
+use AntChain\ZOLOZFACEVERIFY\Models\QueryFaceauthFaceplusResponse;
 use AntChain\ZOLOZFACEVERIFY\Models\QueryFaceauthFileRequest;
 use AntChain\ZOLOZFACEVERIFY\Models\QueryFaceauthFileResponse;
 use AntChain\ZOLOZFACEVERIFY\Models\QueryFaceauthMeteringRequest;
@@ -42,6 +48,8 @@ use AntChain\ZOLOZFACEVERIFY\Models\QueryFaceauthWebsdkRequest;
 use AntChain\ZOLOZFACEVERIFY\Models\QueryFaceauthWebsdkResponse;
 use AntChain\ZOLOZFACEVERIFY\Models\RecognizeFaceauthOcrRequest;
 use AntChain\ZOLOZFACEVERIFY\Models\RecognizeFaceauthOcrResponse;
+use AntChain\ZOLOZFACEVERIFY\Models\VerifyFaceauthVideoRequest;
+use AntChain\ZOLOZFACEVERIFY\Models\VerifyFaceauthVideoResponse;
 use AntChain\ZOLOZFACEVERIFY\Models\VerifyFaceauthZimRequest;
 use AntChain\ZOLOZFACEVERIFY\Models\VerifyFaceauthZimResponse;
 use Exception;
@@ -190,7 +198,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.6',
+                    'sdk_version'      => '1.5.0',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -762,5 +770,137 @@ class Client
         Utils::validateModel($request);
 
         return QueryFaceauthFileResponse::fromMap($this->doRequest('1.0', 'faceverifyzoloz.faceauth.file.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 人脸双因子认证服务端初始化
+     * Summary: 人脸双因子认证服务端初始化.
+     *
+     * @param InitFaceauthFaceplusRequest $request
+     *
+     * @return InitFaceauthFaceplusResponse
+     */
+    public function initFaceauthFaceplus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initFaceauthFaceplusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 人脸双因子认证服务端初始化
+     * Summary: 人脸双因子认证服务端初始化.
+     *
+     * @param InitFaceauthFaceplusRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return InitFaceauthFaceplusResponse
+     */
+    public function initFaceauthFaceplusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitFaceauthFaceplusResponse::fromMap($this->doRequest('1.0', 'faceverifyzoloz.faceauth.faceplus.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 人脸双因子认证服务端查询
+     * Summary: 人脸双因子认证服务端查询.
+     *
+     * @param QueryFaceauthFaceplusRequest $request
+     *
+     * @return QueryFaceauthFaceplusResponse
+     */
+    public function queryFaceauthFaceplus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFaceauthFaceplusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 人脸双因子认证服务端查询
+     * Summary: 人脸双因子认证服务端查询.
+     *
+     * @param QueryFaceauthFaceplusRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryFaceauthFaceplusResponse
+     */
+    public function queryFaceauthFaceplusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFaceauthFaceplusResponse::fromMap($this->doRequest('1.0', 'faceverifyzoloz.faceauth.faceplus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 意愿核身认证服务端初始化
+     * Summary: 意愿核身认证服务端初始化.
+     *
+     * @param InitFaceauthFaceWishRequest $request
+     *
+     * @return InitFaceauthFaceWishResponse
+     */
+    public function initFaceauthFaceWish($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initFaceauthFaceWishEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 意愿核身认证服务端初始化
+     * Summary: 意愿核身认证服务端初始化.
+     *
+     * @param InitFaceauthFaceWishRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return InitFaceauthFaceWishResponse
+     */
+    public function initFaceauthFaceWishEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitFaceauthFaceWishResponse::fromMap($this->doRequest('1.0', 'faceverifyzoloz.faceauth.face.wish.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 人脸视频认证
+     * Summary: 人脸视频认证
+     *
+     * @param VerifyFaceauthVideoRequest $request
+     *
+     * @return VerifyFaceauthVideoResponse
+     */
+    public function verifyFaceauthVideo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyFaceauthVideoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 人脸视频认证
+     * Summary: 人脸视频认证
+     *
+     * @param VerifyFaceauthVideoRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return VerifyFaceauthVideoResponse
+     */
+    public function verifyFaceauthVideoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyFaceauthVideoResponse::fromMap($this->doRequest('1.0', 'faceverifyzoloz.faceauth.video.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

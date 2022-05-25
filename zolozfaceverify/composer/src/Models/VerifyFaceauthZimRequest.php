@@ -14,7 +14,6 @@ class VerifyFaceauthZimRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */
@@ -37,12 +36,19 @@ class VerifyFaceauthZimRequest extends Model
      * @var string
      */
     public $zimId;
+
+    // zim_data可通过oss方式中转
+    /**
+     * @var string
+     */
+    public $zimDataOssObj;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'externParam'       => 'extern_param',
         'zimData'           => 'zim_data',
         'zimId'             => 'zim_id',
+        'zimDataOssObj'     => 'zim_data_oss_obj',
     ];
 
     public function validate()
@@ -68,6 +74,9 @@ class VerifyFaceauthZimRequest extends Model
         }
         if (null !== $this->zimId) {
             $res['zim_id'] = $this->zimId;
+        }
+        if (null !== $this->zimDataOssObj) {
+            $res['zim_data_oss_obj'] = $this->zimDataOssObj;
         }
 
         return $res;
@@ -95,6 +104,9 @@ class VerifyFaceauthZimRequest extends Model
         }
         if (isset($map['zim_id'])) {
             $model->zimId = $map['zim_id'];
+        }
+        if (isset($map['zim_data_oss_obj'])) {
+            $model->zimDataOssObj = $map['zim_data_oss_obj'];
         }
 
         return $model;

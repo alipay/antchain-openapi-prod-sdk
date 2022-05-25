@@ -6,7 +6,7 @@ namespace AntChain\ZOLOZFACEVERIFY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitFaceauthFaceLiteRequest extends Model
+class VerifyFaceauthVideoRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,6 +18,18 @@ class InitFaceauthFaceLiteRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 活体照片，base64编码
+    /**
+     * @var string
+     */
+    public $authImg;
+
+    // BLOB：使用客户端透传的BLOB数据 IMAGE：正常图片模式
+    /**
+     * @var string
+     */
+    public $authImgType;
 
     // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
     /**
@@ -37,39 +49,46 @@ class InitFaceauthFaceLiteRequest extends Model
      */
     public $identityParam;
 
-    // metainfo环境参数
-    /**
-     * @var string
-     */
-    public $metainfo;
-
-    // 操作类型
+    // 操作类型，NORMAL正常模式，CUSTOM用户自定义比对源
     /**
      * @var string
      */
     public $operationType;
 
-    // 比对源图片
+    // 比对源照片，base64编码
     /**
      * @var string
      */
     public $refImg;
+
+    // 活体照片oss中转方式上传
+    /**
+     * @var string
+     */
+    public $authImgOssObj;
+
+    // 比对源照片oss中转方式上传
+    /**
+     * @var string
+     */
+    public $refImgOssObj;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'authImg'           => 'auth_img',
+        'authImgType'       => 'auth_img_type',
         'bizId'             => 'biz_id',
         'externParam'       => 'extern_param',
         'identityParam'     => 'identity_param',
-        'metainfo'          => 'metainfo',
         'operationType'     => 'operation_type',
         'refImg'            => 'ref_img',
+        'authImgOssObj'     => 'auth_img_oss_obj',
+        'refImgOssObj'      => 'ref_img_oss_obj',
     ];
 
     public function validate()
     {
         Model::validateRequired('bizId', $this->bizId, true);
-        Model::validateRequired('identityParam', $this->identityParam, true);
-        Model::validateRequired('metainfo', $this->metainfo, true);
     }
 
     public function toMap()
@@ -81,6 +100,12 @@ class InitFaceauthFaceLiteRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->authImg) {
+            $res['auth_img'] = $this->authImg;
+        }
+        if (null !== $this->authImgType) {
+            $res['auth_img_type'] = $this->authImgType;
+        }
         if (null !== $this->bizId) {
             $res['biz_id'] = $this->bizId;
         }
@@ -90,14 +115,17 @@ class InitFaceauthFaceLiteRequest extends Model
         if (null !== $this->identityParam) {
             $res['identity_param'] = $this->identityParam;
         }
-        if (null !== $this->metainfo) {
-            $res['metainfo'] = $this->metainfo;
-        }
         if (null !== $this->operationType) {
             $res['operation_type'] = $this->operationType;
         }
         if (null !== $this->refImg) {
             $res['ref_img'] = $this->refImg;
+        }
+        if (null !== $this->authImgOssObj) {
+            $res['auth_img_oss_obj'] = $this->authImgOssObj;
+        }
+        if (null !== $this->refImgOssObj) {
+            $res['ref_img_oss_obj'] = $this->refImgOssObj;
         }
 
         return $res;
@@ -106,7 +134,7 @@ class InitFaceauthFaceLiteRequest extends Model
     /**
      * @param array $map
      *
-     * @return InitFaceauthFaceLiteRequest
+     * @return VerifyFaceauthVideoRequest
      */
     public static function fromMap($map = [])
     {
@@ -117,6 +145,12 @@ class InitFaceauthFaceLiteRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['auth_img'])) {
+            $model->authImg = $map['auth_img'];
+        }
+        if (isset($map['auth_img_type'])) {
+            $model->authImgType = $map['auth_img_type'];
+        }
         if (isset($map['biz_id'])) {
             $model->bizId = $map['biz_id'];
         }
@@ -126,14 +160,17 @@ class InitFaceauthFaceLiteRequest extends Model
         if (isset($map['identity_param'])) {
             $model->identityParam = $map['identity_param'];
         }
-        if (isset($map['metainfo'])) {
-            $model->metainfo = $map['metainfo'];
-        }
         if (isset($map['operation_type'])) {
             $model->operationType = $map['operation_type'];
         }
         if (isset($map['ref_img'])) {
             $model->refImg = $map['ref_img'];
+        }
+        if (isset($map['auth_img_oss_obj'])) {
+            $model->authImgOssObj = $map['auth_img_oss_obj'];
+        }
+        if (isset($map['ref_img_oss_obj'])) {
+            $model->refImgOssObj = $map['ref_img_oss_obj'];
         }
 
         return $model;

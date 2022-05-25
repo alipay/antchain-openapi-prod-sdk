@@ -14,7 +14,6 @@ class IdentityFaceauthServermodeRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */
@@ -62,6 +61,18 @@ class IdentityFaceauthServermodeRequest extends Model
      * @var string
      */
     public $refImg;
+
+    // 活体照片oss中转方式上传
+    /**
+     * @var string
+     */
+    public $authImgOssObj;
+
+    // 比对源照片oss中转方式上传
+    /**
+     * @var string
+     */
+    public $refImgOssObj;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -72,6 +83,8 @@ class IdentityFaceauthServermodeRequest extends Model
         'identityParam'     => 'identity_param',
         'operationType'     => 'operation_type',
         'refImg'            => 'ref_img',
+        'authImgOssObj'     => 'auth_img_oss_obj',
+        'refImgOssObj'      => 'ref_img_oss_obj',
     ];
 
     public function validate()
@@ -108,6 +121,12 @@ class IdentityFaceauthServermodeRequest extends Model
         }
         if (null !== $this->refImg) {
             $res['ref_img'] = $this->refImg;
+        }
+        if (null !== $this->authImgOssObj) {
+            $res['auth_img_oss_obj'] = $this->authImgOssObj;
+        }
+        if (null !== $this->refImgOssObj) {
+            $res['ref_img_oss_obj'] = $this->refImgOssObj;
         }
 
         return $res;
@@ -147,6 +166,12 @@ class IdentityFaceauthServermodeRequest extends Model
         }
         if (isset($map['ref_img'])) {
             $model->refImg = $map['ref_img'];
+        }
+        if (isset($map['auth_img_oss_obj'])) {
+            $model->authImgOssObj = $map['auth_img_oss_obj'];
+        }
+        if (isset($map['ref_img_oss_obj'])) {
+            $model->refImgOssObj = $map['ref_img_oss_obj'];
         }
 
         return $model;

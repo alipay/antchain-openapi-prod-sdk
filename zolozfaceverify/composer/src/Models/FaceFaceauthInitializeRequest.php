@@ -14,7 +14,6 @@ class FaceFaceauthInitializeRequest extends Model
      */
     public $authToken;
 
-    // 集群ID
     /**
      * @var string
      */
@@ -55,6 +54,12 @@ class FaceFaceauthInitializeRequest extends Model
      * @var string
      */
     public $refImg;
+
+    // 比对源图片oss中转
+    /**
+     * @var string
+     */
+    public $refImgOssObj;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -64,6 +69,7 @@ class FaceFaceauthInitializeRequest extends Model
         'metainfo'          => 'metainfo',
         'operationType'     => 'operation_type',
         'refImg'            => 'ref_img',
+        'refImgOssObj'      => 'ref_img_oss_obj',
     ];
 
     public function validate()
@@ -71,6 +77,7 @@ class FaceFaceauthInitializeRequest extends Model
         Model::validateRequired('bizId', $this->bizId, true);
         Model::validateRequired('identityParam', $this->identityParam, true);
         Model::validateRequired('metainfo', $this->metainfo, true);
+        Model::validateRequired('refImgOssObj', $this->refImgOssObj, true);
     }
 
     public function toMap()
@@ -99,6 +106,9 @@ class FaceFaceauthInitializeRequest extends Model
         }
         if (null !== $this->refImg) {
             $res['ref_img'] = $this->refImg;
+        }
+        if (null !== $this->refImgOssObj) {
+            $res['ref_img_oss_obj'] = $this->refImgOssObj;
         }
 
         return $res;
@@ -135,6 +145,9 @@ class FaceFaceauthInitializeRequest extends Model
         }
         if (isset($map['ref_img'])) {
             $model->refImg = $map['ref_img'];
+        }
+        if (isset($map['ref_img_oss_obj'])) {
+            $model->refImgOssObj = $map['ref_img_oss_obj'];
         }
 
         return $model;
