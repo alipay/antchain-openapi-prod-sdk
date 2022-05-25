@@ -14,7 +14,6 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 集群ID
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
@@ -33,6 +32,11 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY.Models
         [NameInMap("zim_id")]
         [Validation(Required=true)]
         public string ZimId { get; set; }
+
+        // zim_data可通过oss方式中转
+        [NameInMap("zim_data_oss_obj")]
+        [Validation(Required=false)]
+        public string ZimDataOssObj { get; set; }
 
     }
 

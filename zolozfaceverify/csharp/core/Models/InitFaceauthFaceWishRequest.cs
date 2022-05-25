@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ZOLOZFACEVERIFY.Models
 {
-    public class InitFaceauthFaceLiteRequest : TeaModel {
+    public class InitFaceauthFaceWishRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,30 +23,30 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY.Models
         [Validation(Required=true)]
         public string BizId { get; set; }
 
-        // 预留扩展业务参数
-        [NameInMap("extern_param")]
-        [Validation(Required=false)]
-        public string ExternParam { get; set; }
-
-        // 用户身份信息
+        // 身份，需要公钥加密
         [NameInMap("identity_param")]
         [Validation(Required=true)]
         public string IdentityParam { get; set; }
 
-        // metainfo环境参数
+        // 客户端采集
         [NameInMap("metainfo")]
         [Validation(Required=true)]
         public string Metainfo { get; set; }
+
+        // 外部参数
+        [NameInMap("extern_param")]
+        [Validation(Required=false)]
+        public string ExternParam { get; set; }
 
         // 操作类型
         [NameInMap("operation_type")]
         [Validation(Required=false)]
         public string OperationType { get; set; }
 
-        // 比对源图片
-        [NameInMap("ref_img")]
+        // 比对源图片oss中转
+        [NameInMap("ref_img_oss_obj")]
         [Validation(Required=false)]
-        public string RefImg { get; set; }
+        public string RefImgOssObj { get; set; }
 
     }
 

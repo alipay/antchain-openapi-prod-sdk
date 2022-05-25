@@ -14,7 +14,6 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 集群ID
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
@@ -54,6 +53,16 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY.Models
         [NameInMap("ref_img")]
         [Validation(Required=false)]
         public string RefImg { get; set; }
+
+        // 活体照片oss中转方式上传
+        [NameInMap("auth_img_oss_obj")]
+        [Validation(Required=false)]
+        public string AuthImgOssObj { get; set; }
+
+        // 比对源照片oss中转方式上传
+        [NameInMap("ref_img_oss_obj")]
+        [Validation(Required=false)]
+        public string RefImgOssObj { get; set; }
 
     }
 

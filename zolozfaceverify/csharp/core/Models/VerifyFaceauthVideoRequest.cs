@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ZOLOZFACEVERIFY.Models
 {
-    public class InitFaceauthFaceLiteRequest : TeaModel {
+    public class VerifyFaceauthVideoRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -17,6 +17,16 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY.Models
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
+
+        // 活体照片，base64编码
+        [NameInMap("auth_img")]
+        [Validation(Required=false)]
+        public string AuthImg { get; set; }
+
+        // BLOB：使用客户端透传的BLOB数据 IMAGE：正常图片模式
+        [NameInMap("auth_img_type")]
+        [Validation(Required=false)]
+        public string AuthImgType { get; set; }
 
         // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
         [NameInMap("biz_id")]
@@ -30,23 +40,28 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY.Models
 
         // 用户身份信息
         [NameInMap("identity_param")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string IdentityParam { get; set; }
 
-        // metainfo环境参数
-        [NameInMap("metainfo")]
-        [Validation(Required=true)]
-        public string Metainfo { get; set; }
-
-        // 操作类型
+        // 操作类型，NORMAL正常模式，CUSTOM用户自定义比对源
         [NameInMap("operation_type")]
         [Validation(Required=false)]
         public string OperationType { get; set; }
 
-        // 比对源图片
+        // 比对源照片，base64编码
         [NameInMap("ref_img")]
         [Validation(Required=false)]
         public string RefImg { get; set; }
+
+        // 活体照片oss中转方式上传
+        [NameInMap("auth_img_oss_obj")]
+        [Validation(Required=false)]
+        public string AuthImgOssObj { get; set; }
+
+        // 比对源照片oss中转方式上传
+        [NameInMap("ref_img_oss_obj")]
+        [Validation(Required=false)]
+        public string RefImgOssObj { get; set; }
 
     }
 

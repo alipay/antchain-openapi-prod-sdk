@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ZOLOZFACEVERIFY.Models
 {
-    public class InitFaceauthFaceLiteRequest : TeaModel {
+    public class InitFaceauthFaceplusRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,25 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+        // 业务唯一单号
         [NameInMap("biz_id")]
         [Validation(Required=true)]
         public string BizId { get; set; }
 
-        // 预留扩展业务参数
-        [NameInMap("extern_param")]
-        [Validation(Required=false)]
-        public string ExternParam { get; set; }
-
-        // 用户身份信息
+        // 身份，需要公钥加密
         [NameInMap("identity_param")]
         [Validation(Required=true)]
         public string IdentityParam { get; set; }
 
-        // metainfo环境参数
+        // 客户端采集
         [NameInMap("metainfo")]
         [Validation(Required=true)]
         public string Metainfo { get; set; }
+
+        // 外部参数
+        [NameInMap("extern_param")]
+        [Validation(Required=false)]
+        public string ExternParam { get; set; }
 
         // 操作类型
         [NameInMap("operation_type")]

@@ -137,7 +137,7 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.6"},
+                        {"sdk_version", "1.5.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.6"},
+                        {"sdk_version", "1.5.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -987,6 +987,174 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryFaceauthFileResponse>(await DoRequestAsync("1.0", "faceverifyzoloz.faceauth.file.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人脸双因子认证服务端初始化
+         * Summary: 人脸双因子认证服务端初始化
+         */
+        public InitFaceauthFaceplusResponse InitFaceauthFaceplus(InitFaceauthFaceplusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitFaceauthFaceplusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人脸双因子认证服务端初始化
+         * Summary: 人脸双因子认证服务端初始化
+         */
+        public async Task<InitFaceauthFaceplusResponse> InitFaceauthFaceplusAsync(InitFaceauthFaceplusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitFaceauthFaceplusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人脸双因子认证服务端初始化
+         * Summary: 人脸双因子认证服务端初始化
+         */
+        public InitFaceauthFaceplusResponse InitFaceauthFaceplusEx(InitFaceauthFaceplusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitFaceauthFaceplusResponse>(DoRequest("1.0", "faceverifyzoloz.faceauth.faceplus.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人脸双因子认证服务端初始化
+         * Summary: 人脸双因子认证服务端初始化
+         */
+        public async Task<InitFaceauthFaceplusResponse> InitFaceauthFaceplusExAsync(InitFaceauthFaceplusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitFaceauthFaceplusResponse>(await DoRequestAsync("1.0", "faceverifyzoloz.faceauth.faceplus.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人脸双因子认证服务端查询
+         * Summary: 人脸双因子认证服务端查询
+         */
+        public QueryFaceauthFaceplusResponse QueryFaceauthFaceplus(QueryFaceauthFaceplusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFaceauthFaceplusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人脸双因子认证服务端查询
+         * Summary: 人脸双因子认证服务端查询
+         */
+        public async Task<QueryFaceauthFaceplusResponse> QueryFaceauthFaceplusAsync(QueryFaceauthFaceplusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFaceauthFaceplusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人脸双因子认证服务端查询
+         * Summary: 人脸双因子认证服务端查询
+         */
+        public QueryFaceauthFaceplusResponse QueryFaceauthFaceplusEx(QueryFaceauthFaceplusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceauthFaceplusResponse>(DoRequest("1.0", "faceverifyzoloz.faceauth.faceplus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人脸双因子认证服务端查询
+         * Summary: 人脸双因子认证服务端查询
+         */
+        public async Task<QueryFaceauthFaceplusResponse> QueryFaceauthFaceplusExAsync(QueryFaceauthFaceplusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceauthFaceplusResponse>(await DoRequestAsync("1.0", "faceverifyzoloz.faceauth.faceplus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 意愿核身认证服务端初始化
+         * Summary: 意愿核身认证服务端初始化
+         */
+        public InitFaceauthFaceWishResponse InitFaceauthFaceWish(InitFaceauthFaceWishRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitFaceauthFaceWishEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 意愿核身认证服务端初始化
+         * Summary: 意愿核身认证服务端初始化
+         */
+        public async Task<InitFaceauthFaceWishResponse> InitFaceauthFaceWishAsync(InitFaceauthFaceWishRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitFaceauthFaceWishExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 意愿核身认证服务端初始化
+         * Summary: 意愿核身认证服务端初始化
+         */
+        public InitFaceauthFaceWishResponse InitFaceauthFaceWishEx(InitFaceauthFaceWishRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitFaceauthFaceWishResponse>(DoRequest("1.0", "faceverifyzoloz.faceauth.face.wish.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 意愿核身认证服务端初始化
+         * Summary: 意愿核身认证服务端初始化
+         */
+        public async Task<InitFaceauthFaceWishResponse> InitFaceauthFaceWishExAsync(InitFaceauthFaceWishRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitFaceauthFaceWishResponse>(await DoRequestAsync("1.0", "faceverifyzoloz.faceauth.face.wish.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人脸视频认证
+         * Summary: 人脸视频认证
+         */
+        public VerifyFaceauthVideoResponse VerifyFaceauthVideo(VerifyFaceauthVideoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return VerifyFaceauthVideoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人脸视频认证
+         * Summary: 人脸视频认证
+         */
+        public async Task<VerifyFaceauthVideoResponse> VerifyFaceauthVideoAsync(VerifyFaceauthVideoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await VerifyFaceauthVideoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人脸视频认证
+         * Summary: 人脸视频认证
+         */
+        public VerifyFaceauthVideoResponse VerifyFaceauthVideoEx(VerifyFaceauthVideoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyFaceauthVideoResponse>(DoRequest("1.0", "faceverifyzoloz.faceauth.video.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人脸视频认证
+         * Summary: 人脸视频认证
+         */
+        public async Task<VerifyFaceauthVideoResponse> VerifyFaceauthVideoExAsync(VerifyFaceauthVideoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyFaceauthVideoResponse>(await DoRequestAsync("1.0", "faceverifyzoloz.faceauth.video.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
