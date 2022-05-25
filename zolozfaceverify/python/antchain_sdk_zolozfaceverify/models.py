@@ -286,7 +286,6 @@ class ExecFaceauthAlgorithmRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务ID
         self.biz_id = biz_id
@@ -352,8 +351,9 @@ class ExecFaceauthAlgorithmResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 算法结果，json格式
         self.algo_result = algo_result
@@ -397,10 +397,10 @@ class FaceFaceauthInitializeRequest(TeaModel):
         metainfo: str = None,
         operation_type: str = None,
         ref_img: str = None,
+        ref_img_oss_obj: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
         self.biz_id = biz_id
@@ -414,11 +414,14 @@ class FaceFaceauthInitializeRequest(TeaModel):
         self.operation_type = operation_type
         # 比对源图片
         self.ref_img = ref_img
+        # 比对源图片oss中转
+        self.ref_img_oss_obj = ref_img_oss_obj
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
         self.validate_required(self.identity_param, 'identity_param')
         self.validate_required(self.metainfo, 'metainfo')
+        self.validate_required(self.ref_img_oss_obj, 'ref_img_oss_obj')
 
     def to_map(self):
         result = dict()
@@ -438,6 +441,8 @@ class FaceFaceauthInitializeRequest(TeaModel):
             result['operation_type'] = self.operation_type
         if self.ref_img is not None:
             result['ref_img'] = self.ref_img
+        if self.ref_img_oss_obj is not None:
+            result['ref_img_oss_obj'] = self.ref_img_oss_obj
         return result
 
     def from_map(self, m: dict = None):
@@ -458,6 +463,8 @@ class FaceFaceauthInitializeRequest(TeaModel):
             self.operation_type = m.get('operation_type')
         if m.get('ref_img') is not None:
             self.ref_img = m.get('ref_img')
+        if m.get('ref_img_oss_obj') is not None:
+            self.ref_img_oss_obj = m.get('ref_img_oss_obj')
         return self
 
 
@@ -474,8 +481,9 @@ class FaceFaceauthInitializeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 预留扩展结果
         self.extern_info = extern_info
@@ -540,7 +548,6 @@ class FaceFaceauthQueryRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务单据号，用于核对和排查
         self.biz_id = biz_id
@@ -594,8 +601,9 @@ class FaceFaceauthQueryResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 预留扩展结果
         self.extern_info = extern_info
@@ -654,10 +662,11 @@ class IdentityFaceauthServermodeRequest(TeaModel):
         identity_param: str = None,
         operation_type: str = None,
         ref_img: str = None,
+        auth_img_oss_obj: str = None,
+        ref_img_oss_obj: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 活体照片，base64编码
         self.auth_img = auth_img
@@ -674,6 +683,10 @@ class IdentityFaceauthServermodeRequest(TeaModel):
         self.operation_type = operation_type
         # 比对源照片，base64编码
         self.ref_img = ref_img
+        # 活体照片oss中转方式上传
+        self.auth_img_oss_obj = auth_img_oss_obj
+        # 比对源照片oss中转方式上传
+        self.ref_img_oss_obj = ref_img_oss_obj
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -698,6 +711,10 @@ class IdentityFaceauthServermodeRequest(TeaModel):
             result['operation_type'] = self.operation_type
         if self.ref_img is not None:
             result['ref_img'] = self.ref_img
+        if self.auth_img_oss_obj is not None:
+            result['auth_img_oss_obj'] = self.auth_img_oss_obj
+        if self.ref_img_oss_obj is not None:
+            result['ref_img_oss_obj'] = self.ref_img_oss_obj
         return result
 
     def from_map(self, m: dict = None):
@@ -720,6 +737,10 @@ class IdentityFaceauthServermodeRequest(TeaModel):
             self.operation_type = m.get('operation_type')
         if m.get('ref_img') is not None:
             self.ref_img = m.get('ref_img')
+        if m.get('auth_img_oss_obj') is not None:
+            self.auth_img_oss_obj = m.get('auth_img_oss_obj')
+        if m.get('ref_img_oss_obj') is not None:
+            self.ref_img_oss_obj = m.get('ref_img_oss_obj')
         return self
 
 
@@ -735,8 +756,9 @@ class IdentityFaceauthServermodeResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 预留扩展结果
         self.extern_info = extern_info
@@ -795,7 +817,6 @@ class InitializeFaceauthWebRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
         self.biz_id = biz_id
@@ -867,8 +888,9 @@ class InitializeFaceauthWebResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 预留扩展结果
         self.extern_info = extern_info
@@ -930,7 +952,6 @@ class QueryFaceauthWebRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务单据号，用于核对和排查问题
         self.biz_id = biz_id
@@ -984,8 +1005,9 @@ class QueryFaceauthWebResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 预留扩展结果
         self.extern_info = extern_info
@@ -1043,7 +1065,6 @@ class QueryFaceauthMeteringRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务流水号
         self.biz_id = biz_id
@@ -1117,8 +1138,9 @@ class QueryFaceauthMeteringResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 计量数据
         self.metering_data = metering_data
@@ -1167,7 +1189,6 @@ class InitFaceauthFaceLiteRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
         self.biz_id = biz_id
@@ -1242,8 +1263,9 @@ class InitFaceauthFaceLiteResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 扩展结果
         self.extern_info = extern_info
@@ -1310,7 +1332,6 @@ class QueryFaceauthDataRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务ID
         self.biz_id = biz_id
@@ -1356,8 +1377,9 @@ class QueryFaceauthDataResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 查询结果详情
         self.data = data
@@ -1403,7 +1425,6 @@ class ExecAuthenticationCustomerFaceabilityRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # extract(提取特征)、sex(检测性别)、rect(人脸矩形框识别)
         self.ability = ability
@@ -1469,8 +1490,9 @@ class ExecAuthenticationCustomerFaceabilityResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
 
     def validate(self):
@@ -1513,7 +1535,6 @@ class InitFaceauthZimRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务参数
         self.biz_data = biz_data
@@ -1601,8 +1622,9 @@ class InitFaceauthZimResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 预留扩展结果
         self.ext_params = ext_params
@@ -1679,10 +1701,10 @@ class VerifyFaceauthZimRequest(TeaModel):
         extern_param: str = None,
         zim_data: str = None,
         zim_id: str = None,
+        zim_data_oss_obj: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 扩展信息,Map的json格式
         self.extern_param = extern_param
@@ -1690,6 +1712,8 @@ class VerifyFaceauthZimRequest(TeaModel):
         self.zim_data = zim_data
         # 实人认证id
         self.zim_id = zim_id
+        # zim_data可通过oss方式中转
+        self.zim_data_oss_obj = zim_data_oss_obj
 
     def validate(self):
         self.validate_required(self.zim_data, 'zim_data')
@@ -1707,6 +1731,8 @@ class VerifyFaceauthZimRequest(TeaModel):
             result['zim_data'] = self.zim_data
         if self.zim_id is not None:
             result['zim_id'] = self.zim_id
+        if self.zim_data_oss_obj is not None:
+            result['zim_data_oss_obj'] = self.zim_data_oss_obj
         return result
 
     def from_map(self, m: dict = None):
@@ -1721,6 +1747,8 @@ class VerifyFaceauthZimRequest(TeaModel):
             self.zim_data = m.get('zim_data')
         if m.get('zim_id') is not None:
             self.zim_id = m.get('zim_id')
+        if m.get('zim_data_oss_obj') is not None:
+            self.zim_data_oss_obj = m.get('zim_data_oss_obj')
         return self
 
 
@@ -1740,8 +1768,9 @@ class VerifyFaceauthZimResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 预留扩展结果
         self.ext_params = ext_params
@@ -1823,7 +1852,6 @@ class RecognizeFaceauthOcrRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 数据内容
         self.data_context = data_context
@@ -1896,8 +1924,9 @@ class RecognizeFaceauthOcrResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # Map的json格式,预留
         self.extern_info = extern_info
@@ -1998,10 +2027,10 @@ class InitFaceauthWebsdkRequest(TeaModel):
         metainfo: str = None,
         operation_type: str = None,
         ref_img: str = None,
+        ref_img_oss_obj: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
         self.biz_id = biz_id
@@ -2015,6 +2044,8 @@ class InitFaceauthWebsdkRequest(TeaModel):
         self.operation_type = operation_type
         # 比对源图片
         self.ref_img = ref_img
+        # 比对源照片oss方式中转
+        self.ref_img_oss_obj = ref_img_oss_obj
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -2037,6 +2068,8 @@ class InitFaceauthWebsdkRequest(TeaModel):
             result['operation_type'] = self.operation_type
         if self.ref_img is not None:
             result['ref_img'] = self.ref_img
+        if self.ref_img_oss_obj is not None:
+            result['ref_img_oss_obj'] = self.ref_img_oss_obj
         return result
 
     def from_map(self, m: dict = None):
@@ -2057,6 +2090,8 @@ class InitFaceauthWebsdkRequest(TeaModel):
             self.operation_type = m.get('operation_type')
         if m.get('ref_img') is not None:
             self.ref_img = m.get('ref_img')
+        if m.get('ref_img_oss_obj') is not None:
+            self.ref_img_oss_obj = m.get('ref_img_oss_obj')
         return self
 
 
@@ -2073,8 +2108,9 @@ class InitFaceauthWebsdkResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 预留扩展结果
         self.extern_info = extern_info
@@ -2136,7 +2172,6 @@ class QueryFaceauthWebsdkRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # 业务单据号，用于核对和排查问题
         self.biz_id = biz_id
@@ -2190,8 +2225,9 @@ class QueryFaceauthWebsdkResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 预留扩展结果
         self.extern_info = extern_info
@@ -2246,7 +2282,6 @@ class QueryFaceauthFileRequest(TeaModel):
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 集群ID
         self.product_instance_id = product_instance_id
         # zoloz认证会话主键
         self.zim_id = zim_id
@@ -2293,14 +2328,558 @@ class QueryFaceauthFileResponse(TeaModel):
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
-        # 异常信息的文本描述
+        # 结果码，一般OK表示调用成功
         self.result_code = result_code
+        # 异常信息的文本描述
         self.result_msg = result_msg
         # 预留扩展结果
         self.extern_info = extern_info
         # 结果码
         self.result_code_sub = result_code_sub
         # result_code_sub对应的文案
+        self.result_msg_sub = result_msg_sub
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        if self.result_code_sub is not None:
+            result['result_code_sub'] = self.result_code_sub
+        if self.result_msg_sub is not None:
+            result['result_msg_sub'] = self.result_msg_sub
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        if m.get('result_code_sub') is not None:
+            self.result_code_sub = m.get('result_code_sub')
+        if m.get('result_msg_sub') is not None:
+            self.result_msg_sub = m.get('result_msg_sub')
+        return self
+
+
+class InitFaceauthFaceplusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        identity_param: str = None,
+        metainfo: str = None,
+        extern_param: str = None,
+        operation_type: str = None,
+        ref_img: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务唯一单号
+        self.biz_id = biz_id
+        # 身份，需要公钥加密
+        self.identity_param = identity_param
+        # 客户端采集
+        self.metainfo = metainfo
+        # 外部参数
+        self.extern_param = extern_param
+        # 操作类型
+        self.operation_type = operation_type
+        # 比对源图片
+        self.ref_img = ref_img
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.identity_param, 'identity_param')
+        self.validate_required(self.metainfo, 'metainfo')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.identity_param is not None:
+            result['identity_param'] = self.identity_param
+        if self.metainfo is not None:
+            result['metainfo'] = self.metainfo
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        if self.operation_type is not None:
+            result['operation_type'] = self.operation_type
+        if self.ref_img is not None:
+            result['ref_img'] = self.ref_img
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('identity_param') is not None:
+            self.identity_param = m.get('identity_param')
+        if m.get('metainfo') is not None:
+            self.metainfo = m.get('metainfo')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        if m.get('operation_type') is not None:
+            self.operation_type = m.get('operation_type')
+        if m.get('ref_img') is not None:
+            self.ref_img = m.get('ref_img')
+        return self
+
+
+class InitFaceauthFaceplusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        zim_id: str = None,
+        result_code_sub: str = None,
+        result_msg_sub: str = None,
+        extern_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 认证会话唯一标识
+        self.zim_id = zim_id
+        # 结果码
+        self.result_code_sub = result_code_sub
+        # 结果信息
+        self.result_msg_sub = result_msg_sub
+        # 外部参数
+        self.extern_info = extern_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.zim_id is not None:
+            result['zim_id'] = self.zim_id
+        if self.result_code_sub is not None:
+            result['result_code_sub'] = self.result_code_sub
+        if self.result_msg_sub is not None:
+            result['result_msg_sub'] = self.result_msg_sub
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('zim_id') is not None:
+            self.zim_id = m.get('zim_id')
+        if m.get('result_code_sub') is not None:
+            self.result_code_sub = m.get('result_code_sub')
+        if m.get('result_msg_sub') is not None:
+            self.result_msg_sub = m.get('result_msg_sub')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        return self
+
+
+class QueryFaceauthFaceplusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        zim_id: str = None,
+        biz_id: str = None,
+        extern_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 认证会话唯一标识
+        self.zim_id = zim_id
+        # 唯一单号
+        self.biz_id = biz_id
+        # 外部参数
+        self.extern_param = extern_param
+
+    def validate(self):
+        self.validate_required(self.zim_id, 'zim_id')
+        self.validate_required(self.biz_id, 'biz_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.zim_id is not None:
+            result['zim_id'] = self.zim_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('zim_id') is not None:
+            self.zim_id = m.get('zim_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        return self
+
+
+class QueryFaceauthFaceplusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result_code_sub: str = None,
+        result_msg_sub: str = None,
+        extern_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果码
+        self.result_code_sub = result_code_sub
+        # 结果信息
+        self.result_msg_sub = result_msg_sub
+        # 外部参数
+        self.extern_info = extern_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result_code_sub is not None:
+            result['result_code_sub'] = self.result_code_sub
+        if self.result_msg_sub is not None:
+            result['result_msg_sub'] = self.result_msg_sub
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result_code_sub') is not None:
+            self.result_code_sub = m.get('result_code_sub')
+        if m.get('result_msg_sub') is not None:
+            self.result_msg_sub = m.get('result_msg_sub')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        return self
+
+
+class InitFaceauthFaceWishRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_id: str = None,
+        identity_param: str = None,
+        metainfo: str = None,
+        extern_param: str = None,
+        operation_type: str = None,
+        ref_img_oss_obj: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+        self.biz_id = biz_id
+        # 身份，需要公钥加密
+        self.identity_param = identity_param
+        # 客户端采集
+        self.metainfo = metainfo
+        # 外部参数
+        self.extern_param = extern_param
+        # 操作类型
+        self.operation_type = operation_type
+        # 比对源图片oss中转
+        self.ref_img_oss_obj = ref_img_oss_obj
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.identity_param, 'identity_param')
+        self.validate_required(self.metainfo, 'metainfo')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.identity_param is not None:
+            result['identity_param'] = self.identity_param
+        if self.metainfo is not None:
+            result['metainfo'] = self.metainfo
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        if self.operation_type is not None:
+            result['operation_type'] = self.operation_type
+        if self.ref_img_oss_obj is not None:
+            result['ref_img_oss_obj'] = self.ref_img_oss_obj
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('identity_param') is not None:
+            self.identity_param = m.get('identity_param')
+        if m.get('metainfo') is not None:
+            self.metainfo = m.get('metainfo')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        if m.get('operation_type') is not None:
+            self.operation_type = m.get('operation_type')
+        if m.get('ref_img_oss_obj') is not None:
+            self.ref_img_oss_obj = m.get('ref_img_oss_obj')
+        return self
+
+
+class InitFaceauthFaceWishResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        zim_id: str = None,
+        extern_info: str = None,
+        result_code_sub: str = None,
+        result_msg_sub: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 实人认证id
+        self.zim_id = zim_id
+        # 预留扩展结果
+        self.extern_info = extern_info
+        # 结果码
+        self.result_code_sub = result_code_sub
+        # 结果信息
+        self.result_msg_sub = result_msg_sub
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.zim_id is not None:
+            result['zim_id'] = self.zim_id
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        if self.result_code_sub is not None:
+            result['result_code_sub'] = self.result_code_sub
+        if self.result_msg_sub is not None:
+            result['result_msg_sub'] = self.result_msg_sub
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('zim_id') is not None:
+            self.zim_id = m.get('zim_id')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        if m.get('result_code_sub') is not None:
+            self.result_code_sub = m.get('result_code_sub')
+        if m.get('result_msg_sub') is not None:
+            self.result_msg_sub = m.get('result_msg_sub')
+        return self
+
+
+class VerifyFaceauthVideoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        auth_img: str = None,
+        auth_img_type: str = None,
+        biz_id: str = None,
+        extern_param: str = None,
+        identity_param: str = None,
+        operation_type: str = None,
+        ref_img: str = None,
+        auth_img_oss_obj: str = None,
+        ref_img_oss_obj: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 活体照片，base64编码
+        self.auth_img = auth_img
+        # BLOB：使用客户端透传的BLOB数据 IMAGE：正常图片模式
+        self.auth_img_type = auth_img_type
+        # 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+        self.biz_id = biz_id
+        # 预留扩展业务参数
+        self.extern_param = extern_param
+        # 用户身份信息
+        self.identity_param = identity_param
+        # 操作类型，NORMAL正常模式，CUSTOM用户自定义比对源
+        self.operation_type = operation_type
+        # 比对源照片，base64编码
+        self.ref_img = ref_img
+        # 活体照片oss中转方式上传
+        self.auth_img_oss_obj = auth_img_oss_obj
+        # 比对源照片oss中转方式上传
+        self.ref_img_oss_obj = ref_img_oss_obj
+
+    def validate(self):
+        self.validate_required(self.biz_id, 'biz_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.auth_img is not None:
+            result['auth_img'] = self.auth_img
+        if self.auth_img_type is not None:
+            result['auth_img_type'] = self.auth_img_type
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        if self.identity_param is not None:
+            result['identity_param'] = self.identity_param
+        if self.operation_type is not None:
+            result['operation_type'] = self.operation_type
+        if self.ref_img is not None:
+            result['ref_img'] = self.ref_img
+        if self.auth_img_oss_obj is not None:
+            result['auth_img_oss_obj'] = self.auth_img_oss_obj
+        if self.ref_img_oss_obj is not None:
+            result['ref_img_oss_obj'] = self.ref_img_oss_obj
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('auth_img') is not None:
+            self.auth_img = m.get('auth_img')
+        if m.get('auth_img_type') is not None:
+            self.auth_img_type = m.get('auth_img_type')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        if m.get('identity_param') is not None:
+            self.identity_param = m.get('identity_param')
+        if m.get('operation_type') is not None:
+            self.operation_type = m.get('operation_type')
+        if m.get('ref_img') is not None:
+            self.ref_img = m.get('ref_img')
+        if m.get('auth_img_oss_obj') is not None:
+            self.auth_img_oss_obj = m.get('auth_img_oss_obj')
+        if m.get('ref_img_oss_obj') is not None:
+            self.ref_img_oss_obj = m.get('ref_img_oss_obj')
+        return self
+
+
+class VerifyFaceauthVideoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        extern_info: str = None,
+        result_code_sub: str = None,
+        result_msg_sub: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 预留扩展结果
+        self.extern_info = extern_info
+        # 产品结果明细，不影响决策
+        self.result_code_sub = result_code_sub
+        # 明细返回码对应的文案
         self.result_msg_sub = result_msg_sub
 
     def validate(self):

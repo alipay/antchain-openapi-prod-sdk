@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.6'
+                    'sdk_version': '1.5.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.6'
+                    'sdk_version': '1.5.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1133,4 +1133,220 @@ class Client:
         UtilClient.validate_model(request)
         return zolozfaceverify_models.QueryFaceauthFileResponse().from_map(
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_faceauth_faceplus(
+        self,
+        request: zolozfaceverify_models.InitFaceauthFaceplusRequest,
+    ) -> zolozfaceverify_models.InitFaceauthFaceplusResponse:
+        """
+        Description: 人脸双因子认证服务端初始化
+        Summary: 人脸双因子认证服务端初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_faceauth_faceplus_ex(request, headers, runtime)
+
+    async def init_faceauth_faceplus_async(
+        self,
+        request: zolozfaceverify_models.InitFaceauthFaceplusRequest,
+    ) -> zolozfaceverify_models.InitFaceauthFaceplusResponse:
+        """
+        Description: 人脸双因子认证服务端初始化
+        Summary: 人脸双因子认证服务端初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_faceauth_faceplus_ex_async(request, headers, runtime)
+
+    def init_faceauth_faceplus_ex(
+        self,
+        request: zolozfaceverify_models.InitFaceauthFaceplusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> zolozfaceverify_models.InitFaceauthFaceplusResponse:
+        """
+        Description: 人脸双因子认证服务端初始化
+        Summary: 人脸双因子认证服务端初始化
+        """
+        UtilClient.validate_model(request)
+        return zolozfaceverify_models.InitFaceauthFaceplusResponse().from_map(
+            self.do_request('1.0', 'faceverifyzoloz.faceauth.faceplus.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_faceauth_faceplus_ex_async(
+        self,
+        request: zolozfaceverify_models.InitFaceauthFaceplusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> zolozfaceverify_models.InitFaceauthFaceplusResponse:
+        """
+        Description: 人脸双因子认证服务端初始化
+        Summary: 人脸双因子认证服务端初始化
+        """
+        UtilClient.validate_model(request)
+        return zolozfaceverify_models.InitFaceauthFaceplusResponse().from_map(
+            await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.faceplus.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_faceauth_faceplus(
+        self,
+        request: zolozfaceverify_models.QueryFaceauthFaceplusRequest,
+    ) -> zolozfaceverify_models.QueryFaceauthFaceplusResponse:
+        """
+        Description: 人脸双因子认证服务端查询
+        Summary: 人脸双因子认证服务端查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_faceauth_faceplus_ex(request, headers, runtime)
+
+    async def query_faceauth_faceplus_async(
+        self,
+        request: zolozfaceverify_models.QueryFaceauthFaceplusRequest,
+    ) -> zolozfaceverify_models.QueryFaceauthFaceplusResponse:
+        """
+        Description: 人脸双因子认证服务端查询
+        Summary: 人脸双因子认证服务端查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_faceauth_faceplus_ex_async(request, headers, runtime)
+
+    def query_faceauth_faceplus_ex(
+        self,
+        request: zolozfaceverify_models.QueryFaceauthFaceplusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> zolozfaceverify_models.QueryFaceauthFaceplusResponse:
+        """
+        Description: 人脸双因子认证服务端查询
+        Summary: 人脸双因子认证服务端查询
+        """
+        UtilClient.validate_model(request)
+        return zolozfaceverify_models.QueryFaceauthFaceplusResponse().from_map(
+            self.do_request('1.0', 'faceverifyzoloz.faceauth.faceplus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_faceauth_faceplus_ex_async(
+        self,
+        request: zolozfaceverify_models.QueryFaceauthFaceplusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> zolozfaceverify_models.QueryFaceauthFaceplusResponse:
+        """
+        Description: 人脸双因子认证服务端查询
+        Summary: 人脸双因子认证服务端查询
+        """
+        UtilClient.validate_model(request)
+        return zolozfaceverify_models.QueryFaceauthFaceplusResponse().from_map(
+            await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.faceplus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_faceauth_face_wish(
+        self,
+        request: zolozfaceverify_models.InitFaceauthFaceWishRequest,
+    ) -> zolozfaceverify_models.InitFaceauthFaceWishResponse:
+        """
+        Description: 意愿核身认证服务端初始化
+        Summary: 意愿核身认证服务端初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_faceauth_face_wish_ex(request, headers, runtime)
+
+    async def init_faceauth_face_wish_async(
+        self,
+        request: zolozfaceverify_models.InitFaceauthFaceWishRequest,
+    ) -> zolozfaceverify_models.InitFaceauthFaceWishResponse:
+        """
+        Description: 意愿核身认证服务端初始化
+        Summary: 意愿核身认证服务端初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_faceauth_face_wish_ex_async(request, headers, runtime)
+
+    def init_faceauth_face_wish_ex(
+        self,
+        request: zolozfaceverify_models.InitFaceauthFaceWishRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> zolozfaceverify_models.InitFaceauthFaceWishResponse:
+        """
+        Description: 意愿核身认证服务端初始化
+        Summary: 意愿核身认证服务端初始化
+        """
+        UtilClient.validate_model(request)
+        return zolozfaceverify_models.InitFaceauthFaceWishResponse().from_map(
+            self.do_request('1.0', 'faceverifyzoloz.faceauth.face.wish.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_faceauth_face_wish_ex_async(
+        self,
+        request: zolozfaceverify_models.InitFaceauthFaceWishRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> zolozfaceverify_models.InitFaceauthFaceWishResponse:
+        """
+        Description: 意愿核身认证服务端初始化
+        Summary: 意愿核身认证服务端初始化
+        """
+        UtilClient.validate_model(request)
+        return zolozfaceverify_models.InitFaceauthFaceWishResponse().from_map(
+            await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.face.wish.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_faceauth_video(
+        self,
+        request: zolozfaceverify_models.VerifyFaceauthVideoRequest,
+    ) -> zolozfaceverify_models.VerifyFaceauthVideoResponse:
+        """
+        Description: 人脸视频认证
+        Summary: 人脸视频认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_faceauth_video_ex(request, headers, runtime)
+
+    async def verify_faceauth_video_async(
+        self,
+        request: zolozfaceverify_models.VerifyFaceauthVideoRequest,
+    ) -> zolozfaceverify_models.VerifyFaceauthVideoResponse:
+        """
+        Description: 人脸视频认证
+        Summary: 人脸视频认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_faceauth_video_ex_async(request, headers, runtime)
+
+    def verify_faceauth_video_ex(
+        self,
+        request: zolozfaceverify_models.VerifyFaceauthVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> zolozfaceverify_models.VerifyFaceauthVideoResponse:
+        """
+        Description: 人脸视频认证
+        Summary: 人脸视频认证
+        """
+        UtilClient.validate_model(request)
+        return zolozfaceverify_models.VerifyFaceauthVideoResponse().from_map(
+            self.do_request('1.0', 'faceverifyzoloz.faceauth.video.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_faceauth_video_ex_async(
+        self,
+        request: zolozfaceverify_models.VerifyFaceauthVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> zolozfaceverify_models.VerifyFaceauthVideoResponse:
+        """
+        Description: 人脸视频认证
+        Summary: 人脸视频认证
+        """
+        UtilClient.validate_model(request)
+        return zolozfaceverify_models.VerifyFaceauthVideoResponse().from_map(
+            await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.video.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
