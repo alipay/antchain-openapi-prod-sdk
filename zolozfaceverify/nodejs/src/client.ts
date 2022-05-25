@@ -158,7 +158,6 @@ export class MeteringData extends $tea.Model {
 export class ExecFaceauthAlgorithmRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 业务ID
   bizId: string;
@@ -202,8 +201,9 @@ export class ExecFaceauthAlgorithmRequest extends $tea.Model {
 export class ExecFaceauthAlgorithmResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 算法结果，json格式
   algoResult?: string;
@@ -233,7 +233,6 @@ export class ExecFaceauthAlgorithmResponse extends $tea.Model {
 export class FaceFaceauthInitializeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
   bizId: string;
@@ -247,6 +246,8 @@ export class FaceFaceauthInitializeRequest extends $tea.Model {
   operationType?: string;
   // 比对源图片
   refImg?: string;
+  // 比对源图片oss中转
+  refImgOssObj: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -257,6 +258,7 @@ export class FaceFaceauthInitializeRequest extends $tea.Model {
       metainfo: 'metainfo',
       operationType: 'operation_type',
       refImg: 'ref_img',
+      refImgOssObj: 'ref_img_oss_obj',
     };
   }
 
@@ -270,6 +272,7 @@ export class FaceFaceauthInitializeRequest extends $tea.Model {
       metainfo: 'string',
       operationType: 'string',
       refImg: 'string',
+      refImgOssObj: 'string',
     };
   }
 
@@ -281,8 +284,9 @@ export class FaceFaceauthInitializeRequest extends $tea.Model {
 export class FaceFaceauthInitializeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 预留扩展结果
   externInfo: string;
@@ -324,7 +328,6 @@ export class FaceFaceauthInitializeResponse extends $tea.Model {
 export class FaceFaceauthQueryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 业务单据号，用于核对和排查
   bizId: string;
@@ -360,8 +363,9 @@ export class FaceFaceauthQueryRequest extends $tea.Model {
 export class FaceFaceauthQueryResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 预留扩展结果
   externInfo: string;
@@ -399,7 +403,6 @@ export class FaceFaceauthQueryResponse extends $tea.Model {
 export class IdentityFaceauthServermodeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 活体照片，base64编码
   authImg?: string;
@@ -416,6 +419,10 @@ export class IdentityFaceauthServermodeRequest extends $tea.Model {
   operationType?: string;
   // 比对源照片，base64编码
   refImg?: string;
+  // 活体照片oss中转方式上传
+  authImgOssObj?: string;
+  // 比对源照片oss中转方式上传
+  refImgOssObj?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -427,6 +434,8 @@ export class IdentityFaceauthServermodeRequest extends $tea.Model {
       identityParam: 'identity_param',
       operationType: 'operation_type',
       refImg: 'ref_img',
+      authImgOssObj: 'auth_img_oss_obj',
+      refImgOssObj: 'ref_img_oss_obj',
     };
   }
 
@@ -441,6 +450,8 @@ export class IdentityFaceauthServermodeRequest extends $tea.Model {
       identityParam: 'string',
       operationType: 'string',
       refImg: 'string',
+      authImgOssObj: 'string',
+      refImgOssObj: 'string',
     };
   }
 
@@ -452,8 +463,9 @@ export class IdentityFaceauthServermodeRequest extends $tea.Model {
 export class IdentityFaceauthServermodeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 预留扩展结果
   externInfo?: string;
@@ -491,7 +503,6 @@ export class IdentityFaceauthServermodeResponse extends $tea.Model {
 export class InitializeFaceauthWebRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
   bizId: string;
@@ -539,8 +550,9 @@ export class InitializeFaceauthWebRequest extends $tea.Model {
 export class InitializeFaceauthWebResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 预留扩展结果
   externInfo?: string;
@@ -582,7 +594,6 @@ export class InitializeFaceauthWebResponse extends $tea.Model {
 export class QueryFaceauthWebRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 业务单据号，用于核对和排查问题
   bizId: string;
@@ -618,8 +629,9 @@ export class QueryFaceauthWebRequest extends $tea.Model {
 export class QueryFaceauthWebResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 预留扩展结果
   externInfo?: string;
@@ -657,7 +669,6 @@ export class QueryFaceauthWebResponse extends $tea.Model {
 export class QueryFaceauthMeteringRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 业务流水号
   bizId: string;
@@ -706,8 +717,9 @@ export class QueryFaceauthMeteringRequest extends $tea.Model {
 export class QueryFaceauthMeteringResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 计量数据
   meteringData?: MeteringData;
@@ -737,7 +749,6 @@ export class QueryFaceauthMeteringResponse extends $tea.Model {
 export class InitFaceauthFaceLiteRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
   bizId: string;
@@ -785,8 +796,9 @@ export class InitFaceauthFaceLiteRequest extends $tea.Model {
 export class InitFaceauthFaceLiteResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 扩展结果
   externInfo?: string;
@@ -832,7 +844,6 @@ export class InitFaceauthFaceLiteResponse extends $tea.Model {
 export class QueryFaceauthDataRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 业务ID
   bizId: string;
@@ -864,8 +875,9 @@ export class QueryFaceauthDataRequest extends $tea.Model {
 export class QueryFaceauthDataResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 查询结果详情
   data?: string;
@@ -895,7 +907,6 @@ export class QueryFaceauthDataResponse extends $tea.Model {
 export class ExecAuthenticationCustomerFaceabilityRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // extract(提取特征)、sex(检测性别)、rect(人脸矩形框识别)
   ability: string;
@@ -939,8 +950,9 @@ export class ExecAuthenticationCustomerFaceabilityRequest extends $tea.Model {
 export class ExecAuthenticationCustomerFaceabilityResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   static names(): { [key: string]: string } {
     return {
@@ -966,7 +978,6 @@ export class ExecAuthenticationCustomerFaceabilityResponse extends $tea.Model {
 export class InitFaceauthZimRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 业务参数
   bizData?: string;
@@ -1022,8 +1033,9 @@ export class InitFaceauthZimRequest extends $tea.Model {
 export class InitFaceauthZimResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 预留扩展结果
   extParams?: string;
@@ -1077,7 +1089,6 @@ export class InitFaceauthZimResponse extends $tea.Model {
 export class VerifyFaceauthZimRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 扩展信息,Map的json格式
   externParam?: string;
@@ -1085,6 +1096,8 @@ export class VerifyFaceauthZimRequest extends $tea.Model {
   zimData: string;
   // 实人认证id
   zimId: string;
+  // zim_data可通过oss方式中转
+  zimDataOssObj?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1092,6 +1105,7 @@ export class VerifyFaceauthZimRequest extends $tea.Model {
       externParam: 'extern_param',
       zimData: 'zim_data',
       zimId: 'zim_id',
+      zimDataOssObj: 'zim_data_oss_obj',
     };
   }
 
@@ -1102,6 +1116,7 @@ export class VerifyFaceauthZimRequest extends $tea.Model {
       externParam: 'string',
       zimData: 'string',
       zimId: 'string',
+      zimDataOssObj: 'string',
     };
   }
 
@@ -1113,8 +1128,9 @@ export class VerifyFaceauthZimRequest extends $tea.Model {
 export class VerifyFaceauthZimResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 预留扩展结果
   extParams?: string;
@@ -1168,7 +1184,6 @@ export class VerifyFaceauthZimResponse extends $tea.Model {
 export class RecognizeFaceauthOcrRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 数据内容
   dataContext: string;
@@ -1213,8 +1228,9 @@ export class RecognizeFaceauthOcrRequest extends $tea.Model {
 export class RecognizeFaceauthOcrResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // Map的json格式,预留
   externInfo?: string;
@@ -1289,7 +1305,6 @@ export class RecognizeFaceauthOcrResponse extends $tea.Model {
 export class InitFaceauthWebsdkRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
   bizId: string;
@@ -1303,6 +1318,8 @@ export class InitFaceauthWebsdkRequest extends $tea.Model {
   operationType?: string;
   // 比对源图片
   refImg?: string;
+  // 比对源照片oss方式中转
+  refImgOssObj?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1313,6 +1330,7 @@ export class InitFaceauthWebsdkRequest extends $tea.Model {
       metainfo: 'metainfo',
       operationType: 'operation_type',
       refImg: 'ref_img',
+      refImgOssObj: 'ref_img_oss_obj',
     };
   }
 
@@ -1326,6 +1344,7 @@ export class InitFaceauthWebsdkRequest extends $tea.Model {
       metainfo: 'string',
       operationType: 'string',
       refImg: 'string',
+      refImgOssObj: 'string',
     };
   }
 
@@ -1337,8 +1356,9 @@ export class InitFaceauthWebsdkRequest extends $tea.Model {
 export class InitFaceauthWebsdkResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 预留扩展结果
   externInfo?: string;
@@ -1380,7 +1400,6 @@ export class InitFaceauthWebsdkResponse extends $tea.Model {
 export class QueryFaceauthWebsdkRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // 业务单据号，用于核对和排查问题
   bizId: string;
@@ -1416,8 +1435,9 @@ export class QueryFaceauthWebsdkRequest extends $tea.Model {
 export class QueryFaceauthWebsdkResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 预留扩展结果
   externInfo?: string;
@@ -1455,7 +1475,6 @@ export class QueryFaceauthWebsdkResponse extends $tea.Model {
 export class QueryFaceauthFileRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 集群ID
   productInstanceId?: string;
   // zoloz认证会话主键
   zimId: string;
@@ -1487,14 +1506,371 @@ export class QueryFaceauthFileRequest extends $tea.Model {
 export class QueryFaceauthFileResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
-  // 异常信息的文本描述
+  // 结果码，一般OK表示调用成功
   resultCode?: string;
+  // 异常信息的文本描述
   resultMsg?: string;
   // 预留扩展结果
   externInfo?: string;
   // 结果码
   resultCodeSub?: string;
   // result_code_sub对应的文案
+  resultMsgSub?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+      resultCodeSub: 'result_code_sub',
+      resultMsgSub: 'result_msg_sub',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+      resultCodeSub: 'string',
+      resultMsgSub: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitFaceauthFaceplusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务唯一单号
+  bizId: string;
+  // 身份，需要公钥加密
+  identityParam: string;
+  // 客户端采集
+  metainfo: string;
+  // 外部参数
+  externParam?: string;
+  // 操作类型
+  operationType?: string;
+  // 比对源图片
+  refImg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      identityParam: 'identity_param',
+      metainfo: 'metainfo',
+      externParam: 'extern_param',
+      operationType: 'operation_type',
+      refImg: 'ref_img',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      identityParam: 'string',
+      metainfo: 'string',
+      externParam: 'string',
+      operationType: 'string',
+      refImg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitFaceauthFaceplusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 认证会话唯一标识
+  zimId?: string;
+  // 结果码
+  resultCodeSub?: string;
+  // 结果信息
+  resultMsgSub?: string;
+  // 外部参数
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      zimId: 'zim_id',
+      resultCodeSub: 'result_code_sub',
+      resultMsgSub: 'result_msg_sub',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      zimId: 'string',
+      resultCodeSub: 'string',
+      resultMsgSub: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFaceauthFaceplusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 认证会话唯一标识
+  zimId: string;
+  // 唯一单号
+  bizId: string;
+  // 外部参数
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      zimId: 'zim_id',
+      bizId: 'biz_id',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      zimId: 'string',
+      bizId: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFaceauthFaceplusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果码
+  resultCodeSub?: string;
+  // 结果信息
+  resultMsgSub?: string;
+  // 外部参数
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultCodeSub: 'result_code_sub',
+      resultMsgSub: 'result_msg_sub',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultCodeSub: 'string',
+      resultMsgSub: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitFaceauthFaceWishRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string;
+  // 身份，需要公钥加密
+  identityParam: string;
+  // 客户端采集
+  metainfo: string;
+  // 外部参数
+  externParam?: string;
+  // 操作类型
+  operationType?: string;
+  // 比对源图片oss中转
+  refImgOssObj?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      identityParam: 'identity_param',
+      metainfo: 'metainfo',
+      externParam: 'extern_param',
+      operationType: 'operation_type',
+      refImgOssObj: 'ref_img_oss_obj',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      identityParam: 'string',
+      metainfo: 'string',
+      externParam: 'string',
+      operationType: 'string',
+      refImgOssObj: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitFaceauthFaceWishResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 实人认证id
+  zimId?: string;
+  // 预留扩展结果
+  externInfo?: string;
+  // 结果码
+  resultCodeSub?: string;
+  // 结果信息
+  resultMsgSub?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      zimId: 'zim_id',
+      externInfo: 'extern_info',
+      resultCodeSub: 'result_code_sub',
+      resultMsgSub: 'result_msg_sub',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      zimId: 'string',
+      externInfo: 'string',
+      resultCodeSub: 'string',
+      resultMsgSub: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyFaceauthVideoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 活体照片，base64编码
+  authImg?: string;
+  // BLOB：使用客户端透传的BLOB数据 IMAGE：正常图片模式
+  authImgType?: string;
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string;
+  // 预留扩展业务参数
+  externParam?: string;
+  // 用户身份信息
+  identityParam?: string;
+  // 操作类型，NORMAL正常模式，CUSTOM用户自定义比对源
+  operationType?: string;
+  // 比对源照片，base64编码
+  refImg?: string;
+  // 活体照片oss中转方式上传
+  authImgOssObj?: string;
+  // 比对源照片oss中转方式上传
+  refImgOssObj?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      authImg: 'auth_img',
+      authImgType: 'auth_img_type',
+      bizId: 'biz_id',
+      externParam: 'extern_param',
+      identityParam: 'identity_param',
+      operationType: 'operation_type',
+      refImg: 'ref_img',
+      authImgOssObj: 'auth_img_oss_obj',
+      refImgOssObj: 'ref_img_oss_obj',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      authImg: 'string',
+      authImgType: 'string',
+      bizId: 'string',
+      externParam: 'string',
+      identityParam: 'string',
+      operationType: 'string',
+      refImg: 'string',
+      authImgOssObj: 'string',
+      refImgOssObj: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyFaceauthVideoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 预留扩展结果
+  externInfo?: string;
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string;
+  // 明细返回码对应的文案
   resultMsgSub?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1636,7 +2012,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.6",
+          sdk_version: "1.5.0",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1984,6 +2360,82 @@ export default class Client {
   async queryFaceauthFileEx(request: QueryFaceauthFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFaceauthFileResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryFaceauthFileResponse>(await this.doRequest("1.0", "faceverifyzoloz.faceauth.file.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFaceauthFileResponse({}));
+  }
+
+  /**
+   * Description: 人脸双因子认证服务端初始化
+   * Summary: 人脸双因子认证服务端初始化
+   */
+  async initFaceauthFaceplus(request: InitFaceauthFaceplusRequest): Promise<InitFaceauthFaceplusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initFaceauthFaceplusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 人脸双因子认证服务端初始化
+   * Summary: 人脸双因子认证服务端初始化
+   */
+  async initFaceauthFaceplusEx(request: InitFaceauthFaceplusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitFaceauthFaceplusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitFaceauthFaceplusResponse>(await this.doRequest("1.0", "faceverifyzoloz.faceauth.faceplus.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitFaceauthFaceplusResponse({}));
+  }
+
+  /**
+   * Description: 人脸双因子认证服务端查询
+   * Summary: 人脸双因子认证服务端查询
+   */
+  async queryFaceauthFaceplus(request: QueryFaceauthFaceplusRequest): Promise<QueryFaceauthFaceplusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryFaceauthFaceplusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 人脸双因子认证服务端查询
+   * Summary: 人脸双因子认证服务端查询
+   */
+  async queryFaceauthFaceplusEx(request: QueryFaceauthFaceplusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFaceauthFaceplusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryFaceauthFaceplusResponse>(await this.doRequest("1.0", "faceverifyzoloz.faceauth.faceplus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFaceauthFaceplusResponse({}));
+  }
+
+  /**
+   * Description: 意愿核身认证服务端初始化
+   * Summary: 意愿核身认证服务端初始化
+   */
+  async initFaceauthFaceWish(request: InitFaceauthFaceWishRequest): Promise<InitFaceauthFaceWishResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initFaceauthFaceWishEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 意愿核身认证服务端初始化
+   * Summary: 意愿核身认证服务端初始化
+   */
+  async initFaceauthFaceWishEx(request: InitFaceauthFaceWishRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitFaceauthFaceWishResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitFaceauthFaceWishResponse>(await this.doRequest("1.0", "faceverifyzoloz.faceauth.face.wish.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitFaceauthFaceWishResponse({}));
+  }
+
+  /**
+   * Description: 人脸视频认证
+   * Summary: 人脸视频认证
+   */
+  async verifyFaceauthVideo(request: VerifyFaceauthVideoRequest): Promise<VerifyFaceauthVideoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.verifyFaceauthVideoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 人脸视频认证
+   * Summary: 人脸视频认证
+   */
+  async verifyFaceauthVideoEx(request: VerifyFaceauthVideoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyFaceauthVideoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<VerifyFaceauthVideoResponse>(await this.doRequest("1.0", "faceverifyzoloz.faceauth.video.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyFaceauthVideoResponse({}));
   }
 
 }
