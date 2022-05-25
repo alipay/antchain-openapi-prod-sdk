@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.zolozfaceverify.models;
 
 import com.aliyun.tea.*;
 
-public class InitFaceauthWebsdkRequest extends TeaModel {
+public class InitFaceauthFaceWishRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,36 +16,34 @@ public class InitFaceauthWebsdkRequest extends TeaModel {
     @Validation(required = true)
     public String bizId;
 
-    // 预留扩展业务参数
-    @NameInMap("extern_param")
-    public String externParam;
-
-    // 用户身份信息
+    // 身份，需要公钥加密
     @NameInMap("identity_param")
+    @Validation(required = true)
     public String identityParam;
 
-    // metainfo环境参数
+    // 客户端采集
     @NameInMap("metainfo")
+    @Validation(required = true)
     public String metainfo;
+
+    // 外部参数
+    @NameInMap("extern_param")
+    public String externParam;
 
     // 操作类型
     @NameInMap("operation_type")
     public String operationType;
 
-    // 比对源图片
-    @NameInMap("ref_img")
-    public String refImg;
-
-    // 比对源照片oss方式中转
+    // 比对源图片oss中转
     @NameInMap("ref_img_oss_obj")
     public String refImgOssObj;
 
-    public static InitFaceauthWebsdkRequest build(java.util.Map<String, ?> map) throws Exception {
-        InitFaceauthWebsdkRequest self = new InitFaceauthWebsdkRequest();
+    public static InitFaceauthFaceWishRequest build(java.util.Map<String, ?> map) throws Exception {
+        InitFaceauthFaceWishRequest self = new InitFaceauthFaceWishRequest();
         return TeaModel.build(map, self);
     }
 
-    public InitFaceauthWebsdkRequest setAuthToken(String authToken) {
+    public InitFaceauthFaceWishRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -53,7 +51,7 @@ public class InitFaceauthWebsdkRequest extends TeaModel {
         return this.authToken;
     }
 
-    public InitFaceauthWebsdkRequest setProductInstanceId(String productInstanceId) {
+    public InitFaceauthFaceWishRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -61,7 +59,7 @@ public class InitFaceauthWebsdkRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public InitFaceauthWebsdkRequest setBizId(String bizId) {
+    public InitFaceauthFaceWishRequest setBizId(String bizId) {
         this.bizId = bizId;
         return this;
     }
@@ -69,15 +67,7 @@ public class InitFaceauthWebsdkRequest extends TeaModel {
         return this.bizId;
     }
 
-    public InitFaceauthWebsdkRequest setExternParam(String externParam) {
-        this.externParam = externParam;
-        return this;
-    }
-    public String getExternParam() {
-        return this.externParam;
-    }
-
-    public InitFaceauthWebsdkRequest setIdentityParam(String identityParam) {
+    public InitFaceauthFaceWishRequest setIdentityParam(String identityParam) {
         this.identityParam = identityParam;
         return this;
     }
@@ -85,7 +75,7 @@ public class InitFaceauthWebsdkRequest extends TeaModel {
         return this.identityParam;
     }
 
-    public InitFaceauthWebsdkRequest setMetainfo(String metainfo) {
+    public InitFaceauthFaceWishRequest setMetainfo(String metainfo) {
         this.metainfo = metainfo;
         return this;
     }
@@ -93,7 +83,15 @@ public class InitFaceauthWebsdkRequest extends TeaModel {
         return this.metainfo;
     }
 
-    public InitFaceauthWebsdkRequest setOperationType(String operationType) {
+    public InitFaceauthFaceWishRequest setExternParam(String externParam) {
+        this.externParam = externParam;
+        return this;
+    }
+    public String getExternParam() {
+        return this.externParam;
+    }
+
+    public InitFaceauthFaceWishRequest setOperationType(String operationType) {
         this.operationType = operationType;
         return this;
     }
@@ -101,15 +99,7 @@ public class InitFaceauthWebsdkRequest extends TeaModel {
         return this.operationType;
     }
 
-    public InitFaceauthWebsdkRequest setRefImg(String refImg) {
-        this.refImg = refImg;
-        return this;
-    }
-    public String getRefImg() {
-        return this.refImg;
-    }
-
-    public InitFaceauthWebsdkRequest setRefImgOssObj(String refImgOssObj) {
+    public InitFaceauthFaceWishRequest setRefImgOssObj(String refImgOssObj) {
         this.refImgOssObj = refImgOssObj;
         return this;
     }

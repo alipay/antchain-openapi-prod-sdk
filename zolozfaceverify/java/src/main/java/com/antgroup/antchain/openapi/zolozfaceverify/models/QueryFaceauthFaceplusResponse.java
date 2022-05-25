@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.zolozfaceverify.models;
 
 import com.aliyun.tea.*;
 
-public class FaceFaceauthInitializeResponse extends TeaModel {
+public class QueryFaceauthFaceplusResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,32 +16,24 @@ public class FaceFaceauthInitializeResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 预留扩展结果
-    @NameInMap("extern_info")
-    @Validation(required = true)
-    public String externInfo;
-
-    // 产品结果明细，不影响决策
+    // 结果码
     @NameInMap("result_code_sub")
-    @Validation(required = true)
     public String resultCodeSub;
 
-    // result_code_sub对应的文案
+    // 结果信息
     @NameInMap("result_msg_sub")
-    @Validation(required = true)
     public String resultMsgSub;
 
-    // 实人认证id
-    @NameInMap("zim_id")
-    @Validation(required = true)
-    public String zimId;
+    // 外部参数
+    @NameInMap("extern_info")
+    public String externInfo;
 
-    public static FaceFaceauthInitializeResponse build(java.util.Map<String, ?> map) throws Exception {
-        FaceFaceauthInitializeResponse self = new FaceFaceauthInitializeResponse();
+    public static QueryFaceauthFaceplusResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryFaceauthFaceplusResponse self = new QueryFaceauthFaceplusResponse();
         return TeaModel.build(map, self);
     }
 
-    public FaceFaceauthInitializeResponse setReqMsgId(String reqMsgId) {
+    public QueryFaceauthFaceplusResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -49,7 +41,7 @@ public class FaceFaceauthInitializeResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public FaceFaceauthInitializeResponse setResultCode(String resultCode) {
+    public QueryFaceauthFaceplusResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -57,7 +49,7 @@ public class FaceFaceauthInitializeResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public FaceFaceauthInitializeResponse setResultMsg(String resultMsg) {
+    public QueryFaceauthFaceplusResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -65,15 +57,7 @@ public class FaceFaceauthInitializeResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public FaceFaceauthInitializeResponse setExternInfo(String externInfo) {
-        this.externInfo = externInfo;
-        return this;
-    }
-    public String getExternInfo() {
-        return this.externInfo;
-    }
-
-    public FaceFaceauthInitializeResponse setResultCodeSub(String resultCodeSub) {
+    public QueryFaceauthFaceplusResponse setResultCodeSub(String resultCodeSub) {
         this.resultCodeSub = resultCodeSub;
         return this;
     }
@@ -81,7 +65,7 @@ public class FaceFaceauthInitializeResponse extends TeaModel {
         return this.resultCodeSub;
     }
 
-    public FaceFaceauthInitializeResponse setResultMsgSub(String resultMsgSub) {
+    public QueryFaceauthFaceplusResponse setResultMsgSub(String resultMsgSub) {
         this.resultMsgSub = resultMsgSub;
         return this;
     }
@@ -89,12 +73,12 @@ public class FaceFaceauthInitializeResponse extends TeaModel {
         return this.resultMsgSub;
     }
 
-    public FaceFaceauthInitializeResponse setZimId(String zimId) {
-        this.zimId = zimId;
+    public QueryFaceauthFaceplusResponse setExternInfo(String externInfo) {
+        this.externInfo = externInfo;
         return this;
     }
-    public String getZimId() {
-        return this.zimId;
+    public String getExternInfo() {
+        return this.externInfo;
     }
 
 }

@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.6")
+                    new TeaPair("sdk_version", "1.5.0")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -461,5 +461,81 @@ public class Client {
     public QueryFaceauthFileResponse queryFaceauthFileEx(QueryFaceauthFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.file.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceauthFileResponse());
+    }
+
+    /**
+     * Description: 人脸双因子认证服务端初始化
+     * Summary: 人脸双因子认证服务端初始化
+     */
+    public InitFaceauthFaceplusResponse initFaceauthFaceplus(InitFaceauthFaceplusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initFaceauthFaceplusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 人脸双因子认证服务端初始化
+     * Summary: 人脸双因子认证服务端初始化
+     */
+    public InitFaceauthFaceplusResponse initFaceauthFaceplusEx(InitFaceauthFaceplusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.faceplus.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitFaceauthFaceplusResponse());
+    }
+
+    /**
+     * Description: 人脸双因子认证服务端查询
+     * Summary: 人脸双因子认证服务端查询
+     */
+    public QueryFaceauthFaceplusResponse queryFaceauthFaceplus(QueryFaceauthFaceplusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFaceauthFaceplusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 人脸双因子认证服务端查询
+     * Summary: 人脸双因子认证服务端查询
+     */
+    public QueryFaceauthFaceplusResponse queryFaceauthFaceplusEx(QueryFaceauthFaceplusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.faceplus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceauthFaceplusResponse());
+    }
+
+    /**
+     * Description: 意愿核身认证服务端初始化
+     * Summary: 意愿核身认证服务端初始化
+     */
+    public InitFaceauthFaceWishResponse initFaceauthFaceWish(InitFaceauthFaceWishRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initFaceauthFaceWishEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 意愿核身认证服务端初始化
+     * Summary: 意愿核身认证服务端初始化
+     */
+    public InitFaceauthFaceWishResponse initFaceauthFaceWishEx(InitFaceauthFaceWishRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.face.wish.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitFaceauthFaceWishResponse());
+    }
+
+    /**
+     * Description: 人脸视频认证
+     * Summary: 人脸视频认证
+     */
+    public VerifyFaceauthVideoResponse verifyFaceauthVideo(VerifyFaceauthVideoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyFaceauthVideoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 人脸视频认证
+     * Summary: 人脸视频认证
+     */
+    public VerifyFaceauthVideoResponse verifyFaceauthVideoEx(VerifyFaceauthVideoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.video.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyFaceauthVideoResponse());
     }
 }

@@ -8,7 +8,6 @@ public class FaceFaceauthInitializeRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 集群ID
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
@@ -38,6 +37,11 @@ public class FaceFaceauthInitializeRequest extends TeaModel {
     // 比对源图片
     @NameInMap("ref_img")
     public String refImg;
+
+    // 比对源图片oss中转
+    @NameInMap("ref_img_oss_obj")
+    @Validation(required = true)
+    public String refImgOssObj;
 
     public static FaceFaceauthInitializeRequest build(java.util.Map<String, ?> map) throws Exception {
         FaceFaceauthInitializeRequest self = new FaceFaceauthInitializeRequest();
@@ -106,6 +110,14 @@ public class FaceFaceauthInitializeRequest extends TeaModel {
     }
     public String getRefImg() {
         return this.refImg;
+    }
+
+    public FaceFaceauthInitializeRequest setRefImgOssObj(String refImgOssObj) {
+        this.refImgOssObj = refImgOssObj;
+        return this;
+    }
+    public String getRefImgOssObj() {
+        return this.refImgOssObj;
     }
 
 }

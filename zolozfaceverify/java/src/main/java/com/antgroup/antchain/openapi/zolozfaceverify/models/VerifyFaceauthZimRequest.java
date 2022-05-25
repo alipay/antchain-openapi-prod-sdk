@@ -8,7 +8,6 @@ public class VerifyFaceauthZimRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 集群ID
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
@@ -25,6 +24,10 @@ public class VerifyFaceauthZimRequest extends TeaModel {
     @NameInMap("zim_id")
     @Validation(required = true)
     public String zimId;
+
+    // zim_data可通过oss方式中转
+    @NameInMap("zim_data_oss_obj")
+    public String zimDataOssObj;
 
     public static VerifyFaceauthZimRequest build(java.util.Map<String, ?> map) throws Exception {
         VerifyFaceauthZimRequest self = new VerifyFaceauthZimRequest();
@@ -69,6 +72,14 @@ public class VerifyFaceauthZimRequest extends TeaModel {
     }
     public String getZimId() {
         return this.zimId;
+    }
+
+    public VerifyFaceauthZimRequest setZimDataOssObj(String zimDataOssObj) {
+        this.zimDataOssObj = zimDataOssObj;
+        return this;
+    }
+    public String getZimDataOssObj() {
+        return this.zimDataOssObj;
     }
 
 }

@@ -8,7 +8,6 @@ public class IdentityFaceauthServermodeRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 集群ID
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
@@ -41,6 +40,14 @@ public class IdentityFaceauthServermodeRequest extends TeaModel {
     // 比对源照片，base64编码
     @NameInMap("ref_img")
     public String refImg;
+
+    // 活体照片oss中转方式上传
+    @NameInMap("auth_img_oss_obj")
+    public String authImgOssObj;
+
+    // 比对源照片oss中转方式上传
+    @NameInMap("ref_img_oss_obj")
+    public String refImgOssObj;
 
     public static IdentityFaceauthServermodeRequest build(java.util.Map<String, ?> map) throws Exception {
         IdentityFaceauthServermodeRequest self = new IdentityFaceauthServermodeRequest();
@@ -117,6 +124,22 @@ public class IdentityFaceauthServermodeRequest extends TeaModel {
     }
     public String getRefImg() {
         return this.refImg;
+    }
+
+    public IdentityFaceauthServermodeRequest setAuthImgOssObj(String authImgOssObj) {
+        this.authImgOssObj = authImgOssObj;
+        return this;
+    }
+    public String getAuthImgOssObj() {
+        return this.authImgOssObj;
+    }
+
+    public IdentityFaceauthServermodeRequest setRefImgOssObj(String refImgOssObj) {
+        this.refImgOssObj = refImgOssObj;
+        return this;
+    }
+    public String getRefImgOssObj() {
+        return this.refImgOssObj;
     }
 
 }
