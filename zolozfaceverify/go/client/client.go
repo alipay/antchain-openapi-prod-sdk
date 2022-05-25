@@ -251,8 +251,7 @@ func (s *MeteringData) SetStartTime(v string) *MeteringData {
 
 type ExecFaceauthAlgorithmRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 业务ID
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
@@ -312,9 +311,10 @@ func (s *ExecFaceauthAlgorithmRequest) SetScene(v string) *ExecFaceauthAlgorithm
 type ExecFaceauthAlgorithmResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 算法结果，json格式
 	AlgoResult *string `json:"algo_result,omitempty" xml:"algo_result,omitempty"`
 }
@@ -349,8 +349,7 @@ func (s *ExecFaceauthAlgorithmResponse) SetAlgoResult(v string) *ExecFaceauthAlg
 
 type FaceFaceauthInitializeRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
@@ -364,6 +363,8 @@ type FaceFaceauthInitializeRequest struct {
 	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty"`
 	// 比对源图片
 	RefImg *string `json:"ref_img,omitempty" xml:"ref_img,omitempty"`
+	// 比对源图片oss中转
+	RefImgOssObj *string `json:"ref_img_oss_obj,omitempty" xml:"ref_img_oss_obj,omitempty" require:"true"`
 }
 
 func (s FaceFaceauthInitializeRequest) String() string {
@@ -414,12 +415,18 @@ func (s *FaceFaceauthInitializeRequest) SetRefImg(v string) *FaceFaceauthInitial
 	return s
 }
 
+func (s *FaceFaceauthInitializeRequest) SetRefImgOssObj(v string) *FaceFaceauthInitializeRequest {
+	s.RefImgOssObj = &v
+	return s
+}
+
 type FaceFaceauthInitializeResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 预留扩展结果
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty" require:"true"`
 	// 产品结果明细，不影响决策
@@ -475,8 +482,7 @@ func (s *FaceFaceauthInitializeResponse) SetZimId(v string) *FaceFaceauthInitial
 
 type FaceFaceauthQueryRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 业务单据号，用于核对和排查
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
@@ -522,9 +528,10 @@ func (s *FaceFaceauthQueryRequest) SetZimId(v string) *FaceFaceauthQueryRequest 
 type FaceFaceauthQueryResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 预留扩展结果
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty" require:"true"`
 	// 产品结果明细，不影响决策
@@ -573,8 +580,7 @@ func (s *FaceFaceauthQueryResponse) SetResultMsgSub(v string) *FaceFaceauthQuery
 
 type IdentityFaceauthServermodeRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 活体照片，base64编码
 	AuthImg *string `json:"auth_img,omitempty" xml:"auth_img,omitempty"`
@@ -591,6 +597,10 @@ type IdentityFaceauthServermodeRequest struct {
 	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty"`
 	// 比对源照片，base64编码
 	RefImg *string `json:"ref_img,omitempty" xml:"ref_img,omitempty"`
+	// 活体照片oss中转方式上传
+	AuthImgOssObj *string `json:"auth_img_oss_obj,omitempty" xml:"auth_img_oss_obj,omitempty"`
+	// 比对源照片oss中转方式上传
+	RefImgOssObj *string `json:"ref_img_oss_obj,omitempty" xml:"ref_img_oss_obj,omitempty"`
 }
 
 func (s IdentityFaceauthServermodeRequest) String() string {
@@ -646,12 +656,23 @@ func (s *IdentityFaceauthServermodeRequest) SetRefImg(v string) *IdentityFaceaut
 	return s
 }
 
+func (s *IdentityFaceauthServermodeRequest) SetAuthImgOssObj(v string) *IdentityFaceauthServermodeRequest {
+	s.AuthImgOssObj = &v
+	return s
+}
+
+func (s *IdentityFaceauthServermodeRequest) SetRefImgOssObj(v string) *IdentityFaceauthServermodeRequest {
+	s.RefImgOssObj = &v
+	return s
+}
+
 type IdentityFaceauthServermodeResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 预留扩展结果
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 	// 产品结果明细，不影响决策
@@ -700,8 +721,7 @@ func (s *IdentityFaceauthServermodeResponse) SetResultMsgSub(v string) *Identity
 
 type InitializeFaceauthWebRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
@@ -768,9 +788,10 @@ func (s *InitializeFaceauthWebRequest) SetRefImg(v string) *InitializeFaceauthWe
 type InitializeFaceauthWebResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 预留扩展结果
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 	// 产品结果明细，不影响决策
@@ -826,8 +847,7 @@ func (s *InitializeFaceauthWebResponse) SetZimId(v string) *InitializeFaceauthWe
 
 type QueryFaceauthWebRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 业务单据号，用于核对和排查问题
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
@@ -873,9 +893,10 @@ func (s *QueryFaceauthWebRequest) SetZimId(v string) *QueryFaceauthWebRequest {
 type QueryFaceauthWebResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 预留扩展结果
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 	// 产品结果明细，不影响决策
@@ -924,8 +945,7 @@ func (s *QueryFaceauthWebResponse) SetResultMsgSub(v string) *QueryFaceauthWebRe
 
 type QueryFaceauthMeteringRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 业务流水号
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
@@ -990,9 +1010,10 @@ func (s *QueryFaceauthMeteringRequest) SetStartTime(v string) *QueryFaceauthMete
 type QueryFaceauthMeteringResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 计量数据
 	MeteringData *MeteringData `json:"metering_data,omitempty" xml:"metering_data,omitempty"`
 }
@@ -1027,8 +1048,7 @@ func (s *QueryFaceauthMeteringResponse) SetMeteringData(v *MeteringData) *QueryF
 
 type InitFaceauthFaceLiteRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
@@ -1095,9 +1115,10 @@ func (s *InitFaceauthFaceLiteRequest) SetRefImg(v string) *InitFaceauthFaceLiteR
 type InitFaceauthFaceLiteResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 扩展结果
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 	// 人脸协议
@@ -1160,8 +1181,7 @@ func (s *InitFaceauthFaceLiteResponse) SetZimId(v string) *InitFaceauthFaceLiteR
 
 type QueryFaceauthDataRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 业务ID
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
@@ -1200,9 +1220,10 @@ func (s *QueryFaceauthDataRequest) SetDataUrl(v string) *QueryFaceauthDataReques
 type QueryFaceauthDataResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 查询结果详情
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
@@ -1237,8 +1258,7 @@ func (s *QueryFaceauthDataResponse) SetData(v string) *QueryFaceauthDataResponse
 
 type ExecAuthenticationCustomerFaceabilityRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// extract(提取特征)、sex(检测性别)、rect(人脸矩形框识别)
 	Ability *string `json:"ability,omitempty" xml:"ability,omitempty" require:"true"`
@@ -1298,9 +1318,10 @@ func (s *ExecAuthenticationCustomerFaceabilityRequest) SetSceneCode(v string) *E
 type ExecAuthenticationCustomerFaceabilityResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
 func (s ExecAuthenticationCustomerFaceabilityResponse) String() string {
@@ -1328,8 +1349,7 @@ func (s *ExecAuthenticationCustomerFaceabilityResponse) SetResultMsg(v string) *
 
 type InitFaceauthZimRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 业务参数
 	BizData *string `json:"biz_data,omitempty" xml:"biz_data,omitempty"`
@@ -1410,9 +1430,10 @@ func (s *InitFaceauthZimRequest) SetZimPrincipal(v string) *InitFaceauthZimReque
 type InitFaceauthZimResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 预留扩展结果
 	ExtParams *string `json:"ext_params,omitempty" xml:"ext_params,omitempty"`
 	// 描述
@@ -1489,8 +1510,7 @@ func (s *InitFaceauthZimResponse) SetZimiId(v string) *InitFaceauthZimResponse {
 
 type VerifyFaceauthZimRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 扩展信息,Map的json格式
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
@@ -1498,6 +1518,8 @@ type VerifyFaceauthZimRequest struct {
 	ZimData *string `json:"zim_data,omitempty" xml:"zim_data,omitempty" require:"true"`
 	// 实人认证id
 	ZimId *string `json:"zim_id,omitempty" xml:"zim_id,omitempty" require:"true"`
+	// zim_data可通过oss方式中转
+	ZimDataOssObj *string `json:"zim_data_oss_obj,omitempty" xml:"zim_data_oss_obj,omitempty"`
 }
 
 func (s VerifyFaceauthZimRequest) String() string {
@@ -1533,12 +1555,18 @@ func (s *VerifyFaceauthZimRequest) SetZimId(v string) *VerifyFaceauthZimRequest 
 	return s
 }
 
+func (s *VerifyFaceauthZimRequest) SetZimDataOssObj(v string) *VerifyFaceauthZimRequest {
+	s.ZimDataOssObj = &v
+	return s
+}
+
 type VerifyFaceauthZimResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 预留扩展结果
 	ExtParams *string `json:"ext_params,omitempty" xml:"ext_params,omitempty"`
 	// ""
@@ -1615,8 +1643,7 @@ func (s *VerifyFaceauthZimResponse) SetValidationRetCode(v string) *VerifyFaceau
 
 type RecognizeFaceauthOcrRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 数据内容
 	DataContext *string `json:"data_context,omitempty" xml:"data_context,omitempty" require:"true"`
@@ -1677,9 +1704,10 @@ func (s *RecognizeFaceauthOcrRequest) SetZimId(v string) *RecognizeFaceauthOcrRe
 type RecognizeFaceauthOcrResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// Map的json格式,预留
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 	// Map的json格式：里面存储ocr识别的结果：
@@ -1777,8 +1805,7 @@ func (s *RecognizeFaceauthOcrResponse) SetZimId(v string) *RecognizeFaceauthOcrR
 
 type InitFaceauthWebsdkRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
@@ -1792,6 +1819,8 @@ type InitFaceauthWebsdkRequest struct {
 	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty"`
 	// 比对源图片
 	RefImg *string `json:"ref_img,omitempty" xml:"ref_img,omitempty"`
+	// 比对源照片oss方式中转
+	RefImgOssObj *string `json:"ref_img_oss_obj,omitempty" xml:"ref_img_oss_obj,omitempty"`
 }
 
 func (s InitFaceauthWebsdkRequest) String() string {
@@ -1842,12 +1871,18 @@ func (s *InitFaceauthWebsdkRequest) SetRefImg(v string) *InitFaceauthWebsdkReque
 	return s
 }
 
+func (s *InitFaceauthWebsdkRequest) SetRefImgOssObj(v string) *InitFaceauthWebsdkRequest {
+	s.RefImgOssObj = &v
+	return s
+}
+
 type InitFaceauthWebsdkResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 预留扩展结果
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 	// 产品结果明细，不影响决策
@@ -1903,8 +1938,7 @@ func (s *InitFaceauthWebsdkResponse) SetZimId(v string) *InitFaceauthWebsdkRespo
 
 type QueryFaceauthWebsdkRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 业务单据号，用于核对和排查问题
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
@@ -1950,9 +1984,10 @@ func (s *QueryFaceauthWebsdkRequest) SetZimId(v string) *QueryFaceauthWebsdkRequ
 type QueryFaceauthWebsdkResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 预留扩展结果
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 	// 产品结果明细，不影响决策
@@ -2001,8 +2036,7 @@ func (s *QueryFaceauthWebsdkResponse) SetResultMsgSub(v string) *QueryFaceauthWe
 
 type QueryFaceauthFileRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 集群ID
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// zoloz认证会话主键
 	ZimId *string `json:"zim_id,omitempty" xml:"zim_id,omitempty" require:"true"`
@@ -2041,9 +2075,10 @@ func (s *QueryFaceauthFileRequest) SetExternParam(v string) *QueryFaceauthFileRe
 type QueryFaceauthFileResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 异常信息的文本描述
+	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	ResultMsg  *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 预留扩展结果
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 	// 结果码
@@ -2086,6 +2121,496 @@ func (s *QueryFaceauthFileResponse) SetResultCodeSub(v string) *QueryFaceauthFil
 }
 
 func (s *QueryFaceauthFileResponse) SetResultMsgSub(v string) *QueryFaceauthFileResponse {
+	s.ResultMsgSub = &v
+	return s
+}
+
+type InitFaceauthFaceplusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务唯一单号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 身份，需要公钥加密
+	IdentityParam *string `json:"identity_param,omitempty" xml:"identity_param,omitempty" require:"true"`
+	// 客户端采集
+	Metainfo *string `json:"metainfo,omitempty" xml:"metainfo,omitempty" require:"true"`
+	// 外部参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 操作类型
+	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty"`
+	// 比对源图片
+	RefImg *string `json:"ref_img,omitempty" xml:"ref_img,omitempty"`
+}
+
+func (s InitFaceauthFaceplusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitFaceauthFaceplusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitFaceauthFaceplusRequest) SetAuthToken(v string) *InitFaceauthFaceplusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitFaceauthFaceplusRequest) SetProductInstanceId(v string) *InitFaceauthFaceplusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitFaceauthFaceplusRequest) SetBizId(v string) *InitFaceauthFaceplusRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *InitFaceauthFaceplusRequest) SetIdentityParam(v string) *InitFaceauthFaceplusRequest {
+	s.IdentityParam = &v
+	return s
+}
+
+func (s *InitFaceauthFaceplusRequest) SetMetainfo(v string) *InitFaceauthFaceplusRequest {
+	s.Metainfo = &v
+	return s
+}
+
+func (s *InitFaceauthFaceplusRequest) SetExternParam(v string) *InitFaceauthFaceplusRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *InitFaceauthFaceplusRequest) SetOperationType(v string) *InitFaceauthFaceplusRequest {
+	s.OperationType = &v
+	return s
+}
+
+func (s *InitFaceauthFaceplusRequest) SetRefImg(v string) *InitFaceauthFaceplusRequest {
+	s.RefImg = &v
+	return s
+}
+
+type InitFaceauthFaceplusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证会话唯一标识
+	ZimId *string `json:"zim_id,omitempty" xml:"zim_id,omitempty"`
+	// 结果码
+	ResultCodeSub *string `json:"result_code_sub,omitempty" xml:"result_code_sub,omitempty"`
+	// 结果信息
+	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
+	// 外部参数
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s InitFaceauthFaceplusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitFaceauthFaceplusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitFaceauthFaceplusResponse) SetReqMsgId(v string) *InitFaceauthFaceplusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitFaceauthFaceplusResponse) SetResultCode(v string) *InitFaceauthFaceplusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitFaceauthFaceplusResponse) SetResultMsg(v string) *InitFaceauthFaceplusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitFaceauthFaceplusResponse) SetZimId(v string) *InitFaceauthFaceplusResponse {
+	s.ZimId = &v
+	return s
+}
+
+func (s *InitFaceauthFaceplusResponse) SetResultCodeSub(v string) *InitFaceauthFaceplusResponse {
+	s.ResultCodeSub = &v
+	return s
+}
+
+func (s *InitFaceauthFaceplusResponse) SetResultMsgSub(v string) *InitFaceauthFaceplusResponse {
+	s.ResultMsgSub = &v
+	return s
+}
+
+func (s *InitFaceauthFaceplusResponse) SetExternInfo(v string) *InitFaceauthFaceplusResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryFaceauthFaceplusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 认证会话唯一标识
+	ZimId *string `json:"zim_id,omitempty" xml:"zim_id,omitempty" require:"true"`
+	// 唯一单号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 外部参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryFaceauthFaceplusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFaceauthFaceplusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFaceauthFaceplusRequest) SetAuthToken(v string) *QueryFaceauthFaceplusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFaceauthFaceplusRequest) SetProductInstanceId(v string) *QueryFaceauthFaceplusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFaceauthFaceplusRequest) SetZimId(v string) *QueryFaceauthFaceplusRequest {
+	s.ZimId = &v
+	return s
+}
+
+func (s *QueryFaceauthFaceplusRequest) SetBizId(v string) *QueryFaceauthFaceplusRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *QueryFaceauthFaceplusRequest) SetExternParam(v string) *QueryFaceauthFaceplusRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryFaceauthFaceplusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果码
+	ResultCodeSub *string `json:"result_code_sub,omitempty" xml:"result_code_sub,omitempty"`
+	// 结果信息
+	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
+	// 外部参数
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryFaceauthFaceplusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFaceauthFaceplusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFaceauthFaceplusResponse) SetReqMsgId(v string) *QueryFaceauthFaceplusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFaceauthFaceplusResponse) SetResultCode(v string) *QueryFaceauthFaceplusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFaceauthFaceplusResponse) SetResultMsg(v string) *QueryFaceauthFaceplusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFaceauthFaceplusResponse) SetResultCodeSub(v string) *QueryFaceauthFaceplusResponse {
+	s.ResultCodeSub = &v
+	return s
+}
+
+func (s *QueryFaceauthFaceplusResponse) SetResultMsgSub(v string) *QueryFaceauthFaceplusResponse {
+	s.ResultMsgSub = &v
+	return s
+}
+
+func (s *QueryFaceauthFaceplusResponse) SetExternInfo(v string) *QueryFaceauthFaceplusResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type InitFaceauthFaceWishRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 身份，需要公钥加密
+	IdentityParam *string `json:"identity_param,omitempty" xml:"identity_param,omitempty" require:"true"`
+	// 客户端采集
+	Metainfo *string `json:"metainfo,omitempty" xml:"metainfo,omitempty" require:"true"`
+	// 外部参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 操作类型
+	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty"`
+	// 比对源图片oss中转
+	RefImgOssObj *string `json:"ref_img_oss_obj,omitempty" xml:"ref_img_oss_obj,omitempty"`
+}
+
+func (s InitFaceauthFaceWishRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitFaceauthFaceWishRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitFaceauthFaceWishRequest) SetAuthToken(v string) *InitFaceauthFaceWishRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitFaceauthFaceWishRequest) SetProductInstanceId(v string) *InitFaceauthFaceWishRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitFaceauthFaceWishRequest) SetBizId(v string) *InitFaceauthFaceWishRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *InitFaceauthFaceWishRequest) SetIdentityParam(v string) *InitFaceauthFaceWishRequest {
+	s.IdentityParam = &v
+	return s
+}
+
+func (s *InitFaceauthFaceWishRequest) SetMetainfo(v string) *InitFaceauthFaceWishRequest {
+	s.Metainfo = &v
+	return s
+}
+
+func (s *InitFaceauthFaceWishRequest) SetExternParam(v string) *InitFaceauthFaceWishRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *InitFaceauthFaceWishRequest) SetOperationType(v string) *InitFaceauthFaceWishRequest {
+	s.OperationType = &v
+	return s
+}
+
+func (s *InitFaceauthFaceWishRequest) SetRefImgOssObj(v string) *InitFaceauthFaceWishRequest {
+	s.RefImgOssObj = &v
+	return s
+}
+
+type InitFaceauthFaceWishResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 实人认证id
+	ZimId *string `json:"zim_id,omitempty" xml:"zim_id,omitempty"`
+	// 预留扩展结果
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 结果码
+	ResultCodeSub *string `json:"result_code_sub,omitempty" xml:"result_code_sub,omitempty"`
+	// 结果信息
+	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
+}
+
+func (s InitFaceauthFaceWishResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitFaceauthFaceWishResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitFaceauthFaceWishResponse) SetReqMsgId(v string) *InitFaceauthFaceWishResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitFaceauthFaceWishResponse) SetResultCode(v string) *InitFaceauthFaceWishResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitFaceauthFaceWishResponse) SetResultMsg(v string) *InitFaceauthFaceWishResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitFaceauthFaceWishResponse) SetZimId(v string) *InitFaceauthFaceWishResponse {
+	s.ZimId = &v
+	return s
+}
+
+func (s *InitFaceauthFaceWishResponse) SetExternInfo(v string) *InitFaceauthFaceWishResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *InitFaceauthFaceWishResponse) SetResultCodeSub(v string) *InitFaceauthFaceWishResponse {
+	s.ResultCodeSub = &v
+	return s
+}
+
+func (s *InitFaceauthFaceWishResponse) SetResultMsgSub(v string) *InitFaceauthFaceWishResponse {
+	s.ResultMsgSub = &v
+	return s
+}
+
+type VerifyFaceauthVideoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 活体照片，base64编码
+	AuthImg *string `json:"auth_img,omitempty" xml:"auth_img,omitempty"`
+	// BLOB：使用客户端透传的BLOB数据 IMAGE：正常图片模式
+	AuthImgType *string `json:"auth_img_type,omitempty" xml:"auth_img_type,omitempty"`
+	// 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 用户身份信息
+	IdentityParam *string `json:"identity_param,omitempty" xml:"identity_param,omitempty"`
+	// 操作类型，NORMAL正常模式，CUSTOM用户自定义比对源
+	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty"`
+	// 比对源照片，base64编码
+	RefImg *string `json:"ref_img,omitempty" xml:"ref_img,omitempty"`
+	// 活体照片oss中转方式上传
+	AuthImgOssObj *string `json:"auth_img_oss_obj,omitempty" xml:"auth_img_oss_obj,omitempty"`
+	// 比对源照片oss中转方式上传
+	RefImgOssObj *string `json:"ref_img_oss_obj,omitempty" xml:"ref_img_oss_obj,omitempty"`
+}
+
+func (s VerifyFaceauthVideoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyFaceauthVideoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyFaceauthVideoRequest) SetAuthToken(v string) *VerifyFaceauthVideoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoRequest) SetProductInstanceId(v string) *VerifyFaceauthVideoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoRequest) SetAuthImg(v string) *VerifyFaceauthVideoRequest {
+	s.AuthImg = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoRequest) SetAuthImgType(v string) *VerifyFaceauthVideoRequest {
+	s.AuthImgType = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoRequest) SetBizId(v string) *VerifyFaceauthVideoRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoRequest) SetExternParam(v string) *VerifyFaceauthVideoRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoRequest) SetIdentityParam(v string) *VerifyFaceauthVideoRequest {
+	s.IdentityParam = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoRequest) SetOperationType(v string) *VerifyFaceauthVideoRequest {
+	s.OperationType = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoRequest) SetRefImg(v string) *VerifyFaceauthVideoRequest {
+	s.RefImg = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoRequest) SetAuthImgOssObj(v string) *VerifyFaceauthVideoRequest {
+	s.AuthImgOssObj = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoRequest) SetRefImgOssObj(v string) *VerifyFaceauthVideoRequest {
+	s.RefImgOssObj = &v
+	return s
+}
+
+type VerifyFaceauthVideoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 预留扩展结果
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 产品结果明细，不影响决策
+	ResultCodeSub *string `json:"result_code_sub,omitempty" xml:"result_code_sub,omitempty"`
+	// 明细返回码对应的文案
+	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
+}
+
+func (s VerifyFaceauthVideoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyFaceauthVideoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyFaceauthVideoResponse) SetReqMsgId(v string) *VerifyFaceauthVideoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoResponse) SetResultCode(v string) *VerifyFaceauthVideoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoResponse) SetResultMsg(v string) *VerifyFaceauthVideoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoResponse) SetExternInfo(v string) *VerifyFaceauthVideoResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoResponse) SetResultCodeSub(v string) *VerifyFaceauthVideoResponse {
+	s.ResultCodeSub = &v
+	return s
+}
+
+func (s *VerifyFaceauthVideoResponse) SetResultMsgSub(v string) *VerifyFaceauthVideoResponse {
 	s.ResultMsgSub = &v
 	return s
 }
@@ -2212,7 +2737,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.6"),
+				"sdk_version":      tea.String("1.5.0"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2797,6 +3322,142 @@ func (client *Client) QueryFaceauthFileEx(request *QueryFaceauthFileRequest, hea
 	}
 	_result = &QueryFaceauthFileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("faceverifyzoloz.faceauth.file.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 人脸双因子认证服务端初始化
+ * Summary: 人脸双因子认证服务端初始化
+ */
+func (client *Client) InitFaceauthFaceplus(request *InitFaceauthFaceplusRequest) (_result *InitFaceauthFaceplusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitFaceauthFaceplusResponse{}
+	_body, _err := client.InitFaceauthFaceplusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 人脸双因子认证服务端初始化
+ * Summary: 人脸双因子认证服务端初始化
+ */
+func (client *Client) InitFaceauthFaceplusEx(request *InitFaceauthFaceplusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitFaceauthFaceplusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitFaceauthFaceplusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("faceverifyzoloz.faceauth.faceplus.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 人脸双因子认证服务端查询
+ * Summary: 人脸双因子认证服务端查询
+ */
+func (client *Client) QueryFaceauthFaceplus(request *QueryFaceauthFaceplusRequest) (_result *QueryFaceauthFaceplusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFaceauthFaceplusResponse{}
+	_body, _err := client.QueryFaceauthFaceplusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 人脸双因子认证服务端查询
+ * Summary: 人脸双因子认证服务端查询
+ */
+func (client *Client) QueryFaceauthFaceplusEx(request *QueryFaceauthFaceplusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFaceauthFaceplusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFaceauthFaceplusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("faceverifyzoloz.faceauth.faceplus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 意愿核身认证服务端初始化
+ * Summary: 意愿核身认证服务端初始化
+ */
+func (client *Client) InitFaceauthFaceWish(request *InitFaceauthFaceWishRequest) (_result *InitFaceauthFaceWishResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitFaceauthFaceWishResponse{}
+	_body, _err := client.InitFaceauthFaceWishEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 意愿核身认证服务端初始化
+ * Summary: 意愿核身认证服务端初始化
+ */
+func (client *Client) InitFaceauthFaceWishEx(request *InitFaceauthFaceWishRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitFaceauthFaceWishResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitFaceauthFaceWishResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("faceverifyzoloz.faceauth.face.wish.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 人脸视频认证
+ * Summary: 人脸视频认证
+ */
+func (client *Client) VerifyFaceauthVideo(request *VerifyFaceauthVideoRequest) (_result *VerifyFaceauthVideoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyFaceauthVideoResponse{}
+	_body, _err := client.VerifyFaceauthVideoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 人脸视频认证
+ * Summary: 人脸视频认证
+ */
+func (client *Client) VerifyFaceauthVideoEx(request *VerifyFaceauthVideoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyFaceauthVideoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyFaceauthVideoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("faceverifyzoloz.faceauth.video.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
