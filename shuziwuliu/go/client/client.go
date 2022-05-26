@@ -19837,6 +19837,7 @@ type ApplyInsuranceYzbreportRequest struct {
 	// 损失预估总金额，单位（元），最多支持2位小数
 	LossEstimateTotalAmount *string `json:"loss_estimate_total_amount,omitempty" xml:"loss_estimate_total_amount,omitempty" require:"true"`
 	// 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+	//
 	ComplaintJobNo *string `json:"complaint_job_no,omitempty" xml:"complaint_job_no,omitempty" maxLength:"100"`
 	// 快递公司，申请理赔所关联的快递公司名称，包裹出险可填
 	CourierCompany *string `json:"courier_company,omitempty" xml:"courier_company,omitempty" maxLength:"200"`
@@ -19852,6 +19853,18 @@ type ApplyInsuranceYzbreportRequest struct {
 	CargoLoss *CargoLoss `json:"cargo_loss,omitempty" xml:"cargo_loss,omitempty"`
 	// 文档信息
 	Documents []*Document `json:"documents,omitempty" xml:"documents,omitempty" type:"Repeated"`
+	// 判责工单号
+	DutyWorkNo *string `json:"duty_work_no,omitempty" xml:"duty_work_no,omitempty" maxLength:"100"`
+	// 快递或包裹进入驿站仓储时间，yyyy-mm-dd hh:mm:ss
+	PkgInDate *string `json:"pkg_in_date,omitempty" xml:"pkg_in_date,omitempty" maxLength:"20"`
+	// 驿站针对快递或包裹的出库时间（配送上门传送待签收时间），yyyy-mm-dd hh:mm:ss
+	PkgOutDate *string `json:"pkg_out_date,omitempty" xml:"pkg_out_date,omitempty" maxLength:"20"`
+	// 发票工单投诉时间，yyyy-mm-dd hh:mm:ss
+	GenWorkDate *string `json:"gen_work_date,omitempty" xml:"gen_work_date,omitempty" maxLength:"20"`
+	// 工单类型
+	WorkType *string `json:"work_type,omitempty" xml:"work_type,omitempty" maxLength:"20"`
+	// 是否星级站点，0是，1否
+	IsStarStation *string `json:"is_star_station,omitempty" xml:"is_star_station,omitempty"`
 }
 
 func (s ApplyInsuranceYzbreportRequest) String() string {
@@ -19989,6 +20002,36 @@ func (s *ApplyInsuranceYzbreportRequest) SetCargoLoss(v *CargoLoss) *ApplyInsura
 
 func (s *ApplyInsuranceYzbreportRequest) SetDocuments(v []*Document) *ApplyInsuranceYzbreportRequest {
 	s.Documents = v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetDutyWorkNo(v string) *ApplyInsuranceYzbreportRequest {
+	s.DutyWorkNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetPkgInDate(v string) *ApplyInsuranceYzbreportRequest {
+	s.PkgInDate = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetPkgOutDate(v string) *ApplyInsuranceYzbreportRequest {
+	s.PkgOutDate = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetGenWorkDate(v string) *ApplyInsuranceYzbreportRequest {
+	s.GenWorkDate = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetWorkType(v string) *ApplyInsuranceYzbreportRequest {
+	s.WorkType = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetIsStarStation(v string) *ApplyInsuranceYzbreportRequest {
+	s.IsStarStation = &v
 	return s
 }
 
@@ -29246,7 +29289,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.137"),
+				"sdk_version":      tea.String("1.3.140"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
