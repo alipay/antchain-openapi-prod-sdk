@@ -149,6 +149,32 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 交易扩展字段
+type Extension struct {
+	// key
+	Key *int64 `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s Extension) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Extension) GoString() string {
+	return s.String()
+}
+
+func (s *Extension) SetKey(v int64) *Extension {
+	s.Key = &v
+	return s
+}
+
+func (s *Extension) SetValue(v string) *Extension {
+	s.Value = &v
+	return s
+}
+
 // 交易日志
 type LogEntry struct {
 	// 交易发起方
@@ -186,32 +212,6 @@ func (s *LogEntry) SetTo(v string) *LogEntry {
 
 func (s *LogEntry) SetTopics(v []*string) *LogEntry {
 	s.Topics = v
-	return s
-}
-
-// 交易扩展字段
-type Extension struct {
-	// key
-	Key *int64 `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// value
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s Extension) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Extension) GoString() string {
-	return s.String()
-}
-
-func (s *Extension) SetKey(v int64) *Extension {
-	s.Key = &v
-	return s
-}
-
-func (s *Extension) SetValue(v string) *Extension {
-	s.Value = &v
 	return s
 }
 
@@ -281,6 +281,112 @@ func (s *IPPaytSeparateSetInfo) SetGuaranteeGoodsNumber(v string) *IPPaytSeparat
 	return s
 }
 
+// ip的sku信息
+type IpSkuInfo struct {
+	// ip的链上id
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
+	// ip的渠道名字
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
+	// 售卖的商品价格范围
+	PriceRange *string `json:"price_range,omitempty" xml:"price_range,omitempty" require:"true"`
+	// ip售卖单价
+	PurchasePrice *string `json:"purchase_price,omitempty" xml:"purchase_price,omitempty" require:"true"`
+	// 套餐中ip的数量
+	SaleNum *string `json:"sale_num,omitempty" xml:"sale_num,omitempty" require:"true"`
+}
+
+func (s IpSkuInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IpSkuInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IpSkuInfo) SetIpId(v string) *IpSkuInfo {
+	s.IpId = &v
+	return s
+}
+
+func (s *IpSkuInfo) SetChannelName(v string) *IpSkuInfo {
+	s.ChannelName = &v
+	return s
+}
+
+func (s *IpSkuInfo) SetPriceRange(v string) *IpSkuInfo {
+	s.PriceRange = &v
+	return s
+}
+
+func (s *IpSkuInfo) SetPurchasePrice(v string) *IpSkuInfo {
+	s.PurchasePrice = &v
+	return s
+}
+
+func (s *IpSkuInfo) SetSaleNum(v string) *IpSkuInfo {
+	s.SaleNum = &v
+	return s
+}
+
+// 商品规格
+type ProductSpecification struct {
+	// 规格名称
+	SpecificationName *string `json:"specification_name,omitempty" xml:"specification_name,omitempty" require:"true"`
+	// 规格值
+	SpecificationValue *string `json:"specification_value,omitempty" xml:"specification_value,omitempty" require:"true"`
+}
+
+func (s ProductSpecification) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProductSpecification) GoString() string {
+	return s.String()
+}
+
+func (s *ProductSpecification) SetSpecificationName(v string) *ProductSpecification {
+	s.SpecificationName = &v
+	return s
+}
+
+func (s *ProductSpecification) SetSpecificationValue(v string) *ProductSpecification {
+	s.SpecificationValue = &v
+	return s
+}
+
+// 手续费分级
+type CommissionLayer struct {
+	// 阶梯起始值，无结束值
+	StartNum *string `json:"start_num,omitempty" xml:"start_num,omitempty" require:"true"`
+	// 手续费费率
+	DeductRatio *string `json:"deduct_ratio,omitempty" xml:"deduct_ratio,omitempty" require:"true"`
+	// 固定的商品费率值
+	DeductToken *string `json:"deduct_token,omitempty" xml:"deduct_token,omitempty" require:"true"`
+}
+
+func (s CommissionLayer) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommissionLayer) GoString() string {
+	return s.String()
+}
+
+func (s *CommissionLayer) SetStartNum(v string) *CommissionLayer {
+	s.StartNum = &v
+	return s
+}
+
+func (s *CommissionLayer) SetDeductRatio(v string) *CommissionLayer {
+	s.DeductRatio = &v
+	return s
+}
+
+func (s *CommissionLayer) SetDeductToken(v string) *CommissionLayer {
+	s.DeductToken = &v
+	return s
+}
+
 // 用户价格
 type UserPrice struct {
 	// 具体价格
@@ -325,39 +431,6 @@ func (s *UserPrice) SetUserPriceType(v int64) *UserPrice {
 
 func (s *UserPrice) SetUserPriceWithCommission(v string) *UserPrice {
 	s.UserPriceWithCommission = &v
-	return s
-}
-
-// 手续费分级
-type CommissionLayer struct {
-	// 阶梯起始值，无结束值
-	StartNum *string `json:"start_num,omitempty" xml:"start_num,omitempty" require:"true"`
-	// 手续费费率
-	DeductRatio *string `json:"deduct_ratio,omitempty" xml:"deduct_ratio,omitempty" require:"true"`
-	// 固定的商品费率值
-	DeductToken *string `json:"deduct_token,omitempty" xml:"deduct_token,omitempty" require:"true"`
-}
-
-func (s CommissionLayer) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CommissionLayer) GoString() string {
-	return s.String()
-}
-
-func (s *CommissionLayer) SetStartNum(v string) *CommissionLayer {
-	s.StartNum = &v
-	return s
-}
-
-func (s *CommissionLayer) SetDeductRatio(v string) *CommissionLayer {
-	s.DeductRatio = &v
-	return s
-}
-
-func (s *CommissionLayer) SetDeductToken(v string) *CommissionLayer {
-	s.DeductToken = &v
 	return s
 }
 
@@ -433,6 +506,60 @@ func (s *IPTradeMode) SetGuaranteeGoodsNumber(v string) *IPTradeMode {
 
 func (s *IPTradeMode) SetPaytSeparateSetInfo(v []*IPPaytSeparateSetInfo) *IPTradeMode {
 	s.PaytSeparateSetInfo = v
+	return s
+}
+
+// 联系人详情
+type DockingPeopleInfo struct {
+	// 名字
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 手机号
+	MobilePhone *string `json:"mobile_phone,omitempty" xml:"mobile_phone,omitempty" require:"true"`
+	// 职位
+	Position *string `json:"position,omitempty" xml:"position,omitempty" require:"true"`
+	// 邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 钉钉号
+	DingDing *string `json:"ding_ding,omitempty" xml:"ding_ding,omitempty"`
+	// 座机
+	TelePhone *string `json:"tele_phone,omitempty" xml:"tele_phone,omitempty"`
+}
+
+func (s DockingPeopleInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DockingPeopleInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DockingPeopleInfo) SetName(v string) *DockingPeopleInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *DockingPeopleInfo) SetMobilePhone(v string) *DockingPeopleInfo {
+	s.MobilePhone = &v
+	return s
+}
+
+func (s *DockingPeopleInfo) SetPosition(v string) *DockingPeopleInfo {
+	s.Position = &v
+	return s
+}
+
+func (s *DockingPeopleInfo) SetEmail(v string) *DockingPeopleInfo {
+	s.Email = &v
+	return s
+}
+
+func (s *DockingPeopleInfo) SetDingDing(v string) *DockingPeopleInfo {
+	s.DingDing = &v
+	return s
+}
+
+func (s *DockingPeopleInfo) SetTelePhone(v string) *DockingPeopleInfo {
+	s.TelePhone = &v
 	return s
 }
 
@@ -546,57 +673,36 @@ func (s *BlockTransaction) SetVersion(v int64) *BlockTransaction {
 	return s
 }
 
-// 联系人详情
-type DockingPeopleInfo struct {
-	// 名字
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 手机号
-	MobilePhone *string `json:"mobile_phone,omitempty" xml:"mobile_phone,omitempty" require:"true"`
-	// 职位
-	Position *string `json:"position,omitempty" xml:"position,omitempty" require:"true"`
-	// 邮箱
-	Email *string `json:"email,omitempty" xml:"email,omitempty"`
-	// 钉钉号
-	DingDing *string `json:"ding_ding,omitempty" xml:"ding_ding,omitempty"`
-	// 座机
-	TelePhone *string `json:"tele_phone,omitempty" xml:"tele_phone,omitempty"`
+// 手续费子结构体
+type SubCommissionRule struct {
+	// deduct_token
+	DeductToken *string `json:"deduct_token,omitempty" xml:"deduct_token,omitempty" require:"true"`
+	// deduct_ratio
+	DeductRatio *string `json:"deduct_ratio,omitempty" xml:"deduct_ratio,omitempty" require:"true"`
+	// account_id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
 }
 
-func (s DockingPeopleInfo) String() string {
+func (s SubCommissionRule) String() string {
 	return tea.Prettify(s)
 }
 
-func (s DockingPeopleInfo) GoString() string {
+func (s SubCommissionRule) GoString() string {
 	return s.String()
 }
 
-func (s *DockingPeopleInfo) SetName(v string) *DockingPeopleInfo {
-	s.Name = &v
+func (s *SubCommissionRule) SetDeductToken(v string) *SubCommissionRule {
+	s.DeductToken = &v
 	return s
 }
 
-func (s *DockingPeopleInfo) SetMobilePhone(v string) *DockingPeopleInfo {
-	s.MobilePhone = &v
+func (s *SubCommissionRule) SetDeductRatio(v string) *SubCommissionRule {
+	s.DeductRatio = &v
 	return s
 }
 
-func (s *DockingPeopleInfo) SetPosition(v string) *DockingPeopleInfo {
-	s.Position = &v
-	return s
-}
-
-func (s *DockingPeopleInfo) SetEmail(v string) *DockingPeopleInfo {
-	s.Email = &v
-	return s
-}
-
-func (s *DockingPeopleInfo) SetDingDing(v string) *DockingPeopleInfo {
-	s.DingDing = &v
-	return s
-}
-
-func (s *DockingPeopleInfo) SetTelePhone(v string) *DockingPeopleInfo {
-	s.TelePhone = &v
+func (s *SubCommissionRule) SetAccountId(v string) *SubCommissionRule {
+	s.AccountId = &v
 	return s
 }
 
@@ -640,86 +746,6 @@ func (s *BlockReceipt) SetResult(v int64) *BlockReceipt {
 	return s
 }
 
-// 手续费子结构体
-type SubCommissionRule struct {
-	// deduct_token
-	DeductToken *string `json:"deduct_token,omitempty" xml:"deduct_token,omitempty" require:"true"`
-	// deduct_ratio
-	DeductRatio *string `json:"deduct_ratio,omitempty" xml:"deduct_ratio,omitempty" require:"true"`
-	// account_id
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-}
-
-func (s SubCommissionRule) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SubCommissionRule) GoString() string {
-	return s.String()
-}
-
-func (s *SubCommissionRule) SetDeductToken(v string) *SubCommissionRule {
-	s.DeductToken = &v
-	return s
-}
-
-func (s *SubCommissionRule) SetDeductRatio(v string) *SubCommissionRule {
-	s.DeductRatio = &v
-	return s
-}
-
-func (s *SubCommissionRule) SetAccountId(v string) *SubCommissionRule {
-	s.AccountId = &v
-	return s
-}
-
-// ip的sku信息
-type IpSkuInfo struct {
-	// ip的链上id
-	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
-	// ip的渠道名字
-	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
-	// 售卖的商品价格范围
-	PriceRange *string `json:"price_range,omitempty" xml:"price_range,omitempty" require:"true"`
-	// ip售卖单价
-	PurchasePrice *string `json:"purchase_price,omitempty" xml:"purchase_price,omitempty" require:"true"`
-	// 套餐中ip的数量
-	SaleNum *string `json:"sale_num,omitempty" xml:"sale_num,omitempty" require:"true"`
-}
-
-func (s IpSkuInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IpSkuInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IpSkuInfo) SetIpId(v string) *IpSkuInfo {
-	s.IpId = &v
-	return s
-}
-
-func (s *IpSkuInfo) SetChannelName(v string) *IpSkuInfo {
-	s.ChannelName = &v
-	return s
-}
-
-func (s *IpSkuInfo) SetPriceRange(v string) *IpSkuInfo {
-	s.PriceRange = &v
-	return s
-}
-
-func (s *IpSkuInfo) SetPurchasePrice(v string) *IpSkuInfo {
-	s.PurchasePrice = &v
-	return s
-}
-
-func (s *IpSkuInfo) SetSaleNum(v string) *IpSkuInfo {
-	s.SaleNum = &v
-	return s
-}
-
 // 商品IP授权信息
 type IPAuthorizationInfo struct {
 	// 授权模式,0普通授权/1独家授权
@@ -760,29 +786,310 @@ func (s *IPAuthorizationInfo) SetAuthorizationRequirement(v string) *IPAuthoriza
 	return s
 }
 
-// 商品规格
-type ProductSpecification struct {
-	// 规格名称
-	SpecificationName *string `json:"specification_name,omitempty" xml:"specification_name,omitempty" require:"true"`
-	// 规格值
-	SpecificationValue *string `json:"specification_value,omitempty" xml:"specification_value,omitempty" require:"true"`
+// Ip正版码信息中Ip相关信息
+type IPCodeIpGoodInfo struct {
+	// IP名称
+	IpName *string `json:"ip_name,omitempty" xml:"ip_name,omitempty" require:"true"`
+	// IP描述
+	IpDescription *string `json:"ip_description,omitempty" xml:"ip_description,omitempty" require:"true"`
+	// IP主图oss地址
+	IpImgUrl *string `json:"ip_img_url,omitempty" xml:"ip_img_url,omitempty" require:"true"`
+	// IP主图，非oss地址，可直接访问的图片地址
+	IpImgUrlTmp *string `json:"ip_img_url_tmp,omitempty" xml:"ip_img_url_tmp,omitempty"`
 }
 
-func (s ProductSpecification) String() string {
+func (s IPCodeIpGoodInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ProductSpecification) GoString() string {
+func (s IPCodeIpGoodInfo) GoString() string {
 	return s.String()
 }
 
-func (s *ProductSpecification) SetSpecificationName(v string) *ProductSpecification {
-	s.SpecificationName = &v
+func (s *IPCodeIpGoodInfo) SetIpName(v string) *IPCodeIpGoodInfo {
+	s.IpName = &v
 	return s
 }
 
-func (s *ProductSpecification) SetSpecificationValue(v string) *ProductSpecification {
-	s.SpecificationValue = &v
+func (s *IPCodeIpGoodInfo) SetIpDescription(v string) *IPCodeIpGoodInfo {
+	s.IpDescription = &v
+	return s
+}
+
+func (s *IPCodeIpGoodInfo) SetIpImgUrl(v string) *IPCodeIpGoodInfo {
+	s.IpImgUrl = &v
+	return s
+}
+
+func (s *IPCodeIpGoodInfo) SetIpImgUrlTmp(v string) *IPCodeIpGoodInfo {
+	s.IpImgUrlTmp = &v
+	return s
+}
+
+// 正版码版权方信息
+type IPCodeIpOwnerInfo struct {
+	// 版权所有者名称
+	IpOwnerName *string `json:"ip_owner_name,omitempty" xml:"ip_owner_name,omitempty"`
+	// 版权方头像oss地址
+	IpOwnerImage *string `json:"ip_owner_image,omitempty" xml:"ip_owner_image,omitempty"`
+	// 版权方头像，临时访问地址，可直接访问
+	IpOwnerImageTmp *string `json:"ip_owner_image_tmp,omitempty" xml:"ip_owner_image_tmp,omitempty"`
+	// ip描述
+	IpDescription *string `json:"ip_description,omitempty" xml:"ip_description,omitempty"`
+	// 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息
+	IpOwnerType *int64 `json:"ip_owner_type,omitempty" xml:"ip_owner_type,omitempty"`
+}
+
+func (s IPCodeIpOwnerInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPCodeIpOwnerInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPCodeIpOwnerInfo) SetIpOwnerName(v string) *IPCodeIpOwnerInfo {
+	s.IpOwnerName = &v
+	return s
+}
+
+func (s *IPCodeIpOwnerInfo) SetIpOwnerImage(v string) *IPCodeIpOwnerInfo {
+	s.IpOwnerImage = &v
+	return s
+}
+
+func (s *IPCodeIpOwnerInfo) SetIpOwnerImageTmp(v string) *IPCodeIpOwnerInfo {
+	s.IpOwnerImageTmp = &v
+	return s
+}
+
+func (s *IPCodeIpOwnerInfo) SetIpDescription(v string) *IPCodeIpOwnerInfo {
+	s.IpDescription = &v
+	return s
+}
+
+func (s *IPCodeIpOwnerInfo) SetIpOwnerType(v int64) *IPCodeIpOwnerInfo {
+	s.IpOwnerType = &v
+	return s
+}
+
+// IP授权服务: ContactInfo
+type IPContactInfo struct {
+	// 联系人姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 联系人手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 联系人电话号码
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
+	// 联系人类型, 1-法人；2-实际控制人；3-代理人；4-其他
+	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 联系人身份证号
+	Certno *string `json:"certno,omitempty" xml:"certno,omitempty"`
+	// 联系人证件类型
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+}
+
+func (s IPContactInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPContactInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPContactInfo) SetName(v string) *IPContactInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *IPContactInfo) SetMobile(v string) *IPContactInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *IPContactInfo) SetPhone(v string) *IPContactInfo {
+	s.Phone = &v
+	return s
+}
+
+func (s *IPContactInfo) SetType(v int64) *IPContactInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *IPContactInfo) SetCertno(v string) *IPContactInfo {
+	s.Certno = &v
+	return s
+}
+
+func (s *IPContactInfo) SetCertType(v string) *IPContactInfo {
+	s.CertType = &v
+	return s
+}
+
+// ip的渠道信息带上sku信息
+type IpChannelWithSku struct {
+	// 渠道名字
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
+	// 授权模式 商品授权 0普通授权/1独家授权 本期只有0
+	//
+	AuthorizationMode *int64 `json:"authorization_mode,omitempty" xml:"authorization_mode,omitempty" require:"true"`
+	// 新授权模式，0普通授权，1独家授权，支持多选
+	NewAuthorizationModel []*int64 `json:"new_authorization_model,omitempty" xml:"new_authorization_model,omitempty" type:"Repeated"`
+	// 计费模式 0:按量 1:按金额
+	//
+	PayMode *int64 `json:"pay_mode,omitempty" xml:"pay_mode,omitempty" require:"true"`
+	// ip等级  0:经典IP/1:流量IP/2:设计IP
+	IpLevel *int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty" require:"true"`
+	// sku信息
+	SkuInfo []*IpSkuInfo `json:"sku_info,omitempty" xml:"sku_info,omitempty" require:"true" type:"Repeated"`
+	// 商品状态（0:待上架，1:上架，2:下架）
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 交易是否需要确认
+	TradeNeedConfirm *bool `json:"trade_need_confirm,omitempty" xml:"trade_need_confirm,omitempty"`
+	// 授权类型
+	AuthorizationType []*string `json:"authorization_type,omitempty" xml:"authorization_type,omitempty" type:"Repeated"`
+	// 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
+	GuaranteeRange *int64 `json:"guarantee_range,omitempty" xml:"guarantee_range,omitempty"`
+	// 交易模式
+	IpTradeMode *IPTradeMode `json:"ip_trade_mode,omitempty" xml:"ip_trade_mode,omitempty"`
+	// 授权行业
+	AuthorizationIndustry []*string `json:"authorization_industry,omitempty" xml:"authorization_industry,omitempty" type:"Repeated"`
+}
+
+func (s IpChannelWithSku) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IpChannelWithSku) GoString() string {
+	return s.String()
+}
+
+func (s *IpChannelWithSku) SetChannelName(v string) *IpChannelWithSku {
+	s.ChannelName = &v
+	return s
+}
+
+func (s *IpChannelWithSku) SetAuthorizationMode(v int64) *IpChannelWithSku {
+	s.AuthorizationMode = &v
+	return s
+}
+
+func (s *IpChannelWithSku) SetNewAuthorizationModel(v []*int64) *IpChannelWithSku {
+	s.NewAuthorizationModel = v
+	return s
+}
+
+func (s *IpChannelWithSku) SetPayMode(v int64) *IpChannelWithSku {
+	s.PayMode = &v
+	return s
+}
+
+func (s *IpChannelWithSku) SetIpLevel(v int64) *IpChannelWithSku {
+	s.IpLevel = &v
+	return s
+}
+
+func (s *IpChannelWithSku) SetSkuInfo(v []*IpSkuInfo) *IpChannelWithSku {
+	s.SkuInfo = v
+	return s
+}
+
+func (s *IpChannelWithSku) SetStatus(v int64) *IpChannelWithSku {
+	s.Status = &v
+	return s
+}
+
+func (s *IpChannelWithSku) SetTradeNeedConfirm(v bool) *IpChannelWithSku {
+	s.TradeNeedConfirm = &v
+	return s
+}
+
+func (s *IpChannelWithSku) SetAuthorizationType(v []*string) *IpChannelWithSku {
+	s.AuthorizationType = v
+	return s
+}
+
+func (s *IpChannelWithSku) SetGuaranteeRange(v int64) *IpChannelWithSku {
+	s.GuaranteeRange = &v
+	return s
+}
+
+func (s *IpChannelWithSku) SetIpTradeMode(v *IPTradeMode) *IpChannelWithSku {
+	s.IpTradeMode = v
+	return s
+}
+
+func (s *IpChannelWithSku) SetAuthorizationIndustry(v []*string) *IpChannelWithSku {
+	s.AuthorizationIndustry = v
+	return s
+}
+
+// 权益附属信息
+type EquityExtInfo struct {
+	// 指定兑换日限制已使用
+	LimitPerDayUsed *int64 `json:"limit_per_day_used,omitempty" xml:"limit_per_day_used,omitempty" require:"true"`
+	// 指定兑换月限制已使用
+	LimitPerMonthUsed *int64 `json:"limit_per_month_used,omitempty" xml:"limit_per_month_used,omitempty" require:"true"`
+	// 权益开放的租户ID
+	OpenToTenantId *string `json:"open_to_tenant_id,omitempty" xml:"open_to_tenant_id,omitempty" require:"true"`
+	// 指定日期
+	TargetDate *string `json:"target_date,omitempty" xml:"target_date,omitempty" require:"true"`
+	// 权益对租户价格
+	TenantPrice *string `json:"tenant_price,omitempty" xml:"tenant_price,omitempty" require:"true"`
+	// 授权给租户用户的价格
+	TenantUserPrice *UserPrice `json:"tenant_user_price,omitempty" xml:"tenant_user_price,omitempty" require:"true"`
+	// 租户价格包括费率
+	TenantPriceWithCommission *string `json:"tenant_price_with_commission,omitempty" xml:"tenant_price_with_commission,omitempty" require:"true"`
+	// 费率
+	Commission *string `json:"commission,omitempty" xml:"commission,omitempty" require:"true"`
+}
+
+func (s EquityExtInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EquityExtInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EquityExtInfo) SetLimitPerDayUsed(v int64) *EquityExtInfo {
+	s.LimitPerDayUsed = &v
+	return s
+}
+
+func (s *EquityExtInfo) SetLimitPerMonthUsed(v int64) *EquityExtInfo {
+	s.LimitPerMonthUsed = &v
+	return s
+}
+
+func (s *EquityExtInfo) SetOpenToTenantId(v string) *EquityExtInfo {
+	s.OpenToTenantId = &v
+	return s
+}
+
+func (s *EquityExtInfo) SetTargetDate(v string) *EquityExtInfo {
+	s.TargetDate = &v
+	return s
+}
+
+func (s *EquityExtInfo) SetTenantPrice(v string) *EquityExtInfo {
+	s.TenantPrice = &v
+	return s
+}
+
+func (s *EquityExtInfo) SetTenantUserPrice(v *UserPrice) *EquityExtInfo {
+	s.TenantUserPrice = v
+	return s
+}
+
+func (s *EquityExtInfo) SetTenantPriceWithCommission(v string) *EquityExtInfo {
+	s.TenantPriceWithCommission = &v
+	return s
+}
+
+func (s *EquityExtInfo) SetCommission(v string) *EquityExtInfo {
+	s.Commission = &v
 	return s
 }
 
@@ -896,71 +1203,341 @@ func (s *IPCodeGoodsInfo) SetIsDisplayBatchdata(v bool) *IPCodeGoodsInfo {
 	return s
 }
 
-// 权益附属信息
-type EquityExtInfo struct {
-	// 指定兑换日限制已使用
-	LimitPerDayUsed *int64 `json:"limit_per_day_used,omitempty" xml:"limit_per_day_used,omitempty" require:"true"`
-	// 指定兑换月限制已使用
-	LimitPerMonthUsed *int64 `json:"limit_per_month_used,omitempty" xml:"limit_per_month_used,omitempty" require:"true"`
-	// 权益开放的租户ID
-	OpenToTenantId *string `json:"open_to_tenant_id,omitempty" xml:"open_to_tenant_id,omitempty" require:"true"`
-	// 指定日期
-	TargetDate *string `json:"target_date,omitempty" xml:"target_date,omitempty" require:"true"`
-	// 权益对租户价格
-	TenantPrice *string `json:"tenant_price,omitempty" xml:"tenant_price,omitempty" require:"true"`
-	// 授权给租户用户的价格
-	TenantUserPrice *UserPrice `json:"tenant_user_price,omitempty" xml:"tenant_user_price,omitempty" require:"true"`
-	// 租户价格包括费率
-	TenantPriceWithCommission *string `json:"tenant_price_with_commission,omitempty" xml:"tenant_price_with_commission,omitempty" require:"true"`
-	// 费率
-	Commission *string `json:"commission,omitempty" xml:"commission,omitempty" require:"true"`
+// 区块头
+type BlockHeader struct {
+	// gas总消耗
+	GasUsed *int64 `json:"gas_used,omitempty" xml:"gas_used,omitempty" require:"true"`
+	// 十六进制区块哈希值
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty" require:"true"`
+	// log bloom
+	LogBloom *string `json:"log_bloom,omitempty" xml:"log_bloom,omitempty" require:"true"`
+	// 区块高度
+	Number *int64 `json:"number,omitempty" xml:"number,omitempty" require:"true"`
+	// 十六进制区块父hash
+	ParentHash *string `json:"parent_hash,omitempty" xml:"parent_hash,omitempty" require:"true"`
+	// 交易单据树根
+	ReceiptRoot *string `json:"receipt_root,omitempty" xml:"receipt_root,omitempty" require:"true"`
+	// 状态树根
+	StateRoot *string `json:"state_root,omitempty" xml:"state_root,omitempty" require:"true"`
+	// 区块时间戳
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// 十六进制交易merkle树根
+	TransactionRoot *string `json:"transaction_root,omitempty" xml:"transaction_root,omitempty" require:"true"`
+	// 区块版本
+	Version *int64 `json:"version,omitempty" xml:"version,omitempty" require:"true"`
 }
 
-func (s EquityExtInfo) String() string {
+func (s BlockHeader) String() string {
 	return tea.Prettify(s)
 }
 
-func (s EquityExtInfo) GoString() string {
+func (s BlockHeader) GoString() string {
 	return s.String()
 }
 
-func (s *EquityExtInfo) SetLimitPerDayUsed(v int64) *EquityExtInfo {
-	s.LimitPerDayUsed = &v
+func (s *BlockHeader) SetGasUsed(v int64) *BlockHeader {
+	s.GasUsed = &v
 	return s
 }
 
-func (s *EquityExtInfo) SetLimitPerMonthUsed(v int64) *EquityExtInfo {
-	s.LimitPerMonthUsed = &v
+func (s *BlockHeader) SetHash(v string) *BlockHeader {
+	s.Hash = &v
 	return s
 }
 
-func (s *EquityExtInfo) SetOpenToTenantId(v string) *EquityExtInfo {
-	s.OpenToTenantId = &v
+func (s *BlockHeader) SetLogBloom(v string) *BlockHeader {
+	s.LogBloom = &v
 	return s
 }
 
-func (s *EquityExtInfo) SetTargetDate(v string) *EquityExtInfo {
-	s.TargetDate = &v
+func (s *BlockHeader) SetNumber(v int64) *BlockHeader {
+	s.Number = &v
 	return s
 }
 
-func (s *EquityExtInfo) SetTenantPrice(v string) *EquityExtInfo {
-	s.TenantPrice = &v
+func (s *BlockHeader) SetParentHash(v string) *BlockHeader {
+	s.ParentHash = &v
 	return s
 }
 
-func (s *EquityExtInfo) SetTenantUserPrice(v *UserPrice) *EquityExtInfo {
-	s.TenantUserPrice = v
+func (s *BlockHeader) SetReceiptRoot(v string) *BlockHeader {
+	s.ReceiptRoot = &v
 	return s
 }
 
-func (s *EquityExtInfo) SetTenantPriceWithCommission(v string) *EquityExtInfo {
-	s.TenantPriceWithCommission = &v
+func (s *BlockHeader) SetStateRoot(v string) *BlockHeader {
+	s.StateRoot = &v
 	return s
 }
 
-func (s *EquityExtInfo) SetCommission(v string) *EquityExtInfo {
-	s.Commission = &v
+func (s *BlockHeader) SetTimestamp(v int64) *BlockHeader {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *BlockHeader) SetTransactionRoot(v string) *BlockHeader {
+	s.TransactionRoot = &v
+	return s
+}
+
+func (s *BlockHeader) SetVersion(v int64) *BlockHeader {
+	s.Version = &v
+	return s
+}
+
+// 信用钱包信息
+type CreditWallet struct {
+	// 最大授信额度(单位:元,精确到小数点后4位)
+	MaxBalance *string `json:"max_balance,omitempty" xml:"max_balance,omitempty" require:"true"`
+	// 已经使用的授信额度(单位:元,精确到小数点后4位)
+	UsedBalance *string `json:"used_balance,omitempty" xml:"used_balance,omitempty" require:"true"`
+	// 钱包类型（0:debit,1:credit）
+	WalletType *int64 `json:"wallet_type,omitempty" xml:"wallet_type,omitempty" require:"true"`
+	// 资金管理员
+	FundManagerId *string `json:"fund_manager_id,omitempty" xml:"fund_manager_id,omitempty" require:"true"`
+	// 资金托管员
+	TrusteeId *string `json:"trustee_id,omitempty" xml:"trustee_id,omitempty" require:"true"`
+	// 其他信息（例举：联行号）
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+}
+
+func (s CreditWallet) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreditWallet) GoString() string {
+	return s.String()
+}
+
+func (s *CreditWallet) SetMaxBalance(v string) *CreditWallet {
+	s.MaxBalance = &v
+	return s
+}
+
+func (s *CreditWallet) SetUsedBalance(v string) *CreditWallet {
+	s.UsedBalance = &v
+	return s
+}
+
+func (s *CreditWallet) SetWalletType(v int64) *CreditWallet {
+	s.WalletType = &v
+	return s
+}
+
+func (s *CreditWallet) SetFundManagerId(v string) *CreditWallet {
+	s.FundManagerId = &v
+	return s
+}
+
+func (s *CreditWallet) SetTrusteeId(v string) *CreditWallet {
+	s.TrusteeId = &v
+	return s
+}
+
+func (s *CreditWallet) SetExtInfo(v string) *CreditWallet {
+	s.ExtInfo = &v
+	return s
+}
+
+// 消费卡交易信息附加数据
+type MetaDataDO struct {
+	// key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s MetaDataDO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MetaDataDO) GoString() string {
+	return s.String()
+}
+
+func (s *MetaDataDO) SetKey(v string) *MetaDataDO {
+	s.Key = &v
+	return s
+}
+
+func (s *MetaDataDO) SetValue(v string) *MetaDataDO {
+	s.Value = &v
+	return s
+}
+
+// 区块体
+type BlockBody struct {
+	// 区块共识证明(HEX)
+	ConsensusProof *string `json:"consensus_proof,omitempty" xml:"consensus_proof,omitempty" require:"true"`
+	// 区块中交易回执列表
+	ReceiptList []*BlockReceipt `json:"receipt_list,omitempty" xml:"receipt_list,omitempty" require:"true" type:"Repeated"`
+	// 区块中交易列表
+	TransactionList []*BlockTransaction `json:"transaction_list,omitempty" xml:"transaction_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BlockBody) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BlockBody) GoString() string {
+	return s.String()
+}
+
+func (s *BlockBody) SetConsensusProof(v string) *BlockBody {
+	s.ConsensusProof = &v
+	return s
+}
+
+func (s *BlockBody) SetReceiptList(v []*BlockReceipt) *BlockBody {
+	s.ReceiptList = v
+	return s
+}
+
+func (s *BlockBody) SetTransactionList(v []*BlockTransaction) *BlockBody {
+	s.TransactionList = v
+	return s
+}
+
+// 权益详情
+type EquityDetail struct {
+	// 权益描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 权益描述图片OSS地址（分号;分隔）
+	DescImages *string `json:"desc_images,omitempty" xml:"desc_images,omitempty" require:"true"`
+	// 权益ID
+	EquityId *string `json:"equity_id,omitempty" xml:"equity_id,omitempty" require:"true"`
+	// 权益名称
+	EquityName *string `json:"equity_name,omitempty" xml:"equity_name,omitempty" require:"true"`
+	// 权益类型
+	EquityType *string `json:"equity_type,omitempty" xml:"equity_type,omitempty" require:"true"`
+	// 权益面值(元)
+	EquityValue *string `json:"equity_value,omitempty" xml:"equity_value,omitempty" require:"true"`
+	// 权益主图片OSS地址（分号;分隔）
+	Images *string `json:"images,omitempty" xml:"images,omitempty" require:"true"`
+	// 对客价(元)
+	Price *string `json:"price,omitempty" xml:"price,omitempty" require:"true"`
+	// 权益SKU
+	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty" require:"true"`
+}
+
+func (s EquityDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EquityDetail) GoString() string {
+	return s.String()
+}
+
+func (s *EquityDetail) SetDescription(v string) *EquityDetail {
+	s.Description = &v
+	return s
+}
+
+func (s *EquityDetail) SetDescImages(v string) *EquityDetail {
+	s.DescImages = &v
+	return s
+}
+
+func (s *EquityDetail) SetEquityId(v string) *EquityDetail {
+	s.EquityId = &v
+	return s
+}
+
+func (s *EquityDetail) SetEquityName(v string) *EquityDetail {
+	s.EquityName = &v
+	return s
+}
+
+func (s *EquityDetail) SetEquityType(v string) *EquityDetail {
+	s.EquityType = &v
+	return s
+}
+
+func (s *EquityDetail) SetEquityValue(v string) *EquityDetail {
+	s.EquityValue = &v
+	return s
+}
+
+func (s *EquityDetail) SetImages(v string) *EquityDetail {
+	s.Images = &v
+	return s
+}
+
+func (s *EquityDetail) SetPrice(v string) *EquityDetail {
+	s.Price = &v
+	return s
+}
+
+func (s *EquityDetail) SetSkuId(v string) *EquityDetail {
+	s.SkuId = &v
+	return s
+}
+
+// 手续费周期
+type CommissionPeriod struct {
+	// 手续费费率
+	DeductRatio *string `json:"deduct_ratio,omitempty" xml:"deduct_ratio,omitempty" require:"true"`
+	// 手续费子结构
+	SubCommissionRules []*SubCommissionRule `json:"sub_commission_rules,omitempty" xml:"sub_commission_rules,omitempty" require:"true" type:"Repeated"`
+	// 买家的历史统计做阶梯计费，最多50个
+	MerchantLayers []*CommissionLayer `json:"merchant_layers,omitempty" xml:"merchant_layers,omitempty" require:"true" type:"Repeated"`
+	// 商品阶梯
+	GoodsLayers []*CommissionLayer `json:"goods_layers,omitempty" xml:"goods_layers,omitempty" require:"true" type:"Repeated"`
+	// 手续费开始时间（无结束时间）
+	StartTimeMills *int64 `json:"start_time_mills,omitempty" xml:"start_time_mills,omitempty" require:"true"`
+	// 0: txcount（成功的交易）; 1: 累计交易金额; 2:累计手续费; 3：单笔金额, ...
+	LayerType *int64 `json:"layer_type,omitempty" xml:"layer_type,omitempty" require:"true"`
+	// 分层的周期，（0是月，1是日，2是年（这期不用，需要设置一下）, 3是季度）
+	CounterTimeType *int64 `json:"counter_time_type,omitempty" xml:"counter_time_type,omitempty" require:"true"`
+	// 商品固定费用
+	DeductToken *string `json:"deduct_token,omitempty" xml:"deduct_token,omitempty" require:"true"`
+}
+
+func (s CommissionPeriod) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommissionPeriod) GoString() string {
+	return s.String()
+}
+
+func (s *CommissionPeriod) SetDeductRatio(v string) *CommissionPeriod {
+	s.DeductRatio = &v
+	return s
+}
+
+func (s *CommissionPeriod) SetSubCommissionRules(v []*SubCommissionRule) *CommissionPeriod {
+	s.SubCommissionRules = v
+	return s
+}
+
+func (s *CommissionPeriod) SetMerchantLayers(v []*CommissionLayer) *CommissionPeriod {
+	s.MerchantLayers = v
+	return s
+}
+
+func (s *CommissionPeriod) SetGoodsLayers(v []*CommissionLayer) *CommissionPeriod {
+	s.GoodsLayers = v
+	return s
+}
+
+func (s *CommissionPeriod) SetStartTimeMills(v int64) *CommissionPeriod {
+	s.StartTimeMills = &v
+	return s
+}
+
+func (s *CommissionPeriod) SetLayerType(v int64) *CommissionPeriod {
+	s.LayerType = &v
+	return s
+}
+
+func (s *CommissionPeriod) SetCounterTimeType(v int64) *CommissionPeriod {
+	s.CounterTimeType = &v
+	return s
+}
+
+func (s *CommissionPeriod) SetDeductToken(v string) *CommissionPeriod {
+	s.DeductToken = &v
 	return s
 }
 
@@ -1018,69 +1595,132 @@ func (s *IPOrderGoods) SetNick(v string) *IPOrderGoods {
 	return s
 }
 
-// Ip正版码信息中Ip相关信息
-type IPCodeIpGoodInfo struct {
-	// IP名称
-	IpName *string `json:"ip_name,omitempty" xml:"ip_name,omitempty" require:"true"`
-	// IP描述
-	IpDescription *string `json:"ip_description,omitempty" xml:"ip_description,omitempty" require:"true"`
-	// IP主图oss地址
-	IpImgUrl *string `json:"ip_img_url,omitempty" xml:"ip_img_url,omitempty" require:"true"`
-	// IP主图，非oss地址，可直接访问的图片地址
-	IpImgUrlTmp *string `json:"ip_img_url_tmp,omitempty" xml:"ip_img_url_tmp,omitempty"`
+// 正版码配置资源位信息
+type IPCodeAdvertisingInfo struct {
+	// 资源位头图
+	AdImage *string `json:"ad_image,omitempty" xml:"ad_image,omitempty"`
+	// 资源位头图可直接访问的临时链接
+	AdImageTmp *string `json:"ad_image_tmp,omitempty" xml:"ad_image_tmp,omitempty"`
+	// 资源位链接
+	AdUrl *string `json:"ad_url,omitempty" xml:"ad_url,omitempty"`
+	// 资源商品名称
+	AdName *string `json:"ad_name,omitempty" xml:"ad_name,omitempty"`
+	// 广告位类型，为空时代表是商品广告位，Resource时代表是资源位
+	AdType *string `json:"ad_type,omitempty" xml:"ad_type,omitempty"`
+	// 展示有效期开始时间
+	AdValidBeginTime *string `json:"ad_valid_begin_time,omitempty" xml:"ad_valid_begin_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 展示有效期结束时间
+	AdValidEndTime *string `json:"ad_valid_end_time,omitempty" xml:"ad_valid_end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
-func (s IPCodeIpGoodInfo) String() string {
+func (s IPCodeAdvertisingInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s IPCodeIpGoodInfo) GoString() string {
+func (s IPCodeAdvertisingInfo) GoString() string {
 	return s.String()
 }
 
-func (s *IPCodeIpGoodInfo) SetIpName(v string) *IPCodeIpGoodInfo {
-	s.IpName = &v
+func (s *IPCodeAdvertisingInfo) SetAdImage(v string) *IPCodeAdvertisingInfo {
+	s.AdImage = &v
 	return s
 }
 
-func (s *IPCodeIpGoodInfo) SetIpDescription(v string) *IPCodeIpGoodInfo {
-	s.IpDescription = &v
+func (s *IPCodeAdvertisingInfo) SetAdImageTmp(v string) *IPCodeAdvertisingInfo {
+	s.AdImageTmp = &v
 	return s
 }
 
-func (s *IPCodeIpGoodInfo) SetIpImgUrl(v string) *IPCodeIpGoodInfo {
-	s.IpImgUrl = &v
+func (s *IPCodeAdvertisingInfo) SetAdUrl(v string) *IPCodeAdvertisingInfo {
+	s.AdUrl = &v
 	return s
 }
 
-func (s *IPCodeIpGoodInfo) SetIpImgUrlTmp(v string) *IPCodeIpGoodInfo {
-	s.IpImgUrlTmp = &v
+func (s *IPCodeAdvertisingInfo) SetAdName(v string) *IPCodeAdvertisingInfo {
+	s.AdName = &v
 	return s
 }
 
-// 消费卡交易信息附加数据
-type MetaDataDO struct {
-	// key
-	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
-	// value
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+func (s *IPCodeAdvertisingInfo) SetAdType(v string) *IPCodeAdvertisingInfo {
+	s.AdType = &v
+	return s
 }
 
-func (s MetaDataDO) String() string {
+func (s *IPCodeAdvertisingInfo) SetAdValidBeginTime(v string) *IPCodeAdvertisingInfo {
+	s.AdValidBeginTime = &v
+	return s
+}
+
+func (s *IPCodeAdvertisingInfo) SetAdValidEndTime(v string) *IPCodeAdvertisingInfo {
+	s.AdValidEndTime = &v
+	return s
+}
+
+// IP授权服务: CardInfo
+type IPCardInfo struct {
+	// 卡户名
+	AccountHolderName *string `json:"account_holder_name,omitempty" xml:"account_holder_name,omitempty" require:"true"`
+	// 卡号
+	AccountNo *string `json:"account_no,omitempty" xml:"account_no,omitempty" require:"true"`
+	// 银行名称
+	AccountInstName *string `json:"account_inst_name,omitempty" xml:"account_inst_name,omitempty" require:"true"`
+	// 银行缩写
+	AccountInstId *string `json:"account_inst_id,omitempty" xml:"account_inst_id,omitempty" require:"true"`
+	// 联行号
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty"`
+	// 开户行所在省份
+	AccountInstProvince *string `json:"account_inst_province,omitempty" xml:"account_inst_province,omitempty" require:"true"`
+	// 开户行所在城市
+	AccountInstCity *string `json:"account_inst_city,omitempty" xml:"account_inst_city,omitempty" require:"true"`
+	// 开户行支行名称
+	AccountBranchName *string `json:"account_branch_name,omitempty" xml:"account_branch_name,omitempty" require:"true"`
+}
+
+func (s IPCardInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s MetaDataDO) GoString() string {
+func (s IPCardInfo) GoString() string {
 	return s.String()
 }
 
-func (s *MetaDataDO) SetKey(v string) *MetaDataDO {
-	s.Key = &v
+func (s *IPCardInfo) SetAccountHolderName(v string) *IPCardInfo {
+	s.AccountHolderName = &v
 	return s
 }
 
-func (s *MetaDataDO) SetValue(v string) *MetaDataDO {
-	s.Value = &v
+func (s *IPCardInfo) SetAccountNo(v string) *IPCardInfo {
+	s.AccountNo = &v
+	return s
+}
+
+func (s *IPCardInfo) SetAccountInstName(v string) *IPCardInfo {
+	s.AccountInstName = &v
+	return s
+}
+
+func (s *IPCardInfo) SetAccountInstId(v string) *IPCardInfo {
+	s.AccountInstId = &v
+	return s
+}
+
+func (s *IPCardInfo) SetBankCode(v string) *IPCardInfo {
+	s.BankCode = &v
+	return s
+}
+
+func (s *IPCardInfo) SetAccountInstProvince(v string) *IPCardInfo {
+	s.AccountInstProvince = &v
+	return s
+}
+
+func (s *IPCardInfo) SetAccountInstCity(v string) *IPCardInfo {
+	s.AccountInstCity = &v
+	return s
+}
+
+func (s *IPCardInfo) SetAccountBranchName(v string) *IPCardInfo {
+	s.AccountBranchName = &v
 	return s
 }
 
@@ -1166,442 +1806,36 @@ func (s *DebitWallet) SetWalletType(v int64) *DebitWallet {
 	return s
 }
 
-// sku的基础信息
-type IpSkuEmphasisInfo struct {
-	// 价格区间，不做校验
-	PriceRange *string `json:"price_range,omitempty" xml:"price_range,omitempty" require:"true"`
-	// 单价
-	PurchasePrice *string `json:"purchase_price,omitempty" xml:"purchase_price,omitempty" require:"true"`
-	// 套餐数量
-	SaleNum *string `json:"sale_num,omitempty" xml:"sale_num,omitempty" require:"true"`
+// 申请授权合作的备注信息
+type IPOrderApplyInfo struct {
+	// 授权合作商品
+	AuthGoods *string `json:"auth_goods,omitempty" xml:"auth_goods,omitempty" require:"true"`
+	// 销售规模数量
+	SalesAmount *int64 `json:"sales_amount,omitempty" xml:"sales_amount,omitempty" require:"true"`
+	// 销售规模金额
+	SalesNumber *string `json:"sales_number,omitempty" xml:"sales_number,omitempty" require:"true"`
 }
 
-func (s IpSkuEmphasisInfo) String() string {
+func (s IPOrderApplyInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s IpSkuEmphasisInfo) GoString() string {
+func (s IPOrderApplyInfo) GoString() string {
 	return s.String()
 }
 
-func (s *IpSkuEmphasisInfo) SetPriceRange(v string) *IpSkuEmphasisInfo {
-	s.PriceRange = &v
+func (s *IPOrderApplyInfo) SetAuthGoods(v string) *IPOrderApplyInfo {
+	s.AuthGoods = &v
 	return s
 }
 
-func (s *IpSkuEmphasisInfo) SetPurchasePrice(v string) *IpSkuEmphasisInfo {
-	s.PurchasePrice = &v
+func (s *IPOrderApplyInfo) SetSalesAmount(v int64) *IPOrderApplyInfo {
+	s.SalesAmount = &v
 	return s
 }
 
-func (s *IpSkuEmphasisInfo) SetSaleNum(v string) *IpSkuEmphasisInfo {
-	s.SaleNum = &v
-	return s
-}
-
-// 信用钱包信息
-type CreditWallet struct {
-	// 最大授信额度(单位:元,精确到小数点后4位)
-	MaxBalance *string `json:"max_balance,omitempty" xml:"max_balance,omitempty" require:"true"`
-	// 已经使用的授信额度(单位:元,精确到小数点后4位)
-	UsedBalance *string `json:"used_balance,omitempty" xml:"used_balance,omitempty" require:"true"`
-	// 钱包类型（0:debit,1:credit）
-	WalletType *int64 `json:"wallet_type,omitempty" xml:"wallet_type,omitempty" require:"true"`
-	// 资金管理员
-	FundManagerId *string `json:"fund_manager_id,omitempty" xml:"fund_manager_id,omitempty" require:"true"`
-	// 资金托管员
-	TrusteeId *string `json:"trustee_id,omitempty" xml:"trustee_id,omitempty" require:"true"`
-	// 其他信息（例举：联行号）
-	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
-}
-
-func (s CreditWallet) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreditWallet) GoString() string {
-	return s.String()
-}
-
-func (s *CreditWallet) SetMaxBalance(v string) *CreditWallet {
-	s.MaxBalance = &v
-	return s
-}
-
-func (s *CreditWallet) SetUsedBalance(v string) *CreditWallet {
-	s.UsedBalance = &v
-	return s
-}
-
-func (s *CreditWallet) SetWalletType(v int64) *CreditWallet {
-	s.WalletType = &v
-	return s
-}
-
-func (s *CreditWallet) SetFundManagerId(v string) *CreditWallet {
-	s.FundManagerId = &v
-	return s
-}
-
-func (s *CreditWallet) SetTrusteeId(v string) *CreditWallet {
-	s.TrusteeId = &v
-	return s
-}
-
-func (s *CreditWallet) SetExtInfo(v string) *CreditWallet {
-	s.ExtInfo = &v
-	return s
-}
-
-// 权益详情
-type EquityDetail struct {
-	// 权益描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// 权益描述图片OSS地址（分号;分隔）
-	DescImages *string `json:"desc_images,omitempty" xml:"desc_images,omitempty" require:"true"`
-	// 权益ID
-	EquityId *string `json:"equity_id,omitempty" xml:"equity_id,omitempty" require:"true"`
-	// 权益名称
-	EquityName *string `json:"equity_name,omitempty" xml:"equity_name,omitempty" require:"true"`
-	// 权益类型
-	EquityType *string `json:"equity_type,omitempty" xml:"equity_type,omitempty" require:"true"`
-	// 权益面值(元)
-	EquityValue *string `json:"equity_value,omitempty" xml:"equity_value,omitempty" require:"true"`
-	// 权益主图片OSS地址（分号;分隔）
-	Images *string `json:"images,omitempty" xml:"images,omitempty" require:"true"`
-	// 对客价(元)
-	Price *string `json:"price,omitempty" xml:"price,omitempty" require:"true"`
-	// 权益SKU
-	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty" require:"true"`
-}
-
-func (s EquityDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s EquityDetail) GoString() string {
-	return s.String()
-}
-
-func (s *EquityDetail) SetDescription(v string) *EquityDetail {
-	s.Description = &v
-	return s
-}
-
-func (s *EquityDetail) SetDescImages(v string) *EquityDetail {
-	s.DescImages = &v
-	return s
-}
-
-func (s *EquityDetail) SetEquityId(v string) *EquityDetail {
-	s.EquityId = &v
-	return s
-}
-
-func (s *EquityDetail) SetEquityName(v string) *EquityDetail {
-	s.EquityName = &v
-	return s
-}
-
-func (s *EquityDetail) SetEquityType(v string) *EquityDetail {
-	s.EquityType = &v
-	return s
-}
-
-func (s *EquityDetail) SetEquityValue(v string) *EquityDetail {
-	s.EquityValue = &v
-	return s
-}
-
-func (s *EquityDetail) SetImages(v string) *EquityDetail {
-	s.Images = &v
-	return s
-}
-
-func (s *EquityDetail) SetPrice(v string) *EquityDetail {
-	s.Price = &v
-	return s
-}
-
-func (s *EquityDetail) SetSkuId(v string) *EquityDetail {
-	s.SkuId = &v
-	return s
-}
-
-// IP授权服务: ContactInfo
-type IPContactInfo struct {
-	// 联系人姓名
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 联系人手机号码
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
-	// 联系人电话号码
-	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
-	// 联系人类型, 1-法人；2-实际控制人；3-代理人；4-其他
-	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 联系人身份证号
-	Certno *string `json:"certno,omitempty" xml:"certno,omitempty"`
-	// 联系人证件类型
-	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
-}
-
-func (s IPContactInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPContactInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IPContactInfo) SetName(v string) *IPContactInfo {
-	s.Name = &v
-	return s
-}
-
-func (s *IPContactInfo) SetMobile(v string) *IPContactInfo {
-	s.Mobile = &v
-	return s
-}
-
-func (s *IPContactInfo) SetPhone(v string) *IPContactInfo {
-	s.Phone = &v
-	return s
-}
-
-func (s *IPContactInfo) SetType(v int64) *IPContactInfo {
-	s.Type = &v
-	return s
-}
-
-func (s *IPContactInfo) SetCertno(v string) *IPContactInfo {
-	s.Certno = &v
-	return s
-}
-
-func (s *IPContactInfo) SetCertType(v string) *IPContactInfo {
-	s.CertType = &v
-	return s
-}
-
-// 区块头
-type BlockHeader struct {
-	// gas总消耗
-	GasUsed *int64 `json:"gas_used,omitempty" xml:"gas_used,omitempty" require:"true"`
-	// 十六进制区块哈希值
-	Hash *string `json:"hash,omitempty" xml:"hash,omitempty" require:"true"`
-	// log bloom
-	LogBloom *string `json:"log_bloom,omitempty" xml:"log_bloom,omitempty" require:"true"`
-	// 区块高度
-	Number *int64 `json:"number,omitempty" xml:"number,omitempty" require:"true"`
-	// 十六进制区块父hash
-	ParentHash *string `json:"parent_hash,omitempty" xml:"parent_hash,omitempty" require:"true"`
-	// 交易单据树根
-	ReceiptRoot *string `json:"receipt_root,omitempty" xml:"receipt_root,omitempty" require:"true"`
-	// 状态树根
-	StateRoot *string `json:"state_root,omitempty" xml:"state_root,omitempty" require:"true"`
-	// 区块时间戳
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
-	// 十六进制交易merkle树根
-	TransactionRoot *string `json:"transaction_root,omitempty" xml:"transaction_root,omitempty" require:"true"`
-	// 区块版本
-	Version *int64 `json:"version,omitempty" xml:"version,omitempty" require:"true"`
-}
-
-func (s BlockHeader) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BlockHeader) GoString() string {
-	return s.String()
-}
-
-func (s *BlockHeader) SetGasUsed(v int64) *BlockHeader {
-	s.GasUsed = &v
-	return s
-}
-
-func (s *BlockHeader) SetHash(v string) *BlockHeader {
-	s.Hash = &v
-	return s
-}
-
-func (s *BlockHeader) SetLogBloom(v string) *BlockHeader {
-	s.LogBloom = &v
-	return s
-}
-
-func (s *BlockHeader) SetNumber(v int64) *BlockHeader {
-	s.Number = &v
-	return s
-}
-
-func (s *BlockHeader) SetParentHash(v string) *BlockHeader {
-	s.ParentHash = &v
-	return s
-}
-
-func (s *BlockHeader) SetReceiptRoot(v string) *BlockHeader {
-	s.ReceiptRoot = &v
-	return s
-}
-
-func (s *BlockHeader) SetStateRoot(v string) *BlockHeader {
-	s.StateRoot = &v
-	return s
-}
-
-func (s *BlockHeader) SetTimestamp(v int64) *BlockHeader {
-	s.Timestamp = &v
-	return s
-}
-
-func (s *BlockHeader) SetTransactionRoot(v string) *BlockHeader {
-	s.TransactionRoot = &v
-	return s
-}
-
-func (s *BlockHeader) SetVersion(v int64) *BlockHeader {
-	s.Version = &v
-	return s
-}
-
-// 交易token来源信息
-type TokenInstructionDO struct {
-	// token类型
-	TokenType *int64 `json:"token_type,omitempty" xml:"token_type,omitempty" require:"true"`
-	// token价格
-	TokenPrice *string `json:"token_price,omitempty" xml:"token_price,omitempty" require:"true"`
-	// token来源账户ID
-	PayAccountId *string `json:"pay_account_id,omitempty" xml:"pay_account_id,omitempty" require:"true"`
-}
-
-func (s TokenInstructionDO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TokenInstructionDO) GoString() string {
-	return s.String()
-}
-
-func (s *TokenInstructionDO) SetTokenType(v int64) *TokenInstructionDO {
-	s.TokenType = &v
-	return s
-}
-
-func (s *TokenInstructionDO) SetTokenPrice(v string) *TokenInstructionDO {
-	s.TokenPrice = &v
-	return s
-}
-
-func (s *TokenInstructionDO) SetPayAccountId(v string) *TokenInstructionDO {
-	s.PayAccountId = &v
-	return s
-}
-
-// IP授权交易: AddressInfo
-type IPAddressInfo struct {
-	// 省份编码
-	ProvinceCode *string `json:"province_code,omitempty" xml:"province_code,omitempty" require:"true"`
-	// 城市编码
-	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
-	// 区域编码
-	DistrictCode *string `json:"district_code,omitempty" xml:"district_code,omitempty" require:"true"`
-	// 详细地址
-	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
-}
-
-func (s IPAddressInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPAddressInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IPAddressInfo) SetProvinceCode(v string) *IPAddressInfo {
-	s.ProvinceCode = &v
-	return s
-}
-
-func (s *IPAddressInfo) SetCityCode(v string) *IPAddressInfo {
-	s.CityCode = &v
-	return s
-}
-
-func (s *IPAddressInfo) SetDistrictCode(v string) *IPAddressInfo {
-	s.DistrictCode = &v
-	return s
-}
-
-func (s *IPAddressInfo) SetAddress(v string) *IPAddressInfo {
-	s.Address = &v
-	return s
-}
-
-// IP授权服务: CardInfo
-type IPCardInfo struct {
-	// 卡户名
-	AccountHolderName *string `json:"account_holder_name,omitempty" xml:"account_holder_name,omitempty" require:"true"`
-	// 卡号
-	AccountNo *string `json:"account_no,omitempty" xml:"account_no,omitempty" require:"true"`
-	// 银行名称
-	AccountInstName *string `json:"account_inst_name,omitempty" xml:"account_inst_name,omitempty" require:"true"`
-	// 银行缩写
-	AccountInstId *string `json:"account_inst_id,omitempty" xml:"account_inst_id,omitempty" require:"true"`
-	// 联行号
-	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty"`
-	// 开户行所在省份
-	AccountInstProvince *string `json:"account_inst_province,omitempty" xml:"account_inst_province,omitempty" require:"true"`
-	// 开户行所在城市
-	AccountInstCity *string `json:"account_inst_city,omitempty" xml:"account_inst_city,omitempty" require:"true"`
-	// 开户行支行名称
-	AccountBranchName *string `json:"account_branch_name,omitempty" xml:"account_branch_name,omitempty" require:"true"`
-}
-
-func (s IPCardInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPCardInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IPCardInfo) SetAccountHolderName(v string) *IPCardInfo {
-	s.AccountHolderName = &v
-	return s
-}
-
-func (s *IPCardInfo) SetAccountNo(v string) *IPCardInfo {
-	s.AccountNo = &v
-	return s
-}
-
-func (s *IPCardInfo) SetAccountInstName(v string) *IPCardInfo {
-	s.AccountInstName = &v
-	return s
-}
-
-func (s *IPCardInfo) SetAccountInstId(v string) *IPCardInfo {
-	s.AccountInstId = &v
-	return s
-}
-
-func (s *IPCardInfo) SetBankCode(v string) *IPCardInfo {
-	s.BankCode = &v
-	return s
-}
-
-func (s *IPCardInfo) SetAccountInstProvince(v string) *IPCardInfo {
-	s.AccountInstProvince = &v
-	return s
-}
-
-func (s *IPCardInfo) SetAccountInstCity(v string) *IPCardInfo {
-	s.AccountInstCity = &v
-	return s
-}
-
-func (s *IPCardInfo) SetAccountBranchName(v string) *IPCardInfo {
-	s.AccountBranchName = &v
+func (s *IPOrderApplyInfo) SetSalesNumber(v string) *IPOrderApplyInfo {
+	s.SalesNumber = &v
 	return s
 }
 
@@ -1687,50 +1921,76 @@ func (s *ValueAddedServiceInfo) SetStatus(v int64) *ValueAddedServiceInfo {
 	return s
 }
 
-// 正版码版权方信息
-type IPCodeIpOwnerInfo struct {
-	// 版权所有者名称
-	IpOwnerName *string `json:"ip_owner_name,omitempty" xml:"ip_owner_name,omitempty"`
-	// 版权方头像oss地址
-	IpOwnerImage *string `json:"ip_owner_image,omitempty" xml:"ip_owner_image,omitempty"`
-	// 版权方头像，临时访问地址，可直接访问
-	IpOwnerImageTmp *string `json:"ip_owner_image_tmp,omitempty" xml:"ip_owner_image_tmp,omitempty"`
-	// ip描述
-	IpDescription *string `json:"ip_description,omitempty" xml:"ip_description,omitempty"`
-	// 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息
-	IpOwnerType *int64 `json:"ip_owner_type,omitempty" xml:"ip_owner_type,omitempty"`
+// 商户备付金账户
+type Provision struct {
+	// 授信上限
+	CreditMax *string `json:"credit_max,omitempty" xml:"credit_max,omitempty" require:"true"`
+	// 授信已使用
+	CreditUsed *string `json:"credit_used,omitempty" xml:"credit_used,omitempty" require:"true"`
+	// 币种
+	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
+	// 余额
+	Debit *string `json:"debit,omitempty" xml:"debit,omitempty" require:"true"`
 }
 
-func (s IPCodeIpOwnerInfo) String() string {
+func (s Provision) String() string {
 	return tea.Prettify(s)
 }
 
-func (s IPCodeIpOwnerInfo) GoString() string {
+func (s Provision) GoString() string {
 	return s.String()
 }
 
-func (s *IPCodeIpOwnerInfo) SetIpOwnerName(v string) *IPCodeIpOwnerInfo {
-	s.IpOwnerName = &v
+func (s *Provision) SetCreditMax(v string) *Provision {
+	s.CreditMax = &v
 	return s
 }
 
-func (s *IPCodeIpOwnerInfo) SetIpOwnerImage(v string) *IPCodeIpOwnerInfo {
-	s.IpOwnerImage = &v
+func (s *Provision) SetCreditUsed(v string) *Provision {
+	s.CreditUsed = &v
 	return s
 }
 
-func (s *IPCodeIpOwnerInfo) SetIpOwnerImageTmp(v string) *IPCodeIpOwnerInfo {
-	s.IpOwnerImageTmp = &v
+func (s *Provision) SetCurrency(v string) *Provision {
+	s.Currency = &v
 	return s
 }
 
-func (s *IPCodeIpOwnerInfo) SetIpDescription(v string) *IPCodeIpOwnerInfo {
-	s.IpDescription = &v
+func (s *Provision) SetDebit(v string) *Provision {
+	s.Debit = &v
 	return s
 }
 
-func (s *IPCodeIpOwnerInfo) SetIpOwnerType(v int64) *IPCodeIpOwnerInfo {
-	s.IpOwnerType = &v
+// sku的基础信息
+type IpSkuEmphasisInfo struct {
+	// 价格区间，不做校验
+	PriceRange *string `json:"price_range,omitempty" xml:"price_range,omitempty" require:"true"`
+	// 单价
+	PurchasePrice *string `json:"purchase_price,omitempty" xml:"purchase_price,omitempty" require:"true"`
+	// 套餐数量
+	SaleNum *string `json:"sale_num,omitempty" xml:"sale_num,omitempty" require:"true"`
+}
+
+func (s IpSkuEmphasisInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IpSkuEmphasisInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IpSkuEmphasisInfo) SetPriceRange(v string) *IpSkuEmphasisInfo {
+	s.PriceRange = &v
+	return s
+}
+
+func (s *IpSkuEmphasisInfo) SetPurchasePrice(v string) *IpSkuEmphasisInfo {
+	s.PurchasePrice = &v
+	return s
+}
+
+func (s *IpSkuEmphasisInfo) SetSaleNum(v string) *IpSkuEmphasisInfo {
+	s.SaleNum = &v
 	return s
 }
 
@@ -1814,6 +2074,79 @@ func (s *StatisticalInfo) SetUsedTokenBalance(v string) *StatisticalInfo {
 	return s
 }
 
+// IP授权交易: AddressInfo
+type IPAddressInfo struct {
+	// 省份编码
+	ProvinceCode *string `json:"province_code,omitempty" xml:"province_code,omitempty" require:"true"`
+	// 城市编码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+	// 区域编码
+	DistrictCode *string `json:"district_code,omitempty" xml:"district_code,omitempty" require:"true"`
+	// 详细地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
+}
+
+func (s IPAddressInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPAddressInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPAddressInfo) SetProvinceCode(v string) *IPAddressInfo {
+	s.ProvinceCode = &v
+	return s
+}
+
+func (s *IPAddressInfo) SetCityCode(v string) *IPAddressInfo {
+	s.CityCode = &v
+	return s
+}
+
+func (s *IPAddressInfo) SetDistrictCode(v string) *IPAddressInfo {
+	s.DistrictCode = &v
+	return s
+}
+
+func (s *IPAddressInfo) SetAddress(v string) *IPAddressInfo {
+	s.Address = &v
+	return s
+}
+
+// 交易token来源信息
+type TokenInstructionDO struct {
+	// token类型
+	TokenType *int64 `json:"token_type,omitempty" xml:"token_type,omitempty" require:"true"`
+	// token价格
+	TokenPrice *string `json:"token_price,omitempty" xml:"token_price,omitempty" require:"true"`
+	// token来源账户ID
+	PayAccountId *string `json:"pay_account_id,omitempty" xml:"pay_account_id,omitempty" require:"true"`
+}
+
+func (s TokenInstructionDO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TokenInstructionDO) GoString() string {
+	return s.String()
+}
+
+func (s *TokenInstructionDO) SetTokenType(v int64) *TokenInstructionDO {
+	s.TokenType = &v
+	return s
+}
+
+func (s *TokenInstructionDO) SetTokenPrice(v string) *TokenInstructionDO {
+	s.TokenPrice = &v
+	return s
+}
+
+func (s *TokenInstructionDO) SetPayAccountId(v string) *TokenInstructionDO {
+	s.PayAccountId = &v
+	return s
+}
+
 // IP授权服务: SettleRule
 type IPSettleRule struct {
 	// 结算类型， 1-表示结算到银行卡；2-表示结算到支付宝账号
@@ -1837,180 +2170,6 @@ func (s *IPSettleRule) SetSettleType(v int64) *IPSettleRule {
 
 func (s *IPSettleRule) SetSettleTarget(v string) *IPSettleRule {
 	s.SettleTarget = &v
-	return s
-}
-
-// 申请授权合作的备注信息
-type IPOrderApplyInfo struct {
-	// 授权合作商品
-	AuthGoods *string `json:"auth_goods,omitempty" xml:"auth_goods,omitempty" require:"true"`
-	// 销售规模数量
-	SalesAmount *int64 `json:"sales_amount,omitempty" xml:"sales_amount,omitempty" require:"true"`
-	// 销售规模金额
-	SalesNumber *string `json:"sales_number,omitempty" xml:"sales_number,omitempty" require:"true"`
-}
-
-func (s IPOrderApplyInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPOrderApplyInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IPOrderApplyInfo) SetAuthGoods(v string) *IPOrderApplyInfo {
-	s.AuthGoods = &v
-	return s
-}
-
-func (s *IPOrderApplyInfo) SetSalesAmount(v int64) *IPOrderApplyInfo {
-	s.SalesAmount = &v
-	return s
-}
-
-func (s *IPOrderApplyInfo) SetSalesNumber(v string) *IPOrderApplyInfo {
-	s.SalesNumber = &v
-	return s
-}
-
-// 区块体
-type BlockBody struct {
-	// 区块共识证明(HEX)
-	ConsensusProof *string `json:"consensus_proof,omitempty" xml:"consensus_proof,omitempty" require:"true"`
-	// 区块中交易回执列表
-	ReceiptList []*BlockReceipt `json:"receipt_list,omitempty" xml:"receipt_list,omitempty" require:"true" type:"Repeated"`
-	// 区块中交易列表
-	TransactionList []*BlockTransaction `json:"transaction_list,omitempty" xml:"transaction_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s BlockBody) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BlockBody) GoString() string {
-	return s.String()
-}
-
-func (s *BlockBody) SetConsensusProof(v string) *BlockBody {
-	s.ConsensusProof = &v
-	return s
-}
-
-func (s *BlockBody) SetReceiptList(v []*BlockReceipt) *BlockBody {
-	s.ReceiptList = v
-	return s
-}
-
-func (s *BlockBody) SetTransactionList(v []*BlockTransaction) *BlockBody {
-	s.TransactionList = v
-	return s
-}
-
-// 手续费周期
-type CommissionPeriod struct {
-	// 手续费费率
-	DeductRatio *string `json:"deduct_ratio,omitempty" xml:"deduct_ratio,omitempty" require:"true"`
-	// 手续费子结构
-	SubCommissionRules []*SubCommissionRule `json:"sub_commission_rules,omitempty" xml:"sub_commission_rules,omitempty" require:"true" type:"Repeated"`
-	// 买家的历史统计做阶梯计费，最多50个
-	MerchantLayers []*CommissionLayer `json:"merchant_layers,omitempty" xml:"merchant_layers,omitempty" require:"true" type:"Repeated"`
-	// 商品阶梯
-	GoodsLayers []*CommissionLayer `json:"goods_layers,omitempty" xml:"goods_layers,omitempty" require:"true" type:"Repeated"`
-	// 手续费开始时间（无结束时间）
-	StartTimeMills *int64 `json:"start_time_mills,omitempty" xml:"start_time_mills,omitempty" require:"true"`
-	// 0: txcount（成功的交易）; 1: 累计交易金额; 2:累计手续费; 3：单笔金额, ...
-	LayerType *int64 `json:"layer_type,omitempty" xml:"layer_type,omitempty" require:"true"`
-	// 分层的周期，（0是月，1是日，2是年（这期不用，需要设置一下）, 3是季度）
-	CounterTimeType *int64 `json:"counter_time_type,omitempty" xml:"counter_time_type,omitempty" require:"true"`
-	// 商品固定费用
-	DeductToken *string `json:"deduct_token,omitempty" xml:"deduct_token,omitempty" require:"true"`
-}
-
-func (s CommissionPeriod) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CommissionPeriod) GoString() string {
-	return s.String()
-}
-
-func (s *CommissionPeriod) SetDeductRatio(v string) *CommissionPeriod {
-	s.DeductRatio = &v
-	return s
-}
-
-func (s *CommissionPeriod) SetSubCommissionRules(v []*SubCommissionRule) *CommissionPeriod {
-	s.SubCommissionRules = v
-	return s
-}
-
-func (s *CommissionPeriod) SetMerchantLayers(v []*CommissionLayer) *CommissionPeriod {
-	s.MerchantLayers = v
-	return s
-}
-
-func (s *CommissionPeriod) SetGoodsLayers(v []*CommissionLayer) *CommissionPeriod {
-	s.GoodsLayers = v
-	return s
-}
-
-func (s *CommissionPeriod) SetStartTimeMills(v int64) *CommissionPeriod {
-	s.StartTimeMills = &v
-	return s
-}
-
-func (s *CommissionPeriod) SetLayerType(v int64) *CommissionPeriod {
-	s.LayerType = &v
-	return s
-}
-
-func (s *CommissionPeriod) SetCounterTimeType(v int64) *CommissionPeriod {
-	s.CounterTimeType = &v
-	return s
-}
-
-func (s *CommissionPeriod) SetDeductToken(v string) *CommissionPeriod {
-	s.DeductToken = &v
-	return s
-}
-
-// 商户备付金账户
-type Provision struct {
-	// 授信上限
-	CreditMax *string `json:"credit_max,omitempty" xml:"credit_max,omitempty" require:"true"`
-	// 授信已使用
-	CreditUsed *string `json:"credit_used,omitempty" xml:"credit_used,omitempty" require:"true"`
-	// 币种
-	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
-	// 余额
-	Debit *string `json:"debit,omitempty" xml:"debit,omitempty" require:"true"`
-}
-
-func (s Provision) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Provision) GoString() string {
-	return s.String()
-}
-
-func (s *Provision) SetCreditMax(v string) *Provision {
-	s.CreditMax = &v
-	return s
-}
-
-func (s *Provision) SetCreditUsed(v string) *Provision {
-	s.CreditUsed = &v
-	return s
-}
-
-func (s *Provision) SetCurrency(v string) *Provision {
-	s.Currency = &v
-	return s
-}
-
-func (s *Provision) SetDebit(v string) *Provision {
-	s.Debit = &v
 	return s
 }
 
@@ -2223,1257 +2382,649 @@ func (s *IpBasicInfo) SetExternalUserName(v string) *IpBasicInfo {
 	return s
 }
 
-// 正版码配置资源位信息
-type IPCodeAdvertisingInfo struct {
-	// 资源位头图
-	AdImage *string `json:"ad_image,omitempty" xml:"ad_image,omitempty"`
-	// 资源位头图可直接访问的临时链接
-	AdImageTmp *string `json:"ad_image_tmp,omitempty" xml:"ad_image_tmp,omitempty"`
-	// 资源位链接
-	AdUrl *string `json:"ad_url,omitempty" xml:"ad_url,omitempty"`
-	// 资源商品名称
-	AdName *string `json:"ad_name,omitempty" xml:"ad_name,omitempty"`
-	// 广告位类型，为空时代表是商品广告位，Resource时代表是资源位
-	AdType *string `json:"ad_type,omitempty" xml:"ad_type,omitempty"`
-	// 展示有效期开始时间
-	AdValidBeginTime *string `json:"ad_valid_begin_time,omitempty" xml:"ad_valid_begin_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 展示有效期结束时间
-	AdValidEndTime *string `json:"ad_valid_end_time,omitempty" xml:"ad_valid_end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s IPCodeAdvertisingInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPCodeAdvertisingInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IPCodeAdvertisingInfo) SetAdImage(v string) *IPCodeAdvertisingInfo {
-	s.AdImage = &v
-	return s
-}
-
-func (s *IPCodeAdvertisingInfo) SetAdImageTmp(v string) *IPCodeAdvertisingInfo {
-	s.AdImageTmp = &v
-	return s
-}
-
-func (s *IPCodeAdvertisingInfo) SetAdUrl(v string) *IPCodeAdvertisingInfo {
-	s.AdUrl = &v
-	return s
-}
-
-func (s *IPCodeAdvertisingInfo) SetAdName(v string) *IPCodeAdvertisingInfo {
-	s.AdName = &v
-	return s
-}
-
-func (s *IPCodeAdvertisingInfo) SetAdType(v string) *IPCodeAdvertisingInfo {
-	s.AdType = &v
-	return s
-}
-
-func (s *IPCodeAdvertisingInfo) SetAdValidBeginTime(v string) *IPCodeAdvertisingInfo {
-	s.AdValidBeginTime = &v
-	return s
-}
-
-func (s *IPCodeAdvertisingInfo) SetAdValidEndTime(v string) *IPCodeAdvertisingInfo {
-	s.AdValidEndTime = &v
-	return s
-}
-
-// ip的渠道信息带上sku信息
-type IpChannelWithSku struct {
-	// 渠道名字
+// 账户入驻的渠道表
+type AccountInChannels struct {
+	// 天猫渠道
 	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
-	// 授权模式 商品授权 0普通授权/1独家授权 本期只有0
-	//
-	AuthorizationMode *int64 `json:"authorization_mode,omitempty" xml:"authorization_mode,omitempty" require:"true"`
-	// 新授权模式，0普通授权，1独家授权，支持多选
-	NewAuthorizationModel []*int64 `json:"new_authorization_model,omitempty" xml:"new_authorization_model,omitempty" type:"Repeated"`
-	// 计费模式 0:按量 1:按金额
-	//
-	PayMode *int64 `json:"pay_mode,omitempty" xml:"pay_mode,omitempty" require:"true"`
-	// ip等级  0:经典IP/1:流量IP/2:设计IP
-	IpLevel *int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty" require:"true"`
-	// sku信息
-	SkuInfo []*IpSkuInfo `json:"sku_info,omitempty" xml:"sku_info,omitempty" require:"true" type:"Repeated"`
-	// 商品状态（0:待上架，1:上架，2:下架）
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 交易是否需要确认
-	TradeNeedConfirm *bool `json:"trade_need_confirm,omitempty" xml:"trade_need_confirm,omitempty"`
-	// 授权类型
-	AuthorizationType []*string `json:"authorization_type,omitempty" xml:"authorization_type,omitempty" type:"Repeated"`
-	// 保底金区间，0：0；1：10万以下；2:10-30万；3:30-50万；4:50万以上
-	GuaranteeRange *int64 `json:"guarantee_range,omitempty" xml:"guarantee_range,omitempty"`
-	// 交易模式
-	IpTradeMode *IPTradeMode `json:"ip_trade_mode,omitempty" xml:"ip_trade_mode,omitempty"`
-	// 授权行业
-	AuthorizationIndustry []*string `json:"authorization_industry,omitempty" xml:"authorization_industry,omitempty" type:"Repeated"`
+	// 是否入驻
+	IsSettled *bool `json:"is_settled,omitempty" xml:"is_settled,omitempty" require:"true"`
+	// WAIT_CHECK:渠道已申请开通但未审核，SUCCESS:渠道开通审核成功，渠道开通
+	SettledStatus *string `json:"settled_status,omitempty" xml:"settled_status,omitempty"`
 }
 
-func (s IpChannelWithSku) String() string {
+func (s AccountInChannels) String() string {
 	return tea.Prettify(s)
 }
 
-func (s IpChannelWithSku) GoString() string {
+func (s AccountInChannels) GoString() string {
 	return s.String()
 }
 
-func (s *IpChannelWithSku) SetChannelName(v string) *IpChannelWithSku {
+func (s *AccountInChannels) SetChannelName(v string) *AccountInChannels {
 	s.ChannelName = &v
 	return s
 }
 
-func (s *IpChannelWithSku) SetAuthorizationMode(v int64) *IpChannelWithSku {
-	s.AuthorizationMode = &v
+func (s *AccountInChannels) SetIsSettled(v bool) *AccountInChannels {
+	s.IsSettled = &v
 	return s
 }
 
-func (s *IpChannelWithSku) SetNewAuthorizationModel(v []*int64) *IpChannelWithSku {
-	s.NewAuthorizationModel = v
-	return s
-}
-
-func (s *IpChannelWithSku) SetPayMode(v int64) *IpChannelWithSku {
-	s.PayMode = &v
-	return s
-}
-
-func (s *IpChannelWithSku) SetIpLevel(v int64) *IpChannelWithSku {
-	s.IpLevel = &v
-	return s
-}
-
-func (s *IpChannelWithSku) SetSkuInfo(v []*IpSkuInfo) *IpChannelWithSku {
-	s.SkuInfo = v
-	return s
-}
-
-func (s *IpChannelWithSku) SetStatus(v int64) *IpChannelWithSku {
-	s.Status = &v
-	return s
-}
-
-func (s *IpChannelWithSku) SetTradeNeedConfirm(v bool) *IpChannelWithSku {
-	s.TradeNeedConfirm = &v
-	return s
-}
-
-func (s *IpChannelWithSku) SetAuthorizationType(v []*string) *IpChannelWithSku {
-	s.AuthorizationType = v
-	return s
-}
-
-func (s *IpChannelWithSku) SetGuaranteeRange(v int64) *IpChannelWithSku {
-	s.GuaranteeRange = &v
-	return s
-}
-
-func (s *IpChannelWithSku) SetIpTradeMode(v *IPTradeMode) *IpChannelWithSku {
-	s.IpTradeMode = v
-	return s
-}
-
-func (s *IpChannelWithSku) SetAuthorizationIndustry(v []*string) *IpChannelWithSku {
-	s.AuthorizationIndustry = v
-	return s
-}
-
-// 卡密信息
-type Card struct {
-	// 计算理论上应该变为的状态
-	CalStatus *int64 `json:"cal_status,omitempty" xml:"cal_status,omitempty" require:"true"`
-	// 卡密ID
-	CardId *string `json:"card_id,omitempty" xml:"card_id,omitempty" require:"true"`
-	// 充值时间
-	ChargeTime *int64 `json:"charge_time,omitempty" xml:"charge_time,omitempty" require:"true"`
-	// 数量
-	CountOfMinUnit *int64 `json:"count_of_min_unit,omitempty" xml:"count_of_min_unit,omitempty" require:"true"`
-	// 卡密创建时间
-	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true"`
-	// 创建卡密时的交易hash
-	CreateTxHash *string `json:"create_tx_hash,omitempty" xml:"create_tx_hash,omitempty" require:"true"`
-	// 脱敏手机信息
-	DesensitizedUid *string `json:"desensitized_uid,omitempty" xml:"desensitized_uid,omitempty" require:"true"`
-	// 附加信息
-	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
-	// 最小单位数量
-	MinUnit *int64 `json:"min_unit,omitempty" xml:"min_unit,omitempty" require:"true"`
-	// 公钥
-	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty" require:"true"`
-	// 状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 公钥信息
-	UidPublicKey *string `json:"uid_public_key,omitempty" xml:"uid_public_key,omitempty" require:"true"`
-	// 卡密在该时间后有效
-	ValidAfter *int64 `json:"valid_after,omitempty" xml:"valid_after,omitempty" require:"true"`
-	// 卡密在该时间前有效
-	ValidBefore *int64 `json:"valid_before,omitempty" xml:"valid_before,omitempty" require:"true"`
-	// 有效天数
-	ValidDays *int64 `json:"valid_days,omitempty" xml:"valid_days,omitempty" require:"true"`
-	// 价值
-	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-	// 卡密版本
-	Version *int64 `json:"version,omitempty" xml:"version,omitempty" require:"true"`
-}
-
-func (s Card) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Card) GoString() string {
-	return s.String()
-}
-
-func (s *Card) SetCalStatus(v int64) *Card {
-	s.CalStatus = &v
-	return s
-}
-
-func (s *Card) SetCardId(v string) *Card {
-	s.CardId = &v
-	return s
-}
-
-func (s *Card) SetChargeTime(v int64) *Card {
-	s.ChargeTime = &v
-	return s
-}
-
-func (s *Card) SetCountOfMinUnit(v int64) *Card {
-	s.CountOfMinUnit = &v
-	return s
-}
-
-func (s *Card) SetCreateTime(v int64) *Card {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *Card) SetCreateTxHash(v string) *Card {
-	s.CreateTxHash = &v
-	return s
-}
-
-func (s *Card) SetDesensitizedUid(v string) *Card {
-	s.DesensitizedUid = &v
-	return s
-}
-
-func (s *Card) SetExtInfo(v string) *Card {
-	s.ExtInfo = &v
-	return s
-}
-
-func (s *Card) SetMinUnit(v int64) *Card {
-	s.MinUnit = &v
-	return s
-}
-
-func (s *Card) SetPublicKey(v string) *Card {
-	s.PublicKey = &v
-	return s
-}
-
-func (s *Card) SetStatus(v int64) *Card {
-	s.Status = &v
-	return s
-}
-
-func (s *Card) SetUidPublicKey(v string) *Card {
-	s.UidPublicKey = &v
-	return s
-}
-
-func (s *Card) SetValidAfter(v int64) *Card {
-	s.ValidAfter = &v
-	return s
-}
-
-func (s *Card) SetValidBefore(v int64) *Card {
-	s.ValidBefore = &v
-	return s
-}
-
-func (s *Card) SetValidDays(v int64) *Card {
-	s.ValidDays = &v
-	return s
-}
-
-func (s *Card) SetValue(v int64) *Card {
-	s.Value = &v
-	return s
-}
-
-func (s *Card) SetVersion(v int64) *Card {
-	s.Version = &v
-	return s
-}
-
-// 商品详情
-type SKUItem struct {
-	// 集分宝销售费率
-	Rate *string `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
-	// 包含集分宝个数
-	SkuAmount *int64 `json:"sku_amount,omitempty" xml:"sku_amount,omitempty" require:"true"`
-	// 商品ID
-	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty" require:"true"`
-	// 商品名称
-	SkuName *string `json:"sku_name,omitempty" xml:"sku_name,omitempty" require:"true"`
-	// 商品面值（单位：元）
-	SkuPrice *string `json:"sku_price,omitempty" xml:"sku_price,omitempty" require:"true"`
-	// 商品状态：0可用，1冻结，2下线
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-}
-
-func (s SKUItem) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SKUItem) GoString() string {
-	return s.String()
-}
-
-func (s *SKUItem) SetRate(v string) *SKUItem {
-	s.Rate = &v
-	return s
-}
-
-func (s *SKUItem) SetSkuAmount(v int64) *SKUItem {
-	s.SkuAmount = &v
-	return s
-}
-
-func (s *SKUItem) SetSkuId(v string) *SKUItem {
-	s.SkuId = &v
-	return s
-}
-
-func (s *SKUItem) SetSkuName(v string) *SKUItem {
-	s.SkuName = &v
-	return s
-}
-
-func (s *SKUItem) SetSkuPrice(v string) *SKUItem {
-	s.SkuPrice = &v
-	return s
-}
-
-func (s *SKUItem) SetStatus(v int64) *SKUItem {
-	s.Status = &v
-	return s
-}
-
-// 图片OSS URL，包含四个不同大小的图片
-type MultiURL struct {
-	// 上传的图片正常大小
-	Normal *string `json:"normal,omitempty" xml:"normal,omitempty" require:"true"`
-	// style200
-	Style200 *string `json:"style_200,omitempty" xml:"style_200,omitempty" require:"true"`
-	// style150
-	Style150 *string `json:"style_150,omitempty" xml:"style_150,omitempty" require:"true"`
-	// style70
-	Style70 *string `json:"style_70,omitempty" xml:"style_70,omitempty" require:"true"`
-}
-
-func (s MultiURL) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MultiURL) GoString() string {
-	return s.String()
-}
-
-func (s *MultiURL) SetNormal(v string) *MultiURL {
-	s.Normal = &v
-	return s
-}
-
-func (s *MultiURL) SetStyle200(v string) *MultiURL {
-	s.Style200 = &v
-	return s
-}
-
-func (s *MultiURL) SetStyle150(v string) *MultiURL {
-	s.Style150 = &v
-	return s
-}
-
-func (s *MultiURL) SetStyle70(v string) *MultiURL {
-	s.Style70 = &v
-	return s
-}
-
-// 链上交易结构
-type Transaction struct {
-	// 交易数据，转换位十六进制
-	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
-	// 卡密管理员链上ID，64位十六进制。
-	From *string `json:"from,omitempty" xml:"from,omitempty" require:"true"`
-	// 交易hash，十六进制编码
-	Hash *string `json:"hash,omitempty" xml:"hash,omitempty" require:"true"`
-	// 交易随机数
-	Nonce *int64 `json:"nonce,omitempty" xml:"nonce,omitempty" require:"true"`
-	// 交易时间
-	Period *int64 `json:"period,omitempty" xml:"period,omitempty" require:"true"`
-	// from账户对应的公钥，128位十六进制。
-	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty" require:"true"`
-	// 交易签名，十六进制编码
-	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
-	// 交易时间戳
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
-	// 交易目标地址，64位十六进制。
-	To *string `json:"to,omitempty" xml:"to,omitempty" require:"true"`
-}
-
-func (s Transaction) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Transaction) GoString() string {
-	return s.String()
-}
-
-func (s *Transaction) SetData(v string) *Transaction {
-	s.Data = &v
-	return s
-}
-
-func (s *Transaction) SetFrom(v string) *Transaction {
-	s.From = &v
-	return s
-}
-
-func (s *Transaction) SetHash(v string) *Transaction {
-	s.Hash = &v
-	return s
-}
-
-func (s *Transaction) SetNonce(v int64) *Transaction {
-	s.Nonce = &v
-	return s
-}
-
-func (s *Transaction) SetPeriod(v int64) *Transaction {
-	s.Period = &v
-	return s
-}
-
-func (s *Transaction) SetPublicKey(v string) *Transaction {
-	s.PublicKey = &v
-	return s
-}
-
-func (s *Transaction) SetSignature(v string) *Transaction {
-	s.Signature = &v
-	return s
-}
-
-func (s *Transaction) SetTimestamp(v int64) *Transaction {
-	s.Timestamp = &v
-	return s
-}
-
-func (s *Transaction) SetTo(v string) *Transaction {
-	s.To = &v
-	return s
-}
-
-// 租户的备付金列表
-type DiscreteValue struct {
-	// 序号
-	SortId *int64 `json:"sort_id,omitempty" xml:"sort_id,omitempty" require:"true"`
-	// 文本信息
-	Text *string `json:"text,omitempty" xml:"text,omitempty" require:"true"`
-	// 文本值
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s DiscreteValue) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DiscreteValue) GoString() string {
-	return s.String()
-}
-
-func (s *DiscreteValue) SetSortId(v int64) *DiscreteValue {
-	s.SortId = &v
-	return s
-}
-
-func (s *DiscreteValue) SetText(v string) *DiscreteValue {
-	s.Text = &v
-	return s
-}
-
-func (s *DiscreteValue) SetValue(v string) *DiscreteValue {
-	s.Value = &v
-	return s
-}
-
-// 用于sku config的查询
-type SkuWithLevel struct {
-}
-
-func (s SkuWithLevel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SkuWithLevel) GoString() string {
-	return s.String()
-}
-
-// ip 基础信息带上是否更新，只在渠道查询审批中用到
-type IpBasicInfoWithUpdate struct {
-	// 基础信息
-	IpBasicInfo *IpBasicInfo `json:"ip_basic_info,omitempty" xml:"ip_basic_info,omitempty" require:"true"`
-	// 是否有更新
-	IsUpdate *bool `json:"is_update,omitempty" xml:"is_update,omitempty" require:"true"`
-}
-
-func (s IpBasicInfoWithUpdate) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IpBasicInfoWithUpdate) GoString() string {
-	return s.String()
-}
-
-func (s *IpBasicInfoWithUpdate) SetIpBasicInfo(v *IpBasicInfo) *IpBasicInfoWithUpdate {
-	s.IpBasicInfo = v
-	return s
-}
-
-func (s *IpBasicInfoWithUpdate) SetIsUpdate(v bool) *IpBasicInfoWithUpdate {
-	s.IsUpdate = &v
-	return s
-}
-
-// 渠道对应的账户信息
-type AccountSettlementInfo struct {
-	// 账户id
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 版权方名字
-	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
-	// WAIT_CHECK:渠道已申请开通但未审核，SUCCESS，审核成功
-	SettledStatus *string `json:"settled_status,omitempty" xml:"settled_status,omitempty" require:"true"`
-	// 版权方联系人名字
-	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty"`
-	// 版权方联系人手机
-	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty"`
-	// 版权方联系人手机号
-	ContactPhone *string `json:"contact_phone,omitempty" xml:"contact_phone,omitempty" require:"true"`
-	// 申请入驻时间
-	ApplyTime *int64 `json:"apply_time,omitempty" xml:"apply_time,omitempty" require:"true"`
-}
-
-func (s AccountSettlementInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AccountSettlementInfo) GoString() string {
-	return s.String()
-}
-
-func (s *AccountSettlementInfo) SetAccountId(v string) *AccountSettlementInfo {
-	s.AccountId = &v
-	return s
-}
-
-func (s *AccountSettlementInfo) SetAccountName(v string) *AccountSettlementInfo {
-	s.AccountName = &v
-	return s
-}
-
-func (s *AccountSettlementInfo) SetSettledStatus(v string) *AccountSettlementInfo {
+func (s *AccountInChannels) SetSettledStatus(v string) *AccountInChannels {
 	s.SettledStatus = &v
 	return s
 }
 
-func (s *AccountSettlementInfo) SetContactName(v string) *AccountSettlementInfo {
-	s.ContactName = &v
-	return s
-}
-
-func (s *AccountSettlementInfo) SetContactMobile(v string) *AccountSettlementInfo {
-	s.ContactMobile = &v
-	return s
-}
-
-func (s *AccountSettlementInfo) SetContactPhone(v string) *AccountSettlementInfo {
-	s.ContactPhone = &v
-	return s
-}
-
-func (s *AccountSettlementInfo) SetApplyTime(v int64) *AccountSettlementInfo {
-	s.ApplyTime = &v
-	return s
-}
-
-// 正版码配置信息生命周期
-type IPCodeConfigTimeInfo struct {
-	// 正版码申请时间，商家申请正版码第一批数量的时间
-	CodeApplyTime *string `json:"code_apply_time,omitempty" xml:"code_apply_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 正版码配置时间
-	CodeSetTime *string `json:"code_set_time,omitempty" xml:"code_set_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 正版码生效时间
-	CodeEffectTime *string `json:"code_effect_time,omitempty" xml:"code_effect_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s IPCodeConfigTimeInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPCodeConfigTimeInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IPCodeConfigTimeInfo) SetCodeApplyTime(v string) *IPCodeConfigTimeInfo {
-	s.CodeApplyTime = &v
-	return s
-}
-
-func (s *IPCodeConfigTimeInfo) SetCodeSetTime(v string) *IPCodeConfigTimeInfo {
-	s.CodeSetTime = &v
-	return s
-}
-
-func (s *IPCodeConfigTimeInfo) SetCodeEffectTime(v string) *IPCodeConfigTimeInfo {
-	s.CodeEffectTime = &v
-	return s
-}
-
-// 可兑换商品列表
-type ExchangeableEquityList struct {
-	// 页面上数据在总数据中的结束位置（第几个数据）
-	EndRow *int64 `json:"end_row,omitempty" xml:"end_row,omitempty" require:"true"`
-	// 权益信息列表
-	EquityList []*EquityDetail `json:"equity_list,omitempty" xml:"equity_list,omitempty" require:"true" type:"Repeated"`
-	// 第一页页码
-	FirstPage *int64 `json:"first_page,omitempty" xml:"first_page,omitempty" require:"true"`
-	// 是否有下一页
-	HasNextPage *bool `json:"has_next_page,omitempty" xml:"has_next_page,omitempty" require:"true"`
-	// 是否有前一页
-	HasPreviousPage *bool `json:"has_previous_page,omitempty" xml:"has_previous_page,omitempty" require:"true"`
-	// 是否第一页
-	IsFirstPage *bool `json:"is_first_page,omitempty" xml:"is_first_page,omitempty" require:"true"`
-	// 是否最后一页
-	IsLastPage *bool `json:"is_last_page,omitempty" xml:"is_last_page,omitempty" require:"true"`
-	// 最后一页页码
-	LastPage *int64 `json:"last_page,omitempty" xml:"last_page,omitempty" require:"true"`
-	// 下一页页码
-	NextPage *int64 `json:"next_page,omitempty" xml:"next_page,omitempty" require:"true"`
-	// 排序规则
-	OrderBy *string `json:"order_by,omitempty" xml:"order_by,omitempty" require:"true"`
-	// 可兑换的权益总页数
-	Pages *int64 `json:"pages,omitempty" xml:"pages,omitempty" require:"true"`
-	// 当前页码
-	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty" require:"true"`
-	// 页面大小
-	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
-	// 前一页页码
-	PrePage *int64 `json:"pre_page,omitempty" xml:"pre_page,omitempty" require:"true"`
-	// 页面中实际数量
-	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
-	// 页面上数据在总数据中的开始位置（第几个数据）
-	StartRow *int64 `json:"start_row,omitempty" xml:"start_row,omitempty" require:"true"`
-	// 可兑换的权益总数
-	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
-}
-
-func (s ExchangeableEquityList) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ExchangeableEquityList) GoString() string {
-	return s.String()
-}
-
-func (s *ExchangeableEquityList) SetEndRow(v int64) *ExchangeableEquityList {
-	s.EndRow = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetEquityList(v []*EquityDetail) *ExchangeableEquityList {
-	s.EquityList = v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetFirstPage(v int64) *ExchangeableEquityList {
-	s.FirstPage = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetHasNextPage(v bool) *ExchangeableEquityList {
-	s.HasNextPage = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetHasPreviousPage(v bool) *ExchangeableEquityList {
-	s.HasPreviousPage = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetIsFirstPage(v bool) *ExchangeableEquityList {
-	s.IsFirstPage = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetIsLastPage(v bool) *ExchangeableEquityList {
-	s.IsLastPage = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetLastPage(v int64) *ExchangeableEquityList {
-	s.LastPage = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetNextPage(v int64) *ExchangeableEquityList {
-	s.NextPage = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetOrderBy(v string) *ExchangeableEquityList {
-	s.OrderBy = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetPages(v int64) *ExchangeableEquityList {
-	s.Pages = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetPageNumber(v int64) *ExchangeableEquityList {
-	s.PageNumber = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetPageSize(v int64) *ExchangeableEquityList {
-	s.PageSize = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetPrePage(v int64) *ExchangeableEquityList {
-	s.PrePage = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetSize(v int64) *ExchangeableEquityList {
-	s.Size = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetStartRow(v int64) *ExchangeableEquityList {
-	s.StartRow = &v
-	return s
-}
-
-func (s *ExchangeableEquityList) SetTotal(v int64) *ExchangeableEquityList {
-	s.Total = &v
-	return s
-}
-
-// 手续费规则
-type CommissionRule struct {
-	// 一级分账方的账户ID
+// IP授权服务-商家进件信息
+type IPMerchantApplyInfo struct {
+	// 链上账户Id
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 手续费规则
-	CommissionPeriod *CommissionPeriod `json:"commission_period,omitempty" xml:"commission_period,omitempty" require:"true"`
+	// 支付宝的登陆用户名(必须实名制)
+	AlipayLoginName *string `json:"alipay_login_name,omitempty" xml:"alipay_login_name,omitempty" require:"true"`
+	// 商户别名, 会展示在账单以及支付结果页中
+	MerchantAliasName *string `json:"merchant_alias_name,omitempty" xml:"merchant_alias_name,omitempty" require:"true"`
+	// 商户类型(本期仅支持: 1:企业, 6:个人商户)
+	MerchantType *int64 `json:"merchant_type,omitempty" xml:"merchant_type,omitempty" require:"true"`
+	// 商户证件类型(本期仅支持: 201: 营业执照, 100: 个人商户身份证) 如果merchant_type为企业, 需要传入201; 如果merchant_type为个人, 需要传入100
+	MerchantCertType *int64 `json:"merchant_cert_type,omitempty" xml:"merchant_cert_type,omitempty" require:"true"`
+	// 商户证件编号(企业提供营业执照),本期人工审核
+	MerchantCertNumber *string `json:"merchant_cert_number,omitempty" xml:"merchant_cert_number,omitempty" require:"true"`
+	// 商户营业执照的图片地址,本期人工审核
+	MerchantCertImage *string `json:"merchant_cert_image,omitempty" xml:"merchant_cert_image,omitempty" require:"true"`
+	// 税务登记证明的图片,本期人工审核
+	MerchantSignImage *string `json:"merchant_sign_image,omitempty" xml:"merchant_sign_image,omitempty" require:"true"`
+	// 商户类别码mcc，参见https://gw.alipayobjects.com/os/bmw-prod/05c9a32e-42d1-436b-ace7-13101d91f672.xlsx
+	Mcc *string `json:"mcc,omitempty" xml:"mcc,omitempty" require:"true"`
+	// 商户法人名称, merchant_type = 01时必填
+	//
+	LegalName *string `json:"legal_name,omitempty" xml:"legal_name,omitempty" require:"true"`
+	// 商户法人身份证号码, merchant_type = 1时必填
+	//
+	LegalCertNo *string `json:"legal_cert_no,omitempty" xml:"legal_cert_no,omitempty" require:"true"`
+	// 商户经营地址
+	//
+	AddressInfo *IPAddressInfo `json:"address_info,omitempty" xml:"address_info,omitempty" require:"true"`
+	// 默认结算规则
+	//
+	SettleRule *IPSettleRule `json:"settle_rule,omitempty" xml:"settle_rule,omitempty" require:"true"`
+	// 商户联系人信息
+	//
+	ContactInfo *IPContactInfo `json:"contact_info,omitempty" xml:"contact_info,omitempty" require:"true"`
+	// 银行卡结算信息, 结算到银行卡时必填, 当前仅支持填入一张卡
+	//
+	CardInfo *IPCardInfo `json:"card_info,omitempty" xml:"card_info,omitempty" require:"true"`
 }
 
-func (s CommissionRule) String() string {
+func (s IPMerchantApplyInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CommissionRule) GoString() string {
+func (s IPMerchantApplyInfo) GoString() string {
 	return s.String()
 }
 
-func (s *CommissionRule) SetAccountId(v string) *CommissionRule {
+func (s *IPMerchantApplyInfo) SetAccountId(v string) *IPMerchantApplyInfo {
 	s.AccountId = &v
 	return s
 }
 
-func (s *CommissionRule) SetCommissionPeriod(v *CommissionPeriod) *CommissionRule {
-	s.CommissionPeriod = v
+func (s *IPMerchantApplyInfo) SetAlipayLoginName(v string) *IPMerchantApplyInfo {
+	s.AlipayLoginName = &v
 	return s
 }
 
-// 简要扫码信息
-type IPSimpleScannedInfo struct {
-	// 扫码人
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
-	// 扫码时间
-	ScannedTime *string `json:"scanned_time,omitempty" xml:"scanned_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 扫码地址
-	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
-}
-
-func (s IPSimpleScannedInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPSimpleScannedInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IPSimpleScannedInfo) SetUserName(v string) *IPSimpleScannedInfo {
-	s.UserName = &v
+func (s *IPMerchantApplyInfo) SetMerchantAliasName(v string) *IPMerchantApplyInfo {
+	s.MerchantAliasName = &v
 	return s
 }
 
-func (s *IPSimpleScannedInfo) SetScannedTime(v string) *IPSimpleScannedInfo {
-	s.ScannedTime = &v
+func (s *IPMerchantApplyInfo) SetMerchantType(v int64) *IPMerchantApplyInfo {
+	s.MerchantType = &v
 	return s
 }
 
-func (s *IPSimpleScannedInfo) SetGps(v string) *IPSimpleScannedInfo {
-	s.Gps = &v
+func (s *IPMerchantApplyInfo) SetMerchantCertType(v int64) *IPMerchantApplyInfo {
+	s.MerchantCertType = &v
 	return s
 }
 
-// 设置过自定义价格的权益信息
-type UserPriceEquity struct {
-	// 权益提供商商户ID
-	AdminId *string `json:"admin_id,omitempty" xml:"admin_id,omitempty" require:"true"`
-	// 授权类型
-	AuthType *int64 `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
-	// 币种
-	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
-	// 默认价格
-	DefaultPrice *string `json:"default_price,omitempty" xml:"default_price,omitempty" require:"true"`
-	// 权益描述
+func (s *IPMerchantApplyInfo) SetMerchantCertNumber(v string) *IPMerchantApplyInfo {
+	s.MerchantCertNumber = &v
+	return s
+}
+
+func (s *IPMerchantApplyInfo) SetMerchantCertImage(v string) *IPMerchantApplyInfo {
+	s.MerchantCertImage = &v
+	return s
+}
+
+func (s *IPMerchantApplyInfo) SetMerchantSignImage(v string) *IPMerchantApplyInfo {
+	s.MerchantSignImage = &v
+	return s
+}
+
+func (s *IPMerchantApplyInfo) SetMcc(v string) *IPMerchantApplyInfo {
+	s.Mcc = &v
+	return s
+}
+
+func (s *IPMerchantApplyInfo) SetLegalName(v string) *IPMerchantApplyInfo {
+	s.LegalName = &v
+	return s
+}
+
+func (s *IPMerchantApplyInfo) SetLegalCertNo(v string) *IPMerchantApplyInfo {
+	s.LegalCertNo = &v
+	return s
+}
+
+func (s *IPMerchantApplyInfo) SetAddressInfo(v *IPAddressInfo) *IPMerchantApplyInfo {
+	s.AddressInfo = v
+	return s
+}
+
+func (s *IPMerchantApplyInfo) SetSettleRule(v *IPSettleRule) *IPMerchantApplyInfo {
+	s.SettleRule = v
+	return s
+}
+
+func (s *IPMerchantApplyInfo) SetContactInfo(v *IPContactInfo) *IPMerchantApplyInfo {
+	s.ContactInfo = v
+	return s
+}
+
+func (s *IPMerchantApplyInfo) SetCardInfo(v *IPCardInfo) *IPMerchantApplyInfo {
+	s.CardInfo = v
+	return s
+}
+
+// 消费卡账户
+type ConsumeCardAccount struct {
+	// 授权函地址
+	AuthorizationAddress *string `json:"authorization_address,omitempty" xml:"authorization_address,omitempty" require:"true"`
+	// 认证方id
+	CertificationId *string `json:"certification_id,omitempty" xml:"certification_id,omitempty" require:"true"`
+	// 描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// 权益描述图片
-	DescImages *string `json:"desc_images,omitempty" xml:"desc_images,omitempty" require:"true"`
-	// 权益ID
-	EquityD *string `json:"equity_d,omitempty" xml:"equity_d,omitempty" require:"true"`
-	// 权益名称
-	EquityName *string `json:"equity_name,omitempty" xml:"equity_name,omitempty" require:"true"`
-	// 权益类型
-	EquityType *int64 `json:"equity_type,omitempty" xml:"equity_type,omitempty" require:"true"`
-	// 权益主图片
-	Images *string `json:"images,omitempty" xml:"images,omitempty" require:"true"`
-	// 是否公开权益
-	IsPublic *bool `json:"is_public,omitempty" xml:"is_public,omitempty" require:"true"`
-	// 商户每日兑换上线
-	LimitPerMerchantAndDay *int64 `json:"limit_per_merchant_and_day,omitempty" xml:"limit_per_merchant_and_day,omitempty" require:"true"`
-	// 商户每月兑换上线
-	LimitPerMerchantAndMonth *int64 `json:"limit_per_merchant_and_month,omitempty" xml:"limit_per_merchant_and_month,omitempty" require:"true"`
-	// 用户每日兑换上线
-	LimitPerUserAndDay *int64 `json:"limit_per_user_and_day,omitempty" xml:"limit_per_user_and_day,omitempty" require:"true"`
-	// 用户每月兑换上限
-	LimitPerUserAndMonth *int64 `json:"limit_per_user_and_month,omitempty" xml:"limit_per_user_and_month,omitempty" require:"true"`
-	// 权益附言信息
-	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
-	// 授权的租户ID
-	OpenToTenantId *string `json:"open_to_tenant_id,omitempty" xml:"open_to_tenant_id,omitempty" require:"true"`
-	// 用户价格
-	Price *string `json:"price,omitempty" xml:"price,omitempty" require:"true"`
-	// 用户价格比例
-	Ratio *string `json:"ratio,omitempty" xml:"ratio,omitempty" require:"true"`
-	// 快照租户价格
-	SnapshotTenantPrice *string `json:"snapshot_tenant_price,omitempty" xml:"snapshot_tenant_price,omitempty" require:"true"`
-	// 权益状态
+	// 分布式身份ID
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 是否有权限采购商品
+	AuthConsumer *bool `json:"auth_consumer,omitempty" xml:"auth_consumer,omitempty" require:"true"`
+	// 是否有权限发行商品
+	AuthProvider *bool `json:"auth_provider,omitempty" xml:"auth_provider,omitempty" require:"true"`
+	// 个人用户的身份证号码/机构的企业编号
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty" require:"true"`
+	// 证件类型：0 身份证, 1 护照, 2 军官证, 3 回乡证, 4 港澳证件, 5 营业执照, 6 港澳居民来往内地通行证, 7 台湾居民来往内地通行证, 8 港澳居民居住证, 9 台湾居民居住证, 10事业单位登记证书, 11 社会团体登记证书, 12 民办非企业单位证书, 13 党政机关批准设计文件, 14 全国组织机构代码证书, 15 其他证件
+	IdType *int64 `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+	// 个人用户的手机号码/机构用户的联系电话或邮箱(必填)
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 商户状态
 	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 权益提供商租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 权益库存
-	TotalCount *string `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
-	// 用户价格类型
-	UserPriceType *int64 `json:"user_price_type,omitempty" xml:"user_price_type,omitempty" require:"true"`
-	// 可用右区间
-	UseValidNotAfter *int64 `json:"use_valid_not_after,omitempty" xml:"use_valid_not_after,omitempty" require:"true"`
-	// 可用左区间
-	UseValidNotBefore *int64 `json:"use_valid_not_before,omitempty" xml:"use_valid_not_before,omitempty" require:"true"`
-	// 有效右区间
-	ValidNotAfter *int64 `json:"valid_not_after,omitempty" xml:"valid_not_after,omitempty" require:"true"`
-	// 有效左区间
-	ValidNotBefore *int64 `json:"valid_not_before,omitempty" xml:"valid_not_before,omitempty" require:"true"`
-	// 价值
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 是否可以发行资产
+	TokenIssuer *bool `json:"token_issuer,omitempty" xml:"token_issuer,omitempty" require:"true"`
+	// 账户创建类型（0:用户，1:商户）
+	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 账户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 账户名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 提现银行卡
+	WithdrawBankCardId *string `json:"withdraw_bank_card_id,omitempty" xml:"withdraw_bank_card_id,omitempty" require:"true"`
+	// 账户影响信息
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
+	// 账户邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty" require:"true"`
 }
 
-func (s UserPriceEquity) String() string {
+func (s ConsumeCardAccount) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UserPriceEquity) GoString() string {
+func (s ConsumeCardAccount) GoString() string {
 	return s.String()
 }
 
-func (s *UserPriceEquity) SetAdminId(v string) *UserPriceEquity {
-	s.AdminId = &v
+func (s *ConsumeCardAccount) SetAuthorizationAddress(v string) *ConsumeCardAccount {
+	s.AuthorizationAddress = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetAuthType(v int64) *UserPriceEquity {
-	s.AuthType = &v
+func (s *ConsumeCardAccount) SetCertificationId(v string) *ConsumeCardAccount {
+	s.CertificationId = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetCurrency(v string) *UserPriceEquity {
-	s.Currency = &v
-	return s
-}
-
-func (s *UserPriceEquity) SetDefaultPrice(v string) *UserPriceEquity {
-	s.DefaultPrice = &v
-	return s
-}
-
-func (s *UserPriceEquity) SetDescription(v string) *UserPriceEquity {
+func (s *ConsumeCardAccount) SetDescription(v string) *ConsumeCardAccount {
 	s.Description = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetDescImages(v string) *UserPriceEquity {
-	s.DescImages = &v
+func (s *ConsumeCardAccount) SetDid(v string) *ConsumeCardAccount {
+	s.Did = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetEquityD(v string) *UserPriceEquity {
-	s.EquityD = &v
+func (s *ConsumeCardAccount) SetAuthConsumer(v bool) *ConsumeCardAccount {
+	s.AuthConsumer = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetEquityName(v string) *UserPriceEquity {
-	s.EquityName = &v
+func (s *ConsumeCardAccount) SetAuthProvider(v bool) *ConsumeCardAccount {
+	s.AuthProvider = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetEquityType(v int64) *UserPriceEquity {
-	s.EquityType = &v
+func (s *ConsumeCardAccount) SetIdNumber(v string) *ConsumeCardAccount {
+	s.IdNumber = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetImages(v string) *UserPriceEquity {
-	s.Images = &v
+func (s *ConsumeCardAccount) SetIdType(v int64) *ConsumeCardAccount {
+	s.IdType = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetIsPublic(v bool) *UserPriceEquity {
-	s.IsPublic = &v
+func (s *ConsumeCardAccount) SetPhoneNumber(v string) *ConsumeCardAccount {
+	s.PhoneNumber = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetLimitPerMerchantAndDay(v int64) *UserPriceEquity {
-	s.LimitPerMerchantAndDay = &v
+func (s *ConsumeCardAccount) SetStatus(v int64) *ConsumeCardAccount {
+	s.Status = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetLimitPerMerchantAndMonth(v int64) *UserPriceEquity {
-	s.LimitPerMerchantAndMonth = &v
+func (s *ConsumeCardAccount) SetTokenIssuer(v bool) *ConsumeCardAccount {
+	s.TokenIssuer = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetLimitPerUserAndDay(v int64) *UserPriceEquity {
-	s.LimitPerUserAndDay = &v
+func (s *ConsumeCardAccount) SetType(v int64) *ConsumeCardAccount {
+	s.Type = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetLimitPerUserAndMonth(v int64) *UserPriceEquity {
-	s.LimitPerUserAndMonth = &v
+func (s *ConsumeCardAccount) SetUserId(v string) *ConsumeCardAccount {
+	s.UserId = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetMemo(v string) *UserPriceEquity {
-	s.Memo = &v
+func (s *ConsumeCardAccount) SetUserName(v string) *ConsumeCardAccount {
+	s.UserName = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetOpenToTenantId(v string) *UserPriceEquity {
-	s.OpenToTenantId = &v
+func (s *ConsumeCardAccount) SetWithdrawBankCardId(v string) *ConsumeCardAccount {
+	s.WithdrawBankCardId = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetPrice(v string) *UserPriceEquity {
+func (s *ConsumeCardAccount) SetImage(v string) *ConsumeCardAccount {
+	s.Image = &v
+	return s
+}
+
+func (s *ConsumeCardAccount) SetEmail(v string) *ConsumeCardAccount {
+	s.Email = &v
+	return s
+}
+
+// token信息
+type TokenData struct {
+	// 拥有的token数量
+	TokenNumber *int64 `json:"token_number,omitempty" xml:"token_number,omitempty" require:"true"`
+	// 来源为debit的token数量
+	DebitToken *int64 `json:"debit_token,omitempty" xml:"debit_token,omitempty" require:"true"`
+	// 来源为debit的token数量
+	CreditToken *int64 `json:"credit_token,omitempty" xml:"credit_token,omitempty" require:"true"`
+	// token发行者account
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+}
+
+func (s TokenData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TokenData) GoString() string {
+	return s.String()
+}
+
+func (s *TokenData) SetTokenNumber(v int64) *TokenData {
+	s.TokenNumber = &v
+	return s
+}
+
+func (s *TokenData) SetDebitToken(v int64) *TokenData {
+	s.DebitToken = &v
+	return s
+}
+
+func (s *TokenData) SetCreditToken(v int64) *TokenData {
+	s.CreditToken = &v
+	return s
+}
+
+func (s *TokenData) SetAccountId(v string) *TokenData {
+	s.AccountId = &v
+	return s
+}
+
+// 区块链合同签署区信息
+type SignField struct {
+	// 签署操作人个人账号标识，即操作本次签署的个人
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 签署所在页码，必须是整数数字
+	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty" require:"true"`
+	// x坐标，必须是数字
+	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty" require:"true"`
+	// y坐标，必须是数字
+	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true"`
+}
+
+func (s SignField) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SignField) GoString() string {
+	return s.String()
+}
+
+func (s *SignField) SetAccountId(v string) *SignField {
+	s.AccountId = &v
+	return s
+}
+
+func (s *SignField) SetPosPage(v string) *SignField {
+	s.PosPage = &v
+	return s
+}
+
+func (s *SignField) SetPosX(v string) *SignField {
+	s.PosX = &v
+	return s
+}
+
+func (s *SignField) SetPosY(v string) *SignField {
+	s.PosY = &v
+	return s
+}
+
+// IP授权订单已按照周期汇总的销售数据
+type IPSalesInfo struct {
+	// 终端商品名称
+	GoodsName *string `json:"goods_name,omitempty" xml:"goods_name,omitempty" require:"true"`
+	// 终端商品图片
+	GoodsImage *string `json:"goods_image,omitempty" xml:"goods_image,omitempty"`
+	// 终端销售渠道
+	SalesChannel *string `json:"sales_channel,omitempty" xml:"sales_channel,omitempty"`
+	// 终端商品链接
+	GoodsUrl *string `json:"goods_url,omitempty" xml:"goods_url,omitempty"`
+	// 零售价
+	Price *string `json:"price,omitempty" xml:"price,omitempty"`
+	// 商品销售数量
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 销售金额
+	Sales *string `json:"sales,omitempty" xml:"sales,omitempty" require:"true"`
+	// 实付金额（授权交易）
+	Payment *string `json:"payment,omitempty" xml:"payment,omitempty"`
+	// 统计周期开始时间（毫秒时间戳）
+	SettlementBeginTime *int64 `json:"settlement_begin_time,omitempty" xml:"settlement_begin_time,omitempty" require:"true"`
+	// 统计周期结束时间（毫秒时间戳）
+	SettlementEndTime *int64 `json:"settlement_end_time,omitempty" xml:"settlement_end_time,omitempty" require:"true"`
+	// 备注信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 数据上传操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 销售数据上传操作时间（毫秒时间戳）
+	OperateTime *int64 `json:"operate_time,omitempty" xml:"operate_time,omitempty" require:"true"`
+	// 商品信息
+	GoodsInfo *string `json:"goods_info,omitempty" xml:"goods_info,omitempty"`
+	// 商品ID
+	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty"`
+	// 退款的销售金额，有退款时填写，默认0
+	RefundSales *string `json:"refund_sales,omitempty" xml:"refund_sales,omitempty"`
+	// 订单信息json string: 用户ID/订单状态/订单创建时间戳ms/订单支付时间戳ms等
+	SalesExtInfo *string `json:"sales_ext_info,omitempty" xml:"sales_ext_info,omitempty"`
+	// 用户信息json string: 姓名/手机号/地址等结构化数据
+	SalesUserInfo *string `json:"sales_user_info,omitempty" xml:"sales_user_info,omitempty"`
+}
+
+func (s IPSalesInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPSalesInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPSalesInfo) SetGoodsName(v string) *IPSalesInfo {
+	s.GoodsName = &v
+	return s
+}
+
+func (s *IPSalesInfo) SetGoodsImage(v string) *IPSalesInfo {
+	s.GoodsImage = &v
+	return s
+}
+
+func (s *IPSalesInfo) SetSalesChannel(v string) *IPSalesInfo {
+	s.SalesChannel = &v
+	return s
+}
+
+func (s *IPSalesInfo) SetGoodsUrl(v string) *IPSalesInfo {
+	s.GoodsUrl = &v
+	return s
+}
+
+func (s *IPSalesInfo) SetPrice(v string) *IPSalesInfo {
 	s.Price = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetRatio(v string) *UserPriceEquity {
-	s.Ratio = &v
+func (s *IPSalesInfo) SetAmount(v int64) *IPSalesInfo {
+	s.Amount = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetSnapshotTenantPrice(v string) *UserPriceEquity {
-	s.SnapshotTenantPrice = &v
+func (s *IPSalesInfo) SetSales(v string) *IPSalesInfo {
+	s.Sales = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetStatus(v int64) *UserPriceEquity {
-	s.Status = &v
+func (s *IPSalesInfo) SetPayment(v string) *IPSalesInfo {
+	s.Payment = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetTenantId(v string) *UserPriceEquity {
-	s.TenantId = &v
+func (s *IPSalesInfo) SetSettlementBeginTime(v int64) *IPSalesInfo {
+	s.SettlementBeginTime = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetTotalCount(v string) *UserPriceEquity {
-	s.TotalCount = &v
+func (s *IPSalesInfo) SetSettlementEndTime(v int64) *IPSalesInfo {
+	s.SettlementEndTime = &v
 	return s
 }
 
-func (s *UserPriceEquity) SetUserPriceType(v int64) *UserPriceEquity {
-	s.UserPriceType = &v
-	return s
-}
-
-func (s *UserPriceEquity) SetUseValidNotAfter(v int64) *UserPriceEquity {
-	s.UseValidNotAfter = &v
-	return s
-}
-
-func (s *UserPriceEquity) SetUseValidNotBefore(v int64) *UserPriceEquity {
-	s.UseValidNotBefore = &v
-	return s
-}
-
-func (s *UserPriceEquity) SetValidNotAfter(v int64) *UserPriceEquity {
-	s.ValidNotAfter = &v
-	return s
-}
-
-func (s *UserPriceEquity) SetValidNotBefore(v int64) *UserPriceEquity {
-	s.ValidNotBefore = &v
-	return s
-}
-
-func (s *UserPriceEquity) SetValue(v string) *UserPriceEquity {
-	s.Value = &v
-	return s
-}
-
-// IP授权交易的账单信息
-type IPBill struct {
-	// 订单ID
-	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
-	// 账单ID
-	IpBillId *string `json:"ip_bill_id,omitempty" xml:"ip_bill_id,omitempty" require:"true"`
-	// 上传销售数据时的bizId
-	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
-	// 收款方
-	SellerId *string `json:"seller_id,omitempty" xml:"seller_id,omitempty" require:"true"`
-	// 付款方
-	BuyerId *string `json:"buyer_id,omitempty" xml:"buyer_id,omitempty" require:"true"`
-	// 账单状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 账单创建时间，时间戳（毫秒）
-	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true"`
-	// 备注信息
-	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
-	// 交易类型：0套餐交易，1定向授权
-	TradeType *int64 `json:"trade_type,omitempty" xml:"trade_type,omitempty" require:"true"`
-	// 支付链接
-	PayUrl *string `json:"pay_url,omitempty" xml:"pay_url,omitempty" require:"true"`
-	// 账单金额，支付金额
-	BillPayAmount *string `json:"bill_pay_amount,omitempty" xml:"bill_pay_amount,omitempty" require:"true"`
-	// 销售金额
-	BillSales *string `json:"bill_sales,omitempty" xml:"bill_sales,omitempty" require:"true"`
-	// 账单周期开始时间，时间戳（毫秒）
-	CycleStartTime *int64 `json:"cycle_start_time,omitempty" xml:"cycle_start_time,omitempty" require:"true"`
-	// 账单周期结束时间，时间戳（毫秒）
-	CycleEndTime *int64 `json:"cycle_end_time,omitempty" xml:"cycle_end_time,omitempty" require:"true"`
-}
-
-func (s IPBill) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPBill) GoString() string {
-	return s.String()
-}
-
-func (s *IPBill) SetIpOrderId(v string) *IPBill {
-	s.IpOrderId = &v
-	return s
-}
-
-func (s *IPBill) SetIpBillId(v string) *IPBill {
-	s.IpBillId = &v
-	return s
-}
-
-func (s *IPBill) SetBizId(v string) *IPBill {
-	s.BizId = &v
-	return s
-}
-
-func (s *IPBill) SetSellerId(v string) *IPBill {
-	s.SellerId = &v
-	return s
-}
-
-func (s *IPBill) SetBuyerId(v string) *IPBill {
-	s.BuyerId = &v
-	return s
-}
-
-func (s *IPBill) SetStatus(v int64) *IPBill {
-	s.Status = &v
-	return s
-}
-
-func (s *IPBill) SetCreateTime(v int64) *IPBill {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *IPBill) SetMemo(v string) *IPBill {
+func (s *IPSalesInfo) SetMemo(v string) *IPSalesInfo {
 	s.Memo = &v
 	return s
 }
 
-func (s *IPBill) SetTradeType(v int64) *IPBill {
-	s.TradeType = &v
+func (s *IPSalesInfo) SetOperator(v string) *IPSalesInfo {
+	s.Operator = &v
 	return s
 }
 
-func (s *IPBill) SetPayUrl(v string) *IPBill {
-	s.PayUrl = &v
+func (s *IPSalesInfo) SetOperateTime(v int64) *IPSalesInfo {
+	s.OperateTime = &v
 	return s
 }
 
-func (s *IPBill) SetBillPayAmount(v string) *IPBill {
-	s.BillPayAmount = &v
+func (s *IPSalesInfo) SetGoodsInfo(v string) *IPSalesInfo {
+	s.GoodsInfo = &v
 	return s
 }
 
-func (s *IPBill) SetBillSales(v string) *IPBill {
-	s.BillSales = &v
+func (s *IPSalesInfo) SetGoodsId(v string) *IPSalesInfo {
+	s.GoodsId = &v
 	return s
 }
 
-func (s *IPBill) SetCycleStartTime(v int64) *IPBill {
-	s.CycleStartTime = &v
+func (s *IPSalesInfo) SetRefundSales(v string) *IPSalesInfo {
+	s.RefundSales = &v
 	return s
 }
 
-func (s *IPBill) SetCycleEndTime(v int64) *IPBill {
-	s.CycleEndTime = &v
+func (s *IPSalesInfo) SetSalesExtInfo(v string) *IPSalesInfo {
+	s.SalesExtInfo = &v
 	return s
 }
 
-// 正版码流转信息
-type IPCodeFlowInfo struct {
-	// 拥有用户名称，收藏人
-	CodeOwnerName *string `json:"code_owner_name,omitempty" xml:"code_owner_name,omitempty"`
-	// 收藏时间
-	CodeCollectTime *int64 `json:"code_collect_time,omitempty" xml:"code_collect_time,omitempty"`
-	// 收藏交易哈希
-	CodeTransHash *string `json:"code_trans_hash,omitempty" xml:"code_trans_hash,omitempty"`
+func (s *IPSalesInfo) SetSalesUserInfo(v string) *IPSalesInfo {
+	s.SalesUserInfo = &v
+	return s
 }
 
-func (s IPCodeFlowInfo) String() string {
+// 代理授权关系信息
+type DelegateRelationInfo struct {
+	// 被授权的租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 被代理的租户ID
+	DelegatedTenantId *string `json:"delegated_tenant_id,omitempty" xml:"delegated_tenant_id,omitempty" require:"true"`
+	// 更新时间
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty" require:"true"`
+	// 状态
+	Status *bool `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 扩展字段
+	Extension *string `json:"extension,omitempty" xml:"extension,omitempty" require:"true"`
+}
+
+func (s DelegateRelationInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s IPCodeFlowInfo) GoString() string {
+func (s DelegateRelationInfo) GoString() string {
 	return s.String()
 }
 
-func (s *IPCodeFlowInfo) SetCodeOwnerName(v string) *IPCodeFlowInfo {
-	s.CodeOwnerName = &v
+func (s *DelegateRelationInfo) SetTenantId(v string) *DelegateRelationInfo {
+	s.TenantId = &v
 	return s
 }
 
-func (s *IPCodeFlowInfo) SetCodeCollectTime(v int64) *IPCodeFlowInfo {
-	s.CodeCollectTime = &v
+func (s *DelegateRelationInfo) SetDelegatedTenantId(v string) *DelegateRelationInfo {
+	s.DelegatedTenantId = &v
 	return s
 }
 
-func (s *IPCodeFlowInfo) SetCodeTransHash(v string) *IPCodeFlowInfo {
-	s.CodeTransHash = &v
+func (s *DelegateRelationInfo) SetUpdateTime(v string) *DelegateRelationInfo {
+	s.UpdateTime = &v
 	return s
 }
 
-// 电子券批次信息
-type CouponCollection struct {
-	// 批次ID
-	CollectionId *string `json:"collection_id,omitempty" xml:"collection_id,omitempty" require:"true"`
-	// 电子券批次名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 批次发行方
-	Issuer *string `json:"issuer,omitempty" xml:"issuer,omitempty" require:"true"`
-	// 批次前缀
-	CouponNumberPrefix *string `json:"coupon_number_prefix,omitempty" xml:"coupon_number_prefix,omitempty" require:"true"`
-	// 批次管理员链上ID
-	CouponAdminAccount *string `json:"coupon_admin_account,omitempty" xml:"coupon_admin_account,omitempty" require:"true"`
-	// 批次管理员租户ID
-	CouponAdminTenantId *string `json:"coupon_admin_tenant_id,omitempty" xml:"coupon_admin_tenant_id,omitempty" require:"true"`
-	// 批次过期观察员链上ID
-	ExpireMonitorAccount *string `json:"expire_monitor_account,omitempty" xml:"expire_monitor_account,omitempty" require:"true"`
-	// 批次过期观察员租户ID
-	ExpireMonitorTenantId *string `json:"expire_monitor_tenant_id,omitempty" xml:"expire_monitor_tenant_id,omitempty" require:"true"`
-	// 是否记名
-	NeedRegistered *bool `json:"need_registered,omitempty" xml:"need_registered,omitempty" require:"true"`
-	// 是否创建时记名
-	NeedPreRegistered *bool `json:"need_pre_registered,omitempty" xml:"need_pre_registered,omitempty" require:"true"`
+func (s *DelegateRelationInfo) SetStatus(v bool) *DelegateRelationInfo {
+	s.Status = &v
+	return s
 }
 
-func (s CouponCollection) String() string {
+func (s *DelegateRelationInfo) SetExtension(v string) *DelegateRelationInfo {
+	s.Extension = &v
+	return s
+}
+
+// 手续费规则结果
+type CommissionRuleResponse struct {
+	// 手续费到账方
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 手续费周期列表
+	CommissionPeriods []*CommissionPeriod `json:"commission_periods,omitempty" xml:"commission_periods,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CommissionRuleResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CouponCollection) GoString() string {
+func (s CommissionRuleResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CouponCollection) SetCollectionId(v string) *CouponCollection {
-	s.CollectionId = &v
+func (s *CommissionRuleResponse) SetAccountId(v string) *CommissionRuleResponse {
+	s.AccountId = &v
 	return s
 }
 
-func (s *CouponCollection) SetName(v string) *CouponCollection {
-	s.Name = &v
+func (s *CommissionRuleResponse) SetCommissionPeriods(v []*CommissionPeriod) *CommissionRuleResponse {
+	s.CommissionPeriods = v
 	return s
 }
 
-func (s *CouponCollection) SetIssuer(v string) *CouponCollection {
-	s.Issuer = &v
+// IP图库记录
+type IPGalleryInstruction struct {
+	// 下载时间
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// 授权订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+	// IP链上ID
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
+	// 图库链接
+	IpGalleryUrl *string `json:"ip_gallery_url,omitempty" xml:"ip_gallery_url,omitempty" require:"true"`
+	// 图库下载链接，默认过期时间2小时
+	IpGalleryTemporaryUrl *string `json:"ip_gallery_temporary_url,omitempty" xml:"ip_gallery_temporary_url,omitempty" require:"true"`
+	// 图库版本
+	IpGalleryVersion *int64 `json:"ip_gallery_version,omitempty" xml:"ip_gallery_version,omitempty" require:"true"`
+	// IP当前图库状态：0 生效中，1 已失效
+	IpGalleryStatus *int64 `json:"ip_gallery_status,omitempty" xml:"ip_gallery_status,omitempty" require:"true"`
+	// 备注信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s IPGalleryInstruction) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPGalleryInstruction) GoString() string {
+	return s.String()
+}
+
+func (s *IPGalleryInstruction) SetTimestamp(v int64) *IPGalleryInstruction {
+	s.Timestamp = &v
 	return s
 }
 
-func (s *CouponCollection) SetCouponNumberPrefix(v string) *CouponCollection {
-	s.CouponNumberPrefix = &v
+func (s *IPGalleryInstruction) SetIpOrderId(v string) *IPGalleryInstruction {
+	s.IpOrderId = &v
 	return s
 }
 
-func (s *CouponCollection) SetCouponAdminAccount(v string) *CouponCollection {
-	s.CouponAdminAccount = &v
+func (s *IPGalleryInstruction) SetIpId(v string) *IPGalleryInstruction {
+	s.IpId = &v
 	return s
 }
 
-func (s *CouponCollection) SetCouponAdminTenantId(v string) *CouponCollection {
-	s.CouponAdminTenantId = &v
+func (s *IPGalleryInstruction) SetIpGalleryUrl(v string) *IPGalleryInstruction {
+	s.IpGalleryUrl = &v
 	return s
 }
 
-func (s *CouponCollection) SetExpireMonitorAccount(v string) *CouponCollection {
-	s.ExpireMonitorAccount = &v
+func (s *IPGalleryInstruction) SetIpGalleryTemporaryUrl(v string) *IPGalleryInstruction {
+	s.IpGalleryTemporaryUrl = &v
 	return s
 }
 
-func (s *CouponCollection) SetExpireMonitorTenantId(v string) *CouponCollection {
-	s.ExpireMonitorTenantId = &v
+func (s *IPGalleryInstruction) SetIpGalleryVersion(v int64) *IPGalleryInstruction {
+	s.IpGalleryVersion = &v
 	return s
 }
 
-func (s *CouponCollection) SetNeedRegistered(v bool) *CouponCollection {
-	s.NeedRegistered = &v
+func (s *IPGalleryInstruction) SetIpGalleryStatus(v int64) *IPGalleryInstruction {
+	s.IpGalleryStatus = &v
 	return s
 }
 
-func (s *CouponCollection) SetNeedPreRegistered(v bool) *CouponCollection {
-	s.NeedPreRegistered = &v
+func (s *IPGalleryInstruction) SetExtInfo(v string) *IPGalleryInstruction {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -3675,2898 +3226,6 @@ func (s *Coupon) SetChargeTxHash(v string) *Coupon {
 
 func (s *Coupon) SetHolderUserAccount(v string) *Coupon {
 	s.HolderUserAccount = &v
-	return s
-}
-
-// IP授权订单已按照周期汇总的销售数据
-type IPSalesInfo struct {
-	// 终端商品名称
-	GoodsName *string `json:"goods_name,omitempty" xml:"goods_name,omitempty" require:"true"`
-	// 终端商品图片
-	GoodsImage *string `json:"goods_image,omitempty" xml:"goods_image,omitempty"`
-	// 终端销售渠道
-	SalesChannel *string `json:"sales_channel,omitempty" xml:"sales_channel,omitempty"`
-	// 终端商品链接
-	GoodsUrl *string `json:"goods_url,omitempty" xml:"goods_url,omitempty"`
-	// 零售价
-	Price *string `json:"price,omitempty" xml:"price,omitempty"`
-	// 商品销售数量
-	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
-	// 销售金额
-	Sales *string `json:"sales,omitempty" xml:"sales,omitempty" require:"true"`
-	// 实付金额（授权交易）
-	Payment *string `json:"payment,omitempty" xml:"payment,omitempty"`
-	// 统计周期开始时间（毫秒时间戳）
-	SettlementBeginTime *int64 `json:"settlement_begin_time,omitempty" xml:"settlement_begin_time,omitempty" require:"true"`
-	// 统计周期结束时间（毫秒时间戳）
-	SettlementEndTime *int64 `json:"settlement_end_time,omitempty" xml:"settlement_end_time,omitempty" require:"true"`
-	// 备注信息
-	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
-	// 数据上传操作人
-	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
-	// 销售数据上传操作时间（毫秒时间戳）
-	OperateTime *int64 `json:"operate_time,omitempty" xml:"operate_time,omitempty" require:"true"`
-	// 商品信息
-	GoodsInfo *string `json:"goods_info,omitempty" xml:"goods_info,omitempty"`
-	// 商品ID
-	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty"`
-	// 退款的销售金额，有退款时填写，默认0
-	RefundSales *string `json:"refund_sales,omitempty" xml:"refund_sales,omitempty"`
-	// 订单信息json string: 用户ID/订单状态/订单创建时间戳ms/订单支付时间戳ms等
-	SalesExtInfo *string `json:"sales_ext_info,omitempty" xml:"sales_ext_info,omitempty"`
-	// 用户信息json string: 姓名/手机号/地址等结构化数据
-	SalesUserInfo *string `json:"sales_user_info,omitempty" xml:"sales_user_info,omitempty"`
-}
-
-func (s IPSalesInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPSalesInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IPSalesInfo) SetGoodsName(v string) *IPSalesInfo {
-	s.GoodsName = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetGoodsImage(v string) *IPSalesInfo {
-	s.GoodsImage = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetSalesChannel(v string) *IPSalesInfo {
-	s.SalesChannel = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetGoodsUrl(v string) *IPSalesInfo {
-	s.GoodsUrl = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetPrice(v string) *IPSalesInfo {
-	s.Price = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetAmount(v int64) *IPSalesInfo {
-	s.Amount = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetSales(v string) *IPSalesInfo {
-	s.Sales = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetPayment(v string) *IPSalesInfo {
-	s.Payment = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetSettlementBeginTime(v int64) *IPSalesInfo {
-	s.SettlementBeginTime = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetSettlementEndTime(v int64) *IPSalesInfo {
-	s.SettlementEndTime = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetMemo(v string) *IPSalesInfo {
-	s.Memo = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetOperator(v string) *IPSalesInfo {
-	s.Operator = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetOperateTime(v int64) *IPSalesInfo {
-	s.OperateTime = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetGoodsInfo(v string) *IPSalesInfo {
-	s.GoodsInfo = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetGoodsId(v string) *IPSalesInfo {
-	s.GoodsId = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetRefundSales(v string) *IPSalesInfo {
-	s.RefundSales = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetSalesExtInfo(v string) *IPSalesInfo {
-	s.SalesExtInfo = &v
-	return s
-}
-
-func (s *IPSalesInfo) SetSalesUserInfo(v string) *IPSalesInfo {
-	s.SalesUserInfo = &v
-	return s
-}
-
-// token信息
-type TokenData struct {
-	// 拥有的token数量
-	TokenNumber *int64 `json:"token_number,omitempty" xml:"token_number,omitempty" require:"true"`
-	// 来源为debit的token数量
-	DebitToken *int64 `json:"debit_token,omitempty" xml:"debit_token,omitempty" require:"true"`
-	// 来源为debit的token数量
-	CreditToken *int64 `json:"credit_token,omitempty" xml:"credit_token,omitempty" require:"true"`
-	// token发行者account
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-}
-
-func (s TokenData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TokenData) GoString() string {
-	return s.String()
-}
-
-func (s *TokenData) SetTokenNumber(v int64) *TokenData {
-	s.TokenNumber = &v
-	return s
-}
-
-func (s *TokenData) SetDebitToken(v int64) *TokenData {
-	s.DebitToken = &v
-	return s
-}
-
-func (s *TokenData) SetCreditToken(v int64) *TokenData {
-	s.CreditToken = &v
-	return s
-}
-
-func (s *TokenData) SetAccountId(v string) *TokenData {
-	s.AccountId = &v
-	return s
-}
-
-// 监修报审表单内容
-type SuperviseApprove struct {
-	// 关联的订单id
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
-	// 当前的阶段
-	Stage *int64 `json:"stage,omitempty" xml:"stage,omitempty" require:"true"`
-	// json组织，用于存储监修报审的具体信息
-	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
-	// 当前阶段的审批状态   0:待审批，1:审批通过 2:审批拒绝
-	ApprovalStatus *int64 `json:"approval_status,omitempty" xml:"approval_status,omitempty" require:"true"`
-	// 审批备注
-	ApprovalComments *string `json:"approval_comments,omitempty" xml:"approval_comments,omitempty"`
-	// 上链的交易hash
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 关联的订单交易的ip id
-	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
-	// 关联交易的卖家id
-	SellerAccountId *string `json:"seller_account_id,omitempty" xml:"seller_account_id,omitempty" require:"true"`
-	// 关联交易的买家id
-	BuyerAccountId *string `json:"buyer_account_id,omitempty" xml:"buyer_account_id,omitempty" require:"true"`
-	// 审批额外信息
-	ApprovalExtInfo *string `json:"approval_ext_info,omitempty" xml:"approval_ext_info,omitempty"`
-}
-
-func (s SuperviseApprove) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SuperviseApprove) GoString() string {
-	return s.String()
-}
-
-func (s *SuperviseApprove) SetOrderId(v string) *SuperviseApprove {
-	s.OrderId = &v
-	return s
-}
-
-func (s *SuperviseApprove) SetStage(v int64) *SuperviseApprove {
-	s.Stage = &v
-	return s
-}
-
-func (s *SuperviseApprove) SetExtInfo(v string) *SuperviseApprove {
-	s.ExtInfo = &v
-	return s
-}
-
-func (s *SuperviseApprove) SetApprovalStatus(v int64) *SuperviseApprove {
-	s.ApprovalStatus = &v
-	return s
-}
-
-func (s *SuperviseApprove) SetApprovalComments(v string) *SuperviseApprove {
-	s.ApprovalComments = &v
-	return s
-}
-
-func (s *SuperviseApprove) SetTxHash(v string) *SuperviseApprove {
-	s.TxHash = &v
-	return s
-}
-
-func (s *SuperviseApprove) SetIpId(v string) *SuperviseApprove {
-	s.IpId = &v
-	return s
-}
-
-func (s *SuperviseApprove) SetSellerAccountId(v string) *SuperviseApprove {
-	s.SellerAccountId = &v
-	return s
-}
-
-func (s *SuperviseApprove) SetBuyerAccountId(v string) *SuperviseApprove {
-	s.BuyerAccountId = &v
-	return s
-}
-
-func (s *SuperviseApprove) SetApprovalExtInfo(v string) *SuperviseApprove {
-	s.ApprovalExtInfo = &v
-	return s
-}
-
-// 消费卡的单条交易记录数据
-type BlockInstruction struct {
-	// 商品兑换单/订单编号
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
-	// 交易类型
-	InstructionType *int64 `json:"instruction_type,omitempty" xml:"instruction_type,omitempty" require:"true"`
-	// 买家的链上账户Id
-	BuyerAccountId *string `json:"buyer_account_id,omitempty" xml:"buyer_account_id,omitempty" require:"true"`
-	// 卖家的链上账户Id
-	SellerAccountId *string `json:"seller_account_id,omitempty" xml:"seller_account_id,omitempty" require:"true"`
-	// 平台机构ID
-	PlatformId *string `json:"platform_id,omitempty" xml:"platform_id,omitempty" require:"true"`
-	// 商品ID
-	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty" require:"true"`
-	// 商品名称
-	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
-	// 实际售价(元)
-	SellerPrice *string `json:"seller_price,omitempty" xml:"seller_price,omitempty" require:"true"`
-	// 商品面值(元)
-	DisplayPrice *string `json:"display_price,omitempty" xml:"display_price,omitempty" require:"true"`
-	// 备注信息
-	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
-	// 附言
-	Remark *string `json:"remark,omitempty" xml:"remark,omitempty" require:"true"`
-	// 兑换单状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 退款状态
-	RefundStatus *int64 `json:"refund_status,omitempty" xml:"refund_status,omitempty" require:"true"`
-	// 交易创建时间
-	CreateTimestamp *int64 `json:"create_timestamp,omitempty" xml:"create_timestamp,omitempty" require:"true"`
-	// 支付时间
-	PayTimestamp *int64 `json:"pay_timestamp,omitempty" xml:"pay_timestamp,omitempty" require:"true"`
-	// 交易附属信息
-	ExtraData []*MetaDataDO `json:"extra_data,omitempty" xml:"extra_data,omitempty" require:"true" type:"Repeated"`
-	// 交易token来源信息
-	TokenInstructions []*TokenInstructionDO `json:"token_instructions,omitempty" xml:"token_instructions,omitempty" require:"true" type:"Repeated"`
-	// 关联交易ID
-	RelatedOrderId *string `json:"related_order_id,omitempty" xml:"related_order_id,omitempty" require:"true"`
-	// 手续费token数量
-	CommissionToken *string `json:"commission_token,omitempty" xml:"commission_token,omitempty" require:"true"`
-	// 卖家收到的token数量
-	SellerReceiveToken *string `json:"seller_receive_token,omitempty" xml:"seller_receive_token,omitempty" require:"true"`
-	// 支付类型：买家支付，卖家支付
-	PayCommissionType *int64 `json:"pay_commission_type,omitempty" xml:"pay_commission_type,omitempty" require:"true"`
-	// 买家手机号
-	BuyerPhone *string `json:"buyer_phone,omitempty" xml:"buyer_phone,omitempty" require:"true"`
-	// 买家名称
-	BuyerName *string `json:"buyer_name,omitempty" xml:"buyer_name,omitempty" require:"true"`
-	// 买家身份信息
-	BuyerIdNumber *string `json:"buyer_id_number,omitempty" xml:"buyer_id_number,omitempty" require:"true"`
-	// 买家身份信息类型
-	BuyerIdType *string `json:"buyer_id_type,omitempty" xml:"buyer_id_type,omitempty" require:"true"`
-	// 买家IP
-	BuyeIp *string `json:"buye_ip,omitempty" xml:"buye_ip,omitempty" require:"true"`
-	// 订单原始创建时间，外部传入
-	OriginCreateTime *int64 `json:"origin_create_time,omitempty" xml:"origin_create_time,omitempty" require:"true"`
-	// 订单原始订单ID，外部传入
-	OriginOrderId *string `json:"origin_order_id,omitempty" xml:"origin_order_id,omitempty" require:"true"`
-}
-
-func (s BlockInstruction) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BlockInstruction) GoString() string {
-	return s.String()
-}
-
-func (s *BlockInstruction) SetOrderId(v string) *BlockInstruction {
-	s.OrderId = &v
-	return s
-}
-
-func (s *BlockInstruction) SetInstructionType(v int64) *BlockInstruction {
-	s.InstructionType = &v
-	return s
-}
-
-func (s *BlockInstruction) SetBuyerAccountId(v string) *BlockInstruction {
-	s.BuyerAccountId = &v
-	return s
-}
-
-func (s *BlockInstruction) SetSellerAccountId(v string) *BlockInstruction {
-	s.SellerAccountId = &v
-	return s
-}
-
-func (s *BlockInstruction) SetPlatformId(v string) *BlockInstruction {
-	s.PlatformId = &v
-	return s
-}
-
-func (s *BlockInstruction) SetGoodsId(v string) *BlockInstruction {
-	s.GoodsId = &v
-	return s
-}
-
-func (s *BlockInstruction) SetDisplayName(v string) *BlockInstruction {
-	s.DisplayName = &v
-	return s
-}
-
-func (s *BlockInstruction) SetSellerPrice(v string) *BlockInstruction {
-	s.SellerPrice = &v
-	return s
-}
-
-func (s *BlockInstruction) SetDisplayPrice(v string) *BlockInstruction {
-	s.DisplayPrice = &v
-	return s
-}
-
-func (s *BlockInstruction) SetMemo(v string) *BlockInstruction {
-	s.Memo = &v
-	return s
-}
-
-func (s *BlockInstruction) SetRemark(v string) *BlockInstruction {
-	s.Remark = &v
-	return s
-}
-
-func (s *BlockInstruction) SetStatus(v int64) *BlockInstruction {
-	s.Status = &v
-	return s
-}
-
-func (s *BlockInstruction) SetRefundStatus(v int64) *BlockInstruction {
-	s.RefundStatus = &v
-	return s
-}
-
-func (s *BlockInstruction) SetCreateTimestamp(v int64) *BlockInstruction {
-	s.CreateTimestamp = &v
-	return s
-}
-
-func (s *BlockInstruction) SetPayTimestamp(v int64) *BlockInstruction {
-	s.PayTimestamp = &v
-	return s
-}
-
-func (s *BlockInstruction) SetExtraData(v []*MetaDataDO) *BlockInstruction {
-	s.ExtraData = v
-	return s
-}
-
-func (s *BlockInstruction) SetTokenInstructions(v []*TokenInstructionDO) *BlockInstruction {
-	s.TokenInstructions = v
-	return s
-}
-
-func (s *BlockInstruction) SetRelatedOrderId(v string) *BlockInstruction {
-	s.RelatedOrderId = &v
-	return s
-}
-
-func (s *BlockInstruction) SetCommissionToken(v string) *BlockInstruction {
-	s.CommissionToken = &v
-	return s
-}
-
-func (s *BlockInstruction) SetSellerReceiveToken(v string) *BlockInstruction {
-	s.SellerReceiveToken = &v
-	return s
-}
-
-func (s *BlockInstruction) SetPayCommissionType(v int64) *BlockInstruction {
-	s.PayCommissionType = &v
-	return s
-}
-
-func (s *BlockInstruction) SetBuyerPhone(v string) *BlockInstruction {
-	s.BuyerPhone = &v
-	return s
-}
-
-func (s *BlockInstruction) SetBuyerName(v string) *BlockInstruction {
-	s.BuyerName = &v
-	return s
-}
-
-func (s *BlockInstruction) SetBuyerIdNumber(v string) *BlockInstruction {
-	s.BuyerIdNumber = &v
-	return s
-}
-
-func (s *BlockInstruction) SetBuyerIdType(v string) *BlockInstruction {
-	s.BuyerIdType = &v
-	return s
-}
-
-func (s *BlockInstruction) SetBuyeIp(v string) *BlockInstruction {
-	s.BuyeIp = &v
-	return s
-}
-
-func (s *BlockInstruction) SetOriginCreateTime(v int64) *BlockInstruction {
-	s.OriginCreateTime = &v
-	return s
-}
-
-func (s *BlockInstruction) SetOriginOrderId(v string) *BlockInstruction {
-	s.OriginOrderId = &v
-	return s
-}
-
-// ip的基础信息加上渠道信息
-type IpBasicInfoWithChannelInfo struct {
-	// ip的基础信息
-	IpBasicInfo *IpBasicInfo `json:"ip_basic_info,omitempty" xml:"ip_basic_info,omitempty" require:"true"`
-	// ip的渠道信息和sku信息
-	IpChannalInfos []*IpChannelWithSku `json:"ip_channal_infos,omitempty" xml:"ip_channal_infos,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s IpBasicInfoWithChannelInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IpBasicInfoWithChannelInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IpBasicInfoWithChannelInfo) SetIpBasicInfo(v *IpBasicInfo) *IpBasicInfoWithChannelInfo {
-	s.IpBasicInfo = v
-	return s
-}
-
-func (s *IpBasicInfoWithChannelInfo) SetIpChannalInfos(v []*IpChannelWithSku) *IpBasicInfoWithChannelInfo {
-	s.IpChannalInfos = v
-	return s
-}
-
-// 授权订单的逐条销售数据
-type IPSalesEvery struct {
-	// 电商系统订单编号
-	OutOrderId *string `json:"out_order_id,omitempty" xml:"out_order_id,omitempty" require:"true"`
-	// 数据渠道类型：0 手动录入，1 淘宝开放平台
-	DataType *int64 `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
-	// 实际销售渠道
-	SalesChannel *string `json:"sales_channel,omitempty" xml:"sales_channel,omitempty"`
-	// 订单创建时间
-	OrderCreateTime *int64 `json:"order_create_time,omitempty" xml:"order_create_time,omitempty" require:"true"`
-	// 订单完成时间
-	OrderFinishTime *int64 `json:"order_finish_time,omitempty" xml:"order_finish_time,omitempty" require:"true"`
-	// 本订单销售金额，单位元
-	Sales *string `json:"sales,omitempty" xml:"sales,omitempty" require:"true"`
-	// 本订单退款金额，单位元
-	RefundSales *string `json:"refund_sales,omitempty" xml:"refund_sales,omitempty"`
-	// 店铺名称
-	ShopName *string `json:"shop_name,omitempty" xml:"shop_name,omitempty" require:"true"`
-	// 商品ID/SKUID/商品编码
-	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty" require:"true"`
-	// 商品名称
-	GoodsName *string `json:"goods_name,omitempty" xml:"goods_name,omitempty" require:"true"`
-	// 商品规格
-	GoodsSpecification *string `json:"goods_specification,omitempty" xml:"goods_specification,omitempty" require:"true"`
-	// 本订单卖出的商品数量
-	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
-	// 备注信息
-	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
-}
-
-func (s IPSalesEvery) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPSalesEvery) GoString() string {
-	return s.String()
-}
-
-func (s *IPSalesEvery) SetOutOrderId(v string) *IPSalesEvery {
-	s.OutOrderId = &v
-	return s
-}
-
-func (s *IPSalesEvery) SetDataType(v int64) *IPSalesEvery {
-	s.DataType = &v
-	return s
-}
-
-func (s *IPSalesEvery) SetSalesChannel(v string) *IPSalesEvery {
-	s.SalesChannel = &v
-	return s
-}
-
-func (s *IPSalesEvery) SetOrderCreateTime(v int64) *IPSalesEvery {
-	s.OrderCreateTime = &v
-	return s
-}
-
-func (s *IPSalesEvery) SetOrderFinishTime(v int64) *IPSalesEvery {
-	s.OrderFinishTime = &v
-	return s
-}
-
-func (s *IPSalesEvery) SetSales(v string) *IPSalesEvery {
-	s.Sales = &v
-	return s
-}
-
-func (s *IPSalesEvery) SetRefundSales(v string) *IPSalesEvery {
-	s.RefundSales = &v
-	return s
-}
-
-func (s *IPSalesEvery) SetShopName(v string) *IPSalesEvery {
-	s.ShopName = &v
-	return s
-}
-
-func (s *IPSalesEvery) SetGoodsId(v string) *IPSalesEvery {
-	s.GoodsId = &v
-	return s
-}
-
-func (s *IPSalesEvery) SetGoodsName(v string) *IPSalesEvery {
-	s.GoodsName = &v
-	return s
-}
-
-func (s *IPSalesEvery) SetGoodsSpecification(v string) *IPSalesEvery {
-	s.GoodsSpecification = &v
-	return s
-}
-
-func (s *IPSalesEvery) SetAmount(v int64) *IPSalesEvery {
-	s.Amount = &v
-	return s
-}
-
-func (s *IPSalesEvery) SetMemo(v string) *IPSalesEvery {
-	s.Memo = &v
-	return s
-}
-
-// ip的所有信息，加上更新的flag信息
-type IpAllInfo struct {
-	// ip的基础信息
-	IpBasicInfo *IpBasicInfo `json:"ip_basic_info,omitempty" xml:"ip_basic_info,omitempty" require:"true"`
-	// ip的渠道信息带上sku信息
-	IpChannalInfo []*IpChannelWithSku `json:"ip_channal_info,omitempty" xml:"ip_channal_info,omitempty" require:"true" type:"Repeated"`
-	// 是否有更新数据
-	IsUpdate *bool `json:"is_update,omitempty" xml:"is_update,omitempty" require:"true"`
-}
-
-func (s IpAllInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IpAllInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IpAllInfo) SetIpBasicInfo(v *IpBasicInfo) *IpAllInfo {
-	s.IpBasicInfo = v
-	return s
-}
-
-func (s *IpAllInfo) SetIpChannalInfo(v []*IpChannelWithSku) *IpAllInfo {
-	s.IpChannalInfo = v
-	return s
-}
-
-func (s *IpAllInfo) SetIsUpdate(v bool) *IpAllInfo {
-	s.IsUpdate = &v
-	return s
-}
-
-// 权益
-type Equity struct {
-	// 权益管理员ID
-	AdminId *string `json:"admin_id,omitempty" xml:"admin_id,omitempty" require:"true"`
-	// 权益授权类型
-	AuthType *int64 `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
-	// 权益锚定币种
-	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
-	// 权益默认价格
-	DefaultPrice *string `json:"default_price,omitempty" xml:"default_price,omitempty" require:"true"`
-	// 权益描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// 权益描述图片OSS地址 分号分隔
-	DescImages *string `json:"desc_images,omitempty" xml:"desc_images,omitempty" require:"true"`
-	// 权益附属信息
-	EquityExtInfo *EquityExtInfo `json:"equity_ext_info,omitempty" xml:"equity_ext_info,omitempty" require:"true"`
-	// 权益ID
-	EquityId *string `json:"equity_id,omitempty" xml:"equity_id,omitempty" require:"true"`
-	// 权益名称
-	EquityName *string `json:"equity_name,omitempty" xml:"equity_name,omitempty" require:"true"`
-	// 商品类型，详见数字商品公约https://tech.antfin.com/docs/2/163896
-	EquityType *string `json:"equity_type,omitempty" xml:"equity_type,omitempty" require:"true"`
-	// 权益主图片OSS地址 分号;分隔
-	Images *string `json:"images,omitempty" xml:"images,omitempty" require:"true"`
-	// 是否为公开权益
-	IsPublic *bool `json:"is_public,omitempty" xml:"is_public,omitempty" require:"true"`
-	// 商户每日兑换上限
-	LimitPerMerchantAndDay *int64 `json:"limit_per_merchant_and_day,omitempty" xml:"limit_per_merchant_and_day,omitempty" require:"true"`
-	// 商户每月兑换上限
-	LimitPerMerchantAndMonth *int64 `json:"limit_per_merchant_and_month,omitempty" xml:"limit_per_merchant_and_month,omitempty" require:"true"`
-	// 用户每日兑换上限
-	LimitPerUserAndDay *int64 `json:"limit_per_user_and_day,omitempty" xml:"limit_per_user_and_day,omitempty" require:"true"`
-	// 用户每月兑换上限
-	LimitPerUserAndMonth *int64 `json:"limit_per_user_and_month,omitempty" xml:"limit_per_user_and_month,omitempty" require:"true"`
-	// 附言
-	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
-	// 权益状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 权益库存
-	TotalCount *string `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
-	// 权益使用有效期右闭区间
-	UseValidNotAfter *int64 `json:"use_valid_not_after,omitempty" xml:"use_valid_not_after,omitempty" require:"true"`
-	// 权益使用有效期左闭区间
-	UseValidNotBefore *int64 `json:"use_valid_not_before,omitempty" xml:"use_valid_not_before,omitempty" require:"true"`
-	// 权益兑换有效期右闭区间
-	ValidNotAfter *int64 `json:"valid_not_after,omitempty" xml:"valid_not_after,omitempty" require:"true"`
-	// 权益兑换有效期左闭区间
-	ValidNotBefore *int64 `json:"valid_not_before,omitempty" xml:"valid_not_before,omitempty" require:"true"`
-	// 权益面值
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-	// 是否计算手续费（0: 更新手续费版本前不在合约计算手续费，1: 在合约计算手续费）
-	CommissionAccepted *int64 `json:"commission_accepted,omitempty" xml:"commission_accepted,omitempty" require:"true"`
-}
-
-func (s Equity) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Equity) GoString() string {
-	return s.String()
-}
-
-func (s *Equity) SetAdminId(v string) *Equity {
-	s.AdminId = &v
-	return s
-}
-
-func (s *Equity) SetAuthType(v int64) *Equity {
-	s.AuthType = &v
-	return s
-}
-
-func (s *Equity) SetCurrency(v string) *Equity {
-	s.Currency = &v
-	return s
-}
-
-func (s *Equity) SetDefaultPrice(v string) *Equity {
-	s.DefaultPrice = &v
-	return s
-}
-
-func (s *Equity) SetDescription(v string) *Equity {
-	s.Description = &v
-	return s
-}
-
-func (s *Equity) SetDescImages(v string) *Equity {
-	s.DescImages = &v
-	return s
-}
-
-func (s *Equity) SetEquityExtInfo(v *EquityExtInfo) *Equity {
-	s.EquityExtInfo = v
-	return s
-}
-
-func (s *Equity) SetEquityId(v string) *Equity {
-	s.EquityId = &v
-	return s
-}
-
-func (s *Equity) SetEquityName(v string) *Equity {
-	s.EquityName = &v
-	return s
-}
-
-func (s *Equity) SetEquityType(v string) *Equity {
-	s.EquityType = &v
-	return s
-}
-
-func (s *Equity) SetImages(v string) *Equity {
-	s.Images = &v
-	return s
-}
-
-func (s *Equity) SetIsPublic(v bool) *Equity {
-	s.IsPublic = &v
-	return s
-}
-
-func (s *Equity) SetLimitPerMerchantAndDay(v int64) *Equity {
-	s.LimitPerMerchantAndDay = &v
-	return s
-}
-
-func (s *Equity) SetLimitPerMerchantAndMonth(v int64) *Equity {
-	s.LimitPerMerchantAndMonth = &v
-	return s
-}
-
-func (s *Equity) SetLimitPerUserAndDay(v int64) *Equity {
-	s.LimitPerUserAndDay = &v
-	return s
-}
-
-func (s *Equity) SetLimitPerUserAndMonth(v int64) *Equity {
-	s.LimitPerUserAndMonth = &v
-	return s
-}
-
-func (s *Equity) SetMemo(v string) *Equity {
-	s.Memo = &v
-	return s
-}
-
-func (s *Equity) SetStatus(v int64) *Equity {
-	s.Status = &v
-	return s
-}
-
-func (s *Equity) SetTenantId(v string) *Equity {
-	s.TenantId = &v
-	return s
-}
-
-func (s *Equity) SetTotalCount(v string) *Equity {
-	s.TotalCount = &v
-	return s
-}
-
-func (s *Equity) SetUseValidNotAfter(v int64) *Equity {
-	s.UseValidNotAfter = &v
-	return s
-}
-
-func (s *Equity) SetUseValidNotBefore(v int64) *Equity {
-	s.UseValidNotBefore = &v
-	return s
-}
-
-func (s *Equity) SetValidNotAfter(v int64) *Equity {
-	s.ValidNotAfter = &v
-	return s
-}
-
-func (s *Equity) SetValidNotBefore(v int64) *Equity {
-	s.ValidNotBefore = &v
-	return s
-}
-
-func (s *Equity) SetValue(v string) *Equity {
-	s.Value = &v
-	return s
-}
-
-func (s *Equity) SetCommissionAccepted(v int64) *Equity {
-	s.CommissionAccepted = &v
-	return s
-}
-
-// 消费卡账户
-type ConsumeCardAccount struct {
-	// 授权函地址
-	AuthorizationAddress *string `json:"authorization_address,omitempty" xml:"authorization_address,omitempty" require:"true"`
-	// 认证方id
-	CertificationId *string `json:"certification_id,omitempty" xml:"certification_id,omitempty" require:"true"`
-	// 描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// 分布式身份ID
-	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
-	// 是否有权限采购商品
-	AuthConsumer *bool `json:"auth_consumer,omitempty" xml:"auth_consumer,omitempty" require:"true"`
-	// 是否有权限发行商品
-	AuthProvider *bool `json:"auth_provider,omitempty" xml:"auth_provider,omitempty" require:"true"`
-	// 个人用户的身份证号码/机构的企业编号
-	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty" require:"true"`
-	// 证件类型：0 身份证, 1 护照, 2 军官证, 3 回乡证, 4 港澳证件, 5 营业执照, 6 港澳居民来往内地通行证, 7 台湾居民来往内地通行证, 8 港澳居民居住证, 9 台湾居民居住证, 10事业单位登记证书, 11 社会团体登记证书, 12 民办非企业单位证书, 13 党政机关批准设计文件, 14 全国组织机构代码证书, 15 其他证件
-	IdType *int64 `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
-	// 个人用户的手机号码/机构用户的联系电话或邮箱(必填)
-	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
-	// 商户状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 是否可以发行资产
-	TokenIssuer *bool `json:"token_issuer,omitempty" xml:"token_issuer,omitempty" require:"true"`
-	// 账户创建类型（0:用户，1:商户）
-	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 账户ID
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 账户名称
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
-	// 提现银行卡
-	WithdrawBankCardId *string `json:"withdraw_bank_card_id,omitempty" xml:"withdraw_bank_card_id,omitempty" require:"true"`
-	// 账户影响信息
-	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
-	// 账户邮箱
-	Email *string `json:"email,omitempty" xml:"email,omitempty" require:"true"`
-}
-
-func (s ConsumeCardAccount) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ConsumeCardAccount) GoString() string {
-	return s.String()
-}
-
-func (s *ConsumeCardAccount) SetAuthorizationAddress(v string) *ConsumeCardAccount {
-	s.AuthorizationAddress = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetCertificationId(v string) *ConsumeCardAccount {
-	s.CertificationId = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetDescription(v string) *ConsumeCardAccount {
-	s.Description = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetDid(v string) *ConsumeCardAccount {
-	s.Did = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetAuthConsumer(v bool) *ConsumeCardAccount {
-	s.AuthConsumer = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetAuthProvider(v bool) *ConsumeCardAccount {
-	s.AuthProvider = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetIdNumber(v string) *ConsumeCardAccount {
-	s.IdNumber = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetIdType(v int64) *ConsumeCardAccount {
-	s.IdType = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetPhoneNumber(v string) *ConsumeCardAccount {
-	s.PhoneNumber = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetStatus(v int64) *ConsumeCardAccount {
-	s.Status = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetTokenIssuer(v bool) *ConsumeCardAccount {
-	s.TokenIssuer = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetType(v int64) *ConsumeCardAccount {
-	s.Type = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetUserId(v string) *ConsumeCardAccount {
-	s.UserId = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetUserName(v string) *ConsumeCardAccount {
-	s.UserName = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetWithdrawBankCardId(v string) *ConsumeCardAccount {
-	s.WithdrawBankCardId = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetImage(v string) *ConsumeCardAccount {
-	s.Image = &v
-	return s
-}
-
-func (s *ConsumeCardAccount) SetEmail(v string) *ConsumeCardAccount {
-	s.Email = &v
-	return s
-}
-
-// 已授权给商户的权益信息
-type OpenedEquity struct {
-	// 商户管理员ID
-	AdminId *string `json:"admin_id,omitempty" xml:"admin_id,omitempty" require:"true"`
-	// 授权类型
-	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
-	// 币种
-	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
-	// 默认价格
-	DefaultPrice *string `json:"default_price,omitempty" xml:"default_price,omitempty" require:"true"`
-	// 权益详情
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// 权益详情图片
-	DescImages *string `json:"desc_images,omitempty" xml:"desc_images,omitempty" require:"true"`
-	// 权益ID
-	EquityD *string `json:"equity_d,omitempty" xml:"equity_d,omitempty" require:"true"`
-	// 权益名称
-	EquityName *string `json:"equity_name,omitempty" xml:"equity_name,omitempty" require:"true"`
-	// 权益类型
-	EquityType *int64 `json:"equity_type,omitempty" xml:"equity_type,omitempty" require:"true"`
-	// 权益主图片
-	Images *string `json:"images,omitempty" xml:"images,omitempty" require:"true"`
-	// 是否是公开权益
-	IsPublic *bool `json:"is_public,omitempty" xml:"is_public,omitempty" require:"true"`
-	// 每日商户对换限制
-	LimitPerMerchantAndDay *int64 `json:"limit_per_merchant_and_day,omitempty" xml:"limit_per_merchant_and_day,omitempty" require:"true"`
-	// 每月商户对换限制
-	LimitPerMerchantAndMonth *int64 `json:"limit_per_merchant_and_month,omitempty" xml:"limit_per_merchant_and_month,omitempty" require:"true"`
-	// 每日用户对换限制
-	LimitPerUserAndDay *int64 `json:"limit_per_user_and_day,omitempty" xml:"limit_per_user_and_day,omitempty" require:"true"`
-	// 每月用户对换限制
-	LimitPerUserAndMonth *int64 `json:"limit_per_user_and_month,omitempty" xml:"limit_per_user_and_month,omitempty" require:"true"`
-	// 权益附言
-	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
-	// 被授权的租户ID
-	OpenToTenantId *string `json:"open_to_tenant_id,omitempty" xml:"open_to_tenant_id,omitempty" require:"true"`
-	// 权益状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 授权价格
-	TenantPrice *string `json:"tenant_price,omitempty" xml:"tenant_price,omitempty" require:"true"`
-	// 库存
-	TotalCount *string `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
-	// 可用右区间
-	UseValidNotAfter *int64 `json:"use_valid_not_after,omitempty" xml:"use_valid_not_after,omitempty" require:"true"`
-	// 可用左区间
-	UseValidNotBefore *int64 `json:"use_valid_not_before,omitempty" xml:"use_valid_not_before,omitempty" require:"true"`
-	// 有效右区间
-	ValidNotAfter *int64 `json:"valid_not_after,omitempty" xml:"valid_not_after,omitempty" require:"true"`
-	// 有效左时间
-	ValidNotBefore *int64 `json:"valid_not_before,omitempty" xml:"valid_not_before,omitempty" require:"true"`
-	// 价值
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-}
-
-func (s OpenedEquity) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OpenedEquity) GoString() string {
-	return s.String()
-}
-
-func (s *OpenedEquity) SetAdminId(v string) *OpenedEquity {
-	s.AdminId = &v
-	return s
-}
-
-func (s *OpenedEquity) SetAuthType(v string) *OpenedEquity {
-	s.AuthType = &v
-	return s
-}
-
-func (s *OpenedEquity) SetCurrency(v string) *OpenedEquity {
-	s.Currency = &v
-	return s
-}
-
-func (s *OpenedEquity) SetDefaultPrice(v string) *OpenedEquity {
-	s.DefaultPrice = &v
-	return s
-}
-
-func (s *OpenedEquity) SetDescription(v string) *OpenedEquity {
-	s.Description = &v
-	return s
-}
-
-func (s *OpenedEquity) SetDescImages(v string) *OpenedEquity {
-	s.DescImages = &v
-	return s
-}
-
-func (s *OpenedEquity) SetEquityD(v string) *OpenedEquity {
-	s.EquityD = &v
-	return s
-}
-
-func (s *OpenedEquity) SetEquityName(v string) *OpenedEquity {
-	s.EquityName = &v
-	return s
-}
-
-func (s *OpenedEquity) SetEquityType(v int64) *OpenedEquity {
-	s.EquityType = &v
-	return s
-}
-
-func (s *OpenedEquity) SetImages(v string) *OpenedEquity {
-	s.Images = &v
-	return s
-}
-
-func (s *OpenedEquity) SetIsPublic(v bool) *OpenedEquity {
-	s.IsPublic = &v
-	return s
-}
-
-func (s *OpenedEquity) SetLimitPerMerchantAndDay(v int64) *OpenedEquity {
-	s.LimitPerMerchantAndDay = &v
-	return s
-}
-
-func (s *OpenedEquity) SetLimitPerMerchantAndMonth(v int64) *OpenedEquity {
-	s.LimitPerMerchantAndMonth = &v
-	return s
-}
-
-func (s *OpenedEquity) SetLimitPerUserAndDay(v int64) *OpenedEquity {
-	s.LimitPerUserAndDay = &v
-	return s
-}
-
-func (s *OpenedEquity) SetLimitPerUserAndMonth(v int64) *OpenedEquity {
-	s.LimitPerUserAndMonth = &v
-	return s
-}
-
-func (s *OpenedEquity) SetMemo(v string) *OpenedEquity {
-	s.Memo = &v
-	return s
-}
-
-func (s *OpenedEquity) SetOpenToTenantId(v string) *OpenedEquity {
-	s.OpenToTenantId = &v
-	return s
-}
-
-func (s *OpenedEquity) SetStatus(v int64) *OpenedEquity {
-	s.Status = &v
-	return s
-}
-
-func (s *OpenedEquity) SetTenantId(v string) *OpenedEquity {
-	s.TenantId = &v
-	return s
-}
-
-func (s *OpenedEquity) SetTenantPrice(v string) *OpenedEquity {
-	s.TenantPrice = &v
-	return s
-}
-
-func (s *OpenedEquity) SetTotalCount(v string) *OpenedEquity {
-	s.TotalCount = &v
-	return s
-}
-
-func (s *OpenedEquity) SetUseValidNotAfter(v int64) *OpenedEquity {
-	s.UseValidNotAfter = &v
-	return s
-}
-
-func (s *OpenedEquity) SetUseValidNotBefore(v int64) *OpenedEquity {
-	s.UseValidNotBefore = &v
-	return s
-}
-
-func (s *OpenedEquity) SetValidNotAfter(v int64) *OpenedEquity {
-	s.ValidNotAfter = &v
-	return s
-}
-
-func (s *OpenedEquity) SetValidNotBefore(v int64) *OpenedEquity {
-	s.ValidNotBefore = &v
-	return s
-}
-
-func (s *OpenedEquity) SetValue(v string) *OpenedEquity {
-	s.Value = &v
-	return s
-}
-
-// 资产
-type Asset struct {
-	// 资产管理员ID
-	AdminId *string `json:"admin_id,omitempty" xml:"admin_id,omitempty" require:"true"`
-	// 资产附属信息
-	AssetExtInfo *AssetExtInfo `json:"asset_ext_info,omitempty" xml:"asset_ext_info,omitempty" require:"true"`
-	// 资产ID
-	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
-	// 资产名称
-	AssetName *string `json:"asset_name,omitempty" xml:"asset_name,omitempty" require:"true"`
-	// 资产汇率
-	AssetRate *string `json:"asset_rate,omitempty" xml:"asset_rate,omitempty" require:"true"`
-	// 币种
-	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
-	// 发行账户余额
-	IssueAccountBalance *string `json:"issue_account_balance,omitempty" xml:"issue_account_balance,omitempty" require:"true"`
-	// 过期回收账户余额
-	OverdueRecoveryAccountBalance *string `json:"overdue_recovery_account_balance,omitempty" xml:"overdue_recovery_account_balance,omitempty" require:"true"`
-	// 支付收款账户余额
-	ReceivePaymentAccountBalance *string `json:"receive_payment_account_balance,omitempty" xml:"receive_payment_account_balance,omitempty" require:"true"`
-	// 中继账户余额
-	RelayAccountBalance *string `json:"relay_account_balance,omitempty" xml:"relay_account_balance,omitempty" require:"true"`
-	// 资产状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 资产总发行量
-	TotalIssueBalance *string `json:"total_issue_balance,omitempty" xml:"total_issue_balance,omitempty" require:"true"`
-}
-
-func (s Asset) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Asset) GoString() string {
-	return s.String()
-}
-
-func (s *Asset) SetAdminId(v string) *Asset {
-	s.AdminId = &v
-	return s
-}
-
-func (s *Asset) SetAssetExtInfo(v *AssetExtInfo) *Asset {
-	s.AssetExtInfo = v
-	return s
-}
-
-func (s *Asset) SetAssetId(v string) *Asset {
-	s.AssetId = &v
-	return s
-}
-
-func (s *Asset) SetAssetName(v string) *Asset {
-	s.AssetName = &v
-	return s
-}
-
-func (s *Asset) SetAssetRate(v string) *Asset {
-	s.AssetRate = &v
-	return s
-}
-
-func (s *Asset) SetCurrency(v string) *Asset {
-	s.Currency = &v
-	return s
-}
-
-func (s *Asset) SetIssueAccountBalance(v string) *Asset {
-	s.IssueAccountBalance = &v
-	return s
-}
-
-func (s *Asset) SetOverdueRecoveryAccountBalance(v string) *Asset {
-	s.OverdueRecoveryAccountBalance = &v
-	return s
-}
-
-func (s *Asset) SetReceivePaymentAccountBalance(v string) *Asset {
-	s.ReceivePaymentAccountBalance = &v
-	return s
-}
-
-func (s *Asset) SetRelayAccountBalance(v string) *Asset {
-	s.RelayAccountBalance = &v
-	return s
-}
-
-func (s *Asset) SetStatus(v int64) *Asset {
-	s.Status = &v
-	return s
-}
-
-func (s *Asset) SetTenantId(v string) *Asset {
-	s.TenantId = &v
-	return s
-}
-
-func (s *Asset) SetTotalIssueBalance(v string) *Asset {
-	s.TotalIssueBalance = &v
-	return s
-}
-
-// 创建电子券的参数
-type CouponCreate struct {
-	// 电子券批次ID
-	CollectionId *string `json:"collection_id,omitempty" xml:"collection_id,omitempty" require:"true"`
-	// 电子券价值
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-	// 电子券名称
-	CouponName *string `json:"coupon_name,omitempty" xml:"coupon_name,omitempty" require:"true"`
-	// 用户脱敏ID
-	DesensitizedUid *string `json:"desensitized_uid,omitempty" xml:"desensitized_uid,omitempty"`
-	// 扩展信息
-	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
-	// 持有者ID
-	HolderUserAccount *string `json:"holder_user_account,omitempty" xml:"holder_user_account,omitempty"`
-	// 电子券公钥
-	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty" require:"true"`
-	// 时区（暂时固定为GMT+8）
-	TimeZone *string `json:"time_zone,omitempty" xml:"time_zone,omitempty" require:"true"`
-	// 用户公钥
-	UidPublicKey *string `json:"uid_public_key,omitempty" xml:"uid_public_key,omitempty"`
-	// 有效开始时间
-	ValidAfter *int64 `json:"valid_after,omitempty" xml:"valid_after,omitempty" require:"true"`
-	// 有效结束时间
-	ValidBefore *int64 `json:"valid_before,omitempty" xml:"valid_before,omitempty" require:"true"`
-}
-
-func (s CouponCreate) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CouponCreate) GoString() string {
-	return s.String()
-}
-
-func (s *CouponCreate) SetCollectionId(v string) *CouponCreate {
-	s.CollectionId = &v
-	return s
-}
-
-func (s *CouponCreate) SetValue(v string) *CouponCreate {
-	s.Value = &v
-	return s
-}
-
-func (s *CouponCreate) SetCouponName(v string) *CouponCreate {
-	s.CouponName = &v
-	return s
-}
-
-func (s *CouponCreate) SetDesensitizedUid(v string) *CouponCreate {
-	s.DesensitizedUid = &v
-	return s
-}
-
-func (s *CouponCreate) SetExtInfo(v string) *CouponCreate {
-	s.ExtInfo = &v
-	return s
-}
-
-func (s *CouponCreate) SetHolderUserAccount(v string) *CouponCreate {
-	s.HolderUserAccount = &v
-	return s
-}
-
-func (s *CouponCreate) SetPublicKey(v string) *CouponCreate {
-	s.PublicKey = &v
-	return s
-}
-
-func (s *CouponCreate) SetTimeZone(v string) *CouponCreate {
-	s.TimeZone = &v
-	return s
-}
-
-func (s *CouponCreate) SetUidPublicKey(v string) *CouponCreate {
-	s.UidPublicKey = &v
-	return s
-}
-
-func (s *CouponCreate) SetValidAfter(v int64) *CouponCreate {
-	s.ValidAfter = &v
-	return s
-}
-
-func (s *CouponCreate) SetValidBefore(v int64) *CouponCreate {
-	s.ValidBefore = &v
-	return s
-}
-
-// 统计数据
-type CounterData struct {
-	// 成交总额
-	Gmv *string `json:"gmv,omitempty" xml:"gmv,omitempty" require:"true"`
-	// 公认标准收入
-	Gaap *string `json:"gaap,omitempty" xml:"gaap,omitempty" require:"true"`
-	// 笔数
-	Counter *string `json:"counter,omitempty" xml:"counter,omitempty" require:"true"`
-}
-
-func (s CounterData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CounterData) GoString() string {
-	return s.String()
-}
-
-func (s *CounterData) SetGmv(v string) *CounterData {
-	s.Gmv = &v
-	return s
-}
-
-func (s *CounterData) SetGaap(v string) *CounterData {
-	s.Gaap = &v
-	return s
-}
-
-func (s *CounterData) SetCounter(v string) *CounterData {
-	s.Counter = &v
-	return s
-}
-
-// 消费卡商品信息
-type GoodsResponse struct {
-	// 商品归属的账户ID
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 商品名称
-	GoodsName *string `json:"goods_name,omitempty" xml:"goods_name,omitempty" require:"true"`
-	// 商品类型
-	GoodsType *string `json:"goods_type,omitempty" xml:"goods_type,omitempty" require:"true"`
-	// 商品描述信息
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// 商品库存
-	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
-	// 显示价格
-	DisplayPrice *string `json:"display_price,omitempty" xml:"display_price,omitempty" require:"true"`
-	// 默认价格
-	DefaultPrice *string `json:"default_price,omitempty" xml:"default_price,omitempty" require:"true"`
-	// 是否公开商品
-	IfPublic *bool `json:"if_public,omitempty" xml:"if_public,omitempty" require:"true"`
-	// 商品主图片URL
-	Images *string `json:"images,omitempty" xml:"images,omitempty" require:"true"`
-	// 商品描述图片，每个图片URL用:隔开
-	DescImages *string `json:"desc_images,omitempty" xml:"desc_images,omitempty" require:"true"`
-	// 商品状态 0可用，1下线
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 商品开始时间
-	ValidNotBefore *int64 `json:"valid_not_before,omitempty" xml:"valid_not_before,omitempty" require:"true"`
-	// 商品结束时间
-	ValidNotAfter *int64 `json:"valid_not_after,omitempty" xml:"valid_not_after,omitempty" require:"true"`
-	// 商品每日上限
-	LimitPerUserAndDay *int64 `json:"limit_per_user_and_day,omitempty" xml:"limit_per_user_and_day,omitempty" require:"true"`
-	// 商品每月上限
-	LimitPerUserAndMonth *int64 `json:"limit_per_user_and_month,omitempty" xml:"limit_per_user_and_month,omitempty" require:"true"`
-	// 商品备注信息
-	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
-	// 授权类型
-	AuthType *int64 `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
-	// 商品类型
-	CategoryId *string `json:"category_id,omitempty" xml:"category_id,omitempty" require:"true"`
-	// 商品ID
-	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty" require:"true"`
-}
-
-func (s GoodsResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GoodsResponse) GoString() string {
-	return s.String()
-}
-
-func (s *GoodsResponse) SetAccountId(v string) *GoodsResponse {
-	s.AccountId = &v
-	return s
-}
-
-func (s *GoodsResponse) SetGoodsName(v string) *GoodsResponse {
-	s.GoodsName = &v
-	return s
-}
-
-func (s *GoodsResponse) SetGoodsType(v string) *GoodsResponse {
-	s.GoodsType = &v
-	return s
-}
-
-func (s *GoodsResponse) SetDescription(v string) *GoodsResponse {
-	s.Description = &v
-	return s
-}
-
-func (s *GoodsResponse) SetTotalCount(v int64) *GoodsResponse {
-	s.TotalCount = &v
-	return s
-}
-
-func (s *GoodsResponse) SetDisplayPrice(v string) *GoodsResponse {
-	s.DisplayPrice = &v
-	return s
-}
-
-func (s *GoodsResponse) SetDefaultPrice(v string) *GoodsResponse {
-	s.DefaultPrice = &v
-	return s
-}
-
-func (s *GoodsResponse) SetIfPublic(v bool) *GoodsResponse {
-	s.IfPublic = &v
-	return s
-}
-
-func (s *GoodsResponse) SetImages(v string) *GoodsResponse {
-	s.Images = &v
-	return s
-}
-
-func (s *GoodsResponse) SetDescImages(v string) *GoodsResponse {
-	s.DescImages = &v
-	return s
-}
-
-func (s *GoodsResponse) SetStatus(v int64) *GoodsResponse {
-	s.Status = &v
-	return s
-}
-
-func (s *GoodsResponse) SetValidNotBefore(v int64) *GoodsResponse {
-	s.ValidNotBefore = &v
-	return s
-}
-
-func (s *GoodsResponse) SetValidNotAfter(v int64) *GoodsResponse {
-	s.ValidNotAfter = &v
-	return s
-}
-
-func (s *GoodsResponse) SetLimitPerUserAndDay(v int64) *GoodsResponse {
-	s.LimitPerUserAndDay = &v
-	return s
-}
-
-func (s *GoodsResponse) SetLimitPerUserAndMonth(v int64) *GoodsResponse {
-	s.LimitPerUserAndMonth = &v
-	return s
-}
-
-func (s *GoodsResponse) SetMemo(v string) *GoodsResponse {
-	s.Memo = &v
-	return s
-}
-
-func (s *GoodsResponse) SetAuthType(v int64) *GoodsResponse {
-	s.AuthType = &v
-	return s
-}
-
-func (s *GoodsResponse) SetCategoryId(v string) *GoodsResponse {
-	s.CategoryId = &v
-	return s
-}
-
-func (s *GoodsResponse) SetGoodsId(v string) *GoodsResponse {
-	s.GoodsId = &v
-	return s
-}
-
-// T+1日销售数据汇总
-type SalesByDay struct {
-	// 订单ID
-	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
-	// 版权方ID
-	SellerId *string `json:"seller_id,omitempty" xml:"seller_id,omitempty" require:"true"`
-	// 商家ID
-	BuyerId *string `json:"buyer_id,omitempty" xml:"buyer_id,omitempty" require:"true"`
-	// 版权方名称
-	SellerName *string `json:"seller_name,omitempty" xml:"seller_name,omitempty" require:"true"`
-	// 商家名称
-	BuyerName *string `json:"buyer_name,omitempty" xml:"buyer_name,omitempty" require:"true"`
-	// 日期
-	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
-	// 统计周期-开始时间
-	StatisticBeginPeriod *int64 `json:"statistic_begin_period,omitempty" xml:"statistic_begin_period,omitempty" require:"true"`
-	// 统计周期-结束时间
-	StatisticEndPeriod *int64 `json:"statistic_end_period,omitempty" xml:"statistic_end_period,omitempty" require:"true"`
-	// 商品销售数量
-	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
-	// 商品总销售额
-	Sales *string `json:"sales,omitempty" xml:"sales,omitempty" require:"true"`
-	// 总回退销售额
-	RefundSales *string `json:"refund_sales,omitempty" xml:"refund_sales,omitempty" require:"true"`
-	// 需支付给版权方的总费用
-	Payment *string `json:"payment,omitempty" xml:"payment,omitempty" require:"true"`
-}
-
-func (s SalesByDay) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SalesByDay) GoString() string {
-	return s.String()
-}
-
-func (s *SalesByDay) SetIpOrderId(v string) *SalesByDay {
-	s.IpOrderId = &v
-	return s
-}
-
-func (s *SalesByDay) SetSellerId(v string) *SalesByDay {
-	s.SellerId = &v
-	return s
-}
-
-func (s *SalesByDay) SetBuyerId(v string) *SalesByDay {
-	s.BuyerId = &v
-	return s
-}
-
-func (s *SalesByDay) SetSellerName(v string) *SalesByDay {
-	s.SellerName = &v
-	return s
-}
-
-func (s *SalesByDay) SetBuyerName(v string) *SalesByDay {
-	s.BuyerName = &v
-	return s
-}
-
-func (s *SalesByDay) SetDate(v string) *SalesByDay {
-	s.Date = &v
-	return s
-}
-
-func (s *SalesByDay) SetStatisticBeginPeriod(v int64) *SalesByDay {
-	s.StatisticBeginPeriod = &v
-	return s
-}
-
-func (s *SalesByDay) SetStatisticEndPeriod(v int64) *SalesByDay {
-	s.StatisticEndPeriod = &v
-	return s
-}
-
-func (s *SalesByDay) SetAmount(v int64) *SalesByDay {
-	s.Amount = &v
-	return s
-}
-
-func (s *SalesByDay) SetSales(v string) *SalesByDay {
-	s.Sales = &v
-	return s
-}
-
-func (s *SalesByDay) SetRefundSales(v string) *SalesByDay {
-	s.RefundSales = &v
-	return s
-}
-
-func (s *SalesByDay) SetPayment(v string) *SalesByDay {
-	s.Payment = &v
-	return s
-}
-
-// 钱包信息
-type WalletInfo struct {
-	// 授信钱包信息
-	CreditWallet *CreditWallet `json:"credit_wallet,omitempty" xml:"credit_wallet,omitempty" require:"true"`
-	// 余额钱包信息
-	DebitWallet *DebitWallet `json:"debit_wallet,omitempty" xml:"debit_wallet,omitempty" require:"true"`
-	// 钱包统计信息
-	StatisticalInfo *StatisticalInfo `json:"statistical_info,omitempty" xml:"statistical_info,omitempty" require:"true"`
-}
-
-func (s WalletInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s WalletInfo) GoString() string {
-	return s.String()
-}
-
-func (s *WalletInfo) SetCreditWallet(v *CreditWallet) *WalletInfo {
-	s.CreditWallet = v
-	return s
-}
-
-func (s *WalletInfo) SetDebitWallet(v *DebitWallet) *WalletInfo {
-	s.DebitWallet = v
-	return s
-}
-
-func (s *WalletInfo) SetStatisticalInfo(v *StatisticalInfo) *WalletInfo {
-	s.StatisticalInfo = v
-	return s
-}
-
-// 正版码被扫描或领取的信息
-type IPCodeScannedInfo struct {
-	// 正版码ID
-	IpCode *string `json:"ip_code,omitempty" xml:"ip_code,omitempty" require:"true"`
-	// 正版码所在批次已申请的正版码总数
-	BatchUsedCount *int64 `json:"batch_used_count,omitempty" xml:"batch_used_count,omitempty"`
-	// 用户的ID
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 用户的名称
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
-	// 用户头像地址
-	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty" require:"true"`
-	// 用户的手机号
-	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
-	// 用户的位置信息
-	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
-	// 领取正版码的交易哈希
-	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
-	// 领取正版码交易所在的区块高度
-	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty"`
-	// 处理时间(毫秒时间戳)
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
-	// IP ID
-	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
-	// 订单ID
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
-	// 正版码商品信息配置列表
-	GoodsInfoList []*IPCodeGoodsInfo `json:"goods_info_list,omitempty" xml:"goods_info_list,omitempty" type:"Repeated"`
-	// 正版码资源位配置信息列表
-	AdInfoList []*IPCodeAdvertisingInfo `json:"ad_info_list,omitempty" xml:"ad_info_list,omitempty" type:"Repeated"`
-	// ip版权方信息
-	IpownerInfo *IPCodeIpOwnerInfo `json:"ipowner_info,omitempty" xml:"ipowner_info,omitempty"`
-	// 0:未配置, 1:配置成功可展示, 4:已经失效, 9:下架【本期不实现】
-	IpCodeStatus *int64 `json:"ip_code_status,omitempty" xml:"ip_code_status,omitempty"`
-	// 额外功能，包括是否允许收藏等
-	Features []*int64 `json:"features,omitempty" xml:"features,omitempty" type:"Repeated"`
-	// 核验次数，配置生效后的核验次数统计
-	CheckCounts *int64 `json:"check_counts,omitempty" xml:"check_counts,omitempty"`
-	// 正版码关联的I IP信息
-	IpInfo *IPCodeIpGoodInfo `json:"ip_info,omitempty" xml:"ip_info,omitempty"`
-	// UNI码
-	UniCode *string `json:"uni_code,omitempty" xml:"uni_code,omitempty"`
-	// 正版码配置附加信息，信息内容由调用方自定义
-	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
-	// 收藏时间(UNIX时间戳)0表示未被收藏
-	ReceiveTime *int64 `json:"receive_time,omitempty" xml:"receive_time,omitempty"`
-	// 同一批次存在失效UNI码的场景下,指示更新后的下标
-	FixedIndex *int64 `json:"fixed_index,omitempty" xml:"fixed_index,omitempty"`
-	// 同一批次存在失效UNI码的场景下,指示更新后的总量
-	FixedCount *int64 `json:"fixed_count,omitempty" xml:"fixed_count,omitempty"`
-	// 小龙坎有限公司
-	AccountExternalName *string `json:"account_external_name,omitempty" xml:"account_external_name,omitempty"`
-}
-
-func (s IPCodeScannedInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPCodeScannedInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IPCodeScannedInfo) SetIpCode(v string) *IPCodeScannedInfo {
-	s.IpCode = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetBatchUsedCount(v int64) *IPCodeScannedInfo {
-	s.BatchUsedCount = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetUserId(v string) *IPCodeScannedInfo {
-	s.UserId = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetUserName(v string) *IPCodeScannedInfo {
-	s.UserName = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetAvatar(v string) *IPCodeScannedInfo {
-	s.Avatar = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetPhoneNumber(v string) *IPCodeScannedInfo {
-	s.PhoneNumber = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetGps(v string) *IPCodeScannedInfo {
-	s.Gps = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetHash(v string) *IPCodeScannedInfo {
-	s.Hash = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetBlockNumber(v int64) *IPCodeScannedInfo {
-	s.BlockNumber = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetTimestamp(v int64) *IPCodeScannedInfo {
-	s.Timestamp = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetIpId(v string) *IPCodeScannedInfo {
-	s.IpId = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetOrderId(v string) *IPCodeScannedInfo {
-	s.OrderId = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetGoodsInfoList(v []*IPCodeGoodsInfo) *IPCodeScannedInfo {
-	s.GoodsInfoList = v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetAdInfoList(v []*IPCodeAdvertisingInfo) *IPCodeScannedInfo {
-	s.AdInfoList = v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetIpownerInfo(v *IPCodeIpOwnerInfo) *IPCodeScannedInfo {
-	s.IpownerInfo = v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetIpCodeStatus(v int64) *IPCodeScannedInfo {
-	s.IpCodeStatus = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetFeatures(v []*int64) *IPCodeScannedInfo {
-	s.Features = v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetCheckCounts(v int64) *IPCodeScannedInfo {
-	s.CheckCounts = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetIpInfo(v *IPCodeIpGoodInfo) *IPCodeScannedInfo {
-	s.IpInfo = v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetUniCode(v string) *IPCodeScannedInfo {
-	s.UniCode = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetExtInfo(v string) *IPCodeScannedInfo {
-	s.ExtInfo = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetReceiveTime(v int64) *IPCodeScannedInfo {
-	s.ReceiveTime = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetFixedIndex(v int64) *IPCodeScannedInfo {
-	s.FixedIndex = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetFixedCount(v int64) *IPCodeScannedInfo {
-	s.FixedCount = &v
-	return s
-}
-
-func (s *IPCodeScannedInfo) SetAccountExternalName(v string) *IPCodeScannedInfo {
-	s.AccountExternalName = &v
-	return s
-}
-
-// IP淘宝店铺信息
-type IPShopInfo struct {
-	// 授权申请的内部编码
-	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty" require:"true"`
-	// 淘宝卖家的官方昵称
-	SellerNick *string `json:"seller_nick,omitempty" xml:"seller_nick,omitempty" require:"true"`
-	// 授权渠道名称
-	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
-	// 数据授权方式
-	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
-	// 授权启始时间戳(unix毫秒)
-	AuthStart *int64 `json:"auth_start,omitempty" xml:"auth_start,omitempty" require:"true"`
-	// 授权终止时间戳(unix毫秒)
-	AuthEnd *int64 `json:"auth_end,omitempty" xml:"auth_end,omitempty" require:"true"`
-	// 授权状态(1: Init, 2: Success, 3: Expired)
-	AuthStatus *int64 `json:"auth_status,omitempty" xml:"auth_status,omitempty" require:"true"`
-	// 授权链接
-	AuthUrl *string `json:"auth_url,omitempty" xml:"auth_url,omitempty" require:"true"`
-}
-
-func (s IPShopInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPShopInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IPShopInfo) SetItemCode(v string) *IPShopInfo {
-	s.ItemCode = &v
-	return s
-}
-
-func (s *IPShopInfo) SetSellerNick(v string) *IPShopInfo {
-	s.SellerNick = &v
-	return s
-}
-
-func (s *IPShopInfo) SetChannelName(v string) *IPShopInfo {
-	s.ChannelName = &v
-	return s
-}
-
-func (s *IPShopInfo) SetAuthType(v string) *IPShopInfo {
-	s.AuthType = &v
-	return s
-}
-
-func (s *IPShopInfo) SetAuthStart(v int64) *IPShopInfo {
-	s.AuthStart = &v
-	return s
-}
-
-func (s *IPShopInfo) SetAuthEnd(v int64) *IPShopInfo {
-	s.AuthEnd = &v
-	return s
-}
-
-func (s *IPShopInfo) SetAuthStatus(v int64) *IPShopInfo {
-	s.AuthStatus = &v
-	return s
-}
-
-func (s *IPShopInfo) SetAuthUrl(v string) *IPShopInfo {
-	s.AuthUrl = &v
-	return s
-}
-
-// 区块链信息
-type IPCodeChainInfo struct {
-	// 交易哈希
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
-	// 交易区块
-	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty"`
-	// 交易时间
-	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty"`
-}
-
-func (s IPCodeChainInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPCodeChainInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IPCodeChainInfo) SetTxHash(v string) *IPCodeChainInfo {
-	s.TxHash = &v
-	return s
-}
-
-func (s *IPCodeChainInfo) SetBlockHeight(v int64) *IPCodeChainInfo {
-	s.BlockHeight = &v
-	return s
-}
-
-func (s *IPCodeChainInfo) SetTxTime(v int64) *IPCodeChainInfo {
-	s.TxTime = &v
-	return s
-}
-
-// 手续费规则结果
-type CommissionRuleResponse struct {
-	// 手续费到账方
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 手续费周期列表
-	CommissionPeriods []*CommissionPeriod `json:"commission_periods,omitempty" xml:"commission_periods,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s CommissionRuleResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CommissionRuleResponse) GoString() string {
-	return s.String()
-}
-
-func (s *CommissionRuleResponse) SetAccountId(v string) *CommissionRuleResponse {
-	s.AccountId = &v
-	return s
-}
-
-func (s *CommissionRuleResponse) SetCommissionPeriods(v []*CommissionPeriod) *CommissionRuleResponse {
-	s.CommissionPeriods = v
-	return s
-}
-
-// MCC信息(https://gw.alipayobjects.com/os/bmw-prod/05c9a32e-42d1-436b-ace7-13101d91f672.xlsx）
-type IPMCC struct {
-	// MCC编码
-	MccCode *string `json:"mcc_code,omitempty" xml:"mcc_code,omitempty" require:"true"`
-	// 经营类目一级
-	CategoryLevel1 *string `json:"category_level1,omitempty" xml:"category_level1,omitempty" require:"true"`
-	// 经营类目二级
-	CategoryLevel2 *string `json:"category_level2,omitempty" xml:"category_level2,omitempty" require:"true"`
-	// 经营类目三级
-	CategoryLevel3 *string `json:"category_level3,omitempty" xml:"category_level3,omitempty" require:"true"`
-}
-
-func (s IPMCC) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPMCC) GoString() string {
-	return s.String()
-}
-
-func (s *IPMCC) SetMccCode(v string) *IPMCC {
-	s.MccCode = &v
-	return s
-}
-
-func (s *IPMCC) SetCategoryLevel1(v string) *IPMCC {
-	s.CategoryLevel1 = &v
-	return s
-}
-
-func (s *IPMCC) SetCategoryLevel2(v string) *IPMCC {
-	s.CategoryLevel2 = &v
-	return s
-}
-
-func (s *IPMCC) SetCategoryLevel3(v string) *IPMCC {
-	s.CategoryLevel3 = &v
-	return s
-}
-
-// 账户入驻的渠道表
-type AccountInChannels struct {
-	// 天猫渠道
-	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
-	// 是否入驻
-	IsSettled *bool `json:"is_settled,omitempty" xml:"is_settled,omitempty" require:"true"`
-	// WAIT_CHECK:渠道已申请开通但未审核，SUCCESS:渠道开通审核成功，渠道开通
-	SettledStatus *string `json:"settled_status,omitempty" xml:"settled_status,omitempty"`
-}
-
-func (s AccountInChannels) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AccountInChannels) GoString() string {
-	return s.String()
-}
-
-func (s *AccountInChannels) SetChannelName(v string) *AccountInChannels {
-	s.ChannelName = &v
-	return s
-}
-
-func (s *AccountInChannels) SetIsSettled(v bool) *AccountInChannels {
-	s.IsSettled = &v
-	return s
-}
-
-func (s *AccountInChannels) SetSettledStatus(v string) *AccountInChannels {
-	s.SettledStatus = &v
-	return s
-}
-
-// IP商家的店铺宝贝详细数据
-type IPShopItemInfo struct {
-	// 商品数字id
-	NumId *int64 `json:"num_id,omitempty" xml:"num_id,omitempty" require:"true"`
-	// 商品标题,不能超过60字节
-	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
-	// 卖家昵称
-	Nick *string `json:"nick,omitempty" xml:"nick,omitempty" require:"true"`
-	// 价格
-	Price *string `json:"price,omitempty" xml:"price,omitempty" require:"true"`
-	// 商品类型(fixed:一口价;auction:拍卖)注：取消团购
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// 商品属性 格式：pid:vid;pid:vid
-	Props *string `json:"props,omitempty" xml:"props,omitempty"`
-	// 用户自行输入的子属性名和属性值，结构:"父属性值;一级子属性名;一级子属性值;二级子属性名;自定义输入值,....",如：“耐克;耐克系列;科比系列;科比系列;2K5”，input_str需要与input_pids一一对应，注：通常一个类目下用户可输入的关键属性不超过1个。所有属性别名加起来不能超过 3999字节。
-	InputStr *string `json:"input_str,omitempty" xml:"input_str,omitempty"`
-	// 商品描述, 字数要大于5个字节，小于25000个字节
-	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
-}
-
-func (s IPShopItemInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPShopItemInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IPShopItemInfo) SetNumId(v int64) *IPShopItemInfo {
-	s.NumId = &v
-	return s
-}
-
-func (s *IPShopItemInfo) SetTitle(v string) *IPShopItemInfo {
-	s.Title = &v
-	return s
-}
-
-func (s *IPShopItemInfo) SetNick(v string) *IPShopItemInfo {
-	s.Nick = &v
-	return s
-}
-
-func (s *IPShopItemInfo) SetPrice(v string) *IPShopItemInfo {
-	s.Price = &v
-	return s
-}
-
-func (s *IPShopItemInfo) SetType(v string) *IPShopItemInfo {
-	s.Type = &v
-	return s
-}
-
-func (s *IPShopItemInfo) SetProps(v string) *IPShopItemInfo {
-	s.Props = &v
-	return s
-}
-
-func (s *IPShopItemInfo) SetInputStr(v string) *IPShopItemInfo {
-	s.InputStr = &v
-	return s
-}
-
-func (s *IPShopItemInfo) SetDesc(v string) *IPShopItemInfo {
-	s.Desc = &v
-	return s
-}
-
-// 手续费信息
-type Commission struct {
-	// 要更新的手续费状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 手续费生效时间（时间戳 ms）
-	BeginTime *int64 `json:"begin_time,omitempty" xml:"begin_time,omitempty"`
-	// 手续费结束时间
-	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty"`
-	// 手续费
-	Commission *string `json:"commission,omitempty" xml:"commission,omitempty" require:"true"`
-}
-
-func (s Commission) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Commission) GoString() string {
-	return s.String()
-}
-
-func (s *Commission) SetStatus(v int64) *Commission {
-	s.Status = &v
-	return s
-}
-
-func (s *Commission) SetBeginTime(v int64) *Commission {
-	s.BeginTime = &v
-	return s
-}
-
-func (s *Commission) SetEndTime(v int64) *Commission {
-	s.EndTime = &v
-	return s
-}
-
-func (s *Commission) SetCommission(v string) *Commission {
-	s.Commission = &v
-	return s
-}
-
-// sku配置加上ip等级
-type IpSkuConfigWithLevel struct {
-	// 价格区间
-	PriceRange *string `json:"price_range,omitempty" xml:"price_range,omitempty" require:"true"`
-	// 单价
-	PurchasePrice *string `json:"purchase_price,omitempty" xml:"purchase_price,omitempty" require:"true"`
-	// 销售数量
-	SaleNum *int64 `json:"sale_num,omitempty" xml:"sale_num,omitempty" require:"true"`
-	// ip等级
-	IpLevel *int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty" require:"true"`
-}
-
-func (s IpSkuConfigWithLevel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IpSkuConfigWithLevel) GoString() string {
-	return s.String()
-}
-
-func (s *IpSkuConfigWithLevel) SetPriceRange(v string) *IpSkuConfigWithLevel {
-	s.PriceRange = &v
-	return s
-}
-
-func (s *IpSkuConfigWithLevel) SetPurchasePrice(v string) *IpSkuConfigWithLevel {
-	s.PurchasePrice = &v
-	return s
-}
-
-func (s *IpSkuConfigWithLevel) SetSaleNum(v int64) *IpSkuConfigWithLevel {
-	s.SaleNum = &v
-	return s
-}
-
-func (s *IpSkuConfigWithLevel) SetIpLevel(v int64) *IpSkuConfigWithLevel {
-	s.IpLevel = &v
-	return s
-}
-
-// 消费卡数据
-type BlockConsumeCardInfo struct {
-	// 外部系统对该个人/机构用户的内部编号,用于唯一识别该用户
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 用户的链上账户Id
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 开户行名称
-	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty" require:"true"`
-	// 消费卡开通绑定的银行卡卡号
-	BankCardId *string `json:"bank_card_id,omitempty" xml:"bank_card_id,omitempty" require:"true"`
-	// 开户名称
-	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
-	// 账户余额(元)
-	DebitAmount *string `json:"debit_amount,omitempty" xml:"debit_amount,omitempty" require:"true"`
-	// 信用余额(元)
-	CreditAmount *string `json:"credit_amount,omitempty" xml:"credit_amount,omitempty" require:"true"`
-	// 资产的来源<来源账户ID_余额/信用额, 数量>, 例如: "accountId1_Debit": 11000表示这笔资产来源于accountId1,是accountId1这个账户通过Debit余额发行的资产。
-	AssetMap *string `json:"asset_map,omitempty" xml:"asset_map,omitempty" require:"true"`
-}
-
-func (s BlockConsumeCardInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BlockConsumeCardInfo) GoString() string {
-	return s.String()
-}
-
-func (s *BlockConsumeCardInfo) SetUserId(v string) *BlockConsumeCardInfo {
-	s.UserId = &v
-	return s
-}
-
-func (s *BlockConsumeCardInfo) SetAccountId(v string) *BlockConsumeCardInfo {
-	s.AccountId = &v
-	return s
-}
-
-func (s *BlockConsumeCardInfo) SetBankName(v string) *BlockConsumeCardInfo {
-	s.BankName = &v
-	return s
-}
-
-func (s *BlockConsumeCardInfo) SetBankCardId(v string) *BlockConsumeCardInfo {
-	s.BankCardId = &v
-	return s
-}
-
-func (s *BlockConsumeCardInfo) SetAccountName(v string) *BlockConsumeCardInfo {
-	s.AccountName = &v
-	return s
-}
-
-func (s *BlockConsumeCardInfo) SetDebitAmount(v string) *BlockConsumeCardInfo {
-	s.DebitAmount = &v
-	return s
-}
-
-func (s *BlockConsumeCardInfo) SetCreditAmount(v string) *BlockConsumeCardInfo {
-	s.CreditAmount = &v
-	return s
-}
-
-func (s *BlockConsumeCardInfo) SetAssetMap(v string) *BlockConsumeCardInfo {
-	s.AssetMap = &v
-	return s
-}
-
-// 消费卡服务基础请求信息
-type BaseRequest struct {
-	// 用户的链上账户Id(长度不超过256个字符)
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 业务幂等Id,防止同一笔交易重复发送(长度不超过256个字符)
-	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
-	// 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
-	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
-	// 备注信息(不要超过500个字符)。
-	// 部分接口要求memo必填，以接口返回信息为准。
-	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
-	// 场景码(入驻时申请)(长度不超过50个字符)
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
-}
-
-func (s BaseRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaseRequest) GoString() string {
-	return s.String()
-}
-
-func (s *BaseRequest) SetAccountId(v string) *BaseRequest {
-	s.AccountId = &v
-	return s
-}
-
-func (s *BaseRequest) SetBizId(v string) *BaseRequest {
-	s.BizId = &v
-	return s
-}
-
-func (s *BaseRequest) SetChainId(v string) *BaseRequest {
-	s.ChainId = &v
-	return s
-}
-
-func (s *BaseRequest) SetMemo(v string) *BaseRequest {
-	s.Memo = &v
-	return s
-}
-
-func (s *BaseRequest) SetProductCode(v string) *BaseRequest {
-	s.ProductCode = &v
-	return s
-}
-
-// 增值服务加sku信息
-type ValueAddedServiceInfoWithSku struct {
-	// 增值服务信息
-	AddValueInfo *ValueAddedServiceInfo `json:"add_value_info,omitempty" xml:"add_value_info,omitempty" require:"true"`
-	// sku信息
-	Skus []*IpSkuEmphasisInfo `json:"skus,omitempty" xml:"skus,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s ValueAddedServiceInfoWithSku) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ValueAddedServiceInfoWithSku) GoString() string {
-	return s.String()
-}
-
-func (s *ValueAddedServiceInfoWithSku) SetAddValueInfo(v *ValueAddedServiceInfo) *ValueAddedServiceInfoWithSku {
-	s.AddValueInfo = v
-	return s
-}
-
-func (s *ValueAddedServiceInfoWithSku) SetSkus(v []*IpSkuEmphasisInfo) *ValueAddedServiceInfoWithSku {
-	s.Skus = v
-	return s
-}
-
-// 消费卡服务OpenAPI基础返回值
-type BaseResponseData struct {
-	// 区块链交易执行的区块高度
-	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty" require:"true"`
-	// 交易的业务幂等Id,与交易发起时外部传入的一致
-	OutBizId *string `json:"out_biz_id,omitempty" xml:"out_biz_id,omitempty" require:"true"`
-	// 区块链交易执行的哈希
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-}
-
-func (s BaseResponseData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaseResponseData) GoString() string {
-	return s.String()
-}
-
-func (s *BaseResponseData) SetBlockNumber(v int64) *BaseResponseData {
-	s.BlockNumber = &v
-	return s
-}
-
-func (s *BaseResponseData) SetOutBizId(v string) *BaseResponseData {
-	s.OutBizId = &v
-	return s
-}
-
-func (s *BaseResponseData) SetTxHash(v string) *BaseResponseData {
-	s.TxHash = &v
-	return s
-}
-
-// IP图库记录
-type IPGalleryInstruction struct {
-	// 下载时间
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
-	// 授权订单ID
-	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
-	// IP链上ID
-	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
-	// 图库链接
-	IpGalleryUrl *string `json:"ip_gallery_url,omitempty" xml:"ip_gallery_url,omitempty" require:"true"`
-	// 图库下载链接，默认过期时间2小时
-	IpGalleryTemporaryUrl *string `json:"ip_gallery_temporary_url,omitempty" xml:"ip_gallery_temporary_url,omitempty" require:"true"`
-	// 图库版本
-	IpGalleryVersion *int64 `json:"ip_gallery_version,omitempty" xml:"ip_gallery_version,omitempty" require:"true"`
-	// IP当前图库状态：0 生效中，1 已失效
-	IpGalleryStatus *int64 `json:"ip_gallery_status,omitempty" xml:"ip_gallery_status,omitempty" require:"true"`
-	// 备注信息
-	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
-}
-
-func (s IPGalleryInstruction) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPGalleryInstruction) GoString() string {
-	return s.String()
-}
-
-func (s *IPGalleryInstruction) SetTimestamp(v int64) *IPGalleryInstruction {
-	s.Timestamp = &v
-	return s
-}
-
-func (s *IPGalleryInstruction) SetIpOrderId(v string) *IPGalleryInstruction {
-	s.IpOrderId = &v
-	return s
-}
-
-func (s *IPGalleryInstruction) SetIpId(v string) *IPGalleryInstruction {
-	s.IpId = &v
-	return s
-}
-
-func (s *IPGalleryInstruction) SetIpGalleryUrl(v string) *IPGalleryInstruction {
-	s.IpGalleryUrl = &v
-	return s
-}
-
-func (s *IPGalleryInstruction) SetIpGalleryTemporaryUrl(v string) *IPGalleryInstruction {
-	s.IpGalleryTemporaryUrl = &v
-	return s
-}
-
-func (s *IPGalleryInstruction) SetIpGalleryVersion(v int64) *IPGalleryInstruction {
-	s.IpGalleryVersion = &v
-	return s
-}
-
-func (s *IPGalleryInstruction) SetIpGalleryStatus(v int64) *IPGalleryInstruction {
-	s.IpGalleryStatus = &v
-	return s
-}
-
-func (s *IPGalleryInstruction) SetExtInfo(v string) *IPGalleryInstruction {
-	s.ExtInfo = &v
-	return s
-}
-
-// 区块
-type Block struct {
-	// 区块头
-	Header *BlockHeader `json:"header,omitempty" xml:"header,omitempty" require:"true"`
-	// 区块体
-	Body *BlockBody `json:"body,omitempty" xml:"body,omitempty" require:"true"`
-}
-
-func (s Block) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Block) GoString() string {
-	return s.String()
-}
-
-func (s *Block) SetHeader(v *BlockHeader) *Block {
-	s.Header = v
-	return s
-}
-
-func (s *Block) SetBody(v *BlockBody) *Block {
-	s.Body = v
-	return s
-}
-
-// IP授权服务基础请求信息
-type BaseRequestInfo struct {
-	// 业务幂等Id,防止同一笔交易重复发送(长度不超过256个字符)
-	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
-	// 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
-	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
-	// 场景码(入驻时申请)(长度不超过50个字符)
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
-}
-
-func (s BaseRequestInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaseRequestInfo) GoString() string {
-	return s.String()
-}
-
-func (s *BaseRequestInfo) SetBizId(v string) *BaseRequestInfo {
-	s.BizId = &v
-	return s
-}
-
-func (s *BaseRequestInfo) SetChainId(v string) *BaseRequestInfo {
-	s.ChainId = &v
-	return s
-}
-
-func (s *BaseRequestInfo) SetProductCode(v string) *BaseRequestInfo {
-	s.ProductCode = &v
-	return s
-}
-
-// 渠道统计结果
-type ChannelCounter struct {
-	// 渠道名字
-	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
-	// 统计值
-	Counter *int64 `json:"counter,omitempty" xml:"counter,omitempty" require:"true"`
-	// 月份。如果月份有具体值则数据为该月份数据，月份为空则为全部统计数据。
-	Month *string `json:"month,omitempty" xml:"month,omitempty"`
-	// 渠道交易金额
-	TotalPrice *string `json:"total_price,omitempty" xml:"total_price,omitempty"`
-}
-
-func (s ChannelCounter) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ChannelCounter) GoString() string {
-	return s.String()
-}
-
-func (s *ChannelCounter) SetChannelName(v string) *ChannelCounter {
-	s.ChannelName = &v
-	return s
-}
-
-func (s *ChannelCounter) SetCounter(v int64) *ChannelCounter {
-	s.Counter = &v
-	return s
-}
-
-func (s *ChannelCounter) SetMonth(v string) *ChannelCounter {
-	s.Month = &v
-	return s
-}
-
-func (s *ChannelCounter) SetTotalPrice(v string) *ChannelCounter {
-	s.TotalPrice = &v
-	return s
-}
-
-// 查询手续费结果信息
-type CommissionResult struct {
-	// 手续费生效时间
-	BeginTime *int64 `json:"begin_time,omitempty" xml:"begin_time,omitempty" require:"true"`
-	// 手续费
-	Commission *string `json:"commission,omitempty" xml:"commission,omitempty" require:"true"`
-	// 手续费信息ID
-	CommissionId *string `json:"commission_id,omitempty" xml:"commission_id,omitempty" require:"true"`
-	// 手续费状态（0可用，1停用，2禁用）
-	CommissionStatus *int64 `json:"commission_status,omitempty" xml:"commission_status,omitempty" require:"true"`
-	// 手续费失效时间
-	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
-	// 商品类型
-	EquityType *int64 `json:"equity_type,omitempty" xml:"equity_type,omitempty" require:"true"`
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 手续费信息ID
-	CommissionSubId *string `json:"commission_sub_id,omitempty" xml:"commission_sub_id,omitempty" require:"true"`
-}
-
-func (s CommissionResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CommissionResult) GoString() string {
-	return s.String()
-}
-
-func (s *CommissionResult) SetBeginTime(v int64) *CommissionResult {
-	s.BeginTime = &v
-	return s
-}
-
-func (s *CommissionResult) SetCommission(v string) *CommissionResult {
-	s.Commission = &v
-	return s
-}
-
-func (s *CommissionResult) SetCommissionId(v string) *CommissionResult {
-	s.CommissionId = &v
-	return s
-}
-
-func (s *CommissionResult) SetCommissionStatus(v int64) *CommissionResult {
-	s.CommissionStatus = &v
-	return s
-}
-
-func (s *CommissionResult) SetEndTime(v int64) *CommissionResult {
-	s.EndTime = &v
-	return s
-}
-
-func (s *CommissionResult) SetEquityType(v int64) *CommissionResult {
-	s.EquityType = &v
-	return s
-}
-
-func (s *CommissionResult) SetTenantId(v string) *CommissionResult {
-	s.TenantId = &v
-	return s
-}
-
-func (s *CommissionResult) SetCommissionSubId(v string) *CommissionResult {
-	s.CommissionSubId = &v
-	return s
-}
-
-// IP授权服务-商家进件信息
-type IPMerchantApplyInfo struct {
-	// 链上账户Id
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 支付宝的登陆用户名(必须实名制)
-	AlipayLoginName *string `json:"alipay_login_name,omitempty" xml:"alipay_login_name,omitempty" require:"true"`
-	// 商户别名, 会展示在账单以及支付结果页中
-	MerchantAliasName *string `json:"merchant_alias_name,omitempty" xml:"merchant_alias_name,omitempty" require:"true"`
-	// 商户类型(本期仅支持: 1:企业, 6:个人商户)
-	MerchantType *int64 `json:"merchant_type,omitempty" xml:"merchant_type,omitempty" require:"true"`
-	// 商户证件类型(本期仅支持: 201: 营业执照, 100: 个人商户身份证) 如果merchant_type为企业, 需要传入201; 如果merchant_type为个人, 需要传入100
-	MerchantCertType *int64 `json:"merchant_cert_type,omitempty" xml:"merchant_cert_type,omitempty" require:"true"`
-	// 商户证件编号(企业提供营业执照),本期人工审核
-	MerchantCertNumber *string `json:"merchant_cert_number,omitempty" xml:"merchant_cert_number,omitempty" require:"true"`
-	// 商户营业执照的图片地址,本期人工审核
-	MerchantCertImage *string `json:"merchant_cert_image,omitempty" xml:"merchant_cert_image,omitempty" require:"true"`
-	// 税务登记证明的图片,本期人工审核
-	MerchantSignImage *string `json:"merchant_sign_image,omitempty" xml:"merchant_sign_image,omitempty" require:"true"`
-	// 商户类别码mcc，参见https://gw.alipayobjects.com/os/bmw-prod/05c9a32e-42d1-436b-ace7-13101d91f672.xlsx
-	Mcc *string `json:"mcc,omitempty" xml:"mcc,omitempty" require:"true"`
-	// 商户法人名称, merchant_type = 01时必填
-	//
-	LegalName *string `json:"legal_name,omitempty" xml:"legal_name,omitempty" require:"true"`
-	// 商户法人身份证号码, merchant_type = 1时必填
-	//
-	LegalCertNo *string `json:"legal_cert_no,omitempty" xml:"legal_cert_no,omitempty" require:"true"`
-	// 商户经营地址
-	//
-	AddressInfo *IPAddressInfo `json:"address_info,omitempty" xml:"address_info,omitempty" require:"true"`
-	// 默认结算规则
-	//
-	SettleRule *IPSettleRule `json:"settle_rule,omitempty" xml:"settle_rule,omitempty" require:"true"`
-	// 商户联系人信息
-	//
-	ContactInfo *IPContactInfo `json:"contact_info,omitempty" xml:"contact_info,omitempty" require:"true"`
-	// 银行卡结算信息, 结算到银行卡时必填, 当前仅支持填入一张卡
-	//
-	CardInfo *IPCardInfo `json:"card_info,omitempty" xml:"card_info,omitempty" require:"true"`
-}
-
-func (s IPMerchantApplyInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPMerchantApplyInfo) GoString() string {
-	return s.String()
-}
-
-func (s *IPMerchantApplyInfo) SetAccountId(v string) *IPMerchantApplyInfo {
-	s.AccountId = &v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetAlipayLoginName(v string) *IPMerchantApplyInfo {
-	s.AlipayLoginName = &v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetMerchantAliasName(v string) *IPMerchantApplyInfo {
-	s.MerchantAliasName = &v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetMerchantType(v int64) *IPMerchantApplyInfo {
-	s.MerchantType = &v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetMerchantCertType(v int64) *IPMerchantApplyInfo {
-	s.MerchantCertType = &v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetMerchantCertNumber(v string) *IPMerchantApplyInfo {
-	s.MerchantCertNumber = &v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetMerchantCertImage(v string) *IPMerchantApplyInfo {
-	s.MerchantCertImage = &v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetMerchantSignImage(v string) *IPMerchantApplyInfo {
-	s.MerchantSignImage = &v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetMcc(v string) *IPMerchantApplyInfo {
-	s.Mcc = &v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetLegalName(v string) *IPMerchantApplyInfo {
-	s.LegalName = &v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetLegalCertNo(v string) *IPMerchantApplyInfo {
-	s.LegalCertNo = &v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetAddressInfo(v *IPAddressInfo) *IPMerchantApplyInfo {
-	s.AddressInfo = v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetSettleRule(v *IPSettleRule) *IPMerchantApplyInfo {
-	s.SettleRule = v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetContactInfo(v *IPContactInfo) *IPMerchantApplyInfo {
-	s.ContactInfo = v
-	return s
-}
-
-func (s *IPMerchantApplyInfo) SetCardInfo(v *IPCardInfo) *IPMerchantApplyInfo {
-	s.CardInfo = v
-	return s
-}
-
-// 联系人信息
-type SimpleContactInfo struct {
-	// 联系人名称
-	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty" require:"true"`
-	// 联系电话
-	ContactPhone *string `json:"contact_phone,omitempty" xml:"contact_phone,omitempty" require:"true"`
-}
-
-func (s SimpleContactInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SimpleContactInfo) GoString() string {
-	return s.String()
-}
-
-func (s *SimpleContactInfo) SetContactName(v string) *SimpleContactInfo {
-	s.ContactName = &v
-	return s
-}
-
-func (s *SimpleContactInfo) SetContactPhone(v string) *SimpleContactInfo {
-	s.ContactPhone = &v
-	return s
-}
-
-// IP授权订单每次上传“已按照周期汇总的销售数据”的汇总信息
-type IPSalesSummary struct {
-	// 订单ID
-	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
-	// 销售数据ID
-	SalesBizId *string `json:"sales_biz_id,omitempty" xml:"sales_biz_id,omitempty" require:"true"`
-	// 总销售量
-	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
-	// 数量校正
-	CorrectAmount *int64 `json:"correct_amount,omitempty" xml:"correct_amount,omitempty" require:"true"`
-	// 实际总销售量
-	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
-	// 总销售额
-	Sales *string `json:"sales,omitempty" xml:"sales,omitempty" require:"true"`
-	// 金额校正
-	CorrectSales *string `json:"correct_sales,omitempty" xml:"correct_sales,omitempty" require:"true"`
-	// 实际总销售金额
-	TotalSales *string `json:"total_sales,omitempty" xml:"total_sales,omitempty" require:"true"`
-	// 最后操作时间
-	OperatorTime *int64 `json:"operator_time,omitempty" xml:"operator_time,omitempty" require:"true"`
-	// 销售数据状态：1初始化，2商户确认，3版权方确认，4账单生成，5商户已校正，6版权方拒绝
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 销售数据最终是否需要生成支付账单
-	NeedToPay *bool `json:"need_to_pay,omitempty" xml:"need_to_pay,omitempty" require:"true"`
-	// 备注信息
-	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
-	// 统计周期开始时间（毫秒时间戳）
-	SettlementBeginTime *int64 `json:"settlement_begin_time,omitempty" xml:"settlement_begin_time,omitempty" require:"true"`
-	// 统计周期结束时间（毫秒时间戳）
-	SettlementEndTime *int64 `json:"settlement_end_time,omitempty" xml:"settlement_end_time,omitempty" require:"true"`
-}
-
-func (s IPSalesSummary) String() string {
-	return tea.Prettify(s)
-}
-
-func (s IPSalesSummary) GoString() string {
-	return s.String()
-}
-
-func (s *IPSalesSummary) SetIpOrderId(v string) *IPSalesSummary {
-	s.IpOrderId = &v
-	return s
-}
-
-func (s *IPSalesSummary) SetSalesBizId(v string) *IPSalesSummary {
-	s.SalesBizId = &v
-	return s
-}
-
-func (s *IPSalesSummary) SetAmount(v int64) *IPSalesSummary {
-	s.Amount = &v
-	return s
-}
-
-func (s *IPSalesSummary) SetCorrectAmount(v int64) *IPSalesSummary {
-	s.CorrectAmount = &v
-	return s
-}
-
-func (s *IPSalesSummary) SetTotalAmount(v int64) *IPSalesSummary {
-	s.TotalAmount = &v
-	return s
-}
-
-func (s *IPSalesSummary) SetSales(v string) *IPSalesSummary {
-	s.Sales = &v
-	return s
-}
-
-func (s *IPSalesSummary) SetCorrectSales(v string) *IPSalesSummary {
-	s.CorrectSales = &v
-	return s
-}
-
-func (s *IPSalesSummary) SetTotalSales(v string) *IPSalesSummary {
-	s.TotalSales = &v
-	return s
-}
-
-func (s *IPSalesSummary) SetOperatorTime(v int64) *IPSalesSummary {
-	s.OperatorTime = &v
-	return s
-}
-
-func (s *IPSalesSummary) SetStatus(v int64) *IPSalesSummary {
-	s.Status = &v
-	return s
-}
-
-func (s *IPSalesSummary) SetNeedToPay(v bool) *IPSalesSummary {
-	s.NeedToPay = &v
-	return s
-}
-
-func (s *IPSalesSummary) SetMemo(v string) *IPSalesSummary {
-	s.Memo = &v
-	return s
-}
-
-func (s *IPSalesSummary) SetSettlementBeginTime(v int64) *IPSalesSummary {
-	s.SettlementBeginTime = &v
-	return s
-}
-
-func (s *IPSalesSummary) SetSettlementEndTime(v int64) *IPSalesSummary {
-	s.SettlementEndTime = &v
-	return s
-}
-
-// 区块链合同签署区信息
-type SignField struct {
-	// 签署操作人个人账号标识，即操作本次签署的个人
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 签署所在页码，必须是整数数字
-	PosPage *string `json:"pos_page,omitempty" xml:"pos_page,omitempty" require:"true"`
-	// x坐标，必须是数字
-	PosX *string `json:"pos_x,omitempty" xml:"pos_x,omitempty" require:"true"`
-	// y坐标，必须是数字
-	PosY *string `json:"pos_y,omitempty" xml:"pos_y,omitempty" require:"true"`
-}
-
-func (s SignField) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SignField) GoString() string {
-	return s.String()
-}
-
-func (s *SignField) SetAccountId(v string) *SignField {
-	s.AccountId = &v
-	return s
-}
-
-func (s *SignField) SetPosPage(v string) *SignField {
-	s.PosPage = &v
-	return s
-}
-
-func (s *SignField) SetPosX(v string) *SignField {
-	s.PosX = &v
-	return s
-}
-
-func (s *SignField) SetPosY(v string) *SignField {
-	s.PosY = &v
 	return s
 }
 
@@ -6933,64 +3592,2321 @@ func (s *IPOrder) SetAllowDownload(v bool) *IPOrder {
 	return s
 }
 
-// 商品授权信息（一客一价信息）
-type EquityAuthInfo struct {
-	// 链ID
-	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
-	// 商品ID
-	EquityId *string `json:"equity_id,omitempty" xml:"equity_id,omitempty" require:"true"`
-	// 授权租户
-	OpenToTenantId *string `json:"open_to_tenant_id,omitempty" xml:"open_to_tenant_id,omitempty" require:"true"`
-	// 租户价格（自定义价格）
-	TenantPrice *string `json:"tenant_price,omitempty" xml:"tenant_price,omitempty" require:"true"`
-	// 区块高度
-	BlockNumber *string `json:"block_number,omitempty" xml:"block_number,omitempty" require:"true"`
-	// 交易hash
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
-	// 区块时间戳
-	BlockTime *int64 `json:"block_time,omitempty" xml:"block_time,omitempty" require:"true"`
+// 电子券批次信息
+type CouponCollection struct {
+	// 批次ID
+	CollectionId *string `json:"collection_id,omitempty" xml:"collection_id,omitempty" require:"true"`
+	// 电子券批次名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 批次发行方
+	Issuer *string `json:"issuer,omitempty" xml:"issuer,omitempty" require:"true"`
+	// 批次前缀
+	CouponNumberPrefix *string `json:"coupon_number_prefix,omitempty" xml:"coupon_number_prefix,omitempty" require:"true"`
+	// 批次管理员链上ID
+	CouponAdminAccount *string `json:"coupon_admin_account,omitempty" xml:"coupon_admin_account,omitempty" require:"true"`
+	// 批次管理员租户ID
+	CouponAdminTenantId *string `json:"coupon_admin_tenant_id,omitempty" xml:"coupon_admin_tenant_id,omitempty" require:"true"`
+	// 批次过期观察员链上ID
+	ExpireMonitorAccount *string `json:"expire_monitor_account,omitempty" xml:"expire_monitor_account,omitempty" require:"true"`
+	// 批次过期观察员租户ID
+	ExpireMonitorTenantId *string `json:"expire_monitor_tenant_id,omitempty" xml:"expire_monitor_tenant_id,omitempty" require:"true"`
+	// 是否记名
+	NeedRegistered *bool `json:"need_registered,omitempty" xml:"need_registered,omitempty" require:"true"`
+	// 是否创建时记名
+	NeedPreRegistered *bool `json:"need_pre_registered,omitempty" xml:"need_pre_registered,omitempty" require:"true"`
 }
 
-func (s EquityAuthInfo) String() string {
+func (s CouponCollection) String() string {
 	return tea.Prettify(s)
 }
 
-func (s EquityAuthInfo) GoString() string {
+func (s CouponCollection) GoString() string {
 	return s.String()
 }
 
-func (s *EquityAuthInfo) SetChainId(v string) *EquityAuthInfo {
-	s.ChainId = &v
+func (s *CouponCollection) SetCollectionId(v string) *CouponCollection {
+	s.CollectionId = &v
 	return s
 }
 
-func (s *EquityAuthInfo) SetEquityId(v string) *EquityAuthInfo {
+func (s *CouponCollection) SetName(v string) *CouponCollection {
+	s.Name = &v
+	return s
+}
+
+func (s *CouponCollection) SetIssuer(v string) *CouponCollection {
+	s.Issuer = &v
+	return s
+}
+
+func (s *CouponCollection) SetCouponNumberPrefix(v string) *CouponCollection {
+	s.CouponNumberPrefix = &v
+	return s
+}
+
+func (s *CouponCollection) SetCouponAdminAccount(v string) *CouponCollection {
+	s.CouponAdminAccount = &v
+	return s
+}
+
+func (s *CouponCollection) SetCouponAdminTenantId(v string) *CouponCollection {
+	s.CouponAdminTenantId = &v
+	return s
+}
+
+func (s *CouponCollection) SetExpireMonitorAccount(v string) *CouponCollection {
+	s.ExpireMonitorAccount = &v
+	return s
+}
+
+func (s *CouponCollection) SetExpireMonitorTenantId(v string) *CouponCollection {
+	s.ExpireMonitorTenantId = &v
+	return s
+}
+
+func (s *CouponCollection) SetNeedRegistered(v bool) *CouponCollection {
+	s.NeedRegistered = &v
+	return s
+}
+
+func (s *CouponCollection) SetNeedPreRegistered(v bool) *CouponCollection {
+	s.NeedPreRegistered = &v
+	return s
+}
+
+// IP授权交易的账单信息
+type IPBill struct {
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+	// 账单ID
+	IpBillId *string `json:"ip_bill_id,omitempty" xml:"ip_bill_id,omitempty" require:"true"`
+	// 上传销售数据时的bizId
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 收款方
+	SellerId *string `json:"seller_id,omitempty" xml:"seller_id,omitempty" require:"true"`
+	// 付款方
+	BuyerId *string `json:"buyer_id,omitempty" xml:"buyer_id,omitempty" require:"true"`
+	// 账单状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 账单创建时间，时间戳（毫秒）
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true"`
+	// 备注信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 交易类型：0套餐交易，1定向授权
+	TradeType *int64 `json:"trade_type,omitempty" xml:"trade_type,omitempty" require:"true"`
+	// 支付链接
+	PayUrl *string `json:"pay_url,omitempty" xml:"pay_url,omitempty" require:"true"`
+	// 账单金额，支付金额
+	BillPayAmount *string `json:"bill_pay_amount,omitempty" xml:"bill_pay_amount,omitempty" require:"true"`
+	// 销售金额
+	BillSales *string `json:"bill_sales,omitempty" xml:"bill_sales,omitempty" require:"true"`
+	// 账单周期开始时间，时间戳（毫秒）
+	CycleStartTime *int64 `json:"cycle_start_time,omitempty" xml:"cycle_start_time,omitempty" require:"true"`
+	// 账单周期结束时间，时间戳（毫秒）
+	CycleEndTime *int64 `json:"cycle_end_time,omitempty" xml:"cycle_end_time,omitempty" require:"true"`
+}
+
+func (s IPBill) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPBill) GoString() string {
+	return s.String()
+}
+
+func (s *IPBill) SetIpOrderId(v string) *IPBill {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *IPBill) SetIpBillId(v string) *IPBill {
+	s.IpBillId = &v
+	return s
+}
+
+func (s *IPBill) SetBizId(v string) *IPBill {
+	s.BizId = &v
+	return s
+}
+
+func (s *IPBill) SetSellerId(v string) *IPBill {
+	s.SellerId = &v
+	return s
+}
+
+func (s *IPBill) SetBuyerId(v string) *IPBill {
+	s.BuyerId = &v
+	return s
+}
+
+func (s *IPBill) SetStatus(v int64) *IPBill {
+	s.Status = &v
+	return s
+}
+
+func (s *IPBill) SetCreateTime(v int64) *IPBill {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *IPBill) SetMemo(v string) *IPBill {
+	s.Memo = &v
+	return s
+}
+
+func (s *IPBill) SetTradeType(v int64) *IPBill {
+	s.TradeType = &v
+	return s
+}
+
+func (s *IPBill) SetPayUrl(v string) *IPBill {
+	s.PayUrl = &v
+	return s
+}
+
+func (s *IPBill) SetBillPayAmount(v string) *IPBill {
+	s.BillPayAmount = &v
+	return s
+}
+
+func (s *IPBill) SetBillSales(v string) *IPBill {
+	s.BillSales = &v
+	return s
+}
+
+func (s *IPBill) SetCycleStartTime(v int64) *IPBill {
+	s.CycleStartTime = &v
+	return s
+}
+
+func (s *IPBill) SetCycleEndTime(v int64) *IPBill {
+	s.CycleEndTime = &v
+	return s
+}
+
+// IP授权订单每次上传“已按照周期汇总的销售数据”的汇总信息
+type IPSalesSummary struct {
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+	// 销售数据ID
+	SalesBizId *string `json:"sales_biz_id,omitempty" xml:"sales_biz_id,omitempty" require:"true"`
+	// 总销售量
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 数量校正
+	CorrectAmount *int64 `json:"correct_amount,omitempty" xml:"correct_amount,omitempty" require:"true"`
+	// 实际总销售量
+	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
+	// 总销售额
+	Sales *string `json:"sales,omitempty" xml:"sales,omitempty" require:"true"`
+	// 金额校正
+	CorrectSales *string `json:"correct_sales,omitempty" xml:"correct_sales,omitempty" require:"true"`
+	// 实际总销售金额
+	TotalSales *string `json:"total_sales,omitempty" xml:"total_sales,omitempty" require:"true"`
+	// 最后操作时间
+	OperatorTime *int64 `json:"operator_time,omitempty" xml:"operator_time,omitempty" require:"true"`
+	// 销售数据状态：1初始化，2商户确认，3版权方确认，4账单生成，5商户已校正，6版权方拒绝
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 销售数据最终是否需要生成支付账单
+	NeedToPay *bool `json:"need_to_pay,omitempty" xml:"need_to_pay,omitempty" require:"true"`
+	// 备注信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 统计周期开始时间（毫秒时间戳）
+	SettlementBeginTime *int64 `json:"settlement_begin_time,omitempty" xml:"settlement_begin_time,omitempty" require:"true"`
+	// 统计周期结束时间（毫秒时间戳）
+	SettlementEndTime *int64 `json:"settlement_end_time,omitempty" xml:"settlement_end_time,omitempty" require:"true"`
+}
+
+func (s IPSalesSummary) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPSalesSummary) GoString() string {
+	return s.String()
+}
+
+func (s *IPSalesSummary) SetIpOrderId(v string) *IPSalesSummary {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *IPSalesSummary) SetSalesBizId(v string) *IPSalesSummary {
+	s.SalesBizId = &v
+	return s
+}
+
+func (s *IPSalesSummary) SetAmount(v int64) *IPSalesSummary {
+	s.Amount = &v
+	return s
+}
+
+func (s *IPSalesSummary) SetCorrectAmount(v int64) *IPSalesSummary {
+	s.CorrectAmount = &v
+	return s
+}
+
+func (s *IPSalesSummary) SetTotalAmount(v int64) *IPSalesSummary {
+	s.TotalAmount = &v
+	return s
+}
+
+func (s *IPSalesSummary) SetSales(v string) *IPSalesSummary {
+	s.Sales = &v
+	return s
+}
+
+func (s *IPSalesSummary) SetCorrectSales(v string) *IPSalesSummary {
+	s.CorrectSales = &v
+	return s
+}
+
+func (s *IPSalesSummary) SetTotalSales(v string) *IPSalesSummary {
+	s.TotalSales = &v
+	return s
+}
+
+func (s *IPSalesSummary) SetOperatorTime(v int64) *IPSalesSummary {
+	s.OperatorTime = &v
+	return s
+}
+
+func (s *IPSalesSummary) SetStatus(v int64) *IPSalesSummary {
+	s.Status = &v
+	return s
+}
+
+func (s *IPSalesSummary) SetNeedToPay(v bool) *IPSalesSummary {
+	s.NeedToPay = &v
+	return s
+}
+
+func (s *IPSalesSummary) SetMemo(v string) *IPSalesSummary {
+	s.Memo = &v
+	return s
+}
+
+func (s *IPSalesSummary) SetSettlementBeginTime(v int64) *IPSalesSummary {
+	s.SettlementBeginTime = &v
+	return s
+}
+
+func (s *IPSalesSummary) SetSettlementEndTime(v int64) *IPSalesSummary {
+	s.SettlementEndTime = &v
+	return s
+}
+
+// MCC信息(https://gw.alipayobjects.com/os/bmw-prod/05c9a32e-42d1-436b-ace7-13101d91f672.xlsx）
+type IPMCC struct {
+	// MCC编码
+	MccCode *string `json:"mcc_code,omitempty" xml:"mcc_code,omitempty" require:"true"`
+	// 经营类目一级
+	CategoryLevel1 *string `json:"category_level1,omitempty" xml:"category_level1,omitempty" require:"true"`
+	// 经营类目二级
+	CategoryLevel2 *string `json:"category_level2,omitempty" xml:"category_level2,omitempty" require:"true"`
+	// 经营类目三级
+	CategoryLevel3 *string `json:"category_level3,omitempty" xml:"category_level3,omitempty" require:"true"`
+}
+
+func (s IPMCC) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPMCC) GoString() string {
+	return s.String()
+}
+
+func (s *IPMCC) SetMccCode(v string) *IPMCC {
+	s.MccCode = &v
+	return s
+}
+
+func (s *IPMCC) SetCategoryLevel1(v string) *IPMCC {
+	s.CategoryLevel1 = &v
+	return s
+}
+
+func (s *IPMCC) SetCategoryLevel2(v string) *IPMCC {
+	s.CategoryLevel2 = &v
+	return s
+}
+
+func (s *IPMCC) SetCategoryLevel3(v string) *IPMCC {
+	s.CategoryLevel3 = &v
+	return s
+}
+
+// 权益
+type Equity struct {
+	// 权益管理员ID
+	AdminId *string `json:"admin_id,omitempty" xml:"admin_id,omitempty" require:"true"`
+	// 权益授权类型
+	AuthType *int64 `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 权益锚定币种
+	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
+	// 权益默认价格
+	DefaultPrice *string `json:"default_price,omitempty" xml:"default_price,omitempty" require:"true"`
+	// 权益描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 权益描述图片OSS地址 分号分隔
+	DescImages *string `json:"desc_images,omitempty" xml:"desc_images,omitempty" require:"true"`
+	// 权益附属信息
+	EquityExtInfo *EquityExtInfo `json:"equity_ext_info,omitempty" xml:"equity_ext_info,omitempty" require:"true"`
+	// 权益ID
+	EquityId *string `json:"equity_id,omitempty" xml:"equity_id,omitempty" require:"true"`
+	// 权益名称
+	EquityName *string `json:"equity_name,omitempty" xml:"equity_name,omitempty" require:"true"`
+	// 商品类型，详见数字商品公约https://tech.antfin.com/docs/2/163896
+	EquityType *string `json:"equity_type,omitempty" xml:"equity_type,omitempty" require:"true"`
+	// 权益主图片OSS地址 分号;分隔
+	Images *string `json:"images,omitempty" xml:"images,omitempty" require:"true"`
+	// 是否为公开权益
+	IsPublic *bool `json:"is_public,omitempty" xml:"is_public,omitempty" require:"true"`
+	// 商户每日兑换上限
+	LimitPerMerchantAndDay *int64 `json:"limit_per_merchant_and_day,omitempty" xml:"limit_per_merchant_and_day,omitempty" require:"true"`
+	// 商户每月兑换上限
+	LimitPerMerchantAndMonth *int64 `json:"limit_per_merchant_and_month,omitempty" xml:"limit_per_merchant_and_month,omitempty" require:"true"`
+	// 用户每日兑换上限
+	LimitPerUserAndDay *int64 `json:"limit_per_user_and_day,omitempty" xml:"limit_per_user_and_day,omitempty" require:"true"`
+	// 用户每月兑换上限
+	LimitPerUserAndMonth *int64 `json:"limit_per_user_and_month,omitempty" xml:"limit_per_user_and_month,omitempty" require:"true"`
+	// 附言
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 权益状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 权益库存
+	TotalCount *string `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
+	// 权益使用有效期右闭区间
+	UseValidNotAfter *int64 `json:"use_valid_not_after,omitempty" xml:"use_valid_not_after,omitempty" require:"true"`
+	// 权益使用有效期左闭区间
+	UseValidNotBefore *int64 `json:"use_valid_not_before,omitempty" xml:"use_valid_not_before,omitempty" require:"true"`
+	// 权益兑换有效期右闭区间
+	ValidNotAfter *int64 `json:"valid_not_after,omitempty" xml:"valid_not_after,omitempty" require:"true"`
+	// 权益兑换有效期左闭区间
+	ValidNotBefore *int64 `json:"valid_not_before,omitempty" xml:"valid_not_before,omitempty" require:"true"`
+	// 权益面值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 是否计算手续费（0: 更新手续费版本前不在合约计算手续费，1: 在合约计算手续费）
+	CommissionAccepted *int64 `json:"commission_accepted,omitempty" xml:"commission_accepted,omitempty" require:"true"`
+}
+
+func (s Equity) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Equity) GoString() string {
+	return s.String()
+}
+
+func (s *Equity) SetAdminId(v string) *Equity {
+	s.AdminId = &v
+	return s
+}
+
+func (s *Equity) SetAuthType(v int64) *Equity {
+	s.AuthType = &v
+	return s
+}
+
+func (s *Equity) SetCurrency(v string) *Equity {
+	s.Currency = &v
+	return s
+}
+
+func (s *Equity) SetDefaultPrice(v string) *Equity {
+	s.DefaultPrice = &v
+	return s
+}
+
+func (s *Equity) SetDescription(v string) *Equity {
+	s.Description = &v
+	return s
+}
+
+func (s *Equity) SetDescImages(v string) *Equity {
+	s.DescImages = &v
+	return s
+}
+
+func (s *Equity) SetEquityExtInfo(v *EquityExtInfo) *Equity {
+	s.EquityExtInfo = v
+	return s
+}
+
+func (s *Equity) SetEquityId(v string) *Equity {
 	s.EquityId = &v
 	return s
 }
 
-func (s *EquityAuthInfo) SetOpenToTenantId(v string) *EquityAuthInfo {
-	s.OpenToTenantId = &v
+func (s *Equity) SetEquityName(v string) *Equity {
+	s.EquityName = &v
 	return s
 }
 
-func (s *EquityAuthInfo) SetTenantPrice(v string) *EquityAuthInfo {
-	s.TenantPrice = &v
+func (s *Equity) SetEquityType(v string) *Equity {
+	s.EquityType = &v
 	return s
 }
 
-func (s *EquityAuthInfo) SetBlockNumber(v string) *EquityAuthInfo {
-	s.BlockNumber = &v
+func (s *Equity) SetImages(v string) *Equity {
+	s.Images = &v
 	return s
 }
 
-func (s *EquityAuthInfo) SetTxHash(v string) *EquityAuthInfo {
+func (s *Equity) SetIsPublic(v bool) *Equity {
+	s.IsPublic = &v
+	return s
+}
+
+func (s *Equity) SetLimitPerMerchantAndDay(v int64) *Equity {
+	s.LimitPerMerchantAndDay = &v
+	return s
+}
+
+func (s *Equity) SetLimitPerMerchantAndMonth(v int64) *Equity {
+	s.LimitPerMerchantAndMonth = &v
+	return s
+}
+
+func (s *Equity) SetLimitPerUserAndDay(v int64) *Equity {
+	s.LimitPerUserAndDay = &v
+	return s
+}
+
+func (s *Equity) SetLimitPerUserAndMonth(v int64) *Equity {
+	s.LimitPerUserAndMonth = &v
+	return s
+}
+
+func (s *Equity) SetMemo(v string) *Equity {
+	s.Memo = &v
+	return s
+}
+
+func (s *Equity) SetStatus(v int64) *Equity {
+	s.Status = &v
+	return s
+}
+
+func (s *Equity) SetTenantId(v string) *Equity {
+	s.TenantId = &v
+	return s
+}
+
+func (s *Equity) SetTotalCount(v string) *Equity {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *Equity) SetUseValidNotAfter(v int64) *Equity {
+	s.UseValidNotAfter = &v
+	return s
+}
+
+func (s *Equity) SetUseValidNotBefore(v int64) *Equity {
+	s.UseValidNotBefore = &v
+	return s
+}
+
+func (s *Equity) SetValidNotAfter(v int64) *Equity {
+	s.ValidNotAfter = &v
+	return s
+}
+
+func (s *Equity) SetValidNotBefore(v int64) *Equity {
+	s.ValidNotBefore = &v
+	return s
+}
+
+func (s *Equity) SetValue(v string) *Equity {
+	s.Value = &v
+	return s
+}
+
+func (s *Equity) SetCommissionAccepted(v int64) *Equity {
+	s.CommissionAccepted = &v
+	return s
+}
+
+// 区块链信息
+type IPCodeChainInfo struct {
+	// 交易哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 交易区块
+	BlockHeight *int64 `json:"block_height,omitempty" xml:"block_height,omitempty"`
+	// 交易时间
+	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty"`
+}
+
+func (s IPCodeChainInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPCodeChainInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPCodeChainInfo) SetTxHash(v string) *IPCodeChainInfo {
 	s.TxHash = &v
 	return s
 }
 
-func (s *EquityAuthInfo) SetBlockTime(v int64) *EquityAuthInfo {
-	s.BlockTime = &v
+func (s *IPCodeChainInfo) SetBlockHeight(v int64) *IPCodeChainInfo {
+	s.BlockHeight = &v
+	return s
+}
+
+func (s *IPCodeChainInfo) SetTxTime(v int64) *IPCodeChainInfo {
+	s.TxTime = &v
+	return s
+}
+
+// ip的基础信息加上渠道信息
+type IpBasicInfoWithChannelInfo struct {
+	// ip的基础信息
+	IpBasicInfo *IpBasicInfo `json:"ip_basic_info,omitempty" xml:"ip_basic_info,omitempty" require:"true"`
+	// ip的渠道信息和sku信息
+	IpChannalInfos []*IpChannelWithSku `json:"ip_channal_infos,omitempty" xml:"ip_channal_infos,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s IpBasicInfoWithChannelInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IpBasicInfoWithChannelInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IpBasicInfoWithChannelInfo) SetIpBasicInfo(v *IpBasicInfo) *IpBasicInfoWithChannelInfo {
+	s.IpBasicInfo = v
+	return s
+}
+
+func (s *IpBasicInfoWithChannelInfo) SetIpChannalInfos(v []*IpChannelWithSku) *IpBasicInfoWithChannelInfo {
+	s.IpChannalInfos = v
+	return s
+}
+
+// 用户
+type User struct {
+	// 用户分布式身份ID
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 用户的链外身份ID
+	LocalId *string `json:"local_id,omitempty" xml:"local_id,omitempty" require:"true"`
+	// 用户公钥
+	Pk *string `json:"pk,omitempty" xml:"pk,omitempty" require:"true"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户VC
+	Vc *string `json:"vc,omitempty" xml:"vc,omitempty" require:"true"`
+}
+
+func (s User) String() string {
+	return tea.Prettify(s)
+}
+
+func (s User) GoString() string {
+	return s.String()
+}
+
+func (s *User) SetDid(v string) *User {
+	s.Did = &v
+	return s
+}
+
+func (s *User) SetLocalId(v string) *User {
+	s.LocalId = &v
+	return s
+}
+
+func (s *User) SetPk(v string) *User {
+	s.Pk = &v
+	return s
+}
+
+func (s *User) SetTenantId(v string) *User {
+	s.TenantId = &v
+	return s
+}
+
+func (s *User) SetUserId(v string) *User {
+	s.UserId = &v
+	return s
+}
+
+func (s *User) SetVc(v string) *User {
+	s.Vc = &v
+	return s
+}
+
+// 商品详情
+type SKUItem struct {
+	// 集分宝销售费率
+	Rate *string `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
+	// 包含集分宝个数
+	SkuAmount *int64 `json:"sku_amount,omitempty" xml:"sku_amount,omitempty" require:"true"`
+	// 商品ID
+	SkuId *string `json:"sku_id,omitempty" xml:"sku_id,omitempty" require:"true"`
+	// 商品名称
+	SkuName *string `json:"sku_name,omitempty" xml:"sku_name,omitempty" require:"true"`
+	// 商品面值（单位：元）
+	SkuPrice *string `json:"sku_price,omitempty" xml:"sku_price,omitempty" require:"true"`
+	// 商品状态：0可用，1冻结，2下线
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s SKUItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SKUItem) GoString() string {
+	return s.String()
+}
+
+func (s *SKUItem) SetRate(v string) *SKUItem {
+	s.Rate = &v
+	return s
+}
+
+func (s *SKUItem) SetSkuAmount(v int64) *SKUItem {
+	s.SkuAmount = &v
+	return s
+}
+
+func (s *SKUItem) SetSkuId(v string) *SKUItem {
+	s.SkuId = &v
+	return s
+}
+
+func (s *SKUItem) SetSkuName(v string) *SKUItem {
+	s.SkuName = &v
+	return s
+}
+
+func (s *SKUItem) SetSkuPrice(v string) *SKUItem {
+	s.SkuPrice = &v
+	return s
+}
+
+func (s *SKUItem) SetStatus(v int64) *SKUItem {
+	s.Status = &v
+	return s
+}
+
+// 租户场景码信息
+type ProductCodeInfo struct {
+	// 链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 场景码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 租户映射链上账户名称
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty"`
+	// 租户映射账户链上账户ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 备注信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+}
+
+func (s ProductCodeInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProductCodeInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ProductCodeInfo) SetChainId(v string) *ProductCodeInfo {
+	s.ChainId = &v
+	return s
+}
+
+func (s *ProductCodeInfo) SetTenantId(v string) *ProductCodeInfo {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ProductCodeInfo) SetProductCode(v string) *ProductCodeInfo {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *ProductCodeInfo) SetAccountName(v string) *ProductCodeInfo {
+	s.AccountName = &v
+	return s
+}
+
+func (s *ProductCodeInfo) SetAccountId(v string) *ProductCodeInfo {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ProductCodeInfo) SetMemo(v string) *ProductCodeInfo {
+	s.Memo = &v
+	return s
+}
+
+// 区块
+type Block struct {
+	// 区块头
+	Header *BlockHeader `json:"header,omitempty" xml:"header,omitempty" require:"true"`
+	// 区块体
+	Body *BlockBody `json:"body,omitempty" xml:"body,omitempty" require:"true"`
+}
+
+func (s Block) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Block) GoString() string {
+	return s.String()
+}
+
+func (s *Block) SetHeader(v *BlockHeader) *Block {
+	s.Header = v
+	return s
+}
+
+func (s *Block) SetBody(v *BlockBody) *Block {
+	s.Body = v
+	return s
+}
+
+// 消费卡服务基础请求信息
+type BaseRequest struct {
+	// 用户的链上账户Id(长度不超过256个字符)
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 业务幂等Id,防止同一笔交易重复发送(长度不超过256个字符)
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+	// 备注信息(不要超过500个字符)。
+	// 部分接口要求memo必填，以接口返回信息为准。
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+	// 场景码(入驻时申请)(长度不超过50个字符)
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+}
+
+func (s BaseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BaseRequest) SetAccountId(v string) *BaseRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *BaseRequest) SetBizId(v string) *BaseRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *BaseRequest) SetChainId(v string) *BaseRequest {
+	s.ChainId = &v
+	return s
+}
+
+func (s *BaseRequest) SetMemo(v string) *BaseRequest {
+	s.Memo = &v
+	return s
+}
+
+func (s *BaseRequest) SetProductCode(v string) *BaseRequest {
+	s.ProductCode = &v
+	return s
+}
+
+// 链上交易结构
+type Transaction struct {
+	// 交易数据，转换位十六进制
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	// 卡密管理员链上ID，64位十六进制。
+	From *string `json:"from,omitempty" xml:"from,omitempty" require:"true"`
+	// 交易hash，十六进制编码
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty" require:"true"`
+	// 交易随机数
+	Nonce *int64 `json:"nonce,omitempty" xml:"nonce,omitempty" require:"true"`
+	// 交易时间
+	Period *int64 `json:"period,omitempty" xml:"period,omitempty" require:"true"`
+	// from账户对应的公钥，128位十六进制。
+	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty" require:"true"`
+	// 交易签名，十六进制编码
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+	// 交易时间戳
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// 交易目标地址，64位十六进制。
+	To *string `json:"to,omitempty" xml:"to,omitempty" require:"true"`
+}
+
+func (s Transaction) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Transaction) GoString() string {
+	return s.String()
+}
+
+func (s *Transaction) SetData(v string) *Transaction {
+	s.Data = &v
+	return s
+}
+
+func (s *Transaction) SetFrom(v string) *Transaction {
+	s.From = &v
+	return s
+}
+
+func (s *Transaction) SetHash(v string) *Transaction {
+	s.Hash = &v
+	return s
+}
+
+func (s *Transaction) SetNonce(v int64) *Transaction {
+	s.Nonce = &v
+	return s
+}
+
+func (s *Transaction) SetPeriod(v int64) *Transaction {
+	s.Period = &v
+	return s
+}
+
+func (s *Transaction) SetPublicKey(v string) *Transaction {
+	s.PublicKey = &v
+	return s
+}
+
+func (s *Transaction) SetSignature(v string) *Transaction {
+	s.Signature = &v
+	return s
+}
+
+func (s *Transaction) SetTimestamp(v int64) *Transaction {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *Transaction) SetTo(v string) *Transaction {
+	s.To = &v
+	return s
+}
+
+// IP淘宝店铺信息
+type IPShopInfo struct {
+	// 授权申请的内部编码
+	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty" require:"true"`
+	// 淘宝卖家的官方昵称
+	SellerNick *string `json:"seller_nick,omitempty" xml:"seller_nick,omitempty" require:"true"`
+	// 授权渠道名称
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
+	// 数据授权方式
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 授权启始时间戳(unix毫秒)
+	AuthStart *int64 `json:"auth_start,omitempty" xml:"auth_start,omitempty" require:"true"`
+	// 授权终止时间戳(unix毫秒)
+	AuthEnd *int64 `json:"auth_end,omitempty" xml:"auth_end,omitempty" require:"true"`
+	// 授权状态(1: Init, 2: Success, 3: Expired)
+	AuthStatus *int64 `json:"auth_status,omitempty" xml:"auth_status,omitempty" require:"true"`
+	// 授权链接
+	AuthUrl *string `json:"auth_url,omitempty" xml:"auth_url,omitempty" require:"true"`
+}
+
+func (s IPShopInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPShopInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPShopInfo) SetItemCode(v string) *IPShopInfo {
+	s.ItemCode = &v
+	return s
+}
+
+func (s *IPShopInfo) SetSellerNick(v string) *IPShopInfo {
+	s.SellerNick = &v
+	return s
+}
+
+func (s *IPShopInfo) SetChannelName(v string) *IPShopInfo {
+	s.ChannelName = &v
+	return s
+}
+
+func (s *IPShopInfo) SetAuthType(v string) *IPShopInfo {
+	s.AuthType = &v
+	return s
+}
+
+func (s *IPShopInfo) SetAuthStart(v int64) *IPShopInfo {
+	s.AuthStart = &v
+	return s
+}
+
+func (s *IPShopInfo) SetAuthEnd(v int64) *IPShopInfo {
+	s.AuthEnd = &v
+	return s
+}
+
+func (s *IPShopInfo) SetAuthStatus(v int64) *IPShopInfo {
+	s.AuthStatus = &v
+	return s
+}
+
+func (s *IPShopInfo) SetAuthUrl(v string) *IPShopInfo {
+	s.AuthUrl = &v
+	return s
+}
+
+// 增值服务加sku信息
+type ValueAddedServiceInfoWithSku struct {
+	// 增值服务信息
+	AddValueInfo *ValueAddedServiceInfo `json:"add_value_info,omitempty" xml:"add_value_info,omitempty" require:"true"`
+	// sku信息
+	Skus []*IpSkuEmphasisInfo `json:"skus,omitempty" xml:"skus,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ValueAddedServiceInfoWithSku) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ValueAddedServiceInfoWithSku) GoString() string {
+	return s.String()
+}
+
+func (s *ValueAddedServiceInfoWithSku) SetAddValueInfo(v *ValueAddedServiceInfo) *ValueAddedServiceInfoWithSku {
+	s.AddValueInfo = v
+	return s
+}
+
+func (s *ValueAddedServiceInfoWithSku) SetSkus(v []*IpSkuEmphasisInfo) *ValueAddedServiceInfoWithSku {
+	s.Skus = v
+	return s
+}
+
+// 消费卡数据
+type BlockConsumeCardInfo struct {
+	// 外部系统对该个人/机构用户的内部编号,用于唯一识别该用户
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户的链上账户Id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 开户行名称
+	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty" require:"true"`
+	// 消费卡开通绑定的银行卡卡号
+	BankCardId *string `json:"bank_card_id,omitempty" xml:"bank_card_id,omitempty" require:"true"`
+	// 开户名称
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
+	// 账户余额(元)
+	DebitAmount *string `json:"debit_amount,omitempty" xml:"debit_amount,omitempty" require:"true"`
+	// 信用余额(元)
+	CreditAmount *string `json:"credit_amount,omitempty" xml:"credit_amount,omitempty" require:"true"`
+	// 资产的来源<来源账户ID_余额/信用额, 数量>, 例如: "accountId1_Debit": 11000表示这笔资产来源于accountId1,是accountId1这个账户通过Debit余额发行的资产。
+	AssetMap *string `json:"asset_map,omitempty" xml:"asset_map,omitempty" require:"true"`
+}
+
+func (s BlockConsumeCardInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BlockConsumeCardInfo) GoString() string {
+	return s.String()
+}
+
+func (s *BlockConsumeCardInfo) SetUserId(v string) *BlockConsumeCardInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *BlockConsumeCardInfo) SetAccountId(v string) *BlockConsumeCardInfo {
+	s.AccountId = &v
+	return s
+}
+
+func (s *BlockConsumeCardInfo) SetBankName(v string) *BlockConsumeCardInfo {
+	s.BankName = &v
+	return s
+}
+
+func (s *BlockConsumeCardInfo) SetBankCardId(v string) *BlockConsumeCardInfo {
+	s.BankCardId = &v
+	return s
+}
+
+func (s *BlockConsumeCardInfo) SetAccountName(v string) *BlockConsumeCardInfo {
+	s.AccountName = &v
+	return s
+}
+
+func (s *BlockConsumeCardInfo) SetDebitAmount(v string) *BlockConsumeCardInfo {
+	s.DebitAmount = &v
+	return s
+}
+
+func (s *BlockConsumeCardInfo) SetCreditAmount(v string) *BlockConsumeCardInfo {
+	s.CreditAmount = &v
+	return s
+}
+
+func (s *BlockConsumeCardInfo) SetAssetMap(v string) *BlockConsumeCardInfo {
+	s.AssetMap = &v
+	return s
+}
+
+// 已授权给商户的权益信息
+type OpenedEquity struct {
+	// 商户管理员ID
+	AdminId *string `json:"admin_id,omitempty" xml:"admin_id,omitempty" require:"true"`
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 币种
+	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
+	// 默认价格
+	DefaultPrice *string `json:"default_price,omitempty" xml:"default_price,omitempty" require:"true"`
+	// 权益详情
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 权益详情图片
+	DescImages *string `json:"desc_images,omitempty" xml:"desc_images,omitempty" require:"true"`
+	// 权益ID
+	EquityD *string `json:"equity_d,omitempty" xml:"equity_d,omitempty" require:"true"`
+	// 权益名称
+	EquityName *string `json:"equity_name,omitempty" xml:"equity_name,omitempty" require:"true"`
+	// 权益类型
+	EquityType *int64 `json:"equity_type,omitempty" xml:"equity_type,omitempty" require:"true"`
+	// 权益主图片
+	Images *string `json:"images,omitempty" xml:"images,omitempty" require:"true"`
+	// 是否是公开权益
+	IsPublic *bool `json:"is_public,omitempty" xml:"is_public,omitempty" require:"true"`
+	// 每日商户对换限制
+	LimitPerMerchantAndDay *int64 `json:"limit_per_merchant_and_day,omitempty" xml:"limit_per_merchant_and_day,omitempty" require:"true"`
+	// 每月商户对换限制
+	LimitPerMerchantAndMonth *int64 `json:"limit_per_merchant_and_month,omitempty" xml:"limit_per_merchant_and_month,omitempty" require:"true"`
+	// 每日用户对换限制
+	LimitPerUserAndDay *int64 `json:"limit_per_user_and_day,omitempty" xml:"limit_per_user_and_day,omitempty" require:"true"`
+	// 每月用户对换限制
+	LimitPerUserAndMonth *int64 `json:"limit_per_user_and_month,omitempty" xml:"limit_per_user_and_month,omitempty" require:"true"`
+	// 权益附言
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 被授权的租户ID
+	OpenToTenantId *string `json:"open_to_tenant_id,omitempty" xml:"open_to_tenant_id,omitempty" require:"true"`
+	// 权益状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 授权价格
+	TenantPrice *string `json:"tenant_price,omitempty" xml:"tenant_price,omitempty" require:"true"`
+	// 库存
+	TotalCount *string `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
+	// 可用右区间
+	UseValidNotAfter *int64 `json:"use_valid_not_after,omitempty" xml:"use_valid_not_after,omitempty" require:"true"`
+	// 可用左区间
+	UseValidNotBefore *int64 `json:"use_valid_not_before,omitempty" xml:"use_valid_not_before,omitempty" require:"true"`
+	// 有效右区间
+	ValidNotAfter *int64 `json:"valid_not_after,omitempty" xml:"valid_not_after,omitempty" require:"true"`
+	// 有效左时间
+	ValidNotBefore *int64 `json:"valid_not_before,omitempty" xml:"valid_not_before,omitempty" require:"true"`
+	// 价值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s OpenedEquity) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OpenedEquity) GoString() string {
+	return s.String()
+}
+
+func (s *OpenedEquity) SetAdminId(v string) *OpenedEquity {
+	s.AdminId = &v
+	return s
+}
+
+func (s *OpenedEquity) SetAuthType(v string) *OpenedEquity {
+	s.AuthType = &v
+	return s
+}
+
+func (s *OpenedEquity) SetCurrency(v string) *OpenedEquity {
+	s.Currency = &v
+	return s
+}
+
+func (s *OpenedEquity) SetDefaultPrice(v string) *OpenedEquity {
+	s.DefaultPrice = &v
+	return s
+}
+
+func (s *OpenedEquity) SetDescription(v string) *OpenedEquity {
+	s.Description = &v
+	return s
+}
+
+func (s *OpenedEquity) SetDescImages(v string) *OpenedEquity {
+	s.DescImages = &v
+	return s
+}
+
+func (s *OpenedEquity) SetEquityD(v string) *OpenedEquity {
+	s.EquityD = &v
+	return s
+}
+
+func (s *OpenedEquity) SetEquityName(v string) *OpenedEquity {
+	s.EquityName = &v
+	return s
+}
+
+func (s *OpenedEquity) SetEquityType(v int64) *OpenedEquity {
+	s.EquityType = &v
+	return s
+}
+
+func (s *OpenedEquity) SetImages(v string) *OpenedEquity {
+	s.Images = &v
+	return s
+}
+
+func (s *OpenedEquity) SetIsPublic(v bool) *OpenedEquity {
+	s.IsPublic = &v
+	return s
+}
+
+func (s *OpenedEquity) SetLimitPerMerchantAndDay(v int64) *OpenedEquity {
+	s.LimitPerMerchantAndDay = &v
+	return s
+}
+
+func (s *OpenedEquity) SetLimitPerMerchantAndMonth(v int64) *OpenedEquity {
+	s.LimitPerMerchantAndMonth = &v
+	return s
+}
+
+func (s *OpenedEquity) SetLimitPerUserAndDay(v int64) *OpenedEquity {
+	s.LimitPerUserAndDay = &v
+	return s
+}
+
+func (s *OpenedEquity) SetLimitPerUserAndMonth(v int64) *OpenedEquity {
+	s.LimitPerUserAndMonth = &v
+	return s
+}
+
+func (s *OpenedEquity) SetMemo(v string) *OpenedEquity {
+	s.Memo = &v
+	return s
+}
+
+func (s *OpenedEquity) SetOpenToTenantId(v string) *OpenedEquity {
+	s.OpenToTenantId = &v
+	return s
+}
+
+func (s *OpenedEquity) SetStatus(v int64) *OpenedEquity {
+	s.Status = &v
+	return s
+}
+
+func (s *OpenedEquity) SetTenantId(v string) *OpenedEquity {
+	s.TenantId = &v
+	return s
+}
+
+func (s *OpenedEquity) SetTenantPrice(v string) *OpenedEquity {
+	s.TenantPrice = &v
+	return s
+}
+
+func (s *OpenedEquity) SetTotalCount(v string) *OpenedEquity {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *OpenedEquity) SetUseValidNotAfter(v int64) *OpenedEquity {
+	s.UseValidNotAfter = &v
+	return s
+}
+
+func (s *OpenedEquity) SetUseValidNotBefore(v int64) *OpenedEquity {
+	s.UseValidNotBefore = &v
+	return s
+}
+
+func (s *OpenedEquity) SetValidNotAfter(v int64) *OpenedEquity {
+	s.ValidNotAfter = &v
+	return s
+}
+
+func (s *OpenedEquity) SetValidNotBefore(v int64) *OpenedEquity {
+	s.ValidNotBefore = &v
+	return s
+}
+
+func (s *OpenedEquity) SetValue(v string) *OpenedEquity {
+	s.Value = &v
+	return s
+}
+
+// ip 基础信息带上是否更新，只在渠道查询审批中用到
+type IpBasicInfoWithUpdate struct {
+	// 基础信息
+	IpBasicInfo *IpBasicInfo `json:"ip_basic_info,omitempty" xml:"ip_basic_info,omitempty" require:"true"`
+	// 是否有更新
+	IsUpdate *bool `json:"is_update,omitempty" xml:"is_update,omitempty" require:"true"`
+}
+
+func (s IpBasicInfoWithUpdate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IpBasicInfoWithUpdate) GoString() string {
+	return s.String()
+}
+
+func (s *IpBasicInfoWithUpdate) SetIpBasicInfo(v *IpBasicInfo) *IpBasicInfoWithUpdate {
+	s.IpBasicInfo = v
+	return s
+}
+
+func (s *IpBasicInfoWithUpdate) SetIsUpdate(v bool) *IpBasicInfoWithUpdate {
+	s.IsUpdate = &v
+	return s
+}
+
+// 正版码配置信息生命周期
+type IPCodeConfigTimeInfo struct {
+	// 正版码申请时间，商家申请正版码第一批数量的时间
+	CodeApplyTime *string `json:"code_apply_time,omitempty" xml:"code_apply_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 正版码配置时间
+	CodeSetTime *string `json:"code_set_time,omitempty" xml:"code_set_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 正版码生效时间
+	CodeEffectTime *string `json:"code_effect_time,omitempty" xml:"code_effect_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s IPCodeConfigTimeInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPCodeConfigTimeInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPCodeConfigTimeInfo) SetCodeApplyTime(v string) *IPCodeConfigTimeInfo {
+	s.CodeApplyTime = &v
+	return s
+}
+
+func (s *IPCodeConfigTimeInfo) SetCodeSetTime(v string) *IPCodeConfigTimeInfo {
+	s.CodeSetTime = &v
+	return s
+}
+
+func (s *IPCodeConfigTimeInfo) SetCodeEffectTime(v string) *IPCodeConfigTimeInfo {
+	s.CodeEffectTime = &v
+	return s
+}
+
+// T+1日销售数据汇总
+type SalesByDay struct {
+	// 订单ID
+	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
+	// 版权方ID
+	SellerId *string `json:"seller_id,omitempty" xml:"seller_id,omitempty" require:"true"`
+	// 商家ID
+	BuyerId *string `json:"buyer_id,omitempty" xml:"buyer_id,omitempty" require:"true"`
+	// 版权方名称
+	SellerName *string `json:"seller_name,omitempty" xml:"seller_name,omitempty" require:"true"`
+	// 商家名称
+	BuyerName *string `json:"buyer_name,omitempty" xml:"buyer_name,omitempty" require:"true"`
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 统计周期-开始时间
+	StatisticBeginPeriod *int64 `json:"statistic_begin_period,omitempty" xml:"statistic_begin_period,omitempty" require:"true"`
+	// 统计周期-结束时间
+	StatisticEndPeriod *int64 `json:"statistic_end_period,omitempty" xml:"statistic_end_period,omitempty" require:"true"`
+	// 商品销售数量
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 商品总销售额
+	Sales *string `json:"sales,omitempty" xml:"sales,omitempty" require:"true"`
+	// 总回退销售额
+	RefundSales *string `json:"refund_sales,omitempty" xml:"refund_sales,omitempty" require:"true"`
+	// 需支付给版权方的总费用
+	Payment *string `json:"payment,omitempty" xml:"payment,omitempty" require:"true"`
+}
+
+func (s SalesByDay) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SalesByDay) GoString() string {
+	return s.String()
+}
+
+func (s *SalesByDay) SetIpOrderId(v string) *SalesByDay {
+	s.IpOrderId = &v
+	return s
+}
+
+func (s *SalesByDay) SetSellerId(v string) *SalesByDay {
+	s.SellerId = &v
+	return s
+}
+
+func (s *SalesByDay) SetBuyerId(v string) *SalesByDay {
+	s.BuyerId = &v
+	return s
+}
+
+func (s *SalesByDay) SetSellerName(v string) *SalesByDay {
+	s.SellerName = &v
+	return s
+}
+
+func (s *SalesByDay) SetBuyerName(v string) *SalesByDay {
+	s.BuyerName = &v
+	return s
+}
+
+func (s *SalesByDay) SetDate(v string) *SalesByDay {
+	s.Date = &v
+	return s
+}
+
+func (s *SalesByDay) SetStatisticBeginPeriod(v int64) *SalesByDay {
+	s.StatisticBeginPeriod = &v
+	return s
+}
+
+func (s *SalesByDay) SetStatisticEndPeriod(v int64) *SalesByDay {
+	s.StatisticEndPeriod = &v
+	return s
+}
+
+func (s *SalesByDay) SetAmount(v int64) *SalesByDay {
+	s.Amount = &v
+	return s
+}
+
+func (s *SalesByDay) SetSales(v string) *SalesByDay {
+	s.Sales = &v
+	return s
+}
+
+func (s *SalesByDay) SetRefundSales(v string) *SalesByDay {
+	s.RefundSales = &v
+	return s
+}
+
+func (s *SalesByDay) SetPayment(v string) *SalesByDay {
+	s.Payment = &v
+	return s
+}
+
+// 手续费信息
+type Commission struct {
+	// 要更新的手续费状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 手续费生效时间（时间戳 ms）
+	BeginTime *int64 `json:"begin_time,omitempty" xml:"begin_time,omitempty"`
+	// 手续费结束时间
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty"`
+	// 手续费
+	Commission *string `json:"commission,omitempty" xml:"commission,omitempty" require:"true"`
+}
+
+func (s Commission) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Commission) GoString() string {
+	return s.String()
+}
+
+func (s *Commission) SetStatus(v int64) *Commission {
+	s.Status = &v
+	return s
+}
+
+func (s *Commission) SetBeginTime(v int64) *Commission {
+	s.BeginTime = &v
+	return s
+}
+
+func (s *Commission) SetEndTime(v int64) *Commission {
+	s.EndTime = &v
+	return s
+}
+
+func (s *Commission) SetCommission(v string) *Commission {
+	s.Commission = &v
+	return s
+}
+
+// 可兑换商品列表
+type ExchangeableEquityList struct {
+	// 页面上数据在总数据中的结束位置（第几个数据）
+	EndRow *int64 `json:"end_row,omitempty" xml:"end_row,omitempty" require:"true"`
+	// 权益信息列表
+	EquityList []*EquityDetail `json:"equity_list,omitempty" xml:"equity_list,omitempty" require:"true" type:"Repeated"`
+	// 第一页页码
+	FirstPage *int64 `json:"first_page,omitempty" xml:"first_page,omitempty" require:"true"`
+	// 是否有下一页
+	HasNextPage *bool `json:"has_next_page,omitempty" xml:"has_next_page,omitempty" require:"true"`
+	// 是否有前一页
+	HasPreviousPage *bool `json:"has_previous_page,omitempty" xml:"has_previous_page,omitempty" require:"true"`
+	// 是否第一页
+	IsFirstPage *bool `json:"is_first_page,omitempty" xml:"is_first_page,omitempty" require:"true"`
+	// 是否最后一页
+	IsLastPage *bool `json:"is_last_page,omitempty" xml:"is_last_page,omitempty" require:"true"`
+	// 最后一页页码
+	LastPage *int64 `json:"last_page,omitempty" xml:"last_page,omitempty" require:"true"`
+	// 下一页页码
+	NextPage *int64 `json:"next_page,omitempty" xml:"next_page,omitempty" require:"true"`
+	// 排序规则
+	OrderBy *string `json:"order_by,omitempty" xml:"order_by,omitempty" require:"true"`
+	// 可兑换的权益总页数
+	Pages *int64 `json:"pages,omitempty" xml:"pages,omitempty" require:"true"`
+	// 当前页码
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty" require:"true"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 前一页页码
+	PrePage *int64 `json:"pre_page,omitempty" xml:"pre_page,omitempty" require:"true"`
+	// 页面中实际数量
+	Size *int64 `json:"size,omitempty" xml:"size,omitempty" require:"true"`
+	// 页面上数据在总数据中的开始位置（第几个数据）
+	StartRow *int64 `json:"start_row,omitempty" xml:"start_row,omitempty" require:"true"`
+	// 可兑换的权益总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+}
+
+func (s ExchangeableEquityList) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExchangeableEquityList) GoString() string {
+	return s.String()
+}
+
+func (s *ExchangeableEquityList) SetEndRow(v int64) *ExchangeableEquityList {
+	s.EndRow = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetEquityList(v []*EquityDetail) *ExchangeableEquityList {
+	s.EquityList = v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetFirstPage(v int64) *ExchangeableEquityList {
+	s.FirstPage = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetHasNextPage(v bool) *ExchangeableEquityList {
+	s.HasNextPage = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetHasPreviousPage(v bool) *ExchangeableEquityList {
+	s.HasPreviousPage = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetIsFirstPage(v bool) *ExchangeableEquityList {
+	s.IsFirstPage = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetIsLastPage(v bool) *ExchangeableEquityList {
+	s.IsLastPage = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetLastPage(v int64) *ExchangeableEquityList {
+	s.LastPage = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetNextPage(v int64) *ExchangeableEquityList {
+	s.NextPage = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetOrderBy(v string) *ExchangeableEquityList {
+	s.OrderBy = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetPages(v int64) *ExchangeableEquityList {
+	s.Pages = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetPageNumber(v int64) *ExchangeableEquityList {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetPageSize(v int64) *ExchangeableEquityList {
+	s.PageSize = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetPrePage(v int64) *ExchangeableEquityList {
+	s.PrePage = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetSize(v int64) *ExchangeableEquityList {
+	s.Size = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetStartRow(v int64) *ExchangeableEquityList {
+	s.StartRow = &v
+	return s
+}
+
+func (s *ExchangeableEquityList) SetTotal(v int64) *ExchangeableEquityList {
+	s.Total = &v
+	return s
+}
+
+// 正版码流转信息
+type IPCodeFlowInfo struct {
+	// 拥有用户名称，收藏人
+	CodeOwnerName *string `json:"code_owner_name,omitempty" xml:"code_owner_name,omitempty"`
+	// 收藏时间
+	CodeCollectTime *int64 `json:"code_collect_time,omitempty" xml:"code_collect_time,omitempty"`
+	// 收藏交易哈希
+	CodeTransHash *string `json:"code_trans_hash,omitempty" xml:"code_trans_hash,omitempty"`
+}
+
+func (s IPCodeFlowInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPCodeFlowInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPCodeFlowInfo) SetCodeOwnerName(v string) *IPCodeFlowInfo {
+	s.CodeOwnerName = &v
+	return s
+}
+
+func (s *IPCodeFlowInfo) SetCodeCollectTime(v int64) *IPCodeFlowInfo {
+	s.CodeCollectTime = &v
+	return s
+}
+
+func (s *IPCodeFlowInfo) SetCodeTransHash(v string) *IPCodeFlowInfo {
+	s.CodeTransHash = &v
+	return s
+}
+
+// 钱包信息
+type WalletInfo struct {
+	// 授信钱包信息
+	CreditWallet *CreditWallet `json:"credit_wallet,omitempty" xml:"credit_wallet,omitempty" require:"true"`
+	// 余额钱包信息
+	DebitWallet *DebitWallet `json:"debit_wallet,omitempty" xml:"debit_wallet,omitempty" require:"true"`
+	// 钱包统计信息
+	StatisticalInfo *StatisticalInfo `json:"statistical_info,omitempty" xml:"statistical_info,omitempty" require:"true"`
+}
+
+func (s WalletInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WalletInfo) GoString() string {
+	return s.String()
+}
+
+func (s *WalletInfo) SetCreditWallet(v *CreditWallet) *WalletInfo {
+	s.CreditWallet = v
+	return s
+}
+
+func (s *WalletInfo) SetDebitWallet(v *DebitWallet) *WalletInfo {
+	s.DebitWallet = v
+	return s
+}
+
+func (s *WalletInfo) SetStatisticalInfo(v *StatisticalInfo) *WalletInfo {
+	s.StatisticalInfo = v
+	return s
+}
+
+// 消费卡服务OpenAPI基础返回值
+type BaseResponseData struct {
+	// 区块链交易执行的区块高度
+	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty" require:"true"`
+	// 交易的业务幂等Id,与交易发起时外部传入的一致
+	OutBizId *string `json:"out_biz_id,omitempty" xml:"out_biz_id,omitempty" require:"true"`
+	// 区块链交易执行的哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+}
+
+func (s BaseResponseData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaseResponseData) GoString() string {
+	return s.String()
+}
+
+func (s *BaseResponseData) SetBlockNumber(v int64) *BaseResponseData {
+	s.BlockNumber = &v
+	return s
+}
+
+func (s *BaseResponseData) SetOutBizId(v string) *BaseResponseData {
+	s.OutBizId = &v
+	return s
+}
+
+func (s *BaseResponseData) SetTxHash(v string) *BaseResponseData {
+	s.TxHash = &v
+	return s
+}
+
+// 查询手续费结果信息
+type CommissionResult struct {
+	// 手续费生效时间
+	BeginTime *int64 `json:"begin_time,omitempty" xml:"begin_time,omitempty" require:"true"`
+	// 手续费
+	Commission *string `json:"commission,omitempty" xml:"commission,omitempty" require:"true"`
+	// 手续费信息ID
+	CommissionId *string `json:"commission_id,omitempty" xml:"commission_id,omitempty" require:"true"`
+	// 手续费状态（0可用，1停用，2禁用）
+	CommissionStatus *int64 `json:"commission_status,omitempty" xml:"commission_status,omitempty" require:"true"`
+	// 手续费失效时间
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 商品类型
+	EquityType *int64 `json:"equity_type,omitempty" xml:"equity_type,omitempty" require:"true"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 手续费信息ID
+	CommissionSubId *string `json:"commission_sub_id,omitempty" xml:"commission_sub_id,omitempty" require:"true"`
+}
+
+func (s CommissionResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommissionResult) GoString() string {
+	return s.String()
+}
+
+func (s *CommissionResult) SetBeginTime(v int64) *CommissionResult {
+	s.BeginTime = &v
+	return s
+}
+
+func (s *CommissionResult) SetCommission(v string) *CommissionResult {
+	s.Commission = &v
+	return s
+}
+
+func (s *CommissionResult) SetCommissionId(v string) *CommissionResult {
+	s.CommissionId = &v
+	return s
+}
+
+func (s *CommissionResult) SetCommissionStatus(v int64) *CommissionResult {
+	s.CommissionStatus = &v
+	return s
+}
+
+func (s *CommissionResult) SetEndTime(v int64) *CommissionResult {
+	s.EndTime = &v
+	return s
+}
+
+func (s *CommissionResult) SetEquityType(v int64) *CommissionResult {
+	s.EquityType = &v
+	return s
+}
+
+func (s *CommissionResult) SetTenantId(v string) *CommissionResult {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CommissionResult) SetCommissionSubId(v string) *CommissionResult {
+	s.CommissionSubId = &v
+	return s
+}
+
+// sku配置加上ip等级
+type IpSkuConfigWithLevel struct {
+	// 价格区间
+	PriceRange *string `json:"price_range,omitempty" xml:"price_range,omitempty" require:"true"`
+	// 单价
+	PurchasePrice *string `json:"purchase_price,omitempty" xml:"purchase_price,omitempty" require:"true"`
+	// 销售数量
+	SaleNum *int64 `json:"sale_num,omitempty" xml:"sale_num,omitempty" require:"true"`
+	// ip等级
+	IpLevel *int64 `json:"ip_level,omitempty" xml:"ip_level,omitempty" require:"true"`
+}
+
+func (s IpSkuConfigWithLevel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IpSkuConfigWithLevel) GoString() string {
+	return s.String()
+}
+
+func (s *IpSkuConfigWithLevel) SetPriceRange(v string) *IpSkuConfigWithLevel {
+	s.PriceRange = &v
+	return s
+}
+
+func (s *IpSkuConfigWithLevel) SetPurchasePrice(v string) *IpSkuConfigWithLevel {
+	s.PurchasePrice = &v
+	return s
+}
+
+func (s *IpSkuConfigWithLevel) SetSaleNum(v int64) *IpSkuConfigWithLevel {
+	s.SaleNum = &v
+	return s
+}
+
+func (s *IpSkuConfigWithLevel) SetIpLevel(v int64) *IpSkuConfigWithLevel {
+	s.IpLevel = &v
+	return s
+}
+
+// 监修报审表单内容
+type SuperviseApprove struct {
+	// 关联的订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 当前的阶段
+	Stage *int64 `json:"stage,omitempty" xml:"stage,omitempty" require:"true"`
+	// json组织，用于存储监修报审的具体信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+	// 当前阶段的审批状态   0:待审批，1:审批通过 2:审批拒绝
+	ApprovalStatus *int64 `json:"approval_status,omitempty" xml:"approval_status,omitempty" require:"true"`
+	// 审批备注
+	ApprovalComments *string `json:"approval_comments,omitempty" xml:"approval_comments,omitempty"`
+	// 上链的交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 关联的订单交易的ip id
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
+	// 关联交易的卖家id
+	SellerAccountId *string `json:"seller_account_id,omitempty" xml:"seller_account_id,omitempty" require:"true"`
+	// 关联交易的买家id
+	BuyerAccountId *string `json:"buyer_account_id,omitempty" xml:"buyer_account_id,omitempty" require:"true"`
+	// 审批额外信息
+	ApprovalExtInfo *string `json:"approval_ext_info,omitempty" xml:"approval_ext_info,omitempty"`
+}
+
+func (s SuperviseApprove) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SuperviseApprove) GoString() string {
+	return s.String()
+}
+
+func (s *SuperviseApprove) SetOrderId(v string) *SuperviseApprove {
+	s.OrderId = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetStage(v int64) *SuperviseApprove {
+	s.Stage = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetExtInfo(v string) *SuperviseApprove {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetApprovalStatus(v int64) *SuperviseApprove {
+	s.ApprovalStatus = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetApprovalComments(v string) *SuperviseApprove {
+	s.ApprovalComments = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetTxHash(v string) *SuperviseApprove {
+	s.TxHash = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetIpId(v string) *SuperviseApprove {
+	s.IpId = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetSellerAccountId(v string) *SuperviseApprove {
+	s.SellerAccountId = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetBuyerAccountId(v string) *SuperviseApprove {
+	s.BuyerAccountId = &v
+	return s
+}
+
+func (s *SuperviseApprove) SetApprovalExtInfo(v string) *SuperviseApprove {
+	s.ApprovalExtInfo = &v
+	return s
+}
+
+// ip的所有信息，加上更新的flag信息
+type IpAllInfo struct {
+	// ip的基础信息
+	IpBasicInfo *IpBasicInfo `json:"ip_basic_info,omitempty" xml:"ip_basic_info,omitempty" require:"true"`
+	// ip的渠道信息带上sku信息
+	IpChannalInfo []*IpChannelWithSku `json:"ip_channal_info,omitempty" xml:"ip_channal_info,omitempty" require:"true" type:"Repeated"`
+	// 是否有更新数据
+	IsUpdate *bool `json:"is_update,omitempty" xml:"is_update,omitempty" require:"true"`
+}
+
+func (s IpAllInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IpAllInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IpAllInfo) SetIpBasicInfo(v *IpBasicInfo) *IpAllInfo {
+	s.IpBasicInfo = v
+	return s
+}
+
+func (s *IpAllInfo) SetIpChannalInfo(v []*IpChannelWithSku) *IpAllInfo {
+	s.IpChannalInfo = v
+	return s
+}
+
+func (s *IpAllInfo) SetIsUpdate(v bool) *IpAllInfo {
+	s.IsUpdate = &v
+	return s
+}
+
+// 接口白名单信息
+type APIWhiteListInfo struct {
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+	// 权限级别，暂时不用
+	Level *int64 `json:"level,omitempty" xml:"level,omitempty" require:"true"`
+	// 更新时间
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty" require:"true"`
+	// 扩展字段
+	Extension *string `json:"extension,omitempty" xml:"extension,omitempty" require:"true"`
+}
+
+func (s APIWhiteListInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s APIWhiteListInfo) GoString() string {
+	return s.String()
+}
+
+func (s *APIWhiteListInfo) SetTenantId(v string) *APIWhiteListInfo {
+	s.TenantId = &v
+	return s
+}
+
+func (s *APIWhiteListInfo) SetChainId(v string) *APIWhiteListInfo {
+	s.ChainId = &v
+	return s
+}
+
+func (s *APIWhiteListInfo) SetLevel(v int64) *APIWhiteListInfo {
+	s.Level = &v
+	return s
+}
+
+func (s *APIWhiteListInfo) SetUpdateTime(v string) *APIWhiteListInfo {
+	s.UpdateTime = &v
+	return s
+}
+
+func (s *APIWhiteListInfo) SetExtension(v string) *APIWhiteListInfo {
+	s.Extension = &v
+	return s
+}
+
+// 租户的备付金列表
+type DiscreteValue struct {
+	// 序号
+	SortId *int64 `json:"sort_id,omitempty" xml:"sort_id,omitempty" require:"true"`
+	// 文本信息
+	Text *string `json:"text,omitempty" xml:"text,omitempty" require:"true"`
+	// 文本值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s DiscreteValue) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DiscreteValue) GoString() string {
+	return s.String()
+}
+
+func (s *DiscreteValue) SetSortId(v int64) *DiscreteValue {
+	s.SortId = &v
+	return s
+}
+
+func (s *DiscreteValue) SetText(v string) *DiscreteValue {
+	s.Text = &v
+	return s
+}
+
+func (s *DiscreteValue) SetValue(v string) *DiscreteValue {
+	s.Value = &v
+	return s
+}
+
+// 统计数据
+type CounterData struct {
+	// 成交总额
+	Gmv *string `json:"gmv,omitempty" xml:"gmv,omitempty" require:"true"`
+	// 公认标准收入
+	Gaap *string `json:"gaap,omitempty" xml:"gaap,omitempty" require:"true"`
+	// 笔数
+	Counter *string `json:"counter,omitempty" xml:"counter,omitempty" require:"true"`
+}
+
+func (s CounterData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CounterData) GoString() string {
+	return s.String()
+}
+
+func (s *CounterData) SetGmv(v string) *CounterData {
+	s.Gmv = &v
+	return s
+}
+
+func (s *CounterData) SetGaap(v string) *CounterData {
+	s.Gaap = &v
+	return s
+}
+
+func (s *CounterData) SetCounter(v string) *CounterData {
+	s.Counter = &v
+	return s
+}
+
+// 用于sku config的查询
+type SkuWithLevel struct {
+}
+
+func (s SkuWithLevel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SkuWithLevel) GoString() string {
+	return s.String()
+}
+
+// 正版码被扫描或领取的信息
+type IPCodeScannedInfo struct {
+	// 正版码ID
+	IpCode *string `json:"ip_code,omitempty" xml:"ip_code,omitempty" require:"true"`
+	// 正版码所在批次已申请的正版码总数
+	BatchUsedCount *int64 `json:"batch_used_count,omitempty" xml:"batch_used_count,omitempty"`
+	// 用户的ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户的名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 用户头像地址
+	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty" require:"true"`
+	// 用户的手机号
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
+	// 用户的位置信息
+	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
+	// 领取正版码的交易哈希
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// 领取正版码交易所在的区块高度
+	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty"`
+	// 处理时间(毫秒时间戳)
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// IP ID
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
+	// 订单ID
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 正版码商品信息配置列表
+	GoodsInfoList []*IPCodeGoodsInfo `json:"goods_info_list,omitempty" xml:"goods_info_list,omitempty" type:"Repeated"`
+	// 正版码资源位配置信息列表
+	AdInfoList []*IPCodeAdvertisingInfo `json:"ad_info_list,omitempty" xml:"ad_info_list,omitempty" type:"Repeated"`
+	// ip版权方信息
+	IpownerInfo *IPCodeIpOwnerInfo `json:"ipowner_info,omitempty" xml:"ipowner_info,omitempty"`
+	// 0:未配置, 1:配置成功可展示, 4:已经失效, 9:下架【本期不实现】
+	IpCodeStatus *int64 `json:"ip_code_status,omitempty" xml:"ip_code_status,omitempty"`
+	// 额外功能，包括是否允许收藏等
+	Features []*int64 `json:"features,omitempty" xml:"features,omitempty" type:"Repeated"`
+	// 核验次数，配置生效后的核验次数统计
+	CheckCounts *int64 `json:"check_counts,omitempty" xml:"check_counts,omitempty"`
+	// 正版码关联的I IP信息
+	IpInfo *IPCodeIpGoodInfo `json:"ip_info,omitempty" xml:"ip_info,omitempty"`
+	// UNI码
+	UniCode *string `json:"uni_code,omitempty" xml:"uni_code,omitempty"`
+	// 正版码配置附加信息，信息内容由调用方自定义
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 收藏时间(UNIX时间戳)0表示未被收藏
+	ReceiveTime *int64 `json:"receive_time,omitempty" xml:"receive_time,omitempty"`
+	// 同一批次存在失效UNI码的场景下,指示更新后的下标
+	FixedIndex *int64 `json:"fixed_index,omitempty" xml:"fixed_index,omitempty"`
+	// 同一批次存在失效UNI码的场景下,指示更新后的总量
+	FixedCount *int64 `json:"fixed_count,omitempty" xml:"fixed_count,omitempty"`
+	// 小龙坎有限公司
+	AccountExternalName *string `json:"account_external_name,omitempty" xml:"account_external_name,omitempty"`
+	// 码失效时间（毫秒时间戳）
+	DisabledDate *int64 `json:"disabled_date,omitempty" xml:"disabled_date,omitempty"`
+}
+
+func (s IPCodeScannedInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPCodeScannedInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPCodeScannedInfo) SetIpCode(v string) *IPCodeScannedInfo {
+	s.IpCode = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetBatchUsedCount(v int64) *IPCodeScannedInfo {
+	s.BatchUsedCount = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetUserId(v string) *IPCodeScannedInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetUserName(v string) *IPCodeScannedInfo {
+	s.UserName = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetAvatar(v string) *IPCodeScannedInfo {
+	s.Avatar = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetPhoneNumber(v string) *IPCodeScannedInfo {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetGps(v string) *IPCodeScannedInfo {
+	s.Gps = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetHash(v string) *IPCodeScannedInfo {
+	s.Hash = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetBlockNumber(v int64) *IPCodeScannedInfo {
+	s.BlockNumber = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetTimestamp(v int64) *IPCodeScannedInfo {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetIpId(v string) *IPCodeScannedInfo {
+	s.IpId = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetOrderId(v string) *IPCodeScannedInfo {
+	s.OrderId = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetGoodsInfoList(v []*IPCodeGoodsInfo) *IPCodeScannedInfo {
+	s.GoodsInfoList = v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetAdInfoList(v []*IPCodeAdvertisingInfo) *IPCodeScannedInfo {
+	s.AdInfoList = v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetIpownerInfo(v *IPCodeIpOwnerInfo) *IPCodeScannedInfo {
+	s.IpownerInfo = v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetIpCodeStatus(v int64) *IPCodeScannedInfo {
+	s.IpCodeStatus = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetFeatures(v []*int64) *IPCodeScannedInfo {
+	s.Features = v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetCheckCounts(v int64) *IPCodeScannedInfo {
+	s.CheckCounts = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetIpInfo(v *IPCodeIpGoodInfo) *IPCodeScannedInfo {
+	s.IpInfo = v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetUniCode(v string) *IPCodeScannedInfo {
+	s.UniCode = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetExtInfo(v string) *IPCodeScannedInfo {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetReceiveTime(v int64) *IPCodeScannedInfo {
+	s.ReceiveTime = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetFixedIndex(v int64) *IPCodeScannedInfo {
+	s.FixedIndex = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetFixedCount(v int64) *IPCodeScannedInfo {
+	s.FixedCount = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetAccountExternalName(v string) *IPCodeScannedInfo {
+	s.AccountExternalName = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetDisabledDate(v int64) *IPCodeScannedInfo {
+	s.DisabledDate = &v
+	return s
+}
+
+// 创建电子券的参数
+type CouponCreate struct {
+	// 电子券批次ID
+	CollectionId *string `json:"collection_id,omitempty" xml:"collection_id,omitempty" require:"true"`
+	// 电子券价值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 电子券名称
+	CouponName *string `json:"coupon_name,omitempty" xml:"coupon_name,omitempty" require:"true"`
+	// 用户脱敏ID
+	DesensitizedUid *string `json:"desensitized_uid,omitempty" xml:"desensitized_uid,omitempty"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+	// 持有者ID
+	HolderUserAccount *string `json:"holder_user_account,omitempty" xml:"holder_user_account,omitempty"`
+	// 电子券公钥
+	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty" require:"true"`
+	// 时区（暂时固定为GMT+8）
+	TimeZone *string `json:"time_zone,omitempty" xml:"time_zone,omitempty" require:"true"`
+	// 用户公钥
+	UidPublicKey *string `json:"uid_public_key,omitempty" xml:"uid_public_key,omitempty"`
+	// 有效开始时间
+	ValidAfter *int64 `json:"valid_after,omitempty" xml:"valid_after,omitempty" require:"true"`
+	// 有效结束时间
+	ValidBefore *int64 `json:"valid_before,omitempty" xml:"valid_before,omitempty" require:"true"`
+}
+
+func (s CouponCreate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CouponCreate) GoString() string {
+	return s.String()
+}
+
+func (s *CouponCreate) SetCollectionId(v string) *CouponCreate {
+	s.CollectionId = &v
+	return s
+}
+
+func (s *CouponCreate) SetValue(v string) *CouponCreate {
+	s.Value = &v
+	return s
+}
+
+func (s *CouponCreate) SetCouponName(v string) *CouponCreate {
+	s.CouponName = &v
+	return s
+}
+
+func (s *CouponCreate) SetDesensitizedUid(v string) *CouponCreate {
+	s.DesensitizedUid = &v
+	return s
+}
+
+func (s *CouponCreate) SetExtInfo(v string) *CouponCreate {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *CouponCreate) SetHolderUserAccount(v string) *CouponCreate {
+	s.HolderUserAccount = &v
+	return s
+}
+
+func (s *CouponCreate) SetPublicKey(v string) *CouponCreate {
+	s.PublicKey = &v
+	return s
+}
+
+func (s *CouponCreate) SetTimeZone(v string) *CouponCreate {
+	s.TimeZone = &v
+	return s
+}
+
+func (s *CouponCreate) SetUidPublicKey(v string) *CouponCreate {
+	s.UidPublicKey = &v
+	return s
+}
+
+func (s *CouponCreate) SetValidAfter(v int64) *CouponCreate {
+	s.ValidAfter = &v
+	return s
+}
+
+func (s *CouponCreate) SetValidBefore(v int64) *CouponCreate {
+	s.ValidBefore = &v
 	return s
 }
 
@@ -7069,153 +5985,184 @@ func (s *IpChannelInfo) SetAuthorizationIndustry(v []*string) *IpChannelInfo {
 	return s
 }
 
-// 正版码流转信息
-type CodeCirculation struct {
-	// 正版码的编码
-	Code *string `json:"code,omitempty" xml:"code,omitempty"`
-	// 流转信息标题
-	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
-	// 流转详细信息
-	Content *string `json:"content,omitempty" xml:"content,omitempty"`
-	// 哈希值
-	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
-	// 流转时间
-	Time *int64 `json:"time,omitempty" xml:"time,omitempty"`
-}
-
-func (s CodeCirculation) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CodeCirculation) GoString() string {
-	return s.String()
-}
-
-func (s *CodeCirculation) SetCode(v string) *CodeCirculation {
-	s.Code = &v
-	return s
-}
-
-func (s *CodeCirculation) SetTitle(v string) *CodeCirculation {
-	s.Title = &v
-	return s
-}
-
-func (s *CodeCirculation) SetContent(v string) *CodeCirculation {
-	s.Content = &v
-	return s
-}
-
-func (s *CodeCirculation) SetHash(v string) *CodeCirculation {
-	s.Hash = &v
-	return s
-}
-
-func (s *CodeCirculation) SetTime(v int64) *CodeCirculation {
-	s.Time = &v
-	return s
-}
-
-// ip的重点信息
-type IpEmphasisInfo struct {
-	// ip的链上id
-	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
-	// ip的描述信息
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// ip类型
-	IpType *string `json:"ip_type,omitempty" xml:"ip_type,omitempty" require:"true"`
-	// 受众群体（6位数字） 对应c
-	AudienceGroup *string `json:"audience_group,omitempty" xml:"audience_group,omitempty" require:"true"`
-	// 主图
-	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
-	// 上架状态
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 归属的账户id
+// 手续费规则
+type CommissionRule struct {
+	// 一级分账方的账户ID
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 创建日期
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// ip名字
-	IpName *string `json:"ip_name,omitempty" xml:"ip_name,omitempty" require:"true"`
-	// 商户名称
-	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty"`
-	// 浏览量
-	Pv *int64 `json:"pv,omitempty" xml:"pv,omitempty"`
-	// 最近一次上下架时间
-	LastStateChangeTime *int64 `json:"last_state_change_time,omitempty" xml:"last_state_change_time,omitempty"`
-	// ip的创建渠道，按照查询参数返回
-	CreaterChannel *string `json:"creater_channel,omitempty" xml:"creater_channel,omitempty"`
+	// 手续费规则
+	CommissionPeriod *CommissionPeriod `json:"commission_period,omitempty" xml:"commission_period,omitempty" require:"true"`
 }
 
-func (s IpEmphasisInfo) String() string {
+func (s CommissionRule) String() string {
 	return tea.Prettify(s)
 }
 
-func (s IpEmphasisInfo) GoString() string {
+func (s CommissionRule) GoString() string {
 	return s.String()
 }
 
-func (s *IpEmphasisInfo) SetIpId(v string) *IpEmphasisInfo {
-	s.IpId = &v
-	return s
-}
-
-func (s *IpEmphasisInfo) SetDescription(v string) *IpEmphasisInfo {
-	s.Description = &v
-	return s
-}
-
-func (s *IpEmphasisInfo) SetIpType(v string) *IpEmphasisInfo {
-	s.IpType = &v
-	return s
-}
-
-func (s *IpEmphasisInfo) SetAudienceGroup(v string) *IpEmphasisInfo {
-	s.AudienceGroup = &v
-	return s
-}
-
-func (s *IpEmphasisInfo) SetImage(v string) *IpEmphasisInfo {
-	s.Image = &v
-	return s
-}
-
-func (s *IpEmphasisInfo) SetStatus(v int64) *IpEmphasisInfo {
-	s.Status = &v
-	return s
-}
-
-func (s *IpEmphasisInfo) SetAccountId(v string) *IpEmphasisInfo {
+func (s *CommissionRule) SetAccountId(v string) *CommissionRule {
 	s.AccountId = &v
 	return s
 }
 
-func (s *IpEmphasisInfo) SetCreateTime(v string) *IpEmphasisInfo {
-	s.CreateTime = &v
+func (s *CommissionRule) SetCommissionPeriod(v *CommissionPeriod) *CommissionRule {
+	s.CommissionPeriod = v
 	return s
 }
 
-func (s *IpEmphasisInfo) SetIpName(v string) *IpEmphasisInfo {
-	s.IpName = &v
+// 商户
+type Merchant struct {
+	// 商户管理员ID
+	AdminId *string `json:"admin_id,omitempty" xml:"admin_id,omitempty" require:"true"`
+	// 商户描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 商户分布式身份ID
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 资金管理员ID
+	FundManagerId *string `json:"fund_manager_id,omitempty" xml:"fund_manager_id,omitempty" require:"true"`
+	// 是否可以发行资产
+	IsAssetIssuer *bool `json:"is_asset_issuer,omitempty" xml:"is_asset_issuer,omitempty" require:"true"`
+	// 是否可以采购权益
+	IsEquityConsumer *bool `json:"is_equity_consumer,omitempty" xml:"is_equity_consumer,omitempty" require:"true"`
+	// 是否可以发行权益
+	IsEquityProvider *bool `json:"is_equity_provider,omitempty" xml:"is_equity_provider,omitempty" require:"true"`
+	// 备付金数据
+	Provision *Provision `json:"provision,omitempty" xml:"provision,omitempty" require:"true"`
+	// 商户状态: 0可用, 1下线, 2冻结
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 商户的损益账户
+	ProfitLossBalance *string `json:"profit_loss_balance,omitempty" xml:"profit_loss_balance,omitempty" require:"true"`
+}
+
+func (s Merchant) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Merchant) GoString() string {
+	return s.String()
+}
+
+func (s *Merchant) SetAdminId(v string) *Merchant {
+	s.AdminId = &v
 	return s
 }
 
-func (s *IpEmphasisInfo) SetAccountName(v string) *IpEmphasisInfo {
-	s.AccountName = &v
+func (s *Merchant) SetDescription(v string) *Merchant {
+	s.Description = &v
 	return s
 }
 
-func (s *IpEmphasisInfo) SetPv(v int64) *IpEmphasisInfo {
-	s.Pv = &v
+func (s *Merchant) SetDid(v string) *Merchant {
+	s.Did = &v
 	return s
 }
 
-func (s *IpEmphasisInfo) SetLastStateChangeTime(v int64) *IpEmphasisInfo {
-	s.LastStateChangeTime = &v
+func (s *Merchant) SetFundManagerId(v string) *Merchant {
+	s.FundManagerId = &v
 	return s
 }
 
-func (s *IpEmphasisInfo) SetCreaterChannel(v string) *IpEmphasisInfo {
-	s.CreaterChannel = &v
+func (s *Merchant) SetIsAssetIssuer(v bool) *Merchant {
+	s.IsAssetIssuer = &v
+	return s
+}
+
+func (s *Merchant) SetIsEquityConsumer(v bool) *Merchant {
+	s.IsEquityConsumer = &v
+	return s
+}
+
+func (s *Merchant) SetIsEquityProvider(v bool) *Merchant {
+	s.IsEquityProvider = &v
+	return s
+}
+
+func (s *Merchant) SetProvision(v *Provision) *Merchant {
+	s.Provision = v
+	return s
+}
+
+func (s *Merchant) SetStatus(v int64) *Merchant {
+	s.Status = &v
+	return s
+}
+
+func (s *Merchant) SetTenantId(v string) *Merchant {
+	s.TenantId = &v
+	return s
+}
+
+func (s *Merchant) SetProfitLossBalance(v string) *Merchant {
+	s.ProfitLossBalance = &v
+	return s
+}
+
+// IP授权服务基础请求信息
+type BaseRequestInfo struct {
+	// 业务幂等Id,防止同一笔交易重复发送(长度不超过256个字符)
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 支持多链多合约,该参数为指明需要操作哪个智能合约环境(长度不超过50个字符)
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+	// 场景码(入驻时申请)(长度不超过50个字符)
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+}
+
+func (s BaseRequestInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaseRequestInfo) GoString() string {
+	return s.String()
+}
+
+func (s *BaseRequestInfo) SetBizId(v string) *BaseRequestInfo {
+	s.BizId = &v
+	return s
+}
+
+func (s *BaseRequestInfo) SetChainId(v string) *BaseRequestInfo {
+	s.ChainId = &v
+	return s
+}
+
+func (s *BaseRequestInfo) SetProductCode(v string) *BaseRequestInfo {
+	s.ProductCode = &v
+	return s
+}
+
+// 简要扫码信息
+type IPSimpleScannedInfo struct {
+	// 扫码人
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+	// 扫码时间
+	ScannedTime *string `json:"scanned_time,omitempty" xml:"scanned_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 扫码地址
+	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
+}
+
+func (s IPSimpleScannedInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPSimpleScannedInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPSimpleScannedInfo) SetUserName(v string) *IPSimpleScannedInfo {
+	s.UserName = &v
+	return s
+}
+
+func (s *IPSimpleScannedInfo) SetScannedTime(v string) *IPSimpleScannedInfo {
+	s.ScannedTime = &v
+	return s
+}
+
+func (s *IPSimpleScannedInfo) SetGps(v string) *IPSimpleScannedInfo {
+	s.Gps = &v
 	return s
 }
 
@@ -7440,50 +6387,1298 @@ func (s *EInstruction) SetCommissionCharged(v int64) *EInstruction {
 	return s
 }
 
-// 接口白名单信息
-type APIWhiteListInfo struct {
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 链ID
-	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
-	// 权限级别，暂时不用
-	Level *int64 `json:"level,omitempty" xml:"level,omitempty" require:"true"`
-	// 更新时间
-	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty" require:"true"`
-	// 扩展字段
-	Extension *string `json:"extension,omitempty" xml:"extension,omitempty" require:"true"`
+// 商户积分库和与预算库信息
+type MerchantBudget struct {
+	// 积分库代码
+	PointLibCode *string `json:"point_lib_code,omitempty" xml:"point_lib_code,omitempty" require:"true"`
+	// 预算库代码
+	BudgetCode *string `json:"budget_code,omitempty" xml:"budget_code,omitempty" require:"true"`
+	// 预算库描述
+	BudgetDesc *string `json:"budget_desc,omitempty" xml:"budget_desc,omitempty" require:"true"`
+	// 预算库启用时间
+	BudgetStartTime *string `json:"budget_start_time,omitempty" xml:"budget_start_time,omitempty" require:"true"`
+	// 预算库截止时间
+	BudgetEndTime *string `json:"budget_end_time,omitempty" xml:"budget_end_time,omitempty" require:"true"`
 }
 
-func (s APIWhiteListInfo) String() string {
+func (s MerchantBudget) String() string {
 	return tea.Prettify(s)
 }
 
-func (s APIWhiteListInfo) GoString() string {
+func (s MerchantBudget) GoString() string {
 	return s.String()
 }
 
-func (s *APIWhiteListInfo) SetTenantId(v string) *APIWhiteListInfo {
+func (s *MerchantBudget) SetPointLibCode(v string) *MerchantBudget {
+	s.PointLibCode = &v
+	return s
+}
+
+func (s *MerchantBudget) SetBudgetCode(v string) *MerchantBudget {
+	s.BudgetCode = &v
+	return s
+}
+
+func (s *MerchantBudget) SetBudgetDesc(v string) *MerchantBudget {
+	s.BudgetDesc = &v
+	return s
+}
+
+func (s *MerchantBudget) SetBudgetStartTime(v string) *MerchantBudget {
+	s.BudgetStartTime = &v
+	return s
+}
+
+func (s *MerchantBudget) SetBudgetEndTime(v string) *MerchantBudget {
+	s.BudgetEndTime = &v
+	return s
+}
+
+// 消费卡的单条交易记录数据
+type BlockInstruction struct {
+	// 商品兑换单/订单编号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 交易类型
+	InstructionType *int64 `json:"instruction_type,omitempty" xml:"instruction_type,omitempty" require:"true"`
+	// 买家的链上账户Id
+	BuyerAccountId *string `json:"buyer_account_id,omitempty" xml:"buyer_account_id,omitempty" require:"true"`
+	// 卖家的链上账户Id
+	SellerAccountId *string `json:"seller_account_id,omitempty" xml:"seller_account_id,omitempty" require:"true"`
+	// 平台机构ID
+	PlatformId *string `json:"platform_id,omitempty" xml:"platform_id,omitempty" require:"true"`
+	// 商品ID
+	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty" require:"true"`
+	// 商品名称
+	DisplayName *string `json:"display_name,omitempty" xml:"display_name,omitempty" require:"true"`
+	// 实际售价(元)
+	SellerPrice *string `json:"seller_price,omitempty" xml:"seller_price,omitempty" require:"true"`
+	// 商品面值(元)
+	DisplayPrice *string `json:"display_price,omitempty" xml:"display_price,omitempty" require:"true"`
+	// 备注信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 附言
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty" require:"true"`
+	// 兑换单状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 退款状态
+	RefundStatus *int64 `json:"refund_status,omitempty" xml:"refund_status,omitempty" require:"true"`
+	// 交易创建时间
+	CreateTimestamp *int64 `json:"create_timestamp,omitempty" xml:"create_timestamp,omitempty" require:"true"`
+	// 支付时间
+	PayTimestamp *int64 `json:"pay_timestamp,omitempty" xml:"pay_timestamp,omitempty" require:"true"`
+	// 交易附属信息
+	ExtraData []*MetaDataDO `json:"extra_data,omitempty" xml:"extra_data,omitempty" require:"true" type:"Repeated"`
+	// 交易token来源信息
+	TokenInstructions []*TokenInstructionDO `json:"token_instructions,omitempty" xml:"token_instructions,omitempty" require:"true" type:"Repeated"`
+	// 关联交易ID
+	RelatedOrderId *string `json:"related_order_id,omitempty" xml:"related_order_id,omitempty" require:"true"`
+	// 手续费token数量
+	CommissionToken *string `json:"commission_token,omitempty" xml:"commission_token,omitempty" require:"true"`
+	// 卖家收到的token数量
+	SellerReceiveToken *string `json:"seller_receive_token,omitempty" xml:"seller_receive_token,omitempty" require:"true"`
+	// 支付类型：买家支付，卖家支付
+	PayCommissionType *int64 `json:"pay_commission_type,omitempty" xml:"pay_commission_type,omitempty" require:"true"`
+	// 买家手机号
+	BuyerPhone *string `json:"buyer_phone,omitempty" xml:"buyer_phone,omitempty" require:"true"`
+	// 买家名称
+	BuyerName *string `json:"buyer_name,omitempty" xml:"buyer_name,omitempty" require:"true"`
+	// 买家身份信息
+	BuyerIdNumber *string `json:"buyer_id_number,omitempty" xml:"buyer_id_number,omitempty" require:"true"`
+	// 买家身份信息类型
+	BuyerIdType *string `json:"buyer_id_type,omitempty" xml:"buyer_id_type,omitempty" require:"true"`
+	// 买家IP
+	BuyeIp *string `json:"buye_ip,omitempty" xml:"buye_ip,omitempty" require:"true"`
+	// 订单原始创建时间，外部传入
+	OriginCreateTime *int64 `json:"origin_create_time,omitempty" xml:"origin_create_time,omitempty" require:"true"`
+	// 订单原始订单ID，外部传入
+	OriginOrderId *string `json:"origin_order_id,omitempty" xml:"origin_order_id,omitempty" require:"true"`
+}
+
+func (s BlockInstruction) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BlockInstruction) GoString() string {
+	return s.String()
+}
+
+func (s *BlockInstruction) SetOrderId(v string) *BlockInstruction {
+	s.OrderId = &v
+	return s
+}
+
+func (s *BlockInstruction) SetInstructionType(v int64) *BlockInstruction {
+	s.InstructionType = &v
+	return s
+}
+
+func (s *BlockInstruction) SetBuyerAccountId(v string) *BlockInstruction {
+	s.BuyerAccountId = &v
+	return s
+}
+
+func (s *BlockInstruction) SetSellerAccountId(v string) *BlockInstruction {
+	s.SellerAccountId = &v
+	return s
+}
+
+func (s *BlockInstruction) SetPlatformId(v string) *BlockInstruction {
+	s.PlatformId = &v
+	return s
+}
+
+func (s *BlockInstruction) SetGoodsId(v string) *BlockInstruction {
+	s.GoodsId = &v
+	return s
+}
+
+func (s *BlockInstruction) SetDisplayName(v string) *BlockInstruction {
+	s.DisplayName = &v
+	return s
+}
+
+func (s *BlockInstruction) SetSellerPrice(v string) *BlockInstruction {
+	s.SellerPrice = &v
+	return s
+}
+
+func (s *BlockInstruction) SetDisplayPrice(v string) *BlockInstruction {
+	s.DisplayPrice = &v
+	return s
+}
+
+func (s *BlockInstruction) SetMemo(v string) *BlockInstruction {
+	s.Memo = &v
+	return s
+}
+
+func (s *BlockInstruction) SetRemark(v string) *BlockInstruction {
+	s.Remark = &v
+	return s
+}
+
+func (s *BlockInstruction) SetStatus(v int64) *BlockInstruction {
+	s.Status = &v
+	return s
+}
+
+func (s *BlockInstruction) SetRefundStatus(v int64) *BlockInstruction {
+	s.RefundStatus = &v
+	return s
+}
+
+func (s *BlockInstruction) SetCreateTimestamp(v int64) *BlockInstruction {
+	s.CreateTimestamp = &v
+	return s
+}
+
+func (s *BlockInstruction) SetPayTimestamp(v int64) *BlockInstruction {
+	s.PayTimestamp = &v
+	return s
+}
+
+func (s *BlockInstruction) SetExtraData(v []*MetaDataDO) *BlockInstruction {
+	s.ExtraData = v
+	return s
+}
+
+func (s *BlockInstruction) SetTokenInstructions(v []*TokenInstructionDO) *BlockInstruction {
+	s.TokenInstructions = v
+	return s
+}
+
+func (s *BlockInstruction) SetRelatedOrderId(v string) *BlockInstruction {
+	s.RelatedOrderId = &v
+	return s
+}
+
+func (s *BlockInstruction) SetCommissionToken(v string) *BlockInstruction {
+	s.CommissionToken = &v
+	return s
+}
+
+func (s *BlockInstruction) SetSellerReceiveToken(v string) *BlockInstruction {
+	s.SellerReceiveToken = &v
+	return s
+}
+
+func (s *BlockInstruction) SetPayCommissionType(v int64) *BlockInstruction {
+	s.PayCommissionType = &v
+	return s
+}
+
+func (s *BlockInstruction) SetBuyerPhone(v string) *BlockInstruction {
+	s.BuyerPhone = &v
+	return s
+}
+
+func (s *BlockInstruction) SetBuyerName(v string) *BlockInstruction {
+	s.BuyerName = &v
+	return s
+}
+
+func (s *BlockInstruction) SetBuyerIdNumber(v string) *BlockInstruction {
+	s.BuyerIdNumber = &v
+	return s
+}
+
+func (s *BlockInstruction) SetBuyerIdType(v string) *BlockInstruction {
+	s.BuyerIdType = &v
+	return s
+}
+
+func (s *BlockInstruction) SetBuyeIp(v string) *BlockInstruction {
+	s.BuyeIp = &v
+	return s
+}
+
+func (s *BlockInstruction) SetOriginCreateTime(v int64) *BlockInstruction {
+	s.OriginCreateTime = &v
+	return s
+}
+
+func (s *BlockInstruction) SetOriginOrderId(v string) *BlockInstruction {
+	s.OriginOrderId = &v
+	return s
+}
+
+// 图片OSS URL，包含四个不同大小的图片
+type MultiURL struct {
+	// 上传的图片正常大小
+	Normal *string `json:"normal,omitempty" xml:"normal,omitempty" require:"true"`
+	// style200
+	Style200 *string `json:"style_200,omitempty" xml:"style_200,omitempty" require:"true"`
+	// style150
+	Style150 *string `json:"style_150,omitempty" xml:"style_150,omitempty" require:"true"`
+	// style70
+	Style70 *string `json:"style_70,omitempty" xml:"style_70,omitempty" require:"true"`
+}
+
+func (s MultiURL) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MultiURL) GoString() string {
+	return s.String()
+}
+
+func (s *MultiURL) SetNormal(v string) *MultiURL {
+	s.Normal = &v
+	return s
+}
+
+func (s *MultiURL) SetStyle200(v string) *MultiURL {
+	s.Style200 = &v
+	return s
+}
+
+func (s *MultiURL) SetStyle150(v string) *MultiURL {
+	s.Style150 = &v
+	return s
+}
+
+func (s *MultiURL) SetStyle70(v string) *MultiURL {
+	s.Style70 = &v
+	return s
+}
+
+// IP商家的店铺宝贝详细数据
+type IPShopItemInfo struct {
+	// 商品数字id
+	NumId *int64 `json:"num_id,omitempty" xml:"num_id,omitempty" require:"true"`
+	// 商品标题,不能超过60字节
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// 卖家昵称
+	Nick *string `json:"nick,omitempty" xml:"nick,omitempty" require:"true"`
+	// 价格
+	Price *string `json:"price,omitempty" xml:"price,omitempty" require:"true"`
+	// 商品类型(fixed:一口价;auction:拍卖)注：取消团购
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 商品属性 格式：pid:vid;pid:vid
+	Props *string `json:"props,omitempty" xml:"props,omitempty"`
+	// 用户自行输入的子属性名和属性值，结构:"父属性值;一级子属性名;一级子属性值;二级子属性名;自定义输入值,....",如：“耐克;耐克系列;科比系列;科比系列;2K5”，input_str需要与input_pids一一对应，注：通常一个类目下用户可输入的关键属性不超过1个。所有属性别名加起来不能超过 3999字节。
+	InputStr *string `json:"input_str,omitempty" xml:"input_str,omitempty"`
+	// 商品描述, 字数要大于5个字节，小于25000个字节
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
+}
+
+func (s IPShopItemInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IPShopItemInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IPShopItemInfo) SetNumId(v int64) *IPShopItemInfo {
+	s.NumId = &v
+	return s
+}
+
+func (s *IPShopItemInfo) SetTitle(v string) *IPShopItemInfo {
+	s.Title = &v
+	return s
+}
+
+func (s *IPShopItemInfo) SetNick(v string) *IPShopItemInfo {
+	s.Nick = &v
+	return s
+}
+
+func (s *IPShopItemInfo) SetPrice(v string) *IPShopItemInfo {
+	s.Price = &v
+	return s
+}
+
+func (s *IPShopItemInfo) SetType(v string) *IPShopItemInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *IPShopItemInfo) SetProps(v string) *IPShopItemInfo {
+	s.Props = &v
+	return s
+}
+
+func (s *IPShopItemInfo) SetInputStr(v string) *IPShopItemInfo {
+	s.InputStr = &v
+	return s
+}
+
+func (s *IPShopItemInfo) SetDesc(v string) *IPShopItemInfo {
+	s.Desc = &v
+	return s
+}
+
+// 联系人信息
+type SimpleContactInfo struct {
+	// 联系人名称
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty" require:"true"`
+	// 联系电话
+	ContactPhone *string `json:"contact_phone,omitempty" xml:"contact_phone,omitempty" require:"true"`
+}
+
+func (s SimpleContactInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SimpleContactInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SimpleContactInfo) SetContactName(v string) *SimpleContactInfo {
+	s.ContactName = &v
+	return s
+}
+
+func (s *SimpleContactInfo) SetContactPhone(v string) *SimpleContactInfo {
+	s.ContactPhone = &v
+	return s
+}
+
+// 卡密信息
+type Card struct {
+	// 计算理论上应该变为的状态
+	CalStatus *int64 `json:"cal_status,omitempty" xml:"cal_status,omitempty" require:"true"`
+	// 卡密ID
+	CardId *string `json:"card_id,omitempty" xml:"card_id,omitempty" require:"true"`
+	// 充值时间
+	ChargeTime *int64 `json:"charge_time,omitempty" xml:"charge_time,omitempty" require:"true"`
+	// 数量
+	CountOfMinUnit *int64 `json:"count_of_min_unit,omitempty" xml:"count_of_min_unit,omitempty" require:"true"`
+	// 卡密创建时间
+	CreateTime *int64 `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true"`
+	// 创建卡密时的交易hash
+	CreateTxHash *string `json:"create_tx_hash,omitempty" xml:"create_tx_hash,omitempty" require:"true"`
+	// 脱敏手机信息
+	DesensitizedUid *string `json:"desensitized_uid,omitempty" xml:"desensitized_uid,omitempty" require:"true"`
+	// 附加信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+	// 最小单位数量
+	MinUnit *int64 `json:"min_unit,omitempty" xml:"min_unit,omitempty" require:"true"`
+	// 公钥
+	PublicKey *string `json:"public_key,omitempty" xml:"public_key,omitempty" require:"true"`
+	// 状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 公钥信息
+	UidPublicKey *string `json:"uid_public_key,omitempty" xml:"uid_public_key,omitempty" require:"true"`
+	// 卡密在该时间后有效
+	ValidAfter *int64 `json:"valid_after,omitempty" xml:"valid_after,omitempty" require:"true"`
+	// 卡密在该时间前有效
+	ValidBefore *int64 `json:"valid_before,omitempty" xml:"valid_before,omitempty" require:"true"`
+	// 有效天数
+	ValidDays *int64 `json:"valid_days,omitempty" xml:"valid_days,omitempty" require:"true"`
+	// 价值
+	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 卡密版本
+	Version *int64 `json:"version,omitempty" xml:"version,omitempty" require:"true"`
+}
+
+func (s Card) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Card) GoString() string {
+	return s.String()
+}
+
+func (s *Card) SetCalStatus(v int64) *Card {
+	s.CalStatus = &v
+	return s
+}
+
+func (s *Card) SetCardId(v string) *Card {
+	s.CardId = &v
+	return s
+}
+
+func (s *Card) SetChargeTime(v int64) *Card {
+	s.ChargeTime = &v
+	return s
+}
+
+func (s *Card) SetCountOfMinUnit(v int64) *Card {
+	s.CountOfMinUnit = &v
+	return s
+}
+
+func (s *Card) SetCreateTime(v int64) *Card {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *Card) SetCreateTxHash(v string) *Card {
+	s.CreateTxHash = &v
+	return s
+}
+
+func (s *Card) SetDesensitizedUid(v string) *Card {
+	s.DesensitizedUid = &v
+	return s
+}
+
+func (s *Card) SetExtInfo(v string) *Card {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *Card) SetMinUnit(v int64) *Card {
+	s.MinUnit = &v
+	return s
+}
+
+func (s *Card) SetPublicKey(v string) *Card {
+	s.PublicKey = &v
+	return s
+}
+
+func (s *Card) SetStatus(v int64) *Card {
+	s.Status = &v
+	return s
+}
+
+func (s *Card) SetUidPublicKey(v string) *Card {
+	s.UidPublicKey = &v
+	return s
+}
+
+func (s *Card) SetValidAfter(v int64) *Card {
+	s.ValidAfter = &v
+	return s
+}
+
+func (s *Card) SetValidBefore(v int64) *Card {
+	s.ValidBefore = &v
+	return s
+}
+
+func (s *Card) SetValidDays(v int64) *Card {
+	s.ValidDays = &v
+	return s
+}
+
+func (s *Card) SetValue(v int64) *Card {
+	s.Value = &v
+	return s
+}
+
+func (s *Card) SetVersion(v int64) *Card {
+	s.Version = &v
+	return s
+}
+
+// 渠道统计结果
+type ChannelCounter struct {
+	// 渠道名字
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
+	// 统计值
+	Counter *int64 `json:"counter,omitempty" xml:"counter,omitempty" require:"true"`
+	// 月份。如果月份有具体值则数据为该月份数据，月份为空则为全部统计数据。
+	Month *string `json:"month,omitempty" xml:"month,omitempty"`
+	// 渠道交易金额
+	TotalPrice *string `json:"total_price,omitempty" xml:"total_price,omitempty"`
+}
+
+func (s ChannelCounter) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChannelCounter) GoString() string {
+	return s.String()
+}
+
+func (s *ChannelCounter) SetChannelName(v string) *ChannelCounter {
+	s.ChannelName = &v
+	return s
+}
+
+func (s *ChannelCounter) SetCounter(v int64) *ChannelCounter {
+	s.Counter = &v
+	return s
+}
+
+func (s *ChannelCounter) SetMonth(v string) *ChannelCounter {
+	s.Month = &v
+	return s
+}
+
+func (s *ChannelCounter) SetTotalPrice(v string) *ChannelCounter {
+	s.TotalPrice = &v
+	return s
+}
+
+// 设置过自定义价格的权益信息
+type UserPriceEquity struct {
+	// 权益提供商商户ID
+	AdminId *string `json:"admin_id,omitempty" xml:"admin_id,omitempty" require:"true"`
+	// 授权类型
+	AuthType *int64 `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 币种
+	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
+	// 默认价格
+	DefaultPrice *string `json:"default_price,omitempty" xml:"default_price,omitempty" require:"true"`
+	// 权益描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 权益描述图片
+	DescImages *string `json:"desc_images,omitempty" xml:"desc_images,omitempty" require:"true"`
+	// 权益ID
+	EquityD *string `json:"equity_d,omitempty" xml:"equity_d,omitempty" require:"true"`
+	// 权益名称
+	EquityName *string `json:"equity_name,omitempty" xml:"equity_name,omitempty" require:"true"`
+	// 权益类型
+	EquityType *int64 `json:"equity_type,omitempty" xml:"equity_type,omitempty" require:"true"`
+	// 权益主图片
+	Images *string `json:"images,omitempty" xml:"images,omitempty" require:"true"`
+	// 是否公开权益
+	IsPublic *bool `json:"is_public,omitempty" xml:"is_public,omitempty" require:"true"`
+	// 商户每日兑换上线
+	LimitPerMerchantAndDay *int64 `json:"limit_per_merchant_and_day,omitempty" xml:"limit_per_merchant_and_day,omitempty" require:"true"`
+	// 商户每月兑换上线
+	LimitPerMerchantAndMonth *int64 `json:"limit_per_merchant_and_month,omitempty" xml:"limit_per_merchant_and_month,omitempty" require:"true"`
+	// 用户每日兑换上线
+	LimitPerUserAndDay *int64 `json:"limit_per_user_and_day,omitempty" xml:"limit_per_user_and_day,omitempty" require:"true"`
+	// 用户每月兑换上限
+	LimitPerUserAndMonth *int64 `json:"limit_per_user_and_month,omitempty" xml:"limit_per_user_and_month,omitempty" require:"true"`
+	// 权益附言信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 授权的租户ID
+	OpenToTenantId *string `json:"open_to_tenant_id,omitempty" xml:"open_to_tenant_id,omitempty" require:"true"`
+	// 用户价格
+	Price *string `json:"price,omitempty" xml:"price,omitempty" require:"true"`
+	// 用户价格比例
+	Ratio *string `json:"ratio,omitempty" xml:"ratio,omitempty" require:"true"`
+	// 快照租户价格
+	SnapshotTenantPrice *string `json:"snapshot_tenant_price,omitempty" xml:"snapshot_tenant_price,omitempty" require:"true"`
+	// 权益状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 权益提供商租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 权益库存
+	TotalCount *string `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
+	// 用户价格类型
+	UserPriceType *int64 `json:"user_price_type,omitempty" xml:"user_price_type,omitempty" require:"true"`
+	// 可用右区间
+	UseValidNotAfter *int64 `json:"use_valid_not_after,omitempty" xml:"use_valid_not_after,omitempty" require:"true"`
+	// 可用左区间
+	UseValidNotBefore *int64 `json:"use_valid_not_before,omitempty" xml:"use_valid_not_before,omitempty" require:"true"`
+	// 有效右区间
+	ValidNotAfter *int64 `json:"valid_not_after,omitempty" xml:"valid_not_after,omitempty" require:"true"`
+	// 有效左区间
+	ValidNotBefore *int64 `json:"valid_not_before,omitempty" xml:"valid_not_before,omitempty" require:"true"`
+	// 价值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s UserPriceEquity) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UserPriceEquity) GoString() string {
+	return s.String()
+}
+
+func (s *UserPriceEquity) SetAdminId(v string) *UserPriceEquity {
+	s.AdminId = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetAuthType(v int64) *UserPriceEquity {
+	s.AuthType = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetCurrency(v string) *UserPriceEquity {
+	s.Currency = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetDefaultPrice(v string) *UserPriceEquity {
+	s.DefaultPrice = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetDescription(v string) *UserPriceEquity {
+	s.Description = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetDescImages(v string) *UserPriceEquity {
+	s.DescImages = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetEquityD(v string) *UserPriceEquity {
+	s.EquityD = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetEquityName(v string) *UserPriceEquity {
+	s.EquityName = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetEquityType(v int64) *UserPriceEquity {
+	s.EquityType = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetImages(v string) *UserPriceEquity {
+	s.Images = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetIsPublic(v bool) *UserPriceEquity {
+	s.IsPublic = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetLimitPerMerchantAndDay(v int64) *UserPriceEquity {
+	s.LimitPerMerchantAndDay = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetLimitPerMerchantAndMonth(v int64) *UserPriceEquity {
+	s.LimitPerMerchantAndMonth = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetLimitPerUserAndDay(v int64) *UserPriceEquity {
+	s.LimitPerUserAndDay = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetLimitPerUserAndMonth(v int64) *UserPriceEquity {
+	s.LimitPerUserAndMonth = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetMemo(v string) *UserPriceEquity {
+	s.Memo = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetOpenToTenantId(v string) *UserPriceEquity {
+	s.OpenToTenantId = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetPrice(v string) *UserPriceEquity {
+	s.Price = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetRatio(v string) *UserPriceEquity {
+	s.Ratio = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetSnapshotTenantPrice(v string) *UserPriceEquity {
+	s.SnapshotTenantPrice = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetStatus(v int64) *UserPriceEquity {
+	s.Status = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetTenantId(v string) *UserPriceEquity {
 	s.TenantId = &v
 	return s
 }
 
-func (s *APIWhiteListInfo) SetChainId(v string) *APIWhiteListInfo {
+func (s *UserPriceEquity) SetTotalCount(v string) *UserPriceEquity {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetUserPriceType(v int64) *UserPriceEquity {
+	s.UserPriceType = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetUseValidNotAfter(v int64) *UserPriceEquity {
+	s.UseValidNotAfter = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetUseValidNotBefore(v int64) *UserPriceEquity {
+	s.UseValidNotBefore = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetValidNotAfter(v int64) *UserPriceEquity {
+	s.ValidNotAfter = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetValidNotBefore(v int64) *UserPriceEquity {
+	s.ValidNotBefore = &v
+	return s
+}
+
+func (s *UserPriceEquity) SetValue(v string) *UserPriceEquity {
+	s.Value = &v
+	return s
+}
+
+// 资产
+type Asset struct {
+	// 资产管理员ID
+	AdminId *string `json:"admin_id,omitempty" xml:"admin_id,omitempty" require:"true"`
+	// 资产附属信息
+	AssetExtInfo *AssetExtInfo `json:"asset_ext_info,omitempty" xml:"asset_ext_info,omitempty" require:"true"`
+	// 资产ID
+	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty" require:"true"`
+	// 资产名称
+	AssetName *string `json:"asset_name,omitempty" xml:"asset_name,omitempty" require:"true"`
+	// 资产汇率
+	AssetRate *string `json:"asset_rate,omitempty" xml:"asset_rate,omitempty" require:"true"`
+	// 币种
+	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
+	// 发行账户余额
+	IssueAccountBalance *string `json:"issue_account_balance,omitempty" xml:"issue_account_balance,omitempty" require:"true"`
+	// 过期回收账户余额
+	OverdueRecoveryAccountBalance *string `json:"overdue_recovery_account_balance,omitempty" xml:"overdue_recovery_account_balance,omitempty" require:"true"`
+	// 支付收款账户余额
+	ReceivePaymentAccountBalance *string `json:"receive_payment_account_balance,omitempty" xml:"receive_payment_account_balance,omitempty" require:"true"`
+	// 中继账户余额
+	RelayAccountBalance *string `json:"relay_account_balance,omitempty" xml:"relay_account_balance,omitempty" require:"true"`
+	// 资产状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 资产总发行量
+	TotalIssueBalance *string `json:"total_issue_balance,omitempty" xml:"total_issue_balance,omitempty" require:"true"`
+}
+
+func (s Asset) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Asset) GoString() string {
+	return s.String()
+}
+
+func (s *Asset) SetAdminId(v string) *Asset {
+	s.AdminId = &v
+	return s
+}
+
+func (s *Asset) SetAssetExtInfo(v *AssetExtInfo) *Asset {
+	s.AssetExtInfo = v
+	return s
+}
+
+func (s *Asset) SetAssetId(v string) *Asset {
+	s.AssetId = &v
+	return s
+}
+
+func (s *Asset) SetAssetName(v string) *Asset {
+	s.AssetName = &v
+	return s
+}
+
+func (s *Asset) SetAssetRate(v string) *Asset {
+	s.AssetRate = &v
+	return s
+}
+
+func (s *Asset) SetCurrency(v string) *Asset {
+	s.Currency = &v
+	return s
+}
+
+func (s *Asset) SetIssueAccountBalance(v string) *Asset {
+	s.IssueAccountBalance = &v
+	return s
+}
+
+func (s *Asset) SetOverdueRecoveryAccountBalance(v string) *Asset {
+	s.OverdueRecoveryAccountBalance = &v
+	return s
+}
+
+func (s *Asset) SetReceivePaymentAccountBalance(v string) *Asset {
+	s.ReceivePaymentAccountBalance = &v
+	return s
+}
+
+func (s *Asset) SetRelayAccountBalance(v string) *Asset {
+	s.RelayAccountBalance = &v
+	return s
+}
+
+func (s *Asset) SetStatus(v int64) *Asset {
+	s.Status = &v
+	return s
+}
+
+func (s *Asset) SetTenantId(v string) *Asset {
+	s.TenantId = &v
+	return s
+}
+
+func (s *Asset) SetTotalIssueBalance(v string) *Asset {
+	s.TotalIssueBalance = &v
+	return s
+}
+
+// 渠道对应的账户信息
+type AccountSettlementInfo struct {
+	// 账户id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 版权方名字
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
+	// WAIT_CHECK:渠道已申请开通但未审核，SUCCESS，审核成功
+	SettledStatus *string `json:"settled_status,omitempty" xml:"settled_status,omitempty" require:"true"`
+	// 版权方联系人名字
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty"`
+	// 版权方联系人手机
+	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty"`
+	// 版权方联系人手机号
+	ContactPhone *string `json:"contact_phone,omitempty" xml:"contact_phone,omitempty" require:"true"`
+	// 申请入驻时间
+	ApplyTime *int64 `json:"apply_time,omitempty" xml:"apply_time,omitempty" require:"true"`
+}
+
+func (s AccountSettlementInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccountSettlementInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AccountSettlementInfo) SetAccountId(v string) *AccountSettlementInfo {
+	s.AccountId = &v
+	return s
+}
+
+func (s *AccountSettlementInfo) SetAccountName(v string) *AccountSettlementInfo {
+	s.AccountName = &v
+	return s
+}
+
+func (s *AccountSettlementInfo) SetSettledStatus(v string) *AccountSettlementInfo {
+	s.SettledStatus = &v
+	return s
+}
+
+func (s *AccountSettlementInfo) SetContactName(v string) *AccountSettlementInfo {
+	s.ContactName = &v
+	return s
+}
+
+func (s *AccountSettlementInfo) SetContactMobile(v string) *AccountSettlementInfo {
+	s.ContactMobile = &v
+	return s
+}
+
+func (s *AccountSettlementInfo) SetContactPhone(v string) *AccountSettlementInfo {
+	s.ContactPhone = &v
+	return s
+}
+
+func (s *AccountSettlementInfo) SetApplyTime(v int64) *AccountSettlementInfo {
+	s.ApplyTime = &v
+	return s
+}
+
+// ip的重点信息
+type IpEmphasisInfo struct {
+	// ip的链上id
+	IpId *string `json:"ip_id,omitempty" xml:"ip_id,omitempty" require:"true"`
+	// ip的描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// ip类型
+	IpType *string `json:"ip_type,omitempty" xml:"ip_type,omitempty" require:"true"`
+	// 受众群体（6位数字） 对应c
+	AudienceGroup *string `json:"audience_group,omitempty" xml:"audience_group,omitempty" require:"true"`
+	// 主图
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
+	// 上架状态
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 归属的账户id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 创建日期
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// ip名字
+	IpName *string `json:"ip_name,omitempty" xml:"ip_name,omitempty" require:"true"`
+	// 商户名称
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty"`
+	// 浏览量
+	Pv *int64 `json:"pv,omitempty" xml:"pv,omitempty"`
+	// 最近一次上下架时间
+	LastStateChangeTime *int64 `json:"last_state_change_time,omitempty" xml:"last_state_change_time,omitempty"`
+	// ip的创建渠道，按照查询参数返回
+	CreaterChannel *string `json:"creater_channel,omitempty" xml:"creater_channel,omitempty"`
+}
+
+func (s IpEmphasisInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IpEmphasisInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IpEmphasisInfo) SetIpId(v string) *IpEmphasisInfo {
+	s.IpId = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetDescription(v string) *IpEmphasisInfo {
+	s.Description = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetIpType(v string) *IpEmphasisInfo {
+	s.IpType = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetAudienceGroup(v string) *IpEmphasisInfo {
+	s.AudienceGroup = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetImage(v string) *IpEmphasisInfo {
+	s.Image = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetStatus(v int64) *IpEmphasisInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetAccountId(v string) *IpEmphasisInfo {
+	s.AccountId = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetCreateTime(v string) *IpEmphasisInfo {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetIpName(v string) *IpEmphasisInfo {
+	s.IpName = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetAccountName(v string) *IpEmphasisInfo {
+	s.AccountName = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetPv(v int64) *IpEmphasisInfo {
+	s.Pv = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetLastStateChangeTime(v int64) *IpEmphasisInfo {
+	s.LastStateChangeTime = &v
+	return s
+}
+
+func (s *IpEmphasisInfo) SetCreaterChannel(v string) *IpEmphasisInfo {
+	s.CreaterChannel = &v
+	return s
+}
+
+// 商品授权信息（一客一价信息）
+type EquityAuthInfo struct {
+	// 链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+	// 商品ID
+	EquityId *string `json:"equity_id,omitempty" xml:"equity_id,omitempty" require:"true"`
+	// 授权租户
+	OpenToTenantId *string `json:"open_to_tenant_id,omitempty" xml:"open_to_tenant_id,omitempty" require:"true"`
+	// 租户价格（自定义价格）
+	TenantPrice *string `json:"tenant_price,omitempty" xml:"tenant_price,omitempty" require:"true"`
+	// 区块高度
+	BlockNumber *string `json:"block_number,omitempty" xml:"block_number,omitempty" require:"true"`
+	// 交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 区块时间戳
+	BlockTime *int64 `json:"block_time,omitempty" xml:"block_time,omitempty" require:"true"`
+}
+
+func (s EquityAuthInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EquityAuthInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EquityAuthInfo) SetChainId(v string) *EquityAuthInfo {
 	s.ChainId = &v
 	return s
 }
 
-func (s *APIWhiteListInfo) SetLevel(v int64) *APIWhiteListInfo {
-	s.Level = &v
+func (s *EquityAuthInfo) SetEquityId(v string) *EquityAuthInfo {
+	s.EquityId = &v
 	return s
 }
 
-func (s *APIWhiteListInfo) SetUpdateTime(v string) *APIWhiteListInfo {
-	s.UpdateTime = &v
+func (s *EquityAuthInfo) SetOpenToTenantId(v string) *EquityAuthInfo {
+	s.OpenToTenantId = &v
 	return s
 }
 
-func (s *APIWhiteListInfo) SetExtension(v string) *APIWhiteListInfo {
-	s.Extension = &v
+func (s *EquityAuthInfo) SetTenantPrice(v string) *EquityAuthInfo {
+	s.TenantPrice = &v
+	return s
+}
+
+func (s *EquityAuthInfo) SetBlockNumber(v string) *EquityAuthInfo {
+	s.BlockNumber = &v
+	return s
+}
+
+func (s *EquityAuthInfo) SetTxHash(v string) *EquityAuthInfo {
+	s.TxHash = &v
+	return s
+}
+
+func (s *EquityAuthInfo) SetBlockTime(v int64) *EquityAuthInfo {
+	s.BlockTime = &v
+	return s
+}
+
+// 消费卡商品信息
+type GoodsResponse struct {
+	// 商品归属的账户ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 商品名称
+	GoodsName *string `json:"goods_name,omitempty" xml:"goods_name,omitempty" require:"true"`
+	// 商品类型
+	GoodsType *string `json:"goods_type,omitempty" xml:"goods_type,omitempty" require:"true"`
+	// 商品描述信息
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 商品库存
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
+	// 显示价格
+	DisplayPrice *string `json:"display_price,omitempty" xml:"display_price,omitempty" require:"true"`
+	// 默认价格
+	DefaultPrice *string `json:"default_price,omitempty" xml:"default_price,omitempty" require:"true"`
+	// 是否公开商品
+	IfPublic *bool `json:"if_public,omitempty" xml:"if_public,omitempty" require:"true"`
+	// 商品主图片URL
+	Images *string `json:"images,omitempty" xml:"images,omitempty" require:"true"`
+	// 商品描述图片，每个图片URL用:隔开
+	DescImages *string `json:"desc_images,omitempty" xml:"desc_images,omitempty" require:"true"`
+	// 商品状态 0可用，1下线
+	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 商品开始时间
+	ValidNotBefore *int64 `json:"valid_not_before,omitempty" xml:"valid_not_before,omitempty" require:"true"`
+	// 商品结束时间
+	ValidNotAfter *int64 `json:"valid_not_after,omitempty" xml:"valid_not_after,omitempty" require:"true"`
+	// 商品每日上限
+	LimitPerUserAndDay *int64 `json:"limit_per_user_and_day,omitempty" xml:"limit_per_user_and_day,omitempty" require:"true"`
+	// 商品每月上限
+	LimitPerUserAndMonth *int64 `json:"limit_per_user_and_month,omitempty" xml:"limit_per_user_and_month,omitempty" require:"true"`
+	// 商品备注信息
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 授权类型
+	AuthType *int64 `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 商品类型
+	CategoryId *string `json:"category_id,omitempty" xml:"category_id,omitempty" require:"true"`
+	// 商品ID
+	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty" require:"true"`
+}
+
+func (s GoodsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsResponse) SetAccountId(v string) *GoodsResponse {
+	s.AccountId = &v
+	return s
+}
+
+func (s *GoodsResponse) SetGoodsName(v string) *GoodsResponse {
+	s.GoodsName = &v
+	return s
+}
+
+func (s *GoodsResponse) SetGoodsType(v string) *GoodsResponse {
+	s.GoodsType = &v
+	return s
+}
+
+func (s *GoodsResponse) SetDescription(v string) *GoodsResponse {
+	s.Description = &v
+	return s
+}
+
+func (s *GoodsResponse) SetTotalCount(v int64) *GoodsResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *GoodsResponse) SetDisplayPrice(v string) *GoodsResponse {
+	s.DisplayPrice = &v
+	return s
+}
+
+func (s *GoodsResponse) SetDefaultPrice(v string) *GoodsResponse {
+	s.DefaultPrice = &v
+	return s
+}
+
+func (s *GoodsResponse) SetIfPublic(v bool) *GoodsResponse {
+	s.IfPublic = &v
+	return s
+}
+
+func (s *GoodsResponse) SetImages(v string) *GoodsResponse {
+	s.Images = &v
+	return s
+}
+
+func (s *GoodsResponse) SetDescImages(v string) *GoodsResponse {
+	s.DescImages = &v
+	return s
+}
+
+func (s *GoodsResponse) SetStatus(v int64) *GoodsResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *GoodsResponse) SetValidNotBefore(v int64) *GoodsResponse {
+	s.ValidNotBefore = &v
+	return s
+}
+
+func (s *GoodsResponse) SetValidNotAfter(v int64) *GoodsResponse {
+	s.ValidNotAfter = &v
+	return s
+}
+
+func (s *GoodsResponse) SetLimitPerUserAndDay(v int64) *GoodsResponse {
+	s.LimitPerUserAndDay = &v
+	return s
+}
+
+func (s *GoodsResponse) SetLimitPerUserAndMonth(v int64) *GoodsResponse {
+	s.LimitPerUserAndMonth = &v
+	return s
+}
+
+func (s *GoodsResponse) SetMemo(v string) *GoodsResponse {
+	s.Memo = &v
+	return s
+}
+
+func (s *GoodsResponse) SetAuthType(v int64) *GoodsResponse {
+	s.AuthType = &v
+	return s
+}
+
+func (s *GoodsResponse) SetCategoryId(v string) *GoodsResponse {
+	s.CategoryId = &v
+	return s
+}
+
+func (s *GoodsResponse) SetGoodsId(v string) *GoodsResponse {
+	s.GoodsId = &v
+	return s
+}
+
+// 正版码流转信息
+type CodeCirculation struct {
+	// 正版码的编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 流转信息标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// 流转详细信息
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 哈希值
+	Hash *string `json:"hash,omitempty" xml:"hash,omitempty"`
+	// 流转时间
+	Time *int64 `json:"time,omitempty" xml:"time,omitempty"`
+}
+
+func (s CodeCirculation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CodeCirculation) GoString() string {
+	return s.String()
+}
+
+func (s *CodeCirculation) SetCode(v string) *CodeCirculation {
+	s.Code = &v
+	return s
+}
+
+func (s *CodeCirculation) SetTitle(v string) *CodeCirculation {
+	s.Title = &v
+	return s
+}
+
+func (s *CodeCirculation) SetContent(v string) *CodeCirculation {
+	s.Content = &v
+	return s
+}
+
+func (s *CodeCirculation) SetHash(v string) *CodeCirculation {
+	s.Hash = &v
+	return s
+}
+
+func (s *CodeCirculation) SetTime(v int64) *CodeCirculation {
+	s.Time = &v
 	return s
 }
 
@@ -7569,294 +7764,106 @@ func (s *IPApplyInfo) SetApplyDate(v int64) *IPApplyInfo {
 	return s
 }
 
-// 代理授权关系信息
-type DelegateRelationInfo struct {
-	// 被授权的租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 被代理的租户ID
-	DelegatedTenantId *string `json:"delegated_tenant_id,omitempty" xml:"delegated_tenant_id,omitempty" require:"true"`
-	// 更新时间
-	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty" require:"true"`
-	// 状态
-	Status *bool `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 扩展字段
-	Extension *string `json:"extension,omitempty" xml:"extension,omitempty" require:"true"`
-}
-
-func (s DelegateRelationInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DelegateRelationInfo) GoString() string {
-	return s.String()
-}
-
-func (s *DelegateRelationInfo) SetTenantId(v string) *DelegateRelationInfo {
-	s.TenantId = &v
-	return s
-}
-
-func (s *DelegateRelationInfo) SetDelegatedTenantId(v string) *DelegateRelationInfo {
-	s.DelegatedTenantId = &v
-	return s
-}
-
-func (s *DelegateRelationInfo) SetUpdateTime(v string) *DelegateRelationInfo {
-	s.UpdateTime = &v
-	return s
-}
-
-func (s *DelegateRelationInfo) SetStatus(v bool) *DelegateRelationInfo {
-	s.Status = &v
-	return s
-}
-
-func (s *DelegateRelationInfo) SetExtension(v string) *DelegateRelationInfo {
-	s.Extension = &v
-	return s
-}
-
-// 商户积分库和与预算库信息
-type MerchantBudget struct {
-	// 积分库代码
-	PointLibCode *string `json:"point_lib_code,omitempty" xml:"point_lib_code,omitempty" require:"true"`
-	// 预算库代码
-	BudgetCode *string `json:"budget_code,omitempty" xml:"budget_code,omitempty" require:"true"`
-	// 预算库描述
-	BudgetDesc *string `json:"budget_desc,omitempty" xml:"budget_desc,omitempty" require:"true"`
-	// 预算库启用时间
-	BudgetStartTime *string `json:"budget_start_time,omitempty" xml:"budget_start_time,omitempty" require:"true"`
-	// 预算库截止时间
-	BudgetEndTime *string `json:"budget_end_time,omitempty" xml:"budget_end_time,omitempty" require:"true"`
-}
-
-func (s MerchantBudget) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MerchantBudget) GoString() string {
-	return s.String()
-}
-
-func (s *MerchantBudget) SetPointLibCode(v string) *MerchantBudget {
-	s.PointLibCode = &v
-	return s
-}
-
-func (s *MerchantBudget) SetBudgetCode(v string) *MerchantBudget {
-	s.BudgetCode = &v
-	return s
-}
-
-func (s *MerchantBudget) SetBudgetDesc(v string) *MerchantBudget {
-	s.BudgetDesc = &v
-	return s
-}
-
-func (s *MerchantBudget) SetBudgetStartTime(v string) *MerchantBudget {
-	s.BudgetStartTime = &v
-	return s
-}
-
-func (s *MerchantBudget) SetBudgetEndTime(v string) *MerchantBudget {
-	s.BudgetEndTime = &v
-	return s
-}
-
-// 租户场景码信息
-type ProductCodeInfo struct {
-	// 链ID
-	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 场景码
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
-	// 租户映射链上账户名称
-	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty"`
-	// 租户映射账户链上账户ID
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+// 授权订单的逐条销售数据
+type IPSalesEvery struct {
+	// 电商系统订单编号
+	OutOrderId *string `json:"out_order_id,omitempty" xml:"out_order_id,omitempty" require:"true"`
+	// 数据渠道类型：0 手动录入，1 淘宝开放平台
+	DataType *int64 `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 实际销售渠道
+	SalesChannel *string `json:"sales_channel,omitempty" xml:"sales_channel,omitempty"`
+	// 订单创建时间
+	OrderCreateTime *int64 `json:"order_create_time,omitempty" xml:"order_create_time,omitempty" require:"true"`
+	// 订单完成时间
+	OrderFinishTime *int64 `json:"order_finish_time,omitempty" xml:"order_finish_time,omitempty" require:"true"`
+	// 本订单销售金额，单位元
+	Sales *string `json:"sales,omitempty" xml:"sales,omitempty" require:"true"`
+	// 本订单退款金额，单位元
+	RefundSales *string `json:"refund_sales,omitempty" xml:"refund_sales,omitempty"`
+	// 店铺名称
+	ShopName *string `json:"shop_name,omitempty" xml:"shop_name,omitempty" require:"true"`
+	// 商品ID/SKUID/商品编码
+	GoodsId *string `json:"goods_id,omitempty" xml:"goods_id,omitempty" require:"true"`
+	// 商品名称
+	GoodsName *string `json:"goods_name,omitempty" xml:"goods_name,omitempty" require:"true"`
+	// 商品规格
+	GoodsSpecification *string `json:"goods_specification,omitempty" xml:"goods_specification,omitempty" require:"true"`
+	// 本订单卖出的商品数量
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
 	// 备注信息
 	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
 }
 
-func (s ProductCodeInfo) String() string {
+func (s IPSalesEvery) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ProductCodeInfo) GoString() string {
+func (s IPSalesEvery) GoString() string {
 	return s.String()
 }
 
-func (s *ProductCodeInfo) SetChainId(v string) *ProductCodeInfo {
-	s.ChainId = &v
+func (s *IPSalesEvery) SetOutOrderId(v string) *IPSalesEvery {
+	s.OutOrderId = &v
 	return s
 }
 
-func (s *ProductCodeInfo) SetTenantId(v string) *ProductCodeInfo {
-	s.TenantId = &v
+func (s *IPSalesEvery) SetDataType(v int64) *IPSalesEvery {
+	s.DataType = &v
 	return s
 }
 
-func (s *ProductCodeInfo) SetProductCode(v string) *ProductCodeInfo {
-	s.ProductCode = &v
+func (s *IPSalesEvery) SetSalesChannel(v string) *IPSalesEvery {
+	s.SalesChannel = &v
 	return s
 }
 
-func (s *ProductCodeInfo) SetAccountName(v string) *ProductCodeInfo {
-	s.AccountName = &v
+func (s *IPSalesEvery) SetOrderCreateTime(v int64) *IPSalesEvery {
+	s.OrderCreateTime = &v
 	return s
 }
 
-func (s *ProductCodeInfo) SetAccountId(v string) *ProductCodeInfo {
-	s.AccountId = &v
+func (s *IPSalesEvery) SetOrderFinishTime(v int64) *IPSalesEvery {
+	s.OrderFinishTime = &v
 	return s
 }
 
-func (s *ProductCodeInfo) SetMemo(v string) *ProductCodeInfo {
+func (s *IPSalesEvery) SetSales(v string) *IPSalesEvery {
+	s.Sales = &v
+	return s
+}
+
+func (s *IPSalesEvery) SetRefundSales(v string) *IPSalesEvery {
+	s.RefundSales = &v
+	return s
+}
+
+func (s *IPSalesEvery) SetShopName(v string) *IPSalesEvery {
+	s.ShopName = &v
+	return s
+}
+
+func (s *IPSalesEvery) SetGoodsId(v string) *IPSalesEvery {
+	s.GoodsId = &v
+	return s
+}
+
+func (s *IPSalesEvery) SetGoodsName(v string) *IPSalesEvery {
+	s.GoodsName = &v
+	return s
+}
+
+func (s *IPSalesEvery) SetGoodsSpecification(v string) *IPSalesEvery {
+	s.GoodsSpecification = &v
+	return s
+}
+
+func (s *IPSalesEvery) SetAmount(v int64) *IPSalesEvery {
+	s.Amount = &v
+	return s
+}
+
+func (s *IPSalesEvery) SetMemo(v string) *IPSalesEvery {
 	s.Memo = &v
-	return s
-}
-
-// 商户
-type Merchant struct {
-	// 商户管理员ID
-	AdminId *string `json:"admin_id,omitempty" xml:"admin_id,omitempty" require:"true"`
-	// 商户描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
-	// 商户分布式身份ID
-	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
-	// 资金管理员ID
-	FundManagerId *string `json:"fund_manager_id,omitempty" xml:"fund_manager_id,omitempty" require:"true"`
-	// 是否可以发行资产
-	IsAssetIssuer *bool `json:"is_asset_issuer,omitempty" xml:"is_asset_issuer,omitempty" require:"true"`
-	// 是否可以采购权益
-	IsEquityConsumer *bool `json:"is_equity_consumer,omitempty" xml:"is_equity_consumer,omitempty" require:"true"`
-	// 是否可以发行权益
-	IsEquityProvider *bool `json:"is_equity_provider,omitempty" xml:"is_equity_provider,omitempty" require:"true"`
-	// 备付金数据
-	Provision *Provision `json:"provision,omitempty" xml:"provision,omitempty" require:"true"`
-	// 商户状态: 0可用, 1下线, 2冻结
-	Status *int64 `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 商户的损益账户
-	ProfitLossBalance *string `json:"profit_loss_balance,omitempty" xml:"profit_loss_balance,omitempty" require:"true"`
-}
-
-func (s Merchant) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Merchant) GoString() string {
-	return s.String()
-}
-
-func (s *Merchant) SetAdminId(v string) *Merchant {
-	s.AdminId = &v
-	return s
-}
-
-func (s *Merchant) SetDescription(v string) *Merchant {
-	s.Description = &v
-	return s
-}
-
-func (s *Merchant) SetDid(v string) *Merchant {
-	s.Did = &v
-	return s
-}
-
-func (s *Merchant) SetFundManagerId(v string) *Merchant {
-	s.FundManagerId = &v
-	return s
-}
-
-func (s *Merchant) SetIsAssetIssuer(v bool) *Merchant {
-	s.IsAssetIssuer = &v
-	return s
-}
-
-func (s *Merchant) SetIsEquityConsumer(v bool) *Merchant {
-	s.IsEquityConsumer = &v
-	return s
-}
-
-func (s *Merchant) SetIsEquityProvider(v bool) *Merchant {
-	s.IsEquityProvider = &v
-	return s
-}
-
-func (s *Merchant) SetProvision(v *Provision) *Merchant {
-	s.Provision = v
-	return s
-}
-
-func (s *Merchant) SetStatus(v int64) *Merchant {
-	s.Status = &v
-	return s
-}
-
-func (s *Merchant) SetTenantId(v string) *Merchant {
-	s.TenantId = &v
-	return s
-}
-
-func (s *Merchant) SetProfitLossBalance(v string) *Merchant {
-	s.ProfitLossBalance = &v
-	return s
-}
-
-// 用户
-type User struct {
-	// 用户分布式身份ID
-	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
-	// 用户的链外身份ID
-	LocalId *string `json:"local_id,omitempty" xml:"local_id,omitempty" require:"true"`
-	// 用户公钥
-	Pk *string `json:"pk,omitempty" xml:"pk,omitempty" require:"true"`
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 用户ID
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 用户VC
-	Vc *string `json:"vc,omitempty" xml:"vc,omitempty" require:"true"`
-}
-
-func (s User) String() string {
-	return tea.Prettify(s)
-}
-
-func (s User) GoString() string {
-	return s.String()
-}
-
-func (s *User) SetDid(v string) *User {
-	s.Did = &v
-	return s
-}
-
-func (s *User) SetLocalId(v string) *User {
-	s.LocalId = &v
-	return s
-}
-
-func (s *User) SetPk(v string) *User {
-	s.Pk = &v
-	return s
-}
-
-func (s *User) SetTenantId(v string) *User {
-	s.TenantId = &v
-	return s
-}
-
-func (s *User) SetUserId(v string) *User {
-	s.UserId = &v
-	return s
-}
-
-func (s *User) SetVc(v string) *User {
-	s.Vc = &v
 	return s
 }
 
@@ -23602,6 +23609,8 @@ type StartIpAuthtradeRequest struct {
 	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty"`
 	// true 不真实支付，false 需真实支付
 	OnlyCallBlockchain *bool `json:"only_call_blockchain,omitempty" xml:"only_call_blockchain,omitempty"`
+	// 1套餐交易 2授权交易 3正版订单 4预申请订单
+	CodeOrderType *int64 `json:"code_order_type,omitempty" xml:"code_order_type,omitempty"`
 }
 
 func (s StartIpAuthtradeRequest) String() string {
@@ -23754,6 +23763,11 @@ func (s *StartIpAuthtradeRequest) SetIpOrderId(v string) *StartIpAuthtradeReques
 
 func (s *StartIpAuthtradeRequest) SetOnlyCallBlockchain(v bool) *StartIpAuthtradeRequest {
 	s.OnlyCallBlockchain = &v
+	return s
+}
+
+func (s *StartIpAuthtradeRequest) SetCodeOrderType(v int64) *StartIpAuthtradeRequest {
+	s.CodeOrderType = &v
 	return s
 }
 
@@ -35552,6 +35566,83 @@ func (s *SignIpContractResponse) SetSignedContractFileUrl(v string) *SignIpContr
 	return s
 }
 
+type QueryIpCodeshortenurlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 数字凭证的编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+}
+
+func (s QueryIpCodeshortenurlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpCodeshortenurlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpCodeshortenurlRequest) SetAuthToken(v string) *QueryIpCodeshortenurlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpCodeshortenurlRequest) SetProductInstanceId(v string) *QueryIpCodeshortenurlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpCodeshortenurlRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpCodeshortenurlRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *QueryIpCodeshortenurlRequest) SetCode(v string) *QueryIpCodeshortenurlRequest {
+	s.Code = &v
+	return s
+}
+
+type QueryIpCodeshortenurlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 小程序短链
+	ShortenUrl *string `json:"shorten_url,omitempty" xml:"shorten_url,omitempty"`
+}
+
+func (s QueryIpCodeshortenurlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpCodeshortenurlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpCodeshortenurlResponse) SetReqMsgId(v string) *QueryIpCodeshortenurlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpCodeshortenurlResponse) SetResultCode(v string) *QueryIpCodeshortenurlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpCodeshortenurlResponse) SetResultMsg(v string) *QueryIpCodeshortenurlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpCodeshortenurlResponse) SetShortenUrl(v string) *QueryIpCodeshortenurlResponse {
+	s.ShortenUrl = &v
+	return s
+}
+
 type QueryBlockanalysisBlockRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -37873,7 +37964,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.58"),
+				"sdk_version":      tea.String("1.3.62"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -44631,8 +44722,8 @@ func (client *Client) BatchqueryIpSellerEx(request *BatchqueryIpSellerRequest, h
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
- * Summary: 数字商品服务-IP授权服务-数字凭证申请
+ * Description: 数字商品服务-IP服务-UNI码申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+ * Summary: 数字商品服务-IP服务-UNI码申请
  */
 func (client *Client) ApplyIpCode(request *ApplyIpCodeRequest) (_result *ApplyIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -44647,8 +44738,8 @@ func (client *Client) ApplyIpCode(request *ApplyIpCodeRequest) (_result *ApplyIp
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
- * Summary: 数字商品服务-IP授权服务-数字凭证申请
+ * Description: 数字商品服务-IP服务-UNI码申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+ * Summary: 数字商品服务-IP服务-UNI码申请
  */
 func (client *Client) ApplyIpCodeEx(request *ApplyIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -44665,9 +44756,9 @@ func (client *Client) ApplyIpCodeEx(request *ApplyIpCodeRequest, headers map[str
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
+ * Description: 数字商品服务-IP授权服务-数字凭证源码分页查询: 小程序不可扫描的数字凭证分页查询。
 注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
- * Summary: 数字商品服务-IP授权服务-数字凭证查询
+ * Summary: 数字商品服务-IP服务-凭证源码查询
 */
 func (client *Client) PagequeryIpCode(request *PagequeryIpCodeRequest) (_result *PagequeryIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -44682,9 +44773,9 @@ func (client *Client) PagequeryIpCode(request *PagequeryIpCodeRequest) (_result 
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
+ * Description: 数字商品服务-IP授权服务-数字凭证源码分页查询: 小程序不可扫描的数字凭证分页查询。
 注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
- * Summary: 数字商品服务-IP授权服务-数字凭证查询
+ * Summary: 数字商品服务-IP服务-凭证源码查询
 */
 func (client *Client) PagequeryIpCodeEx(request *PagequeryIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -44701,8 +44792,8 @@ func (client *Client) PagequeryIpCodeEx(request *PagequeryIpCodeRequest, headers
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-数字凭证校验
- * Summary: 数字商品服务-IP授权服务-数字凭证校验
+ * Description: 数字商品服务-IP服务-UNI码校验
+ * Summary: 数字商品服务-IP服务-UNI码校验
  */
 func (client *Client) CheckIpCode(request *CheckIpCodeRequest) (_result *CheckIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -44717,8 +44808,8 @@ func (client *Client) CheckIpCode(request *CheckIpCodeRequest) (_result *CheckIp
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-数字凭证校验
- * Summary: 数字商品服务-IP授权服务-数字凭证校验
+ * Description: 数字商品服务-IP服务-UNI码校验
+ * Summary: 数字商品服务-IP服务-UNI码校验
  */
 func (client *Client) CheckIpCodeEx(request *CheckIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -45722,7 +45813,7 @@ func (client *Client) QueryIpGoodsgalleryEx(request *QueryIpGoodsgalleryRequest,
 
 /**
  * Description: 配置数字凭证的商品信息和资源位信息
- * Summary: 数字商品服务-IP授权服务-数字凭证配置
+ * Summary: 数字商品服务-IP服务-UNI码信息配置
  */
 func (client *Client) SetIpCodeinfo(request *SetIpCodeinfoRequest) (_result *SetIpCodeinfoResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -45738,7 +45829,7 @@ func (client *Client) SetIpCodeinfo(request *SetIpCodeinfoRequest) (_result *Set
 
 /**
  * Description: 配置数字凭证的商品信息和资源位信息
- * Summary: 数字商品服务-IP授权服务-数字凭证配置
+ * Summary: 数字商品服务-IP服务-UNI码信息配置
  */
 func (client *Client) SetIpCodeinfoEx(request *SetIpCodeinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SetIpCodeinfoResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -45960,7 +46051,7 @@ func (client *Client) ApplyIpAuthtradeEx(request *ApplyIpAuthtradeRequest, heade
 
 /**
  * Description: 查询数字凭证的配置信息
- * Summary: 数字商品服务-IP授权服务-数字凭证配置
+ * Summary: 数字商品服务-IP服务-UNI码配置查询
  */
 func (client *Client) QueryIpCodeinfo(request *QueryIpCodeinfoRequest) (_result *QueryIpCodeinfoResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -45976,7 +46067,7 @@ func (client *Client) QueryIpCodeinfo(request *QueryIpCodeinfoRequest) (_result 
 
 /**
  * Description: 查询数字凭证的配置信息
- * Summary: 数字商品服务-IP授权服务-数字凭证配置
+ * Summary: 数字商品服务-IP服务-UNI码配置查询
  */
 func (client *Client) QueryIpCodeinfoEx(request *QueryIpCodeinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpCodeinfoResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -46435,8 +46526,8 @@ func (client *Client) BatchqueryIpAccountsettlementEx(request *BatchqueryIpAccou
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
- * Summary: 数字商品服务-IP授权服务-查数字凭证
+ * Description: 数字商品服务-IP授权服务-可跳转小程序的数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+ * Summary: 数字商品服务-IP服务-UNI码查询
  */
 func (client *Client) PullIpCode(request *PullIpCodeRequest) (_result *PullIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -46451,8 +46542,8 @@ func (client *Client) PullIpCode(request *PullIpCodeRequest) (_result *PullIpCod
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
- * Summary: 数字商品服务-IP授权服务-查数字凭证
+ * Description: 数字商品服务-IP授权服务-可跳转小程序的数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+ * Summary: 数字商品服务-IP服务-UNI码查询
  */
 func (client *Client) PullIpCodeEx(request *PullIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PullIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -46640,7 +46731,7 @@ func (client *Client) ListIpShopEx(request *ListIpShopRequest, headers map[strin
 
 /**
  * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
- * Summary: 数字商品服务-IP授权服务-查收藏证书
+ * Summary: 数字商品服务-IP服务-查UNI收藏证书
  */
 func (client *Client) QueryIpCodecollect(request *QueryIpCodecollectRequest) (_result *QueryIpCodecollectResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -46656,7 +46747,7 @@ func (client *Client) QueryIpCodecollect(request *QueryIpCodecollectRequest) (_r
 
 /**
  * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
- * Summary: 数字商品服务-IP授权服务-查收藏证书
+ * Summary: 数字商品服务-IP服务-查UNI收藏证书
  */
 func (client *Client) QueryIpCodecollectEx(request *QueryIpCodecollectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpCodecollectResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -47013,8 +47104,8 @@ func (client *Client) ConfirmIpBillpayEx(request *ConfirmIpBillpayRequest, heade
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
- * Summary: 数字商品服务-IP授权服务-单码失效
+ * Description: 数字商品服务-IP服务-UNI码失效: 将UNI码失效,不可逆。
+ * Summary: 数字商品服务-IP服务-UNI码失效
  */
 func (client *Client) DisableIpCode(request *DisableIpCodeRequest) (_result *DisableIpCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -47029,8 +47120,8 @@ func (client *Client) DisableIpCode(request *DisableIpCodeRequest) (_result *Dis
 }
 
 /**
- * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
- * Summary: 数字商品服务-IP授权服务-单码失效
+ * Description: 数字商品服务-IP服务-UNI码失效: 将UNI码失效,不可逆。
+ * Summary: 数字商品服务-IP服务-UNI码失效
  */
 func (client *Client) DisableIpCodeEx(request *DisableIpCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DisableIpCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -47048,7 +47139,7 @@ func (client *Client) DisableIpCodeEx(request *DisableIpCodeRequest, headers map
 
 /**
  * Description: 上传数字凭证的流转信息
- * Summary: 数字商品服务-IP授权服务-上传流转信息
+ * Summary: 数字商品服务-IP服务-上传UNI流转
  */
 func (client *Client) UploadIpCodecirculation(request *UploadIpCodecirculationRequest) (_result *UploadIpCodecirculationResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -47064,7 +47155,7 @@ func (client *Client) UploadIpCodecirculation(request *UploadIpCodecirculationRe
 
 /**
  * Description: 上传数字凭证的流转信息
- * Summary: 数字商品服务-IP授权服务-上传流转信息
+ * Summary: 数字商品服务-IP服务-上传UNI流转
  */
 func (client *Client) UploadIpCodecirculationEx(request *UploadIpCodecirculationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadIpCodecirculationResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -47082,7 +47173,7 @@ func (client *Client) UploadIpCodecirculationEx(request *UploadIpCodecirculation
 
 /**
  * Description: 分页查询数字凭证的流转信息
- * Summary: 数字商品服务-IP授权服务-查询流转信息
+ * Summary: 数字商品服务-IP服务-查询UNI流转
  */
 func (client *Client) PagequeryIpCodecirculation(request *PagequeryIpCodecirculationRequest) (_result *PagequeryIpCodecirculationResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -47098,7 +47189,7 @@ func (client *Client) PagequeryIpCodecirculation(request *PagequeryIpCodecircula
 
 /**
  * Description: 分页查询数字凭证的流转信息
- * Summary: 数字商品服务-IP授权服务-查询流转信息
+ * Summary: 数字商品服务-IP服务-查询UNI流转
  */
 func (client *Client) PagequeryIpCodecirculationEx(request *PagequeryIpCodecirculationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIpCodecirculationResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -47141,6 +47232,40 @@ func (client *Client) SignIpContractEx(request *SignIpContractRequest, headers m
 	}
 	_result = &SignIpContractResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.contract.sign"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询UNI码小程序短链
+ * Summary: 数字商品服务-IP授权服务-UNI短链
+ */
+func (client *Client) QueryIpCodeshortenurl(request *QueryIpCodeshortenurlRequest) (_result *QueryIpCodeshortenurlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpCodeshortenurlResponse{}
+	_body, _err := client.QueryIpCodeshortenurlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询UNI码小程序短链
+ * Summary: 数字商品服务-IP授权服务-UNI短链
+ */
+func (client *Client) QueryIpCodeshortenurlEx(request *QueryIpCodeshortenurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpCodeshortenurlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpCodeshortenurlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codeshortenurl.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
