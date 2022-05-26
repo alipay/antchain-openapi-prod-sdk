@@ -103,6 +103,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         public string LossEstimateTotalAmount { get; set; }
 
         // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+        // 
         [NameInMap("complaint_job_no")]
         [Validation(Required=false, MaxLength=100)]
         public string ComplaintJobNo { get; set; }
@@ -141,6 +142,36 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [NameInMap("documents")]
         [Validation(Required=false)]
         public List<Document> Documents { get; set; }
+
+        // 判责工单号
+        [NameInMap("duty_work_no")]
+        [Validation(Required=false, MaxLength=100)]
+        public string DutyWorkNo { get; set; }
+
+        // 快递或包裹进入驿站仓储时间，yyyy-mm-dd hh:mm:ss
+        [NameInMap("pkg_in_date")]
+        [Validation(Required=false, MaxLength=20)]
+        public string PkgInDate { get; set; }
+
+        // 驿站针对快递或包裹的出库时间（配送上门传送待签收时间），yyyy-mm-dd hh:mm:ss
+        [NameInMap("pkg_out_date")]
+        [Validation(Required=false, MaxLength=20)]
+        public string PkgOutDate { get; set; }
+
+        // 发票工单投诉时间，yyyy-mm-dd hh:mm:ss
+        [NameInMap("gen_work_date")]
+        [Validation(Required=false, MaxLength=20)]
+        public string GenWorkDate { get; set; }
+
+        // 工单类型
+        [NameInMap("work_type")]
+        [Validation(Required=false, MaxLength=20)]
+        public string WorkType { get; set; }
+
+        // 是否星级站点，0是，1否
+        [NameInMap("is_star_station")]
+        [Validation(Required=false)]
+        public string IsStarStation { get; set; }
 
     }
 
