@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 交易日志
+            # 交易扩展字段
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.58'
+                    'sdk_version': '1.3.62'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 交易日志
+            # 交易扩展字段
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.58'
+                    'sdk_version': '1.3.62'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -10926,8 +10926,8 @@ class Client:
         request: baasdt_models.ApplyIpCodeRequest,
     ) -> baasdt_models.ApplyIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
-        Summary: 数字商品服务-IP授权服务-数字凭证申请
+        Description: 数字商品服务-IP服务-UNI码申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+        Summary: 数字商品服务-IP服务-UNI码申请
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10938,8 +10938,8 @@ class Client:
         request: baasdt_models.ApplyIpCodeRequest,
     ) -> baasdt_models.ApplyIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
-        Summary: 数字商品服务-IP授权服务-数字凭证申请
+        Description: 数字商品服务-IP服务-UNI码申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+        Summary: 数字商品服务-IP服务-UNI码申请
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10952,8 +10952,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.ApplyIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
-        Summary: 数字商品服务-IP授权服务-数字凭证申请
+        Description: 数字商品服务-IP服务-UNI码申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+        Summary: 数字商品服务-IP服务-UNI码申请
         """
         UtilClient.validate_model(request)
         return baasdt_models.ApplyIpCodeResponse().from_map(
@@ -10967,8 +10967,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.ApplyIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
-        Summary: 数字商品服务-IP授权服务-数字凭证申请
+        Description: 数字商品服务-IP服务-UNI码申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+        Summary: 数字商品服务-IP服务-UNI码申请
         """
         UtilClient.validate_model(request)
         return baasdt_models.ApplyIpCodeResponse().from_map(
@@ -10980,9 +10980,9 @@ class Client:
         request: baasdt_models.PagequeryIpCodeRequest,
     ) -> baasdt_models.PagequeryIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
+        Description: 数字商品服务-IP授权服务-数字凭证源码分页查询: 小程序不可扫描的数字凭证分页查询。
         注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-        Summary: 数字商品服务-IP授权服务-数字凭证查询
+        Summary: 数字商品服务-IP服务-凭证源码查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10993,9 +10993,9 @@ class Client:
         request: baasdt_models.PagequeryIpCodeRequest,
     ) -> baasdt_models.PagequeryIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
+        Description: 数字商品服务-IP授权服务-数字凭证源码分页查询: 小程序不可扫描的数字凭证分页查询。
         注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-        Summary: 数字商品服务-IP授权服务-数字凭证查询
+        Summary: 数字商品服务-IP服务-凭证源码查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11008,9 +11008,9 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.PagequeryIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
+        Description: 数字商品服务-IP授权服务-数字凭证源码分页查询: 小程序不可扫描的数字凭证分页查询。
         注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-        Summary: 数字商品服务-IP授权服务-数字凭证查询
+        Summary: 数字商品服务-IP服务-凭证源码查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.PagequeryIpCodeResponse().from_map(
@@ -11024,9 +11024,9 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.PagequeryIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
+        Description: 数字商品服务-IP授权服务-数字凭证源码分页查询: 小程序不可扫描的数字凭证分页查询。
         注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-        Summary: 数字商品服务-IP授权服务-数字凭证查询
+        Summary: 数字商品服务-IP服务-凭证源码查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.PagequeryIpCodeResponse().from_map(
@@ -11038,8 +11038,8 @@ class Client:
         request: baasdt_models.CheckIpCodeRequest,
     ) -> baasdt_models.CheckIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-数字凭证校验
-        Summary: 数字商品服务-IP授权服务-数字凭证校验
+        Description: 数字商品服务-IP服务-UNI码校验
+        Summary: 数字商品服务-IP服务-UNI码校验
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11050,8 +11050,8 @@ class Client:
         request: baasdt_models.CheckIpCodeRequest,
     ) -> baasdt_models.CheckIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-数字凭证校验
-        Summary: 数字商品服务-IP授权服务-数字凭证校验
+        Description: 数字商品服务-IP服务-UNI码校验
+        Summary: 数字商品服务-IP服务-UNI码校验
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -11064,8 +11064,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CheckIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-数字凭证校验
-        Summary: 数字商品服务-IP授权服务-数字凭证校验
+        Description: 数字商品服务-IP服务-UNI码校验
+        Summary: 数字商品服务-IP服务-UNI码校验
         """
         UtilClient.validate_model(request)
         return baasdt_models.CheckIpCodeResponse().from_map(
@@ -11079,8 +11079,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.CheckIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-数字凭证校验
-        Summary: 数字商品服务-IP授权服务-数字凭证校验
+        Description: 数字商品服务-IP服务-UNI码校验
+        Summary: 数字商品服务-IP服务-UNI码校验
         """
         UtilClient.validate_model(request)
         return baasdt_models.CheckIpCodeResponse().from_map(
@@ -12659,7 +12659,7 @@ class Client:
     ) -> baasdt_models.SetIpCodeinfoResponse:
         """
         Description: 配置数字凭证的商品信息和资源位信息
-        Summary: 数字商品服务-IP授权服务-数字凭证配置
+        Summary: 数字商品服务-IP服务-UNI码信息配置
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12671,7 +12671,7 @@ class Client:
     ) -> baasdt_models.SetIpCodeinfoResponse:
         """
         Description: 配置数字凭证的商品信息和资源位信息
-        Summary: 数字商品服务-IP授权服务-数字凭证配置
+        Summary: 数字商品服务-IP服务-UNI码信息配置
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12685,7 +12685,7 @@ class Client:
     ) -> baasdt_models.SetIpCodeinfoResponse:
         """
         Description: 配置数字凭证的商品信息和资源位信息
-        Summary: 数字商品服务-IP授权服务-数字凭证配置
+        Summary: 数字商品服务-IP服务-UNI码信息配置
         """
         UtilClient.validate_model(request)
         return baasdt_models.SetIpCodeinfoResponse().from_map(
@@ -12700,7 +12700,7 @@ class Client:
     ) -> baasdt_models.SetIpCodeinfoResponse:
         """
         Description: 配置数字凭证的商品信息和资源位信息
-        Summary: 数字商品服务-IP授权服务-数字凭证配置
+        Summary: 数字商品服务-IP服务-UNI码信息配置
         """
         UtilClient.validate_model(request)
         return baasdt_models.SetIpCodeinfoResponse().from_map(
@@ -13037,7 +13037,7 @@ class Client:
     ) -> baasdt_models.QueryIpCodeinfoResponse:
         """
         Description: 查询数字凭证的配置信息
-        Summary: 数字商品服务-IP授权服务-数字凭证配置
+        Summary: 数字商品服务-IP服务-UNI码配置查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -13049,7 +13049,7 @@ class Client:
     ) -> baasdt_models.QueryIpCodeinfoResponse:
         """
         Description: 查询数字凭证的配置信息
-        Summary: 数字商品服务-IP授权服务-数字凭证配置
+        Summary: 数字商品服务-IP服务-UNI码配置查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -13063,7 +13063,7 @@ class Client:
     ) -> baasdt_models.QueryIpCodeinfoResponse:
         """
         Description: 查询数字凭证的配置信息
-        Summary: 数字商品服务-IP授权服务-数字凭证配置
+        Summary: 数字商品服务-IP服务-UNI码配置查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpCodeinfoResponse().from_map(
@@ -13078,7 +13078,7 @@ class Client:
     ) -> baasdt_models.QueryIpCodeinfoResponse:
         """
         Description: 查询数字凭证的配置信息
-        Summary: 数字商品服务-IP授权服务-数字凭证配置
+        Summary: 数字商品服务-IP服务-UNI码配置查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpCodeinfoResponse().from_map(
@@ -13792,8 +13792,8 @@ class Client:
         request: baasdt_models.PullIpCodeRequest,
     ) -> baasdt_models.PullIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
-        Summary: 数字商品服务-IP授权服务-查数字凭证
+        Description: 数字商品服务-IP授权服务-可跳转小程序的数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+        Summary: 数字商品服务-IP服务-UNI码查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -13804,8 +13804,8 @@ class Client:
         request: baasdt_models.PullIpCodeRequest,
     ) -> baasdt_models.PullIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
-        Summary: 数字商品服务-IP授权服务-查数字凭证
+        Description: 数字商品服务-IP授权服务-可跳转小程序的数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+        Summary: 数字商品服务-IP服务-UNI码查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -13818,8 +13818,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.PullIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
-        Summary: 数字商品服务-IP授权服务-查数字凭证
+        Description: 数字商品服务-IP授权服务-可跳转小程序的数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+        Summary: 数字商品服务-IP服务-UNI码查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.PullIpCodeResponse().from_map(
@@ -13833,8 +13833,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.PullIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
-        Summary: 数字商品服务-IP授权服务-查数字凭证
+        Description: 数字商品服务-IP授权服务-可跳转小程序的数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+        Summary: 数字商品服务-IP服务-UNI码查询
         """
         UtilClient.validate_model(request)
         return baasdt_models.PullIpCodeResponse().from_map(
@@ -14117,7 +14117,7 @@ class Client:
     ) -> baasdt_models.QueryIpCodecollectResponse:
         """
         Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
-        Summary: 数字商品服务-IP授权服务-查收藏证书
+        Summary: 数字商品服务-IP服务-查UNI收藏证书
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -14129,7 +14129,7 @@ class Client:
     ) -> baasdt_models.QueryIpCodecollectResponse:
         """
         Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
-        Summary: 数字商品服务-IP授权服务-查收藏证书
+        Summary: 数字商品服务-IP服务-查UNI收藏证书
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -14143,7 +14143,7 @@ class Client:
     ) -> baasdt_models.QueryIpCodecollectResponse:
         """
         Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
-        Summary: 数字商品服务-IP授权服务-查收藏证书
+        Summary: 数字商品服务-IP服务-查UNI收藏证书
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpCodecollectResponse().from_map(
@@ -14158,7 +14158,7 @@ class Client:
     ) -> baasdt_models.QueryIpCodecollectResponse:
         """
         Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
-        Summary: 数字商品服务-IP授权服务-查收藏证书
+        Summary: 数字商品服务-IP服务-查UNI收藏证书
         """
         UtilClient.validate_model(request)
         return baasdt_models.QueryIpCodecollectResponse().from_map(
@@ -14710,8 +14710,8 @@ class Client:
         request: baasdt_models.DisableIpCodeRequest,
     ) -> baasdt_models.DisableIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
-        Summary: 数字商品服务-IP授权服务-单码失效
+        Description: 数字商品服务-IP服务-UNI码失效: 将UNI码失效,不可逆。
+        Summary: 数字商品服务-IP服务-UNI码失效
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -14722,8 +14722,8 @@ class Client:
         request: baasdt_models.DisableIpCodeRequest,
     ) -> baasdt_models.DisableIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
-        Summary: 数字商品服务-IP授权服务-单码失效
+        Description: 数字商品服务-IP服务-UNI码失效: 将UNI码失效,不可逆。
+        Summary: 数字商品服务-IP服务-UNI码失效
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -14736,8 +14736,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.DisableIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
-        Summary: 数字商品服务-IP授权服务-单码失效
+        Description: 数字商品服务-IP服务-UNI码失效: 将UNI码失效,不可逆。
+        Summary: 数字商品服务-IP服务-UNI码失效
         """
         UtilClient.validate_model(request)
         return baasdt_models.DisableIpCodeResponse().from_map(
@@ -14751,8 +14751,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> baasdt_models.DisableIpCodeResponse:
         """
-        Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
-        Summary: 数字商品服务-IP授权服务-单码失效
+        Description: 数字商品服务-IP服务-UNI码失效: 将UNI码失效,不可逆。
+        Summary: 数字商品服务-IP服务-UNI码失效
         """
         UtilClient.validate_model(request)
         return baasdt_models.DisableIpCodeResponse().from_map(
@@ -14765,7 +14765,7 @@ class Client:
     ) -> baasdt_models.UploadIpCodecirculationResponse:
         """
         Description: 上传数字凭证的流转信息
-        Summary: 数字商品服务-IP授权服务-上传流转信息
+        Summary: 数字商品服务-IP服务-上传UNI流转
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -14777,7 +14777,7 @@ class Client:
     ) -> baasdt_models.UploadIpCodecirculationResponse:
         """
         Description: 上传数字凭证的流转信息
-        Summary: 数字商品服务-IP授权服务-上传流转信息
+        Summary: 数字商品服务-IP服务-上传UNI流转
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -14791,7 +14791,7 @@ class Client:
     ) -> baasdt_models.UploadIpCodecirculationResponse:
         """
         Description: 上传数字凭证的流转信息
-        Summary: 数字商品服务-IP授权服务-上传流转信息
+        Summary: 数字商品服务-IP服务-上传UNI流转
         """
         UtilClient.validate_model(request)
         return baasdt_models.UploadIpCodecirculationResponse().from_map(
@@ -14806,7 +14806,7 @@ class Client:
     ) -> baasdt_models.UploadIpCodecirculationResponse:
         """
         Description: 上传数字凭证的流转信息
-        Summary: 数字商品服务-IP授权服务-上传流转信息
+        Summary: 数字商品服务-IP服务-上传UNI流转
         """
         UtilClient.validate_model(request)
         return baasdt_models.UploadIpCodecirculationResponse().from_map(
@@ -14819,7 +14819,7 @@ class Client:
     ) -> baasdt_models.PagequeryIpCodecirculationResponse:
         """
         Description: 分页查询数字凭证的流转信息
-        Summary: 数字商品服务-IP授权服务-查询流转信息
+        Summary: 数字商品服务-IP服务-查询UNI流转
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -14831,7 +14831,7 @@ class Client:
     ) -> baasdt_models.PagequeryIpCodecirculationResponse:
         """
         Description: 分页查询数字凭证的流转信息
-        Summary: 数字商品服务-IP授权服务-查询流转信息
+        Summary: 数字商品服务-IP服务-查询UNI流转
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -14845,7 +14845,7 @@ class Client:
     ) -> baasdt_models.PagequeryIpCodecirculationResponse:
         """
         Description: 分页查询数字凭证的流转信息
-        Summary: 数字商品服务-IP授权服务-查询流转信息
+        Summary: 数字商品服务-IP服务-查询UNI流转
         """
         UtilClient.validate_model(request)
         return baasdt_models.PagequeryIpCodecirculationResponse().from_map(
@@ -14860,7 +14860,7 @@ class Client:
     ) -> baasdt_models.PagequeryIpCodecirculationResponse:
         """
         Description: 分页查询数字凭证的流转信息
-        Summary: 数字商品服务-IP授权服务-查询流转信息
+        Summary: 数字商品服务-IP服务-查询UNI流转
         """
         UtilClient.validate_model(request)
         return baasdt_models.PagequeryIpCodecirculationResponse().from_map(
@@ -14919,6 +14919,60 @@ class Client:
         UtilClient.validate_model(request)
         return baasdt_models.SignIpContractResponse().from_map(
             await self.do_request_async('1.0', 'baas.antdao.ip.contract.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ip_codeshortenurl(
+        self,
+        request: baasdt_models.QueryIpCodeshortenurlRequest,
+    ) -> baasdt_models.QueryIpCodeshortenurlResponse:
+        """
+        Description: 查询UNI码小程序短链
+        Summary: 数字商品服务-IP授权服务-UNI短链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ip_codeshortenurl_ex(request, headers, runtime)
+
+    async def query_ip_codeshortenurl_async(
+        self,
+        request: baasdt_models.QueryIpCodeshortenurlRequest,
+    ) -> baasdt_models.QueryIpCodeshortenurlResponse:
+        """
+        Description: 查询UNI码小程序短链
+        Summary: 数字商品服务-IP授权服务-UNI短链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ip_codeshortenurl_ex_async(request, headers, runtime)
+
+    def query_ip_codeshortenurl_ex(
+        self,
+        request: baasdt_models.QueryIpCodeshortenurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpCodeshortenurlResponse:
+        """
+        Description: 查询UNI码小程序短链
+        Summary: 数字商品服务-IP授权服务-UNI短链
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.QueryIpCodeshortenurlResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.codeshortenurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ip_codeshortenurl_ex_async(
+        self,
+        request: baasdt_models.QueryIpCodeshortenurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpCodeshortenurlResponse:
+        """
+        Description: 查询UNI码小程序短链
+        Summary: 数字商品服务-IP授权服务-UNI短链
+        """
+        UtilClient.validate_model(request)
+        return baasdt_models.QueryIpCodeshortenurlResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.codeshortenurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_blockanalysis_block(
