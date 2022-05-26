@@ -135,6 +135,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string AccountExternalName { get; set; }
 
+        // 码失效时间（毫秒时间戳）
+        [NameInMap("disabled_date")]
+        [Validation(Required=false)]
+        public long? DisabledDate { get; set; }
+
     }
 
 }

@@ -153,6 +153,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public bool? OnlyCallBlockchain { get; set; }
 
+        // 1套餐交易 2授权交易 3正版订单 4预申请订单
+        [NameInMap("code_order_type")]
+        [Validation(Required=false)]
+        public long? CodeOrderType { get; set; }
+
     }
 
 }
