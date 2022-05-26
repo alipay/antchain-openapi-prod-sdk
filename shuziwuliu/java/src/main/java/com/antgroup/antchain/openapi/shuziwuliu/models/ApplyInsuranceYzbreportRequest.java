@@ -96,6 +96,7 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
     public String lossEstimateTotalAmount;
 
     // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+    // 
     @NameInMap("complaint_job_no")
     @Validation(maxLength = 100)
     public String complaintJobNo;
@@ -129,6 +130,35 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
     // 文档信息
     @NameInMap("documents")
     public java.util.List<Document> documents;
+
+    // 判责工单号
+    @NameInMap("duty_work_no")
+    @Validation(maxLength = 100)
+    public String dutyWorkNo;
+
+    // 快递或包裹进入驿站仓储时间，yyyy-mm-dd hh:mm:ss
+    @NameInMap("pkg_in_date")
+    @Validation(maxLength = 20)
+    public String pkgInDate;
+
+    // 驿站针对快递或包裹的出库时间（配送上门传送待签收时间），yyyy-mm-dd hh:mm:ss
+    @NameInMap("pkg_out_date")
+    @Validation(maxLength = 20)
+    public String pkgOutDate;
+
+    // 发票工单投诉时间，yyyy-mm-dd hh:mm:ss
+    @NameInMap("gen_work_date")
+    @Validation(maxLength = 20)
+    public String genWorkDate;
+
+    // 工单类型
+    @NameInMap("work_type")
+    @Validation(maxLength = 20)
+    public String workType;
+
+    // 是否星级站点，0是，1否
+    @NameInMap("is_star_station")
+    public String isStarStation;
 
     public static ApplyInsuranceYzbreportRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsuranceYzbreportRequest self = new ApplyInsuranceYzbreportRequest();
@@ -341,6 +371,54 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
     }
     public java.util.List<Document> getDocuments() {
         return this.documents;
+    }
+
+    public ApplyInsuranceYzbreportRequest setDutyWorkNo(String dutyWorkNo) {
+        this.dutyWorkNo = dutyWorkNo;
+        return this;
+    }
+    public String getDutyWorkNo() {
+        return this.dutyWorkNo;
+    }
+
+    public ApplyInsuranceYzbreportRequest setPkgInDate(String pkgInDate) {
+        this.pkgInDate = pkgInDate;
+        return this;
+    }
+    public String getPkgInDate() {
+        return this.pkgInDate;
+    }
+
+    public ApplyInsuranceYzbreportRequest setPkgOutDate(String pkgOutDate) {
+        this.pkgOutDate = pkgOutDate;
+        return this;
+    }
+    public String getPkgOutDate() {
+        return this.pkgOutDate;
+    }
+
+    public ApplyInsuranceYzbreportRequest setGenWorkDate(String genWorkDate) {
+        this.genWorkDate = genWorkDate;
+        return this;
+    }
+    public String getGenWorkDate() {
+        return this.genWorkDate;
+    }
+
+    public ApplyInsuranceYzbreportRequest setWorkType(String workType) {
+        this.workType = workType;
+        return this;
+    }
+    public String getWorkType() {
+        return this.workType;
+    }
+
+    public ApplyInsuranceYzbreportRequest setIsStarStation(String isStarStation) {
+        this.isStarStation = isStarStation;
+        return this;
+    }
+    public String getIsStarStation() {
+        return this.isStarStation;
     }
 
 }
