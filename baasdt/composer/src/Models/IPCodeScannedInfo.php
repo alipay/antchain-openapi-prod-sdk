@@ -207,6 +207,14 @@ class IPCodeScannedInfo extends Model
      * @var string
      */
     public $accountExternalName;
+
+    // 码失效时间（毫秒时间戳）
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $disabledDate;
     protected $_name = [
         'ipCode'              => 'ip_code',
         'batchUsedCount'      => 'batch_used_count',
@@ -233,6 +241,7 @@ class IPCodeScannedInfo extends Model
         'fixedIndex'          => 'fixed_index',
         'fixedCount'          => 'fixed_count',
         'accountExternalName' => 'account_external_name',
+        'disabledDate'        => 'disabled_date',
     ];
 
     public function validate()
@@ -336,6 +345,9 @@ class IPCodeScannedInfo extends Model
         if (null !== $this->accountExternalName) {
             $res['account_external_name'] = $this->accountExternalName;
         }
+        if (null !== $this->disabledDate) {
+            $res['disabled_date'] = $this->disabledDate;
+        }
 
         return $res;
     }
@@ -436,6 +448,9 @@ class IPCodeScannedInfo extends Model
         }
         if (isset($map['account_external_name'])) {
             $model->accountExternalName = $map['account_external_name'];
+        }
+        if (isset($map['disabled_date'])) {
+            $model->disabledDate = $map['disabled_date'];
         }
 
         return $model;

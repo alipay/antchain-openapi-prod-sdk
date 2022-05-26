@@ -399,6 +399,8 @@ use AntChain\BAASDT\Models\QueryIpCodeinfoRequest;
 use AntChain\BAASDT\Models\QueryIpCodeinfoResponse;
 use AntChain\BAASDT\Models\QueryIpCodeRequest;
 use AntChain\BAASDT\Models\QueryIpCodeResponse;
+use AntChain\BAASDT\Models\QueryIpCodeshortenurlRequest;
+use AntChain\BAASDT\Models\QueryIpCodeshortenurlResponse;
 use AntChain\BAASDT\Models\QueryIpCopyrightRequest;
 use AntChain\BAASDT\Models\QueryIpCopyrightResponse;
 use AntChain\BAASDT\Models\QueryIpDetailRequest;
@@ -710,7 +712,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 交易日志
+            // 交易扩展字段
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -738,7 +740,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.58',
+                    'sdk_version'      => '1.3.62',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -7287,8 +7289,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
-     * Summary: 数字商品服务-IP授权服务-数字凭证申请.
+     * Description: 数字商品服务-IP服务-UNI码申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+     * Summary: 数字商品服务-IP服务-UNI码申请.
      *
      * @param ApplyIpCodeRequest $request
      *
@@ -7303,8 +7305,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
-     * Summary: 数字商品服务-IP授权服务-数字凭证申请.
+     * Description: 数字商品服务-IP服务-UNI码申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+     * Summary: 数字商品服务-IP服务-UNI码申请.
      *
      * @param ApplyIpCodeRequest $request
      * @param string[]           $headers
@@ -7320,9 +7322,9 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
+     * Description: 数字商品服务-IP授权服务-数字凭证源码分页查询: 小程序不可扫描的数字凭证分页查询。
      * 注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-     * Summary: 数字商品服务-IP授权服务-数字凭证查询.
+     * Summary: 数字商品服务-IP服务-凭证源码查询.
      *
      * @param PagequeryIpCodeRequest $request
      *
@@ -7337,9 +7339,9 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
+     * Description: 数字商品服务-IP授权服务-数字凭证源码分页查询: 小程序不可扫描的数字凭证分页查询。
      * 注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-     * Summary: 数字商品服务-IP授权服务-数字凭证查询.
+     * Summary: 数字商品服务-IP服务-凭证源码查询.
      *
      * @param PagequeryIpCodeRequest $request
      * @param string[]               $headers
@@ -7355,8 +7357,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-数字凭证校验
-     * Summary: 数字商品服务-IP授权服务-数字凭证校验.
+     * Description: 数字商品服务-IP服务-UNI码校验
+     * Summary: 数字商品服务-IP服务-UNI码校验.
      *
      * @param CheckIpCodeRequest $request
      *
@@ -7371,8 +7373,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-数字凭证校验
-     * Summary: 数字商品服务-IP授权服务-数字凭证校验.
+     * Description: 数字商品服务-IP服务-UNI码校验
+     * Summary: 数字商品服务-IP服务-UNI码校验.
      *
      * @param CheckIpCodeRequest $request
      * @param string[]           $headers
@@ -8346,7 +8348,7 @@ class Client
 
     /**
      * Description: 配置数字凭证的商品信息和资源位信息
-     * Summary: 数字商品服务-IP授权服务-数字凭证配置.
+     * Summary: 数字商品服务-IP服务-UNI码信息配置.
      *
      * @param SetIpCodeinfoRequest $request
      *
@@ -8362,7 +8364,7 @@ class Client
 
     /**
      * Description: 配置数字凭证的商品信息和资源位信息
-     * Summary: 数字商品服务-IP授权服务-数字凭证配置.
+     * Summary: 数字商品服务-IP服务-UNI码信息配置.
      *
      * @param SetIpCodeinfoRequest $request
      * @param string[]             $headers
@@ -8577,7 +8579,7 @@ class Client
 
     /**
      * Description: 查询数字凭证的配置信息
-     * Summary: 数字商品服务-IP授权服务-数字凭证配置.
+     * Summary: 数字商品服务-IP服务-UNI码配置查询.
      *
      * @param QueryIpCodeinfoRequest $request
      *
@@ -8593,7 +8595,7 @@ class Client
 
     /**
      * Description: 查询数字凭证的配置信息
-     * Summary: 数字商品服务-IP授权服务-数字凭证配置.
+     * Summary: 数字商品服务-IP服务-UNI码配置查询.
      *
      * @param QueryIpCodeinfoRequest $request
      * @param string[]               $headers
@@ -9038,8 +9040,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
-     * Summary: 数字商品服务-IP授权服务-查数字凭证
+     * Description: 数字商品服务-IP授权服务-可跳转小程序的数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+     * Summary: 数字商品服务-IP服务-UNI码查询.
      *
      * @param PullIpCodeRequest $request
      *
@@ -9054,8 +9056,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
-     * Summary: 数字商品服务-IP授权服务-查数字凭证
+     * Description: 数字商品服务-IP授权服务-可跳转小程序的数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+     * Summary: 数字商品服务-IP服务-UNI码查询.
      *
      * @param PullIpCodeRequest $request
      * @param string[]          $headers
@@ -9237,7 +9239,7 @@ class Client
 
     /**
      * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
-     * Summary: 数字商品服务-IP授权服务-查收藏证书.
+     * Summary: 数字商品服务-IP服务-查UNI收藏证书.
      *
      * @param QueryIpCodecollectRequest $request
      *
@@ -9253,7 +9255,7 @@ class Client
 
     /**
      * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
-     * Summary: 数字商品服务-IP授权服务-查收藏证书.
+     * Summary: 数字商品服务-IP服务-查UNI收藏证书.
      *
      * @param QueryIpCodecollectRequest $request
      * @param string[]                  $headers
@@ -9599,8 +9601,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
-     * Summary: 数字商品服务-IP授权服务-单码失效.
+     * Description: 数字商品服务-IP服务-UNI码失效: 将UNI码失效,不可逆。
+     * Summary: 数字商品服务-IP服务-UNI码失效.
      *
      * @param DisableIpCodeRequest $request
      *
@@ -9615,8 +9617,8 @@ class Client
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
-     * Summary: 数字商品服务-IP授权服务-单码失效.
+     * Description: 数字商品服务-IP服务-UNI码失效: 将UNI码失效,不可逆。
+     * Summary: 数字商品服务-IP服务-UNI码失效.
      *
      * @param DisableIpCodeRequest $request
      * @param string[]             $headers
@@ -9633,7 +9635,7 @@ class Client
 
     /**
      * Description: 上传数字凭证的流转信息
-     * Summary: 数字商品服务-IP授权服务-上传流转信息.
+     * Summary: 数字商品服务-IP服务-上传UNI流转.
      *
      * @param UploadIpCodecirculationRequest $request
      *
@@ -9649,7 +9651,7 @@ class Client
 
     /**
      * Description: 上传数字凭证的流转信息
-     * Summary: 数字商品服务-IP授权服务-上传流转信息.
+     * Summary: 数字商品服务-IP服务-上传UNI流转.
      *
      * @param UploadIpCodecirculationRequest $request
      * @param string[]                       $headers
@@ -9666,7 +9668,7 @@ class Client
 
     /**
      * Description: 分页查询数字凭证的流转信息
-     * Summary: 数字商品服务-IP授权服务-查询流转信息.
+     * Summary: 数字商品服务-IP服务-查询UNI流转.
      *
      * @param PagequeryIpCodecirculationRequest $request
      *
@@ -9682,7 +9684,7 @@ class Client
 
     /**
      * Description: 分页查询数字凭证的流转信息
-     * Summary: 数字商品服务-IP授权服务-查询流转信息.
+     * Summary: 数字商品服务-IP服务-查询UNI流转.
      *
      * @param PagequeryIpCodecirculationRequest $request
      * @param string[]                          $headers
@@ -9728,6 +9730,39 @@ class Client
         Utils::validateModel($request);
 
         return SignIpContractResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.contract.sign', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询UNI码小程序短链
+     * Summary: 数字商品服务-IP授权服务-UNI短链.
+     *
+     * @param QueryIpCodeshortenurlRequest $request
+     *
+     * @return QueryIpCodeshortenurlResponse
+     */
+    public function queryIpCodeshortenurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIpCodeshortenurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询UNI码小程序短链
+     * Summary: 数字商品服务-IP授权服务-UNI短链.
+     *
+     * @param QueryIpCodeshortenurlRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryIpCodeshortenurlResponse
+     */
+    public function queryIpCodeshortenurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIpCodeshortenurlResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.codeshortenurl.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
