@@ -14078,6 +14078,7 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
   // 损失预估总金额，单位（元），最多支持2位小数
   lossEstimateTotalAmount: string;
   // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+  // 
   complaintJobNo?: string;
   // 快递公司，申请理赔所关联的快递公司名称，包裹出险可填
   courierCompany?: string;
@@ -14093,6 +14094,18 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
   cargoLoss?: CargoLoss;
   // 文档信息
   documents?: Document[];
+  // 判责工单号
+  dutyWorkNo?: string;
+  // 快递或包裹进入驿站仓储时间，yyyy-mm-dd hh:mm:ss
+  pkgInDate?: string;
+  // 驿站针对快递或包裹的出库时间（配送上门传送待签收时间），yyyy-mm-dd hh:mm:ss
+  pkgOutDate?: string;
+  // 发票工单投诉时间，yyyy-mm-dd hh:mm:ss
+  genWorkDate?: string;
+  // 工单类型
+  workType?: string;
+  // 是否星级站点，0是，1否
+  isStarStation?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -14121,6 +14134,12 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
       carLoss: 'car_loss',
       cargoLoss: 'cargo_loss',
       documents: 'documents',
+      dutyWorkNo: 'duty_work_no',
+      pkgInDate: 'pkg_in_date',
+      pkgOutDate: 'pkg_out_date',
+      genWorkDate: 'gen_work_date',
+      workType: 'work_type',
+      isStarStation: 'is_star_station',
     };
   }
 
@@ -14152,6 +14171,12 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
       carLoss: CarLoss,
       cargoLoss: CargoLoss,
       documents: { 'type': 'array', 'itemType': Document },
+      dutyWorkNo: 'string',
+      pkgInDate: 'string',
+      pkgOutDate: 'string',
+      genWorkDate: 'string',
+      workType: 'string',
+      isStarStation: 'string',
     };
   }
 
@@ -20706,7 +20731,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.137",
+          sdk_version: "1.3.140",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
