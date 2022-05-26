@@ -120,6 +120,7 @@ class ApplyInsuranceYzbreportRequest extends Model
     public $lossEstimateTotalAmount;
 
     // 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+    //
     /**
      * @var string
      */
@@ -166,6 +167,42 @@ class ApplyInsuranceYzbreportRequest extends Model
      * @var Document[]
      */
     public $documents;
+
+    // 判责工单号
+    /**
+     * @var string
+     */
+    public $dutyWorkNo;
+
+    // 快递或包裹进入驿站仓储时间，yyyy-mm-dd hh:mm:ss
+    /**
+     * @var string
+     */
+    public $pkgInDate;
+
+    // 驿站针对快递或包裹的出库时间（配送上门传送待签收时间），yyyy-mm-dd hh:mm:ss
+    /**
+     * @var string
+     */
+    public $pkgOutDate;
+
+    // 发票工单投诉时间，yyyy-mm-dd hh:mm:ss
+    /**
+     * @var string
+     */
+    public $genWorkDate;
+
+    // 工单类型
+    /**
+     * @var string
+     */
+    public $workType;
+
+    // 是否星级站点，0是，1否
+    /**
+     * @var string
+     */
+    public $isStarStation;
     protected $_name = [
         'authToken'               => 'auth_token',
         'productInstanceId'       => 'product_instance_id',
@@ -193,6 +230,12 @@ class ApplyInsuranceYzbreportRequest extends Model
         'carLoss'                 => 'car_loss',
         'cargoLoss'               => 'cargo_loss',
         'documents'               => 'documents',
+        'dutyWorkNo'              => 'duty_work_no',
+        'pkgInDate'               => 'pkg_in_date',
+        'pkgOutDate'              => 'pkg_out_date',
+        'genWorkDate'             => 'gen_work_date',
+        'workType'                => 'work_type',
+        'isStarStation'           => 'is_star_station',
     ];
 
     public function validate()
@@ -230,6 +273,11 @@ class ApplyInsuranceYzbreportRequest extends Model
         Model::validateMaxLength('complaintJobNo', $this->complaintJobNo, 100);
         Model::validateMaxLength('courierCompany', $this->courierCompany, 200);
         Model::validateMaxLength('wayBillNo', $this->wayBillNo, 100);
+        Model::validateMaxLength('dutyWorkNo', $this->dutyWorkNo, 100);
+        Model::validateMaxLength('pkgInDate', $this->pkgInDate, 20);
+        Model::validateMaxLength('pkgOutDate', $this->pkgOutDate, 20);
+        Model::validateMaxLength('genWorkDate', $this->genWorkDate, 20);
+        Model::validateMaxLength('workType', $this->workType, 20);
     }
 
     public function toMap()
@@ -318,6 +366,24 @@ class ApplyInsuranceYzbreportRequest extends Model
                     $res['documents'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->dutyWorkNo) {
+            $res['duty_work_no'] = $this->dutyWorkNo;
+        }
+        if (null !== $this->pkgInDate) {
+            $res['pkg_in_date'] = $this->pkgInDate;
+        }
+        if (null !== $this->pkgOutDate) {
+            $res['pkg_out_date'] = $this->pkgOutDate;
+        }
+        if (null !== $this->genWorkDate) {
+            $res['gen_work_date'] = $this->genWorkDate;
+        }
+        if (null !== $this->workType) {
+            $res['work_type'] = $this->workType;
+        }
+        if (null !== $this->isStarStation) {
+            $res['is_star_station'] = $this->isStarStation;
         }
 
         return $res;
@@ -414,6 +480,24 @@ class ApplyInsuranceYzbreportRequest extends Model
                     $model->documents[$n++] = null !== $item ? Document::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['duty_work_no'])) {
+            $model->dutyWorkNo = $map['duty_work_no'];
+        }
+        if (isset($map['pkg_in_date'])) {
+            $model->pkgInDate = $map['pkg_in_date'];
+        }
+        if (isset($map['pkg_out_date'])) {
+            $model->pkgOutDate = $map['pkg_out_date'];
+        }
+        if (isset($map['gen_work_date'])) {
+            $model->genWorkDate = $map['gen_work_date'];
+        }
+        if (isset($map['work_type'])) {
+            $model->workType = $map['work_type'];
+        }
+        if (isset($map['is_star_station'])) {
+            $model->isStarStation = $map['is_star_station'];
         }
 
         return $model;
