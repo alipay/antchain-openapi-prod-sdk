@@ -126,6 +126,10 @@ public class StartIpAuthtradeRequest extends TeaModel {
     @NameInMap("only_call_blockchain")
     public Boolean onlyCallBlockchain;
 
+    // 1套餐交易 2授权交易 3正版订单 4预申请订单
+    @NameInMap("code_order_type")
+    public Long codeOrderType;
+
     public static StartIpAuthtradeRequest build(java.util.Map<String, ?> map) throws Exception {
         StartIpAuthtradeRequest self = new StartIpAuthtradeRequest();
         return TeaModel.build(map, self);
@@ -361,6 +365,14 @@ public class StartIpAuthtradeRequest extends TeaModel {
     }
     public Boolean getOnlyCallBlockchain() {
         return this.onlyCallBlockchain;
+    }
+
+    public StartIpAuthtradeRequest setCodeOrderType(Long codeOrderType) {
+        this.codeOrderType = codeOrderType;
+        return this;
+    }
+    public Long getCodeOrderType() {
+        return this.codeOrderType;
     }
 
 }

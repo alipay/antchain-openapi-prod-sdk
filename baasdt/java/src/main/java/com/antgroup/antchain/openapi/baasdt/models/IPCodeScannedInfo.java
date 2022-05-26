@@ -111,6 +111,10 @@ public class IPCodeScannedInfo extends TeaModel {
     @NameInMap("account_external_name")
     public String accountExternalName;
 
+    // 码失效时间（毫秒时间戳）
+    @NameInMap("disabled_date")
+    public Long disabledDate;
+
     public static IPCodeScannedInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeScannedInfo self = new IPCodeScannedInfo();
         return TeaModel.build(map, self);
@@ -314,6 +318,14 @@ public class IPCodeScannedInfo extends TeaModel {
     }
     public String getAccountExternalName() {
         return this.accountExternalName;
+    }
+
+    public IPCodeScannedInfo setDisabledDate(Long disabledDate) {
+        this.disabledDate = disabledDate;
+        return this;
+    }
+    public Long getDisabledDate() {
+        return this.disabledDate;
     }
 
 }

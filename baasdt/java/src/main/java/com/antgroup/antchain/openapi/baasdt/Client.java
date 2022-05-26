@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.58")
+                    new TeaPair("sdk_version", "1.3.62")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -3921,8 +3921,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
-     * Summary: 数字商品服务-IP授权服务-数字凭证申请
+     * Description: 数字商品服务-IP服务-UNI码申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+     * Summary: 数字商品服务-IP服务-UNI码申请
      */
     public ApplyIpCodeResponse applyIpCode(ApplyIpCodeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3931,8 +3931,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-数字凭证申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
-     * Summary: 数字商品服务-IP授权服务-数字凭证申请
+     * Description: 数字商品服务-IP服务-UNI码申请(特别注意: 针对同一笔订单(order_id), 累计申请(调用本接口)次数不能超过200次)
+     * Summary: 数字商品服务-IP服务-UNI码申请
      */
     public ApplyIpCodeResponse applyIpCodeEx(ApplyIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3940,9 +3940,9 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
+     * Description: 数字商品服务-IP授权服务-数字凭证源码分页查询: 小程序不可扫描的数字凭证分页查询。
     注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-     * Summary: 数字商品服务-IP授权服务-数字凭证查询
+     * Summary: 数字商品服务-IP服务-凭证源码查询
      */
     public PagequeryIpCodeResponse pagequeryIpCode(PagequeryIpCodeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3951,9 +3951,9 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-数字凭证分页查询: 小程序不可扫描的数字凭证分页查询。
+     * Description: 数字商品服务-IP授权服务-数字凭证源码分页查询: 小程序不可扫描的数字凭证分页查询。
     注意: 这个接口查到的为小程序不可扫描的码, 是原始编码!!!
-     * Summary: 数字商品服务-IP授权服务-数字凭证查询
+     * Summary: 数字商品服务-IP服务-凭证源码查询
      */
     public PagequeryIpCodeResponse pagequeryIpCodeEx(PagequeryIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -3961,8 +3961,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-数字凭证校验
-     * Summary: 数字商品服务-IP授权服务-数字凭证校验
+     * Description: 数字商品服务-IP服务-UNI码校验
+     * Summary: 数字商品服务-IP服务-UNI码校验
      */
     public CheckIpCodeResponse checkIpCode(CheckIpCodeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -3971,8 +3971,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-数字凭证校验
-     * Summary: 数字商品服务-IP授权服务-数字凭证校验
+     * Description: 数字商品服务-IP服务-UNI码校验
+     * Summary: 数字商品服务-IP服务-UNI码校验
      */
     public CheckIpCodeResponse checkIpCodeEx(CheckIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4532,7 +4532,7 @@ public class Client {
 
     /**
      * Description: 配置数字凭证的商品信息和资源位信息
-     * Summary: 数字商品服务-IP授权服务-数字凭证配置
+     * Summary: 数字商品服务-IP服务-UNI码信息配置
      */
     public SetIpCodeinfoResponse setIpCodeinfo(SetIpCodeinfoRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4542,7 +4542,7 @@ public class Client {
 
     /**
      * Description: 配置数字凭证的商品信息和资源位信息
-     * Summary: 数字商品服务-IP授权服务-数字凭证配置
+     * Summary: 数字商品服务-IP服务-UNI码信息配置
      */
     public SetIpCodeinfoResponse setIpCodeinfoEx(SetIpCodeinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4665,7 +4665,7 @@ public class Client {
 
     /**
      * Description: 查询数字凭证的配置信息
-     * Summary: 数字商品服务-IP授权服务-数字凭证配置
+     * Summary: 数字商品服务-IP服务-UNI码配置查询
      */
     public QueryIpCodeinfoResponse queryIpCodeinfo(QueryIpCodeinfoRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4675,7 +4675,7 @@ public class Client {
 
     /**
      * Description: 查询数字凭证的配置信息
-     * Summary: 数字商品服务-IP授权服务-数字凭证配置
+     * Summary: 数字商品服务-IP服务-UNI码配置查询
      */
     public QueryIpCodeinfoResponse queryIpCodeinfoEx(QueryIpCodeinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4930,8 +4930,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
-     * Summary: 数字商品服务-IP授权服务-查数字凭证
+     * Description: 数字商品服务-IP授权服务-可跳转小程序的数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+     * Summary: 数字商品服务-IP服务-UNI码查询
      */
     public PullIpCodeResponse pullIpCode(PullIpCodeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -4940,8 +4940,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-可跳转数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
-     * Summary: 数字商品服务-IP授权服务-查数字凭证
+     * Description: 数字商品服务-IP授权服务-可跳转小程序的数字凭证分页查询: 小程序可扫描的数字凭证分页查询。
+     * Summary: 数字商品服务-IP服务-UNI码查询
      */
     public PullIpCodeResponse pullIpCodeEx(PullIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -5045,7 +5045,7 @@ public class Client {
 
     /**
      * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
-     * Summary: 数字商品服务-IP授权服务-查收藏证书
+     * Summary: 数字商品服务-IP服务-查UNI收藏证书
      */
     public QueryIpCodecollectResponse queryIpCodecollect(QueryIpCodecollectRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -5055,7 +5055,7 @@ public class Client {
 
     /**
      * Description: 查询数字凭证收藏证书详情，主要包括该数字凭证对应的ip商品，流转信息，区块信息等
-     * Summary: 数字商品服务-IP授权服务-查收藏证书
+     * Summary: 数字商品服务-IP服务-查UNI收藏证书
      */
     public QueryIpCodecollectResponse queryIpCodecollectEx(QueryIpCodecollectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -5253,8 +5253,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
-     * Summary: 数字商品服务-IP授权服务-单码失效
+     * Description: 数字商品服务-IP服务-UNI码失效: 将UNI码失效,不可逆。
+     * Summary: 数字商品服务-IP服务-UNI码失效
      */
     public DisableIpCodeResponse disableIpCode(DisableIpCodeRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -5263,8 +5263,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字商品服务-IP授权服务-单码失效: 将UNI码失效,不可逆。
-     * Summary: 数字商品服务-IP授权服务-单码失效
+     * Description: 数字商品服务-IP服务-UNI码失效: 将UNI码失效,不可逆。
+     * Summary: 数字商品服务-IP服务-UNI码失效
      */
     public DisableIpCodeResponse disableIpCodeEx(DisableIpCodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -5273,7 +5273,7 @@ public class Client {
 
     /**
      * Description: 上传数字凭证的流转信息
-     * Summary: 数字商品服务-IP授权服务-上传流转信息
+     * Summary: 数字商品服务-IP服务-上传UNI流转
      */
     public UploadIpCodecirculationResponse uploadIpCodecirculation(UploadIpCodecirculationRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -5283,7 +5283,7 @@ public class Client {
 
     /**
      * Description: 上传数字凭证的流转信息
-     * Summary: 数字商品服务-IP授权服务-上传流转信息
+     * Summary: 数字商品服务-IP服务-上传UNI流转
      */
     public UploadIpCodecirculationResponse uploadIpCodecirculationEx(UploadIpCodecirculationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -5292,7 +5292,7 @@ public class Client {
 
     /**
      * Description: 分页查询数字凭证的流转信息
-     * Summary: 数字商品服务-IP授权服务-查询流转信息
+     * Summary: 数字商品服务-IP服务-查询UNI流转
      */
     public PagequeryIpCodecirculationResponse pagequeryIpCodecirculation(PagequeryIpCodecirculationRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -5302,7 +5302,7 @@ public class Client {
 
     /**
      * Description: 分页查询数字凭证的流转信息
-     * Summary: 数字商品服务-IP授权服务-查询流转信息
+     * Summary: 数字商品服务-IP服务-查询UNI流转
      */
     public PagequeryIpCodecirculationResponse pagequeryIpCodecirculationEx(PagequeryIpCodecirculationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -5326,6 +5326,25 @@ public class Client {
     public SignIpContractResponse signIpContractEx(SignIpContractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.contract.sign", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SignIpContractResponse());
+    }
+
+    /**
+     * Description: 查询UNI码小程序短链
+     * Summary: 数字商品服务-IP授权服务-UNI短链
+     */
+    public QueryIpCodeshortenurlResponse queryIpCodeshortenurl(QueryIpCodeshortenurlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpCodeshortenurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询UNI码小程序短链
+     * Summary: 数字商品服务-IP授权服务-UNI短链
+     */
+    public QueryIpCodeshortenurlResponse queryIpCodeshortenurlEx(QueryIpCodeshortenurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.codeshortenurl.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpCodeshortenurlResponse());
     }
 
     /**
