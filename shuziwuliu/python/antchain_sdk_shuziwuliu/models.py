@@ -23255,6 +23255,12 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
         car_loss: CarLoss = None,
         cargo_loss: CargoLoss = None,
         documents: List[Document] = None,
+        duty_work_no: str = None,
+        pkg_in_date: str = None,
+        pkg_out_date: str = None,
+        gen_work_date: str = None,
+        work_type: str = None,
+        is_star_station: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -23296,6 +23302,7 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
         # 损失预估总金额，单位（元），最多支持2位小数
         self.loss_estimate_total_amount = loss_estimate_total_amount
         # 投诉工单号，申请理赔所关联的投诉工单号，包裹出险可填
+        # 
         self.complaint_job_no = complaint_job_no
         # 快递公司，申请理赔所关联的快递公司名称，包裹出险可填
         self.courier_company = courier_company
@@ -23311,6 +23318,18 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
         self.cargo_loss = cargo_loss
         # 文档信息
         self.documents = documents
+        # 判责工单号
+        self.duty_work_no = duty_work_no
+        # 快递或包裹进入驿站仓储时间，yyyy-mm-dd hh:mm:ss
+        self.pkg_in_date = pkg_in_date
+        # 驿站针对快递或包裹的出库时间（配送上门传送待签收时间），yyyy-mm-dd hh:mm:ss
+        self.pkg_out_date = pkg_out_date
+        # 发票工单投诉时间，yyyy-mm-dd hh:mm:ss
+        self.gen_work_date = gen_work_date
+        # 工单类型
+        self.work_type = work_type
+        # 是否星级站点，0是，1否
+        self.is_star_station = is_star_station
 
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
@@ -23375,6 +23394,16 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
             for k in self.documents:
                 if k:
                     k.validate()
+        if self.duty_work_no is not None:
+            self.validate_max_length(self.duty_work_no, 'duty_work_no', 100)
+        if self.pkg_in_date is not None:
+            self.validate_max_length(self.pkg_in_date, 'pkg_in_date', 20)
+        if self.pkg_out_date is not None:
+            self.validate_max_length(self.pkg_out_date, 'pkg_out_date', 20)
+        if self.gen_work_date is not None:
+            self.validate_max_length(self.gen_work_date, 'gen_work_date', 20)
+        if self.work_type is not None:
+            self.validate_max_length(self.work_type, 'work_type', 20)
 
     def to_map(self):
         result = dict()
@@ -23432,6 +23461,18 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
         if self.documents is not None:
             for k in self.documents:
                 result['documents'].append(k.to_map() if k else None)
+        if self.duty_work_no is not None:
+            result['duty_work_no'] = self.duty_work_no
+        if self.pkg_in_date is not None:
+            result['pkg_in_date'] = self.pkg_in_date
+        if self.pkg_out_date is not None:
+            result['pkg_out_date'] = self.pkg_out_date
+        if self.gen_work_date is not None:
+            result['gen_work_date'] = self.gen_work_date
+        if self.work_type is not None:
+            result['work_type'] = self.work_type
+        if self.is_star_station is not None:
+            result['is_star_station'] = self.is_star_station
         return result
 
     def from_map(self, m: dict = None):
@@ -23495,6 +23536,18 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
             for k in m.get('documents'):
                 temp_model = Document()
                 self.documents.append(temp_model.from_map(k))
+        if m.get('duty_work_no') is not None:
+            self.duty_work_no = m.get('duty_work_no')
+        if m.get('pkg_in_date') is not None:
+            self.pkg_in_date = m.get('pkg_in_date')
+        if m.get('pkg_out_date') is not None:
+            self.pkg_out_date = m.get('pkg_out_date')
+        if m.get('gen_work_date') is not None:
+            self.gen_work_date = m.get('gen_work_date')
+        if m.get('work_type') is not None:
+            self.work_type = m.get('work_type')
+        if m.get('is_star_station') is not None:
+            self.is_star_station = m.get('is_star_station')
         return self
 
 
