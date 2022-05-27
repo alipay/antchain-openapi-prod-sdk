@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.3',
+    sdk_version = '1.1.1',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -234,6 +234,155 @@ async function recognizeAntiQrcodeacEx(request: RecognizeAntiQrcodeacRequest, he
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.mytc.anti.qrcodeac.recognize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitAntiImagesyncRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 防伪码类型标识,由蚂蚁侧分配
+  codeType: string(name='code_type'),
+  // 防伪码批次号
+  batchNo: string(name='batch_no'),
+  // 批次下要上传的防伪码总数
+  total: long(name='total'),
+}
+
+model InitAntiImagesyncResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批次号
+  batchNo?: string(name='batch_no'),
+  // 批次下的访问码总数
+  total?: string(name='total'),
+}
+
+/**
+ * Description: 防伪码平台防伪底图上传，初始化上传记录
+ * Summary: 防伪码平台防伪底图上传初始化
+ */
+async function initAntiImagesync(request: InitAntiImagesyncRequest): InitAntiImagesyncResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initAntiImagesyncEx(request, headers, runtime);
+}
+
+/**
+ * Description: 防伪码平台防伪底图上传，初始化上传记录
+ * Summary: 防伪码平台防伪底图上传初始化
+ */
+async function initAntiImagesyncEx(request: InitAntiImagesyncRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitAntiImagesyncResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.anti.imagesync.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAntiImagesyncRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 防伪码类型
+  codeType: string(name='code_type'),
+  // 防伪码码值
+  code: string(name='code'),
+  // 批次号码
+  batchNo: string(name='batch_no'),
+  // 文件id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId?: string(name='file_id'),
+}
+
+model UploadAntiImagesyncResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 防伪码码值
+  code?: string(name='code'),
+}
+
+/**
+ * Description: 防伪码图片上传
+ * Summary: 防伪码平台防伪码图片上传
+ */
+async function uploadAntiImagesync(request: UploadAntiImagesyncRequest): UploadAntiImagesyncResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAntiImagesyncEx(request, headers, runtime);
+}
+
+/**
+ * Description: 防伪码图片上传
+ * Summary: 防伪码平台防伪码图片上传
+ */
+async function uploadAntiImagesyncEx(request: UploadAntiImagesyncRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAntiImagesyncResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.mytc.anti.imagesync.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadAntiImagesyncResponse = new UploadAntiImagesyncResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadAntiImagesyncResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.anti.imagesync.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FinishAntiImagesyncRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批次号
+  batchNo: string(name='batch_no'),
+  // 防伪码类型
+  codeType: string(name='code_type'),
+}
+
+model FinishAntiImagesyncResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批次号
+  batchNo?: string(name='batch_no'),
+}
+
+/**
+ * Description: 防伪码平台防伪底图上传完成
+ * Summary: 防伪码平台防伪底图上传完成
+ */
+async function finishAntiImagesync(request: FinishAntiImagesyncRequest): FinishAntiImagesyncResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return finishAntiImagesyncEx(request, headers, runtime);
+}
+
+/**
+ * Description: 防伪码平台防伪底图上传完成
+ * Summary: 防伪码平台防伪底图上传完成
+ */
+async function finishAntiImagesyncEx(request: FinishAntiImagesyncRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FinishAntiImagesyncResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mytc.anti.imagesync.finish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
