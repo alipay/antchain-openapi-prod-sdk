@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.42"},
+                        {"sdk_version", "1.7.43"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.42"},
+                        {"sdk_version", "1.7.43"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -357,6 +357,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackArbitrationStatusResponse>(await DoRequestAsync("1.0", "twc.notary.arbitration.status.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 仲裁签署状态信息变更回调接口
+         * Summary: 仲裁签署状态信息变更回调接口
+         */
+        public CallbackArbitrationSignstatusResponse CallbackArbitrationSignstatus(CallbackArbitrationSignstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackArbitrationSignstatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 仲裁签署状态信息变更回调接口
+         * Summary: 仲裁签署状态信息变更回调接口
+         */
+        public async Task<CallbackArbitrationSignstatusResponse> CallbackArbitrationSignstatusAsync(CallbackArbitrationSignstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackArbitrationSignstatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 仲裁签署状态信息变更回调接口
+         * Summary: 仲裁签署状态信息变更回调接口
+         */
+        public CallbackArbitrationSignstatusResponse CallbackArbitrationSignstatusEx(CallbackArbitrationSignstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackArbitrationSignstatusResponse>(DoRequest("1.0", "twc.notary.arbitration.signstatus.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 仲裁签署状态信息变更回调接口
+         * Summary: 仲裁签署状态信息变更回调接口
+         */
+        public async Task<CallbackArbitrationSignstatusResponse> CallbackArbitrationSignstatusExAsync(CallbackArbitrationSignstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackArbitrationSignstatusResponse>(await DoRequestAsync("1.0", "twc.notary.arbitration.signstatus.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
