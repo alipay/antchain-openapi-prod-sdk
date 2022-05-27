@@ -44,6 +44,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? ScannedCount { get; set; }
 
+        // 小程序短链
+        [NameInMap("shorten_url")]
+        [Validation(Required=false)]
+        public string ShortenUrl { get; set; }
+
     }
 
 }

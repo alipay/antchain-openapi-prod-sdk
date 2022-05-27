@@ -38,6 +38,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? Count { get; set; }
 
+        // 占用预申请的起始编码--仅使用码池时有效
+        [NameInMap("start_index")]
+        [Validation(Required=false)]
+        public long? StartIndex { get; set; }
+
+        // 占用预申请的截止编码--仅使用码池时有效
+        [NameInMap("end_index")]
+        [Validation(Required=false)]
+        public long? EndIndex { get; set; }
+
     }
 
 }
