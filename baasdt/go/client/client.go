@@ -27634,6 +27634,10 @@ type ApplyIpCodeRequest struct {
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
 	// 申请数量
 	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// 占用预申请的起始编码--仅使用码池时有效
+	StartIndex *int64 `json:"start_index,omitempty" xml:"start_index,omitempty"`
+	// 占用预申请的截止编码--仅使用码池时有效
+	EndIndex *int64 `json:"end_index,omitempty" xml:"end_index,omitempty"`
 }
 
 func (s ApplyIpCodeRequest) String() string {
@@ -27671,6 +27675,16 @@ func (s *ApplyIpCodeRequest) SetOrderId(v string) *ApplyIpCodeRequest {
 
 func (s *ApplyIpCodeRequest) SetCount(v int64) *ApplyIpCodeRequest {
 	s.Count = &v
+	return s
+}
+
+func (s *ApplyIpCodeRequest) SetStartIndex(v int64) *ApplyIpCodeRequest {
+	s.StartIndex = &v
+	return s
+}
+
+func (s *ApplyIpCodeRequest) SetEndIndex(v int64) *ApplyIpCodeRequest {
+	s.EndIndex = &v
 	return s
 }
 
@@ -30385,6 +30399,8 @@ type QueryIpCodeResponse struct {
 	ScannedInfoList []*IPSimpleScannedInfo `json:"scanned_info_list,omitempty" xml:"scanned_info_list,omitempty" type:"Repeated"`
 	// 扫码次数
 	ScannedCount *int64 `json:"scanned_count,omitempty" xml:"scanned_count,omitempty"`
+	// 小程序短链
+	ShortenUrl *string `json:"shorten_url,omitempty" xml:"shorten_url,omitempty"`
 }
 
 func (s QueryIpCodeResponse) String() string {
@@ -30427,6 +30443,11 @@ func (s *QueryIpCodeResponse) SetScannedInfoList(v []*IPSimpleScannedInfo) *Quer
 
 func (s *QueryIpCodeResponse) SetScannedCount(v int64) *QueryIpCodeResponse {
 	s.ScannedCount = &v
+	return s
+}
+
+func (s *QueryIpCodeResponse) SetShortenUrl(v string) *QueryIpCodeResponse {
+	s.ShortenUrl = &v
 	return s
 }
 
@@ -37964,7 +37985,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.62"),
+				"sdk_version":      tea.String("1.3.64"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
