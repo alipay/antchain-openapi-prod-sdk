@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.42',
+    sdk_version = '1.7.43',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1911,6 +1911,54 @@ async function callbackArbitrationStatus(request: CallbackArbitrationStatusReque
 async function callbackArbitrationStatusEx(request: CallbackArbitrationStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackArbitrationStatusResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.arbitration.status.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackArbitrationSignstatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 案件号
+  caseNo: string(name='case_no'),
+  // 签署文件代码 01 申请书 04 撤案申请书
+  docCode: string(name='doc_code'),
+  // 处理结果码 10000成功 其余都是签署失败
+  resCode: string(name='res_code'),
+  // 失败原因
+  message: string(name='message'),
+  // 发送时间 yyyy-MM-dd
+  sendTime: string(name='send_time'),
+  // 签名,采用公钥验签
+  signature: string(name='signature'),
+}
+
+model CallbackArbitrationSignstatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否处理回调成功 true成功
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 仲裁签署状态信息变更回调接口
+ * Summary: 仲裁签署状态信息变更回调接口
+ */
+async function callbackArbitrationSignstatus(request: CallbackArbitrationSignstatusRequest): CallbackArbitrationSignstatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackArbitrationSignstatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 仲裁签署状态信息变更回调接口
+ * Summary: 仲裁签署状态信息变更回调接口
+ */
+async function callbackArbitrationSignstatusEx(request: CallbackArbitrationSignstatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackArbitrationSignstatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.arbitration.signstatus.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateContractAccountRequest = {
