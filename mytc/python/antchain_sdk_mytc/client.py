@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.1.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.1.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -357,6 +357,202 @@ class Client:
         UtilClient.validate_model(request)
         return mytc_models.RecognizeAntiQrcodeacResponse().from_map(
             await self.do_request_async('1.0', 'antchain.mytc.anti.qrcodeac.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_anti_imagesync(
+        self,
+        request: mytc_models.InitAntiImagesyncRequest,
+    ) -> mytc_models.InitAntiImagesyncResponse:
+        """
+        Description: 防伪码平台防伪底图上传，初始化上传记录
+        Summary: 防伪码平台防伪底图上传初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_anti_imagesync_ex(request, headers, runtime)
+
+    async def init_anti_imagesync_async(
+        self,
+        request: mytc_models.InitAntiImagesyncRequest,
+    ) -> mytc_models.InitAntiImagesyncResponse:
+        """
+        Description: 防伪码平台防伪底图上传，初始化上传记录
+        Summary: 防伪码平台防伪底图上传初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_anti_imagesync_ex_async(request, headers, runtime)
+
+    def init_anti_imagesync_ex(
+        self,
+        request: mytc_models.InitAntiImagesyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.InitAntiImagesyncResponse:
+        """
+        Description: 防伪码平台防伪底图上传，初始化上传记录
+        Summary: 防伪码平台防伪底图上传初始化
+        """
+        UtilClient.validate_model(request)
+        return mytc_models.InitAntiImagesyncResponse().from_map(
+            self.do_request('1.0', 'antchain.mytc.anti.imagesync.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_anti_imagesync_ex_async(
+        self,
+        request: mytc_models.InitAntiImagesyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.InitAntiImagesyncResponse:
+        """
+        Description: 防伪码平台防伪底图上传，初始化上传记录
+        Summary: 防伪码平台防伪底图上传初始化
+        """
+        UtilClient.validate_model(request)
+        return mytc_models.InitAntiImagesyncResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.mytc.anti.imagesync.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_anti_imagesync(
+        self,
+        request: mytc_models.UploadAntiImagesyncRequest,
+    ) -> mytc_models.UploadAntiImagesyncResponse:
+        """
+        Description: 防伪码图片上传
+        Summary: 防伪码平台防伪码图片上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_anti_imagesync_ex(request, headers, runtime)
+
+    async def upload_anti_imagesync_async(
+        self,
+        request: mytc_models.UploadAntiImagesyncRequest,
+    ) -> mytc_models.UploadAntiImagesyncResponse:
+        """
+        Description: 防伪码图片上传
+        Summary: 防伪码平台防伪码图片上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_anti_imagesync_ex_async(request, headers, runtime)
+
+    def upload_anti_imagesync_ex(
+        self,
+        request: mytc_models.UploadAntiImagesyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.UploadAntiImagesyncResponse:
+        """
+        Description: 防伪码图片上传
+        Summary: 防伪码平台防伪码图片上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = mytc_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.mytc.anti.imagesync.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_anti_imagesync_response = mytc_models.UploadAntiImagesyncResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_anti_imagesync_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return mytc_models.UploadAntiImagesyncResponse().from_map(
+            self.do_request('1.0', 'antchain.mytc.anti.imagesync.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_anti_imagesync_ex_async(
+        self,
+        request: mytc_models.UploadAntiImagesyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.UploadAntiImagesyncResponse:
+        """
+        Description: 防伪码图片上传
+        Summary: 防伪码平台防伪码图片上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = mytc_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.mytc.anti.imagesync.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_anti_imagesync_response = mytc_models.UploadAntiImagesyncResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_anti_imagesync_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return mytc_models.UploadAntiImagesyncResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.mytc.anti.imagesync.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def finish_anti_imagesync(
+        self,
+        request: mytc_models.FinishAntiImagesyncRequest,
+    ) -> mytc_models.FinishAntiImagesyncResponse:
+        """
+        Description: 防伪码平台防伪底图上传完成
+        Summary: 防伪码平台防伪底图上传完成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.finish_anti_imagesync_ex(request, headers, runtime)
+
+    async def finish_anti_imagesync_async(
+        self,
+        request: mytc_models.FinishAntiImagesyncRequest,
+    ) -> mytc_models.FinishAntiImagesyncResponse:
+        """
+        Description: 防伪码平台防伪底图上传完成
+        Summary: 防伪码平台防伪底图上传完成
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.finish_anti_imagesync_ex_async(request, headers, runtime)
+
+    def finish_anti_imagesync_ex(
+        self,
+        request: mytc_models.FinishAntiImagesyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.FinishAntiImagesyncResponse:
+        """
+        Description: 防伪码平台防伪底图上传完成
+        Summary: 防伪码平台防伪底图上传完成
+        """
+        UtilClient.validate_model(request)
+        return mytc_models.FinishAntiImagesyncResponse().from_map(
+            self.do_request('1.0', 'antchain.mytc.anti.imagesync.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def finish_anti_imagesync_ex_async(
+        self,
+        request: mytc_models.FinishAntiImagesyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mytc_models.FinishAntiImagesyncResponse:
+        """
+        Description: 防伪码平台防伪底图上传完成
+        Summary: 防伪码平台防伪底图上传完成
+        """
+        UtilClient.validate_model(request)
+        return mytc_models.FinishAntiImagesyncResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.mytc.anti.imagesync.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
