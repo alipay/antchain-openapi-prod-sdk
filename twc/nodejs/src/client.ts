@@ -4405,6 +4405,85 @@ export class CallbackArbitrationStatusResponse extends $tea.Model {
   }
 }
 
+export class CallbackArbitrationSignstatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 案件号
+  caseNo: string;
+  // 签署文件代码 01 申请书 04 撤案申请书
+  docCode: string;
+  // 处理结果码 10000成功 其余都是签署失败
+  resCode: string;
+  // 失败原因
+  message: string;
+  // 发送时间 yyyy-MM-dd
+  sendTime: string;
+  // 签名,采用公钥验签
+  signature: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      caseNo: 'case_no',
+      docCode: 'doc_code',
+      resCode: 'res_code',
+      message: 'message',
+      sendTime: 'send_time',
+      signature: 'signature',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      caseNo: 'string',
+      docCode: 'string',
+      resCode: 'string',
+      message: 'string',
+      sendTime: 'string',
+      signature: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackArbitrationSignstatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否处理回调成功 true成功
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateContractAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -24981,7 +25060,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.42",
+          sdk_version: "1.7.43",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -25044,6 +25123,25 @@ export default class Client {
   async callbackArbitrationStatusEx(request: CallbackArbitrationStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackArbitrationStatusResponse> {
     Util.validateModel(request);
     return $tea.cast<CallbackArbitrationStatusResponse>(await this.doRequest("1.0", "twc.notary.arbitration.status.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackArbitrationStatusResponse({}));
+  }
+
+  /**
+   * Description: 仲裁签署状态信息变更回调接口
+   * Summary: 仲裁签署状态信息变更回调接口
+   */
+  async callbackArbitrationSignstatus(request: CallbackArbitrationSignstatusRequest): Promise<CallbackArbitrationSignstatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackArbitrationSignstatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 仲裁签署状态信息变更回调接口
+   * Summary: 仲裁签署状态信息变更回调接口
+   */
+  async callbackArbitrationSignstatusEx(request: CallbackArbitrationSignstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackArbitrationSignstatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackArbitrationSignstatusResponse>(await this.doRequest("1.0", "twc.notary.arbitration.signstatus.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackArbitrationSignstatusResponse({}));
   }
 
   /**
