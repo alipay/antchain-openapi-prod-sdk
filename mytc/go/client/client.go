@@ -294,6 +294,279 @@ func (s *RecognizeAntiQrcodeacResponse) SetEncryptData(v string) *RecognizeAntiQ
 	return s
 }
 
+type InitAntiImagesyncRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 防伪码类型标识,由蚂蚁侧分配
+	CodeType *string `json:"code_type,omitempty" xml:"code_type,omitempty" require:"true"`
+	// 防伪码批次号
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty" require:"true"`
+	// 批次下要上传的防伪码总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+}
+
+func (s InitAntiImagesyncRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitAntiImagesyncRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitAntiImagesyncRequest) SetAuthToken(v string) *InitAntiImagesyncRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitAntiImagesyncRequest) SetProductInstanceId(v string) *InitAntiImagesyncRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitAntiImagesyncRequest) SetCodeType(v string) *InitAntiImagesyncRequest {
+	s.CodeType = &v
+	return s
+}
+
+func (s *InitAntiImagesyncRequest) SetBatchNo(v string) *InitAntiImagesyncRequest {
+	s.BatchNo = &v
+	return s
+}
+
+func (s *InitAntiImagesyncRequest) SetTotal(v int64) *InitAntiImagesyncRequest {
+	s.Total = &v
+	return s
+}
+
+type InitAntiImagesyncResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 批次号
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty"`
+	// 批次下的访问码总数
+	Total *string `json:"total,omitempty" xml:"total,omitempty"`
+}
+
+func (s InitAntiImagesyncResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitAntiImagesyncResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitAntiImagesyncResponse) SetReqMsgId(v string) *InitAntiImagesyncResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitAntiImagesyncResponse) SetResultCode(v string) *InitAntiImagesyncResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitAntiImagesyncResponse) SetResultMsg(v string) *InitAntiImagesyncResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitAntiImagesyncResponse) SetBatchNo(v string) *InitAntiImagesyncResponse {
+	s.BatchNo = &v
+	return s
+}
+
+func (s *InitAntiImagesyncResponse) SetTotal(v string) *InitAntiImagesyncResponse {
+	s.Total = &v
+	return s
+}
+
+type UploadAntiImagesyncRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 防伪码类型
+	CodeType *string `json:"code_type,omitempty" xml:"code_type,omitempty" require:"true"`
+	// 防伪码码值
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 批次号码
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty" require:"true"`
+	// 文件id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+}
+
+func (s UploadAntiImagesyncRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAntiImagesyncRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAntiImagesyncRequest) SetAuthToken(v string) *UploadAntiImagesyncRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadAntiImagesyncRequest) SetProductInstanceId(v string) *UploadAntiImagesyncRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadAntiImagesyncRequest) SetCodeType(v string) *UploadAntiImagesyncRequest {
+	s.CodeType = &v
+	return s
+}
+
+func (s *UploadAntiImagesyncRequest) SetCode(v string) *UploadAntiImagesyncRequest {
+	s.Code = &v
+	return s
+}
+
+func (s *UploadAntiImagesyncRequest) SetBatchNo(v string) *UploadAntiImagesyncRequest {
+	s.BatchNo = &v
+	return s
+}
+
+func (s *UploadAntiImagesyncRequest) SetFileObject(v io.Reader) *UploadAntiImagesyncRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadAntiImagesyncRequest) SetFileObjectName(v string) *UploadAntiImagesyncRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadAntiImagesyncRequest) SetFileId(v string) *UploadAntiImagesyncRequest {
+	s.FileId = &v
+	return s
+}
+
+type UploadAntiImagesyncResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 防伪码码值
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+}
+
+func (s UploadAntiImagesyncResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAntiImagesyncResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAntiImagesyncResponse) SetReqMsgId(v string) *UploadAntiImagesyncResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadAntiImagesyncResponse) SetResultCode(v string) *UploadAntiImagesyncResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadAntiImagesyncResponse) SetResultMsg(v string) *UploadAntiImagesyncResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadAntiImagesyncResponse) SetCode(v string) *UploadAntiImagesyncResponse {
+	s.Code = &v
+	return s
+}
+
+type FinishAntiImagesyncRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 批次号
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty" require:"true"`
+	// 防伪码类型
+	CodeType *string `json:"code_type,omitempty" xml:"code_type,omitempty" require:"true"`
+}
+
+func (s FinishAntiImagesyncRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishAntiImagesyncRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FinishAntiImagesyncRequest) SetAuthToken(v string) *FinishAntiImagesyncRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FinishAntiImagesyncRequest) SetProductInstanceId(v string) *FinishAntiImagesyncRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *FinishAntiImagesyncRequest) SetBatchNo(v string) *FinishAntiImagesyncRequest {
+	s.BatchNo = &v
+	return s
+}
+
+func (s *FinishAntiImagesyncRequest) SetCodeType(v string) *FinishAntiImagesyncRequest {
+	s.CodeType = &v
+	return s
+}
+
+type FinishAntiImagesyncResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 批次号
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty"`
+}
+
+func (s FinishAntiImagesyncResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishAntiImagesyncResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FinishAntiImagesyncResponse) SetReqMsgId(v string) *FinishAntiImagesyncResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FinishAntiImagesyncResponse) SetResultCode(v string) *FinishAntiImagesyncResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FinishAntiImagesyncResponse) SetResultMsg(v string) *FinishAntiImagesyncResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *FinishAntiImagesyncResponse) SetBatchNo(v string) *FinishAntiImagesyncResponse {
+	s.BatchNo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -536,7 +809,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.1.1"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -640,6 +913,137 @@ func (client *Client) RecognizeAntiQrcodeacEx(request *RecognizeAntiQrcodeacRequ
 	}
 	_result = &RecognizeAntiQrcodeacResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mytc.anti.qrcodeac.recognize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 防伪码平台防伪底图上传，初始化上传记录
+ * Summary: 防伪码平台防伪底图上传初始化
+ */
+func (client *Client) InitAntiImagesync(request *InitAntiImagesyncRequest) (_result *InitAntiImagesyncResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitAntiImagesyncResponse{}
+	_body, _err := client.InitAntiImagesyncEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 防伪码平台防伪底图上传，初始化上传记录
+ * Summary: 防伪码平台防伪底图上传初始化
+ */
+func (client *Client) InitAntiImagesyncEx(request *InitAntiImagesyncRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitAntiImagesyncResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitAntiImagesyncResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mytc.anti.imagesync.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 防伪码图片上传
+ * Summary: 防伪码平台防伪码图片上传
+ */
+func (client *Client) UploadAntiImagesync(request *UploadAntiImagesyncRequest) (_result *UploadAntiImagesyncResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadAntiImagesyncResponse{}
+	_body, _err := client.UploadAntiImagesyncEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 防伪码图片上传
+ * Summary: 防伪码平台防伪码图片上传
+ */
+func (client *Client) UploadAntiImagesyncEx(request *UploadAntiImagesyncRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAntiImagesyncResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antchain.mytc.anti.imagesync.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadAntiImagesyncResponse := &UploadAntiImagesyncResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadAntiImagesyncResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadAntiImagesyncResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mytc.anti.imagesync.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 防伪码平台防伪底图上传完成
+ * Summary: 防伪码平台防伪底图上传完成
+ */
+func (client *Client) FinishAntiImagesync(request *FinishAntiImagesyncRequest) (_result *FinishAntiImagesyncResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FinishAntiImagesyncResponse{}
+	_body, _err := client.FinishAntiImagesyncEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 防伪码平台防伪底图上传完成
+ * Summary: 防伪码平台防伪底图上传完成
+ */
+func (client *Client) FinishAntiImagesyncEx(request *FinishAntiImagesyncRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FinishAntiImagesyncResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FinishAntiImagesyncResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mytc.anti.imagesync.finish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
