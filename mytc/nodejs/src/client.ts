@@ -188,6 +188,217 @@ export class RecognizeAntiQrcodeacResponse extends $tea.Model {
   }
 }
 
+export class InitAntiImagesyncRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 防伪码类型标识,由蚂蚁侧分配
+  codeType: string;
+  // 防伪码批次号
+  batchNo: string;
+  // 批次下要上传的防伪码总数
+  total: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      codeType: 'code_type',
+      batchNo: 'batch_no',
+      total: 'total',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      codeType: 'string',
+      batchNo: 'string',
+      total: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitAntiImagesyncResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 批次号
+  batchNo?: string;
+  // 批次下的访问码总数
+  total?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      batchNo: 'batch_no',
+      total: 'total',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      batchNo: 'string',
+      total: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAntiImagesyncRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 防伪码类型
+  codeType: string;
+  // 防伪码码值
+  code: string;
+  // 批次号码
+  batchNo: string;
+  // 文件id
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      codeType: 'code_type',
+      code: 'code',
+      batchNo: 'batch_no',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      codeType: 'string',
+      code: 'string',
+      batchNo: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAntiImagesyncResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 防伪码码值
+  code?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FinishAntiImagesyncRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 批次号
+  batchNo: string;
+  // 防伪码类型
+  codeType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      batchNo: 'batch_no',
+      codeType: 'code_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      batchNo: 'string',
+      codeType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FinishAntiImagesyncResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 批次号
+  batchNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      batchNo: 'batch_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      batchNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -389,7 +600,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.3",
+          sdk_version: "1.1.1",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -473,6 +684,84 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<RecognizeAntiQrcodeacResponse>(await this.doRequest("1.0", "antchain.mytc.anti.qrcodeac.recognize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RecognizeAntiQrcodeacResponse({}));
+  }
+
+  /**
+   * Description: 防伪码平台防伪底图上传，初始化上传记录
+   * Summary: 防伪码平台防伪底图上传初始化
+   */
+  async initAntiImagesync(request: InitAntiImagesyncRequest): Promise<InitAntiImagesyncResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initAntiImagesyncEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 防伪码平台防伪底图上传，初始化上传记录
+   * Summary: 防伪码平台防伪底图上传初始化
+   */
+  async initAntiImagesyncEx(request: InitAntiImagesyncRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitAntiImagesyncResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitAntiImagesyncResponse>(await this.doRequest("1.0", "antchain.mytc.anti.imagesync.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitAntiImagesyncResponse({}));
+  }
+
+  /**
+   * Description: 防伪码图片上传
+   * Summary: 防伪码平台防伪码图片上传
+   */
+  async uploadAntiImagesync(request: UploadAntiImagesyncRequest): Promise<UploadAntiImagesyncResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadAntiImagesyncEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 防伪码图片上传
+   * Summary: 防伪码平台防伪码图片上传
+   */
+  async uploadAntiImagesyncEx(request: UploadAntiImagesyncRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadAntiImagesyncResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antchain.mytc.anti.imagesync.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadAntiImagesyncResponse = new UploadAntiImagesyncResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadAntiImagesyncResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadAntiImagesyncResponse>(await this.doRequest("1.0", "antchain.mytc.anti.imagesync.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadAntiImagesyncResponse({}));
+  }
+
+  /**
+   * Description: 防伪码平台防伪底图上传完成
+   * Summary: 防伪码平台防伪底图上传完成
+   */
+  async finishAntiImagesync(request: FinishAntiImagesyncRequest): Promise<FinishAntiImagesyncResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.finishAntiImagesyncEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 防伪码平台防伪底图上传完成
+   * Summary: 防伪码平台防伪底图上传完成
+   */
+  async finishAntiImagesyncEx(request: FinishAntiImagesyncRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FinishAntiImagesyncResponse> {
+    Util.validateModel(request);
+    return $tea.cast<FinishAntiImagesyncResponse>(await this.doRequest("1.0", "antchain.mytc.anti.imagesync.finish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FinishAntiImagesyncResponse({}));
   }
 
   /**
