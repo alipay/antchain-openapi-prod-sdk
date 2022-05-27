@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.42'
+                    'sdk_version': '1.7.43'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.42'
+                    'sdk_version': '1.7.43'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -323,6 +323,60 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.CallbackArbitrationStatusResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.arbitration.status.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_arbitration_signstatus(
+        self,
+        request: twc_models.CallbackArbitrationSignstatusRequest,
+    ) -> twc_models.CallbackArbitrationSignstatusResponse:
+        """
+        Description: 仲裁签署状态信息变更回调接口
+        Summary: 仲裁签署状态信息变更回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_arbitration_signstatus_ex(request, headers, runtime)
+
+    async def callback_arbitration_signstatus_async(
+        self,
+        request: twc_models.CallbackArbitrationSignstatusRequest,
+    ) -> twc_models.CallbackArbitrationSignstatusResponse:
+        """
+        Description: 仲裁签署状态信息变更回调接口
+        Summary: 仲裁签署状态信息变更回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_arbitration_signstatus_ex_async(request, headers, runtime)
+
+    def callback_arbitration_signstatus_ex(
+        self,
+        request: twc_models.CallbackArbitrationSignstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CallbackArbitrationSignstatusResponse:
+        """
+        Description: 仲裁签署状态信息变更回调接口
+        Summary: 仲裁签署状态信息变更回调接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CallbackArbitrationSignstatusResponse().from_map(
+            self.do_request('1.0', 'twc.notary.arbitration.signstatus.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_arbitration_signstatus_ex_async(
+        self,
+        request: twc_models.CallbackArbitrationSignstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CallbackArbitrationSignstatusResponse:
+        """
+        Description: 仲裁签署状态信息变更回调接口
+        Summary: 仲裁签署状态信息变更回调接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CallbackArbitrationSignstatusResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.arbitration.signstatus.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_contract_account(
