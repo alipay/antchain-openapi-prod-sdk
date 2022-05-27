@@ -20664,6 +20664,10 @@ export class ApplyIpCodeRequest extends $tea.Model {
   orderId: string;
   // 申请数量
   count: number;
+  // 占用预申请的起始编码--仅使用码池时有效
+  startIndex?: number;
+  // 占用预申请的截止编码--仅使用码池时有效
+  endIndex?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -20672,6 +20676,8 @@ export class ApplyIpCodeRequest extends $tea.Model {
       accountId: 'account_id',
       orderId: 'order_id',
       count: 'count',
+      startIndex: 'start_index',
+      endIndex: 'end_index',
     };
   }
 
@@ -20683,6 +20689,8 @@ export class ApplyIpCodeRequest extends $tea.Model {
       accountId: 'string',
       orderId: 'string',
       count: 'number',
+      startIndex: 'number',
+      endIndex: 'number',
     };
   }
 
@@ -22760,6 +22768,8 @@ export class QueryIpCodeResponse extends $tea.Model {
   scannedInfoList?: IPSimpleScannedInfo[];
   // 扫码次数
   scannedCount?: number;
+  // 小程序短链
+  shortenUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -22769,6 +22779,7 @@ export class QueryIpCodeResponse extends $tea.Model {
       firstScannedInfo: 'first_scanned_info',
       scannedInfoList: 'scanned_info_list',
       scannedCount: 'scanned_count',
+      shortenUrl: 'shorten_url',
     };
   }
 
@@ -22781,6 +22792,7 @@ export class QueryIpCodeResponse extends $tea.Model {
       firstScannedInfo: IPSimpleScannedInfo,
       scannedInfoList: { 'type': 'array', 'itemType': IPSimpleScannedInfo },
       scannedCount: 'number',
+      shortenUrl: 'string',
     };
   }
 
@@ -28413,7 +28425,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.62",
+          sdk_version: "1.3.64",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
