@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.3")
+                    new TeaPair("sdk_version", "1.1.1")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -197,6 +197,84 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.anti.qrcodeac.recognize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RecognizeAntiQrcodeacResponse());
+    }
+
+    /**
+     * Description: 防伪码平台防伪底图上传，初始化上传记录
+     * Summary: 防伪码平台防伪底图上传初始化
+     */
+    public InitAntiImagesyncResponse initAntiImagesync(InitAntiImagesyncRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initAntiImagesyncEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 防伪码平台防伪底图上传，初始化上传记录
+     * Summary: 防伪码平台防伪底图上传初始化
+     */
+    public InitAntiImagesyncResponse initAntiImagesyncEx(InitAntiImagesyncRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.anti.imagesync.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitAntiImagesyncResponse());
+    }
+
+    /**
+     * Description: 防伪码图片上传
+     * Summary: 防伪码平台防伪码图片上传
+     */
+    public UploadAntiImagesyncResponse uploadAntiImagesync(UploadAntiImagesyncRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAntiImagesyncEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 防伪码图片上传
+     * Summary: 防伪码平台防伪码图片上传
+     */
+    public UploadAntiImagesyncResponse uploadAntiImagesyncEx(UploadAntiImagesyncRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antchain.mytc.anti.imagesync.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadAntiImagesyncResponse uploadAntiImagesyncResponse = UploadAntiImagesyncResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadAntiImagesyncResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.anti.imagesync.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAntiImagesyncResponse());
+    }
+
+    /**
+     * Description: 防伪码平台防伪底图上传完成
+     * Summary: 防伪码平台防伪底图上传完成
+     */
+    public FinishAntiImagesyncResponse finishAntiImagesync(FinishAntiImagesyncRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.finishAntiImagesyncEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 防伪码平台防伪底图上传完成
+     * Summary: 防伪码平台防伪底图上传完成
+     */
+    public FinishAntiImagesyncResponse finishAntiImagesyncEx(FinishAntiImagesyncRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mytc.anti.imagesync.finish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FinishAntiImagesyncResponse());
     }
 
     /**
