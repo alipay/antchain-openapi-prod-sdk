@@ -13,8 +13,14 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\MYTC\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\MYTC\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\MYTC\Models\FinishAntiImagesyncRequest;
+use AntChain\MYTC\Models\FinishAntiImagesyncResponse;
+use AntChain\MYTC\Models\InitAntiImagesyncRequest;
+use AntChain\MYTC\Models\InitAntiImagesyncResponse;
 use AntChain\MYTC\Models\RecognizeAntiQrcodeacRequest;
 use AntChain\MYTC\Models\RecognizeAntiQrcodeacResponse;
+use AntChain\MYTC\Models\UploadAntiImagesyncRequest;
+use AntChain\MYTC\Models\UploadAntiImagesyncResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -162,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.3',
+                    'sdk_version'      => '1.1.1',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -257,6 +263,123 @@ class Client
         Utils::validateModel($request);
 
         return RecognizeAntiQrcodeacResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.anti.qrcodeac.recognize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 防伪码平台防伪底图上传，初始化上传记录
+     * Summary: 防伪码平台防伪底图上传初始化.
+     *
+     * @param InitAntiImagesyncRequest $request
+     *
+     * @return InitAntiImagesyncResponse
+     */
+    public function initAntiImagesync($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initAntiImagesyncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 防伪码平台防伪底图上传，初始化上传记录
+     * Summary: 防伪码平台防伪底图上传初始化.
+     *
+     * @param InitAntiImagesyncRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return InitAntiImagesyncResponse
+     */
+    public function initAntiImagesyncEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitAntiImagesyncResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.anti.imagesync.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 防伪码图片上传
+     * Summary: 防伪码平台防伪码图片上传.
+     *
+     * @param UploadAntiImagesyncRequest $request
+     *
+     * @return UploadAntiImagesyncResponse
+     */
+    public function uploadAntiImagesync($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAntiImagesyncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 防伪码图片上传
+     * Summary: 防伪码平台防伪码图片上传.
+     *
+     * @param UploadAntiImagesyncRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UploadAntiImagesyncResponse
+     */
+    public function uploadAntiImagesyncEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.mytc.anti.imagesync.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadAntiImagesyncResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadAntiImagesyncResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.anti.imagesync.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 防伪码平台防伪底图上传完成
+     * Summary: 防伪码平台防伪底图上传完成.
+     *
+     * @param FinishAntiImagesyncRequest $request
+     *
+     * @return FinishAntiImagesyncResponse
+     */
+    public function finishAntiImagesync($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->finishAntiImagesyncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 防伪码平台防伪底图上传完成
+     * Summary: 防伪码平台防伪底图上传完成.
+     *
+     * @param FinishAntiImagesyncRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return FinishAntiImagesyncResponse
+     */
+    public function finishAntiImagesyncEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FinishAntiImagesyncResponse::fromMap($this->doRequest('1.0', 'antchain.mytc.anti.imagesync.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
