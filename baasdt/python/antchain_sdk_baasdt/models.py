@@ -32675,6 +32675,8 @@ class ApplyIpCodeRequest(TeaModel):
         account_id: str = None,
         order_id: str = None,
         count: int = None,
+        start_index: int = None,
+        end_index: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -32687,6 +32689,10 @@ class ApplyIpCodeRequest(TeaModel):
         self.order_id = order_id
         # 申请数量
         self.count = count
+        # 占用预申请的起始编码--仅使用码池时有效
+        self.start_index = start_index
+        # 占用预申请的截止编码--仅使用码池时有效
+        self.end_index = end_index
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -32710,6 +32716,10 @@ class ApplyIpCodeRequest(TeaModel):
             result['order_id'] = self.order_id
         if self.count is not None:
             result['count'] = self.count
+        if self.start_index is not None:
+            result['start_index'] = self.start_index
+        if self.end_index is not None:
+            result['end_index'] = self.end_index
         return result
 
     def from_map(self, m: dict = None):
@@ -32727,6 +32737,10 @@ class ApplyIpCodeRequest(TeaModel):
             self.order_id = m.get('order_id')
         if m.get('count') is not None:
             self.count = m.get('count')
+        if m.get('start_index') is not None:
+            self.start_index = m.get('start_index')
+        if m.get('end_index') is not None:
+            self.end_index = m.get('end_index')
         return self
 
 
@@ -36043,6 +36057,7 @@ class QueryIpCodeResponse(TeaModel):
         first_scanned_info: IPSimpleScannedInfo = None,
         scanned_info_list: List[IPSimpleScannedInfo] = None,
         scanned_count: int = None,
+        shorten_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -36058,6 +36073,8 @@ class QueryIpCodeResponse(TeaModel):
         self.scanned_info_list = scanned_info_list
         # 扫码次数
         self.scanned_count = scanned_count
+        # 小程序短链
+        self.shorten_url = shorten_url
 
     def validate(self):
         if self.code_info:
@@ -36087,6 +36104,8 @@ class QueryIpCodeResponse(TeaModel):
                 result['scanned_info_list'].append(k.to_map() if k else None)
         if self.scanned_count is not None:
             result['scanned_count'] = self.scanned_count
+        if self.shorten_url is not None:
+            result['shorten_url'] = self.shorten_url
         return result
 
     def from_map(self, m: dict = None):
@@ -36110,6 +36129,8 @@ class QueryIpCodeResponse(TeaModel):
                 self.scanned_info_list.append(temp_model.from_map(k))
         if m.get('scanned_count') is not None:
             self.scanned_count = m.get('scanned_count')
+        if m.get('shorten_url') is not None:
+            self.shorten_url = m.get('shorten_url')
         return self
 
 
