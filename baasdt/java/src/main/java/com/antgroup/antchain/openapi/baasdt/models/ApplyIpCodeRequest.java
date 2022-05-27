@@ -31,6 +31,14 @@ public class ApplyIpCodeRequest extends TeaModel {
     @Validation(required = true)
     public Long count;
 
+    // 占用预申请的起始编码--仅使用码池时有效
+    @NameInMap("start_index")
+    public Long startIndex;
+
+    // 占用预申请的截止编码--仅使用码池时有效
+    @NameInMap("end_index")
+    public Long endIndex;
+
     public static ApplyIpCodeRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyIpCodeRequest self = new ApplyIpCodeRequest();
         return TeaModel.build(map, self);
@@ -82,6 +90,22 @@ public class ApplyIpCodeRequest extends TeaModel {
     }
     public Long getCount() {
         return this.count;
+    }
+
+    public ApplyIpCodeRequest setStartIndex(Long startIndex) {
+        this.startIndex = startIndex;
+        return this;
+    }
+    public Long getStartIndex() {
+        return this.startIndex;
+    }
+
+    public ApplyIpCodeRequest setEndIndex(Long endIndex) {
+        this.endIndex = endIndex;
+        return this;
+    }
+    public Long getEndIndex() {
+        return this.endIndex;
     }
 
 }

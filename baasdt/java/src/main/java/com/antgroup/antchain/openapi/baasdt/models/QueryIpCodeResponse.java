@@ -32,6 +32,10 @@ public class QueryIpCodeResponse extends TeaModel {
     @NameInMap("scanned_count")
     public Long scannedCount;
 
+    // 小程序短链
+    @NameInMap("shorten_url")
+    public String shortenUrl;
+
     public static QueryIpCodeResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryIpCodeResponse self = new QueryIpCodeResponse();
         return TeaModel.build(map, self);
@@ -91,6 +95,14 @@ public class QueryIpCodeResponse extends TeaModel {
     }
     public Long getScannedCount() {
         return this.scannedCount;
+    }
+
+    public QueryIpCodeResponse setShortenUrl(String shortenUrl) {
+        this.shortenUrl = shortenUrl;
+        return this;
+    }
+    public String getShortenUrl() {
+        return this.shortenUrl;
     }
 
 }
