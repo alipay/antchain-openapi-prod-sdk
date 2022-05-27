@@ -43,6 +43,8 @@ use AntChain\TWC\Models\AuthWitnessFlowRequest;
 use AntChain\TWC\Models\AuthWitnessFlowResponse;
 use AntChain\TWC\Models\BindContractMerchantRequest;
 use AntChain\TWC\Models\BindContractMerchantResponse;
+use AntChain\TWC\Models\CallbackArbitrationSignstatusRequest;
+use AntChain\TWC\Models\CallbackArbitrationSignstatusResponse;
 use AntChain\TWC\Models\CallbackArbitrationStatusRequest;
 use AntChain\TWC\Models\CallbackArbitrationStatusResponse;
 use AntChain\TWC\Models\CancelContractPaysingletradeRequest;
@@ -636,7 +638,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.42',
+                    'sdk_version'      => '1.7.43',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -713,6 +715,39 @@ class Client
         Utils::validateModel($request);
 
         return CallbackArbitrationStatusResponse::fromMap($this->doRequest('1.0', 'twc.notary.arbitration.status.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 仲裁签署状态信息变更回调接口
+     * Summary: 仲裁签署状态信息变更回调接口.
+     *
+     * @param CallbackArbitrationSignstatusRequest $request
+     *
+     * @return CallbackArbitrationSignstatusResponse
+     */
+    public function callbackArbitrationSignstatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackArbitrationSignstatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 仲裁签署状态信息变更回调接口
+     * Summary: 仲裁签署状态信息变更回调接口.
+     *
+     * @param CallbackArbitrationSignstatusRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CallbackArbitrationSignstatusResponse
+     */
+    public function callbackArbitrationSignstatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackArbitrationSignstatusResponse::fromMap($this->doRequest('1.0', 'twc.notary.arbitration.signstatus.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
