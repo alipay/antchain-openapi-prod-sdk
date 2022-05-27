@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.62',
+    sdk_version = '1.3.64',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -11723,6 +11723,10 @@ model ApplyIpCodeRequest = {
   orderId: string(name='order_id'),
   // 申请数量
   count: long(name='count'),
+  // 占用预申请的起始编码--仅使用码池时有效
+  startIndex?: long(name='start_index'),
+  // 占用预申请的截止编码--仅使用码池时有效
+  endIndex?: long(name='end_index'),
 }
 
 model ApplyIpCodeResponse = {
@@ -12999,6 +13003,8 @@ model QueryIpCodeResponse = {
   scannedInfoList?: [ IPSimpleScannedInfo ](name='scanned_info_list'),
   // 扫码次数
   scannedCount?: long(name='scanned_count'),
+  // 小程序短链
+  shortenUrl?: string(name='shorten_url'),
 }
 
 /**
