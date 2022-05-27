@@ -137,7 +137,7 @@ namespace AntChain.SDK.MYTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.1.1"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.MYTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.1.1"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -403,6 +403,178 @@ namespace AntChain.SDK.MYTC
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RecognizeAntiQrcodeacResponse>(await DoRequestAsync("1.0", "antchain.mytc.anti.qrcodeac.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 防伪码平台防伪底图上传，初始化上传记录
+         * Summary: 防伪码平台防伪底图上传初始化
+         */
+        public InitAntiImagesyncResponse InitAntiImagesync(InitAntiImagesyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitAntiImagesyncEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 防伪码平台防伪底图上传，初始化上传记录
+         * Summary: 防伪码平台防伪底图上传初始化
+         */
+        public async Task<InitAntiImagesyncResponse> InitAntiImagesyncAsync(InitAntiImagesyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitAntiImagesyncExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 防伪码平台防伪底图上传，初始化上传记录
+         * Summary: 防伪码平台防伪底图上传初始化
+         */
+        public InitAntiImagesyncResponse InitAntiImagesyncEx(InitAntiImagesyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitAntiImagesyncResponse>(DoRequest("1.0", "antchain.mytc.anti.imagesync.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 防伪码平台防伪底图上传，初始化上传记录
+         * Summary: 防伪码平台防伪底图上传初始化
+         */
+        public async Task<InitAntiImagesyncResponse> InitAntiImagesyncExAsync(InitAntiImagesyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitAntiImagesyncResponse>(await DoRequestAsync("1.0", "antchain.mytc.anti.imagesync.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 防伪码图片上传
+         * Summary: 防伪码平台防伪码图片上传
+         */
+        public UploadAntiImagesyncResponse UploadAntiImagesync(UploadAntiImagesyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadAntiImagesyncEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 防伪码图片上传
+         * Summary: 防伪码平台防伪码图片上传
+         */
+        public async Task<UploadAntiImagesyncResponse> UploadAntiImagesyncAsync(UploadAntiImagesyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadAntiImagesyncExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 防伪码图片上传
+         * Summary: 防伪码平台防伪码图片上传
+         */
+        public UploadAntiImagesyncResponse UploadAntiImagesyncEx(UploadAntiImagesyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.mytc.anti.imagesync.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadAntiImagesyncResponse uploadAntiImagesyncResponse = new UploadAntiImagesyncResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadAntiImagesyncResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntiImagesyncResponse>(DoRequest("1.0", "antchain.mytc.anti.imagesync.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 防伪码图片上传
+         * Summary: 防伪码平台防伪码图片上传
+         */
+        public async Task<UploadAntiImagesyncResponse> UploadAntiImagesyncExAsync(UploadAntiImagesyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.mytc.anti.imagesync.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadAntiImagesyncResponse uploadAntiImagesyncResponse = new UploadAntiImagesyncResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadAntiImagesyncResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntiImagesyncResponse>(await DoRequestAsync("1.0", "antchain.mytc.anti.imagesync.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 防伪码平台防伪底图上传完成
+         * Summary: 防伪码平台防伪底图上传完成
+         */
+        public FinishAntiImagesyncResponse FinishAntiImagesync(FinishAntiImagesyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return FinishAntiImagesyncEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 防伪码平台防伪底图上传完成
+         * Summary: 防伪码平台防伪底图上传完成
+         */
+        public async Task<FinishAntiImagesyncResponse> FinishAntiImagesyncAsync(FinishAntiImagesyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await FinishAntiImagesyncExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 防伪码平台防伪底图上传完成
+         * Summary: 防伪码平台防伪底图上传完成
+         */
+        public FinishAntiImagesyncResponse FinishAntiImagesyncEx(FinishAntiImagesyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishAntiImagesyncResponse>(DoRequest("1.0", "antchain.mytc.anti.imagesync.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 防伪码平台防伪底图上传完成
+         * Summary: 防伪码平台防伪底图上传完成
+         */
+        public async Task<FinishAntiImagesyncResponse> FinishAntiImagesyncExAsync(FinishAntiImagesyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FinishAntiImagesyncResponse>(await DoRequestAsync("1.0", "antchain.mytc.anti.imagesync.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
