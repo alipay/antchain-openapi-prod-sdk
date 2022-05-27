@@ -49,6 +49,12 @@ class QueryIpCodeResponse extends Model
      * @var int
      */
     public $scannedCount;
+
+    // 小程序短链
+    /**
+     * @var string
+     */
+    public $shortenUrl;
     protected $_name = [
         'reqMsgId'         => 'req_msg_id',
         'resultCode'       => 'result_code',
@@ -57,6 +63,7 @@ class QueryIpCodeResponse extends Model
         'firstScannedInfo' => 'first_scanned_info',
         'scannedInfoList'  => 'scanned_info_list',
         'scannedCount'     => 'scanned_count',
+        'shortenUrl'       => 'shorten_url',
     ];
 
     public function validate()
@@ -92,6 +99,9 @@ class QueryIpCodeResponse extends Model
         }
         if (null !== $this->scannedCount) {
             $res['scanned_count'] = $this->scannedCount;
+        }
+        if (null !== $this->shortenUrl) {
+            $res['shorten_url'] = $this->shortenUrl;
         }
 
         return $res;
@@ -131,6 +141,9 @@ class QueryIpCodeResponse extends Model
         }
         if (isset($map['scanned_count'])) {
             $model->scannedCount = $map['scanned_count'];
+        }
+        if (isset($map['shorten_url'])) {
+            $model->shortenUrl = $map['shorten_url'];
         }
 
         return $model;

@@ -42,6 +42,18 @@ class ApplyIpCodeRequest extends Model
      * @var int
      */
     public $count;
+
+    // 占用预申请的起始编码--仅使用码池时有效
+    /**
+     * @var int
+     */
+    public $startIndex;
+
+    // 占用预申请的截止编码--仅使用码池时有效
+    /**
+     * @var int
+     */
+    public $endIndex;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +61,8 @@ class ApplyIpCodeRequest extends Model
         'accountId'         => 'account_id',
         'orderId'           => 'order_id',
         'count'             => 'count',
+        'startIndex'        => 'start_index',
+        'endIndex'          => 'end_index',
     ];
 
     public function validate()
@@ -80,6 +94,12 @@ class ApplyIpCodeRequest extends Model
         if (null !== $this->count) {
             $res['count'] = $this->count;
         }
+        if (null !== $this->startIndex) {
+            $res['start_index'] = $this->startIndex;
+        }
+        if (null !== $this->endIndex) {
+            $res['end_index'] = $this->endIndex;
+        }
 
         return $res;
     }
@@ -109,6 +129,12 @@ class ApplyIpCodeRequest extends Model
         }
         if (isset($map['count'])) {
             $model->count = $map['count'];
+        }
+        if (isset($map['start_index'])) {
+            $model->startIndex = $map['start_index'];
+        }
+        if (isset($map['end_index'])) {
+            $model->endIndex = $map['end_index'];
         }
 
         return $model;
