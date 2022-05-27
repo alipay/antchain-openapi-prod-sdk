@@ -5891,6 +5891,111 @@ func (s *CallbackArbitrationStatusResponse) SetResultMsg(v string) *CallbackArbi
 	return s
 }
 
+type CallbackArbitrationSignstatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 案件号
+	CaseNo *string `json:"case_no,omitempty" xml:"case_no,omitempty" require:"true"`
+	// 签署文件代码 01 申请书 04 撤案申请书
+	DocCode *string `json:"doc_code,omitempty" xml:"doc_code,omitempty" require:"true"`
+	// 处理结果码 10000成功 其余都是签署失败
+	ResCode *string `json:"res_code,omitempty" xml:"res_code,omitempty" require:"true"`
+	// 失败原因
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// 发送时间 yyyy-MM-dd
+	SendTime *string `json:"send_time,omitempty" xml:"send_time,omitempty" require:"true"`
+	// 签名,采用公钥验签
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+}
+
+func (s CallbackArbitrationSignstatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackArbitrationSignstatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackArbitrationSignstatusRequest) SetAuthToken(v string) *CallbackArbitrationSignstatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackArbitrationSignstatusRequest) SetProductInstanceId(v string) *CallbackArbitrationSignstatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackArbitrationSignstatusRequest) SetCaseNo(v string) *CallbackArbitrationSignstatusRequest {
+	s.CaseNo = &v
+	return s
+}
+
+func (s *CallbackArbitrationSignstatusRequest) SetDocCode(v string) *CallbackArbitrationSignstatusRequest {
+	s.DocCode = &v
+	return s
+}
+
+func (s *CallbackArbitrationSignstatusRequest) SetResCode(v string) *CallbackArbitrationSignstatusRequest {
+	s.ResCode = &v
+	return s
+}
+
+func (s *CallbackArbitrationSignstatusRequest) SetMessage(v string) *CallbackArbitrationSignstatusRequest {
+	s.Message = &v
+	return s
+}
+
+func (s *CallbackArbitrationSignstatusRequest) SetSendTime(v string) *CallbackArbitrationSignstatusRequest {
+	s.SendTime = &v
+	return s
+}
+
+func (s *CallbackArbitrationSignstatusRequest) SetSignature(v string) *CallbackArbitrationSignstatusRequest {
+	s.Signature = &v
+	return s
+}
+
+type CallbackArbitrationSignstatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否处理回调成功 true成功
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s CallbackArbitrationSignstatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackArbitrationSignstatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackArbitrationSignstatusResponse) SetReqMsgId(v string) *CallbackArbitrationSignstatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackArbitrationSignstatusResponse) SetResultCode(v string) *CallbackArbitrationSignstatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackArbitrationSignstatusResponse) SetResultMsg(v string) *CallbackArbitrationSignstatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackArbitrationSignstatusResponse) SetResult(v string) *CallbackArbitrationSignstatusResponse {
+	s.Result = &v
+	return s
+}
+
 type CreateContractAccountRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -33795,7 +33900,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.42"),
+				"sdk_version":      tea.String("1.7.43"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -33870,6 +33975,40 @@ func (client *Client) CallbackArbitrationStatusEx(request *CallbackArbitrationSt
 	}
 	_result = &CallbackArbitrationStatusResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.arbitration.status.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 仲裁签署状态信息变更回调接口
+ * Summary: 仲裁签署状态信息变更回调接口
+ */
+func (client *Client) CallbackArbitrationSignstatus(request *CallbackArbitrationSignstatusRequest) (_result *CallbackArbitrationSignstatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackArbitrationSignstatusResponse{}
+	_body, _err := client.CallbackArbitrationSignstatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 仲裁签署状态信息变更回调接口
+ * Summary: 仲裁签署状态信息变更回调接口
+ */
+func (client *Client) CallbackArbitrationSignstatusEx(request *CallbackArbitrationSignstatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackArbitrationSignstatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackArbitrationSignstatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.arbitration.signstatus.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
