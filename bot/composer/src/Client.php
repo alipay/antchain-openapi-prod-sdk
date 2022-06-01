@@ -35,8 +35,12 @@ use AntChain\BOT\Models\ApplyMqtokenRequest;
 use AntChain\BOT\Models\ApplyMqtokenResponse;
 use AntChain\BOT\Models\CertifyIotbasicDeviceRequest;
 use AntChain\BOT\Models\CertifyIotbasicDeviceResponse;
+use AntChain\BOT\Models\CheckAiidentificationGoodspointRequest;
+use AntChain\BOT\Models\CheckAiidentificationGoodspointResponse;
 use AntChain\BOT\Models\CreateAcsDeviceRequest;
 use AntChain\BOT\Models\CreateAcsDeviceResponse;
+use AntChain\BOT\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\BOT\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\BOT\Models\CreateConsumerRequest;
 use AntChain\BOT\Models\CreateConsumerResponse;
 use AntChain\BOT\Models\CreateDeviceDatamodelRequest;
@@ -117,6 +121,10 @@ use AntChain\BOT\Models\OnlineDeviceRequest;
 use AntChain\BOT\Models\OnlineDeviceResponse;
 use AntChain\BOT\Models\OpenAcecContractRequest;
 use AntChain\BOT\Models\OpenAcecContractResponse;
+use AntChain\BOT\Models\OperateIotbasicPermissionRequest;
+use AntChain\BOT\Models\OperateIotbasicPermissionResponse;
+use AntChain\BOT\Models\OperateIotbasicUserRequest;
+use AntChain\BOT\Models\OperateIotbasicUserResponse;
 use AntChain\BOT\Models\PagequeryAlertStrategyRequest;
 use AntChain\BOT\Models\PagequeryAlertStrategyResponse;
 use AntChain\BOT\Models\PagequeryDataverifyFailureRequest;
@@ -133,6 +141,8 @@ use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
 use AntChain\BOT\Models\PushCollectotBychainidRequest;
 use AntChain\BOT\Models\PushCollectotBychainidResponse;
+use AntChain\BOT\Models\QueryAiidentificationGoodsRequest;
+use AntChain\BOT\Models\QueryAiidentificationGoodsResponse;
 use AntChain\BOT\Models\QueryAiidentificationQrcodeRequest;
 use AntChain\BOT\Models\QueryAiidentificationQrcodeResponse;
 use AntChain\BOT\Models\QueryAnalysisRequest;
@@ -149,6 +159,8 @@ use AntChain\BOT\Models\QueryDockedDataRequest;
 use AntChain\BOT\Models\QueryDockedDataResponse;
 use AntChain\BOT\Models\QueryIotbasicDeviceRequest;
 use AntChain\BOT\Models\QueryIotbasicDeviceResponse;
+use AntChain\BOT\Models\QueryIotbasicSnRequest;
+use AntChain\BOT\Models\QueryIotbasicSnResponse;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderRequest;
 use AntChain\BOT\Models\QueryIotplatformPurchaseorderResponse;
 use AntChain\BOT\Models\QueryLabelTraceRequest;
@@ -348,7 +360,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 告警策略
+            // iot平台权限数据
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -376,7 +388,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.86',
+                    'sdk_version'      => '1.6.106',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -681,9 +693,93 @@ class Client
      */
     public function queryAiidentificationQrcodeEx($request, $headers, $runtime)
     {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'blockchain.bot.aiidentification.qrcode.query',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new QueryAiidentificationQrcodeResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
         Utils::validateModel($request);
 
         return QueryAiidentificationQrcodeResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.qrcode.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AI商品鉴定
+     * Summary: AI商品鉴定.
+     *
+     * @param QueryAiidentificationGoodsRequest $request
+     *
+     * @return QueryAiidentificationGoodsResponse
+     */
+    public function queryAiidentificationGoods($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAiidentificationGoodsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AI商品鉴定
+     * Summary: AI商品鉴定.
+     *
+     * @param QueryAiidentificationGoodsRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryAiidentificationGoodsResponse
+     */
+    public function queryAiidentificationGoodsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAiidentificationGoodsResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.goods.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品鉴定点图片检测
+     * Summary: 商品鉴定点图片检测.
+     *
+     * @param CheckAiidentificationGoodspointRequest $request
+     *
+     * @return CheckAiidentificationGoodspointResponse
+     */
+    public function checkAiidentificationGoodspoint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkAiidentificationGoodspointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品鉴定点图片检测
+     * Summary: 商品鉴定点图片检测.
+     *
+     * @param CheckAiidentificationGoodspointRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return CheckAiidentificationGoodspointResponse
+     */
+    public function checkAiidentificationGoodspointEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckAiidentificationGoodspointResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.goodspoint.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -849,6 +945,105 @@ class Client
         Utils::validateModel($request);
 
         return CertifyIotbasicDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.device.certify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+     * Summary: iot平台用户注册操作.
+     *
+     * @param OperateIotbasicUserRequest $request
+     *
+     * @return OperateIotbasicUserResponse
+     */
+    public function operateIotbasicUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateIotbasicUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+     * Summary: iot平台用户注册操作.
+     *
+     * @param OperateIotbasicUserRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return OperateIotbasicUserResponse
+     */
+    public function operateIotbasicUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateIotbasicUserResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.user.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iot 平台权限操作
+     * Summary: iot 平台权限操作.
+     *
+     * @param OperateIotbasicPermissionRequest $request
+     *
+     * @return OperateIotbasicPermissionResponse
+     */
+    public function operateIotbasicPermission($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateIotbasicPermissionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iot 平台权限操作
+     * Summary: iot 平台权限操作.
+     *
+     * @param OperateIotbasicPermissionRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return OperateIotbasicPermissionResponse
+     */
+    public function operateIotbasicPermissionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateIotbasicPermissionResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.permission.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-设备sn列表查询
+     * Summary: IoT设备平台-设备sn列表查询.
+     *
+     * @param QueryIotbasicSnRequest $request
+     *
+     * @return QueryIotbasicSnResponse
+     */
+    public function queryIotbasicSn($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIotbasicSnEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备sn列表查询
+     * Summary: IoT设备平台-设备sn列表查询.
+     *
+     * @param QueryIotbasicSnRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryIotbasicSnResponse
+     */
+    public function queryIotbasicSnEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIotbasicSnResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.sn.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4021,5 +4216,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryTlsnotaryTaskResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.tlsnotary.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

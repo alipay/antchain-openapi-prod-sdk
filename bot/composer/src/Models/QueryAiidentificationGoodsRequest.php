@@ -5,9 +5,8 @@
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
-use GuzzleHttp\Psr7\Stream;
 
-class QueryAiidentificationQrcodeRequest extends Model
+class QueryAiidentificationGoodsRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -26,36 +25,22 @@ class QueryAiidentificationQrcodeRequest extends Model
      */
     public $appKey;
 
-    // BaiQrcodeComparisonReqData转为JSONString后再getBytes
+    // 鉴定商品信息
     /**
-     * @description 待上传文件
-     *
-     * @var Stream
+     * @var BaiGoodsComparisonReqData
      */
-    public $fileObject;
-
-    /**
-     * @description 待上传文件名
-     *
-     * @var string
-     */
-    public $fileObjectName;
-
-    /**
-     * @var string
-     */
-    public $fileId;
+    public $goodsInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'appKey'            => 'app_key',
-        'fileId'            => 'file_id',
+        'goodsInfo'         => 'goods_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('appKey', $this->appKey, true);
-        Model::validateRequired('fileId', $this->fileId, true);
+        Model::validateRequired('goodsInfo', $this->goodsInfo, true);
     }
 
     public function toMap()
@@ -70,14 +55,8 @@ class QueryAiidentificationQrcodeRequest extends Model
         if (null !== $this->appKey) {
             $res['app_key'] = $this->appKey;
         }
-        if (null !== $this->fileObject) {
-            $res['fileObject'] = $this->fileObject;
-        }
-        if (null !== $this->fileObjectName) {
-            $res['fileObjectName'] = $this->fileObjectName;
-        }
-        if (null !== $this->fileId) {
-            $res['file_id'] = $this->fileId;
+        if (null !== $this->goodsInfo) {
+            $res['goods_info'] = null !== $this->goodsInfo ? $this->goodsInfo->toMap() : null;
         }
 
         return $res;
@@ -86,7 +65,7 @@ class QueryAiidentificationQrcodeRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAiidentificationQrcodeRequest
+     * @return QueryAiidentificationGoodsRequest
      */
     public static function fromMap($map = [])
     {
@@ -100,14 +79,8 @@ class QueryAiidentificationQrcodeRequest extends Model
         if (isset($map['app_key'])) {
             $model->appKey = $map['app_key'];
         }
-        if (isset($map['fileObject'])) {
-            $model->fileObject = $map['fileObject'];
-        }
-        if (isset($map['fileObjectName'])) {
-            $model->fileObjectName = $map['fileObjectName'];
-        }
-        if (isset($map['file_id'])) {
-            $model->fileId = $map['file_id'];
+        if (isset($map['goods_info'])) {
+            $model->goodsInfo = BaiGoodsComparisonReqData::fromMap($map['goods_info']);
         }
 
         return $model;

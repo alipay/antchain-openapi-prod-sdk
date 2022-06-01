@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIotbasicDeviceRequest extends Model
+class QueryIotbasicSnRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -26,46 +26,11 @@ class QueryIotbasicDeviceRequest extends Model
     public $tenantId;
 
     // 当前登录用户ID
+    //
     /**
      * @var string
      */
     public $userId;
-
-    // 设备SN
-    /**
-     * @var string
-     */
-    public $deviceSn;
-
-    // 设备品类code
-    /**
-     * @var string
-     */
-    public $categoryCode;
-
-    // 设备型号
-    /**
-     * @var string
-     */
-    public $deviceModel;
-
-    // 厂商名称
-    /**
-     * @var string
-     */
-    public $corpName;
-
-    // 安装位置
-    /**
-     * @var string
-     */
-    public $location;
-
-    // 设备状态，在线/离线、故障
-    /**
-     * @var string
-     */
-    public $deviceStatus;
 
     // 指定显示返回结果中的第几页。
     //
@@ -74,8 +39,7 @@ class QueryIotbasicDeviceRequest extends Model
      */
     public $currentPage;
 
-    // 指定返回结果中每页显示的产品数量，最大值是200。
-    //
+    // 指定返回结果中每页显示的产品数量，最大值是300。
     //
     /**
      * @var int
@@ -86,12 +50,6 @@ class QueryIotbasicDeviceRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
         'userId'            => 'user_id',
-        'deviceSn'          => 'device_sn',
-        'categoryCode'      => 'category_code',
-        'deviceModel'       => 'device_model',
-        'corpName'          => 'corp_name',
-        'location'          => 'location',
-        'deviceStatus'      => 'device_status',
         'currentPage'       => 'current_page',
         'pageSize'          => 'page_size',
     ];
@@ -104,7 +62,7 @@ class QueryIotbasicDeviceRequest extends Model
         Model::validateRequired('pageSize', $this->pageSize, true);
         Model::validateMinimum('currentPage', $this->currentPage, 1);
         Model::validateMinimum('pageSize', $this->pageSize, 1);
-        Model::validateMaximum('pageSize', $this->pageSize, 200);
+        Model::validateMaximum('pageSize', $this->pageSize, 300);
     }
 
     public function toMap()
@@ -122,24 +80,6 @@ class QueryIotbasicDeviceRequest extends Model
         if (null !== $this->userId) {
             $res['user_id'] = $this->userId;
         }
-        if (null !== $this->deviceSn) {
-            $res['device_sn'] = $this->deviceSn;
-        }
-        if (null !== $this->categoryCode) {
-            $res['category_code'] = $this->categoryCode;
-        }
-        if (null !== $this->deviceModel) {
-            $res['device_model'] = $this->deviceModel;
-        }
-        if (null !== $this->corpName) {
-            $res['corp_name'] = $this->corpName;
-        }
-        if (null !== $this->location) {
-            $res['location'] = $this->location;
-        }
-        if (null !== $this->deviceStatus) {
-            $res['device_status'] = $this->deviceStatus;
-        }
         if (null !== $this->currentPage) {
             $res['current_page'] = $this->currentPage;
         }
@@ -153,7 +93,7 @@ class QueryIotbasicDeviceRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryIotbasicDeviceRequest
+     * @return QueryIotbasicSnRequest
      */
     public static function fromMap($map = [])
     {
@@ -169,24 +109,6 @@ class QueryIotbasicDeviceRequest extends Model
         }
         if (isset($map['user_id'])) {
             $model->userId = $map['user_id'];
-        }
-        if (isset($map['device_sn'])) {
-            $model->deviceSn = $map['device_sn'];
-        }
-        if (isset($map['category_code'])) {
-            $model->categoryCode = $map['category_code'];
-        }
-        if (isset($map['device_model'])) {
-            $model->deviceModel = $map['device_model'];
-        }
-        if (isset($map['corp_name'])) {
-            $model->corpName = $map['corp_name'];
-        }
-        if (isset($map['location'])) {
-            $model->location = $map['location'];
-        }
-        if (isset($map['device_status'])) {
-            $model->deviceStatus = $map['device_status'];
         }
         if (isset($map['current_page'])) {
             $model->currentPage = $map['current_page'];

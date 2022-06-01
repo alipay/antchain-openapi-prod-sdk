@@ -6,29 +6,29 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BaiQrcodeComparisonResponse extends Model
+class BaiGoodsPointCheckRespData extends Model
 {
-    // 返回的结果
+    // 图片是否有效，无效则需要提示重拍
     /**
-     * @example {"identificationResult":"1"}
+     * @example true, false
      *
-     * @var string
+     * @var bool
      */
-    public $data;
+    public $valid;
     protected $_name = [
-        'data' => 'data',
+        'valid' => 'valid',
     ];
 
     public function validate()
     {
-        Model::validateRequired('data', $this->data, true);
+        Model::validateRequired('valid', $this->valid, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
+        if (null !== $this->valid) {
+            $res['valid'] = $this->valid;
         }
 
         return $res;
@@ -37,13 +37,13 @@ class BaiQrcodeComparisonResponse extends Model
     /**
      * @param array $map
      *
-     * @return BaiQrcodeComparisonResponse
+     * @return BaiGoodsPointCheckRespData
      */
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
+        if (isset($map['valid'])) {
+            $model->valid = $map['valid'];
         }
 
         return $model;

@@ -5,9 +5,8 @@
 namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
-use GuzzleHttp\Psr7\Stream;
 
-class QueryAiidentificationQrcodeRequest extends Model
+class CheckAiidentificationGoodspointRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -20,42 +19,52 @@ class QueryAiidentificationQrcodeRequest extends Model
      */
     public $productInstanceId;
 
-    // 用户身份标识
+    // 用户调用标识
     /**
      * @var string
      */
     public $appKey;
 
-    // BaiQrcodeComparisonReqData转为JSONString后再getBytes
-    /**
-     * @description 待上传文件
-     *
-     * @var Stream
-     */
-    public $fileObject;
-
-    /**
-     * @description 待上传文件名
-     *
-     * @var string
-     */
-    public $fileObjectName;
-
+    // 品类
     /**
      * @var string
      */
-    public $fileId;
+    public $category;
+
+    // 品牌
+    /**
+     * @var string
+     */
+    public $brand;
+
+    // 款式
+    /**
+     * @var string
+     */
+    public $style;
+
+    // 鉴定点信息
+    /**
+     * @var BaiGoodsPoint
+     */
+    public $pointInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'appKey'            => 'app_key',
-        'fileId'            => 'file_id',
+        'category'          => 'category',
+        'brand'             => 'brand',
+        'style'             => 'style',
+        'pointInfo'         => 'point_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('appKey', $this->appKey, true);
-        Model::validateRequired('fileId', $this->fileId, true);
+        Model::validateRequired('category', $this->category, true);
+        Model::validateRequired('brand', $this->brand, true);
+        Model::validateRequired('style', $this->style, true);
+        Model::validateRequired('pointInfo', $this->pointInfo, true);
     }
 
     public function toMap()
@@ -70,14 +79,17 @@ class QueryAiidentificationQrcodeRequest extends Model
         if (null !== $this->appKey) {
             $res['app_key'] = $this->appKey;
         }
-        if (null !== $this->fileObject) {
-            $res['fileObject'] = $this->fileObject;
+        if (null !== $this->category) {
+            $res['category'] = $this->category;
         }
-        if (null !== $this->fileObjectName) {
-            $res['fileObjectName'] = $this->fileObjectName;
+        if (null !== $this->brand) {
+            $res['brand'] = $this->brand;
         }
-        if (null !== $this->fileId) {
-            $res['file_id'] = $this->fileId;
+        if (null !== $this->style) {
+            $res['style'] = $this->style;
+        }
+        if (null !== $this->pointInfo) {
+            $res['point_info'] = null !== $this->pointInfo ? $this->pointInfo->toMap() : null;
         }
 
         return $res;
@@ -86,7 +98,7 @@ class QueryAiidentificationQrcodeRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAiidentificationQrcodeRequest
+     * @return CheckAiidentificationGoodspointRequest
      */
     public static function fromMap($map = [])
     {
@@ -100,14 +112,17 @@ class QueryAiidentificationQrcodeRequest extends Model
         if (isset($map['app_key'])) {
             $model->appKey = $map['app_key'];
         }
-        if (isset($map['fileObject'])) {
-            $model->fileObject = $map['fileObject'];
+        if (isset($map['category'])) {
+            $model->category = $map['category'];
         }
-        if (isset($map['fileObjectName'])) {
-            $model->fileObjectName = $map['fileObjectName'];
+        if (isset($map['brand'])) {
+            $model->brand = $map['brand'];
         }
-        if (isset($map['file_id'])) {
-            $model->fileId = $map['file_id'];
+        if (isset($map['style'])) {
+            $model->style = $map['style'];
+        }
+        if (isset($map['point_info'])) {
+            $model->pointInfo = BaiGoodsPoint::fromMap($map['point_info']);
         }
 
         return $model;

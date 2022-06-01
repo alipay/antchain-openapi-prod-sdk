@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAiidentificationQrcodeResponse extends Model
+class CheckAiidentificationGoodspointResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,9 +26,9 @@ class QueryAiidentificationQrcodeResponse extends Model
      */
     public $resultMsg;
 
-    // 返回结果
+    // 商品鉴定点检测响应数据
     /**
-     * @var BaiQrcodeComparisonRespData
+     * @var BaiGoodsPointCheckRespData
      */
     public $data;
     protected $_name = [
@@ -64,7 +64,7 @@ class QueryAiidentificationQrcodeResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAiidentificationQrcodeResponse
+     * @return CheckAiidentificationGoodspointResponse
      */
     public static function fromMap($map = [])
     {
@@ -79,7 +79,7 @@ class QueryAiidentificationQrcodeResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['data'])) {
-            $model->data = BaiQrcodeComparisonRespData::fromMap($map['data']);
+            $model->data = BaiGoodsPointCheckRespData::fromMap($map['data']);
         }
 
         return $model;

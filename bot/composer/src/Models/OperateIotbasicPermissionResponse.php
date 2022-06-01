@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RecognizeIotbasicCustomerResponse extends Model
+class OperateIotbasicPermissionResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,23 @@ class RecognizeIotbasicCustomerResponse extends Model
      */
     public $resultMsg;
 
-    // 是否授权开通IoT产品
+    // 操作结果
     /**
      * @var bool
      */
-    public $authorized;
+    public $success;
 
-    // 设备数量列表
+    // 权限列表
     /**
-     * @var DeviceOverViewResponse[]
+     * @var IotBasicRolePermission[]
      */
-    public $deviceList;
-
-    // 角色
-    /**
-     * @var string
-     */
-    public $iotRole;
+    public $roleList;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'authorized' => 'authorized',
-        'deviceList' => 'device_list',
-        'iotRole'    => 'iot_role',
+        'success'    => 'success',
+        'roleList'   => 'role_list',
     ];
 
     public function validate()
@@ -68,20 +61,17 @@ class RecognizeIotbasicCustomerResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->authorized) {
-            $res['authorized'] = $this->authorized;
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
         }
-        if (null !== $this->deviceList) {
-            $res['device_list'] = [];
-            if (null !== $this->deviceList && \is_array($this->deviceList)) {
+        if (null !== $this->roleList) {
+            $res['role_list'] = [];
+            if (null !== $this->roleList && \is_array($this->roleList)) {
                 $n = 0;
-                foreach ($this->deviceList as $item) {
-                    $res['device_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->roleList as $item) {
+                    $res['role_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
-        }
-        if (null !== $this->iotRole) {
-            $res['iot_role'] = $this->iotRole;
         }
 
         return $res;
@@ -90,7 +80,7 @@ class RecognizeIotbasicCustomerResponse extends Model
     /**
      * @param array $map
      *
-     * @return RecognizeIotbasicCustomerResponse
+     * @return OperateIotbasicPermissionResponse
      */
     public static function fromMap($map = [])
     {
@@ -104,20 +94,17 @@ class RecognizeIotbasicCustomerResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['authorized'])) {
-            $model->authorized = $map['authorized'];
+        if (isset($map['success'])) {
+            $model->success = $map['success'];
         }
-        if (isset($map['device_list'])) {
-            if (!empty($map['device_list'])) {
-                $model->deviceList = [];
-                $n                 = 0;
-                foreach ($map['device_list'] as $item) {
-                    $model->deviceList[$n++] = null !== $item ? DeviceOverViewResponse::fromMap($item) : $item;
+        if (isset($map['role_list'])) {
+            if (!empty($map['role_list'])) {
+                $model->roleList = [];
+                $n               = 0;
+                foreach ($map['role_list'] as $item) {
+                    $model->roleList[$n++] = null !== $item ? IotBasicRolePermission::fromMap($item) : $item;
                 }
             }
-        }
-        if (isset($map['iot_role'])) {
-            $model->iotRole = $map['iot_role'];
         }
 
         return $model;

@@ -104,6 +104,46 @@ class IotBasicDeviceQueryResponse extends Model
      * @var string
      */
     public $deviceDid;
+
+    // 账号ID
+    /**
+     * @example 12321321
+     *
+     * @var string
+     */
+    public $accountId;
+
+    // 账户名称
+    /**
+     * @example 张三
+     *
+     * @var string
+     */
+    public $accountName;
+
+    // 设备服务状态
+    /**
+     * @example INIT
+     *
+     * @var string
+     */
+    public $serviceStatus;
+
+    // 应用版本号
+    /**
+     * @example 1.1.13
+     *
+     * @var string
+     */
+    public $appVersion;
+
+    // 服务有效期
+    /**
+     * @example 2024-4-01
+     *
+     * @var string
+     */
+    public $validityTime;
     protected $_name = [
         'deviceName'         => 'device_name',
         'deviceSn'           => 'device_sn',
@@ -117,6 +157,11 @@ class IotBasicDeviceQueryResponse extends Model
         'customerName'       => 'customer_name',
         'abnormalCode'       => 'abnormal_code',
         'deviceDid'          => 'device_did',
+        'accountId'          => 'account_id',
+        'accountName'        => 'account_name',
+        'serviceStatus'      => 'service_status',
+        'appVersion'         => 'app_version',
+        'validityTime'       => 'validity_time',
     ];
 
     public function validate()
@@ -129,6 +174,10 @@ class IotBasicDeviceQueryResponse extends Model
         Model::validateRequired('corpName', $this->corpName, true);
         Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('customerName', $this->customerName, true);
+        Model::validateRequired('accountId', $this->accountId, true);
+        Model::validateRequired('accountName', $this->accountName, true);
+        Model::validateRequired('serviceStatus', $this->serviceStatus, true);
+        Model::validateRequired('appVersion', $this->appVersion, true);
     }
 
     public function toMap()
@@ -169,6 +218,21 @@ class IotBasicDeviceQueryResponse extends Model
         }
         if (null !== $this->deviceDid) {
             $res['device_did'] = $this->deviceDid;
+        }
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
+        }
+        if (null !== $this->accountName) {
+            $res['account_name'] = $this->accountName;
+        }
+        if (null !== $this->serviceStatus) {
+            $res['service_status'] = $this->serviceStatus;
+        }
+        if (null !== $this->appVersion) {
+            $res['app_version'] = $this->appVersion;
+        }
+        if (null !== $this->validityTime) {
+            $res['validity_time'] = $this->validityTime;
         }
 
         return $res;
@@ -217,6 +281,21 @@ class IotBasicDeviceQueryResponse extends Model
         }
         if (isset($map['device_did'])) {
             $model->deviceDid = $map['device_did'];
+        }
+        if (isset($map['account_id'])) {
+            $model->accountId = $map['account_id'];
+        }
+        if (isset($map['account_name'])) {
+            $model->accountName = $map['account_name'];
+        }
+        if (isset($map['service_status'])) {
+            $model->serviceStatus = $map['service_status'];
+        }
+        if (isset($map['app_version'])) {
+            $model->appVersion = $map['app_version'];
+        }
+        if (isset($map['validity_time'])) {
+            $model->validityTime = $map['validity_time'];
         }
 
         return $model;

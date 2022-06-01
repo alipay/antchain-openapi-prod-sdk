@@ -24,15 +24,23 @@ class RecognizeIotbasicCustomerRequest extends Model
      * @var string
      */
     public $tenantId;
+
+    // 用户ID或操作员ID
+    /**
+     * @var string
+     */
+    public $userId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
+        'userId'            => 'user_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('userId', $this->userId, true);
     }
 
     public function toMap()
@@ -46,6 +54,9 @@ class RecognizeIotbasicCustomerRequest extends Model
         }
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->userId) {
+            $res['user_id'] = $this->userId;
         }
 
         return $res;
@@ -67,6 +78,9 @@ class RecognizeIotbasicCustomerRequest extends Model
         }
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
+        }
+        if (isset($map['user_id'])) {
+            $model->userId = $map['user_id'];
         }
 
         return $model;
