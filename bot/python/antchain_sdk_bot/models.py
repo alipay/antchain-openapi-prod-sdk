@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from typing import List
+from typing import List, BinaryIO
 
 
 class Config(TeaModel):
@@ -150,6 +150,62 @@ class Config(TeaModel):
         return self
 
 
+class IotBasicPermissionData(TeaModel):
+    def __init__(
+        self,
+        permission_code: str = None,
+        permission_name: str = None,
+        permission_data: str = None,
+        permission_type: str = None,
+        module: str = None,
+    ):
+        # 权限编码
+        self.permission_code = permission_code
+        # 权限名称
+        self.permission_name = permission_name
+        # 权限内容
+        self.permission_data = permission_data
+        # 权限类型
+        self.permission_type = permission_type
+        # 权限模块
+        self.module = module
+
+    def validate(self):
+        self.validate_required(self.permission_code, 'permission_code')
+        self.validate_required(self.permission_name, 'permission_name')
+        self.validate_required(self.permission_data, 'permission_data')
+        self.validate_required(self.permission_type, 'permission_type')
+        self.validate_required(self.module, 'module')
+
+    def to_map(self):
+        result = dict()
+        if self.permission_code is not None:
+            result['permission_code'] = self.permission_code
+        if self.permission_name is not None:
+            result['permission_name'] = self.permission_name
+        if self.permission_data is not None:
+            result['permission_data'] = self.permission_data
+        if self.permission_type is not None:
+            result['permission_type'] = self.permission_type
+        if self.module is not None:
+            result['module'] = self.module
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('permission_code') is not None:
+            self.permission_code = m.get('permission_code')
+        if m.get('permission_name') is not None:
+            self.permission_name = m.get('permission_name')
+        if m.get('permission_data') is not None:
+            self.permission_data = m.get('permission_data')
+        if m.get('permission_type') is not None:
+            self.permission_type = m.get('permission_type')
+        if m.get('module') is not None:
+            self.module = m.get('module')
+        return self
+
+
 class AlertStrategy(TeaModel):
     def __init__(
         self,
@@ -238,6 +294,40 @@ class AlertStrategy(TeaModel):
             self.enabled = m.get('enabled')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
+        return self
+
+
+class BaiResourceLocation(TeaModel):
+    def __init__(
+        self,
+        location_type: str = None,
+        location_value: str = None,
+    ):
+        # 资源定位类型
+        # HTTP_URL：资源url
+        # STRING_BASE64：资源base64字符串（不带base64头部）
+        self.location_type = location_type
+        # 资源定位值
+        self.location_value = location_value
+
+    def validate(self):
+        self.validate_required(self.location_type, 'location_type')
+        self.validate_required(self.location_value, 'location_value')
+
+    def to_map(self):
+        result = dict()
+        if self.location_type is not None:
+            result['location_type'] = self.location_type
+        if self.location_value is not None:
+            result['location_value'] = self.location_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('location_type') is not None:
+            self.location_type = m.get('location_type')
+        if m.get('location_value') is not None:
+            self.location_value = m.get('location_value')
         return self
 
 
@@ -545,6 +635,59 @@ class SceneModel(TeaModel):
         return self
 
 
+class BaiGoodsPoint(TeaModel):
+    def __init__(
+        self,
+        point_name: str = None,
+        sub_point_name: str = None,
+        image_url: str = None,
+        image_base_64: str = None,
+        user_point_id: str = None,
+    ):
+        # 鉴定点名称
+        self.point_name = point_name
+        # 鉴定点子项
+        self.sub_point_name = sub_point_name
+        # 鉴定点图片的url
+        self.image_url = image_url
+        # 图片内容base64编码的字符串，该字段与image_url至少一个非空，同时传入以image_url为准
+        self.image_base_64 = image_base_64
+        # 用户侧鉴定单关联id
+        self.user_point_id = user_point_id
+
+    def validate(self):
+        self.validate_required(self.point_name, 'point_name')
+        self.validate_required(self.sub_point_name, 'sub_point_name')
+
+    def to_map(self):
+        result = dict()
+        if self.point_name is not None:
+            result['point_name'] = self.point_name
+        if self.sub_point_name is not None:
+            result['sub_point_name'] = self.sub_point_name
+        if self.image_url is not None:
+            result['image_url'] = self.image_url
+        if self.image_base_64 is not None:
+            result['image_base64'] = self.image_base_64
+        if self.user_point_id is not None:
+            result['user_point_id'] = self.user_point_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('point_name') is not None:
+            self.point_name = m.get('point_name')
+        if m.get('sub_point_name') is not None:
+            self.sub_point_name = m.get('sub_point_name')
+        if m.get('image_url') is not None:
+            self.image_url = m.get('image_url')
+        if m.get('image_base64') is not None:
+            self.image_base_64 = m.get('image_base64')
+        if m.get('user_point_id') is not None:
+            self.user_point_id = m.get('user_point_id')
+        return self
+
+
 class DataVerifyFailureData(TeaModel):
     def __init__(
         self,
@@ -733,6 +876,55 @@ class RawData(TeaModel):
         return self
 
 
+class IotBasicRolePermission(TeaModel):
+    def __init__(
+        self,
+        role_code: str = None,
+        role_name: str = None,
+        permission_list: List[IotBasicPermissionData] = None,
+    ):
+        # 角色编码
+        self.role_code = role_code
+        # 角色名称
+        self.role_name = role_name
+        # 权限列表
+        self.permission_list = permission_list
+
+    def validate(self):
+        self.validate_required(self.role_code, 'role_code')
+        self.validate_required(self.role_name, 'role_name')
+        self.validate_required(self.permission_list, 'permission_list')
+        if self.permission_list:
+            for k in self.permission_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.role_code is not None:
+            result['role_code'] = self.role_code
+        if self.role_name is not None:
+            result['role_name'] = self.role_name
+        result['permission_list'] = []
+        if self.permission_list is not None:
+            for k in self.permission_list:
+                result['permission_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('role_code') is not None:
+            self.role_code = m.get('role_code')
+        if m.get('role_name') is not None:
+            self.role_name = m.get('role_name')
+        self.permission_list = []
+        if m.get('permission_list') is not None:
+            for k in m.get('permission_list'):
+                temp_model = IotBasicPermissionData()
+                self.permission_list.append(temp_model.from_map(k))
+        return self
+
+
 class PermissionedTenantModel(TeaModel):
     def __init__(
         self,
@@ -814,27 +1006,60 @@ class PermissionedTenantModel(TeaModel):
         return self
 
 
-class BaiQrcodeComparisonResponse(TeaModel):
+class BaiGoodsPointIdentificationResult(TeaModel):
     def __init__(
         self,
-        data: str = None,
+        point_name: str = None,
+        sub_point_name: str = None,
+        result: str = None,
+        grade: str = None,
+        user_point_id: str = None,
     ):
-        # 返回的结果
-        self.data = data
+        # 鉴定点大项名称
+        self.point_name = point_name
+        # 鉴定点子项名称
+        self.sub_point_name = sub_point_name
+        # 单点鉴定结果
+        # REAL：鉴定为真
+        # FAKE：鉴定为假
+        # UNABLE_IDENTIFY：无法鉴定
+        self.result = result
+        # 鉴定分数
+        self.grade = grade
+        # 用户侧的鉴定点point_id，直接将用户传入的user_point_id返回
+        self.user_point_id = user_point_id
 
     def validate(self):
-        self.validate_required(self.data, 'data')
+        self.validate_required(self.point_name, 'point_name')
+        self.validate_required(self.sub_point_name, 'sub_point_name')
+        self.validate_required(self.result, 'result')
 
     def to_map(self):
         result = dict()
-        if self.data is not None:
-            result['data'] = self.data
+        if self.point_name is not None:
+            result['point_name'] = self.point_name
+        if self.sub_point_name is not None:
+            result['sub_point_name'] = self.sub_point_name
+        if self.result is not None:
+            result['result'] = self.result
+        if self.grade is not None:
+            result['grade'] = self.grade
+        if self.user_point_id is not None:
+            result['user_point_id'] = self.user_point_id
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('data') is not None:
-            self.data = m.get('data')
+        if m.get('point_name') is not None:
+            self.point_name = m.get('point_name')
+        if m.get('sub_point_name') is not None:
+            self.sub_point_name = m.get('sub_point_name')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        if m.get('grade') is not None:
+            self.grade = m.get('grade')
+        if m.get('user_point_id') is not None:
+            self.user_point_id = m.get('user_point_id')
         return self
 
 
@@ -997,6 +1222,30 @@ class ThingsDidRegisterReq(TeaModel):
         return self
 
 
+class BaiGoodsPointCheckRespData(TeaModel):
+    def __init__(
+        self,
+        valid: bool = None,
+    ):
+        # 图片是否有效，无效则需要提示重拍
+        self.valid = valid
+
+    def validate(self):
+        self.validate_required(self.valid, 'valid')
+
+    def to_map(self):
+        result = dict()
+        if self.valid is not None:
+            result['valid'] = self.valid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('valid') is not None:
+            self.valid = m.get('valid')
+        return self
+
+
 class IotBasicDeviceQueryResponse(TeaModel):
     def __init__(
         self,
@@ -1012,6 +1261,11 @@ class IotBasicDeviceQueryResponse(TeaModel):
         customer_name: str = None,
         abnormal_code: str = None,
         device_did: str = None,
+        account_id: str = None,
+        account_name: str = None,
+        service_status: str = None,
+        app_version: str = None,
+        validity_time: str = None,
     ):
         # 设备名称
         # 
@@ -1038,6 +1292,16 @@ class IotBasicDeviceQueryResponse(TeaModel):
         self.abnormal_code = abnormal_code
         # 设备唯一身份id
         self.device_did = device_did
+        # 账号ID
+        self.account_id = account_id
+        # 账户名称
+        self.account_name = account_name
+        # 设备服务状态
+        self.service_status = service_status
+        # 应用版本号
+        self.app_version = app_version
+        # 服务有效期
+        self.validity_time = validity_time
 
     def validate(self):
         self.validate_required(self.device_name, 'device_name')
@@ -1048,6 +1312,10 @@ class IotBasicDeviceQueryResponse(TeaModel):
         self.validate_required(self.corp_name, 'corp_name')
         self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.customer_name, 'customer_name')
+        self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.account_name, 'account_name')
+        self.validate_required(self.service_status, 'service_status')
+        self.validate_required(self.app_version, 'app_version')
 
     def to_map(self):
         result = dict()
@@ -1075,6 +1343,16 @@ class IotBasicDeviceQueryResponse(TeaModel):
             result['abnormal_code'] = self.abnormal_code
         if self.device_did is not None:
             result['device_did'] = self.device_did
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.account_name is not None:
+            result['account_name'] = self.account_name
+        if self.service_status is not None:
+            result['service_status'] = self.service_status
+        if self.app_version is not None:
+            result['app_version'] = self.app_version
+        if self.validity_time is not None:
+            result['validity_time'] = self.validity_time
         return result
 
     def from_map(self, m: dict = None):
@@ -1103,6 +1381,16 @@ class IotBasicDeviceQueryResponse(TeaModel):
             self.abnormal_code = m.get('abnormal_code')
         if m.get('device_did') is not None:
             self.device_did = m.get('device_did')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('account_name') is not None:
+            self.account_name = m.get('account_name')
+        if m.get('service_status') is not None:
+            self.service_status = m.get('service_status')
+        if m.get('app_version') is not None:
+            self.app_version = m.get('app_version')
+        if m.get('validity_time') is not None:
+            self.validity_time = m.get('validity_time')
         return self
 
 
@@ -1366,6 +1654,52 @@ class TlsnotaryUploadOssLinks(TeaModel):
             self.cert_chain_digest_link = m.get('cert_chain_digest_link')
         if m.get('eml_file_link') is not None:
             self.eml_file_link = m.get('eml_file_link')
+        return self
+
+
+class BaiQrcodeComparisonReqData(TeaModel):
+    def __init__(
+        self,
+        query_image_location: BaiResourceLocation = None,
+        gallery_image_location: BaiResourceLocation = None,
+        downgrade: bool = None,
+    ):
+        # query图片定位信息
+        self.query_image_location = query_image_location
+        # gallery图片定位信息
+        self.gallery_image_location = gallery_image_location
+        # 是否允许降级
+        self.downgrade = downgrade
+
+    def validate(self):
+        self.validate_required(self.query_image_location, 'query_image_location')
+        if self.query_image_location:
+            self.query_image_location.validate()
+        self.validate_required(self.gallery_image_location, 'gallery_image_location')
+        if self.gallery_image_location:
+            self.gallery_image_location.validate()
+        self.validate_required(self.downgrade, 'downgrade')
+
+    def to_map(self):
+        result = dict()
+        if self.query_image_location is not None:
+            result['query_image_location'] = self.query_image_location.to_map()
+        if self.gallery_image_location is not None:
+            result['gallery_image_location'] = self.gallery_image_location.to_map()
+        if self.downgrade is not None:
+            result['downgrade'] = self.downgrade
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('query_image_location') is not None:
+            temp_model = BaiResourceLocation()
+            self.query_image_location = temp_model.from_map(m['query_image_location'])
+        if m.get('gallery_image_location') is not None:
+            temp_model = BaiResourceLocation()
+            self.gallery_image_location = temp_model.from_map(m['gallery_image_location'])
+        if m.get('downgrade') is not None:
+            self.downgrade = m.get('downgrade')
         return self
 
 
@@ -1793,6 +2127,63 @@ class EvidenceQueryInfoReq(TeaModel):
         return self
 
 
+class BaiGoodsComparisonReqData(TeaModel):
+    def __init__(
+        self,
+        category: str = None,
+        brand: str = None,
+        style: str = None,
+        goods_points: List[BaiGoodsPoint] = None,
+    ):
+        # 品类
+        self.category = category
+        # 品牌
+        self.brand = brand
+        # 款式
+        self.style = style
+        # 商品鉴定点列表
+        self.goods_points = goods_points
+
+    def validate(self):
+        self.validate_required(self.category, 'category')
+        self.validate_required(self.brand, 'brand')
+        self.validate_required(self.style, 'style')
+        self.validate_required(self.goods_points, 'goods_points')
+        if self.goods_points:
+            for k in self.goods_points:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.category is not None:
+            result['category'] = self.category
+        if self.brand is not None:
+            result['brand'] = self.brand
+        if self.style is not None:
+            result['style'] = self.style
+        result['goods_points'] = []
+        if self.goods_points is not None:
+            for k in self.goods_points:
+                result['goods_points'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('brand') is not None:
+            self.brand = m.get('brand')
+        if m.get('style') is not None:
+            self.style = m.get('style')
+        self.goods_points = []
+        if m.get('goods_points') is not None:
+            for k in m.get('goods_points'):
+                temp_model = BaiGoodsPoint()
+                self.goods_points.append(temp_model.from_map(k))
+        return self
+
+
 class SendCollectorResult(TeaModel):
     def __init__(
         self,
@@ -1957,6 +2348,51 @@ class EvidenceStorageReq(TeaModel):
             self.meta_json = m.get('meta_json')
         if m.get('project_uid') is not None:
             self.project_uid = m.get('project_uid')
+        return self
+
+
+class BaiQrcodeComparisonRespData(TeaModel):
+    def __init__(
+        self,
+        identification_result: str = None,
+        identification_code: str = None,
+        identification_message: str = None,
+        unable_identify_solution: str = None,
+    ):
+        # 识别结果（REAL：真   FAKE：假   UNABLE_IDENTIFY：无法识别）
+        self.identification_result = identification_result
+        # 辅助识别结果码
+        self.identification_code = identification_code
+        # 辅助识别信息
+        self.identification_message = identification_message
+        # 无法识别时提示的解决方案
+        self.unable_identify_solution = unable_identify_solution
+
+    def validate(self):
+        self.validate_required(self.identification_result, 'identification_result')
+
+    def to_map(self):
+        result = dict()
+        if self.identification_result is not None:
+            result['identification_result'] = self.identification_result
+        if self.identification_code is not None:
+            result['identification_code'] = self.identification_code
+        if self.identification_message is not None:
+            result['identification_message'] = self.identification_message
+        if self.unable_identify_solution is not None:
+            result['unable_identify_solution'] = self.unable_identify_solution
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('identification_result') is not None:
+            self.identification_result = m.get('identification_result')
+        if m.get('identification_code') is not None:
+            self.identification_code = m.get('identification_code')
+        if m.get('identification_message') is not None:
+            self.identification_message = m.get('identification_message')
+        if m.get('unable_identify_solution') is not None:
+            self.unable_identify_solution = m.get('unable_identify_solution')
         return self
 
 
@@ -3216,6 +3652,44 @@ class DeviceRegisterReqModel(TeaModel):
         return self
 
 
+class IotBasicUserRequest(TeaModel):
+    def __init__(
+        self,
+        tenant_id: str = None,
+        cloud_user_id: str = None,
+        login_name: str = None,
+    ):
+        # 租户ID
+        self.tenant_id = tenant_id
+        # 金融云用户id
+        self.cloud_user_id = cloud_user_id
+        # 登录名
+        self.login_name = login_name
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        result = dict()
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.cloud_user_id is not None:
+            result['cloud_user_id'] = self.cloud_user_id
+        if self.login_name is not None:
+            result['login_name'] = self.login_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('cloud_user_id') is not None:
+            self.cloud_user_id = m.get('cloud_user_id')
+        if m.get('login_name') is not None:
+            self.login_name = m.get('login_name')
+        return self
+
+
 class BizContentGroup(TeaModel):
     def __init__(
         self,
@@ -3393,6 +3867,44 @@ class DidBaseQueryReq(TeaModel):
         return self
 
 
+class BaiGoodsComparisonResponse(TeaModel):
+    def __init__(
+        self,
+        identification_result: str = None,
+        identification_message: str = None,
+        identification_code: str = None,
+    ):
+        # 鉴定结果（REAL：为真   FAKE：为假   UNABLE_IDENTIFY：无法鉴定）
+        self.identification_result = identification_result
+        # 鉴定补充信息
+        self.identification_message = identification_message
+        # 鉴定信息code
+        self.identification_code = identification_code
+
+    def validate(self):
+        self.validate_required(self.identification_result, 'identification_result')
+
+    def to_map(self):
+        result = dict()
+        if self.identification_result is not None:
+            result['identification_result'] = self.identification_result
+        if self.identification_message is not None:
+            result['identification_message'] = self.identification_message
+        if self.identification_code is not None:
+            result['identification_code'] = self.identification_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('identification_result') is not None:
+            self.identification_result = m.get('identification_result')
+        if m.get('identification_message') is not None:
+            self.identification_message = m.get('identification_message')
+        if m.get('identification_code') is not None:
+            self.identification_code = m.get('identification_code')
+        return self
+
+
 class CollectLabelRawContent(TeaModel):
     def __init__(
         self,
@@ -3556,6 +4068,124 @@ class DistributeDevice(TeaModel):
             self.chain_peripheral_id = m.get('chain_peripheral_id')
         if m.get('device_status') is not None:
             self.device_status = m.get('device_status')
+        return self
+
+
+class BaiGoodsIdentificationRespData(TeaModel):
+    def __init__(
+        self,
+        identification_result: str = None,
+        grade: str = None,
+        description: str = None,
+        point_identification_results: List[BaiGoodsPointIdentificationResult] = None,
+    ):
+        # 鉴定结果
+        # REAL：鉴定为真
+        # FAKE：鉴定为假
+        # UNABLE_IDENTIFY：无法鉴定
+        self.identification_result = identification_result
+        # 整体鉴定分数
+        self.grade = grade
+        # 整体鉴定报告描述
+        self.description = description
+        # 鉴定点鉴定结果列表
+        self.point_identification_results = point_identification_results
+
+    def validate(self):
+        self.validate_required(self.identification_result, 'identification_result')
+        self.validate_required(self.grade, 'grade')
+        self.validate_required(self.point_identification_results, 'point_identification_results')
+        if self.point_identification_results:
+            for k in self.point_identification_results:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.identification_result is not None:
+            result['identification_result'] = self.identification_result
+        if self.grade is not None:
+            result['grade'] = self.grade
+        if self.description is not None:
+            result['description'] = self.description
+        result['point_identification_results'] = []
+        if self.point_identification_results is not None:
+            for k in self.point_identification_results:
+                result['point_identification_results'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('identification_result') is not None:
+            self.identification_result = m.get('identification_result')
+        if m.get('grade') is not None:
+            self.grade = m.get('grade')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        self.point_identification_results = []
+        if m.get('point_identification_results') is not None:
+            for k in m.get('point_identification_results'):
+                temp_model = BaiGoodsPointIdentificationResult()
+                self.point_identification_results.append(temp_model.from_map(k))
+        return self
+
+
+class IotBasicUserInfo(TeaModel):
+    def __init__(
+        self,
+        tenant: str = None,
+        cloud_user_id: str = None,
+        login_name: str = None,
+        permission_list: List[IotBasicRolePermission] = None,
+    ):
+        # 租户ID
+        self.tenant = tenant
+        # 金融云用户Id
+        # 
+        self.cloud_user_id = cloud_user_id
+        # 金融云平台的登录名
+        # 
+        self.login_name = login_name
+        # 权限集合
+        self.permission_list = permission_list
+
+    def validate(self):
+        self.validate_required(self.tenant, 'tenant')
+        self.validate_required(self.cloud_user_id, 'cloud_user_id')
+        self.validate_required(self.login_name, 'login_name')
+        self.validate_required(self.permission_list, 'permission_list')
+        if self.permission_list:
+            for k in self.permission_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
+        if self.cloud_user_id is not None:
+            result['cloud_user_id'] = self.cloud_user_id
+        if self.login_name is not None:
+            result['login_name'] = self.login_name
+        result['permission_list'] = []
+        if self.permission_list is not None:
+            for k in self.permission_list:
+                result['permission_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
+        if m.get('cloud_user_id') is not None:
+            self.cloud_user_id = m.get('cloud_user_id')
+        if m.get('login_name') is not None:
+            self.login_name = m.get('login_name')
+        self.permission_list = []
+        if m.get('permission_list') is not None:
+            for k in m.get('permission_list'):
+                temp_model = IotBasicRolePermission()
+                self.permission_list.append(temp_model.from_map(k))
         return self
 
 
@@ -3753,6 +4383,38 @@ class BaiOcrResponse(TeaModel):
         m = m or dict()
         if m.get('data') is not None:
             self.data = m.get('data')
+        return self
+
+
+class XNameValuePair(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        value: str = None,
+    ):
+        # 键名
+        self.name = name
+        # 键值
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('value') is not None:
+            self.value = m.get('value')
         return self
 
 
@@ -4535,23 +5197,25 @@ class QueryAiidentificationQrcodeRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         app_key: str = None,
-        query_image_base_64: str = None,
-        gallery_image_base_64: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 用户身份标识
         self.app_key = app_key
-        # 图片内容的base64字符串
-        self.query_image_base_64 = query_image_base_64
-        # 底图内容的base64字符串
-        self.gallery_image_base_64 = gallery_image_base_64
+        # BaiQrcodeComparisonReqData转为JSONString后再getBytes
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
 
     def validate(self):
         self.validate_required(self.app_key, 'app_key')
-        self.validate_required(self.query_image_base_64, 'query_image_base_64')
-        self.validate_required(self.gallery_image_base_64, 'gallery_image_base_64')
+        self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
         result = dict()
@@ -4561,10 +5225,12 @@ class QueryAiidentificationQrcodeRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.app_key is not None:
             result['app_key'] = self.app_key
-        if self.query_image_base_64 is not None:
-            result['query_image_base64'] = self.query_image_base_64
-        if self.gallery_image_base_64 is not None:
-            result['gallery_image_base64'] = self.gallery_image_base_64
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
         return result
 
     def from_map(self, m: dict = None):
@@ -4575,10 +5241,12 @@ class QueryAiidentificationQrcodeRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('app_key') is not None:
             self.app_key = m.get('app_key')
-        if m.get('query_image_base64') is not None:
-            self.query_image_base_64 = m.get('query_image_base64')
-        if m.get('gallery_image_base64') is not None:
-            self.gallery_image_base_64 = m.get('gallery_image_base64')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
         return self
 
 
@@ -4588,7 +5256,7 @@ class QueryAiidentificationQrcodeResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        data: str = None,
+        data: BaiQrcodeComparisonRespData = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -4600,7 +5268,8 @@ class QueryAiidentificationQrcodeResponse(TeaModel):
         self.data = data
 
     def validate(self):
-        pass
+        if self.data:
+            self.data.validate()
 
     def to_map(self):
         result = dict()
@@ -4611,7 +5280,7 @@ class QueryAiidentificationQrcodeResponse(TeaModel):
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
         if self.data is not None:
-            result['data'] = self.data
+            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -4623,7 +5292,222 @@ class QueryAiidentificationQrcodeResponse(TeaModel):
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
-            self.data = m.get('data')
+            temp_model = BaiQrcodeComparisonRespData()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class QueryAiidentificationGoodsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        app_key: str = None,
+        goods_info: BaiGoodsComparisonReqData = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户身份标识
+        self.app_key = app_key
+        # 鉴定商品信息
+        self.goods_info = goods_info
+
+    def validate(self):
+        self.validate_required(self.app_key, 'app_key')
+        self.validate_required(self.goods_info, 'goods_info')
+        if self.goods_info:
+            self.goods_info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.app_key is not None:
+            result['app_key'] = self.app_key
+        if self.goods_info is not None:
+            result['goods_info'] = self.goods_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('app_key') is not None:
+            self.app_key = m.get('app_key')
+        if m.get('goods_info') is not None:
+            temp_model = BaiGoodsComparisonReqData()
+            self.goods_info = temp_model.from_map(m['goods_info'])
+        return self
+
+
+class QueryAiidentificationGoodsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: BaiGoodsIdentificationRespData = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = BaiGoodsIdentificationRespData()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class CheckAiidentificationGoodspointRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        app_key: str = None,
+        category: str = None,
+        brand: str = None,
+        style: str = None,
+        point_info: BaiGoodsPoint = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户调用标识
+        self.app_key = app_key
+        # 品类
+        self.category = category
+        # 品牌
+        self.brand = brand
+        # 款式
+        self.style = style
+        # 鉴定点信息
+        self.point_info = point_info
+
+    def validate(self):
+        self.validate_required(self.app_key, 'app_key')
+        self.validate_required(self.category, 'category')
+        self.validate_required(self.brand, 'brand')
+        self.validate_required(self.style, 'style')
+        self.validate_required(self.point_info, 'point_info')
+        if self.point_info:
+            self.point_info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.app_key is not None:
+            result['app_key'] = self.app_key
+        if self.category is not None:
+            result['category'] = self.category
+        if self.brand is not None:
+            result['brand'] = self.brand
+        if self.style is not None:
+            result['style'] = self.style
+        if self.point_info is not None:
+            result['point_info'] = self.point_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('app_key') is not None:
+            self.app_key = m.get('app_key')
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('brand') is not None:
+            self.brand = m.get('brand')
+        if m.get('style') is not None:
+            self.style = m.get('style')
+        if m.get('point_info') is not None:
+            temp_model = BaiGoodsPoint()
+            self.point_info = temp_model.from_map(m['point_info'])
+        return self
+
+
+class CheckAiidentificationGoodspointResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: BaiGoodsPointCheckRespData = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 商品鉴定点检测响应数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = BaiGoodsPointCheckRespData()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
@@ -4910,6 +5794,7 @@ class QueryIotbasicDeviceRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         tenant_id: str = None,
+        user_id: str = None,
         device_sn: str = None,
         category_code: str = None,
         device_model: str = None,
@@ -4924,6 +5809,8 @@ class QueryIotbasicDeviceRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 租户ID
         self.tenant_id = tenant_id
+        # 当前登录用户ID
+        self.user_id = user_id
         # 设备SN
         self.device_sn = device_sn
         # 设备品类code
@@ -4945,6 +5832,8 @@ class QueryIotbasicDeviceRequest(TeaModel):
         self.page_size = page_size
 
     def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.user_id, 'user_id')
         self.validate_required(self.current_page, 'current_page')
         if self.current_page is not None:
             self.validate_minimum(self.current_page, 'current_page', 1)
@@ -4961,6 +5850,8 @@ class QueryIotbasicDeviceRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.tenant_id is not None:
             result['tenant_id'] = self.tenant_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
         if self.device_sn is not None:
             result['device_sn'] = self.device_sn
         if self.category_code is not None:
@@ -4987,6 +5878,8 @@ class QueryIotbasicDeviceRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
         if m.get('device_sn') is not None:
             self.device_sn = m.get('device_sn')
         if m.get('category_code') is not None:
@@ -5095,15 +5988,19 @@ class RecognizeIotbasicCustomerRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         tenant_id: str = None,
+        user_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 租户ID
         self.tenant_id = tenant_id
+        # 用户ID或操作员ID
+        self.user_id = user_id
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.user_id, 'user_id')
 
     def to_map(self):
         result = dict()
@@ -5113,6 +6010,8 @@ class RecognizeIotbasicCustomerRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.tenant_id is not None:
             result['tenant_id'] = self.tenant_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
         return result
 
     def from_map(self, m: dict = None):
@@ -5123,6 +6022,8 @@ class RecognizeIotbasicCustomerRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
         return self
 
 
@@ -5134,6 +6035,7 @@ class RecognizeIotbasicCustomerResponse(TeaModel):
         result_msg: str = None,
         authorized: bool = None,
         device_list: List[DeviceOverViewResponse] = None,
+        iot_role: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -5145,6 +6047,8 @@ class RecognizeIotbasicCustomerResponse(TeaModel):
         self.authorized = authorized
         # 设备数量列表
         self.device_list = device_list
+        # 角色
+        self.iot_role = iot_role
 
     def validate(self):
         if self.device_list:
@@ -5166,6 +6070,8 @@ class RecognizeIotbasicCustomerResponse(TeaModel):
         if self.device_list is not None:
             for k in self.device_list:
                 result['device_list'].append(k.to_map() if k else None)
+        if self.iot_role is not None:
+            result['iot_role'] = self.iot_role
         return result
 
     def from_map(self, m: dict = None):
@@ -5183,6 +6089,8 @@ class RecognizeIotbasicCustomerResponse(TeaModel):
             for k in m.get('device_list'):
                 temp_model = DeviceOverViewResponse()
                 self.device_list.append(temp_model.from_map(k))
+        if m.get('iot_role') is not None:
+            self.iot_role = m.get('iot_role')
         return self
 
 
@@ -5322,6 +6230,447 @@ class CertifyIotbasicDeviceResponse(TeaModel):
             self.app_version = m.get('app_version')
         if m.get('service_status') is not None:
             self.service_status = m.get('service_status')
+        return self
+
+
+class OperateIotbasicUserRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        user_list: List[IotBasicUserRequest] = None,
+        iot_role: str = None,
+        action: str = None,
+        operator_id: str = None,
+        param_sign: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 操作用户集合
+        self.user_list = user_list
+        # 要开通的角色
+        self.iot_role = iot_role
+        # 操作类型
+        self.action = action
+        # 操作人
+        self.operator_id = operator_id
+        # 参数签名校验
+        self.param_sign = param_sign
+
+    def validate(self):
+        self.validate_required(self.user_list, 'user_list')
+        if self.user_list:
+            for k in self.user_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.action, 'action')
+        self.validate_required(self.operator_id, 'operator_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        result['user_list'] = []
+        if self.user_list is not None:
+            for k in self.user_list:
+                result['user_list'].append(k.to_map() if k else None)
+        if self.iot_role is not None:
+            result['iot_role'] = self.iot_role
+        if self.action is not None:
+            result['action'] = self.action
+        if self.operator_id is not None:
+            result['operator_id'] = self.operator_id
+        if self.param_sign is not None:
+            result['param_sign'] = self.param_sign
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        self.user_list = []
+        if m.get('user_list') is not None:
+            for k in m.get('user_list'):
+                temp_model = IotBasicUserRequest()
+                self.user_list.append(temp_model.from_map(k))
+        if m.get('iot_role') is not None:
+            self.iot_role = m.get('iot_role')
+        if m.get('action') is not None:
+            self.action = m.get('action')
+        if m.get('operator_id') is not None:
+            self.operator_id = m.get('operator_id')
+        if m.get('param_sign') is not None:
+            self.param_sign = m.get('param_sign')
+        return self
+
+
+class OperateIotbasicUserResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        fail_list: List[IotBasicUserRequest] = None,
+        query_list: List[IotBasicUserInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作结果
+        self.success = success
+        # 操作失败集合
+        self.fail_list = fail_list
+        # 用户信息
+        self.query_list = query_list
+
+    def validate(self):
+        if self.fail_list:
+            for k in self.fail_list:
+                if k:
+                    k.validate()
+        if self.query_list:
+            for k in self.query_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        result['fail_list'] = []
+        if self.fail_list is not None:
+            for k in self.fail_list:
+                result['fail_list'].append(k.to_map() if k else None)
+        result['query_list'] = []
+        if self.query_list is not None:
+            for k in self.query_list:
+                result['query_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        self.fail_list = []
+        if m.get('fail_list') is not None:
+            for k in m.get('fail_list'):
+                temp_model = IotBasicUserRequest()
+                self.fail_list.append(temp_model.from_map(k))
+        self.query_list = []
+        if m.get('query_list') is not None:
+            for k in m.get('query_list'):
+                temp_model = IotBasicUserInfo()
+                self.query_list.append(temp_model.from_map(k))
+        return self
+
+
+class OperateIotbasicPermissionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        operator_id: str = None,
+        iot_role: str = None,
+        permission_list: List[IotBasicPermissionData] = None,
+        action: str = None,
+        bind_permision: List[str] = None,
+        param_sign: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 操作人
+        # 
+        self.operator_id = operator_id
+        # 角色
+        self.iot_role = iot_role
+        # 待添加的权限集合
+        self.permission_list = permission_list
+        # 操作类型
+        self.action = action
+        # 绑定权限集合
+        self.bind_permision = bind_permision
+        # 参数签名校验
+        self.param_sign = param_sign
+
+    def validate(self):
+        self.validate_required(self.operator_id, 'operator_id')
+        if self.permission_list:
+            for k in self.permission_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.action, 'action')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.operator_id is not None:
+            result['operator_id'] = self.operator_id
+        if self.iot_role is not None:
+            result['iot_role'] = self.iot_role
+        result['permission_list'] = []
+        if self.permission_list is not None:
+            for k in self.permission_list:
+                result['permission_list'].append(k.to_map() if k else None)
+        if self.action is not None:
+            result['action'] = self.action
+        if self.bind_permision is not None:
+            result['bind_permision'] = self.bind_permision
+        if self.param_sign is not None:
+            result['param_sign'] = self.param_sign
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('operator_id') is not None:
+            self.operator_id = m.get('operator_id')
+        if m.get('iot_role') is not None:
+            self.iot_role = m.get('iot_role')
+        self.permission_list = []
+        if m.get('permission_list') is not None:
+            for k in m.get('permission_list'):
+                temp_model = IotBasicPermissionData()
+                self.permission_list.append(temp_model.from_map(k))
+        if m.get('action') is not None:
+            self.action = m.get('action')
+        if m.get('bind_permision') is not None:
+            self.bind_permision = m.get('bind_permision')
+        if m.get('param_sign') is not None:
+            self.param_sign = m.get('param_sign')
+        return self
+
+
+class OperateIotbasicPermissionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        role_list: List[IotBasicRolePermission] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作结果
+        self.success = success
+        # 权限列表
+        self.role_list = role_list
+
+    def validate(self):
+        if self.role_list:
+            for k in self.role_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        result['role_list'] = []
+        if self.role_list is not None:
+            for k in self.role_list:
+                result['role_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        self.role_list = []
+        if m.get('role_list') is not None:
+            for k in m.get('role_list'):
+                temp_model = IotBasicRolePermission()
+                self.role_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryIotbasicSnRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        user_id: str = None,
+        current_page: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户ID
+        self.tenant_id = tenant_id
+        # 当前登录用户ID
+        # 
+        self.user_id = user_id
+        # 指定显示返回结果中的第几页。
+        # 
+        self.current_page = current_page
+        # 指定返回结果中每页显示的产品数量，最大值是300。
+        # 
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.current_page, 'current_page')
+        if self.current_page is not None:
+            self.validate_minimum(self.current_page, 'current_page', 1)
+        self.validate_required(self.page_size, 'page_size')
+        if self.page_size is not None:
+            self.validate_maximum(self.page_size, 'page_size', 300)
+            self.validate_minimum(self.page_size, 'page_size', 1)
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class QueryIotbasicSnResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        current_page: int = None,
+        page_count: int = None,
+        page_size: int = None,
+        total: int = None,
+        sn_list: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 当前页号。
+        # 
+        self.current_page = current_page
+        # 总页数
+        # 
+        self.page_count = page_count
+        # 每页显示条数
+        # 
+        self.page_size = page_size
+        # 总记录数
+        # 
+        self.total = total
+        # sn集合
+        self.sn_list = sn_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        if self.page_count is not None:
+            result['page_count'] = self.page_count
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total is not None:
+            result['total'] = self.total
+        if self.sn_list is not None:
+            result['sn_list'] = self.sn_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        if m.get('page_count') is not None:
+            self.page_count = m.get('page_count')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('sn_list') is not None:
+            self.sn_list = m.get('sn_list')
         return self
 
 
@@ -16294,6 +17643,154 @@ class QueryTlsnotaryTaskResponse(TeaModel):
             self.error_code = m.get('error_code')
         if m.get('error_msg') is not None:
             self.error_msg = m.get('error_msg')
+        return self
+
+
+class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        api_code: str = None,
+        file_label: str = None,
+        file_metadata: str = None,
+        file_name: str = None,
+        mime_type: str = None,
+        api_cluster: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 上传文件作用的openapi method
+        self.api_code = api_code
+        # 文件标签，多个标签;分割
+        self.file_label = file_label
+        # 自定义的文件元数据
+        self.file_metadata = file_metadata
+        # 文件名，不传则随机生成文件名
+        self.file_name = file_name
+        # 文件的多媒体类型
+        self.mime_type = mime_type
+        # 产品方的api归属集群，即productInstanceId
+        self.api_cluster = api_cluster
+
+    def validate(self):
+        self.validate_required(self.api_code, 'api_code')
+        if self.file_label is not None:
+            self.validate_max_length(self.file_label, 'file_label', 100)
+        if self.file_metadata is not None:
+            self.validate_max_length(self.file_metadata, 'file_metadata', 1000)
+        if self.file_name is not None:
+            self.validate_max_length(self.file_name, 'file_name', 100)
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.api_code is not None:
+            result['api_code'] = self.api_code
+        if self.file_label is not None:
+            result['file_label'] = self.file_label
+        if self.file_metadata is not None:
+            result['file_metadata'] = self.file_metadata
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.mime_type is not None:
+            result['mime_type'] = self.mime_type
+        if self.api_cluster is not None:
+            result['api_cluster'] = self.api_cluster
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('api_code') is not None:
+            self.api_code = m.get('api_code')
+        if m.get('file_label') is not None:
+            self.file_label = m.get('file_label')
+        if m.get('file_metadata') is not None:
+            self.file_metadata = m.get('file_metadata')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('mime_type') is not None:
+            self.mime_type = m.get('mime_type')
+        if m.get('api_cluster') is not None:
+            self.api_cluster = m.get('api_cluster')
+        return self
+
+
+class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        expired_time: str = None,
+        file_id: str = None,
+        upload_headers: List[XNameValuePair] = None,
+        upload_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 上传有效期
+        self.expired_time = expired_time
+        # 32位文件唯一id
+        self.file_id = file_id
+        # 放入http请求头里
+        self.upload_headers = upload_headers
+        # 文件上传地址
+        self.upload_url = upload_url
+
+    def validate(self):
+        if self.expired_time is not None:
+            self.validate_pattern(self.expired_time, 'expired_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.upload_headers:
+            for k in self.upload_headers:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.expired_time is not None:
+            result['expired_time'] = self.expired_time
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        result['upload_headers'] = []
+        if self.upload_headers is not None:
+            for k in self.upload_headers:
+                result['upload_headers'].append(k.to_map() if k else None)
+        if self.upload_url is not None:
+            result['upload_url'] = self.upload_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('expired_time') is not None:
+            self.expired_time = m.get('expired_time')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        self.upload_headers = []
+        if m.get('upload_headers') is not None:
+            for k in m.get('upload_headers'):
+                temp_model = XNameValuePair()
+                self.upload_headers.append(temp_model.from_map(k))
+        if m.get('upload_url') is not None:
+            self.upload_url = m.get('upload_url')
         return self
 
 

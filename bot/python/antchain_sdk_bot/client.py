@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 告警策略
+            # iot平台权限数据
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.86'
+                    'sdk_version': '1.6.106'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 告警策略
+            # iot平台权限数据
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.86'
+                    'sdk_version': '1.6.106'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -683,6 +683,23 @@ class Client:
         Description: AI二维码验真
         Summary: AI二维码验真
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = bot_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='blockchain.bot.aiidentification.qrcode.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                query_aiidentification_qrcode_response = bot_models.QueryAiidentificationQrcodeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_aiidentification_qrcode_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
         return bot_models.QueryAiidentificationQrcodeResponse().from_map(
             self.do_request('1.0', 'blockchain.bot.aiidentification.qrcode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
@@ -698,9 +715,134 @@ class Client:
         Description: AI二维码验真
         Summary: AI二维码验真
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = bot_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='blockchain.bot.aiidentification.qrcode.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                query_aiidentification_qrcode_response = bot_models.QueryAiidentificationQrcodeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_aiidentification_qrcode_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
         return bot_models.QueryAiidentificationQrcodeResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.aiidentification.qrcode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_aiidentification_goods(
+        self,
+        request: bot_models.QueryAiidentificationGoodsRequest,
+    ) -> bot_models.QueryAiidentificationGoodsResponse:
+        """
+        Description: AI商品鉴定
+        Summary: AI商品鉴定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aiidentification_goods_ex(request, headers, runtime)
+
+    async def query_aiidentification_goods_async(
+        self,
+        request: bot_models.QueryAiidentificationGoodsRequest,
+    ) -> bot_models.QueryAiidentificationGoodsResponse:
+        """
+        Description: AI商品鉴定
+        Summary: AI商品鉴定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aiidentification_goods_ex_async(request, headers, runtime)
+
+    def query_aiidentification_goods_ex(
+        self,
+        request: bot_models.QueryAiidentificationGoodsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAiidentificationGoodsResponse:
+        """
+        Description: AI商品鉴定
+        Summary: AI商品鉴定
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryAiidentificationGoodsResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.aiidentification.goods.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aiidentification_goods_ex_async(
+        self,
+        request: bot_models.QueryAiidentificationGoodsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryAiidentificationGoodsResponse:
+        """
+        Description: AI商品鉴定
+        Summary: AI商品鉴定
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryAiidentificationGoodsResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.aiidentification.goods.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_aiidentification_goodspoint(
+        self,
+        request: bot_models.CheckAiidentificationGoodspointRequest,
+    ) -> bot_models.CheckAiidentificationGoodspointResponse:
+        """
+        Description: 商品鉴定点图片检测
+        Summary: 商品鉴定点图片检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_aiidentification_goodspoint_ex(request, headers, runtime)
+
+    async def check_aiidentification_goodspoint_async(
+        self,
+        request: bot_models.CheckAiidentificationGoodspointRequest,
+    ) -> bot_models.CheckAiidentificationGoodspointResponse:
+        """
+        Description: 商品鉴定点图片检测
+        Summary: 商品鉴定点图片检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_aiidentification_goodspoint_ex_async(request, headers, runtime)
+
+    def check_aiidentification_goodspoint_ex(
+        self,
+        request: bot_models.CheckAiidentificationGoodspointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CheckAiidentificationGoodspointResponse:
+        """
+        Description: 商品鉴定点图片检测
+        Summary: 商品鉴定点图片检测
+        """
+        UtilClient.validate_model(request)
+        return bot_models.CheckAiidentificationGoodspointResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.aiidentification.goodspoint.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_aiidentification_goodspoint_ex_async(
+        self,
+        request: bot_models.CheckAiidentificationGoodspointRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CheckAiidentificationGoodspointResponse:
+        """
+        Description: 商品鉴定点图片检测
+        Summary: 商品鉴定点图片检测
+        """
+        UtilClient.validate_model(request)
+        return bot_models.CheckAiidentificationGoodspointResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.aiidentification.goodspoint.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_acs_device(
@@ -971,6 +1113,168 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.CertifyIotbasicDeviceResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.device.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_iotbasic_user(
+        self,
+        request: bot_models.OperateIotbasicUserRequest,
+    ) -> bot_models.OperateIotbasicUserResponse:
+        """
+        Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+        Summary: iot平台用户注册操作
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_iotbasic_user_ex(request, headers, runtime)
+
+    async def operate_iotbasic_user_async(
+        self,
+        request: bot_models.OperateIotbasicUserRequest,
+    ) -> bot_models.OperateIotbasicUserResponse:
+        """
+        Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+        Summary: iot平台用户注册操作
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_iotbasic_user_ex_async(request, headers, runtime)
+
+    def operate_iotbasic_user_ex(
+        self,
+        request: bot_models.OperateIotbasicUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateIotbasicUserResponse:
+        """
+        Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+        Summary: iot平台用户注册操作
+        """
+        UtilClient.validate_model(request)
+        return bot_models.OperateIotbasicUserResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.iotbasic.user.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_iotbasic_user_ex_async(
+        self,
+        request: bot_models.OperateIotbasicUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateIotbasicUserResponse:
+        """
+        Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+        Summary: iot平台用户注册操作
+        """
+        UtilClient.validate_model(request)
+        return bot_models.OperateIotbasicUserResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.user.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_iotbasic_permission(
+        self,
+        request: bot_models.OperateIotbasicPermissionRequest,
+    ) -> bot_models.OperateIotbasicPermissionResponse:
+        """
+        Description: iot 平台权限操作
+        Summary: iot 平台权限操作
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_iotbasic_permission_ex(request, headers, runtime)
+
+    async def operate_iotbasic_permission_async(
+        self,
+        request: bot_models.OperateIotbasicPermissionRequest,
+    ) -> bot_models.OperateIotbasicPermissionResponse:
+        """
+        Description: iot 平台权限操作
+        Summary: iot 平台权限操作
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_iotbasic_permission_ex_async(request, headers, runtime)
+
+    def operate_iotbasic_permission_ex(
+        self,
+        request: bot_models.OperateIotbasicPermissionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateIotbasicPermissionResponse:
+        """
+        Description: iot 平台权限操作
+        Summary: iot 平台权限操作
+        """
+        UtilClient.validate_model(request)
+        return bot_models.OperateIotbasicPermissionResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.iotbasic.permission.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_iotbasic_permission_ex_async(
+        self,
+        request: bot_models.OperateIotbasicPermissionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateIotbasicPermissionResponse:
+        """
+        Description: iot 平台权限操作
+        Summary: iot 平台权限操作
+        """
+        UtilClient.validate_model(request)
+        return bot_models.OperateIotbasicPermissionResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.permission.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_iotbasic_sn(
+        self,
+        request: bot_models.QueryIotbasicSnRequest,
+    ) -> bot_models.QueryIotbasicSnResponse:
+        """
+        Description: IoT设备平台-设备sn列表查询
+        Summary: IoT设备平台-设备sn列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_iotbasic_sn_ex(request, headers, runtime)
+
+    async def query_iotbasic_sn_async(
+        self,
+        request: bot_models.QueryIotbasicSnRequest,
+    ) -> bot_models.QueryIotbasicSnResponse:
+        """
+        Description: IoT设备平台-设备sn列表查询
+        Summary: IoT设备平台-设备sn列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_iotbasic_sn_ex_async(request, headers, runtime)
+
+    def query_iotbasic_sn_ex(
+        self,
+        request: bot_models.QueryIotbasicSnRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryIotbasicSnResponse:
+        """
+        Description: IoT设备平台-设备sn列表查询
+        Summary: IoT设备平台-设备sn列表查询
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryIotbasicSnResponse().from_map(
+            self.do_request('1.0', 'blockchain.bot.iotbasic.sn.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_iotbasic_sn_ex_async(
+        self,
+        request: bot_models.QueryIotbasicSnRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryIotbasicSnResponse:
+        """
+        Description: IoT设备平台-设备sn列表查询
+        Summary: IoT设备平台-设备sn列表查询
+        """
+        UtilClient.validate_model(request)
+        return bot_models.QueryIotbasicSnResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.sn.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
@@ -6163,4 +6467,58 @@ class Client:
         UtilClient.validate_model(request)
         return bot_models.QueryTlsnotaryTaskResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.bot.tlsnotary.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: bot_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> bot_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: bot_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> bot_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: bot_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return bot_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: bot_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return bot_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
