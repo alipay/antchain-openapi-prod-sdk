@@ -6,6 +6,7 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
 )
 
 /**
@@ -148,6 +149,53 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// iot平台权限数据
+type IotBasicPermissionData struct {
+	// 权限编码
+	PermissionCode *string `json:"permission_code,omitempty" xml:"permission_code,omitempty" require:"true"`
+	// 权限名称
+	PermissionName *string `json:"permission_name,omitempty" xml:"permission_name,omitempty" require:"true"`
+	// 权限内容
+	PermissionData *string `json:"permission_data,omitempty" xml:"permission_data,omitempty" require:"true"`
+	// 权限类型
+	PermissionType *string `json:"permission_type,omitempty" xml:"permission_type,omitempty" require:"true"`
+	// 权限模块
+	Module *string `json:"module,omitempty" xml:"module,omitempty" require:"true"`
+}
+
+func (s IotBasicPermissionData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotBasicPermissionData) GoString() string {
+	return s.String()
+}
+
+func (s *IotBasicPermissionData) SetPermissionCode(v string) *IotBasicPermissionData {
+	s.PermissionCode = &v
+	return s
+}
+
+func (s *IotBasicPermissionData) SetPermissionName(v string) *IotBasicPermissionData {
+	s.PermissionName = &v
+	return s
+}
+
+func (s *IotBasicPermissionData) SetPermissionData(v string) *IotBasicPermissionData {
+	s.PermissionData = &v
+	return s
+}
+
+func (s *IotBasicPermissionData) SetPermissionType(v string) *IotBasicPermissionData {
+	s.PermissionType = &v
+	return s
+}
+
+func (s *IotBasicPermissionData) SetModule(v string) *IotBasicPermissionData {
+	s.Module = &v
+	return s
+}
+
 // 告警策略
 type AlertStrategy struct {
 	// 主键ID
@@ -221,6 +269,34 @@ func (s *AlertStrategy) SetEnabled(v bool) *AlertStrategy {
 
 func (s *AlertStrategy) SetRemark(v string) *AlertStrategy {
 	s.Remark = &v
+	return s
+}
+
+// 资源定位信息
+type BaiResourceLocation struct {
+	// 资源定位类型
+	// HTTP_URL：资源url
+	// STRING_BASE64：资源base64字符串（不带base64头部）
+	LocationType *string `json:"location_type,omitempty" xml:"location_type,omitempty" require:"true"`
+	// 资源定位值
+	LocationValue *string `json:"location_value,omitempty" xml:"location_value,omitempty" require:"true"`
+}
+
+func (s BaiResourceLocation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiResourceLocation) GoString() string {
+	return s.String()
+}
+
+func (s *BaiResourceLocation) SetLocationType(v string) *BaiResourceLocation {
+	s.LocationType = &v
+	return s
+}
+
+func (s *BaiResourceLocation) SetLocationValue(v string) *BaiResourceLocation {
+	s.LocationValue = &v
 	return s
 }
 
@@ -482,6 +558,53 @@ func (s *SceneModel) SetCustomerProcessor(v string) *SceneModel {
 	return s
 }
 
+// 商品的鉴定点图片信息
+type BaiGoodsPoint struct {
+	// 鉴定点名称
+	PointName *string `json:"point_name,omitempty" xml:"point_name,omitempty" require:"true"`
+	// 鉴定点子项
+	SubPointName *string `json:"sub_point_name,omitempty" xml:"sub_point_name,omitempty" require:"true"`
+	// 鉴定点图片的url
+	ImageUrl *string `json:"image_url,omitempty" xml:"image_url,omitempty"`
+	// 图片内容base64编码的字符串，该字段与image_url至少一个非空，同时传入以image_url为准
+	ImageBase64 *string `json:"image_base64,omitempty" xml:"image_base64,omitempty"`
+	// 用户侧鉴定单关联id
+	UserPointId *string `json:"user_point_id,omitempty" xml:"user_point_id,omitempty"`
+}
+
+func (s BaiGoodsPoint) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiGoodsPoint) GoString() string {
+	return s.String()
+}
+
+func (s *BaiGoodsPoint) SetPointName(v string) *BaiGoodsPoint {
+	s.PointName = &v
+	return s
+}
+
+func (s *BaiGoodsPoint) SetSubPointName(v string) *BaiGoodsPoint {
+	s.SubPointName = &v
+	return s
+}
+
+func (s *BaiGoodsPoint) SetImageUrl(v string) *BaiGoodsPoint {
+	s.ImageUrl = &v
+	return s
+}
+
+func (s *BaiGoodsPoint) SetImageBase64(v string) *BaiGoodsPoint {
+	s.ImageBase64 = &v
+	return s
+}
+
+func (s *BaiGoodsPoint) SetUserPointId(v string) *BaiGoodsPoint {
+	s.UserPointId = &v
+	return s
+}
+
 // 数据校验失败返回体
 type DataVerifyFailureData struct {
 	// 主键id
@@ -653,6 +776,39 @@ func (s *RawData) SetPeripheralId(v string) *RawData {
 	return s
 }
 
+// iot平台角色信息
+type IotBasicRolePermission struct {
+	// 角色编码
+	RoleCode *string `json:"role_code,omitempty" xml:"role_code,omitempty" require:"true"`
+	// 角色名称
+	RoleName *string `json:"role_name,omitempty" xml:"role_name,omitempty" require:"true"`
+	// 权限列表
+	PermissionList []*IotBasicPermissionData `json:"permission_list,omitempty" xml:"permission_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s IotBasicRolePermission) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotBasicRolePermission) GoString() string {
+	return s.String()
+}
+
+func (s *IotBasicRolePermission) SetRoleCode(v string) *IotBasicRolePermission {
+	s.RoleCode = &v
+	return s
+}
+
+func (s *IotBasicRolePermission) SetRoleName(v string) *IotBasicRolePermission {
+	s.RoleName = &v
+	return s
+}
+
+func (s *IotBasicRolePermission) SetPermissionList(v []*IotBasicPermissionData) *IotBasicRolePermission {
+	s.PermissionList = v
+	return s
+}
+
 // 租户信息
 type PermissionedTenantModel struct {
 	// 主键Id
@@ -721,22 +877,53 @@ func (s *PermissionedTenantModel) SetGatewayPublicKey(v string) *PermissionedTen
 	return s
 }
 
-// 二维码验真接口返回值
-type BaiQrcodeComparisonResponse struct {
-	// 返回的结果
-	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+// 商品单点鉴定结果
+type BaiGoodsPointIdentificationResult struct {
+	// 鉴定点大项名称
+	PointName *string `json:"point_name,omitempty" xml:"point_name,omitempty" require:"true"`
+	// 鉴定点子项名称
+	SubPointName *string `json:"sub_point_name,omitempty" xml:"sub_point_name,omitempty" require:"true"`
+	// 单点鉴定结果
+	// REAL：鉴定为真
+	// FAKE：鉴定为假
+	// UNABLE_IDENTIFY：无法鉴定
+	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true"`
+	// 鉴定分数
+	Grade *string `json:"grade,omitempty" xml:"grade,omitempty"`
+	// 用户侧的鉴定点point_id，直接将用户传入的user_point_id返回
+	UserPointId *string `json:"user_point_id,omitempty" xml:"user_point_id,omitempty"`
 }
 
-func (s BaiQrcodeComparisonResponse) String() string {
+func (s BaiGoodsPointIdentificationResult) String() string {
 	return tea.Prettify(s)
 }
 
-func (s BaiQrcodeComparisonResponse) GoString() string {
+func (s BaiGoodsPointIdentificationResult) GoString() string {
 	return s.String()
 }
 
-func (s *BaiQrcodeComparisonResponse) SetData(v string) *BaiQrcodeComparisonResponse {
-	s.Data = &v
+func (s *BaiGoodsPointIdentificationResult) SetPointName(v string) *BaiGoodsPointIdentificationResult {
+	s.PointName = &v
+	return s
+}
+
+func (s *BaiGoodsPointIdentificationResult) SetSubPointName(v string) *BaiGoodsPointIdentificationResult {
+	s.SubPointName = &v
+	return s
+}
+
+func (s *BaiGoodsPointIdentificationResult) SetResult(v string) *BaiGoodsPointIdentificationResult {
+	s.Result = &v
+	return s
+}
+
+func (s *BaiGoodsPointIdentificationResult) SetGrade(v string) *BaiGoodsPointIdentificationResult {
+	s.Grade = &v
+	return s
+}
+
+func (s *BaiGoodsPointIdentificationResult) SetUserPointId(v string) *BaiGoodsPointIdentificationResult {
+	s.UserPointId = &v
 	return s
 }
 
@@ -873,6 +1060,25 @@ func (s *ThingsDidRegisterReq) SetUserDid(v []*string) *ThingsDidRegisterReq {
 	return s
 }
 
+// 商品鉴定点检测接口响应数据
+type BaiGoodsPointCheckRespData struct {
+	// 图片是否有效，无效则需要提示重拍
+	Valid *bool `json:"valid,omitempty" xml:"valid,omitempty" require:"true"`
+}
+
+func (s BaiGoodsPointCheckRespData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiGoodsPointCheckRespData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiGoodsPointCheckRespData) SetValid(v bool) *BaiGoodsPointCheckRespData {
+	s.Valid = &v
+	return s
+}
+
 // 查询设备列表结构体
 type IotBasicDeviceQueryResponse struct {
 	// 设备名称
@@ -900,6 +1106,16 @@ type IotBasicDeviceQueryResponse struct {
 	AbnormalCode *string `json:"abnormal_code,omitempty" xml:"abnormal_code,omitempty"`
 	// 设备唯一身份id
 	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty"`
+	// 账号ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 账户名称
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
+	// 设备服务状态
+	ServiceStatus *string `json:"service_status,omitempty" xml:"service_status,omitempty" require:"true"`
+	// 应用版本号
+	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty" require:"true"`
+	// 服务有效期
+	ValidityTime *string `json:"validity_time,omitempty" xml:"validity_time,omitempty"`
 }
 
 func (s IotBasicDeviceQueryResponse) String() string {
@@ -967,6 +1183,31 @@ func (s *IotBasicDeviceQueryResponse) SetAbnormalCode(v string) *IotBasicDeviceQ
 
 func (s *IotBasicDeviceQueryResponse) SetDeviceDid(v string) *IotBasicDeviceQueryResponse {
 	s.DeviceDid = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetAccountId(v string) *IotBasicDeviceQueryResponse {
+	s.AccountId = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetAccountName(v string) *IotBasicDeviceQueryResponse {
+	s.AccountName = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetServiceStatus(v string) *IotBasicDeviceQueryResponse {
+	s.ServiceStatus = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetAppVersion(v string) *IotBasicDeviceQueryResponse {
+	s.AppVersion = &v
+	return s
+}
+
+func (s *IotBasicDeviceQueryResponse) SetValidityTime(v string) *IotBasicDeviceQueryResponse {
+	s.ValidityTime = &v
 	return s
 }
 
@@ -1185,6 +1426,39 @@ func (s *TlsnotaryUploadOssLinks) SetCertChainDigestLink(v string) *TlsnotaryUpl
 
 func (s *TlsnotaryUploadOssLinks) SetEmlFileLink(v string) *TlsnotaryUploadOssLinks {
 	s.EmlFileLink = &v
+	return s
+}
+
+// 溯源码比对请求体
+type BaiQrcodeComparisonReqData struct {
+	// query图片定位信息
+	QueryImageLocation *BaiResourceLocation `json:"query_image_location,omitempty" xml:"query_image_location,omitempty" require:"true"`
+	// gallery图片定位信息
+	GalleryImageLocation *BaiResourceLocation `json:"gallery_image_location,omitempty" xml:"gallery_image_location,omitempty" require:"true"`
+	// 是否允许降级
+	Downgrade *bool `json:"downgrade,omitempty" xml:"downgrade,omitempty" require:"true"`
+}
+
+func (s BaiQrcodeComparisonReqData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiQrcodeComparisonReqData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiQrcodeComparisonReqData) SetQueryImageLocation(v *BaiResourceLocation) *BaiQrcodeComparisonReqData {
+	s.QueryImageLocation = v
+	return s
+}
+
+func (s *BaiQrcodeComparisonReqData) SetGalleryImageLocation(v *BaiResourceLocation) *BaiQrcodeComparisonReqData {
+	s.GalleryImageLocation = v
+	return s
+}
+
+func (s *BaiQrcodeComparisonReqData) SetDowngrade(v bool) *BaiQrcodeComparisonReqData {
+	s.Downgrade = &v
 	return s
 }
 
@@ -1559,6 +1833,46 @@ func (s *EvidenceQueryInfoReq) SetTxHash(v string) *EvidenceQueryInfoReq {
 	return s
 }
 
+// AI商品鉴定请求信息
+type BaiGoodsComparisonReqData struct {
+	// 品类
+	Category *string `json:"category,omitempty" xml:"category,omitempty" require:"true"`
+	// 品牌
+	Brand *string `json:"brand,omitempty" xml:"brand,omitempty" require:"true"`
+	// 款式
+	Style *string `json:"style,omitempty" xml:"style,omitempty" require:"true"`
+	// 商品鉴定点列表
+	GoodsPoints []*BaiGoodsPoint `json:"goods_points,omitempty" xml:"goods_points,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BaiGoodsComparisonReqData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiGoodsComparisonReqData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiGoodsComparisonReqData) SetCategory(v string) *BaiGoodsComparisonReqData {
+	s.Category = &v
+	return s
+}
+
+func (s *BaiGoodsComparisonReqData) SetBrand(v string) *BaiGoodsComparisonReqData {
+	s.Brand = &v
+	return s
+}
+
+func (s *BaiGoodsComparisonReqData) SetStyle(v string) *BaiGoodsComparisonReqData {
+	s.Style = &v
+	return s
+}
+
+func (s *BaiGoodsComparisonReqData) SetGoodsPoints(v []*BaiGoodsPoint) *BaiGoodsComparisonReqData {
+	s.GoodsPoints = v
+	return s
+}
+
 // 收集数据返回的上链结果
 type SendCollectorResult struct {
 	// 数据内容content的上链交易哈希
@@ -1702,6 +2016,46 @@ func (s *EvidenceStorageReq) SetMetaJson(v string) *EvidenceStorageReq {
 
 func (s *EvidenceStorageReq) SetProjectUid(v string) *EvidenceStorageReq {
 	s.ProjectUid = &v
+	return s
+}
+
+// 二维码验真接口返回值
+type BaiQrcodeComparisonRespData struct {
+	// 识别结果（REAL：真   FAKE：假   UNABLE_IDENTIFY：无法识别）
+	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
+	// 辅助识别结果码
+	IdentificationCode *string `json:"identification_code,omitempty" xml:"identification_code,omitempty"`
+	// 辅助识别信息
+	IdentificationMessage *string `json:"identification_message,omitempty" xml:"identification_message,omitempty"`
+	// 无法识别时提示的解决方案
+	UnableIdentifySolution *string `json:"unable_identify_solution,omitempty" xml:"unable_identify_solution,omitempty"`
+}
+
+func (s BaiQrcodeComparisonRespData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiQrcodeComparisonRespData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiQrcodeComparisonRespData) SetIdentificationResult(v string) *BaiQrcodeComparisonRespData {
+	s.IdentificationResult = &v
+	return s
+}
+
+func (s *BaiQrcodeComparisonRespData) SetIdentificationCode(v string) *BaiQrcodeComparisonRespData {
+	s.IdentificationCode = &v
+	return s
+}
+
+func (s *BaiQrcodeComparisonRespData) SetIdentificationMessage(v string) *BaiQrcodeComparisonRespData {
+	s.IdentificationMessage = &v
+	return s
+}
+
+func (s *BaiQrcodeComparisonRespData) SetUnableIdentifySolution(v string) *BaiQrcodeComparisonRespData {
+	s.UnableIdentifySolution = &v
 	return s
 }
 
@@ -2802,6 +3156,39 @@ func (s *DeviceRegisterReqModel) SetStatus(v string) *DeviceRegisterReqModel {
 	return s
 }
 
+// 用户操作集合
+type IotBasicUserRequest struct {
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 金融云用户id
+	CloudUserId *string `json:"cloud_user_id,omitempty" xml:"cloud_user_id,omitempty"`
+	// 登录名
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+}
+
+func (s IotBasicUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotBasicUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *IotBasicUserRequest) SetTenantId(v string) *IotBasicUserRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *IotBasicUserRequest) SetCloudUserId(v string) *IotBasicUserRequest {
+	s.CloudUserId = &v
+	return s
+}
+
+func (s *IotBasicUserRequest) SetLoginName(v string) *IotBasicUserRequest {
+	s.LoginName = &v
+	return s
+}
+
 // 设备业务数据
 type BizContentGroup struct {
 	// 设备链上Id
@@ -2960,6 +3347,39 @@ func (s *DidBaseQueryReq) SetThingsDidList(v []*string) *DidBaseQueryReq {
 	return s
 }
 
+// 商品鉴定返回结果
+type BaiGoodsComparisonResponse struct {
+	// 鉴定结果（REAL：为真   FAKE：为假   UNABLE_IDENTIFY：无法鉴定）
+	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
+	// 鉴定补充信息
+	IdentificationMessage *string `json:"identification_message,omitempty" xml:"identification_message,omitempty"`
+	// 鉴定信息code
+	IdentificationCode *string `json:"identification_code,omitempty" xml:"identification_code,omitempty"`
+}
+
+func (s BaiGoodsComparisonResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiGoodsComparisonResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BaiGoodsComparisonResponse) SetIdentificationResult(v string) *BaiGoodsComparisonResponse {
+	s.IdentificationResult = &v
+	return s
+}
+
+func (s *BaiGoodsComparisonResponse) SetIdentificationMessage(v string) *BaiGoodsComparisonResponse {
+	s.IdentificationMessage = &v
+	return s
+}
+
+func (s *BaiGoodsComparisonResponse) SetIdentificationCode(v string) *BaiGoodsComparisonResponse {
+	s.IdentificationCode = &v
+	return s
+}
+
 // 收集标签数据（元数据，无签名）
 type CollectLabelRawContent struct {
 	// 1.设备端上报数据内容 2.与设备上报的数据一致，服务端不可修改 3.解析后需与DataModel匹配 4.映射 Label 对象结构化存储 5.转为JSON后如果是JSONObject 映射单个 Label 6.转为JSON后如果是JSONArray 映射多个 Label
@@ -3091,6 +3511,92 @@ func (s *DistributeDevice) SetChainPeripheralId(v string) *DistributeDevice {
 
 func (s *DistributeDevice) SetDeviceStatus(v string) *DistributeDevice {
 	s.DeviceStatus = &v
+	return s
+}
+
+// 商品鉴定返回结果
+type BaiGoodsIdentificationRespData struct {
+	// 鉴定结果
+	// REAL：鉴定为真
+	// FAKE：鉴定为假
+	// UNABLE_IDENTIFY：无法鉴定
+	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
+	// 整体鉴定分数
+	Grade *string `json:"grade,omitempty" xml:"grade,omitempty" require:"true"`
+	// 整体鉴定报告描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 鉴定点鉴定结果列表
+	PointIdentificationResults []*BaiGoodsPointIdentificationResult `json:"point_identification_results,omitempty" xml:"point_identification_results,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BaiGoodsIdentificationRespData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiGoodsIdentificationRespData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiGoodsIdentificationRespData) SetIdentificationResult(v string) *BaiGoodsIdentificationRespData {
+	s.IdentificationResult = &v
+	return s
+}
+
+func (s *BaiGoodsIdentificationRespData) SetGrade(v string) *BaiGoodsIdentificationRespData {
+	s.Grade = &v
+	return s
+}
+
+func (s *BaiGoodsIdentificationRespData) SetDescription(v string) *BaiGoodsIdentificationRespData {
+	s.Description = &v
+	return s
+}
+
+func (s *BaiGoodsIdentificationRespData) SetPointIdentificationResults(v []*BaiGoodsPointIdentificationResult) *BaiGoodsIdentificationRespData {
+	s.PointIdentificationResults = v
+	return s
+}
+
+// iot平台用户信息
+//
+type IotBasicUserInfo struct {
+	// 租户ID
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
+	// 金融云用户Id
+	//
+	CloudUserId *string `json:"cloud_user_id,omitempty" xml:"cloud_user_id,omitempty" require:"true"`
+	// 金融云平台的登录名
+	//
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
+	// 权限集合
+	PermissionList []*IotBasicRolePermission `json:"permission_list,omitempty" xml:"permission_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s IotBasicUserInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotBasicUserInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IotBasicUserInfo) SetTenant(v string) *IotBasicUserInfo {
+	s.Tenant = &v
+	return s
+}
+
+func (s *IotBasicUserInfo) SetCloudUserId(v string) *IotBasicUserInfo {
+	s.CloudUserId = &v
+	return s
+}
+
+func (s *IotBasicUserInfo) SetLoginName(v string) *IotBasicUserInfo {
+	s.LoginName = &v
+	return s
+}
+
+func (s *IotBasicUserInfo) SetPermissionList(v []*IotBasicRolePermission) *IotBasicUserInfo {
+	s.PermissionList = v
 	return s
 }
 
@@ -3246,6 +3752,32 @@ func (s BaiOcrResponse) GoString() string {
 
 func (s *BaiOcrResponse) SetData(v string) *BaiOcrResponse {
 	s.Data = &v
+	return s
+}
+
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
 	return s
 }
 
@@ -3922,10 +4454,12 @@ type QueryAiidentificationQrcodeRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 用户身份标识
 	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty" require:"true"`
-	// 图片内容的base64字符串
-	QueryImageBase64 *string `json:"query_image_base64,omitempty" xml:"query_image_base64,omitempty" require:"true"`
-	// 底图内容的base64字符串
-	GalleryImageBase64 *string `json:"gallery_image_base64,omitempty" xml:"gallery_image_base64,omitempty" require:"true"`
+	// BaiQrcodeComparisonReqData转为JSONString后再getBytes
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
 }
 
 func (s QueryAiidentificationQrcodeRequest) String() string {
@@ -3951,13 +4485,18 @@ func (s *QueryAiidentificationQrcodeRequest) SetAppKey(v string) *QueryAiidentif
 	return s
 }
 
-func (s *QueryAiidentificationQrcodeRequest) SetQueryImageBase64(v string) *QueryAiidentificationQrcodeRequest {
-	s.QueryImageBase64 = &v
+func (s *QueryAiidentificationQrcodeRequest) SetFileObject(v io.Reader) *QueryAiidentificationQrcodeRequest {
+	s.FileObject = v
 	return s
 }
 
-func (s *QueryAiidentificationQrcodeRequest) SetGalleryImageBase64(v string) *QueryAiidentificationQrcodeRequest {
-	s.GalleryImageBase64 = &v
+func (s *QueryAiidentificationQrcodeRequest) SetFileObjectName(v string) *QueryAiidentificationQrcodeRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *QueryAiidentificationQrcodeRequest) SetFileId(v string) *QueryAiidentificationQrcodeRequest {
+	s.FileId = &v
 	return s
 }
 
@@ -3969,7 +4508,7 @@ type QueryAiidentificationQrcodeResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 返回结果
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	Data *BaiQrcodeComparisonRespData `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QueryAiidentificationQrcodeResponse) String() string {
@@ -3995,8 +4534,183 @@ func (s *QueryAiidentificationQrcodeResponse) SetResultMsg(v string) *QueryAiide
 	return s
 }
 
-func (s *QueryAiidentificationQrcodeResponse) SetData(v string) *QueryAiidentificationQrcodeResponse {
-	s.Data = &v
+func (s *QueryAiidentificationQrcodeResponse) SetData(v *BaiQrcodeComparisonRespData) *QueryAiidentificationQrcodeResponse {
+	s.Data = v
+	return s
+}
+
+type QueryAiidentificationGoodsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户身份标识
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty" require:"true"`
+	// 鉴定商品信息
+	GoodsInfo *BaiGoodsComparisonReqData `json:"goods_info,omitempty" xml:"goods_info,omitempty" require:"true"`
+}
+
+func (s QueryAiidentificationGoodsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAiidentificationGoodsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAiidentificationGoodsRequest) SetAuthToken(v string) *QueryAiidentificationGoodsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodsRequest) SetProductInstanceId(v string) *QueryAiidentificationGoodsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodsRequest) SetAppKey(v string) *QueryAiidentificationGoodsRequest {
+	s.AppKey = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodsRequest) SetGoodsInfo(v *BaiGoodsComparisonReqData) *QueryAiidentificationGoodsRequest {
+	s.GoodsInfo = v
+	return s
+}
+
+type QueryAiidentificationGoodsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Data *BaiGoodsIdentificationRespData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryAiidentificationGoodsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAiidentificationGoodsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAiidentificationGoodsResponse) SetReqMsgId(v string) *QueryAiidentificationGoodsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodsResponse) SetResultCode(v string) *QueryAiidentificationGoodsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodsResponse) SetResultMsg(v string) *QueryAiidentificationGoodsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodsResponse) SetData(v *BaiGoodsIdentificationRespData) *QueryAiidentificationGoodsResponse {
+	s.Data = v
+	return s
+}
+
+type CheckAiidentificationGoodspointRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户调用标识
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty" require:"true"`
+	// 品类
+	Category *string `json:"category,omitempty" xml:"category,omitempty" require:"true"`
+	// 品牌
+	Brand *string `json:"brand,omitempty" xml:"brand,omitempty" require:"true"`
+	// 款式
+	Style *string `json:"style,omitempty" xml:"style,omitempty" require:"true"`
+	// 鉴定点信息
+	PointInfo *BaiGoodsPoint `json:"point_info,omitempty" xml:"point_info,omitempty" require:"true"`
+}
+
+func (s CheckAiidentificationGoodspointRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAiidentificationGoodspointRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAiidentificationGoodspointRequest) SetAuthToken(v string) *CheckAiidentificationGoodspointRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodspointRequest) SetProductInstanceId(v string) *CheckAiidentificationGoodspointRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodspointRequest) SetAppKey(v string) *CheckAiidentificationGoodspointRequest {
+	s.AppKey = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodspointRequest) SetCategory(v string) *CheckAiidentificationGoodspointRequest {
+	s.Category = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodspointRequest) SetBrand(v string) *CheckAiidentificationGoodspointRequest {
+	s.Brand = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodspointRequest) SetStyle(v string) *CheckAiidentificationGoodspointRequest {
+	s.Style = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodspointRequest) SetPointInfo(v *BaiGoodsPoint) *CheckAiidentificationGoodspointRequest {
+	s.PointInfo = v
+	return s
+}
+
+type CheckAiidentificationGoodspointResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商品鉴定点检测响应数据
+	Data *BaiGoodsPointCheckRespData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CheckAiidentificationGoodspointResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAiidentificationGoodspointResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAiidentificationGoodspointResponse) SetReqMsgId(v string) *CheckAiidentificationGoodspointResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodspointResponse) SetResultCode(v string) *CheckAiidentificationGoodspointResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodspointResponse) SetResultMsg(v string) *CheckAiidentificationGoodspointResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodspointResponse) SetData(v *BaiGoodsPointCheckRespData) *CheckAiidentificationGoodspointResponse {
+	s.Data = v
 	return s
 }
 
@@ -4230,7 +4944,9 @@ type QueryIotbasicDeviceRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 当前登录用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
 	// 设备SN
 	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty"`
 	// 设备品类code
@@ -4272,6 +4988,11 @@ func (s *QueryIotbasicDeviceRequest) SetProductInstanceId(v string) *QueryIotbas
 
 func (s *QueryIotbasicDeviceRequest) SetTenantId(v string) *QueryIotbasicDeviceRequest {
 	s.TenantId = &v
+	return s
+}
+
+func (s *QueryIotbasicDeviceRequest) SetUserId(v string) *QueryIotbasicDeviceRequest {
+	s.UserId = &v
 	return s
 }
 
@@ -4390,6 +5111,8 @@ type RecognizeIotbasicCustomerRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 租户ID
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 用户ID或操作员ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
 }
 
 func (s RecognizeIotbasicCustomerRequest) String() string {
@@ -4415,6 +5138,11 @@ func (s *RecognizeIotbasicCustomerRequest) SetTenantId(v string) *RecognizeIotba
 	return s
 }
 
+func (s *RecognizeIotbasicCustomerRequest) SetUserId(v string) *RecognizeIotbasicCustomerRequest {
+	s.UserId = &v
+	return s
+}
+
 type RecognizeIotbasicCustomerResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -4426,6 +5154,8 @@ type RecognizeIotbasicCustomerResponse struct {
 	Authorized *bool `json:"authorized,omitempty" xml:"authorized,omitempty"`
 	// 设备数量列表
 	DeviceList []*DeviceOverViewResponse `json:"device_list,omitempty" xml:"device_list,omitempty" type:"Repeated"`
+	// 角色
+	IotRole *string `json:"iot_role,omitempty" xml:"iot_role,omitempty"`
 }
 
 func (s RecognizeIotbasicCustomerResponse) String() string {
@@ -4458,6 +5188,11 @@ func (s *RecognizeIotbasicCustomerResponse) SetAuthorized(v bool) *RecognizeIotb
 
 func (s *RecognizeIotbasicCustomerResponse) SetDeviceList(v []*DeviceOverViewResponse) *RecognizeIotbasicCustomerResponse {
 	s.DeviceList = v
+	return s
+}
+
+func (s *RecognizeIotbasicCustomerResponse) SetIotRole(v string) *RecognizeIotbasicCustomerResponse {
+	s.IotRole = &v
 	return s
 }
 
@@ -4584,6 +5319,357 @@ func (s *CertifyIotbasicDeviceResponse) SetAppVersion(v string) *CertifyIotbasic
 
 func (s *CertifyIotbasicDeviceResponse) SetServiceStatus(v string) *CertifyIotbasicDeviceResponse {
 	s.ServiceStatus = &v
+	return s
+}
+
+type OperateIotbasicUserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 操作用户集合
+	UserList []*IotBasicUserRequest `json:"user_list,omitempty" xml:"user_list,omitempty" require:"true" type:"Repeated"`
+	// 要开通的角色
+	IotRole *string `json:"iot_role,omitempty" xml:"iot_role,omitempty"`
+	// 操作类型
+	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
+	// 操作人
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+	// 参数签名校验
+	ParamSign *string `json:"param_sign,omitempty" xml:"param_sign,omitempty"`
+}
+
+func (s OperateIotbasicUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicUserRequest) SetAuthToken(v string) *OperateIotbasicUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateIotbasicUserRequest) SetProductInstanceId(v string) *OperateIotbasicUserRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateIotbasicUserRequest) SetUserList(v []*IotBasicUserRequest) *OperateIotbasicUserRequest {
+	s.UserList = v
+	return s
+}
+
+func (s *OperateIotbasicUserRequest) SetIotRole(v string) *OperateIotbasicUserRequest {
+	s.IotRole = &v
+	return s
+}
+
+func (s *OperateIotbasicUserRequest) SetAction(v string) *OperateIotbasicUserRequest {
+	s.Action = &v
+	return s
+}
+
+func (s *OperateIotbasicUserRequest) SetOperatorId(v string) *OperateIotbasicUserRequest {
+	s.OperatorId = &v
+	return s
+}
+
+func (s *OperateIotbasicUserRequest) SetParamSign(v string) *OperateIotbasicUserRequest {
+	s.ParamSign = &v
+	return s
+}
+
+type OperateIotbasicUserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 操作失败集合
+	FailList []*IotBasicUserRequest `json:"fail_list,omitempty" xml:"fail_list,omitempty" type:"Repeated"`
+	// 用户信息
+	QueryList []*IotBasicUserInfo `json:"query_list,omitempty" xml:"query_list,omitempty" type:"Repeated"`
+}
+
+func (s OperateIotbasicUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicUserResponse) SetReqMsgId(v string) *OperateIotbasicUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateIotbasicUserResponse) SetResultCode(v string) *OperateIotbasicUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateIotbasicUserResponse) SetResultMsg(v string) *OperateIotbasicUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateIotbasicUserResponse) SetSuccess(v bool) *OperateIotbasicUserResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *OperateIotbasicUserResponse) SetFailList(v []*IotBasicUserRequest) *OperateIotbasicUserResponse {
+	s.FailList = v
+	return s
+}
+
+func (s *OperateIotbasicUserResponse) SetQueryList(v []*IotBasicUserInfo) *OperateIotbasicUserResponse {
+	s.QueryList = v
+	return s
+}
+
+type OperateIotbasicPermissionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 操作人
+	//
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+	// 角色
+	IotRole *string `json:"iot_role,omitempty" xml:"iot_role,omitempty"`
+	// 待添加的权限集合
+	PermissionList []*IotBasicPermissionData `json:"permission_list,omitempty" xml:"permission_list,omitempty" type:"Repeated"`
+	// 操作类型
+	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
+	// 绑定权限集合
+	BindPermision []*string `json:"bind_permision,omitempty" xml:"bind_permision,omitempty" type:"Repeated"`
+	// 参数签名校验
+	ParamSign *string `json:"param_sign,omitempty" xml:"param_sign,omitempty"`
+}
+
+func (s OperateIotbasicPermissionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicPermissionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicPermissionRequest) SetAuthToken(v string) *OperateIotbasicPermissionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateIotbasicPermissionRequest) SetProductInstanceId(v string) *OperateIotbasicPermissionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateIotbasicPermissionRequest) SetOperatorId(v string) *OperateIotbasicPermissionRequest {
+	s.OperatorId = &v
+	return s
+}
+
+func (s *OperateIotbasicPermissionRequest) SetIotRole(v string) *OperateIotbasicPermissionRequest {
+	s.IotRole = &v
+	return s
+}
+
+func (s *OperateIotbasicPermissionRequest) SetPermissionList(v []*IotBasicPermissionData) *OperateIotbasicPermissionRequest {
+	s.PermissionList = v
+	return s
+}
+
+func (s *OperateIotbasicPermissionRequest) SetAction(v string) *OperateIotbasicPermissionRequest {
+	s.Action = &v
+	return s
+}
+
+func (s *OperateIotbasicPermissionRequest) SetBindPermision(v []*string) *OperateIotbasicPermissionRequest {
+	s.BindPermision = v
+	return s
+}
+
+func (s *OperateIotbasicPermissionRequest) SetParamSign(v string) *OperateIotbasicPermissionRequest {
+	s.ParamSign = &v
+	return s
+}
+
+type OperateIotbasicPermissionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 权限列表
+	RoleList []*IotBasicRolePermission `json:"role_list,omitempty" xml:"role_list,omitempty" type:"Repeated"`
+}
+
+func (s OperateIotbasicPermissionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicPermissionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicPermissionResponse) SetReqMsgId(v string) *OperateIotbasicPermissionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateIotbasicPermissionResponse) SetResultCode(v string) *OperateIotbasicPermissionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateIotbasicPermissionResponse) SetResultMsg(v string) *OperateIotbasicPermissionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateIotbasicPermissionResponse) SetSuccess(v bool) *OperateIotbasicPermissionResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *OperateIotbasicPermissionResponse) SetRoleList(v []*IotBasicRolePermission) *OperateIotbasicPermissionResponse {
+	s.RoleList = v
+	return s
+}
+
+type QueryIotbasicSnRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 当前登录用户ID
+	//
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 指定显示返回结果中的第几页。
+	//
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty" require:"true" minimum:"1"`
+	// 指定返回结果中每页显示的产品数量，最大值是300。
+	//
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true" maximum:"300" minimum:"1"`
+}
+
+func (s QueryIotbasicSnRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotbasicSnRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotbasicSnRequest) SetAuthToken(v string) *QueryIotbasicSnRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIotbasicSnRequest) SetProductInstanceId(v string) *QueryIotbasicSnRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIotbasicSnRequest) SetTenantId(v string) *QueryIotbasicSnRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryIotbasicSnRequest) SetUserId(v string) *QueryIotbasicSnRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryIotbasicSnRequest) SetCurrentPage(v int64) *QueryIotbasicSnRequest {
+	s.CurrentPage = &v
+	return s
+}
+
+func (s *QueryIotbasicSnRequest) SetPageSize(v int64) *QueryIotbasicSnRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryIotbasicSnResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 当前页号。
+	//
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+	// 总页数
+	//
+	PageCount *int64 `json:"page_count,omitempty" xml:"page_count,omitempty"`
+	// 每页显示条数
+	//
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总记录数
+	//
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// sn集合
+	SnList []*string `json:"sn_list,omitempty" xml:"sn_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryIotbasicSnResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIotbasicSnResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIotbasicSnResponse) SetReqMsgId(v string) *QueryIotbasicSnResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIotbasicSnResponse) SetResultCode(v string) *QueryIotbasicSnResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIotbasicSnResponse) SetResultMsg(v string) *QueryIotbasicSnResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIotbasicSnResponse) SetCurrentPage(v int64) *QueryIotbasicSnResponse {
+	s.CurrentPage = &v
+	return s
+}
+
+func (s *QueryIotbasicSnResponse) SetPageCount(v int64) *QueryIotbasicSnResponse {
+	s.PageCount = &v
+	return s
+}
+
+func (s *QueryIotbasicSnResponse) SetPageSize(v int64) *QueryIotbasicSnResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryIotbasicSnResponse) SetTotal(v int64) *QueryIotbasicSnResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryIotbasicSnResponse) SetSnList(v []*string) *QueryIotbasicSnResponse {
+	s.SnList = v
 	return s
 }
 
@@ -13932,6 +15018,126 @@ func (s *QueryTlsnotaryTaskResponse) SetErrorMsg(v string) *QueryTlsnotaryTaskRe
 	return s
 }
 
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -14054,7 +15260,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.86"),
+				"sdk_version":      tea.String("1.6.106"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -14361,12 +15567,109 @@ func (client *Client) QueryAiidentificationQrcode(request *QueryAiidentification
  * Summary: AI二维码验真
  */
 func (client *Client) QueryAiidentificationQrcodeEx(request *QueryAiidentificationQrcodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAiidentificationQrcodeResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("blockchain.bot.aiidentification.qrcode.query"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			queryAiidentificationQrcodeResponse := &QueryAiidentificationQrcodeResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = queryAiidentificationQrcodeResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
 	_result = &QueryAiidentificationQrcodeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiidentification.qrcode.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: AI商品鉴定
+ * Summary: AI商品鉴定
+ */
+func (client *Client) QueryAiidentificationGoods(request *QueryAiidentificationGoodsRequest) (_result *QueryAiidentificationGoodsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAiidentificationGoodsResponse{}
+	_body, _err := client.QueryAiidentificationGoodsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: AI商品鉴定
+ * Summary: AI商品鉴定
+ */
+func (client *Client) QueryAiidentificationGoodsEx(request *QueryAiidentificationGoodsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAiidentificationGoodsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAiidentificationGoodsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiidentification.goods.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商品鉴定点图片检测
+ * Summary: 商品鉴定点图片检测
+ */
+func (client *Client) CheckAiidentificationGoodspoint(request *CheckAiidentificationGoodspointRequest) (_result *CheckAiidentificationGoodspointResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckAiidentificationGoodspointResponse{}
+	_body, _err := client.CheckAiidentificationGoodspointEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商品鉴定点图片检测
+ * Summary: 商品鉴定点图片检测
+ */
+func (client *Client) CheckAiidentificationGoodspointEx(request *CheckAiidentificationGoodspointRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckAiidentificationGoodspointResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckAiidentificationGoodspointResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiidentification.goodspoint.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -14537,6 +15840,108 @@ func (client *Client) CertifyIotbasicDeviceEx(request *CertifyIotbasicDeviceRequ
 	}
 	_result = &CertifyIotbasicDeviceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.device.certify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+ * Summary: iot平台用户注册操作
+ */
+func (client *Client) OperateIotbasicUser(request *OperateIotbasicUserRequest) (_result *OperateIotbasicUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateIotbasicUserResponse{}
+	_body, _err := client.OperateIotbasicUserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+ * Summary: iot平台用户注册操作
+ */
+func (client *Client) OperateIotbasicUserEx(request *OperateIotbasicUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateIotbasicUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateIotbasicUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.user.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iot 平台权限操作
+ * Summary: iot 平台权限操作
+ */
+func (client *Client) OperateIotbasicPermission(request *OperateIotbasicPermissionRequest) (_result *OperateIotbasicPermissionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateIotbasicPermissionResponse{}
+	_body, _err := client.OperateIotbasicPermissionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iot 平台权限操作
+ * Summary: iot 平台权限操作
+ */
+func (client *Client) OperateIotbasicPermissionEx(request *OperateIotbasicPermissionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateIotbasicPermissionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateIotbasicPermissionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.permission.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备sn列表查询
+ * Summary: IoT设备平台-设备sn列表查询
+ */
+func (client *Client) QueryIotbasicSn(request *QueryIotbasicSnRequest) (_result *QueryIotbasicSnResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIotbasicSnResponse{}
+	_body, _err := client.QueryIotbasicSnEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备sn列表查询
+ * Summary: IoT设备平台-设备sn列表查询
+ */
+func (client *Client) QueryIotbasicSnEx(request *QueryIotbasicSnRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIotbasicSnResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIotbasicSnResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.sn.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -17805,6 +19210,40 @@ func (client *Client) QueryTlsnotaryTaskEx(request *QueryTlsnotaryTaskRequest, h
 	}
 	_result = &QueryTlsnotaryTaskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.tlsnotary.task.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
