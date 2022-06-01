@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class RecognizeIotbasicCustomerRequest : TeaModel {
+    public class QueryAiidentificationGoodsRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 租户ID
-        [NameInMap("tenant_id")]
+        // 用户身份标识
+        [NameInMap("app_key")]
         [Validation(Required=true)]
-        public string TenantId { get; set; }
+        public string AppKey { get; set; }
 
-        // 用户ID或操作员ID
-        [NameInMap("user_id")]
+        // 鉴定商品信息
+        [NameInMap("goods_info")]
         [Validation(Required=true)]
-        public string UserId { get; set; }
+        public BaiGoodsComparisonReqData GoodsInfo { get; set; }
 
     }
 

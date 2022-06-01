@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class RecognizeIotbasicCustomerResponse : TeaModel {
+    public class QueryAiidentificationGoodsResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 是否授权开通IoT产品
-        [NameInMap("authorized")]
+        // 返回结果
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public bool? Authorized { get; set; }
-
-        // 设备数量列表
-        [NameInMap("device_list")]
-        [Validation(Required=false)]
-        public List<DeviceOverViewResponse> DeviceList { get; set; }
-
-        // 角色
-        [NameInMap("iot_role")]
-        [Validation(Required=false)]
-        public string IotRole { get; set; }
+        public BaiGoodsIdentificationRespData Data { get; set; }
 
     }
 

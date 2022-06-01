@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.86"},
+                        {"sdk_version", "1.6.106"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.86"},
+                        {"sdk_version", "1.6.106"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -639,6 +639,29 @@ namespace AntChain.SDK.BOT
          */
         public QueryAiidentificationQrcodeResponse QueryAiidentificationQrcodeEx(QueryAiidentificationQrcodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "blockchain.bot.aiidentification.qrcode.query",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    QueryAiidentificationQrcodeResponse queryAiidentificationQrcodeResponse = new QueryAiidentificationQrcodeResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return queryAiidentificationQrcodeResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAiidentificationQrcodeResponse>(DoRequest("1.0", "blockchain.bot.aiidentification.qrcode.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
@@ -649,8 +672,115 @@ namespace AntChain.SDK.BOT
          */
         public async Task<QueryAiidentificationQrcodeResponse> QueryAiidentificationQrcodeExAsync(QueryAiidentificationQrcodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "blockchain.bot.aiidentification.qrcode.query",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    QueryAiidentificationQrcodeResponse queryAiidentificationQrcodeResponse = new QueryAiidentificationQrcodeResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return queryAiidentificationQrcodeResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAiidentificationQrcodeResponse>(await DoRequestAsync("1.0", "blockchain.bot.aiidentification.qrcode.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AI商品鉴定
+         * Summary: AI商品鉴定
+         */
+        public QueryAiidentificationGoodsResponse QueryAiidentificationGoods(QueryAiidentificationGoodsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAiidentificationGoodsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: AI商品鉴定
+         * Summary: AI商品鉴定
+         */
+        public async Task<QueryAiidentificationGoodsResponse> QueryAiidentificationGoodsAsync(QueryAiidentificationGoodsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAiidentificationGoodsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: AI商品鉴定
+         * Summary: AI商品鉴定
+         */
+        public QueryAiidentificationGoodsResponse QueryAiidentificationGoodsEx(QueryAiidentificationGoodsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAiidentificationGoodsResponse>(DoRequest("1.0", "blockchain.bot.aiidentification.goods.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AI商品鉴定
+         * Summary: AI商品鉴定
+         */
+        public async Task<QueryAiidentificationGoodsResponse> QueryAiidentificationGoodsExAsync(QueryAiidentificationGoodsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAiidentificationGoodsResponse>(await DoRequestAsync("1.0", "blockchain.bot.aiidentification.goods.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品鉴定点图片检测
+         * Summary: 商品鉴定点图片检测
+         */
+        public CheckAiidentificationGoodspointResponse CheckAiidentificationGoodspoint(CheckAiidentificationGoodspointRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckAiidentificationGoodspointEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品鉴定点图片检测
+         * Summary: 商品鉴定点图片检测
+         */
+        public async Task<CheckAiidentificationGoodspointResponse> CheckAiidentificationGoodspointAsync(CheckAiidentificationGoodspointRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckAiidentificationGoodspointExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品鉴定点图片检测
+         * Summary: 商品鉴定点图片检测
+         */
+        public CheckAiidentificationGoodspointResponse CheckAiidentificationGoodspointEx(CheckAiidentificationGoodspointRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAiidentificationGoodspointResponse>(DoRequest("1.0", "blockchain.bot.aiidentification.goodspoint.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品鉴定点图片检测
+         * Summary: 商品鉴定点图片检测
+         */
+        public async Task<CheckAiidentificationGoodspointResponse> CheckAiidentificationGoodspointExAsync(CheckAiidentificationGoodspointRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAiidentificationGoodspointResponse>(await DoRequestAsync("1.0", "blockchain.bot.aiidentification.goodspoint.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -861,6 +991,132 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CertifyIotbasicDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.device.certify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+         * Summary: iot平台用户注册操作
+         */
+        public OperateIotbasicUserResponse OperateIotbasicUser(OperateIotbasicUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateIotbasicUserEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+         * Summary: iot平台用户注册操作
+         */
+        public async Task<OperateIotbasicUserResponse> OperateIotbasicUserAsync(OperateIotbasicUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateIotbasicUserExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+         * Summary: iot平台用户注册操作
+         */
+        public OperateIotbasicUserResponse OperateIotbasicUserEx(OperateIotbasicUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateIotbasicUserResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.user.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+         * Summary: iot平台用户注册操作
+         */
+        public async Task<OperateIotbasicUserResponse> OperateIotbasicUserExAsync(OperateIotbasicUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateIotbasicUserResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.user.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iot 平台权限操作
+         * Summary: iot 平台权限操作
+         */
+        public OperateIotbasicPermissionResponse OperateIotbasicPermission(OperateIotbasicPermissionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateIotbasicPermissionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iot 平台权限操作
+         * Summary: iot 平台权限操作
+         */
+        public async Task<OperateIotbasicPermissionResponse> OperateIotbasicPermissionAsync(OperateIotbasicPermissionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateIotbasicPermissionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iot 平台权限操作
+         * Summary: iot 平台权限操作
+         */
+        public OperateIotbasicPermissionResponse OperateIotbasicPermissionEx(OperateIotbasicPermissionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateIotbasicPermissionResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.permission.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iot 平台权限操作
+         * Summary: iot 平台权限操作
+         */
+        public async Task<OperateIotbasicPermissionResponse> OperateIotbasicPermissionExAsync(OperateIotbasicPermissionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateIotbasicPermissionResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.permission.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设备sn列表查询
+         * Summary: IoT设备平台-设备sn列表查询
+         */
+        public QueryIotbasicSnResponse QueryIotbasicSn(QueryIotbasicSnRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIotbasicSnEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设备sn列表查询
+         * Summary: IoT设备平台-设备sn列表查询
+         */
+        public async Task<QueryIotbasicSnResponse> QueryIotbasicSnAsync(QueryIotbasicSnRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIotbasicSnExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设备sn列表查询
+         * Summary: IoT设备平台-设备sn列表查询
+         */
+        public QueryIotbasicSnResponse QueryIotbasicSnEx(QueryIotbasicSnRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIotbasicSnResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.sn.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设备sn列表查询
+         * Summary: IoT设备平台-设备sn列表查询
+         */
+        public async Task<QueryIotbasicSnResponse> QueryIotbasicSnExAsync(QueryIotbasicSnRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIotbasicSnResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.sn.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -4901,6 +5157,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryTlsnotaryTaskResponse>(await DoRequestAsync("1.0", "blockchain.bot.tlsnotary.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public CreateAntcloudGatewayxFileUploadResponse CreateAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAntcloudGatewayxFileUploadEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public async Task<CreateAntcloudGatewayxFileUploadResponse> CreateAntcloudGatewayxFileUploadAsync(CreateAntcloudGatewayxFileUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAntcloudGatewayxFileUploadExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public CreateAntcloudGatewayxFileUploadResponse CreateAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntcloudGatewayxFileUploadResponse>(DoRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public async Task<CreateAntcloudGatewayxFileUploadResponse> CreateAntcloudGatewayxFileUploadExAsync(CreateAntcloudGatewayxFileUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntcloudGatewayxFileUploadResponse>(await DoRequestAsync("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

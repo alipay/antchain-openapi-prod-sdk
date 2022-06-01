@@ -27,7 +27,7 @@ namespace AntChain.SDK.BOT.Models
         // 返回结果
         [NameInMap("data")]
         [Validation(Required=false)]
-        public string Data { get; set; }
+        public BaiQrcodeComparisonRespData Data { get; set; }
 
     }
 

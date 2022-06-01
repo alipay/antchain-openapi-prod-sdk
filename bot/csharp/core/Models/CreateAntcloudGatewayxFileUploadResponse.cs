@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class RecognizeIotbasicCustomerResponse : TeaModel {
+    public class CreateAntcloudGatewayxFileUploadResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,25 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 是否授权开通IoT产品
-        [NameInMap("authorized")]
-        [Validation(Required=false)]
-        public bool? Authorized { get; set; }
+        // 上传有效期
+        [NameInMap("expired_time")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string ExpiredTime { get; set; }
 
-        // 设备数量列表
-        [NameInMap("device_list")]
+        // 32位文件唯一id
+        [NameInMap("file_id")]
         [Validation(Required=false)]
-        public List<DeviceOverViewResponse> DeviceList { get; set; }
+        public string FileId { get; set; }
 
-        // 角色
-        [NameInMap("iot_role")]
+        // 放入http请求头里
+        [NameInMap("upload_headers")]
         [Validation(Required=false)]
-        public string IotRole { get; set; }
+        public List<XNameValuePair> UploadHeaders { get; set; }
+
+        // 文件上传地址
+        [NameInMap("upload_url")]
+        [Validation(Required=false)]
+        public string UploadUrl { get; set; }
 
     }
 

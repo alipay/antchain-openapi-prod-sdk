@@ -71,6 +71,31 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string DeviceDid { get; set; }
 
+        // 账号ID
+        [NameInMap("account_id")]
+        [Validation(Required=true)]
+        public string AccountId { get; set; }
+
+        // 账户名称
+        [NameInMap("account_name")]
+        [Validation(Required=true)]
+        public string AccountName { get; set; }
+
+        // 设备服务状态
+        [NameInMap("service_status")]
+        [Validation(Required=true)]
+        public string ServiceStatus { get; set; }
+
+        // 应用版本号
+        [NameInMap("app_version")]
+        [Validation(Required=true)]
+        public string AppVersion { get; set; }
+
+        // 服务有效期
+        [NameInMap("validity_time")]
+        [Validation(Required=false)]
+        public string ValidityTime { get; set; }
+
     }
 
 }

@@ -23,15 +23,24 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string AppKey { get; set; }
 
-        // 图片内容的base64字符串
-        [NameInMap("query_image_base64")]
-        [Validation(Required=true)]
-        public string QueryImageBase64 { get; set; }
+        // BaiQrcodeComparisonReqData转为JSONString后再getBytes
+        /// <summary>
+        /// 待上传文件
+        /// </summary>
+        [NameInMap("fileObject")]
+        [Validation(Required=false)]
+        public Stream FileObject { get; set; }
 
-        // 底图内容的base64字符串
-        [NameInMap("gallery_image_base64")]
+        /// <summary>
+        /// 待上传文件名
+        /// </summary>
+        [NameInMap("fileObjectName")]
+        [Validation(Required=false)]
+        public string FileObjectName { get; set; }
+
+        [NameInMap("file_id")]
         [Validation(Required=true)]
-        public string GalleryImageBase64 { get; set; }
+        public string FileId { get; set; }
 
     }
 

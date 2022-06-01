@@ -20,8 +20,13 @@ namespace AntChain.SDK.BOT.Models
 
         // 租户ID
         [NameInMap("tenant_id")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string TenantId { get; set; }
+
+        // 当前登录用户ID
+        [NameInMap("user_id")]
+        [Validation(Required=true)]
+        public string UserId { get; set; }
 
         // 设备SN
         [NameInMap("device_sn")]
