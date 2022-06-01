@@ -24,6 +24,10 @@ public class RecognizeIotbasicCustomerResponse extends TeaModel {
     @NameInMap("device_list")
     public java.util.List<DeviceOverViewResponse> deviceList;
 
+    // 角色
+    @NameInMap("iot_role")
+    public String iotRole;
+
     public static RecognizeIotbasicCustomerResponse build(java.util.Map<String, ?> map) throws Exception {
         RecognizeIotbasicCustomerResponse self = new RecognizeIotbasicCustomerResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class RecognizeIotbasicCustomerResponse extends TeaModel {
     }
     public java.util.List<DeviceOverViewResponse> getDeviceList() {
         return this.deviceList;
+    }
+
+    public RecognizeIotbasicCustomerResponse setIotRole(String iotRole) {
+        this.iotRole = iotRole;
+        return this;
+    }
+    public String getIotRole() {
+        return this.iotRole;
     }
 
 }

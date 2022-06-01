@@ -16,15 +16,18 @@ public class QueryAiidentificationQrcodeRequest extends TeaModel {
     @Validation(required = true)
     public String appKey;
 
-    // 图片内容的base64字符串
-    @NameInMap("query_image_base64")
-    @Validation(required = true)
-    public String queryImageBase64;
+    // BaiQrcodeComparisonReqData转为JSONString后再getBytes
+    // 待上传文件
+    @NameInMap("fileObject")
+    public java.io.InputStream fileObject;
 
-    // 底图内容的base64字符串
-    @NameInMap("gallery_image_base64")
+    // 待上传文件名
+    @NameInMap("fileObjectName")
+    public String fileObjectName;
+
+    @NameInMap("file_id")
     @Validation(required = true)
-    public String galleryImageBase64;
+    public String fileId;
 
     public static QueryAiidentificationQrcodeRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAiidentificationQrcodeRequest self = new QueryAiidentificationQrcodeRequest();
@@ -55,20 +58,28 @@ public class QueryAiidentificationQrcodeRequest extends TeaModel {
         return this.appKey;
     }
 
-    public QueryAiidentificationQrcodeRequest setQueryImageBase64(String queryImageBase64) {
-        this.queryImageBase64 = queryImageBase64;
+    public QueryAiidentificationQrcodeRequest setFileObject(java.io.InputStream fileObject) {
+        this.fileObject = fileObject;
         return this;
     }
-    public String getQueryImageBase64() {
-        return this.queryImageBase64;
+    public java.io.InputStream getFileObject() {
+        return this.fileObject;
     }
 
-    public QueryAiidentificationQrcodeRequest setGalleryImageBase64(String galleryImageBase64) {
-        this.galleryImageBase64 = galleryImageBase64;
+    public QueryAiidentificationQrcodeRequest setFileObjectName(String fileObjectName) {
+        this.fileObjectName = fileObjectName;
         return this;
     }
-    public String getGalleryImageBase64() {
-        return this.galleryImageBase64;
+    public String getFileObjectName() {
+        return this.fileObjectName;
+    }
+
+    public QueryAiidentificationQrcodeRequest setFileId(String fileId) {
+        this.fileId = fileId;
+        return this;
+    }
+    public String getFileId() {
+        return this.fileId;
     }
 
 }

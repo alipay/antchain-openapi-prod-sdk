@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class QueryAiidentificationQrcodeResponse extends TeaModel {
+public class QueryAiidentificationGoodsResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -18,14 +18,14 @@ public class QueryAiidentificationQrcodeResponse extends TeaModel {
 
     // 返回结果
     @NameInMap("data")
-    public BaiQrcodeComparisonRespData data;
+    public BaiGoodsIdentificationRespData data;
 
-    public static QueryAiidentificationQrcodeResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryAiidentificationQrcodeResponse self = new QueryAiidentificationQrcodeResponse();
+    public static QueryAiidentificationGoodsResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryAiidentificationGoodsResponse self = new QueryAiidentificationGoodsResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryAiidentificationQrcodeResponse setReqMsgId(String reqMsgId) {
+    public QueryAiidentificationGoodsResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryAiidentificationQrcodeResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryAiidentificationQrcodeResponse setResultCode(String resultCode) {
+    public QueryAiidentificationGoodsResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryAiidentificationQrcodeResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryAiidentificationQrcodeResponse setResultMsg(String resultMsg) {
+    public QueryAiidentificationGoodsResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class QueryAiidentificationQrcodeResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryAiidentificationQrcodeResponse setData(BaiQrcodeComparisonRespData data) {
+    public QueryAiidentificationGoodsResponse setData(BaiGoodsIdentificationRespData data) {
         this.data = data;
         return this;
     }
-    public BaiQrcodeComparisonRespData getData() {
+    public BaiGoodsIdentificationRespData getData() {
         return this.data;
     }
 

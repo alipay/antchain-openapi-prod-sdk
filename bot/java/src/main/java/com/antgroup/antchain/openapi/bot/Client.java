@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.86")
+                    new TeaPair("sdk_version", "1.6.106")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -307,8 +307,67 @@ public class Client {
      * Summary: AI二维码验真
      */
     public QueryAiidentificationQrcodeResponse queryAiidentificationQrcodeEx(QueryAiidentificationQrcodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "blockchain.bot.aiidentification.qrcode.query"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                QueryAiidentificationQrcodeResponse queryAiidentificationQrcodeResponse = QueryAiidentificationQrcodeResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return queryAiidentificationQrcodeResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiidentification.qrcode.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAiidentificationQrcodeResponse());
+    }
+
+    /**
+     * Description: AI商品鉴定
+     * Summary: AI商品鉴定
+     */
+    public QueryAiidentificationGoodsResponse queryAiidentificationGoods(QueryAiidentificationGoodsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAiidentificationGoodsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: AI商品鉴定
+     * Summary: AI商品鉴定
+     */
+    public QueryAiidentificationGoodsResponse queryAiidentificationGoodsEx(QueryAiidentificationGoodsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiidentification.goods.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAiidentificationGoodsResponse());
+    }
+
+    /**
+     * Description: 商品鉴定点图片检测
+     * Summary: 商品鉴定点图片检测
+     */
+    public CheckAiidentificationGoodspointResponse checkAiidentificationGoodspoint(CheckAiidentificationGoodspointRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkAiidentificationGoodspointEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商品鉴定点图片检测
+     * Summary: 商品鉴定点图片检测
+     */
+    public CheckAiidentificationGoodspointResponse checkAiidentificationGoodspointEx(CheckAiidentificationGoodspointRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiidentification.goodspoint.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAiidentificationGoodspointResponse());
     }
 
     /**
@@ -404,6 +463,63 @@ public class Client {
     public CertifyIotbasicDeviceResponse certifyIotbasicDeviceEx(CertifyIotbasicDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.device.certify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CertifyIotbasicDeviceResponse());
+    }
+
+    /**
+     * Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+     * Summary: iot平台用户注册操作
+     */
+    public OperateIotbasicUserResponse operateIotbasicUser(OperateIotbasicUserRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateIotbasicUserEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iot平台用户注册操作，新增用户，删除用户，绑定角色等操作
+     * Summary: iot平台用户注册操作
+     */
+    public OperateIotbasicUserResponse operateIotbasicUserEx(OperateIotbasicUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.user.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateIotbasicUserResponse());
+    }
+
+    /**
+     * Description: iot 平台权限操作
+     * Summary: iot 平台权限操作
+     */
+    public OperateIotbasicPermissionResponse operateIotbasicPermission(OperateIotbasicPermissionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateIotbasicPermissionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iot 平台权限操作
+     * Summary: iot 平台权限操作
+     */
+    public OperateIotbasicPermissionResponse operateIotbasicPermissionEx(OperateIotbasicPermissionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.permission.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateIotbasicPermissionResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-设备sn列表查询
+     * Summary: IoT设备平台-设备sn列表查询
+     */
+    public QueryIotbasicSnResponse queryIotbasicSn(QueryIotbasicSnRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIotbasicSnEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备sn列表查询
+     * Summary: IoT设备平台-设备sn列表查询
+     */
+    public QueryIotbasicSnResponse queryIotbasicSnEx(QueryIotbasicSnRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.sn.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotbasicSnResponse());
     }
 
     /**
@@ -2232,5 +2348,24 @@ public class Client {
     public QueryTlsnotaryTaskResponse queryTlsnotaryTaskEx(QueryTlsnotaryTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.tlsnotary.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTlsnotaryTaskResponse());
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
     }
 }

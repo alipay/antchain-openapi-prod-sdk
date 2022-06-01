@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class QueryAiidentificationQrcodeResponse extends TeaModel {
+public class CheckAiidentificationGoodspointResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryAiidentificationQrcodeResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 返回结果
+    // 商品鉴定点检测响应数据
     @NameInMap("data")
-    public BaiQrcodeComparisonRespData data;
+    public BaiGoodsPointCheckRespData data;
 
-    public static QueryAiidentificationQrcodeResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryAiidentificationQrcodeResponse self = new QueryAiidentificationQrcodeResponse();
+    public static CheckAiidentificationGoodspointResponse build(java.util.Map<String, ?> map) throws Exception {
+        CheckAiidentificationGoodspointResponse self = new CheckAiidentificationGoodspointResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryAiidentificationQrcodeResponse setReqMsgId(String reqMsgId) {
+    public CheckAiidentificationGoodspointResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryAiidentificationQrcodeResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryAiidentificationQrcodeResponse setResultCode(String resultCode) {
+    public CheckAiidentificationGoodspointResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryAiidentificationQrcodeResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryAiidentificationQrcodeResponse setResultMsg(String resultMsg) {
+    public CheckAiidentificationGoodspointResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class QueryAiidentificationQrcodeResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryAiidentificationQrcodeResponse setData(BaiQrcodeComparisonRespData data) {
+    public CheckAiidentificationGoodspointResponse setData(BaiGoodsPointCheckRespData data) {
         this.data = data;
         return this;
     }
-    public BaiQrcodeComparisonRespData getData() {
+    public BaiGoodsPointCheckRespData getData() {
         return this.data;
     }
 

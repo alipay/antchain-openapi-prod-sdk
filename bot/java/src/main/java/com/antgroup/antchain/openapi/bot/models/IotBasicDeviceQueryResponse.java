@@ -61,6 +61,30 @@ public class IotBasicDeviceQueryResponse extends TeaModel {
     @NameInMap("device_did")
     public String deviceDid;
 
+    // 账号ID
+    @NameInMap("account_id")
+    @Validation(required = true)
+    public String accountId;
+
+    // 账户名称
+    @NameInMap("account_name")
+    @Validation(required = true)
+    public String accountName;
+
+    // 设备服务状态
+    @NameInMap("service_status")
+    @Validation(required = true)
+    public String serviceStatus;
+
+    // 应用版本号
+    @NameInMap("app_version")
+    @Validation(required = true)
+    public String appVersion;
+
+    // 服务有效期
+    @NameInMap("validity_time")
+    public String validityTime;
+
     public static IotBasicDeviceQueryResponse build(java.util.Map<String, ?> map) throws Exception {
         IotBasicDeviceQueryResponse self = new IotBasicDeviceQueryResponse();
         return TeaModel.build(map, self);
@@ -160,6 +184,46 @@ public class IotBasicDeviceQueryResponse extends TeaModel {
     }
     public String getDeviceDid() {
         return this.deviceDid;
+    }
+
+    public IotBasicDeviceQueryResponse setAccountId(String accountId) {
+        this.accountId = accountId;
+        return this;
+    }
+    public String getAccountId() {
+        return this.accountId;
+    }
+
+    public IotBasicDeviceQueryResponse setAccountName(String accountName) {
+        this.accountName = accountName;
+        return this;
+    }
+    public String getAccountName() {
+        return this.accountName;
+    }
+
+    public IotBasicDeviceQueryResponse setServiceStatus(String serviceStatus) {
+        this.serviceStatus = serviceStatus;
+        return this;
+    }
+    public String getServiceStatus() {
+        return this.serviceStatus;
+    }
+
+    public IotBasicDeviceQueryResponse setAppVersion(String appVersion) {
+        this.appVersion = appVersion;
+        return this;
+    }
+    public String getAppVersion() {
+        return this.appVersion;
+    }
+
+    public IotBasicDeviceQueryResponse setValidityTime(String validityTime) {
+        this.validityTime = validityTime;
+        return this;
+    }
+    public String getValidityTime() {
+        return this.validityTime;
     }
 
 }

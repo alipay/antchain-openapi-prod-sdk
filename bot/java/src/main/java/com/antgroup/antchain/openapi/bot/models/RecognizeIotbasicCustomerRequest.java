@@ -16,6 +16,11 @@ public class RecognizeIotbasicCustomerRequest extends TeaModel {
     @Validation(required = true)
     public String tenantId;
 
+    // 用户ID或操作员ID
+    @NameInMap("user_id")
+    @Validation(required = true)
+    public String userId;
+
     public static RecognizeIotbasicCustomerRequest build(java.util.Map<String, ?> map) throws Exception {
         RecognizeIotbasicCustomerRequest self = new RecognizeIotbasicCustomerRequest();
         return TeaModel.build(map, self);
@@ -43,6 +48,14 @@ public class RecognizeIotbasicCustomerRequest extends TeaModel {
     }
     public String getTenantId() {
         return this.tenantId;
+    }
+
+    public RecognizeIotbasicCustomerRequest setUserId(String userId) {
+        this.userId = userId;
+        return this;
+    }
+    public String getUserId() {
+        return this.userId;
     }
 
 }

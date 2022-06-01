@@ -13,7 +13,13 @@ public class QueryIotbasicDeviceRequest extends TeaModel {
 
     // 租户ID
     @NameInMap("tenant_id")
+    @Validation(required = true)
     public String tenantId;
+
+    // 当前登录用户ID
+    @NameInMap("user_id")
+    @Validation(required = true)
+    public String userId;
 
     // 设备SN
     @NameInMap("device_sn")
@@ -79,6 +85,14 @@ public class QueryIotbasicDeviceRequest extends TeaModel {
     }
     public String getTenantId() {
         return this.tenantId;
+    }
+
+    public QueryIotbasicDeviceRequest setUserId(String userId) {
+        this.userId = userId;
+        return this;
+    }
+    public String getUserId() {
+        return this.userId;
     }
 
     public QueryIotbasicDeviceRequest setDeviceSn(String deviceSn) {
