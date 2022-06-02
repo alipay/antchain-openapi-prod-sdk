@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 地区请求
+            # 逻辑
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.3'
+                    'sdk_version': '1.4.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 地区请求
+            # 逻辑
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.3'
+                    'sdk_version': '1.4.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -762,7 +762,7 @@ class Client:
         request: tax_models.ExecIcmSyncgatheringRequest,
     ) -> tax_models.ExecIcmSyncgatheringResponse:
         """
-        Description: 同步采集
+        Description: 采集，不限制同步 异步
         Summary: 采集
         """
         runtime = util_models.RuntimeOptions()
@@ -774,7 +774,7 @@ class Client:
         request: tax_models.ExecIcmSyncgatheringRequest,
     ) -> tax_models.ExecIcmSyncgatheringResponse:
         """
-        Description: 同步采集
+        Description: 采集，不限制同步 异步
         Summary: 采集
         """
         runtime = util_models.RuntimeOptions()
@@ -788,7 +788,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> tax_models.ExecIcmSyncgatheringResponse:
         """
-        Description: 同步采集
+        Description: 采集，不限制同步 异步
         Summary: 采集
         """
         UtilClient.validate_model(request)
@@ -803,10 +803,226 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> tax_models.ExecIcmSyncgatheringResponse:
         """
-        Description: 同步采集
+        Description: 采集，不限制同步 异步
         Summary: 采集
         """
         UtilClient.validate_model(request)
         return tax_models.ExecIcmSyncgatheringResponse().from_map(
             await self.do_request_async('1.0', 'blockchain.tax.icm.syncgathering.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_api_authteplate(
+        self,
+        request: tax_models.QueryApiAuthteplateRequest,
+    ) -> tax_models.QueryApiAuthteplateResponse:
+        """
+        Description: 获取授权模版和token
+        Summary: 获取授权模版和token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_api_authteplate_ex(request, headers, runtime)
+
+    async def query_api_authteplate_async(
+        self,
+        request: tax_models.QueryApiAuthteplateRequest,
+    ) -> tax_models.QueryApiAuthteplateResponse:
+        """
+        Description: 获取授权模版和token
+        Summary: 获取授权模版和token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_api_authteplate_ex_async(request, headers, runtime)
+
+    def query_api_authteplate_ex(
+        self,
+        request: tax_models.QueryApiAuthteplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiAuthteplateResponse:
+        """
+        Description: 获取授权模版和token
+        Summary: 获取授权模版和token
+        """
+        UtilClient.validate_model(request)
+        return tax_models.QueryApiAuthteplateResponse().from_map(
+            self.do_request('1.0', 'blockchain.tax.api.authteplate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_api_authteplate_ex_async(
+        self,
+        request: tax_models.QueryApiAuthteplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiAuthteplateResponse:
+        """
+        Description: 获取授权模版和token
+        Summary: 获取授权模版和token
+        """
+        UtilClient.validate_model(request)
+        return tax_models.QueryApiAuthteplateResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.tax.api.authteplate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_api_authtemplate(
+        self,
+        request: tax_models.ExecApiAuthtemplateRequest,
+    ) -> tax_models.ExecApiAuthtemplateResponse:
+        """
+        Description: 提交
+        Summary: 提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_api_authtemplate_ex(request, headers, runtime)
+
+    async def exec_api_authtemplate_async(
+        self,
+        request: tax_models.ExecApiAuthtemplateRequest,
+    ) -> tax_models.ExecApiAuthtemplateResponse:
+        """
+        Description: 提交
+        Summary: 提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_api_authtemplate_ex_async(request, headers, runtime)
+
+    def exec_api_authtemplate_ex(
+        self,
+        request: tax_models.ExecApiAuthtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.ExecApiAuthtemplateResponse:
+        """
+        Description: 提交
+        Summary: 提交
+        """
+        UtilClient.validate_model(request)
+        return tax_models.ExecApiAuthtemplateResponse().from_map(
+            self.do_request('1.0', 'blockchain.tax.api.authtemplate.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_api_authtemplate_ex_async(
+        self,
+        request: tax_models.ExecApiAuthtemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.ExecApiAuthtemplateResponse:
+        """
+        Description: 提交
+        Summary: 提交
+        """
+        UtilClient.validate_model(request)
+        return tax_models.ExecApiAuthtemplateResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.tax.api.authtemplate.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_api_authtemplatedefine(
+        self,
+        request: tax_models.QueryApiAuthtemplatedefineRequest,
+    ) -> tax_models.QueryApiAuthtemplatedefineResponse:
+        """
+        Description: 获取要素信息
+        Summary: 获取要素信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_api_authtemplatedefine_ex(request, headers, runtime)
+
+    async def query_api_authtemplatedefine_async(
+        self,
+        request: tax_models.QueryApiAuthtemplatedefineRequest,
+    ) -> tax_models.QueryApiAuthtemplatedefineResponse:
+        """
+        Description: 获取要素信息
+        Summary: 获取要素信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_api_authtemplatedefine_ex_async(request, headers, runtime)
+
+    def query_api_authtemplatedefine_ex(
+        self,
+        request: tax_models.QueryApiAuthtemplatedefineRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiAuthtemplatedefineResponse:
+        """
+        Description: 获取要素信息
+        Summary: 获取要素信息
+        """
+        UtilClient.validate_model(request)
+        return tax_models.QueryApiAuthtemplatedefineResponse().from_map(
+            self.do_request('1.0', 'blockchain.tax.api.authtemplatedefine.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_api_authtemplatedefine_ex_async(
+        self,
+        request: tax_models.QueryApiAuthtemplatedefineRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiAuthtemplatedefineResponse:
+        """
+        Description: 获取要素信息
+        Summary: 获取要素信息
+        """
+        UtilClient.validate_model(request)
+        return tax_models.QueryApiAuthtemplatedefineResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.tax.api.authtemplatedefine.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_api_authtemplateresult(
+        self,
+        request: tax_models.QueryApiAuthtemplateresultRequest,
+    ) -> tax_models.QueryApiAuthtemplateresultResponse:
+        """
+        Description: 获取授权结果
+        Summary: 获取授权结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_api_authtemplateresult_ex(request, headers, runtime)
+
+    async def query_api_authtemplateresult_async(
+        self,
+        request: tax_models.QueryApiAuthtemplateresultRequest,
+    ) -> tax_models.QueryApiAuthtemplateresultResponse:
+        """
+        Description: 获取授权结果
+        Summary: 获取授权结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_api_authtemplateresult_ex_async(request, headers, runtime)
+
+    def query_api_authtemplateresult_ex(
+        self,
+        request: tax_models.QueryApiAuthtemplateresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiAuthtemplateresultResponse:
+        """
+        Description: 获取授权结果
+        Summary: 获取授权结果
+        """
+        UtilClient.validate_model(request)
+        return tax_models.QueryApiAuthtemplateresultResponse().from_map(
+            self.do_request('1.0', 'blockchain.tax.api.authtemplateresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_api_authtemplateresult_ex_async(
+        self,
+        request: tax_models.QueryApiAuthtemplateresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiAuthtemplateresultResponse:
+        """
+        Description: 获取授权结果
+        Summary: 获取授权结果
+        """
+        UtilClient.validate_model(request)
+        return tax_models.QueryApiAuthtemplateresultResponse().from_map(
+            await self.do_request_async('1.0', 'blockchain.tax.api.authtemplateresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

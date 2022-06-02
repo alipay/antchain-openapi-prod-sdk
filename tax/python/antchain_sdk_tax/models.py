@@ -150,6 +150,405 @@ class Config(TeaModel):
         return self
 
 
+class Logic(TeaModel):
+    def __init__(
+        self,
+        op: str = None,
+        key: str = None,
+        value: str = None,
+        children: str = None,
+    ):
+        # 操作符
+        # equal = _equal_, // 相等比较
+        # notEqual = _notEqual_, // 不相等比较
+        # AND = _AND_, // 与逻辑
+        # OR = _OR_, // 或逻辑
+        self.op = op
+        # 只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+        self.key = key
+        # 只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+        self.value = value
+        # 只有 op 是 AND 或者 OR 才需要这个字段
+        # [{op: _AND_, // 与逻辑
+        # children: [
+        # {
+        # op: _equal_, // 相等比较
+        # key: _validationMethod_, // 表示：验证方式
+        # value: _smsCode_  // 表示：短信验证码
+        # },
+        # { // 判断登录信息的值不为 null
+        # op: _notEqual_, // 不相等比较
+        # key: _username_,  // 表示：登录信息
+        # value: null
+        # }]}]
+        self.children = children
+
+    def validate(self):
+        self.validate_required(self.op, 'op')
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.value, 'value')
+        self.validate_required(self.children, 'children')
+
+    def to_map(self):
+        result = dict()
+        if self.op is not None:
+            result['op'] = self.op
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        if self.children is not None:
+            result['children'] = self.children
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('op') is not None:
+            self.op = m.get('op')
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        if m.get('children') is not None:
+            self.children = m.get('children')
+        return self
+
+
+class Rule(TeaModel):
+    def __init__(
+        self,
+        type: str = None,
+        len: int = None,
+        max: int = None,
+        min: int = None,
+        message: str = None,
+        required: bool = None,
+        reg_pattern: str = None,
+    ):
+        # 字段值的类型，常见有 string | number| boolean | _array_
+        self.type = type
+        # type 为 string 类型时，表示字符串长度；number 类型时表示确定数字； array 类型时表示数组长度
+        self.len = len
+        # type 为 string 类型时，表示字符串最大长度；number 类型时表示最大值；array 类型时表示数组最大长度
+        self.max = max
+        # type 为 string 类型时，表示字符串最小长度；number 类型时表示最小值；array 类型时表示数组最小长度
+        self.min = min
+        # 校验出错时显示的错误消息
+        self.message = message
+        # 是否必填
+        self.required = required
+        # 正则表达式,
+        self.reg_pattern = reg_pattern
+
+    def validate(self):
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.len, 'len')
+        self.validate_required(self.max, 'max')
+        self.validate_required(self.min, 'min')
+        self.validate_required(self.message, 'message')
+        self.validate_required(self.required, 'required')
+        self.validate_required(self.reg_pattern, 'reg_pattern')
+
+    def to_map(self):
+        result = dict()
+        if self.type is not None:
+            result['type'] = self.type
+        if self.len is not None:
+            result['len'] = self.len
+        if self.max is not None:
+            result['max'] = self.max
+        if self.min is not None:
+            result['min'] = self.min
+        if self.message is not None:
+            result['message'] = self.message
+        if self.required is not None:
+            result['required'] = self.required
+        if self.reg_pattern is not None:
+            result['reg_pattern'] = self.reg_pattern
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('len') is not None:
+            self.len = m.get('len')
+        if m.get('max') is not None:
+            self.max = m.get('max')
+        if m.get('min') is not None:
+            self.min = m.get('min')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('required') is not None:
+            self.required = m.get('required')
+        if m.get('reg_pattern') is not None:
+            self.reg_pattern = m.get('reg_pattern')
+        return self
+
+
+class ForgetMeta(TeaModel):
+    def __init__(
+        self,
+        label: str = None,
+        link: str = None,
+    ):
+        # 字段名称
+        self.label = label
+        # 忘记密码的链接地址，供重置用
+        self.link = link
+
+    def validate(self):
+        self.validate_required(self.label, 'label')
+        self.validate_required(self.link, 'link')
+
+    def to_map(self):
+        result = dict()
+        if self.label is not None:
+            result['label'] = self.label
+        if self.link is not None:
+            result['link'] = self.link
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('label') is not None:
+            self.label = m.get('label')
+        if m.get('link') is not None:
+            self.link = m.get('link')
+        return self
+
+
+class SelectOption(TeaModel):
+    def __init__(
+        self,
+        lable: str = None,
+        value: str = None,
+    ):
+        # 选项名称
+        self.lable = lable
+        # 选项的值，一般是 id 之类的唯一标识符，给后端传这个
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.lable, 'lable')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        result = dict()
+        if self.lable is not None:
+            result['lable'] = self.lable
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('lable') is not None:
+            self.lable = m.get('lable')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class Key(TeaModel):
+    def __init__(
+        self,
+        key: str = None,
+        id: str = None,
+        type: str = None,
+        label: str = None,
+        input_type: str = None,
+        initial_value: str = None,
+        placeholder: str = None,
+        disabled: bool = None,
+        read_only: str = None,
+        tooltip: str = None,
+        rules: List[Rule] = None,
+        logics: List[Logic] = None,
+        select_options: List[SelectOption] = None,
+        forget_meta: ForgetMeta = None,
+    ):
+        # 名称（key的中文名称）
+        self.key = key
+        # id
+        self.id = id
+        # input, // 普通输入框
+        # dropdownSelect, // 下拉选择
+        # cardSelect, // 平铺选择
+        # password, // 密码输入框，这个类型会包含忘记密码按钮
+        # smsCode, // 手机验证码
+        # qrcodeLogin, // 二维码登录
+        # hiddenField,// 隐藏字段，页面上不显示，但是值会提交给后端
+        self.type = type
+        # 字段名称 例如：密码
+        self.label = label
+        # 输入框的值类型，字符串还是数字，默认 string/number/paassword
+        self.input_type = input_type
+        # 字段的初始值，类型要和前端提交的类型保持一致，且是可被 JSON 序列化的
+        self.initial_value = initial_value
+        # 占位符，比如”请输入密码“
+        self.placeholder = placeholder
+        # 是否为禁用状态，true 表示禁用，默认 false
+        self.disabled = disabled
+        # 表示输入框是否为只读状态（只读和禁用都不能输入，但是样式不一样，所以要注意区分，不要同时声明 disabled 和 readOnly，否则以 disabled 优先）
+        self.read_only = read_only
+        # 这个字段的提示说明文案
+        self.tooltip = tooltip
+        # 校验规则
+        self.rules = rules
+        # 逻辑列表
+        self.logics = logics
+        # 选择列表的可选值，只有 type 是 dropdownSelect、cardSelect 时才需要
+        self.select_options = select_options
+        # 忘记密码元素
+        self.forget_meta = forget_meta
+
+    def validate(self):
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.label, 'label')
+        self.validate_required(self.input_type, 'input_type')
+        self.validate_required(self.initial_value, 'initial_value')
+        self.validate_required(self.placeholder, 'placeholder')
+        self.validate_required(self.disabled, 'disabled')
+        self.validate_required(self.read_only, 'read_only')
+        self.validate_required(self.tooltip, 'tooltip')
+        self.validate_required(self.rules, 'rules')
+        if self.rules:
+            for k in self.rules:
+                if k:
+                    k.validate()
+        self.validate_required(self.logics, 'logics')
+        if self.logics:
+            for k in self.logics:
+                if k:
+                    k.validate()
+        self.validate_required(self.select_options, 'select_options')
+        if self.select_options:
+            for k in self.select_options:
+                if k:
+                    k.validate()
+        self.validate_required(self.forget_meta, 'forget_meta')
+        if self.forget_meta:
+            self.forget_meta.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.id is not None:
+            result['id'] = self.id
+        if self.type is not None:
+            result['type'] = self.type
+        if self.label is not None:
+            result['label'] = self.label
+        if self.input_type is not None:
+            result['input_type'] = self.input_type
+        if self.initial_value is not None:
+            result['initial_value'] = self.initial_value
+        if self.placeholder is not None:
+            result['placeholder'] = self.placeholder
+        if self.disabled is not None:
+            result['disabled'] = self.disabled
+        if self.read_only is not None:
+            result['read_only'] = self.read_only
+        if self.tooltip is not None:
+            result['tooltip'] = self.tooltip
+        result['rules'] = []
+        if self.rules is not None:
+            for k in self.rules:
+                result['rules'].append(k.to_map() if k else None)
+        result['logics'] = []
+        if self.logics is not None:
+            for k in self.logics:
+                result['logics'].append(k.to_map() if k else None)
+        result['select_options'] = []
+        if self.select_options is not None:
+            for k in self.select_options:
+                result['select_options'].append(k.to_map() if k else None)
+        if self.forget_meta is not None:
+            result['forget_meta'] = self.forget_meta.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('label') is not None:
+            self.label = m.get('label')
+        if m.get('input_type') is not None:
+            self.input_type = m.get('input_type')
+        if m.get('initial_value') is not None:
+            self.initial_value = m.get('initial_value')
+        if m.get('placeholder') is not None:
+            self.placeholder = m.get('placeholder')
+        if m.get('disabled') is not None:
+            self.disabled = m.get('disabled')
+        if m.get('read_only') is not None:
+            self.read_only = m.get('read_only')
+        if m.get('tooltip') is not None:
+            self.tooltip = m.get('tooltip')
+        self.rules = []
+        if m.get('rules') is not None:
+            for k in m.get('rules'):
+                temp_model = Rule()
+                self.rules.append(temp_model.from_map(k))
+        self.logics = []
+        if m.get('logics') is not None:
+            for k in m.get('logics'):
+                temp_model = Logic()
+                self.logics.append(temp_model.from_map(k))
+        self.select_options = []
+        if m.get('select_options') is not None:
+            for k in m.get('select_options'):
+                temp_model = SelectOption()
+                self.select_options.append(temp_model.from_map(k))
+        if m.get('forget_meta') is not None:
+            temp_model = ForgetMeta()
+            self.forget_meta = temp_model.from_map(m['forget_meta'])
+        return self
+
+
+class Pair(TeaModel):
+    def __init__(
+        self,
+        left: str = None,
+        right: Key = None,
+    ):
+        # left
+        self.left = left
+        # right
+        self.right = right
+
+    def validate(self):
+        self.validate_required(self.left, 'left')
+        self.validate_required(self.right, 'right')
+        if self.right:
+            self.right.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.left is not None:
+            result['left'] = self.left
+        if self.right is not None:
+            result['right'] = self.right.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('left') is not None:
+            self.left = m.get('left')
+        if m.get('right') is not None:
+            temp_model = Key()
+            self.right = temp_model.from_map(m['right'])
+        return self
+
+
 class DistrictExtRequest(TeaModel):
     def __init__(
         self,
@@ -171,6 +570,66 @@ class DistrictExtRequest(TeaModel):
         m = m or dict()
         if m.get('city_code') is not None:
             self.city_code = m.get('city_code')
+        return self
+
+
+class Card(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        tab_show_name: str = None,
+        key_values: Pair = None,
+        is_selected: str = None,
+        return_value_key: List[str] = None,
+    ):
+        # 名称（该页面的名称，可能做展示用）
+        self.name = name
+        # 如果一层有多个卡片，那么这个名称就作为tab的头名称展示
+        self.tab_show_name = tab_show_name
+        # 当前模版所有需要填充元素
+        self.key_values = key_values
+        # true：是，false：不是
+        # 是否作同一个父节点的默认展示，比如验证码和密码默认是哪个
+        self.is_selected = is_selected
+        # 备注：如果显示是这两个，代表返回的值得分别塞到这两个key对应的value中/\
+        self.return_value_key = return_value_key
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.tab_show_name, 'tab_show_name')
+        self.validate_required(self.key_values, 'key_values')
+        if self.key_values:
+            self.key_values.validate()
+        self.validate_required(self.is_selected, 'is_selected')
+        self.validate_required(self.return_value_key, 'return_value_key')
+
+    def to_map(self):
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.tab_show_name is not None:
+            result['tab_show_name'] = self.tab_show_name
+        if self.key_values is not None:
+            result['key_values'] = self.key_values.to_map()
+        if self.is_selected is not None:
+            result['is_selected'] = self.is_selected
+        if self.return_value_key is not None:
+            result['return_value_key'] = self.return_value_key
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('tab_show_name') is not None:
+            self.tab_show_name = m.get('tab_show_name')
+        if m.get('key_values') is not None:
+            temp_model = Pair()
+            self.key_values = temp_model.from_map(m['key_values'])
+        if m.get('is_selected') is not None:
+            self.is_selected = m.get('is_selected')
+        if m.get('return_value_key') is not None:
+            self.return_value_key = m.get('return_value_key')
         return self
 
 
@@ -211,6 +670,65 @@ class AgreementExtRequest(TeaModel):
             self.is_seal = m.get('is_seal')
         if m.get('address') is not None:
             self.address = m.get('address')
+        return self
+
+
+class TreeNode(TeaModel):
+    def __init__(
+        self,
+        id: int = None,
+        parent_node_id: str = None,
+        depth: int = None,
+        is_leef_node: str = None,
+        card: Card = None,
+    ):
+        # 节点id，按树的前序排列
+        self.id = id
+        # 父节点id，不存在为null
+        self.parent_node_id = parent_node_id
+        # 深度
+        self.depth = depth
+        # 是否叶子结点
+        self.is_leef_node = is_leef_node
+        # 模版
+        self.card = card
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.parent_node_id, 'parent_node_id')
+        self.validate_required(self.depth, 'depth')
+        self.validate_required(self.is_leef_node, 'is_leef_node')
+        self.validate_required(self.card, 'card')
+        if self.card:
+            self.card.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.parent_node_id is not None:
+            result['parent_node_id'] = self.parent_node_id
+        if self.depth is not None:
+            result['depth'] = self.depth
+        if self.is_leef_node is not None:
+            result['is_leef_node'] = self.is_leef_node
+        if self.card is not None:
+            result['card'] = self.card.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('parent_node_id') is not None:
+            self.parent_node_id = m.get('parent_node_id')
+        if m.get('depth') is not None:
+            self.depth = m.get('depth')
+        if m.get('is_leef_node') is not None:
+            self.is_leef_node = m.get('is_leef_node')
+        if m.get('card') is not None:
+            temp_model = Card()
+            self.card = temp_model.from_map(m['card'])
         return self
 
 
@@ -346,6 +864,161 @@ class StandardAuthExtendInfoRequest(TeaModel):
         if m.get('districtext_request') is not None:
             temp_model = DistrictExtRequest()
             self.districtext_request = temp_model.from_map(m['districtext_request'])
+        return self
+
+
+class ReturnDetail(TeaModel):
+    def __init__(
+        self,
+        biz_content: str = None,
+        return_type: str = None,
+        file_urls: List[str] = None,
+        file_type: str = None,
+        encrypt_model: str = None,
+        secret_envelope: str = None,
+    ):
+        # 结果对象内容
+        self.biz_content = biz_content
+        # 返回形式
+        self.return_type = return_type
+        # 文件列表
+        self.file_urls = file_urls
+        # 文件类型
+        self.file_type = file_type
+        # 加密模式
+        self.encrypt_model = encrypt_model
+        # 密钥信封
+        self.secret_envelope = secret_envelope
+
+    def validate(self):
+        self.validate_required(self.biz_content, 'biz_content')
+        self.validate_required(self.return_type, 'return_type')
+        self.validate_required(self.file_urls, 'file_urls')
+        self.validate_required(self.file_type, 'file_type')
+        self.validate_required(self.encrypt_model, 'encrypt_model')
+        self.validate_required(self.secret_envelope, 'secret_envelope')
+
+    def to_map(self):
+        result = dict()
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        if self.return_type is not None:
+            result['return_type'] = self.return_type
+        if self.file_urls is not None:
+            result['file_urls'] = self.file_urls
+        if self.file_type is not None:
+            result['file_type'] = self.file_type
+        if self.encrypt_model is not None:
+            result['encrypt_model'] = self.encrypt_model
+        if self.secret_envelope is not None:
+            result['secret_envelope'] = self.secret_envelope
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        if m.get('return_type') is not None:
+            self.return_type = m.get('return_type')
+        if m.get('file_urls') is not None:
+            self.file_urls = m.get('file_urls')
+        if m.get('file_type') is not None:
+            self.file_type = m.get('file_type')
+        if m.get('encrypt_model') is not None:
+            self.encrypt_model = m.get('encrypt_model')
+        if m.get('secret_envelope') is not None:
+            self.secret_envelope = m.get('secret_envelope')
+        return self
+
+
+class QrCodeValue(TeaModel):
+    def __init__(
+        self,
+        qr_code_url: str = None,
+        desc: str = None,
+        timeout: int = None,
+    ):
+        # 二维码链接
+        self.qr_code_url = qr_code_url
+        # 二维码描述信息。例如：请使用 xxx app 扫码登录
+        self.desc = desc
+        # 二维码在多长时间后失效，单位：秒
+        self.timeout = timeout
+
+    def validate(self):
+        self.validate_required(self.qr_code_url, 'qr_code_url')
+        self.validate_required(self.desc, 'desc')
+        self.validate_required(self.timeout, 'timeout')
+
+    def to_map(self):
+        result = dict()
+        if self.qr_code_url is not None:
+            result['qr_code_url'] = self.qr_code_url
+        if self.desc is not None:
+            result['desc'] = self.desc
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('qr_code_url') is not None:
+            self.qr_code_url = m.get('qr_code_url')
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
+        return self
+
+
+class TreeTemplate(TeaModel):
+    def __init__(
+        self,
+        tree_node: TreeNode = None,
+        id: str = None,
+        version: str = None,
+        compatible_min_version: str = None,
+    ):
+        # 树节点
+        self.tree_node = tree_node
+        # Id
+        self.id = id
+        # 版本号
+        self.version = version
+        # 向上兼容的最小版本号
+        self.compatible_min_version = compatible_min_version
+
+    def validate(self):
+        self.validate_required(self.tree_node, 'tree_node')
+        if self.tree_node:
+            self.tree_node.validate()
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.version, 'version')
+        self.validate_required(self.compatible_min_version, 'compatible_min_version')
+
+    def to_map(self):
+        result = dict()
+        if self.tree_node is not None:
+            result['tree_node'] = self.tree_node.to_map()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.version is not None:
+            result['version'] = self.version
+        if self.compatible_min_version is not None:
+            result['compatible_min_version'] = self.compatible_min_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('tree_node') is not None:
+            temp_model = TreeNode()
+            self.tree_node = temp_model.from_map(m['tree_node'])
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        if m.get('compatible_min_version') is not None:
+            self.compatible_min_version = m.get('compatible_min_version')
         return self
 
 
@@ -1800,6 +2473,7 @@ class ExecIcmSyncgatheringRequest(TeaModel):
         identity_id: str = None,
         auth_type: str = None,
         order_no: str = None,
+        content: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1814,6 +2488,8 @@ class ExecIcmSyncgatheringRequest(TeaModel):
         self.auth_type = auth_type
         # 订单号
         self.order_no = order_no
+        # 补充内容,如果不动产中字段为空的话查的就是授权中的cityCode
+        self.content = content
 
     def validate(self):
         self.validate_required(self.inst_code, 'inst_code')
@@ -1821,6 +2497,7 @@ class ExecIcmSyncgatheringRequest(TeaModel):
         self.validate_required(self.identity_id, 'identity_id')
         self.validate_required(self.auth_type, 'auth_type')
         self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.content, 'content')
 
     def to_map(self):
         result = dict()
@@ -1838,6 +2515,8 @@ class ExecIcmSyncgatheringRequest(TeaModel):
             result['auth_type'] = self.auth_type
         if self.order_no is not None:
             result['order_no'] = self.order_no
+        if self.content is not None:
+            result['content'] = self.content
         return result
 
     def from_map(self, m: dict = None):
@@ -1856,6 +2535,8 @@ class ExecIcmSyncgatheringRequest(TeaModel):
             self.auth_type = m.get('auth_type')
         if m.get('order_no') is not None:
             self.order_no = m.get('order_no')
+        if m.get('content') is not None:
+            self.content = m.get('content')
         return self
 
 
@@ -1867,6 +2548,8 @@ class ExecIcmSyncgatheringResponse(TeaModel):
         result_msg: str = None,
         biz_content: str = None,
         query_time: str = None,
+        return_mode: str = None,
+        return_result: List[ReturnDetail] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1878,9 +2561,16 @@ class ExecIcmSyncgatheringResponse(TeaModel):
         self.biz_content = biz_content
         # unix秒时间戳,查询时间，用来对账使用
         self.query_time = query_time
+        # 返回模式
+        self.return_mode = return_mode
+        # 返回结果
+        self.return_result = return_result
 
     def validate(self):
-        pass
+        if self.return_result:
+            for k in self.return_result:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
@@ -1894,6 +2584,12 @@ class ExecIcmSyncgatheringResponse(TeaModel):
             result['biz_content'] = self.biz_content
         if self.query_time is not None:
             result['query_time'] = self.query_time
+        if self.return_mode is not None:
+            result['return_mode'] = self.return_mode
+        result['return_result'] = []
+        if self.return_result is not None:
+            for k in self.return_result:
+                result['return_result'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1908,6 +2604,512 @@ class ExecIcmSyncgatheringResponse(TeaModel):
             self.biz_content = m.get('biz_content')
         if m.get('query_time') is not None:
             self.query_time = m.get('query_time')
+        if m.get('return_mode') is not None:
+            self.return_mode = m.get('return_mode')
+        self.return_result = []
+        if m.get('return_result') is not None:
+            for k in m.get('return_result'):
+                temp_model = ReturnDetail()
+                self.return_result.append(temp_model.from_map(k))
+        return self
+
+
+class QueryApiAuthteplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_no: str = None,
+        identity_id: str = None,
+        identity_name: str = None,
+        auth_type: str = None,
+        cognizant_name: str = None,
+        coidentity_number: str = None,
+        cognizant_mobile: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务订单号
+        self.order_no = order_no
+        # 身份ID 身份证或者统一社会信用编码
+        self.identity_id = identity_id
+        # 名称
+        self.identity_name = identity_name
+        # 业务类型
+        # 11 税
+        # 12票
+        # 13税+票
+        self.auth_type = auth_type
+        # 法人名称
+        self.cognizant_name = cognizant_name
+        # 法人证件号
+        self.coidentity_number = coidentity_number
+        # 法人手机号
+        self.cognizant_mobile = cognizant_mobile
+
+    def validate(self):
+        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.identity_id, 'identity_id')
+        self.validate_required(self.identity_name, 'identity_name')
+        self.validate_required(self.auth_type, 'auth_type')
+        self.validate_required(self.cognizant_name, 'cognizant_name')
+        self.validate_required(self.coidentity_number, 'coidentity_number')
+        self.validate_required(self.cognizant_mobile, 'cognizant_mobile')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.identity_id is not None:
+            result['identity_id'] = self.identity_id
+        if self.identity_name is not None:
+            result['identity_name'] = self.identity_name
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.cognizant_name is not None:
+            result['cognizant_name'] = self.cognizant_name
+        if self.coidentity_number is not None:
+            result['coidentity_number'] = self.coidentity_number
+        if self.cognizant_mobile is not None:
+            result['cognizant_mobile'] = self.cognizant_mobile
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('identity_id') is not None:
+            self.identity_id = m.get('identity_id')
+        if m.get('identity_name') is not None:
+            self.identity_name = m.get('identity_name')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('cognizant_name') is not None:
+            self.cognizant_name = m.get('cognizant_name')
+        if m.get('coidentity_number') is not None:
+            self.coidentity_number = m.get('coidentity_number')
+        if m.get('cognizant_mobile') is not None:
+            self.cognizant_mobile = m.get('cognizant_mobile')
+        return self
+
+
+class QueryApiAuthteplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        token: str = None,
+        expire_time: int = None,
+        tree_template: TreeTemplate = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # JWT生成，设置失效时间，维持会话数据
+        self.token = token
+        # Unix时间戳 秒
+        self.expire_time = expire_time
+        # 模版树
+        self.tree_template = tree_template
+
+    def validate(self):
+        if self.tree_template:
+            self.tree_template.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.token is not None:
+            result['token'] = self.token
+        if self.expire_time is not None:
+            result['expire_time'] = self.expire_time
+        if self.tree_template is not None:
+            result['tree_template'] = self.tree_template.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        if m.get('expire_time') is not None:
+            self.expire_time = m.get('expire_time')
+        if m.get('tree_template') is not None:
+            temp_model = TreeTemplate()
+            self.tree_template = temp_model.from_map(m['tree_template'])
+        return self
+
+
+class ExecApiAuthtemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        token: str = None,
+        tree_template_id: str = None,
+        tree_version: str = None,
+        node_id: str = None,
+        pairs: Pair = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # token
+        self.token = token
+        # 树的模版id
+        self.tree_template_id = tree_template_id
+        # 模版对应的版本号
+        self.tree_version = tree_version
+        # 对应节点ID
+        self.node_id = node_id
+        # 当前卡片所有需要填充元素key
+        # 和value值
+        self.pairs = pairs
+
+    def validate(self):
+        self.validate_required(self.token, 'token')
+        self.validate_required(self.tree_template_id, 'tree_template_id')
+        self.validate_required(self.tree_version, 'tree_version')
+        self.validate_required(self.node_id, 'node_id')
+        self.validate_required(self.pairs, 'pairs')
+        if self.pairs:
+            self.pairs.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.token is not None:
+            result['token'] = self.token
+        if self.tree_template_id is not None:
+            result['tree_template_id'] = self.tree_template_id
+        if self.tree_version is not None:
+            result['tree_version'] = self.tree_version
+        if self.node_id is not None:
+            result['node_id'] = self.node_id
+        if self.pairs is not None:
+            result['pairs'] = self.pairs.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        if m.get('tree_template_id') is not None:
+            self.tree_template_id = m.get('tree_template_id')
+        if m.get('tree_version') is not None:
+            self.tree_version = m.get('tree_version')
+        if m.get('node_id') is not None:
+            self.node_id = m.get('node_id')
+        if m.get('pairs') is not None:
+            temp_model = Pair()
+            self.pairs = temp_model.from_map(m['pairs'])
+        return self
+
+
+class ExecApiAuthtemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        nodes: List[TreeNode] = None,
+        tree_template_id: str = None,
+        auth_state: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回的下一层节点集合
+        self.nodes = nodes
+        # 树id
+        self.tree_template_id = tree_template_id
+        # 授权状态,提交接口此字段为空
+        # 1、正在处理中
+        # 2、登陆成功
+        self.auth_state = auth_state
+        # 请求是否成功
+        # true 成功
+        # false 失败
+        self.success = success
+
+    def validate(self):
+        if self.nodes:
+            for k in self.nodes:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['nodes'] = []
+        if self.nodes is not None:
+            for k in self.nodes:
+                result['nodes'].append(k.to_map() if k else None)
+        if self.tree_template_id is not None:
+            result['tree_template_id'] = self.tree_template_id
+        if self.auth_state is not None:
+            result['auth_state'] = self.auth_state
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.nodes = []
+        if m.get('nodes') is not None:
+            for k in m.get('nodes'):
+                temp_model = TreeNode()
+                self.nodes.append(temp_model.from_map(k))
+        if m.get('tree_template_id') is not None:
+            self.tree_template_id = m.get('tree_template_id')
+        if m.get('auth_state') is not None:
+            self.auth_state = m.get('auth_state')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class QueryApiAuthtemplatedefineRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        token: str = None,
+        action_type: str = None,
+        depends_value: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # token
+        self.token = token
+        # message：短信
+        # qrCode：二维码
+        self.action_type = action_type
+        # 依赖的数据值 比如身份证
+        self.depends_value = depends_value
+
+    def validate(self):
+        self.validate_required(self.token, 'token')
+        self.validate_required(self.action_type, 'action_type')
+        self.validate_required(self.depends_value, 'depends_value')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.token is not None:
+            result['token'] = self.token
+        if self.action_type is not None:
+            result['action_type'] = self.action_type
+        if self.depends_value is not None:
+            result['depends_value'] = self.depends_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        if m.get('action_type') is not None:
+            self.action_type = m.get('action_type')
+        if m.get('depends_value') is not None:
+            self.depends_value = m.get('depends_value')
+        return self
+
+
+class QueryApiAuthtemplatedefineResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        value: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 二维码类型返回二维码描述
+        # 短信无返回，接口成功即可
+        self.value = value
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class QueryApiAuthtemplateresultRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_no: str = None,
+        identity_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务授权订单号 用户幂等控制，调用方保证唯一
+        self.order_no = order_no
+        # 身份ID
+        self.identity_id = identity_id
+
+    def validate(self):
+        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.identity_id, 'identity_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.identity_id is not None:
+            result['identity_id'] = self.identity_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('identity_id') is not None:
+            self.identity_id = m.get('identity_id')
+        return self
+
+
+class QueryApiAuthtemplateresultResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        auth_state: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否成功
+        self.success = success
+        # 授权状态
+        # 1、正在处理中
+        # 2、登陆成功
+        self.auth_state = auth_state
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.auth_state is not None:
+            result['auth_state'] = self.auth_state
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('auth_state') is not None:
+            self.auth_state = m.get('auth_state')
         return self
 
 
