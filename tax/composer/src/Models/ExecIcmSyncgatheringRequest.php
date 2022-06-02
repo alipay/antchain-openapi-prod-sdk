@@ -48,6 +48,12 @@ class ExecIcmSyncgatheringRequest extends Model
      * @var string
      */
     public $orderNo;
+
+    // 补充内容,如果不动产中字段为空的话查的就是授权中的cityCode
+    /**
+     * @var string
+     */
+    public $content;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class ExecIcmSyncgatheringRequest extends Model
         'identityId'        => 'identity_id',
         'authType'          => 'auth_type',
         'orderNo'           => 'order_no',
+        'content'           => 'content',
     ];
 
     public function validate()
@@ -65,6 +72,7 @@ class ExecIcmSyncgatheringRequest extends Model
         Model::validateRequired('identityId', $this->identityId, true);
         Model::validateRequired('authType', $this->authType, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
+        Model::validateRequired('content', $this->content, true);
     }
 
     public function toMap()
@@ -90,6 +98,9 @@ class ExecIcmSyncgatheringRequest extends Model
         }
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
+        }
+        if (null !== $this->content) {
+            $res['content'] = $this->content;
         }
 
         return $res;
@@ -123,6 +134,9 @@ class ExecIcmSyncgatheringRequest extends Model
         }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
+        }
+        if (isset($map['content'])) {
+            $model->content = $map['content'];
         }
 
         return $model;

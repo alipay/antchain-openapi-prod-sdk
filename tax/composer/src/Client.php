@@ -19,6 +19,8 @@ use AntChain\TAX\Models\AuthIcmRealpersonRequest;
 use AntChain\TAX\Models\AuthIcmRealpersonResponse;
 use AntChain\TAX\Models\DescribeIcmInvoiceRequest;
 use AntChain\TAX\Models\DescribeIcmInvoiceResponse;
+use AntChain\TAX\Models\ExecApiAuthtemplateRequest;
+use AntChain\TAX\Models\ExecApiAuthtemplateResponse;
 use AntChain\TAX\Models\ExecIcmSyncgatheringRequest;
 use AntChain\TAX\Models\ExecIcmSyncgatheringResponse;
 use AntChain\TAX\Models\PushChargeRequest;
@@ -27,6 +29,12 @@ use AntChain\TAX\Models\PushIcmInvoiceinfoRequest;
 use AntChain\TAX\Models\PushIcmInvoiceinfoResponse;
 use AntChain\TAX\Models\PushIcmInvoiceRequest;
 use AntChain\TAX\Models\PushIcmInvoiceResponse;
+use AntChain\TAX\Models\QueryApiAuthtemplatedefineRequest;
+use AntChain\TAX\Models\QueryApiAuthtemplatedefineResponse;
+use AntChain\TAX\Models\QueryApiAuthtemplateresultRequest;
+use AntChain\TAX\Models\QueryApiAuthtemplateresultResponse;
+use AntChain\TAX\Models\QueryApiAuthteplateRequest;
+use AntChain\TAX\Models\QueryApiAuthteplateResponse;
 use AntChain\TAX\Models\QueryChargeAuthRequest;
 use AntChain\TAX\Models\QueryChargeAuthResponse;
 use AntChain\TAX\Models\QueryIcmInvoiceRequest;
@@ -150,7 +158,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 地区请求
+            // 逻辑
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -178,7 +186,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.3',
+                    'sdk_version'      => '1.4.0',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -522,7 +530,7 @@ class Client
     }
 
     /**
-     * Description: 同步采集
+     * Description: 采集，不限制同步 异步
      * Summary: 采集.
      *
      * @param ExecIcmSyncgatheringRequest $request
@@ -538,7 +546,7 @@ class Client
     }
 
     /**
-     * Description: 同步采集
+     * Description: 采集，不限制同步 异步
      * Summary: 采集.
      *
      * @param ExecIcmSyncgatheringRequest $request
@@ -552,5 +560,137 @@ class Client
         Utils::validateModel($request);
 
         return ExecIcmSyncgatheringResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.icm.syncgathering.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取授权模版和token
+     * Summary: 获取授权模版和token.
+     *
+     * @param QueryApiAuthteplateRequest $request
+     *
+     * @return QueryApiAuthteplateResponse
+     */
+    public function queryApiAuthteplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiAuthteplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取授权模版和token
+     * Summary: 获取授权模版和token.
+     *
+     * @param QueryApiAuthteplateRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryApiAuthteplateResponse
+     */
+    public function queryApiAuthteplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiAuthteplateResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.authteplate.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交
+     * Summary: 提交.
+     *
+     * @param ExecApiAuthtemplateRequest $request
+     *
+     * @return ExecApiAuthtemplateResponse
+     */
+    public function execApiAuthtemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execApiAuthtemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交
+     * Summary: 提交.
+     *
+     * @param ExecApiAuthtemplateRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ExecApiAuthtemplateResponse
+     */
+    public function execApiAuthtemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecApiAuthtemplateResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.authtemplate.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取要素信息
+     * Summary: 获取要素信息.
+     *
+     * @param QueryApiAuthtemplatedefineRequest $request
+     *
+     * @return QueryApiAuthtemplatedefineResponse
+     */
+    public function queryApiAuthtemplatedefine($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiAuthtemplatedefineEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取要素信息
+     * Summary: 获取要素信息.
+     *
+     * @param QueryApiAuthtemplatedefineRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryApiAuthtemplatedefineResponse
+     */
+    public function queryApiAuthtemplatedefineEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiAuthtemplatedefineResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.authtemplatedefine.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取授权结果
+     * Summary: 获取授权结果.
+     *
+     * @param QueryApiAuthtemplateresultRequest $request
+     *
+     * @return QueryApiAuthtemplateresultResponse
+     */
+    public function queryApiAuthtemplateresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiAuthtemplateresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取授权结果
+     * Summary: 获取授权结果.
+     *
+     * @param QueryApiAuthtemplateresultRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryApiAuthtemplateresultResponse
+     */
+    public function queryApiAuthtemplateresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiAuthtemplateresultResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.authtemplateresult.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -37,12 +37,26 @@ class ExecIcmSyncgatheringResponse extends Model
      * @var string
      */
     public $queryTime;
+
+    // 返回模式
+    /**
+     * @var string
+     */
+    public $returnMode;
+
+    // 返回结果
+    /**
+     * @var ReturnDetail[]
+     */
+    public $returnResult;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'bizContent' => 'biz_content',
-        'queryTime'  => 'query_time',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'bizContent'   => 'biz_content',
+        'queryTime'    => 'query_time',
+        'returnMode'   => 'return_mode',
+        'returnResult' => 'return_result',
     ];
 
     public function validate()
@@ -66,6 +80,18 @@ class ExecIcmSyncgatheringResponse extends Model
         }
         if (null !== $this->queryTime) {
             $res['query_time'] = $this->queryTime;
+        }
+        if (null !== $this->returnMode) {
+            $res['return_mode'] = $this->returnMode;
+        }
+        if (null !== $this->returnResult) {
+            $res['return_result'] = [];
+            if (null !== $this->returnResult && \is_array($this->returnResult)) {
+                $n = 0;
+                foreach ($this->returnResult as $item) {
+                    $res['return_result'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -93,6 +119,18 @@ class ExecIcmSyncgatheringResponse extends Model
         }
         if (isset($map['query_time'])) {
             $model->queryTime = $map['query_time'];
+        }
+        if (isset($map['return_mode'])) {
+            $model->returnMode = $map['return_mode'];
+        }
+        if (isset($map['return_result'])) {
+            if (!empty($map['return_result'])) {
+                $model->returnResult = [];
+                $n                   = 0;
+                foreach ($map['return_result'] as $item) {
+                    $model->returnResult[$n++] = null !== $item ? ReturnDetail::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
