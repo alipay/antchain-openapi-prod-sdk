@@ -24,6 +24,14 @@ public class ExecIcmSyncgatheringResponse extends TeaModel {
     @NameInMap("query_time")
     public String queryTime;
 
+    // 返回模式
+    @NameInMap("return_mode")
+    public String returnMode;
+
+    // 返回结果
+    @NameInMap("return_result")
+    public java.util.List<ReturnDetail> returnResult;
+
     public static ExecIcmSyncgatheringResponse build(java.util.Map<String, ?> map) throws Exception {
         ExecIcmSyncgatheringResponse self = new ExecIcmSyncgatheringResponse();
         return TeaModel.build(map, self);
@@ -67,6 +75,22 @@ public class ExecIcmSyncgatheringResponse extends TeaModel {
     }
     public String getQueryTime() {
         return this.queryTime;
+    }
+
+    public ExecIcmSyncgatheringResponse setReturnMode(String returnMode) {
+        this.returnMode = returnMode;
+        return this;
+    }
+    public String getReturnMode() {
+        return this.returnMode;
+    }
+
+    public ExecIcmSyncgatheringResponse setReturnResult(java.util.List<ReturnDetail> returnResult) {
+        this.returnResult = returnResult;
+        return this;
+    }
+    public java.util.List<ReturnDetail> getReturnResult() {
+        return this.returnResult;
     }
 
 }

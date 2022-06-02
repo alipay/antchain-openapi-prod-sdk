@@ -36,6 +36,11 @@ public class ExecIcmSyncgatheringRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
+    // 补充内容,如果不动产中字段为空的话查的就是授权中的cityCode
+    @NameInMap("content")
+    @Validation(required = true)
+    public String content;
+
     public static ExecIcmSyncgatheringRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecIcmSyncgatheringRequest self = new ExecIcmSyncgatheringRequest();
         return TeaModel.build(map, self);
@@ -95,6 +100,14 @@ public class ExecIcmSyncgatheringRequest extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
+    }
+
+    public ExecIcmSyncgatheringRequest setContent(String content) {
+        this.content = content;
+        return this;
+    }
+    public String getContent() {
+        return this.content;
     }
 
 }
