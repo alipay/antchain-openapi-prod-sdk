@@ -77,6 +77,254 @@ export class Config extends $tea.Model {
   }
 }
 
+// 逻辑
+export class Logic extends $tea.Model {
+  // 操作符
+  //  equal = _equal_, // 相等比较
+  //   notEqual = _notEqual_, // 不相等比较
+  //   AND = _AND_, // 与逻辑
+  //   OR = _OR_, // 或逻辑
+  op: string;
+  //  只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+  key: string;
+  // 只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+  value: string;
+  // 只有 op 是 AND 或者 OR 才需要这个字段
+  // [{op: _AND_, // 与逻辑
+  //         children: [
+  //           {
+  //             op: _equal_, // 相等比较
+  //             key: _validationMethod_, // 表示：验证方式
+  //             value: _smsCode_  // 表示：短信验证码
+  //           },
+  //           { // 判断登录信息的值不为 null
+  //             op: _notEqual_, // 不相等比较
+  //             key: _username_,  // 表示：登录信息
+  //             value: null
+  //           }]}]
+  children: string;
+  static names(): { [key: string]: string } {
+    return {
+      op: 'op',
+      key: 'key',
+      value: 'value',
+      children: 'children',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      op: 'string',
+      key: 'string',
+      value: 'string',
+      children: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 规则
+export class Rule extends $tea.Model {
+  // 字段值的类型，常见有 string | number| boolean | _array_
+  type: string;
+  // type 为 string 类型时，表示字符串长度；number 类型时表示确定数字； array 类型时表示数组长度
+  len: number;
+  // type 为 string 类型时，表示字符串最大长度；number 类型时表示最大值；array 类型时表示数组最大长度
+  max: number;
+  // type 为 string 类型时，表示字符串最小长度；number 类型时表示最小值；array 类型时表示数组最小长度
+  min: number;
+  // 校验出错时显示的错误消息
+  message: string;
+  // 是否必填
+  required: boolean;
+  // 正则表达式,
+  regPattern: string;
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+      len: 'len',
+      max: 'max',
+      min: 'min',
+      message: 'message',
+      required: 'required',
+      regPattern: 'reg_pattern',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+      len: 'number',
+      max: 'number',
+      min: 'number',
+      message: 'string',
+      required: 'boolean',
+      regPattern: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 忘记密码
+export class ForgetMeta extends $tea.Model {
+  // 字段名称
+  label: string;
+  // 忘记密码的链接地址，供重置用
+  link: string;
+  static names(): { [key: string]: string } {
+    return {
+      label: 'label',
+      link: 'link',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      label: 'string',
+      link: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 选择组件
+export class SelectOption extends $tea.Model {
+  // 选项名称
+  lable: string;
+  // 选项的值，一般是 id 之类的唯一标识符，给后端传这个
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      lable: 'lable',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      lable: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 组件
+export class Key extends $tea.Model {
+  // 名称（key的中文名称）
+  key: string;
+  // id
+  id: string;
+  // input, // 普通输入框
+  // dropdownSelect, // 下拉选择
+  // cardSelect, // 平铺选择
+  // password, // 密码输入框，这个类型会包含忘记密码按钮
+  // smsCode, // 手机验证码
+  // qrcodeLogin, // 二维码登录
+  // hiddenField,// 隐藏字段，页面上不显示，但是值会提交给后端
+  type: string;
+  // 字段名称 例如：密码
+  label: string;
+  // 输入框的值类型，字符串还是数字，默认 string/number/paassword
+  inputType: string;
+  // 字段的初始值，类型要和前端提交的类型保持一致，且是可被 JSON 序列化的
+  initialValue: string;
+  // 占位符，比如”请输入密码“
+  placeholder: string;
+  // 是否为禁用状态，true 表示禁用，默认 false
+  disabled: boolean;
+  // 表示输入框是否为只读状态（只读和禁用都不能输入，但是样式不一样，所以要注意区分，不要同时声明 disabled 和 readOnly，否则以 disabled 优先）
+  readOnly: string;
+  // 这个字段的提示说明文案
+  tooltip: string;
+  // 校验规则
+  rules: Rule[];
+  // 逻辑列表
+  logics: Logic[];
+  // 选择列表的可选值，只有 type 是 dropdownSelect、cardSelect 时才需要
+  selectOptions: SelectOption[];
+  // 忘记密码元素
+  forgetMeta: ForgetMeta;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      id: 'id',
+      type: 'type',
+      label: 'label',
+      inputType: 'input_type',
+      initialValue: 'initial_value',
+      placeholder: 'placeholder',
+      disabled: 'disabled',
+      readOnly: 'read_only',
+      tooltip: 'tooltip',
+      rules: 'rules',
+      logics: 'logics',
+      selectOptions: 'select_options',
+      forgetMeta: 'forget_meta',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      id: 'string',
+      type: 'string',
+      label: 'string',
+      inputType: 'string',
+      initialValue: 'string',
+      placeholder: 'string',
+      disabled: 'boolean',
+      readOnly: 'string',
+      tooltip: 'string',
+      rules: { 'type': 'array', 'itemType': Rule },
+      logics: { 'type': 'array', 'itemType': Logic },
+      selectOptions: { 'type': 'array', 'itemType': SelectOption },
+      forgetMeta: ForgetMeta,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 配对
+export class Pair extends $tea.Model {
+  // left
+  left: string;
+  // right
+  right: Key;
+  static names(): { [key: string]: string } {
+    return {
+      left: 'left',
+      right: 'right',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      left: 'string',
+      right: Key,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 地区请求
 export class DistrictExtRequest extends $tea.Model {
   // 地区编码
@@ -90,6 +338,44 @@ export class DistrictExtRequest extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       cityCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// card
+export class Card extends $tea.Model {
+  // 名称（该页面的名称，可能做展示用）
+  name: string;
+  // 如果一层有多个卡片，那么这个名称就作为tab的头名称展示
+  tabShowName: string;
+  // 当前模版所有需要填充元素
+  keyValues: Pair;
+  // true：是，false：不是
+  // 是否作同一个父节点的默认展示，比如验证码和密码默认是哪个
+  isSelected: string;
+  // 备注：如果显示是这两个，代表返回的值得分别塞到这两个key对应的value中/
+  returnValueKey: string[];
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      tabShowName: 'tab_show_name',
+      keyValues: 'key_values',
+      isSelected: 'is_selected',
+      returnValueKey: 'return_value_key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      tabShowName: 'string',
+      keyValues: Pair,
+      isSelected: 'string',
+      returnValueKey: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -119,6 +405,43 @@ export class AgreementExtRequest extends $tea.Model {
       type: 'string',
       isSeal: 'string',
       address: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 树节点
+export class TreeNode extends $tea.Model {
+  // 节点id，按树的前序排列
+  id: number;
+  // 父节点id，不存在为null
+  parentNodeId: string;
+  // 深度
+  depth: number;
+  // 是否叶子结点
+  isLeefNode: string;
+  // 模版
+  card: Card;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      parentNodeId: 'parent_node_id',
+      depth: 'depth',
+      isLeefNode: 'is_leef_node',
+      card: 'card',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'number',
+      parentNodeId: 'string',
+      depth: 'number',
+      isLeefNode: 'string',
+      card: Card,
     };
   }
 
@@ -201,6 +524,109 @@ export class StandardAuthExtendInfoRequest extends $tea.Model {
     return {
       agreementList: { 'type': 'array', 'itemType': AgreementExtRequest },
       districtextRequest: DistrictExtRequest,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 返回详情
+export class ReturnDetail extends $tea.Model {
+  // 结果对象内容
+  bizContent: string;
+  // 返回形式
+  returnType: string;
+  // 文件列表
+  fileUrls: string[];
+  // 文件类型
+  fileType: string;
+  // 加密模式
+  encryptModel: string;
+  // 密钥信封
+  secretEnvelope: string;
+  static names(): { [key: string]: string } {
+    return {
+      bizContent: 'biz_content',
+      returnType: 'return_type',
+      fileUrls: 'file_urls',
+      fileType: 'file_type',
+      encryptModel: 'encrypt_model',
+      secretEnvelope: 'secret_envelope',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizContent: 'string',
+      returnType: 'string',
+      fileUrls: { 'type': 'array', 'itemType': 'string' },
+      fileType: 'string',
+      encryptModel: 'string',
+      secretEnvelope: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 二维码
+export class QrCodeValue extends $tea.Model {
+  // 二维码链接
+  qrCodeUrl: string;
+  // 二维码描述信息。例如：请使用 xxx app 扫码登录
+  desc: string;
+  // 二维码在多长时间后失效，单位：秒
+  timeout: number;
+  static names(): { [key: string]: string } {
+    return {
+      qrCodeUrl: 'qr_code_url',
+      desc: 'desc',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      qrCodeUrl: 'string',
+      desc: 'string',
+      timeout: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// TreeTemplate
+export class TreeTemplate extends $tea.Model {
+  // 树节点
+  treeNode: TreeNode;
+  // Id
+  id: string;
+  // 版本号
+  version: string;
+  // 向上兼容的最小版本号
+  compatibleMinVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      treeNode: 'tree_node',
+      id: 'id',
+      version: 'version',
+      compatibleMinVersion: 'compatible_min_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      treeNode: TreeNode,
+      id: 'string',
+      version: 'string',
+      compatibleMinVersion: 'string',
     };
   }
 
@@ -1144,6 +1570,8 @@ export class ExecIcmSyncgatheringRequest extends $tea.Model {
   authType: string;
   // 订单号
   orderNo: string;
+  // 补充内容,如果不动产中字段为空的话查的就是授权中的cityCode
+  content: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1153,6 +1581,7 @@ export class ExecIcmSyncgatheringRequest extends $tea.Model {
       identityId: 'identity_id',
       authType: 'auth_type',
       orderNo: 'order_no',
+      content: 'content',
     };
   }
 
@@ -1165,6 +1594,7 @@ export class ExecIcmSyncgatheringRequest extends $tea.Model {
       identityId: 'string',
       authType: 'string',
       orderNo: 'string',
+      content: 'string',
     };
   }
 
@@ -1184,6 +1614,10 @@ export class ExecIcmSyncgatheringResponse extends $tea.Model {
   bizContent?: string;
   // unix秒时间戳,查询时间，用来对账使用
   queryTime?: string;
+  // 返回模式
+  returnMode?: string;
+  // 返回结果
+  returnResult?: ReturnDetail[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1191,6 +1625,8 @@ export class ExecIcmSyncgatheringResponse extends $tea.Model {
       resultMsg: 'result_msg',
       bizContent: 'biz_content',
       queryTime: 'query_time',
+      returnMode: 'return_mode',
+      returnResult: 'return_result',
     };
   }
 
@@ -1201,6 +1637,332 @@ export class ExecIcmSyncgatheringResponse extends $tea.Model {
       resultMsg: 'string',
       bizContent: 'string',
       queryTime: 'string',
+      returnMode: 'string',
+      returnResult: { 'type': 'array', 'itemType': ReturnDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApiAuthteplateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务订单号
+  orderNo: string;
+  // 身份ID 身份证或者统一社会信用编码
+  identityId: string;
+  // 名称
+  identityName: string;
+  // 业务类型
+  // 11 税
+  // 12票
+  // 13税+票
+  authType: string;
+  // 法人名称
+  cognizantName: string;
+  // 法人证件号
+  coidentityNumber: string;
+  // 法人手机号
+  cognizantMobile: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      identityId: 'identity_id',
+      identityName: 'identity_name',
+      authType: 'auth_type',
+      cognizantName: 'cognizant_name',
+      coidentityNumber: 'coidentity_number',
+      cognizantMobile: 'cognizant_mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      identityId: 'string',
+      identityName: 'string',
+      authType: 'string',
+      cognizantName: 'string',
+      coidentityNumber: 'string',
+      cognizantMobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApiAuthteplateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // JWT生成，设置失效时间，维持会话数据
+  token?: string;
+  // Unix时间戳 秒
+  expireTime?: number;
+  // 模版树
+  treeTemplate?: TreeTemplate;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      token: 'token',
+      expireTime: 'expire_time',
+      treeTemplate: 'tree_template',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      token: 'string',
+      expireTime: 'number',
+      treeTemplate: TreeTemplate,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecApiAuthtemplateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // token
+  token: string;
+  // 树的模版id
+  treeTemplateId: string;
+  // 模版对应的版本号
+  treeVersion: string;
+  // 对应节点ID
+  nodeId: string;
+  // 当前卡片所有需要填充元素key
+  // 和value值
+  pairs: Pair;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      token: 'token',
+      treeTemplateId: 'tree_template_id',
+      treeVersion: 'tree_version',
+      nodeId: 'node_id',
+      pairs: 'pairs',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      token: 'string',
+      treeTemplateId: 'string',
+      treeVersion: 'string',
+      nodeId: 'string',
+      pairs: Pair,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecApiAuthtemplateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回的下一层节点集合
+  nodes?: TreeNode[];
+  // 树id
+  treeTemplateId?: string;
+  // 授权状态,提交接口此字段为空
+  // 1、正在处理中
+  // 2、登陆成功
+  authState?: string;
+  // 请求是否成功
+  // true 成功
+  // false 失败
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      nodes: 'nodes',
+      treeTemplateId: 'tree_template_id',
+      authState: 'auth_state',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      nodes: { 'type': 'array', 'itemType': TreeNode },
+      treeTemplateId: 'string',
+      authState: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApiAuthtemplatedefineRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // token
+  token: string;
+  // message：短信
+  // qrCode：二维码
+  actionType: string;
+  // 依赖的数据值 比如身份证
+  dependsValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      token: 'token',
+      actionType: 'action_type',
+      dependsValue: 'depends_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      token: 'string',
+      actionType: 'string',
+      dependsValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApiAuthtemplatedefineResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 二维码类型返回二维码描述
+  // 短信无返回，接口成功即可
+  value?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApiAuthtemplateresultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务授权订单号 用户幂等控制，调用方保证唯一
+  orderNo: string;
+  // 身份ID
+  identityId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      identityId: 'identity_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      identityId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApiAuthtemplateresultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 授权状态
+  // 1、正在处理中
+  // 2、登陆成功
+  authState?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      authState: 'auth_state',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      authState: 'string',
     };
   }
 
@@ -1322,7 +2084,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.3",
+          sdk_version: "1.4.0",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1540,7 +2302,7 @@ export default class Client {
   }
 
   /**
-   * Description: 同步采集
+   * Description: 采集，不限制同步 异步
    * Summary: 采集
    */
   async execIcmSyncgathering(request: ExecIcmSyncgatheringRequest): Promise<ExecIcmSyncgatheringResponse> {
@@ -1550,12 +2312,88 @@ export default class Client {
   }
 
   /**
-   * Description: 同步采集
+   * Description: 采集，不限制同步 异步
    * Summary: 采集
    */
   async execIcmSyncgatheringEx(request: ExecIcmSyncgatheringRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecIcmSyncgatheringResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecIcmSyncgatheringResponse>(await this.doRequest("1.0", "blockchain.tax.icm.syncgathering.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecIcmSyncgatheringResponse({}));
+  }
+
+  /**
+   * Description: 获取授权模版和token
+   * Summary: 获取授权模版和token
+   */
+  async queryApiAuthteplate(request: QueryApiAuthteplateRequest): Promise<QueryApiAuthteplateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryApiAuthteplateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取授权模版和token
+   * Summary: 获取授权模版和token
+   */
+  async queryApiAuthteplateEx(request: QueryApiAuthteplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApiAuthteplateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryApiAuthteplateResponse>(await this.doRequest("1.0", "blockchain.tax.api.authteplate.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApiAuthteplateResponse({}));
+  }
+
+  /**
+   * Description: 提交
+   * Summary: 提交
+   */
+  async execApiAuthtemplate(request: ExecApiAuthtemplateRequest): Promise<ExecApiAuthtemplateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execApiAuthtemplateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 提交
+   * Summary: 提交
+   */
+  async execApiAuthtemplateEx(request: ExecApiAuthtemplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecApiAuthtemplateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecApiAuthtemplateResponse>(await this.doRequest("1.0", "blockchain.tax.api.authtemplate.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecApiAuthtemplateResponse({}));
+  }
+
+  /**
+   * Description: 获取要素信息
+   * Summary: 获取要素信息
+   */
+  async queryApiAuthtemplatedefine(request: QueryApiAuthtemplatedefineRequest): Promise<QueryApiAuthtemplatedefineResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryApiAuthtemplatedefineEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取要素信息
+   * Summary: 获取要素信息
+   */
+  async queryApiAuthtemplatedefineEx(request: QueryApiAuthtemplatedefineRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApiAuthtemplatedefineResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryApiAuthtemplatedefineResponse>(await this.doRequest("1.0", "blockchain.tax.api.authtemplatedefine.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApiAuthtemplatedefineResponse({}));
+  }
+
+  /**
+   * Description: 获取授权结果
+   * Summary: 获取授权结果
+   */
+  async queryApiAuthtemplateresult(request: QueryApiAuthtemplateresultRequest): Promise<QueryApiAuthtemplateresultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryApiAuthtemplateresultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取授权结果
+   * Summary: 获取授权结果
+   */
+  async queryApiAuthtemplateresultEx(request: QueryApiAuthtemplateresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApiAuthtemplateresultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryApiAuthtemplateresultResponse>(await this.doRequest("1.0", "blockchain.tax.api.authtemplateresult.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApiAuthtemplateresultResponse({}));
   }
 
 }
