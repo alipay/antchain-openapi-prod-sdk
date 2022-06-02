@@ -148,6 +148,317 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 逻辑
+type Logic struct {
+	// 操作符
+	//  equal = _equal_, // 相等比较
+	//   notEqual = _notEqual_, // 不相等比较
+	//   AND = _AND_, // 与逻辑
+	//   OR = _OR_, // 或逻辑
+	Op *string `json:"op,omitempty" xml:"op,omitempty" require:"true"`
+	//  只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 只有 op 是 AND 或者 OR 才需要这个字段
+	// [{op: _AND_, // 与逻辑
+	//         children: [
+	//           {
+	//             op: _equal_, // 相等比较
+	//             key: _validationMethod_, // 表示：验证方式
+	//             value: _smsCode_  // 表示：短信验证码
+	//           },
+	//           { // 判断登录信息的值不为 null
+	//             op: _notEqual_, // 不相等比较
+	//             key: _username_,  // 表示：登录信息
+	//             value: null
+	//           }]}]
+	Children *string `json:"children,omitempty" xml:"children,omitempty" require:"true"`
+}
+
+func (s Logic) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Logic) GoString() string {
+	return s.String()
+}
+
+func (s *Logic) SetOp(v string) *Logic {
+	s.Op = &v
+	return s
+}
+
+func (s *Logic) SetKey(v string) *Logic {
+	s.Key = &v
+	return s
+}
+
+func (s *Logic) SetValue(v string) *Logic {
+	s.Value = &v
+	return s
+}
+
+func (s *Logic) SetChildren(v string) *Logic {
+	s.Children = &v
+	return s
+}
+
+// 规则
+type Rule struct {
+	// 字段值的类型，常见有 string | number| boolean | _array_
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// type 为 string 类型时，表示字符串长度；number 类型时表示确定数字； array 类型时表示数组长度
+	Len *int64 `json:"len,omitempty" xml:"len,omitempty" require:"true"`
+	// type 为 string 类型时，表示字符串最大长度；number 类型时表示最大值；array 类型时表示数组最大长度
+	Max *int64 `json:"max,omitempty" xml:"max,omitempty" require:"true"`
+	// type 为 string 类型时，表示字符串最小长度；number 类型时表示最小值；array 类型时表示数组最小长度
+	Min *int64 `json:"min,omitempty" xml:"min,omitempty" require:"true"`
+	// 校验出错时显示的错误消息
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// 是否必填
+	Required *bool `json:"required,omitempty" xml:"required,omitempty" require:"true"`
+	// 正则表达式,
+	RegPattern *string `json:"reg_pattern,omitempty" xml:"reg_pattern,omitempty" require:"true"`
+}
+
+func (s Rule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Rule) GoString() string {
+	return s.String()
+}
+
+func (s *Rule) SetType(v string) *Rule {
+	s.Type = &v
+	return s
+}
+
+func (s *Rule) SetLen(v int64) *Rule {
+	s.Len = &v
+	return s
+}
+
+func (s *Rule) SetMax(v int64) *Rule {
+	s.Max = &v
+	return s
+}
+
+func (s *Rule) SetMin(v int64) *Rule {
+	s.Min = &v
+	return s
+}
+
+func (s *Rule) SetMessage(v string) *Rule {
+	s.Message = &v
+	return s
+}
+
+func (s *Rule) SetRequired(v bool) *Rule {
+	s.Required = &v
+	return s
+}
+
+func (s *Rule) SetRegPattern(v string) *Rule {
+	s.RegPattern = &v
+	return s
+}
+
+// 忘记密码
+type ForgetMeta struct {
+	// 字段名称
+	Label *string `json:"label,omitempty" xml:"label,omitempty" require:"true"`
+	// 忘记密码的链接地址，供重置用
+	Link *string `json:"link,omitempty" xml:"link,omitempty" require:"true"`
+}
+
+func (s ForgetMeta) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ForgetMeta) GoString() string {
+	return s.String()
+}
+
+func (s *ForgetMeta) SetLabel(v string) *ForgetMeta {
+	s.Label = &v
+	return s
+}
+
+func (s *ForgetMeta) SetLink(v string) *ForgetMeta {
+	s.Link = &v
+	return s
+}
+
+// 选择组件
+type SelectOption struct {
+	// 选项名称
+	Lable *string `json:"lable,omitempty" xml:"lable,omitempty" require:"true"`
+	// 选项的值，一般是 id 之类的唯一标识符，给后端传这个
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s SelectOption) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SelectOption) GoString() string {
+	return s.String()
+}
+
+func (s *SelectOption) SetLable(v string) *SelectOption {
+	s.Lable = &v
+	return s
+}
+
+func (s *SelectOption) SetValue(v string) *SelectOption {
+	s.Value = &v
+	return s
+}
+
+// 组件
+type Key struct {
+	// 名称（key的中文名称）
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// input, // 普通输入框
+	// dropdownSelect, // 下拉选择
+	// cardSelect, // 平铺选择
+	// password, // 密码输入框，这个类型会包含忘记密码按钮
+	// smsCode, // 手机验证码
+	// qrcodeLogin, // 二维码登录
+	// hiddenField,// 隐藏字段，页面上不显示，但是值会提交给后端
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 字段名称 例如：密码
+	Label *string `json:"label,omitempty" xml:"label,omitempty" require:"true"`
+	// 输入框的值类型，字符串还是数字，默认 string/number/paassword
+	InputType *string `json:"input_type,omitempty" xml:"input_type,omitempty" require:"true"`
+	// 字段的初始值，类型要和前端提交的类型保持一致，且是可被 JSON 序列化的
+	InitialValue *string `json:"initial_value,omitempty" xml:"initial_value,omitempty" require:"true"`
+	// 占位符，比如”请输入密码“
+	Placeholder *string `json:"placeholder,omitempty" xml:"placeholder,omitempty" require:"true"`
+	// 是否为禁用状态，true 表示禁用，默认 false
+	Disabled *bool `json:"disabled,omitempty" xml:"disabled,omitempty" require:"true"`
+	// 表示输入框是否为只读状态（只读和禁用都不能输入，但是样式不一样，所以要注意区分，不要同时声明 disabled 和 readOnly，否则以 disabled 优先）
+	ReadOnly *string `json:"read_only,omitempty" xml:"read_only,omitempty" require:"true"`
+	// 这个字段的提示说明文案
+	Tooltip *string `json:"tooltip,omitempty" xml:"tooltip,omitempty" require:"true"`
+	// 校验规则
+	Rules []*Rule `json:"rules,omitempty" xml:"rules,omitempty" require:"true" type:"Repeated"`
+	// 逻辑列表
+	Logics []*Logic `json:"logics,omitempty" xml:"logics,omitempty" require:"true" type:"Repeated"`
+	// 选择列表的可选值，只有 type 是 dropdownSelect、cardSelect 时才需要
+	SelectOptions []*SelectOption `json:"select_options,omitempty" xml:"select_options,omitempty" require:"true" type:"Repeated"`
+	// 忘记密码元素
+	ForgetMeta *ForgetMeta `json:"forget_meta,omitempty" xml:"forget_meta,omitempty" require:"true"`
+}
+
+func (s Key) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Key) GoString() string {
+	return s.String()
+}
+
+func (s *Key) SetKey(v string) *Key {
+	s.Key = &v
+	return s
+}
+
+func (s *Key) SetId(v string) *Key {
+	s.Id = &v
+	return s
+}
+
+func (s *Key) SetType(v string) *Key {
+	s.Type = &v
+	return s
+}
+
+func (s *Key) SetLabel(v string) *Key {
+	s.Label = &v
+	return s
+}
+
+func (s *Key) SetInputType(v string) *Key {
+	s.InputType = &v
+	return s
+}
+
+func (s *Key) SetInitialValue(v string) *Key {
+	s.InitialValue = &v
+	return s
+}
+
+func (s *Key) SetPlaceholder(v string) *Key {
+	s.Placeholder = &v
+	return s
+}
+
+func (s *Key) SetDisabled(v bool) *Key {
+	s.Disabled = &v
+	return s
+}
+
+func (s *Key) SetReadOnly(v string) *Key {
+	s.ReadOnly = &v
+	return s
+}
+
+func (s *Key) SetTooltip(v string) *Key {
+	s.Tooltip = &v
+	return s
+}
+
+func (s *Key) SetRules(v []*Rule) *Key {
+	s.Rules = v
+	return s
+}
+
+func (s *Key) SetLogics(v []*Logic) *Key {
+	s.Logics = v
+	return s
+}
+
+func (s *Key) SetSelectOptions(v []*SelectOption) *Key {
+	s.SelectOptions = v
+	return s
+}
+
+func (s *Key) SetForgetMeta(v *ForgetMeta) *Key {
+	s.ForgetMeta = v
+	return s
+}
+
+// 配对
+type Pair struct {
+	// left
+	Left *string `json:"left,omitempty" xml:"left,omitempty" require:"true"`
+	// right
+	Right *Key `json:"right,omitempty" xml:"right,omitempty" require:"true"`
+}
+
+func (s Pair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Pair) GoString() string {
+	return s.String()
+}
+
+func (s *Pair) SetLeft(v string) *Pair {
+	s.Left = &v
+	return s
+}
+
+func (s *Pair) SetRight(v *Key) *Pair {
+	s.Right = v
+	return s
+}
+
 // 地区请求
 type DistrictExtRequest struct {
 	// 地区编码
@@ -164,6 +475,54 @@ func (s DistrictExtRequest) GoString() string {
 
 func (s *DistrictExtRequest) SetCityCode(v string) *DistrictExtRequest {
 	s.CityCode = &v
+	return s
+}
+
+// card
+type Card struct {
+	// 名称（该页面的名称，可能做展示用）
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 如果一层有多个卡片，那么这个名称就作为tab的头名称展示
+	TabShowName *string `json:"tab_show_name,omitempty" xml:"tab_show_name,omitempty" require:"true"`
+	// 当前模版所有需要填充元素
+	KeyValues *Pair `json:"key_values,omitempty" xml:"key_values,omitempty" require:"true"`
+	// true：是，false：不是
+	// 是否作同一个父节点的默认展示，比如验证码和密码默认是哪个
+	IsSelected *string `json:"is_selected,omitempty" xml:"is_selected,omitempty" require:"true"`
+	// 备注：如果显示是这两个，代表返回的值得分别塞到这两个key对应的value中/
+	ReturnValueKey []*string `json:"return_value_key,omitempty" xml:"return_value_key,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s Card) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Card) GoString() string {
+	return s.String()
+}
+
+func (s *Card) SetName(v string) *Card {
+	s.Name = &v
+	return s
+}
+
+func (s *Card) SetTabShowName(v string) *Card {
+	s.TabShowName = &v
+	return s
+}
+
+func (s *Card) SetKeyValues(v *Pair) *Card {
+	s.KeyValues = v
+	return s
+}
+
+func (s *Card) SetIsSelected(v string) *Card {
+	s.IsSelected = &v
+	return s
+}
+
+func (s *Card) SetReturnValueKey(v []*string) *Card {
+	s.ReturnValueKey = v
 	return s
 }
 
@@ -197,6 +556,53 @@ func (s *AgreementExtRequest) SetIsSeal(v string) *AgreementExtRequest {
 
 func (s *AgreementExtRequest) SetAddress(v string) *AgreementExtRequest {
 	s.Address = &v
+	return s
+}
+
+// 树节点
+type TreeNode struct {
+	// 节点id，按树的前序排列
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 父节点id，不存在为null
+	ParentNodeId *string `json:"parent_node_id,omitempty" xml:"parent_node_id,omitempty" require:"true"`
+	// 深度
+	Depth *int64 `json:"depth,omitempty" xml:"depth,omitempty" require:"true"`
+	// 是否叶子结点
+	IsLeefNode *string `json:"is_leef_node,omitempty" xml:"is_leef_node,omitempty" require:"true"`
+	// 模版
+	Card *Card `json:"card,omitempty" xml:"card,omitempty" require:"true"`
+}
+
+func (s TreeNode) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TreeNode) GoString() string {
+	return s.String()
+}
+
+func (s *TreeNode) SetId(v int64) *TreeNode {
+	s.Id = &v
+	return s
+}
+
+func (s *TreeNode) SetParentNodeId(v string) *TreeNode {
+	s.ParentNodeId = &v
+	return s
+}
+
+func (s *TreeNode) SetDepth(v int64) *TreeNode {
+	s.Depth = &v
+	return s
+}
+
+func (s *TreeNode) SetIsLeefNode(v string) *TreeNode {
+	s.IsLeefNode = &v
+	return s
+}
+
+func (s *TreeNode) SetCard(v *Card) *TreeNode {
+	s.Card = v
 	return s
 }
 
@@ -305,6 +711,133 @@ func (s *StandardAuthExtendInfoRequest) SetAgreementList(v []*AgreementExtReques
 
 func (s *StandardAuthExtendInfoRequest) SetDistrictextRequest(v *DistrictExtRequest) *StandardAuthExtendInfoRequest {
 	s.DistrictextRequest = v
+	return s
+}
+
+// 返回详情
+type ReturnDetail struct {
+	// 结果对象内容
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
+	// 返回形式
+	ReturnType *string `json:"return_type,omitempty" xml:"return_type,omitempty" require:"true"`
+	// 文件列表
+	FileUrls []*string `json:"file_urls,omitempty" xml:"file_urls,omitempty" require:"true" type:"Repeated"`
+	// 文件类型
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+	// 加密模式
+	EncryptModel *string `json:"encrypt_model,omitempty" xml:"encrypt_model,omitempty" require:"true"`
+	// 密钥信封
+	SecretEnvelope *string `json:"secret_envelope,omitempty" xml:"secret_envelope,omitempty" require:"true"`
+}
+
+func (s ReturnDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReturnDetail) GoString() string {
+	return s.String()
+}
+
+func (s *ReturnDetail) SetBizContent(v string) *ReturnDetail {
+	s.BizContent = &v
+	return s
+}
+
+func (s *ReturnDetail) SetReturnType(v string) *ReturnDetail {
+	s.ReturnType = &v
+	return s
+}
+
+func (s *ReturnDetail) SetFileUrls(v []*string) *ReturnDetail {
+	s.FileUrls = v
+	return s
+}
+
+func (s *ReturnDetail) SetFileType(v string) *ReturnDetail {
+	s.FileType = &v
+	return s
+}
+
+func (s *ReturnDetail) SetEncryptModel(v string) *ReturnDetail {
+	s.EncryptModel = &v
+	return s
+}
+
+func (s *ReturnDetail) SetSecretEnvelope(v string) *ReturnDetail {
+	s.SecretEnvelope = &v
+	return s
+}
+
+// 二维码
+type QrCodeValue struct {
+	// 二维码链接
+	QrCodeUrl *string `json:"qr_code_url,omitempty" xml:"qr_code_url,omitempty" require:"true"`
+	// 二维码描述信息。例如：请使用 xxx app 扫码登录
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty" require:"true"`
+	// 二维码在多长时间后失效，单位：秒
+	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+}
+
+func (s QrCodeValue) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QrCodeValue) GoString() string {
+	return s.String()
+}
+
+func (s *QrCodeValue) SetQrCodeUrl(v string) *QrCodeValue {
+	s.QrCodeUrl = &v
+	return s
+}
+
+func (s *QrCodeValue) SetDesc(v string) *QrCodeValue {
+	s.Desc = &v
+	return s
+}
+
+func (s *QrCodeValue) SetTimeout(v int64) *QrCodeValue {
+	s.Timeout = &v
+	return s
+}
+
+// TreeTemplate
+type TreeTemplate struct {
+	// 树节点
+	TreeNode *TreeNode `json:"tree_node,omitempty" xml:"tree_node,omitempty" require:"true"`
+	// Id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
+	// 向上兼容的最小版本号
+	CompatibleMinVersion *string `json:"compatible_min_version,omitempty" xml:"compatible_min_version,omitempty" require:"true"`
+}
+
+func (s TreeTemplate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TreeTemplate) GoString() string {
+	return s.String()
+}
+
+func (s *TreeTemplate) SetTreeNode(v *TreeNode) *TreeTemplate {
+	s.TreeNode = v
+	return s
+}
+
+func (s *TreeTemplate) SetId(v string) *TreeTemplate {
+	s.Id = &v
+	return s
+}
+
+func (s *TreeTemplate) SetVersion(v string) *TreeTemplate {
+	s.Version = &v
+	return s
+}
+
+func (s *TreeTemplate) SetCompatibleMinVersion(v string) *TreeTemplate {
+	s.CompatibleMinVersion = &v
 	return s
 }
 
@@ -1561,6 +2094,8 @@ type ExecIcmSyncgatheringRequest struct {
 	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
 	// 订单号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 补充内容,如果不动产中字段为空的话查的就是授权中的cityCode
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
 }
 
 func (s ExecIcmSyncgatheringRequest) String() string {
@@ -1606,6 +2141,11 @@ func (s *ExecIcmSyncgatheringRequest) SetOrderNo(v string) *ExecIcmSyncgathering
 	return s
 }
 
+func (s *ExecIcmSyncgatheringRequest) SetContent(v string) *ExecIcmSyncgatheringRequest {
+	s.Content = &v
+	return s
+}
+
 type ExecIcmSyncgatheringResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -1617,6 +2157,10 @@ type ExecIcmSyncgatheringResponse struct {
 	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
 	// unix秒时间戳,查询时间，用来对账使用
 	QueryTime *string `json:"query_time,omitempty" xml:"query_time,omitempty"`
+	// 返回模式
+	ReturnMode *string `json:"return_mode,omitempty" xml:"return_mode,omitempty"`
+	// 返回结果
+	ReturnResult []*ReturnDetail `json:"return_result,omitempty" xml:"return_result,omitempty" type:"Repeated"`
 }
 
 func (s ExecIcmSyncgatheringResponse) String() string {
@@ -1649,6 +2193,441 @@ func (s *ExecIcmSyncgatheringResponse) SetBizContent(v string) *ExecIcmSyncgathe
 
 func (s *ExecIcmSyncgatheringResponse) SetQueryTime(v string) *ExecIcmSyncgatheringResponse {
 	s.QueryTime = &v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringResponse) SetReturnMode(v string) *ExecIcmSyncgatheringResponse {
+	s.ReturnMode = &v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringResponse) SetReturnResult(v []*ReturnDetail) *ExecIcmSyncgatheringResponse {
+	s.ReturnResult = v
+	return s
+}
+
+type QueryApiAuthteplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 身份ID 身份证或者统一社会信用编码
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 名称
+	IdentityName *string `json:"identity_name,omitempty" xml:"identity_name,omitempty" require:"true"`
+	// 业务类型
+	// 11 税
+	// 12票
+	// 13税+票
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 法人名称
+	CognizantName *string `json:"cognizant_name,omitempty" xml:"cognizant_name,omitempty" require:"true"`
+	// 法人证件号
+	CoidentityNumber *string `json:"coidentity_number,omitempty" xml:"coidentity_number,omitempty" require:"true"`
+	// 法人手机号
+	CognizantMobile *string `json:"cognizant_mobile,omitempty" xml:"cognizant_mobile,omitempty" require:"true"`
+}
+
+func (s QueryApiAuthteplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiAuthteplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiAuthteplateRequest) SetAuthToken(v string) *QueryApiAuthteplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApiAuthteplateRequest) SetProductInstanceId(v string) *QueryApiAuthteplateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryApiAuthteplateRequest) SetOrderNo(v string) *QueryApiAuthteplateRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryApiAuthteplateRequest) SetIdentityId(v string) *QueryApiAuthteplateRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *QueryApiAuthteplateRequest) SetIdentityName(v string) *QueryApiAuthteplateRequest {
+	s.IdentityName = &v
+	return s
+}
+
+func (s *QueryApiAuthteplateRequest) SetAuthType(v string) *QueryApiAuthteplateRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *QueryApiAuthteplateRequest) SetCognizantName(v string) *QueryApiAuthteplateRequest {
+	s.CognizantName = &v
+	return s
+}
+
+func (s *QueryApiAuthteplateRequest) SetCoidentityNumber(v string) *QueryApiAuthteplateRequest {
+	s.CoidentityNumber = &v
+	return s
+}
+
+func (s *QueryApiAuthteplateRequest) SetCognizantMobile(v string) *QueryApiAuthteplateRequest {
+	s.CognizantMobile = &v
+	return s
+}
+
+type QueryApiAuthteplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// JWT生成，设置失效时间，维持会话数据
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+	// Unix时间戳 秒
+	ExpireTime *int64 `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
+	// 模版树
+	TreeTemplate *TreeTemplate `json:"tree_template,omitempty" xml:"tree_template,omitempty"`
+}
+
+func (s QueryApiAuthteplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiAuthteplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiAuthteplateResponse) SetReqMsgId(v string) *QueryApiAuthteplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryApiAuthteplateResponse) SetResultCode(v string) *QueryApiAuthteplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryApiAuthteplateResponse) SetResultMsg(v string) *QueryApiAuthteplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryApiAuthteplateResponse) SetToken(v string) *QueryApiAuthteplateResponse {
+	s.Token = &v
+	return s
+}
+
+func (s *QueryApiAuthteplateResponse) SetExpireTime(v int64) *QueryApiAuthteplateResponse {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *QueryApiAuthteplateResponse) SetTreeTemplate(v *TreeTemplate) *QueryApiAuthteplateResponse {
+	s.TreeTemplate = v
+	return s
+}
+
+type ExecApiAuthtemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+	// 树的模版id
+	TreeTemplateId *string `json:"tree_template_id,omitempty" xml:"tree_template_id,omitempty" require:"true"`
+	// 模版对应的版本号
+	TreeVersion *string `json:"tree_version,omitempty" xml:"tree_version,omitempty" require:"true"`
+	// 对应节点ID
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
+	// 当前卡片所有需要填充元素key
+	// 和value值
+	Pairs *Pair `json:"pairs,omitempty" xml:"pairs,omitempty" require:"true"`
+}
+
+func (s ExecApiAuthtemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecApiAuthtemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecApiAuthtemplateRequest) SetAuthToken(v string) *ExecApiAuthtemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecApiAuthtemplateRequest) SetProductInstanceId(v string) *ExecApiAuthtemplateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecApiAuthtemplateRequest) SetToken(v string) *ExecApiAuthtemplateRequest {
+	s.Token = &v
+	return s
+}
+
+func (s *ExecApiAuthtemplateRequest) SetTreeTemplateId(v string) *ExecApiAuthtemplateRequest {
+	s.TreeTemplateId = &v
+	return s
+}
+
+func (s *ExecApiAuthtemplateRequest) SetTreeVersion(v string) *ExecApiAuthtemplateRequest {
+	s.TreeVersion = &v
+	return s
+}
+
+func (s *ExecApiAuthtemplateRequest) SetNodeId(v string) *ExecApiAuthtemplateRequest {
+	s.NodeId = &v
+	return s
+}
+
+func (s *ExecApiAuthtemplateRequest) SetPairs(v *Pair) *ExecApiAuthtemplateRequest {
+	s.Pairs = v
+	return s
+}
+
+type ExecApiAuthtemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回的下一层节点集合
+	Nodes []*TreeNode `json:"nodes,omitempty" xml:"nodes,omitempty" type:"Repeated"`
+	// 树id
+	TreeTemplateId *string `json:"tree_template_id,omitempty" xml:"tree_template_id,omitempty"`
+	// 授权状态,提交接口此字段为空
+	// 1、正在处理中
+	// 2、登陆成功
+	AuthState *string `json:"auth_state,omitempty" xml:"auth_state,omitempty"`
+	// 请求是否成功
+	// true 成功
+	// false 失败
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s ExecApiAuthtemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecApiAuthtemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecApiAuthtemplateResponse) SetReqMsgId(v string) *ExecApiAuthtemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecApiAuthtemplateResponse) SetResultCode(v string) *ExecApiAuthtemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecApiAuthtemplateResponse) SetResultMsg(v string) *ExecApiAuthtemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecApiAuthtemplateResponse) SetNodes(v []*TreeNode) *ExecApiAuthtemplateResponse {
+	s.Nodes = v
+	return s
+}
+
+func (s *ExecApiAuthtemplateResponse) SetTreeTemplateId(v string) *ExecApiAuthtemplateResponse {
+	s.TreeTemplateId = &v
+	return s
+}
+
+func (s *ExecApiAuthtemplateResponse) SetAuthState(v string) *ExecApiAuthtemplateResponse {
+	s.AuthState = &v
+	return s
+}
+
+func (s *ExecApiAuthtemplateResponse) SetSuccess(v bool) *ExecApiAuthtemplateResponse {
+	s.Success = &v
+	return s
+}
+
+type QueryApiAuthtemplatedefineRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+	// message：短信
+	// qrCode：二维码
+	ActionType *string `json:"action_type,omitempty" xml:"action_type,omitempty" require:"true"`
+	// 依赖的数据值 比如身份证
+	DependsValue *string `json:"depends_value,omitempty" xml:"depends_value,omitempty" require:"true"`
+}
+
+func (s QueryApiAuthtemplatedefineRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiAuthtemplatedefineRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiAuthtemplatedefineRequest) SetAuthToken(v string) *QueryApiAuthtemplatedefineRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplatedefineRequest) SetProductInstanceId(v string) *QueryApiAuthtemplatedefineRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplatedefineRequest) SetToken(v string) *QueryApiAuthtemplatedefineRequest {
+	s.Token = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplatedefineRequest) SetActionType(v string) *QueryApiAuthtemplatedefineRequest {
+	s.ActionType = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplatedefineRequest) SetDependsValue(v string) *QueryApiAuthtemplatedefineRequest {
+	s.DependsValue = &v
+	return s
+}
+
+type QueryApiAuthtemplatedefineResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 二维码类型返回二维码描述
+	// 短信无返回，接口成功即可
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s QueryApiAuthtemplatedefineResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiAuthtemplatedefineResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiAuthtemplatedefineResponse) SetReqMsgId(v string) *QueryApiAuthtemplatedefineResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplatedefineResponse) SetResultCode(v string) *QueryApiAuthtemplatedefineResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplatedefineResponse) SetResultMsg(v string) *QueryApiAuthtemplatedefineResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplatedefineResponse) SetValue(v string) *QueryApiAuthtemplatedefineResponse {
+	s.Value = &v
+	return s
+}
+
+type QueryApiAuthtemplateresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务授权订单号 用户幂等控制，调用方保证唯一
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 身份ID
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+}
+
+func (s QueryApiAuthtemplateresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiAuthtemplateresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiAuthtemplateresultRequest) SetAuthToken(v string) *QueryApiAuthtemplateresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplateresultRequest) SetProductInstanceId(v string) *QueryApiAuthtemplateresultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplateresultRequest) SetOrderNo(v string) *QueryApiAuthtemplateresultRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplateresultRequest) SetIdentityId(v string) *QueryApiAuthtemplateresultRequest {
+	s.IdentityId = &v
+	return s
+}
+
+type QueryApiAuthtemplateresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 授权状态
+	// 1、正在处理中
+	// 2、登陆成功
+	AuthState *string `json:"auth_state,omitempty" xml:"auth_state,omitempty"`
+}
+
+func (s QueryApiAuthtemplateresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiAuthtemplateresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiAuthtemplateresultResponse) SetReqMsgId(v string) *QueryApiAuthtemplateresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplateresultResponse) SetResultCode(v string) *QueryApiAuthtemplateresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplateresultResponse) SetResultMsg(v string) *QueryApiAuthtemplateresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplateresultResponse) SetSuccess(v bool) *QueryApiAuthtemplateresultResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryApiAuthtemplateresultResponse) SetAuthState(v string) *QueryApiAuthtemplateresultResponse {
+	s.AuthState = &v
 	return s
 }
 
@@ -1774,7 +2753,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.3"),
+				"sdk_version":      tea.String("1.4.0"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2129,7 +3108,7 @@ func (client *Client) AuthIcmRealpersonEx(request *AuthIcmRealpersonRequest, hea
 }
 
 /**
- * Description: 同步采集
+ * Description: 采集，不限制同步 异步
  * Summary: 采集
  */
 func (client *Client) ExecIcmSyncgathering(request *ExecIcmSyncgatheringRequest) (_result *ExecIcmSyncgatheringResponse, _err error) {
@@ -2145,7 +3124,7 @@ func (client *Client) ExecIcmSyncgathering(request *ExecIcmSyncgatheringRequest)
 }
 
 /**
- * Description: 同步采集
+ * Description: 采集，不限制同步 异步
  * Summary: 采集
  */
 func (client *Client) ExecIcmSyncgatheringEx(request *ExecIcmSyncgatheringRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecIcmSyncgatheringResponse, _err error) {
@@ -2155,6 +3134,142 @@ func (client *Client) ExecIcmSyncgatheringEx(request *ExecIcmSyncgatheringReques
 	}
 	_result = &ExecIcmSyncgatheringResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.icm.syncgathering.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取授权模版和token
+ * Summary: 获取授权模版和token
+ */
+func (client *Client) QueryApiAuthteplate(request *QueryApiAuthteplateRequest) (_result *QueryApiAuthteplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryApiAuthteplateResponse{}
+	_body, _err := client.QueryApiAuthteplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取授权模版和token
+ * Summary: 获取授权模版和token
+ */
+func (client *Client) QueryApiAuthteplateEx(request *QueryApiAuthteplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApiAuthteplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryApiAuthteplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.authteplate.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提交
+ * Summary: 提交
+ */
+func (client *Client) ExecApiAuthtemplate(request *ExecApiAuthtemplateRequest) (_result *ExecApiAuthtemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecApiAuthtemplateResponse{}
+	_body, _err := client.ExecApiAuthtemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提交
+ * Summary: 提交
+ */
+func (client *Client) ExecApiAuthtemplateEx(request *ExecApiAuthtemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecApiAuthtemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecApiAuthtemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.authtemplate.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取要素信息
+ * Summary: 获取要素信息
+ */
+func (client *Client) QueryApiAuthtemplatedefine(request *QueryApiAuthtemplatedefineRequest) (_result *QueryApiAuthtemplatedefineResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryApiAuthtemplatedefineResponse{}
+	_body, _err := client.QueryApiAuthtemplatedefineEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取要素信息
+ * Summary: 获取要素信息
+ */
+func (client *Client) QueryApiAuthtemplatedefineEx(request *QueryApiAuthtemplatedefineRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApiAuthtemplatedefineResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryApiAuthtemplatedefineResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.authtemplatedefine.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取授权结果
+ * Summary: 获取授权结果
+ */
+func (client *Client) QueryApiAuthtemplateresult(request *QueryApiAuthtemplateresultRequest) (_result *QueryApiAuthtemplateresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryApiAuthtemplateresultResponse{}
+	_body, _err := client.QueryApiAuthtemplateresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取授权结果
+ * Summary: 获取授权结果
+ */
+func (client *Client) QueryApiAuthtemplateresultEx(request *QueryApiAuthtemplateresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApiAuthtemplateresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryApiAuthtemplateresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.authtemplateresult.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
