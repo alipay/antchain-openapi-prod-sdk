@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TAX.Models
 {
-    public class ExecIcmSyncgatheringResponse : TeaModel {
+    public class QueryApiAuthteplateResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,20 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回的请求对象jsonString
-        [NameInMap("biz_content")]
+        // JWT生成，设置失效时间，维持会话数据
+        [NameInMap("token")]
         [Validation(Required=false)]
-        public string BizContent { get; set; }
+        public string Token { get; set; }
 
-        // unix秒时间戳,查询时间，用来对账使用
-        [NameInMap("query_time")]
+        // Unix时间戳 秒
+        [NameInMap("expire_time")]
         [Validation(Required=false)]
-        public string QueryTime { get; set; }
+        public long? ExpireTime { get; set; }
 
-        // 返回模式
-        [NameInMap("return_mode")]
+        // 模版树
+        [NameInMap("tree_template")]
         [Validation(Required=false)]
-        public string ReturnMode { get; set; }
-
-        // 返回结果
-        [NameInMap("return_result")]
-        [Validation(Required=false)]
-        public List<ReturnDetail> ReturnResult { get; set; }
+        public TreeTemplate TreeTemplate { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TAX.Models
 {
-    public class ExecIcmSyncgatheringResponse : TeaModel {
+    public class QueryApiAuthtemplatedefineResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回的请求对象jsonString
-        [NameInMap("biz_content")]
+        // 二维码类型返回二维码描述
+        // 短信无返回，接口成功即可
+        [NameInMap("value")]
         [Validation(Required=false)]
-        public string BizContent { get; set; }
-
-        // unix秒时间戳,查询时间，用来对账使用
-        [NameInMap("query_time")]
-        [Validation(Required=false)]
-        public string QueryTime { get; set; }
-
-        // 返回模式
-        [NameInMap("return_mode")]
-        [Validation(Required=false)]
-        public string ReturnMode { get; set; }
-
-        // 返回结果
-        [NameInMap("return_result")]
-        [Validation(Required=false)]
-        public List<ReturnDetail> ReturnResult { get; set; }
+        public string Value { get; set; }
 
     }
 

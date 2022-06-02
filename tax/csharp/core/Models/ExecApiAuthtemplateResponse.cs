@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TAX.Models
 {
-    public class ExecIcmSyncgatheringResponse : TeaModel {
+    public class ExecApiAuthtemplateResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,29 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回的请求对象jsonString
-        [NameInMap("biz_content")]
+        // 返回的下一层节点集合
+        [NameInMap("nodes")]
         [Validation(Required=false)]
-        public string BizContent { get; set; }
+        public List<TreeNode> Nodes { get; set; }
 
-        // unix秒时间戳,查询时间，用来对账使用
-        [NameInMap("query_time")]
+        // 树id
+        [NameInMap("tree_template_id")]
         [Validation(Required=false)]
-        public string QueryTime { get; set; }
+        public string TreeTemplateId { get; set; }
 
-        // 返回模式
-        [NameInMap("return_mode")]
+        // 授权状态,提交接口此字段为空
+        // 1、正在处理中
+        // 2、登陆成功
+        [NameInMap("auth_state")]
         [Validation(Required=false)]
-        public string ReturnMode { get; set; }
+        public string AuthState { get; set; }
 
-        // 返回结果
-        [NameInMap("return_result")]
+        // 请求是否成功
+        // true 成功
+        // false 失败
+        [NameInMap("success")]
         [Validation(Required=false)]
-        public List<ReturnDetail> ReturnResult { get; set; }
+        public bool? Success { get; set; }
 
     }
 

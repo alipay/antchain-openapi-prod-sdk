@@ -43,6 +43,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=true)]
         public string OrderNo { get; set; }
 
+        // 补充内容,如果不动产中字段为空的话查的就是授权中的cityCode
+        [NameInMap("content")]
+        [Validation(Required=true)]
+        public string Content { get; set; }
+
     }
 
 }
