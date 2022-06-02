@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.3',
+    sdk_version = '1.4.0',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,10 +159,133 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 逻辑
+model Logic {
+  // 操作符
+  //  equal = _equal_, // 相等比较
+  //   notEqual = _notEqual_, // 不相等比较
+  //   AND = _AND_, // 与逻辑
+  //   OR = _OR_, // 或逻辑
+  op: string(name='op', example='equal'),
+  //  只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+  key: string(name='key', example='sss'),
+  // 只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+  value: string(name='value', example='d d d'),
+  // 只有 op 是 AND 或者 OR 才需要这个字段
+  // [{op: _AND_, // 与逻辑
+  //         children: [
+  //           {
+  //             op: _equal_, // 相等比较
+  //             key: _validationMethod_, // 表示：验证方式
+  //             value: _smsCode_  // 表示：短信验证码
+  //           },
+  //           { // 判断登录信息的值不为 null
+  //             op: _notEqual_, // 不相等比较
+  //             key: _username_,  // 表示：登录信息
+  //             value: null
+  //           }]}]
+  children: string(name='children', example='[]'),
+}
+
+// 规则
+model Rule {
+  // 字段值的类型，常见有 string | number| boolean | _array_
+  type: string(name='type', example='string'),
+  // type 为 string 类型时，表示字符串长度；number 类型时表示确定数字； array 类型时表示数组长度
+  len: long(name='len', example='11'),
+  // type 为 string 类型时，表示字符串最大长度；number 类型时表示最大值；array 类型时表示数组最大长度
+  max: long(name='max', example='13'),
+  // type 为 string 类型时，表示字符串最小长度；number 类型时表示最小值；array 类型时表示数组最小长度
+  min: long(name='min', example='4'),
+  // 校验出错时显示的错误消息
+  message: string(name='message', example='重新输入'),
+  // 是否必填
+  required: boolean(name='required', example='true, false'),
+  // 正则表达式,
+  regPattern: string(name='reg_pattern', example='d'),
+}
+
+// 忘记密码
+model ForgetMeta {
+  // 字段名称
+  label: string(name='label', example='字段名称 例如：密码'),
+  // 忘记密码的链接地址，供重置用
+  link: string(name='link', example='www.baidu.com'),
+}
+
+// 选择组件
+model SelectOption {
+  // 选项名称
+  lable: string(name='lable', example='选项名称'),
+  // 选项的值，一般是 id 之类的唯一标识符，给后端传这个
+  value: string(name='value', example='zhangsan'),
+}
+
+// 组件
+model Key {
+  // 名称（key的中文名称）
+  key: string(name='key', example='test'),
+  // id
+  id: string(name='id', example='123232423'),
+  // input, // 普通输入框
+  // dropdownSelect, // 下拉选择
+  // cardSelect, // 平铺选择
+  // password, // 密码输入框，这个类型会包含忘记密码按钮
+  // smsCode, // 手机验证码
+  // qrcodeLogin, // 二维码登录
+  // hiddenField,// 隐藏字段，页面上不显示，但是值会提交给后端
+  type: string(name='type', example='cardSelect'),
+  // 字段名称 例如：密码
+  label: string(name='label', example='dd'),
+  // 输入框的值类型，字符串还是数字，默认 string/number/paassword
+  inputType: string(name='input_type', example='number'),
+  // 字段的初始值，类型要和前端提交的类型保持一致，且是可被 JSON 序列化的
+  initialValue: string(name='initial_value', example='ddd'),
+  // 占位符，比如”请输入密码“
+  placeholder: string(name='placeholder', example='请输入密码'),
+  // 是否为禁用状态，true 表示禁用，默认 false
+  disabled: boolean(name='disabled', example='true, false'),
+  // 表示输入框是否为只读状态（只读和禁用都不能输入，但是样式不一样，所以要注意区分，不要同时声明 disabled 和 readOnly，否则以 disabled 优先）
+  readOnly: string(name='read_only', example='true'),
+  // 这个字段的提示说明文案
+  tooltip: string(name='tooltip', example='这个字段的提示说明文案，点击字段名称右侧的 icon 时显示'),
+  // 校验规则
+  rules: [ Rule ](name='rules', example='校验规则'),
+  // 逻辑列表
+  logics: [ Logic ](name='logics', example=''),
+  // 选择列表的可选值，只有 type 是 dropdownSelect、cardSelect 时才需要
+  selectOptions: [ SelectOption ](name='select_options', example=''),
+  // 忘记密码元素
+  forgetMeta: ForgetMeta(name='forget_meta', example=''),
+}
+
+// 配对
+model Pair {
+  // left
+  left: string(name='left', example='left'),
+  // right
+  right: Key(name='right', example='right'),
+}
+
 // 地区请求
 model DistrictExtRequest {
   // 地区编码
   cityCode: string(name='city_code', example='340909'),
+}
+
+// card
+model Card {
+  // 名称（该页面的名称，可能做展示用）
+  name: string(name='name', example='名称（该页面的名称，可能做展示用）'),
+  // 如果一层有多个卡片，那么这个名称就作为tab的头名称展示
+  tabShowName: string(name='tab_show_name', example='如果一层有多个卡片，那么这个名称就作为tab的头名称展示'),
+  // 当前模版所有需要填充元素
+  keyValues: Pair(name='key_values', example='当前模版所有需要填充元素'),
+  // true：是，false：不是
+  // 是否作同一个父节点的默认展示，比如验证码和密码默认是哪个
+  isSelected: string(name='is_selected', example='是否作同一个父节点的默认展示'),
+  // 备注：如果显示是这两个，代表返回的值得分别塞到这两个key对应的value中/
+  returnValueKey: [ string ](name='return_value_key', example='[selectCard1,input1]'),
 }
 
 // 通用同步授权扩展字段
@@ -173,6 +296,20 @@ model AgreementExtRequest {
   isSeal: string(name='is_seal', example='true'),
   // 地址
   address: string(name='address', example='http://sdsdfsd.com'),
+}
+
+// 树节点
+model TreeNode {
+  // 节点id，按树的前序排列
+  id: long(name='id', example=''),
+  // 父节点id，不存在为null
+  parentNodeId: string(name='parent_node_id', example='父节点id，不存在为null'),
+  // 深度
+  depth: long(name='depth', example='1'),
+  // 是否叶子结点
+  isLeefNode: string(name='is_leef_node', example='true：是，false：否'),
+  // 模版
+  card: Card(name='card', example='模版'),
 }
 
 // 发票明细
@@ -205,6 +342,44 @@ model StandardAuthExtendInfoRequest {
   agreementList: [ AgreementExtRequest ](name='agreement_list', example='协议列表'),
   // 地区请求
   districtextRequest: DistrictExtRequest(name='districtext_request', example='地区请求'),
+}
+
+// 返回详情
+model ReturnDetail {
+  // 结果对象内容
+  bizContent: string(name='biz_content', example='{}'),
+  // 返回形式
+  returnType: string(name='return_type', example='BIZCONTENT 字段返回格式化,这种模式下取bizContent字段 FILE 文件模式，这种模式下用fileUrls获取文件'),
+  // 文件列表
+  fileUrls: [ string ](name='file_urls', example='["a.com","b.com"]'),
+  // 文件类型
+  fileType: string(name='file_type', example=' PDF pdf TXT JSON结构化'),
+  // 加密模式
+  encryptModel: string(name='encrypt_model', example='LINKS：链接加密 CONTENT：内容加密，使用信封模式，'),
+  // 密钥信封
+  secretEnvelope: string(name='secret_envelope', example='密钥信封，用RSA将将对内容处理的对称钥加密'),
+}
+
+// 二维码
+model QrCodeValue {
+  // 二维码链接
+  qrCodeUrl: string(name='qr_code_url', example='二维码链接'),
+  // 二维码描述信息。例如：请使用 xxx app 扫码登录
+  desc: string(name='desc', example='二维码描述信息。例如：请使用 xxx app 扫码登录'),
+  // 二维码在多长时间后失效，单位：秒
+  timeout: long(name='timeout', example='60'),
+}
+
+// TreeTemplate
+model TreeTemplate {
+  // 树节点
+  treeNode: TreeNode(name='tree_node', example=''),
+  // Id
+  id: string(name='id', example='123'),
+  // 版本号
+  version: string(name='version', example='1.0.8'),
+  // 向上兼容的最小版本号
+  compatibleMinVersion: string(name='compatible_min_version', example='1.0.06'),
 }
 
 // 通用base授权
@@ -758,6 +933,8 @@ model ExecIcmSyncgatheringRequest = {
   authType: string(name='auth_type'),
   // 订单号
   orderNo: string(name='order_no'),
+  // 补充内容,如果不动产中字段为空的话查的就是授权中的cityCode
+  content: string(name='content'),
 }
 
 model ExecIcmSyncgatheringResponse = {
@@ -771,10 +948,14 @@ model ExecIcmSyncgatheringResponse = {
   bizContent?: string(name='biz_content'),
   // unix秒时间戳,查询时间，用来对账使用
   queryTime?: string(name='query_time'),
+  // 返回模式
+  returnMode?: string(name='return_mode'),
+  // 返回结果
+  returnResult?: [ ReturnDetail ](name='return_result'),
 }
 
 /**
- * Description: 同步采集
+ * Description: 采集，不限制同步 异步
  * Summary: 采集
  */
 async function execIcmSyncgathering(request: ExecIcmSyncgatheringRequest): ExecIcmSyncgatheringResponse {
@@ -784,11 +965,213 @@ async function execIcmSyncgathering(request: ExecIcmSyncgatheringRequest): ExecI
 }
 
 /**
- * Description: 同步采集
+ * Description: 采集，不限制同步 异步
  * Summary: 采集
  */
 async function execIcmSyncgatheringEx(request: ExecIcmSyncgatheringRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecIcmSyncgatheringResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.tax.icm.syncgathering.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApiAuthteplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务订单号
+  orderNo: string(name='order_no'),
+  // 身份ID 身份证或者统一社会信用编码
+  identityId: string(name='identity_id'),
+  // 名称
+  identityName: string(name='identity_name'),
+  // 业务类型
+  // 11 税
+  // 12票
+  // 13税+票
+  authType: string(name='auth_type'),
+  // 法人名称
+  cognizantName: string(name='cognizant_name'),
+  // 法人证件号
+  coidentityNumber: string(name='coidentity_number'),
+  // 法人手机号
+  cognizantMobile: string(name='cognizant_mobile'),
+}
+
+model QueryApiAuthteplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // JWT生成，设置失效时间，维持会话数据
+  token?: string(name='token'),
+  // Unix时间戳 秒
+  expireTime?: long(name='expire_time'),
+  // 模版树
+  treeTemplate?: TreeTemplate(name='tree_template'),
+}
+
+/**
+ * Description: 获取授权模版和token
+ * Summary: 获取授权模版和token
+ */
+async function queryApiAuthteplate(request: QueryApiAuthteplateRequest): QueryApiAuthteplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiAuthteplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取授权模版和token
+ * Summary: 获取授权模版和token
+ */
+async function queryApiAuthteplateEx(request: QueryApiAuthteplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiAuthteplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.authteplate.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecApiAuthtemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // token
+  token: string(name='token'),
+  // 树的模版id
+  treeTemplateId: string(name='tree_template_id'),
+  // 模版对应的版本号
+  treeVersion: string(name='tree_version'),
+  // 对应节点ID
+  nodeId: string(name='node_id'),
+  // 当前卡片所有需要填充元素key
+  // 和value值
+  pairs: Pair(name='pairs'),
+}
+
+model ExecApiAuthtemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回的下一层节点集合
+  nodes?: [ TreeNode ](name='nodes'),
+  // 树id
+  treeTemplateId?: string(name='tree_template_id'),
+  // 授权状态,提交接口此字段为空
+  // 1、正在处理中
+  // 2、登陆成功
+  authState?: string(name='auth_state'),
+  // 请求是否成功
+  // true 成功
+  // false 失败
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 提交
+ * Summary: 提交
+ */
+async function execApiAuthtemplate(request: ExecApiAuthtemplateRequest): ExecApiAuthtemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execApiAuthtemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交
+ * Summary: 提交
+ */
+async function execApiAuthtemplateEx(request: ExecApiAuthtemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecApiAuthtemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.authtemplate.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApiAuthtemplatedefineRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // token
+  token: string(name='token'),
+  // message：短信
+  // qrCode：二维码
+  actionType: string(name='action_type'),
+  // 依赖的数据值 比如身份证
+  dependsValue: string(name='depends_value'),
+}
+
+model QueryApiAuthtemplatedefineResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 二维码类型返回二维码描述
+  // 短信无返回，接口成功即可
+  value?: string(name='value'),
+}
+
+/**
+ * Description: 获取要素信息
+ * Summary: 获取要素信息
+ */
+async function queryApiAuthtemplatedefine(request: QueryApiAuthtemplatedefineRequest): QueryApiAuthtemplatedefineResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiAuthtemplatedefineEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取要素信息
+ * Summary: 获取要素信息
+ */
+async function queryApiAuthtemplatedefineEx(request: QueryApiAuthtemplatedefineRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiAuthtemplatedefineResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.authtemplatedefine.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApiAuthtemplateresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务授权订单号 用户幂等控制，调用方保证唯一
+  orderNo: string(name='order_no'),
+  // 身份ID
+  identityId: string(name='identity_id'),
+}
+
+model QueryApiAuthtemplateresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 授权状态
+  // 1、正在处理中
+  // 2、登陆成功
+  authState?: string(name='auth_state'),
+}
+
+/**
+ * Description: 获取授权结果
+ * Summary: 获取授权结果
+ */
+async function queryApiAuthtemplateresult(request: QueryApiAuthtemplateresultRequest): QueryApiAuthtemplateresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiAuthtemplateresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取授权结果
+ * Summary: 获取授权结果
+ */
+async function queryApiAuthtemplateresultEx(request: QueryApiAuthtemplateresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiAuthtemplateresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.authtemplateresult.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
