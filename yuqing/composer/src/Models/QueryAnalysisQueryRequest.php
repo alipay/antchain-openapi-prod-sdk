@@ -24,10 +24,17 @@ class QueryAnalysisQueryRequest extends Model
      * @var int
      */
     public $analysisId;
+
+    // team_hash_id
+    /**
+     * @var string
+     */
+    public $teamHashId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'analysisId'        => 'analysis_id',
+        'teamHashId'        => 'team_hash_id',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class QueryAnalysisQueryRequest extends Model
         }
         if (null !== $this->analysisId) {
             $res['analysis_id'] = $this->analysisId;
+        }
+        if (null !== $this->teamHashId) {
+            $res['team_hash_id'] = $this->teamHashId;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class QueryAnalysisQueryRequest extends Model
         }
         if (isset($map['analysis_id'])) {
             $model->analysisId = $map['analysis_id'];
+        }
+        if (isset($map['team_hash_id'])) {
+            $model->teamHashId = $map['team_hash_id'];
         }
 
         return $model;

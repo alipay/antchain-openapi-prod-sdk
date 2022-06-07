@@ -30,17 +30,25 @@ class SaveAnalysisSubmitRequest extends Model
      * @var SearchCondition
      */
     public $searchCondition;
+
+    // team_hash_id
+    /**
+     * @var string
+     */
+    public $teamHashId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'analyseType'       => 'analyse_type',
         'searchCondition'   => 'search_condition',
+        'teamHashId'        => 'team_hash_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('analyseType', $this->analyseType, true);
         Model::validateRequired('searchCondition', $this->searchCondition, true);
+        Model::validateRequired('teamHashId', $this->teamHashId, true);
     }
 
     public function toMap()
@@ -57,6 +65,9 @@ class SaveAnalysisSubmitRequest extends Model
         }
         if (null !== $this->searchCondition) {
             $res['search_condition'] = null !== $this->searchCondition ? $this->searchCondition->toMap() : null;
+        }
+        if (null !== $this->teamHashId) {
+            $res['team_hash_id'] = $this->teamHashId;
         }
 
         return $res;
@@ -81,6 +92,9 @@ class SaveAnalysisSubmitRequest extends Model
         }
         if (isset($map['search_condition'])) {
             $model->searchCondition = SearchCondition::fromMap($map['search_condition']);
+        }
+        if (isset($map['team_hash_id'])) {
+            $model->teamHashId = $map['team_hash_id'];
         }
 
         return $model;

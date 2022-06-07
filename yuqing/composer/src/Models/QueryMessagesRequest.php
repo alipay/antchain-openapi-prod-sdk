@@ -30,11 +30,18 @@ class QueryMessagesRequest extends Model
      * @var string
      */
     public $requestId;
+
+    // team_hash_id
+    /**
+     * @var string
+     */
+    public $teamHashId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'searchCondition'   => 'search_condition',
         'requestId'         => 'request_id',
+        'teamHashId'        => 'team_hash_id',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class QueryMessagesRequest extends Model
         }
         if (null !== $this->requestId) {
             $res['request_id'] = $this->requestId;
+        }
+        if (null !== $this->teamHashId) {
+            $res['team_hash_id'] = $this->teamHashId;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class QueryMessagesRequest extends Model
         }
         if (isset($map['request_id'])) {
             $model->requestId = $map['request_id'];
+        }
+        if (isset($map['team_hash_id'])) {
+            $model->teamHashId = $map['team_hash_id'];
         }
 
         return $model;

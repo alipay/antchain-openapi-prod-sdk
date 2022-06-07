@@ -172,7 +172,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.11',
+                    'sdk_version'      => '1.1.12',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -318,8 +318,8 @@ class Client
     }
 
     /**
-     * Description: 产品开通
-     * Summary: 产品开通.
+     * Description: 废弃
+     * Summary: 废弃.
      *
      * @param SaveProductOpenRequest $request
      *
@@ -334,8 +334,8 @@ class Client
     }
 
     /**
-     * Description: 产品开通
-     * Summary: 产品开通.
+     * Description: 废弃
+     * Summary: 废弃.
      *
      * @param SaveProductOpenRequest $request
      * @param string[]               $headers
@@ -351,8 +351,8 @@ class Client
     }
 
     /**
-     * Description: 产品关闭
-     * Summary: 产品关闭.
+     * Description: 废弃
+     * Summary: 废弃.
      *
      * @param SaveProductTopRequest $request
      *
@@ -367,8 +367,8 @@ class Client
     }
 
     /**
-     * Description: 产品关闭
-     * Summary: 产品关闭.
+     * Description: 废弃
+     * Summary: 废弃.
      *
      * @param SaveProductTopRequest $request
      * @param string[]              $headers

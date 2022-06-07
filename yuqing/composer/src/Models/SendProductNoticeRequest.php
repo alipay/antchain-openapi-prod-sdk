@@ -30,15 +30,23 @@ class SendProductNoticeRequest extends Model
      * @var DingTalkContent
      */
     public $dingTalkContent;
+
+    // 短信内容
+    /**
+     * @var SmsContent
+     */
+    public $smsContent;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'noticeType'        => 'notice_type',
         'dingTalkContent'   => 'ding_talk_content',
+        'smsContent'        => 'sms_content',
     ];
 
     public function validate()
     {
+        Model::validateRequired('noticeType', $this->noticeType, true);
     }
 
     public function toMap()
@@ -55,6 +63,9 @@ class SendProductNoticeRequest extends Model
         }
         if (null !== $this->dingTalkContent) {
             $res['ding_talk_content'] = null !== $this->dingTalkContent ? $this->dingTalkContent->toMap() : null;
+        }
+        if (null !== $this->smsContent) {
+            $res['sms_content'] = null !== $this->smsContent ? $this->smsContent->toMap() : null;
         }
 
         return $res;
@@ -79,6 +90,9 @@ class SendProductNoticeRequest extends Model
         }
         if (isset($map['ding_talk_content'])) {
             $model->dingTalkContent = DingTalkContent::fromMap($map['ding_talk_content']);
+        }
+        if (isset($map['sms_content'])) {
+            $model->smsContent = SmsContent::fromMap($map['sms_content']);
         }
 
         return $model;
