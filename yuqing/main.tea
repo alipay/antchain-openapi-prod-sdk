@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.11',
+    sdk_version = '1.1.12',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -179,6 +179,32 @@ model Btn {
   actionUrl?: string(name='action_url', example='动作地址'),
 }
 
+// 消息填充内容
+model Pair {
+  // key
+  key: string(name='key', example='key'),
+  // value
+  value: string(name='value', example='value'),
+}
+
+// 钉钉Markdown
+model Markdown {
+  // 标题
+  title?: string(name='title', example='标题'),
+  // 内容
+  text?: string(name='text', example='内容'),
+}
+
+// 钉钉At
+model At {
+  // @手机号
+  atMobiles?: [ string ](name='at_mobiles', example='@手机号'),
+  // @用户ID
+  atUserIds?: [ string ](name='at_user_ids', example='@用户ID'),
+  // @所有人
+  isAtAll?: boolean(name='is_at_all', example='true, false'),
+}
+
 // 钉钉动作卡片
 model ActionCard {
   // 标题
@@ -195,14 +221,6 @@ model ActionCard {
   btns?: [ Btn ](name='btns', example='点击'),
 }
 
-// 钉钉Markdown
-model Markdown {
-  // 标题
-  title?: string(name='title', example='标题'),
-  // 内容
-  text?: string(name='text', example='内容'),
-}
-
 // 钉钉FeedCard
 model FeedCard {
   // 卡片流
@@ -213,16 +231,6 @@ model FeedCard {
 model Text {
   // 内容
   content?: string(name='content', example='内容'),
-}
-
-// 钉钉At
-model At {
-  // @手机号
-  atMobiles?: [ string ](name='at_mobiles', example='@手机号'),
-  // @用户ID
-  atUserIds?: [ string ](name='at_user_ids', example='@用户ID'),
-  // @所有人
-  isAtAll?: boolean(name='is_at_all', example='true, false'),
 }
 
 // 钉钉消息体
@@ -243,60 +251,6 @@ model DingTalkContent {
   feedCard?: FeedCard(name='feed_card', example='feedCard'),
   // at
   at?: At(name='at', example='at'),
-}
-
-// YuqingMessage
-model YuqingMessage {
-  // 作者头像地址
-  authorAvatarUrl?: string(name='author_avatar_url', example='作者头像地址'),
-  // 粉丝数
-  authorFollowersCount?: long(name='author_followers_count', example='粉丝数'),
-  // 好友数
-  authorFriendsCount?: long(name='author_friends_count', example='好友数'),
-  // 作者id
-  authorId?: string(name='author_id', example='作者id'),
-  // 作者名称
-  authorName?: string(name='author_name', example='作者名称'),
-  // 发文数
-  authorStatusesCount?: long(name='author_statuses_count', example='发文数'),
-  // 作者认证类型
-  authorVerifyType?: string(name='author_verify_type', example='作者认证类型'),
-  // 舆情文章被抓取的时间戳
-  createTime?: long(name='create_time', example='舆情文章被抓取的时间戳'),
-  // 文章正文内容
-  docContent?: string(name='doc_content', example='文章正文内容'),
-  // 文章摘要
-  docContentBrief?: string(name='doc_content_brief', example='文章摘要'),
-  // 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
-  docContentSign?: string(name='doc_content_sign', example='文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同'),
-  // 文章唯一docId
-  docId?: string(name='doc_id', example='文章唯一docId'),
-  // 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
-  docSelfContentSign?: string(name='doc_self_content_sign', example='文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关'),
-  // 文章标题
-  docTitle?: string(name='doc_title', example='文章标题'),
-  // 原文地址
-  docUrl?: string(name='doc_url', example='原文地址'),
-  // 情感的正负面，-1代表负面，1代表非负面
-  emotionType?: long(name='emotion_type', example='情感的正负面，-1代表负面，1代表非负面'),
-  // 命中的搜索词列表
-  highlightKeywords?: [ string ](name='highlight_keywords', example='命中的搜索词列表'),
-  // 媒体类型，枚举值
-  mediaType?: string(name='media_type', example='媒体类型，枚举值'),
-  // 舆情消息类型:转发,评论/回复, 原文,群聊等
-  messageType?: string(name='message_type', example='舆情消息类型:转发,评论/回复, 原文,群聊等'),
-  // 文章的父docId，如被转发的文章docId
-  parentDocId?: string(name='parent_doc_id', example='文章的父docId，如被转发的文章docId'),
-  // 舆情文章的发布时间戳
-  publishTime?: long(name='publish_time', example='舆情文章的发布时间戳'),
-  // 相关性得分
-  relevanceScore?: long(name='relevance_score', example='相关性得分'),
-  // 相似文章数
-  similarNumber?: long(name='similar_number', example='相似文章数'),
-  // 微博评论id
-  weiboCommentId?: string(name='weibo_comment_id', example='微博评论id'),
-  // 微博消息id
-  weiboMid?: string(name='weibo_mid', example='微博消息id'),
 }
 
 // 查询结构体
@@ -395,6 +349,72 @@ model SearchCondition {
   updateTimeStart?: long(name='update_time_start', example='舆情文章起始更新时间'),
 }
 
+// YuqingMessage
+model YuqingMessage {
+  // 作者头像地址
+  authorAvatarUrl?: string(name='author_avatar_url', example='作者头像地址'),
+  // 粉丝数
+  authorFollowersCount?: long(name='author_followers_count', example='粉丝数'),
+  // 好友数
+  authorFriendsCount?: long(name='author_friends_count', example='好友数'),
+  // 作者id
+  authorId?: string(name='author_id', example='作者id'),
+  // 作者名称
+  authorName?: string(name='author_name', example='作者名称'),
+  // 发文数
+  authorStatusesCount?: long(name='author_statuses_count', example='发文数'),
+  // 作者认证类型
+  authorVerifyType?: string(name='author_verify_type', example='作者认证类型'),
+  // 舆情文章被抓取的时间戳
+  createTime?: long(name='create_time', example='舆情文章被抓取的时间戳'),
+  // 文章正文内容
+  docContent?: string(name='doc_content', example='文章正文内容'),
+  // 文章摘要
+  docContentBrief?: string(name='doc_content_brief', example='文章摘要'),
+  // 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
+  docContentSign?: string(name='doc_content_sign', example='文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同'),
+  // 文章唯一docId
+  docId?: string(name='doc_id', example='文章唯一docId'),
+  // 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
+  docSelfContentSign?: string(name='doc_self_content_sign', example='文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关'),
+  // 文章标题
+  docTitle?: string(name='doc_title', example='文章标题'),
+  // 原文地址
+  docUrl?: string(name='doc_url', example='原文地址'),
+  // 情感的正负面，-1代表负面，1代表非负面
+  emotionType?: long(name='emotion_type', example='情感的正负面，-1代表负面，1代表非负面'),
+  // 命中的搜索词列表
+  highlightKeywords?: [ string ](name='highlight_keywords', example='命中的搜索词列表'),
+  // 媒体类型，枚举值
+  mediaType?: string(name='media_type', example='媒体类型，枚举值'),
+  // 舆情消息类型:转发,评论/回复, 原文,群聊等
+  messageType?: string(name='message_type', example='舆情消息类型:转发,评论/回复, 原文,群聊等'),
+  // 文章的父docId，如被转发的文章docId
+  parentDocId?: string(name='parent_doc_id', example='文章的父docId，如被转发的文章docId'),
+  // 舆情文章的发布时间戳
+  publishTime?: long(name='publish_time', example='舆情文章的发布时间戳'),
+  // 相关性得分
+  relevanceScore?: long(name='relevance_score', example='相关性得分'),
+  // 相似文章数
+  similarNumber?: long(name='similar_number', example='相似文章数'),
+  // 微博评论id
+  weiboCommentId?: string(name='weibo_comment_id', example='微博评论id'),
+  // 微博消息id
+  weiboMid?: string(name='weibo_mid', example='微博消息id'),
+}
+
+// 短信消息体
+model SmsContent {
+  // 模板
+  serviceCode?: string(name='service_code', example='ant_dtech_saas'),
+  // 手机号
+  mobile: string(name='mobile', example='1881066XXXX'),
+  // 开发者ID
+  developerId?: string(name='developer_id', example='developer_id'),
+  // 填充内容
+  arguments?: [ Pair ](name='arguments', example='arguments'),
+}
+
 // 商品规格
 model CommoditySpec {
   // 规格项枚举值
@@ -411,6 +431,8 @@ model QueryMessagesRequest = {
   searchCondition: SearchCondition(name='search_condition'),
   // 请求ID
   requestId?: string(name='request_id'),
+  // team_hash_id
+  teamHashId?: string(name='team_hash_id'),
 }
 
 model QueryMessagesResponse = {
@@ -453,6 +475,8 @@ model SaveAnalysisSubmitRequest = {
   analyseType: string(name='analyse_type'),
   // 查询条件
   searchCondition: SearchCondition(name='search_condition'),
+  // team_hash_id
+  teamHashId: string(name='team_hash_id'),
 }
 
 model SaveAnalysisSubmitResponse = {
@@ -493,6 +517,8 @@ model QueryAnalysisQueryRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 分析任务ID
   analysisId: long(name='analysis_id'),
+  // team_hash_id
+  teamHashId?: string(name='team_hash_id'),
 }
 
 model QueryAnalysisQueryResponse = {
@@ -559,8 +585,8 @@ model SaveProductOpenResponse = {
 }
 
 /**
- * Description: 产品开通
- * Summary: 产品开通
+ * Description: 废弃
+ * Summary: 废弃
  */
 async function saveProductOpen(request: SaveProductOpenRequest): SaveProductOpenResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -569,8 +595,8 @@ async function saveProductOpen(request: SaveProductOpenRequest): SaveProductOpen
 }
 
 /**
- * Description: 产品开通
- * Summary: 产品开通
+ * Description: 废弃
+ * Summary: 废弃
  */
 async function saveProductOpenEx(request: SaveProductOpenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveProductOpenResponse {
   Util.validateModel(request);
@@ -607,8 +633,8 @@ model SaveProductTopResponse = {
 }
 
 /**
- * Description: 产品关闭
- * Summary: 产品关闭
+ * Description: 废弃
+ * Summary: 废弃
  */
 async function saveProductTop(request: SaveProductTopRequest): SaveProductTopResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -617,8 +643,8 @@ async function saveProductTop(request: SaveProductTopRequest): SaveProductTopRes
 }
 
 /**
- * Description: 产品关闭
- * Summary: 产品关闭
+ * Description: 废弃
+ * Summary: 废弃
  */
 async function saveProductTopEx(request: SaveProductTopRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveProductTopResponse {
   Util.validateModel(request);
@@ -670,9 +696,11 @@ model SendProductNoticeRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 提醒类型
-  noticeType?: string(name='notice_type'),
+  noticeType: string(name='notice_type'),
   // 钉钉结构体
   dingTalkContent?: DingTalkContent(name='ding_talk_content'),
+  // 短信内容
+  smsContent?: SmsContent(name='sms_content'),
 }
 
 model SendProductNoticeResponse = {
