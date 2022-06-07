@@ -57,6 +57,10 @@ public class PayTradePageRequest extends TeaModel {
     @NameInMap("body")
     public String body;
 
+    // 扩展字段
+    @NameInMap("properties")
+    public String properties;
+
     public static PayTradePageRequest build(java.util.Map<String, ?> map) throws Exception {
         PayTradePageRequest self = new PayTradePageRequest();
         return TeaModel.build(map, self);
@@ -148,6 +152,14 @@ public class PayTradePageRequest extends TeaModel {
     }
     public String getBody() {
         return this.body;
+    }
+
+    public PayTradePageRequest setProperties(String properties) {
+        this.properties = properties;
+        return this;
+    }
+    public String getProperties() {
+        return this.properties;
     }
 
 }

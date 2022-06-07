@@ -8,10 +8,20 @@ public class SignMerchantAgreementRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
+    // 签约请求单据号
+    @NameInMap("request_id")
+    @Validation(required = true)
+    public String requestId;
+
     // 来源场景码, 由中台为业务方分配
     @NameInMap("source")
     @Validation(required = true)
     public String source;
+
+    // 渠道
+    @NameInMap("channel")
+    @Validation(required = true)
+    public String channel;
 
     // 商家pid
     @NameInMap("merchant_user_id")
@@ -22,11 +32,6 @@ public class SignMerchantAgreementRequest extends TeaModel {
     @NameInMap("personal_product_code")
     @Validation(required = true)
     public String personalProductCode;
-
-    // 签约请求单据号
-    @NameInMap("request_id")
-    @Validation(required = true)
-    public String requestId;
 
     public static SignMerchantAgreementRequest build(java.util.Map<String, ?> map) throws Exception {
         SignMerchantAgreementRequest self = new SignMerchantAgreementRequest();
@@ -41,12 +46,28 @@ public class SignMerchantAgreementRequest extends TeaModel {
         return this.authToken;
     }
 
+    public SignMerchantAgreementRequest setRequestId(String requestId) {
+        this.requestId = requestId;
+        return this;
+    }
+    public String getRequestId() {
+        return this.requestId;
+    }
+
     public SignMerchantAgreementRequest setSource(String source) {
         this.source = source;
         return this;
     }
     public String getSource() {
         return this.source;
+    }
+
+    public SignMerchantAgreementRequest setChannel(String channel) {
+        this.channel = channel;
+        return this;
+    }
+    public String getChannel() {
+        return this.channel;
     }
 
     public SignMerchantAgreementRequest setMerchantUserId(String merchantUserId) {
@@ -63,14 +84,6 @@ public class SignMerchantAgreementRequest extends TeaModel {
     }
     public String getPersonalProductCode() {
         return this.personalProductCode;
-    }
-
-    public SignMerchantAgreementRequest setRequestId(String requestId) {
-        this.requestId = requestId;
-        return this;
-    }
-    public String getRequestId() {
-        return this.requestId;
     }
 
 }
