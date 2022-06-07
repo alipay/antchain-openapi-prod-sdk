@@ -149,191 +149,6 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// 银行卡信息
-type CardInfo struct {
-	// 卡户名
-	AccountHolderName *string `json:"account_holder_name,omitempty" xml:"account_holder_name,omitempty" require:"true"`
-	// 卡号
-	AccountNo *string `json:"account_no,omitempty" xml:"account_no,omitempty" require:"true"`
-	// 银行名称
-	AccountInstName *string `json:"account_inst_name,omitempty" xml:"account_inst_name,omitempty" require:"true"`
-	// 银行缩写
-	AccountInstId *string `json:"account_inst_id,omitempty" xml:"account_inst_id,omitempty" require:"true"`
-	// 账号使用类型
-	// 对公-01
-	// 对私-02
-	UsageType *string `json:"usage_type,omitempty" xml:"usage_type,omitempty" require:"true"`
-	// 联行号
-	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty"`
-	// 开户行所在省份
-	AccountInstProvince *string `json:"account_inst_province,omitempty" xml:"account_inst_province,omitempty" require:"true"`
-	// 开户行所在城市
-	AccountInstCity *string `json:"account_inst_city,omitempty" xml:"account_inst_city,omitempty" require:"true"`
-	// 开户行支行名称
-	AccountBranchName *string `json:"account_branch_name,omitempty" xml:"account_branch_name,omitempty" require:"true"`
-}
-
-func (s CardInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CardInfo) GoString() string {
-	return s.String()
-}
-
-func (s *CardInfo) SetAccountHolderName(v string) *CardInfo {
-	s.AccountHolderName = &v
-	return s
-}
-
-func (s *CardInfo) SetAccountNo(v string) *CardInfo {
-	s.AccountNo = &v
-	return s
-}
-
-func (s *CardInfo) SetAccountInstName(v string) *CardInfo {
-	s.AccountInstName = &v
-	return s
-}
-
-func (s *CardInfo) SetAccountInstId(v string) *CardInfo {
-	s.AccountInstId = &v
-	return s
-}
-
-func (s *CardInfo) SetUsageType(v string) *CardInfo {
-	s.UsageType = &v
-	return s
-}
-
-func (s *CardInfo) SetBankCode(v string) *CardInfo {
-	s.BankCode = &v
-	return s
-}
-
-func (s *CardInfo) SetAccountInstProvince(v string) *CardInfo {
-	s.AccountInstProvince = &v
-	return s
-}
-
-func (s *CardInfo) SetAccountInstCity(v string) *CardInfo {
-	s.AccountInstCity = &v
-	return s
-}
-
-func (s *CardInfo) SetAccountBranchName(v string) *CardInfo {
-	s.AccountBranchName = &v
-	return s
-}
-
-// 地址信息
-type AddressInfo struct {
-	// 省份编码
-	ProvinceCode *string `json:"province_code,omitempty" xml:"province_code,omitempty" require:"true"`
-	// 城市编码
-	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
-	// 区域编码
-	DistrictCode *string `json:"district_code,omitempty" xml:"district_code,omitempty" require:"true"`
-	// 详细地址
-	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
-}
-
-func (s AddressInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AddressInfo) GoString() string {
-	return s.String()
-}
-
-func (s *AddressInfo) SetProvinceCode(v string) *AddressInfo {
-	s.ProvinceCode = &v
-	return s
-}
-
-func (s *AddressInfo) SetCityCode(v string) *AddressInfo {
-	s.CityCode = &v
-	return s
-}
-
-func (s *AddressInfo) SetDistrictCode(v string) *AddressInfo {
-	s.DistrictCode = &v
-	return s
-}
-
-func (s *AddressInfo) SetAddress(v string) *AddressInfo {
-	s.Address = &v
-	return s
-}
-
-// 结算规则
-type SettleRule struct {
-	// 结算类型， bankCard-表示结算到银行卡；alipayAccount-表示结算到支付宝账号
-	DefaultSettleType *string `json:"default_settle_type,omitempty" xml:"default_settle_type,omitempty" require:"true"`
-	// 结算目标
-	// 如果settle_type = bankCard, 这里填写银行卡卡号;
-	// 如果settle_type = alipayAccount, 这里填写支付宝账号登录号, 且要求与商户名称name同名
-	DefaultSettleTarget *string `json:"default_settle_target,omitempty" xml:"default_settle_target,omitempty" require:"true"`
-}
-
-func (s SettleRule) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SettleRule) GoString() string {
-	return s.String()
-}
-
-func (s *SettleRule) SetDefaultSettleType(v string) *SettleRule {
-	s.DefaultSettleType = &v
-	return s
-}
-
-func (s *SettleRule) SetDefaultSettleTarget(v string) *SettleRule {
-	s.DefaultSettleTarget = &v
-	return s
-}
-
-// 联系人信息
-type ContactInfo struct {
-	// 联系人姓名
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 联系人手机号码
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
-	// 联系人电话号码
-	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
-	// 联系人类型, LEGAL_PERSON-法人；CONTROLLER-实际控制人；AGENT-代理人；OTHER-其他
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-}
-
-func (s ContactInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ContactInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ContactInfo) SetName(v string) *ContactInfo {
-	s.Name = &v
-	return s
-}
-
-func (s *ContactInfo) SetMobile(v string) *ContactInfo {
-	s.Mobile = &v
-	return s
-}
-
-func (s *ContactInfo) SetPhone(v string) *ContactInfo {
-	s.Phone = &v
-	return s
-}
-
-func (s *ContactInfo) SetType(v string) *ContactInfo {
-	s.Type = &v
-	return s
-}
-
 // 二级商户进件申请单
 type MerchantOrderInfo struct {
 	// 申请单id
@@ -409,6 +224,74 @@ func (s *MerchantOrderInfo) SetRemark(v string) *MerchantOrderInfo {
 	return s
 }
 
+// 地址信息
+type AddressInfo struct {
+	// 省份编码
+	ProvinceCode *string `json:"province_code,omitempty" xml:"province_code,omitempty" require:"true"`
+	// 城市编码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+	// 区域编码
+	DistrictCode *string `json:"district_code,omitempty" xml:"district_code,omitempty" require:"true"`
+	// 详细地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
+}
+
+func (s AddressInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddressInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AddressInfo) SetProvinceCode(v string) *AddressInfo {
+	s.ProvinceCode = &v
+	return s
+}
+
+func (s *AddressInfo) SetCityCode(v string) *AddressInfo {
+	s.CityCode = &v
+	return s
+}
+
+func (s *AddressInfo) SetDistrictCode(v string) *AddressInfo {
+	s.DistrictCode = &v
+	return s
+}
+
+func (s *AddressInfo) SetAddress(v string) *AddressInfo {
+	s.Address = &v
+	return s
+}
+
+// 结算规则
+type SettleRule struct {
+	// 结算类型， bankCard-表示结算到银行卡；alipayAccount-表示结算到支付宝账号
+	DefaultSettleType *string `json:"default_settle_type,omitempty" xml:"default_settle_type,omitempty" require:"true"`
+	// 结算目标
+	// 如果settle_type = bankCard, 这里填写银行卡卡号;
+	// 如果settle_type = alipayAccount, 这里填写支付宝账号登录号, 且要求与商户名称name同名
+	DefaultSettleTarget *string `json:"default_settle_target,omitempty" xml:"default_settle_target,omitempty" require:"true"`
+}
+
+func (s SettleRule) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SettleRule) GoString() string {
+	return s.String()
+}
+
+func (s *SettleRule) SetDefaultSettleType(v string) *SettleRule {
+	s.DefaultSettleType = &v
+	return s
+}
+
+func (s *SettleRule) SetDefaultSettleTarget(v string) *SettleRule {
+	s.DefaultSettleTarget = &v
+	return s
+}
+
 // 商户资质信息
 type QualificationInfo struct {
 	// 商户行业资质类型,  参考https://mif-pub.alipayobjects.com/QualificationType.xlsx
@@ -432,6 +315,171 @@ func (s *QualificationInfo) SetIndustryQualificationType(v string) *Qualificatio
 
 func (s *QualificationInfo) SetIndustryQualificationImage(v string) *QualificationInfo {
 	s.IndustryQualificationImage = &v
+	return s
+}
+
+// 联系人信息
+type ContactInfo struct {
+	// 联系人姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 联系人手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 联系人电话号码
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
+	// 联系人类型, LEGAL_PERSON-法人；CONTROLLER-实际控制人；AGENT-代理人；OTHER-其他
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s ContactInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContactInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ContactInfo) SetName(v string) *ContactInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *ContactInfo) SetMobile(v string) *ContactInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *ContactInfo) SetPhone(v string) *ContactInfo {
+	s.Phone = &v
+	return s
+}
+
+func (s *ContactInfo) SetType(v string) *ContactInfo {
+	s.Type = &v
+	return s
+}
+
+// 交易结算明细
+type TradeSettleDetail struct {
+	// 类型
+	// replenish(补差)、replenish_refund(退补差)、transfer(分账)、transfer_refund(退分账)、settle(结算)、settle_refund(退结算)、on_settle(待结算)
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 结算明细序列号，即结算请求中的业务单据号
+	SerialNo *string `json:"serial_no,omitempty" xml:"serial_no,omitempty" require:"true"`
+	// 转入账户
+	TransIn *string `json:"trans_in,omitempty" xml:"trans_in,omitempty"`
+	// 转出账号
+	TransOut *string `json:"trans_out,omitempty" xml:"trans_out,omitempty" require:"true"`
+	// 金额，元，最小支持到分
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+}
+
+func (s TradeSettleDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TradeSettleDetail) GoString() string {
+	return s.String()
+}
+
+func (s *TradeSettleDetail) SetType(v string) *TradeSettleDetail {
+	s.Type = &v
+	return s
+}
+
+func (s *TradeSettleDetail) SetSerialNo(v string) *TradeSettleDetail {
+	s.SerialNo = &v
+	return s
+}
+
+func (s *TradeSettleDetail) SetTransIn(v string) *TradeSettleDetail {
+	s.TransIn = &v
+	return s
+}
+
+func (s *TradeSettleDetail) SetTransOut(v string) *TradeSettleDetail {
+	s.TransOut = &v
+	return s
+}
+
+func (s *TradeSettleDetail) SetAmount(v string) *TradeSettleDetail {
+	s.Amount = &v
+	return s
+}
+
+// 银行卡信息
+type CardInfo struct {
+	// 卡户名
+	AccountHolderName *string `json:"account_holder_name,omitempty" xml:"account_holder_name,omitempty" require:"true"`
+	// 卡号
+	AccountNo *string `json:"account_no,omitempty" xml:"account_no,omitempty" require:"true"`
+	// 银行名称
+	AccountInstName *string `json:"account_inst_name,omitempty" xml:"account_inst_name,omitempty" require:"true"`
+	// 银行缩写
+	AccountInstId *string `json:"account_inst_id,omitempty" xml:"account_inst_id,omitempty" require:"true"`
+	// 账号使用类型
+	// 对公-01
+	// 对私-02
+	UsageType *string `json:"usage_type,omitempty" xml:"usage_type,omitempty" require:"true"`
+	// 联行号
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty"`
+	// 开户行所在省份
+	AccountInstProvince *string `json:"account_inst_province,omitempty" xml:"account_inst_province,omitempty" require:"true"`
+	// 开户行所在城市
+	AccountInstCity *string `json:"account_inst_city,omitempty" xml:"account_inst_city,omitempty" require:"true"`
+	// 开户行支行名称
+	AccountBranchName *string `json:"account_branch_name,omitempty" xml:"account_branch_name,omitempty" require:"true"`
+}
+
+func (s CardInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CardInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CardInfo) SetAccountHolderName(v string) *CardInfo {
+	s.AccountHolderName = &v
+	return s
+}
+
+func (s *CardInfo) SetAccountNo(v string) *CardInfo {
+	s.AccountNo = &v
+	return s
+}
+
+func (s *CardInfo) SetAccountInstName(v string) *CardInfo {
+	s.AccountInstName = &v
+	return s
+}
+
+func (s *CardInfo) SetAccountInstId(v string) *CardInfo {
+	s.AccountInstId = &v
+	return s
+}
+
+func (s *CardInfo) SetUsageType(v string) *CardInfo {
+	s.UsageType = &v
+	return s
+}
+
+func (s *CardInfo) SetBankCode(v string) *CardInfo {
+	s.BankCode = &v
+	return s
+}
+
+func (s *CardInfo) SetAccountInstProvince(v string) *CardInfo {
+	s.AccountInstProvince = &v
+	return s
+}
+
+func (s *CardInfo) SetAccountInstCity(v string) *CardInfo {
+	s.AccountInstCity = &v
+	return s
+}
+
+func (s *CardInfo) SetAccountBranchName(v string) *CardInfo {
+	s.AccountBranchName = &v
 	return s
 }
 
@@ -857,14 +905,16 @@ func (s *UploadMerchantImageResponse) SetImageId(v string) *UploadMerchantImageR
 type SignMerchantAgreementRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 签约请求单据号
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 	// 来源场景码, 由中台为业务方分配
 	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 渠道
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
 	// 商家pid
 	MerchantUserId *string `json:"merchant_user_id,omitempty" xml:"merchant_user_id,omitempty" require:"true"`
 	// 个人签约产品码，商户代扣场景固定GENERAL_WITHHOLDING_P
 	PersonalProductCode *string `json:"personal_product_code,omitempty" xml:"personal_product_code,omitempty" require:"true"`
-	// 签约请求单据号
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 }
 
 func (s SignMerchantAgreementRequest) String() string {
@@ -880,8 +930,18 @@ func (s *SignMerchantAgreementRequest) SetAuthToken(v string) *SignMerchantAgree
 	return s
 }
 
+func (s *SignMerchantAgreementRequest) SetRequestId(v string) *SignMerchantAgreementRequest {
+	s.RequestId = &v
+	return s
+}
+
 func (s *SignMerchantAgreementRequest) SetSource(v string) *SignMerchantAgreementRequest {
 	s.Source = &v
+	return s
+}
+
+func (s *SignMerchantAgreementRequest) SetChannel(v string) *SignMerchantAgreementRequest {
+	s.Channel = &v
 	return s
 }
 
@@ -892,11 +952,6 @@ func (s *SignMerchantAgreementRequest) SetMerchantUserId(v string) *SignMerchant
 
 func (s *SignMerchantAgreementRequest) SetPersonalProductCode(v string) *SignMerchantAgreementRequest {
 	s.PersonalProductCode = &v
-	return s
-}
-
-func (s *SignMerchantAgreementRequest) SetRequestId(v string) *SignMerchantAgreementRequest {
-	s.RequestId = &v
 	return s
 }
 
@@ -1038,6 +1093,284 @@ func (s *GetMerchantInfoResponse) SetSmid(v string) *GetMerchantInfoResponse {
 	return s
 }
 
+type QueryMerchantAgreementRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 签约时的请求单据号
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 业务来源场景码，由中台分配给业务方
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 渠道场景码, 由中台分配给业务方
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+}
+
+func (s QueryMerchantAgreementRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMerchantAgreementRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMerchantAgreementRequest) SetAuthToken(v string) *QueryMerchantAgreementRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementRequest) SetRequestId(v string) *QueryMerchantAgreementRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementRequest) SetSource(v string) *QueryMerchantAgreementRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementRequest) SetChannel(v string) *QueryMerchantAgreementRequest {
+	s.Channel = &v
+	return s
+}
+
+type QueryMerchantAgreementResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 协议产品code
+	PersonalProductCode *string `json:"personal_product_code,omitempty" xml:"personal_product_code,omitempty"`
+	// 签约主体
+	MerchantUserId *string `json:"merchant_user_id,omitempty" xml:"merchant_user_id,omitempty"`
+	// 签约客户支付宝uid
+	CustomerAlipayUserId *string `json:"customer_alipay_user_id,omitempty" xml:"customer_alipay_user_id,omitempty"`
+	// 商户签约协议号
+	MerchantAgreementNo *string `json:"merchant_agreement_no,omitempty" xml:"merchant_agreement_no,omitempty"`
+	// 签约协议号，仅签约成功后有
+	AgreementNo *string `json:"agreement_no,omitempty" xml:"agreement_no,omitempty"`
+	// 实际签约时间，仅签约成功后有
+	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 实际生效时间，仅签约成功后有
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 实际失效时间，仅签约成功后有
+	InvalidTime *string `json:"invalid_time,omitempty" xml:"invalid_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 协议状态
+	// TEMP-暂存
+	// NORMAL-正常
+	// STOP-暂停
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s QueryMerchantAgreementResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMerchantAgreementResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMerchantAgreementResponse) SetReqMsgId(v string) *QueryMerchantAgreementResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementResponse) SetResultCode(v string) *QueryMerchantAgreementResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementResponse) SetResultMsg(v string) *QueryMerchantAgreementResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementResponse) SetPersonalProductCode(v string) *QueryMerchantAgreementResponse {
+	s.PersonalProductCode = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementResponse) SetMerchantUserId(v string) *QueryMerchantAgreementResponse {
+	s.MerchantUserId = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementResponse) SetCustomerAlipayUserId(v string) *QueryMerchantAgreementResponse {
+	s.CustomerAlipayUserId = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementResponse) SetMerchantAgreementNo(v string) *QueryMerchantAgreementResponse {
+	s.MerchantAgreementNo = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementResponse) SetAgreementNo(v string) *QueryMerchantAgreementResponse {
+	s.AgreementNo = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementResponse) SetSignTime(v string) *QueryMerchantAgreementResponse {
+	s.SignTime = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementResponse) SetValidTime(v string) *QueryMerchantAgreementResponse {
+	s.ValidTime = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementResponse) SetInvalidTime(v string) *QueryMerchantAgreementResponse {
+	s.InvalidTime = &v
+	return s
+}
+
+func (s *QueryMerchantAgreementResponse) SetStatus(v string) *QueryMerchantAgreementResponse {
+	s.Status = &v
+	return s
+}
+
+type PushServiceMeterdataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 业务唯一单据号，最大64
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true" maxLength:"64"`
+	// 来源场景码, 由中台分配给业务方
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true" maxLength:"32"`
+	// 行业渠道码(由经支中台分配给业务方)
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true" maxLength:"32"`
+	// 业务发生时间
+	GmtService *string `json:"gmt_service,omitempty" xml:"gmt_service,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 服务唯一标识码
+	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty" require:"true" maxLength:"32"`
+	// 如果是金额，请填写分；如果是次数，请填写整数
+	ServiceAmount *string `json:"service_amount,omitempty" xml:"service_amount,omitempty" require:"true" maxLength:"32"`
+	// 服务量单位，如果是金额，请填写币种value(exp:156),如果是次数/个,填写UU
+	ServiceUnit *string `json:"service_unit,omitempty" xml:"service_unit,omitempty" require:"true" maxLength:"16"`
+	// 业务标题
+	ServiceSubject *string `json:"service_subject,omitempty" xml:"service_subject,omitempty" require:"true" maxLength:"128"`
+	// 业务详细内容
+	ServiceBody *string `json:"service_body,omitempty" xml:"service_body,omitempty" maxLength:"512"`
+	// 会员id;如果是商户，那么是商户uid,如果是用户，那么是会员id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true" maxLength:"32"`
+	// 基本与user_id保持一致
+	BuyerId *string `json:"buyer_id,omitempty" xml:"buyer_id,omitempty" require:"true" maxLength:"32"`
+	// 卖家id,用于代收付场景
+	SellerId *string `json:"seller_id,omitempty" xml:"seller_id,omitempty" maxLength:"32"`
+	// 扩展属性字段
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty" require:"true" maxLength:"512"`
+}
+
+func (s PushServiceMeterdataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushServiceMeterdataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushServiceMeterdataRequest) SetAuthToken(v string) *PushServiceMeterdataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushServiceMeterdataRequest) SetBizNo(v string) *PushServiceMeterdataRequest {
+	s.BizNo = &v
+	return s
+}
+
+func (s *PushServiceMeterdataRequest) SetSource(v string) *PushServiceMeterdataRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *PushServiceMeterdataRequest) SetChannel(v string) *PushServiceMeterdataRequest {
+	s.Channel = &v
+	return s
+}
+
+func (s *PushServiceMeterdataRequest) SetGmtService(v string) *PushServiceMeterdataRequest {
+	s.GmtService = &v
+	return s
+}
+
+func (s *PushServiceMeterdataRequest) SetServiceCode(v string) *PushServiceMeterdataRequest {
+	s.ServiceCode = &v
+	return s
+}
+
+func (s *PushServiceMeterdataRequest) SetServiceAmount(v string) *PushServiceMeterdataRequest {
+	s.ServiceAmount = &v
+	return s
+}
+
+func (s *PushServiceMeterdataRequest) SetServiceUnit(v string) *PushServiceMeterdataRequest {
+	s.ServiceUnit = &v
+	return s
+}
+
+func (s *PushServiceMeterdataRequest) SetServiceSubject(v string) *PushServiceMeterdataRequest {
+	s.ServiceSubject = &v
+	return s
+}
+
+func (s *PushServiceMeterdataRequest) SetServiceBody(v string) *PushServiceMeterdataRequest {
+	s.ServiceBody = &v
+	return s
+}
+
+func (s *PushServiceMeterdataRequest) SetUserId(v string) *PushServiceMeterdataRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *PushServiceMeterdataRequest) SetBuyerId(v string) *PushServiceMeterdataRequest {
+	s.BuyerId = &v
+	return s
+}
+
+func (s *PushServiceMeterdataRequest) SetSellerId(v string) *PushServiceMeterdataRequest {
+	s.SellerId = &v
+	return s
+}
+
+func (s *PushServiceMeterdataRequest) SetProperties(v string) *PushServiceMeterdataRequest {
+	s.Properties = &v
+	return s
+}
+
+type PushServiceMeterdataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushServiceMeterdataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushServiceMeterdataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushServiceMeterdataResponse) SetReqMsgId(v string) *PushServiceMeterdataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushServiceMeterdataResponse) SetResultCode(v string) *PushServiceMeterdataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushServiceMeterdataResponse) SetResultMsg(v string) *PushServiceMeterdataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type PayTradePageRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1062,6 +1395,8 @@ type PayTradePageRequest struct {
 	MerchantUserId *string `json:"merchant_user_id,omitempty" xml:"merchant_user_id,omitempty" require:"true"`
 	// 订单描述。不超过128长度
 	Body *string `json:"body,omitempty" xml:"body,omitempty"`
+	// 扩展字段
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
 }
 
 func (s PayTradePageRequest) String() string {
@@ -1124,6 +1459,11 @@ func (s *PayTradePageRequest) SetMerchantUserId(v string) *PayTradePageRequest {
 
 func (s *PayTradePageRequest) SetBody(v string) *PayTradePageRequest {
 	s.Body = &v
+	return s
+}
+
+func (s *PayTradePageRequest) SetProperties(v string) *PayTradePageRequest {
+	s.Properties = &v
 	return s
 }
 
@@ -1403,20 +1743,36 @@ func (s *CreateTradeResponse) SetMerchantOrderNo(v string) *CreateTradeResponse 
 type PayTradeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 来源场景码, 由中台分配给业务方
-	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
 	// 外部单据号。32 个字符以内的大小，仅支持字母、数字。需保证该参数在业务侧不重复。
 	MerchantOrderNo *string `json:"merchant_order_no,omitempty" xml:"merchant_order_no,omitempty" require:"true"`
+	// 来源场景码, 由中台分配给业务方
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 渠道
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
 	// 收单金额，"10.11"代表10.11元,最小粒度到分,小数点后2位，不支持高精度和负数
 	TotalAmount *string `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
-	// 交易标题等。注意：不可使用特殊字符，如 /，=，& 等。不超过256
-	Subject *string `json:"subject,omitempty" xml:"subject,omitempty" require:"true"`
-	// 平台方下的商家id
-	MerchantUserId *string `json:"merchant_user_id,omitempty" xml:"merchant_user_id,omitempty" require:"true"`
 	// 交易币种，默认：人民币（156）
-	TransCurrency *string `json:"trans_currency,omitempty" xml:"trans_currency,omitempty"`
-	// 买家支付宝uid
-	BuyerId *string `json:"buyer_id,omitempty" xml:"buyer_id,omitempty" require:"true"`
+	CurrencyValue *string `json:"currency_value,omitempty" xml:"currency_value,omitempty"`
+	// 交易标题等。注意：不可使用特殊字符，如 /，=，& 等。不超过256
+	Subject *string `json:"subject,omitempty" xml:"subject,omitempty"`
+	// 交易信息
+	Body *string `json:"body,omitempty" xml:"body,omitempty"`
+	// 收款方id
+	PayeeId *string `json:"payee_id,omitempty" xml:"payee_id,omitempty" require:"true"`
+	// 付款方id
+	PayerId *string `json:"payer_id,omitempty" xml:"payer_id,omitempty" require:"true"`
+	// ZFT
+	PayProductCode *string `json:"pay_product_code,omitempty" xml:"pay_product_code,omitempty" require:"true"`
+	// 交易创建时间
+	GmtTradeCreate *string `json:"gmt_trade_create,omitempty" xml:"gmt_trade_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 交易支付时间
+	GmtTradePay *string `json:"gmt_trade_pay,omitempty" xml:"gmt_trade_pay,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 交易完成时间
+	GmtTradeComplete *string `json:"gmt_trade_complete,omitempty" xml:"gmt_trade_complete,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 交易状态
+	TradeStatus *string `json:"trade_status,omitempty" xml:"trade_status,omitempty"`
+	// 扩展字段，json串
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
 }
 
 func (s PayTradeRequest) String() string {
@@ -1432,13 +1788,18 @@ func (s *PayTradeRequest) SetAuthToken(v string) *PayTradeRequest {
 	return s
 }
 
+func (s *PayTradeRequest) SetMerchantOrderNo(v string) *PayTradeRequest {
+	s.MerchantOrderNo = &v
+	return s
+}
+
 func (s *PayTradeRequest) SetSource(v string) *PayTradeRequest {
 	s.Source = &v
 	return s
 }
 
-func (s *PayTradeRequest) SetMerchantOrderNo(v string) *PayTradeRequest {
-	s.MerchantOrderNo = &v
+func (s *PayTradeRequest) SetChannel(v string) *PayTradeRequest {
+	s.Channel = &v
 	return s
 }
 
@@ -1447,23 +1808,58 @@ func (s *PayTradeRequest) SetTotalAmount(v string) *PayTradeRequest {
 	return s
 }
 
+func (s *PayTradeRequest) SetCurrencyValue(v string) *PayTradeRequest {
+	s.CurrencyValue = &v
+	return s
+}
+
 func (s *PayTradeRequest) SetSubject(v string) *PayTradeRequest {
 	s.Subject = &v
 	return s
 }
 
-func (s *PayTradeRequest) SetMerchantUserId(v string) *PayTradeRequest {
-	s.MerchantUserId = &v
+func (s *PayTradeRequest) SetBody(v string) *PayTradeRequest {
+	s.Body = &v
 	return s
 }
 
-func (s *PayTradeRequest) SetTransCurrency(v string) *PayTradeRequest {
-	s.TransCurrency = &v
+func (s *PayTradeRequest) SetPayeeId(v string) *PayTradeRequest {
+	s.PayeeId = &v
 	return s
 }
 
-func (s *PayTradeRequest) SetBuyerId(v string) *PayTradeRequest {
-	s.BuyerId = &v
+func (s *PayTradeRequest) SetPayerId(v string) *PayTradeRequest {
+	s.PayerId = &v
+	return s
+}
+
+func (s *PayTradeRequest) SetPayProductCode(v string) *PayTradeRequest {
+	s.PayProductCode = &v
+	return s
+}
+
+func (s *PayTradeRequest) SetGmtTradeCreate(v string) *PayTradeRequest {
+	s.GmtTradeCreate = &v
+	return s
+}
+
+func (s *PayTradeRequest) SetGmtTradePay(v string) *PayTradeRequest {
+	s.GmtTradePay = &v
+	return s
+}
+
+func (s *PayTradeRequest) SetGmtTradeComplete(v string) *PayTradeRequest {
+	s.GmtTradeComplete = &v
+	return s
+}
+
+func (s *PayTradeRequest) SetTradeStatus(v string) *PayTradeRequest {
+	s.TradeStatus = &v
+	return s
+}
+
+func (s *PayTradeRequest) SetProperties(v string) *PayTradeRequest {
+	s.Properties = &v
 	return s
 }
 
@@ -1474,7 +1870,7 @@ type PayTradeResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 支付宝交易号，64位以内
+	// 交易号，64位以内
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
 }
 
@@ -1658,6 +2054,122 @@ func (s *SyncTradeResponse) SetResultCode(v string) *SyncTradeResponse {
 
 func (s *SyncTradeResponse) SetResultMsg(v string) *SyncTradeResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type QueryTradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 商户订单号
+	MerchantOrderNo *string `json:"merchant_order_no,omitempty" xml:"merchant_order_no,omitempty" require:"true"`
+	// 来源场景码，由中台分配给业务方
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 渠道场景码，由中台分配给业务方
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+}
+
+func (s QueryTradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTradeRequest) SetAuthToken(v string) *QueryTradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTradeRequest) SetMerchantOrderNo(v string) *QueryTradeRequest {
+	s.MerchantOrderNo = &v
+	return s
+}
+
+func (s *QueryTradeRequest) SetSource(v string) *QueryTradeRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *QueryTradeRequest) SetChannel(v string) *QueryTradeRequest {
+	s.Channel = &v
+	return s
+}
+
+type QueryTradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商户订单号
+	MerchantOrderNo *string `json:"merchant_order_no,omitempty" xml:"merchant_order_no,omitempty"`
+	// 来源场景码
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+	// 渠道场景码
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
+	// 交易状态
+	// WAIT_BUYER_PAY - 交易创建，等待买家付款
+	// TRADE_CLOSED - 未付款交易超时关闭，或支付完成后全额退款
+	// TRADE_SUCCESS - 交易成功
+	TradeStatus *string `json:"trade_status,omitempty" xml:"trade_status,omitempty"`
+	// 币种，默认156-人民币
+	CurrencyValue *string `json:"currency_value,omitempty" xml:"currency_value,omitempty"`
+	// 交易结算信息
+	TradeSettleInfo []*TradeSettleDetail `json:"trade_settle_info,omitempty" xml:"trade_settle_info,omitempty" type:"Repeated"`
+}
+
+func (s QueryTradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTradeResponse) SetReqMsgId(v string) *QueryTradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTradeResponse) SetResultCode(v string) *QueryTradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTradeResponse) SetResultMsg(v string) *QueryTradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTradeResponse) SetMerchantOrderNo(v string) *QueryTradeResponse {
+	s.MerchantOrderNo = &v
+	return s
+}
+
+func (s *QueryTradeResponse) SetSource(v string) *QueryTradeResponse {
+	s.Source = &v
+	return s
+}
+
+func (s *QueryTradeResponse) SetChannel(v string) *QueryTradeResponse {
+	s.Channel = &v
+	return s
+}
+
+func (s *QueryTradeResponse) SetTradeStatus(v string) *QueryTradeResponse {
+	s.TradeStatus = &v
+	return s
+}
+
+func (s *QueryTradeResponse) SetCurrencyValue(v string) *QueryTradeResponse {
+	s.CurrencyValue = &v
+	return s
+}
+
+func (s *QueryTradeResponse) SetTradeSettleInfo(v []*TradeSettleDetail) *QueryTradeResponse {
+	s.TradeSettleInfo = v
 	return s
 }
 
@@ -1903,7 +2415,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.2"),
+				"sdk_version":      tea.String("1.3.2"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2151,6 +2663,74 @@ func (client *Client) GetMerchantInfoEx(request *GetMerchantInfoRequest, headers
 }
 
 /**
+ * Description: 签约结果查询
+ * Summary: 签约结果查询
+ */
+func (client *Client) QueryMerchantAgreement(request *QueryMerchantAgreementRequest) (_result *QueryMerchantAgreementResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMerchantAgreementResponse{}
+	_body, _err := client.QueryMerchantAgreementEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 签约结果查询
+ * Summary: 签约结果查询
+ */
+func (client *Client) QueryMerchantAgreementEx(request *QueryMerchantAgreementRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMerchantAgreementResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMerchantAgreementResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.industry.merchant.agreement.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+ * Summary: 行业平台侧业务单据推送
+ */
+func (client *Client) PushServiceMeterdata(request *PushServiceMeterdataRequest) (_result *PushServiceMeterdataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushServiceMeterdataResponse{}
+	_body, _err := client.PushServiceMeterdataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+ * Summary: 行业平台侧业务单据推送
+ */
+func (client *Client) PushServiceMeterdataEx(request *PushServiceMeterdataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushServiceMeterdataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushServiceMeterdataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.industry.service.meterdata.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 买家卖家收单交易，直接收款给卖家过渡户
  * Summary: 买家卖家收单交易-电脑版
  */
@@ -2313,6 +2893,40 @@ func (client *Client) SyncTradeEx(request *SyncTradeRequest, headers map[string]
 	}
 	_result = &SyncTradeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.industry.trade.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 统一收单-查询
+ * Summary: 统一收单-查询
+ */
+func (client *Client) QueryTrade(request *QueryTradeRequest) (_result *QueryTradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTradeResponse{}
+	_body, _err := client.QueryTradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 统一收单-查询
+ * Summary: 统一收单-查询
+ */
+func (client *Client) QueryTradeEx(request *QueryTradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.industry.trade.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
