@@ -135,6 +135,85 @@ export class Btn extends $tea.Model {
   }
 }
 
+// 消息填充内容
+export class Pair extends $tea.Model {
+  // key
+  key: string;
+  // value
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 钉钉Markdown
+export class Markdown extends $tea.Model {
+  // 标题
+  title?: string;
+  // 内容
+  text?: string;
+  static names(): { [key: string]: string } {
+    return {
+      title: 'title',
+      text: 'text',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      title: 'string',
+      text: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 钉钉At
+export class At extends $tea.Model {
+  // @手机号
+  atMobiles?: string[];
+  // @用户ID
+  atUserIds?: string[];
+  // @所有人
+  isAtAll?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      atMobiles: 'at_mobiles',
+      atUserIds: 'at_user_ids',
+      isAtAll: 'is_at_all',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      atMobiles: { 'type': 'array', 'itemType': 'string' },
+      atUserIds: { 'type': 'array', 'itemType': 'string' },
+      isAtAll: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 钉钉动作卡片
 export class ActionCard extends $tea.Model {
   // 标题
@@ -168,31 +247,6 @@ export class ActionCard extends $tea.Model {
       singleTitle: 'string',
       singleUrl: 'string',
       btns: { 'type': 'array', 'itemType': Btn },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 钉钉Markdown
-export class Markdown extends $tea.Model {
-  // 标题
-  title?: string;
-  // 内容
-  text?: string;
-  static names(): { [key: string]: string } {
-    return {
-      title: 'title',
-      text: 'text',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      title: 'string',
-      text: 'string',
     };
   }
 
@@ -243,35 +297,6 @@ export class Text extends $tea.Model {
   }
 }
 
-// 钉钉At
-export class At extends $tea.Model {
-  // @手机号
-  atMobiles?: string[];
-  // @用户ID
-  atUserIds?: string[];
-  // @所有人
-  isAtAll?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      atMobiles: 'at_mobiles',
-      atUserIds: 'at_user_ids',
-      isAtAll: 'is_at_all',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      atMobiles: { 'type': 'array', 'itemType': 'string' },
-      atUserIds: { 'type': 'array', 'itemType': 'string' },
-      isAtAll: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 钉钉消息体
 export class DingTalkContent extends $tea.Model {
   // webHook
@@ -313,123 +338,6 @@ export class DingTalkContent extends $tea.Model {
       actionCard: ActionCard,
       feedCard: FeedCard,
       at: At,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// YuqingMessage
-export class YuqingMessage extends $tea.Model {
-  // 作者头像地址
-  authorAvatarUrl?: string;
-  // 粉丝数
-  authorFollowersCount?: number;
-  // 好友数
-  authorFriendsCount?: number;
-  // 作者id
-  authorId?: string;
-  // 作者名称
-  authorName?: string;
-  // 发文数
-  authorStatusesCount?: number;
-  // 作者认证类型
-  authorVerifyType?: string;
-  // 舆情文章被抓取的时间戳
-  createTime?: number;
-  // 文章正文内容
-  docContent?: string;
-  // 文章摘要
-  docContentBrief?: string;
-  // 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
-  docContentSign?: string;
-  // 文章唯一docId
-  docId?: string;
-  // 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
-  docSelfContentSign?: string;
-  // 文章标题
-  docTitle?: string;
-  // 原文地址
-  docUrl?: string;
-  // 情感的正负面，-1代表负面，1代表非负面
-  emotionType?: number;
-  // 命中的搜索词列表
-  highlightKeywords?: string[];
-  // 媒体类型，枚举值
-  mediaType?: string;
-  // 舆情消息类型:转发,评论/回复, 原文,群聊等
-  messageType?: string;
-  // 文章的父docId，如被转发的文章docId
-  parentDocId?: string;
-  // 舆情文章的发布时间戳
-  publishTime?: number;
-  // 相关性得分
-  relevanceScore?: number;
-  // 相似文章数
-  similarNumber?: number;
-  // 微博评论id
-  weiboCommentId?: string;
-  // 微博消息id
-  weiboMid?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authorAvatarUrl: 'author_avatar_url',
-      authorFollowersCount: 'author_followers_count',
-      authorFriendsCount: 'author_friends_count',
-      authorId: 'author_id',
-      authorName: 'author_name',
-      authorStatusesCount: 'author_statuses_count',
-      authorVerifyType: 'author_verify_type',
-      createTime: 'create_time',
-      docContent: 'doc_content',
-      docContentBrief: 'doc_content_brief',
-      docContentSign: 'doc_content_sign',
-      docId: 'doc_id',
-      docSelfContentSign: 'doc_self_content_sign',
-      docTitle: 'doc_title',
-      docUrl: 'doc_url',
-      emotionType: 'emotion_type',
-      highlightKeywords: 'highlight_keywords',
-      mediaType: 'media_type',
-      messageType: 'message_type',
-      parentDocId: 'parent_doc_id',
-      publishTime: 'publish_time',
-      relevanceScore: 'relevance_score',
-      similarNumber: 'similar_number',
-      weiboCommentId: 'weibo_comment_id',
-      weiboMid: 'weibo_mid',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authorAvatarUrl: 'string',
-      authorFollowersCount: 'number',
-      authorFriendsCount: 'number',
-      authorId: 'string',
-      authorName: 'string',
-      authorStatusesCount: 'number',
-      authorVerifyType: 'string',
-      createTime: 'number',
-      docContent: 'string',
-      docContentBrief: 'string',
-      docContentSign: 'string',
-      docId: 'string',
-      docSelfContentSign: 'string',
-      docTitle: 'string',
-      docUrl: 'string',
-      emotionType: 'number',
-      highlightKeywords: { 'type': 'array', 'itemType': 'string' },
-      mediaType: 'string',
-      messageType: 'string',
-      parentDocId: 'string',
-      publishTime: 'number',
-      relevanceScore: 'number',
-      similarNumber: 'number',
-      weiboCommentId: 'string',
-      weiboMid: 'string',
     };
   }
 
@@ -639,6 +547,156 @@ export class SearchCondition extends $tea.Model {
   }
 }
 
+// YuqingMessage
+export class YuqingMessage extends $tea.Model {
+  // 作者头像地址
+  authorAvatarUrl?: string;
+  // 粉丝数
+  authorFollowersCount?: number;
+  // 好友数
+  authorFriendsCount?: number;
+  // 作者id
+  authorId?: string;
+  // 作者名称
+  authorName?: string;
+  // 发文数
+  authorStatusesCount?: number;
+  // 作者认证类型
+  authorVerifyType?: string;
+  // 舆情文章被抓取的时间戳
+  createTime?: number;
+  // 文章正文内容
+  docContent?: string;
+  // 文章摘要
+  docContentBrief?: string;
+  // 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
+  docContentSign?: string;
+  // 文章唯一docId
+  docId?: string;
+  // 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
+  docSelfContentSign?: string;
+  // 文章标题
+  docTitle?: string;
+  // 原文地址
+  docUrl?: string;
+  // 情感的正负面，-1代表负面，1代表非负面
+  emotionType?: number;
+  // 命中的搜索词列表
+  highlightKeywords?: string[];
+  // 媒体类型，枚举值
+  mediaType?: string;
+  // 舆情消息类型:转发,评论/回复, 原文,群聊等
+  messageType?: string;
+  // 文章的父docId，如被转发的文章docId
+  parentDocId?: string;
+  // 舆情文章的发布时间戳
+  publishTime?: number;
+  // 相关性得分
+  relevanceScore?: number;
+  // 相似文章数
+  similarNumber?: number;
+  // 微博评论id
+  weiboCommentId?: string;
+  // 微博消息id
+  weiboMid?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authorAvatarUrl: 'author_avatar_url',
+      authorFollowersCount: 'author_followers_count',
+      authorFriendsCount: 'author_friends_count',
+      authorId: 'author_id',
+      authorName: 'author_name',
+      authorStatusesCount: 'author_statuses_count',
+      authorVerifyType: 'author_verify_type',
+      createTime: 'create_time',
+      docContent: 'doc_content',
+      docContentBrief: 'doc_content_brief',
+      docContentSign: 'doc_content_sign',
+      docId: 'doc_id',
+      docSelfContentSign: 'doc_self_content_sign',
+      docTitle: 'doc_title',
+      docUrl: 'doc_url',
+      emotionType: 'emotion_type',
+      highlightKeywords: 'highlight_keywords',
+      mediaType: 'media_type',
+      messageType: 'message_type',
+      parentDocId: 'parent_doc_id',
+      publishTime: 'publish_time',
+      relevanceScore: 'relevance_score',
+      similarNumber: 'similar_number',
+      weiboCommentId: 'weibo_comment_id',
+      weiboMid: 'weibo_mid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authorAvatarUrl: 'string',
+      authorFollowersCount: 'number',
+      authorFriendsCount: 'number',
+      authorId: 'string',
+      authorName: 'string',
+      authorStatusesCount: 'number',
+      authorVerifyType: 'string',
+      createTime: 'number',
+      docContent: 'string',
+      docContentBrief: 'string',
+      docContentSign: 'string',
+      docId: 'string',
+      docSelfContentSign: 'string',
+      docTitle: 'string',
+      docUrl: 'string',
+      emotionType: 'number',
+      highlightKeywords: { 'type': 'array', 'itemType': 'string' },
+      mediaType: 'string',
+      messageType: 'string',
+      parentDocId: 'string',
+      publishTime: 'number',
+      relevanceScore: 'number',
+      similarNumber: 'number',
+      weiboCommentId: 'string',
+      weiboMid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 短信消息体
+export class SmsContent extends $tea.Model {
+  // 模板
+  serviceCode?: string;
+  // 手机号
+  mobile: string;
+  // 开发者ID
+  developerId?: string;
+  // 填充内容
+  arguments?: Pair[];
+  static names(): { [key: string]: string } {
+    return {
+      serviceCode: 'service_code',
+      mobile: 'mobile',
+      developerId: 'developer_id',
+      arguments: 'arguments',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      serviceCode: 'string',
+      mobile: 'string',
+      developerId: 'string',
+      arguments: { 'type': 'array', 'itemType': Pair },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 商品规格
 export class CommoditySpec extends $tea.Model {
   // 规格项枚举值
@@ -672,12 +730,15 @@ export class QueryMessagesRequest extends $tea.Model {
   searchCondition: SearchCondition;
   // 请求ID
   requestId?: string;
+  // team_hash_id
+  teamHashId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       searchCondition: 'search_condition',
       requestId: 'request_id',
+      teamHashId: 'team_hash_id',
     };
   }
 
@@ -687,6 +748,7 @@ export class QueryMessagesRequest extends $tea.Model {
       productInstanceId: 'string',
       searchCondition: SearchCondition,
       requestId: 'string',
+      teamHashId: 'string',
     };
   }
 
@@ -739,12 +801,15 @@ export class SaveAnalysisSubmitRequest extends $tea.Model {
   analyseType: string;
   // 查询条件
   searchCondition: SearchCondition;
+  // team_hash_id
+  teamHashId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       analyseType: 'analyse_type',
       searchCondition: 'search_condition',
+      teamHashId: 'team_hash_id',
     };
   }
 
@@ -754,6 +819,7 @@ export class SaveAnalysisSubmitRequest extends $tea.Model {
       productInstanceId: 'string',
       analyseType: 'string',
       searchCondition: SearchCondition,
+      teamHashId: 'string',
     };
   }
 
@@ -804,11 +870,14 @@ export class QueryAnalysisQueryRequest extends $tea.Model {
   productInstanceId?: string;
   // 分析任务ID
   analysisId: number;
+  // team_hash_id
+  teamHashId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       analysisId: 'analysis_id',
+      teamHashId: 'team_hash_id',
     };
   }
 
@@ -817,6 +886,7 @@ export class QueryAnalysisQueryRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       analysisId: 'number',
+      teamHashId: 'string',
     };
   }
 
@@ -1091,15 +1161,18 @@ export class SendProductNoticeRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 提醒类型
-  noticeType?: string;
+  noticeType: string;
   // 钉钉结构体
   dingTalkContent?: DingTalkContent;
+  // 短信内容
+  smsContent?: SmsContent;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       noticeType: 'notice_type',
       dingTalkContent: 'ding_talk_content',
+      smsContent: 'sms_content',
     };
   }
 
@@ -1109,6 +1182,7 @@ export class SendProductNoticeRequest extends $tea.Model {
       productInstanceId: 'string',
       noticeType: 'string',
       dingTalkContent: DingTalkContent,
+      smsContent: SmsContent,
     };
   }
 
@@ -1262,7 +1336,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.11",
+          sdk_version: "1.1.12",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1366,8 +1440,8 @@ export default class Client {
   }
 
   /**
-   * Description: 产品开通
-   * Summary: 产品开通
+   * Description: 废弃
+   * Summary: 废弃
    */
   async saveProductOpen(request: SaveProductOpenRequest): Promise<SaveProductOpenResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -1376,8 +1450,8 @@ export default class Client {
   }
 
   /**
-   * Description: 产品开通
-   * Summary: 产品开通
+   * Description: 废弃
+   * Summary: 废弃
    */
   async saveProductOpenEx(request: SaveProductOpenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveProductOpenResponse> {
     Util.validateModel(request);
@@ -1385,8 +1459,8 @@ export default class Client {
   }
 
   /**
-   * Description: 产品关闭
-   * Summary: 产品关闭
+   * Description: 废弃
+   * Summary: 废弃
    */
   async saveProductTop(request: SaveProductTopRequest): Promise<SaveProductTopResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -1395,8 +1469,8 @@ export default class Client {
   }
 
   /**
-   * Description: 产品关闭
-   * Summary: 产品关闭
+   * Description: 废弃
+   * Summary: 废弃
    */
   async saveProductTopEx(request: SaveProductTopRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveProductTopResponse> {
     Util.validateModel(request);
