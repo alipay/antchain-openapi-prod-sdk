@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 银行卡信息
+            # 二级商户进件申请单
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.2'
+                    'sdk_version': '1.3.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 银行卡信息
+            # 二级商户进件申请单
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.2'
+                    'sdk_version': '1.3.2'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -575,6 +575,114 @@ class Client:
             await self.do_request_async('1.0', 'antcloud.industry.merchant.info.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_merchant_agreement(
+        self,
+        request: industry_models.QueryMerchantAgreementRequest,
+    ) -> industry_models.QueryMerchantAgreementResponse:
+        """
+        Description: 签约结果查询
+        Summary: 签约结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_merchant_agreement_ex(request, headers, runtime)
+
+    async def query_merchant_agreement_async(
+        self,
+        request: industry_models.QueryMerchantAgreementRequest,
+    ) -> industry_models.QueryMerchantAgreementResponse:
+        """
+        Description: 签约结果查询
+        Summary: 签约结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_merchant_agreement_ex_async(request, headers, runtime)
+
+    def query_merchant_agreement_ex(
+        self,
+        request: industry_models.QueryMerchantAgreementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> industry_models.QueryMerchantAgreementResponse:
+        """
+        Description: 签约结果查询
+        Summary: 签约结果查询
+        """
+        UtilClient.validate_model(request)
+        return industry_models.QueryMerchantAgreementResponse().from_map(
+            self.do_request('1.0', 'antcloud.industry.merchant.agreement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_merchant_agreement_ex_async(
+        self,
+        request: industry_models.QueryMerchantAgreementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> industry_models.QueryMerchantAgreementResponse:
+        """
+        Description: 签约结果查询
+        Summary: 签约结果查询
+        """
+        UtilClient.validate_model(request)
+        return industry_models.QueryMerchantAgreementResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.industry.merchant.agreement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_service_meterdata(
+        self,
+        request: industry_models.PushServiceMeterdataRequest,
+    ) -> industry_models.PushServiceMeterdataResponse:
+        """
+        Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+        Summary: 行业平台侧业务单据推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_service_meterdata_ex(request, headers, runtime)
+
+    async def push_service_meterdata_async(
+        self,
+        request: industry_models.PushServiceMeterdataRequest,
+    ) -> industry_models.PushServiceMeterdataResponse:
+        """
+        Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+        Summary: 行业平台侧业务单据推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_service_meterdata_ex_async(request, headers, runtime)
+
+    def push_service_meterdata_ex(
+        self,
+        request: industry_models.PushServiceMeterdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> industry_models.PushServiceMeterdataResponse:
+        """
+        Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+        Summary: 行业平台侧业务单据推送
+        """
+        UtilClient.validate_model(request)
+        return industry_models.PushServiceMeterdataResponse().from_map(
+            self.do_request('1.0', 'antcloud.industry.service.meterdata.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_service_meterdata_ex_async(
+        self,
+        request: industry_models.PushServiceMeterdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> industry_models.PushServiceMeterdataResponse:
+        """
+        Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+        Summary: 行业平台侧业务单据推送
+        """
+        UtilClient.validate_model(request)
+        return industry_models.PushServiceMeterdataResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.industry.service.meterdata.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def pay_trade_page(
         self,
         request: industry_models.PayTradePageRequest,
@@ -843,6 +951,60 @@ class Client:
         UtilClient.validate_model(request)
         return industry_models.SyncTradeResponse().from_map(
             await self.do_request_async('1.0', 'antcloud.industry.trade.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_trade(
+        self,
+        request: industry_models.QueryTradeRequest,
+    ) -> industry_models.QueryTradeResponse:
+        """
+        Description: 统一收单-查询
+        Summary: 统一收单-查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_trade_ex(request, headers, runtime)
+
+    async def query_trade_async(
+        self,
+        request: industry_models.QueryTradeRequest,
+    ) -> industry_models.QueryTradeResponse:
+        """
+        Description: 统一收单-查询
+        Summary: 统一收单-查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_trade_ex_async(request, headers, runtime)
+
+    def query_trade_ex(
+        self,
+        request: industry_models.QueryTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> industry_models.QueryTradeResponse:
+        """
+        Description: 统一收单-查询
+        Summary: 统一收单-查询
+        """
+        UtilClient.validate_model(request)
+        return industry_models.QueryTradeResponse().from_map(
+            self.do_request('1.0', 'antcloud.industry.trade.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_trade_ex_async(
+        self,
+        request: industry_models.QueryTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> industry_models.QueryTradeResponse:
+        """
+        Description: 统一收单-查询
+        Summary: 统一收单-查询
+        """
+        UtilClient.validate_model(request)
+        return industry_models.QueryTradeResponse().from_map(
+            await self.do_request_async('1.0', 'antcloud.industry.trade.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
