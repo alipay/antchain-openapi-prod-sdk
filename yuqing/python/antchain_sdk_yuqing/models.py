@@ -226,6 +226,107 @@ class Btn(TeaModel):
         return self
 
 
+class Pair(TeaModel):
+    def __init__(
+        self,
+        key: str = None,
+        value: str = None,
+    ):
+        # key
+        self.key = key
+        # value
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class Markdown(TeaModel):
+    def __init__(
+        self,
+        title: str = None,
+        text: str = None,
+    ):
+        # 标题
+        self.title = title
+        # 内容
+        self.text = text
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.title is not None:
+            result['title'] = self.title
+        if self.text is not None:
+            result['text'] = self.text
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        return self
+
+
+class At(TeaModel):
+    def __init__(
+        self,
+        at_mobiles: List[str] = None,
+        at_user_ids: List[str] = None,
+        is_at_all: bool = None,
+    ):
+        # @手机号
+        self.at_mobiles = at_mobiles
+        # @用户ID
+        self.at_user_ids = at_user_ids
+        # @所有人
+        self.is_at_all = is_at_all
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.at_mobiles is not None:
+            result['at_mobiles'] = self.at_mobiles
+        if self.at_user_ids is not None:
+            result['at_user_ids'] = self.at_user_ids
+        if self.is_at_all is not None:
+            result['is_at_all'] = self.is_at_all
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('at_mobiles') is not None:
+            self.at_mobiles = m.get('at_mobiles')
+        if m.get('at_user_ids') is not None:
+            self.at_user_ids = m.get('at_user_ids')
+        if m.get('is_at_all') is not None:
+            self.is_at_all = m.get('is_at_all')
+        return self
+
+
 class ActionCard(TeaModel):
     def __init__(
         self,
@@ -293,37 +394,6 @@ class ActionCard(TeaModel):
         return self
 
 
-class Markdown(TeaModel):
-    def __init__(
-        self,
-        title: str = None,
-        text: str = None,
-    ):
-        # 标题
-        self.title = title
-        # 内容
-        self.text = text
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.title is not None:
-            result['title'] = self.title
-        if self.text is not None:
-            result['text'] = self.text
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('title') is not None:
-            self.title = m.get('title')
-        if m.get('text') is not None:
-            self.text = m.get('text')
-        return self
-
-
 class FeedCard(TeaModel):
     def __init__(
         self,
@@ -377,44 +447,6 @@ class Text(TeaModel):
         m = m or dict()
         if m.get('content') is not None:
             self.content = m.get('content')
-        return self
-
-
-class At(TeaModel):
-    def __init__(
-        self,
-        at_mobiles: List[str] = None,
-        at_user_ids: List[str] = None,
-        is_at_all: bool = None,
-    ):
-        # @手机号
-        self.at_mobiles = at_mobiles
-        # @用户ID
-        self.at_user_ids = at_user_ids
-        # @所有人
-        self.is_at_all = is_at_all
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.at_mobiles is not None:
-            result['at_mobiles'] = self.at_mobiles
-        if self.at_user_ids is not None:
-            result['at_user_ids'] = self.at_user_ids
-        if self.is_at_all is not None:
-            result['is_at_all'] = self.is_at_all
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('at_mobiles') is not None:
-            self.at_mobiles = m.get('at_mobiles')
-        if m.get('at_user_ids') is not None:
-            self.at_user_ids = m.get('at_user_ids')
-        if m.get('is_at_all') is not None:
-            self.is_at_all = m.get('is_at_all')
         return self
 
 
@@ -505,198 +537,6 @@ class DingTalkContent(TeaModel):
         if m.get('at') is not None:
             temp_model = At()
             self.at = temp_model.from_map(m['at'])
-        return self
-
-
-class YuqingMessage(TeaModel):
-    def __init__(
-        self,
-        author_avatar_url: str = None,
-        author_followers_count: int = None,
-        author_friends_count: int = None,
-        author_id: str = None,
-        author_name: str = None,
-        author_statuses_count: int = None,
-        author_verify_type: str = None,
-        create_time: int = None,
-        doc_content: str = None,
-        doc_content_brief: str = None,
-        doc_content_sign: str = None,
-        doc_id: str = None,
-        doc_self_content_sign: str = None,
-        doc_title: str = None,
-        doc_url: str = None,
-        emotion_type: int = None,
-        highlight_keywords: List[str] = None,
-        media_type: str = None,
-        message_type: str = None,
-        parent_doc_id: str = None,
-        publish_time: int = None,
-        relevance_score: int = None,
-        similar_number: int = None,
-        weibo_comment_id: str = None,
-        weibo_mid: str = None,
-    ):
-        # 作者头像地址
-        self.author_avatar_url = author_avatar_url
-        # 粉丝数
-        self.author_followers_count = author_followers_count
-        # 好友数
-        self.author_friends_count = author_friends_count
-        # 作者id
-        self.author_id = author_id
-        # 作者名称
-        self.author_name = author_name
-        # 发文数
-        self.author_statuses_count = author_statuses_count
-        # 作者认证类型
-        self.author_verify_type = author_verify_type
-        # 舆情文章被抓取的时间戳
-        self.create_time = create_time
-        # 文章正文内容
-        self.doc_content = doc_content
-        # 文章摘要
-        self.doc_content_brief = doc_content_brief
-        # 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
-        self.doc_content_sign = doc_content_sign
-        # 文章唯一docId
-        self.doc_id = doc_id
-        # 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
-        self.doc_self_content_sign = doc_self_content_sign
-        # 文章标题
-        self.doc_title = doc_title
-        # 原文地址
-        self.doc_url = doc_url
-        # 情感的正负面，-1代表负面，1代表非负面
-        self.emotion_type = emotion_type
-        # 命中的搜索词列表
-        self.highlight_keywords = highlight_keywords
-        # 媒体类型，枚举值
-        self.media_type = media_type
-        # 舆情消息类型:转发,评论/回复, 原文,群聊等
-        self.message_type = message_type
-        # 文章的父docId，如被转发的文章docId
-        self.parent_doc_id = parent_doc_id
-        # 舆情文章的发布时间戳
-        self.publish_time = publish_time
-        # 相关性得分
-        self.relevance_score = relevance_score
-        # 相似文章数
-        self.similar_number = similar_number
-        # 微博评论id
-        self.weibo_comment_id = weibo_comment_id
-        # 微博消息id
-        self.weibo_mid = weibo_mid
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.author_avatar_url is not None:
-            result['author_avatar_url'] = self.author_avatar_url
-        if self.author_followers_count is not None:
-            result['author_followers_count'] = self.author_followers_count
-        if self.author_friends_count is not None:
-            result['author_friends_count'] = self.author_friends_count
-        if self.author_id is not None:
-            result['author_id'] = self.author_id
-        if self.author_name is not None:
-            result['author_name'] = self.author_name
-        if self.author_statuses_count is not None:
-            result['author_statuses_count'] = self.author_statuses_count
-        if self.author_verify_type is not None:
-            result['author_verify_type'] = self.author_verify_type
-        if self.create_time is not None:
-            result['create_time'] = self.create_time
-        if self.doc_content is not None:
-            result['doc_content'] = self.doc_content
-        if self.doc_content_brief is not None:
-            result['doc_content_brief'] = self.doc_content_brief
-        if self.doc_content_sign is not None:
-            result['doc_content_sign'] = self.doc_content_sign
-        if self.doc_id is not None:
-            result['doc_id'] = self.doc_id
-        if self.doc_self_content_sign is not None:
-            result['doc_self_content_sign'] = self.doc_self_content_sign
-        if self.doc_title is not None:
-            result['doc_title'] = self.doc_title
-        if self.doc_url is not None:
-            result['doc_url'] = self.doc_url
-        if self.emotion_type is not None:
-            result['emotion_type'] = self.emotion_type
-        if self.highlight_keywords is not None:
-            result['highlight_keywords'] = self.highlight_keywords
-        if self.media_type is not None:
-            result['media_type'] = self.media_type
-        if self.message_type is not None:
-            result['message_type'] = self.message_type
-        if self.parent_doc_id is not None:
-            result['parent_doc_id'] = self.parent_doc_id
-        if self.publish_time is not None:
-            result['publish_time'] = self.publish_time
-        if self.relevance_score is not None:
-            result['relevance_score'] = self.relevance_score
-        if self.similar_number is not None:
-            result['similar_number'] = self.similar_number
-        if self.weibo_comment_id is not None:
-            result['weibo_comment_id'] = self.weibo_comment_id
-        if self.weibo_mid is not None:
-            result['weibo_mid'] = self.weibo_mid
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('author_avatar_url') is not None:
-            self.author_avatar_url = m.get('author_avatar_url')
-        if m.get('author_followers_count') is not None:
-            self.author_followers_count = m.get('author_followers_count')
-        if m.get('author_friends_count') is not None:
-            self.author_friends_count = m.get('author_friends_count')
-        if m.get('author_id') is not None:
-            self.author_id = m.get('author_id')
-        if m.get('author_name') is not None:
-            self.author_name = m.get('author_name')
-        if m.get('author_statuses_count') is not None:
-            self.author_statuses_count = m.get('author_statuses_count')
-        if m.get('author_verify_type') is not None:
-            self.author_verify_type = m.get('author_verify_type')
-        if m.get('create_time') is not None:
-            self.create_time = m.get('create_time')
-        if m.get('doc_content') is not None:
-            self.doc_content = m.get('doc_content')
-        if m.get('doc_content_brief') is not None:
-            self.doc_content_brief = m.get('doc_content_brief')
-        if m.get('doc_content_sign') is not None:
-            self.doc_content_sign = m.get('doc_content_sign')
-        if m.get('doc_id') is not None:
-            self.doc_id = m.get('doc_id')
-        if m.get('doc_self_content_sign') is not None:
-            self.doc_self_content_sign = m.get('doc_self_content_sign')
-        if m.get('doc_title') is not None:
-            self.doc_title = m.get('doc_title')
-        if m.get('doc_url') is not None:
-            self.doc_url = m.get('doc_url')
-        if m.get('emotion_type') is not None:
-            self.emotion_type = m.get('emotion_type')
-        if m.get('highlight_keywords') is not None:
-            self.highlight_keywords = m.get('highlight_keywords')
-        if m.get('media_type') is not None:
-            self.media_type = m.get('media_type')
-        if m.get('message_type') is not None:
-            self.message_type = m.get('message_type')
-        if m.get('parent_doc_id') is not None:
-            self.parent_doc_id = m.get('parent_doc_id')
-        if m.get('publish_time') is not None:
-            self.publish_time = m.get('publish_time')
-        if m.get('relevance_score') is not None:
-            self.relevance_score = m.get('relevance_score')
-        if m.get('similar_number') is not None:
-            self.similar_number = m.get('similar_number')
-        if m.get('weibo_comment_id') is not None:
-            self.weibo_comment_id = m.get('weibo_comment_id')
-        if m.get('weibo_mid') is not None:
-            self.weibo_mid = m.get('weibo_mid')
         return self
 
 
@@ -1039,6 +879,252 @@ class SearchCondition(TeaModel):
         return self
 
 
+class YuqingMessage(TeaModel):
+    def __init__(
+        self,
+        author_avatar_url: str = None,
+        author_followers_count: int = None,
+        author_friends_count: int = None,
+        author_id: str = None,
+        author_name: str = None,
+        author_statuses_count: int = None,
+        author_verify_type: str = None,
+        create_time: int = None,
+        doc_content: str = None,
+        doc_content_brief: str = None,
+        doc_content_sign: str = None,
+        doc_id: str = None,
+        doc_self_content_sign: str = None,
+        doc_title: str = None,
+        doc_url: str = None,
+        emotion_type: int = None,
+        highlight_keywords: List[str] = None,
+        media_type: str = None,
+        message_type: str = None,
+        parent_doc_id: str = None,
+        publish_time: int = None,
+        relevance_score: int = None,
+        similar_number: int = None,
+        weibo_comment_id: str = None,
+        weibo_mid: str = None,
+    ):
+        # 作者头像地址
+        self.author_avatar_url = author_avatar_url
+        # 粉丝数
+        self.author_followers_count = author_followers_count
+        # 好友数
+        self.author_friends_count = author_friends_count
+        # 作者id
+        self.author_id = author_id
+        # 作者名称
+        self.author_name = author_name
+        # 发文数
+        self.author_statuses_count = author_statuses_count
+        # 作者认证类型
+        self.author_verify_type = author_verify_type
+        # 舆情文章被抓取的时间戳
+        self.create_time = create_time
+        # 文章正文内容
+        self.doc_content = doc_content
+        # 文章摘要
+        self.doc_content_brief = doc_content_brief
+        # 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
+        self.doc_content_sign = doc_content_sign
+        # 文章唯一docId
+        self.doc_id = doc_id
+        # 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
+        self.doc_self_content_sign = doc_self_content_sign
+        # 文章标题
+        self.doc_title = doc_title
+        # 原文地址
+        self.doc_url = doc_url
+        # 情感的正负面，-1代表负面，1代表非负面
+        self.emotion_type = emotion_type
+        # 命中的搜索词列表
+        self.highlight_keywords = highlight_keywords
+        # 媒体类型，枚举值
+        self.media_type = media_type
+        # 舆情消息类型:转发,评论/回复, 原文,群聊等
+        self.message_type = message_type
+        # 文章的父docId，如被转发的文章docId
+        self.parent_doc_id = parent_doc_id
+        # 舆情文章的发布时间戳
+        self.publish_time = publish_time
+        # 相关性得分
+        self.relevance_score = relevance_score
+        # 相似文章数
+        self.similar_number = similar_number
+        # 微博评论id
+        self.weibo_comment_id = weibo_comment_id
+        # 微博消息id
+        self.weibo_mid = weibo_mid
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.author_avatar_url is not None:
+            result['author_avatar_url'] = self.author_avatar_url
+        if self.author_followers_count is not None:
+            result['author_followers_count'] = self.author_followers_count
+        if self.author_friends_count is not None:
+            result['author_friends_count'] = self.author_friends_count
+        if self.author_id is not None:
+            result['author_id'] = self.author_id
+        if self.author_name is not None:
+            result['author_name'] = self.author_name
+        if self.author_statuses_count is not None:
+            result['author_statuses_count'] = self.author_statuses_count
+        if self.author_verify_type is not None:
+            result['author_verify_type'] = self.author_verify_type
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.doc_content is not None:
+            result['doc_content'] = self.doc_content
+        if self.doc_content_brief is not None:
+            result['doc_content_brief'] = self.doc_content_brief
+        if self.doc_content_sign is not None:
+            result['doc_content_sign'] = self.doc_content_sign
+        if self.doc_id is not None:
+            result['doc_id'] = self.doc_id
+        if self.doc_self_content_sign is not None:
+            result['doc_self_content_sign'] = self.doc_self_content_sign
+        if self.doc_title is not None:
+            result['doc_title'] = self.doc_title
+        if self.doc_url is not None:
+            result['doc_url'] = self.doc_url
+        if self.emotion_type is not None:
+            result['emotion_type'] = self.emotion_type
+        if self.highlight_keywords is not None:
+            result['highlight_keywords'] = self.highlight_keywords
+        if self.media_type is not None:
+            result['media_type'] = self.media_type
+        if self.message_type is not None:
+            result['message_type'] = self.message_type
+        if self.parent_doc_id is not None:
+            result['parent_doc_id'] = self.parent_doc_id
+        if self.publish_time is not None:
+            result['publish_time'] = self.publish_time
+        if self.relevance_score is not None:
+            result['relevance_score'] = self.relevance_score
+        if self.similar_number is not None:
+            result['similar_number'] = self.similar_number
+        if self.weibo_comment_id is not None:
+            result['weibo_comment_id'] = self.weibo_comment_id
+        if self.weibo_mid is not None:
+            result['weibo_mid'] = self.weibo_mid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('author_avatar_url') is not None:
+            self.author_avatar_url = m.get('author_avatar_url')
+        if m.get('author_followers_count') is not None:
+            self.author_followers_count = m.get('author_followers_count')
+        if m.get('author_friends_count') is not None:
+            self.author_friends_count = m.get('author_friends_count')
+        if m.get('author_id') is not None:
+            self.author_id = m.get('author_id')
+        if m.get('author_name') is not None:
+            self.author_name = m.get('author_name')
+        if m.get('author_statuses_count') is not None:
+            self.author_statuses_count = m.get('author_statuses_count')
+        if m.get('author_verify_type') is not None:
+            self.author_verify_type = m.get('author_verify_type')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('doc_content') is not None:
+            self.doc_content = m.get('doc_content')
+        if m.get('doc_content_brief') is not None:
+            self.doc_content_brief = m.get('doc_content_brief')
+        if m.get('doc_content_sign') is not None:
+            self.doc_content_sign = m.get('doc_content_sign')
+        if m.get('doc_id') is not None:
+            self.doc_id = m.get('doc_id')
+        if m.get('doc_self_content_sign') is not None:
+            self.doc_self_content_sign = m.get('doc_self_content_sign')
+        if m.get('doc_title') is not None:
+            self.doc_title = m.get('doc_title')
+        if m.get('doc_url') is not None:
+            self.doc_url = m.get('doc_url')
+        if m.get('emotion_type') is not None:
+            self.emotion_type = m.get('emotion_type')
+        if m.get('highlight_keywords') is not None:
+            self.highlight_keywords = m.get('highlight_keywords')
+        if m.get('media_type') is not None:
+            self.media_type = m.get('media_type')
+        if m.get('message_type') is not None:
+            self.message_type = m.get('message_type')
+        if m.get('parent_doc_id') is not None:
+            self.parent_doc_id = m.get('parent_doc_id')
+        if m.get('publish_time') is not None:
+            self.publish_time = m.get('publish_time')
+        if m.get('relevance_score') is not None:
+            self.relevance_score = m.get('relevance_score')
+        if m.get('similar_number') is not None:
+            self.similar_number = m.get('similar_number')
+        if m.get('weibo_comment_id') is not None:
+            self.weibo_comment_id = m.get('weibo_comment_id')
+        if m.get('weibo_mid') is not None:
+            self.weibo_mid = m.get('weibo_mid')
+        return self
+
+
+class SmsContent(TeaModel):
+    def __init__(
+        self,
+        service_code: str = None,
+        mobile: str = None,
+        developer_id: str = None,
+        arguments: List[Pair] = None,
+    ):
+        # 模板
+        self.service_code = service_code
+        # 手机号
+        self.mobile = mobile
+        # 开发者ID
+        self.developer_id = developer_id
+        # 填充内容
+        self.arguments = arguments
+
+    def validate(self):
+        self.validate_required(self.mobile, 'mobile')
+        if self.arguments:
+            for k in self.arguments:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.service_code is not None:
+            result['service_code'] = self.service_code
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.developer_id is not None:
+            result['developer_id'] = self.developer_id
+        result['arguments'] = []
+        if self.arguments is not None:
+            for k in self.arguments:
+                result['arguments'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('service_code') is not None:
+            self.service_code = m.get('service_code')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('developer_id') is not None:
+            self.developer_id = m.get('developer_id')
+        self.arguments = []
+        if m.get('arguments') is not None:
+            for k in m.get('arguments'):
+                temp_model = Pair()
+                self.arguments.append(temp_model.from_map(k))
+        return self
+
+
 class CommoditySpec(TeaModel):
     def __init__(
         self,
@@ -1077,6 +1163,7 @@ class QueryMessagesRequest(TeaModel):
         product_instance_id: str = None,
         search_condition: SearchCondition = None,
         request_id: str = None,
+        team_hash_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1085,6 +1172,8 @@ class QueryMessagesRequest(TeaModel):
         self.search_condition = search_condition
         # 请求ID
         self.request_id = request_id
+        # team_hash_id
+        self.team_hash_id = team_hash_id
 
     def validate(self):
         self.validate_required(self.search_condition, 'search_condition')
@@ -1101,6 +1190,8 @@ class QueryMessagesRequest(TeaModel):
             result['search_condition'] = self.search_condition.to_map()
         if self.request_id is not None:
             result['request_id'] = self.request_id
+        if self.team_hash_id is not None:
+            result['team_hash_id'] = self.team_hash_id
         return result
 
     def from_map(self, m: dict = None):
@@ -1114,6 +1205,8 @@ class QueryMessagesRequest(TeaModel):
             self.search_condition = temp_model.from_map(m['search_condition'])
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
+        if m.get('team_hash_id') is not None:
+            self.team_hash_id = m.get('team_hash_id')
         return self
 
 
@@ -1184,6 +1277,7 @@ class SaveAnalysisSubmitRequest(TeaModel):
         product_instance_id: str = None,
         analyse_type: str = None,
         search_condition: SearchCondition = None,
+        team_hash_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1192,12 +1286,15 @@ class SaveAnalysisSubmitRequest(TeaModel):
         self.analyse_type = analyse_type
         # 查询条件
         self.search_condition = search_condition
+        # team_hash_id
+        self.team_hash_id = team_hash_id
 
     def validate(self):
         self.validate_required(self.analyse_type, 'analyse_type')
         self.validate_required(self.search_condition, 'search_condition')
         if self.search_condition:
             self.search_condition.validate()
+        self.validate_required(self.team_hash_id, 'team_hash_id')
 
     def to_map(self):
         result = dict()
@@ -1209,6 +1306,8 @@ class SaveAnalysisSubmitRequest(TeaModel):
             result['analyse_type'] = self.analyse_type
         if self.search_condition is not None:
             result['search_condition'] = self.search_condition.to_map()
+        if self.team_hash_id is not None:
+            result['team_hash_id'] = self.team_hash_id
         return result
 
     def from_map(self, m: dict = None):
@@ -1222,6 +1321,8 @@ class SaveAnalysisSubmitRequest(TeaModel):
         if m.get('search_condition') is not None:
             temp_model = SearchCondition()
             self.search_condition = temp_model.from_map(m['search_condition'])
+        if m.get('team_hash_id') is not None:
+            self.team_hash_id = m.get('team_hash_id')
         return self
 
 
@@ -1283,12 +1384,15 @@ class QueryAnalysisQueryRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         analysis_id: int = None,
+        team_hash_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 分析任务ID
         self.analysis_id = analysis_id
+        # team_hash_id
+        self.team_hash_id = team_hash_id
 
     def validate(self):
         self.validate_required(self.analysis_id, 'analysis_id')
@@ -1301,6 +1405,8 @@ class QueryAnalysisQueryRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.analysis_id is not None:
             result['analysis_id'] = self.analysis_id
+        if self.team_hash_id is not None:
+            result['team_hash_id'] = self.team_hash_id
         return result
 
     def from_map(self, m: dict = None):
@@ -1311,6 +1417,8 @@ class QueryAnalysisQueryRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('analysis_id') is not None:
             self.analysis_id = m.get('analysis_id')
+        if m.get('team_hash_id') is not None:
+            self.team_hash_id = m.get('team_hash_id')
         return self
 
 
@@ -1712,6 +1820,7 @@ class SendProductNoticeRequest(TeaModel):
         product_instance_id: str = None,
         notice_type: str = None,
         ding_talk_content: DingTalkContent = None,
+        sms_content: SmsContent = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1720,10 +1829,15 @@ class SendProductNoticeRequest(TeaModel):
         self.notice_type = notice_type
         # 钉钉结构体
         self.ding_talk_content = ding_talk_content
+        # 短信内容
+        self.sms_content = sms_content
 
     def validate(self):
+        self.validate_required(self.notice_type, 'notice_type')
         if self.ding_talk_content:
             self.ding_talk_content.validate()
+        if self.sms_content:
+            self.sms_content.validate()
 
     def to_map(self):
         result = dict()
@@ -1735,6 +1849,8 @@ class SendProductNoticeRequest(TeaModel):
             result['notice_type'] = self.notice_type
         if self.ding_talk_content is not None:
             result['ding_talk_content'] = self.ding_talk_content.to_map()
+        if self.sms_content is not None:
+            result['sms_content'] = self.sms_content.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -1748,6 +1864,9 @@ class SendProductNoticeRequest(TeaModel):
         if m.get('ding_talk_content') is not None:
             temp_model = DingTalkContent()
             self.ding_talk_content = temp_model.from_map(m['ding_talk_content'])
+        if m.get('sms_content') is not None:
+            temp_model = SmsContent()
+            self.sms_content = temp_model.from_map(m['sms_content'])
         return self
 
 

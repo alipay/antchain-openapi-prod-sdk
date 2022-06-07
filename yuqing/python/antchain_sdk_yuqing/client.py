@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.11'
+                    'sdk_version': '1.1.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.11'
+                    'sdk_version': '1.1.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -438,8 +438,8 @@ class Client:
         request: yuqing_models.SaveProductOpenRequest,
     ) -> yuqing_models.SaveProductOpenResponse:
         """
-        Description: 产品开通
-        Summary: 产品开通
+        Description: 废弃
+        Summary: 废弃
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -450,8 +450,8 @@ class Client:
         request: yuqing_models.SaveProductOpenRequest,
     ) -> yuqing_models.SaveProductOpenResponse:
         """
-        Description: 产品开通
-        Summary: 产品开通
+        Description: 废弃
+        Summary: 废弃
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -464,8 +464,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> yuqing_models.SaveProductOpenResponse:
         """
-        Description: 产品开通
-        Summary: 产品开通
+        Description: 废弃
+        Summary: 废弃
         """
         UtilClient.validate_model(request)
         return yuqing_models.SaveProductOpenResponse().from_map(
@@ -479,8 +479,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> yuqing_models.SaveProductOpenResponse:
         """
-        Description: 产品开通
-        Summary: 产品开通
+        Description: 废弃
+        Summary: 废弃
         """
         UtilClient.validate_model(request)
         return yuqing_models.SaveProductOpenResponse().from_map(
@@ -492,8 +492,8 @@ class Client:
         request: yuqing_models.SaveProductTopRequest,
     ) -> yuqing_models.SaveProductTopResponse:
         """
-        Description: 产品关闭
-        Summary: 产品关闭
+        Description: 废弃
+        Summary: 废弃
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -504,8 +504,8 @@ class Client:
         request: yuqing_models.SaveProductTopRequest,
     ) -> yuqing_models.SaveProductTopResponse:
         """
-        Description: 产品关闭
-        Summary: 产品关闭
+        Description: 废弃
+        Summary: 废弃
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -518,8 +518,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> yuqing_models.SaveProductTopResponse:
         """
-        Description: 产品关闭
-        Summary: 产品关闭
+        Description: 废弃
+        Summary: 废弃
         """
         UtilClient.validate_model(request)
         return yuqing_models.SaveProductTopResponse().from_map(
@@ -533,8 +533,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> yuqing_models.SaveProductTopResponse:
         """
-        Description: 产品关闭
-        Summary: 产品关闭
+        Description: 废弃
+        Summary: 废弃
         """
         UtilClient.validate_model(request)
         return yuqing_models.SaveProductTopResponse().from_map(
