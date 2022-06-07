@@ -65,6 +65,11 @@ namespace AntChain.SDK.INDUSTRY.Models
         [Validation(Required=false)]
         public string Body { get; set; }
 
+        // 扩展字段
+        [NameInMap("properties")]
+        [Validation(Required=false)]
+        public string Properties { get; set; }
+
     }
 
 }

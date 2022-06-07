@@ -137,7 +137,7 @@ namespace AntChain.SDK.INDUSTRY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.2"},
+                        {"sdk_version", "1.3.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.INDUSTRY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.2"},
+                        {"sdk_version", "1.3.2"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -574,6 +574,90 @@ namespace AntChain.SDK.INDUSTRY
         }
 
         /**
+         * Description: 签约结果查询
+         * Summary: 签约结果查询
+         */
+        public QueryMerchantAgreementResponse QueryMerchantAgreement(QueryMerchantAgreementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMerchantAgreementEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 签约结果查询
+         * Summary: 签约结果查询
+         */
+        public async Task<QueryMerchantAgreementResponse> QueryMerchantAgreementAsync(QueryMerchantAgreementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMerchantAgreementExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 签约结果查询
+         * Summary: 签约结果查询
+         */
+        public QueryMerchantAgreementResponse QueryMerchantAgreementEx(QueryMerchantAgreementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMerchantAgreementResponse>(DoRequest("1.0", "antcloud.industry.merchant.agreement.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 签约结果查询
+         * Summary: 签约结果查询
+         */
+        public async Task<QueryMerchantAgreementResponse> QueryMerchantAgreementExAsync(QueryMerchantAgreementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMerchantAgreementResponse>(await DoRequestAsync("1.0", "antcloud.industry.merchant.agreement.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+         * Summary: 行业平台侧业务单据推送
+         */
+        public PushServiceMeterdataResponse PushServiceMeterdata(PushServiceMeterdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushServiceMeterdataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+         * Summary: 行业平台侧业务单据推送
+         */
+        public async Task<PushServiceMeterdataResponse> PushServiceMeterdataAsync(PushServiceMeterdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushServiceMeterdataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+         * Summary: 行业平台侧业务单据推送
+         */
+        public PushServiceMeterdataResponse PushServiceMeterdataEx(PushServiceMeterdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushServiceMeterdataResponse>(DoRequest("1.0", "antcloud.industry.service.meterdata.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+         * Summary: 行业平台侧业务单据推送
+         */
+        public async Task<PushServiceMeterdataResponse> PushServiceMeterdataExAsync(PushServiceMeterdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushServiceMeterdataResponse>(await DoRequestAsync("1.0", "antcloud.industry.service.meterdata.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 买家卖家收单交易，直接收款给卖家过渡户
          * Summary: 买家卖家收单交易-电脑版
          */
@@ -781,6 +865,48 @@ namespace AntChain.SDK.INDUSTRY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncTradeResponse>(await DoRequestAsync("1.0", "antcloud.industry.trade.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 统一收单-查询
+         * Summary: 统一收单-查询
+         */
+        public QueryTradeResponse QueryTrade(QueryTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTradeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 统一收单-查询
+         * Summary: 统一收单-查询
+         */
+        public async Task<QueryTradeResponse> QueryTradeAsync(QueryTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTradeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 统一收单-查询
+         * Summary: 统一收单-查询
+         */
+        public QueryTradeResponse QueryTradeEx(QueryTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTradeResponse>(DoRequest("1.0", "antcloud.industry.trade.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 统一收单-查询
+         * Summary: 统一收单-查询
+         */
+        public async Task<QueryTradeResponse> QueryTradeExAsync(QueryTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTradeResponse>(await DoRequestAsync("1.0", "antcloud.industry.trade.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
