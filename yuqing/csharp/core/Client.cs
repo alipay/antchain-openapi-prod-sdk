@@ -137,7 +137,7 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.11"},
+                        {"sdk_version", "1.1.12"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.11"},
+                        {"sdk_version", "1.1.12"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -444,8 +444,8 @@ namespace AntChain.SDK.YUQING
         }
 
         /**
-         * Description: 产品开通
-         * Summary: 产品开通
+         * Description: 废弃
+         * Summary: 废弃
          */
         public SaveProductOpenResponse SaveProductOpen(SaveProductOpenRequest request)
         {
@@ -455,8 +455,8 @@ namespace AntChain.SDK.YUQING
         }
 
         /**
-         * Description: 产品开通
-         * Summary: 产品开通
+         * Description: 废弃
+         * Summary: 废弃
          */
         public async Task<SaveProductOpenResponse> SaveProductOpenAsync(SaveProductOpenRequest request)
         {
@@ -466,8 +466,8 @@ namespace AntChain.SDK.YUQING
         }
 
         /**
-         * Description: 产品开通
-         * Summary: 产品开通
+         * Description: 废弃
+         * Summary: 废弃
          */
         public SaveProductOpenResponse SaveProductOpenEx(SaveProductOpenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -476,8 +476,8 @@ namespace AntChain.SDK.YUQING
         }
 
         /**
-         * Description: 产品开通
-         * Summary: 产品开通
+         * Description: 废弃
+         * Summary: 废弃
          */
         public async Task<SaveProductOpenResponse> SaveProductOpenExAsync(SaveProductOpenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -486,8 +486,8 @@ namespace AntChain.SDK.YUQING
         }
 
         /**
-         * Description: 产品关闭
-         * Summary: 产品关闭
+         * Description: 废弃
+         * Summary: 废弃
          */
         public SaveProductTopResponse SaveProductTop(SaveProductTopRequest request)
         {
@@ -497,8 +497,8 @@ namespace AntChain.SDK.YUQING
         }
 
         /**
-         * Description: 产品关闭
-         * Summary: 产品关闭
+         * Description: 废弃
+         * Summary: 废弃
          */
         public async Task<SaveProductTopResponse> SaveProductTopAsync(SaveProductTopRequest request)
         {
@@ -508,8 +508,8 @@ namespace AntChain.SDK.YUQING
         }
 
         /**
-         * Description: 产品关闭
-         * Summary: 产品关闭
+         * Description: 废弃
+         * Summary: 废弃
          */
         public SaveProductTopResponse SaveProductTopEx(SaveProductTopRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -518,8 +518,8 @@ namespace AntChain.SDK.YUQING
         }
 
         /**
-         * Description: 产品关闭
-         * Summary: 产品关闭
+         * Description: 废弃
+         * Summary: 废弃
          */
         public async Task<SaveProductTopResponse> SaveProductTopExAsync(SaveProductTopRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {

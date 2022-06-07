@@ -23,6 +23,11 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=true)]
         public long? AnalysisId { get; set; }
 
+        // team_hash_id
+        [NameInMap("team_hash_id")]
+        [Validation(Required=false)]
+        public string TeamHashId { get; set; }
+
     }
 
 }

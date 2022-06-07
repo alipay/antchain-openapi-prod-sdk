@@ -20,13 +20,18 @@ namespace AntChain.SDK.YUQING.Models
 
         // 提醒类型
         [NameInMap("notice_type")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string NoticeType { get; set; }
 
         // 钉钉结构体
         [NameInMap("ding_talk_content")]
         [Validation(Required=false)]
         public DingTalkContent DingTalkContent { get; set; }
+
+        // 短信内容
+        [NameInMap("sms_content")]
+        [Validation(Required=false)]
+        public SmsContent SmsContent { get; set; }
 
     }
 
