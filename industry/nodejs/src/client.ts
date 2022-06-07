@@ -78,53 +78,51 @@ export class Config extends $tea.Model {
   }
 }
 
-// 银行卡信息
-export class CardInfo extends $tea.Model {
-  // 卡户名
-  accountHolderName: string;
-  // 卡号
-  accountNo: string;
-  // 银行名称
-  accountInstName: string;
-  // 银行缩写
-  accountInstId: string;
-  // 账号使用类型
-  // 对公-01
-  // 对私-02
-  usageType: string;
-  // 联行号
-  bankCode?: string;
-  // 开户行所在省份
-  accountInstProvince: string;
-  // 开户行所在城市
-  accountInstCity: string;
-  // 开户行支行名称
-  accountBranchName: string;
+// 二级商户进件申请单
+export class MerchantOrderInfo extends $tea.Model {
+  // 申请单id
+  orderId: string;
+  // 平台方的用户id, 保持唯一
+  merchantUserId: string;
+  // 申请状态 99-已完结;-1-失败;031-审核中
+  status: string;
+  // 风控审批状态。CREATE：已创建待审批、SKIP：跳过风控审批步骤、PASS：风控审核通过、REJECT：风控审批拒绝
+  fkAudit?: string;
+  // 风控审批备注
+  fkAuditMemo?: string;
+  // 客资审核状态。CREATE：已创建待审批、SKIP：跳过客资审批步骤、PASS：客资审核通过、REJECT：客资审批拒绝客资审核状态。CREATE：已创建待审批、SKIP：跳过客资审批步骤、PASS：客资审核通过、REJECT：客资审批拒绝
+  kzAudit?: string;
+  // 客资审批备注
+  kzAuditMemo?: string;
+  // 二级商户确认状态。CREATE：已发起二级商户确认、SKIP：无需确认、FAIL：签约失败、NOT_CONFIRM：商户未确认、FINISH签约完成
+  subConfirm?: string;
+  // 进件备注, 主要用于保存审核拒绝原因
+  remark?: string;
   static names(): { [key: string]: string } {
     return {
-      accountHolderName: 'account_holder_name',
-      accountNo: 'account_no',
-      accountInstName: 'account_inst_name',
-      accountInstId: 'account_inst_id',
-      usageType: 'usage_type',
-      bankCode: 'bank_code',
-      accountInstProvince: 'account_inst_province',
-      accountInstCity: 'account_inst_city',
-      accountBranchName: 'account_branch_name',
+      orderId: 'order_id',
+      merchantUserId: 'merchant_user_id',
+      status: 'status',
+      fkAudit: 'fk_audit',
+      fkAuditMemo: 'fk_audit_memo',
+      kzAudit: 'kz_audit',
+      kzAuditMemo: 'kz_audit_memo',
+      subConfirm: 'sub_confirm',
+      remark: 'remark',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      accountHolderName: 'string',
-      accountNo: 'string',
-      accountInstName: 'string',
-      accountInstId: 'string',
-      usageType: 'string',
-      bankCode: 'string',
-      accountInstProvince: 'string',
-      accountInstCity: 'string',
-      accountBranchName: 'string',
+      orderId: 'string',
+      merchantUserId: 'string',
+      status: 'string',
+      fkAudit: 'string',
+      fkAuditMemo: 'string',
+      kzAudit: 'string',
+      kzAuditMemo: 'string',
+      subConfirm: 'string',
+      remark: 'string',
     };
   }
 
@@ -193,6 +191,31 @@ export class SettleRule extends $tea.Model {
   }
 }
 
+// 商户资质信息
+export class QualificationInfo extends $tea.Model {
+  // 商户行业资质类型,  参考https://mif-pub.alipayobjects.com/QualificationType.xlsx
+  industryQualificationType: string;
+  // 商户行业资质图片
+  industryQualificationImage: string;
+  static names(): { [key: string]: string } {
+    return {
+      industryQualificationType: 'industry_qualification_type',
+      industryQualificationImage: 'industry_qualification_image',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      industryQualificationType: 'string',
+      industryQualificationImage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 联系人信息
 export class ContactInfo extends $tea.Model {
   // 联系人姓名
@@ -226,51 +249,36 @@ export class ContactInfo extends $tea.Model {
   }
 }
 
-// 二级商户进件申请单
-export class MerchantOrderInfo extends $tea.Model {
-  // 申请单id
-  orderId: string;
-  // 平台方的用户id, 保持唯一
-  merchantUserId: string;
-  // 申请状态 99-已完结;-1-失败;031-审核中
-  status: string;
-  // 风控审批状态。CREATE：已创建待审批、SKIP：跳过风控审批步骤、PASS：风控审核通过、REJECT：风控审批拒绝
-  fkAudit?: string;
-  // 风控审批备注
-  fkAuditMemo?: string;
-  // 客资审核状态。CREATE：已创建待审批、SKIP：跳过客资审批步骤、PASS：客资审核通过、REJECT：客资审批拒绝客资审核状态。CREATE：已创建待审批、SKIP：跳过客资审批步骤、PASS：客资审核通过、REJECT：客资审批拒绝
-  kzAudit?: string;
-  // 客资审批备注
-  kzAuditMemo?: string;
-  // 二级商户确认状态。CREATE：已发起二级商户确认、SKIP：无需确认、FAIL：签约失败、NOT_CONFIRM：商户未确认、FINISH签约完成
-  subConfirm?: string;
-  // 进件备注, 主要用于保存审核拒绝原因
-  remark?: string;
+// 交易结算明细
+export class TradeSettleDetail extends $tea.Model {
+  // 类型
+  // replenish(补差)、replenish_refund(退补差)、transfer(分账)、transfer_refund(退分账)、settle(结算)、settle_refund(退结算)、on_settle(待结算)
+  type: string;
+  // 结算明细序列号，即结算请求中的业务单据号
+  serialNo: string;
+  // 转入账户
+  transIn?: string;
+  // 转出账号
+  transOut: string;
+  // 金额，元，最小支持到分
+  amount: string;
   static names(): { [key: string]: string } {
     return {
-      orderId: 'order_id',
-      merchantUserId: 'merchant_user_id',
-      status: 'status',
-      fkAudit: 'fk_audit',
-      fkAuditMemo: 'fk_audit_memo',
-      kzAudit: 'kz_audit',
-      kzAuditMemo: 'kz_audit_memo',
-      subConfirm: 'sub_confirm',
-      remark: 'remark',
+      type: 'type',
+      serialNo: 'serial_no',
+      transIn: 'trans_in',
+      transOut: 'trans_out',
+      amount: 'amount',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      orderId: 'string',
-      merchantUserId: 'string',
-      status: 'string',
-      fkAudit: 'string',
-      fkAuditMemo: 'string',
-      kzAudit: 'string',
-      kzAuditMemo: 'string',
-      subConfirm: 'string',
-      remark: 'string',
+      type: 'string',
+      serialNo: 'string',
+      transIn: 'string',
+      transOut: 'string',
+      amount: 'string',
     };
   }
 
@@ -279,23 +287,53 @@ export class MerchantOrderInfo extends $tea.Model {
   }
 }
 
-// 商户资质信息
-export class QualificationInfo extends $tea.Model {
-  // 商户行业资质类型,  参考https://mif-pub.alipayobjects.com/QualificationType.xlsx
-  industryQualificationType: string;
-  // 商户行业资质图片
-  industryQualificationImage: string;
+// 银行卡信息
+export class CardInfo extends $tea.Model {
+  // 卡户名
+  accountHolderName: string;
+  // 卡号
+  accountNo: string;
+  // 银行名称
+  accountInstName: string;
+  // 银行缩写
+  accountInstId: string;
+  // 账号使用类型
+  // 对公-01
+  // 对私-02
+  usageType: string;
+  // 联行号
+  bankCode?: string;
+  // 开户行所在省份
+  accountInstProvince: string;
+  // 开户行所在城市
+  accountInstCity: string;
+  // 开户行支行名称
+  accountBranchName: string;
   static names(): { [key: string]: string } {
     return {
-      industryQualificationType: 'industry_qualification_type',
-      industryQualificationImage: 'industry_qualification_image',
+      accountHolderName: 'account_holder_name',
+      accountNo: 'account_no',
+      accountInstName: 'account_inst_name',
+      accountInstId: 'account_inst_id',
+      usageType: 'usage_type',
+      bankCode: 'bank_code',
+      accountInstProvince: 'account_inst_province',
+      accountInstCity: 'account_inst_city',
+      accountBranchName: 'account_branch_name',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      industryQualificationType: 'string',
-      industryQualificationImage: 'string',
+      accountHolderName: 'string',
+      accountNo: 'string',
+      accountInstName: 'string',
+      accountInstId: 'string',
+      usageType: 'string',
+      bankCode: 'string',
+      accountInstProvince: 'string',
+      accountInstCity: 'string',
+      accountBranchName: 'string',
     };
   }
 
@@ -623,31 +661,35 @@ export class UploadMerchantImageResponse extends $tea.Model {
 export class SignMerchantAgreementRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
+  // 签约请求单据号
+  requestId: string;
   // 来源场景码, 由中台为业务方分配
   source: string;
+  // 渠道
+  channel: string;
   // 商家pid
   merchantUserId: string;
   // 个人签约产品码，商户代扣场景固定GENERAL_WITHHOLDING_P
   personalProductCode: string;
-  // 签约请求单据号
-  requestId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
+      requestId: 'request_id',
       source: 'source',
+      channel: 'channel',
       merchantUserId: 'merchant_user_id',
       personalProductCode: 'personal_product_code',
-      requestId: 'request_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       authToken: 'string',
+      requestId: 'string',
       source: 'string',
+      channel: 'string',
       merchantUserId: 'string',
       personalProductCode: 'string',
-      requestId: 'string',
     };
   }
 
@@ -764,6 +806,205 @@ export class GetMerchantInfoResponse extends $tea.Model {
   }
 }
 
+export class QueryMerchantAgreementRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 签约时的请求单据号
+  requestId: string;
+  // 业务来源场景码，由中台分配给业务方
+  source: string;
+  // 渠道场景码, 由中台分配给业务方
+  channel: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      source: 'source',
+      channel: 'channel',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      source: 'string',
+      channel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMerchantAgreementResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 协议产品code
+  personalProductCode?: string;
+  // 签约主体
+  merchantUserId?: string;
+  // 签约客户支付宝uid
+  customerAlipayUserId?: string;
+  // 商户签约协议号
+  merchantAgreementNo?: string;
+  // 签约协议号，仅签约成功后有
+  agreementNo?: string;
+  // 实际签约时间，仅签约成功后有
+  signTime?: string;
+  // 实际生效时间，仅签约成功后有
+  validTime?: string;
+  // 实际失效时间，仅签约成功后有
+  invalidTime?: string;
+  // 协议状态
+  // TEMP-暂存
+  // NORMAL-正常
+  // STOP-暂停
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      personalProductCode: 'personal_product_code',
+      merchantUserId: 'merchant_user_id',
+      customerAlipayUserId: 'customer_alipay_user_id',
+      merchantAgreementNo: 'merchant_agreement_no',
+      agreementNo: 'agreement_no',
+      signTime: 'sign_time',
+      validTime: 'valid_time',
+      invalidTime: 'invalid_time',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      personalProductCode: 'string',
+      merchantUserId: 'string',
+      customerAlipayUserId: 'string',
+      merchantAgreementNo: 'string',
+      agreementNo: 'string',
+      signTime: 'string',
+      validTime: 'string',
+      invalidTime: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushServiceMeterdataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 业务唯一单据号，最大64
+  bizNo: string;
+  // 来源场景码, 由中台分配给业务方
+  source: string;
+  // 行业渠道码(由经支中台分配给业务方)
+  channel: string;
+  // 业务发生时间
+  gmtService: string;
+  // 服务唯一标识码
+  serviceCode: string;
+  // 如果是金额，请填写分；如果是次数，请填写整数
+  serviceAmount: string;
+  // 服务量单位，如果是金额，请填写币种value(exp:156),如果是次数/个,填写UU
+  serviceUnit: string;
+  // 业务标题
+  serviceSubject: string;
+  // 业务详细内容
+  serviceBody?: string;
+  // 会员id;如果是商户，那么是商户uid,如果是用户，那么是会员id
+  userId: string;
+  // 基本与user_id保持一致
+  buyerId: string;
+  // 卖家id,用于代收付场景
+  sellerId?: string;
+  // 扩展属性字段
+  properties: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      bizNo: 'biz_no',
+      source: 'source',
+      channel: 'channel',
+      gmtService: 'gmt_service',
+      serviceCode: 'service_code',
+      serviceAmount: 'service_amount',
+      serviceUnit: 'service_unit',
+      serviceSubject: 'service_subject',
+      serviceBody: 'service_body',
+      userId: 'user_id',
+      buyerId: 'buyer_id',
+      sellerId: 'seller_id',
+      properties: 'properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      bizNo: 'string',
+      source: 'string',
+      channel: 'string',
+      gmtService: 'string',
+      serviceCode: 'string',
+      serviceAmount: 'string',
+      serviceUnit: 'string',
+      serviceSubject: 'string',
+      serviceBody: 'string',
+      userId: 'string',
+      buyerId: 'string',
+      sellerId: 'string',
+      properties: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushServiceMeterdataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PayTradePageRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -788,6 +1029,8 @@ export class PayTradePageRequest extends $tea.Model {
   merchantUserId: string;
   // 订单描述。不超过128长度
   body?: string;
+  // 扩展字段
+  properties?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -801,6 +1044,7 @@ export class PayTradePageRequest extends $tea.Model {
       transCurrency: 'trans_currency',
       merchantUserId: 'merchant_user_id',
       body: 'body',
+      properties: 'properties',
     };
   }
 
@@ -817,6 +1061,7 @@ export class PayTradePageRequest extends $tea.Model {
       transCurrency: 'string',
       merchantUserId: 'string',
       body: 'string',
+      properties: 'string',
     };
   }
 
@@ -1033,43 +1278,75 @@ export class CreateTradeResponse extends $tea.Model {
 export class PayTradeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 来源场景码, 由中台分配给业务方
-  source: string;
   // 外部单据号。32 个字符以内的大小，仅支持字母、数字。需保证该参数在业务侧不重复。
   merchantOrderNo: string;
+  // 来源场景码, 由中台分配给业务方
+  source: string;
+  // 渠道
+  channel: string;
   // 收单金额，"10.11"代表10.11元,最小粒度到分,小数点后2位，不支持高精度和负数
   totalAmount: string;
-  // 交易标题等。注意：不可使用特殊字符，如 /，=，& 等。不超过256
-  subject: string;
-  // 平台方下的商家id
-  merchantUserId: string;
   // 交易币种，默认：人民币（156）
-  transCurrency?: string;
-  // 买家支付宝uid
-  buyerId: string;
+  currencyValue?: string;
+  // 交易标题等。注意：不可使用特殊字符，如 /，=，& 等。不超过256
+  subject?: string;
+  // 交易信息
+  body?: string;
+  // 收款方id
+  payeeId: string;
+  // 付款方id
+  payerId: string;
+  // ZFT
+  payProductCode: string;
+  // 交易创建时间
+  gmtTradeCreate: string;
+  // 交易支付时间
+  gmtTradePay?: string;
+  // 交易完成时间
+  gmtTradeComplete?: string;
+  // 交易状态
+  tradeStatus?: string;
+  // 扩展字段，json串
+  properties?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
-      source: 'source',
       merchantOrderNo: 'merchant_order_no',
+      source: 'source',
+      channel: 'channel',
       totalAmount: 'total_amount',
+      currencyValue: 'currency_value',
       subject: 'subject',
-      merchantUserId: 'merchant_user_id',
-      transCurrency: 'trans_currency',
-      buyerId: 'buyer_id',
+      body: 'body',
+      payeeId: 'payee_id',
+      payerId: 'payer_id',
+      payProductCode: 'pay_product_code',
+      gmtTradeCreate: 'gmt_trade_create',
+      gmtTradePay: 'gmt_trade_pay',
+      gmtTradeComplete: 'gmt_trade_complete',
+      tradeStatus: 'trade_status',
+      properties: 'properties',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       authToken: 'string',
-      source: 'string',
       merchantOrderNo: 'string',
+      source: 'string',
+      channel: 'string',
       totalAmount: 'string',
+      currencyValue: 'string',
       subject: 'string',
-      merchantUserId: 'string',
-      transCurrency: 'string',
-      buyerId: 'string',
+      body: 'string',
+      payeeId: 'string',
+      payerId: 'string',
+      payProductCode: 'string',
+      gmtTradeCreate: 'string',
+      gmtTradePay: 'string',
+      gmtTradeComplete: 'string',
+      tradeStatus: 'string',
+      properties: 'string',
     };
   }
 
@@ -1085,7 +1362,7 @@ export class PayTradeResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 支付宝交易号，64位以内
+  // 交易号，64位以内
   tradeNo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1210,6 +1487,93 @@ export class SyncTradeResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 商户订单号
+  merchantOrderNo: string;
+  // 来源场景码，由中台分配给业务方
+  source: string;
+  // 渠道场景码，由中台分配给业务方
+  channel: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      merchantOrderNo: 'merchant_order_no',
+      source: 'source',
+      channel: 'channel',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      merchantOrderNo: 'string',
+      source: 'string',
+      channel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商户订单号
+  merchantOrderNo?: string;
+  // 来源场景码
+  source?: string;
+  // 渠道场景码
+  channel?: string;
+  // 交易状态
+  // WAIT_BUYER_PAY - 交易创建，等待买家付款
+  // TRADE_CLOSED - 未付款交易超时关闭，或支付完成后全额退款
+  // TRADE_SUCCESS - 交易成功
+  tradeStatus?: string;
+  // 币种，默认156-人民币
+  currencyValue?: string;
+  // 交易结算信息
+  tradeSettleInfo?: TradeSettleDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      merchantOrderNo: 'merchant_order_no',
+      source: 'source',
+      channel: 'channel',
+      tradeStatus: 'trade_status',
+      currencyValue: 'currency_value',
+      tradeSettleInfo: 'trade_settle_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      merchantOrderNo: 'string',
+      source: 'string',
+      channel: 'string',
+      tradeStatus: 'string',
+      currencyValue: 'string',
+      tradeSettleInfo: { 'type': 'array', 'itemType': TradeSettleDetail },
     };
   }
 
@@ -1419,7 +1783,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.2",
+          sdk_version: "1.3.2",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1582,6 +1946,44 @@ export default class Client {
   }
 
   /**
+   * Description: 签约结果查询
+   * Summary: 签约结果查询
+   */
+  async queryMerchantAgreement(request: QueryMerchantAgreementRequest): Promise<QueryMerchantAgreementResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMerchantAgreementEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 签约结果查询
+   * Summary: 签约结果查询
+   */
+  async queryMerchantAgreementEx(request: QueryMerchantAgreementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMerchantAgreementResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMerchantAgreementResponse>(await this.doRequest("1.0", "antcloud.industry.merchant.agreement.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMerchantAgreementResponse({}));
+  }
+
+  /**
+   * Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+   * Summary: 行业平台侧业务单据推送
+   */
+  async pushServiceMeterdata(request: PushServiceMeterdataRequest): Promise<PushServiceMeterdataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushServiceMeterdataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+   * Summary: 行业平台侧业务单据推送
+   */
+  async pushServiceMeterdataEx(request: PushServiceMeterdataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushServiceMeterdataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushServiceMeterdataResponse>(await this.doRequest("1.0", "antcloud.industry.service.meterdata.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushServiceMeterdataResponse({}));
+  }
+
+  /**
    * Description: 买家卖家收单交易，直接收款给卖家过渡户
    * Summary: 买家卖家收单交易-电脑版
    */
@@ -1674,6 +2076,25 @@ export default class Client {
   async syncTradeEx(request: SyncTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncTradeResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncTradeResponse>(await this.doRequest("1.0", "antcloud.industry.trade.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncTradeResponse({}));
+  }
+
+  /**
+   * Description: 统一收单-查询
+   * Summary: 统一收单-查询
+   */
+  async queryTrade(request: QueryTradeRequest): Promise<QueryTradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 统一收单-查询
+   * Summary: 统一收单-查询
+   */
+  async queryTradeEx(request: QueryTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTradeResponse>(await this.doRequest("1.0", "antcloud.industry.trade.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTradeResponse({}));
   }
 
   /**
