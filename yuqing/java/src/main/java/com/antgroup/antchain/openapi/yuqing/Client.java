@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.11")
+                    new TeaPair("sdk_version", "1.1.12")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -217,8 +217,8 @@ public class Client {
     }
 
     /**
-     * Description: 产品开通
-     * Summary: 产品开通
+     * Description: 废弃
+     * Summary: 废弃
      */
     public SaveProductOpenResponse saveProductOpen(SaveProductOpenRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -227,8 +227,8 @@ public class Client {
     }
 
     /**
-     * Description: 产品开通
-     * Summary: 产品开通
+     * Description: 废弃
+     * Summary: 废弃
      */
     public SaveProductOpenResponse saveProductOpenEx(SaveProductOpenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -236,8 +236,8 @@ public class Client {
     }
 
     /**
-     * Description: 产品关闭
-     * Summary: 产品关闭
+     * Description: 废弃
+     * Summary: 废弃
      */
     public SaveProductTopResponse saveProductTop(SaveProductTopRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -246,8 +246,8 @@ public class Client {
     }
 
     /**
-     * Description: 产品关闭
-     * Summary: 产品关闭
+     * Description: 废弃
+     * Summary: 废弃
      */
     public SaveProductTopResponse saveProductTopEx(SaveProductTopRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

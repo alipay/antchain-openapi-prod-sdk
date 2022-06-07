@@ -16,6 +16,10 @@ public class QueryAnalysisQueryRequest extends TeaModel {
     @Validation(required = true)
     public Long analysisId;
 
+    // team_hash_id
+    @NameInMap("team_hash_id")
+    public String teamHashId;
+
     public static QueryAnalysisQueryRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAnalysisQueryRequest self = new QueryAnalysisQueryRequest();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryAnalysisQueryRequest extends TeaModel {
     }
     public Long getAnalysisId() {
         return this.analysisId;
+    }
+
+    public QueryAnalysisQueryRequest setTeamHashId(String teamHashId) {
+        this.teamHashId = teamHashId;
+        return this;
+    }
+    public String getTeamHashId() {
+        return this.teamHashId;
     }
 
 }

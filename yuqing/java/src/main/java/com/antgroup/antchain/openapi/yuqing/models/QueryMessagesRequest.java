@@ -20,6 +20,10 @@ public class QueryMessagesRequest extends TeaModel {
     @NameInMap("request_id")
     public String requestId;
 
+    // team_hash_id
+    @NameInMap("team_hash_id")
+    public String teamHashId;
+
     public static QueryMessagesRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryMessagesRequest self = new QueryMessagesRequest();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class QueryMessagesRequest extends TeaModel {
     }
     public String getRequestId() {
         return this.requestId;
+    }
+
+    public QueryMessagesRequest setTeamHashId(String teamHashId) {
+        this.teamHashId = teamHashId;
+        return this;
+    }
+    public String getTeamHashId() {
+        return this.teamHashId;
     }
 
 }

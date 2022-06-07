@@ -21,6 +21,11 @@ public class SaveAnalysisSubmitRequest extends TeaModel {
     @Validation(required = true)
     public SearchCondition searchCondition;
 
+    // team_hash_id
+    @NameInMap("team_hash_id")
+    @Validation(required = true)
+    public String teamHashId;
+
     public static SaveAnalysisSubmitRequest build(java.util.Map<String, ?> map) throws Exception {
         SaveAnalysisSubmitRequest self = new SaveAnalysisSubmitRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class SaveAnalysisSubmitRequest extends TeaModel {
     }
     public SearchCondition getSearchCondition() {
         return this.searchCondition;
+    }
+
+    public SaveAnalysisSubmitRequest setTeamHashId(String teamHashId) {
+        this.teamHashId = teamHashId;
+        return this;
+    }
+    public String getTeamHashId() {
+        return this.teamHashId;
     }
 
 }

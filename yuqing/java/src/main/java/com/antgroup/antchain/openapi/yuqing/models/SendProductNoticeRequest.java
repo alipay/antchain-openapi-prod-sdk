@@ -13,11 +13,16 @@ public class SendProductNoticeRequest extends TeaModel {
 
     // 提醒类型
     @NameInMap("notice_type")
+    @Validation(required = true)
     public String noticeType;
 
     // 钉钉结构体
     @NameInMap("ding_talk_content")
     public DingTalkContent dingTalkContent;
+
+    // 短信内容
+    @NameInMap("sms_content")
+    public SmsContent smsContent;
 
     public static SendProductNoticeRequest build(java.util.Map<String, ?> map) throws Exception {
         SendProductNoticeRequest self = new SendProductNoticeRequest();
@@ -54,6 +59,14 @@ public class SendProductNoticeRequest extends TeaModel {
     }
     public DingTalkContent getDingTalkContent() {
         return this.dingTalkContent;
+    }
+
+    public SendProductNoticeRequest setSmsContent(SmsContent smsContent) {
+        this.smsContent = smsContent;
+        return this;
+    }
+    public SmsContent getSmsContent() {
+        return this.smsContent;
     }
 
 }
