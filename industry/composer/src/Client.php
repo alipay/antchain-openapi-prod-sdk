@@ -23,10 +23,16 @@ use AntChain\INDUSTRY\Models\PayTradePageRequest;
 use AntChain\INDUSTRY\Models\PayTradePageResponse;
 use AntChain\INDUSTRY\Models\PayTradeRequest;
 use AntChain\INDUSTRY\Models\PayTradeResponse;
+use AntChain\INDUSTRY\Models\PushServiceMeterdataRequest;
+use AntChain\INDUSTRY\Models\PushServiceMeterdataResponse;
+use AntChain\INDUSTRY\Models\QueryMerchantAgreementRequest;
+use AntChain\INDUSTRY\Models\QueryMerchantAgreementResponse;
 use AntChain\INDUSTRY\Models\QueryMerchantSignRequest;
 use AntChain\INDUSTRY\Models\QueryMerchantSignResponse;
 use AntChain\INDUSTRY\Models\QueryTradeOrderRequest;
 use AntChain\INDUSTRY\Models\QueryTradeOrderResponse;
+use AntChain\INDUSTRY\Models\QueryTradeRequest;
+use AntChain\INDUSTRY\Models\QueryTradeResponse;
 use AntChain\INDUSTRY\Models\SignMerchantAgreementRequest;
 use AntChain\INDUSTRY\Models\SignMerchantAgreementResponse;
 use AntChain\INDUSTRY\Models\SyncTradeRequest;
@@ -152,7 +158,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 银行卡信息
+            // 二级商户进件申请单
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -180,7 +186,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.2',
+                    'sdk_version'      => '1.3.2',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -410,6 +416,72 @@ class Client
     }
 
     /**
+     * Description: 签约结果查询
+     * Summary: 签约结果查询.
+     *
+     * @param QueryMerchantAgreementRequest $request
+     *
+     * @return QueryMerchantAgreementResponse
+     */
+    public function queryMerchantAgreement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMerchantAgreementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 签约结果查询
+     * Summary: 签约结果查询.
+     *
+     * @param QueryMerchantAgreementRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryMerchantAgreementResponse
+     */
+    public function queryMerchantAgreementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMerchantAgreementResponse::fromMap($this->doRequest('1.0', 'antcloud.industry.merchant.agreement.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+     * Summary: 行业平台侧业务单据推送
+     *
+     * @param PushServiceMeterdataRequest $request
+     *
+     * @return PushServiceMeterdataResponse
+     */
+    public function pushServiceMeterdata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushServiceMeterdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 行业平台侧业务单据推送,用于以业务方视角上报单据
+     * Summary: 行业平台侧业务单据推送
+     *
+     * @param PushServiceMeterdataRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return PushServiceMeterdataResponse
+     */
+    public function pushServiceMeterdataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushServiceMeterdataResponse::fromMap($this->doRequest('1.0', 'antcloud.industry.service.meterdata.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 买家卖家收单交易，直接收款给卖家过渡户
      * Summary: 买家卖家收单交易-电脑版.
      *
@@ -572,6 +644,39 @@ class Client
         Utils::validateModel($request);
 
         return SyncTradeResponse::fromMap($this->doRequest('1.0', 'antcloud.industry.trade.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 统一收单-查询
+     * Summary: 统一收单-查询.
+     *
+     * @param QueryTradeRequest $request
+     *
+     * @return QueryTradeResponse
+     */
+    public function queryTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 统一收单-查询
+     * Summary: 统一收单-查询.
+     *
+     * @param QueryTradeRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return QueryTradeResponse
+     */
+    public function queryTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTradeResponse::fromMap($this->doRequest('1.0', 'antcloud.industry.trade.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

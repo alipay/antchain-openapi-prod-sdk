@@ -6,7 +6,7 @@ namespace AntChain\INDUSTRY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SignMerchantAgreementRequest extends Model
+class QueryMerchantAgreementRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,42 +14,28 @@ class SignMerchantAgreementRequest extends Model
      */
     public $authToken;
 
-    // 签约请求单据号
+    // 签约时的请求单据号
     /**
      * @var string
      */
     public $requestId;
 
-    // 来源场景码, 由中台为业务方分配
+    // 业务来源场景码，由中台分配给业务方
     /**
      * @var string
      */
     public $source;
 
-    // 渠道
+    // 渠道场景码, 由中台分配给业务方
     /**
      * @var string
      */
     public $channel;
-
-    // 商家pid
-    /**
-     * @var string
-     */
-    public $merchantUserId;
-
-    // 个人签约产品码，商户代扣场景固定GENERAL_WITHHOLDING_P
-    /**
-     * @var string
-     */
-    public $personalProductCode;
     protected $_name = [
-        'authToken'           => 'auth_token',
-        'requestId'           => 'request_id',
-        'source'              => 'source',
-        'channel'             => 'channel',
-        'merchantUserId'      => 'merchant_user_id',
-        'personalProductCode' => 'personal_product_code',
+        'authToken' => 'auth_token',
+        'requestId' => 'request_id',
+        'source'    => 'source',
+        'channel'   => 'channel',
     ];
 
     public function validate()
@@ -57,8 +43,6 @@ class SignMerchantAgreementRequest extends Model
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('source', $this->source, true);
         Model::validateRequired('channel', $this->channel, true);
-        Model::validateRequired('merchantUserId', $this->merchantUserId, true);
-        Model::validateRequired('personalProductCode', $this->personalProductCode, true);
     }
 
     public function toMap()
@@ -76,12 +60,6 @@ class SignMerchantAgreementRequest extends Model
         if (null !== $this->channel) {
             $res['channel'] = $this->channel;
         }
-        if (null !== $this->merchantUserId) {
-            $res['merchant_user_id'] = $this->merchantUserId;
-        }
-        if (null !== $this->personalProductCode) {
-            $res['personal_product_code'] = $this->personalProductCode;
-        }
 
         return $res;
     }
@@ -89,7 +67,7 @@ class SignMerchantAgreementRequest extends Model
     /**
      * @param array $map
      *
-     * @return SignMerchantAgreementRequest
+     * @return QueryMerchantAgreementRequest
      */
     public static function fromMap($map = [])
     {
@@ -105,12 +83,6 @@ class SignMerchantAgreementRequest extends Model
         }
         if (isset($map['channel'])) {
             $model->channel = $map['channel'];
-        }
-        if (isset($map['merchant_user_id'])) {
-            $model->merchantUserId = $map['merchant_user_id'];
-        }
-        if (isset($map['personal_product_code'])) {
-            $model->personalProductCode = $map['personal_product_code'];
         }
 
         return $model;

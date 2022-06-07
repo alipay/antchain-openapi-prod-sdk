@@ -6,7 +6,7 @@ namespace AntChain\INDUSTRY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PayTradeResponse extends Model
+class PushServiceMeterdataResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class PayTradeResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 交易号，64位以内
-    /**
-     * @var string
-     */
-    public $tradeNo;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'tradeNo'    => 'trade_no',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class PayTradeResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->tradeNo) {
-            $res['trade_no'] = $this->tradeNo;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class PayTradeResponse extends Model
     /**
      * @param array $map
      *
-     * @return PayTradeResponse
+     * @return PushServiceMeterdataResponse
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class PayTradeResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['trade_no'])) {
-            $model->tradeNo = $map['trade_no'];
         }
 
         return $model;

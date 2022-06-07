@@ -74,6 +74,12 @@ class PayTradePageRequest extends Model
      * @var string
      */
     public $body;
+
+    // 扩展字段
+    /**
+     * @var string
+     */
+    public $properties;
     protected $_name = [
         'authToken'       => 'auth_token',
         'source'          => 'source',
@@ -86,6 +92,7 @@ class PayTradePageRequest extends Model
         'transCurrency'   => 'trans_currency',
         'merchantUserId'  => 'merchant_user_id',
         'body'            => 'body',
+        'properties'      => 'properties',
     ];
 
     public function validate()
@@ -136,6 +143,9 @@ class PayTradePageRequest extends Model
         if (null !== $this->body) {
             $res['body'] = $this->body;
         }
+        if (null !== $this->properties) {
+            $res['properties'] = $this->properties;
+        }
 
         return $res;
     }
@@ -180,6 +190,9 @@ class PayTradePageRequest extends Model
         }
         if (isset($map['body'])) {
             $model->body = $map['body'];
+        }
+        if (isset($map['properties'])) {
+            $model->properties = $map['properties'];
         }
 
         return $model;
