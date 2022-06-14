@@ -1616,6 +1616,8 @@ type GetWorkspacegroupInstanceRequest struct {
 	ClusterId *string `json:"cluster_id,omitempty" xml:"cluster_id,omitempty"`
 	// 是否需要原始的instanceId
 	NeedReal *bool `json:"need_real,omitempty" xml:"need_real,omitempty"`
+	// workspace
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
 }
 
 func (s GetWorkspacegroupInstanceRequest) String() string {
@@ -1653,6 +1655,11 @@ func (s *GetWorkspacegroupInstanceRequest) SetClusterId(v string) *GetWorkspaceg
 
 func (s *GetWorkspacegroupInstanceRequest) SetNeedReal(v bool) *GetWorkspacegroupInstanceRequest {
 	s.NeedReal = &v
+	return s
+}
+
+func (s *GetWorkspacegroupInstanceRequest) SetWorkspace(v string) *GetWorkspacegroupInstanceRequest {
+	s.Workspace = &v
 	return s
 }
 
@@ -2146,7 +2153,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.4"),
+				"sdk_version":      tea.String("1.1.5"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
