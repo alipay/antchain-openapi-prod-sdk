@@ -1885,6 +1885,7 @@ class GetWorkspacegroupInstanceRequest(TeaModel):
         workspace_group: str = None,
         cluster_id: str = None,
         need_real: bool = None,
+        workspace: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1897,6 +1898,8 @@ class GetWorkspacegroupInstanceRequest(TeaModel):
         self.cluster_id = cluster_id
         # 是否需要原始的instanceId
         self.need_real = need_real
+        # workspace
+        self.workspace = workspace
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
@@ -1916,6 +1919,8 @@ class GetWorkspacegroupInstanceRequest(TeaModel):
             result['cluster_id'] = self.cluster_id
         if self.need_real is not None:
             result['need_real'] = self.need_real
+        if self.workspace is not None:
+            result['workspace'] = self.workspace
         return result
 
     def from_map(self, m: dict = None):
@@ -1932,6 +1937,8 @@ class GetWorkspacegroupInstanceRequest(TeaModel):
             self.cluster_id = m.get('cluster_id')
         if m.get('need_real') is not None:
             self.need_real = m.get('need_real')
+        if m.get('workspace') is not None:
+            self.workspace = m.get('workspace')
         return self
 
 
