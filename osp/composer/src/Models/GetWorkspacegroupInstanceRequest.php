@@ -42,6 +42,12 @@ class GetWorkspacegroupInstanceRequest extends Model
      * @var bool
      */
     public $needReal;
+
+    // workspace
+    /**
+     * @var string
+     */
+    public $workspace;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class GetWorkspacegroupInstanceRequest extends Model
         'workspaceGroup'    => 'workspace_group',
         'clusterId'         => 'cluster_id',
         'needReal'          => 'need_real',
+        'workspace'         => 'workspace',
     ];
 
     public function validate()
@@ -77,6 +84,9 @@ class GetWorkspacegroupInstanceRequest extends Model
         }
         if (null !== $this->needReal) {
             $res['need_real'] = $this->needReal;
+        }
+        if (null !== $this->workspace) {
+            $res['workspace'] = $this->workspace;
         }
 
         return $res;
@@ -107,6 +117,9 @@ class GetWorkspacegroupInstanceRequest extends Model
         }
         if (isset($map['need_real'])) {
             $model->needReal = $map['need_real'];
+        }
+        if (isset($map['workspace'])) {
+            $model->workspace = $map['workspace'];
         }
 
         return $model;
