@@ -29,6 +29,10 @@ public class GetWorkspacegroupInstanceRequest extends TeaModel {
     @NameInMap("need_real")
     public Boolean needReal;
 
+    // workspace
+    @NameInMap("workspace")
+    public String workspace;
+
     public static GetWorkspacegroupInstanceRequest build(java.util.Map<String, ?> map) throws Exception {
         GetWorkspacegroupInstanceRequest self = new GetWorkspacegroupInstanceRequest();
         return TeaModel.build(map, self);
@@ -80,6 +84,14 @@ public class GetWorkspacegroupInstanceRequest extends TeaModel {
     }
     public Boolean getNeedReal() {
         return this.needReal;
+    }
+
+    public GetWorkspacegroupInstanceRequest setWorkspace(String workspace) {
+        this.workspace = workspace;
+        return this;
+    }
+    public String getWorkspace() {
+        return this.workspace;
     }
 
 }
