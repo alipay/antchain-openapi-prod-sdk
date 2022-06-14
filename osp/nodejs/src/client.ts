@@ -1207,6 +1207,8 @@ export class GetWorkspacegroupInstanceRequest extends $tea.Model {
   clusterId?: string;
   // 是否需要原始的instanceId
   needReal?: boolean;
+  // workspace
+  workspace?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1215,6 +1217,7 @@ export class GetWorkspacegroupInstanceRequest extends $tea.Model {
       workspaceGroup: 'workspace_group',
       clusterId: 'cluster_id',
       needReal: 'need_real',
+      workspace: 'workspace',
     };
   }
 
@@ -1226,6 +1229,7 @@ export class GetWorkspacegroupInstanceRequest extends $tea.Model {
       workspaceGroup: 'string',
       clusterId: 'string',
       needReal: 'boolean',
+      workspace: 'string',
     };
   }
 
@@ -1643,7 +1647,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.4",
+          sdk_version: "1.1.5",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
