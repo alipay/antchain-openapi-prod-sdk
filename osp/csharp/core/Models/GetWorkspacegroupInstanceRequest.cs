@@ -38,6 +38,11 @@ namespace AntChain.SDK.Osp.Models
         [Validation(Required=false)]
         public bool? NeedReal { get; set; }
 
+        // workspace
+        [NameInMap("workspace")]
+        [Validation(Required=false)]
+        public string Workspace { get; set; }
+
     }
 
 }
