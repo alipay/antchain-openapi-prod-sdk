@@ -653,8 +653,8 @@ type GetOperatorResponse struct {
 	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty" require:"true"`
 	// 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
 	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 用户加入的租户列表
-	Tenants []*string `json:"tenants,omitempty" xml:"tenants,omitempty" require:"true" type:"Repeated"`
+	// 操作员归属的用户CODE，现在列表只会有一个元素。
+	Tenants []*string `json:"tenants,omitempty" xml:"tenants,omitempty" type:"Repeated"`
 	// 操作员最近一次修改时间，ISO8601格式
 	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
 	// 工号
@@ -1565,8 +1565,8 @@ type GetTenantResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 蚂蚁通行证签约账户
 	AntAccount *string `json:"ant_account,omitempty" xml:"ant_account,omitempty" require:"true"`
-	// 蚂蚁通行证uid
-	AntUid *string `json:"ant_uid,omitempty" xml:"ant_uid,omitempty" require:"true"`
+	// 用户ID
+	AntUid *string `json:"ant_uid,omitempty" xml:"ant_uid,omitempty"`
 	// 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
 	BusinessOwnerId *string `json:"business_owner_id,omitempty" xml:"business_owner_id,omitempty" require:"true"`
 	// 租户创建时间，ISO8601格式
@@ -1579,7 +1579,7 @@ type GetTenantResponse struct {
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 租户内部id
 	InternalId *string `json:"internal_id,omitempty" xml:"internal_id,omitempty"`
-	// 租户显示名称
+	// 用户CODE
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// 租户最近一次修改时间，ISO8601格式
 	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
@@ -2651,7 +2651,7 @@ type CreateAntchainTenantRequest struct {
 	IsAlipayTenant *bool `json:"is_alipay_tenant,omitempty" xml:"is_alipay_tenant,omitempty" require:"true"`
 	// 是否认证过，不填默认未认证
 	AntchainCertified *bool `json:"antchain_certified,omitempty" xml:"antchain_certified,omitempty"`
-	// 幂等使用，一般是外部系统的会员ID
+	// 外部系统的会员ID，用于幂等
 	SourceUserId *string `json:"source_user_id,omitempty" xml:"source_user_id,omitempty"`
 }
 
@@ -2986,7 +2986,9 @@ type GetMasterTenantRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 主账号id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 用户CODE
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 }
 
 func (s GetMasterTenantRequest) String() string {
@@ -3004,6 +3006,11 @@ func (s *GetMasterTenantRequest) SetAuthToken(v string) *GetMasterTenantRequest 
 
 func (s *GetMasterTenantRequest) SetTenantId(v string) *GetMasterTenantRequest {
 	s.TenantId = &v
+	return s
+}
+
+func (s *GetMasterTenantRequest) SetName(v string) *GetMasterTenantRequest {
+	s.Name = &v
 	return s
 }
 
@@ -3032,6 +3039,14 @@ type GetMasterTenantResponse struct {
 	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
 	// 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
 	TenantLevel *string `json:"tenant_level,omitempty" xml:"tenant_level,omitempty"`
+	// 证件类型
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// 法人姓名，个人账号时是个人姓名
+	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
+	// 企业姓名
+	FirmName *string `json:"firm_name,omitempty" xml:"firm_name,omitempty"`
 }
 
 func (s GetMasterTenantResponse) String() string {
@@ -3099,6 +3114,26 @@ func (s *GetMasterTenantResponse) SetUserType(v string) *GetMasterTenantResponse
 
 func (s *GetMasterTenantResponse) SetTenantLevel(v string) *GetMasterTenantResponse {
 	s.TenantLevel = &v
+	return s
+}
+
+func (s *GetMasterTenantResponse) SetCertType(v string) *GetMasterTenantResponse {
+	s.CertType = &v
+	return s
+}
+
+func (s *GetMasterTenantResponse) SetCertNo(v string) *GetMasterTenantResponse {
+	s.CertNo = &v
+	return s
+}
+
+func (s *GetMasterTenantResponse) SetRealName(v string) *GetMasterTenantResponse {
+	s.RealName = &v
+	return s
+}
+
+func (s *GetMasterTenantResponse) SetFirmName(v string) *GetMasterTenantResponse {
+	s.FirmName = &v
 	return s
 }
 
@@ -3558,7 +3593,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.22"),
+				"sdk_version":      tea.String("1.0.23"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3914,7 +3949,7 @@ func (client *Client) CreateTenantEx(request *CreateTenantRequest, headers map[s
 
 /**
  * Description: 查询租户详情
- * Summary: 获取租户
+ * Summary: 获取用户信息
  */
 func (client *Client) GetTenant(request *GetTenantRequest) (_result *GetTenantResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -3930,7 +3965,7 @@ func (client *Client) GetTenant(request *GetTenantRequest) (_result *GetTenantRe
 
 /**
  * Description: 查询租户详情
- * Summary: 获取租户
+ * Summary: 获取用户信息
  */
 func (client *Client) GetTenantEx(request *GetTenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetTenantResponse, _err error) {
 	_err = util.ValidateModel(request)
