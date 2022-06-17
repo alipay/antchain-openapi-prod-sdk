@@ -69,6 +69,26 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string TenantLevel { get; set; }
 
+        // 证件类型
+        [NameInMap("cert_type")]
+        [Validation(Required=false)]
+        public string CertType { get; set; }
+
+        // 证件号码
+        [NameInMap("cert_no")]
+        [Validation(Required=false)]
+        public string CertNo { get; set; }
+
+        // 法人姓名，个人账号时是个人姓名
+        [NameInMap("real_name")]
+        [Validation(Required=false)]
+        public string RealName { get; set; }
+
+        // 企业姓名
+        [NameInMap("firm_name")]
+        [Validation(Required=false)]
+        public string FirmName { get; set; }
+
     }
 
 }

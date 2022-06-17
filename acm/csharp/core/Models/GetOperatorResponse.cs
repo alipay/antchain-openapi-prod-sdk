@@ -79,9 +79,9 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=true)]
         public string Status { get; set; }
 
-        // 用户加入的租户列表
+        // 操作员归属的用户CODE，现在列表只会有一个元素。
         [NameInMap("tenants")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<string> Tenants { get; set; }
 
         // 操作员最近一次修改时间，ISO8601格式

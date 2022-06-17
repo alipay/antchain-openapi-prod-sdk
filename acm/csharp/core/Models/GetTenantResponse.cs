@@ -29,9 +29,9 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=true)]
         public string AntAccount { get; set; }
 
-        // 蚂蚁通行证uid
+        // 用户ID
         [NameInMap("ant_uid")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AntUid { get; set; }
 
         // 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
@@ -64,7 +64,7 @@ namespace AntChain.SDK.Acm.Models
         [Validation(Required=false)]
         public string InternalId { get; set; }
 
-        // 租户显示名称
+        // 用户CODE
         [NameInMap("name")]
         [Validation(Required=false)]
         public string Name { get; set; }

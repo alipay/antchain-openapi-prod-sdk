@@ -16,8 +16,13 @@ namespace AntChain.SDK.Acm.Models
 
         // 主账号id
         [NameInMap("tenant_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TenantId { get; set; }
+
+        // 用户CODE
+        [NameInMap("name")]
+        [Validation(Required=false)]
+        public string Name { get; set; }
 
     }
 

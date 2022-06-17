@@ -137,7 +137,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.22"},
+                        {"sdk_version", "1.0.23"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.22"},
+                        {"sdk_version", "1.0.23"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -697,7 +697,7 @@ namespace AntChain.SDK.Acm
 
         /**
          * Description: 查询租户详情
-         * Summary: 获取租户
+         * Summary: 获取用户信息
          */
         public GetTenantResponse GetTenant(GetTenantRequest request)
         {
@@ -708,7 +708,7 @@ namespace AntChain.SDK.Acm
 
         /**
          * Description: 查询租户详情
-         * Summary: 获取租户
+         * Summary: 获取用户信息
          */
         public async Task<GetTenantResponse> GetTenantAsync(GetTenantRequest request)
         {
@@ -719,7 +719,7 @@ namespace AntChain.SDK.Acm
 
         /**
          * Description: 查询租户详情
-         * Summary: 获取租户
+         * Summary: 获取用户信息
          */
         public GetTenantResponse GetTenantEx(GetTenantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -729,7 +729,7 @@ namespace AntChain.SDK.Acm
 
         /**
          * Description: 查询租户详情
-         * Summary: 获取租户
+         * Summary: 获取用户信息
          */
         public async Task<GetTenantResponse> GetTenantExAsync(GetTenantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
