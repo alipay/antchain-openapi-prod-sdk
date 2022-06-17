@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.22'
+                    'sdk_version': '1.0.23'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.22'
+                    'sdk_version': '1.0.23'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -763,7 +763,7 @@ class Client:
     ) -> acm_models.GetTenantResponse:
         """
         Description: 查询租户详情
-        Summary: 获取租户
+        Summary: 获取用户信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -775,7 +775,7 @@ class Client:
     ) -> acm_models.GetTenantResponse:
         """
         Description: 查询租户详情
-        Summary: 获取租户
+        Summary: 获取用户信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -789,7 +789,7 @@ class Client:
     ) -> acm_models.GetTenantResponse:
         """
         Description: 查询租户详情
-        Summary: 获取租户
+        Summary: 获取用户信息
         """
         UtilClient.validate_model(request)
         return acm_models.GetTenantResponse().from_map(
@@ -804,7 +804,7 @@ class Client:
     ) -> acm_models.GetTenantResponse:
         """
         Description: 查询租户详情
-        Summary: 获取租户
+        Summary: 获取用户信息
         """
         UtilClient.validate_model(request)
         return acm_models.GetTenantResponse().from_map(

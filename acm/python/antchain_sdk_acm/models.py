@@ -727,7 +727,7 @@ class GetOperatorResponse(TeaModel):
         self.real_name = real_name
         # 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
         self.status = status
-        # 用户加入的租户列表
+        # 操作员归属的用户CODE，现在列表只会有一个元素。
         self.tenants = tenants
         # 操作员最近一次修改时间，ISO8601格式
         self.update_time = update_time
@@ -749,7 +749,6 @@ class GetOperatorResponse(TeaModel):
         self.validate_required(self.nickname, 'nickname')
         self.validate_required(self.real_name, 'real_name')
         self.validate_required(self.status, 'status')
-        self.validate_required(self.tenants, 'tenants')
 
     def to_map(self):
         result = dict()
@@ -1773,7 +1772,7 @@ class GetTenantResponse(TeaModel):
         self.result_msg = result_msg
         # 蚂蚁通行证签约账户
         self.ant_account = ant_account
-        # 蚂蚁通行证uid
+        # 用户ID
         self.ant_uid = ant_uid
         # 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
         self.business_owner_id = business_owner_id
@@ -1787,14 +1786,13 @@ class GetTenantResponse(TeaModel):
         self.id = id
         # 租户内部id
         self.internal_id = internal_id
-        # 租户显示名称
+        # 用户CODE
         self.name = name
         # 租户最近一次修改时间，ISO8601格式
         self.update_time = update_time
 
     def validate(self):
         self.validate_required(self.ant_account, 'ant_account')
-        self.validate_required(self.ant_uid, 'ant_uid')
         self.validate_required(self.business_owner_id, 'business_owner_id')
 
     def to_map(self):
@@ -3052,7 +3050,7 @@ class CreateAntchainTenantRequest(TeaModel):
         self.is_alipay_tenant = is_alipay_tenant
         # 是否认证过，不填默认未认证
         self.antchain_certified = antchain_certified
-        # 幂等使用，一般是外部系统的会员ID
+        # 外部系统的会员ID，用于幂等
         self.source_user_id = source_user_id
 
     def validate(self):
@@ -3412,14 +3410,17 @@ class GetMasterTenantRequest(TeaModel):
         self,
         auth_token: str = None,
         tenant_id: str = None,
+        name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         # 主账号id
         self.tenant_id = tenant_id
+        # 用户CODE
+        self.name = name
 
     def validate(self):
-        self.validate_required(self.tenant_id, 'tenant_id')
+        pass
 
     def to_map(self):
         result = dict()
@@ -3427,6 +3428,8 @@ class GetMasterTenantRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.tenant_id is not None:
             result['tenant_id'] = self.tenant_id
+        if self.name is not None:
+            result['name'] = self.name
         return result
 
     def from_map(self, m: dict = None):
@@ -3435,6 +3438,8 @@ class GetMasterTenantRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
         return self
 
 
@@ -3453,6 +3458,10 @@ class GetMasterTenantResponse(TeaModel):
         update_time: str = None,
         user_type: str = None,
         tenant_level: str = None,
+        cert_type: str = None,
+        cert_no: str = None,
+        real_name: str = None,
+        firm_name: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3478,6 +3487,14 @@ class GetMasterTenantResponse(TeaModel):
         self.user_type = user_type
         # 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
         self.tenant_level = tenant_level
+        # 证件类型
+        self.cert_type = cert_type
+        # 证件号码
+        self.cert_no = cert_no
+        # 法人姓名，个人账号时是个人姓名
+        self.real_name = real_name
+        # 企业姓名
+        self.firm_name = firm_name
 
     def validate(self):
         pass
@@ -3508,6 +3525,14 @@ class GetMasterTenantResponse(TeaModel):
             result['user_type'] = self.user_type
         if self.tenant_level is not None:
             result['tenant_level'] = self.tenant_level
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.real_name is not None:
+            result['real_name'] = self.real_name
+        if self.firm_name is not None:
+            result['firm_name'] = self.firm_name
         return result
 
     def from_map(self, m: dict = None):
@@ -3536,6 +3561,14 @@ class GetMasterTenantResponse(TeaModel):
             self.user_type = m.get('user_type')
         if m.get('tenant_level') is not None:
             self.tenant_level = m.get('tenant_level')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('real_name') is not None:
+            self.real_name = m.get('real_name')
+        if m.get('firm_name') is not None:
+            self.firm_name = m.get('firm_name')
         return self
 
 
