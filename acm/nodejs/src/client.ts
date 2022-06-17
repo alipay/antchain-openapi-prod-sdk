@@ -468,8 +468,8 @@ export class GetOperatorResponse extends $tea.Model {
   realName: string;
   // 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
   status: string;
-  // 用户加入的租户列表
-  tenants: string[];
+  // 操作员归属的用户CODE，现在列表只会有一个元素。
+  tenants?: string[];
   // 操作员最近一次修改时间，ISO8601格式
   updateTime?: string;
   // 工号
@@ -1136,8 +1136,8 @@ export class GetTenantResponse extends $tea.Model {
   resultMsg?: string;
   // 蚂蚁通行证签约账户
   antAccount: string;
-  // 蚂蚁通行证uid
-  antUid: string;
+  // 用户ID
+  antUid?: string;
   // 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
   businessOwnerId: string;
   // 租户创建时间，ISO8601格式
@@ -1150,7 +1150,7 @@ export class GetTenantResponse extends $tea.Model {
   id?: string;
   // 租户内部id
   internalId?: string;
-  // 租户显示名称
+  // 用户CODE
   name?: string;
   // 租户最近一次修改时间，ISO8601格式
   updateTime?: string;
@@ -1989,7 +1989,7 @@ export class CreateAntchainTenantRequest extends $tea.Model {
   isAlipayTenant: boolean;
   // 是否认证过，不填默认未认证
   antchainCertified?: boolean;
-  // 幂等使用，一般是外部系统的会员ID
+  // 外部系统的会员ID，用于幂等
   sourceUserId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2228,11 +2228,14 @@ export class GetMasterTenantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   // 主账号id
-  tenantId: string;
+  tenantId?: string;
+  // 用户CODE
+  name?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       tenantId: 'tenant_id',
+      name: 'name',
     };
   }
 
@@ -2240,6 +2243,7 @@ export class GetMasterTenantRequest extends $tea.Model {
     return {
       authToken: 'string',
       tenantId: 'string',
+      name: 'string',
     };
   }
 
@@ -2273,6 +2277,14 @@ export class GetMasterTenantResponse extends $tea.Model {
   userType?: string;
   // 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
   tenantLevel?: string;
+  // 证件类型
+  certType?: string;
+  // 证件号码
+  certNo?: string;
+  // 法人姓名，个人账号时是个人姓名
+  realName?: string;
+  // 企业姓名
+  firmName?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2287,6 +2299,10 @@ export class GetMasterTenantResponse extends $tea.Model {
       updateTime: 'update_time',
       userType: 'user_type',
       tenantLevel: 'tenant_level',
+      certType: 'cert_type',
+      certNo: 'cert_no',
+      realName: 'real_name',
+      firmName: 'firm_name',
     };
   }
 
@@ -2304,6 +2320,10 @@ export class GetMasterTenantResponse extends $tea.Model {
       updateTime: 'string',
       userType: 'string',
       tenantLevel: 'string',
+      certType: 'string',
+      certNo: 'string',
+      realName: 'string',
+      firmName: 'string',
     };
   }
 
@@ -2713,7 +2733,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.22",
+          sdk_version: "1.0.23",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2932,7 +2952,7 @@ export default class Client {
 
   /**
    * Description: 查询租户详情
-   * Summary: 获取租户
+   * Summary: 获取用户信息
    */
   async getTenant(request: GetTenantRequest): Promise<GetTenantResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -2942,7 +2962,7 @@ export default class Client {
 
   /**
    * Description: 查询租户详情
-   * Summary: 获取租户
+   * Summary: 获取用户信息
    */
   async getTenantEx(request: GetTenantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetTenantResponse> {
     Util.validateModel(request);
