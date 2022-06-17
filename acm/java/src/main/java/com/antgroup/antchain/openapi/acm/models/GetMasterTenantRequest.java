@@ -10,8 +10,11 @@ public class GetMasterTenantRequest extends TeaModel {
 
     // 主账号id
     @NameInMap("tenant_id")
-    @Validation(required = true)
     public String tenantId;
+
+    // 用户CODE
+    @NameInMap("name")
+    public String name;
 
     public static GetMasterTenantRequest build(java.util.Map<String, ?> map) throws Exception {
         GetMasterTenantRequest self = new GetMasterTenantRequest();
@@ -32,6 +35,14 @@ public class GetMasterTenantRequest extends TeaModel {
     }
     public String getTenantId() {
         return this.tenantId;
+    }
+
+    public GetMasterTenantRequest setName(String name) {
+        this.name = name;
+        return this;
+    }
+    public String getName() {
+        return this.name;
     }
 
 }

@@ -52,6 +52,22 @@ public class GetMasterTenantResponse extends TeaModel {
     @NameInMap("tenant_level")
     public String tenantLevel;
 
+    // 证件类型
+    @NameInMap("cert_type")
+    public String certType;
+
+    // 证件号码
+    @NameInMap("cert_no")
+    public String certNo;
+
+    // 法人姓名，个人账号时是个人姓名
+    @NameInMap("real_name")
+    public String realName;
+
+    // 企业姓名
+    @NameInMap("firm_name")
+    public String firmName;
+
     public static GetMasterTenantResponse build(java.util.Map<String, ?> map) throws Exception {
         GetMasterTenantResponse self = new GetMasterTenantResponse();
         return TeaModel.build(map, self);
@@ -151,6 +167,38 @@ public class GetMasterTenantResponse extends TeaModel {
     }
     public String getTenantLevel() {
         return this.tenantLevel;
+    }
+
+    public GetMasterTenantResponse setCertType(String certType) {
+        this.certType = certType;
+        return this;
+    }
+    public String getCertType() {
+        return this.certType;
+    }
+
+    public GetMasterTenantResponse setCertNo(String certNo) {
+        this.certNo = certNo;
+        return this;
+    }
+    public String getCertNo() {
+        return this.certNo;
+    }
+
+    public GetMasterTenantResponse setRealName(String realName) {
+        this.realName = realName;
+        return this;
+    }
+    public String getRealName() {
+        return this.realName;
+    }
+
+    public GetMasterTenantResponse setFirmName(String firmName) {
+        this.firmName = firmName;
+        return this;
+    }
+    public String getFirmName() {
+        return this.firmName;
     }
 
 }

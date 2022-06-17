@@ -70,9 +70,8 @@ public class GetOperatorResponse extends TeaModel {
     @Validation(required = true)
     public String status;
 
-    // 用户加入的租户列表
+    // 操作员归属的用户CODE，现在列表只会有一个元素。
     @NameInMap("tenants")
-    @Validation(required = true)
     public java.util.List<String> tenants;
 
     // 操作员最近一次修改时间，ISO8601格式

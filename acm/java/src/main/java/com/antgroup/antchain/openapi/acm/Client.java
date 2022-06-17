@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.22")
+                    new TeaPair("sdk_version", "1.0.23")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -332,7 +332,7 @@ public class Client {
 
     /**
      * Description: 查询租户详情
-     * Summary: 获取租户
+     * Summary: 获取用户信息
      */
     public GetTenantResponse getTenant(GetTenantRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -342,7 +342,7 @@ public class Client {
 
     /**
      * Description: 查询租户详情
-     * Summary: 获取租户
+     * Summary: 获取用户信息
      */
     public GetTenantResponse getTenantEx(GetTenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

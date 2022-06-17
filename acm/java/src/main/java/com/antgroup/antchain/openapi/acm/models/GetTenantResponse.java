@@ -21,9 +21,8 @@ public class GetTenantResponse extends TeaModel {
     @Validation(required = true)
     public String antAccount;
 
-    // 蚂蚁通行证uid
+    // 用户ID
     @NameInMap("ant_uid")
-    @Validation(required = true)
     public String antUid;
 
     // 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
@@ -51,7 +50,7 @@ public class GetTenantResponse extends TeaModel {
     @NameInMap("internal_id")
     public String internalId;
 
-    // 租户显示名称
+    // 用户CODE
     @NameInMap("name")
     public String name;
 

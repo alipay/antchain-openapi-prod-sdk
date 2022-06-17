@@ -66,7 +66,7 @@ public class CreateAntchainTenantRequest extends TeaModel {
     @NameInMap("antchain_certified")
     public Boolean antchainCertified;
 
-    // 幂等使用，一般是外部系统的会员ID
+    // 外部系统的会员ID，用于幂等
     @NameInMap("source_user_id")
     public String sourceUserId;
 
