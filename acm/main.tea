@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.22',
+    sdk_version = '1.0.23',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -346,8 +346,8 @@ model GetOperatorResponse = {
   realName: string(name='real_name'),
   // 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
   status: string(name='status'),
-  // 用户加入的租户列表
-  tenants: [ string ](name='tenants'),
+  // 操作员归属的用户CODE，现在列表只会有一个元素。
+  tenants?: [ string ](name='tenants'),
   // 操作员最近一次修改时间，ISO8601格式
   updateTime?: string(name='update_time'),
   // 工号
@@ -742,8 +742,8 @@ model GetTenantResponse = {
   resultMsg?: string(name='result_msg'),
   // 蚂蚁通行证签约账户
   antAccount: string(name='ant_account'),
-  // 蚂蚁通行证uid
-  antUid: string(name='ant_uid'),
+  // 用户ID
+  antUid?: string(name='ant_uid'),
   // 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
   businessOwnerId: string(name='business_owner_id'),
   // 租户创建时间，ISO8601格式
@@ -756,7 +756,7 @@ model GetTenantResponse = {
   id?: string(name='id'),
   // 租户内部id
   internalId?: string(name='internal_id'),
-  // 租户显示名称
+  // 用户CODE
   name?: string(name='name'),
   // 租户最近一次修改时间，ISO8601格式
   updateTime?: string(name='update_time'),
@@ -764,7 +764,7 @@ model GetTenantResponse = {
 
 /**
  * Description: 查询租户详情
- * Summary: 获取租户
+ * Summary: 获取用户信息
  */
 async function getTenant(request: GetTenantRequest): GetTenantResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -774,7 +774,7 @@ async function getTenant(request: GetTenantRequest): GetTenantResponse {
 
 /**
  * Description: 查询租户详情
- * Summary: 获取租户
+ * Summary: 获取用户信息
  */
 async function getTenantEx(request: GetTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetTenantResponse {
   Util.validateModel(request);
@@ -1292,7 +1292,7 @@ model CreateAntchainTenantRequest = {
   isAlipayTenant: boolean(name='is_alipay_tenant'),
   // 是否认证过，不填默认未认证
   antchainCertified?: boolean(name='antchain_certified'),
-  // 幂等使用，一般是外部系统的会员ID
+  // 外部系统的会员ID，用于幂等
   sourceUserId?: string(name='source_user_id'),
 }
 
@@ -1426,7 +1426,9 @@ model GetMasterTenantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 主账号id
-  tenantId: string(name='tenant_id'),
+  tenantId?: string(name='tenant_id'),
+  // 用户CODE
+  name?: string(name='name'),
 }
 
 model GetMasterTenantResponse = {
@@ -1454,6 +1456,14 @@ model GetMasterTenantResponse = {
   userType?: string(name='user_type'),
   // 租户的类型 N 支付宝 Q支付宝开放平台 V 蚂蚁链账号
   tenantLevel?: string(name='tenant_level'),
+  // 证件类型
+  certType?: string(name='cert_type'),
+  // 证件号码
+  certNo?: string(name='cert_no'),
+  // 法人姓名，个人账号时是个人姓名
+  realName?: string(name='real_name'),
+  // 企业姓名
+  firmName?: string(name='firm_name'),
 }
 
 /**
