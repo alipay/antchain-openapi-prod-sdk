@@ -19,14 +19,20 @@ class GetMasterTenantRequest extends Model
      * @var string
      */
     public $tenantId;
+
+    // 用户CODE
+    /**
+     * @var string
+     */
+    public $name;
     protected $_name = [
         'authToken' => 'auth_token',
         'tenantId'  => 'tenant_id',
+        'name'      => 'name',
     ];
 
     public function validate()
     {
-        Model::validateRequired('tenantId', $this->tenantId, true);
     }
 
     public function toMap()
@@ -37,6 +43,9 @@ class GetMasterTenantRequest extends Model
         }
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->name) {
+            $res['name'] = $this->name;
         }
 
         return $res;
@@ -55,6 +64,9 @@ class GetMasterTenantRequest extends Model
         }
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
+        }
+        if (isset($map['name'])) {
+            $model->name = $map['name'];
         }
 
         return $model;

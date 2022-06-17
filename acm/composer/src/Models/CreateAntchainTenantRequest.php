@@ -94,7 +94,7 @@ class CreateAntchainTenantRequest extends Model
      */
     public $antchainCertified;
 
-    // 幂等使用，一般是外部系统的会员ID
+    // 外部系统的会员ID，用于幂等
     /**
      * @var string
      */

@@ -92,7 +92,7 @@ class GetOperatorResponse extends Model
      */
     public $status;
 
-    // 用户加入的租户列表
+    // 操作员归属的用户CODE，现在列表只会有一个元素。
     /**
      * @var string[]
      */
@@ -155,7 +155,6 @@ class GetOperatorResponse extends Model
         Model::validateRequired('nickname', $this->nickname, true);
         Model::validateRequired('realName', $this->realName, true);
         Model::validateRequired('status', $this->status, true);
-        Model::validateRequired('tenants', $this->tenants, true);
     }
 
     public function toMap()

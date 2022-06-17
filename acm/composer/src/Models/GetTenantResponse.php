@@ -32,7 +32,7 @@ class GetTenantResponse extends Model
      */
     public $antAccount;
 
-    // 蚂蚁通行证uid
+    // 用户ID
     /**
      * @var string
      */
@@ -74,7 +74,7 @@ class GetTenantResponse extends Model
      */
     public $internalId;
 
-    // 租户显示名称
+    // 用户CODE
     /**
      * @var string
      */
@@ -104,7 +104,6 @@ class GetTenantResponse extends Model
     public function validate()
     {
         Model::validateRequired('antAccount', $this->antAccount, true);
-        Model::validateRequired('antUid', $this->antUid, true);
         Model::validateRequired('businessOwnerId', $this->businessOwnerId, true);
     }
 

@@ -218,7 +218,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.22',
+                    'sdk_version'      => '1.0.23',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -563,7 +563,7 @@ class Client
 
     /**
      * Description: 查询租户详情
-     * Summary: 获取租户.
+     * Summary: 获取用户信息.
      *
      * @param GetTenantRequest $request
      *
@@ -579,7 +579,7 @@ class Client
 
     /**
      * Description: 查询租户详情
-     * Summary: 获取租户.
+     * Summary: 获取用户信息.
      *
      * @param GetTenantRequest $request
      * @param string[]         $headers

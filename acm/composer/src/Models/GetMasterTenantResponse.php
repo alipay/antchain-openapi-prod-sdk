@@ -79,6 +79,30 @@ class GetMasterTenantResponse extends Model
      * @var string
      */
     public $tenantLevel;
+
+    // 证件类型
+    /**
+     * @var string
+     */
+    public $certType;
+
+    // 证件号码
+    /**
+     * @var string
+     */
+    public $certNo;
+
+    // 法人姓名，个人账号时是个人姓名
+    /**
+     * @var string
+     */
+    public $realName;
+
+    // 企业姓名
+    /**
+     * @var string
+     */
+    public $firmName;
     protected $_name = [
         'reqMsgId'    => 'req_msg_id',
         'resultCode'  => 'result_code',
@@ -92,6 +116,10 @@ class GetMasterTenantResponse extends Model
         'updateTime'  => 'update_time',
         'userType'    => 'user_type',
         'tenantLevel' => 'tenant_level',
+        'certType'    => 'cert_type',
+        'certNo'      => 'cert_no',
+        'realName'    => 'real_name',
+        'firmName'    => 'firm_name',
     ];
 
     public function validate()
@@ -136,6 +164,18 @@ class GetMasterTenantResponse extends Model
         }
         if (null !== $this->tenantLevel) {
             $res['tenant_level'] = $this->tenantLevel;
+        }
+        if (null !== $this->certType) {
+            $res['cert_type'] = $this->certType;
+        }
+        if (null !== $this->certNo) {
+            $res['cert_no'] = $this->certNo;
+        }
+        if (null !== $this->realName) {
+            $res['real_name'] = $this->realName;
+        }
+        if (null !== $this->firmName) {
+            $res['firm_name'] = $this->firmName;
         }
 
         return $res;
@@ -184,6 +224,18 @@ class GetMasterTenantResponse extends Model
         }
         if (isset($map['tenant_level'])) {
             $model->tenantLevel = $map['tenant_level'];
+        }
+        if (isset($map['cert_type'])) {
+            $model->certType = $map['cert_type'];
+        }
+        if (isset($map['cert_no'])) {
+            $model->certNo = $map['cert_no'];
+        }
+        if (isset($map['real_name'])) {
+            $model->realName = $map['real_name'];
+        }
+        if (isset($map['firm_name'])) {
+            $model->firmName = $map['firm_name'];
         }
 
         return $model;
