@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryDubbridgeRiskinfoEnterprisescoreRequest : TeaModel {
+    public class UpdateDubbridgeAccountCustomRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,25 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 统一信用代码
-        [NameInMap("social_credit_code")]
+        // 渠道编码
+        [NameInMap("channel_code")]
         [Validation(Required=true)]
-        public string SocialCreditCode { get; set; }
+        public string ChannelCode { get; set; }
 
-        // 手机号
-        [NameInMap("mobile")]
-        [Validation(Required=false)]
-        public string Mobile { get; set; }
+        // 新渠道id
+        [NameInMap("new_open_id")]
+        [Validation(Required=true)]
+        public string NewOpenId { get; set; }
+
+        // 原渠道id
+        [NameInMap("source_open_id")]
+        [Validation(Required=true)]
+        public string SourceOpenId { get; set; }
 
         // 客户号
         [NameInMap("customer_no")]
         [Validation(Required=true)]
         public string CustomerNo { get; set; }
-
-        // 渠道号
-        [NameInMap("channel_code")]
-        [Validation(Required=true)]
-        public string ChannelCode { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class ImportUmktSceneUploadResponse : TeaModel {
+    public class QueryDubbridgeUsecreditStatusResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,25 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 请求结果
-        [NameInMap("success")]
+        // 用信状态（0-通过/1-不通过2-处理中）
+        [NameInMap("status")]
         [Validation(Required=false)]
-        public bool? Success { get; set; }
+        public string Status { get; set; }
 
-        // 场景构建结果体
-        [NameInMap("upload_result")]
+        // 拒绝原因
+        [NameInMap("msg")]
         [Validation(Required=false)]
-        public StrategyUploadResult UploadResult { get; set; }
+        public string Msg { get; set; }
+
+        // 借据信息
+        [NameInMap("receipt_info")]
+        [Validation(Required=false)]
+        public ReceiptInfo ReceiptInfo { get; set; }
+
+        // 还款计划列表
+        [NameInMap("repay_ref")]
+        [Validation(Required=false)]
+        public List<RepayRef> RepayRef { get; set; }
 
     }
 

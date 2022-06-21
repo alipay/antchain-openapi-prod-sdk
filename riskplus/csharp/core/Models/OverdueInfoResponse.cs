@@ -62,6 +62,46 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public long? TotalAmount { get; set; }
 
+        // 数据日期
+        [NameInMap("settle_date")]
+        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string SettleDate { get; set; }
+
+        // 借款唯一编号
+        [NameInMap("receipt_no")]
+        [Validation(Required=true)]
+        public string ReceiptNo { get; set; }
+
+        // 已还期数
+        [NameInMap("already_repay_period_count")]
+        [Validation(Required=true)]
+        public long? AlreadyRepayPeriodCount { get; set; }
+
+        // 贷款期数
+        [NameInMap("loan_period_count")]
+        [Validation(Required=true)]
+        public long? LoanPeriodCount { get; set; }
+
+        // 未还本金
+        [NameInMap("outstanding_principal")]
+        [Validation(Required=true)]
+        public long? OutstandingPrincipal { get; set; }
+
+        // 放款日期
+        [NameInMap("loan_time")]
+        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string LoanTime { get; set; }
+
+        // 结清标志
+        [NameInMap("settle_flag")]
+        [Validation(Required=true)]
+        public bool? SettleFlag { get; set; }
+
+        // 最近一次还款日期
+        [NameInMap("nearest_repay_time")]
+        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string NearestRepayTime { get; set; }
+
     }
 
 }

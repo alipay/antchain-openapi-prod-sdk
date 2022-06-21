@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class ImportUmktSceneUploadResponse : TeaModel {
+    public class QueryDubbridgeReceiptOverdueResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,10 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 请求结果
-        [NameInMap("success")]
+        // 逾期信息响应
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public bool? Success { get; set; }
-
-        // 场景构建结果体
-        [NameInMap("upload_result")]
-        [Validation(Required=false)]
-        public StrategyUploadResult UploadResult { get; set; }
+        public OverdueInfoResponse Data { get; set; }
 
     }
 

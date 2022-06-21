@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class ImportUmktSceneUploadResponse : TeaModel {
+    public class ApplyDubbridgeCustomerAgreementsignResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 请求结果
-        [NameInMap("success")]
+        // sdkParams返回给商户app客户端，作为客户端唤起sdk的入参
+        [NameInMap("sdk_params")]
         [Validation(Required=false)]
-        public bool? Success { get; set; }
+        public string SdkParams { get; set; }
 
-        // 场景构建结果体
-        [NameInMap("upload_result")]
+        // 客户编号
+        [NameInMap("custom_no")]
         [Validation(Required=false)]
-        public StrategyUploadResult UploadResult { get; set; }
+        public string CustomNo { get; set; }
 
     }
 

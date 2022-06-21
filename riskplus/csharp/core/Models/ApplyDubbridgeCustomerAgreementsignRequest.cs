@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class BatchqueryUmktRtTailmarketingRequest : TeaModel {
+    public class ApplyDubbridgeCustomerAgreementsignRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,27 +18,30 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 营销计划id
-        [NameInMap("plan_id")]
+        // 订单号
+        [NameInMap("order_no")]
         [Validation(Required=true)]
-        public string PlanId { get; set; }
+        public string OrderNo { get; set; }
 
-        // 	
-        // 用户列表传输模版
-        [NameInMap("query_template")]
+        // 客户编号
+        [NameInMap("custom_no")]
         [Validation(Required=true)]
-        public string QueryTemplate { get; set; }
+        public string CustomNo { get; set; }
 
-        // 	
-        // 用户查询凭证列表
-        [NameInMap("customer_keys")]
+        // 张三
+        [NameInMap("custom_name")]
         [Validation(Required=true)]
-        public List<string> CustomerKeys { get; set; }
+        public string CustomName { get; set; }
 
-        // 业务方流水号
-        [NameInMap("biz_serial_no")]
+        // 110101xxxxxxxx
+        [NameInMap("card_no")]
         [Validation(Required=true)]
-        public string BizSerialNo { get; set; }
+        public string CardNo { get; set; }
+
+        // 证件类型
+        [NameInMap("id_type")]
+        [Validation(Required=false)]
+        public string IdType { get; set; }
 
     }
 
