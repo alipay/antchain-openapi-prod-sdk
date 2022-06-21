@@ -1230,6 +1230,22 @@ export class OverdueInfoResponse extends $tea.Model {
   currentNeedAmount: number;
   // 总剩余应还
   totalAmount: number;
+  // 数据日期
+  settleDate: string;
+  // 借款唯一编号
+  receiptNo: string;
+  // 已还期数
+  alreadyRepayPeriodCount: number;
+  // 贷款期数
+  loanPeriodCount: number;
+  // 未还本金
+  outstandingPrincipal: number;
+  // 放款日期
+  loanTime: string;
+  // 结清标志
+  settleFlag: boolean;
+  // 最近一次还款日期
+  nearestRepayTime: string;
   static names(): { [key: string]: string } {
     return {
       overDueFlag: 'over_due_flag',
@@ -1242,6 +1258,14 @@ export class OverdueInfoResponse extends $tea.Model {
       needOverdueAmount: 'need_overdue_amount',
       currentNeedAmount: 'current_need_amount',
       totalAmount: 'total_amount',
+      settleDate: 'settle_date',
+      receiptNo: 'receipt_no',
+      alreadyRepayPeriodCount: 'already_repay_period_count',
+      loanPeriodCount: 'loan_period_count',
+      outstandingPrincipal: 'outstanding_principal',
+      loanTime: 'loan_time',
+      settleFlag: 'settle_flag',
+      nearestRepayTime: 'nearest_repay_time',
     };
   }
 
@@ -1257,6 +1281,14 @@ export class OverdueInfoResponse extends $tea.Model {
       needOverdueAmount: 'number',
       currentNeedAmount: 'number',
       totalAmount: 'number',
+      settleDate: 'string',
+      receiptNo: 'string',
+      alreadyRepayPeriodCount: 'number',
+      loanPeriodCount: 'number',
+      outstandingPrincipal: 'number',
+      loanTime: 'string',
+      settleFlag: 'boolean',
+      nearestRepayTime: 'string',
     };
   }
 
@@ -5524,7 +5556,7 @@ export class QueryDubbridgeRiskinfoEnterprisescoreRequest extends $tea.Model {
   productInstanceId?: string;
   // 统一信用代码
   socialCreditCode: string;
-  // MD5
+  // 手机号
   mobile?: string;
   // 客户号
   customerNo: string;
@@ -5830,6 +5862,1270 @@ export class QueryDubbridgeRiskinfoBusinessinfoResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       info: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgeCustomerAgreementsignRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  orderNo: string;
+  // 客户编号
+  customNo: string;
+  // 张三
+  customName: string;
+  // 110101xxxxxxxx
+  cardNo: string;
+  // 证件类型
+  idType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      customNo: 'custom_no',
+      customName: 'custom_name',
+      cardNo: 'card_no',
+      idType: 'id_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      customNo: 'string',
+      customName: 'string',
+      cardNo: 'string',
+      idType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgeCustomerAgreementsignResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // sdkParams返回给商户app客户端，作为客户端唤起sdk的入参
+  sdkParams?: string;
+  // 客户编号
+  customNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      sdkParams: 'sdk_params',
+      customNo: 'custom_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      sdkParams: 'string',
+      customNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeAccountStatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户编号（资产方用户唯一标记二选一）
+  customNo: string;
+  // 资产方用户唯一标识（资产方用户唯一标记二选一）
+  openId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customNo: 'custom_no',
+      openId: 'open_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customNo: 'string',
+      openId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeAccountStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 0:通过；
+  // 1:拒绝；
+  // 2:处理中；
+  // 
+  status?: string;
+  // 拒绝原因
+  msg?: string;
+  // true：是
+  // false：否
+  applyFlag?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      msg: 'msg',
+      applyFlag: 'apply_flag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      msg: 'string',
+      applyFlag: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeAccountCustomRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 渠道号
+  channelCode?: string;
+  // 客户编码
+  customNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelCode: 'channel_code',
+      customNo: 'custom_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelCode: 'string',
+      customNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeAccountCustomResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否进行过授信申请
+  regFlag?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      regFlag: 'reg_flag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      regFlag: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateDubbridgeAccountCustomRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 渠道编码
+  channelCode: string;
+  // 新渠道id
+  newOpenId: string;
+  // 原渠道id
+  sourceOpenId: string;
+  // 客户号
+  customerNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelCode: 'channel_code',
+      newOpenId: 'new_open_id',
+      sourceOpenId: 'source_open_id',
+      customerNo: 'customer_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelCode: 'string',
+      newOpenId: 'string',
+      sourceOpenId: 'string',
+      customerNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateDubbridgeAccountCustomResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // id
+  id?: number;
+  // 渠道编码
+  channelCode?: string;
+  // 渠道id
+  channelNo?: string;
+  // 客户号
+  customerNo?: string;
+  // 创建时间
+  createTime?: string;
+  // 更新时间
+  updateTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      id: 'id',
+      channelCode: 'channel_code',
+      channelNo: 'channel_no',
+      customerNo: 'customer_no',
+      createTime: 'create_time',
+      updateTime: 'update_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      id: 'number',
+      channelCode: 'string',
+      channelNo: 'string',
+      customerNo: 'string',
+      createTime: 'string',
+      updateTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeCustomerAgreementsignRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户编码
+  customNo: string;
+  // 订单号
+  orderNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customNo: 'custom_no',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customNo: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeCustomerAgreementsignResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 客户编号
+  customNo?: string;
+  // 流水号(代扣协议中标示用户的唯一签约号)
+  transSerials?: string;
+  // 协议签约状态(0-成功1-失败2-处理中)
+  status?: string;
+  // 协议签约时间(支付宝代扣协议的实际签约时间，格式为yyyy-MM-dd HH:mm:ss)
+  signTime?: string;
+  // 协议生效时间(用户代扣协议的实际生效时间，格式为yyyy-MM-dd HH:mm:ss)
+  validTime?: string;
+  // 协议失效时间(用户代扣协议的失效时间，格式为yyyy-MM-dd HH:mm:ss)
+  invalidTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      customNo: 'custom_no',
+      transSerials: 'trans_serials',
+      status: 'status',
+      signTime: 'sign_time',
+      validTime: 'valid_time',
+      invalidTime: 'invalid_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      customNo: 'string',
+      transSerials: 'string',
+      status: 'string',
+      signTime: 'string',
+      validTime: 'string',
+      invalidTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateDubbridgeCustomerInfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户姓名(可修改字段)
+  customName?: string;
+  // 户籍所在地(可修改字段)
+  censusRegister?: string;
+  // 证件号码(可修改字段)
+  cardNo?: string;
+  // 手机号码(可修改字段)
+  mobile?: string;
+  // 客户编号(唯一不变)
+  customNo: string;
+  // 订单号
+  orderNo?: string;
+  // 身份证有效期
+  idValidDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customName: 'custom_name',
+      censusRegister: 'census_register',
+      cardNo: 'card_no',
+      mobile: 'mobile',
+      customNo: 'custom_no',
+      orderNo: 'order_no',
+      idValidDate: 'id_valid_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customName: 'string',
+      censusRegister: 'string',
+      cardNo: 'string',
+      mobile: 'string',
+      customNo: 'string',
+      orderNo: 'string',
+      idValidDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateDubbridgeCustomerInfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeReceiptOverdueRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 合同编码
+  contractNo: string;
+  // 渠道编码
+  channelCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      contractNo: 'contract_no',
+      channelCode: 'channel_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      contractNo: 'string',
+      channelCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeReceiptOverdueResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 逾期信息响应
+  data?: OverdueInfoResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: OverdueInfoResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RepayDubbridgeRepayCheckstandRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用信申请订单号
+  originalOrderNo: string;
+  // 还款类型1:当期结清，2：正常还款3：全部结清
+  repayType: string;
+  // 订单号
+  orderNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      originalOrderNo: 'original_order_no',
+      repayType: 'repay_type',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      originalOrderNo: 'string',
+      repayType: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RepayDubbridgeRepayCheckstandResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 收银台地址(成功就有值)
+  checkstandAddress?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      checkstandAddress: 'checkstand_address',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      checkstandAddress: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeRepayInfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 原还款订单号
+  originalOrderNo: string;
+  // 订单号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      originalOrderNo: 'original_order_no',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      originalOrderNo: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeRepayInfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 还款编号
+  repayNo?: string;
+  // 借据编码
+  receiptNo?: string;
+  // 客户编号
+  customNo?: string;
+  // 客户名称
+  customName?: string;
+  // 还款类型1:提前还款，2：正常还款 3:批量还款 4：自由还款
+  repayType?: string;
+  // repay_sign
+  repaySign?: string;
+  // 还款日期
+  repayDate?: string;
+  // 实还总额
+  repayAmount?: number;
+  // 实还本金
+  repayPrincipal?: number;
+  // 实还利息
+  repayInterest?: number;
+  // 实还通道手续费
+  channelAmt?: number;
+  // 实还手续费
+  repayFee?: string;
+  // 实收罚息
+  repayPunish?: number;
+  // 还款账户
+  repayAccount?: string;
+  // 还款账户名称
+  repayAccountName?: string;
+  // 还款账户的手机号
+  repayMobile?: string;
+  // 还款账户银行行号
+  repayBankNo?: string;
+  // 还款账户银行名称
+  repayBankName?: string;
+  // 还款状态0:失败 1成功 2-审批中 3-还款中
+  repayStatus?: string;
+  // 失败原因
+  failReason?: string;
+  // 授信申请编号
+  applyNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      repayNo: 'repay_no',
+      receiptNo: 'receipt_no',
+      customNo: 'custom_no',
+      customName: 'custom_name',
+      repayType: 'repay_type',
+      repaySign: 'repay_sign',
+      repayDate: 'repay_date',
+      repayAmount: 'repay_amount',
+      repayPrincipal: 'repay_principal',
+      repayInterest: 'repay_interest',
+      channelAmt: 'channel_amt',
+      repayFee: 'repay_fee',
+      repayPunish: 'repay_punish',
+      repayAccount: 'repay_account',
+      repayAccountName: 'repay_account_name',
+      repayMobile: 'repay_mobile',
+      repayBankNo: 'repay_bank_no',
+      repayBankName: 'repay_bank_name',
+      repayStatus: 'repay_status',
+      failReason: 'fail_reason',
+      applyNo: 'apply_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      repayNo: 'string',
+      receiptNo: 'string',
+      customNo: 'string',
+      customName: 'string',
+      repayType: 'string',
+      repaySign: 'string',
+      repayDate: 'string',
+      repayAmount: 'number',
+      repayPrincipal: 'number',
+      repayInterest: 'number',
+      channelAmt: 'number',
+      repayFee: 'string',
+      repayPunish: 'number',
+      repayAccount: 'string',
+      repayAccountName: 'string',
+      repayMobile: 'string',
+      repayBankNo: 'string',
+      repayBankName: 'string',
+      repayStatus: 'string',
+      failReason: 'string',
+      applyNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeRepayListRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  orderNo: string;
+  // 用信申请订单号
+  originalOrderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      originalOrderNo: 'original_order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      originalOrderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeRepayListResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 还款计划查询结果
+  repayRefList?: RepayRef[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      repayRefList: 'repay_ref_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      repayRefList: { 'type': 'array', 'itemType': RepayRef },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountDubbridgeRepayReftrialRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  orderNo: string;
+  // 授信申请订单号
+  originalOrderNo: string;
+  // 产品编号
+  prodNo: string;
+  // 借款金额
+  applyAmount: number;
+  // 借款期数
+  applyPeriod: number;
+  // 还款方式1：等额本息，2：等额本金
+  repayType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      originalOrderNo: 'original_order_no',
+      prodNo: 'prod_no',
+      applyAmount: 'apply_amount',
+      applyPeriod: 'apply_period',
+      repayType: 'repay_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      originalOrderNo: 'string',
+      prodNo: 'string',
+      applyAmount: 'number',
+      applyPeriod: 'number',
+      repayType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountDubbridgeRepayReftrialResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 还款计划试算结果
+  repayRefList?: RepayRef;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      repayRefList: 'repay_ref_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      repayRefList: RepayRef,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountDubbridgeRepayTrialRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用信申请订单号
+  originalOrderNo: string;
+  // 还款类型1:当期结清，2：正常还款3：全部结清
+  repayType: string;
+  // 订单号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      originalOrderNo: 'original_order_no',
+      repayType: 'repay_type',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      originalOrderNo: 'string',
+      repayType: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountDubbridgeRepayTrialResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 还款本金
+  realPrincipal?: number;
+  // 还款利息
+  realInterest?: number;
+  // 还款费用
+  realOverAmt?: number;
+  // 服务费
+  serviceCharge?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      realPrincipal: 'real_principal',
+      realInterest: 'real_interest',
+      realOverAmt: 'real_over_amt',
+      serviceCharge: 'service_charge',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      realPrincipal: 'number',
+      realInterest: 'number',
+      realOverAmt: 'number',
+      serviceCharge: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RepayDubbridgeRepayWithholdRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授信申请订单号
+  originalOrderNo: string;
+  // 还款类型1:当期结清，2：正常还款3：全部结清
+  repayType: string;
+  // 订单号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      originalOrderNo: 'original_order_no',
+      repayType: 'repay_type',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      originalOrderNo: 'string',
+      repayType: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RepayDubbridgeRepayWithholdResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeSearchContractRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 原用信订单号
+  originalOrderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      originalOrderNo: 'original_order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      originalOrderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeSearchContractResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 关联编号（授信/用信）
+  relationNo?: string;
+  // 合同编号
+  contractNo?: string;
+  // 合同名称
+  contractName?: string;
+  // 合同类型：0:电子合同签署授权协议 1:借款合同 2:抵押合同 3:担保合同 4:用信合同 5:通用合同 6:征信授权书
+  contractType?: string;
+  // 客户编号
+  customNo?: string;
+  // 下载地址
+  savePath?: string;
+  // 合同金额
+  contractAmount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      relationNo: 'relation_no',
+      contractNo: 'contract_no',
+      contractName: 'contract_name',
+      contractType: 'contract_type',
+      customNo: 'custom_no',
+      savePath: 'save_path',
+      contractAmount: 'contract_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      relationNo: 'string',
+      contractNo: 'string',
+      contractName: 'string',
+      contractType: 'string',
+      customNo: 'string',
+      savePath: 'string',
+      contractAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授信申请订单号
+  originalOrderNo: string;
+  // 用信金额
+  loanAmount: number;
+  // 期数
+  period: number;
+  // 资产方用户唯一标识
+  openId: string;
+  // 订单号
+  orderNo: string;
+  // 还款方式:1：等额本息，2：等额本金
+  repayType: string;
+  // 1：手机数码 2：旅游 3：装修 4：教育 5：婚庆 6：租房 7：家具家居 8：健康医疗 9：其他消费 10：家用电器
+  loanWay: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      originalOrderNo: 'original_order_no',
+      loanAmount: 'loan_amount',
+      period: 'period',
+      openId: 'open_id',
+      orderNo: 'order_no',
+      repayType: 'repay_type',
+      loanWay: 'loan_way',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      originalOrderNo: 'string',
+      loanAmount: 'number',
+      period: 'number',
+      openId: 'string',
+      orderNo: 'string',
+      repayType: 'string',
+      loanWay: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDubbridgeUsecreditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeUsecreditStatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用信申请订单号
+  originalOrderNo: string;
+  // 请求网络流水号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      originalOrderNo: 'original_order_no',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      originalOrderNo: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeUsecreditStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用信状态（0-通过/1-不通过2-处理中）
+  status?: string;
+  // 拒绝原因
+  msg?: string;
+  // 借据信息
+  receiptInfo?: ReceiptInfo;
+  // 还款计划列表
+  repayRef?: RepayRef[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      msg: 'msg',
+      receiptInfo: 'receipt_info',
+      repayRef: 'repay_ref',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      msg: 'string',
+      receiptInfo: ReceiptInfo,
+      repayRef: { 'type': 'array', 'itemType': RepayRef },
     };
   }
 
@@ -7006,6 +8302,77 @@ export class QueryRbbCompanyGuardResponse extends $tea.Model {
       resultMsg: 'string',
       decision: 'string',
       results: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRbbObtsZsearchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 索引名称
+  index: string;
+  // 类型名称
+  type?: string;
+  // 操作方法
+  operationMethod?: string;
+  // 查询语句
+  entityString?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      index: 'index',
+      type: 'type',
+      operationMethod: 'operation_method',
+      entityString: 'entity_string',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      index: 'string',
+      type: 'string',
+      operationMethod: 'string',
+      entityString: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRbbObtsZsearchResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // zsearch查询结果
+  zsearchResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      zsearchResult: 'zsearch_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      zsearchResult: 'string',
     };
   }
 
@@ -10433,7 +11800,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.7",
+          sdk_version: "1.11.9",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -11204,6 +12571,310 @@ export default class Client {
   }
 
   /**
+   * Description: 天枢系统协议签约申请(支付宝）
+   * Summary: 天枢系统协议签约申请(支付宝)
+   */
+  async applyDubbridgeCustomerAgreementsign(request: ApplyDubbridgeCustomerAgreementsignRequest): Promise<ApplyDubbridgeCustomerAgreementsignResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyDubbridgeCustomerAgreementsignEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统协议签约申请(支付宝）
+   * Summary: 天枢系统协议签约申请(支付宝)
+   */
+  async applyDubbridgeCustomerAgreementsignEx(request: ApplyDubbridgeCustomerAgreementsignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyDubbridgeCustomerAgreementsignResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyDubbridgeCustomerAgreementsignResponse>(await this.doRequest("1.0", "riskplus.dubbridge.customer.agreementsign.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyDubbridgeCustomerAgreementsignResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统是否授信查询
+   * Summary: 天枢系统是否授信查询
+   */
+  async queryDubbridgeAccountStatus(request: QueryDubbridgeAccountStatusRequest): Promise<QueryDubbridgeAccountStatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeAccountStatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统是否授信查询
+   * Summary: 天枢系统是否授信查询
+   */
+  async queryDubbridgeAccountStatusEx(request: QueryDubbridgeAccountStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeAccountStatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeAccountStatusResponse>(await this.doRequest("1.0", "riskplus.dubbridge.account.status.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeAccountStatusResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统校验是否联登
+   * Summary: 天枢系统校验是否联登
+   */
+  async queryDubbridgeAccountCustom(request: QueryDubbridgeAccountCustomRequest): Promise<QueryDubbridgeAccountCustomResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeAccountCustomEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统校验是否联登
+   * Summary: 天枢系统校验是否联登
+   */
+  async queryDubbridgeAccountCustomEx(request: QueryDubbridgeAccountCustomRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeAccountCustomResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeAccountCustomResponse>(await this.doRequest("1.0", "riskplus.dubbridge.account.custom.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeAccountCustomResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统更新渠道
+   * Summary: 天枢系统更新渠道
+   */
+  async updateDubbridgeAccountCustom(request: UpdateDubbridgeAccountCustomRequest): Promise<UpdateDubbridgeAccountCustomResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateDubbridgeAccountCustomEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统更新渠道
+   * Summary: 天枢系统更新渠道
+   */
+  async updateDubbridgeAccountCustomEx(request: UpdateDubbridgeAccountCustomRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateDubbridgeAccountCustomResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateDubbridgeAccountCustomResponse>(await this.doRequest("1.0", "riskplus.dubbridge.account.custom.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateDubbridgeAccountCustomResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统协议签约查询(支付宝)
+   * Summary: 天枢系统协议签约查询(支付宝)
+   */
+  async queryDubbridgeCustomerAgreementsign(request: QueryDubbridgeCustomerAgreementsignRequest): Promise<QueryDubbridgeCustomerAgreementsignResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeCustomerAgreementsignEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统协议签约查询(支付宝)
+   * Summary: 天枢系统协议签约查询(支付宝)
+   */
+  async queryDubbridgeCustomerAgreementsignEx(request: QueryDubbridgeCustomerAgreementsignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeCustomerAgreementsignResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeCustomerAgreementsignResponse>(await this.doRequest("1.0", "riskplus.dubbridge.customer.agreementsign.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeCustomerAgreementsignResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统客户信息变更接口（变更客户三要素信息）
+   * Summary: 天枢系统客户信息变更接口
+   */
+  async updateDubbridgeCustomerInfo(request: UpdateDubbridgeCustomerInfoRequest): Promise<UpdateDubbridgeCustomerInfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateDubbridgeCustomerInfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统客户信息变更接口（变更客户三要素信息）
+   * Summary: 天枢系统客户信息变更接口
+   */
+  async updateDubbridgeCustomerInfoEx(request: UpdateDubbridgeCustomerInfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateDubbridgeCustomerInfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateDubbridgeCustomerInfoResponse>(await this.doRequest("1.0", "riskplus.dubbridge.customer.info.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateDubbridgeCustomerInfoResponse({}));
+  }
+
+  /**
+   * Description: 天枢逾期信息查询接口
+   * Summary: 逾期信息查询
+   */
+  async queryDubbridgeReceiptOverdue(request: QueryDubbridgeReceiptOverdueRequest): Promise<QueryDubbridgeReceiptOverdueResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeReceiptOverdueEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢逾期信息查询接口
+   * Summary: 逾期信息查询
+   */
+  async queryDubbridgeReceiptOverdueEx(request: QueryDubbridgeReceiptOverdueRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeReceiptOverdueResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeReceiptOverdueResponse>(await this.doRequest("1.0", "riskplus.dubbridge.receipt.overdue.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeReceiptOverdueResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统主动还款（收银台）接口
+   * Summary: 天枢系统主动还款（收银台）接口
+   */
+  async repayDubbridgeRepayCheckstand(request: RepayDubbridgeRepayCheckstandRequest): Promise<RepayDubbridgeRepayCheckstandResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.repayDubbridgeRepayCheckstandEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统主动还款（收银台）接口
+   * Summary: 天枢系统主动还款（收银台）接口
+   */
+  async repayDubbridgeRepayCheckstandEx(request: RepayDubbridgeRepayCheckstandRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RepayDubbridgeRepayCheckstandResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RepayDubbridgeRepayCheckstandResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repay.checkstand.repay", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RepayDubbridgeRepayCheckstandResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统还款信息查询
+   * Summary: 天枢系统还款信息查询
+   */
+  async queryDubbridgeRepayInfo(request: QueryDubbridgeRepayInfoRequest): Promise<QueryDubbridgeRepayInfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeRepayInfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统还款信息查询
+   * Summary: 天枢系统还款信息查询
+   */
+  async queryDubbridgeRepayInfoEx(request: QueryDubbridgeRepayInfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeRepayInfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeRepayInfoResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repay.info.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeRepayInfoResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统还款计划查询，根据申请订单查询还款计划
+   * Summary: 天枢系统还款计划查询
+   */
+  async queryDubbridgeRepayList(request: QueryDubbridgeRepayListRequest): Promise<QueryDubbridgeRepayListResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeRepayListEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统还款计划查询，根据申请订单查询还款计划
+   * Summary: 天枢系统还款计划查询
+   */
+  async queryDubbridgeRepayListEx(request: QueryDubbridgeRepayListRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeRepayListResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeRepayListResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repay.list.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeRepayListResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
+   * Summary: 天枢系统还款计划试算
+   */
+  async countDubbridgeRepayReftrial(request: CountDubbridgeRepayReftrialRequest): Promise<CountDubbridgeRepayReftrialResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.countDubbridgeRepayReftrialEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
+   * Summary: 天枢系统还款计划试算
+   */
+  async countDubbridgeRepayReftrialEx(request: CountDubbridgeRepayReftrialRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountDubbridgeRepayReftrialResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CountDubbridgeRepayReftrialResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repay.reftrial.count", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CountDubbridgeRepayReftrialResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统还款试算，根据借据号计算还款金额
+   * Summary: 天枢系统还款试算
+   */
+  async countDubbridgeRepayTrial(request: CountDubbridgeRepayTrialRequest): Promise<CountDubbridgeRepayTrialResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.countDubbridgeRepayTrialEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统还款试算，根据借据号计算还款金额
+   * Summary: 天枢系统还款试算
+   */
+  async countDubbridgeRepayTrialEx(request: CountDubbridgeRepayTrialRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountDubbridgeRepayTrialResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CountDubbridgeRepayTrialResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repay.trial.count", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CountDubbridgeRepayTrialResponse({}));
+  }
+
+  /**
+   * Description: 天枢信贷业务系统主动还款（直接代扣）接口
+   * Summary: 天枢信贷业务系统主动还款（直接代扣）接口
+   */
+  async repayDubbridgeRepayWithhold(request: RepayDubbridgeRepayWithholdRequest): Promise<RepayDubbridgeRepayWithholdResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.repayDubbridgeRepayWithholdEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢信贷业务系统主动还款（直接代扣）接口
+   * Summary: 天枢信贷业务系统主动还款（直接代扣）接口
+   */
+  async repayDubbridgeRepayWithholdEx(request: RepayDubbridgeRepayWithholdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RepayDubbridgeRepayWithholdResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RepayDubbridgeRepayWithholdResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repay.withhold.repay", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RepayDubbridgeRepayWithholdResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统合同获取
+   * Summary: 天枢系统合同获取
+   */
+  async queryDubbridgeSearchContract(request: QueryDubbridgeSearchContractRequest): Promise<QueryDubbridgeSearchContractResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeSearchContractEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统合同获取
+   * Summary: 天枢系统合同获取
+   */
+  async queryDubbridgeSearchContractEx(request: QueryDubbridgeSearchContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeSearchContractResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeSearchContractResponse>(await this.doRequest("1.0", "riskplus.dubbridge.search.contract.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeSearchContractResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统用信申请接口
+   * Summary: 天枢系统用信申请接口
+   */
+  async applyDubbridgeUsecredit(request: ApplyDubbridgeUsecreditRequest): Promise<ApplyDubbridgeUsecreditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyDubbridgeUsecreditEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统用信申请接口
+   * Summary: 天枢系统用信申请接口
+   */
+  async applyDubbridgeUsecreditEx(request: ApplyDubbridgeUsecreditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyDubbridgeUsecreditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyDubbridgeUsecreditResponse>(await this.doRequest("1.0", "riskplus.dubbridge.usecredit.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyDubbridgeUsecreditResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
+   * Summary: 天枢系统用信申请状态查询
+   */
+  async queryDubbridgeUsecreditStatus(request: QueryDubbridgeUsecreditStatusRequest): Promise<QueryDubbridgeUsecreditStatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeUsecreditStatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
+   * Summary: 天枢系统用信申请状态查询
+   */
+  async queryDubbridgeUsecreditStatusEx(request: QueryDubbridgeUsecreditStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeUsecreditStatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeUsecreditStatusResponse>(await this.doRequest("1.0", "riskplus.dubbridge.usecredit.status.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeUsecreditStatusResponse({}));
+  }
+
+  /**
    * Description: 四要素认证首先调用此接口
    * Summary: 芝麻四要素接口
    */
@@ -11543,6 +13214,25 @@ export default class Client {
   async queryRbbCompanyGuardEx(request: QueryRbbCompanyGuardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRbbCompanyGuardResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryRbbCompanyGuardResponse>(await this.doRequest("1.0", "riskplus.rbb.company.guard.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRbbCompanyGuardResponse({}));
+  }
+
+  /**
+   * Description: 企业风控给上交所鹰眼使用的zsearch查询
+   * Summary: 企业风控给鹰眼使用的zsearch查询
+   */
+  async queryRbbObtsZsearch(request: QueryRbbObtsZsearchRequest): Promise<QueryRbbObtsZsearchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRbbObtsZsearchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企业风控给上交所鹰眼使用的zsearch查询
+   * Summary: 企业风控给鹰眼使用的zsearch查询
+   */
+  async queryRbbObtsZsearchEx(request: QueryRbbObtsZsearchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRbbObtsZsearchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRbbObtsZsearchResponse>(await this.doRequest("1.0", "riskplus.rbb.obts.zsearch.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRbbObtsZsearchResponse({}));
   }
 
   /**
