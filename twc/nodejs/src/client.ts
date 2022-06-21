@@ -17134,6 +17134,85 @@ export class QueryLeaseRepaymentstatusResponse extends $tea.Model {
   }
 }
 
+export class QueryLeaseUserperformanceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 本次融资的订单号
+  orderId: string;
+  // 首租订单号
+  firstOrderId: string;
+  // 本次融资双方的合约id
+  applicationId: string;
+  // 商家的租户id
+  leaseId: string;
+  // 首次融资的合约id
+  firstApplicationId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      firstOrderId: 'first_order_id',
+      applicationId: 'application_id',
+      leaseId: 'lease_id',
+      firstApplicationId: 'first_application_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      firstOrderId: 'string',
+      applicationId: 'string',
+      leaseId: 'string',
+      firstApplicationId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLeaseUserperformanceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 链上不存在该订单，该订单存在链上，但未获取链上融资，全部履约，累积逾期次数
+  resultMessage?: string;
+  // 预期次数
+  responseData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultMessage: 'result_message',
+      responseData: 'response_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultMessage: 'string',
+      responseData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateWitnessFlowRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -23920,6 +23999,188 @@ export class OpenInternalTwcResponse extends $tea.Model {
   }
 }
 
+export class CreateSpecifyTransRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 存证关联实体（个人/企业）的身份识别信息
+  customer: Identity;
+  // 扩展属性
+  properties?: string;
+  // 业务子类型标识
+  subBizId?: string;
+  // 是否使用可信时间戳，默认为false
+  tsr?: boolean;
+  // 链账户名称
+  chainAccount: string;
+  // 指定的上链节点ip
+  nodeIp?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customer: 'customer',
+      properties: 'properties',
+      subBizId: 'sub_biz_id',
+      tsr: 'tsr',
+      chainAccount: 'chain_account',
+      nodeIp: 'node_ip',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customer: Identity,
+      properties: 'string',
+      subBizId: 'string',
+      tsr: 'boolean',
+      chainAccount: 'string',
+      nodeIp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateSpecifyTransResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回事务ID，全局唯一
+  transactionId?: string;
+  // 可信时间信息
+  tsr?: TsrResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      transactionId: 'transaction_id',
+      tsr: 'tsr',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      transactionId: 'string',
+      tsr: TsrResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateSpecifyTextRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+  location?: Location;
+  // 存证内容
+  notaryContent: string;
+  // 描述本条存证在存证事务中的阶段，用户可自行维护
+  phase: string;
+  // 扩展属性
+  properties?: string;
+  // 存证事务id
+  transactionId: string;
+  // 是否使用可信时间戳，默认为false
+  tsr?: boolean;
+  // 文本存证类型，支持源文本/文本哈希
+  textNotaryType?: string;
+  // 哈希算法，目前仅支持 SHA256
+  hashAlgorithm?: string;
+  // 链账户名称
+  chainAccount: string;
+  // 指定上链的节点ip，固定只能传一个，不传则按照链账号绑定ip随机上链
+  nodeIp?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      location: 'location',
+      notaryContent: 'notary_content',
+      phase: 'phase',
+      properties: 'properties',
+      transactionId: 'transaction_id',
+      tsr: 'tsr',
+      textNotaryType: 'text_notary_type',
+      hashAlgorithm: 'hash_algorithm',
+      chainAccount: 'chain_account',
+      nodeIp: 'node_ip',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      location: Location,
+      notaryContent: 'string',
+      phase: 'string',
+      properties: 'string',
+      transactionId: 'string',
+      tsr: 'boolean',
+      textNotaryType: 'string',
+      hashAlgorithm: 'string',
+      chainAccount: 'string',
+      nodeIp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateSpecifyTextResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 可信时间信息
+  tsr?: TsrResponse;
+  // 存证凭据
+  txHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tsr: 'tsr',
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tsr: TsrResponse,
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateFlowInstanceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -25060,7 +25321,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.43",
+          sdk_version: "1.7.46",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -28037,6 +28298,25 @@ export default class Client {
   }
 
   /**
+   * Description: 续租过程中，当前资方希望查询用户历史的履约表现
+   * Summary: 核验链上用户的履约情况
+   */
+  async queryLeaseUserperformance(request: QueryLeaseUserperformanceRequest): Promise<QueryLeaseUserperformanceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryLeaseUserperformanceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 续租过程中，当前资方希望查询用户历史的履约表现
+   * Summary: 核验链上用户的履约情况
+   */
+  async queryLeaseUserperformanceEx(request: QueryLeaseUserperformanceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeaseUserperformanceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryLeaseUserperformanceResponse>(await this.doRequest("1.0", "twc.notary.lease.userperformance.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeaseUserperformanceResponse({}));
+  }
+
+  /**
    * Description: 创建签署见证流程
    * Summary: 创建见证流程
    */
@@ -29402,6 +29682,44 @@ export default class Client {
   async openInternalTwcEx(request: OpenInternalTwcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OpenInternalTwcResponse> {
     Util.validateModel(request);
     return $tea.cast<OpenInternalTwcResponse>(await this.doRequest("1.0", "twc.notary.internal.twc.open", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OpenInternalTwcResponse({}));
+  }
+
+  /**
+   * Description: 指定节点获取存证事务Id
+   * Summary: 指定节点获取存证事务id
+   */
+  async createSpecifyTrans(request: CreateSpecifyTransRequest): Promise<CreateSpecifyTransResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createSpecifyTransEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 指定节点获取存证事务Id
+   * Summary: 指定节点获取存证事务id
+   */
+  async createSpecifyTransEx(request: CreateSpecifyTransRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateSpecifyTransResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateSpecifyTransResponse>(await this.doRequest("1.0", "twc.notary.specify.trans.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateSpecifyTransResponse({}));
+  }
+
+  /**
+   * Description: 指定节点文本存证
+   * Summary: 指定节点文本存证
+   */
+  async createSpecifyText(request: CreateSpecifyTextRequest): Promise<CreateSpecifyTextResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createSpecifyTextEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 指定节点文本存证
+   * Summary: 指定节点文本存证
+   */
+  async createSpecifyTextEx(request: CreateSpecifyTextRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateSpecifyTextResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateSpecifyTextResponse>(await this.doRequest("1.0", "twc.notary.specify.text.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateSpecifyTextResponse({}));
   }
 
   /**
