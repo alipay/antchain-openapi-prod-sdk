@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
+class QueryDubbridgeAccountCustomRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,43 +19,27 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
      */
     public $productInstanceId;
 
-    // 统一信用代码
-    /**
-     * @var string
-     */
-    public $socialCreditCode;
-
-    // 手机号
-    /**
-     * @var string
-     */
-    public $mobile;
-
-    // 客户号
-    /**
-     * @var string
-     */
-    public $customerNo;
-
     // 渠道号
     /**
      * @var string
      */
     public $channelCode;
+
+    // 客户编码
+    /**
+     * @var string
+     */
+    public $customNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'socialCreditCode'  => 'social_credit_code',
-        'mobile'            => 'mobile',
-        'customerNo'        => 'customer_no',
         'channelCode'       => 'channel_code',
+        'customNo'          => 'custom_no',
     ];
 
     public function validate()
     {
-        Model::validateRequired('socialCreditCode', $this->socialCreditCode, true);
-        Model::validateRequired('customerNo', $this->customerNo, true);
-        Model::validateRequired('channelCode', $this->channelCode, true);
+        Model::validateRequired('customNo', $this->customNo, true);
     }
 
     public function toMap()
@@ -67,17 +51,11 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->socialCreditCode) {
-            $res['social_credit_code'] = $this->socialCreditCode;
-        }
-        if (null !== $this->mobile) {
-            $res['mobile'] = $this->mobile;
-        }
-        if (null !== $this->customerNo) {
-            $res['customer_no'] = $this->customerNo;
-        }
         if (null !== $this->channelCode) {
             $res['channel_code'] = $this->channelCode;
+        }
+        if (null !== $this->customNo) {
+            $res['custom_no'] = $this->customNo;
         }
 
         return $res;
@@ -86,7 +64,7 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryDubbridgeRiskinfoEnterprisescoreRequest
+     * @return QueryDubbridgeAccountCustomRequest
      */
     public static function fromMap($map = [])
     {
@@ -97,17 +75,11 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['social_credit_code'])) {
-            $model->socialCreditCode = $map['social_credit_code'];
-        }
-        if (isset($map['mobile'])) {
-            $model->mobile = $map['mobile'];
-        }
-        if (isset($map['customer_no'])) {
-            $model->customerNo = $map['customer_no'];
-        }
         if (isset($map['channel_code'])) {
             $model->channelCode = $map['channel_code'];
+        }
+        if (isset($map['custom_no'])) {
+            $model->customNo = $map['custom_no'];
         }
 
         return $model;

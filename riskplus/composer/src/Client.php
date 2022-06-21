@@ -13,6 +13,10 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeCreditRequest;
 use AntChain\RISKPLUS\Models\ApplyDubbridgeCreditResponse;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeCustomerAgreementsignRequest;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeCustomerAgreementsignResponse;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeUsecreditRequest;
+use AntChain\RISKPLUS\Models\ApplyDubbridgeUsecreditResponse;
 use AntChain\RISKPLUS\Models\ApplyDubheCreditRequest;
 use AntChain\RISKPLUS\Models\ApplyDubheCreditResponse;
 use AntChain\RISKPLUS\Models\ApplyDubheCustomerAgreementsignRequest;
@@ -35,6 +39,10 @@ use AntChain\RISKPLUS\Models\CheckSecurityRdsRequest;
 use AntChain\RISKPLUS\Models\CheckSecurityRdsResponse;
 use AntChain\RISKPLUS\Models\ConfirmSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\ConfirmSecurityPolicyResponse;
+use AntChain\RISKPLUS\Models\CountDubbridgeRepayReftrialRequest;
+use AntChain\RISKPLUS\Models\CountDubbridgeRepayReftrialResponse;
+use AntChain\RISKPLUS\Models\CountDubbridgeRepayTrialRequest;
+use AntChain\RISKPLUS\Models\CountDubbridgeRepayTrialResponse;
 use AntChain\RISKPLUS\Models\CountDubheRepayReftrialRequest;
 use AntChain\RISKPLUS\Models\CountDubheRepayReftrialResponse;
 use AntChain\RISKPLUS\Models\CountDubheRepayTrialRequest;
@@ -81,8 +89,20 @@ use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultRequest;
 use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultResponse;
 use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerAgreementsignRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerAgreementsignResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptOverdueRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptOverdueResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepayInfoRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepayInfoResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepayListRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepayListResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoBusinessinfoRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoBusinessinfoResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoCommonRequest;
@@ -91,6 +111,10 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoEnterprisescoreRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoEnterprisescoreResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRouterFundrouterRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRouterFundrouterResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeSearchContractRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeSearchContractResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeUsecreditStatusRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeUsecreditStatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubheCreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubheCreditStatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubheCustomerAgreementsignRequest;
@@ -121,6 +145,8 @@ use AntChain\RISKPLUS\Models\QueryRbbGeneralRequest;
 use AntChain\RISKPLUS\Models\QueryRbbGeneralResponse;
 use AntChain\RISKPLUS\Models\QueryRbbGenericInvokeRequest;
 use AntChain\RISKPLUS\Models\QueryRbbGenericInvokeResponse;
+use AntChain\RISKPLUS\Models\QueryRbbObtsZsearchRequest;
+use AntChain\RISKPLUS\Models\QueryRbbObtsZsearchResponse;
 use AntChain\RISKPLUS\Models\QueryRbbRegdatasyncPreparedRequest;
 use AntChain\RISKPLUS\Models\QueryRbbRegdatasyncPreparedResponse;
 use AntChain\RISKPLUS\Models\QueryRpgwSignUrlRequest;
@@ -171,6 +197,10 @@ use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestRequest;
 use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestResponse;
 use AntChain\RISKPLUS\Models\RegisterRpgwUserEinvoiceRequest;
 use AntChain\RISKPLUS\Models\RegisterRpgwUserEinvoiceResponse;
+use AntChain\RISKPLUS\Models\RepayDubbridgeRepayCheckstandRequest;
+use AntChain\RISKPLUS\Models\RepayDubbridgeRepayCheckstandResponse;
+use AntChain\RISKPLUS\Models\RepayDubbridgeRepayWithholdRequest;
+use AntChain\RISKPLUS\Models\RepayDubbridgeRepayWithholdResponse;
 use AntChain\RISKPLUS\Models\RepayDubheRepayCheckstandRequest;
 use AntChain\RISKPLUS\Models\RepayDubheRepayCheckstandResponse;
 use AntChain\RISKPLUS\Models\RepayDubheRepayWithholdRequest;
@@ -187,6 +217,10 @@ use AntChain\RISKPLUS\Models\SyncRpgwUserOrderinfoRequest;
 use AntChain\RISKPLUS\Models\SyncRpgwUserOrderinfoResponse;
 use AntChain\RISKPLUS\Models\SyncUmktRtEventresultRequest;
 use AntChain\RISKPLUS\Models\SyncUmktRtEventresultResponse;
+use AntChain\RISKPLUS\Models\UpdateDubbridgeAccountCustomRequest;
+use AntChain\RISKPLUS\Models\UpdateDubbridgeAccountCustomResponse;
+use AntChain\RISKPLUS\Models\UpdateDubbridgeCustomerInfoRequest;
+use AntChain\RISKPLUS\Models\UpdateDubbridgeCustomerInfoResponse;
 use AntChain\RISKPLUS\Models\UpdateDubbridgeInstitutionCreditRequest;
 use AntChain\RISKPLUS\Models\UpdateDubbridgeInstitutionCreditResponse;
 use AntChain\RISKPLUS\Models\UpdateDubheCustomerInfoRequest;
@@ -348,7 +382,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.7',
+                    'sdk_version'      => '1.11.9',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1634,6 +1668,534 @@ class Client
     }
 
     /**
+     * Description: 天枢系统协议签约申请(支付宝）
+     * Summary: 天枢系统协议签约申请(支付宝).
+     *
+     * @param ApplyDubbridgeCustomerAgreementsignRequest $request
+     *
+     * @return ApplyDubbridgeCustomerAgreementsignResponse
+     */
+    public function applyDubbridgeCustomerAgreementsign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyDubbridgeCustomerAgreementsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统协议签约申请(支付宝）
+     * Summary: 天枢系统协议签约申请(支付宝).
+     *
+     * @param ApplyDubbridgeCustomerAgreementsignRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return ApplyDubbridgeCustomerAgreementsignResponse
+     */
+    public function applyDubbridgeCustomerAgreementsignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyDubbridgeCustomerAgreementsignResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.customer.agreementsign.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统是否授信查询
+     * Summary: 天枢系统是否授信查询.
+     *
+     * @param QueryDubbridgeAccountStatusRequest $request
+     *
+     * @return QueryDubbridgeAccountStatusResponse
+     */
+    public function queryDubbridgeAccountStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeAccountStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统是否授信查询
+     * Summary: 天枢系统是否授信查询.
+     *
+     * @param QueryDubbridgeAccountStatusRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryDubbridgeAccountStatusResponse
+     */
+    public function queryDubbridgeAccountStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeAccountStatusResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.account.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统校验是否联登
+     * Summary: 天枢系统校验是否联登.
+     *
+     * @param QueryDubbridgeAccountCustomRequest $request
+     *
+     * @return QueryDubbridgeAccountCustomResponse
+     */
+    public function queryDubbridgeAccountCustom($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeAccountCustomEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统校验是否联登
+     * Summary: 天枢系统校验是否联登.
+     *
+     * @param QueryDubbridgeAccountCustomRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryDubbridgeAccountCustomResponse
+     */
+    public function queryDubbridgeAccountCustomEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeAccountCustomResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.account.custom.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统更新渠道
+     * Summary: 天枢系统更新渠道.
+     *
+     * @param UpdateDubbridgeAccountCustomRequest $request
+     *
+     * @return UpdateDubbridgeAccountCustomResponse
+     */
+    public function updateDubbridgeAccountCustom($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDubbridgeAccountCustomEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统更新渠道
+     * Summary: 天枢系统更新渠道.
+     *
+     * @param UpdateDubbridgeAccountCustomRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return UpdateDubbridgeAccountCustomResponse
+     */
+    public function updateDubbridgeAccountCustomEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDubbridgeAccountCustomResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.account.custom.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统协议签约查询(支付宝)
+     * Summary: 天枢系统协议签约查询(支付宝).
+     *
+     * @param QueryDubbridgeCustomerAgreementsignRequest $request
+     *
+     * @return QueryDubbridgeCustomerAgreementsignResponse
+     */
+    public function queryDubbridgeCustomerAgreementsign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeCustomerAgreementsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统协议签约查询(支付宝)
+     * Summary: 天枢系统协议签约查询(支付宝).
+     *
+     * @param QueryDubbridgeCustomerAgreementsignRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return QueryDubbridgeCustomerAgreementsignResponse
+     */
+    public function queryDubbridgeCustomerAgreementsignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeCustomerAgreementsignResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.customer.agreementsign.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统客户信息变更接口（变更客户三要素信息）
+     * Summary: 天枢系统客户信息变更接口.
+     *
+     * @param UpdateDubbridgeCustomerInfoRequest $request
+     *
+     * @return UpdateDubbridgeCustomerInfoResponse
+     */
+    public function updateDubbridgeCustomerInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDubbridgeCustomerInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统客户信息变更接口（变更客户三要素信息）
+     * Summary: 天枢系统客户信息变更接口.
+     *
+     * @param UpdateDubbridgeCustomerInfoRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return UpdateDubbridgeCustomerInfoResponse
+     */
+    public function updateDubbridgeCustomerInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDubbridgeCustomerInfoResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.customer.info.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢逾期信息查询接口
+     * Summary: 逾期信息查询.
+     *
+     * @param QueryDubbridgeReceiptOverdueRequest $request
+     *
+     * @return QueryDubbridgeReceiptOverdueResponse
+     */
+    public function queryDubbridgeReceiptOverdue($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeReceiptOverdueEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢逾期信息查询接口
+     * Summary: 逾期信息查询.
+     *
+     * @param QueryDubbridgeReceiptOverdueRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryDubbridgeReceiptOverdueResponse
+     */
+    public function queryDubbridgeReceiptOverdueEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeReceiptOverdueResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.receipt.overdue.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统主动还款（收银台）接口
+     * Summary: 天枢系统主动还款（收银台）接口.
+     *
+     * @param RepayDubbridgeRepayCheckstandRequest $request
+     *
+     * @return RepayDubbridgeRepayCheckstandResponse
+     */
+    public function repayDubbridgeRepayCheckstand($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->repayDubbridgeRepayCheckstandEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统主动还款（收银台）接口
+     * Summary: 天枢系统主动还款（收银台）接口.
+     *
+     * @param RepayDubbridgeRepayCheckstandRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return RepayDubbridgeRepayCheckstandResponse
+     */
+    public function repayDubbridgeRepayCheckstandEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RepayDubbridgeRepayCheckstandResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.repay.checkstand.repay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统还款信息查询
+     * Summary: 天枢系统还款信息查询.
+     *
+     * @param QueryDubbridgeRepayInfoRequest $request
+     *
+     * @return QueryDubbridgeRepayInfoResponse
+     */
+    public function queryDubbridgeRepayInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeRepayInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统还款信息查询
+     * Summary: 天枢系统还款信息查询.
+     *
+     * @param QueryDubbridgeRepayInfoRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryDubbridgeRepayInfoResponse
+     */
+    public function queryDubbridgeRepayInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeRepayInfoResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.repay.info.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统还款计划查询，根据申请订单查询还款计划
+     * Summary: 天枢系统还款计划查询.
+     *
+     * @param QueryDubbridgeRepayListRequest $request
+     *
+     * @return QueryDubbridgeRepayListResponse
+     */
+    public function queryDubbridgeRepayList($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeRepayListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统还款计划查询，根据申请订单查询还款计划
+     * Summary: 天枢系统还款计划查询.
+     *
+     * @param QueryDubbridgeRepayListRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryDubbridgeRepayListResponse
+     */
+    public function queryDubbridgeRepayListEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeRepayListResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.repay.list.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
+     * Summary: 天枢系统还款计划试算.
+     *
+     * @param CountDubbridgeRepayReftrialRequest $request
+     *
+     * @return CountDubbridgeRepayReftrialResponse
+     */
+    public function countDubbridgeRepayReftrial($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->countDubbridgeRepayReftrialEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
+     * Summary: 天枢系统还款计划试算.
+     *
+     * @param CountDubbridgeRepayReftrialRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return CountDubbridgeRepayReftrialResponse
+     */
+    public function countDubbridgeRepayReftrialEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CountDubbridgeRepayReftrialResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.repay.reftrial.count', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统还款试算，根据借据号计算还款金额
+     * Summary: 天枢系统还款试算.
+     *
+     * @param CountDubbridgeRepayTrialRequest $request
+     *
+     * @return CountDubbridgeRepayTrialResponse
+     */
+    public function countDubbridgeRepayTrial($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->countDubbridgeRepayTrialEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统还款试算，根据借据号计算还款金额
+     * Summary: 天枢系统还款试算.
+     *
+     * @param CountDubbridgeRepayTrialRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CountDubbridgeRepayTrialResponse
+     */
+    public function countDubbridgeRepayTrialEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CountDubbridgeRepayTrialResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.repay.trial.count', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢信贷业务系统主动还款（直接代扣）接口
+     * Summary: 天枢信贷业务系统主动还款（直接代扣）接口.
+     *
+     * @param RepayDubbridgeRepayWithholdRequest $request
+     *
+     * @return RepayDubbridgeRepayWithholdResponse
+     */
+    public function repayDubbridgeRepayWithhold($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->repayDubbridgeRepayWithholdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢信贷业务系统主动还款（直接代扣）接口
+     * Summary: 天枢信贷业务系统主动还款（直接代扣）接口.
+     *
+     * @param RepayDubbridgeRepayWithholdRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return RepayDubbridgeRepayWithholdResponse
+     */
+    public function repayDubbridgeRepayWithholdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RepayDubbridgeRepayWithholdResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.repay.withhold.repay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统合同获取
+     * Summary: 天枢系统合同获取.
+     *
+     * @param QueryDubbridgeSearchContractRequest $request
+     *
+     * @return QueryDubbridgeSearchContractResponse
+     */
+    public function queryDubbridgeSearchContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeSearchContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统合同获取
+     * Summary: 天枢系统合同获取.
+     *
+     * @param QueryDubbridgeSearchContractRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryDubbridgeSearchContractResponse
+     */
+    public function queryDubbridgeSearchContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeSearchContractResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.search.contract.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统用信申请接口
+     * Summary: 天枢系统用信申请接口.
+     *
+     * @param ApplyDubbridgeUsecreditRequest $request
+     *
+     * @return ApplyDubbridgeUsecreditResponse
+     */
+    public function applyDubbridgeUsecredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyDubbridgeUsecreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统用信申请接口
+     * Summary: 天枢系统用信申请接口.
+     *
+     * @param ApplyDubbridgeUsecreditRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ApplyDubbridgeUsecreditResponse
+     */
+    public function applyDubbridgeUsecreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyDubbridgeUsecreditResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.usecredit.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
+     * Summary: 天枢系统用信申请状态查询.
+     *
+     * @param QueryDubbridgeUsecreditStatusRequest $request
+     *
+     * @return QueryDubbridgeUsecreditStatusResponse
+     */
+    public function queryDubbridgeUsecreditStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeUsecreditStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
+     * Summary: 天枢系统用信申请状态查询.
+     *
+     * @param QueryDubbridgeUsecreditStatusRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryDubbridgeUsecreditStatusResponse
+     */
+    public function queryDubbridgeUsecreditStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeUsecreditStatusResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.usecredit.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口.
      *
@@ -2225,6 +2787,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryRbbCompanyGuardResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.company.guard.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业风控给上交所鹰眼使用的zsearch查询
+     * Summary: 企业风控给鹰眼使用的zsearch查询.
+     *
+     * @param QueryRbbObtsZsearchRequest $request
+     *
+     * @return QueryRbbObtsZsearchResponse
+     */
+    public function queryRbbObtsZsearch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRbbObtsZsearchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业风控给上交所鹰眼使用的zsearch查询
+     * Summary: 企业风控给鹰眼使用的zsearch查询.
+     *
+     * @param QueryRbbObtsZsearchRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryRbbObtsZsearchResponse
+     */
+    public function queryRbbObtsZsearchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRbbObtsZsearchResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.obts.zsearch.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

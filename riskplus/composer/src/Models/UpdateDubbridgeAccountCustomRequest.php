@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
+class UpdateDubbridgeAccountCustomRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,43 +19,44 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
      */
     public $productInstanceId;
 
-    // 统一信用代码
+    // 渠道编码
     /**
      * @var string
      */
-    public $socialCreditCode;
+    public $channelCode;
 
-    // 手机号
+    // 新渠道id
     /**
      * @var string
      */
-    public $mobile;
+    public $newOpenId;
+
+    // 原渠道id
+    /**
+     * @var string
+     */
+    public $sourceOpenId;
 
     // 客户号
     /**
      * @var string
      */
     public $customerNo;
-
-    // 渠道号
-    /**
-     * @var string
-     */
-    public $channelCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'socialCreditCode'  => 'social_credit_code',
-        'mobile'            => 'mobile',
-        'customerNo'        => 'customer_no',
         'channelCode'       => 'channel_code',
+        'newOpenId'         => 'new_open_id',
+        'sourceOpenId'      => 'source_open_id',
+        'customerNo'        => 'customer_no',
     ];
 
     public function validate()
     {
-        Model::validateRequired('socialCreditCode', $this->socialCreditCode, true);
-        Model::validateRequired('customerNo', $this->customerNo, true);
         Model::validateRequired('channelCode', $this->channelCode, true);
+        Model::validateRequired('newOpenId', $this->newOpenId, true);
+        Model::validateRequired('sourceOpenId', $this->sourceOpenId, true);
+        Model::validateRequired('customerNo', $this->customerNo, true);
     }
 
     public function toMap()
@@ -67,17 +68,17 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->socialCreditCode) {
-            $res['social_credit_code'] = $this->socialCreditCode;
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
         }
-        if (null !== $this->mobile) {
-            $res['mobile'] = $this->mobile;
+        if (null !== $this->newOpenId) {
+            $res['new_open_id'] = $this->newOpenId;
+        }
+        if (null !== $this->sourceOpenId) {
+            $res['source_open_id'] = $this->sourceOpenId;
         }
         if (null !== $this->customerNo) {
             $res['customer_no'] = $this->customerNo;
-        }
-        if (null !== $this->channelCode) {
-            $res['channel_code'] = $this->channelCode;
         }
 
         return $res;
@@ -86,7 +87,7 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryDubbridgeRiskinfoEnterprisescoreRequest
+     * @return UpdateDubbridgeAccountCustomRequest
      */
     public static function fromMap($map = [])
     {
@@ -97,17 +98,17 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['social_credit_code'])) {
-            $model->socialCreditCode = $map['social_credit_code'];
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
         }
-        if (isset($map['mobile'])) {
-            $model->mobile = $map['mobile'];
+        if (isset($map['new_open_id'])) {
+            $model->newOpenId = $map['new_open_id'];
+        }
+        if (isset($map['source_open_id'])) {
+            $model->sourceOpenId = $map['source_open_id'];
         }
         if (isset($map['customer_no'])) {
             $model->customerNo = $map['customer_no'];
-        }
-        if (isset($map['channel_code'])) {
-            $model->channelCode = $map['channel_code'];
         }
 
         return $model;

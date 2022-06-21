@@ -89,17 +89,89 @@ class OverdueInfoResponse extends Model
      * @var int
      */
     public $totalAmount;
+
+    // 数据日期
+    /**
+     * @example
+     *
+     * @var string
+     */
+    public $settleDate;
+
+    // 借款唯一编号
+    /**
+     * @example R2022xxxxxx
+     *
+     * @var string
+     */
+    public $receiptNo;
+
+    // 已还期数
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $alreadyRepayPeriodCount;
+
+    // 贷款期数
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $loanPeriodCount;
+
+    // 未还本金
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $outstandingPrincipal;
+
+    // 放款日期
+    /**
+     * @example
+     *
+     * @var string
+     */
+    public $loanTime;
+
+    // 结清标志
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $settleFlag;
+
+    // 最近一次还款日期
+    /**
+     * @example
+     *
+     * @var string
+     */
+    public $nearestRepayTime;
     protected $_name = [
-        'overDueFlag'       => 'over_due_flag',
-        'overDays'          => 'over_days',
-        'valuableOverDays'  => 'valuable_over_days',
-        'overPeriodCount'   => 'over_period_count',
-        'overPrincipal'     => 'over_principal',
-        'overInterest'      => 'over_interest',
-        'overPunish'        => 'over_punish',
-        'needOverdueAmount' => 'need_overdue_amount',
-        'currentNeedAmount' => 'current_need_amount',
-        'totalAmount'       => 'total_amount',
+        'overDueFlag'             => 'over_due_flag',
+        'overDays'                => 'over_days',
+        'valuableOverDays'        => 'valuable_over_days',
+        'overPeriodCount'         => 'over_period_count',
+        'overPrincipal'           => 'over_principal',
+        'overInterest'            => 'over_interest',
+        'overPunish'              => 'over_punish',
+        'needOverdueAmount'       => 'need_overdue_amount',
+        'currentNeedAmount'       => 'current_need_amount',
+        'totalAmount'             => 'total_amount',
+        'settleDate'              => 'settle_date',
+        'receiptNo'               => 'receipt_no',
+        'alreadyRepayPeriodCount' => 'already_repay_period_count',
+        'loanPeriodCount'         => 'loan_period_count',
+        'outstandingPrincipal'    => 'outstanding_principal',
+        'loanTime'                => 'loan_time',
+        'settleFlag'              => 'settle_flag',
+        'nearestRepayTime'        => 'nearest_repay_time',
     ];
 
     public function validate()
@@ -114,6 +186,17 @@ class OverdueInfoResponse extends Model
         Model::validateRequired('needOverdueAmount', $this->needOverdueAmount, true);
         Model::validateRequired('currentNeedAmount', $this->currentNeedAmount, true);
         Model::validateRequired('totalAmount', $this->totalAmount, true);
+        Model::validateRequired('settleDate', $this->settleDate, true);
+        Model::validateRequired('receiptNo', $this->receiptNo, true);
+        Model::validateRequired('alreadyRepayPeriodCount', $this->alreadyRepayPeriodCount, true);
+        Model::validateRequired('loanPeriodCount', $this->loanPeriodCount, true);
+        Model::validateRequired('outstandingPrincipal', $this->outstandingPrincipal, true);
+        Model::validateRequired('loanTime', $this->loanTime, true);
+        Model::validateRequired('settleFlag', $this->settleFlag, true);
+        Model::validateRequired('nearestRepayTime', $this->nearestRepayTime, true);
+        Model::validatePattern('settleDate', $this->settleDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('loanTime', $this->loanTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('nearestRepayTime', $this->nearestRepayTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -148,6 +231,30 @@ class OverdueInfoResponse extends Model
         }
         if (null !== $this->totalAmount) {
             $res['total_amount'] = $this->totalAmount;
+        }
+        if (null !== $this->settleDate) {
+            $res['settle_date'] = $this->settleDate;
+        }
+        if (null !== $this->receiptNo) {
+            $res['receipt_no'] = $this->receiptNo;
+        }
+        if (null !== $this->alreadyRepayPeriodCount) {
+            $res['already_repay_period_count'] = $this->alreadyRepayPeriodCount;
+        }
+        if (null !== $this->loanPeriodCount) {
+            $res['loan_period_count'] = $this->loanPeriodCount;
+        }
+        if (null !== $this->outstandingPrincipal) {
+            $res['outstanding_principal'] = $this->outstandingPrincipal;
+        }
+        if (null !== $this->loanTime) {
+            $res['loan_time'] = $this->loanTime;
+        }
+        if (null !== $this->settleFlag) {
+            $res['settle_flag'] = $this->settleFlag;
+        }
+        if (null !== $this->nearestRepayTime) {
+            $res['nearest_repay_time'] = $this->nearestRepayTime;
         }
 
         return $res;
@@ -190,6 +297,30 @@ class OverdueInfoResponse extends Model
         }
         if (isset($map['total_amount'])) {
             $model->totalAmount = $map['total_amount'];
+        }
+        if (isset($map['settle_date'])) {
+            $model->settleDate = $map['settle_date'];
+        }
+        if (isset($map['receipt_no'])) {
+            $model->receiptNo = $map['receipt_no'];
+        }
+        if (isset($map['already_repay_period_count'])) {
+            $model->alreadyRepayPeriodCount = $map['already_repay_period_count'];
+        }
+        if (isset($map['loan_period_count'])) {
+            $model->loanPeriodCount = $map['loan_period_count'];
+        }
+        if (isset($map['outstanding_principal'])) {
+            $model->outstandingPrincipal = $map['outstanding_principal'];
+        }
+        if (isset($map['loan_time'])) {
+            $model->loanTime = $map['loan_time'];
+        }
+        if (isset($map['settle_flag'])) {
+            $model->settleFlag = $map['settle_flag'];
+        }
+        if (isset($map['nearest_repay_time'])) {
+            $model->nearestRepayTime = $map['nearest_repay_time'];
         }
 
         return $model;
