@@ -26517,6 +26517,126 @@ class QueryLeaseRepaymentstatusResponse(TeaModel):
         return self
 
 
+class QueryLeaseUserperformanceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        first_order_id: str = None,
+        application_id: str = None,
+        lease_id: str = None,
+        first_application_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 本次融资的订单号
+        self.order_id = order_id
+        # 首租订单号
+        self.first_order_id = first_order_id
+        # 本次融资双方的合约id
+        self.application_id = application_id
+        # 商家的租户id
+        self.lease_id = lease_id
+        # 首次融资的合约id
+        self.first_application_id = first_application_id
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.first_order_id, 'first_order_id')
+        self.validate_required(self.application_id, 'application_id')
+        self.validate_required(self.lease_id, 'lease_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.first_order_id is not None:
+            result['first_order_id'] = self.first_order_id
+        if self.application_id is not None:
+            result['application_id'] = self.application_id
+        if self.lease_id is not None:
+            result['lease_id'] = self.lease_id
+        if self.first_application_id is not None:
+            result['first_application_id'] = self.first_application_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('first_order_id') is not None:
+            self.first_order_id = m.get('first_order_id')
+        if m.get('application_id') is not None:
+            self.application_id = m.get('application_id')
+        if m.get('lease_id') is not None:
+            self.lease_id = m.get('lease_id')
+        if m.get('first_application_id') is not None:
+            self.first_application_id = m.get('first_application_id')
+        return self
+
+
+class QueryLeaseUserperformanceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result_message: str = None,
+        response_data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 链上不存在该订单，该订单存在链上，但未获取链上融资，全部履约，累积逾期次数
+        self.result_message = result_message
+        # 预期次数
+        self.response_data = response_data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result_message is not None:
+            result['result_message'] = self.result_message
+        if self.response_data is not None:
+            result['response_data'] = self.response_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result_message') is not None:
+            self.result_message = m.get('result_message')
+        if m.get('response_data') is not None:
+            self.response_data = m.get('response_data')
+        return self
+
+
 class CreateWitnessFlowRequest(TeaModel):
     def __init__(
         self,
@@ -37316,6 +37436,296 @@ class OpenInternalTwcResponse(TeaModel):
             self.code = m.get('code')
         if m.get('message') is not None:
             self.message = m.get('message')
+        return self
+
+
+class CreateSpecifyTransRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        customer: Identity = None,
+        properties: str = None,
+        sub_biz_id: str = None,
+        tsr: bool = None,
+        chain_account: str = None,
+        node_ip: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 存证关联实体（个人/企业）的身份识别信息
+        self.customer = customer
+        # 扩展属性
+        self.properties = properties
+        # 业务子类型标识
+        self.sub_biz_id = sub_biz_id
+        # 是否使用可信时间戳，默认为false
+        self.tsr = tsr
+        # 链账户名称
+        self.chain_account = chain_account
+        # 指定的上链节点ip
+        self.node_ip = node_ip
+
+    def validate(self):
+        self.validate_required(self.customer, 'customer')
+        if self.customer:
+            self.customer.validate()
+        self.validate_required(self.chain_account, 'chain_account')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.customer is not None:
+            result['customer'] = self.customer.to_map()
+        if self.properties is not None:
+            result['properties'] = self.properties
+        if self.sub_biz_id is not None:
+            result['sub_biz_id'] = self.sub_biz_id
+        if self.tsr is not None:
+            result['tsr'] = self.tsr
+        if self.chain_account is not None:
+            result['chain_account'] = self.chain_account
+        if self.node_ip is not None:
+            result['node_ip'] = self.node_ip
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('customer') is not None:
+            temp_model = Identity()
+            self.customer = temp_model.from_map(m['customer'])
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        if m.get('sub_biz_id') is not None:
+            self.sub_biz_id = m.get('sub_biz_id')
+        if m.get('tsr') is not None:
+            self.tsr = m.get('tsr')
+        if m.get('chain_account') is not None:
+            self.chain_account = m.get('chain_account')
+        if m.get('node_ip') is not None:
+            self.node_ip = m.get('node_ip')
+        return self
+
+
+class CreateSpecifyTransResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        transaction_id: str = None,
+        tsr: TsrResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回事务ID，全局唯一
+        self.transaction_id = transaction_id
+        # 可信时间信息
+        self.tsr = tsr
+
+    def validate(self):
+        if self.tsr:
+            self.tsr.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.transaction_id is not None:
+            result['transaction_id'] = self.transaction_id
+        if self.tsr is not None:
+            result['tsr'] = self.tsr.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('transaction_id') is not None:
+            self.transaction_id = m.get('transaction_id')
+        if m.get('tsr') is not None:
+            temp_model = TsrResponse()
+            self.tsr = temp_model.from_map(m['tsr'])
+        return self
+
+
+class CreateSpecifyTextRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        location: Location = None,
+        notary_content: str = None,
+        phase: str = None,
+        properties: str = None,
+        transaction_id: str = None,
+        tsr: bool = None,
+        text_notary_type: str = None,
+        hash_algorithm: str = None,
+        chain_account: str = None,
+        node_ip: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+        self.location = location
+        # 存证内容
+        self.notary_content = notary_content
+        # 描述本条存证在存证事务中的阶段，用户可自行维护
+        self.phase = phase
+        # 扩展属性
+        self.properties = properties
+        # 存证事务id
+        self.transaction_id = transaction_id
+        # 是否使用可信时间戳，默认为false
+        self.tsr = tsr
+        # 文本存证类型，支持源文本/文本哈希
+        self.text_notary_type = text_notary_type
+        # 哈希算法，目前仅支持 SHA256
+        self.hash_algorithm = hash_algorithm
+        # 链账户名称
+        self.chain_account = chain_account
+        # 指定上链的节点ip，固定只能传一个，不传则按照链账号绑定ip随机上链
+        self.node_ip = node_ip
+
+    def validate(self):
+        if self.location:
+            self.location.validate()
+        self.validate_required(self.notary_content, 'notary_content')
+        self.validate_required(self.phase, 'phase')
+        self.validate_required(self.transaction_id, 'transaction_id')
+        self.validate_required(self.chain_account, 'chain_account')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.location is not None:
+            result['location'] = self.location.to_map()
+        if self.notary_content is not None:
+            result['notary_content'] = self.notary_content
+        if self.phase is not None:
+            result['phase'] = self.phase
+        if self.properties is not None:
+            result['properties'] = self.properties
+        if self.transaction_id is not None:
+            result['transaction_id'] = self.transaction_id
+        if self.tsr is not None:
+            result['tsr'] = self.tsr
+        if self.text_notary_type is not None:
+            result['text_notary_type'] = self.text_notary_type
+        if self.hash_algorithm is not None:
+            result['hash_algorithm'] = self.hash_algorithm
+        if self.chain_account is not None:
+            result['chain_account'] = self.chain_account
+        if self.node_ip is not None:
+            result['node_ip'] = self.node_ip
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('location') is not None:
+            temp_model = Location()
+            self.location = temp_model.from_map(m['location'])
+        if m.get('notary_content') is not None:
+            self.notary_content = m.get('notary_content')
+        if m.get('phase') is not None:
+            self.phase = m.get('phase')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        if m.get('transaction_id') is not None:
+            self.transaction_id = m.get('transaction_id')
+        if m.get('tsr') is not None:
+            self.tsr = m.get('tsr')
+        if m.get('text_notary_type') is not None:
+            self.text_notary_type = m.get('text_notary_type')
+        if m.get('hash_algorithm') is not None:
+            self.hash_algorithm = m.get('hash_algorithm')
+        if m.get('chain_account') is not None:
+            self.chain_account = m.get('chain_account')
+        if m.get('node_ip') is not None:
+            self.node_ip = m.get('node_ip')
+        return self
+
+
+class CreateSpecifyTextResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        tsr: TsrResponse = None,
+        tx_hash: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 可信时间信息
+        self.tsr = tsr
+        # 存证凭据
+        self.tx_hash = tx_hash
+
+    def validate(self):
+        if self.tsr:
+            self.tsr.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.tsr is not None:
+            result['tsr'] = self.tsr.to_map()
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('tsr') is not None:
+            temp_model = TsrResponse()
+            self.tsr = temp_model.from_map(m['tsr'])
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
         return self
 
 

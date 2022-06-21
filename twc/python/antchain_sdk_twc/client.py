@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.43'
+                    'sdk_version': '1.7.46'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.43'
+                    'sdk_version': '1.7.46'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -8595,6 +8595,60 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.lease.repaymentstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_lease_userperformance(
+        self,
+        request: twc_models.QueryLeaseUserperformanceRequest,
+    ) -> twc_models.QueryLeaseUserperformanceResponse:
+        """
+        Description: 续租过程中，当前资方希望查询用户历史的履约表现
+        Summary: 核验链上用户的履约情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_lease_userperformance_ex(request, headers, runtime)
+
+    async def query_lease_userperformance_async(
+        self,
+        request: twc_models.QueryLeaseUserperformanceRequest,
+    ) -> twc_models.QueryLeaseUserperformanceResponse:
+        """
+        Description: 续租过程中，当前资方希望查询用户历史的履约表现
+        Summary: 核验链上用户的履约情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_lease_userperformance_ex_async(request, headers, runtime)
+
+    def query_lease_userperformance_ex(
+        self,
+        request: twc_models.QueryLeaseUserperformanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseUserperformanceResponse:
+        """
+        Description: 续租过程中，当前资方希望查询用户历史的履约表现
+        Summary: 核验链上用户的履约情况
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseUserperformanceResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.userperformance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_lease_userperformance_ex_async(
+        self,
+        request: twc_models.QueryLeaseUserperformanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseUserperformanceResponse:
+        """
+        Description: 续租过程中，当前资方希望查询用户历史的履约表现
+        Summary: 核验链上用户的履约情况
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseUserperformanceResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.userperformance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_witness_flow(
         self,
         request: twc_models.CreateWitnessFlowRequest,
@@ -12481,6 +12535,114 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.OpenInternalTwcResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.internal.twc.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_specify_trans(
+        self,
+        request: twc_models.CreateSpecifyTransRequest,
+    ) -> twc_models.CreateSpecifyTransResponse:
+        """
+        Description: 指定节点获取存证事务Id
+        Summary: 指定节点获取存证事务id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_specify_trans_ex(request, headers, runtime)
+
+    async def create_specify_trans_async(
+        self,
+        request: twc_models.CreateSpecifyTransRequest,
+    ) -> twc_models.CreateSpecifyTransResponse:
+        """
+        Description: 指定节点获取存证事务Id
+        Summary: 指定节点获取存证事务id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_specify_trans_ex_async(request, headers, runtime)
+
+    def create_specify_trans_ex(
+        self,
+        request: twc_models.CreateSpecifyTransRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateSpecifyTransResponse:
+        """
+        Description: 指定节点获取存证事务Id
+        Summary: 指定节点获取存证事务id
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateSpecifyTransResponse().from_map(
+            self.do_request('1.0', 'twc.notary.specify.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_specify_trans_ex_async(
+        self,
+        request: twc_models.CreateSpecifyTransRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateSpecifyTransResponse:
+        """
+        Description: 指定节点获取存证事务Id
+        Summary: 指定节点获取存证事务id
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateSpecifyTransResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.specify.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_specify_text(
+        self,
+        request: twc_models.CreateSpecifyTextRequest,
+    ) -> twc_models.CreateSpecifyTextResponse:
+        """
+        Description: 指定节点文本存证
+        Summary: 指定节点文本存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_specify_text_ex(request, headers, runtime)
+
+    async def create_specify_text_async(
+        self,
+        request: twc_models.CreateSpecifyTextRequest,
+    ) -> twc_models.CreateSpecifyTextResponse:
+        """
+        Description: 指定节点文本存证
+        Summary: 指定节点文本存证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_specify_text_ex_async(request, headers, runtime)
+
+    def create_specify_text_ex(
+        self,
+        request: twc_models.CreateSpecifyTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateSpecifyTextResponse:
+        """
+        Description: 指定节点文本存证
+        Summary: 指定节点文本存证
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateSpecifyTextResponse().from_map(
+            self.do_request('1.0', 'twc.notary.specify.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_specify_text_ex_async(
+        self,
+        request: twc_models.CreateSpecifyTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateSpecifyTextResponse:
+        """
+        Description: 指定节点文本存证
+        Summary: 指定节点文本存证
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateSpecifyTextResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.specify.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_flow_instance(
