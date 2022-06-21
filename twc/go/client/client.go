@@ -22994,6 +22994,111 @@ func (s *QueryLeaseRepaymentstatusResponse) SetErrMessage(v string) *QueryLeaseR
 	return s
 }
 
+type QueryLeaseUserperformanceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 本次融资的订单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 首租订单号
+	FirstOrderId *string `json:"first_order_id,omitempty" xml:"first_order_id,omitempty" require:"true"`
+	// 本次融资双方的合约id
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
+	// 商家的租户id
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
+	// 首次融资的合约id
+	FirstApplicationId *string `json:"first_application_id,omitempty" xml:"first_application_id,omitempty"`
+}
+
+func (s QueryLeaseUserperformanceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseUserperformanceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseUserperformanceRequest) SetAuthToken(v string) *QueryLeaseUserperformanceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLeaseUserperformanceRequest) SetProductInstanceId(v string) *QueryLeaseUserperformanceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryLeaseUserperformanceRequest) SetOrderId(v string) *QueryLeaseUserperformanceRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryLeaseUserperformanceRequest) SetFirstOrderId(v string) *QueryLeaseUserperformanceRequest {
+	s.FirstOrderId = &v
+	return s
+}
+
+func (s *QueryLeaseUserperformanceRequest) SetApplicationId(v string) *QueryLeaseUserperformanceRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *QueryLeaseUserperformanceRequest) SetLeaseId(v string) *QueryLeaseUserperformanceRequest {
+	s.LeaseId = &v
+	return s
+}
+
+func (s *QueryLeaseUserperformanceRequest) SetFirstApplicationId(v string) *QueryLeaseUserperformanceRequest {
+	s.FirstApplicationId = &v
+	return s
+}
+
+type QueryLeaseUserperformanceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 链上不存在该订单，该订单存在链上，但未获取链上融资，全部履约，累积逾期次数
+	ResultMessage *string `json:"result_message,omitempty" xml:"result_message,omitempty"`
+	// 预期次数
+	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
+}
+
+func (s QueryLeaseUserperformanceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseUserperformanceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseUserperformanceResponse) SetReqMsgId(v string) *QueryLeaseUserperformanceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLeaseUserperformanceResponse) SetResultCode(v string) *QueryLeaseUserperformanceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLeaseUserperformanceResponse) SetResultMsg(v string) *QueryLeaseUserperformanceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLeaseUserperformanceResponse) SetResultMessage(v string) *QueryLeaseUserperformanceResponse {
+	s.ResultMessage = &v
+	return s
+}
+
+func (s *QueryLeaseUserperformanceResponse) SetResponseData(v string) *QueryLeaseUserperformanceResponse {
+	s.ResponseData = &v
+	return s
+}
+
 type CreateWitnessFlowRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -32447,6 +32552,258 @@ func (s *OpenInternalTwcResponse) SetMessage(v string) *OpenInternalTwcResponse 
 	return s
 }
 
+type CreateSpecifyTransRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 存证关联实体（个人/企业）的身份识别信息
+	Customer *Identity `json:"customer,omitempty" xml:"customer,omitempty" require:"true"`
+	// 扩展属性
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 业务子类型标识
+	SubBizId *string `json:"sub_biz_id,omitempty" xml:"sub_biz_id,omitempty"`
+	// 是否使用可信时间戳，默认为false
+	Tsr *bool `json:"tsr,omitempty" xml:"tsr,omitempty"`
+	// 链账户名称
+	ChainAccount *string `json:"chain_account,omitempty" xml:"chain_account,omitempty" require:"true"`
+	// 指定的上链节点ip
+	NodeIp *string `json:"node_ip,omitempty" xml:"node_ip,omitempty"`
+}
+
+func (s CreateSpecifyTransRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateSpecifyTransRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateSpecifyTransRequest) SetAuthToken(v string) *CreateSpecifyTransRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateSpecifyTransRequest) SetProductInstanceId(v string) *CreateSpecifyTransRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateSpecifyTransRequest) SetCustomer(v *Identity) *CreateSpecifyTransRequest {
+	s.Customer = v
+	return s
+}
+
+func (s *CreateSpecifyTransRequest) SetProperties(v string) *CreateSpecifyTransRequest {
+	s.Properties = &v
+	return s
+}
+
+func (s *CreateSpecifyTransRequest) SetSubBizId(v string) *CreateSpecifyTransRequest {
+	s.SubBizId = &v
+	return s
+}
+
+func (s *CreateSpecifyTransRequest) SetTsr(v bool) *CreateSpecifyTransRequest {
+	s.Tsr = &v
+	return s
+}
+
+func (s *CreateSpecifyTransRequest) SetChainAccount(v string) *CreateSpecifyTransRequest {
+	s.ChainAccount = &v
+	return s
+}
+
+func (s *CreateSpecifyTransRequest) SetNodeIp(v string) *CreateSpecifyTransRequest {
+	s.NodeIp = &v
+	return s
+}
+
+type CreateSpecifyTransResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回事务ID，全局唯一
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty"`
+	// 可信时间信息
+	Tsr *TsrResponse `json:"tsr,omitempty" xml:"tsr,omitempty"`
+}
+
+func (s CreateSpecifyTransResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateSpecifyTransResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateSpecifyTransResponse) SetReqMsgId(v string) *CreateSpecifyTransResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateSpecifyTransResponse) SetResultCode(v string) *CreateSpecifyTransResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateSpecifyTransResponse) SetResultMsg(v string) *CreateSpecifyTransResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateSpecifyTransResponse) SetTransactionId(v string) *CreateSpecifyTransResponse {
+	s.TransactionId = &v
+	return s
+}
+
+func (s *CreateSpecifyTransResponse) SetTsr(v *TsrResponse) *CreateSpecifyTransResponse {
+	s.Tsr = v
+	return s
+}
+
+type CreateSpecifyTextRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+	Location *Location `json:"location,omitempty" xml:"location,omitempty"`
+	// 存证内容
+	NotaryContent *string `json:"notary_content,omitempty" xml:"notary_content,omitempty" require:"true"`
+	// 描述本条存证在存证事务中的阶段，用户可自行维护
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
+	// 扩展属性
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 存证事务id
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
+	// 是否使用可信时间戳，默认为false
+	Tsr *bool `json:"tsr,omitempty" xml:"tsr,omitempty"`
+	// 文本存证类型，支持源文本/文本哈希
+	TextNotaryType *string `json:"text_notary_type,omitempty" xml:"text_notary_type,omitempty"`
+	// 哈希算法，目前仅支持 SHA256
+	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty"`
+	// 链账户名称
+	ChainAccount *string `json:"chain_account,omitempty" xml:"chain_account,omitempty" require:"true"`
+	// 指定上链的节点ip，固定只能传一个，不传则按照链账号绑定ip随机上链
+	NodeIp *string `json:"node_ip,omitempty" xml:"node_ip,omitempty"`
+}
+
+func (s CreateSpecifyTextRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateSpecifyTextRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateSpecifyTextRequest) SetAuthToken(v string) *CreateSpecifyTextRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateSpecifyTextRequest) SetProductInstanceId(v string) *CreateSpecifyTextRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateSpecifyTextRequest) SetLocation(v *Location) *CreateSpecifyTextRequest {
+	s.Location = v
+	return s
+}
+
+func (s *CreateSpecifyTextRequest) SetNotaryContent(v string) *CreateSpecifyTextRequest {
+	s.NotaryContent = &v
+	return s
+}
+
+func (s *CreateSpecifyTextRequest) SetPhase(v string) *CreateSpecifyTextRequest {
+	s.Phase = &v
+	return s
+}
+
+func (s *CreateSpecifyTextRequest) SetProperties(v string) *CreateSpecifyTextRequest {
+	s.Properties = &v
+	return s
+}
+
+func (s *CreateSpecifyTextRequest) SetTransactionId(v string) *CreateSpecifyTextRequest {
+	s.TransactionId = &v
+	return s
+}
+
+func (s *CreateSpecifyTextRequest) SetTsr(v bool) *CreateSpecifyTextRequest {
+	s.Tsr = &v
+	return s
+}
+
+func (s *CreateSpecifyTextRequest) SetTextNotaryType(v string) *CreateSpecifyTextRequest {
+	s.TextNotaryType = &v
+	return s
+}
+
+func (s *CreateSpecifyTextRequest) SetHashAlgorithm(v string) *CreateSpecifyTextRequest {
+	s.HashAlgorithm = &v
+	return s
+}
+
+func (s *CreateSpecifyTextRequest) SetChainAccount(v string) *CreateSpecifyTextRequest {
+	s.ChainAccount = &v
+	return s
+}
+
+func (s *CreateSpecifyTextRequest) SetNodeIp(v string) *CreateSpecifyTextRequest {
+	s.NodeIp = &v
+	return s
+}
+
+type CreateSpecifyTextResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 可信时间信息
+	Tsr *TsrResponse `json:"tsr,omitempty" xml:"tsr,omitempty"`
+	// 存证凭据
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+}
+
+func (s CreateSpecifyTextResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateSpecifyTextResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateSpecifyTextResponse) SetReqMsgId(v string) *CreateSpecifyTextResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateSpecifyTextResponse) SetResultCode(v string) *CreateSpecifyTextResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateSpecifyTextResponse) SetResultMsg(v string) *CreateSpecifyTextResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateSpecifyTextResponse) SetTsr(v *TsrResponse) *CreateSpecifyTextResponse {
+	s.Tsr = v
+	return s
+}
+
+func (s *CreateSpecifyTextResponse) SetTxHash(v string) *CreateSpecifyTextResponse {
+	s.TxHash = &v
+	return s
+}
+
 type CreateFlowInstanceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -33900,7 +34257,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.43"),
+				"sdk_version":      tea.String("1.7.46"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -39189,6 +39546,40 @@ func (client *Client) QueryLeaseRepaymentstatusEx(request *QueryLeaseRepaymentst
 }
 
 /**
+ * Description: 续租过程中，当前资方希望查询用户历史的履约表现
+ * Summary: 核验链上用户的履约情况
+ */
+func (client *Client) QueryLeaseUserperformance(request *QueryLeaseUserperformanceRequest) (_result *QueryLeaseUserperformanceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLeaseUserperformanceResponse{}
+	_body, _err := client.QueryLeaseUserperformanceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 续租过程中，当前资方希望查询用户历史的履约表现
+ * Summary: 核验链上用户的履约情况
+ */
+func (client *Client) QueryLeaseUserperformanceEx(request *QueryLeaseUserperformanceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLeaseUserperformanceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLeaseUserperformanceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.userperformance.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 创建签署见证流程
  * Summary: 创建见证流程
  */
@@ -41629,6 +42020,74 @@ func (client *Client) OpenInternalTwcEx(request *OpenInternalTwcRequest, headers
 	}
 	_result = &OpenInternalTwcResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.internal.twc.open"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 指定节点获取存证事务Id
+ * Summary: 指定节点获取存证事务id
+ */
+func (client *Client) CreateSpecifyTrans(request *CreateSpecifyTransRequest) (_result *CreateSpecifyTransResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateSpecifyTransResponse{}
+	_body, _err := client.CreateSpecifyTransEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 指定节点获取存证事务Id
+ * Summary: 指定节点获取存证事务id
+ */
+func (client *Client) CreateSpecifyTransEx(request *CreateSpecifyTransRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateSpecifyTransResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateSpecifyTransResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.specify.trans.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 指定节点文本存证
+ * Summary: 指定节点文本存证
+ */
+func (client *Client) CreateSpecifyText(request *CreateSpecifyTextRequest) (_result *CreateSpecifyTextResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateSpecifyTextResponse{}
+	_body, _err := client.CreateSpecifyTextEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 指定节点文本存证
+ * Summary: 指定节点文本存证
+ */
+func (client *Client) CreateSpecifyTextEx(request *CreateSpecifyTextRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateSpecifyTextResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateSpecifyTextResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.specify.text.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
