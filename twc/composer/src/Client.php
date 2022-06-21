@@ -209,6 +209,10 @@ use AntChain\TWC\Models\CreatePrivatecontractTransRequest;
 use AntChain\TWC\Models\CreatePrivatecontractTransResponse;
 use AntChain\TWC\Models\CreateSourceRequest;
 use AntChain\TWC\Models\CreateSourceResponse;
+use AntChain\TWC\Models\CreateSpecifyTextRequest;
+use AntChain\TWC\Models\CreateSpecifyTextResponse;
+use AntChain\TWC\Models\CreateSpecifyTransRequest;
+use AntChain\TWC\Models\CreateSpecifyTransResponse;
 use AntChain\TWC\Models\CreateStubRequest;
 use AntChain\TWC\Models\CreateStubResponse;
 use AntChain\TWC\Models\CreateSueBreakpromiseinfoRequest;
@@ -405,6 +409,8 @@ use AntChain\TWC\Models\QueryLeaseRepaymentRequest;
 use AntChain\TWC\Models\QueryLeaseRepaymentResponse;
 use AntChain\TWC\Models\QueryLeaseRepaymentstatusRequest;
 use AntChain\TWC\Models\QueryLeaseRepaymentstatusResponse;
+use AntChain\TWC\Models\QueryLeaseUserperformanceRequest;
+use AntChain\TWC\Models\QueryLeaseUserperformanceResponse;
 use AntChain\TWC\Models\QueryLeaseUserRequest;
 use AntChain\TWC\Models\QueryLeaseUserResponse;
 use AntChain\TWC\Models\QueryPayresultfileurlRequest;
@@ -638,7 +644,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.43',
+                    'sdk_version'      => '1.7.46',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -5771,6 +5777,39 @@ class Client
     }
 
     /**
+     * Description: 续租过程中，当前资方希望查询用户历史的履约表现
+     * Summary: 核验链上用户的履约情况.
+     *
+     * @param QueryLeaseUserperformanceRequest $request
+     *
+     * @return QueryLeaseUserperformanceResponse
+     */
+    public function queryLeaseUserperformance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseUserperformanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 续租过程中，当前资方希望查询用户历史的履约表现
+     * Summary: 核验链上用户的履约情况.
+     *
+     * @param QueryLeaseUserperformanceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryLeaseUserperformanceResponse
+     */
+    public function queryLeaseUserperformanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseUserperformanceResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.userperformance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 创建签署见证流程
      * Summary: 创建见证流程.
      *
@@ -8144,6 +8183,72 @@ class Client
         Utils::validateModel($request);
 
         return OpenInternalTwcResponse::fromMap($this->doRequest('1.0', 'twc.notary.internal.twc.open', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 指定节点获取存证事务Id
+     * Summary: 指定节点获取存证事务id.
+     *
+     * @param CreateSpecifyTransRequest $request
+     *
+     * @return CreateSpecifyTransResponse
+     */
+    public function createSpecifyTrans($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createSpecifyTransEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 指定节点获取存证事务Id
+     * Summary: 指定节点获取存证事务id.
+     *
+     * @param CreateSpecifyTransRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateSpecifyTransResponse
+     */
+    public function createSpecifyTransEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateSpecifyTransResponse::fromMap($this->doRequest('1.0', 'twc.notary.specify.trans.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 指定节点文本存证
+     * Summary: 指定节点文本存证
+     *
+     * @param CreateSpecifyTextRequest $request
+     *
+     * @return CreateSpecifyTextResponse
+     */
+    public function createSpecifyText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createSpecifyTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 指定节点文本存证
+     * Summary: 指定节点文本存证
+     *
+     * @param CreateSpecifyTextRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateSpecifyTextResponse
+     */
+    public function createSpecifyTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateSpecifyTextResponse::fromMap($this->doRequest('1.0', 'twc.notary.specify.text.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
