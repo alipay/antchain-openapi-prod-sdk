@@ -137,7 +137,7 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.4"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -441,6 +441,90 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetHealthinfoResponse>(await DoRequestAsync("1.0", "antchain.antim.healthinfo.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 健康码设备配置参数列表查询
+         * Summary: 健康码设备配置参数列表查询
+         */
+        public QueryDeviceargsResponse QueryDeviceargs(QueryDeviceargsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDeviceargsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 健康码设备配置参数列表查询
+         * Summary: 健康码设备配置参数列表查询
+         */
+        public async Task<QueryDeviceargsResponse> QueryDeviceargsAsync(QueryDeviceargsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDeviceargsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 健康码设备配置参数列表查询
+         * Summary: 健康码设备配置参数列表查询
+         */
+        public QueryDeviceargsResponse QueryDeviceargsEx(QueryDeviceargsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceargsResponse>(DoRequest("1.0", "antchain.antim.deviceargs.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 健康码设备配置参数列表查询
+         * Summary: 健康码设备配置参数列表查询
+         */
+        public async Task<QueryDeviceargsResponse> QueryDeviceargsExAsync(QueryDeviceargsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceargsResponse>(await DoRequestAsync("1.0", "antchain.antim.deviceargs.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 健康码设备参数配置初始化
+         * Summary: 健康码设备参数配置初始化
+         */
+        public InitDeviceargsResponse InitDeviceargs(InitDeviceargsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitDeviceargsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 健康码设备参数配置初始化
+         * Summary: 健康码设备参数配置初始化
+         */
+        public async Task<InitDeviceargsResponse> InitDeviceargsAsync(InitDeviceargsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitDeviceargsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 健康码设备参数配置初始化
+         * Summary: 健康码设备参数配置初始化
+         */
+        public InitDeviceargsResponse InitDeviceargsEx(InitDeviceargsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitDeviceargsResponse>(DoRequest("1.0", "antchain.antim.deviceargs.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 健康码设备参数配置初始化
+         * Summary: 健康码设备参数配置初始化
+         */
+        public async Task<InitDeviceargsResponse> InitDeviceargsExAsync(InitDeviceargsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitDeviceargsResponse>(await DoRequestAsync("1.0", "antchain.antim.deviceargs.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
