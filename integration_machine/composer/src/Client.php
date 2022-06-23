@@ -13,8 +13,12 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\INTEGRATION_MACHINE\Models\GetHealthinfoRequest;
 use AntChain\INTEGRATION_MACHINE\Models\GetHealthinfoResponse;
+use AntChain\INTEGRATION_MACHINE\Models\InitDeviceargsRequest;
+use AntChain\INTEGRATION_MACHINE\Models\InitDeviceargsResponse;
 use AntChain\INTEGRATION_MACHINE\Models\PushHealthinfologRequest;
 use AntChain\INTEGRATION_MACHINE\Models\PushHealthinfologResponse;
+use AntChain\INTEGRATION_MACHINE\Models\QueryDeviceargsRequest;
+use AntChain\INTEGRATION_MACHINE\Models\QueryDeviceargsResponse;
 use AntChain\INTEGRATION_MACHINE\Models\QueryHealthinfoRequest;
 use AntChain\INTEGRATION_MACHINE\Models\QueryHealthinfoResponse;
 use AntChain\Util\UtilClient;
@@ -164,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.3',
+                    'sdk_version'      => '1.0.4',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -307,5 +311,71 @@ class Client
         Utils::validateModel($request);
 
         return GetHealthinfoResponse::fromMap($this->doRequest('1.0', 'antchain.antim.healthinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 健康码设备配置参数列表查询
+     * Summary: 健康码设备配置参数列表查询.
+     *
+     * @param QueryDeviceargsRequest $request
+     *
+     * @return QueryDeviceargsResponse
+     */
+    public function queryDeviceargs($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceargsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 健康码设备配置参数列表查询
+     * Summary: 健康码设备配置参数列表查询.
+     *
+     * @param QueryDeviceargsRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryDeviceargsResponse
+     */
+    public function queryDeviceargsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceargsResponse::fromMap($this->doRequest('1.0', 'antchain.antim.deviceargs.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 健康码设备参数配置初始化
+     * Summary: 健康码设备参数配置初始化.
+     *
+     * @param InitDeviceargsRequest $request
+     *
+     * @return InitDeviceargsResponse
+     */
+    public function initDeviceargs($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initDeviceargsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 健康码设备参数配置初始化
+     * Summary: 健康码设备参数配置初始化.
+     *
+     * @param InitDeviceargsRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return InitDeviceargsResponse
+     */
+    public function initDeviceargsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitDeviceargsResponse::fromMap($this->doRequest('1.0', 'antchain.antim.deviceargs.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
