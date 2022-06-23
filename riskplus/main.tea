@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.7',
+    sdk_version = '1.11.9',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -632,6 +632,22 @@ model OverdueInfoResponse {
   currentNeedAmount: long(name='current_need_amount', example=''),
   // 总剩余应还
   totalAmount: long(name='total_amount', example=''),
+  // 数据日期
+  settleDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='settle_date', example=''),
+  // 借款唯一编号
+  receiptNo: string(name='receipt_no', example='R2022xxxxxx'),
+  // 已还期数
+  alreadyRepayPeriodCount: long(name='already_repay_period_count', example=''),
+  // 贷款期数
+  loanPeriodCount: long(name='loan_period_count', example=''),
+  // 未还本金
+  outstandingPrincipal: long(name='outstanding_principal', example=''),
+  // 放款日期
+  loanTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='loan_time', example=''),
+  // 结清标志
+  settleFlag: boolean(name='settle_flag', example='true, false'),
+  // 最近一次还款日期
+  nearestRepayTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='nearest_repay_time', example=''),
 }
 
 // 企业年报信息
@@ -2914,7 +2930,7 @@ model QueryDubbridgeRiskinfoEnterprisescoreRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 统一信用代码
   socialCreditCode: string(name='social_credit_code'),
-  // MD5
+  // 手机号
   mobile?: string(name='mobile'),
   // 客户号
   customerNo: string(name='customer_no'),
@@ -3100,6 +3116,776 @@ async function queryDubbridgeRiskinfoBusinessinfo(request: QueryDubbridgeRiskinf
 async function queryDubbridgeRiskinfoBusinessinfoEx(request: QueryDubbridgeRiskinfoBusinessinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeRiskinfoBusinessinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.riskinfo.businessinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDubbridgeCustomerAgreementsignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 客户编号
+  customNo: string(name='custom_no'),
+  // 张三
+  customName: string(name='custom_name'),
+  // 110101xxxxxxxx
+  cardNo: string(name='card_no'),
+  // 证件类型
+  idType?: string(name='id_type'),
+}
+
+model ApplyDubbridgeCustomerAgreementsignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // sdkParams返回给商户app客户端，作为客户端唤起sdk的入参
+  sdkParams?: string(name='sdk_params'),
+  // 客户编号
+  customNo?: string(name='custom_no'),
+}
+
+/**
+ * Description: 天枢系统协议签约申请(支付宝）
+ * Summary: 天枢系统协议签约申请(支付宝)
+ */
+async function applyDubbridgeCustomerAgreementsign(request: ApplyDubbridgeCustomerAgreementsignRequest): ApplyDubbridgeCustomerAgreementsignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDubbridgeCustomerAgreementsignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统协议签约申请(支付宝）
+ * Summary: 天枢系统协议签约申请(支付宝)
+ */
+async function applyDubbridgeCustomerAgreementsignEx(request: ApplyDubbridgeCustomerAgreementsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDubbridgeCustomerAgreementsignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.customer.agreementsign.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeAccountStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户编号（资产方用户唯一标记二选一）
+  customNo: string(name='custom_no'),
+  // 资产方用户唯一标识（资产方用户唯一标记二选一）
+  openId: string(name='open_id'),
+}
+
+model QueryDubbridgeAccountStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 0:通过；
+  // 1:拒绝；
+  // 2:处理中；
+  // 
+  status?: string(name='status'),
+  // 拒绝原因
+  msg?: string(name='msg'),
+  // true：是
+  // false：否
+  applyFlag?: boolean(name='apply_flag'),
+}
+
+/**
+ * Description: 天枢系统是否授信查询
+ * Summary: 天枢系统是否授信查询
+ */
+async function queryDubbridgeAccountStatus(request: QueryDubbridgeAccountStatusRequest): QueryDubbridgeAccountStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeAccountStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统是否授信查询
+ * Summary: 天枢系统是否授信查询
+ */
+async function queryDubbridgeAccountStatusEx(request: QueryDubbridgeAccountStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeAccountStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.account.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeAccountCustomRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 渠道号
+  channelCode?: string(name='channel_code'),
+  // 客户编码
+  customNo: string(name='custom_no'),
+}
+
+model QueryDubbridgeAccountCustomResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否进行过授信申请
+  regFlag?: boolean(name='reg_flag'),
+}
+
+/**
+ * Description: 天枢系统校验是否联登
+ * Summary: 天枢系统校验是否联登
+ */
+async function queryDubbridgeAccountCustom(request: QueryDubbridgeAccountCustomRequest): QueryDubbridgeAccountCustomResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeAccountCustomEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统校验是否联登
+ * Summary: 天枢系统校验是否联登
+ */
+async function queryDubbridgeAccountCustomEx(request: QueryDubbridgeAccountCustomRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeAccountCustomResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.account.custom.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateDubbridgeAccountCustomRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 渠道编码
+  channelCode: string(name='channel_code'),
+  // 新渠道id
+  newOpenId: string(name='new_open_id'),
+  // 原渠道id
+  sourceOpenId: string(name='source_open_id'),
+  // 客户号
+  customerNo: string(name='customer_no'),
+}
+
+model UpdateDubbridgeAccountCustomResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // id
+  id?: long(name='id'),
+  // 渠道编码
+  channelCode?: string(name='channel_code'),
+  // 渠道id
+  channelNo?: string(name='channel_no'),
+  // 客户号
+  customerNo?: string(name='customer_no'),
+  // 创建时间
+  createTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time'),
+  // 更新时间
+  updateTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='update_time'),
+}
+
+/**
+ * Description: 天枢系统更新渠道
+ * Summary: 天枢系统更新渠道
+ */
+async function updateDubbridgeAccountCustom(request: UpdateDubbridgeAccountCustomRequest): UpdateDubbridgeAccountCustomResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateDubbridgeAccountCustomEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统更新渠道
+ * Summary: 天枢系统更新渠道
+ */
+async function updateDubbridgeAccountCustomEx(request: UpdateDubbridgeAccountCustomRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDubbridgeAccountCustomResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.account.custom.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeCustomerAgreementsignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户编码
+  customNo: string(name='custom_no'),
+  // 订单号
+  orderNo?: string(name='order_no'),
+}
+
+model QueryDubbridgeCustomerAgreementsignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户编号
+  customNo?: string(name='custom_no'),
+  // 流水号(代扣协议中标示用户的唯一签约号)
+  transSerials?: string(name='trans_serials'),
+  // 协议签约状态(0-成功1-失败2-处理中)
+  status?: string(name='status'),
+  // 协议签约时间(支付宝代扣协议的实际签约时间，格式为yyyy-MM-dd HH:mm:ss)
+  signTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='sign_time'),
+  // 协议生效时间(用户代扣协议的实际生效时间，格式为yyyy-MM-dd HH:mm:ss)
+  validTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='valid_time'),
+  // 协议失效时间(用户代扣协议的失效时间，格式为yyyy-MM-dd HH:mm:ss)
+  invalidTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='invalid_time'),
+}
+
+/**
+ * Description: 天枢系统协议签约查询(支付宝)
+ * Summary: 天枢系统协议签约查询(支付宝)
+ */
+async function queryDubbridgeCustomerAgreementsign(request: QueryDubbridgeCustomerAgreementsignRequest): QueryDubbridgeCustomerAgreementsignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeCustomerAgreementsignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统协议签约查询(支付宝)
+ * Summary: 天枢系统协议签约查询(支付宝)
+ */
+async function queryDubbridgeCustomerAgreementsignEx(request: QueryDubbridgeCustomerAgreementsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeCustomerAgreementsignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.customer.agreementsign.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateDubbridgeCustomerInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户姓名(可修改字段)
+  customName?: string(name='custom_name'),
+  // 户籍所在地(可修改字段)
+  censusRegister?: string(name='census_register'),
+  // 证件号码(可修改字段)
+  cardNo?: string(name='card_no'),
+  // 手机号码(可修改字段)
+  mobile?: string(name='mobile'),
+  // 客户编号(唯一不变)
+  customNo: string(name='custom_no'),
+  // 订单号
+  orderNo?: string(name='order_no'),
+  // 身份证有效期
+  idValidDate?: string(name='id_valid_date'),
+}
+
+model UpdateDubbridgeCustomerInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 天枢系统客户信息变更接口（变更客户三要素信息）
+ * Summary: 天枢系统客户信息变更接口
+ */
+async function updateDubbridgeCustomerInfo(request: UpdateDubbridgeCustomerInfoRequest): UpdateDubbridgeCustomerInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateDubbridgeCustomerInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统客户信息变更接口（变更客户三要素信息）
+ * Summary: 天枢系统客户信息变更接口
+ */
+async function updateDubbridgeCustomerInfoEx(request: UpdateDubbridgeCustomerInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDubbridgeCustomerInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.customer.info.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeReceiptOverdueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合同编码
+  contractNo: string(name='contract_no'),
+  // 渠道编码
+  channelCode: string(name='channel_code'),
+}
+
+model QueryDubbridgeReceiptOverdueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 逾期信息响应
+  data?: OverdueInfoResponse(name='data'),
+}
+
+/**
+ * Description: 天枢逾期信息查询接口
+ * Summary: 逾期信息查询
+ */
+async function queryDubbridgeReceiptOverdue(request: QueryDubbridgeReceiptOverdueRequest): QueryDubbridgeReceiptOverdueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeReceiptOverdueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢逾期信息查询接口
+ * Summary: 逾期信息查询
+ */
+async function queryDubbridgeReceiptOverdueEx(request: QueryDubbridgeReceiptOverdueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeReceiptOverdueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.receipt.overdue.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RepayDubbridgeRepayCheckstandRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 还款类型1:当期结清，2：正常还款3：全部结清
+  repayType: string(name='repay_type'),
+  // 订单号
+  orderNo?: string(name='order_no'),
+}
+
+model RepayDubbridgeRepayCheckstandResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 收银台地址(成功就有值)
+  checkstandAddress?: string(name='checkstand_address'),
+}
+
+/**
+ * Description: 天枢系统主动还款（收银台）接口
+ * Summary: 天枢系统主动还款（收银台）接口
+ */
+async function repayDubbridgeRepayCheckstand(request: RepayDubbridgeRepayCheckstandRequest): RepayDubbridgeRepayCheckstandResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return repayDubbridgeRepayCheckstandEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统主动还款（收银台）接口
+ * Summary: 天枢系统主动还款（收银台）接口
+ */
+async function repayDubbridgeRepayCheckstandEx(request: RepayDubbridgeRepayCheckstandRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RepayDubbridgeRepayCheckstandResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.repay.checkstand.repay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeRepayInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 原还款订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 订单号
+  orderNo: string(name='order_no'),
+}
+
+model QueryDubbridgeRepayInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款编号
+  repayNo?: string(name='repay_no'),
+  // 借据编码
+  receiptNo?: string(name='receipt_no'),
+  // 客户编号
+  customNo?: string(name='custom_no'),
+  // 客户名称
+  customName?: string(name='custom_name'),
+  // 还款类型1:提前还款，2：正常还款 3:批量还款 4：自由还款
+  repayType?: string(name='repay_type'),
+  // repay_sign
+  repaySign?: string(name='repay_sign'),
+  // 还款日期
+  repayDate?: string(name='repay_date'),
+  // 实还总额
+  repayAmount?: long(name='repay_amount'),
+  // 实还本金
+  repayPrincipal?: long(name='repay_principal'),
+  // 实还利息
+  repayInterest?: long(name='repay_interest'),
+  // 实还通道手续费
+  channelAmt?: long(name='channel_amt'),
+  // 实还手续费
+  repayFee?: string(name='repay_fee'),
+  // 实收罚息
+  repayPunish?: long(name='repay_punish'),
+  // 还款账户
+  repayAccount?: string(name='repay_account'),
+  // 还款账户名称
+  repayAccountName?: string(name='repay_account_name'),
+  // 还款账户的手机号
+  repayMobile?: string(name='repay_mobile'),
+  // 还款账户银行行号
+  repayBankNo?: string(name='repay_bank_no'),
+  // 还款账户银行名称
+  repayBankName?: string(name='repay_bank_name'),
+  // 还款状态0:失败 1成功 2-审批中 3-还款中
+  repayStatus?: string(name='repay_status'),
+  // 失败原因
+  failReason?: string(name='fail_reason'),
+  // 授信申请编号
+  applyNo?: string(name='apply_no'),
+}
+
+/**
+ * Description: 天枢系统还款信息查询
+ * Summary: 天枢系统还款信息查询
+ */
+async function queryDubbridgeRepayInfo(request: QueryDubbridgeRepayInfoRequest): QueryDubbridgeRepayInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeRepayInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统还款信息查询
+ * Summary: 天枢系统还款信息查询
+ */
+async function queryDubbridgeRepayInfoEx(request: QueryDubbridgeRepayInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeRepayInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.repay.info.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeRepayListRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 用信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+}
+
+model QueryDubbridgeRepayListResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款计划查询结果
+  repayRefList?: [ RepayRef ](name='repay_ref_list'),
+}
+
+/**
+ * Description: 天枢系统还款计划查询，根据申请订单查询还款计划
+ * Summary: 天枢系统还款计划查询
+ */
+async function queryDubbridgeRepayList(request: QueryDubbridgeRepayListRequest): QueryDubbridgeRepayListResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeRepayListEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统还款计划查询，根据申请订单查询还款计划
+ * Summary: 天枢系统还款计划查询
+ */
+async function queryDubbridgeRepayListEx(request: QueryDubbridgeRepayListRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeRepayListResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.repay.list.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountDubbridgeRepayReftrialRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 授信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 产品编号
+  prodNo: string(name='prod_no'),
+  // 借款金额
+  applyAmount: long(name='apply_amount'),
+  // 借款期数
+  applyPeriod: long(name='apply_period'),
+  // 还款方式1：等额本息，2：等额本金
+  repayType: string(name='repay_type'),
+}
+
+model CountDubbridgeRepayReftrialResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款计划试算结果
+  repayRefList?: RepayRef(name='repay_ref_list'),
+}
+
+/**
+ * Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
+ * Summary: 天枢系统还款计划试算
+ */
+async function countDubbridgeRepayReftrial(request: CountDubbridgeRepayReftrialRequest): CountDubbridgeRepayReftrialResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countDubbridgeRepayReftrialEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
+ * Summary: 天枢系统还款计划试算
+ */
+async function countDubbridgeRepayReftrialEx(request: CountDubbridgeRepayReftrialRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountDubbridgeRepayReftrialResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.repay.reftrial.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountDubbridgeRepayTrialRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 还款类型1:当期结清，2：正常还款3：全部结清
+  repayType: string(name='repay_type'),
+  // 订单号
+  orderNo: string(name='order_no'),
+}
+
+model CountDubbridgeRepayTrialResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款本金
+  realPrincipal?: long(name='real_principal'),
+  // 还款利息
+  realInterest?: long(name='real_interest'),
+  // 还款费用
+  realOverAmt?: long(name='real_over_amt'),
+  // 服务费
+  serviceCharge?: long(name='service_charge'),
+}
+
+/**
+ * Description: 天枢系统还款试算，根据借据号计算还款金额
+ * Summary: 天枢系统还款试算
+ */
+async function countDubbridgeRepayTrial(request: CountDubbridgeRepayTrialRequest): CountDubbridgeRepayTrialResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countDubbridgeRepayTrialEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统还款试算，根据借据号计算还款金额
+ * Summary: 天枢系统还款试算
+ */
+async function countDubbridgeRepayTrialEx(request: CountDubbridgeRepayTrialRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountDubbridgeRepayTrialResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.repay.trial.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RepayDubbridgeRepayWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 还款类型1:当期结清，2：正常还款3：全部结清
+  repayType: string(name='repay_type'),
+  // 订单号
+  orderNo: string(name='order_no'),
+}
+
+model RepayDubbridgeRepayWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 天枢信贷业务系统主动还款（直接代扣）接口
+ * Summary: 天枢信贷业务系统主动还款（直接代扣）接口
+ */
+async function repayDubbridgeRepayWithhold(request: RepayDubbridgeRepayWithholdRequest): RepayDubbridgeRepayWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return repayDubbridgeRepayWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢信贷业务系统主动还款（直接代扣）接口
+ * Summary: 天枢信贷业务系统主动还款（直接代扣）接口
+ */
+async function repayDubbridgeRepayWithholdEx(request: RepayDubbridgeRepayWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RepayDubbridgeRepayWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.repay.withhold.repay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeSearchContractRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 原用信订单号
+  originalOrderNo: string(name='original_order_no'),
+}
+
+model QueryDubbridgeSearchContractResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 关联编号（授信/用信）
+  relationNo?: string(name='relation_no'),
+  // 合同编号
+  contractNo?: string(name='contract_no'),
+  // 合同名称
+  contractName?: string(name='contract_name'),
+  // 合同类型：0:电子合同签署授权协议 1:借款合同 2:抵押合同 3:担保合同 4:用信合同 5:通用合同 6:征信授权书
+  contractType?: string(name='contract_type'),
+  // 客户编号
+  customNo?: string(name='custom_no'),
+  // 下载地址
+  savePath?: string(name='save_path'),
+  // 合同金额
+  contractAmount?: long(name='contract_amount'),
+}
+
+/**
+ * Description: 天枢系统合同获取
+ * Summary: 天枢系统合同获取
+ */
+async function queryDubbridgeSearchContract(request: QueryDubbridgeSearchContractRequest): QueryDubbridgeSearchContractResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeSearchContractEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统合同获取
+ * Summary: 天枢系统合同获取
+ */
+async function queryDubbridgeSearchContractEx(request: QueryDubbridgeSearchContractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeSearchContractResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.search.contract.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDubbridgeUsecreditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 用信金额
+  loanAmount: long(name='loan_amount'),
+  // 期数
+  period: long(name='period'),
+  // 资产方用户唯一标识
+  openId: string(name='open_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 还款方式:1：等额本息，2：等额本金
+  repayType: string(name='repay_type'),
+  // 1：手机数码 2：旅游 3：装修 4：教育 5：婚庆 6：租房 7：家具家居 8：健康医疗 9：其他消费 10：家用电器
+  loanWay: string(name='loan_way'),
+}
+
+model ApplyDubbridgeUsecreditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 天枢系统用信申请接口
+ * Summary: 天枢系统用信申请接口
+ */
+async function applyDubbridgeUsecredit(request: ApplyDubbridgeUsecreditRequest): ApplyDubbridgeUsecreditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDubbridgeUsecreditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统用信申请接口
+ * Summary: 天枢系统用信申请接口
+ */
+async function applyDubbridgeUsecreditEx(request: ApplyDubbridgeUsecreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDubbridgeUsecreditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.usecredit.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeUsecreditStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 请求网络流水号
+  orderNo: string(name='order_no'),
+}
+
+model QueryDubbridgeUsecreditStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用信状态（0-通过/1-不通过2-处理中）
+  status?: string(name='status'),
+  // 拒绝原因
+  msg?: string(name='msg'),
+  // 借据信息
+  receiptInfo?: ReceiptInfo(name='receipt_info'),
+  // 还款计划列表
+  repayRef?: [ RepayRef ](name='repay_ref'),
+}
+
+/**
+ * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
+ * Summary: 天枢系统用信申请状态查询
+ */
+async function queryDubbridgeUsecreditStatus(request: QueryDubbridgeUsecreditStatusRequest): QueryDubbridgeUsecreditStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeUsecreditStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统用信申请状态查询，返回用信详情及还款计划
+ * Summary: 天枢系统用信申请状态查询
+ */
+async function queryDubbridgeUsecreditStatusEx(request: QueryDubbridgeUsecreditStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeUsecreditStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.usecredit.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
@@ -3842,6 +4628,50 @@ async function queryRbbCompanyGuard(request: QueryRbbCompanyGuardRequest): Query
 async function queryRbbCompanyGuardEx(request: QueryRbbCompanyGuardRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRbbCompanyGuardResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.rbb.company.guard.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRbbObtsZsearchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 索引名称
+  index: string(name='index'),
+  // 类型名称
+  type?: string(name='type'),
+  // 操作方法
+  operationMethod?: string(name='operation_method'),
+  // 查询语句
+  entityString?: string(name='entity_string'),
+}
+
+model QueryRbbObtsZsearchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // zsearch查询结果
+  zsearchResult?: string(name='zsearch_result'),
+}
+
+/**
+ * Description: 企业风控给上交所鹰眼使用的zsearch查询
+ * Summary: 企业风控给鹰眼使用的zsearch查询
+ */
+async function queryRbbObtsZsearch(request: QueryRbbObtsZsearchRequest): QueryRbbObtsZsearchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRbbObtsZsearchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业风控给上交所鹰眼使用的zsearch查询
+ * Summary: 企业风控给鹰眼使用的zsearch查询
+ */
+async function queryRbbObtsZsearchEx(request: QueryRbbObtsZsearchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRbbObtsZsearchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.obts.zsearch.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryRpgwSignUrlRequest = {
