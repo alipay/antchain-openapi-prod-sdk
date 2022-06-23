@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.3',
+    sdk_version = '1.0.4',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -212,6 +212,18 @@ model HealthInfo {
   healthCode?: string(name='health_code', example='1'),
   // 健康码红色原因
   healthFactor?: string(name='health_factor', example='123'),
+}
+
+// 设备参数名称/key/value
+model ArgsNameValue {
+  // 设备参数名称
+  argsName?: string(name='args_name', example='名称'),
+  // 设备参数key
+  argsKey: string(name='args_key', example='key'),
+  // 设备参数value
+  argsValue: string(name='args_value', example='value'),
+  // 设备参数标识(ip,mac,bizid)
+  argsMark?: string(name='args_mark', example='ip'),
 }
 
 // 核酸信息
@@ -438,5 +450,85 @@ async function getHealthinfo(request: GetHealthinfoRequest): GetHealthinfoRespon
 async function getHealthinfoEx(request: GetHealthinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetHealthinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.antim.healthinfo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeviceargsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备SN
+  serialNo: string(name='serial_no'),
+  // 设备厂商
+  corpName: string(name='corp_name'),
+}
+
+model QueryDeviceargsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 设备参数列表
+  argsNameValueList?: [ ArgsNameValue ](name='args_name_value_list'),
+}
+
+/**
+ * Description: 健康码设备配置参数列表查询
+ * Summary: 健康码设备配置参数列表查询
+ */
+async function queryDeviceargs(request: QueryDeviceargsRequest): QueryDeviceargsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeviceargsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 健康码设备配置参数列表查询
+ * Summary: 健康码设备配置参数列表查询
+ */
+async function queryDeviceargsEx(request: QueryDeviceargsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceargsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.antim.deviceargs.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitDeviceargsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备sn
+  serialNo: string(name='serial_no'),
+  // 设备厂商
+  corpName: string(name='corp_name'),
+  // 设备参数名称/key/value列表
+  argsNameValueList: [ ArgsNameValue ](name='args_name_value_list'),
+}
+
+model InitDeviceargsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 健康码设备参数配置初始化
+ * Summary: 健康码设备参数配置初始化
+ */
+async function initDeviceargs(request: InitDeviceargsRequest): InitDeviceargsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initDeviceargsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 健康码设备参数配置初始化
+ * Summary: 健康码设备参数配置初始化
+ */
+async function initDeviceargsEx(request: InitDeviceargsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitDeviceargsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.antim.deviceargs.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
