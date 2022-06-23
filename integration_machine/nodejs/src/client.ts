@@ -219,6 +219,39 @@ export class HealthInfo extends $tea.Model {
   }
 }
 
+// 设备参数名称/key/value
+export class ArgsNameValue extends $tea.Model {
+  // 设备参数名称
+  argsName?: string;
+  // 设备参数key
+  argsKey: string;
+  // 设备参数value
+  argsValue: string;
+  // 设备参数标识(ip,mac,bizid)
+  argsMark?: string;
+  static names(): { [key: string]: string } {
+    return {
+      argsName: 'args_name',
+      argsKey: 'args_key',
+      argsValue: 'args_value',
+      argsMark: 'args_mark',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      argsName: 'string',
+      argsKey: 'string',
+      argsValue: 'string',
+      argsMark: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 核酸信息
 export class NucleicAcidInfo extends $tea.Model {
   // 检测类型
@@ -607,6 +640,132 @@ export class GetHealthinfoResponse extends $tea.Model {
   }
 }
 
+export class QueryDeviceargsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备SN
+  serialNo: string;
+  // 设备厂商
+  corpName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serialNo: 'serial_no',
+      corpName: 'corp_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serialNo: 'string',
+      corpName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeviceargsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 设备参数列表
+  argsNameValueList?: ArgsNameValue[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      argsNameValueList: 'args_name_value_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      argsNameValueList: { 'type': 'array', 'itemType': ArgsNameValue },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitDeviceargsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备sn
+  serialNo: string;
+  // 设备厂商
+  corpName: string;
+  // 设备参数名称/key/value列表
+  argsNameValueList: ArgsNameValue[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serialNo: 'serial_no',
+      corpName: 'corp_name',
+      argsNameValueList: 'args_name_value_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serialNo: 'string',
+      corpName: 'string',
+      argsNameValueList: { 'type': 'array', 'itemType': ArgsNameValue },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitDeviceargsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -720,7 +879,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.3",
+          sdk_version: "1.0.4",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -821,6 +980,44 @@ export default class Client {
   async getHealthinfoEx(request: GetHealthinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetHealthinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<GetHealthinfoResponse>(await this.doRequest("1.0", "antchain.antim.healthinfo.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetHealthinfoResponse({}));
+  }
+
+  /**
+   * Description: 健康码设备配置参数列表查询
+   * Summary: 健康码设备配置参数列表查询
+   */
+  async queryDeviceargs(request: QueryDeviceargsRequest): Promise<QueryDeviceargsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDeviceargsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 健康码设备配置参数列表查询
+   * Summary: 健康码设备配置参数列表查询
+   */
+  async queryDeviceargsEx(request: QueryDeviceargsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDeviceargsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDeviceargsResponse>(await this.doRequest("1.0", "antchain.antim.deviceargs.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDeviceargsResponse({}));
+  }
+
+  /**
+   * Description: 健康码设备参数配置初始化
+   * Summary: 健康码设备参数配置初始化
+   */
+  async initDeviceargs(request: InitDeviceargsRequest): Promise<InitDeviceargsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initDeviceargsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 健康码设备参数配置初始化
+   * Summary: 健康码设备参数配置初始化
+   */
+  async initDeviceargsEx(request: InitDeviceargsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitDeviceargsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitDeviceargsResponse>(await this.doRequest("1.0", "antchain.antim.deviceargs.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitDeviceargsResponse({}));
   }
 
 }
