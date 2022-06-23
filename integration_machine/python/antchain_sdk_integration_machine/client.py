@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.0.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.0.4'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -431,4 +431,112 @@ class Client:
         UtilClient.validate_model(request)
         return integration__machine_models.GetHealthinfoResponse().from_map(
             await self.do_request_async('1.0', 'antchain.antim.healthinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_deviceargs(
+        self,
+        request: integration__machine_models.QueryDeviceargsRequest,
+    ) -> integration__machine_models.QueryDeviceargsResponse:
+        """
+        Description: 健康码设备配置参数列表查询
+        Summary: 健康码设备配置参数列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_deviceargs_ex(request, headers, runtime)
+
+    async def query_deviceargs_async(
+        self,
+        request: integration__machine_models.QueryDeviceargsRequest,
+    ) -> integration__machine_models.QueryDeviceargsResponse:
+        """
+        Description: 健康码设备配置参数列表查询
+        Summary: 健康码设备配置参数列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_deviceargs_ex_async(request, headers, runtime)
+
+    def query_deviceargs_ex(
+        self,
+        request: integration__machine_models.QueryDeviceargsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> integration__machine_models.QueryDeviceargsResponse:
+        """
+        Description: 健康码设备配置参数列表查询
+        Summary: 健康码设备配置参数列表查询
+        """
+        UtilClient.validate_model(request)
+        return integration__machine_models.QueryDeviceargsResponse().from_map(
+            self.do_request('1.0', 'antchain.antim.deviceargs.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_deviceargs_ex_async(
+        self,
+        request: integration__machine_models.QueryDeviceargsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> integration__machine_models.QueryDeviceargsResponse:
+        """
+        Description: 健康码设备配置参数列表查询
+        Summary: 健康码设备配置参数列表查询
+        """
+        UtilClient.validate_model(request)
+        return integration__machine_models.QueryDeviceargsResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.antim.deviceargs.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_deviceargs(
+        self,
+        request: integration__machine_models.InitDeviceargsRequest,
+    ) -> integration__machine_models.InitDeviceargsResponse:
+        """
+        Description: 健康码设备参数配置初始化
+        Summary: 健康码设备参数配置初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_deviceargs_ex(request, headers, runtime)
+
+    async def init_deviceargs_async(
+        self,
+        request: integration__machine_models.InitDeviceargsRequest,
+    ) -> integration__machine_models.InitDeviceargsResponse:
+        """
+        Description: 健康码设备参数配置初始化
+        Summary: 健康码设备参数配置初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_deviceargs_ex_async(request, headers, runtime)
+
+    def init_deviceargs_ex(
+        self,
+        request: integration__machine_models.InitDeviceargsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> integration__machine_models.InitDeviceargsResponse:
+        """
+        Description: 健康码设备参数配置初始化
+        Summary: 健康码设备参数配置初始化
+        """
+        UtilClient.validate_model(request)
+        return integration__machine_models.InitDeviceargsResponse().from_map(
+            self.do_request('1.0', 'antchain.antim.deviceargs.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_deviceargs_ex_async(
+        self,
+        request: integration__machine_models.InitDeviceargsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> integration__machine_models.InitDeviceargsResponse:
+        """
+        Description: 健康码设备参数配置初始化
+        Summary: 健康码设备参数配置初始化
+        """
+        UtilClient.validate_model(request)
+        return integration__machine_models.InitDeviceargsResponse().from_map(
+            await self.do_request_async('1.0', 'antchain.antim.deviceargs.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

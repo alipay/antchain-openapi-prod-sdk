@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
+from typing import List
 
 
 class Config(TeaModel):
@@ -321,6 +322,52 @@ class HealthInfo(TeaModel):
             self.health_code = m.get('health_code')
         if m.get('health_factor') is not None:
             self.health_factor = m.get('health_factor')
+        return self
+
+
+class ArgsNameValue(TeaModel):
+    def __init__(
+        self,
+        args_name: str = None,
+        args_key: str = None,
+        args_value: str = None,
+        args_mark: str = None,
+    ):
+        # 设备参数名称
+        self.args_name = args_name
+        # 设备参数key
+        self.args_key = args_key
+        # 设备参数value
+        self.args_value = args_value
+        # 设备参数标识(ip,mac,bizid)
+        self.args_mark = args_mark
+
+    def validate(self):
+        self.validate_required(self.args_key, 'args_key')
+        self.validate_required(self.args_value, 'args_value')
+
+    def to_map(self):
+        result = dict()
+        if self.args_name is not None:
+            result['args_name'] = self.args_name
+        if self.args_key is not None:
+            result['args_key'] = self.args_key
+        if self.args_value is not None:
+            result['args_value'] = self.args_value
+        if self.args_mark is not None:
+            result['args_mark'] = self.args_mark
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('args_name') is not None:
+            self.args_name = m.get('args_name')
+        if m.get('args_key') is not None:
+            self.args_key = m.get('args_key')
+        if m.get('args_value') is not None:
+            self.args_value = m.get('args_value')
+        if m.get('args_mark') is not None:
+            self.args_mark = m.get('args_mark')
         return self
 
 
@@ -969,6 +1016,204 @@ class GetHealthinfoResponse(TeaModel):
             self.cert_no = m.get('cert_no')
         if m.get('pass_id') is not None:
             self.pass_id = m.get('pass_id')
+        return self
+
+
+class QueryDeviceargsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        serial_no: str = None,
+        corp_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备SN
+        self.serial_no = serial_no
+        # 设备厂商
+        self.corp_name = corp_name
+
+    def validate(self):
+        self.validate_required(self.serial_no, 'serial_no')
+        self.validate_required(self.corp_name, 'corp_name')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.serial_no is not None:
+            result['serial_no'] = self.serial_no
+        if self.corp_name is not None:
+            result['corp_name'] = self.corp_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('serial_no') is not None:
+            self.serial_no = m.get('serial_no')
+        if m.get('corp_name') is not None:
+            self.corp_name = m.get('corp_name')
+        return self
+
+
+class QueryDeviceargsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        args_name_value_list: List[ArgsNameValue] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 设备参数列表
+        self.args_name_value_list = args_name_value_list
+
+    def validate(self):
+        if self.args_name_value_list:
+            for k in self.args_name_value_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['args_name_value_list'] = []
+        if self.args_name_value_list is not None:
+            for k in self.args_name_value_list:
+                result['args_name_value_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.args_name_value_list = []
+        if m.get('args_name_value_list') is not None:
+            for k in m.get('args_name_value_list'):
+                temp_model = ArgsNameValue()
+                self.args_name_value_list.append(temp_model.from_map(k))
+        return self
+
+
+class InitDeviceargsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        serial_no: str = None,
+        corp_name: str = None,
+        args_name_value_list: List[ArgsNameValue] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备sn
+        self.serial_no = serial_no
+        # 设备厂商
+        self.corp_name = corp_name
+        # 设备参数名称/key/value列表
+        self.args_name_value_list = args_name_value_list
+
+    def validate(self):
+        self.validate_required(self.serial_no, 'serial_no')
+        self.validate_required(self.corp_name, 'corp_name')
+        self.validate_required(self.args_name_value_list, 'args_name_value_list')
+        if self.args_name_value_list:
+            for k in self.args_name_value_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.serial_no is not None:
+            result['serial_no'] = self.serial_no
+        if self.corp_name is not None:
+            result['corp_name'] = self.corp_name
+        result['args_name_value_list'] = []
+        if self.args_name_value_list is not None:
+            for k in self.args_name_value_list:
+                result['args_name_value_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('serial_no') is not None:
+            self.serial_no = m.get('serial_no')
+        if m.get('corp_name') is not None:
+            self.corp_name = m.get('corp_name')
+        self.args_name_value_list = []
+        if m.get('args_name_value_list') is not None:
+            for k in m.get('args_name_value_list'):
+                temp_model = ArgsNameValue()
+                self.args_name_value_list.append(temp_model.from_map(k))
+        return self
+
+
+class InitDeviceargsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
