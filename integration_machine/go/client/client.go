@@ -298,6 +298,46 @@ func (s *HealthInfo) SetHealthFactor(v string) *HealthInfo {
 	return s
 }
 
+// 设备参数名称/key/value
+type ArgsNameValue struct {
+	// 设备参数名称
+	ArgsName *string `json:"args_name,omitempty" xml:"args_name,omitempty"`
+	// 设备参数key
+	ArgsKey *string `json:"args_key,omitempty" xml:"args_key,omitempty" require:"true"`
+	// 设备参数value
+	ArgsValue *string `json:"args_value,omitempty" xml:"args_value,omitempty" require:"true"`
+	// 设备参数标识(ip,mac,bizid)
+	ArgsMark *string `json:"args_mark,omitempty" xml:"args_mark,omitempty"`
+}
+
+func (s ArgsNameValue) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ArgsNameValue) GoString() string {
+	return s.String()
+}
+
+func (s *ArgsNameValue) SetArgsName(v string) *ArgsNameValue {
+	s.ArgsName = &v
+	return s
+}
+
+func (s *ArgsNameValue) SetArgsKey(v string) *ArgsNameValue {
+	s.ArgsKey = &v
+	return s
+}
+
+func (s *ArgsNameValue) SetArgsValue(v string) *ArgsNameValue {
+	s.ArgsValue = &v
+	return s
+}
+
+func (s *ArgsNameValue) SetArgsMark(v string) *ArgsNameValue {
+	s.ArgsMark = &v
+	return s
+}
+
 // 核酸信息
 type NucleicAcidInfo struct {
 	// 检测类型
@@ -843,6 +883,160 @@ func (s *GetHealthinfoResponse) SetPassId(v string) *GetHealthinfoResponse {
 	return s
 }
 
+type QueryDeviceargsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备SN
+	SerialNo *string `json:"serial_no,omitempty" xml:"serial_no,omitempty" require:"true"`
+	// 设备厂商
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+}
+
+func (s QueryDeviceargsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceargsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceargsRequest) SetAuthToken(v string) *QueryDeviceargsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeviceargsRequest) SetProductInstanceId(v string) *QueryDeviceargsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeviceargsRequest) SetSerialNo(v string) *QueryDeviceargsRequest {
+	s.SerialNo = &v
+	return s
+}
+
+func (s *QueryDeviceargsRequest) SetCorpName(v string) *QueryDeviceargsRequest {
+	s.CorpName = &v
+	return s
+}
+
+type QueryDeviceargsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备参数列表
+	ArgsNameValueList []*ArgsNameValue `json:"args_name_value_list,omitempty" xml:"args_name_value_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryDeviceargsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeviceargsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeviceargsResponse) SetReqMsgId(v string) *QueryDeviceargsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeviceargsResponse) SetResultCode(v string) *QueryDeviceargsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeviceargsResponse) SetResultMsg(v string) *QueryDeviceargsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeviceargsResponse) SetArgsNameValueList(v []*ArgsNameValue) *QueryDeviceargsResponse {
+	s.ArgsNameValueList = v
+	return s
+}
+
+type InitDeviceargsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备sn
+	SerialNo *string `json:"serial_no,omitempty" xml:"serial_no,omitempty" require:"true"`
+	// 设备厂商
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+	// 设备参数名称/key/value列表
+	ArgsNameValueList []*ArgsNameValue `json:"args_name_value_list,omitempty" xml:"args_name_value_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s InitDeviceargsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitDeviceargsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitDeviceargsRequest) SetAuthToken(v string) *InitDeviceargsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitDeviceargsRequest) SetProductInstanceId(v string) *InitDeviceargsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitDeviceargsRequest) SetSerialNo(v string) *InitDeviceargsRequest {
+	s.SerialNo = &v
+	return s
+}
+
+func (s *InitDeviceargsRequest) SetCorpName(v string) *InitDeviceargsRequest {
+	s.CorpName = &v
+	return s
+}
+
+func (s *InitDeviceargsRequest) SetArgsNameValueList(v []*ArgsNameValue) *InitDeviceargsRequest {
+	s.ArgsNameValueList = v
+	return s
+}
+
+type InitDeviceargsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s InitDeviceargsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitDeviceargsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitDeviceargsResponse) SetReqMsgId(v string) *InitDeviceargsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitDeviceargsResponse) SetResultCode(v string) *InitDeviceargsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitDeviceargsResponse) SetResultMsg(v string) *InitDeviceargsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -965,7 +1159,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.0.4"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1108,6 +1302,74 @@ func (client *Client) GetHealthinfoEx(request *GetHealthinfoRequest, headers map
 	}
 	_result = &GetHealthinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antim.healthinfo.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 健康码设备配置参数列表查询
+ * Summary: 健康码设备配置参数列表查询
+ */
+func (client *Client) QueryDeviceargs(request *QueryDeviceargsRequest) (_result *QueryDeviceargsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeviceargsResponse{}
+	_body, _err := client.QueryDeviceargsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 健康码设备配置参数列表查询
+ * Summary: 健康码设备配置参数列表查询
+ */
+func (client *Client) QueryDeviceargsEx(request *QueryDeviceargsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeviceargsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeviceargsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antim.deviceargs.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 健康码设备参数配置初始化
+ * Summary: 健康码设备参数配置初始化
+ */
+func (client *Client) InitDeviceargs(request *InitDeviceargsRequest) (_result *InitDeviceargsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitDeviceargsResponse{}
+	_body, _err := client.InitDeviceargsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 健康码设备参数配置初始化
+ * Summary: 健康码设备参数配置初始化
+ */
+func (client *Client) InitDeviceargsEx(request *InitDeviceargsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitDeviceargsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitDeviceargsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antim.deviceargs.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
