@@ -56,6 +56,46 @@ public class OverdueInfoResponse extends TeaModel {
     @Validation(required = true)
     public Long totalAmount;
 
+    // 数据日期
+    @NameInMap("settle_date")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String settleDate;
+
+    // 借款唯一编号
+    @NameInMap("receipt_no")
+    @Validation(required = true)
+    public String receiptNo;
+
+    // 已还期数
+    @NameInMap("already_repay_period_count")
+    @Validation(required = true)
+    public Long alreadyRepayPeriodCount;
+
+    // 贷款期数
+    @NameInMap("loan_period_count")
+    @Validation(required = true)
+    public Long loanPeriodCount;
+
+    // 未还本金
+    @NameInMap("outstanding_principal")
+    @Validation(required = true)
+    public Long outstandingPrincipal;
+
+    // 放款日期
+    @NameInMap("loan_time")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String loanTime;
+
+    // 结清标志
+    @NameInMap("settle_flag")
+    @Validation(required = true)
+    public Boolean settleFlag;
+
+    // 最近一次还款日期
+    @NameInMap("nearest_repay_time")
+    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String nearestRepayTime;
+
     public static OverdueInfoResponse build(java.util.Map<String, ?> map) throws Exception {
         OverdueInfoResponse self = new OverdueInfoResponse();
         return TeaModel.build(map, self);
@@ -139,6 +179,70 @@ public class OverdueInfoResponse extends TeaModel {
     }
     public Long getTotalAmount() {
         return this.totalAmount;
+    }
+
+    public OverdueInfoResponse setSettleDate(String settleDate) {
+        this.settleDate = settleDate;
+        return this;
+    }
+    public String getSettleDate() {
+        return this.settleDate;
+    }
+
+    public OverdueInfoResponse setReceiptNo(String receiptNo) {
+        this.receiptNo = receiptNo;
+        return this;
+    }
+    public String getReceiptNo() {
+        return this.receiptNo;
+    }
+
+    public OverdueInfoResponse setAlreadyRepayPeriodCount(Long alreadyRepayPeriodCount) {
+        this.alreadyRepayPeriodCount = alreadyRepayPeriodCount;
+        return this;
+    }
+    public Long getAlreadyRepayPeriodCount() {
+        return this.alreadyRepayPeriodCount;
+    }
+
+    public OverdueInfoResponse setLoanPeriodCount(Long loanPeriodCount) {
+        this.loanPeriodCount = loanPeriodCount;
+        return this;
+    }
+    public Long getLoanPeriodCount() {
+        return this.loanPeriodCount;
+    }
+
+    public OverdueInfoResponse setOutstandingPrincipal(Long outstandingPrincipal) {
+        this.outstandingPrincipal = outstandingPrincipal;
+        return this;
+    }
+    public Long getOutstandingPrincipal() {
+        return this.outstandingPrincipal;
+    }
+
+    public OverdueInfoResponse setLoanTime(String loanTime) {
+        this.loanTime = loanTime;
+        return this;
+    }
+    public String getLoanTime() {
+        return this.loanTime;
+    }
+
+    public OverdueInfoResponse setSettleFlag(Boolean settleFlag) {
+        this.settleFlag = settleFlag;
+        return this;
+    }
+    public Boolean getSettleFlag() {
+        return this.settleFlag;
+    }
+
+    public OverdueInfoResponse setNearestRepayTime(String nearestRepayTime) {
+        this.nearestRepayTime = nearestRepayTime;
+        return this;
+    }
+    public String getNearestRepayTime() {
+        return this.nearestRepayTime;
     }
 
 }

@@ -16,7 +16,7 @@ public class QueryDubbridgeRiskinfoEnterprisescoreRequest extends TeaModel {
     @Validation(required = true)
     public String socialCreditCode;
 
-    // MD5
+    // 手机号
     @NameInMap("mobile")
     public String mobile;
 
