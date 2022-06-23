@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.3")
+                    new TeaPair("sdk_version", "1.0.4")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -214,5 +214,43 @@ public class Client {
     public GetHealthinfoResponse getHealthinfoEx(GetHealthinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.antim.healthinfo.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetHealthinfoResponse());
+    }
+
+    /**
+     * Description: 健康码设备配置参数列表查询
+     * Summary: 健康码设备配置参数列表查询
+     */
+    public QueryDeviceargsResponse queryDeviceargs(QueryDeviceargsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeviceargsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 健康码设备配置参数列表查询
+     * Summary: 健康码设备配置参数列表查询
+     */
+    public QueryDeviceargsResponse queryDeviceargsEx(QueryDeviceargsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.antim.deviceargs.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceargsResponse());
+    }
+
+    /**
+     * Description: 健康码设备参数配置初始化
+     * Summary: 健康码设备参数配置初始化
+     */
+    public InitDeviceargsResponse initDeviceargs(InitDeviceargsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initDeviceargsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 健康码设备参数配置初始化
+     * Summary: 健康码设备参数配置初始化
+     */
+    public InitDeviceargsResponse initDeviceargsEx(InitDeviceargsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.antim.deviceargs.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitDeviceargsResponse());
     }
 }
