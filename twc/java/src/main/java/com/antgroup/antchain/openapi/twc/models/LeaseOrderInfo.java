@@ -59,6 +59,14 @@ public class LeaseOrderInfo extends TeaModel {
     @NameInMap("pay_in_advance")
     public String payInAdvance;
 
+    // 创建时间
+    @NameInMap("order_create_time")
+    public String orderCreateTime;
+
+    // 到期买断价 保留两位小数 单位元
+    @NameInMap("buy_out_price")
+    public String buyOutPrice;
+
     public static LeaseOrderInfo build(java.util.Map<String, ?> map) throws Exception {
         LeaseOrderInfo self = new LeaseOrderInfo();
         return TeaModel.build(map, self);
@@ -166,6 +174,22 @@ public class LeaseOrderInfo extends TeaModel {
     }
     public String getPayInAdvance() {
         return this.payInAdvance;
+    }
+
+    public LeaseOrderInfo setOrderCreateTime(String orderCreateTime) {
+        this.orderCreateTime = orderCreateTime;
+        return this;
+    }
+    public String getOrderCreateTime() {
+        return this.orderCreateTime;
+    }
+
+    public LeaseOrderInfo setBuyOutPrice(String buyOutPrice) {
+        this.buyOutPrice = buyOutPrice;
+        return this;
+    }
+    public String getBuyOutPrice() {
+        return this.buyOutPrice;
     }
 
 }
