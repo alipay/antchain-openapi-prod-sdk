@@ -111,6 +111,22 @@ class LeaseOrderInfo extends Model
      * @var string
      */
     public $payInAdvance;
+
+    // 创建时间
+    /**
+     * @example 2019-12-12
+     *
+     * @var string
+     */
+    public $orderCreateTime;
+
+    // 到期买断价 保留两位小数 单位元
+    /**
+     * @example 23.33
+     *
+     * @var string
+     */
+    public $buyOutPrice;
     protected $_name = [
         'lessorPlatformName'      => 'lessor_platform_name',
         'orderNumber'             => 'order_number',
@@ -125,6 +141,8 @@ class LeaseOrderInfo extends Model
         'leaseEndTime'            => 'lease_end_time',
         'buyoutAmountFormulaCalc' => 'buyout_amount_formula_calc',
         'payInAdvance'            => 'pay_in_advance',
+        'orderCreateTime'         => 'order_create_time',
+        'buyOutPrice'             => 'buy_out_price',
     ];
 
     public function validate()
@@ -182,6 +200,12 @@ class LeaseOrderInfo extends Model
         if (null !== $this->payInAdvance) {
             $res['pay_in_advance'] = $this->payInAdvance;
         }
+        if (null !== $this->orderCreateTime) {
+            $res['order_create_time'] = $this->orderCreateTime;
+        }
+        if (null !== $this->buyOutPrice) {
+            $res['buy_out_price'] = $this->buyOutPrice;
+        }
 
         return $res;
     }
@@ -238,6 +262,12 @@ class LeaseOrderInfo extends Model
         }
         if (isset($map['pay_in_advance'])) {
             $model->payInAdvance = $map['pay_in_advance'];
+        }
+        if (isset($map['order_create_time'])) {
+            $model->orderCreateTime = $map['order_create_time'];
+        }
+        if (isset($map['buy_out_price'])) {
+            $model->buyOutPrice = $map['buy_out_price'];
         }
 
         return $model;
