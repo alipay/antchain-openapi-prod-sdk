@@ -75,6 +75,16 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string PayInAdvance { get; set; }
 
+        // 创建时间
+        [NameInMap("order_create_time")]
+        [Validation(Required=false)]
+        public string OrderCreateTime { get; set; }
+
+        // 到期买断价 保留两位小数 单位元
+        [NameInMap("buy_out_price")]
+        [Validation(Required=false)]
+        public string BuyOutPrice { get; set; }
+
     }
 
 }
