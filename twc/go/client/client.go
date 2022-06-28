@@ -607,6 +607,10 @@ type LeaseOrderInfo struct {
 	BuyoutAmountFormulaCalc *string `json:"buyout_amount_formula_calc,omitempty" xml:"buyout_amount_formula_calc,omitempty"`
 	// 首付款（单位元）
 	PayInAdvance *string `json:"pay_in_advance,omitempty" xml:"pay_in_advance,omitempty"`
+	// 创建时间
+	OrderCreateTime *string `json:"order_create_time,omitempty" xml:"order_create_time,omitempty"`
+	// 到期买断价 保留两位小数 单位元
+	BuyOutPrice *string `json:"buy_out_price,omitempty" xml:"buy_out_price,omitempty"`
 }
 
 func (s LeaseOrderInfo) String() string {
@@ -679,6 +683,16 @@ func (s *LeaseOrderInfo) SetBuyoutAmountFormulaCalc(v string) *LeaseOrderInfo {
 
 func (s *LeaseOrderInfo) SetPayInAdvance(v string) *LeaseOrderInfo {
 	s.PayInAdvance = &v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetOrderCreateTime(v string) *LeaseOrderInfo {
+	s.OrderCreateTime = &v
+	return s
+}
+
+func (s *LeaseOrderInfo) SetBuyOutPrice(v string) *LeaseOrderInfo {
+	s.BuyOutPrice = &v
 	return s
 }
 
@@ -34257,7 +34271,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.46"),
+				"sdk_version":      tea.String("1.7.47"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
