@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.43',
+    sdk_version = '1.7.47',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -319,6 +319,10 @@ model LeaseOrderInfo {
   buyoutAmountFormulaCalc?: string(name='buyout_amount_formula_calc', example='商品官方价-已还租金-实付押金-首付款'),
   // 首付款（单位元）
   payInAdvance?: string(name='pay_in_advance', example='1123.00'),
+  // 创建时间
+  orderCreateTime?: string(name='order_create_time', example='2019-12-12'),
+  // 到期买断价 保留两位小数 单位元
+  buyOutPrice?: string(name='buy_out_price', example='23.33'),
 }
 
 // 承诺信息
@@ -9639,6 +9643,54 @@ async function queryLeaseRepaymentstatusEx(request: QueryLeaseRepaymentstatusReq
   return doRequest('1.0' ,'twc.notary.lease.repaymentstatus.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryLeaseUserperformanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 本次融资的订单号
+  orderId: string(name='order_id'),
+  // 首租订单号
+  firstOrderId: string(name='first_order_id'),
+  // 本次融资双方的合约id
+  applicationId: string(name='application_id'),
+  // 商家的租户id
+  leaseId: string(name='lease_id'),
+  // 首次融资的合约id
+  firstApplicationId?: string(name='first_application_id'),
+}
+
+model QueryLeaseUserperformanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 链上不存在该订单，该订单存在链上，但未获取链上融资，全部履约，累积逾期次数
+  resultMessage?: string(name='result_message'),
+  // 预期次数
+  responseData?: string(name='response_data'),
+}
+
+/**
+ * Description: 续租过程中，当前资方希望查询用户历史的履约表现
+ * Summary: 核验链上用户的履约情况
+ */
+async function queryLeaseUserperformance(request: QueryLeaseUserperformanceRequest): QueryLeaseUserperformanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLeaseUserperformanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 续租过程中，当前资方希望查询用户历史的履约表现
+ * Summary: 核验链上用户的履约情况
+ */
+async function queryLeaseUserperformanceEx(request: QueryLeaseUserperformanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseUserperformanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.userperformance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateWitnessFlowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -13661,6 +13713,114 @@ async function openInternalTwc(request: OpenInternalTwcRequest): OpenInternalTwc
 async function openInternalTwcEx(request: OpenInternalTwcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OpenInternalTwcResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.internal.twc.open', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateSpecifyTransRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 存证关联实体（个人/企业）的身份识别信息
+  customer: Identity(name='customer'),
+  // 扩展属性
+  properties?: string(name='properties'),
+  // 业务子类型标识
+  subBizId?: string(name='sub_biz_id'),
+  // 是否使用可信时间戳，默认为false
+  tsr?: boolean(name='tsr'),
+  // 链账户名称
+  chainAccount: string(name='chain_account'),
+  // 指定的上链节点ip
+  nodeIp?: string(name='node_ip'),
+}
+
+model CreateSpecifyTransResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回事务ID，全局唯一
+  transactionId?: string(name='transaction_id'),
+  // 可信时间信息
+  tsr?: TsrResponse(name='tsr'),
+}
+
+/**
+ * Description: 指定节点获取存证事务Id
+ * Summary: 指定节点获取存证事务id
+ */
+async function createSpecifyTrans(request: CreateSpecifyTransRequest): CreateSpecifyTransResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createSpecifyTransEx(request, headers, runtime);
+}
+
+/**
+ * Description: 指定节点获取存证事务Id
+ * Summary: 指定节点获取存证事务id
+ */
+async function createSpecifyTransEx(request: CreateSpecifyTransRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateSpecifyTransResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.specify.trans.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateSpecifyTextRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 存证地点(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+  location?: Location(name='location'),
+  // 存证内容
+  notaryContent: string(name='notary_content'),
+  // 描述本条存证在存证事务中的阶段，用户可自行维护
+  phase: string(name='phase'),
+  // 扩展属性
+  properties?: string(name='properties'),
+  // 存证事务id
+  transactionId: string(name='transaction_id'),
+  // 是否使用可信时间戳，默认为false
+  tsr?: boolean(name='tsr'),
+  // 文本存证类型，支持源文本/文本哈希
+  textNotaryType?: string(name='text_notary_type'),
+  // 哈希算法，目前仅支持 SHA256
+  hashAlgorithm?: string(name='hash_algorithm'),
+  // 链账户名称
+  chainAccount: string(name='chain_account'),
+  // 指定上链的节点ip，固定只能传一个，不传则按照链账号绑定ip随机上链
+  nodeIp?: string(name='node_ip'),
+}
+
+model CreateSpecifyTextResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 可信时间信息
+  tsr?: TsrResponse(name='tsr'),
+  // 存证凭据
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 指定节点文本存证
+ * Summary: 指定节点文本存证
+ */
+async function createSpecifyText(request: CreateSpecifyTextRequest): CreateSpecifyTextResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createSpecifyTextEx(request, headers, runtime);
+}
+
+/**
+ * Description: 指定节点文本存证
+ * Summary: 指定节点文本存证
+ */
+async function createSpecifyTextEx(request: CreateSpecifyTextRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateSpecifyTextResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.specify.text.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateFlowInstanceRequest = {
