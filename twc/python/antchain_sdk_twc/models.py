@@ -685,6 +685,8 @@ class LeaseOrderInfo(TeaModel):
         lease_end_time: str = None,
         buyout_amount_formula_calc: str = None,
         pay_in_advance: str = None,
+        order_create_time: str = None,
+        buy_out_price: str = None,
     ):
         # 出租方平台名称
         self.lessor_platform_name = lessor_platform_name
@@ -712,6 +714,10 @@ class LeaseOrderInfo(TeaModel):
         self.buyout_amount_formula_calc = buyout_amount_formula_calc
         # 首付款（单位元）
         self.pay_in_advance = pay_in_advance
+        # 创建时间
+        self.order_create_time = order_create_time
+        # 到期买断价 保留两位小数 单位元
+        self.buy_out_price = buy_out_price
 
     def validate(self):
         self.validate_required(self.order_number, 'order_number')
@@ -752,6 +758,10 @@ class LeaseOrderInfo(TeaModel):
             result['buyout_amount_formula_calc'] = self.buyout_amount_formula_calc
         if self.pay_in_advance is not None:
             result['pay_in_advance'] = self.pay_in_advance
+        if self.order_create_time is not None:
+            result['order_create_time'] = self.order_create_time
+        if self.buy_out_price is not None:
+            result['buy_out_price'] = self.buy_out_price
         return result
 
     def from_map(self, m: dict = None):
@@ -785,6 +795,10 @@ class LeaseOrderInfo(TeaModel):
             self.buyout_amount_formula_calc = m.get('buyout_amount_formula_calc')
         if m.get('pay_in_advance') is not None:
             self.pay_in_advance = m.get('pay_in_advance')
+        if m.get('order_create_time') is not None:
+            self.order_create_time = m.get('order_create_time')
+        if m.get('buy_out_price') is not None:
+            self.buy_out_price = m.get('buy_out_price')
         return self
 
 
