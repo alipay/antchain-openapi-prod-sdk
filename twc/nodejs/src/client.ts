@@ -435,6 +435,10 @@ export class LeaseOrderInfo extends $tea.Model {
   buyoutAmountFormulaCalc?: string;
   // 首付款（单位元）
   payInAdvance?: string;
+  // 创建时间
+  orderCreateTime?: string;
+  // 到期买断价 保留两位小数 单位元
+  buyOutPrice?: string;
   static names(): { [key: string]: string } {
     return {
       lessorPlatformName: 'lessor_platform_name',
@@ -450,6 +454,8 @@ export class LeaseOrderInfo extends $tea.Model {
       leaseEndTime: 'lease_end_time',
       buyoutAmountFormulaCalc: 'buyout_amount_formula_calc',
       payInAdvance: 'pay_in_advance',
+      orderCreateTime: 'order_create_time',
+      buyOutPrice: 'buy_out_price',
     };
   }
 
@@ -468,6 +474,8 @@ export class LeaseOrderInfo extends $tea.Model {
       leaseEndTime: 'string',
       buyoutAmountFormulaCalc: 'string',
       payInAdvance: 'string',
+      orderCreateTime: 'string',
+      buyOutPrice: 'string',
     };
   }
 
@@ -25321,7 +25329,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.46",
+          sdk_version: "1.7.47",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
