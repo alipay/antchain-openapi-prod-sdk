@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.9',
+    sdk_version = '1.12.0',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -438,6 +438,56 @@ model PersonalInfo {
   sex?: string(name='sex', example='M'),
   // 民族
   nation?: string(name='nation', example='汉'),
+}
+
+// 天枢系统专用RepayResult结构体
+model RepayResult {
+  // 客户编码
+  customNo: string(name='custom_no', example='xxx'),
+  // 当前期数
+  period: string(name='period', example='1'),
+  // 应还总额
+  needAmount: long(name='need_amount', example=''),
+  // 应还本金
+  needCorpus: long(name='need_corpus', example=''),
+  // 应还利息
+  needAccrual: long(name='need_accrual', example=''),
+  // 应还手续费
+  needFee: long(name='need_fee', example=''),
+  // 已还总额
+  alreadyAmount: long(name='already_amount', example=''),
+  // 已还本金
+  alreadyCorpus: long(name='already_corpus', example=''),
+  // 已还逾期本金
+  alreadyOvercorpus: long(name='already_overcorpus', example=''),
+  // 已还利息
+  alreadyAccrual: long(name='already_accrual', example=''),
+  // 已还逾期息
+  alreadyPunish: long(name='already_punish', example=''),
+  // 已还手续费
+  alreadyFee: long(name='already_fee', example=''),
+  // 利率
+  rate: long(name='rate', example=''),
+  // 罚息率
+  penaltyValue: long(name='penalty_value', example=''),
+  // 当期剩余总额
+  restAmount: long(name='rest_amount', example=''),
+  // 当期剩余本金
+  restCorpus: long(name='rest_corpus', example=''),
+  // 当期剩余利息
+  restAccrual: long(name='rest_accrual', example=''),
+  // 当期剩余罚息
+  restPunish: long(name='rest_punish', example=''),
+  // 期末本金
+  remainCorpus: long(name='remain_corpus', example=''),
+  // 借据编号
+  receiptNo: string(name='receipt_no', example='sss'),
+  // 还款状态1：已还清 2 未还 3 部分还款
+  status: string(name='status', example='1'),
+  // 应还日期
+  settleDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='settle_date', example='2018-10-10T10:10:00Z'),
+  // 还款日期
+  tradeDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='trade_date', example='2018-10-10T10:10:00Z'),
 }
 
 // 策略流信息
@@ -1304,6 +1354,32 @@ model SmsReponse {
   message: string(name='message', example='OK'),
   // 请求ID
   requestId: string(name='request_id', example='EF2DE797-B632-5DCF-8502-600959436E77'),
+}
+
+// 天枢专用RepayTrail结构体
+model RepayTrail {
+  // 期数
+  period: string(name='period', example='1'),
+  // 每期应还金额
+  needAmt: long(name='need_amt', example=''),
+  // 每期已还金额
+  alreadyAmt: long(name='already_amt', example=''),
+  // 每期应还本金
+  transPrincipal: long(name='trans_principal', example=''),
+  // 每期应还利息
+  transInterest: long(name='trans_interest', example=''),
+  // 每期还款费用
+  transFee: long(name='trans_fee', example=''),
+  // 剩余本金
+  remainPrincipal: long(name='remain_principal', example=''),
+  // 还款时间
+  repayTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='repay_time', example='2018-10-10T10:10:00Z'),
+  // 计息开始时间
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10T10:10:00Z'),
+  // 计息结束时间
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2018-10-10T10:10:00Z'),
+  // 试算编号
+  trialNo: string(name='trial_no', example='ss'),
 }
 
 // 键值对
@@ -3171,9 +3247,9 @@ model QueryDubbridgeAccountStatusRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 客户编号（资产方用户唯一标记二选一）
-  customNo: string(name='custom_no'),
+  customNo?: string(name='custom_no'),
   // 资产方用户唯一标识（资产方用户唯一标记二选一）
-  openId: string(name='open_id'),
+  openId?: string(name='open_id'),
 }
 
 model QueryDubbridgeAccountStatusResponse = {
@@ -3221,7 +3297,9 @@ model QueryDubbridgeAccountCustomRequest = {
   // 渠道号
   channelCode?: string(name='channel_code'),
   // 客户编码
-  customNo: string(name='custom_no'),
+  customNo?: string(name='custom_no'),
+  // open_id
+  openId?: string(name='open_id'),
 }
 
 model QueryDubbridgeAccountCustomResponse = {
@@ -3316,6 +3394,8 @@ model QueryDubbridgeCustomerAgreementsignRequest = {
   customNo: string(name='custom_no'),
   // 订单号
   orderNo?: string(name='order_no'),
+  // 资金方编号
+  fundCode: string(name='fund_code'),
 }
 
 model QueryDubbridgeCustomerAgreementsignResponse = {
@@ -3586,7 +3666,7 @@ model QueryDubbridgeRepayListResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 还款计划查询结果
-  repayRefList?: [ RepayRef ](name='repay_ref_list'),
+  repayResultList?: [ RepayResult ](name='repay_result_list'),
 }
 
 /**
@@ -3634,7 +3714,7 @@ model CountDubbridgeRepayReftrialResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 还款计划试算结果
-  repayRefList?: RepayRef(name='repay_ref_list'),
+  repayTrailList?: RepayTrail(name='repay_trail_list'),
 }
 
 /**
@@ -3888,6 +3968,46 @@ async function queryDubbridgeUsecreditStatusEx(request: QueryDubbridgeUsecreditS
   return doRequest('1.0' ,'riskplus.dubbridge.usecredit.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryDubbridgeReceiptStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // open_id
+  openId?: string(name='open_id'),
+  // 客户号
+  customNo?: string(name='custom_no'),
+}
+
+model QueryDubbridgeReceiptStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否结清字段
+  receiptFlag?: boolean(name='receipt_flag'),
+}
+
+/**
+ * Description: 天枢系统是否结清
+ * Summary: 天枢系统借款是否结清
+ */
+async function queryDubbridgeReceiptStatus(request: QueryDubbridgeReceiptStatusRequest): QueryDubbridgeReceiptStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeReceiptStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统是否结清
+ * Summary: 天枢系统借款是否结清
+ */
+async function queryDubbridgeReceiptStatusEx(request: QueryDubbridgeReceiptStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeReceiptStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model VerifyFinserviceZhimaIdentifyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -4006,6 +4126,67 @@ async function queryMdipDataservice(request: QueryMdipDataserviceRequest): Query
 async function queryMdipDataserviceEx(request: QueryMdipDataserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMdipDataserviceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.mdip.dataservice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReceiveMdipParamsFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户code
+  tenantCode: string(name='tenant_code'),
+  // file_id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 文件名
+  fileName: string(name='file_name'),
+}
+
+model ReceiveMdipParamsFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 接受op的文件id,支持外网多源文件上传
+ * Summary: 接受op的文件id,支持外网多源文件上传
+ */
+async function receiveMdipParamsFile(request: ReceiveMdipParamsFileRequest): ReceiveMdipParamsFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return receiveMdipParamsFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 接受op的文件id,支持外网多源文件上传
+ * Summary: 接受op的文件id,支持外网多源文件上传
+ */
+async function receiveMdipParamsFileEx(request: ReceiveMdipParamsFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReceiveMdipParamsFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'riskplus.mdip.params.file.receive',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var receiveMdipParamsFileResponse = new ReceiveMdipParamsFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return receiveMdipParamsFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.mdip.params.file.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryRbbGenericInvokeRequest = {
@@ -4672,6 +4853,48 @@ async function queryRbbObtsZsearch(request: QueryRbbObtsZsearchRequest): QueryRb
 async function queryRbbObtsZsearchEx(request: QueryRbbObtsZsearchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRbbObtsZsearchResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.rbb.obts.zsearch.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushRbbCustomerCompanyinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业的统一社会信用代码
+  ucCode?: string(name='uc_code'),
+  // 企业名称
+  companyName?: string(name='company_name'),
+  // 企业信息的类型
+  type: string(name='type'),
+  // 企业信息的内容
+  content?: string(name='content'),
+}
+
+model PushRbbCustomerCompanyinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 企业风控客户推送的企业信息
+ * Summary: 企业风控客户推送的企业信息
+ */
+async function pushRbbCustomerCompanyinfo(request: PushRbbCustomerCompanyinfoRequest): PushRbbCustomerCompanyinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushRbbCustomerCompanyinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业风控客户推送的企业信息
+ * Summary: 企业风控客户推送的企业信息
+ */
+async function pushRbbCustomerCompanyinfoEx(request: PushRbbCustomerCompanyinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushRbbCustomerCompanyinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.customer.companyinfo.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryRpgwSignUrlRequest = {
