@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class QueryDubbridgeRepayListResponse extends TeaModel {
+public class QueryDubbridgeReceiptStatusResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryDubbridgeRepayListResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 还款计划查询结果
-    @NameInMap("repay_result_list")
-    public java.util.List<RepayResult> repayResultList;
+    // 是否结清字段
+    @NameInMap("receipt_flag")
+    public Boolean receiptFlag;
 
-    public static QueryDubbridgeRepayListResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryDubbridgeRepayListResponse self = new QueryDubbridgeRepayListResponse();
+    public static QueryDubbridgeReceiptStatusResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryDubbridgeReceiptStatusResponse self = new QueryDubbridgeReceiptStatusResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryDubbridgeRepayListResponse setReqMsgId(String reqMsgId) {
+    public QueryDubbridgeReceiptStatusResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryDubbridgeRepayListResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryDubbridgeRepayListResponse setResultCode(String resultCode) {
+    public QueryDubbridgeReceiptStatusResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryDubbridgeRepayListResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryDubbridgeRepayListResponse setResultMsg(String resultMsg) {
+    public QueryDubbridgeReceiptStatusResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class QueryDubbridgeRepayListResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDubbridgeRepayListResponse setRepayResultList(java.util.List<RepayResult> repayResultList) {
-        this.repayResultList = repayResultList;
+    public QueryDubbridgeReceiptStatusResponse setReceiptFlag(Boolean receiptFlag) {
+        this.receiptFlag = receiptFlag;
         return this;
     }
-    public java.util.List<RepayResult> getRepayResultList() {
-        return this.repayResultList;
+    public Boolean getReceiptFlag() {
+        return this.receiptFlag;
     }
 
 }

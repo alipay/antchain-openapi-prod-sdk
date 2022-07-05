@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.11.9")
+                    new TeaPair("sdk_version", "1.12.0")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1188,6 +1188,25 @@ public class Client {
     }
 
     /**
+     * Description: 天枢系统是否结清
+     * Summary: 天枢系统借款是否结清
+     */
+    public QueryDubbridgeReceiptStatusResponse queryDubbridgeReceiptStatus(QueryDubbridgeReceiptStatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeReceiptStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 天枢系统是否结清
+     * Summary: 天枢系统借款是否结清
+     */
+    public QueryDubbridgeReceiptStatusResponse queryDubbridgeReceiptStatusEx(QueryDubbridgeReceiptStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.receipt.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeReceiptStatusResponse());
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口
      */
@@ -1242,6 +1261,46 @@ public class Client {
     public QueryMdipDataserviceResponse queryMdipDataserviceEx(QueryMdipDataserviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.mdip.dataservice.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMdipDataserviceResponse());
+    }
+
+    /**
+     * Description: 接受op的文件id,支持外网多源文件上传
+     * Summary: 接受op的文件id,支持外网多源文件上传
+     */
+    public ReceiveMdipParamsFileResponse receiveMdipParamsFile(ReceiveMdipParamsFileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.receiveMdipParamsFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 接受op的文件id,支持外网多源文件上传
+     * Summary: 接受op的文件id,支持外网多源文件上传
+     */
+    public ReceiveMdipParamsFileResponse receiveMdipParamsFileEx(ReceiveMdipParamsFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "riskplus.mdip.params.file.receive"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ReceiveMdipParamsFileResponse receiveMdipParamsFileResponse = ReceiveMdipParamsFileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return receiveMdipParamsFileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.mdip.params.file.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveMdipParamsFileResponse());
     }
 
     /**
@@ -1546,6 +1605,25 @@ public class Client {
     public QueryRbbObtsZsearchResponse queryRbbObtsZsearchEx(QueryRbbObtsZsearchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.obts.zsearch.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRbbObtsZsearchResponse());
+    }
+
+    /**
+     * Description: 企业风控客户推送的企业信息
+     * Summary: 企业风控客户推送的企业信息
+     */
+    public PushRbbCustomerCompanyinfoResponse pushRbbCustomerCompanyinfo(PushRbbCustomerCompanyinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushRbbCustomerCompanyinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企业风控客户推送的企业信息
+     * Summary: 企业风控客户推送的企业信息
+     */
+    public PushRbbCustomerCompanyinfoResponse pushRbbCustomerCompanyinfoEx(PushRbbCustomerCompanyinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.customer.companyinfo.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushRbbCustomerCompanyinfoResponse());
     }
 
     /**

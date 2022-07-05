@@ -13,12 +13,10 @@ public class QueryDubbridgeAccountStatusRequest extends TeaModel {
 
     // 客户编号（资产方用户唯一标记二选一）
     @NameInMap("custom_no")
-    @Validation(required = true)
     public String customNo;
 
     // 资产方用户唯一标识（资产方用户唯一标记二选一）
     @NameInMap("open_id")
-    @Validation(required = true)
     public String openId;
 
     public static QueryDubbridgeAccountStatusRequest build(java.util.Map<String, ?> map) throws Exception {

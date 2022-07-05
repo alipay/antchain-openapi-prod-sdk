@@ -17,8 +17,11 @@ public class QueryDubbridgeAccountCustomRequest extends TeaModel {
 
     // 客户编码
     @NameInMap("custom_no")
-    @Validation(required = true)
     public String customNo;
+
+    // open_id
+    @NameInMap("open_id")
+    public String openId;
 
     public static QueryDubbridgeAccountCustomRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeAccountCustomRequest self = new QueryDubbridgeAccountCustomRequest();
@@ -55,6 +58,14 @@ public class QueryDubbridgeAccountCustomRequest extends TeaModel {
     }
     public String getCustomNo() {
         return this.customNo;
+    }
+
+    public QueryDubbridgeAccountCustomRequest setOpenId(String openId) {
+        this.openId = openId;
+        return this;
+    }
+    public String getOpenId() {
+        return this.openId;
     }
 
 }
