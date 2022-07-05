@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.9'
+                    'sdk_version': '1.12.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.9'
+                    'sdk_version': '1.12.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -3167,6 +3167,60 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubbridge.usecredit.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_dubbridge_receipt_status(
+        self,
+        request: riskplus_models.QueryDubbridgeReceiptStatusRequest,
+    ) -> riskplus_models.QueryDubbridgeReceiptStatusResponse:
+        """
+        Description: 天枢系统是否结清
+        Summary: 天枢系统借款是否结清
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_receipt_status_ex(request, headers, runtime)
+
+    async def query_dubbridge_receipt_status_async(
+        self,
+        request: riskplus_models.QueryDubbridgeReceiptStatusRequest,
+    ) -> riskplus_models.QueryDubbridgeReceiptStatusResponse:
+        """
+        Description: 天枢系统是否结清
+        Summary: 天枢系统借款是否结清
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_receipt_status_ex_async(request, headers, runtime)
+
+    def query_dubbridge_receipt_status_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeReceiptStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeReceiptStatusResponse:
+        """
+        Description: 天枢系统是否结清
+        Summary: 天枢系统借款是否结清
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryDubbridgeReceiptStatusResponse().from_map(
+            self.do_request('1.0', 'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_receipt_status_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeReceiptStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeReceiptStatusResponse:
+        """
+        Description: 天枢系统是否结清
+        Summary: 天枢系统借款是否结清
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.QueryDubbridgeReceiptStatusResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def verify_finservice_zhima_identify(
         self,
         request: riskplus_models.VerifyFinserviceZhimaIdentifyRequest,
@@ -3327,6 +3381,94 @@ class Client:
         UtilClient.validate_model(request)
         return riskplus_models.QueryMdipDataserviceResponse().from_map(
             await self.do_request_async('1.0', 'riskplus.mdip.dataservice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def receive_mdip_params_file(
+        self,
+        request: riskplus_models.ReceiveMdipParamsFileRequest,
+    ) -> riskplus_models.ReceiveMdipParamsFileResponse:
+        """
+        Description: 接受op的文件id,支持外网多源文件上传
+        Summary: 接受op的文件id,支持外网多源文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.receive_mdip_params_file_ex(request, headers, runtime)
+
+    async def receive_mdip_params_file_async(
+        self,
+        request: riskplus_models.ReceiveMdipParamsFileRequest,
+    ) -> riskplus_models.ReceiveMdipParamsFileResponse:
+        """
+        Description: 接受op的文件id,支持外网多源文件上传
+        Summary: 接受op的文件id,支持外网多源文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.receive_mdip_params_file_ex_async(request, headers, runtime)
+
+    def receive_mdip_params_file_ex(
+        self,
+        request: riskplus_models.ReceiveMdipParamsFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ReceiveMdipParamsFileResponse:
+        """
+        Description: 接受op的文件id,支持外网多源文件上传
+        Summary: 接受op的文件id,支持外网多源文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.mdip.params.file.receive',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                receive_mdip_params_file_response = riskplus_models.ReceiveMdipParamsFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return receive_mdip_params_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return riskplus_models.ReceiveMdipParamsFileResponse().from_map(
+            self.do_request('1.0', 'riskplus.mdip.params.file.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def receive_mdip_params_file_ex_async(
+        self,
+        request: riskplus_models.ReceiveMdipParamsFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ReceiveMdipParamsFileResponse:
+        """
+        Description: 接受op的文件id,支持外网多源文件上传
+        Summary: 接受op的文件id,支持外网多源文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.mdip.params.file.receive',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                receive_mdip_params_file_response = riskplus_models.ReceiveMdipParamsFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return receive_mdip_params_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return riskplus_models.ReceiveMdipParamsFileResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.mdip.params.file.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rbb_generic_invoke(
@@ -4191,6 +4333,60 @@ class Client:
         UtilClient.validate_model(request)
         return riskplus_models.QueryRbbObtsZsearchResponse().from_map(
             await self.do_request_async('1.0', 'riskplus.rbb.obts.zsearch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_rbb_customer_companyinfo(
+        self,
+        request: riskplus_models.PushRbbCustomerCompanyinfoRequest,
+    ) -> riskplus_models.PushRbbCustomerCompanyinfoResponse:
+        """
+        Description: 企业风控客户推送的企业信息
+        Summary: 企业风控客户推送的企业信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_rbb_customer_companyinfo_ex(request, headers, runtime)
+
+    async def push_rbb_customer_companyinfo_async(
+        self,
+        request: riskplus_models.PushRbbCustomerCompanyinfoRequest,
+    ) -> riskplus_models.PushRbbCustomerCompanyinfoResponse:
+        """
+        Description: 企业风控客户推送的企业信息
+        Summary: 企业风控客户推送的企业信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_rbb_customer_companyinfo_ex_async(request, headers, runtime)
+
+    def push_rbb_customer_companyinfo_ex(
+        self,
+        request: riskplus_models.PushRbbCustomerCompanyinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushRbbCustomerCompanyinfoResponse:
+        """
+        Description: 企业风控客户推送的企业信息
+        Summary: 企业风控客户推送的企业信息
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.PushRbbCustomerCompanyinfoResponse().from_map(
+            self.do_request('1.0', 'riskplus.rbb.customer.companyinfo.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_rbb_customer_companyinfo_ex_async(
+        self,
+        request: riskplus_models.PushRbbCustomerCompanyinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushRbbCustomerCompanyinfoResponse:
+        """
+        Description: 企业风控客户推送的企业信息
+        Summary: 企业风控客户推送的企业信息
+        """
+        UtilClient.validate_model(request)
+        return riskplus_models.PushRbbCustomerCompanyinfoResponse().from_map(
+            await self.do_request_async('1.0', 'riskplus.rbb.customer.companyinfo.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rpgw_sign_url(
