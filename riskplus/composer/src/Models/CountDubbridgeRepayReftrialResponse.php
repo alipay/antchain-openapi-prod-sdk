@@ -28,14 +28,14 @@ class CountDubbridgeRepayReftrialResponse extends Model
 
     // 还款计划试算结果
     /**
-     * @var RepayRef
+     * @var RepayTrail
      */
-    public $repayRefList;
+    public $repayTrailList;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'repayRefList' => 'repay_ref_list',
+        'reqMsgId'       => 'req_msg_id',
+        'resultCode'     => 'result_code',
+        'resultMsg'      => 'result_msg',
+        'repayTrailList' => 'repay_trail_list',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class CountDubbridgeRepayReftrialResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->repayRefList) {
-            $res['repay_ref_list'] = null !== $this->repayRefList ? $this->repayRefList->toMap() : null;
+        if (null !== $this->repayTrailList) {
+            $res['repay_trail_list'] = null !== $this->repayTrailList ? $this->repayTrailList->toMap() : null;
         }
 
         return $res;
@@ -78,8 +78,8 @@ class CountDubbridgeRepayReftrialResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['repay_ref_list'])) {
-            $model->repayRefList = RepayRef::fromMap($map['repay_ref_list']);
+        if (isset($map['repay_trail_list'])) {
+            $model->repayTrailList = RepayTrail::fromMap($map['repay_trail_list']);
         }
 
         return $model;

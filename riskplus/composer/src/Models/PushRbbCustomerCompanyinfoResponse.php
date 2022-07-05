@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubbridgeRepayListResponse extends Model
+class PushRbbCustomerCompanyinfoResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class QueryDubbridgeRepayListResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 还款计划查询结果
-    /**
-     * @var RepayResult[]
-     */
-    public $repayResultList;
     protected $_name = [
-        'reqMsgId'        => 'req_msg_id',
-        'resultCode'      => 'result_code',
-        'resultMsg'       => 'result_msg',
-        'repayResultList' => 'repay_result_list',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -54,15 +47,6 @@ class QueryDubbridgeRepayListResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->repayResultList) {
-            $res['repay_result_list'] = [];
-            if (null !== $this->repayResultList && \is_array($this->repayResultList)) {
-                $n = 0;
-                foreach ($this->repayResultList as $item) {
-                    $res['repay_result_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
 
         return $res;
     }
@@ -70,7 +54,7 @@ class QueryDubbridgeRepayListResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryDubbridgeRepayListResponse
+     * @return PushRbbCustomerCompanyinfoResponse
      */
     public static function fromMap($map = [])
     {
@@ -83,15 +67,6 @@ class QueryDubbridgeRepayListResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['repay_result_list'])) {
-            if (!empty($map['repay_result_list'])) {
-                $model->repayResultList = [];
-                $n                      = 0;
-                foreach ($map['repay_result_list'] as $item) {
-                    $model->repayResultList[$n++] = null !== $item ? RepayResult::fromMap($item) : $item;
-                }
-            }
         }
 
         return $model;

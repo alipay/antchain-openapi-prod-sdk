@@ -30,16 +30,24 @@ class QueryDubbridgeCustomerAgreementsignRequest extends Model
      * @var string
      */
     public $orderNo;
+
+    // 资金方编号
+    /**
+     * @var string
+     */
+    public $fundCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'customNo'          => 'custom_no',
         'orderNo'           => 'order_no',
+        'fundCode'          => 'fund_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('customNo', $this->customNo, true);
+        Model::validateRequired('fundCode', $this->fundCode, true);
     }
 
     public function toMap()
@@ -56,6 +64,9 @@ class QueryDubbridgeCustomerAgreementsignRequest extends Model
         }
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
+        }
+        if (null !== $this->fundCode) {
+            $res['fund_code'] = $this->fundCode;
         }
 
         return $res;
@@ -80,6 +91,9 @@ class QueryDubbridgeCustomerAgreementsignRequest extends Model
         }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
+        }
+        if (isset($map['fund_code'])) {
+            $model->fundCode = $map['fund_code'];
         }
 
         return $model;

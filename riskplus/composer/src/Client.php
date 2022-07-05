@@ -89,6 +89,8 @@ use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultRequest;
 use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultResponse;
 use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
+use AntChain\RISKPLUS\Models\PushRbbCustomerCompanyinfoRequest;
+use AntChain\RISKPLUS\Models\PushRbbCustomerCompanyinfoResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusRequest;
@@ -99,6 +101,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerAgreementsignRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerAgreementsignResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptOverdueRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptOverdueResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptStatusRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptStatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayInfoRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayInfoResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayListRequest;
@@ -195,6 +199,8 @@ use AntChain\RISKPLUS\Models\QuerySnapshotEventRequest;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventResponse;
 use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestRequest;
 use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestResponse;
+use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileRequest;
+use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileResponse;
 use AntChain\RISKPLUS\Models\RegisterRpgwUserEinvoiceRequest;
 use AntChain\RISKPLUS\Models\RegisterRpgwUserEinvoiceResponse;
 use AntChain\RISKPLUS\Models\RepayDubbridgeRepayCheckstandRequest;
@@ -382,7 +388,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.9',
+                    'sdk_version'      => '1.12.0',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -2196,6 +2202,39 @@ class Client
     }
 
     /**
+     * Description: 天枢系统是否结清
+     * Summary: 天枢系统借款是否结清.
+     *
+     * @param QueryDubbridgeReceiptStatusRequest $request
+     *
+     * @return QueryDubbridgeReceiptStatusResponse
+     */
+    public function queryDubbridgeReceiptStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeReceiptStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统是否结清
+     * Summary: 天枢系统借款是否结清.
+     *
+     * @param QueryDubbridgeReceiptStatusRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryDubbridgeReceiptStatusResponse
+     */
+    public function queryDubbridgeReceiptStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeReceiptStatusResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口.
      *
@@ -2292,6 +2331,57 @@ class Client
         Utils::validateModel($request);
 
         return QueryMdipDataserviceResponse::fromMap($this->doRequest('1.0', 'riskplus.mdip.dataservice.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 接受op的文件id,支持外网多源文件上传
+     * Summary: 接受op的文件id,支持外网多源文件上传.
+     *
+     * @param ReceiveMdipParamsFileRequest $request
+     *
+     * @return ReceiveMdipParamsFileResponse
+     */
+    public function receiveMdipParamsFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->receiveMdipParamsFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 接受op的文件id,支持外网多源文件上传
+     * Summary: 接受op的文件id,支持外网多源文件上传.
+     *
+     * @param ReceiveMdipParamsFileRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ReceiveMdipParamsFileResponse
+     */
+    public function receiveMdipParamsFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'riskplus.mdip.params.file.receive',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ReceiveMdipParamsFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return ReceiveMdipParamsFileResponse::fromMap($this->doRequest('1.0', 'riskplus.mdip.params.file.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2820,6 +2910,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryRbbObtsZsearchResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.obts.zsearch.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业风控客户推送的企业信息
+     * Summary: 企业风控客户推送的企业信息.
+     *
+     * @param PushRbbCustomerCompanyinfoRequest $request
+     *
+     * @return PushRbbCustomerCompanyinfoResponse
+     */
+    public function pushRbbCustomerCompanyinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushRbbCustomerCompanyinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业风控客户推送的企业信息
+     * Summary: 企业风控客户推送的企业信息.
+     *
+     * @param PushRbbCustomerCompanyinfoRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return PushRbbCustomerCompanyinfoResponse
+     */
+    public function pushRbbCustomerCompanyinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushRbbCustomerCompanyinfoResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.customer.companyinfo.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubbridgeAccountCustomRequest extends Model
+class PushRbbCustomerCompanyinfoRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,33 +19,41 @@ class QueryDubbridgeAccountCustomRequest extends Model
      */
     public $productInstanceId;
 
-    // 渠道号
+    // 企业的统一社会信用代码
     /**
      * @var string
      */
-    public $channelCode;
+    public $ucCode;
 
-    // 客户编码
+    // 企业名称
     /**
      * @var string
      */
-    public $customNo;
+    public $companyName;
 
-    // open_id
+    // 企业信息的类型
     /**
      * @var string
      */
-    public $openId;
+    public $type;
+
+    // 企业信息的内容
+    /**
+     * @var string
+     */
+    public $content;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'channelCode'       => 'channel_code',
-        'customNo'          => 'custom_no',
-        'openId'            => 'open_id',
+        'ucCode'            => 'uc_code',
+        'companyName'       => 'company_name',
+        'type'              => 'type',
+        'content'           => 'content',
     ];
 
     public function validate()
     {
+        Model::validateRequired('type', $this->type, true);
     }
 
     public function toMap()
@@ -57,14 +65,17 @@ class QueryDubbridgeAccountCustomRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->channelCode) {
-            $res['channel_code'] = $this->channelCode;
+        if (null !== $this->ucCode) {
+            $res['uc_code'] = $this->ucCode;
         }
-        if (null !== $this->customNo) {
-            $res['custom_no'] = $this->customNo;
+        if (null !== $this->companyName) {
+            $res['company_name'] = $this->companyName;
         }
-        if (null !== $this->openId) {
-            $res['open_id'] = $this->openId;
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
+        }
+        if (null !== $this->content) {
+            $res['content'] = $this->content;
         }
 
         return $res;
@@ -73,7 +84,7 @@ class QueryDubbridgeAccountCustomRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryDubbridgeAccountCustomRequest
+     * @return PushRbbCustomerCompanyinfoRequest
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +95,17 @@ class QueryDubbridgeAccountCustomRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['channel_code'])) {
-            $model->channelCode = $map['channel_code'];
+        if (isset($map['uc_code'])) {
+            $model->ucCode = $map['uc_code'];
         }
-        if (isset($map['custom_no'])) {
-            $model->customNo = $map['custom_no'];
+        if (isset($map['company_name'])) {
+            $model->companyName = $map['company_name'];
         }
-        if (isset($map['open_id'])) {
-            $model->openId = $map['open_id'];
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
+        }
+        if (isset($map['content'])) {
+            $model->content = $map['content'];
         }
 
         return $model;
