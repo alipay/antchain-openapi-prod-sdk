@@ -1076,6 +1076,179 @@ func (s *PersonalInfo) SetNation(v string) *PersonalInfo {
 	return s
 }
 
+// 天枢系统专用RepayResult结构体
+type RepayResult struct {
+	// 客户编码
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
+	// 当前期数
+	Period *string `json:"period,omitempty" xml:"period,omitempty" require:"true"`
+	// 应还总额
+	NeedAmount *int64 `json:"need_amount,omitempty" xml:"need_amount,omitempty" require:"true"`
+	// 应还本金
+	NeedCorpus *int64 `json:"need_corpus,omitempty" xml:"need_corpus,omitempty" require:"true"`
+	// 应还利息
+	NeedAccrual *int64 `json:"need_accrual,omitempty" xml:"need_accrual,omitempty" require:"true"`
+	// 应还手续费
+	NeedFee *int64 `json:"need_fee,omitempty" xml:"need_fee,omitempty" require:"true"`
+	// 已还总额
+	AlreadyAmount *int64 `json:"already_amount,omitempty" xml:"already_amount,omitempty" require:"true"`
+	// 已还本金
+	AlreadyCorpus *int64 `json:"already_corpus,omitempty" xml:"already_corpus,omitempty" require:"true"`
+	// 已还逾期本金
+	AlreadyOvercorpus *int64 `json:"already_overcorpus,omitempty" xml:"already_overcorpus,omitempty" require:"true"`
+	// 已还利息
+	AlreadyAccrual *int64 `json:"already_accrual,omitempty" xml:"already_accrual,omitempty" require:"true"`
+	// 已还逾期息
+	AlreadyPunish *int64 `json:"already_punish,omitempty" xml:"already_punish,omitempty" require:"true"`
+	// 已还手续费
+	AlreadyFee *int64 `json:"already_fee,omitempty" xml:"already_fee,omitempty" require:"true"`
+	// 利率
+	Rate *int64 `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
+	// 罚息率
+	PenaltyValue *int64 `json:"penalty_value,omitempty" xml:"penalty_value,omitempty" require:"true"`
+	// 当期剩余总额
+	RestAmount *int64 `json:"rest_amount,omitempty" xml:"rest_amount,omitempty" require:"true"`
+	// 当期剩余本金
+	RestCorpus *int64 `json:"rest_corpus,omitempty" xml:"rest_corpus,omitempty" require:"true"`
+	// 当期剩余利息
+	RestAccrual *int64 `json:"rest_accrual,omitempty" xml:"rest_accrual,omitempty" require:"true"`
+	// 当期剩余罚息
+	RestPunish *int64 `json:"rest_punish,omitempty" xml:"rest_punish,omitempty" require:"true"`
+	// 期末本金
+	RemainCorpus *int64 `json:"remain_corpus,omitempty" xml:"remain_corpus,omitempty" require:"true"`
+	// 借据编号
+	ReceiptNo *string `json:"receipt_no,omitempty" xml:"receipt_no,omitempty" require:"true"`
+	// 还款状态1：已还清 2 未还 3 部分还款
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 应还日期
+	SettleDate *string `json:"settle_date,omitempty" xml:"settle_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 还款日期
+	TradeDate *string `json:"trade_date,omitempty" xml:"trade_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s RepayResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RepayResult) GoString() string {
+	return s.String()
+}
+
+func (s *RepayResult) SetCustomNo(v string) *RepayResult {
+	s.CustomNo = &v
+	return s
+}
+
+func (s *RepayResult) SetPeriod(v string) *RepayResult {
+	s.Period = &v
+	return s
+}
+
+func (s *RepayResult) SetNeedAmount(v int64) *RepayResult {
+	s.NeedAmount = &v
+	return s
+}
+
+func (s *RepayResult) SetNeedCorpus(v int64) *RepayResult {
+	s.NeedCorpus = &v
+	return s
+}
+
+func (s *RepayResult) SetNeedAccrual(v int64) *RepayResult {
+	s.NeedAccrual = &v
+	return s
+}
+
+func (s *RepayResult) SetNeedFee(v int64) *RepayResult {
+	s.NeedFee = &v
+	return s
+}
+
+func (s *RepayResult) SetAlreadyAmount(v int64) *RepayResult {
+	s.AlreadyAmount = &v
+	return s
+}
+
+func (s *RepayResult) SetAlreadyCorpus(v int64) *RepayResult {
+	s.AlreadyCorpus = &v
+	return s
+}
+
+func (s *RepayResult) SetAlreadyOvercorpus(v int64) *RepayResult {
+	s.AlreadyOvercorpus = &v
+	return s
+}
+
+func (s *RepayResult) SetAlreadyAccrual(v int64) *RepayResult {
+	s.AlreadyAccrual = &v
+	return s
+}
+
+func (s *RepayResult) SetAlreadyPunish(v int64) *RepayResult {
+	s.AlreadyPunish = &v
+	return s
+}
+
+func (s *RepayResult) SetAlreadyFee(v int64) *RepayResult {
+	s.AlreadyFee = &v
+	return s
+}
+
+func (s *RepayResult) SetRate(v int64) *RepayResult {
+	s.Rate = &v
+	return s
+}
+
+func (s *RepayResult) SetPenaltyValue(v int64) *RepayResult {
+	s.PenaltyValue = &v
+	return s
+}
+
+func (s *RepayResult) SetRestAmount(v int64) *RepayResult {
+	s.RestAmount = &v
+	return s
+}
+
+func (s *RepayResult) SetRestCorpus(v int64) *RepayResult {
+	s.RestCorpus = &v
+	return s
+}
+
+func (s *RepayResult) SetRestAccrual(v int64) *RepayResult {
+	s.RestAccrual = &v
+	return s
+}
+
+func (s *RepayResult) SetRestPunish(v int64) *RepayResult {
+	s.RestPunish = &v
+	return s
+}
+
+func (s *RepayResult) SetRemainCorpus(v int64) *RepayResult {
+	s.RemainCorpus = &v
+	return s
+}
+
+func (s *RepayResult) SetReceiptNo(v string) *RepayResult {
+	s.ReceiptNo = &v
+	return s
+}
+
+func (s *RepayResult) SetStatus(v string) *RepayResult {
+	s.Status = &v
+	return s
+}
+
+func (s *RepayResult) SetSettleDate(v string) *RepayResult {
+	s.SettleDate = &v
+	return s
+}
+
+func (s *RepayResult) SetTradeDate(v string) *RepayResult {
+	s.TradeDate = &v
+	return s
+}
+
 // 策略流信息
 type DfSceneInfos struct {
 	// scene_code
@@ -3979,6 +4152,95 @@ func (s *SmsReponse) SetMessage(v string) *SmsReponse {
 
 func (s *SmsReponse) SetRequestId(v string) *SmsReponse {
 	s.RequestId = &v
+	return s
+}
+
+// 天枢专用RepayTrail结构体
+type RepayTrail struct {
+	// 期数
+	Period *string `json:"period,omitempty" xml:"period,omitempty" require:"true"`
+	// 每期应还金额
+	NeedAmt *int64 `json:"need_amt,omitempty" xml:"need_amt,omitempty" require:"true"`
+	// 每期已还金额
+	AlreadyAmt *int64 `json:"already_amt,omitempty" xml:"already_amt,omitempty" require:"true"`
+	// 每期应还本金
+	TransPrincipal *int64 `json:"trans_principal,omitempty" xml:"trans_principal,omitempty" require:"true"`
+	// 每期应还利息
+	TransInterest *int64 `json:"trans_interest,omitempty" xml:"trans_interest,omitempty" require:"true"`
+	// 每期还款费用
+	TransFee *int64 `json:"trans_fee,omitempty" xml:"trans_fee,omitempty" require:"true"`
+	// 剩余本金
+	RemainPrincipal *int64 `json:"remain_principal,omitempty" xml:"remain_principal,omitempty" require:"true"`
+	// 还款时间
+	RepayTime *string `json:"repay_time,omitempty" xml:"repay_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 计息开始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 计息结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 试算编号
+	TrialNo *string `json:"trial_no,omitempty" xml:"trial_no,omitempty" require:"true"`
+}
+
+func (s RepayTrail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RepayTrail) GoString() string {
+	return s.String()
+}
+
+func (s *RepayTrail) SetPeriod(v string) *RepayTrail {
+	s.Period = &v
+	return s
+}
+
+func (s *RepayTrail) SetNeedAmt(v int64) *RepayTrail {
+	s.NeedAmt = &v
+	return s
+}
+
+func (s *RepayTrail) SetAlreadyAmt(v int64) *RepayTrail {
+	s.AlreadyAmt = &v
+	return s
+}
+
+func (s *RepayTrail) SetTransPrincipal(v int64) *RepayTrail {
+	s.TransPrincipal = &v
+	return s
+}
+
+func (s *RepayTrail) SetTransInterest(v int64) *RepayTrail {
+	s.TransInterest = &v
+	return s
+}
+
+func (s *RepayTrail) SetTransFee(v int64) *RepayTrail {
+	s.TransFee = &v
+	return s
+}
+
+func (s *RepayTrail) SetRemainPrincipal(v int64) *RepayTrail {
+	s.RemainPrincipal = &v
+	return s
+}
+
+func (s *RepayTrail) SetRepayTime(v string) *RepayTrail {
+	s.RepayTime = &v
+	return s
+}
+
+func (s *RepayTrail) SetStartTime(v string) *RepayTrail {
+	s.StartTime = &v
+	return s
+}
+
+func (s *RepayTrail) SetEndTime(v string) *RepayTrail {
+	s.EndTime = &v
+	return s
+}
+
+func (s *RepayTrail) SetTrialNo(v string) *RepayTrail {
+	s.TrialNo = &v
 	return s
 }
 
@@ -8029,9 +8291,9 @@ type QueryDubbridgeAccountStatusRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 客户编号（资产方用户唯一标记二选一）
-	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty"`
 	// 资产方用户唯一标识（资产方用户唯一标记二选一）
-	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
 }
 
 func (s QueryDubbridgeAccountStatusRequest) String() string {
@@ -8126,7 +8388,9 @@ type QueryDubbridgeAccountCustomRequest struct {
 	// 渠道号
 	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty"`
 	// 客户编码
-	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty"`
+	// open_id
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
 }
 
 func (s QueryDubbridgeAccountCustomRequest) String() string {
@@ -8154,6 +8418,11 @@ func (s *QueryDubbridgeAccountCustomRequest) SetChannelCode(v string) *QueryDubb
 
 func (s *QueryDubbridgeAccountCustomRequest) SetCustomNo(v string) *QueryDubbridgeAccountCustomRequest {
 	s.CustomNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeAccountCustomRequest) SetOpenId(v string) *QueryDubbridgeAccountCustomRequest {
+	s.OpenId = &v
 	return s
 }
 
@@ -8330,6 +8599,8 @@ type QueryDubbridgeCustomerAgreementsignRequest struct {
 	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
 	// 订单号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 资金方编号
+	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty" require:"true"`
 }
 
 func (s QueryDubbridgeCustomerAgreementsignRequest) String() string {
@@ -8357,6 +8628,11 @@ func (s *QueryDubbridgeCustomerAgreementsignRequest) SetCustomNo(v string) *Quer
 
 func (s *QueryDubbridgeCustomerAgreementsignRequest) SetOrderNo(v string) *QueryDubbridgeCustomerAgreementsignRequest {
 	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerAgreementsignRequest) SetFundCode(v string) *QueryDubbridgeCustomerAgreementsignRequest {
+	s.FundCode = &v
 	return s
 }
 
@@ -8963,7 +9239,7 @@ type QueryDubbridgeRepayListResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 还款计划查询结果
-	RepayRefList []*RepayRef `json:"repay_ref_list,omitempty" xml:"repay_ref_list,omitempty" type:"Repeated"`
+	RepayResultList []*RepayResult `json:"repay_result_list,omitempty" xml:"repay_result_list,omitempty" type:"Repeated"`
 }
 
 func (s QueryDubbridgeRepayListResponse) String() string {
@@ -8989,8 +9265,8 @@ func (s *QueryDubbridgeRepayListResponse) SetResultMsg(v string) *QueryDubbridge
 	return s
 }
 
-func (s *QueryDubbridgeRepayListResponse) SetRepayRefList(v []*RepayRef) *QueryDubbridgeRepayListResponse {
-	s.RepayRefList = v
+func (s *QueryDubbridgeRepayListResponse) SetRepayResultList(v []*RepayResult) *QueryDubbridgeRepayListResponse {
+	s.RepayResultList = v
 	return s
 }
 
@@ -9068,7 +9344,7 @@ type CountDubbridgeRepayReftrialResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 还款计划试算结果
-	RepayRefList *RepayRef `json:"repay_ref_list,omitempty" xml:"repay_ref_list,omitempty"`
+	RepayTrailList *RepayTrail `json:"repay_trail_list,omitempty" xml:"repay_trail_list,omitempty"`
 }
 
 func (s CountDubbridgeRepayReftrialResponse) String() string {
@@ -9094,8 +9370,8 @@ func (s *CountDubbridgeRepayReftrialResponse) SetResultMsg(v string) *CountDubbr
 	return s
 }
 
-func (s *CountDubbridgeRepayReftrialResponse) SetRepayRefList(v *RepayRef) *CountDubbridgeRepayReftrialResponse {
-	s.RepayRefList = v
+func (s *CountDubbridgeRepayReftrialResponse) SetRepayTrailList(v *RepayTrail) *CountDubbridgeRepayReftrialResponse {
+	s.RepayTrailList = v
 	return s
 }
 
@@ -9596,6 +9872,83 @@ func (s *QueryDubbridgeUsecreditStatusResponse) SetRepayRef(v []*RepayRef) *Quer
 	return s
 }
 
+type QueryDubbridgeReceiptStatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// open_id
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
+	// 客户号
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty"`
+}
+
+func (s QueryDubbridgeReceiptStatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeReceiptStatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeReceiptStatusRequest) SetAuthToken(v string) *QueryDubbridgeReceiptStatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeReceiptStatusRequest) SetProductInstanceId(v string) *QueryDubbridgeReceiptStatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeReceiptStatusRequest) SetOpenId(v string) *QueryDubbridgeReceiptStatusRequest {
+	s.OpenId = &v
+	return s
+}
+
+func (s *QueryDubbridgeReceiptStatusRequest) SetCustomNo(v string) *QueryDubbridgeReceiptStatusRequest {
+	s.CustomNo = &v
+	return s
+}
+
+type QueryDubbridgeReceiptStatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否结清字段
+	ReceiptFlag *bool `json:"receipt_flag,omitempty" xml:"receipt_flag,omitempty"`
+}
+
+func (s QueryDubbridgeReceiptStatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeReceiptStatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeReceiptStatusResponse) SetReqMsgId(v string) *QueryDubbridgeReceiptStatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeReceiptStatusResponse) SetResultCode(v string) *QueryDubbridgeReceiptStatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeReceiptStatusResponse) SetResultMsg(v string) *QueryDubbridgeReceiptStatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeReceiptStatusResponse) SetReceiptFlag(v bool) *QueryDubbridgeReceiptStatusResponse {
+	s.ReceiptFlag = &v
+	return s
+}
+
 type VerifyFinserviceZhimaIdentifyRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -9824,6 +10177,97 @@ func (s *QueryMdipDataserviceResponse) SetResultMsg(v string) *QueryMdipDataserv
 
 func (s *QueryMdipDataserviceResponse) SetData(v string) *QueryMdipDataserviceResponse {
 	s.Data = &v
+	return s
+}
+
+type ReceiveMdipParamsFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户code
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// file_id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+}
+
+func (s ReceiveMdipParamsFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveMdipParamsFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveMdipParamsFileRequest) SetAuthToken(v string) *ReceiveMdipParamsFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsFileRequest) SetProductInstanceId(v string) *ReceiveMdipParamsFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsFileRequest) SetTenantCode(v string) *ReceiveMdipParamsFileRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsFileRequest) SetFileObject(v io.Reader) *ReceiveMdipParamsFileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ReceiveMdipParamsFileRequest) SetFileObjectName(v string) *ReceiveMdipParamsFileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsFileRequest) SetFileId(v string) *ReceiveMdipParamsFileRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsFileRequest) SetFileName(v string) *ReceiveMdipParamsFileRequest {
+	s.FileName = &v
+	return s
+}
+
+type ReceiveMdipParamsFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ReceiveMdipParamsFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveMdipParamsFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveMdipParamsFileResponse) SetReqMsgId(v string) *ReceiveMdipParamsFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsFileResponse) SetResultCode(v string) *ReceiveMdipParamsFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsFileResponse) SetResultMsg(v string) *ReceiveMdipParamsFileResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -11142,6 +11586,90 @@ func (s *QueryRbbObtsZsearchResponse) SetResultMsg(v string) *QueryRbbObtsZsearc
 
 func (s *QueryRbbObtsZsearchResponse) SetZsearchResult(v string) *QueryRbbObtsZsearchResponse {
 	s.ZsearchResult = &v
+	return s
+}
+
+type PushRbbCustomerCompanyinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业的统一社会信用代码
+	UcCode *string `json:"uc_code,omitempty" xml:"uc_code,omitempty"`
+	// 企业名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty"`
+	// 企业信息的类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 企业信息的内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+}
+
+func (s PushRbbCustomerCompanyinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRbbCustomerCompanyinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushRbbCustomerCompanyinfoRequest) SetAuthToken(v string) *PushRbbCustomerCompanyinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushRbbCustomerCompanyinfoRequest) SetProductInstanceId(v string) *PushRbbCustomerCompanyinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushRbbCustomerCompanyinfoRequest) SetUcCode(v string) *PushRbbCustomerCompanyinfoRequest {
+	s.UcCode = &v
+	return s
+}
+
+func (s *PushRbbCustomerCompanyinfoRequest) SetCompanyName(v string) *PushRbbCustomerCompanyinfoRequest {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *PushRbbCustomerCompanyinfoRequest) SetType(v string) *PushRbbCustomerCompanyinfoRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *PushRbbCustomerCompanyinfoRequest) SetContent(v string) *PushRbbCustomerCompanyinfoRequest {
+	s.Content = &v
+	return s
+}
+
+type PushRbbCustomerCompanyinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushRbbCustomerCompanyinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRbbCustomerCompanyinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushRbbCustomerCompanyinfoResponse) SetReqMsgId(v string) *PushRbbCustomerCompanyinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushRbbCustomerCompanyinfoResponse) SetResultCode(v string) *PushRbbCustomerCompanyinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushRbbCustomerCompanyinfoResponse) SetResultMsg(v string) *PushRbbCustomerCompanyinfoResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -15720,7 +16248,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.9"),
+				"sdk_version":      tea.String("1.12.0"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -17600,6 +18128,40 @@ func (client *Client) QueryDubbridgeUsecreditStatusEx(request *QueryDubbridgeUse
 }
 
 /**
+ * Description: 天枢系统是否结清
+ * Summary: 天枢系统借款是否结清
+ */
+func (client *Client) QueryDubbridgeReceiptStatus(request *QueryDubbridgeReceiptStatusRequest) (_result *QueryDubbridgeReceiptStatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeReceiptStatusResponse{}
+	_body, _err := client.QueryDubbridgeReceiptStatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统是否结清
+ * Summary: 天枢系统借款是否结清
+ */
+func (client *Client) QueryDubbridgeReceiptStatusEx(request *QueryDubbridgeReceiptStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeReceiptStatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeReceiptStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.receipt.status.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 四要素认证首先调用此接口
  * Summary: 芝麻四要素接口
  */
@@ -17694,6 +18256,69 @@ func (client *Client) QueryMdipDataserviceEx(request *QueryMdipDataserviceReques
 	}
 	_result = &QueryMdipDataserviceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.mdip.dataservice.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 接受op的文件id,支持外网多源文件上传
+ * Summary: 接受op的文件id,支持外网多源文件上传
+ */
+func (client *Client) ReceiveMdipParamsFile(request *ReceiveMdipParamsFileRequest) (_result *ReceiveMdipParamsFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReceiveMdipParamsFileResponse{}
+	_body, _err := client.ReceiveMdipParamsFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 接受op的文件id,支持外网多源文件上传
+ * Summary: 接受op的文件id,支持外网多源文件上传
+ */
+func (client *Client) ReceiveMdipParamsFileEx(request *ReceiveMdipParamsFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReceiveMdipParamsFileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("riskplus.mdip.params.file.receive"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			receiveMdipParamsFileResponse := &ReceiveMdipParamsFileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = receiveMdipParamsFileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReceiveMdipParamsFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.mdip.params.file.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -18238,6 +18863,40 @@ func (client *Client) QueryRbbObtsZsearchEx(request *QueryRbbObtsZsearchRequest,
 	}
 	_result = &QueryRbbObtsZsearchResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.obts.zsearch.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业风控客户推送的企业信息
+ * Summary: 企业风控客户推送的企业信息
+ */
+func (client *Client) PushRbbCustomerCompanyinfo(request *PushRbbCustomerCompanyinfoRequest) (_result *PushRbbCustomerCompanyinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushRbbCustomerCompanyinfoResponse{}
+	_body, _err := client.PushRbbCustomerCompanyinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业风控客户推送的企业信息
+ * Summary: 企业风控客户推送的企业信息
+ */
+func (client *Client) PushRbbCustomerCompanyinfoEx(request *PushRbbCustomerCompanyinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushRbbCustomerCompanyinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushRbbCustomerCompanyinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.customer.companyinfo.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
