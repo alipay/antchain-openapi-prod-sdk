@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.1"},
+                        {"sdk_version", "1.4.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.1"},
+                        {"sdk_version", "1.4.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
