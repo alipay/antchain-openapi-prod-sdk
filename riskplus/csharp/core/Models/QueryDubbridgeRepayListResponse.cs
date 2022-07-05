@@ -25,9 +25,9 @@ namespace AntChain.SDK.RISKPLUS.Models
         public string ResultMsg { get; set; }
 
         // 还款计划查询结果
-        [NameInMap("repay_ref_list")]
+        [NameInMap("repay_result_list")]
         [Validation(Required=false)]
-        public List<RepayRef> RepayRefList { get; set; }
+        public List<RepayResult> RepayResultList { get; set; }
 
     }
 

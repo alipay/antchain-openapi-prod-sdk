@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class CountDubbridgeRepayReftrialResponse : TeaModel {
+    public class QueryDubbridgeReceiptStatusResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 还款计划试算结果
-        [NameInMap("repay_trail_list")]
+        // 是否结清字段
+        [NameInMap("receipt_flag")]
         [Validation(Required=false)]
-        public RepayTrail RepayTrailList { get; set; }
+        public bool? ReceiptFlag { get; set; }
 
     }
 

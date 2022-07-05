@@ -20,12 +20,12 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 客户编号（资产方用户唯一标记二选一）
         [NameInMap("custom_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CustomNo { get; set; }
 
         // 资产方用户唯一标识（资产方用户唯一标记二选一）
         [NameInMap("open_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string OpenId { get; set; }
 
     }

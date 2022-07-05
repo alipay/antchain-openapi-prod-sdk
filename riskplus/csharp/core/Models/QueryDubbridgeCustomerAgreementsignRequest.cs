@@ -28,6 +28,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string OrderNo { get; set; }
 
+        // 资金方编号
+        [NameInMap("fund_code")]
+        [Validation(Required=true)]
+        public string FundCode { get; set; }
+
     }
 
 }
