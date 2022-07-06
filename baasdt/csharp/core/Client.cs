@@ -137,7 +137,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.64"},
+                        {"sdk_version", "1.3.67"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.64"},
+                        {"sdk_version", "1.3.67"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -11740,45 +11740,45 @@ namespace AntChain.SDK.BAASDT
         }
 
         /**
-         * Description: 查询UNI码小程序短链
-         * Summary: 数字商品服务-IP授权服务-UNI短链
+         * Description: 数字商品服务-IP服务-UNI码核验清空
+         * Summary: 数字商品服务-IP服务-UNI码核验清空
          */
-        public QueryIpCodeshortenurlResponse QueryIpCodeshortenurl(QueryIpCodeshortenurlRequest request)
+        public ReinitIpCheckResponse ReinitIpCheck(ReinitIpCheckRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryIpCodeshortenurlEx(request, headers, runtime);
+            return ReinitIpCheckEx(request, headers, runtime);
         }
 
         /**
-         * Description: 查询UNI码小程序短链
-         * Summary: 数字商品服务-IP授权服务-UNI短链
+         * Description: 数字商品服务-IP服务-UNI码核验清空
+         * Summary: 数字商品服务-IP服务-UNI码核验清空
          */
-        public async Task<QueryIpCodeshortenurlResponse> QueryIpCodeshortenurlAsync(QueryIpCodeshortenurlRequest request)
+        public async Task<ReinitIpCheckResponse> ReinitIpCheckAsync(ReinitIpCheckRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryIpCodeshortenurlExAsync(request, headers, runtime);
+            return await ReinitIpCheckExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 查询UNI码小程序短链
-         * Summary: 数字商品服务-IP授权服务-UNI短链
+         * Description: 数字商品服务-IP服务-UNI码核验清空
+         * Summary: 数字商品服务-IP服务-UNI码核验清空
          */
-        public QueryIpCodeshortenurlResponse QueryIpCodeshortenurlEx(QueryIpCodeshortenurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public ReinitIpCheckResponse ReinitIpCheckEx(ReinitIpCheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryIpCodeshortenurlResponse>(DoRequest("1.0", "baas.antdao.ip.codeshortenurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ReinitIpCheckResponse>(DoRequest("1.0", "baas.antdao.ip.check.reinit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 查询UNI码小程序短链
-         * Summary: 数字商品服务-IP授权服务-UNI短链
+         * Description: 数字商品服务-IP服务-UNI码核验清空
+         * Summary: 数字商品服务-IP服务-UNI码核验清空
          */
-        public async Task<QueryIpCodeshortenurlResponse> QueryIpCodeshortenurlExAsync(QueryIpCodeshortenurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<ReinitIpCheckResponse> ReinitIpCheckExAsync(ReinitIpCheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryIpCodeshortenurlResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.codeshortenurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ReinitIpCheckResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.check.reinit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

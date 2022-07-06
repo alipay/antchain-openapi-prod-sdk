@@ -33,6 +33,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public string UniCode { get; set; }
 
+        // 是否为清空核验记录操作，默认否
+        [NameInMap("code_instruction_empty")]
+        [Validation(Required=false)]
+        public bool? CodeInstructionEmpty { get; set; }
+
     }
 
 }

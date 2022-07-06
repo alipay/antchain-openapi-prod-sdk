@@ -32,6 +32,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? Status { get; set; }
 
+        // 支付时间
+        [NameInMap("pay_time")]
+        [Validation(Required=false)]
+        public long? PayTime { get; set; }
+
+        // 支付宝交易号
+        [NameInMap("trade_no")]
+        [Validation(Required=false)]
+        public string TradeNo { get; set; }
+
     }
 
 }

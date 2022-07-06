@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpCodeshortenurlResponse : TeaModel {
+    public class ReinitIpCheckResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,11 +23,6 @@ namespace AntChain.SDK.BAASDT.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
-
-        // 小程序短链
-        [NameInMap("shorten_url")]
-        [Validation(Required=false)]
-        public string ShortenUrl { get; set; }
 
     }
 

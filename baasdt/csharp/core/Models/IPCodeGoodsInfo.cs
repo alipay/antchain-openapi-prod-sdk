@@ -80,6 +80,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public bool? IsDisplayBatchdata { get; set; }
 
+        // 商品售价
+        [NameInMap("selling_price")]
+        [Validation(Required=false)]
+        public string SellingPrice { get; set; }
+
+        // 背景氛围图
+        [NameInMap("background_picture")]
+        [Validation(Required=false)]
+        public string BackgroundPicture { get; set; }
+
     }
 
 }

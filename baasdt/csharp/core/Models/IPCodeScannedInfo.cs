@@ -140,6 +140,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? DisabledDate { get; set; }
 
+        // 核验记录清空时间戳
+        [NameInMap("check_empty_time")]
+        [Validation(Required=false)]
+        public long? CheckEmptyTime { get; set; }
+
+        // 同一批次已被领取的数量
+        [NameInMap("receive_count")]
+        [Validation(Required=false)]
+        public long? ReceiveCount { get; set; }
+
     }
 
 }

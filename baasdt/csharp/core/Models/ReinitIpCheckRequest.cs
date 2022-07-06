@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BAASDT.Models
 {
-    public class QueryIpCodeshortenurlRequest : TeaModel {
+    public class ReinitIpCheckRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,10 +23,15 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public BaseRequestInfo BaseRequest { get; set; }
 
-        // 数字凭证的编码
+        // 编码:全局码/UNI码
         [NameInMap("code")]
         [Validation(Required=true)]
         public string Code { get; set; }
+
+        // 操作人ID
+        [NameInMap("account_id")]
+        [Validation(Required=true)]
+        public string AccountId { get; set; }
 
     }
 

@@ -80,6 +80,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public long? CycleEndTime { get; set; }
 
+        // 账单支付时间戳
+        [NameInMap("pay_time")]
+        [Validation(Required=false)]
+        public long? PayTime { get; set; }
+
+        // 支付宝交易号
+        [NameInMap("trade_no")]
+        [Validation(Required=false)]
+        public string TradeNo { get; set; }
+
     }
 
 }
