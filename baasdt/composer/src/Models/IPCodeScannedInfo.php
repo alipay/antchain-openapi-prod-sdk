@@ -215,6 +215,22 @@ class IPCodeScannedInfo extends Model
      * @var int
      */
     public $disabledDate;
+
+    // 核验记录清空时间戳
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $checkEmptyTime;
+
+    // 同一批次已被领取的数量
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $receiveCount;
     protected $_name = [
         'ipCode'              => 'ip_code',
         'batchUsedCount'      => 'batch_used_count',
@@ -242,6 +258,8 @@ class IPCodeScannedInfo extends Model
         'fixedCount'          => 'fixed_count',
         'accountExternalName' => 'account_external_name',
         'disabledDate'        => 'disabled_date',
+        'checkEmptyTime'      => 'check_empty_time',
+        'receiveCount'        => 'receive_count',
     ];
 
     public function validate()
@@ -348,6 +366,12 @@ class IPCodeScannedInfo extends Model
         if (null !== $this->disabledDate) {
             $res['disabled_date'] = $this->disabledDate;
         }
+        if (null !== $this->checkEmptyTime) {
+            $res['check_empty_time'] = $this->checkEmptyTime;
+        }
+        if (null !== $this->receiveCount) {
+            $res['receive_count'] = $this->receiveCount;
+        }
 
         return $res;
     }
@@ -451,6 +475,12 @@ class IPCodeScannedInfo extends Model
         }
         if (isset($map['disabled_date'])) {
             $model->disabledDate = $map['disabled_date'];
+        }
+        if (isset($map['check_empty_time'])) {
+            $model->checkEmptyTime = $map['check_empty_time'];
+        }
+        if (isset($map['receive_count'])) {
+            $model->receiveCount = $map['receive_count'];
         }
 
         return $model;

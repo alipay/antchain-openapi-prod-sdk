@@ -36,12 +36,19 @@ class DisableIpCodeRequest extends Model
      * @var string
      */
     public $uniCode;
+
+    // 是否为清空核验记录操作，默认否
+    /**
+     * @var bool
+     */
+    public $codeInstructionEmpty;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'baseRequest'       => 'base_request',
-        'accountId'         => 'account_id',
-        'uniCode'           => 'uni_code',
+        'authToken'            => 'auth_token',
+        'productInstanceId'    => 'product_instance_id',
+        'baseRequest'          => 'base_request',
+        'accountId'            => 'account_id',
+        'uniCode'              => 'uni_code',
+        'codeInstructionEmpty' => 'code_instruction_empty',
     ];
 
     public function validate()
@@ -69,6 +76,9 @@ class DisableIpCodeRequest extends Model
         if (null !== $this->uniCode) {
             $res['uni_code'] = $this->uniCode;
         }
+        if (null !== $this->codeInstructionEmpty) {
+            $res['code_instruction_empty'] = $this->codeInstructionEmpty;
+        }
 
         return $res;
     }
@@ -95,6 +105,9 @@ class DisableIpCodeRequest extends Model
         }
         if (isset($map['uni_code'])) {
             $model->uniCode = $map['uni_code'];
+        }
+        if (isset($map['code_instruction_empty'])) {
+            $model->codeInstructionEmpty = $map['code_instruction_empty'];
         }
 
         return $model;

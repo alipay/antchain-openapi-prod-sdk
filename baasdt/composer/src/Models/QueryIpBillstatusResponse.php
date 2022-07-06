@@ -34,11 +34,25 @@ class QueryIpBillstatusResponse extends Model
      * @var int
      */
     public $status;
+
+    // 支付时间
+    /**
+     * @var int
+     */
+    public $payTime;
+
+    // 支付宝交易号
+    /**
+     * @var string
+     */
+    public $tradeNo;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'status'     => 'status',
+        'payTime'    => 'pay_time',
+        'tradeNo'    => 'trade_no',
     ];
 
     public function validate()
@@ -59,6 +73,12 @@ class QueryIpBillstatusResponse extends Model
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
+        }
+        if (null !== $this->payTime) {
+            $res['pay_time'] = $this->payTime;
+        }
+        if (null !== $this->tradeNo) {
+            $res['trade_no'] = $this->tradeNo;
         }
 
         return $res;
@@ -83,6 +103,12 @@ class QueryIpBillstatusResponse extends Model
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
+        }
+        if (isset($map['pay_time'])) {
+            $model->payTime = $map['pay_time'];
+        }
+        if (isset($map['trade_no'])) {
+            $model->tradeNo = $map['trade_no'];
         }
 
         return $model;

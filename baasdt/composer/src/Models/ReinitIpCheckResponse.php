@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIpCodeshortenurlResponse extends Model
+class ReinitIpCheckResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class QueryIpCodeshortenurlResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 小程序短链
-    /**
-     * @var string
-     */
-    public $shortenUrl;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'shortenUrl' => 'shorten_url',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class QueryIpCodeshortenurlResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->shortenUrl) {
-            $res['shorten_url'] = $this->shortenUrl;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class QueryIpCodeshortenurlResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryIpCodeshortenurlResponse
+     * @return ReinitIpCheckResponse
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class QueryIpCodeshortenurlResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['shorten_url'])) {
-            $model->shortenUrl = $map['shorten_url'];
         }
 
         return $model;

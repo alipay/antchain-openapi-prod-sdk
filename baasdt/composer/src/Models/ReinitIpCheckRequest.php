@@ -6,7 +6,7 @@ namespace AntChain\BAASDT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIpCodeshortenurlRequest extends Model
+class ReinitIpCheckRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,22 +25,30 @@ class QueryIpCodeshortenurlRequest extends Model
      */
     public $baseRequest;
 
-    // 数字凭证的编码
+    // 编码:全局码/UNI码
     /**
      * @var string
      */
     public $code;
+
+    // 操作人ID
+    /**
+     * @var string
+     */
+    public $accountId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
         'code'              => 'code',
+        'accountId'         => 'account_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('baseRequest', $this->baseRequest, true);
         Model::validateRequired('code', $this->code, true);
+        Model::validateRequired('accountId', $this->accountId, true);
     }
 
     public function toMap()
@@ -58,6 +66,9 @@ class QueryIpCodeshortenurlRequest extends Model
         if (null !== $this->code) {
             $res['code'] = $this->code;
         }
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
+        }
 
         return $res;
     }
@@ -65,7 +76,7 @@ class QueryIpCodeshortenurlRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryIpCodeshortenurlRequest
+     * @return ReinitIpCheckRequest
      */
     public static function fromMap($map = [])
     {
@@ -81,6 +92,9 @@ class QueryIpCodeshortenurlRequest extends Model
         }
         if (isset($map['code'])) {
             $model->code = $map['code'];
+        }
+        if (isset($map['account_id'])) {
+            $model->accountId = $map['account_id'];
         }
 
         return $model;

@@ -119,6 +119,22 @@ class IPBill extends Model
      * @var int
      */
     public $cycleEndTime;
+
+    // 账单支付时间戳
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $payTime;
+
+    // 支付宝交易号
+    /**
+     * @example 82d96fAB65b3a49cAc8b878184Cb16
+     *
+     * @var string
+     */
+    public $tradeNo;
     protected $_name = [
         'ipOrderId'      => 'ip_order_id',
         'ipBillId'       => 'ip_bill_id',
@@ -134,6 +150,8 @@ class IPBill extends Model
         'billSales'      => 'bill_sales',
         'cycleStartTime' => 'cycle_start_time',
         'cycleEndTime'   => 'cycle_end_time',
+        'payTime'        => 'pay_time',
+        'tradeNo'        => 'trade_no',
     ];
 
     public function validate()
@@ -199,6 +217,12 @@ class IPBill extends Model
         if (null !== $this->cycleEndTime) {
             $res['cycle_end_time'] = $this->cycleEndTime;
         }
+        if (null !== $this->payTime) {
+            $res['pay_time'] = $this->payTime;
+        }
+        if (null !== $this->tradeNo) {
+            $res['trade_no'] = $this->tradeNo;
+        }
 
         return $res;
     }
@@ -252,6 +276,12 @@ class IPBill extends Model
         }
         if (isset($map['cycle_end_time'])) {
             $model->cycleEndTime = $map['cycle_end_time'];
+        }
+        if (isset($map['pay_time'])) {
+            $model->payTime = $map['pay_time'];
+        }
+        if (isset($map['trade_no'])) {
+            $model->tradeNo = $map['trade_no'];
         }
 
         return $model;

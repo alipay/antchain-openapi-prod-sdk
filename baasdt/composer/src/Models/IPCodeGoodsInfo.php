@@ -119,6 +119,22 @@ class IPCodeGoodsInfo extends Model
      * @var bool
      */
     public $isDisplayBatchdata;
+
+    // 商品售价
+    /**
+     * @example 1
+     *
+     * @var string
+     */
+    public $sellingPrice;
+
+    // 背景氛围图
+    /**
+     * @example oss://
+     *
+     * @var string
+     */
+    public $backgroundPicture;
     protected $_name = [
         'goodsName'                  => 'goods_name',
         'goodsUrl'                   => 'goods_url',
@@ -134,6 +150,8 @@ class IPCodeGoodsInfo extends Model
         'goodsSaleChannel'           => 'goods_sale_channel',
         'goodsSpecifications'        => 'goods_specifications',
         'isDisplayBatchdata'         => 'is_display_batchdata',
+        'sellingPrice'               => 'selling_price',
+        'backgroundPicture'          => 'background_picture',
     ];
 
     public function validate()
@@ -191,6 +209,12 @@ class IPCodeGoodsInfo extends Model
         }
         if (null !== $this->isDisplayBatchdata) {
             $res['is_display_batchdata'] = $this->isDisplayBatchdata;
+        }
+        if (null !== $this->sellingPrice) {
+            $res['selling_price'] = $this->sellingPrice;
+        }
+        if (null !== $this->backgroundPicture) {
+            $res['background_picture'] = $this->backgroundPicture;
         }
 
         return $res;
@@ -251,6 +275,12 @@ class IPCodeGoodsInfo extends Model
         }
         if (isset($map['is_display_batchdata'])) {
             $model->isDisplayBatchdata = $map['is_display_batchdata'];
+        }
+        if (isset($map['selling_price'])) {
+            $model->sellingPrice = $map['selling_price'];
+        }
+        if (isset($map['background_picture'])) {
+            $model->backgroundPicture = $map['background_picture'];
         }
 
         return $model;
