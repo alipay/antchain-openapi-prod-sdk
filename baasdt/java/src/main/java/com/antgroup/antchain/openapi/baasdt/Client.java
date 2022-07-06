@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.64")
+                    new TeaPair("sdk_version", "1.3.67")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -5329,22 +5329,22 @@ public class Client {
     }
 
     /**
-     * Description: 查询UNI码小程序短链
-     * Summary: 数字商品服务-IP授权服务-UNI短链
+     * Description: 数字商品服务-IP服务-UNI码核验清空
+     * Summary: 数字商品服务-IP服务-UNI码核验清空
      */
-    public QueryIpCodeshortenurlResponse queryIpCodeshortenurl(QueryIpCodeshortenurlRequest request) throws Exception {
+    public ReinitIpCheckResponse reinitIpCheck(ReinitIpCheckRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryIpCodeshortenurlEx(request, headers, runtime);
+        return this.reinitIpCheckEx(request, headers, runtime);
     }
 
     /**
-     * Description: 查询UNI码小程序短链
-     * Summary: 数字商品服务-IP授权服务-UNI短链
+     * Description: 数字商品服务-IP服务-UNI码核验清空
+     * Summary: 数字商品服务-IP服务-UNI码核验清空
      */
-    public QueryIpCodeshortenurlResponse queryIpCodeshortenurlEx(QueryIpCodeshortenurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ReinitIpCheckResponse reinitIpCheckEx(ReinitIpCheckRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.codeshortenurl.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpCodeshortenurlResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "baas.antdao.ip.check.reinit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReinitIpCheckResponse());
     }
 
     /**

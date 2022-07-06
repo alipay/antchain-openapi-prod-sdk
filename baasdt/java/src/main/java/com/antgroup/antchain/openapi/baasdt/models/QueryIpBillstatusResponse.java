@@ -23,6 +23,14 @@ public class QueryIpBillstatusResponse extends TeaModel {
     @NameInMap("status")
     public Long status;
 
+    // 支付时间
+    @NameInMap("pay_time")
+    public Long payTime;
+
+    // 支付宝交易号
+    @NameInMap("trade_no")
+    public String tradeNo;
+
     public static QueryIpBillstatusResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryIpBillstatusResponse self = new QueryIpBillstatusResponse();
         return TeaModel.build(map, self);
@@ -58,6 +66,22 @@ public class QueryIpBillstatusResponse extends TeaModel {
     }
     public Long getStatus() {
         return this.status;
+    }
+
+    public QueryIpBillstatusResponse setPayTime(Long payTime) {
+        this.payTime = payTime;
+        return this;
+    }
+    public Long getPayTime() {
+        return this.payTime;
+    }
+
+    public QueryIpBillstatusResponse setTradeNo(String tradeNo) {
+        this.tradeNo = tradeNo;
+        return this;
+    }
+    public String getTradeNo() {
+        return this.tradeNo;
     }
 
 }

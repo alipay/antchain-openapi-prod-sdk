@@ -115,6 +115,14 @@ public class IPCodeScannedInfo extends TeaModel {
     @NameInMap("disabled_date")
     public Long disabledDate;
 
+    // 核验记录清空时间戳
+    @NameInMap("check_empty_time")
+    public Long checkEmptyTime;
+
+    // 同一批次已被领取的数量
+    @NameInMap("receive_count")
+    public Long receiveCount;
+
     public static IPCodeScannedInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeScannedInfo self = new IPCodeScannedInfo();
         return TeaModel.build(map, self);
@@ -326,6 +334,22 @@ public class IPCodeScannedInfo extends TeaModel {
     }
     public Long getDisabledDate() {
         return this.disabledDate;
+    }
+
+    public IPCodeScannedInfo setCheckEmptyTime(Long checkEmptyTime) {
+        this.checkEmptyTime = checkEmptyTime;
+        return this;
+    }
+    public Long getCheckEmptyTime() {
+        return this.checkEmptyTime;
+    }
+
+    public IPCodeScannedInfo setReceiveCount(Long receiveCount) {
+        this.receiveCount = receiveCount;
+        return this;
+    }
+    public Long getReceiveCount() {
+        return this.receiveCount;
     }
 
 }

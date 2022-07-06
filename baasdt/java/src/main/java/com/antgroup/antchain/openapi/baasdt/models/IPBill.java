@@ -74,6 +74,14 @@ public class IPBill extends TeaModel {
     @Validation(required = true)
     public Long cycleEndTime;
 
+    // 账单支付时间戳
+    @NameInMap("pay_time")
+    public Long payTime;
+
+    // 支付宝交易号
+    @NameInMap("trade_no")
+    public String tradeNo;
+
     public static IPBill build(java.util.Map<String, ?> map) throws Exception {
         IPBill self = new IPBill();
         return TeaModel.build(map, self);
@@ -189,6 +197,22 @@ public class IPBill extends TeaModel {
     }
     public Long getCycleEndTime() {
         return this.cycleEndTime;
+    }
+
+    public IPBill setPayTime(Long payTime) {
+        this.payTime = payTime;
+        return this;
+    }
+    public Long getPayTime() {
+        return this.payTime;
+    }
+
+    public IPBill setTradeNo(String tradeNo) {
+        this.tradeNo = tradeNo;
+        return this;
+    }
+    public String getTradeNo() {
+        return this.tradeNo;
     }
 
 }

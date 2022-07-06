@@ -61,6 +61,14 @@ public class IPCodeGoodsInfo extends TeaModel {
     @NameInMap("is_display_batchdata")
     public Boolean isDisplayBatchdata;
 
+    // 商品售价
+    @NameInMap("selling_price")
+    public String sellingPrice;
+
+    // 背景氛围图
+    @NameInMap("background_picture")
+    public String backgroundPicture;
+
     public static IPCodeGoodsInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeGoodsInfo self = new IPCodeGoodsInfo();
         return TeaModel.build(map, self);
@@ -176,6 +184,22 @@ public class IPCodeGoodsInfo extends TeaModel {
     }
     public Boolean getIsDisplayBatchdata() {
         return this.isDisplayBatchdata;
+    }
+
+    public IPCodeGoodsInfo setSellingPrice(String sellingPrice) {
+        this.sellingPrice = sellingPrice;
+        return this;
+    }
+    public String getSellingPrice() {
+        return this.sellingPrice;
+    }
+
+    public IPCodeGoodsInfo setBackgroundPicture(String backgroundPicture) {
+        this.backgroundPicture = backgroundPicture;
+        return this;
+    }
+    public String getBackgroundPicture() {
+        return this.backgroundPicture;
     }
 
 }

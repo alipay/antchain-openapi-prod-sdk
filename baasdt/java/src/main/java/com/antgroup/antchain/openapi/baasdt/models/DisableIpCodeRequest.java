@@ -26,6 +26,10 @@ public class DisableIpCodeRequest extends TeaModel {
     @Validation(required = true)
     public String uniCode;
 
+    // 是否为清空核验记录操作，默认否
+    @NameInMap("code_instruction_empty")
+    public Boolean codeInstructionEmpty;
+
     public static DisableIpCodeRequest build(java.util.Map<String, ?> map) throws Exception {
         DisableIpCodeRequest self = new DisableIpCodeRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class DisableIpCodeRequest extends TeaModel {
     }
     public String getUniCode() {
         return this.uniCode;
+    }
+
+    public DisableIpCodeRequest setCodeInstructionEmpty(Boolean codeInstructionEmpty) {
+        this.codeInstructionEmpty = codeInstructionEmpty;
+        return this;
+    }
+    public Boolean getCodeInstructionEmpty() {
+        return this.codeInstructionEmpty;
     }
 
 }

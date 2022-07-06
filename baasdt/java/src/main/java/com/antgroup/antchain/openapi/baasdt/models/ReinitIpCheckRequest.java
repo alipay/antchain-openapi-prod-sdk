@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdt.models;
 
 import com.aliyun.tea.*;
 
-public class QueryIpCodeshortenurlRequest extends TeaModel {
+public class ReinitIpCheckRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,17 +16,22 @@ public class QueryIpCodeshortenurlRequest extends TeaModel {
     @Validation(required = true)
     public BaseRequestInfo baseRequest;
 
-    // 数字凭证的编码
+    // 编码:全局码/UNI码
     @NameInMap("code")
     @Validation(required = true)
     public String code;
 
-    public static QueryIpCodeshortenurlRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryIpCodeshortenurlRequest self = new QueryIpCodeshortenurlRequest();
+    // 操作人ID
+    @NameInMap("account_id")
+    @Validation(required = true)
+    public String accountId;
+
+    public static ReinitIpCheckRequest build(java.util.Map<String, ?> map) throws Exception {
+        ReinitIpCheckRequest self = new ReinitIpCheckRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryIpCodeshortenurlRequest setAuthToken(String authToken) {
+    public ReinitIpCheckRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -34,7 +39,7 @@ public class QueryIpCodeshortenurlRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryIpCodeshortenurlRequest setProductInstanceId(String productInstanceId) {
+    public ReinitIpCheckRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -42,7 +47,7 @@ public class QueryIpCodeshortenurlRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryIpCodeshortenurlRequest setBaseRequest(BaseRequestInfo baseRequest) {
+    public ReinitIpCheckRequest setBaseRequest(BaseRequestInfo baseRequest) {
         this.baseRequest = baseRequest;
         return this;
     }
@@ -50,12 +55,20 @@ public class QueryIpCodeshortenurlRequest extends TeaModel {
         return this.baseRequest;
     }
 
-    public QueryIpCodeshortenurlRequest setCode(String code) {
+    public ReinitIpCheckRequest setCode(String code) {
         this.code = code;
         return this;
     }
     public String getCode() {
         return this.code;
+    }
+
+    public ReinitIpCheckRequest setAccountId(String accountId) {
+        this.accountId = accountId;
+        return this;
+    }
+    public String getAccountId() {
+        return this.accountId;
     }
 
 }

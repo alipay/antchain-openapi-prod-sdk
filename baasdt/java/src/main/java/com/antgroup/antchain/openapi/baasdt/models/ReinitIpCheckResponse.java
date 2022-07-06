@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.baasdt.models;
 
 import com.aliyun.tea.*;
 
-public class QueryIpCodeshortenurlResponse extends TeaModel {
+public class ReinitIpCheckResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class QueryIpCodeshortenurlResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 小程序短链
-    @NameInMap("shorten_url")
-    public String shortenUrl;
-
-    public static QueryIpCodeshortenurlResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryIpCodeshortenurlResponse self = new QueryIpCodeshortenurlResponse();
+    public static ReinitIpCheckResponse build(java.util.Map<String, ?> map) throws Exception {
+        ReinitIpCheckResponse self = new ReinitIpCheckResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryIpCodeshortenurlResponse setReqMsgId(String reqMsgId) {
+    public ReinitIpCheckResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class QueryIpCodeshortenurlResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryIpCodeshortenurlResponse setResultCode(String resultCode) {
+    public ReinitIpCheckResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class QueryIpCodeshortenurlResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryIpCodeshortenurlResponse setResultMsg(String resultMsg) {
+    public ReinitIpCheckResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public QueryIpCodeshortenurlResponse setShortenUrl(String shortenUrl) {
-        this.shortenUrl = shortenUrl;
-        return this;
-    }
-    public String getShortenUrl() {
-        return this.shortenUrl;
     }
 
 }
