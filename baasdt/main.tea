@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.64',
+    sdk_version = '1.3.67',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -471,6 +471,10 @@ model IPCodeGoodsInfo {
   goodsSpecifications?: [ ProductSpecification ](name='goods_specifications', example=''),
   // 是否展示批次数据
   isDisplayBatchdata?: boolean(name='is_display_batchdata', example='true, false'),
+  // 商品售价
+  sellingPrice?: string(name='selling_price', example='1'),
+  // 背景氛围图
+  backgroundPicture?: string(name='background_picture', example='oss://'),
 }
 
 // 区块头
@@ -1238,6 +1242,10 @@ model IPBill {
   cycleStartTime: long(name='cycle_start_time', example='1694896477580'),
   // 账单周期结束时间，时间戳（毫秒）
   cycleEndTime: long(name='cycle_end_time', example='1594896477580'),
+  // 账单支付时间戳
+  payTime?: long(name='pay_time', example=''),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no', example='82d96fAB65b3a49cAc8b878184Cb16'),
 }
 
 // IP授权订单每次上传“已按照周期汇总的销售数据”的汇总信息
@@ -1839,6 +1847,10 @@ model IPCodeScannedInfo {
   accountExternalName?: string(name='account_external_name', example='商家名称'),
   // 码失效时间（毫秒时间戳）
   disabledDate?: long(name='disabled_date', example=''),
+  // 核验记录清空时间戳
+  checkEmptyTime?: long(name='check_empty_time', example=''),
+  // 同一批次已被领取的数量
+  receiveCount?: long(name='receive_count', example=''),
 }
 
 // 创建电子券的参数
@@ -10218,6 +10230,10 @@ model QueryIpBillstatusResponse = {
   // (2: "未付款交易超时关闭,或支付完成后全额退款"),
   // (3: "交易支付成功"),
   status?: long(name='status'),
+  // 支付时间
+  payTime?: long(name='pay_time'),
+  // 支付宝交易号
+  tradeNo?: string(name='trade_no'),
 }
 
 /**
@@ -15159,6 +15175,8 @@ model DisableIpCodeRequest = {
   accountId: string(name='account_id'),
   // 要被失效的UNI的完整编码
   uniCode: string(name='uni_code'),
+  // 是否为清空核验记录操作，默认否
+  codeInstructionEmpty?: boolean(name='code_instruction_empty'),
 }
 
 model DisableIpCodeResponse = {
@@ -15325,44 +15343,44 @@ async function signIpContractEx(request: SignIpContractRequest, headers: map[str
   return doRequest('1.0' ,'baas.antdao.ip.contract.sign', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryIpCodeshortenurlRequest = {
+model ReinitIpCheckRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 基础参数
   baseRequest: BaseRequestInfo(name='base_request'),
-  // 数字凭证的编码
+  // 编码:全局码/UNI码
   code: string(name='code'),
+  // 操作人ID
+  accountId: string(name='account_id'),
 }
 
-model QueryIpCodeshortenurlResponse = {
+model ReinitIpCheckResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 小程序短链
-  shortenUrl?: string(name='shorten_url'),
 }
 
 /**
- * Description: 查询UNI码小程序短链
- * Summary: 数字商品服务-IP授权服务-UNI短链
+ * Description: 数字商品服务-IP服务-UNI码核验清空
+ * Summary: 数字商品服务-IP服务-UNI码核验清空
  */
-async function queryIpCodeshortenurl(request: QueryIpCodeshortenurlRequest): QueryIpCodeshortenurlResponse {
+async function reinitIpCheck(request: ReinitIpCheckRequest): ReinitIpCheckResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryIpCodeshortenurlEx(request, headers, runtime);
+  return reinitIpCheckEx(request, headers, runtime);
 }
 
 /**
- * Description: 查询UNI码小程序短链
- * Summary: 数字商品服务-IP授权服务-UNI短链
+ * Description: 数字商品服务-IP服务-UNI码核验清空
+ * Summary: 数字商品服务-IP服务-UNI码核验清空
  */
-async function queryIpCodeshortenurlEx(request: QueryIpCodeshortenurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpCodeshortenurlResponse {
+async function reinitIpCheckEx(request: ReinitIpCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReinitIpCheckResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'baas.antdao.ip.codeshortenurl.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'baas.antdao.ip.check.reinit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryBlockanalysisBlockRequest = {
