@@ -1123,6 +1123,10 @@ type IPCodeGoodsInfo struct {
 	GoodsSpecifications []*ProductSpecification `json:"goods_specifications,omitempty" xml:"goods_specifications,omitempty" type:"Repeated"`
 	// 是否展示批次数据
 	IsDisplayBatchdata *bool `json:"is_display_batchdata,omitempty" xml:"is_display_batchdata,omitempty"`
+	// 商品售价
+	SellingPrice *string `json:"selling_price,omitempty" xml:"selling_price,omitempty"`
+	// 背景氛围图
+	BackgroundPicture *string `json:"background_picture,omitempty" xml:"background_picture,omitempty"`
 }
 
 func (s IPCodeGoodsInfo) String() string {
@@ -1200,6 +1204,16 @@ func (s *IPCodeGoodsInfo) SetGoodsSpecifications(v []*ProductSpecification) *IPC
 
 func (s *IPCodeGoodsInfo) SetIsDisplayBatchdata(v bool) *IPCodeGoodsInfo {
 	s.IsDisplayBatchdata = &v
+	return s
+}
+
+func (s *IPCodeGoodsInfo) SetSellingPrice(v string) *IPCodeGoodsInfo {
+	s.SellingPrice = &v
+	return s
+}
+
+func (s *IPCodeGoodsInfo) SetBackgroundPicture(v string) *IPCodeGoodsInfo {
+	s.BackgroundPicture = &v
 	return s
 }
 
@@ -3704,6 +3718,10 @@ type IPBill struct {
 	CycleStartTime *int64 `json:"cycle_start_time,omitempty" xml:"cycle_start_time,omitempty" require:"true"`
 	// 账单周期结束时间，时间戳（毫秒）
 	CycleEndTime *int64 `json:"cycle_end_time,omitempty" xml:"cycle_end_time,omitempty" require:"true"`
+	// 账单支付时间戳
+	PayTime *int64 `json:"pay_time,omitempty" xml:"pay_time,omitempty"`
+	// 支付宝交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
 }
 
 func (s IPBill) String() string {
@@ -3781,6 +3799,16 @@ func (s *IPBill) SetCycleStartTime(v int64) *IPBill {
 
 func (s *IPBill) SetCycleEndTime(v int64) *IPBill {
 	s.CycleEndTime = &v
+	return s
+}
+
+func (s *IPBill) SetPayTime(v int64) *IPBill {
+	s.PayTime = &v
+	return s
+}
+
+func (s *IPBill) SetTradeNo(v string) *IPBill {
+	s.TradeNo = &v
 	return s
 }
 
@@ -5681,6 +5709,10 @@ type IPCodeScannedInfo struct {
 	AccountExternalName *string `json:"account_external_name,omitempty" xml:"account_external_name,omitempty"`
 	// 码失效时间（毫秒时间戳）
 	DisabledDate *int64 `json:"disabled_date,omitempty" xml:"disabled_date,omitempty"`
+	// 核验记录清空时间戳
+	CheckEmptyTime *int64 `json:"check_empty_time,omitempty" xml:"check_empty_time,omitempty"`
+	// 同一批次已被领取的数量
+	ReceiveCount *int64 `json:"receive_count,omitempty" xml:"receive_count,omitempty"`
 }
 
 func (s IPCodeScannedInfo) String() string {
@@ -5818,6 +5850,16 @@ func (s *IPCodeScannedInfo) SetAccountExternalName(v string) *IPCodeScannedInfo 
 
 func (s *IPCodeScannedInfo) SetDisabledDate(v int64) *IPCodeScannedInfo {
 	s.DisabledDate = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetCheckEmptyTime(v int64) *IPCodeScannedInfo {
+	s.CheckEmptyTime = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetReceiveCount(v int64) *IPCodeScannedInfo {
+	s.ReceiveCount = &v
 	return s
 }
 
@@ -24203,6 +24245,10 @@ type QueryIpBillstatusResponse struct {
 	// (2: "未付款交易超时关闭,或支付完成后全额退款"),
 	// (3: "交易支付成功"),
 	Status *int64 `json:"status,omitempty" xml:"status,omitempty"`
+	// 支付时间
+	PayTime *int64 `json:"pay_time,omitempty" xml:"pay_time,omitempty"`
+	// 支付宝交易号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
 }
 
 func (s QueryIpBillstatusResponse) String() string {
@@ -24230,6 +24276,16 @@ func (s *QueryIpBillstatusResponse) SetResultMsg(v string) *QueryIpBillstatusRes
 
 func (s *QueryIpBillstatusResponse) SetStatus(v int64) *QueryIpBillstatusResponse {
 	s.Status = &v
+	return s
+}
+
+func (s *QueryIpBillstatusResponse) SetPayTime(v int64) *QueryIpBillstatusResponse {
+	s.PayTime = &v
+	return s
+}
+
+func (s *QueryIpBillstatusResponse) SetTradeNo(v string) *QueryIpBillstatusResponse {
+	s.TradeNo = &v
 	return s
 }
 
@@ -35233,6 +35289,8 @@ type DisableIpCodeRequest struct {
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
 	// 要被失效的UNI的完整编码
 	UniCode *string `json:"uni_code,omitempty" xml:"uni_code,omitempty" require:"true"`
+	// 是否为清空核验记录操作，默认否
+	CodeInstructionEmpty *bool `json:"code_instruction_empty,omitempty" xml:"code_instruction_empty,omitempty"`
 }
 
 func (s DisableIpCodeRequest) String() string {
@@ -35265,6 +35323,11 @@ func (s *DisableIpCodeRequest) SetAccountId(v string) *DisableIpCodeRequest {
 
 func (s *DisableIpCodeRequest) SetUniCode(v string) *DisableIpCodeRequest {
 	s.UniCode = &v
+	return s
+}
+
+func (s *DisableIpCodeRequest) SetCodeInstructionEmpty(v bool) *DisableIpCodeRequest {
+	s.CodeInstructionEmpty = &v
 	return s
 }
 
@@ -35587,80 +35650,80 @@ func (s *SignIpContractResponse) SetSignedContractFileUrl(v string) *SignIpContr
 	return s
 }
 
-type QueryIpCodeshortenurlRequest struct {
+type ReinitIpCheckRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 基础参数
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
-	// 数字凭证的编码
+	// 编码:全局码/UNI码
 	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 操作人ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
 }
 
-func (s QueryIpCodeshortenurlRequest) String() string {
+func (s ReinitIpCheckRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryIpCodeshortenurlRequest) GoString() string {
+func (s ReinitIpCheckRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryIpCodeshortenurlRequest) SetAuthToken(v string) *QueryIpCodeshortenurlRequest {
+func (s *ReinitIpCheckRequest) SetAuthToken(v string) *ReinitIpCheckRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryIpCodeshortenurlRequest) SetProductInstanceId(v string) *QueryIpCodeshortenurlRequest {
+func (s *ReinitIpCheckRequest) SetProductInstanceId(v string) *ReinitIpCheckRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryIpCodeshortenurlRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpCodeshortenurlRequest {
+func (s *ReinitIpCheckRequest) SetBaseRequest(v *BaseRequestInfo) *ReinitIpCheckRequest {
 	s.BaseRequest = v
 	return s
 }
 
-func (s *QueryIpCodeshortenurlRequest) SetCode(v string) *QueryIpCodeshortenurlRequest {
+func (s *ReinitIpCheckRequest) SetCode(v string) *ReinitIpCheckRequest {
 	s.Code = &v
 	return s
 }
 
-type QueryIpCodeshortenurlResponse struct {
+func (s *ReinitIpCheckRequest) SetAccountId(v string) *ReinitIpCheckRequest {
+	s.AccountId = &v
+	return s
+}
+
+type ReinitIpCheckResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 小程序短链
-	ShortenUrl *string `json:"shorten_url,omitempty" xml:"shorten_url,omitempty"`
 }
 
-func (s QueryIpCodeshortenurlResponse) String() string {
+func (s ReinitIpCheckResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryIpCodeshortenurlResponse) GoString() string {
+func (s ReinitIpCheckResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryIpCodeshortenurlResponse) SetReqMsgId(v string) *QueryIpCodeshortenurlResponse {
+func (s *ReinitIpCheckResponse) SetReqMsgId(v string) *ReinitIpCheckResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryIpCodeshortenurlResponse) SetResultCode(v string) *QueryIpCodeshortenurlResponse {
+func (s *ReinitIpCheckResponse) SetResultCode(v string) *ReinitIpCheckResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryIpCodeshortenurlResponse) SetResultMsg(v string) *QueryIpCodeshortenurlResponse {
+func (s *ReinitIpCheckResponse) SetResultMsg(v string) *ReinitIpCheckResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *QueryIpCodeshortenurlResponse) SetShortenUrl(v string) *QueryIpCodeshortenurlResponse {
-	s.ShortenUrl = &v
 	return s
 }
 
@@ -37985,7 +38048,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.64"),
+				"sdk_version":      tea.String("1.3.67"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -47261,14 +47324,14 @@ func (client *Client) SignIpContractEx(request *SignIpContractRequest, headers m
 }
 
 /**
- * Description: 查询UNI码小程序短链
- * Summary: 数字商品服务-IP授权服务-UNI短链
+ * Description: 数字商品服务-IP服务-UNI码核验清空
+ * Summary: 数字商品服务-IP服务-UNI码核验清空
  */
-func (client *Client) QueryIpCodeshortenurl(request *QueryIpCodeshortenurlRequest) (_result *QueryIpCodeshortenurlResponse, _err error) {
+func (client *Client) ReinitIpCheck(request *ReinitIpCheckRequest) (_result *ReinitIpCheckResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryIpCodeshortenurlResponse{}
-	_body, _err := client.QueryIpCodeshortenurlEx(request, headers, runtime)
+	_result = &ReinitIpCheckResponse{}
+	_body, _err := client.ReinitIpCheckEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -47277,16 +47340,16 @@ func (client *Client) QueryIpCodeshortenurl(request *QueryIpCodeshortenurlReques
 }
 
 /**
- * Description: 查询UNI码小程序短链
- * Summary: 数字商品服务-IP授权服务-UNI短链
+ * Description: 数字商品服务-IP服务-UNI码核验清空
+ * Summary: 数字商品服务-IP服务-UNI码核验清空
  */
-func (client *Client) QueryIpCodeshortenurlEx(request *QueryIpCodeshortenurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpCodeshortenurlResponse, _err error) {
+func (client *Client) ReinitIpCheckEx(request *ReinitIpCheckRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReinitIpCheckResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryIpCodeshortenurlResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codeshortenurl.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &ReinitIpCheckResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.check.reinit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
