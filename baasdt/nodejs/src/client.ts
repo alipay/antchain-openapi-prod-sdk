@@ -841,6 +841,10 @@ export class IPCodeGoodsInfo extends $tea.Model {
   goodsSpecifications?: ProductSpecification[];
   // 是否展示批次数据
   isDisplayBatchdata?: boolean;
+  // 商品售价
+  sellingPrice?: string;
+  // 背景氛围图
+  backgroundPicture?: string;
   static names(): { [key: string]: string } {
     return {
       goodsName: 'goods_name',
@@ -857,6 +861,8 @@ export class IPCodeGoodsInfo extends $tea.Model {
       goodsSaleChannel: 'goods_sale_channel',
       goodsSpecifications: 'goods_specifications',
       isDisplayBatchdata: 'is_display_batchdata',
+      sellingPrice: 'selling_price',
+      backgroundPicture: 'background_picture',
     };
   }
 
@@ -876,6 +882,8 @@ export class IPCodeGoodsInfo extends $tea.Model {
       goodsSaleChannel: 'string',
       goodsSpecifications: { 'type': 'array', 'itemType': ProductSpecification },
       isDisplayBatchdata: 'boolean',
+      sellingPrice: 'string',
+      backgroundPicture: 'string',
     };
   }
 
@@ -2657,6 +2665,10 @@ export class IPBill extends $tea.Model {
   cycleStartTime: number;
   // 账单周期结束时间，时间戳（毫秒）
   cycleEndTime: number;
+  // 账单支付时间戳
+  payTime?: number;
+  // 支付宝交易号
+  tradeNo?: string;
   static names(): { [key: string]: string } {
     return {
       ipOrderId: 'ip_order_id',
@@ -2673,6 +2685,8 @@ export class IPBill extends $tea.Model {
       billSales: 'bill_sales',
       cycleStartTime: 'cycle_start_time',
       cycleEndTime: 'cycle_end_time',
+      payTime: 'pay_time',
+      tradeNo: 'trade_no',
     };
   }
 
@@ -2692,6 +2706,8 @@ export class IPBill extends $tea.Model {
       billSales: 'string',
       cycleStartTime: 'number',
       cycleEndTime: 'number',
+      payTime: 'number',
+      tradeNo: 'string',
     };
   }
 
@@ -4122,6 +4138,10 @@ export class IPCodeScannedInfo extends $tea.Model {
   accountExternalName?: string;
   // 码失效时间（毫秒时间戳）
   disabledDate?: number;
+  // 核验记录清空时间戳
+  checkEmptyTime?: number;
+  // 同一批次已被领取的数量
+  receiveCount?: number;
   static names(): { [key: string]: string } {
     return {
       ipCode: 'ip_code',
@@ -4150,6 +4170,8 @@ export class IPCodeScannedInfo extends $tea.Model {
       fixedCount: 'fixed_count',
       accountExternalName: 'account_external_name',
       disabledDate: 'disabled_date',
+      checkEmptyTime: 'check_empty_time',
+      receiveCount: 'receive_count',
     };
   }
 
@@ -4181,6 +4203,8 @@ export class IPCodeScannedInfo extends $tea.Model {
       fixedCount: 'number',
       accountExternalName: 'string',
       disabledDate: 'number',
+      checkEmptyTime: 'number',
+      receiveCount: 'number',
     };
   }
 
@@ -18170,12 +18194,18 @@ export class QueryIpBillstatusResponse extends $tea.Model {
   // (2: "未付款交易超时关闭,或支付完成后全额退款"),
   // (3: "交易支付成功"),
   status?: number;
+  // 支付时间
+  payTime?: number;
+  // 支付宝交易号
+  tradeNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       status: 'status',
+      payTime: 'pay_time',
+      tradeNo: 'trade_no',
     };
   }
 
@@ -18185,6 +18215,8 @@ export class QueryIpBillstatusResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       status: 'number',
+      payTime: 'number',
+      tradeNo: 'string',
     };
   }
 
@@ -26338,6 +26370,8 @@ export class DisableIpCodeRequest extends $tea.Model {
   accountId: string;
   // 要被失效的UNI的完整编码
   uniCode: string;
+  // 是否为清空核验记录操作，默认否
+  codeInstructionEmpty?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -26345,6 +26379,7 @@ export class DisableIpCodeRequest extends $tea.Model {
       baseRequest: 'base_request',
       accountId: 'account_id',
       uniCode: 'uni_code',
+      codeInstructionEmpty: 'code_instruction_empty',
     };
   }
 
@@ -26355,6 +26390,7 @@ export class DisableIpCodeRequest extends $tea.Model {
       baseRequest: BaseRequestInfo,
       accountId: 'string',
       uniCode: 'string',
+      codeInstructionEmpty: 'boolean',
     };
   }
 
@@ -26612,20 +26648,23 @@ export class SignIpContractResponse extends $tea.Model {
   }
 }
 
-export class QueryIpCodeshortenurlRequest extends $tea.Model {
+export class ReinitIpCheckRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
   // 基础参数
   baseRequest: BaseRequestInfo;
-  // 数字凭证的编码
+  // 编码:全局码/UNI码
   code: string;
+  // 操作人ID
+  accountId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       baseRequest: 'base_request',
       code: 'code',
+      accountId: 'account_id',
     };
   }
 
@@ -26635,6 +26674,7 @@ export class QueryIpCodeshortenurlRequest extends $tea.Model {
       productInstanceId: 'string',
       baseRequest: BaseRequestInfo,
       code: 'string',
+      accountId: 'string',
     };
   }
 
@@ -26643,21 +26683,18 @@ export class QueryIpCodeshortenurlRequest extends $tea.Model {
   }
 }
 
-export class QueryIpCodeshortenurlResponse extends $tea.Model {
+export class ReinitIpCheckResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 小程序短链
-  shortenUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      shortenUrl: 'shorten_url',
     };
   }
 
@@ -26666,7 +26703,6 @@ export class QueryIpCodeshortenurlResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      shortenUrl: 'string',
     };
   }
 
@@ -28425,7 +28461,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.64",
+          sdk_version: "1.3.67",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -33641,22 +33677,22 @@ export default class Client {
   }
 
   /**
-   * Description: 查询UNI码小程序短链
-   * Summary: 数字商品服务-IP授权服务-UNI短链
+   * Description: 数字商品服务-IP服务-UNI码核验清空
+   * Summary: 数字商品服务-IP服务-UNI码核验清空
    */
-  async queryIpCodeshortenurl(request: QueryIpCodeshortenurlRequest): Promise<QueryIpCodeshortenurlResponse> {
+  async reinitIpCheck(request: ReinitIpCheckRequest): Promise<ReinitIpCheckResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryIpCodeshortenurlEx(request, headers, runtime);
+    return await this.reinitIpCheckEx(request, headers, runtime);
   }
 
   /**
-   * Description: 查询UNI码小程序短链
-   * Summary: 数字商品服务-IP授权服务-UNI短链
+   * Description: 数字商品服务-IP服务-UNI码核验清空
+   * Summary: 数字商品服务-IP服务-UNI码核验清空
    */
-  async queryIpCodeshortenurlEx(request: QueryIpCodeshortenurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpCodeshortenurlResponse> {
+  async reinitIpCheckEx(request: ReinitIpCheckRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReinitIpCheckResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryIpCodeshortenurlResponse>(await this.doRequest("1.0", "baas.antdao.ip.codeshortenurl.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpCodeshortenurlResponse({}));
+    return $tea.cast<ReinitIpCheckResponse>(await this.doRequest("1.0", "baas.antdao.ip.check.reinit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReinitIpCheckResponse({}));
   }
 
   /**
