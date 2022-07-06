@@ -1306,6 +1306,8 @@ class IPCodeGoodsInfo(TeaModel):
         goods_sale_channel: str = None,
         goods_specifications: List[ProductSpecification] = None,
         is_display_batchdata: bool = None,
+        selling_price: str = None,
+        background_picture: str = None,
     ):
         # 商品名称
         self.goods_name = goods_name
@@ -1335,6 +1337,10 @@ class IPCodeGoodsInfo(TeaModel):
         self.goods_specifications = goods_specifications
         # 是否展示批次数据
         self.is_display_batchdata = is_display_batchdata
+        # 商品售价
+        self.selling_price = selling_price
+        # 背景氛围图
+        self.background_picture = background_picture
 
     def validate(self):
         if self.authorization_end_time is not None:
@@ -1376,6 +1382,10 @@ class IPCodeGoodsInfo(TeaModel):
                 result['goods_specifications'].append(k.to_map() if k else None)
         if self.is_display_batchdata is not None:
             result['is_display_batchdata'] = self.is_display_batchdata
+        if self.selling_price is not None:
+            result['selling_price'] = self.selling_price
+        if self.background_picture is not None:
+            result['background_picture'] = self.background_picture
         return result
 
     def from_map(self, m: dict = None):
@@ -1411,6 +1421,10 @@ class IPCodeGoodsInfo(TeaModel):
                 self.goods_specifications.append(temp_model.from_map(k))
         if m.get('is_display_batchdata') is not None:
             self.is_display_batchdata = m.get('is_display_batchdata')
+        if m.get('selling_price') is not None:
+            self.selling_price = m.get('selling_price')
+        if m.get('background_picture') is not None:
+            self.background_picture = m.get('background_picture')
         return self
 
 
@@ -4381,6 +4395,8 @@ class IPBill(TeaModel):
         bill_sales: str = None,
         cycle_start_time: int = None,
         cycle_end_time: int = None,
+        pay_time: int = None,
+        trade_no: str = None,
     ):
         # 订单ID
         self.ip_order_id = ip_order_id
@@ -4410,6 +4426,10 @@ class IPBill(TeaModel):
         self.cycle_start_time = cycle_start_time
         # 账单周期结束时间，时间戳（毫秒）
         self.cycle_end_time = cycle_end_time
+        # 账单支付时间戳
+        self.pay_time = pay_time
+        # 支付宝交易号
+        self.trade_no = trade_no
 
     def validate(self):
         self.validate_required(self.ip_order_id, 'ip_order_id')
@@ -4457,6 +4477,10 @@ class IPBill(TeaModel):
             result['cycle_start_time'] = self.cycle_start_time
         if self.cycle_end_time is not None:
             result['cycle_end_time'] = self.cycle_end_time
+        if self.pay_time is not None:
+            result['pay_time'] = self.pay_time
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
         return result
 
     def from_map(self, m: dict = None):
@@ -4489,6 +4513,10 @@ class IPBill(TeaModel):
             self.cycle_start_time = m.get('cycle_start_time')
         if m.get('cycle_end_time') is not None:
             self.cycle_end_time = m.get('cycle_end_time')
+        if m.get('pay_time') is not None:
+            self.pay_time = m.get('pay_time')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
         return self
 
 
@@ -6755,6 +6783,8 @@ class IPCodeScannedInfo(TeaModel):
         fixed_count: int = None,
         account_external_name: str = None,
         disabled_date: int = None,
+        check_empty_time: int = None,
+        receive_count: int = None,
     ):
         # 正版码ID
         self.ip_code = ip_code
@@ -6808,6 +6838,10 @@ class IPCodeScannedInfo(TeaModel):
         self.account_external_name = account_external_name
         # 码失效时间（毫秒时间戳）
         self.disabled_date = disabled_date
+        # 核验记录清空时间戳
+        self.check_empty_time = check_empty_time
+        # 同一批次已被领取的数量
+        self.receive_count = receive_count
 
     def validate(self):
         self.validate_required(self.ip_code, 'ip_code')
@@ -6888,6 +6922,10 @@ class IPCodeScannedInfo(TeaModel):
             result['account_external_name'] = self.account_external_name
         if self.disabled_date is not None:
             result['disabled_date'] = self.disabled_date
+        if self.check_empty_time is not None:
+            result['check_empty_time'] = self.check_empty_time
+        if self.receive_count is not None:
+            result['receive_count'] = self.receive_count
         return result
 
     def from_map(self, m: dict = None):
@@ -6952,6 +6990,10 @@ class IPCodeScannedInfo(TeaModel):
             self.account_external_name = m.get('account_external_name')
         if m.get('disabled_date') is not None:
             self.disabled_date = m.get('disabled_date')
+        if m.get('check_empty_time') is not None:
+            self.check_empty_time = m.get('check_empty_time')
+        if m.get('receive_count') is not None:
+            self.receive_count = m.get('receive_count')
         return self
 
 
@@ -28595,6 +28637,8 @@ class QueryIpBillstatusResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         status: int = None,
+        pay_time: int = None,
+        trade_no: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -28607,6 +28651,10 @@ class QueryIpBillstatusResponse(TeaModel):
         # (2: "未付款交易超时关闭,或支付完成后全额退款"),
         # (3: "交易支付成功"),
         self.status = status
+        # 支付时间
+        self.pay_time = pay_time
+        # 支付宝交易号
+        self.trade_no = trade_no
 
     def validate(self):
         pass
@@ -28621,6 +28669,10 @@ class QueryIpBillstatusResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.status is not None:
             result['status'] = self.status
+        if self.pay_time is not None:
+            result['pay_time'] = self.pay_time
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
         return result
 
     def from_map(self, m: dict = None):
@@ -28633,6 +28685,10 @@ class QueryIpBillstatusResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('pay_time') is not None:
+            self.pay_time = m.get('pay_time')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
         return self
 
 
@@ -41863,6 +41919,7 @@ class DisableIpCodeRequest(TeaModel):
         base_request: BaseRequestInfo = None,
         account_id: str = None,
         uni_code: str = None,
+        code_instruction_empty: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -41873,6 +41930,8 @@ class DisableIpCodeRequest(TeaModel):
         self.account_id = account_id
         # 要被失效的UNI的完整编码
         self.uni_code = uni_code
+        # 是否为清空核验记录操作，默认否
+        self.code_instruction_empty = code_instruction_empty
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
@@ -41893,6 +41952,8 @@ class DisableIpCodeRequest(TeaModel):
             result['account_id'] = self.account_id
         if self.uni_code is not None:
             result['uni_code'] = self.uni_code
+        if self.code_instruction_empty is not None:
+            result['code_instruction_empty'] = self.code_instruction_empty
         return result
 
     def from_map(self, m: dict = None):
@@ -41908,6 +41969,8 @@ class DisableIpCodeRequest(TeaModel):
             self.account_id = m.get('account_id')
         if m.get('uni_code') is not None:
             self.uni_code = m.get('uni_code')
+        if m.get('code_instruction_empty') is not None:
+            self.code_instruction_empty = m.get('code_instruction_empty')
         return self
 
 
@@ -42315,27 +42378,31 @@ class SignIpContractResponse(TeaModel):
         return self
 
 
-class QueryIpCodeshortenurlRequest(TeaModel):
+class ReinitIpCheckRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
         base_request: BaseRequestInfo = None,
         code: str = None,
+        account_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 基础参数
         self.base_request = base_request
-        # 数字凭证的编码
+        # 编码:全局码/UNI码
         self.code = code
+        # 操作人ID
+        self.account_id = account_id
 
     def validate(self):
         self.validate_required(self.base_request, 'base_request')
         if self.base_request:
             self.base_request.validate()
         self.validate_required(self.code, 'code')
+        self.validate_required(self.account_id, 'account_id')
 
     def to_map(self):
         result = dict()
@@ -42347,6 +42414,8 @@ class QueryIpCodeshortenurlRequest(TeaModel):
             result['base_request'] = self.base_request.to_map()
         if self.code is not None:
             result['code'] = self.code
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
         return result
 
     def from_map(self, m: dict = None):
@@ -42360,16 +42429,17 @@ class QueryIpCodeshortenurlRequest(TeaModel):
             self.base_request = temp_model.from_map(m['base_request'])
         if m.get('code') is not None:
             self.code = m.get('code')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
         return self
 
 
-class QueryIpCodeshortenurlResponse(TeaModel):
+class ReinitIpCheckResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        shorten_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -42377,8 +42447,6 @@ class QueryIpCodeshortenurlResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 小程序短链
-        self.shorten_url = shorten_url
 
     def validate(self):
         pass
@@ -42391,8 +42459,6 @@ class QueryIpCodeshortenurlResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.shorten_url is not None:
-            result['shorten_url'] = self.shorten_url
         return result
 
     def from_map(self, m: dict = None):
@@ -42403,8 +42469,6 @@ class QueryIpCodeshortenurlResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('shorten_url') is not None:
-            self.shorten_url = m.get('shorten_url')
         return self
 
 

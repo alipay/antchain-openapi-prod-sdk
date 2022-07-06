@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.64'
+                    'sdk_version': '1.3.67'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.64'
+                    'sdk_version': '1.3.67'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -14921,58 +14921,58 @@ class Client:
             await self.do_request_async('1.0', 'baas.antdao.ip.contract.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_ip_codeshortenurl(
+    def reinit_ip_check(
         self,
-        request: baasdt_models.QueryIpCodeshortenurlRequest,
-    ) -> baasdt_models.QueryIpCodeshortenurlResponse:
+        request: baasdt_models.ReinitIpCheckRequest,
+    ) -> baasdt_models.ReinitIpCheckResponse:
         """
-        Description: 查询UNI码小程序短链
-        Summary: 数字商品服务-IP授权服务-UNI短链
+        Description: 数字商品服务-IP服务-UNI码核验清空
+        Summary: 数字商品服务-IP服务-UNI码核验清空
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_ip_codeshortenurl_ex(request, headers, runtime)
+        return self.reinit_ip_check_ex(request, headers, runtime)
 
-    async def query_ip_codeshortenurl_async(
+    async def reinit_ip_check_async(
         self,
-        request: baasdt_models.QueryIpCodeshortenurlRequest,
-    ) -> baasdt_models.QueryIpCodeshortenurlResponse:
+        request: baasdt_models.ReinitIpCheckRequest,
+    ) -> baasdt_models.ReinitIpCheckResponse:
         """
-        Description: 查询UNI码小程序短链
-        Summary: 数字商品服务-IP授权服务-UNI短链
+        Description: 数字商品服务-IP服务-UNI码核验清空
+        Summary: 数字商品服务-IP服务-UNI码核验清空
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_ip_codeshortenurl_ex_async(request, headers, runtime)
+        return await self.reinit_ip_check_ex_async(request, headers, runtime)
 
-    def query_ip_codeshortenurl_ex(
+    def reinit_ip_check_ex(
         self,
-        request: baasdt_models.QueryIpCodeshortenurlRequest,
+        request: baasdt_models.ReinitIpCheckRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> baasdt_models.QueryIpCodeshortenurlResponse:
+    ) -> baasdt_models.ReinitIpCheckResponse:
         """
-        Description: 查询UNI码小程序短链
-        Summary: 数字商品服务-IP授权服务-UNI短链
+        Description: 数字商品服务-IP服务-UNI码核验清空
+        Summary: 数字商品服务-IP服务-UNI码核验清空
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpCodeshortenurlResponse().from_map(
-            self.do_request('1.0', 'baas.antdao.ip.codeshortenurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return baasdt_models.ReinitIpCheckResponse().from_map(
+            self.do_request('1.0', 'baas.antdao.ip.check.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_ip_codeshortenurl_ex_async(
+    async def reinit_ip_check_ex_async(
         self,
-        request: baasdt_models.QueryIpCodeshortenurlRequest,
+        request: baasdt_models.ReinitIpCheckRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> baasdt_models.QueryIpCodeshortenurlResponse:
+    ) -> baasdt_models.ReinitIpCheckResponse:
         """
-        Description: 查询UNI码小程序短链
-        Summary: 数字商品服务-IP授权服务-UNI短链
+        Description: 数字商品服务-IP服务-UNI码核验清空
+        Summary: 数字商品服务-IP服务-UNI码核验清空
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpCodeshortenurlResponse().from_map(
-            await self.do_request_async('1.0', 'baas.antdao.ip.codeshortenurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        return baasdt_models.ReinitIpCheckResponse().from_map(
+            await self.do_request_async('1.0', 'baas.antdao.ip.check.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_blockanalysis_block(
