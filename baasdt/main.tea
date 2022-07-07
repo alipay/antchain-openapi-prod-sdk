@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.67',
+    sdk_version = '1.3.68',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -10042,6 +10042,8 @@ model StartIpAuthtradeRequest = {
   onlyCallBlockchain?: boolean(name='only_call_blockchain'),
   // 1套餐交易 2授权交易 3正版订单 4预申请订单
   codeOrderType?: long(name='code_order_type'),
+  // 商家2088号
+  pId?: string(name='p_id'),
 }
 
 model StartIpAuthtradeResponse = {
