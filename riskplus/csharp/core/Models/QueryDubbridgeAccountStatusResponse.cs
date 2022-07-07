@@ -24,24 +24,10 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 0:通过；
-        // 1:拒绝；
-        // 2:处理中；
-        // 
-        [NameInMap("status")]
+        // 授信申请状态
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public string Status { get; set; }
-
-        // 拒绝原因
-        [NameInMap("msg")]
-        [Validation(Required=false)]
-        public string Msg { get; set; }
-
-        // true：是
-        // false：否
-        [NameInMap("apply_flag")]
-        [Validation(Required=false)]
-        public bool? ApplyFlag { get; set; }
+        public CustomStatus Data { get; set; }
 
     }
 

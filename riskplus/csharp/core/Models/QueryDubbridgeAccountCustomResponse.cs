@@ -25,9 +25,9 @@ namespace AntChain.SDK.RISKPLUS.Models
         public string ResultMsg { get; set; }
 
         // 是否进行过授信申请
-        [NameInMap("reg_flag")]
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public bool? RegFlag { get; set; }
+        public CustomRelationStatus Data { get; set; }
 
     }
 

@@ -24,10 +24,10 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 是否结清字段
-        [NameInMap("receipt_flag")]
+        // 是否结清结构体
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public bool? ReceiptFlag { get; set; }
+        public CustomReceiptStatus Data { get; set; }
 
     }
 

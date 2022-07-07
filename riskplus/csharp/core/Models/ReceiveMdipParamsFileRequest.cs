@@ -42,11 +42,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string FileId { get; set; }
 
-        // 文件名
-        [NameInMap("file_name")]
-        [Validation(Required=true)]
-        public string FileName { get; set; }
-
     }
 
 }
