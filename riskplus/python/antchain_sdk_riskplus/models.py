@@ -1555,6 +1555,68 @@ class RiskInfo(TeaModel):
         return self
 
 
+class UpdateCustomerRelationResponseData(TeaModel):
+    def __init__(
+        self,
+        id: int = None,
+        channel_code: str = None,
+        channel_no: str = None,
+        customer_no: str = None,
+        create_time: str = None,
+        update_time: str = None,
+    ):
+        # id
+        self.id = id
+        # 渠道编码
+        self.channel_code = channel_code
+        # 渠道id
+        self.channel_no = channel_no
+        # 客户号
+        self.customer_no = customer_no
+        # 创建时间
+        self.create_time = create_time
+        # 更新时间
+        self.update_time = update_time
+
+    def validate(self):
+        if self.create_time is not None:
+            self.validate_pattern(self.create_time, 'create_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.update_time is not None:
+            self.validate_pattern(self.update_time, 'update_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
+        if self.channel_no is not None:
+            result['channel_no'] = self.channel_no
+        if self.customer_no is not None:
+            result['customer_no'] = self.customer_no
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.update_time is not None:
+            result['update_time'] = self.update_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
+        if m.get('channel_no') is not None:
+            self.channel_no = m.get('channel_no')
+        if m.get('customer_no') is not None:
+            self.customer_no = m.get('customer_no')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('update_time') is not None:
+            self.update_time = m.get('update_time')
+        return self
+
+
 class RtopCompanyRiskFactor(TeaModel):
     def __init__(
         self,
@@ -1640,6 +1702,30 @@ class Material(TeaModel):
             self.meterial_name = m.get('meterial_name')
         if m.get('file_path') is not None:
             self.file_path = m.get('file_path')
+        return self
+
+
+class CustomReceiptStatus(TeaModel):
+    def __init__(
+        self,
+        receipt_flag: bool = None,
+    ):
+        # 是否结清
+        self.receipt_flag = receipt_flag
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.receipt_flag is not None:
+            result['receipt_flag'] = self.receipt_flag
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('receipt_flag') is not None:
+            self.receipt_flag = m.get('receipt_flag')
         return self
 
 
@@ -3760,6 +3846,30 @@ class RtopGenderDistribution(TeaModel):
         return self
 
 
+class CustomRelationStatus(TeaModel):
+    def __init__(
+        self,
+        reg_flag: bool = None,
+    ):
+        # 是否联登
+        self.reg_flag = reg_flag
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.reg_flag is not None:
+            result['reg_flag'] = self.reg_flag
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('reg_flag') is not None:
+            self.reg_flag = m.get('reg_flag')
+        return self
+
+
 class RtopRiskGeneNode(TeaModel):
     def __init__(
         self,
@@ -4948,6 +5058,44 @@ class RepayTrail(TeaModel):
             self.end_time = m.get('end_time')
         if m.get('trial_no') is not None:
             self.trial_no = m.get('trial_no')
+        return self
+
+
+class CustomStatus(TeaModel):
+    def __init__(
+        self,
+        apply_flag: bool = None,
+        status: str = None,
+        msg: str = None,
+    ):
+        # 是否进行过授信申请
+        self.apply_flag = apply_flag
+        # 0:通过； 1:拒绝； 2:处理中；
+        self.status = status
+        # 拒绝原因
+        self.msg = msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.apply_flag is not None:
+            result['apply_flag'] = self.apply_flag
+        if self.status is not None:
+            result['status'] = self.status
+        if self.msg is not None:
+            result['msg'] = self.msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('apply_flag') is not None:
+            self.apply_flag = m.get('apply_flag')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
         return self
 
 
@@ -9695,9 +9843,7 @@ class QueryDubbridgeAccountStatusResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        status: str = None,
-        msg: str = None,
-        apply_flag: bool = None,
+        data: CustomStatus = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -9705,19 +9851,12 @@ class QueryDubbridgeAccountStatusResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 0:通过；
-        # 1:拒绝；
-        # 2:处理中；
-        # 
-        self.status = status
-        # 拒绝原因
-        self.msg = msg
-        # true：是
-        # false：否
-        self.apply_flag = apply_flag
+        # 授信申请状态
+        self.data = data
 
     def validate(self):
-        pass
+        if self.data:
+            self.data.validate()
 
     def to_map(self):
         result = dict()
@@ -9727,12 +9866,8 @@ class QueryDubbridgeAccountStatusResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.status is not None:
-            result['status'] = self.status
-        if self.msg is not None:
-            result['msg'] = self.msg
-        if self.apply_flag is not None:
-            result['apply_flag'] = self.apply_flag
+        if self.data is not None:
+            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -9743,12 +9878,9 @@ class QueryDubbridgeAccountStatusResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('msg') is not None:
-            self.msg = m.get('msg')
-        if m.get('apply_flag') is not None:
-            self.apply_flag = m.get('apply_flag')
+        if m.get('data') is not None:
+            temp_model = CustomStatus()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
@@ -9809,7 +9941,7 @@ class QueryDubbridgeAccountCustomResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        reg_flag: bool = None,
+        data: CustomRelationStatus = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -9818,10 +9950,11 @@ class QueryDubbridgeAccountCustomResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否进行过授信申请
-        self.reg_flag = reg_flag
+        self.data = data
 
     def validate(self):
-        pass
+        if self.data:
+            self.data.validate()
 
     def to_map(self):
         result = dict()
@@ -9831,8 +9964,8 @@ class QueryDubbridgeAccountCustomResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.reg_flag is not None:
-            result['reg_flag'] = self.reg_flag
+        if self.data is not None:
+            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -9843,8 +9976,9 @@ class QueryDubbridgeAccountCustomResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('reg_flag') is not None:
-            self.reg_flag = m.get('reg_flag')
+        if m.get('data') is not None:
+            temp_model = CustomRelationStatus()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
@@ -9915,12 +10049,7 @@ class UpdateDubbridgeAccountCustomResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        id: int = None,
-        channel_code: str = None,
-        channel_no: str = None,
-        customer_no: str = None,
-        create_time: str = None,
-        update_time: str = None,
+        data: UpdateCustomerRelationResponseData = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -9928,24 +10057,12 @@ class UpdateDubbridgeAccountCustomResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # id
-        self.id = id
-        # 渠道编码
-        self.channel_code = channel_code
-        # 渠道id
-        self.channel_no = channel_no
-        # 客户号
-        self.customer_no = customer_no
-        # 创建时间
-        self.create_time = create_time
-        # 更新时间
-        self.update_time = update_time
+        # 更新渠道返回体
+        self.data = data
 
     def validate(self):
-        if self.create_time is not None:
-            self.validate_pattern(self.create_time, 'create_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.update_time is not None:
-            self.validate_pattern(self.update_time, 'update_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.data:
+            self.data.validate()
 
     def to_map(self):
         result = dict()
@@ -9955,18 +10072,8 @@ class UpdateDubbridgeAccountCustomResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.id is not None:
-            result['id'] = self.id
-        if self.channel_code is not None:
-            result['channel_code'] = self.channel_code
-        if self.channel_no is not None:
-            result['channel_no'] = self.channel_no
-        if self.customer_no is not None:
-            result['customer_no'] = self.customer_no
-        if self.create_time is not None:
-            result['create_time'] = self.create_time
-        if self.update_time is not None:
-            result['update_time'] = self.update_time
+        if self.data is not None:
+            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -9977,18 +10084,9 @@ class UpdateDubbridgeAccountCustomResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('channel_code') is not None:
-            self.channel_code = m.get('channel_code')
-        if m.get('channel_no') is not None:
-            self.channel_no = m.get('channel_no')
-        if m.get('customer_no') is not None:
-            self.customer_no = m.get('customer_no')
-        if m.get('create_time') is not None:
-            self.create_time = m.get('create_time')
-        if m.get('update_time') is not None:
-            self.update_time = m.get('update_time')
+        if m.get('data') is not None:
+            temp_model = UpdateCustomerRelationResponseData()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
@@ -11516,7 +11614,7 @@ class QueryDubbridgeReceiptStatusResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        receipt_flag: bool = None,
+        data: CustomReceiptStatus = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -11524,11 +11622,12 @@ class QueryDubbridgeReceiptStatusResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 是否结清字段
-        self.receipt_flag = receipt_flag
+        # 是否结清结构体
+        self.data = data
 
     def validate(self):
-        pass
+        if self.data:
+            self.data.validate()
 
     def to_map(self):
         result = dict()
@@ -11538,8 +11637,8 @@ class QueryDubbridgeReceiptStatusResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.receipt_flag is not None:
-            result['receipt_flag'] = self.receipt_flag
+        if self.data is not None:
+            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -11550,8 +11649,9 @@ class QueryDubbridgeReceiptStatusResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('receipt_flag') is not None:
-            self.receipt_flag = m.get('receipt_flag')
+        if m.get('data') is not None:
+            temp_model = CustomReceiptStatus()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
@@ -11838,7 +11938,6 @@ class ReceiveMdipParamsFileRequest(TeaModel):
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
-        file_name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11851,13 +11950,10 @@ class ReceiveMdipParamsFileRequest(TeaModel):
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
-        # 文件名
-        self.file_name = file_name
 
     def validate(self):
         self.validate_required(self.tenant_code, 'tenant_code')
         self.validate_required(self.file_id, 'file_id')
-        self.validate_required(self.file_name, 'file_name')
 
     def to_map(self):
         result = dict()
@@ -11873,8 +11969,6 @@ class ReceiveMdipParamsFileRequest(TeaModel):
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
-        if self.file_name is not None:
-            result['file_name'] = self.file_name
         return result
 
     def from_map(self, m: dict = None):
@@ -11891,8 +11985,6 @@ class ReceiveMdipParamsFileRequest(TeaModel):
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
-        if m.get('file_name') is not None:
-            self.file_name = m.get('file_name')
         return self
 
 
