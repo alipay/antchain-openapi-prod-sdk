@@ -203,6 +203,12 @@ class ApplyInsuranceOspiRequest extends Model
      * @var string
      */
     public $cargoWorth;
+
+    // 收货人名称
+    /**
+     * @var string
+     */
+    public $consigneeName;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -236,6 +242,7 @@ class ApplyInsuranceOspiRequest extends Model
         'destination'         => 'destination',
         'isoCountry'          => 'iso_country',
         'cargoWorth'          => 'cargo_worth',
+        'consigneeName'       => 'consignee_name',
     ];
 
     public function validate()
@@ -295,6 +302,7 @@ class ApplyInsuranceOspiRequest extends Model
         Model::validateMaxLength('startPlace', $this->startPlace, 500);
         Model::validateMaxLength('destination', $this->destination, 500);
         Model::validateMaxLength('isoCountry', $this->isoCountry, 10);
+        Model::validateMaxLength('consigneeName', $this->consigneeName, 100);
     }
 
     public function toMap()
@@ -395,6 +403,9 @@ class ApplyInsuranceOspiRequest extends Model
         }
         if (null !== $this->cargoWorth) {
             $res['cargo_worth'] = $this->cargoWorth;
+        }
+        if (null !== $this->consigneeName) {
+            $res['consignee_name'] = $this->consigneeName;
         }
 
         return $res;
@@ -503,6 +514,9 @@ class ApplyInsuranceOspiRequest extends Model
         }
         if (isset($map['cargo_worth'])) {
             $model->cargoWorth = $map['cargo_worth'];
+        }
+        if (isset($map['consignee_name'])) {
+            $model->consigneeName = $map['consignee_name'];
         }
 
         return $model;

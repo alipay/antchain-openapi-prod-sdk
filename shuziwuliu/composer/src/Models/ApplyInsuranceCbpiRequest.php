@@ -202,6 +202,18 @@ class ApplyInsuranceCbpiRequest extends Model
      * @var string
      */
     public $cargoWorth;
+
+    // 收货人名称
+    /**
+     * @var string
+     */
+    public $consigneeName;
+
+    // 平安询价code,当客户向平安进行保险投递时，请填写上平安询价code字段
+    /**
+     * @var string
+     */
+    public $quoteMark;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -234,6 +246,8 @@ class ApplyInsuranceCbpiRequest extends Model
         'destination'         => 'destination',
         'isoCountry'          => 'iso_country',
         'cargoWorth'          => 'cargo_worth',
+        'consigneeName'       => 'consignee_name',
+        'quoteMark'           => 'quote_mark',
     ];
 
     public function validate()
@@ -291,6 +305,8 @@ class ApplyInsuranceCbpiRequest extends Model
         Model::validateMaxLength('startPlace', $this->startPlace, 500);
         Model::validateMaxLength('destination', $this->destination, 500);
         Model::validateMaxLength('isoCountry', $this->isoCountry, 10);
+        Model::validateMaxLength('consigneeName', $this->consigneeName, 100);
+        Model::validateMaxLength('quoteMark', $this->quoteMark, 100);
     }
 
     public function toMap()
@@ -388,6 +404,12 @@ class ApplyInsuranceCbpiRequest extends Model
         }
         if (null !== $this->cargoWorth) {
             $res['cargo_worth'] = $this->cargoWorth;
+        }
+        if (null !== $this->consigneeName) {
+            $res['consignee_name'] = $this->consigneeName;
+        }
+        if (null !== $this->quoteMark) {
+            $res['quote_mark'] = $this->quoteMark;
         }
 
         return $res;
@@ -493,6 +515,12 @@ class ApplyInsuranceCbpiRequest extends Model
         }
         if (isset($map['cargo_worth'])) {
             $model->cargoWorth = $map['cargo_worth'];
+        }
+        if (isset($map['consignee_name'])) {
+            $model->consigneeName = $map['consignee_name'];
+        }
+        if (isset($map['quote_mark'])) {
+            $model->quoteMark = $map['quote_mark'];
         }
 
         return $model;
