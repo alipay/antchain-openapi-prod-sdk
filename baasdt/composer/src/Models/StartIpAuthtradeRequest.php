@@ -186,6 +186,12 @@ class StartIpAuthtradeRequest extends Model
      * @var int
      */
     public $codeOrderType;
+
+    // 商家2088号
+    /**
+     * @var string
+     */
+    public $pId;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -217,6 +223,7 @@ class StartIpAuthtradeRequest extends Model
         'ipOrderId'             => 'ip_order_id',
         'onlyCallBlockchain'    => 'only_call_blockchain',
         'codeOrderType'         => 'code_order_type',
+        'pId'                   => 'p_id',
     ];
 
     public function validate()
@@ -323,6 +330,9 @@ class StartIpAuthtradeRequest extends Model
         if (null !== $this->codeOrderType) {
             $res['code_order_type'] = $this->codeOrderType;
         }
+        if (null !== $this->pId) {
+            $res['p_id'] = $this->pId;
+        }
 
         return $res;
     }
@@ -428,6 +438,9 @@ class StartIpAuthtradeRequest extends Model
         }
         if (isset($map['code_order_type'])) {
             $model->codeOrderType = $map['code_order_type'];
+        }
+        if (isset($map['p_id'])) {
+            $model->pId = $map['p_id'];
         }
 
         return $model;
