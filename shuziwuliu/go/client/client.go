@@ -18566,6 +18566,8 @@ type ApplyInsuranceOspiRequest struct {
 	IsoCountry *string `json:"iso_country,omitempty" xml:"iso_country,omitempty" require:"true" maxLength:"10"`
 	// 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
 	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" require:"true"`
+	// 收货人名称
+	ConsigneeName *string `json:"consignee_name,omitempty" xml:"consignee_name,omitempty" maxLength:"100"`
 }
 
 func (s ApplyInsuranceOspiRequest) String() string {
@@ -18733,6 +18735,11 @@ func (s *ApplyInsuranceOspiRequest) SetIsoCountry(v string) *ApplyInsuranceOspiR
 
 func (s *ApplyInsuranceOspiRequest) SetCargoWorth(v string) *ApplyInsuranceOspiRequest {
 	s.CargoWorth = &v
+	return s
+}
+
+func (s *ApplyInsuranceOspiRequest) SetConsigneeName(v string) *ApplyInsuranceOspiRequest {
+	s.ConsigneeName = &v
 	return s
 }
 
@@ -19551,6 +19558,10 @@ type ApplyInsuranceCbpiRequest struct {
 	IsoCountry *string `json:"iso_country,omitempty" xml:"iso_country,omitempty" require:"true" maxLength:"10"`
 	// 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
 	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" require:"true"`
+	// 收货人名称
+	ConsigneeName *string `json:"consignee_name,omitempty" xml:"consignee_name,omitempty" maxLength:"100"`
+	// 平安询价code,当客户向平安进行保险投递时，请填写上平安询价code字段
+	QuoteMark *string `json:"quote_mark,omitempty" xml:"quote_mark,omitempty" maxLength:"100"`
 }
 
 func (s ApplyInsuranceCbpiRequest) String() string {
@@ -19713,6 +19724,16 @@ func (s *ApplyInsuranceCbpiRequest) SetIsoCountry(v string) *ApplyInsuranceCbpiR
 
 func (s *ApplyInsuranceCbpiRequest) SetCargoWorth(v string) *ApplyInsuranceCbpiRequest {
 	s.CargoWorth = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetConsigneeName(v string) *ApplyInsuranceCbpiRequest {
+	s.ConsigneeName = &v
+	return s
+}
+
+func (s *ApplyInsuranceCbpiRequest) SetQuoteMark(v string) *ApplyInsuranceCbpiRequest {
+	s.QuoteMark = &v
 	return s
 }
 
@@ -29289,7 +29310,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.140"),
+				"sdk_version":      tea.String("1.3.142"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
