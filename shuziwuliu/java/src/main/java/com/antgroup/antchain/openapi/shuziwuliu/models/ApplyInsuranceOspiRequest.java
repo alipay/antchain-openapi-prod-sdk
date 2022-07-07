@@ -166,6 +166,11 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     @Validation(required = true)
     public String cargoWorth;
 
+    // 收货人名称
+    @NameInMap("consignee_name")
+    @Validation(maxLength = 100)
+    public String consigneeName;
+
     public static ApplyInsuranceOspiRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsuranceOspiRequest self = new ApplyInsuranceOspiRequest();
         return TeaModel.build(map, self);
@@ -425,6 +430,14 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     }
     public String getCargoWorth() {
         return this.cargoWorth;
+    }
+
+    public ApplyInsuranceOspiRequest setConsigneeName(String consigneeName) {
+        this.consigneeName = consigneeName;
+        return this;
+    }
+    public String getConsigneeName() {
+        return this.consigneeName;
     }
 
 }

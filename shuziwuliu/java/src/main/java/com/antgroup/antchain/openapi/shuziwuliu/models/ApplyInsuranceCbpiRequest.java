@@ -166,6 +166,16 @@ public class ApplyInsuranceCbpiRequest extends TeaModel {
     @Validation(required = true)
     public String cargoWorth;
 
+    // 收货人名称
+    @NameInMap("consignee_name")
+    @Validation(maxLength = 100)
+    public String consigneeName;
+
+    // 平安询价code,当客户向平安进行保险投递时，请填写上平安询价code字段
+    @NameInMap("quote_mark")
+    @Validation(maxLength = 100)
+    public String quoteMark;
+
     public static ApplyInsuranceCbpiRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsuranceCbpiRequest self = new ApplyInsuranceCbpiRequest();
         return TeaModel.build(map, self);
@@ -417,6 +427,22 @@ public class ApplyInsuranceCbpiRequest extends TeaModel {
     }
     public String getCargoWorth() {
         return this.cargoWorth;
+    }
+
+    public ApplyInsuranceCbpiRequest setConsigneeName(String consigneeName) {
+        this.consigneeName = consigneeName;
+        return this;
+    }
+    public String getConsigneeName() {
+        return this.consigneeName;
+    }
+
+    public ApplyInsuranceCbpiRequest setQuoteMark(String quoteMark) {
+        this.quoteMark = quoteMark;
+        return this;
+    }
+    public String getQuoteMark() {
+        return this.quoteMark;
     }
 
 }
