@@ -21586,6 +21586,7 @@ class ApplyInsuranceOspiRequest(TeaModel):
         destination: str = None,
         iso_country: str = None,
         cargo_worth: str = None,
+        consignee_name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -21655,6 +21656,8 @@ class ApplyInsuranceOspiRequest(TeaModel):
         self.iso_country = iso_country
         # 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
         self.cargo_worth = cargo_worth
+        # 收货人名称
+        self.consignee_name = consignee_name
 
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
@@ -21737,6 +21740,8 @@ class ApplyInsuranceOspiRequest(TeaModel):
         if self.iso_country is not None:
             self.validate_max_length(self.iso_country, 'iso_country', 10)
         self.validate_required(self.cargo_worth, 'cargo_worth')
+        if self.consignee_name is not None:
+            self.validate_max_length(self.consignee_name, 'consignee_name', 100)
 
     def to_map(self):
         result = dict()
@@ -21804,6 +21809,8 @@ class ApplyInsuranceOspiRequest(TeaModel):
             result['iso_country'] = self.iso_country
         if self.cargo_worth is not None:
             result['cargo_worth'] = self.cargo_worth
+        if self.consignee_name is not None:
+            result['consignee_name'] = self.consignee_name
         return result
 
     def from_map(self, m: dict = None):
@@ -21872,6 +21879,8 @@ class ApplyInsuranceOspiRequest(TeaModel):
             self.iso_country = m.get('iso_country')
         if m.get('cargo_worth') is not None:
             self.cargo_worth = m.get('cargo_worth')
+        if m.get('consignee_name') is not None:
+            self.consignee_name = m.get('consignee_name')
         return self
 
 
@@ -22855,6 +22864,8 @@ class ApplyInsuranceCbpiRequest(TeaModel):
         destination: str = None,
         iso_country: str = None,
         cargo_worth: str = None,
+        consignee_name: str = None,
+        quote_mark: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -22927,6 +22938,10 @@ class ApplyInsuranceCbpiRequest(TeaModel):
         self.iso_country = iso_country
         # 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
         self.cargo_worth = cargo_worth
+        # 收货人名称
+        self.consignee_name = consignee_name
+        # 平安询价code,当客户向平安进行保险投递时，请填写上平安询价code字段
+        self.quote_mark = quote_mark
 
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
@@ -23006,6 +23021,10 @@ class ApplyInsuranceCbpiRequest(TeaModel):
         if self.iso_country is not None:
             self.validate_max_length(self.iso_country, 'iso_country', 10)
         self.validate_required(self.cargo_worth, 'cargo_worth')
+        if self.consignee_name is not None:
+            self.validate_max_length(self.consignee_name, 'consignee_name', 100)
+        if self.quote_mark is not None:
+            self.validate_max_length(self.quote_mark, 'quote_mark', 100)
 
     def to_map(self):
         result = dict()
@@ -23071,6 +23090,10 @@ class ApplyInsuranceCbpiRequest(TeaModel):
             result['iso_country'] = self.iso_country
         if self.cargo_worth is not None:
             result['cargo_worth'] = self.cargo_worth
+        if self.consignee_name is not None:
+            result['consignee_name'] = self.consignee_name
+        if self.quote_mark is not None:
+            result['quote_mark'] = self.quote_mark
         return result
 
     def from_map(self, m: dict = None):
@@ -23137,6 +23160,10 @@ class ApplyInsuranceCbpiRequest(TeaModel):
             self.iso_country = m.get('iso_country')
         if m.get('cargo_worth') is not None:
             self.cargo_worth = m.get('cargo_worth')
+        if m.get('consignee_name') is not None:
+            self.consignee_name = m.get('consignee_name')
+        if m.get('quote_mark') is not None:
+            self.quote_mark = m.get('quote_mark')
         return self
 
 
