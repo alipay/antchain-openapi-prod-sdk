@@ -130,6 +130,10 @@ public class StartIpAuthtradeRequest extends TeaModel {
     @NameInMap("code_order_type")
     public Long codeOrderType;
 
+    // 商家2088号
+    @NameInMap("p_id")
+    public String pId;
+
     public static StartIpAuthtradeRequest build(java.util.Map<String, ?> map) throws Exception {
         StartIpAuthtradeRequest self = new StartIpAuthtradeRequest();
         return TeaModel.build(map, self);
@@ -373,6 +377,14 @@ public class StartIpAuthtradeRequest extends TeaModel {
     }
     public Long getCodeOrderType() {
         return this.codeOrderType;
+    }
+
+    public StartIpAuthtradeRequest setPId(String pId) {
+        this.pId = pId;
+        return this;
+    }
+    public String getPId() {
+        return this.pId;
     }
 
 }
