@@ -11,11 +11,6 @@ public class ReceiveMdipParamsFileRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 租户code
-    @NameInMap("tenant_code")
-    @Validation(required = true)
-    public String tenantCode;
-
     // file_id
     // 待上传文件
     @NameInMap("fileObject")
@@ -48,14 +43,6 @@ public class ReceiveMdipParamsFileRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public ReceiveMdipParamsFileRequest setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
-        return this;
-    }
-    public String getTenantCode() {
-        return this.tenantCode;
     }
 
     public ReceiveMdipParamsFileRequest setFileObject(java.io.InputStream fileObject) {
