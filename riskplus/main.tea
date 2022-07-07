@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.4',
+    sdk_version = '1.12.5',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -4152,8 +4152,6 @@ model ReceiveMdipParamsFileRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 租户code
-  tenantCode: string(name='tenant_code'),
   // file_id
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
