@@ -11934,7 +11934,6 @@ class ReceiveMdipParamsFileRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        tenant_code: str = None,
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
@@ -11942,8 +11941,6 @@ class ReceiveMdipParamsFileRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 租户code
-        self.tenant_code = tenant_code
         # file_id
         # 待上传文件
         self.file_object = file_object
@@ -11952,7 +11949,6 @@ class ReceiveMdipParamsFileRequest(TeaModel):
         self.file_id = file_id
 
     def validate(self):
-        self.validate_required(self.tenant_code, 'tenant_code')
         self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
@@ -11961,8 +11957,6 @@ class ReceiveMdipParamsFileRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.tenant_code is not None:
-            result['tenant_code'] = self.tenant_code
         if self.file_object is not None:
             result['fileObject'] = self.file_object
         if self.file_object_name is not None:
@@ -11977,8 +11971,6 @@ class ReceiveMdipParamsFileRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('tenant_code') is not None:
-            self.tenant_code = m.get('tenant_code')
         if m.get('fileObject') is not None:
             self.file_object = m.get('fileObject')
         if m.get('fileObjectName') is not None:
