@@ -173,6 +173,16 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public string CargoWorth { get; set; }
 
+        // 收货人名称
+        [NameInMap("consignee_name")]
+        [Validation(Required=false, MaxLength=100)]
+        public string ConsigneeName { get; set; }
+
+        // 平安询价code,当客户向平安进行保险投递时，请填写上平安询价code字段
+        [NameInMap("quote_mark")]
+        [Validation(Required=false, MaxLength=100)]
+        public string QuoteMark { get; set; }
+
     }
 
 }

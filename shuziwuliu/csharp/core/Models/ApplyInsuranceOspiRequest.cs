@@ -173,6 +173,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public string CargoWorth { get; set; }
 
+        // 收货人名称
+        [NameInMap("consignee_name")]
+        [Validation(Required=false, MaxLength=100)]
+        public string ConsigneeName { get; set; }
+
     }
 
 }
