@@ -955,6 +955,47 @@ export class RiskInfo extends $tea.Model {
   }
 }
 
+// 天枢更新渠道返回
+export class UpdateCustomerRelationResponseData extends $tea.Model {
+  // id
+  id?: number;
+  // 渠道编码
+  channelCode?: string;
+  // 渠道id
+  channelNo?: string;
+  // 客户号
+  customerNo?: string;
+  // 创建时间
+  createTime?: string;
+  // 更新时间
+  updateTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      channelCode: 'channel_code',
+      channelNo: 'channel_no',
+      customerNo: 'customer_no',
+      createTime: 'create_time',
+      updateTime: 'update_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'number',
+      channelCode: 'string',
+      channelNo: 'string',
+      customerNo: 'string',
+      createTime: 'string',
+      updateTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 风险维度
 export class RtopCompanyRiskFactor extends $tea.Model {
   // 维度名称
@@ -1010,6 +1051,27 @@ export class Material extends $tea.Model {
       smallCode: 'string',
       meterialName: 'string',
       filePath: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户借款是否结清
+export class CustomReceiptStatus extends $tea.Model {
+  // 是否结清
+  receiptFlag?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      receiptFlag: 'receipt_flag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      receiptFlag: 'boolean',
     };
   }
 
@@ -2305,6 +2367,27 @@ export class RtopGenderDistribution extends $tea.Model {
   }
 }
 
+// 是否联登结构体
+export class CustomRelationStatus extends $tea.Model {
+  // 是否联登
+  regFlag?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      regFlag: 'reg_flag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      regFlag: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 风险基因-点
 export class RtopRiskGeneNode extends $tea.Model {
   // 主企业唯一ID
@@ -3069,6 +3152,35 @@ export class RepayTrail extends $tea.Model {
       startTime: 'string',
       endTime: 'string',
       trialNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授信状态
+export class CustomStatus extends $tea.Model {
+  // 是否进行过授信申请
+  applyFlag?: boolean;
+  // 0:通过； 1:拒绝； 2:处理中；
+  status?: string;
+  // 拒绝原因
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      applyFlag: 'apply_flag',
+      status: 'status',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      applyFlag: 'boolean',
+      status: 'string',
+      msg: 'string',
     };
   }
 
@@ -6157,24 +6269,14 @@ export class QueryDubbridgeAccountStatusResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 0:通过；
-  // 1:拒绝；
-  // 2:处理中；
-  // 
-  status?: string;
-  // 拒绝原因
-  msg?: string;
-  // true：是
-  // false：否
-  applyFlag?: boolean;
+  // 授信申请状态
+  data?: CustomStatus;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      status: 'status',
-      msg: 'msg',
-      applyFlag: 'apply_flag',
+      data: 'data',
     };
   }
 
@@ -6183,9 +6285,7 @@ export class QueryDubbridgeAccountStatusResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      status: 'string',
-      msg: 'string',
-      applyFlag: 'boolean',
+      data: CustomStatus,
     };
   }
 
@@ -6237,13 +6337,13 @@ export class QueryDubbridgeAccountCustomResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 是否进行过授信申请
-  regFlag?: boolean;
+  data?: CustomRelationStatus;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      regFlag: 'reg_flag',
+      data: 'data',
     };
   }
 
@@ -6252,7 +6352,7 @@ export class QueryDubbridgeAccountCustomResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      regFlag: 'boolean',
+      data: CustomRelationStatus,
     };
   }
 
@@ -6307,29 +6407,14 @@ export class UpdateDubbridgeAccountCustomResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // id
-  id?: number;
-  // 渠道编码
-  channelCode?: string;
-  // 渠道id
-  channelNo?: string;
-  // 客户号
-  customerNo?: string;
-  // 创建时间
-  createTime?: string;
-  // 更新时间
-  updateTime?: string;
+  // 更新渠道返回体
+  data?: UpdateCustomerRelationResponseData;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      id: 'id',
-      channelCode: 'channel_code',
-      channelNo: 'channel_no',
-      customerNo: 'customer_no',
-      createTime: 'create_time',
-      updateTime: 'update_time',
+      data: 'data',
     };
   }
 
@@ -6338,12 +6423,7 @@ export class UpdateDubbridgeAccountCustomResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      id: 'number',
-      channelCode: 'string',
-      channelNo: 'string',
-      customerNo: 'string',
-      createTime: 'string',
-      updateTime: 'string',
+      data: UpdateCustomerRelationResponseData,
     };
   }
 
@@ -7350,14 +7430,14 @@ export class QueryDubbridgeReceiptStatusResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 是否结清字段
-  receiptFlag?: boolean;
+  // 是否结清结构体
+  data?: CustomReceiptStatus;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      receiptFlag: 'receipt_flag',
+      data: 'data',
     };
   }
 
@@ -7366,7 +7446,7 @@ export class QueryDubbridgeReceiptStatusResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      receiptFlag: 'boolean',
+      data: CustomReceiptStatus,
     };
   }
 
@@ -7574,8 +7654,6 @@ export class ReceiveMdipParamsFileRequest extends $tea.Model {
   fileObject?: Readable;
   fileObjectName?: string;
   fileId: string;
-  // 文件名
-  fileName: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7584,7 +7662,6 @@ export class ReceiveMdipParamsFileRequest extends $tea.Model {
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
-      fileName: 'file_name',
     };
   }
 
@@ -7596,7 +7673,6 @@ export class ReceiveMdipParamsFileRequest extends $tea.Model {
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
-      fileName: 'string',
     };
   }
 
@@ -12177,7 +12253,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.0",
+          sdk_version: "1.12.4",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
