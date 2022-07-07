@@ -17810,6 +17810,8 @@ export class StartIpAuthtradeRequest extends $tea.Model {
   onlyCallBlockchain?: boolean;
   // 1套餐交易 2授权交易 3正版订单 4预申请订单
   codeOrderType?: number;
+  // 商家2088号
+  pId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17842,6 +17844,7 @@ export class StartIpAuthtradeRequest extends $tea.Model {
       ipOrderId: 'ip_order_id',
       onlyCallBlockchain: 'only_call_blockchain',
       codeOrderType: 'code_order_type',
+      pId: 'p_id',
     };
   }
 
@@ -17877,6 +17880,7 @@ export class StartIpAuthtradeRequest extends $tea.Model {
       ipOrderId: 'string',
       onlyCallBlockchain: 'boolean',
       codeOrderType: 'number',
+      pId: 'string',
     };
   }
 
@@ -28461,7 +28465,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.67",
+          sdk_version: "1.3.68",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
