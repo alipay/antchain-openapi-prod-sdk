@@ -20,12 +20,6 @@ class ReceiveMdipParamsFileRequest extends Model
      */
     public $productInstanceId;
 
-    // 租户code
-    /**
-     * @var string
-     */
-    public $tenantCode;
-
     // file_id
     /**
      * @description 待上传文件
@@ -48,13 +42,11 @@ class ReceiveMdipParamsFileRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'tenantCode'        => 'tenant_code',
         'fileId'            => 'file_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('tenantCode', $this->tenantCode, true);
         Model::validateRequired('fileId', $this->fileId, true);
     }
 
@@ -66,9 +58,6 @@ class ReceiveMdipParamsFileRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->tenantCode) {
-            $res['tenant_code'] = $this->tenantCode;
         }
         if (null !== $this->fileObject) {
             $res['fileObject'] = $this->fileObject;
@@ -96,9 +85,6 @@ class ReceiveMdipParamsFileRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['tenant_code'])) {
-            $model->tenantCode = $map['tenant_code'];
         }
         if (isset($map['fileObject'])) {
             $model->fileObject = $map['fileObject'];
