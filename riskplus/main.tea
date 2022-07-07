@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.0',
+    sdk_version = '1.12.4',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -512,6 +512,22 @@ model RiskInfo {
   riskDetails: [ RiskDetail ](name='risk_details', example=''),
 }
 
+// 天枢更新渠道返回
+model UpdateCustomerRelationResponseData {
+  // id
+  id?: long(name='id', example='123'),
+  // 渠道编码
+  channelCode?: string(name='channel_code', example='123'),
+  // 渠道id
+  channelNo?: string(name='channel_no', example='123AA'),
+  // 客户号
+  customerNo?: string(name='customer_no', example='PCM123'),
+  // 创建时间
+  createTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time', example='2018-10-10T10:10:00Z'),
+  // 更新时间
+  updateTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='update_time', example='2018-10-10T10:10:00Z'),
+}
+
 // 风险维度
 model RtopCompanyRiskFactor {
   // 维度名称
@@ -533,6 +549,12 @@ model Material {
   meterialName: string(name='meterial_name', example='资料名称'),
   // 文件地址
   filePath: string(name='file_path', example='文件地址'),
+}
+
+// 用户借款是否结清
+model CustomReceiptStatus {
+  // 是否结清
+  receiptFlag?: boolean(name='receipt_flag', example='true, false'),
 }
 
 // 天枢系统RiskData结构体
@@ -1079,6 +1101,12 @@ model RtopGenderDistribution {
   gender: string(name='gender', example='MALE'),
 }
 
+// 是否联登结构体
+model CustomRelationStatus {
+  // 是否联登
+  regFlag?: boolean(name='reg_flag', example='true, false'),
+}
+
 // 风险基因-点
 model RtopRiskGeneNode {
   // 主企业唯一ID
@@ -1380,6 +1408,16 @@ model RepayTrail {
   endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2018-10-10T10:10:00Z'),
   // 试算编号
   trialNo: string(name='trial_no', example='ss'),
+}
+
+// 授信状态
+model CustomStatus {
+  // 是否进行过授信申请
+  applyFlag?: boolean(name='apply_flag', example='true, false'),
+  // 0:通过； 1:拒绝； 2:处理中；
+  status?: string(name='status', example='0'),
+  // 拒绝原因
+  msg?: string(name='msg', example='xxxxxxxx'),
 }
 
 // 键值对
@@ -3259,16 +3297,8 @@ model QueryDubbridgeAccountStatusResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 0:通过；
-  // 1:拒绝；
-  // 2:处理中；
-  // 
-  status?: string(name='status'),
-  // 拒绝原因
-  msg?: string(name='msg'),
-  // true：是
-  // false：否
-  applyFlag?: boolean(name='apply_flag'),
+  // 授信申请状态
+  data?: CustomStatus(name='data'),
 }
 
 /**
@@ -3310,7 +3340,7 @@ model QueryDubbridgeAccountCustomResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 是否进行过授信申请
-  regFlag?: boolean(name='reg_flag'),
+  data?: CustomRelationStatus(name='data'),
 }
 
 /**
@@ -3353,18 +3383,8 @@ model UpdateDubbridgeAccountCustomResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // id
-  id?: long(name='id'),
-  // 渠道编码
-  channelCode?: string(name='channel_code'),
-  // 渠道id
-  channelNo?: string(name='channel_no'),
-  // 客户号
-  customerNo?: string(name='customer_no'),
-  // 创建时间
-  createTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time'),
-  // 更新时间
-  updateTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='update_time'),
+  // 更新渠道返回体
+  data?: UpdateCustomerRelationResponseData(name='data'),
 }
 
 /**
@@ -3985,8 +4005,8 @@ model QueryDubbridgeReceiptStatusResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 是否结清字段
-  receiptFlag?: boolean(name='receipt_flag'),
+  // 是否结清结构体
+  data?: CustomReceiptStatus(name='data'),
 }
 
 /**
@@ -4138,8 +4158,6 @@ model ReceiveMdipParamsFileRequest = {
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
   fileId: string(name='file_id'),
-  // 文件名
-  fileName: string(name='file_name'),
 }
 
 model ReceiveMdipParamsFileResponse = {
