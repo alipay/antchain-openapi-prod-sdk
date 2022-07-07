@@ -1322,6 +1322,60 @@ func (s *RiskInfo) SetRiskDetails(v []*RiskDetail) *RiskInfo {
 	return s
 }
 
+// 天枢更新渠道返回
+type UpdateCustomerRelationResponseData struct {
+	// id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// 渠道编码
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty"`
+	// 渠道id
+	ChannelNo *string `json:"channel_no,omitempty" xml:"channel_no,omitempty"`
+	// 客户号
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty"`
+	// 创建时间
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新时间
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s UpdateCustomerRelationResponseData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateCustomerRelationResponseData) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateCustomerRelationResponseData) SetId(v int64) *UpdateCustomerRelationResponseData {
+	s.Id = &v
+	return s
+}
+
+func (s *UpdateCustomerRelationResponseData) SetChannelCode(v string) *UpdateCustomerRelationResponseData {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *UpdateCustomerRelationResponseData) SetChannelNo(v string) *UpdateCustomerRelationResponseData {
+	s.ChannelNo = &v
+	return s
+}
+
+func (s *UpdateCustomerRelationResponseData) SetCustomerNo(v string) *UpdateCustomerRelationResponseData {
+	s.CustomerNo = &v
+	return s
+}
+
+func (s *UpdateCustomerRelationResponseData) SetCreateTime(v string) *UpdateCustomerRelationResponseData {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *UpdateCustomerRelationResponseData) SetUpdateTime(v string) *UpdateCustomerRelationResponseData {
+	s.UpdateTime = &v
+	return s
+}
+
 // 风险维度
 type RtopCompanyRiskFactor struct {
 	// 维度名称
@@ -1393,6 +1447,25 @@ func (s *Material) SetMeterialName(v string) *Material {
 
 func (s *Material) SetFilePath(v string) *Material {
 	s.FilePath = &v
+	return s
+}
+
+// 用户借款是否结清
+type CustomReceiptStatus struct {
+	// 是否结清
+	ReceiptFlag *bool `json:"receipt_flag,omitempty" xml:"receipt_flag,omitempty"`
+}
+
+func (s CustomReceiptStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomReceiptStatus) GoString() string {
+	return s.String()
+}
+
+func (s *CustomReceiptStatus) SetReceiptFlag(v bool) *CustomReceiptStatus {
+	s.ReceiptFlag = &v
 	return s
 }
 
@@ -3234,6 +3307,25 @@ func (s *RtopGenderDistribution) SetGender(v string) *RtopGenderDistribution {
 	return s
 }
 
+// 是否联登结构体
+type CustomRelationStatus struct {
+	// 是否联登
+	RegFlag *bool `json:"reg_flag,omitempty" xml:"reg_flag,omitempty"`
+}
+
+func (s CustomRelationStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomRelationStatus) GoString() string {
+	return s.String()
+}
+
+func (s *CustomRelationStatus) SetRegFlag(v bool) *CustomRelationStatus {
+	s.RegFlag = &v
+	return s
+}
+
 // 风险基因-点
 type RtopRiskGeneNode struct {
 	// 主企业唯一ID
@@ -4241,6 +4333,39 @@ func (s *RepayTrail) SetEndTime(v string) *RepayTrail {
 
 func (s *RepayTrail) SetTrialNo(v string) *RepayTrail {
 	s.TrialNo = &v
+	return s
+}
+
+// 授信状态
+type CustomStatus struct {
+	// 是否进行过授信申请
+	ApplyFlag *bool `json:"apply_flag,omitempty" xml:"apply_flag,omitempty"`
+	// 0:通过； 1:拒绝； 2:处理中；
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 拒绝原因
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s CustomStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomStatus) GoString() string {
+	return s.String()
+}
+
+func (s *CustomStatus) SetApplyFlag(v bool) *CustomStatus {
+	s.ApplyFlag = &v
+	return s
+}
+
+func (s *CustomStatus) SetStatus(v string) *CustomStatus {
+	s.Status = &v
+	return s
+}
+
+func (s *CustomStatus) SetMsg(v string) *CustomStatus {
+	s.Msg = &v
 	return s
 }
 
@@ -8331,16 +8456,8 @@ type QueryDubbridgeAccountStatusResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 0:通过；
-	// 1:拒绝；
-	// 2:处理中；
-	//
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
-	// 拒绝原因
-	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
-	// true：是
-	// false：否
-	ApplyFlag *bool `json:"apply_flag,omitempty" xml:"apply_flag,omitempty"`
+	// 授信申请状态
+	Data *CustomStatus `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QueryDubbridgeAccountStatusResponse) String() string {
@@ -8366,18 +8483,8 @@ func (s *QueryDubbridgeAccountStatusResponse) SetResultMsg(v string) *QueryDubbr
 	return s
 }
 
-func (s *QueryDubbridgeAccountStatusResponse) SetStatus(v string) *QueryDubbridgeAccountStatusResponse {
-	s.Status = &v
-	return s
-}
-
-func (s *QueryDubbridgeAccountStatusResponse) SetMsg(v string) *QueryDubbridgeAccountStatusResponse {
-	s.Msg = &v
-	return s
-}
-
-func (s *QueryDubbridgeAccountStatusResponse) SetApplyFlag(v bool) *QueryDubbridgeAccountStatusResponse {
-	s.ApplyFlag = &v
+func (s *QueryDubbridgeAccountStatusResponse) SetData(v *CustomStatus) *QueryDubbridgeAccountStatusResponse {
+	s.Data = v
 	return s
 }
 
@@ -8434,7 +8541,7 @@ type QueryDubbridgeAccountCustomResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 是否进行过授信申请
-	RegFlag *bool `json:"reg_flag,omitempty" xml:"reg_flag,omitempty"`
+	Data *CustomRelationStatus `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QueryDubbridgeAccountCustomResponse) String() string {
@@ -8460,8 +8567,8 @@ func (s *QueryDubbridgeAccountCustomResponse) SetResultMsg(v string) *QueryDubbr
 	return s
 }
 
-func (s *QueryDubbridgeAccountCustomResponse) SetRegFlag(v bool) *QueryDubbridgeAccountCustomResponse {
-	s.RegFlag = &v
+func (s *QueryDubbridgeAccountCustomResponse) SetData(v *CustomRelationStatus) *QueryDubbridgeAccountCustomResponse {
+	s.Data = v
 	return s
 }
 
@@ -8524,18 +8631,8 @@ type UpdateDubbridgeAccountCustomResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// id
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
-	// 渠道编码
-	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty"`
-	// 渠道id
-	ChannelNo *string `json:"channel_no,omitempty" xml:"channel_no,omitempty"`
-	// 客户号
-	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty"`
-	// 创建时间
-	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 更新时间
-	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 更新渠道返回体
+	Data *UpdateCustomerRelationResponseData `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s UpdateDubbridgeAccountCustomResponse) String() string {
@@ -8561,33 +8658,8 @@ func (s *UpdateDubbridgeAccountCustomResponse) SetResultMsg(v string) *UpdateDub
 	return s
 }
 
-func (s *UpdateDubbridgeAccountCustomResponse) SetId(v int64) *UpdateDubbridgeAccountCustomResponse {
-	s.Id = &v
-	return s
-}
-
-func (s *UpdateDubbridgeAccountCustomResponse) SetChannelCode(v string) *UpdateDubbridgeAccountCustomResponse {
-	s.ChannelCode = &v
-	return s
-}
-
-func (s *UpdateDubbridgeAccountCustomResponse) SetChannelNo(v string) *UpdateDubbridgeAccountCustomResponse {
-	s.ChannelNo = &v
-	return s
-}
-
-func (s *UpdateDubbridgeAccountCustomResponse) SetCustomerNo(v string) *UpdateDubbridgeAccountCustomResponse {
-	s.CustomerNo = &v
-	return s
-}
-
-func (s *UpdateDubbridgeAccountCustomResponse) SetCreateTime(v string) *UpdateDubbridgeAccountCustomResponse {
-	s.CreateTime = &v
-	return s
-}
-
-func (s *UpdateDubbridgeAccountCustomResponse) SetUpdateTime(v string) *UpdateDubbridgeAccountCustomResponse {
-	s.UpdateTime = &v
+func (s *UpdateDubbridgeAccountCustomResponse) SetData(v *UpdateCustomerRelationResponseData) *UpdateDubbridgeAccountCustomResponse {
+	s.Data = v
 	return s
 }
 
@@ -9917,8 +9989,8 @@ type QueryDubbridgeReceiptStatusResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 是否结清字段
-	ReceiptFlag *bool `json:"receipt_flag,omitempty" xml:"receipt_flag,omitempty"`
+	// 是否结清结构体
+	Data *CustomReceiptStatus `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QueryDubbridgeReceiptStatusResponse) String() string {
@@ -9944,8 +10016,8 @@ func (s *QueryDubbridgeReceiptStatusResponse) SetResultMsg(v string) *QueryDubbr
 	return s
 }
 
-func (s *QueryDubbridgeReceiptStatusResponse) SetReceiptFlag(v bool) *QueryDubbridgeReceiptStatusResponse {
-	s.ReceiptFlag = &v
+func (s *QueryDubbridgeReceiptStatusResponse) SetData(v *CustomReceiptStatus) *QueryDubbridgeReceiptStatusResponse {
+	s.Data = v
 	return s
 }
 
@@ -10192,8 +10264,6 @@ type ReceiveMdipParamsFileRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
-	// 文件名
-	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
 }
 
 func (s ReceiveMdipParamsFileRequest) String() string {
@@ -10231,11 +10301,6 @@ func (s *ReceiveMdipParamsFileRequest) SetFileObjectName(v string) *ReceiveMdipP
 
 func (s *ReceiveMdipParamsFileRequest) SetFileId(v string) *ReceiveMdipParamsFileRequest {
 	s.FileId = &v
-	return s
-}
-
-func (s *ReceiveMdipParamsFileRequest) SetFileName(v string) *ReceiveMdipParamsFileRequest {
-	s.FileName = &v
 	return s
 }
 
@@ -16248,7 +16313,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.0"),
+				"sdk_version":      tea.String("1.12.4"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
