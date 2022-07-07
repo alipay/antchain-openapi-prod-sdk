@@ -16,21 +16,9 @@ public class QueryDubbridgeAccountStatusResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 0:通过；
-    // 1:拒绝；
-    // 2:处理中；
-    // 
-    @NameInMap("status")
-    public String status;
-
-    // 拒绝原因
-    @NameInMap("msg")
-    public String msg;
-
-    // true：是
-    // false：否
-    @NameInMap("apply_flag")
-    public Boolean applyFlag;
+    // 授信申请状态
+    @NameInMap("data")
+    public CustomStatus data;
 
     public static QueryDubbridgeAccountStatusResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeAccountStatusResponse self = new QueryDubbridgeAccountStatusResponse();
@@ -61,28 +49,12 @@ public class QueryDubbridgeAccountStatusResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDubbridgeAccountStatusResponse setStatus(String status) {
-        this.status = status;
+    public QueryDubbridgeAccountStatusResponse setData(CustomStatus data) {
+        this.data = data;
         return this;
     }
-    public String getStatus() {
-        return this.status;
-    }
-
-    public QueryDubbridgeAccountStatusResponse setMsg(String msg) {
-        this.msg = msg;
-        return this;
-    }
-    public String getMsg() {
-        return this.msg;
-    }
-
-    public QueryDubbridgeAccountStatusResponse setApplyFlag(Boolean applyFlag) {
-        this.applyFlag = applyFlag;
-        return this;
-    }
-    public Boolean getApplyFlag() {
-        return this.applyFlag;
+    public CustomStatus getData() {
+        return this.data;
     }
 
 }

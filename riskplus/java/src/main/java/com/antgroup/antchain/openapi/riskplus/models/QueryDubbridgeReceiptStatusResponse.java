@@ -16,9 +16,9 @@ public class QueryDubbridgeReceiptStatusResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否结清字段
-    @NameInMap("receipt_flag")
-    public Boolean receiptFlag;
+    // 是否结清结构体
+    @NameInMap("data")
+    public CustomReceiptStatus data;
 
     public static QueryDubbridgeReceiptStatusResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeReceiptStatusResponse self = new QueryDubbridgeReceiptStatusResponse();
@@ -49,12 +49,12 @@ public class QueryDubbridgeReceiptStatusResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDubbridgeReceiptStatusResponse setReceiptFlag(Boolean receiptFlag) {
-        this.receiptFlag = receiptFlag;
+    public QueryDubbridgeReceiptStatusResponse setData(CustomReceiptStatus data) {
+        this.data = data;
         return this;
     }
-    public Boolean getReceiptFlag() {
-        return this.receiptFlag;
+    public CustomReceiptStatus getData() {
+        return this.data;
     }
 
 }

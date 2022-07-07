@@ -17,8 +17,8 @@ public class QueryDubbridgeAccountCustomResponse extends TeaModel {
     public String resultMsg;
 
     // 是否进行过授信申请
-    @NameInMap("reg_flag")
-    public Boolean regFlag;
+    @NameInMap("data")
+    public CustomRelationStatus data;
 
     public static QueryDubbridgeAccountCustomResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeAccountCustomResponse self = new QueryDubbridgeAccountCustomResponse();
@@ -49,12 +49,12 @@ public class QueryDubbridgeAccountCustomResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDubbridgeAccountCustomResponse setRegFlag(Boolean regFlag) {
-        this.regFlag = regFlag;
+    public QueryDubbridgeAccountCustomResponse setData(CustomRelationStatus data) {
+        this.data = data;
         return this;
     }
-    public Boolean getRegFlag() {
-        return this.regFlag;
+    public CustomRelationStatus getData() {
+        return this.data;
     }
 
 }

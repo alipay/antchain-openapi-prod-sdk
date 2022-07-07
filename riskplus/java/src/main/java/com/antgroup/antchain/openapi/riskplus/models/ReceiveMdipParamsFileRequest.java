@@ -29,11 +29,6 @@ public class ReceiveMdipParamsFileRequest extends TeaModel {
     @Validation(required = true)
     public String fileId;
 
-    // 文件名
-    @NameInMap("file_name")
-    @Validation(required = true)
-    public String fileName;
-
     public static ReceiveMdipParamsFileRequest build(java.util.Map<String, ?> map) throws Exception {
         ReceiveMdipParamsFileRequest self = new ReceiveMdipParamsFileRequest();
         return TeaModel.build(map, self);
@@ -85,14 +80,6 @@ public class ReceiveMdipParamsFileRequest extends TeaModel {
     }
     public String getFileId() {
         return this.fileId;
-    }
-
-    public ReceiveMdipParamsFileRequest setFileName(String fileName) {
-        this.fileName = fileName;
-        return this;
-    }
-    public String getFileName() {
-        return this.fileName;
     }
 
 }
