@@ -26,57 +26,20 @@ class UpdateDubbridgeAccountCustomResponse extends Model
      */
     public $resultMsg;
 
-    // id
+    // 更新渠道返回体
     /**
-     * @var int
+     * @var UpdateCustomerRelationResponseData
      */
-    public $id;
-
-    // 渠道编码
-    /**
-     * @var string
-     */
-    public $channelCode;
-
-    // 渠道id
-    /**
-     * @var string
-     */
-    public $channelNo;
-
-    // 客户号
-    /**
-     * @var string
-     */
-    public $customerNo;
-
-    // 创建时间
-    /**
-     * @var string
-     */
-    public $createTime;
-
-    // 更新时间
-    /**
-     * @var string
-     */
-    public $updateTime;
+    public $data;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'id'          => 'id',
-        'channelCode' => 'channel_code',
-        'channelNo'   => 'channel_no',
-        'customerNo'  => 'customer_no',
-        'createTime'  => 'create_time',
-        'updateTime'  => 'update_time',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'data'       => 'data',
     ];
 
     public function validate()
     {
-        Model::validatePattern('createTime', $this->createTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-        Model::validatePattern('updateTime', $this->updateTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -91,23 +54,8 @@ class UpdateDubbridgeAccountCustomResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
-        }
-        if (null !== $this->channelCode) {
-            $res['channel_code'] = $this->channelCode;
-        }
-        if (null !== $this->channelNo) {
-            $res['channel_no'] = $this->channelNo;
-        }
-        if (null !== $this->customerNo) {
-            $res['customer_no'] = $this->customerNo;
-        }
-        if (null !== $this->createTime) {
-            $res['create_time'] = $this->createTime;
-        }
-        if (null !== $this->updateTime) {
-            $res['update_time'] = $this->updateTime;
+        if (null !== $this->data) {
+            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -130,23 +78,8 @@ class UpdateDubbridgeAccountCustomResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
-        }
-        if (isset($map['channel_code'])) {
-            $model->channelCode = $map['channel_code'];
-        }
-        if (isset($map['channel_no'])) {
-            $model->channelNo = $map['channel_no'];
-        }
-        if (isset($map['customer_no'])) {
-            $model->customerNo = $map['customer_no'];
-        }
-        if (isset($map['create_time'])) {
-            $model->createTime = $map['create_time'];
-        }
-        if (isset($map['update_time'])) {
-            $model->updateTime = $map['update_time'];
+        if (isset($map['data'])) {
+            $model->data = UpdateCustomerRelationResponseData::fromMap($map['data']);
         }
 
         return $model;

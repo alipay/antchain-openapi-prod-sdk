@@ -28,14 +28,14 @@ class QueryDubbridgeAccountCustomResponse extends Model
 
     // 是否进行过授信申请
     /**
-     * @var bool
+     * @var CustomRelationStatus
      */
-    public $regFlag;
+    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'regFlag'    => 'reg_flag',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class QueryDubbridgeAccountCustomResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->regFlag) {
-            $res['reg_flag'] = $this->regFlag;
+        if (null !== $this->data) {
+            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -78,8 +78,8 @@ class QueryDubbridgeAccountCustomResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['reg_flag'])) {
-            $model->regFlag = $map['reg_flag'];
+        if (isset($map['data'])) {
+            $model->data = CustomRelationStatus::fromMap($map['data']);
         }
 
         return $model;

@@ -26,16 +26,16 @@ class QueryDubbridgeReceiptStatusResponse extends Model
      */
     public $resultMsg;
 
-    // 是否结清字段
+    // 是否结清结构体
     /**
-     * @var bool
+     * @var CustomReceiptStatus
      */
-    public $receiptFlag;
+    public $data;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'receiptFlag' => 'receipt_flag',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class QueryDubbridgeReceiptStatusResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->receiptFlag) {
-            $res['receipt_flag'] = $this->receiptFlag;
+        if (null !== $this->data) {
+            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -78,8 +78,8 @@ class QueryDubbridgeReceiptStatusResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['receipt_flag'])) {
-            $model->receiptFlag = $map['receipt_flag'];
+        if (isset($map['data'])) {
+            $model->data = CustomReceiptStatus::fromMap($map['data']);
         }
 
         return $model;

@@ -26,34 +26,16 @@ class QueryDubbridgeAccountStatusResponse extends Model
      */
     public $resultMsg;
 
-    // 0:通过；
-    // 1:拒绝；
-    // 2:处理中；
-    //
+    // 授信申请状态
     /**
-     * @var string
+     * @var CustomStatus
      */
-    public $status;
-
-    // 拒绝原因
-    /**
-     * @var string
-     */
-    public $msg;
-
-    // true：是
-    // false：否
-    /**
-     * @var bool
-     */
-    public $applyFlag;
+    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'status'     => 'status',
-        'msg'        => 'msg',
-        'applyFlag'  => 'apply_flag',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -72,14 +54,8 @@ class QueryDubbridgeAccountStatusResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->msg) {
-            $res['msg'] = $this->msg;
-        }
-        if (null !== $this->applyFlag) {
-            $res['apply_flag'] = $this->applyFlag;
+        if (null !== $this->data) {
+            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -102,14 +78,8 @@ class QueryDubbridgeAccountStatusResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['msg'])) {
-            $model->msg = $map['msg'];
-        }
-        if (isset($map['apply_flag'])) {
-            $model->applyFlag = $map['apply_flag'];
+        if (isset($map['data'])) {
+            $model->data = CustomStatus::fromMap($map['data']);
         }
 
         return $model;

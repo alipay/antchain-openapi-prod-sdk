@@ -45,25 +45,17 @@ class ReceiveMdipParamsFileRequest extends Model
      * @var string
      */
     public $fileId;
-
-    // 文件名
-    /**
-     * @var string
-     */
-    public $fileName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantCode'        => 'tenant_code',
         'fileId'            => 'file_id',
-        'fileName'          => 'file_name',
     ];
 
     public function validate()
     {
         Model::validateRequired('tenantCode', $this->tenantCode, true);
         Model::validateRequired('fileId', $this->fileId, true);
-        Model::validateRequired('fileName', $this->fileName, true);
     }
 
     public function toMap()
@@ -86,9 +78,6 @@ class ReceiveMdipParamsFileRequest extends Model
         }
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
-        }
-        if (null !== $this->fileName) {
-            $res['file_name'] = $this->fileName;
         }
 
         return $res;
@@ -119,9 +108,6 @@ class ReceiveMdipParamsFileRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
-        }
-        if (isset($map['file_name'])) {
-            $model->fileName = $map['file_name'];
         }
 
         return $model;
