@@ -10256,8 +10256,6 @@ type ReceiveMdipParamsFileRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 租户code
-	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
 	// file_id
 	// 待上传文件
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
@@ -10281,11 +10279,6 @@ func (s *ReceiveMdipParamsFileRequest) SetAuthToken(v string) *ReceiveMdipParams
 
 func (s *ReceiveMdipParamsFileRequest) SetProductInstanceId(v string) *ReceiveMdipParamsFileRequest {
 	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *ReceiveMdipParamsFileRequest) SetTenantCode(v string) *ReceiveMdipParamsFileRequest {
-	s.TenantCode = &v
 	return s
 }
 
@@ -16313,7 +16306,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.4"),
+				"sdk_version":      tea.String("1.12.5"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
