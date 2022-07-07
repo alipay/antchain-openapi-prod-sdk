@@ -23653,6 +23653,8 @@ type StartIpAuthtradeRequest struct {
 	OnlyCallBlockchain *bool `json:"only_call_blockchain,omitempty" xml:"only_call_blockchain,omitempty"`
 	// 1套餐交易 2授权交易 3正版订单 4预申请订单
 	CodeOrderType *int64 `json:"code_order_type,omitempty" xml:"code_order_type,omitempty"`
+	// 商家2088号
+	PId *string `json:"p_id,omitempty" xml:"p_id,omitempty"`
 }
 
 func (s StartIpAuthtradeRequest) String() string {
@@ -23810,6 +23812,11 @@ func (s *StartIpAuthtradeRequest) SetOnlyCallBlockchain(v bool) *StartIpAuthtrad
 
 func (s *StartIpAuthtradeRequest) SetCodeOrderType(v int64) *StartIpAuthtradeRequest {
 	s.CodeOrderType = &v
+	return s
+}
+
+func (s *StartIpAuthtradeRequest) SetPId(v string) *StartIpAuthtradeRequest {
+	s.PId = &v
 	return s
 }
 
@@ -38048,7 +38055,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.67"),
+				"sdk_version":      tea.String("1.3.68"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
