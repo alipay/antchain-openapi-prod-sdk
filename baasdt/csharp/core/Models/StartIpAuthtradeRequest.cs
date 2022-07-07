@@ -158,6 +158,11 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public long? CodeOrderType { get; set; }
 
+        // 商家2088号
+        [NameInMap("p_id")]
+        [Validation(Required=false)]
+        public string PId { get; set; }
+
     }
 
 }
