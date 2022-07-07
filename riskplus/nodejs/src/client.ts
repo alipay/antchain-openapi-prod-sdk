@@ -7648,8 +7648,6 @@ export class ReceiveMdipParamsFileRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 租户code
-  tenantCode: string;
   // file_id
   fileObject?: Readable;
   fileObjectName?: string;
@@ -7658,7 +7656,6 @@ export class ReceiveMdipParamsFileRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      tenantCode: 'tenant_code',
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
@@ -7669,7 +7666,6 @@ export class ReceiveMdipParamsFileRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      tenantCode: 'string',
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
@@ -12253,7 +12249,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.4",
+          sdk_version: "1.12.5",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
