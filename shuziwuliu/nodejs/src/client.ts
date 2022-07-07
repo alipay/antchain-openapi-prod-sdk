@@ -13255,6 +13255,8 @@ export class ApplyInsuranceOspiRequest extends $tea.Model {
   isoCountry: string;
   // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
   cargoWorth: string;
+  // 收货人名称
+  consigneeName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13289,6 +13291,7 @@ export class ApplyInsuranceOspiRequest extends $tea.Model {
       destination: 'destination',
       isoCountry: 'iso_country',
       cargoWorth: 'cargo_worth',
+      consigneeName: 'consignee_name',
     };
   }
 
@@ -13326,6 +13329,7 @@ export class ApplyInsuranceOspiRequest extends $tea.Model {
       destination: 'string',
       isoCountry: 'string',
       cargoWorth: 'string',
+      consigneeName: 'string',
     };
   }
 
@@ -13902,6 +13906,10 @@ export class ApplyInsuranceCbpiRequest extends $tea.Model {
   isoCountry: string;
   // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
   cargoWorth: string;
+  // 收货人名称
+  consigneeName?: string;
+  // 平安询价code,当客户向平安进行保险投递时，请填写上平安询价code字段
+  quoteMark?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13935,6 +13943,8 @@ export class ApplyInsuranceCbpiRequest extends $tea.Model {
       destination: 'destination',
       isoCountry: 'iso_country',
       cargoWorth: 'cargo_worth',
+      consigneeName: 'consignee_name',
+      quoteMark: 'quote_mark',
     };
   }
 
@@ -13971,6 +13981,8 @@ export class ApplyInsuranceCbpiRequest extends $tea.Model {
       destination: 'string',
       isoCountry: 'string',
       cargoWorth: 'string',
+      consigneeName: 'string',
+      quoteMark: 'string',
     };
   }
 
@@ -20731,7 +20743,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.140",
+          sdk_version: "1.3.142",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
