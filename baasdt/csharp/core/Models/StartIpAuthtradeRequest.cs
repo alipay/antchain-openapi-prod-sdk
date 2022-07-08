@@ -85,7 +85,7 @@ namespace AntChain.SDK.BAASDT.Models
 
         // 备注消息(不超过256个字符)
         [NameInMap("memo")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Memo { get; set; }
 
         // 附加条款
