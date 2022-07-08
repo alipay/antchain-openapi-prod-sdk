@@ -23624,7 +23624,7 @@ type StartIpAuthtradeRequest struct {
 	// 商品销售渠道
 	SalesChannel *string `json:"sales_channel,omitempty" xml:"sales_channel,omitempty"`
 	// 备注消息(不超过256个字符)
-	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
 	// 附加条款
 	AdditionalClause *string `json:"additional_clause,omitempty" xml:"additional_clause,omitempty"`
 	// 是否有保底金
@@ -35657,83 +35657,6 @@ func (s *SignIpContractResponse) SetSignedContractFileUrl(v string) *SignIpContr
 	return s
 }
 
-type ReinitIpCheckRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 基础参数
-	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
-	// 编码:全局码/UNI码
-	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
-	// 操作人ID
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-}
-
-func (s ReinitIpCheckRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ReinitIpCheckRequest) GoString() string {
-	return s.String()
-}
-
-func (s *ReinitIpCheckRequest) SetAuthToken(v string) *ReinitIpCheckRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *ReinitIpCheckRequest) SetProductInstanceId(v string) *ReinitIpCheckRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *ReinitIpCheckRequest) SetBaseRequest(v *BaseRequestInfo) *ReinitIpCheckRequest {
-	s.BaseRequest = v
-	return s
-}
-
-func (s *ReinitIpCheckRequest) SetCode(v string) *ReinitIpCheckRequest {
-	s.Code = &v
-	return s
-}
-
-func (s *ReinitIpCheckRequest) SetAccountId(v string) *ReinitIpCheckRequest {
-	s.AccountId = &v
-	return s
-}
-
-type ReinitIpCheckResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s ReinitIpCheckResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ReinitIpCheckResponse) GoString() string {
-	return s.String()
-}
-
-func (s *ReinitIpCheckResponse) SetReqMsgId(v string) *ReinitIpCheckResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *ReinitIpCheckResponse) SetResultCode(v string) *ReinitIpCheckResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *ReinitIpCheckResponse) SetResultMsg(v string) *ReinitIpCheckResponse {
-	s.ResultMsg = &v
-	return s
-}
-
 type QueryBlockanalysisBlockRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -38055,7 +37978,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.68"),
+				"sdk_version":      tea.String("1.3.69"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -47323,40 +47246,6 @@ func (client *Client) SignIpContractEx(request *SignIpContractRequest, headers m
 	}
 	_result = &SignIpContractResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.contract.sign"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 数字商品服务-IP服务-UNI码核验清空
- * Summary: 数字商品服务-IP服务-UNI码核验清空
- */
-func (client *Client) ReinitIpCheck(request *ReinitIpCheckRequest) (_result *ReinitIpCheckResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &ReinitIpCheckResponse{}
-	_body, _err := client.ReinitIpCheckEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 数字商品服务-IP服务-UNI码核验清空
- * Summary: 数字商品服务-IP服务-UNI码核验清空
- */
-func (client *Client) ReinitIpCheckEx(request *ReinitIpCheckRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReinitIpCheckResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &ReinitIpCheckResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.check.reinit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
