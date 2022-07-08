@@ -459,8 +459,6 @@ use AntChain\BAASDT\Models\RefuseExchangeAftersaleRequest;
 use AntChain\BAASDT\Models\RefuseExchangeAftersaleResponse;
 use AntChain\BAASDT\Models\RefuseIpAccountRequest;
 use AntChain\BAASDT\Models\RefuseIpAccountResponse;
-use AntChain\BAASDT\Models\ReinitIpCheckRequest;
-use AntChain\BAASDT\Models\ReinitIpCheckResponse;
 use AntChain\BAASDT\Models\RemoveConsumecardBillingcontractRequest;
 use AntChain\BAASDT\Models\RemoveConsumecardBillingcontractResponse;
 use AntChain\BAASDT\Models\RemoveConsumecardCommissionpartyRequest;
@@ -740,7 +738,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.68',
+                    'sdk_version'      => '1.3.69',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -9730,39 +9728,6 @@ class Client
         Utils::validateModel($request);
 
         return SignIpContractResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.contract.sign', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 数字商品服务-IP服务-UNI码核验清空
-     * Summary: 数字商品服务-IP服务-UNI码核验清空.
-     *
-     * @param ReinitIpCheckRequest $request
-     *
-     * @return ReinitIpCheckResponse
-     */
-    public function reinitIpCheck($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->reinitIpCheckEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 数字商品服务-IP服务-UNI码核验清空
-     * Summary: 数字商品服务-IP服务-UNI码核验清空.
-     *
-     * @param ReinitIpCheckRequest $request
-     * @param string[]             $headers
-     * @param RuntimeOptions       $runtime
-     *
-     * @return ReinitIpCheckResponse
-     */
-    public function reinitIpCheckEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return ReinitIpCheckResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.check.reinit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

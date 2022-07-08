@@ -233,7 +233,6 @@ class StartIpAuthtradeRequest extends Model
         Model::validateRequired('ipId', $this->ipId, true);
         Model::validateRequired('authBeginTime', $this->authBeginTime, true);
         Model::validateRequired('authEndTime', $this->authEndTime, true);
-        Model::validateRequired('memo', $this->memo, true);
         Model::validateRequired('guaranteed', $this->guaranteed, true);
     }
 
