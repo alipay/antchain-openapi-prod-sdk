@@ -28022,7 +28022,6 @@ class StartIpAuthtradeRequest(TeaModel):
         self.validate_required(self.ip_id, 'ip_id')
         self.validate_required(self.auth_begin_time, 'auth_begin_time')
         self.validate_required(self.auth_end_time, 'auth_end_time')
-        self.validate_required(self.memo, 'memo')
         self.validate_required(self.guaranteed, 'guaranteed')
 
     def to_map(self):
@@ -42382,100 +42381,6 @@ class SignIpContractResponse(TeaModel):
             self.signed_contract_file = m.get('signed_contract_file')
         if m.get('signed_contract_file_url') is not None:
             self.signed_contract_file_url = m.get('signed_contract_file_url')
-        return self
-
-
-class ReinitIpCheckRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        base_request: BaseRequestInfo = None,
-        code: str = None,
-        account_id: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 基础参数
-        self.base_request = base_request
-        # 编码:全局码/UNI码
-        self.code = code
-        # 操作人ID
-        self.account_id = account_id
-
-    def validate(self):
-        self.validate_required(self.base_request, 'base_request')
-        if self.base_request:
-            self.base_request.validate()
-        self.validate_required(self.code, 'code')
-        self.validate_required(self.account_id, 'account_id')
-
-    def to_map(self):
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.base_request is not None:
-            result['base_request'] = self.base_request.to_map()
-        if self.code is not None:
-            result['code'] = self.code
-        if self.account_id is not None:
-            result['account_id'] = self.account_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('base_request') is not None:
-            temp_model = BaseRequestInfo()
-            self.base_request = temp_model.from_map(m['base_request'])
-        if m.get('code') is not None:
-            self.code = m.get('code')
-        if m.get('account_id') is not None:
-            self.account_id = m.get('account_id')
-        return self
-
-
-class ReinitIpCheckResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
         return self
 
 
