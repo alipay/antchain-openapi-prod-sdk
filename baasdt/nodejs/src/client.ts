@@ -17781,7 +17781,7 @@ export class StartIpAuthtradeRequest extends $tea.Model {
   // 商品销售渠道
   salesChannel?: string;
   // 备注消息(不超过256个字符)
-  memo: string;
+  memo?: string;
   // 附加条款
   additionalClause?: string;
   // 是否有保底金
@@ -26652,69 +26652,6 @@ export class SignIpContractResponse extends $tea.Model {
   }
 }
 
-export class ReinitIpCheckRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 基础参数
-  baseRequest: BaseRequestInfo;
-  // 编码:全局码/UNI码
-  code: string;
-  // 操作人ID
-  accountId: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      baseRequest: 'base_request',
-      code: 'code',
-      accountId: 'account_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      baseRequest: BaseRequestInfo,
-      code: 'string',
-      accountId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class ReinitIpCheckResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class QueryBlockanalysisBlockRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -28465,7 +28402,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.68",
+          sdk_version: "1.3.69",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -33678,25 +33615,6 @@ export default class Client {
   async signIpContractEx(request: SignIpContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SignIpContractResponse> {
     Util.validateModel(request);
     return $tea.cast<SignIpContractResponse>(await this.doRequest("1.0", "baas.antdao.ip.contract.sign", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SignIpContractResponse({}));
-  }
-
-  /**
-   * Description: 数字商品服务-IP服务-UNI码核验清空
-   * Summary: 数字商品服务-IP服务-UNI码核验清空
-   */
-  async reinitIpCheck(request: ReinitIpCheckRequest): Promise<ReinitIpCheckResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.reinitIpCheckEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 数字商品服务-IP服务-UNI码核验清空
-   * Summary: 数字商品服务-IP服务-UNI码核验清空
-   */
-  async reinitIpCheckEx(request: ReinitIpCheckRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReinitIpCheckResponse> {
-    Util.validateModel(request);
-    return $tea.cast<ReinitIpCheckResponse>(await this.doRequest("1.0", "baas.antdao.ip.check.reinit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReinitIpCheckResponse({}));
   }
 
   /**
