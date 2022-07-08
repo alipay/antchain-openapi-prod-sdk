@@ -70,7 +70,6 @@ public class StartIpAuthtradeRequest extends TeaModel {
 
     // 备注消息(不超过256个字符)
     @NameInMap("memo")
-    @Validation(required = true)
     public String memo;
 
     // 附加条款
