@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.47"},
+                        {"sdk_version", "1.7.50"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.47"},
+                        {"sdk_version", "1.7.50"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -6836,6 +6836,48 @@ namespace AntChain.SDK.TWC
         }
 
         /**
+         * Description: 履约流水核验查询
+         * Summary: 履约流水核验查询
+         */
+        public QueryLeaseRentalverifyResponse QueryLeaseRentalverify(QueryLeaseRentalverifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryLeaseRentalverifyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 履约流水核验查询
+         * Summary: 履约流水核验查询
+         */
+        public async Task<QueryLeaseRentalverifyResponse> QueryLeaseRentalverifyAsync(QueryLeaseRentalverifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryLeaseRentalverifyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 履约流水核验查询
+         * Summary: 履约流水核验查询
+         */
+        public QueryLeaseRentalverifyResponse QueryLeaseRentalverifyEx(QueryLeaseRentalverifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeaseRentalverifyResponse>(DoRequest("1.0", "twc.notary.lease.rentalverify.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 履约流水核验查询
+         * Summary: 履约流水核验查询
+         */
+        public async Task<QueryLeaseRentalverifyResponse> QueryLeaseRentalverifyExAsync(QueryLeaseRentalverifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLeaseRentalverifyResponse>(await DoRequestAsync("1.0", "twc.notary.lease.rentalverify.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 创建签署见证流程
          * Summary: 创建见证流程
          */
@@ -9941,6 +9983,90 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateSpecifyTextResponse>(await DoRequestAsync("1.0", "twc.notary.specify.text.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文件存证大租户内部接口
+         * Summary: 文件存证内部接口
+         */
+        public CreateInternalFileResponse CreateInternalFile(CreateInternalFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateInternalFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件存证大租户内部接口
+         * Summary: 文件存证内部接口
+         */
+        public async Task<CreateInternalFileResponse> CreateInternalFileAsync(CreateInternalFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateInternalFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件存证大租户内部接口
+         * Summary: 文件存证内部接口
+         */
+        public CreateInternalFileResponse CreateInternalFileEx(CreateInternalFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateInternalFileResponse>(DoRequest("1.0", "twc.notary.internal.file.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文件存证大租户内部接口
+         * Summary: 文件存证内部接口
+         */
+        public async Task<CreateInternalFileResponse> CreateInternalFileExAsync(CreateInternalFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateInternalFileResponse>(await DoRequestAsync("1.0", "twc.notary.internal.file.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取文件存证内容内部接口
+         * Summary: 获取文件存证内容内部接口
+         */
+        public GetInternalFileResponse GetInternalFile(GetInternalFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetInternalFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取文件存证内容内部接口
+         * Summary: 获取文件存证内容内部接口
+         */
+        public async Task<GetInternalFileResponse> GetInternalFileAsync(GetInternalFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetInternalFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取文件存证内容内部接口
+         * Summary: 获取文件存证内容内部接口
+         */
+        public GetInternalFileResponse GetInternalFileEx(GetInternalFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetInternalFileResponse>(DoRequest("1.0", "twc.notary.internal.file.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取文件存证内容内部接口
+         * Summary: 获取文件存证内容内部接口
+         */
+        public async Task<GetInternalFileResponse> GetInternalFileExAsync(GetInternalFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetInternalFileResponse>(await DoRequestAsync("1.0", "twc.notary.internal.file.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
