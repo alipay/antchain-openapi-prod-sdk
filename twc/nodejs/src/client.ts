@@ -17221,6 +17221,89 @@ export class QueryLeaseUserperformanceResponse extends $tea.Model {
   }
 }
 
+export class QueryLeaseRentalverifyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 约定的合约id
+  applicationId: string;
+  // 订单id
+  orderId: string;
+  // 核验类型
+  proofType: string;
+  // 还款流水号
+  returnVoucherSerial: string;
+  // 归还期数
+  returnTerm: number;
+  // 租赁商户的id
+  leaseId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      applicationId: 'application_id',
+      orderId: 'order_id',
+      proofType: 'proof_type',
+      returnVoucherSerial: 'return_voucher_serial',
+      returnTerm: 'return_term',
+      leaseId: 'lease_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      applicationId: 'string',
+      orderId: 'string',
+      proofType: 'string',
+      returnVoucherSerial: 'string',
+      returnTerm: 'number',
+      leaseId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryLeaseRentalverifyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 错误信息
+  resultMessage?: string;
+  // 不匹配的时候，相应的信息
+  responseData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultMessage: 'result_message',
+      responseData: 'response_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultMessage: 'string',
+      responseData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateWitnessFlowRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -24189,6 +24272,213 @@ export class CreateSpecifyTextResponse extends $tea.Model {
   }
 }
 
+export class CreateInternalFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 存证事务id
+  transactionId: string;
+  // 描述本条存证在存证事务中的阶段，用户可自行维护
+  phase: string;
+  // 存证文件内容，对文件内容做base64编码后得到。例如FILE_RAW模式下，文件内容为“test”，那么base64编码后的结果则为“dGVzdA==”。如果是FILE_HASh模式，则该字段直接为文件hash。
+  notaryFile: string;
+  // 存证文件名称
+  notaryName: string;
+  // 文件存证模式，目前仅支持 FILE_RAW(文件原文内容) 和 FILE_HASH(文件hash)，建议填写，不填默认是FILE_RAW
+  fileNotaryType?: string;
+  // 哈希算法，当 fileNotaryType 为 FILE_HASH 时填写，目前仅支持 SHA256
+  hashAlgorithm?: string;
+  // 是否使用可信时间戳，默认为false
+  tsr?: boolean;
+  // 存证地点信息(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+  location?: Location;
+  // 扩展属性
+  properties?: string;
+  // 代理客户存证时，实际用户的租户ID
+  realTenant?: string;
+  // 授权码
+  authCode?: string;
+  // 授权码对应产品码
+  product?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      transactionId: 'transaction_id',
+      phase: 'phase',
+      notaryFile: 'notary_file',
+      notaryName: 'notary_name',
+      fileNotaryType: 'file_notary_type',
+      hashAlgorithm: 'hash_algorithm',
+      tsr: 'tsr',
+      location: 'location',
+      properties: 'properties',
+      realTenant: 'real_tenant',
+      authCode: 'auth_code',
+      product: 'product',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      transactionId: 'string',
+      phase: 'string',
+      notaryFile: 'string',
+      notaryName: 'string',
+      fileNotaryType: 'string',
+      hashAlgorithm: 'string',
+      tsr: 'boolean',
+      location: Location,
+      properties: 'string',
+      realTenant: 'string',
+      authCode: 'string',
+      product: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateInternalFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 存证凭据，存证交易Hash值
+  txHash?: string;
+  // 可信时间信息
+  tsr?: TsrResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      txHash: 'tx_hash',
+      tsr: 'tsr',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      txHash: 'string',
+      tsr: TsrResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetInternalFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 存证凭据，需要先调用内部文本存证接口twc.notary.internal.file.create创建存证
+  txHash: string;
+  // 描述本条存证在存证事务中的阶段，用户可自行维护
+  phase?: string;
+  // 存证事务id，通过twc.notary.internal.trans.create(创建存证事务)获得
+  transactionId?: string;
+  // 存证地点信息(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+  location?: Location;
+  // 扩展属性
+  properties?: string;
+  // 代理客户存证时，实际用户的租户ID
+  realTenant?: string;
+  // 授权码
+  // 
+  authCode?: string;
+  // 授权码对应产品码
+  product?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      txHash: 'tx_hash',
+      phase: 'phase',
+      transactionId: 'transaction_id',
+      location: 'location',
+      properties: 'properties',
+      realTenant: 'real_tenant',
+      authCode: 'auth_code',
+      product: 'product',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      txHash: 'string',
+      phase: 'string',
+      transactionId: 'string',
+      location: Location,
+      properties: 'string',
+      realTenant: 'string',
+      authCode: 'string',
+      product: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetInternalFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文件存证模式，FILE_RAW(文件原文内容) 和 FILE_HASH(文件hash)
+  fileNotaryType?: string;
+  // 文件下载地址，当fileNotaryType 为 FILE_RAW 时才有此值，下载链接有效期1个小时
+  ossPath?: string;
+  // 文件哈希，当 fileNotaryType 为 FILE_HASH 时才有此值
+  fileHash?: string;
+  // 哈希算法，当 fileNotaryType 为 FILE_HASH 时，此返回值才有效
+  hashAlgorithm?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fileNotaryType: 'file_notary_type',
+      ossPath: 'oss_path',
+      fileHash: 'file_hash',
+      hashAlgorithm: 'hash_algorithm',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fileNotaryType: 'string',
+      ossPath: 'string',
+      fileHash: 'string',
+      hashAlgorithm: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateFlowInstanceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -25329,7 +25619,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.47",
+          sdk_version: "1.7.50",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -28325,6 +28615,25 @@ export default class Client {
   }
 
   /**
+   * Description: 履约流水核验查询
+   * Summary: 履约流水核验查询
+   */
+  async queryLeaseRentalverify(request: QueryLeaseRentalverifyRequest): Promise<QueryLeaseRentalverifyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryLeaseRentalverifyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 履约流水核验查询
+   * Summary: 履约流水核验查询
+   */
+  async queryLeaseRentalverifyEx(request: QueryLeaseRentalverifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeaseRentalverifyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryLeaseRentalverifyResponse>(await this.doRequest("1.0", "twc.notary.lease.rentalverify.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeaseRentalverifyResponse({}));
+  }
+
+  /**
    * Description: 创建签署见证流程
    * Summary: 创建见证流程
    */
@@ -29728,6 +30037,44 @@ export default class Client {
   async createSpecifyTextEx(request: CreateSpecifyTextRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateSpecifyTextResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateSpecifyTextResponse>(await this.doRequest("1.0", "twc.notary.specify.text.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateSpecifyTextResponse({}));
+  }
+
+  /**
+   * Description: 文件存证大租户内部接口
+   * Summary: 文件存证内部接口
+   */
+  async createInternalFile(request: CreateInternalFileRequest): Promise<CreateInternalFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createInternalFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文件存证大租户内部接口
+   * Summary: 文件存证内部接口
+   */
+  async createInternalFileEx(request: CreateInternalFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateInternalFileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateInternalFileResponse>(await this.doRequest("1.0", "twc.notary.internal.file.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateInternalFileResponse({}));
+  }
+
+  /**
+   * Description: 获取文件存证内容内部接口
+   * Summary: 获取文件存证内容内部接口
+   */
+  async getInternalFile(request: GetInternalFileRequest): Promise<GetInternalFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getInternalFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取文件存证内容内部接口
+   * Summary: 获取文件存证内容内部接口
+   */
+  async getInternalFileEx(request: GetInternalFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetInternalFileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetInternalFileResponse>(await this.doRequest("1.0", "twc.notary.internal.file.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetInternalFileResponse({}));
   }
 
   /**
