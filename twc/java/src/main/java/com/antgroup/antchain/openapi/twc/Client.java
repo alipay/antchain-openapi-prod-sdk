@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.47")
+                    new TeaPair("sdk_version", "1.7.50")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -3109,6 +3109,25 @@ public class Client {
     }
 
     /**
+     * Description: 履约流水核验查询
+     * Summary: 履约流水核验查询
+     */
+    public QueryLeaseRentalverifyResponse queryLeaseRentalverify(QueryLeaseRentalverifyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLeaseRentalverifyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 履约流水核验查询
+     * Summary: 履约流水核验查询
+     */
+    public QueryLeaseRentalverifyResponse queryLeaseRentalverifyEx(QueryLeaseRentalverifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.rentalverify.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseRentalverifyResponse());
+    }
+
+    /**
      * Description: 创建签署见证流程
      * Summary: 创建见证流程
      */
@@ -4512,6 +4531,44 @@ public class Client {
     public CreateSpecifyTextResponse createSpecifyTextEx(CreateSpecifyTextRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.specify.text.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateSpecifyTextResponse());
+    }
+
+    /**
+     * Description: 文件存证大租户内部接口
+     * Summary: 文件存证内部接口
+     */
+    public CreateInternalFileResponse createInternalFile(CreateInternalFileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createInternalFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 文件存证大租户内部接口
+     * Summary: 文件存证内部接口
+     */
+    public CreateInternalFileResponse createInternalFileEx(CreateInternalFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.internal.file.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateInternalFileResponse());
+    }
+
+    /**
+     * Description: 获取文件存证内容内部接口
+     * Summary: 获取文件存证内容内部接口
+     */
+    public GetInternalFileResponse getInternalFile(GetInternalFileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getInternalFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取文件存证内容内部接口
+     * Summary: 获取文件存证内容内部接口
+     */
+    public GetInternalFileResponse getInternalFileEx(GetInternalFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.internal.file.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetInternalFileResponse());
     }
 
     /**
