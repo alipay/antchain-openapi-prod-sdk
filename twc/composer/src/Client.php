@@ -141,6 +141,8 @@ use AntChain\TWC\Models\CreateFlowOnestepnotaryRequest;
 use AntChain\TWC\Models\CreateFlowOnestepnotaryResponse;
 use AntChain\TWC\Models\CreateInternalContractRequest;
 use AntChain\TWC\Models\CreateInternalContractResponse;
+use AntChain\TWC\Models\CreateInternalFileRequest;
+use AntChain\TWC\Models\CreateInternalFileResponse;
 use AntChain\TWC\Models\CreateInternalTextRequest;
 use AntChain\TWC\Models\CreateInternalTextResponse;
 use AntChain\TWC\Models\CreateInternalTransRequest;
@@ -275,6 +277,8 @@ use AntChain\TWC\Models\GetFinanceFilenotaryRequest;
 use AntChain\TWC\Models\GetFinanceFilenotaryResponse;
 use AntChain\TWC\Models\GetFinanceTextnotaryRequest;
 use AntChain\TWC\Models\GetFinanceTextnotaryResponse;
+use AntChain\TWC\Models\GetInternalFileRequest;
+use AntChain\TWC\Models\GetInternalFileResponse;
 use AntChain\TWC\Models\GetInternalTextRequest;
 use AntChain\TWC\Models\GetInternalTextResponse;
 use AntChain\TWC\Models\GetJusticeUploadfilepathRequest;
@@ -405,6 +409,8 @@ use AntChain\TWC\Models\QueryLeaseProofRequest;
 use AntChain\TWC\Models\QueryLeaseProofResponse;
 use AntChain\TWC\Models\QueryLeaseRentalinfoRequest;
 use AntChain\TWC\Models\QueryLeaseRentalinfoResponse;
+use AntChain\TWC\Models\QueryLeaseRentalverifyRequest;
+use AntChain\TWC\Models\QueryLeaseRentalverifyResponse;
 use AntChain\TWC\Models\QueryLeaseRepaymentRequest;
 use AntChain\TWC\Models\QueryLeaseRepaymentResponse;
 use AntChain\TWC\Models\QueryLeaseRepaymentstatusRequest;
@@ -644,7 +650,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.47',
+                    'sdk_version'      => '1.7.50',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -5810,6 +5816,39 @@ class Client
     }
 
     /**
+     * Description: 履约流水核验查询
+     * Summary: 履约流水核验查询.
+     *
+     * @param QueryLeaseRentalverifyRequest $request
+     *
+     * @return QueryLeaseRentalverifyResponse
+     */
+    public function queryLeaseRentalverify($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLeaseRentalverifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 履约流水核验查询
+     * Summary: 履约流水核验查询.
+     *
+     * @param QueryLeaseRentalverifyRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryLeaseRentalverifyResponse
+     */
+    public function queryLeaseRentalverifyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLeaseRentalverifyResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.rentalverify.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 创建签署见证流程
      * Summary: 创建见证流程.
      *
@@ -8249,6 +8288,72 @@ class Client
         Utils::validateModel($request);
 
         return CreateSpecifyTextResponse::fromMap($this->doRequest('1.0', 'twc.notary.specify.text.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件存证大租户内部接口
+     * Summary: 文件存证内部接口.
+     *
+     * @param CreateInternalFileRequest $request
+     *
+     * @return CreateInternalFileResponse
+     */
+    public function createInternalFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createInternalFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件存证大租户内部接口
+     * Summary: 文件存证内部接口.
+     *
+     * @param CreateInternalFileRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateInternalFileResponse
+     */
+    public function createInternalFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateInternalFileResponse::fromMap($this->doRequest('1.0', 'twc.notary.internal.file.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取文件存证内容内部接口
+     * Summary: 获取文件存证内容内部接口.
+     *
+     * @param GetInternalFileRequest $request
+     *
+     * @return GetInternalFileResponse
+     */
+    public function getInternalFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getInternalFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取文件存证内容内部接口
+     * Summary: 获取文件存证内容内部接口.
+     *
+     * @param GetInternalFileRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return GetInternalFileResponse
+     */
+    public function getInternalFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetInternalFileResponse::fromMap($this->doRequest('1.0', 'twc.notary.internal.file.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
