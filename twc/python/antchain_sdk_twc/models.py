@@ -26651,6 +26651,135 @@ class QueryLeaseUserperformanceResponse(TeaModel):
         return self
 
 
+class QueryLeaseRentalverifyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        application_id: str = None,
+        order_id: str = None,
+        proof_type: str = None,
+        return_voucher_serial: str = None,
+        return_term: int = None,
+        lease_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 约定的合约id
+        self.application_id = application_id
+        # 订单id
+        self.order_id = order_id
+        # 核验类型
+        self.proof_type = proof_type
+        # 还款流水号
+        self.return_voucher_serial = return_voucher_serial
+        # 归还期数
+        self.return_term = return_term
+        # 租赁商户的id
+        self.lease_id = lease_id
+
+    def validate(self):
+        self.validate_required(self.application_id, 'application_id')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.proof_type, 'proof_type')
+        self.validate_required(self.return_voucher_serial, 'return_voucher_serial')
+        self.validate_required(self.return_term, 'return_term')
+        self.validate_required(self.lease_id, 'lease_id')
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.application_id is not None:
+            result['application_id'] = self.application_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.proof_type is not None:
+            result['proof_type'] = self.proof_type
+        if self.return_voucher_serial is not None:
+            result['return_voucher_serial'] = self.return_voucher_serial
+        if self.return_term is not None:
+            result['return_term'] = self.return_term
+        if self.lease_id is not None:
+            result['lease_id'] = self.lease_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('application_id') is not None:
+            self.application_id = m.get('application_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('proof_type') is not None:
+            self.proof_type = m.get('proof_type')
+        if m.get('return_voucher_serial') is not None:
+            self.return_voucher_serial = m.get('return_voucher_serial')
+        if m.get('return_term') is not None:
+            self.return_term = m.get('return_term')
+        if m.get('lease_id') is not None:
+            self.lease_id = m.get('lease_id')
+        return self
+
+
+class QueryLeaseRentalverifyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result_message: str = None,
+        response_data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 错误信息
+        self.result_message = result_message
+        # 不匹配的时候，相应的信息
+        self.response_data = response_data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result_message is not None:
+            result['result_message'] = self.result_message
+        if self.response_data is not None:
+            result['response_data'] = self.response_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result_message') is not None:
+            self.result_message = m.get('result_message')
+        if m.get('response_data') is not None:
+            self.response_data = m.get('response_data')
+        return self
+
+
 class CreateWitnessFlowRequest(TeaModel):
     def __init__(
         self,
@@ -37740,6 +37869,336 @@ class CreateSpecifyTextResponse(TeaModel):
             self.tsr = temp_model.from_map(m['tsr'])
         if m.get('tx_hash') is not None:
             self.tx_hash = m.get('tx_hash')
+        return self
+
+
+class CreateInternalFileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        transaction_id: str = None,
+        phase: str = None,
+        notary_file: str = None,
+        notary_name: str = None,
+        file_notary_type: str = None,
+        hash_algorithm: str = None,
+        tsr: bool = None,
+        location: Location = None,
+        properties: str = None,
+        real_tenant: str = None,
+        auth_code: str = None,
+        product: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 存证事务id
+        self.transaction_id = transaction_id
+        # 描述本条存证在存证事务中的阶段，用户可自行维护
+        self.phase = phase
+        # 存证文件内容，对文件内容做base64编码后得到。例如FILE_RAW模式下，文件内容为“test”，那么base64编码后的结果则为“dGVzdA==”。如果是FILE_HASh模式，则该字段直接为文件hash。
+        self.notary_file = notary_file
+        # 存证文件名称
+        self.notary_name = notary_name
+        # 文件存证模式，目前仅支持 FILE_RAW(文件原文内容) 和 FILE_HASH(文件hash)，建议填写，不填默认是FILE_RAW
+        self.file_notary_type = file_notary_type
+        # 哈希算法，当 fileNotaryType 为 FILE_HASH 时填写，目前仅支持 SHA256
+        self.hash_algorithm = hash_algorithm
+        # 是否使用可信时间戳，默认为false
+        self.tsr = tsr
+        # 存证地点信息(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+        self.location = location
+        # 扩展属性
+        self.properties = properties
+        # 代理客户存证时，实际用户的租户ID
+        self.real_tenant = real_tenant
+        # 授权码
+        self.auth_code = auth_code
+        # 授权码对应产品码
+        self.product = product
+
+    def validate(self):
+        self.validate_required(self.transaction_id, 'transaction_id')
+        self.validate_required(self.phase, 'phase')
+        self.validate_required(self.notary_file, 'notary_file')
+        self.validate_required(self.notary_name, 'notary_name')
+        if self.location:
+            self.location.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.transaction_id is not None:
+            result['transaction_id'] = self.transaction_id
+        if self.phase is not None:
+            result['phase'] = self.phase
+        if self.notary_file is not None:
+            result['notary_file'] = self.notary_file
+        if self.notary_name is not None:
+            result['notary_name'] = self.notary_name
+        if self.file_notary_type is not None:
+            result['file_notary_type'] = self.file_notary_type
+        if self.hash_algorithm is not None:
+            result['hash_algorithm'] = self.hash_algorithm
+        if self.tsr is not None:
+            result['tsr'] = self.tsr
+        if self.location is not None:
+            result['location'] = self.location.to_map()
+        if self.properties is not None:
+            result['properties'] = self.properties
+        if self.real_tenant is not None:
+            result['real_tenant'] = self.real_tenant
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        if self.product is not None:
+            result['product'] = self.product
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('transaction_id') is not None:
+            self.transaction_id = m.get('transaction_id')
+        if m.get('phase') is not None:
+            self.phase = m.get('phase')
+        if m.get('notary_file') is not None:
+            self.notary_file = m.get('notary_file')
+        if m.get('notary_name') is not None:
+            self.notary_name = m.get('notary_name')
+        if m.get('file_notary_type') is not None:
+            self.file_notary_type = m.get('file_notary_type')
+        if m.get('hash_algorithm') is not None:
+            self.hash_algorithm = m.get('hash_algorithm')
+        if m.get('tsr') is not None:
+            self.tsr = m.get('tsr')
+        if m.get('location') is not None:
+            temp_model = Location()
+            self.location = temp_model.from_map(m['location'])
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        if m.get('real_tenant') is not None:
+            self.real_tenant = m.get('real_tenant')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        if m.get('product') is not None:
+            self.product = m.get('product')
+        return self
+
+
+class CreateInternalFileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        tx_hash: str = None,
+        tsr: TsrResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 存证凭据，存证交易Hash值
+        self.tx_hash = tx_hash
+        # 可信时间信息
+        self.tsr = tsr
+
+    def validate(self):
+        if self.tsr:
+            self.tsr.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.tsr is not None:
+            result['tsr'] = self.tsr.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('tsr') is not None:
+            temp_model = TsrResponse()
+            self.tsr = temp_model.from_map(m['tsr'])
+        return self
+
+
+class GetInternalFileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tx_hash: str = None,
+        phase: str = None,
+        transaction_id: str = None,
+        location: Location = None,
+        properties: str = None,
+        real_tenant: str = None,
+        auth_code: str = None,
+        product: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 存证凭据，需要先调用内部文本存证接口twc.notary.internal.file.create创建存证
+        self.tx_hash = tx_hash
+        # 描述本条存证在存证事务中的阶段，用户可自行维护
+        self.phase = phase
+        # 存证事务id，通过twc.notary.internal.trans.create(创建存证事务)获得
+        self.transaction_id = transaction_id
+        # 存证地点信息(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+        self.location = location
+        # 扩展属性
+        self.properties = properties
+        # 代理客户存证时，实际用户的租户ID
+        self.real_tenant = real_tenant
+        # 授权码
+        # 
+        self.auth_code = auth_code
+        # 授权码对应产品码
+        self.product = product
+
+    def validate(self):
+        self.validate_required(self.tx_hash, 'tx_hash')
+        if self.location:
+            self.location.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.phase is not None:
+            result['phase'] = self.phase
+        if self.transaction_id is not None:
+            result['transaction_id'] = self.transaction_id
+        if self.location is not None:
+            result['location'] = self.location.to_map()
+        if self.properties is not None:
+            result['properties'] = self.properties
+        if self.real_tenant is not None:
+            result['real_tenant'] = self.real_tenant
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        if self.product is not None:
+            result['product'] = self.product
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('phase') is not None:
+            self.phase = m.get('phase')
+        if m.get('transaction_id') is not None:
+            self.transaction_id = m.get('transaction_id')
+        if m.get('location') is not None:
+            temp_model = Location()
+            self.location = temp_model.from_map(m['location'])
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        if m.get('real_tenant') is not None:
+            self.real_tenant = m.get('real_tenant')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        if m.get('product') is not None:
+            self.product = m.get('product')
+        return self
+
+
+class GetInternalFileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        file_notary_type: str = None,
+        oss_path: str = None,
+        file_hash: str = None,
+        hash_algorithm: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 文件存证模式，FILE_RAW(文件原文内容) 和 FILE_HASH(文件hash)
+        self.file_notary_type = file_notary_type
+        # 文件下载地址，当fileNotaryType 为 FILE_RAW 时才有此值，下载链接有效期1个小时
+        self.oss_path = oss_path
+        # 文件哈希，当 fileNotaryType 为 FILE_HASH 时才有此值
+        self.file_hash = file_hash
+        # 哈希算法，当 fileNotaryType 为 FILE_HASH 时，此返回值才有效
+        self.hash_algorithm = hash_algorithm
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.file_notary_type is not None:
+            result['file_notary_type'] = self.file_notary_type
+        if self.oss_path is not None:
+            result['oss_path'] = self.oss_path
+        if self.file_hash is not None:
+            result['file_hash'] = self.file_hash
+        if self.hash_algorithm is not None:
+            result['hash_algorithm'] = self.hash_algorithm
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('file_notary_type') is not None:
+            self.file_notary_type = m.get('file_notary_type')
+        if m.get('oss_path') is not None:
+            self.oss_path = m.get('oss_path')
+        if m.get('file_hash') is not None:
+            self.file_hash = m.get('file_hash')
+        if m.get('hash_algorithm') is not None:
+            self.hash_algorithm = m.get('hash_algorithm')
         return self
 
 

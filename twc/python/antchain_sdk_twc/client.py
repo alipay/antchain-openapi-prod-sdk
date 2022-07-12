@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.47'
+                    'sdk_version': '1.7.50'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.47'
+                    'sdk_version': '1.7.50'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -8649,6 +8649,60 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.lease.userperformance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_lease_rentalverify(
+        self,
+        request: twc_models.QueryLeaseRentalverifyRequest,
+    ) -> twc_models.QueryLeaseRentalverifyResponse:
+        """
+        Description: 履约流水核验查询
+        Summary: 履约流水核验查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_lease_rentalverify_ex(request, headers, runtime)
+
+    async def query_lease_rentalverify_async(
+        self,
+        request: twc_models.QueryLeaseRentalverifyRequest,
+    ) -> twc_models.QueryLeaseRentalverifyResponse:
+        """
+        Description: 履约流水核验查询
+        Summary: 履约流水核验查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_lease_rentalverify_ex_async(request, headers, runtime)
+
+    def query_lease_rentalverify_ex(
+        self,
+        request: twc_models.QueryLeaseRentalverifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseRentalverifyResponse:
+        """
+        Description: 履约流水核验查询
+        Summary: 履约流水核验查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseRentalverifyResponse().from_map(
+            self.do_request('1.0', 'twc.notary.lease.rentalverify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_lease_rentalverify_ex_async(
+        self,
+        request: twc_models.QueryLeaseRentalverifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseRentalverifyResponse:
+        """
+        Description: 履约流水核验查询
+        Summary: 履约流水核验查询
+        """
+        UtilClient.validate_model(request)
+        return twc_models.QueryLeaseRentalverifyResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.lease.rentalverify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_witness_flow(
         self,
         request: twc_models.CreateWitnessFlowRequest,
@@ -12643,6 +12697,114 @@ class Client:
         UtilClient.validate_model(request)
         return twc_models.CreateSpecifyTextResponse().from_map(
             await self.do_request_async('1.0', 'twc.notary.specify.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_internal_file(
+        self,
+        request: twc_models.CreateInternalFileRequest,
+    ) -> twc_models.CreateInternalFileResponse:
+        """
+        Description: 文件存证大租户内部接口
+        Summary: 文件存证内部接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_internal_file_ex(request, headers, runtime)
+
+    async def create_internal_file_async(
+        self,
+        request: twc_models.CreateInternalFileRequest,
+    ) -> twc_models.CreateInternalFileResponse:
+        """
+        Description: 文件存证大租户内部接口
+        Summary: 文件存证内部接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_internal_file_ex_async(request, headers, runtime)
+
+    def create_internal_file_ex(
+        self,
+        request: twc_models.CreateInternalFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateInternalFileResponse:
+        """
+        Description: 文件存证大租户内部接口
+        Summary: 文件存证内部接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateInternalFileResponse().from_map(
+            self.do_request('1.0', 'twc.notary.internal.file.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_internal_file_ex_async(
+        self,
+        request: twc_models.CreateInternalFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateInternalFileResponse:
+        """
+        Description: 文件存证大租户内部接口
+        Summary: 文件存证内部接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.CreateInternalFileResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.internal.file.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_internal_file(
+        self,
+        request: twc_models.GetInternalFileRequest,
+    ) -> twc_models.GetInternalFileResponse:
+        """
+        Description: 获取文件存证内容内部接口
+        Summary: 获取文件存证内容内部接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_internal_file_ex(request, headers, runtime)
+
+    async def get_internal_file_async(
+        self,
+        request: twc_models.GetInternalFileRequest,
+    ) -> twc_models.GetInternalFileResponse:
+        """
+        Description: 获取文件存证内容内部接口
+        Summary: 获取文件存证内容内部接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_internal_file_ex_async(request, headers, runtime)
+
+    def get_internal_file_ex(
+        self,
+        request: twc_models.GetInternalFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetInternalFileResponse:
+        """
+        Description: 获取文件存证内容内部接口
+        Summary: 获取文件存证内容内部接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.GetInternalFileResponse().from_map(
+            self.do_request('1.0', 'twc.notary.internal.file.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_internal_file_ex_async(
+        self,
+        request: twc_models.GetInternalFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetInternalFileResponse:
+        """
+        Description: 获取文件存证内容内部接口
+        Summary: 获取文件存证内容内部接口
+        """
+        UtilClient.validate_model(request)
+        return twc_models.GetInternalFileResponse().from_map(
+            await self.do_request_async('1.0', 'twc.notary.internal.file.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_flow_instance(
