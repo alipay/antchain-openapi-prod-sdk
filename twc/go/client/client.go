@@ -23113,6 +23113,118 @@ func (s *QueryLeaseUserperformanceResponse) SetResponseData(v string) *QueryLeas
 	return s
 }
 
+type QueryLeaseRentalverifyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 约定的合约id
+	ApplicationId *string `json:"application_id,omitempty" xml:"application_id,omitempty" require:"true"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 核验类型
+	ProofType *string `json:"proof_type,omitempty" xml:"proof_type,omitempty" require:"true"`
+	// 还款流水号
+	ReturnVoucherSerial *string `json:"return_voucher_serial,omitempty" xml:"return_voucher_serial,omitempty" require:"true"`
+	// 归还期数
+	ReturnTerm *int64 `json:"return_term,omitempty" xml:"return_term,omitempty" require:"true"`
+	// 租赁商户的id
+	LeaseId *string `json:"lease_id,omitempty" xml:"lease_id,omitempty" require:"true"`
+}
+
+func (s QueryLeaseRentalverifyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseRentalverifyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseRentalverifyRequest) SetAuthToken(v string) *QueryLeaseRentalverifyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLeaseRentalverifyRequest) SetProductInstanceId(v string) *QueryLeaseRentalverifyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryLeaseRentalverifyRequest) SetApplicationId(v string) *QueryLeaseRentalverifyRequest {
+	s.ApplicationId = &v
+	return s
+}
+
+func (s *QueryLeaseRentalverifyRequest) SetOrderId(v string) *QueryLeaseRentalverifyRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryLeaseRentalverifyRequest) SetProofType(v string) *QueryLeaseRentalverifyRequest {
+	s.ProofType = &v
+	return s
+}
+
+func (s *QueryLeaseRentalverifyRequest) SetReturnVoucherSerial(v string) *QueryLeaseRentalverifyRequest {
+	s.ReturnVoucherSerial = &v
+	return s
+}
+
+func (s *QueryLeaseRentalverifyRequest) SetReturnTerm(v int64) *QueryLeaseRentalverifyRequest {
+	s.ReturnTerm = &v
+	return s
+}
+
+func (s *QueryLeaseRentalverifyRequest) SetLeaseId(v string) *QueryLeaseRentalverifyRequest {
+	s.LeaseId = &v
+	return s
+}
+
+type QueryLeaseRentalverifyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 错误信息
+	ResultMessage *string `json:"result_message,omitempty" xml:"result_message,omitempty"`
+	// 不匹配的时候，相应的信息
+	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
+}
+
+func (s QueryLeaseRentalverifyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLeaseRentalverifyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLeaseRentalverifyResponse) SetReqMsgId(v string) *QueryLeaseRentalverifyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLeaseRentalverifyResponse) SetResultCode(v string) *QueryLeaseRentalverifyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLeaseRentalverifyResponse) SetResultMsg(v string) *QueryLeaseRentalverifyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLeaseRentalverifyResponse) SetResultMessage(v string) *QueryLeaseRentalverifyResponse {
+	s.ResultMessage = &v
+	return s
+}
+
+func (s *QueryLeaseRentalverifyResponse) SetResponseData(v string) *QueryLeaseRentalverifyResponse {
+	s.ResponseData = &v
+	return s
+}
+
 type CreateWitnessFlowRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -32818,6 +32930,301 @@ func (s *CreateSpecifyTextResponse) SetTxHash(v string) *CreateSpecifyTextRespon
 	return s
 }
 
+type CreateInternalFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 存证事务id
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty" require:"true"`
+	// 描述本条存证在存证事务中的阶段，用户可自行维护
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty" require:"true"`
+	// 存证文件内容，对文件内容做base64编码后得到。例如FILE_RAW模式下，文件内容为“test”，那么base64编码后的结果则为“dGVzdA==”。如果是FILE_HASh模式，则该字段直接为文件hash。
+	NotaryFile *string `json:"notary_file,omitempty" xml:"notary_file,omitempty" require:"true"`
+	// 存证文件名称
+	NotaryName *string `json:"notary_name,omitempty" xml:"notary_name,omitempty" require:"true"`
+	// 文件存证模式，目前仅支持 FILE_RAW(文件原文内容) 和 FILE_HASH(文件hash)，建议填写，不填默认是FILE_RAW
+	FileNotaryType *string `json:"file_notary_type,omitempty" xml:"file_notary_type,omitempty"`
+	// 哈希算法，当 fileNotaryType 为 FILE_HASH 时填写，目前仅支持 SHA256
+	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty"`
+	// 是否使用可信时间戳，默认为false
+	Tsr *bool `json:"tsr,omitempty" xml:"tsr,omitempty"`
+	// 存证地点信息(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+	Location *Location `json:"location,omitempty" xml:"location,omitempty"`
+	// 扩展属性
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 代理客户存证时，实际用户的租户ID
+	RealTenant *string `json:"real_tenant,omitempty" xml:"real_tenant,omitempty"`
+	// 授权码
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
+	// 授权码对应产品码
+	Product *string `json:"product,omitempty" xml:"product,omitempty"`
+}
+
+func (s CreateInternalFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateInternalFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateInternalFileRequest) SetAuthToken(v string) *CreateInternalFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateInternalFileRequest) SetProductInstanceId(v string) *CreateInternalFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateInternalFileRequest) SetTransactionId(v string) *CreateInternalFileRequest {
+	s.TransactionId = &v
+	return s
+}
+
+func (s *CreateInternalFileRequest) SetPhase(v string) *CreateInternalFileRequest {
+	s.Phase = &v
+	return s
+}
+
+func (s *CreateInternalFileRequest) SetNotaryFile(v string) *CreateInternalFileRequest {
+	s.NotaryFile = &v
+	return s
+}
+
+func (s *CreateInternalFileRequest) SetNotaryName(v string) *CreateInternalFileRequest {
+	s.NotaryName = &v
+	return s
+}
+
+func (s *CreateInternalFileRequest) SetFileNotaryType(v string) *CreateInternalFileRequest {
+	s.FileNotaryType = &v
+	return s
+}
+
+func (s *CreateInternalFileRequest) SetHashAlgorithm(v string) *CreateInternalFileRequest {
+	s.HashAlgorithm = &v
+	return s
+}
+
+func (s *CreateInternalFileRequest) SetTsr(v bool) *CreateInternalFileRequest {
+	s.Tsr = &v
+	return s
+}
+
+func (s *CreateInternalFileRequest) SetLocation(v *Location) *CreateInternalFileRequest {
+	s.Location = v
+	return s
+}
+
+func (s *CreateInternalFileRequest) SetProperties(v string) *CreateInternalFileRequest {
+	s.Properties = &v
+	return s
+}
+
+func (s *CreateInternalFileRequest) SetRealTenant(v string) *CreateInternalFileRequest {
+	s.RealTenant = &v
+	return s
+}
+
+func (s *CreateInternalFileRequest) SetAuthCode(v string) *CreateInternalFileRequest {
+	s.AuthCode = &v
+	return s
+}
+
+func (s *CreateInternalFileRequest) SetProduct(v string) *CreateInternalFileRequest {
+	s.Product = &v
+	return s
+}
+
+type CreateInternalFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存证凭据，存证交易Hash值
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 可信时间信息
+	Tsr *TsrResponse `json:"tsr,omitempty" xml:"tsr,omitempty"`
+}
+
+func (s CreateInternalFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateInternalFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateInternalFileResponse) SetReqMsgId(v string) *CreateInternalFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateInternalFileResponse) SetResultCode(v string) *CreateInternalFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateInternalFileResponse) SetResultMsg(v string) *CreateInternalFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateInternalFileResponse) SetTxHash(v string) *CreateInternalFileResponse {
+	s.TxHash = &v
+	return s
+}
+
+func (s *CreateInternalFileResponse) SetTsr(v *TsrResponse) *CreateInternalFileResponse {
+	s.Tsr = v
+	return s
+}
+
+type GetInternalFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 存证凭据，需要先调用内部文本存证接口twc.notary.internal.file.create创建存证
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 描述本条存证在存证事务中的阶段，用户可自行维护
+	Phase *string `json:"phase,omitempty" xml:"phase,omitempty"`
+	// 存证事务id，通过twc.notary.internal.trans.create(创建存证事务)获得
+	TransactionId *string `json:"transaction_id,omitempty" xml:"transaction_id,omitempty"`
+	// 存证地点信息(如手机硬件ID，Wi-Fi地址，GPS位置，IP地址)
+	Location *Location `json:"location,omitempty" xml:"location,omitempty"`
+	// 扩展属性
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 代理客户存证时，实际用户的租户ID
+	RealTenant *string `json:"real_tenant,omitempty" xml:"real_tenant,omitempty"`
+	// 授权码
+	//
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
+	// 授权码对应产品码
+	Product *string `json:"product,omitempty" xml:"product,omitempty"`
+}
+
+func (s GetInternalFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInternalFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetInternalFileRequest) SetAuthToken(v string) *GetInternalFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetInternalFileRequest) SetProductInstanceId(v string) *GetInternalFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetInternalFileRequest) SetTxHash(v string) *GetInternalFileRequest {
+	s.TxHash = &v
+	return s
+}
+
+func (s *GetInternalFileRequest) SetPhase(v string) *GetInternalFileRequest {
+	s.Phase = &v
+	return s
+}
+
+func (s *GetInternalFileRequest) SetTransactionId(v string) *GetInternalFileRequest {
+	s.TransactionId = &v
+	return s
+}
+
+func (s *GetInternalFileRequest) SetLocation(v *Location) *GetInternalFileRequest {
+	s.Location = v
+	return s
+}
+
+func (s *GetInternalFileRequest) SetProperties(v string) *GetInternalFileRequest {
+	s.Properties = &v
+	return s
+}
+
+func (s *GetInternalFileRequest) SetRealTenant(v string) *GetInternalFileRequest {
+	s.RealTenant = &v
+	return s
+}
+
+func (s *GetInternalFileRequest) SetAuthCode(v string) *GetInternalFileRequest {
+	s.AuthCode = &v
+	return s
+}
+
+func (s *GetInternalFileRequest) SetProduct(v string) *GetInternalFileRequest {
+	s.Product = &v
+	return s
+}
+
+type GetInternalFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件存证模式，FILE_RAW(文件原文内容) 和 FILE_HASH(文件hash)
+	FileNotaryType *string `json:"file_notary_type,omitempty" xml:"file_notary_type,omitempty"`
+	// 文件下载地址，当fileNotaryType 为 FILE_RAW 时才有此值，下载链接有效期1个小时
+	OssPath *string `json:"oss_path,omitempty" xml:"oss_path,omitempty"`
+	// 文件哈希，当 fileNotaryType 为 FILE_HASH 时才有此值
+	FileHash *string `json:"file_hash,omitempty" xml:"file_hash,omitempty"`
+	// 哈希算法，当 fileNotaryType 为 FILE_HASH 时，此返回值才有效
+	HashAlgorithm *string `json:"hash_algorithm,omitempty" xml:"hash_algorithm,omitempty"`
+}
+
+func (s GetInternalFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInternalFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetInternalFileResponse) SetReqMsgId(v string) *GetInternalFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetInternalFileResponse) SetResultCode(v string) *GetInternalFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetInternalFileResponse) SetResultMsg(v string) *GetInternalFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetInternalFileResponse) SetFileNotaryType(v string) *GetInternalFileResponse {
+	s.FileNotaryType = &v
+	return s
+}
+
+func (s *GetInternalFileResponse) SetOssPath(v string) *GetInternalFileResponse {
+	s.OssPath = &v
+	return s
+}
+
+func (s *GetInternalFileResponse) SetFileHash(v string) *GetInternalFileResponse {
+	s.FileHash = &v
+	return s
+}
+
+func (s *GetInternalFileResponse) SetHashAlgorithm(v string) *GetInternalFileResponse {
+	s.HashAlgorithm = &v
+	return s
+}
+
 type CreateFlowInstanceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -34271,7 +34678,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.47"),
+				"sdk_version":      tea.String("1.7.50"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -39594,6 +40001,40 @@ func (client *Client) QueryLeaseUserperformanceEx(request *QueryLeaseUserperform
 }
 
 /**
+ * Description: 履约流水核验查询
+ * Summary: 履约流水核验查询
+ */
+func (client *Client) QueryLeaseRentalverify(request *QueryLeaseRentalverifyRequest) (_result *QueryLeaseRentalverifyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLeaseRentalverifyResponse{}
+	_body, _err := client.QueryLeaseRentalverifyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 履约流水核验查询
+ * Summary: 履约流水核验查询
+ */
+func (client *Client) QueryLeaseRentalverifyEx(request *QueryLeaseRentalverifyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLeaseRentalverifyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLeaseRentalverifyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.rentalverify.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 创建签署见证流程
  * Summary: 创建见证流程
  */
@@ -42102,6 +42543,74 @@ func (client *Client) CreateSpecifyTextEx(request *CreateSpecifyTextRequest, hea
 	}
 	_result = &CreateSpecifyTextResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.specify.text.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文件存证大租户内部接口
+ * Summary: 文件存证内部接口
+ */
+func (client *Client) CreateInternalFile(request *CreateInternalFileRequest) (_result *CreateInternalFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateInternalFileResponse{}
+	_body, _err := client.CreateInternalFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文件存证大租户内部接口
+ * Summary: 文件存证内部接口
+ */
+func (client *Client) CreateInternalFileEx(request *CreateInternalFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateInternalFileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateInternalFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.internal.file.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取文件存证内容内部接口
+ * Summary: 获取文件存证内容内部接口
+ */
+func (client *Client) GetInternalFile(request *GetInternalFileRequest) (_result *GetInternalFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetInternalFileResponse{}
+	_body, _err := client.GetInternalFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取文件存证内容内部接口
+ * Summary: 获取文件存证内容内部接口
+ */
+func (client *Client) GetInternalFileEx(request *GetInternalFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetInternalFileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetInternalFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.internal.file.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
