@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.88")
+                    new TeaPair("sdk_version", "1.0.90")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -411,7 +411,7 @@ public class Client {
     }
 
     /**
-     * Description: 10  测测
+     * Description: 10  测测aa
      * Summary: 10s
      */
     public QueryGatewayCheckEchotenResponse queryGatewayCheckEchoten(QueryGatewayCheckEchotenRequest request) throws Exception {
@@ -421,7 +421,7 @@ public class Client {
     }
 
     /**
-     * Description: 10  测测
+     * Description: 10  测测aa
      * Summary: 10s
      */
     public QueryGatewayCheckEchotenResponse queryGatewayCheckEchotenEx(QueryGatewayCheckEchotenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
