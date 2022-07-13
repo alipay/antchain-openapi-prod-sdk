@@ -1997,7 +1997,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.88"),
+				"sdk_version":      tea.String("1.0.90"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2485,7 +2485,7 @@ func (client *Client) QueryGatewayCheckEchotimeoutEx(request *QueryGatewayCheckE
 }
 
 /**
- * Description: 10  测测
+ * Description: 10  测测aa
  * Summary: 10s
  */
 func (client *Client) QueryGatewayCheckEchoten(request *QueryGatewayCheckEchotenRequest) (_result *QueryGatewayCheckEchotenResponse, _err error) {
@@ -2501,7 +2501,7 @@ func (client *Client) QueryGatewayCheckEchoten(request *QueryGatewayCheckEchoten
 }
 
 /**
- * Description: 10  测测
+ * Description: 10  测测aa
  * Summary: 10s
  */
 func (client *Client) QueryGatewayCheckEchotenEx(request *QueryGatewayCheckEchotenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGatewayCheckEchotenResponse, _err error) {
