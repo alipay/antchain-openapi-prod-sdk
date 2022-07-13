@@ -202,7 +202,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.88',
+                    'sdk_version'      => '1.0.90',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -665,7 +665,7 @@ class Client
     }
 
     /**
-     * Description: 10  测测
+     * Description: 10  测测aa
      * Summary: 10s.
      *
      * @param QueryGatewayCheckEchotenRequest $request
@@ -681,7 +681,7 @@ class Client
     }
 
     /**
-     * Description: 10  测测
+     * Description: 10  测测aa
      * Summary: 10s.
      *
      * @param QueryGatewayCheckEchotenRequest $request
