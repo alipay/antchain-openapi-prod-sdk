@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.88"},
+                        {"sdk_version", "1.0.90"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.88"},
+                        {"sdk_version", "1.0.90"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -872,7 +872,7 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: 10  测测
+         * Description: 10  测测aa
          * Summary: 10s
          */
         public QueryGatewayCheckEchotenResponse QueryGatewayCheckEchoten(QueryGatewayCheckEchotenRequest request)
@@ -883,7 +883,7 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: 10  测测
+         * Description: 10  测测aa
          * Summary: 10s
          */
         public async Task<QueryGatewayCheckEchotenResponse> QueryGatewayCheckEchotenAsync(QueryGatewayCheckEchotenRequest request)
@@ -894,7 +894,7 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: 10  测测
+         * Description: 10  测测aa
          * Summary: 10s
          */
         public QueryGatewayCheckEchotenResponse QueryGatewayCheckEchotenEx(QueryGatewayCheckEchotenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -904,7 +904,7 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: 10  测测
+         * Description: 10  测测aa
          * Summary: 10s
          */
         public async Task<QueryGatewayCheckEchotenResponse> QueryGatewayCheckEchotenExAsync(QueryGatewayCheckEchotenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
