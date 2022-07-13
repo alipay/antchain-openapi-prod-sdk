@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.88'
+                    'sdk_version': '1.0.90'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.88'
+                    'sdk_version': '1.0.90'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -962,7 +962,7 @@ class Client:
         request: demo_models.QueryGatewayCheckEchotenRequest,
     ) -> demo_models.QueryGatewayCheckEchotenResponse:
         """
-        Description: 10  测测
+        Description: 10  测测aa
         Summary: 10s
         """
         runtime = util_models.RuntimeOptions()
@@ -974,7 +974,7 @@ class Client:
         request: demo_models.QueryGatewayCheckEchotenRequest,
     ) -> demo_models.QueryGatewayCheckEchotenResponse:
         """
-        Description: 10  测测
+        Description: 10  测测aa
         Summary: 10s
         """
         runtime = util_models.RuntimeOptions()
@@ -988,7 +988,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> demo_models.QueryGatewayCheckEchotenResponse:
         """
-        Description: 10  测测
+        Description: 10  测测aa
         Summary: 10s
         """
         UtilClient.validate_model(request)
@@ -1003,7 +1003,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> demo_models.QueryGatewayCheckEchotenResponse:
         """
-        Description: 10  测测
+        Description: 10  测测aa
         Summary: 10s
         """
         UtilClient.validate_model(request)
