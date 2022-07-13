@@ -1685,7 +1685,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.88",
+          sdk_version: "1.0.90",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1983,7 +1983,7 @@ export default class Client {
   }
 
   /**
-   * Description: 10  测测
+   * Description: 10  测测aa
    * Summary: 10s
    */
   async queryGatewayCheckEchoten(request: QueryGatewayCheckEchotenRequest): Promise<QueryGatewayCheckEchotenResponse> {
@@ -1993,7 +1993,7 @@ export default class Client {
   }
 
   /**
-   * Description: 10  测测
+   * Description: 10  测测aa
    * Summary: 10s
    */
   async queryGatewayCheckEchotenEx(request: QueryGatewayCheckEchotenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGatewayCheckEchotenResponse> {
