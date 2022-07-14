@@ -107,6 +107,26 @@ namespace AntChain.SDK.INTEGRATION_MACHINE.Models
         [Validation(Required=false)]
         public SceneInfo SceneInfo { get; set; }
 
+        // 通行方式(1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸)
+        [NameInMap("pass_mode")]
+        [Validation(Required=false)]
+        public string PassMode { get; set; }
+
+        // 经度
+        [NameInMap("longitude")]
+        [Validation(Required=false)]
+        public string Longitude { get; set; }
+
+        // 纬度
+        [NameInMap("latitude")]
+        [Validation(Required=false)]
+        public string Latitude { get; set; }
+
+        // 数据源通行状态 0:禁止通行,1:允许通行
+        [NameInMap("channel_pass_state")]
+        [Validation(Required=false)]
+        public string ChannelPassState { get; set; }
+
     }
 
 }

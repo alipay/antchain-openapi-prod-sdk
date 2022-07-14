@@ -137,7 +137,7 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.8"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.4"},
+                        {"sdk_version", "1.0.8"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -525,6 +525,48 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<InitDeviceargsResponse>(await DoRequestAsync("1.0", "antchain.antim.deviceargs.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通行记录查询
+         * Summary: 通行记录查询
+         */
+        public QueryHealthinfologResponse QueryHealthinfolog(QueryHealthinfologRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryHealthinfologEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通行记录查询
+         * Summary: 通行记录查询
+         */
+        public async Task<QueryHealthinfologResponse> QueryHealthinfologAsync(QueryHealthinfologRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryHealthinfologExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通行记录查询
+         * Summary: 通行记录查询
+         */
+        public QueryHealthinfologResponse QueryHealthinfologEx(QueryHealthinfologRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHealthinfologResponse>(DoRequest("1.0", "antchain.antim.healthinfolog.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通行记录查询
+         * Summary: 通行记录查询
+         */
+        public async Task<QueryHealthinfologResponse> QueryHealthinfologExAsync(QueryHealthinfologRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHealthinfologResponse>(await DoRequestAsync("1.0", "antchain.antim.healthinfolog.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
