@@ -181,48 +181,6 @@ class SceneInfo(TeaModel):
         return self
 
 
-class VaccinationInfo(TeaModel):
-    def __init__(
-        self,
-        vaccination_code: str = None,
-        vaccination_desc: str = None,
-        vaccination_timestamp: int = None,
-    ):
-        # 疫苗接种信息：
-        # 0:查询失败
-        # 1:未接种
-        # 2:已接种一针
-        # 3:完成接种
-        self.vaccination_code = vaccination_code
-        # 疫苗接种信息
-        self.vaccination_desc = vaccination_desc
-        # 疫苗接种时间戳（单位：ms）
-        self.vaccination_timestamp = vaccination_timestamp
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.vaccination_code is not None:
-            result['vaccination_code'] = self.vaccination_code
-        if self.vaccination_desc is not None:
-            result['vaccination_desc'] = self.vaccination_desc
-        if self.vaccination_timestamp is not None:
-            result['vaccination_timestamp'] = self.vaccination_timestamp
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('vaccination_code') is not None:
-            self.vaccination_code = m.get('vaccination_code')
-        if m.get('vaccination_desc') is not None:
-            self.vaccination_desc = m.get('vaccination_desc')
-        if m.get('vaccination_timestamp') is not None:
-            self.vaccination_timestamp = m.get('vaccination_timestamp')
-        return self
-
-
 class TravelInfo(TeaModel):
     def __init__(
         self,
@@ -290,38 +248,186 @@ class AntigenInfo(TeaModel):
         return self
 
 
-class HealthInfo(TeaModel):
+class NucleicAcidInfo(TeaModel):
     def __init__(
         self,
-        health_code: str = None,
-        health_factor: str = None,
+        report_type: str = None,
+        report_result: str = None,
+        report_organization: str = None,
+        report_timestamp: int = None,
     ):
-        # 健康码编码：
-        # 1:绿色 ，
-        # 2:黄色 ，
-        # 3:红色 ，
-        # 4.灰码 。
-        self.health_code = health_code
-        # 健康码红色原因
-        self.health_factor = health_factor
+        # 检测类型
+        self.report_type = report_type
+        # 检测结果
+        self.report_result = report_result
+        # 检测机构
+        self.report_organization = report_organization
+        # 检测时间戳(单位: ms)
+        self.report_timestamp = report_timestamp
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.health_code is not None:
-            result['health_code'] = self.health_code
-        if self.health_factor is not None:
-            result['health_factor'] = self.health_factor
+        if self.report_type is not None:
+            result['report_type'] = self.report_type
+        if self.report_result is not None:
+            result['report_result'] = self.report_result
+        if self.report_organization is not None:
+            result['report_organization'] = self.report_organization
+        if self.report_timestamp is not None:
+            result['report_timestamp'] = self.report_timestamp
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('health_code') is not None:
-            self.health_code = m.get('health_code')
-        if m.get('health_factor') is not None:
-            self.health_factor = m.get('health_factor')
+        if m.get('report_type') is not None:
+            self.report_type = m.get('report_type')
+        if m.get('report_result') is not None:
+            self.report_result = m.get('report_result')
+        if m.get('report_organization') is not None:
+            self.report_organization = m.get('report_organization')
+        if m.get('report_timestamp') is not None:
+            self.report_timestamp = m.get('report_timestamp')
+        return self
+
+
+class VaccinationInfo(TeaModel):
+    def __init__(
+        self,
+        vaccination_code: str = None,
+        vaccination_desc: str = None,
+        vaccination_timestamp: int = None,
+    ):
+        # 疫苗接种信息：
+        # 0:查询失败
+        # 1:未接种
+        # 2:已接种一针
+        # 3:完成接种
+        self.vaccination_code = vaccination_code
+        # 疫苗接种信息
+        self.vaccination_desc = vaccination_desc
+        # 疫苗接种时间戳（单位：ms）
+        self.vaccination_timestamp = vaccination_timestamp
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.vaccination_code is not None:
+            result['vaccination_code'] = self.vaccination_code
+        if self.vaccination_desc is not None:
+            result['vaccination_desc'] = self.vaccination_desc
+        if self.vaccination_timestamp is not None:
+            result['vaccination_timestamp'] = self.vaccination_timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('vaccination_code') is not None:
+            self.vaccination_code = m.get('vaccination_code')
+        if m.get('vaccination_desc') is not None:
+            self.vaccination_desc = m.get('vaccination_desc')
+        if m.get('vaccination_timestamp') is not None:
+            self.vaccination_timestamp = m.get('vaccination_timestamp')
+        return self
+
+
+class AntigenInformation(TeaModel):
+    def __init__(
+        self,
+        antigen_result: str = None,
+        antigen_time: str = None,
+    ):
+        # 抗原结果
+        self.antigen_result = antigen_result
+        # 抗原时间
+        self.antigen_time = antigen_time
+
+    def validate(self):
+        self.validate_required(self.antigen_result, 'antigen_result')
+        self.validate_required(self.antigen_time, 'antigen_time')
+
+    def to_map(self):
+        result = dict()
+        if self.antigen_result is not None:
+            result['antigen_result'] = self.antigen_result
+        if self.antigen_time is not None:
+            result['antigen_time'] = self.antigen_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('antigen_result') is not None:
+            self.antigen_result = m.get('antigen_result')
+        if m.get('antigen_time') is not None:
+            self.antigen_time = m.get('antigen_time')
+        return self
+
+
+class NucleicAcidInformation(TeaModel):
+    def __init__(
+        self,
+        nucleic_acid_result: str = None,
+        nucleic_acid_time: str = None,
+    ):
+        # 核酸结果
+        self.nucleic_acid_result = nucleic_acid_result
+        # 核酸时间
+        self.nucleic_acid_time = nucleic_acid_time
+
+    def validate(self):
+        self.validate_required(self.nucleic_acid_result, 'nucleic_acid_result')
+        self.validate_required(self.nucleic_acid_time, 'nucleic_acid_time')
+
+    def to_map(self):
+        result = dict()
+        if self.nucleic_acid_result is not None:
+            result['nucleic_acid_result'] = self.nucleic_acid_result
+        if self.nucleic_acid_time is not None:
+            result['nucleic_acid_time'] = self.nucleic_acid_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('nucleic_acid_result') is not None:
+            self.nucleic_acid_result = m.get('nucleic_acid_result')
+        if m.get('nucleic_acid_time') is not None:
+            self.nucleic_acid_time = m.get('nucleic_acid_time')
+        return self
+
+
+class VaccinationInformation(TeaModel):
+    def __init__(
+        self,
+        vaccination_status: str = None,
+        vaccination_time: str = None,
+    ):
+        # 疫苗接种状态(0查询失败 1未接种 2已接种一针 3完成接种)
+        self.vaccination_status = vaccination_status
+        # 疫苗接种时间
+        self.vaccination_time = vaccination_time
+
+    def validate(self):
+        self.validate_required(self.vaccination_status, 'vaccination_status')
+        self.validate_required(self.vaccination_time, 'vaccination_time')
+
+    def to_map(self):
+        result = dict()
+        if self.vaccination_status is not None:
+            result['vaccination_status'] = self.vaccination_status
+        if self.vaccination_time is not None:
+            result['vaccination_time'] = self.vaccination_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('vaccination_status') is not None:
+            self.vaccination_status = m.get('vaccination_status')
+        if m.get('vaccination_time') is not None:
+            self.vaccination_time = m.get('vaccination_time')
         return self
 
 
@@ -371,48 +477,268 @@ class ArgsNameValue(TeaModel):
         return self
 
 
-class NucleicAcidInfo(TeaModel):
+class SceneInformation(TeaModel):
     def __init__(
         self,
-        report_type: str = None,
-        report_result: str = None,
-        report_organization: str = None,
-        report_timestamp: int = None,
+        scene_address: str = None,
+        scene_id: str = None,
     ):
-        # 检测类型
-        self.report_type = report_type
-        # 检测结果
-        self.report_result = report_result
-        # 检测机构
-        self.report_organization = report_organization
-        # 检测时间戳(单位: ms)
-        self.report_timestamp = report_timestamp
+        # 场所地址
+        self.scene_address = scene_address
+        # 场所ID
+        self.scene_id = scene_id
+
+    def validate(self):
+        self.validate_required(self.scene_address, 'scene_address')
+        self.validate_required(self.scene_id, 'scene_id')
+
+    def to_map(self):
+        result = dict()
+        if self.scene_address is not None:
+            result['scene_address'] = self.scene_address
+        if self.scene_id is not None:
+            result['scene_id'] = self.scene_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('scene_address') is not None:
+            self.scene_address = m.get('scene_address')
+        if m.get('scene_id') is not None:
+            self.scene_id = m.get('scene_id')
+        return self
+
+
+class HealthInfoLog(TeaModel):
+    def __init__(
+        self,
+        cert_no: str = None,
+        cert_name: str = None,
+        health_code: str = None,
+        travel_info: TravelInfo = None,
+        nucleic_acid_info: NucleicAcidInfo = None,
+        vaccination_info: VaccinationInfo = None,
+        antigen_info: AntigenInfo = None,
+        scene_info: SceneInfo = None,
+        channel_pass_state: str = None,
+        longitude: str = None,
+        latitude: str = None,
+        pass_mode: str = None,
+        pass_duration: str = None,
+        pass_time: str = None,
+        pass_result: str = None,
+    ):
+        # 身份证号
+        self.cert_no = cert_no
+        # 姓名
+        self.cert_name = cert_name
+        # 健康码颜色(绿色:1,黄码:2,红码:3,灰码:4)
+        self.health_code = health_code
+        # 行程信息
+        # 
+        self.travel_info = travel_info
+        # 核酸信息
+        # 
+        self.nucleic_acid_info = nucleic_acid_info
+        # 疫苗信息
+        # 
+        self.vaccination_info = vaccination_info
+        # 抗原信息
+        # 
+        self.antigen_info = antigen_info
+        # 场所信息
+        # 
+        self.scene_info = scene_info
+        # 数据源通行状态 0:禁止通行,1:允许通行
+        # 
+        self.channel_pass_state = channel_pass_state
+        # 经度
+        # 
+        self.longitude = longitude
+        # 纬度
+        self.latitude = latitude
+        # 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸）
+        # 
+        self.pass_mode = pass_mode
+        # 通行时长(单位:毫秒)
+        # 
+        self.pass_duration = pass_duration
+        # 通行时间
+        # 
+        self.pass_time = pass_time
+        # 通行结果(0:禁止通行,1:允许通行)
+        # 
+        self.pass_result = pass_result
+
+    def validate(self):
+        self.validate_required(self.cert_no, 'cert_no')
+        self.validate_required(self.cert_name, 'cert_name')
+        self.validate_required(self.health_code, 'health_code')
+        self.validate_required(self.travel_info, 'travel_info')
+        if self.travel_info:
+            self.travel_info.validate()
+        self.validate_required(self.nucleic_acid_info, 'nucleic_acid_info')
+        if self.nucleic_acid_info:
+            self.nucleic_acid_info.validate()
+        self.validate_required(self.vaccination_info, 'vaccination_info')
+        if self.vaccination_info:
+            self.vaccination_info.validate()
+        self.validate_required(self.antigen_info, 'antigen_info')
+        if self.antigen_info:
+            self.antigen_info.validate()
+        self.validate_required(self.scene_info, 'scene_info')
+        if self.scene_info:
+            self.scene_info.validate()
+        self.validate_required(self.channel_pass_state, 'channel_pass_state')
+        self.validate_required(self.longitude, 'longitude')
+        self.validate_required(self.latitude, 'latitude')
+        self.validate_required(self.pass_mode, 'pass_mode')
+        self.validate_required(self.pass_duration, 'pass_duration')
+        self.validate_required(self.pass_time, 'pass_time')
+        self.validate_required(self.pass_result, 'pass_result')
+
+    def to_map(self):
+        result = dict()
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.health_code is not None:
+            result['health_code'] = self.health_code
+        if self.travel_info is not None:
+            result['travel_info'] = self.travel_info.to_map()
+        if self.nucleic_acid_info is not None:
+            result['nucleic_acid_info'] = self.nucleic_acid_info.to_map()
+        if self.vaccination_info is not None:
+            result['vaccination_info'] = self.vaccination_info.to_map()
+        if self.antigen_info is not None:
+            result['antigen_info'] = self.antigen_info.to_map()
+        if self.scene_info is not None:
+            result['scene_info'] = self.scene_info.to_map()
+        if self.channel_pass_state is not None:
+            result['channel_pass_state'] = self.channel_pass_state
+        if self.longitude is not None:
+            result['longitude'] = self.longitude
+        if self.latitude is not None:
+            result['latitude'] = self.latitude
+        if self.pass_mode is not None:
+            result['pass_mode'] = self.pass_mode
+        if self.pass_duration is not None:
+            result['pass_duration'] = self.pass_duration
+        if self.pass_time is not None:
+            result['pass_time'] = self.pass_time
+        if self.pass_result is not None:
+            result['pass_result'] = self.pass_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('health_code') is not None:
+            self.health_code = m.get('health_code')
+        if m.get('travel_info') is not None:
+            temp_model = TravelInfo()
+            self.travel_info = temp_model.from_map(m['travel_info'])
+        if m.get('nucleic_acid_info') is not None:
+            temp_model = NucleicAcidInfo()
+            self.nucleic_acid_info = temp_model.from_map(m['nucleic_acid_info'])
+        if m.get('vaccination_info') is not None:
+            temp_model = VaccinationInfo()
+            self.vaccination_info = temp_model.from_map(m['vaccination_info'])
+        if m.get('antigen_info') is not None:
+            temp_model = AntigenInfo()
+            self.antigen_info = temp_model.from_map(m['antigen_info'])
+        if m.get('scene_info') is not None:
+            temp_model = SceneInfo()
+            self.scene_info = temp_model.from_map(m['scene_info'])
+        if m.get('channel_pass_state') is not None:
+            self.channel_pass_state = m.get('channel_pass_state')
+        if m.get('longitude') is not None:
+            self.longitude = m.get('longitude')
+        if m.get('latitude') is not None:
+            self.latitude = m.get('latitude')
+        if m.get('pass_mode') is not None:
+            self.pass_mode = m.get('pass_mode')
+        if m.get('pass_duration') is not None:
+            self.pass_duration = m.get('pass_duration')
+        if m.get('pass_time') is not None:
+            self.pass_time = m.get('pass_time')
+        if m.get('pass_result') is not None:
+            self.pass_result = m.get('pass_result')
+        return self
+
+
+class HealthInfo(TeaModel):
+    def __init__(
+        self,
+        health_code: str = None,
+        health_factor: str = None,
+    ):
+        # 健康码编码：
+        # 1:绿色 ，
+        # 2:黄色 ，
+        # 3:红色 ，
+        # 4.灰码 。
+        self.health_code = health_code
+        # 健康码红色原因
+        self.health_factor = health_factor
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.report_type is not None:
-            result['report_type'] = self.report_type
-        if self.report_result is not None:
-            result['report_result'] = self.report_result
-        if self.report_organization is not None:
-            result['report_organization'] = self.report_organization
-        if self.report_timestamp is not None:
-            result['report_timestamp'] = self.report_timestamp
+        if self.health_code is not None:
+            result['health_code'] = self.health_code
+        if self.health_factor is not None:
+            result['health_factor'] = self.health_factor
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('report_type') is not None:
-            self.report_type = m.get('report_type')
-        if m.get('report_result') is not None:
-            self.report_result = m.get('report_result')
-        if m.get('report_organization') is not None:
-            self.report_organization = m.get('report_organization')
-        if m.get('report_timestamp') is not None:
-            self.report_timestamp = m.get('report_timestamp')
+        if m.get('health_code') is not None:
+            self.health_code = m.get('health_code')
+        if m.get('health_factor') is not None:
+            self.health_factor = m.get('health_factor')
+        return self
+
+
+class TravelInformation(TeaModel):
+    def __init__(
+        self,
+        travel_code: str = None,
+        travel_path: str = None,
+    ):
+        # 1:没去过疫情区，绿码;
+        # 2:去过疫情区，红码;
+        # 3:其他，黄码;
+        # 0:行程信息不全;
+        # -1查询失败
+        self.travel_code = travel_code
+        # 行程途径地
+        self.travel_path = travel_path
+
+    def validate(self):
+        self.validate_required(self.travel_code, 'travel_code')
+        self.validate_required(self.travel_path, 'travel_path')
+
+    def to_map(self):
+        result = dict()
+        if self.travel_code is not None:
+            result['travel_code'] = self.travel_code
+        if self.travel_path is not None:
+            result['travel_path'] = self.travel_path
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('travel_code') is not None:
+            self.travel_code = m.get('travel_code')
+        if m.get('travel_path') is not None:
+            self.travel_path = m.get('travel_path')
         return self
 
 
@@ -626,6 +952,10 @@ class PushHealthinfologRequest(TeaModel):
         vaccination_info: VaccinationInfo = None,
         antigen_info: AntigenInfo = None,
         scene_info: SceneInfo = None,
+        pass_mode: str = None,
+        longitude: str = None,
+        latitude: str = None,
+        channel_pass_state: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -668,6 +998,14 @@ class PushHealthinfologRequest(TeaModel):
         # 场所信息
         # 
         self.scene_info = scene_info
+        # 通行方式(1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸)
+        self.pass_mode = pass_mode
+        # 经度
+        self.longitude = longitude
+        # 纬度
+        self.latitude = latitude
+        # 数据源通行状态 0:禁止通行,1:允许通行
+        self.channel_pass_state = channel_pass_state
 
     def validate(self):
         self.validate_required(self.pass_id, 'pass_id')
@@ -727,6 +1065,14 @@ class PushHealthinfologRequest(TeaModel):
             result['antigen_info'] = self.antigen_info.to_map()
         if self.scene_info is not None:
             result['scene_info'] = self.scene_info.to_map()
+        if self.pass_mode is not None:
+            result['pass_mode'] = self.pass_mode
+        if self.longitude is not None:
+            result['longitude'] = self.longitude
+        if self.latitude is not None:
+            result['latitude'] = self.latitude
+        if self.channel_pass_state is not None:
+            result['channel_pass_state'] = self.channel_pass_state
         return result
 
     def from_map(self, m: dict = None):
@@ -775,6 +1121,14 @@ class PushHealthinfologRequest(TeaModel):
         if m.get('scene_info') is not None:
             temp_model = SceneInfo()
             self.scene_info = temp_model.from_map(m['scene_info'])
+        if m.get('pass_mode') is not None:
+            self.pass_mode = m.get('pass_mode')
+        if m.get('longitude') is not None:
+            self.longitude = m.get('longitude')
+        if m.get('latitude') is not None:
+            self.latitude = m.get('latitude')
+        if m.get('channel_pass_state') is not None:
+            self.channel_pass_state = m.get('channel_pass_state')
         return self
 
 
@@ -1214,6 +1568,146 @@ class InitDeviceargsResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryHealthinfologRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        start_time: str = None,
+        end_time: str = None,
+        page_num: int = None,
+        page_size: int = None,
+        serial_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 开始时间(开始时间-结束时间最大时间为7天)
+        self.start_time = start_time
+        # 结束时间
+        self.end_time = end_time
+        # 页码
+        self.page_num = page_num
+        # 每页条数
+        self.page_size = page_size
+        # 设备号
+        self.serial_no = serial_no
+
+    def validate(self):
+        self.validate_required(self.start_time, 'start_time')
+        self.validate_required(self.end_time, 'end_time')
+        self.validate_required(self.page_num, 'page_num')
+        if self.page_num is not None:
+            self.validate_minimum(self.page_num, 'page_num', 1)
+        self.validate_required(self.page_size, 'page_size')
+        if self.page_size is not None:
+            self.validate_maximum(self.page_size, 'page_size', 500)
+            self.validate_minimum(self.page_size, 'page_size', 1)
+
+    def to_map(self):
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.serial_no is not None:
+            result['serial_no'] = self.serial_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('serial_no') is not None:
+            self.serial_no = m.get('serial_no')
+        return self
+
+
+class QueryHealthinfologResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total: int = None,
+        pages: int = None,
+        data_list: List[HealthInfoLog] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总条数
+        self.total = total
+        # 总页数
+        self.pages = pages
+        # 列表数据
+        self.data_list = data_list
+
+    def validate(self):
+        if self.data_list:
+            for k in self.data_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total is not None:
+            result['total'] = self.total
+        if self.pages is not None:
+            result['pages'] = self.pages
+        result['data_list'] = []
+        if self.data_list is not None:
+            for k in self.data_list:
+                result['data_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('pages') is not None:
+            self.pages = m.get('pages')
+        self.data_list = []
+        if m.get('data_list') is not None:
+            for k in m.get('data_list'):
+                temp_model = HealthInfoLog()
+                self.data_list.append(temp_model.from_map(k))
         return self
 
 
