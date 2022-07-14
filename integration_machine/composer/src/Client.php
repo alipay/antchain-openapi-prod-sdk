@@ -19,6 +19,8 @@ use AntChain\INTEGRATION_MACHINE\Models\PushHealthinfologRequest;
 use AntChain\INTEGRATION_MACHINE\Models\PushHealthinfologResponse;
 use AntChain\INTEGRATION_MACHINE\Models\QueryDeviceargsRequest;
 use AntChain\INTEGRATION_MACHINE\Models\QueryDeviceargsResponse;
+use AntChain\INTEGRATION_MACHINE\Models\QueryHealthinfologRequest;
+use AntChain\INTEGRATION_MACHINE\Models\QueryHealthinfologResponse;
 use AntChain\INTEGRATION_MACHINE\Models\QueryHealthinfoRequest;
 use AntChain\INTEGRATION_MACHINE\Models\QueryHealthinfoResponse;
 use AntChain\Util\UtilClient;
@@ -168,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.4',
+                    'sdk_version'      => '1.0.8',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -377,5 +379,38 @@ class Client
         Utils::validateModel($request);
 
         return InitDeviceargsResponse::fromMap($this->doRequest('1.0', 'antchain.antim.deviceargs.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通行记录查询
+     * Summary: 通行记录查询.
+     *
+     * @param QueryHealthinfologRequest $request
+     *
+     * @return QueryHealthinfologResponse
+     */
+    public function queryHealthinfolog($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryHealthinfologEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通行记录查询
+     * Summary: 通行记录查询.
+     *
+     * @param QueryHealthinfologRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryHealthinfologResponse
+     */
+    public function queryHealthinfologEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryHealthinfologResponse::fromMap($this->doRequest('1.0', 'antchain.antim.healthinfolog.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

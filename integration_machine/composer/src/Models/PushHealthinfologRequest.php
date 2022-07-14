@@ -124,6 +124,30 @@ class PushHealthinfologRequest extends Model
      * @var SceneInfo
      */
     public $sceneInfo;
+
+    // 通行方式(1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸)
+    /**
+     * @var string
+     */
+    public $passMode;
+
+    // 经度
+    /**
+     * @var string
+     */
+    public $longitude;
+
+    // 纬度
+    /**
+     * @var string
+     */
+    public $latitude;
+
+    // 数据源通行状态 0:禁止通行,1:允许通行
+    /**
+     * @var string
+     */
+    public $channelPassState;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -144,6 +168,10 @@ class PushHealthinfologRequest extends Model
         'vaccinationInfo'   => 'vaccination_info',
         'antigenInfo'       => 'antigen_info',
         'sceneInfo'         => 'scene_info',
+        'passMode'          => 'pass_mode',
+        'longitude'         => 'longitude',
+        'latitude'          => 'latitude',
+        'channelPassState'  => 'channel_pass_state',
     ];
 
     public function validate()
@@ -214,6 +242,18 @@ class PushHealthinfologRequest extends Model
         if (null !== $this->sceneInfo) {
             $res['scene_info'] = null !== $this->sceneInfo ? $this->sceneInfo->toMap() : null;
         }
+        if (null !== $this->passMode) {
+            $res['pass_mode'] = $this->passMode;
+        }
+        if (null !== $this->longitude) {
+            $res['longitude'] = $this->longitude;
+        }
+        if (null !== $this->latitude) {
+            $res['latitude'] = $this->latitude;
+        }
+        if (null !== $this->channelPassState) {
+            $res['channel_pass_state'] = $this->channelPassState;
+        }
 
         return $res;
     }
@@ -282,6 +322,18 @@ class PushHealthinfologRequest extends Model
         }
         if (isset($map['scene_info'])) {
             $model->sceneInfo = SceneInfo::fromMap($map['scene_info']);
+        }
+        if (isset($map['pass_mode'])) {
+            $model->passMode = $map['pass_mode'];
+        }
+        if (isset($map['longitude'])) {
+            $model->longitude = $map['longitude'];
+        }
+        if (isset($map['latitude'])) {
+            $model->latitude = $map['latitude'];
+        }
+        if (isset($map['channel_pass_state'])) {
+            $model->channelPassState = $map['channel_pass_state'];
         }
 
         return $model;
