@@ -174,43 +174,6 @@ func (s *SceneInfo) SetSceneCode(v string) *SceneInfo {
 	return s
 }
 
-// 疫苗接种信息
-type VaccinationInfo struct {
-	// 疫苗接种信息：
-	// 0:查询失败
-	// 1:未接种
-	// 2:已接种一针
-	// 3:完成接种
-	VaccinationCode *string `json:"vaccination_code,omitempty" xml:"vaccination_code,omitempty"`
-	// 疫苗接种信息
-	VaccinationDesc *string `json:"vaccination_desc,omitempty" xml:"vaccination_desc,omitempty"`
-	// 疫苗接种时间戳（单位：ms）
-	VaccinationTimestamp *int64 `json:"vaccination_timestamp,omitempty" xml:"vaccination_timestamp,omitempty"`
-}
-
-func (s VaccinationInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VaccinationInfo) GoString() string {
-	return s.String()
-}
-
-func (s *VaccinationInfo) SetVaccinationCode(v string) *VaccinationInfo {
-	s.VaccinationCode = &v
-	return s
-}
-
-func (s *VaccinationInfo) SetVaccinationDesc(v string) *VaccinationInfo {
-	s.VaccinationDesc = &v
-	return s
-}
-
-func (s *VaccinationInfo) SetVaccinationTimestamp(v int64) *VaccinationInfo {
-	s.VaccinationTimestamp = &v
-	return s
-}
-
 // 行程信息
 type TravelInfo struct {
 	// 行程码信息
@@ -268,33 +231,158 @@ func (s *AntigenInfo) SetAntigenTimestamp(v int64) *AntigenInfo {
 	return s
 }
 
-// 健康码信息
-type HealthInfo struct {
-	// 健康码编码：
-	// 1:绿色 ，
-	// 2:黄色 ，
-	// 3:红色 ，
-	// 4.灰码 。
-	HealthCode *string `json:"health_code,omitempty" xml:"health_code,omitempty"`
-	// 健康码红色原因
-	HealthFactor *string `json:"health_factor,omitempty" xml:"health_factor,omitempty"`
+// 核酸信息
+type NucleicAcidInfo struct {
+	// 检测类型
+	ReportType *string `json:"report_type,omitempty" xml:"report_type,omitempty"`
+	// 检测结果
+	ReportResult *string `json:"report_result,omitempty" xml:"report_result,omitempty"`
+	// 检测机构
+	ReportOrganization *string `json:"report_organization,omitempty" xml:"report_organization,omitempty"`
+	// 检测时间戳(单位: ms)
+	ReportTimestamp *int64 `json:"report_timestamp,omitempty" xml:"report_timestamp,omitempty"`
 }
 
-func (s HealthInfo) String() string {
+func (s NucleicAcidInfo) String() string {
 	return tea.Prettify(s)
 }
 
-func (s HealthInfo) GoString() string {
+func (s NucleicAcidInfo) GoString() string {
 	return s.String()
 }
 
-func (s *HealthInfo) SetHealthCode(v string) *HealthInfo {
-	s.HealthCode = &v
+func (s *NucleicAcidInfo) SetReportType(v string) *NucleicAcidInfo {
+	s.ReportType = &v
 	return s
 }
 
-func (s *HealthInfo) SetHealthFactor(v string) *HealthInfo {
-	s.HealthFactor = &v
+func (s *NucleicAcidInfo) SetReportResult(v string) *NucleicAcidInfo {
+	s.ReportResult = &v
+	return s
+}
+
+func (s *NucleicAcidInfo) SetReportOrganization(v string) *NucleicAcidInfo {
+	s.ReportOrganization = &v
+	return s
+}
+
+func (s *NucleicAcidInfo) SetReportTimestamp(v int64) *NucleicAcidInfo {
+	s.ReportTimestamp = &v
+	return s
+}
+
+// 疫苗接种信息
+type VaccinationInfo struct {
+	// 疫苗接种信息：
+	// 0:查询失败
+	// 1:未接种
+	// 2:已接种一针
+	// 3:完成接种
+	VaccinationCode *string `json:"vaccination_code,omitempty" xml:"vaccination_code,omitempty"`
+	// 疫苗接种信息
+	VaccinationDesc *string `json:"vaccination_desc,omitempty" xml:"vaccination_desc,omitempty"`
+	// 疫苗接种时间戳（单位：ms）
+	VaccinationTimestamp *int64 `json:"vaccination_timestamp,omitempty" xml:"vaccination_timestamp,omitempty"`
+}
+
+func (s VaccinationInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VaccinationInfo) GoString() string {
+	return s.String()
+}
+
+func (s *VaccinationInfo) SetVaccinationCode(v string) *VaccinationInfo {
+	s.VaccinationCode = &v
+	return s
+}
+
+func (s *VaccinationInfo) SetVaccinationDesc(v string) *VaccinationInfo {
+	s.VaccinationDesc = &v
+	return s
+}
+
+func (s *VaccinationInfo) SetVaccinationTimestamp(v int64) *VaccinationInfo {
+	s.VaccinationTimestamp = &v
+	return s
+}
+
+// 抗原信息
+type AntigenInformation struct {
+	// 抗原结果
+	AntigenResult *string `json:"antigen_result,omitempty" xml:"antigen_result,omitempty" require:"true"`
+	// 抗原时间
+	AntigenTime *string `json:"antigen_time,omitempty" xml:"antigen_time,omitempty" require:"true"`
+}
+
+func (s AntigenInformation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AntigenInformation) GoString() string {
+	return s.String()
+}
+
+func (s *AntigenInformation) SetAntigenResult(v string) *AntigenInformation {
+	s.AntigenResult = &v
+	return s
+}
+
+func (s *AntigenInformation) SetAntigenTime(v string) *AntigenInformation {
+	s.AntigenTime = &v
+	return s
+}
+
+// 核酸信息
+type NucleicAcidInformation struct {
+	// 核酸结果
+	NucleicAcidResult *string `json:"nucleic_acid_result,omitempty" xml:"nucleic_acid_result,omitempty" require:"true"`
+	// 核酸时间
+	NucleicAcidTime *string `json:"nucleic_acid_time,omitempty" xml:"nucleic_acid_time,omitempty" require:"true"`
+}
+
+func (s NucleicAcidInformation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NucleicAcidInformation) GoString() string {
+	return s.String()
+}
+
+func (s *NucleicAcidInformation) SetNucleicAcidResult(v string) *NucleicAcidInformation {
+	s.NucleicAcidResult = &v
+	return s
+}
+
+func (s *NucleicAcidInformation) SetNucleicAcidTime(v string) *NucleicAcidInformation {
+	s.NucleicAcidTime = &v
+	return s
+}
+
+// 疫苗信息
+type VaccinationInformation struct {
+	// 疫苗接种状态(0查询失败 1未接种 2已接种一针 3完成接种)
+	VaccinationStatus *string `json:"vaccination_status,omitempty" xml:"vaccination_status,omitempty" require:"true"`
+	// 疫苗接种时间
+	VaccinationTime *string `json:"vaccination_time,omitempty" xml:"vaccination_time,omitempty" require:"true"`
+}
+
+func (s VaccinationInformation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VaccinationInformation) GoString() string {
+	return s.String()
+}
+
+func (s *VaccinationInformation) SetVaccinationStatus(v string) *VaccinationInformation {
+	s.VaccinationStatus = &v
+	return s
+}
+
+func (s *VaccinationInformation) SetVaccinationTime(v string) *VaccinationInformation {
+	s.VaccinationTime = &v
 	return s
 }
 
@@ -338,43 +426,217 @@ func (s *ArgsNameValue) SetArgsMark(v string) *ArgsNameValue {
 	return s
 }
 
-// 核酸信息
-type NucleicAcidInfo struct {
-	// 检测类型
-	ReportType *string `json:"report_type,omitempty" xml:"report_type,omitempty"`
-	// 检测结果
-	ReportResult *string `json:"report_result,omitempty" xml:"report_result,omitempty"`
-	// 检测机构
-	ReportOrganization *string `json:"report_organization,omitempty" xml:"report_organization,omitempty"`
-	// 检测时间戳(单位: ms)
-	ReportTimestamp *int64 `json:"report_timestamp,omitempty" xml:"report_timestamp,omitempty"`
+// 场所信息
+type SceneInformation struct {
+	// 场所地址
+	SceneAddress *string `json:"scene_address,omitempty" xml:"scene_address,omitempty" require:"true"`
+	// 场所ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
 }
 
-func (s NucleicAcidInfo) String() string {
+func (s SceneInformation) String() string {
 	return tea.Prettify(s)
 }
 
-func (s NucleicAcidInfo) GoString() string {
+func (s SceneInformation) GoString() string {
 	return s.String()
 }
 
-func (s *NucleicAcidInfo) SetReportType(v string) *NucleicAcidInfo {
-	s.ReportType = &v
+func (s *SceneInformation) SetSceneAddress(v string) *SceneInformation {
+	s.SceneAddress = &v
 	return s
 }
 
-func (s *NucleicAcidInfo) SetReportResult(v string) *NucleicAcidInfo {
-	s.ReportResult = &v
+func (s *SceneInformation) SetSceneId(v string) *SceneInformation {
+	s.SceneId = &v
 	return s
 }
 
-func (s *NucleicAcidInfo) SetReportOrganization(v string) *NucleicAcidInfo {
-	s.ReportOrganization = &v
+// 通行记录
+type HealthInfoLog struct {
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 健康码颜色(绿色:1,黄码:2,红码:3,灰码:4)
+	HealthCode *string `json:"health_code,omitempty" xml:"health_code,omitempty" require:"true"`
+	// 行程信息
+	//
+	TravelInfo *TravelInfo `json:"travel_info,omitempty" xml:"travel_info,omitempty" require:"true"`
+	// 核酸信息
+	//
+	NucleicAcidInfo *NucleicAcidInfo `json:"nucleic_acid_info,omitempty" xml:"nucleic_acid_info,omitempty" require:"true"`
+	// 疫苗信息
+	//
+	VaccinationInfo *VaccinationInfo `json:"vaccination_info,omitempty" xml:"vaccination_info,omitempty" require:"true"`
+	// 抗原信息
+	//
+	AntigenInfo *AntigenInfo `json:"antigen_info,omitempty" xml:"antigen_info,omitempty" require:"true"`
+	// 场所信息
+	//
+	SceneInfo *SceneInfo `json:"scene_info,omitempty" xml:"scene_info,omitempty" require:"true"`
+	// 数据源通行状态 0:禁止通行,1:允许通行
+	//
+	ChannelPassState *string `json:"channel_pass_state,omitempty" xml:"channel_pass_state,omitempty" require:"true"`
+	// 经度
+	//
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty" require:"true"`
+	// 纬度
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty" require:"true"`
+	// 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸）
+	//
+	PassMode *string `json:"pass_mode,omitempty" xml:"pass_mode,omitempty" require:"true"`
+	// 通行时长(单位:毫秒)
+	//
+	PassDuration *string `json:"pass_duration,omitempty" xml:"pass_duration,omitempty" require:"true"`
+	// 通行时间
+	//
+	PassTime *string `json:"pass_time,omitempty" xml:"pass_time,omitempty" require:"true"`
+	// 通行结果(0:禁止通行,1:允许通行)
+	//
+	PassResult *string `json:"pass_result,omitempty" xml:"pass_result,omitempty" require:"true"`
+}
+
+func (s HealthInfoLog) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HealthInfoLog) GoString() string {
+	return s.String()
+}
+
+func (s *HealthInfoLog) SetCertNo(v string) *HealthInfoLog {
+	s.CertNo = &v
 	return s
 }
 
-func (s *NucleicAcidInfo) SetReportTimestamp(v int64) *NucleicAcidInfo {
-	s.ReportTimestamp = &v
+func (s *HealthInfoLog) SetCertName(v string) *HealthInfoLog {
+	s.CertName = &v
+	return s
+}
+
+func (s *HealthInfoLog) SetHealthCode(v string) *HealthInfoLog {
+	s.HealthCode = &v
+	return s
+}
+
+func (s *HealthInfoLog) SetTravelInfo(v *TravelInfo) *HealthInfoLog {
+	s.TravelInfo = v
+	return s
+}
+
+func (s *HealthInfoLog) SetNucleicAcidInfo(v *NucleicAcidInfo) *HealthInfoLog {
+	s.NucleicAcidInfo = v
+	return s
+}
+
+func (s *HealthInfoLog) SetVaccinationInfo(v *VaccinationInfo) *HealthInfoLog {
+	s.VaccinationInfo = v
+	return s
+}
+
+func (s *HealthInfoLog) SetAntigenInfo(v *AntigenInfo) *HealthInfoLog {
+	s.AntigenInfo = v
+	return s
+}
+
+func (s *HealthInfoLog) SetSceneInfo(v *SceneInfo) *HealthInfoLog {
+	s.SceneInfo = v
+	return s
+}
+
+func (s *HealthInfoLog) SetChannelPassState(v string) *HealthInfoLog {
+	s.ChannelPassState = &v
+	return s
+}
+
+func (s *HealthInfoLog) SetLongitude(v string) *HealthInfoLog {
+	s.Longitude = &v
+	return s
+}
+
+func (s *HealthInfoLog) SetLatitude(v string) *HealthInfoLog {
+	s.Latitude = &v
+	return s
+}
+
+func (s *HealthInfoLog) SetPassMode(v string) *HealthInfoLog {
+	s.PassMode = &v
+	return s
+}
+
+func (s *HealthInfoLog) SetPassDuration(v string) *HealthInfoLog {
+	s.PassDuration = &v
+	return s
+}
+
+func (s *HealthInfoLog) SetPassTime(v string) *HealthInfoLog {
+	s.PassTime = &v
+	return s
+}
+
+func (s *HealthInfoLog) SetPassResult(v string) *HealthInfoLog {
+	s.PassResult = &v
+	return s
+}
+
+// 健康码信息
+type HealthInfo struct {
+	// 健康码编码：
+	// 1:绿色 ，
+	// 2:黄色 ，
+	// 3:红色 ，
+	// 4.灰码 。
+	HealthCode *string `json:"health_code,omitempty" xml:"health_code,omitempty"`
+	// 健康码红色原因
+	HealthFactor *string `json:"health_factor,omitempty" xml:"health_factor,omitempty"`
+}
+
+func (s HealthInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HealthInfo) GoString() string {
+	return s.String()
+}
+
+func (s *HealthInfo) SetHealthCode(v string) *HealthInfo {
+	s.HealthCode = &v
+	return s
+}
+
+func (s *HealthInfo) SetHealthFactor(v string) *HealthInfo {
+	s.HealthFactor = &v
+	return s
+}
+
+// 行程信息
+type TravelInformation struct {
+	// 1:没去过疫情区，绿码;
+	// 2:去过疫情区，红码;
+	// 3:其他，黄码;
+	// 0:行程信息不全;
+	// -1查询失败
+	TravelCode *string `json:"travel_code,omitempty" xml:"travel_code,omitempty" require:"true"`
+	// 行程途径地
+	TravelPath *string `json:"travel_path,omitempty" xml:"travel_path,omitempty" require:"true"`
+}
+
+func (s TravelInformation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TravelInformation) GoString() string {
+	return s.String()
+}
+
+func (s *TravelInformation) SetTravelCode(v string) *TravelInformation {
+	s.TravelCode = &v
+	return s
+}
+
+func (s *TravelInformation) SetTravelPath(v string) *TravelInformation {
+	s.TravelPath = &v
 	return s
 }
 
@@ -575,6 +837,14 @@ type PushHealthinfologRequest struct {
 	// 场所信息
 	//
 	SceneInfo *SceneInfo `json:"scene_info,omitempty" xml:"scene_info,omitempty"`
+	// 通行方式(1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸)
+	PassMode *string `json:"pass_mode,omitempty" xml:"pass_mode,omitempty"`
+	// 经度
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty"`
+	// 纬度
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty"`
+	// 数据源通行状态 0:禁止通行,1:允许通行
+	ChannelPassState *string `json:"channel_pass_state,omitempty" xml:"channel_pass_state,omitempty"`
 }
 
 func (s PushHealthinfologRequest) String() string {
@@ -677,6 +947,26 @@ func (s *PushHealthinfologRequest) SetAntigenInfo(v *AntigenInfo) *PushHealthinf
 
 func (s *PushHealthinfologRequest) SetSceneInfo(v *SceneInfo) *PushHealthinfologRequest {
 	s.SceneInfo = v
+	return s
+}
+
+func (s *PushHealthinfologRequest) SetPassMode(v string) *PushHealthinfologRequest {
+	s.PassMode = &v
+	return s
+}
+
+func (s *PushHealthinfologRequest) SetLongitude(v string) *PushHealthinfologRequest {
+	s.Longitude = &v
+	return s
+}
+
+func (s *PushHealthinfologRequest) SetLatitude(v string) *PushHealthinfologRequest {
+	s.Latitude = &v
+	return s
+}
+
+func (s *PushHealthinfologRequest) SetChannelPassState(v string) *PushHealthinfologRequest {
+	s.ChannelPassState = &v
 	return s
 }
 
@@ -1037,6 +1327,118 @@ func (s *InitDeviceargsResponse) SetResultMsg(v string) *InitDeviceargsResponse 
 	return s
 }
 
+type QueryHealthinfologRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 开始时间(开始时间-结束时间最大时间为7天)
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true" minimum:"1"`
+	// 每页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true" maximum:"500" minimum:"1"`
+	// 设备号
+	SerialNo *string `json:"serial_no,omitempty" xml:"serial_no,omitempty"`
+}
+
+func (s QueryHealthinfologRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHealthinfologRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHealthinfologRequest) SetAuthToken(v string) *QueryHealthinfologRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryHealthinfologRequest) SetProductInstanceId(v string) *QueryHealthinfologRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryHealthinfologRequest) SetStartTime(v string) *QueryHealthinfologRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryHealthinfologRequest) SetEndTime(v string) *QueryHealthinfologRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryHealthinfologRequest) SetPageNum(v int64) *QueryHealthinfologRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryHealthinfologRequest) SetPageSize(v int64) *QueryHealthinfologRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryHealthinfologRequest) SetSerialNo(v string) *QueryHealthinfologRequest {
+	s.SerialNo = &v
+	return s
+}
+
+type QueryHealthinfologResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总条数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 总页数
+	Pages *int64 `json:"pages,omitempty" xml:"pages,omitempty"`
+	// 列表数据
+	DataList []*HealthInfoLog `json:"data_list,omitempty" xml:"data_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryHealthinfologResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHealthinfologResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHealthinfologResponse) SetReqMsgId(v string) *QueryHealthinfologResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryHealthinfologResponse) SetResultCode(v string) *QueryHealthinfologResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryHealthinfologResponse) SetResultMsg(v string) *QueryHealthinfologResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryHealthinfologResponse) SetTotal(v int64) *QueryHealthinfologResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryHealthinfologResponse) SetPages(v int64) *QueryHealthinfologResponse {
+	s.Pages = &v
+	return s
+}
+
+func (s *QueryHealthinfologResponse) SetDataList(v []*HealthInfoLog) *QueryHealthinfologResponse {
+	s.DataList = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1159,7 +1561,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.4"),
+				"sdk_version":      tea.String("1.0.8"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1370,6 +1772,40 @@ func (client *Client) InitDeviceargsEx(request *InitDeviceargsRequest, headers m
 	}
 	_result = &InitDeviceargsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antim.deviceargs.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通行记录查询
+ * Summary: 通行记录查询
+ */
+func (client *Client) QueryHealthinfolog(request *QueryHealthinfologRequest) (_result *QueryHealthinfologResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryHealthinfologResponse{}
+	_body, _err := client.QueryHealthinfologEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通行记录查询
+ * Summary: 通行记录查询
+ */
+func (client *Client) QueryHealthinfologEx(request *QueryHealthinfologRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryHealthinfologResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryHealthinfologResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antim.healthinfolog.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
