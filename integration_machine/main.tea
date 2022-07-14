@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.4',
+    sdk_version = '1.0.8',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -167,20 +167,6 @@ model SceneInfo {
   sceneCode?: string(name='scene_code', example='123'),
 }
 
-// 疫苗接种信息
-model VaccinationInfo {
-  // 疫苗接种信息：
-  // 0:查询失败 
-  // 1:未接种
-  // 2:已接种一针
-  // 3:完成接种
-  vaccinationCode?: string(name='vaccination_code', example='1'),
-  // 疫苗接种信息
-  vaccinationDesc?: string(name='vaccination_desc', example='123'),
-  // 疫苗接种时间戳（单位：ms）
-  vaccinationTimestamp?: long(name='vaccination_timestamp', example='1654570807000'),
-}
-
 // 行程信息
 model TravelInfo {
   // 行程码信息
@@ -202,16 +188,54 @@ model AntigenInfo {
   antigenTimestamp?: long(name='antigen_timestamp', example='1654570807000'),
 }
 
-// 健康码信息
-model HealthInfo {
-  // 健康码编码：
-  // 1:绿色 ，
-  // 2:黄色 ，
-  // 3:红色 ，
-  // 4.灰码 。
-  healthCode?: string(name='health_code', example='1'),
-  // 健康码红色原因
-  healthFactor?: string(name='health_factor', example='123'),
+// 核酸信息
+model NucleicAcidInfo {
+  // 检测类型
+  reportType?: string(name='report_type', example='1'),
+  // 检测结果
+  reportResult?: string(name='report_result', example='24H阳性'),
+  // 检测机构
+  reportOrganization?: string(name='report_organization', example='123'),
+  // 检测时间戳(单位: ms)
+  reportTimestamp?: long(name='report_timestamp', example='1654570807000'),
+}
+
+// 疫苗接种信息
+model VaccinationInfo {
+  // 疫苗接种信息：
+  // 0:查询失败 
+  // 1:未接种
+  // 2:已接种一针
+  // 3:完成接种
+  vaccinationCode?: string(name='vaccination_code', example='1'),
+  // 疫苗接种信息
+  vaccinationDesc?: string(name='vaccination_desc', example='123'),
+  // 疫苗接种时间戳（单位：ms）
+  vaccinationTimestamp?: long(name='vaccination_timestamp', example='1654570807000'),
+}
+
+// 抗原信息
+model AntigenInformation {
+  // 抗原结果
+  antigenResult: string(name='antigen_result', example='阴性'),
+  // 抗原时间
+  antigenTime: string(name='antigen_time', example='2022-07-07 12:12:12'),
+}
+
+// 核酸信息
+model NucleicAcidInformation {
+  // 核酸结果
+  nucleicAcidResult: string(name='nucleic_acid_result', example='阴性'),
+  // 核酸时间
+  nucleicAcidTime: string(name='nucleic_acid_time', example='2022-07-07 12:12:12'),
+}
+
+// 疫苗信息
+model VaccinationInformation {
+  // 疫苗接种状态(0查询失败 1未接种 2已接种一针 3完成接种)
+  vaccinationStatus: string(name='vaccination_status', example='1'),
+  // 疫苗接种时间
+  vaccinationTime: string(name='vaccination_time', example='2022-07-07 12:12:12'),
 }
 
 // 设备参数名称/key/value
@@ -226,16 +250,81 @@ model ArgsNameValue {
   argsMark?: string(name='args_mark', example='ip'),
 }
 
-// 核酸信息
-model NucleicAcidInfo {
-  // 检测类型
-  reportType?: string(name='report_type', example='1'),
-  // 检测结果
-  reportResult?: string(name='report_result', example='24H阳性'),
-  // 检测机构
-  reportOrganization?: string(name='report_organization', example='123'),
-  // 检测时间戳(单位: ms)
-  reportTimestamp?: long(name='report_timestamp', example='1654570807000'),
+// 场所信息
+model SceneInformation {
+  // 场所地址
+  sceneAddress: string(name='scene_address', example='杭州'),
+  // 场所ID
+  sceneId: string(name='scene_id', example='sdewqw121'),
+}
+
+// 通行记录
+model HealthInfoLog {
+  // 身份证号
+  certNo: string(name='cert_no', example='61012*********3421'),
+  // 姓名
+  certName: string(name='cert_name', example='王*'),
+  // 健康码颜色(绿色:1,黄码:2,红码:3,灰码:4)
+  healthCode: string(name='health_code', example='1'),
+  // 行程信息
+  // 
+  travelInfo: TravelInfo(name='travel_info', example=''),
+  // 核酸信息
+  // 
+  nucleicAcidInfo: NucleicAcidInfo(name='nucleic_acid_info', example=''),
+  // 疫苗信息
+  // 
+  vaccinationInfo: VaccinationInfo(name='vaccination_info', example=''),
+  // 抗原信息
+  // 
+  antigenInfo: AntigenInfo(name='antigen_info', example=''),
+  // 场所信息
+  // 
+  sceneInfo: SceneInfo(name='scene_info', example=''),
+  // 数据源通行状态 0:禁止通行,1:允许通行
+  // 
+  channelPassState: string(name='channel_pass_state', example='1'),
+  // 经度
+  // 
+  longitude: string(name='longitude', example='39.916527'),
+  // 纬度
+  latitude: string(name='latitude', example='39.916527'),
+  // 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸）
+  // 
+  passMode: string(name='pass_mode', example='反扫 '),
+  // 通行时长(单位:毫秒)
+  // 
+  passDuration: string(name='pass_duration', example='2000'),
+  // 通行时间
+  // 
+  passTime: string(name='pass_time', example='2022-07-07 12:12:12 '),
+  // 通行结果(0:禁止通行,1:允许通行)
+  // 
+  passResult: string(name='pass_result', example='1'),
+}
+
+// 健康码信息
+model HealthInfo {
+  // 健康码编码：
+  // 1:绿色 ，
+  // 2:黄色 ，
+  // 3:红色 ，
+  // 4.灰码 。
+  healthCode?: string(name='health_code', example='1'),
+  // 健康码红色原因
+  healthFactor?: string(name='health_factor', example='123'),
+}
+
+// 行程信息
+model TravelInformation {
+  // 1:没去过疫情区，绿码;
+  // 2:去过疫情区，红码;
+  // 3:其他，黄码;
+  // 0:行程信息不全;
+  // -1查询失败
+  travelCode: string(name='travel_code', example='1'),
+  // 行程途径地
+  travelPath: string(name='travel_path', example='杭州'),
 }
 
 model QueryHealthinfoRequest = {
@@ -348,6 +437,14 @@ model PushHealthinfologRequest = {
   // 场所信息
   // 
   sceneInfo?: SceneInfo(name='scene_info'),
+  // 通行方式(1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸)
+  passMode?: string(name='pass_mode'),
+  // 经度
+  longitude?: string(name='longitude'),
+  // 纬度
+  latitude?: string(name='latitude'),
+  // 数据源通行状态 0:禁止通行,1:允许通行
+  channelPassState?: string(name='channel_pass_state'),
 }
 
 model PushHealthinfologResponse = {
@@ -530,5 +627,55 @@ async function initDeviceargs(request: InitDeviceargsRequest): InitDeviceargsRes
 async function initDeviceargsEx(request: InitDeviceargsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitDeviceargsResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.antim.deviceargs.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryHealthinfologRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 开始时间(开始时间-结束时间最大时间为7天)
+  startTime: string(name='start_time'),
+  // 结束时间
+  endTime: string(name='end_time'),
+  // 页码
+  pageNum: long(minimum=1, name='page_num'),
+  // 每页条数
+  pageSize: long(maximum=500, minimum=1, name='page_size'),
+  // 设备号
+  serialNo?: string(name='serial_no'),
+}
+
+model QueryHealthinfologResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总条数
+  total?: long(name='total'),
+  // 总页数
+  pages?: long(name='pages'),
+  // 列表数据
+  dataList?: [ HealthInfoLog ](name='data_list'),
+}
+
+/**
+ * Description: 通行记录查询
+ * Summary: 通行记录查询
+ */
+async function queryHealthinfolog(request: QueryHealthinfologRequest): QueryHealthinfologResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryHealthinfologEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通行记录查询
+ * Summary: 通行记录查询
+ */
+async function queryHealthinfologEx(request: QueryHealthinfologRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryHealthinfologResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.antim.healthinfolog.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
