@@ -87,6 +87,22 @@ public class PushHealthinfologRequest extends TeaModel {
     @NameInMap("scene_info")
     public SceneInfo sceneInfo;
 
+    // 通行方式(1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸)
+    @NameInMap("pass_mode")
+    public String passMode;
+
+    // 经度
+    @NameInMap("longitude")
+    public String longitude;
+
+    // 纬度
+    @NameInMap("latitude")
+    public String latitude;
+
+    // 数据源通行状态 0:禁止通行,1:允许通行
+    @NameInMap("channel_pass_state")
+    public String channelPassState;
+
     public static PushHealthinfologRequest build(java.util.Map<String, ?> map) throws Exception {
         PushHealthinfologRequest self = new PushHealthinfologRequest();
         return TeaModel.build(map, self);
@@ -242,6 +258,38 @@ public class PushHealthinfologRequest extends TeaModel {
     }
     public SceneInfo getSceneInfo() {
         return this.sceneInfo;
+    }
+
+    public PushHealthinfologRequest setPassMode(String passMode) {
+        this.passMode = passMode;
+        return this;
+    }
+    public String getPassMode() {
+        return this.passMode;
+    }
+
+    public PushHealthinfologRequest setLongitude(String longitude) {
+        this.longitude = longitude;
+        return this;
+    }
+    public String getLongitude() {
+        return this.longitude;
+    }
+
+    public PushHealthinfologRequest setLatitude(String latitude) {
+        this.latitude = latitude;
+        return this;
+    }
+    public String getLatitude() {
+        return this.latitude;
+    }
+
+    public PushHealthinfologRequest setChannelPassState(String channelPassState) {
+        this.channelPassState = channelPassState;
+        return this;
+    }
+    public String getChannelPassState() {
+        return this.channelPassState;
     }
 
 }

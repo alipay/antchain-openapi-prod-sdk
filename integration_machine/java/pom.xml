@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-integration_machine</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.8</version>
   <packaging>jar</packaging>
   <name>openapi-integration_machine</name>
   <description>Ant Chain INTEGRATION_MACHINE SDK for Java
@@ -46,7 +46,7 @@
     <dependency>
       <groupId>com.aliyun</groupId>
       <artifactId>tea-util</artifactId>
-      <version>0.2.13</version>
+      <version>0.2.14</version>
     </dependency>
     <dependency>
       <groupId>com.aliyun</groupId>
