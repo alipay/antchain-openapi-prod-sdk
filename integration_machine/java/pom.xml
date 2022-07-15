@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-integration_machine</artifactId>
-  <version>1.0.10</version>
+  <version>1.0.11</version>
   <packaging>jar</packaging>
   <name>openapi-integration_machine</name>
   <description>Ant Chain INTEGRATION_MACHINE SDK for Java
