@@ -70,6 +70,10 @@ class Config(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.access_key_id is not None:
             result['accessKeyId'] = self.access_key_id
@@ -183,6 +187,10 @@ class DemoClass(TeaModel):
         self.validate_required(self.some_list, 'some_list')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.some_string is not None:
             result['some_string'] = self.some_string
@@ -227,6 +235,10 @@ class NameValuePair(TeaModel):
         self.validate_required(self.value, 'value')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -263,6 +275,10 @@ class TestClass(TeaModel):
         self.validate_required(self.demo_1, 'demo_1')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.test is not None:
             result['test'] = self.test
@@ -309,6 +325,10 @@ class TestStruct(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.x is not None:
             result['x'] = self.x
@@ -354,6 +374,10 @@ class QueryMap(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -400,6 +424,10 @@ class AnotherClass(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.bar is not None:
             result['bar'] = self.bar
@@ -434,6 +462,10 @@ class TestsT(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         return result
 
@@ -450,6 +482,10 @@ class AbcdEfgh(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         return result
 
@@ -474,6 +510,10 @@ class XNameValuePair(TeaModel):
         self.validate_required(self.value, 'value')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -504,6 +544,10 @@ class BindQweQweRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -538,6 +582,10 @@ class BindQweQweResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -572,6 +620,10 @@ class BindSdfSssSssRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -606,6 +658,10 @@ class BindSdfSssSssResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -640,6 +696,10 @@ class StatusGatewayCheckRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -677,6 +737,10 @@ class StatusGatewayCheckResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -753,6 +817,10 @@ class EchoGatewayCheckRequest(TeaModel):
         self.validate_required(self.file_name, 'file_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -835,6 +903,10 @@ class EchoGatewayCheckResponse(TeaModel):
             self.output_demo.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -882,6 +954,10 @@ class QueryGatewayCheckRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -916,6 +992,10 @@ class QueryGatewayCheckResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -950,6 +1030,10 @@ class QueryGatewayTestRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -984,6 +1068,10 @@ class QueryGatewayTestResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1018,6 +1106,10 @@ class BindSssSsSsRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1052,6 +1144,10 @@ class BindSssSsSsResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1086,6 +1182,10 @@ class QueryGatewayMyRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1120,6 +1220,10 @@ class QueryGatewayMyResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1154,6 +1258,10 @@ class BindDemoCheckEeeRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1188,6 +1296,10 @@ class BindDemoCheckEeeResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1222,6 +1334,10 @@ class BindGatewayAbcTestRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1256,6 +1372,10 @@ class BindGatewayAbcTestResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1293,6 +1413,10 @@ class BindTestTestTestRequest(TeaModel):
         self.validate_required(self.test, 'test')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1334,6 +1458,10 @@ class BindTestTestTestResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1375,6 +1503,10 @@ class QueryGatewayCheckEchotimeoutRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1419,6 +1551,10 @@ class QueryGatewayCheckEchotimeoutResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1461,6 +1597,10 @@ class QueryGatewayCheckEchotenRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1501,6 +1641,10 @@ class QueryGatewayCheckEchotenResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1543,6 +1687,10 @@ class QueryAdAsdAsdRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1577,6 +1725,10 @@ class QueryAdAsdAsdResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1611,6 +1763,10 @@ class BindAsdAsdAsdRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1645,6 +1801,10 @@ class BindAsdAsdAsdResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1695,6 +1855,10 @@ class InitBbpInsuranceUserRequest(TeaModel):
             self.burieds.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1746,6 +1910,10 @@ class InitBbpInsuranceUserResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1787,6 +1955,10 @@ class QueryTestTestobjectBbbRequest(TeaModel):
         self.validate_required(self.request_param_2, 'request_param_2')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1832,6 +2004,10 @@ class QueryTestTestobjectBbbResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1870,6 +2046,10 @@ class QueryTestGatewayTestRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1904,6 +2084,10 @@ class QueryTestGatewayTestResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1938,6 +2122,10 @@ class BindAaaBbbCccRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1972,6 +2160,10 @@ class BindAaaBbbCccResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2006,6 +2198,10 @@ class QueryAaaBbbCccRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2040,6 +2236,10 @@ class QueryAaaBbbCccResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2074,6 +2274,10 @@ class QueryAbcAbcAbcRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2108,6 +2312,10 @@ class QueryAbcAbcAbcResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2164,6 +2372,10 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
             self.validate_max_length(self.file_name, 'file_name', 100)
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2235,6 +2447,10 @@ class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id

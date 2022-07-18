@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.90'
+                    'sdk_version': '1.0.91'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.90'
+                    'sdk_version': '1.0.91'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +306,8 @@ class Client:
         Summary: 123
         """
         UtilClient.validate_model(request)
-        return demo_models.BindQweQweResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindQweQweResponse(),
             self.do_request('1.0', 'demo.qwe.qwe.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: 123
         """
         UtilClient.validate_model(request)
-        return demo_models.BindQweQweResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindQweQweResponse(),
             await self.do_request_async('1.0', 'demo.qwe.qwe.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: sdf
         """
         UtilClient.validate_model(request)
-        return demo_models.BindSdfSssSssResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindSdfSssSssResponse(),
             self.do_request('1.0', 'demo.sdf.sss.sss.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: sdf
         """
         UtilClient.validate_model(request)
-        return demo_models.BindSdfSssSssResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindSdfSssSssResponse(),
             await self.do_request_async('1.0', 'demo.sdf.sss.sss.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: 检查服务状态
         """
         UtilClient.validate_model(request)
-        return demo_models.StatusGatewayCheckResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.StatusGatewayCheckResponse(),
             self.do_request('1.0', 'demo.gateway.check.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +434,8 @@ class Client:
         Summary: 检查服务状态
         """
         UtilClient.validate_model(request)
-        return demo_models.StatusGatewayCheckResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.StatusGatewayCheckResponse(),
             await self.do_request_async('1.0', 'demo.gateway.check.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -488,7 +494,8 @@ class Client:
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return demo_models.EchoGatewayCheckResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.EchoGatewayCheckResponse(),
             self.do_request('1.0', 'demo.gateway.check.echo', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -521,7 +528,8 @@ class Client:
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return demo_models.EchoGatewayCheckResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.EchoGatewayCheckResponse(),
             await self.do_request_async('1.0', 'demo.gateway.check.echo', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -560,7 +568,8 @@ class Client:
         Summary: ss
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryGatewayCheckResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryGatewayCheckResponse(),
             self.do_request('1.0', 'demo.gateway.check.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -575,7 +584,8 @@ class Client:
         Summary: ss
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryGatewayCheckResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryGatewayCheckResponse(),
             await self.do_request_async('1.0', 'demo.gateway.check.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -614,7 +624,8 @@ class Client:
         Summary: 测试001
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryGatewayTestResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryGatewayTestResponse(),
             self.do_request('1.0', 'demo.gateway.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -629,7 +640,8 @@ class Client:
         Summary: 测试001
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryGatewayTestResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryGatewayTestResponse(),
             await self.do_request_async('1.0', 'demo.gateway.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -668,7 +680,8 @@ class Client:
         Summary: ss
         """
         UtilClient.validate_model(request)
-        return demo_models.BindSssSsSsResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindSssSsSsResponse(),
             self.do_request('1.0', 'demo.sss.ss.ss.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -683,7 +696,8 @@ class Client:
         Summary: ss
         """
         UtilClient.validate_model(request)
-        return demo_models.BindSssSsSsResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindSssSsSsResponse(),
             await self.do_request_async('1.0', 'demo.sss.ss.ss.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -722,7 +736,8 @@ class Client:
         Summary: 测试demo
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryGatewayMyResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryGatewayMyResponse(),
             self.do_request('1.0', 'demo.gateway.my.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -737,7 +752,8 @@ class Client:
         Summary: 测试demo
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryGatewayMyResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryGatewayMyResponse(),
             await self.do_request_async('1.0', 'demo.gateway.my.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -776,7 +792,8 @@ class Client:
         Summary: ss
         """
         UtilClient.validate_model(request)
-        return demo_models.BindDemoCheckEeeResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindDemoCheckEeeResponse(),
             self.do_request('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -791,7 +808,8 @@ class Client:
         Summary: ss
         """
         UtilClient.validate_model(request)
-        return demo_models.BindDemoCheckEeeResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindDemoCheckEeeResponse(),
             await self.do_request_async('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -830,7 +848,8 @@ class Client:
         Summary: test
         """
         UtilClient.validate_model(request)
-        return demo_models.BindGatewayAbcTestResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindGatewayAbcTestResponse(),
             self.do_request('1.0', 'demo.gateway.abc.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -845,7 +864,8 @@ class Client:
         Summary: test
         """
         UtilClient.validate_model(request)
-        return demo_models.BindGatewayAbcTestResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindGatewayAbcTestResponse(),
             await self.do_request_async('1.0', 'demo.gateway.abc.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -884,7 +904,8 @@ class Client:
         Summary: test
         """
         UtilClient.validate_model(request)
-        return demo_models.BindTestTestTestResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindTestTestTestResponse(),
             self.do_request('1.0', 'demo.test.test.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -899,7 +920,8 @@ class Client:
         Summary: test
         """
         UtilClient.validate_model(request)
-        return demo_models.BindTestTestTestResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindTestTestTestResponse(),
             await self.do_request_async('1.0', 'demo.test.test.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -938,7 +960,8 @@ class Client:
         Summary: 超时
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryGatewayCheckEchotimeoutResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryGatewayCheckEchotimeoutResponse(),
             self.do_request('1.0', 'demo.gateway.check.echotimeout.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -953,7 +976,8 @@ class Client:
         Summary: 超时
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryGatewayCheckEchotimeoutResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryGatewayCheckEchotimeoutResponse(),
             await self.do_request_async('1.0', 'demo.gateway.check.echotimeout.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -992,7 +1016,8 @@ class Client:
         Summary: 10s
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryGatewayCheckEchotenResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryGatewayCheckEchotenResponse(),
             self.do_request('1.0', 'demo.gateway.check.echoten.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1007,7 +1032,8 @@ class Client:
         Summary: 10s
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryGatewayCheckEchotenResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryGatewayCheckEchotenResponse(),
             await self.do_request_async('1.0', 'demo.gateway.check.echoten.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1046,7 +1072,8 @@ class Client:
         Summary: asd
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryAdAsdAsdResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryAdAsdAsdResponse(),
             self.do_request('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1061,7 +1088,8 @@ class Client:
         Summary: asd
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryAdAsdAsdResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryAdAsdAsdResponse(),
             await self.do_request_async('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1100,7 +1128,8 @@ class Client:
         Summary: asd
         """
         UtilClient.validate_model(request)
-        return demo_models.BindAsdAsdAsdResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindAsdAsdAsdResponse(),
             self.do_request('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1115,7 +1144,8 @@ class Client:
         Summary: asd
         """
         UtilClient.validate_model(request)
-        return demo_models.BindAsdAsdAsdResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindAsdAsdAsdResponse(),
             await self.do_request_async('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1154,7 +1184,8 @@ class Client:
         Summary: 用户登陆页面埋点
         """
         UtilClient.validate_model(request)
-        return demo_models.InitBbpInsuranceUserResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.InitBbpInsuranceUserResponse(),
             self.do_request('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1169,7 +1200,8 @@ class Client:
         Summary: 用户登陆页面埋点
         """
         UtilClient.validate_model(request)
-        return demo_models.InitBbpInsuranceUserResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.InitBbpInsuranceUserResponse(),
             await self.do_request_async('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1208,7 +1240,8 @@ class Client:
         Summary: 测试用api
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryTestTestobjectBbbResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryTestTestobjectBbbResponse(),
             self.do_request('1.0', 'demo.test.testobject.bbb.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1223,7 +1256,8 @@ class Client:
         Summary: 测试用api
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryTestTestobjectBbbResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryTestTestobjectBbbResponse(),
             await self.do_request_async('1.0', 'demo.test.testobject.bbb.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1262,7 +1296,8 @@ class Client:
         Summary: 测试创建
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryTestGatewayTestResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryTestGatewayTestResponse(),
             self.do_request('1.0', 'demo.test.gateway.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1277,7 +1312,8 @@ class Client:
         Summary: 测试创建
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryTestGatewayTestResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryTestGatewayTestResponse(),
             await self.do_request_async('1.0', 'demo.test.gateway.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1316,7 +1352,8 @@ class Client:
         Summary: 自动化测试创建，用于测试新建&修改功能
         """
         UtilClient.validate_model(request)
-        return demo_models.BindAaaBbbCccResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindAaaBbbCccResponse(),
             self.do_request('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1331,7 +1368,8 @@ class Client:
         Summary: 自动化测试创建，用于测试新建&修改功能
         """
         UtilClient.validate_model(request)
-        return demo_models.BindAaaBbbCccResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.BindAaaBbbCccResponse(),
             await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1370,7 +1408,8 @@ class Client:
         Summary: 自动化测试创建（勿动）
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryAaaBbbCccResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryAaaBbbCccResponse(),
             self.do_request('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1385,7 +1424,8 @@ class Client:
         Summary: 自动化测试创建（勿动）
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryAaaBbbCccResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryAaaBbbCccResponse(),
             await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1424,7 +1464,8 @@ class Client:
         Summary: 自动化测试创建,用于测试API的修改勿动
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryAbcAbcAbcResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryAbcAbcAbcResponse(),
             self.do_request('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1439,7 +1480,8 @@ class Client:
         Summary: 自动化测试创建,用于测试API的修改勿动
         """
         UtilClient.validate_model(request)
-        return demo_models.QueryAbcAbcAbcResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.QueryAbcAbcAbcResponse(),
             await self.do_request_async('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1478,7 +1520,8 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return demo_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.CreateAntcloudGatewayxFileUploadResponse(),
             self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1493,6 +1536,7 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return demo_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            demo_models.CreateAntcloudGatewayxFileUploadResponse(),
             await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
