@@ -4,6 +4,11 @@ package com.antgroup.antchain.openapi.bot.models;
 import com.aliyun.tea.*;
 
 public class BaiQrcodeComparisonReqData extends TeaModel {
+    // 扫码操作id，多次请求的trace_id相同代表短时间内在扫同一个码
+    @NameInMap("trace_id")
+    @Validation(required = true, maxLength = 128)
+    public String traceId;
+
     // query图片定位信息
     @NameInMap("query_image_location")
     @Validation(required = true)
@@ -22,6 +27,14 @@ public class BaiQrcodeComparisonReqData extends TeaModel {
     public static BaiQrcodeComparisonReqData build(java.util.Map<String, ?> map) throws Exception {
         BaiQrcodeComparisonReqData self = new BaiQrcodeComparisonReqData();
         return TeaModel.build(map, self);
+    }
+
+    public BaiQrcodeComparisonReqData setTraceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+    public String getTraceId() {
+        return this.traceId;
     }
 
     public BaiQrcodeComparisonReqData setQueryImageLocation(BaiResourceLocation queryImageLocation) {

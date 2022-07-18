@@ -21,6 +21,10 @@ public class DeploySceneRequest extends TeaModel {
     @Validation(required = true)
     public String bnaasBasicServiceDid;
 
+    // 合约版本号
+    @NameInMap("contract_version")
+    public String contractVersion;
+
     public static DeploySceneRequest build(java.util.Map<String, ?> map) throws Exception {
         DeploySceneRequest self = new DeploySceneRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class DeploySceneRequest extends TeaModel {
     }
     public String getBnaasBasicServiceDid() {
         return this.bnaasBasicServiceDid;
+    }
+
+    public DeploySceneRequest setContractVersion(String contractVersion) {
+        this.contractVersion = contractVersion;
+        return this;
+    }
+    public String getContractVersion() {
+        return this.contractVersion;
     }
 
 }

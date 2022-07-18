@@ -87,6 +87,16 @@ public class UpdateDeviceInfoRequest extends TeaModel {
     @NameInMap("extra_info")
     public String extraInfo;
 
+    // 资产所有人标识（统一社会信用代码）
+    @NameInMap("owner")
+    @Validation(required = true)
+    public String owner;
+
+    // 资产所有人名称
+    @NameInMap("owner_name")
+    @Validation(required = true)
+    public String ownerName;
+
     public static UpdateDeviceInfoRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateDeviceInfoRequest self = new UpdateDeviceInfoRequest();
         return TeaModel.build(map, self);
@@ -186,6 +196,22 @@ public class UpdateDeviceInfoRequest extends TeaModel {
     }
     public String getExtraInfo() {
         return this.extraInfo;
+    }
+
+    public UpdateDeviceInfoRequest setOwner(String owner) {
+        this.owner = owner;
+        return this;
+    }
+    public String getOwner() {
+        return this.owner;
+    }
+
+    public UpdateDeviceInfoRequest setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+        return this;
+    }
+    public String getOwnerName() {
+        return this.ownerName;
     }
 
 }

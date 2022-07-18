@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.106")
+                    new TeaPair("sdk_version", "1.6.114")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -371,6 +371,25 @@ public class Client {
     }
 
     /**
+     * Description: 溯源码比对服务
+     * Summary: AI溯源码验真
+     */
+    public CheckAiidentificationQrcodeResponse checkAiidentificationQrcode(CheckAiidentificationQrcodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkAiidentificationQrcodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 溯源码比对服务
+     * Summary: AI溯源码验真
+     */
+    public CheckAiidentificationQrcodeResponse checkAiidentificationQrcodeEx(CheckAiidentificationQrcodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiidentification.qrcode.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAiidentificationQrcodeResponse());
+    }
+
+    /**
      * Description: biot 私有化 设备注册接口
      * Summary: biot 私有化 设备注册接口
      */
@@ -520,6 +539,25 @@ public class Client {
     public QueryIotbasicSnResponse queryIotbasicSnEx(QueryIotbasicSnRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.sn.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIotbasicSnResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-设备规格查询
+     * Summary: IoT设备平台-设备规格查询
+     */
+    public QueryDeviceSpecsResponse queryDeviceSpecs(QueryDeviceSpecsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeviceSpecsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备规格查询
+     * Summary: IoT设备平台-设备规格查询
+     */
+    public QueryDeviceSpecsResponse queryDeviceSpecsEx(QueryDeviceSpecsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.specs.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceSpecsResponse());
     }
 
     /**
@@ -2040,6 +2078,63 @@ public class Client {
     public NotifyPullstrategyChargeorderinfoResponse notifyPullstrategyChargeorderinfoEx(NotifyPullstrategyChargeorderinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.pullstrategy.chargeorderinfo.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyPullstrategyChargeorderinfoResponse());
+    }
+
+    /**
+     * Description: 菜鸟设备监控信息获取
+     * Summary: 菜鸟设备监控信息获取
+     */
+    public QueryScfleaseEqpinfoResponse queryScfleaseEqpinfo(QueryScfleaseEqpinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryScfleaseEqpinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 菜鸟设备监控信息获取
+     * Summary: 菜鸟设备监控信息获取
+     */
+    public QueryScfleaseEqpinfoResponse queryScfleaseEqpinfoEx(QueryScfleaseEqpinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.scflease.eqpinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryScfleaseEqpinfoResponse());
+    }
+
+    /**
+     * Description: 创建自定义的实体数据
+     * Summary: 创建自定义实体
+     */
+    public CreateCustomerEntityResponse createCustomerEntity(CreateCustomerEntityRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createCustomerEntityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建自定义的实体数据
+     * Summary: 创建自定义实体
+     */
+    public CreateCustomerEntityResponse createCustomerEntityEx(CreateCustomerEntityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.customer.entity.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateCustomerEntityResponse());
+    }
+
+    /**
+     * Description: 更新自定义实体，通过场景码+实体ID来更新 实体内容或实体名称
+     * Summary: 更新自定义实体
+     */
+    public UpdateCustomerEntityResponse updateCustomerEntity(UpdateCustomerEntityRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateCustomerEntityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新自定义实体，通过场景码+实体ID来更新 实体内容或实体名称
+     * Summary: 更新自定义实体
+     */
+    public UpdateCustomerEntityResponse updateCustomerEntityEx(UpdateCustomerEntityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.customer.entity.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateCustomerEntityResponse());
     }
 
     /**
