@@ -27,7 +27,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         // 还款计划试算结果
         [NameInMap("repay_trail_list")]
         [Validation(Required=false)]
-        public RepayTrail RepayTrailList { get; set; }
+        public List<RepayTrail> RepayTrailList { get; set; }
 
     }
 
