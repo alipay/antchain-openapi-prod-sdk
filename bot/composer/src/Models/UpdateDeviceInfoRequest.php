@@ -111,6 +111,18 @@ class UpdateDeviceInfoRequest extends Model
      * @var string
      */
     public $extraInfo;
+
+    // 资产所有人标识（统一社会信用代码）
+    /**
+     * @var string
+     */
+    public $owner;
+
+    // 资产所有人名称
+    /**
+     * @var string
+     */
+    public $ownerName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -124,11 +136,15 @@ class UpdateDeviceInfoRequest extends Model
         'releaseTime'       => 'release_time',
         'deviceName'        => 'device_name',
         'extraInfo'         => 'extra_info',
+        'owner'             => 'owner',
+        'ownerName'         => 'owner_name',
     ];
 
     public function validate()
     {
         Model::validateRequired('chainDeviceId', $this->chainDeviceId, true);
+        Model::validateRequired('owner', $this->owner, true);
+        Model::validateRequired('ownerName', $this->ownerName, true);
         Model::validatePattern('factoryTime', $this->factoryTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('releaseTime', $this->releaseTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
@@ -171,6 +187,12 @@ class UpdateDeviceInfoRequest extends Model
         }
         if (null !== $this->extraInfo) {
             $res['extra_info'] = $this->extraInfo;
+        }
+        if (null !== $this->owner) {
+            $res['owner'] = $this->owner;
+        }
+        if (null !== $this->ownerName) {
+            $res['owner_name'] = $this->ownerName;
         }
 
         return $res;
@@ -219,6 +241,12 @@ class UpdateDeviceInfoRequest extends Model
         }
         if (isset($map['extra_info'])) {
             $model->extraInfo = $map['extra_info'];
+        }
+        if (isset($map['owner'])) {
+            $model->owner = $map['owner'];
+        }
+        if (isset($map['owner_name'])) {
+            $model->ownerName = $map['owner_name'];
         }
 
         return $model;

@@ -30,11 +30,18 @@ class DeploySceneRequest extends Model
      * @var string
      */
     public $bnaasBasicServiceDid;
+
+    // 合约版本号
+    /**
+     * @var string
+     */
+    public $contractVersion;
     protected $_name = [
         'authToken'            => 'auth_token',
         'productInstanceId'    => 'product_instance_id',
         'sceneName'            => 'scene_name',
         'bnaasBasicServiceDid' => 'bnaas_basic_service_did',
+        'contractVersion'      => 'contract_version',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class DeploySceneRequest extends Model
         }
         if (null !== $this->bnaasBasicServiceDid) {
             $res['bnaas_basic_service_did'] = $this->bnaasBasicServiceDid;
+        }
+        if (null !== $this->contractVersion) {
+            $res['contract_version'] = $this->contractVersion;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class DeploySceneRequest extends Model
         }
         if (isset($map['bnaas_basic_service_did'])) {
             $model->bnaasBasicServiceDid = $map['bnaas_basic_service_did'];
+        }
+        if (isset($map['contract_version'])) {
+            $model->contractVersion = $map['contract_version'];
         }
 
         return $model;

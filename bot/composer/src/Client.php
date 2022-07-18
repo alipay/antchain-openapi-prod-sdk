@@ -37,12 +37,16 @@ use AntChain\BOT\Models\CertifyIotbasicDeviceRequest;
 use AntChain\BOT\Models\CertifyIotbasicDeviceResponse;
 use AntChain\BOT\Models\CheckAiidentificationGoodspointRequest;
 use AntChain\BOT\Models\CheckAiidentificationGoodspointResponse;
+use AntChain\BOT\Models\CheckAiidentificationQrcodeRequest;
+use AntChain\BOT\Models\CheckAiidentificationQrcodeResponse;
 use AntChain\BOT\Models\CreateAcsDeviceRequest;
 use AntChain\BOT\Models\CreateAcsDeviceResponse;
 use AntChain\BOT\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\BOT\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\BOT\Models\CreateConsumerRequest;
 use AntChain\BOT\Models\CreateConsumerResponse;
+use AntChain\BOT\Models\CreateCustomerEntityRequest;
+use AntChain\BOT\Models\CreateCustomerEntityResponse;
 use AntChain\BOT\Models\CreateDeviceDatamodelRequest;
 use AntChain\BOT\Models\CreateDeviceDatamodelResponse;
 use AntChain\BOT\Models\CreateDeviceRelationRequest;
@@ -155,6 +159,8 @@ use AntChain\BOT\Models\QueryDataBytxhashRequest;
 use AntChain\BOT\Models\QueryDataBytxhashResponse;
 use AntChain\BOT\Models\QueryDeviceRegistrationRequest;
 use AntChain\BOT\Models\QueryDeviceRegistrationResponse;
+use AntChain\BOT\Models\QueryDeviceSpecsRequest;
+use AntChain\BOT\Models\QueryDeviceSpecsResponse;
 use AntChain\BOT\Models\QueryDockedDataRequest;
 use AntChain\BOT\Models\QueryDockedDataResponse;
 use AntChain\BOT\Models\QueryIotbasicDeviceRequest;
@@ -169,6 +175,8 @@ use AntChain\BOT\Models\QueryLeaseRealpersonRequest;
 use AntChain\BOT\Models\QueryLeaseRealpersonResponse;
 use AntChain\BOT\Models\QueryLeaseRiskRequest;
 use AntChain\BOT\Models\QueryLeaseRiskResponse;
+use AntChain\BOT\Models\QueryScfleaseEqpinfoRequest;
+use AntChain\BOT\Models\QueryScfleaseEqpinfoResponse;
 use AntChain\BOT\Models\QueryTaskRequest;
 use AntChain\BOT\Models\QueryTaskResponse;
 use AntChain\BOT\Models\QueryThingsdidAsyncprocessRequest;
@@ -221,6 +229,8 @@ use AntChain\BOT\Models\SyncLabelTransferRequest;
 use AntChain\BOT\Models\SyncLabelTransferResponse;
 use AntChain\BOT\Models\UpdateAlertStrategyRequest;
 use AntChain\BOT\Models\UpdateAlertStrategyResponse;
+use AntChain\BOT\Models\UpdateCustomerEntityRequest;
+use AntChain\BOT\Models\UpdateCustomerEntityResponse;
 use AntChain\BOT\Models\UpdateDeviceInfobydeviceRequest;
 use AntChain\BOT\Models\UpdateDeviceInfobydeviceResponse;
 use AntChain\BOT\Models\UpdateDeviceInfoRequest;
@@ -388,7 +398,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.106',
+                    'sdk_version'      => '1.6.114',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -783,6 +793,39 @@ class Client
     }
 
     /**
+     * Description: 溯源码比对服务
+     * Summary: AI溯源码验真
+     *
+     * @param CheckAiidentificationQrcodeRequest $request
+     *
+     * @return CheckAiidentificationQrcodeResponse
+     */
+    public function checkAiidentificationQrcode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkAiidentificationQrcodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 溯源码比对服务
+     * Summary: AI溯源码验真
+     *
+     * @param CheckAiidentificationQrcodeRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return CheckAiidentificationQrcodeResponse
+     */
+    public function checkAiidentificationQrcodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckAiidentificationQrcodeResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.qrcode.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: biot 私有化 设备注册接口
      * Summary: biot 私有化 设备注册接口.
      *
@@ -1044,6 +1087,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryIotbasicSnResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.sn.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-设备规格查询
+     * Summary: IoT设备平台-设备规格查询.
+     *
+     * @param QueryDeviceSpecsRequest $request
+     *
+     * @return QueryDeviceSpecsResponse
+     */
+    public function queryDeviceSpecs($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeviceSpecsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备规格查询
+     * Summary: IoT设备平台-设备规格查询.
+     *
+     * @param QueryDeviceSpecsRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryDeviceSpecsResponse
+     */
+    public function queryDeviceSpecsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeviceSpecsResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.specs.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3684,6 +3760,105 @@ class Client
         Utils::validateModel($request);
 
         return NotifyPullstrategyChargeorderinfoResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.pullstrategy.chargeorderinfo.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 菜鸟设备监控信息获取
+     * Summary: 菜鸟设备监控信息获取.
+     *
+     * @param QueryScfleaseEqpinfoRequest $request
+     *
+     * @return QueryScfleaseEqpinfoResponse
+     */
+    public function queryScfleaseEqpinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryScfleaseEqpinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 菜鸟设备监控信息获取
+     * Summary: 菜鸟设备监控信息获取.
+     *
+     * @param QueryScfleaseEqpinfoRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryScfleaseEqpinfoResponse
+     */
+    public function queryScfleaseEqpinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryScfleaseEqpinfoResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.scflease.eqpinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建自定义的实体数据
+     * Summary: 创建自定义实体.
+     *
+     * @param CreateCustomerEntityRequest $request
+     *
+     * @return CreateCustomerEntityResponse
+     */
+    public function createCustomerEntity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createCustomerEntityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建自定义的实体数据
+     * Summary: 创建自定义实体.
+     *
+     * @param CreateCustomerEntityRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CreateCustomerEntityResponse
+     */
+    public function createCustomerEntityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateCustomerEntityResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.customer.entity.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新自定义实体，通过场景码+实体ID来更新 实体内容或实体名称
+     * Summary: 更新自定义实体.
+     *
+     * @param UpdateCustomerEntityRequest $request
+     *
+     * @return UpdateCustomerEntityResponse
+     */
+    public function updateCustomerEntity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateCustomerEntityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新自定义实体，通过场景码+实体ID来更新 实体内容或实体名称
+     * Summary: 更新自定义实体.
+     *
+     * @param UpdateCustomerEntityRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UpdateCustomerEntityResponse
+     */
+    public function updateCustomerEntityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateCustomerEntityResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.customer.entity.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
