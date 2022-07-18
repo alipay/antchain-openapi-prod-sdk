@@ -18,7 +18,7 @@ public class CountDubbridgeRepayReftrialResponse extends TeaModel {
 
     // 还款计划试算结果
     @NameInMap("repay_trail_list")
-    public RepayTrail repayTrailList;
+    public java.util.List<RepayTrail> repayTrailList;
 
     public static CountDubbridgeRepayReftrialResponse build(java.util.Map<String, ?> map) throws Exception {
         CountDubbridgeRepayReftrialResponse self = new CountDubbridgeRepayReftrialResponse();
@@ -49,11 +49,11 @@ public class CountDubbridgeRepayReftrialResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CountDubbridgeRepayReftrialResponse setRepayTrailList(RepayTrail repayTrailList) {
+    public CountDubbridgeRepayReftrialResponse setRepayTrailList(java.util.List<RepayTrail> repayTrailList) {
         this.repayTrailList = repayTrailList;
         return this;
     }
-    public RepayTrail getRepayTrailList() {
+    public java.util.List<RepayTrail> getRepayTrailList() {
         return this.repayTrailList;
     }
 
