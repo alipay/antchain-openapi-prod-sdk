@@ -53,6 +53,8 @@ use AntChain\DEMO\Models\QueryTestGatewayTestRequest;
 use AntChain\DEMO\Models\QueryTestGatewayTestResponse;
 use AntChain\DEMO\Models\QueryTestTestobjectBbbRequest;
 use AntChain\DEMO\Models\QueryTestTestobjectBbbResponse;
+use AntChain\DEMO\Models\RegisterTestBizeventMessageRequest;
+use AntChain\DEMO\Models\RegisterTestBizeventMessageResponse;
 use AntChain\DEMO\Models\StatusGatewayCheckRequest;
 use AntChain\DEMO\Models\StatusGatewayCheckResponse;
 use AntChain\Util\UtilClient;
@@ -202,7 +204,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.91',
+                    'sdk_version'      => '1.0.92',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -860,6 +862,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryTestGatewayTestResponse::fromMap($this->doRequest('1.0', 'demo.test.gateway.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随机测试
+     * Summary: 消息发送及消费.
+     *
+     * @param RegisterTestBizeventMessageRequest $request
+     *
+     * @return RegisterTestBizeventMessageResponse
+     */
+    public function registerTestBizeventMessage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerTestBizeventMessageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随机测试
+     * Summary: 消息发送及消费.
+     *
+     * @param RegisterTestBizeventMessageRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return RegisterTestBizeventMessageResponse
+     */
+    public function registerTestBizeventMessageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterTestBizeventMessageResponse::fromMap($this->doRequest('1.0', 'demo.test.bizevent.message.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
