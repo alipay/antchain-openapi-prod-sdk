@@ -1587,6 +1587,62 @@ func (s *QueryTestGatewayTestResponse) SetResultMsg(v string) *QueryTestGatewayT
 	return s
 }
 
+type RegisterTestBizeventMessageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s RegisterTestBizeventMessageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterTestBizeventMessageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterTestBizeventMessageRequest) SetAuthToken(v string) *RegisterTestBizeventMessageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterTestBizeventMessageRequest) SetProductInstanceId(v string) *RegisterTestBizeventMessageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type RegisterTestBizeventMessageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RegisterTestBizeventMessageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterTestBizeventMessageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterTestBizeventMessageResponse) SetReqMsgId(v string) *RegisterTestBizeventMessageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterTestBizeventMessageResponse) SetResultCode(v string) *RegisterTestBizeventMessageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterTestBizeventMessageResponse) SetResultMsg(v string) *RegisterTestBizeventMessageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type BindAaaBbbCccRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1997,7 +2053,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.91"),
+				"sdk_version":      tea.String("1.0.92"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2681,6 +2737,40 @@ func (client *Client) QueryTestGatewayTestEx(request *QueryTestGatewayTestReques
 	}
 	_result = &QueryTestGatewayTestResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.gateway.test.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 随机测试
+ * Summary: 消息发送及消费
+ */
+func (client *Client) RegisterTestBizeventMessage(request *RegisterTestBizeventMessageRequest) (_result *RegisterTestBizeventMessageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterTestBizeventMessageResponse{}
+	_body, _err := client.RegisterTestBizeventMessageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 随机测试
+ * Summary: 消息发送及消费
+ */
+func (client *Client) RegisterTestBizeventMessageEx(request *RegisterTestBizeventMessageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterTestBizeventMessageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterTestBizeventMessageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.bizevent.message.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
