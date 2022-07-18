@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.4'
+                    'sdk_version': '1.4.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.4'
+                    'sdk_version': '1.4.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +306,8 @@ class Client:
         Summary: B端商户的NFT铸造 (废弃)
         """
         UtilClient.validate_model(request)
-        return nftx_models.ImportNftCreateResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.ImportNftCreateResponse(),
             self.do_request('1.0', 'antchain.nftx.nft.create.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: B端商户的NFT铸造 (废弃)
         """
         UtilClient.validate_model(request)
-        return nftx_models.ImportNftCreateResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.ImportNftCreateResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.create.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: B端商户的NFT发行铸造后查询
         """
         UtilClient.validate_model(request)
-        return nftx_models.QueryNftCreateResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.QueryNftCreateResponse(),
             self.do_request('1.0', 'antchain.nftx.nft.create.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: B端商户的NFT发行铸造后查询
         """
         UtilClient.validate_model(request)
-        return nftx_models.QueryNftCreateResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.QueryNftCreateResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.create.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: 按商品编码B2C发放NFT
         """
         UtilClient.validate_model(request)
-        return nftx_models.ExecNftTransferResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.ExecNftTransferResponse(),
             self.do_request('1.0', 'antchain.nftx.nft.transfer.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +434,8 @@ class Client:
         Summary: 按商品编码B2C发放NFT
         """
         UtilClient.validate_model(request)
-        return nftx_models.ExecNftTransferResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.ExecNftTransferResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.transfer.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +474,8 @@ class Client:
         Summary: 按项目表编码B2C发放NFT
         """
         UtilClient.validate_model(request)
-        return nftx_models.SendNftTransferResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.SendNftTransferResponse(),
             self.do_request('1.0', 'antchain.nftx.nft.transfer.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +490,8 @@ class Client:
         Summary: 按项目表编码B2C发放NFT
         """
         UtilClient.validate_model(request)
-        return nftx_models.SendNftTransferResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.SendNftTransferResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.transfer.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +530,8 @@ class Client:
         Summary: 根据nftId查询客户NFT资产
         """
         UtilClient.validate_model(request)
-        return nftx_models.QueryNftCustomerResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.QueryNftCustomerResponse(),
             self.do_request('1.0', 'antchain.nftx.nft.customer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +546,8 @@ class Client:
         Summary: 根据nftId查询客户NFT资产
         """
         UtilClient.validate_model(request)
-        return nftx_models.QueryNftCustomerResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.QueryNftCustomerResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.customer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +586,8 @@ class Client:
         Summary: 根据外部订单号查询该订单的NFT流水记录
         """
         UtilClient.validate_model(request)
-        return nftx_models.QueryNftOrderResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.QueryNftOrderResponse(),
             self.do_request('1.0', 'antchain.nftx.nft.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +602,8 @@ class Client:
         Summary: 根据外部订单号查询该订单的NFT流水记录
         """
         UtilClient.validate_model(request)
-        return nftx_models.QueryNftOrderResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.QueryNftOrderResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +642,8 @@ class Client:
         Summary: NFT发行审核&铸造
         """
         UtilClient.validate_model(request)
-        return nftx_models.CreateNftIssuerResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.CreateNftIssuerResponse(),
             self.do_request('1.0', 'antchain.nftx.nft.issuer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +658,8 @@ class Client:
         Summary: NFT发行审核&铸造
         """
         UtilClient.validate_model(request)
-        return nftx_models.CreateNftIssuerResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.CreateNftIssuerResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.issuer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +698,8 @@ class Client:
         Summary: 用户资产列表查询
         """
         UtilClient.validate_model(request)
-        return nftx_models.PagequeryNftCustomerResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.PagequeryNftCustomerResponse(),
             self.do_request('1.0', 'antchain.nftx.nft.customer.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +714,8 @@ class Client:
         Summary: 用户资产列表查询
         """
         UtilClient.validate_model(request)
-        return nftx_models.PagequeryNftCustomerResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.PagequeryNftCustomerResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.customer.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +754,8 @@ class Client:
         Summary: NFT铸造, 带监制方和渠道租户
         """
         UtilClient.validate_model(request)
-        return nftx_models.CreateNftPublishResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.CreateNftPublishResponse(),
             self.do_request('1.0', 'antchain.nftx.nft.publish.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +770,8 @@ class Client:
         Summary: NFT铸造, 带监制方和渠道租户
         """
         UtilClient.validate_model(request)
-        return nftx_models.CreateNftPublishResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.CreateNftPublishResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.publish.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +810,8 @@ class Client:
         Summary: 按项目表编码B2C发放NFT, (废弃)
         """
         UtilClient.validate_model(request)
-        return nftx_models.RunNftTransferResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.RunNftTransferResponse(),
             self.do_request('1.0', 'antchain.nftx.nft.transfer.run', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +826,8 @@ class Client:
         Summary: 按项目表编码B2C发放NFT, (废弃)
         """
         UtilClient.validate_model(request)
-        return nftx_models.RunNftTransferResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.RunNftTransferResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.transfer.run', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +866,8 @@ class Client:
         Summary: 按商品编码B2C发放NFT 带渠道租户
         """
         UtilClient.validate_model(request)
-        return nftx_models.ApplyNftTransferResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.ApplyNftTransferResponse(),
             self.do_request('1.0', 'antchain.nftx.nft.transfer.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +882,8 @@ class Client:
         Summary: 按商品编码B2C发放NFT 带渠道租户
         """
         UtilClient.validate_model(request)
-        return nftx_models.ApplyNftTransferResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.ApplyNftTransferResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.transfer.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +922,8 @@ class Client:
         Summary: 按项目表编码B2C发放NFT,带渠道租户
         """
         UtilClient.validate_model(request)
-        return nftx_models.ApplyNftTransferbyprojectwithchanneltenantResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.ApplyNftTransferbyprojectwithchanneltenantResponse(),
             self.do_request('1.0', 'antchain.nftx.nft.transferbyprojectwithchanneltenant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,6 +938,7 @@ class Client:
         Summary: 按项目表编码B2C发放NFT,带渠道租户
         """
         UtilClient.validate_model(request)
-        return nftx_models.ApplyNftTransferbyprojectwithchanneltenantResponse().from_map(
+        return TeaCore.from_map(
+            nftx_models.ApplyNftTransferbyprojectwithchanneltenantResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.transferbyprojectwithchanneltenant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
