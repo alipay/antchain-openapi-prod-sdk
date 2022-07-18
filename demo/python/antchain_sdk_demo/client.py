@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.91'
+                    'sdk_version': '1.0.92'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.91'
+                    'sdk_version': '1.0.92'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1315,6 +1315,62 @@ class Client:
         return TeaCore.from_map(
             demo_models.QueryTestGatewayTestResponse(),
             await self.do_request_async('1.0', 'demo.test.gateway.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_test_bizevent_message(
+        self,
+        request: demo_models.RegisterTestBizeventMessageRequest,
+    ) -> demo_models.RegisterTestBizeventMessageResponse:
+        """
+        Description: 随机测试
+        Summary: 消息发送及消费
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_test_bizevent_message_ex(request, headers, runtime)
+
+    async def register_test_bizevent_message_async(
+        self,
+        request: demo_models.RegisterTestBizeventMessageRequest,
+    ) -> demo_models.RegisterTestBizeventMessageResponse:
+        """
+        Description: 随机测试
+        Summary: 消息发送及消费
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_test_bizevent_message_ex_async(request, headers, runtime)
+
+    def register_test_bizevent_message_ex(
+        self,
+        request: demo_models.RegisterTestBizeventMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.RegisterTestBizeventMessageResponse:
+        """
+        Description: 随机测试
+        Summary: 消息发送及消费
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.RegisterTestBizeventMessageResponse(),
+            self.do_request('1.0', 'demo.test.bizevent.message.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_test_bizevent_message_ex_async(
+        self,
+        request: demo_models.RegisterTestBizeventMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.RegisterTestBizeventMessageResponse:
+        """
+        Description: 随机测试
+        Summary: 消息发送及消费
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.RegisterTestBizeventMessageResponse(),
+            await self.do_request_async('1.0', 'demo.test.bizevent.message.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def bind_aaa_bbb_ccc(
