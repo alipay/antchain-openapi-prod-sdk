@@ -6989,7 +6989,7 @@ export class CountDubbridgeRepayReftrialResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 还款计划试算结果
-  repayTrailList?: RepayTrail;
+  repayTrailList?: RepayTrail[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -7004,7 +7004,7 @@ export class CountDubbridgeRepayReftrialResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      repayTrailList: RepayTrail,
+      repayTrailList: { 'type': 'array', 'itemType': RepayTrail },
     };
   }
 
@@ -12249,7 +12249,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.6",
+          sdk_version: "1.12.8",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
