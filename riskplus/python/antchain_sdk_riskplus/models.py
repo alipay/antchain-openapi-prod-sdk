@@ -10944,7 +10944,7 @@ class CountDubbridgeRepayReftrialResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        repay_trail_list: RepayTrail = None,
+        repay_trail_list: List[RepayTrail] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -10957,7 +10957,9 @@ class CountDubbridgeRepayReftrialResponse(TeaModel):
 
     def validate(self):
         if self.repay_trail_list:
-            self.repay_trail_list.validate()
+            for k in self.repay_trail_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         result = dict()
@@ -10967,8 +10969,10 @@ class CountDubbridgeRepayReftrialResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        result['repay_trail_list'] = []
         if self.repay_trail_list is not None:
-            result['repay_trail_list'] = self.repay_trail_list.to_map()
+            for k in self.repay_trail_list:
+                result['repay_trail_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -10979,9 +10983,11 @@ class CountDubbridgeRepayReftrialResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        self.repay_trail_list = []
         if m.get('repay_trail_list') is not None:
-            temp_model = RepayTrail()
-            self.repay_trail_list = temp_model.from_map(m['repay_trail_list'])
+            for k in m.get('repay_trail_list'):
+                temp_model = RepayTrail()
+                self.repay_trail_list.append(temp_model.from_map(k))
         return self
 
 
