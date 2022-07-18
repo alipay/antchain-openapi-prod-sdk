@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "NFTX",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-nftx:1.4.3",
-    "go": "github.com/antchain-openapi-sdk-go/nftx/client:v1.4.3",
-    "csharp": "AntChain.SDK.NFTX:1.4.3",
-    "ts": "@antchain/nftx:1.4.3",
-    "php": "antchain/nftx:1.4.3",
-    "python": "antchain_sdk_nftx:1.4.3"
+    "java": "com.antgroup.antchain.openapi:openapi-nftx:1.4.4",
+    "go": "github.com/antchain-openapi-sdk-go/nftx/client:v1.4.4",
+    "csharp": "AntChain.SDK.NFTX:1.4.4",
+    "ts": "@antchain/nftx:1.4.4",
+    "php": "antchain/nftx:1.4.4",
+    "python": "antchain_sdk_nftx:1.4.4"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
