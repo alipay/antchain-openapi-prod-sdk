@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.106"},
+                        {"sdk_version", "1.6.114"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.106"},
+                        {"sdk_version", "1.6.114"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -784,6 +784,48 @@ namespace AntChain.SDK.BOT
         }
 
         /**
+         * Description: 溯源码比对服务
+         * Summary: AI溯源码验真
+         */
+        public CheckAiidentificationQrcodeResponse CheckAiidentificationQrcode(CheckAiidentificationQrcodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckAiidentificationQrcodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源码比对服务
+         * Summary: AI溯源码验真
+         */
+        public async Task<CheckAiidentificationQrcodeResponse> CheckAiidentificationQrcodeAsync(CheckAiidentificationQrcodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckAiidentificationQrcodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 溯源码比对服务
+         * Summary: AI溯源码验真
+         */
+        public CheckAiidentificationQrcodeResponse CheckAiidentificationQrcodeEx(CheckAiidentificationQrcodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAiidentificationQrcodeResponse>(DoRequest("1.0", "blockchain.bot.aiidentification.qrcode.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 溯源码比对服务
+         * Summary: AI溯源码验真
+         */
+        public async Task<CheckAiidentificationQrcodeResponse> CheckAiidentificationQrcodeExAsync(CheckAiidentificationQrcodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAiidentificationQrcodeResponse>(await DoRequestAsync("1.0", "blockchain.bot.aiidentification.qrcode.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: biot 私有化 设备注册接口
          * Summary: biot 私有化 设备注册接口
          */
@@ -1117,6 +1159,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryIotbasicSnResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.sn.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设备规格查询
+         * Summary: IoT设备平台-设备规格查询
+         */
+        public QueryDeviceSpecsResponse QueryDeviceSpecs(QueryDeviceSpecsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDeviceSpecsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设备规格查询
+         * Summary: IoT设备平台-设备规格查询
+         */
+        public async Task<QueryDeviceSpecsResponse> QueryDeviceSpecsAsync(QueryDeviceSpecsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDeviceSpecsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设备规格查询
+         * Summary: IoT设备平台-设备规格查询
+         */
+        public QueryDeviceSpecsResponse QueryDeviceSpecsEx(QueryDeviceSpecsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceSpecsResponse>(DoRequest("1.0", "blockchain.bot.device.specs.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设备规格查询
+         * Summary: IoT设备平台-设备规格查询
+         */
+        public async Task<QueryDeviceSpecsResponse> QueryDeviceSpecsExAsync(QueryDeviceSpecsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeviceSpecsResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.specs.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -4477,6 +4561,132 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<NotifyPullstrategyChargeorderinfoResponse>(await DoRequestAsync("1.0", "blockchain.bot.pullstrategy.chargeorderinfo.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 菜鸟设备监控信息获取
+         * Summary: 菜鸟设备监控信息获取
+         */
+        public QueryScfleaseEqpinfoResponse QueryScfleaseEqpinfo(QueryScfleaseEqpinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryScfleaseEqpinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 菜鸟设备监控信息获取
+         * Summary: 菜鸟设备监控信息获取
+         */
+        public async Task<QueryScfleaseEqpinfoResponse> QueryScfleaseEqpinfoAsync(QueryScfleaseEqpinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryScfleaseEqpinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 菜鸟设备监控信息获取
+         * Summary: 菜鸟设备监控信息获取
+         */
+        public QueryScfleaseEqpinfoResponse QueryScfleaseEqpinfoEx(QueryScfleaseEqpinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScfleaseEqpinfoResponse>(DoRequest("1.0", "blockchain.bot.scflease.eqpinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 菜鸟设备监控信息获取
+         * Summary: 菜鸟设备监控信息获取
+         */
+        public async Task<QueryScfleaseEqpinfoResponse> QueryScfleaseEqpinfoExAsync(QueryScfleaseEqpinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScfleaseEqpinfoResponse>(await DoRequestAsync("1.0", "blockchain.bot.scflease.eqpinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建自定义的实体数据
+         * Summary: 创建自定义实体
+         */
+        public CreateCustomerEntityResponse CreateCustomerEntity(CreateCustomerEntityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateCustomerEntityEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建自定义的实体数据
+         * Summary: 创建自定义实体
+         */
+        public async Task<CreateCustomerEntityResponse> CreateCustomerEntityAsync(CreateCustomerEntityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateCustomerEntityExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建自定义的实体数据
+         * Summary: 创建自定义实体
+         */
+        public CreateCustomerEntityResponse CreateCustomerEntityEx(CreateCustomerEntityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCustomerEntityResponse>(DoRequest("1.0", "blockchain.bot.customer.entity.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建自定义的实体数据
+         * Summary: 创建自定义实体
+         */
+        public async Task<CreateCustomerEntityResponse> CreateCustomerEntityExAsync(CreateCustomerEntityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCustomerEntityResponse>(await DoRequestAsync("1.0", "blockchain.bot.customer.entity.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新自定义实体，通过场景码+实体ID来更新 实体内容或实体名称
+         * Summary: 更新自定义实体
+         */
+        public UpdateCustomerEntityResponse UpdateCustomerEntity(UpdateCustomerEntityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateCustomerEntityEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新自定义实体，通过场景码+实体ID来更新 实体内容或实体名称
+         * Summary: 更新自定义实体
+         */
+        public async Task<UpdateCustomerEntityResponse> UpdateCustomerEntityAsync(UpdateCustomerEntityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateCustomerEntityExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新自定义实体，通过场景码+实体ID来更新 实体内容或实体名称
+         * Summary: 更新自定义实体
+         */
+        public UpdateCustomerEntityResponse UpdateCustomerEntityEx(UpdateCustomerEntityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateCustomerEntityResponse>(DoRequest("1.0", "blockchain.bot.customer.entity.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新自定义实体，通过场景码+实体ID来更新 实体内容或实体名称
+         * Summary: 更新自定义实体
+         */
+        public async Task<UpdateCustomerEntityResponse> UpdateCustomerEntityExAsync(UpdateCustomerEntityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateCustomerEntityResponse>(await DoRequestAsync("1.0", "blockchain.bot.customer.entity.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class DeploySceneRequest : TeaModel {
+    public class QueryDeviceSpecsRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 场景名称
-        [NameInMap("scene_name")]
+        // 设备SN
+        [NameInMap("device_sn")]
         [Validation(Required=true)]
-        public string SceneName { get; set; }
+        public string DeviceSn { get; set; }
 
-        // 链ID
-        [NameInMap("bnaas_basic_service_did")]
+        // 厂商编码
+        [NameInMap("corp_name")]
         [Validation(Required=true)]
-        public string BnaasBasicServiceDid { get; set; }
-
-        // 合约版本号
-        [NameInMap("contract_version")]
-        [Validation(Required=false)]
-        public string ContractVersion { get; set; }
+        public string CorpName { get; set; }
 
     }
 

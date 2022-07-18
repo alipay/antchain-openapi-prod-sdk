@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class DeploySceneRequest : TeaModel {
+    public class CheckAiidentificationQrcodeRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 场景名称
-        [NameInMap("scene_name")]
+        // 用户标识
+        [NameInMap("app_key")]
         [Validation(Required=true)]
-        public string SceneName { get; set; }
+        public string AppKey { get; set; }
 
-        // 链ID
-        [NameInMap("bnaas_basic_service_did")]
+        // 请求data
+        [NameInMap("data")]
         [Validation(Required=true)]
-        public string BnaasBasicServiceDid { get; set; }
-
-        // 合约版本号
-        [NameInMap("contract_version")]
-        [Validation(Required=false)]
-        public string ContractVersion { get; set; }
+        public BaiQrcodeComparisonReqData Data { get; set; }
 
     }
 
