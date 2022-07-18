@@ -9416,7 +9416,7 @@ type CountDubbridgeRepayReftrialResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 还款计划试算结果
-	RepayTrailList *RepayTrail `json:"repay_trail_list,omitempty" xml:"repay_trail_list,omitempty"`
+	RepayTrailList []*RepayTrail `json:"repay_trail_list,omitempty" xml:"repay_trail_list,omitempty" type:"Repeated"`
 }
 
 func (s CountDubbridgeRepayReftrialResponse) String() string {
@@ -9442,7 +9442,7 @@ func (s *CountDubbridgeRepayReftrialResponse) SetResultMsg(v string) *CountDubbr
 	return s
 }
 
-func (s *CountDubbridgeRepayReftrialResponse) SetRepayTrailList(v *RepayTrail) *CountDubbridgeRepayReftrialResponse {
+func (s *CountDubbridgeRepayReftrialResponse) SetRepayTrailList(v []*RepayTrail) *CountDubbridgeRepayReftrialResponse {
 	s.RepayTrailList = v
 	return s
 }
@@ -16306,7 +16306,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.6"),
+				"sdk_version":      tea.String("1.12.8"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
