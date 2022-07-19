@@ -346,6 +346,55 @@ export class DingTalkContent extends $tea.Model {
   }
 }
 
+// 深度分析配置
+export class AnalysisConfig extends $tea.Model {
+  // 文章ID
+  docId?: string;
+  // 文章URL
+  url?: string;
+  // 项目ID
+  projectId?: number;
+  // 模板ID
+  filterId?: number;
+  // 关键词列表
+  posKeywordList?: string[];
+  // 开始时间
+  publishTimeStart?: number;
+  // 结束时间
+  publishTimeEnd?: number;
+  // URL列表
+  urlList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      docId: 'doc_id',
+      url: 'url',
+      projectId: 'project_id',
+      filterId: 'filter_id',
+      posKeywordList: 'pos_keyword_list',
+      publishTimeStart: 'publish_time_start',
+      publishTimeEnd: 'publish_time_end',
+      urlList: 'url_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      docId: 'string',
+      url: 'string',
+      projectId: 'number',
+      filterId: 'number',
+      posKeywordList: { 'type': 'array', 'itemType': 'string' },
+      publishTimeStart: 'number',
+      publishTimeEnd: 'number',
+      urlList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 查询结构体
 export class SearchCondition extends $tea.Model {
   // 搭配词
@@ -688,6 +737,39 @@ export class SmsContent extends $tea.Model {
       serviceCode: 'string',
       mobile: 'string',
       developerId: 'string',
+      arguments: { 'type': 'array', 'itemType': Pair },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 邮箱数据
+export class EmailContent extends $tea.Model {
+  // code
+  serviceCode?: string;
+  // 开发者Id
+  developerId?: string;
+  // 邮箱
+  email: string;
+  // 参数
+  arguments?: Pair[];
+  static names(): { [key: string]: string } {
+    return {
+      serviceCode: 'service_code',
+      developerId: 'developer_id',
+      email: 'email',
+      arguments: 'arguments',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      serviceCode: 'string',
+      developerId: 'string',
+      email: 'string',
       arguments: { 'type': 'array', 'itemType': Pair },
     };
   }
@@ -1166,6 +1248,8 @@ export class SendProductNoticeRequest extends $tea.Model {
   dingTalkContent?: DingTalkContent;
   // 短信内容
   smsContent?: SmsContent;
+  // email结构体
+  emailContent?: EmailContent;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1173,6 +1257,7 @@ export class SendProductNoticeRequest extends $tea.Model {
       noticeType: 'notice_type',
       dingTalkContent: 'ding_talk_content',
       smsContent: 'sms_content',
+      emailContent: 'email_content',
     };
   }
 
@@ -1183,6 +1268,7 @@ export class SendProductNoticeRequest extends $tea.Model {
       noticeType: 'string',
       dingTalkContent: DingTalkContent,
       smsContent: SmsContent,
+      emailContent: EmailContent,
     };
   }
 
@@ -1215,6 +1301,140 @@ export class SendProductNoticeResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       operateResult: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveDeepanalysisSubmitRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 深度分析类型
+  toolType: string;
+  // 任务名称
+  name: string;
+  // 深度分析配置
+  config: AnalysisConfig;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      toolType: 'tool_type',
+      name: 'name',
+      config: 'config',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      toolType: 'string',
+      name: 'string',
+      config: AnalysisConfig,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveDeepanalysisSubmitResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 深度分析任务ID
+  analysisId?: number;
+  // 其他返回
+  resultJson?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      analysisId: 'analysis_id',
+      resultJson: 'result_json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      analysisId: 'number',
+      resultJson: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeepanalysisQueryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 深度分析任务ID
+  analysisId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      analysisId: 'analysis_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      analysisId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDeepanalysisQueryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 深度分析任务ID
+  analysisId?: number;
+  // 分析内容
+  resultJson?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      analysisId: 'analysis_id',
+      resultJson: 'result_json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      analysisId: 'number',
+      resultJson: 'string',
     };
   }
 
@@ -1336,7 +1556,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.12",
+          sdk_version: "1.1.14",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1513,6 +1733,44 @@ export default class Client {
   async sendProductNoticeEx(request: SendProductNoticeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendProductNoticeResponse> {
     Util.validateModel(request);
     return $tea.cast<SendProductNoticeResponse>(await this.doRequest("1.0", "universalsaas.yuqing.product.notice.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendProductNoticeResponse({}));
+  }
+
+  /**
+   * Description: 创建深度分析
+   * Summary: 创建深度分析
+   */
+  async saveDeepanalysisSubmit(request: SaveDeepanalysisSubmitRequest): Promise<SaveDeepanalysisSubmitResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.saveDeepanalysisSubmitEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建深度分析
+   * Summary: 创建深度分析
+   */
+  async saveDeepanalysisSubmitEx(request: SaveDeepanalysisSubmitRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveDeepanalysisSubmitResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SaveDeepanalysisSubmitResponse>(await this.doRequest("1.0", "universalsaas.yuqing.deepanalysis.submit.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveDeepanalysisSubmitResponse({}));
+  }
+
+  /**
+   * Description: 查询深度分析
+   * Summary: 查询深度分析
+   */
+  async queryDeepanalysisQuery(request: QueryDeepanalysisQueryRequest): Promise<QueryDeepanalysisQueryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDeepanalysisQueryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询深度分析
+   * Summary: 查询深度分析
+   */
+  async queryDeepanalysisQueryEx(request: QueryDeepanalysisQueryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDeepanalysisQueryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDeepanalysisQueryResponse>(await this.doRequest("1.0", "universalsaas.yuqing.deepanalysis.query.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDeepanalysisQueryResponse({}));
   }
 
 }
