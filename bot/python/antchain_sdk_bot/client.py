@@ -306,7 +306,8 @@ class Client:
         Summary: acec提供的SPI服务开通接口
         """
         UtilClient.validate_model(request)
-        return bot_models.OpenAcecContractResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.OpenAcecContractResponse(),
             self.do_request('1.0', 'blockchain.bot.acec.contract.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: acec提供的SPI服务开通接口
         """
         UtilClient.validate_model(request)
-        return bot_models.OpenAcecContractResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.OpenAcecContractResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.acec.contract.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: acec提供的SPI服务停止接口
         """
         UtilClient.validate_model(request)
-        return bot_models.StopAcecContractResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.StopAcecContractResponse(),
             self.do_request('1.0', 'blockchain.bot.acec.contract.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: acec提供的SPI服务停止接口
         """
         UtilClient.validate_model(request)
-        return bot_models.StopAcecContractResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.StopAcecContractResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.acec.contract.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: acec提供的SPI服务复入接口
         """
         UtilClient.validate_model(request)
-        return bot_models.ResumeAcecContractResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ResumeAcecContractResponse(),
             self.do_request('1.0', 'blockchain.bot.acec.contract.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +434,8 @@ class Client:
         Summary: acec提供的SPI服务复入接口
         """
         UtilClient.validate_model(request)
-        return bot_models.ResumeAcecContractResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ResumeAcecContractResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.acec.contract.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +474,8 @@ class Client:
         Summary: 租赁智能中心实人认证创建服务
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateLeaseRealpersonResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateLeaseRealpersonResponse(),
             self.do_request('1.0', 'blockchain.bot.lease.realperson.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +490,8 @@ class Client:
         Summary: 租赁智能中心实人认证创建服务
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateLeaseRealpersonResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateLeaseRealpersonResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.lease.realperson.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +530,8 @@ class Client:
         Summary: 租赁智能中心实人认证查询服务
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryLeaseRealpersonResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryLeaseRealpersonResponse(),
             self.do_request('1.0', 'blockchain.bot.lease.realperson.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +546,8 @@ class Client:
         Summary: 租赁智能中心实人认证查询服务
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryLeaseRealpersonResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryLeaseRealpersonResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.lease.realperson.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +586,8 @@ class Client:
         Summary: 租赁智能中心风控查询服务
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryLeaseRiskResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryLeaseRiskResponse(),
             self.do_request('1.0', 'blockchain.bot.lease.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +602,8 @@ class Client:
         Summary: 租赁智能中心风控查询服务
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryLeaseRiskResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryLeaseRiskResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.lease.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +642,8 @@ class Client:
         Summary: BAI提供的OCR服务
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryBaiOcrResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryBaiOcrResponse(),
             self.do_request('1.0', 'blockchain.bot.bai.ocr.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +658,8 @@ class Client:
         Summary: BAI提供的OCR服务
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryBaiOcrResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryBaiOcrResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.bai.ocr.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -701,7 +715,8 @@ class Client:
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return bot_models.QueryAiidentificationQrcodeResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryAiidentificationQrcodeResponse(),
             self.do_request('1.0', 'blockchain.bot.aiidentification.qrcode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -733,7 +748,8 @@ class Client:
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return bot_models.QueryAiidentificationQrcodeResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryAiidentificationQrcodeResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.aiidentification.qrcode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -772,7 +788,8 @@ class Client:
         Summary: AI商品鉴定
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryAiidentificationGoodsResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryAiidentificationGoodsResponse(),
             self.do_request('1.0', 'blockchain.bot.aiidentification.goods.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -787,7 +804,8 @@ class Client:
         Summary: AI商品鉴定
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryAiidentificationGoodsResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryAiidentificationGoodsResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.aiidentification.goods.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -826,7 +844,8 @@ class Client:
         Summary: 商品鉴定点图片检测
         """
         UtilClient.validate_model(request)
-        return bot_models.CheckAiidentificationGoodspointResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CheckAiidentificationGoodspointResponse(),
             self.do_request('1.0', 'blockchain.bot.aiidentification.goodspoint.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -841,7 +860,8 @@ class Client:
         Summary: 商品鉴定点图片检测
         """
         UtilClient.validate_model(request)
-        return bot_models.CheckAiidentificationGoodspointResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CheckAiidentificationGoodspointResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.aiidentification.goodspoint.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -880,7 +900,8 @@ class Client:
         Summary: AI溯源码验真
         """
         UtilClient.validate_model(request)
-        return bot_models.CheckAiidentificationQrcodeResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CheckAiidentificationQrcodeResponse(),
             self.do_request('1.0', 'blockchain.bot.aiidentification.qrcode.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -895,7 +916,8 @@ class Client:
         Summary: AI溯源码验真
         """
         UtilClient.validate_model(request)
-        return bot_models.CheckAiidentificationQrcodeResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CheckAiidentificationQrcodeResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.aiidentification.qrcode.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -934,7 +956,8 @@ class Client:
         Summary: biot 私有化 设备注册接口
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateAcsDeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateAcsDeviceResponse(),
             self.do_request('1.0', 'blockchain.bot.acs.device.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -949,7 +972,8 @@ class Client:
         Summary: biot 私有化 设备注册接口
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateAcsDeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateAcsDeviceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.acs.device.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -988,7 +1012,8 @@ class Client:
         Summary: biot 私有化 业务数据上报
         """
         UtilClient.validate_model(request)
-        return bot_models.SendAcsCollectorResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendAcsCollectorResponse(),
             self.do_request('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1003,7 +1028,8 @@ class Client:
         Summary: biot 私有化 业务数据上报
         """
         UtilClient.validate_model(request)
-        return bot_models.SendAcsCollectorResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendAcsCollectorResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.acs.collector.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1042,7 +1068,8 @@ class Client:
         Summary: IoT设备平台-设备查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryIotbasicDeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryIotbasicDeviceResponse(),
             self.do_request('1.0', 'blockchain.bot.iotbasic.device.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1057,7 +1084,8 @@ class Client:
         Summary: IoT设备平台-设备查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryIotbasicDeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryIotbasicDeviceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.device.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1096,7 +1124,8 @@ class Client:
         Summary: IoT产品开通状态查询
         """
         UtilClient.validate_model(request)
-        return bot_models.RecognizeIotbasicCustomerResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.RecognizeIotbasicCustomerResponse(),
             self.do_request('1.0', 'blockchain.bot.iotbasic.customer.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1111,7 +1140,8 @@ class Client:
         Summary: IoT产品开通状态查询
         """
         UtilClient.validate_model(request)
-        return bot_models.RecognizeIotbasicCustomerResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.RecognizeIotbasicCustomerResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.customer.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1150,7 +1180,8 @@ class Client:
         Summary: IoT设备平台-设备认证
         """
         UtilClient.validate_model(request)
-        return bot_models.CertifyIotbasicDeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CertifyIotbasicDeviceResponse(),
             self.do_request('1.0', 'blockchain.bot.iotbasic.device.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1165,7 +1196,8 @@ class Client:
         Summary: IoT设备平台-设备认证
         """
         UtilClient.validate_model(request)
-        return bot_models.CertifyIotbasicDeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CertifyIotbasicDeviceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.device.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1204,7 +1236,8 @@ class Client:
         Summary: iot平台用户注册操作
         """
         UtilClient.validate_model(request)
-        return bot_models.OperateIotbasicUserResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.OperateIotbasicUserResponse(),
             self.do_request('1.0', 'blockchain.bot.iotbasic.user.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1219,7 +1252,8 @@ class Client:
         Summary: iot平台用户注册操作
         """
         UtilClient.validate_model(request)
-        return bot_models.OperateIotbasicUserResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.OperateIotbasicUserResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.user.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1258,7 +1292,8 @@ class Client:
         Summary: iot 平台权限操作
         """
         UtilClient.validate_model(request)
-        return bot_models.OperateIotbasicPermissionResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.OperateIotbasicPermissionResponse(),
             self.do_request('1.0', 'blockchain.bot.iotbasic.permission.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1273,7 +1308,8 @@ class Client:
         Summary: iot 平台权限操作
         """
         UtilClient.validate_model(request)
-        return bot_models.OperateIotbasicPermissionResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.OperateIotbasicPermissionResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.permission.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1312,7 +1348,8 @@ class Client:
         Summary: IoT设备平台-设备sn列表查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryIotbasicSnResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryIotbasicSnResponse(),
             self.do_request('1.0', 'blockchain.bot.iotbasic.sn.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1327,7 +1364,8 @@ class Client:
         Summary: IoT设备平台-设备sn列表查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryIotbasicSnResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryIotbasicSnResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.sn.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1366,7 +1404,8 @@ class Client:
         Summary: IoT设备平台-设备规格查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryDeviceSpecsResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryDeviceSpecsResponse(),
             self.do_request('1.0', 'blockchain.bot.device.specs.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1381,7 +1420,8 @@ class Client:
         Summary: IoT设备平台-设备规格查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryDeviceSpecsResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryDeviceSpecsResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.specs.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1420,7 +1460,8 @@ class Client:
         Summary: 根据设备串号查询采购设备
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryIotplatformPurchaseorderResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryIotplatformPurchaseorderResponse(),
             self.do_request('1.0', 'blockchain.bot.iotplatform.purchaseorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1435,7 +1476,8 @@ class Client:
         Summary: 根据设备串号查询采购设备
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryIotplatformPurchaseorderResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryIotplatformPurchaseorderResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotplatform.purchaseorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1474,7 +1516,8 @@ class Client:
         Summary: 绑定MeshId及设备SN
         """
         UtilClient.validate_model(request)
-        return bot_models.ImportIotplatformMeshidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ImportIotplatformMeshidResponse(),
             self.do_request('1.0', 'blockchain.bot.iotplatform.meshid.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1489,7 +1532,8 @@ class Client:
         Summary: 绑定MeshId及设备SN
         """
         UtilClient.validate_model(request)
-        return bot_models.ImportIotplatformMeshidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ImportIotplatformMeshidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotplatform.meshid.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1528,7 +1572,8 @@ class Client:
         Summary: 与租赁宝对接采购订单导入的接口
         """
         UtilClient.validate_model(request)
-        return bot_models.ImportPurchaseorderThirdpartyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ImportPurchaseorderThirdpartyResponse(),
             self.do_request('1.0', 'blockchain.bot.purchaseorder.thirdparty.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1543,7 +1588,8 @@ class Client:
         Summary: 与租赁宝对接采购订单导入的接口
         """
         UtilClient.validate_model(request)
-        return bot_models.ImportPurchaseorderThirdpartyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ImportPurchaseorderThirdpartyResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.purchaseorder.thirdparty.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1582,7 +1628,8 @@ class Client:
         Summary: 采购平台新增供应商角色
         """
         UtilClient.validate_model(request)
-        return bot_models.AddUserRoleResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddUserRoleResponse(),
             self.do_request('1.0', 'blockchain.bot.user.role.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1597,7 +1644,8 @@ class Client:
         Summary: 采购平台新增供应商角色
         """
         UtilClient.validate_model(request)
-        return bot_models.AddUserRoleResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddUserRoleResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.user.role.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1636,7 +1684,8 @@ class Client:
         Summary: 采购平台新增SKU
         """
         UtilClient.validate_model(request)
-        return bot_models.AddGoodsSkuResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddGoodsSkuResponse(),
             self.do_request('1.0', 'blockchain.bot.goods.sku.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1651,7 +1700,8 @@ class Client:
         Summary: 采购平台新增SKU
         """
         UtilClient.validate_model(request)
-        return bot_models.AddGoodsSkuResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddGoodsSkuResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.goods.sku.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1690,7 +1740,8 @@ class Client:
         Summary: 创建数据模型
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDeviceDatamodelResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDeviceDatamodelResponse(),
             self.do_request('1.0', 'blockchain.bot.device.datamodel.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1705,7 +1756,8 @@ class Client:
         Summary: 创建数据模型
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDeviceDatamodelResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDeviceDatamodelResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.datamodel.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1744,7 +1796,8 @@ class Client:
         Summary: 获取数据模型
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDeviceDatamodelResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDeviceDatamodelResponse(),
             self.do_request('1.0', 'blockchain.bot.device.datamodel.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1759,7 +1812,8 @@ class Client:
         Summary: 获取数据模型
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDeviceDatamodelResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDeviceDatamodelResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.datamodel.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1798,7 +1852,8 @@ class Client:
         Summary: 注册设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ImportDeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ImportDeviceResponse(),
             self.do_request('1.0', 'blockchain.bot.device.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1813,7 +1868,8 @@ class Client:
         Summary: 注册设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ImportDeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ImportDeviceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1852,7 +1908,8 @@ class Client:
         Summary: 通过chainId获取设备详情
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDeviceBychainidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDeviceBychainidResponse(),
             self.do_request('1.0', 'blockchain.bot.device.bychainid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1867,7 +1924,8 @@ class Client:
         Summary: 通过chainId获取设备详情
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDeviceBychainidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDeviceBychainidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.bychainid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1906,7 +1964,8 @@ class Client:
         Summary: 通过deviceId获取设备详情
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDeviceBydeviceidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDeviceBydeviceidResponse(),
             self.do_request('1.0', 'blockchain.bot.device.bydeviceid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1921,7 +1980,8 @@ class Client:
         Summary: 通过deviceId获取设备详情
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDeviceBydeviceidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDeviceBydeviceidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.bydeviceid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1960,7 +2020,8 @@ class Client:
         Summary: 通过场景码列举设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ListDeviceBysceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ListDeviceBysceneResponse(),
             self.do_request('1.0', 'blockchain.bot.device.byscene.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1975,7 +2036,8 @@ class Client:
         Summary: 通过场景码列举设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ListDeviceBysceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ListDeviceBysceneResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.byscene.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2014,7 +2076,8 @@ class Client:
         Summary: 更新设备信息
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateDeviceInfoResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateDeviceInfoResponse(),
             self.do_request('1.0', 'blockchain.bot.device.info.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2029,7 +2092,8 @@ class Client:
         Summary: 更新设备信息
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateDeviceInfoResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateDeviceInfoResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.info.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2068,7 +2132,8 @@ class Client:
         Summary: 通过deviceId发行设备
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDistributedeviceBydeviceidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceBydeviceidResponse(),
             self.do_request('1.0', 'blockchain.bot.distributedevice.bydeviceid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2083,7 +2148,8 @@ class Client:
         Summary: 通过deviceId发行设备
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDistributedeviceBydeviceidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceBydeviceidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.distributedevice.bydeviceid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2122,7 +2188,8 @@ class Client:
         Summary: 通过链上设备Id发行
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDistributedeviceBychainidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceBychainidResponse(),
             self.do_request('1.0', 'blockchain.bot.distributedevice.bychainid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2137,7 +2204,8 @@ class Client:
         Summary: 通过链上设备Id发行
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDistributedeviceBychainidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceBychainidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.distributedevice.bychainid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2176,7 +2244,8 @@ class Client:
         Summary: 替换发行设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ReplaceDistributedeviceBychainidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ReplaceDistributedeviceBychainidResponse(),
             self.do_request('1.0', 'blockchain.bot.distributedevice.bychainid.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2191,7 +2260,8 @@ class Client:
         Summary: 替换发行设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ReplaceDistributedeviceBychainidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ReplaceDistributedeviceBychainidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.distributedevice.bychainid.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2230,7 +2300,8 @@ class Client:
         Summary: 上传设备数据
         """
         UtilClient.validate_model(request)
-        return bot_models.SendCollectorBychainidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendCollectorBychainidResponse(),
             self.do_request('1.0', 'blockchain.bot.collector.bychainid.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2245,7 +2316,8 @@ class Client:
         Summary: 上传设备数据
         """
         UtilClient.validate_model(request)
-        return bot_models.SendCollectorBychainidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendCollectorBychainidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.collector.bychainid.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2284,7 +2356,8 @@ class Client:
         Summary: 通过Id获取发行设备
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDistributedeviceBychainidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDistributedeviceBychainidResponse(),
             self.do_request('1.0', 'blockchain.bot.distributedevice.bychainid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2299,7 +2372,8 @@ class Client:
         Summary: 通过Id获取发行设备
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDistributedeviceBychainidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDistributedeviceBychainidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.distributedevice.bychainid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2338,7 +2412,8 @@ class Client:
         Summary: 通过场景码列举发行设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ListDistributedeviceBysceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ListDistributedeviceBysceneResponse(),
             self.do_request('1.0', 'blockchain.bot.distributedevice.byscene.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2353,7 +2428,8 @@ class Client:
         Summary: 通过场景码列举发行设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ListDistributedeviceBysceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ListDistributedeviceBysceneResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.distributedevice.byscene.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2392,7 +2468,8 @@ class Client:
         Summary: 创建消费者
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateConsumerResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateConsumerResponse(),
             self.do_request('1.0', 'blockchain.bot.consumer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2407,7 +2484,8 @@ class Client:
         Summary: 创建消费者
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateConsumerResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateConsumerResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.consumer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2446,7 +2524,8 @@ class Client:
         Summary: 消费者订阅
         """
         UtilClient.validate_model(request)
-        return bot_models.SetConsumerSubscribeResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SetConsumerSubscribeResponse(),
             self.do_request('1.0', 'blockchain.bot.consumer.subscribe.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2461,7 +2540,8 @@ class Client:
         Summary: 消费者订阅
         """
         UtilClient.validate_model(request)
-        return bot_models.SetConsumerSubscribeResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SetConsumerSubscribeResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.consumer.subscribe.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2500,7 +2580,8 @@ class Client:
         Summary: 消费者取消订阅设备
         """
         UtilClient.validate_model(request)
-        return bot_models.SetConsumerUnsubscribeResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SetConsumerUnsubscribeResponse(),
             self.do_request('1.0', 'blockchain.bot.consumer.unsubscribe.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2515,7 +2596,8 @@ class Client:
         Summary: 消费者取消订阅设备
         """
         UtilClient.validate_model(request)
-        return bot_models.SetConsumerUnsubscribeResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SetConsumerUnsubscribeResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.consumer.unsubscribe.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2554,7 +2636,8 @@ class Client:
         Summary: 消费者获取数据
         """
         UtilClient.validate_model(request)
-        return bot_models.PullConsumerDatasourceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PullConsumerDatasourceResponse(),
             self.do_request('1.0', 'blockchain.bot.consumer.datasource.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2569,7 +2652,8 @@ class Client:
         Summary: 消费者获取数据
         """
         UtilClient.validate_model(request)
-        return bot_models.PullConsumerDatasourceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PullConsumerDatasourceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.consumer.datasource.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2608,7 +2692,8 @@ class Client:
         Summary: 通过设备id获取发行设备详情
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDistributedeviceBydeviceidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDistributedeviceBydeviceidResponse(),
             self.do_request('1.0', 'blockchain.bot.distributedevice.bydeviceid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2623,7 +2708,8 @@ class Client:
         Summary: 通过设备id获取发行设备详情
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDistributedeviceBydeviceidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDistributedeviceBydeviceidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.distributedevice.bydeviceid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2662,7 +2748,8 @@ class Client:
         Summary: 通过发行id获取设备
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDistributedeviceBydisidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDistributedeviceBydisidResponse(),
             self.do_request('1.0', 'blockchain.bot.distributedevice.bydisid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2677,7 +2764,8 @@ class Client:
         Summary: 通过发行id获取设备
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDistributedeviceBydisidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDistributedeviceBydisidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.distributedevice.bydisid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2716,7 +2804,8 @@ class Client:
         Summary: 注册外围设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ImportPeripheralResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ImportPeripheralResponse(),
             self.do_request('1.0', 'blockchain.bot.peripheral.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2731,7 +2820,8 @@ class Client:
         Summary: 注册外围设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ImportPeripheralResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ImportPeripheralResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.peripheral.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2770,7 +2860,8 @@ class Client:
         Summary: 通过链上外围设备ID获取详情
         """
         UtilClient.validate_model(request)
-        return bot_models.GetPeripheralBychainperipheralidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetPeripheralBychainperipheralidResponse(),
             self.do_request('1.0', 'blockchain.bot.peripheral.bychainperipheralid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2785,7 +2876,8 @@ class Client:
         Summary: 通过链上外围设备ID获取详情
         """
         UtilClient.validate_model(request)
-        return bot_models.GetPeripheralBychainperipheralidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetPeripheralBychainperipheralidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.peripheral.bychainperipheralid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2824,7 +2916,8 @@ class Client:
         Summary: 通过外围设备ID获取详情
         """
         UtilClient.validate_model(request)
-        return bot_models.GetPeripheralByperipheralidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetPeripheralByperipheralidResponse(),
             self.do_request('1.0', 'blockchain.bot.peripheral.byperipheralid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2839,7 +2932,8 @@ class Client:
         Summary: 通过外围设备ID获取详情
         """
         UtilClient.validate_model(request)
-        return bot_models.GetPeripheralByperipheralidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetPeripheralByperipheralidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.peripheral.byperipheralid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2878,7 +2972,8 @@ class Client:
         Summary: 根据场景列举外围设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ListPeripheralBysceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ListPeripheralBysceneResponse(),
             self.do_request('1.0', 'blockchain.bot.peripheral.byscene.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2893,7 +2988,8 @@ class Client:
         Summary: 根据场景列举外围设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ListPeripheralBysceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ListPeripheralBysceneResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.peripheral.byscene.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2932,7 +3028,8 @@ class Client:
         Summary: 通过外围设备Id发行
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDistributedeviceByperipheralidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceByperipheralidResponse(),
             self.do_request('1.0', 'blockchain.bot.distributedevice.byperipheralid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2947,7 +3044,8 @@ class Client:
         Summary: 通过外围设备Id发行
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDistributedeviceByperipheralidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceByperipheralidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.distributedevice.byperipheralid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2986,7 +3084,8 @@ class Client:
         Summary: 通过链上外围设备Id发行
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDistributedeviceBychainperipheralidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceBychainperipheralidResponse(),
             self.do_request('1.0', 'blockchain.bot.distributedevice.bychainperipheralid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3001,7 +3100,8 @@ class Client:
         Summary: 通过链上外围设备Id发行
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDistributedeviceBychainperipheralidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceBychainperipheralidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.distributedevice.bychainperipheralid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3040,7 +3140,8 @@ class Client:
         Summary: 替换发行外围设备 by 链上外围设备ID
         """
         UtilClient.validate_model(request)
-        return bot_models.ReplaceDistributedeviceBychainperipheralidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ReplaceDistributedeviceBychainperipheralidResponse(),
             self.do_request('1.0', 'blockchain.bot.distributedevice.bychainperipheralid.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3055,7 +3156,8 @@ class Client:
         Summary: 替换发行外围设备 by 链上外围设备ID
         """
         UtilClient.validate_model(request)
-        return bot_models.ReplaceDistributedeviceBychainperipheralidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ReplaceDistributedeviceBychainperipheralidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.distributedevice.bychainperipheralid.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3094,7 +3196,8 @@ class Client:
         Summary: 根据场景列举发行外围设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ListDistributedeviceByperipheralsceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ListDistributedeviceByperipheralsceneResponse(),
             self.do_request('1.0', 'blockchain.bot.distributedevice.byperipheralscene.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3109,7 +3212,8 @@ class Client:
         Summary: 根据场景列举发行外围设备
         """
         UtilClient.validate_model(request)
-        return bot_models.ListDistributedeviceByperipheralsceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ListDistributedeviceByperipheralsceneResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.distributedevice.byperipheralscene.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3148,7 +3252,8 @@ class Client:
         Summary: 通过外围设备ID获取发行外围设备信息
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDistributedeviceByperipheralidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDistributedeviceByperipheralidResponse(),
             self.do_request('1.0', 'blockchain.bot.distributedevice.byperipheralid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3163,7 +3268,8 @@ class Client:
         Summary: 通过外围设备ID获取发行外围设备信息
         """
         UtilClient.validate_model(request)
-        return bot_models.GetDistributedeviceByperipheralidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.GetDistributedeviceByperipheralidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.distributedevice.byperipheralid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3202,7 +3308,8 @@ class Client:
         Summary: 发行设备by_devcie
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDistributedeviceBydeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceBydeviceResponse(),
             self.do_request('1.0', 'blockchain.bot.distributedevice.bydevice.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3217,7 +3324,8 @@ class Client:
         Summary: 发行设备by_devcie
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDistributedeviceBydeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDistributedeviceBydeviceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.distributedevice.bydevice.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3256,7 +3364,8 @@ class Client:
         Summary: 远程任务创建
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateTaskResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateTaskResponse(),
             self.do_request('1.0', 'blockchain.bot.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3271,7 +3380,8 @@ class Client:
         Summary: 远程任务创建
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateTaskResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateTaskResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3310,7 +3420,8 @@ class Client:
         Summary: 远程任务查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryTaskResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryTaskResponse(),
             self.do_request('1.0', 'blockchain.bot.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3325,7 +3436,8 @@ class Client:
         Summary: 远程任务查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryTaskResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryTaskResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3364,7 +3476,8 @@ class Client:
         Summary: 分析数据查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryAnalysisResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryAnalysisResponse(),
             self.do_request('1.0', 'blockchain.bot.analysis.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3379,7 +3492,8 @@ class Client:
         Summary: 分析数据查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryAnalysisResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryAnalysisResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.analysis.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3418,7 +3532,8 @@ class Client:
         Summary: 上传设备数据mul
         """
         UtilClient.validate_model(request)
-        return bot_models.SendCollectorBychainidmulResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendCollectorBychainidmulResponse(),
             self.do_request('1.0', 'blockchain.bot.collector.bychainidmul.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3433,7 +3548,8 @@ class Client:
         Summary: 上传设备数据mul
         """
         UtilClient.validate_model(request)
-        return bot_models.SendCollectorBychainidmulResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendCollectorBychainidmulResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.collector.bychainidmul.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3472,7 +3588,8 @@ class Client:
         Summary: 上传设备业务数据
         """
         UtilClient.validate_model(request)
-        return bot_models.SendCollectorDevicebizdataResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendCollectorDevicebizdataResponse(),
             self.do_request('1.0', 'blockchain.bot.collector.devicebizdata.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3487,7 +3604,8 @@ class Client:
         Summary: 上传设备业务数据
         """
         UtilClient.validate_model(request)
-        return bot_models.SendCollectorDevicebizdataResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendCollectorDevicebizdataResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.collector.devicebizdata.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3526,7 +3644,8 @@ class Client:
         Summary: 更新设备信息by_devcie
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateDeviceInfobydeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateDeviceInfobydeviceResponse(),
             self.do_request('1.0', 'blockchain.bot.device.infobydevice.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3541,7 +3660,8 @@ class Client:
         Summary: 更新设备信息by_devcie
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateDeviceInfobydeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateDeviceInfobydeviceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.infobydevice.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3580,7 +3700,8 @@ class Client:
         Summary: 下线设备
         """
         UtilClient.validate_model(request)
-        return bot_models.OfflineDeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.OfflineDeviceResponse(),
             self.do_request('1.0', 'blockchain.bot.device.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3595,7 +3716,8 @@ class Client:
         Summary: 下线设备
         """
         UtilClient.validate_model(request)
-        return bot_models.OfflineDeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.OfflineDeviceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3634,7 +3756,8 @@ class Client:
         Summary: 申请MQTT token
         """
         UtilClient.validate_model(request)
-        return bot_models.ApplyMqtokenResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ApplyMqtokenResponse(),
             self.do_request('1.0', 'blockchain.bot.mqtoken.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3649,7 +3772,8 @@ class Client:
         Summary: 申请MQTT token
         """
         UtilClient.validate_model(request)
-        return bot_models.ApplyMqtokenResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ApplyMqtokenResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.mqtoken.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3688,7 +3812,8 @@ class Client:
         Summary: 查询注册信息
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryDeviceRegistrationResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryDeviceRegistrationResponse(),
             self.do_request('1.0', 'blockchain.bot.device.registration.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3703,7 +3828,8 @@ class Client:
         Summary: 查询注册信息
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryDeviceRegistrationResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryDeviceRegistrationResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.registration.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3742,7 +3868,8 @@ class Client:
         Summary: 设备异常上报
         """
         UtilClient.validate_model(request)
-        return bot_models.AddAbnormalResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddAbnormalResponse(),
             self.do_request('1.0', 'blockchain.bot.abnormal.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3757,7 +3884,8 @@ class Client:
         Summary: 设备异常上报
         """
         UtilClient.validate_model(request)
-        return bot_models.AddAbnormalResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddAbnormalResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.abnormal.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3796,7 +3924,8 @@ class Client:
         Summary: 设置设备状态为上线
         """
         UtilClient.validate_model(request)
-        return bot_models.OnlineDeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.OnlineDeviceResponse(),
             self.do_request('1.0', 'blockchain.bot.device.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3811,7 +3940,8 @@ class Client:
         Summary: 设置设备状态为上线
         """
         UtilClient.validate_model(request)
-        return bot_models.OnlineDeviceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.OnlineDeviceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3850,7 +3980,8 @@ class Client:
         Summary: 注销设备
         """
         UtilClient.validate_model(request)
-        return bot_models.OfflineDeviceByunregisterResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.OfflineDeviceByunregisterResponse(),
             self.do_request('1.0', 'blockchain.bot.device.byunregister.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3865,7 +3996,8 @@ class Client:
         Summary: 注销设备
         """
         UtilClient.validate_model(request)
-        return bot_models.OfflineDeviceByunregisterResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.OfflineDeviceByunregisterResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.byunregister.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3904,7 +4036,8 @@ class Client:
         Summary: 标签状态查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryLabelTraceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryLabelTraceResponse(),
             self.do_request('1.0', 'blockchain.bot.label.trace.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3919,7 +4052,8 @@ class Client:
         Summary: 标签状态查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryLabelTraceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryLabelTraceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.label.trace.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3958,7 +4092,8 @@ class Client:
         Summary: 标签流转状态同步
         """
         UtilClient.validate_model(request)
-        return bot_models.SyncLabelTransferResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SyncLabelTransferResponse(),
             self.do_request('1.0', 'blockchain.bot.label.transfer.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3973,7 +4108,8 @@ class Client:
         Summary: 标签流转状态同步
         """
         UtilClient.validate_model(request)
-        return bot_models.SyncLabelTransferResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SyncLabelTransferResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.label.transfer.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4012,7 +4148,8 @@ class Client:
         Summary: 标签资产绑定
         """
         UtilClient.validate_model(request)
-        return bot_models.AddLabelAssetResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddLabelAssetResponse(),
             self.do_request('1.0', 'blockchain.bot.label.asset.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4027,7 +4164,8 @@ class Client:
         Summary: 标签资产绑定
         """
         UtilClient.validate_model(request)
-        return bot_models.AddLabelAssetResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddLabelAssetResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.label.asset.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4066,7 +4204,8 @@ class Client:
         Summary: 链上信息查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryDataBytxhashResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryDataBytxhashResponse(),
             self.do_request('1.0', 'blockchain.bot.data.bytxhash.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4081,7 +4220,8 @@ class Client:
         Summary: 链上信息查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryDataBytxhashResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryDataBytxhashResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.data.bytxhash.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4120,7 +4260,8 @@ class Client:
         Summary: 执行未处理的任务
         """
         UtilClient.validate_model(request)
-        return bot_models.ExecUnprocessedTaskResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ExecUnprocessedTaskResponse(),
             self.do_request('1.0', 'blockchain.bot.unprocessed.task.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4135,7 +4276,8 @@ class Client:
         Summary: 执行未处理的任务
         """
         UtilClient.validate_model(request)
-        return bot_models.ExecUnprocessedTaskResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ExecUnprocessedTaskResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.unprocessed.task.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4174,7 +4316,8 @@ class Client:
         Summary: 上传汇总数据
         """
         UtilClient.validate_model(request)
-        return bot_models.SendCollectorSummarydataResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendCollectorSummarydataResponse(),
             self.do_request('1.0', 'blockchain.bot.collector.summarydata.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4189,7 +4332,8 @@ class Client:
         Summary: 上传汇总数据
         """
         UtilClient.validate_model(request)
-        return bot_models.SendCollectorSummarydataResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendCollectorSummarydataResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.collector.summarydata.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4228,7 +4372,8 @@ class Client:
         Summary: 保存公钥
         """
         UtilClient.validate_model(request)
-        return bot_models.AddCertificateResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddCertificateResponse(),
             self.do_request('1.0', 'blockchain.bot.certificate.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4243,7 +4388,8 @@ class Client:
         Summary: 保存公钥
         """
         UtilClient.validate_model(request)
-        return bot_models.AddCertificateResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddCertificateResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.certificate.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4282,7 +4428,8 @@ class Client:
         Summary: 新增租户
         """
         UtilClient.validate_model(request)
-        return bot_models.AddTenantResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddTenantResponse(),
             self.do_request('1.0', 'blockchain.bot.tenant.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4297,7 +4444,8 @@ class Client:
         Summary: 新增租户
         """
         UtilClient.validate_model(request)
-        return bot_models.AddTenantResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddTenantResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.tenant.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4336,7 +4484,8 @@ class Client:
         Summary: 新增场景码
         """
         UtilClient.validate_model(request)
-        return bot_models.AddSceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddSceneResponse(),
             self.do_request('1.0', 'blockchain.bot.scene.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4351,7 +4500,8 @@ class Client:
         Summary: 新增场景码
         """
         UtilClient.validate_model(request)
-        return bot_models.AddSceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddSceneResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.scene.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4390,7 +4540,8 @@ class Client:
         Summary: 部署场景合同
         """
         UtilClient.validate_model(request)
-        return bot_models.DeploySceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.DeploySceneResponse(),
             self.do_request('1.0', 'blockchain.bot.scene.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4405,7 +4556,8 @@ class Client:
         Summary: 部署场景合同
         """
         UtilClient.validate_model(request)
-        return bot_models.DeploySceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.DeploySceneResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.scene.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4444,7 +4596,8 @@ class Client:
         Summary: 新增sdk
         """
         UtilClient.validate_model(request)
-        return bot_models.AddSdkResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddSdkResponse(),
             self.do_request('1.0', 'blockchain.bot.sdk.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4459,7 +4612,8 @@ class Client:
         Summary: 新增sdk
         """
         UtilClient.validate_model(request)
-        return bot_models.AddSdkResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddSdkResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.sdk.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4498,7 +4652,8 @@ class Client:
         Summary: 更新sdk
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateSdkResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateSdkResponse(),
             self.do_request('1.0', 'blockchain.bot.sdk.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4513,7 +4668,8 @@ class Client:
         Summary: 更新sdk
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateSdkResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateSdkResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.sdk.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4552,7 +4708,8 @@ class Client:
         Summary: 新增productKey
         """
         UtilClient.validate_model(request)
-        return bot_models.AddProductkeyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddProductkeyResponse(),
             self.do_request('1.0', 'blockchain.bot.productkey.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4567,7 +4724,8 @@ class Client:
         Summary: 新增productKey
         """
         UtilClient.validate_model(request)
-        return bot_models.AddProductkeyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddProductkeyResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.productkey.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4606,7 +4764,8 @@ class Client:
         Summary: 更新productKey
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateProductkeyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateProductkeyResponse(),
             self.do_request('1.0', 'blockchain.bot.productkey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4621,7 +4780,8 @@ class Client:
         Summary: 更新productKey
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateProductkeyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateProductkeyResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.productkey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4660,7 +4820,8 @@ class Client:
         Summary: 更新租户
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateTenantResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateTenantResponse(),
             self.do_request('1.0', 'blockchain.bot.tenant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4675,7 +4836,8 @@ class Client:
         Summary: 更新租户
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateTenantResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateTenantResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.tenant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4714,7 +4876,8 @@ class Client:
         Summary: 更新场景码
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateSceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateSceneResponse(),
             self.do_request('1.0', 'blockchain.bot.scene.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4729,7 +4892,8 @@ class Client:
         Summary: 更新场景码
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateSceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateSceneResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.scene.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4768,7 +4932,8 @@ class Client:
         Summary: 上报标签流转的异步接口
         """
         UtilClient.validate_model(request)
-        return bot_models.SendLabelTransferonasyncResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendLabelTransferonasyncResponse(),
             self.do_request('1.0', 'blockchain.bot.label.transferonasync.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4783,7 +4948,8 @@ class Client:
         Summary: 上报标签流转的异步接口
         """
         UtilClient.validate_model(request)
-        return bot_models.SendLabelTransferonasyncResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendLabelTransferonasyncResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.label.transferonasync.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4822,7 +4988,8 @@ class Client:
         Summary: 异步接口结果查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryAsyncRequestResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryAsyncRequestResponse(),
             self.do_request('1.0', 'blockchain.bot.async.request.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4837,7 +5004,8 @@ class Client:
         Summary: 异步接口结果查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryAsyncRequestResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryAsyncRequestResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.async.request.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4876,7 +5044,8 @@ class Client:
         Summary: 分页查询租户
         """
         UtilClient.validate_model(request)
-        return bot_models.PagequeryTenantResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PagequeryTenantResponse(),
             self.do_request('1.0', 'blockchain.bot.tenant.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4891,7 +5060,8 @@ class Client:
         Summary: 分页查询租户
         """
         UtilClient.validate_model(request)
-        return bot_models.PagequeryTenantResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PagequeryTenantResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.tenant.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4930,7 +5100,8 @@ class Client:
         Summary: 分页查询场景码
         """
         UtilClient.validate_model(request)
-        return bot_models.PagequerySceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PagequerySceneResponse(),
             self.do_request('1.0', 'blockchain.bot.scene.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4945,7 +5116,8 @@ class Client:
         Summary: 分页查询场景码
         """
         UtilClient.validate_model(request)
-        return bot_models.PagequerySceneResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PagequerySceneResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.scene.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4984,7 +5156,8 @@ class Client:
         Summary: 分页查询sdk
         """
         UtilClient.validate_model(request)
-        return bot_models.PagequerySdkResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PagequerySdkResponse(),
             self.do_request('1.0', 'blockchain.bot.sdk.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4999,7 +5172,8 @@ class Client:
         Summary: 分页查询sdk
         """
         UtilClient.validate_model(request)
-        return bot_models.PagequerySdkResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PagequerySdkResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.sdk.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5038,7 +5212,8 @@ class Client:
         Summary: 分页查询productKey
         """
         UtilClient.validate_model(request)
-        return bot_models.PagequeryProductkeyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PagequeryProductkeyResponse(),
             self.do_request('1.0', 'blockchain.bot.productkey.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5053,7 +5228,8 @@ class Client:
         Summary: 分页查询productKey
         """
         UtilClient.validate_model(request)
-        return bot_models.PagequeryProductkeyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PagequeryProductkeyResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.productkey.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5092,7 +5268,8 @@ class Client:
         Summary: 分页查询校验失败的数据
         """
         UtilClient.validate_model(request)
-        return bot_models.PagequeryDataverifyFailureResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PagequeryDataverifyFailureResponse(),
             self.do_request('1.0', 'blockchain.bot.dataverify.failure.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5107,7 +5284,8 @@ class Client:
         Summary: 分页查询校验失败的数据
         """
         UtilClient.validate_model(request)
-        return bot_models.PagequeryDataverifyFailureResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PagequeryDataverifyFailureResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.dataverify.failure.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5146,7 +5324,8 @@ class Client:
         Summary:  新增告警策略
         """
         UtilClient.validate_model(request)
-        return bot_models.AddAlertStrategyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddAlertStrategyResponse(),
             self.do_request('1.0', 'blockchain.bot.alert.strategy.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5161,7 +5340,8 @@ class Client:
         Summary:  新增告警策略
         """
         UtilClient.validate_model(request)
-        return bot_models.AddAlertStrategyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.AddAlertStrategyResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.alert.strategy.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5200,7 +5380,8 @@ class Client:
         Summary: 更新告警策略接口
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateAlertStrategyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateAlertStrategyResponse(),
             self.do_request('1.0', 'blockchain.bot.alert.strategy.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5215,7 +5396,8 @@ class Client:
         Summary: 更新告警策略接口
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateAlertStrategyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateAlertStrategyResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.alert.strategy.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5254,7 +5436,8 @@ class Client:
         Summary: 分页查询告警策略接口
         """
         UtilClient.validate_model(request)
-        return bot_models.PagequeryAlertStrategyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PagequeryAlertStrategyResponse(),
             self.do_request('1.0', 'blockchain.bot.alert.strategy.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5269,7 +5452,8 @@ class Client:
         Summary: 分页查询告警策略接口
         """
         UtilClient.validate_model(request)
-        return bot_models.PagequeryAlertStrategyResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PagequeryAlertStrategyResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.alert.strategy.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5308,7 +5492,8 @@ class Client:
         Summary: 标签流转状态同步（元数据，无签名）
         """
         UtilClient.validate_model(request)
-        return bot_models.SyncLabelTransferrawResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SyncLabelTransferrawResponse(),
             self.do_request('1.0', 'blockchain.bot.label.transferraw.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5323,7 +5508,8 @@ class Client:
         Summary: 标签流转状态同步（元数据，无签名）
         """
         UtilClient.validate_model(request)
-        return bot_models.SyncLabelTransferrawResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SyncLabelTransferrawResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.label.transferraw.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5362,7 +5548,8 @@ class Client:
         Summary: 上报标签流转的异步接口（元数据，无签名）
         """
         UtilClient.validate_model(request)
-        return bot_models.SendLabelTransferrawonasyncResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendLabelTransferrawonasyncResponse(),
             self.do_request('1.0', 'blockchain.bot.label.transferrawonasync.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5377,7 +5564,8 @@ class Client:
         Summary: 上报标签流转的异步接口（元数据，无签名）
         """
         UtilClient.validate_model(request)
-        return bot_models.SendLabelTransferrawonasyncResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.SendLabelTransferrawonasyncResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.label.transferrawonasync.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5416,7 +5604,8 @@ class Client:
         Summary: 查询验收已对接的数据
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryDockedDataResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryDockedDataResponse(),
             self.do_request('1.0', 'blockchain.bot.docked.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5431,7 +5620,8 @@ class Client:
         Summary: 查询验收已对接的数据
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryDockedDataResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryDockedDataResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.docked.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5470,7 +5660,8 @@ class Client:
         Summary: 创建实体关联关系
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDeviceRelationResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDeviceRelationResponse(),
             self.do_request('1.0', 'blockchain.bot.device.relation.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5485,7 +5676,8 @@ class Client:
         Summary: 创建实体关联关系
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateDeviceRelationResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateDeviceRelationResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.relation.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5524,7 +5716,8 @@ class Client:
         Summary: 删除实体关联关系
         """
         UtilClient.validate_model(request)
-        return bot_models.DeleteDeviceRelationResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.DeleteDeviceRelationResponse(),
             self.do_request('1.0', 'blockchain.bot.device.relation.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5539,7 +5732,8 @@ class Client:
         Summary: 删除实体关联关系
         """
         UtilClient.validate_model(request)
-        return bot_models.DeleteDeviceRelationResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.DeleteDeviceRelationResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.relation.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5578,7 +5772,8 @@ class Client:
         Summary: 推送设备数据
         """
         UtilClient.validate_model(request)
-        return bot_models.PushCollectotBychainidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PushCollectotBychainidResponse(),
             self.do_request('1.0', 'blockchain.bot.collectot.bychainid.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5593,7 +5788,8 @@ class Client:
         Summary: 推送设备数据
         """
         UtilClient.validate_model(request)
-        return bot_models.PushCollectotBychainidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.PushCollectotBychainidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.collectot.bychainid.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5632,7 +5828,8 @@ class Client:
         Summary: 推送设备状态变更信息
         """
         UtilClient.validate_model(request)
-        return bot_models.NotifyPullstrategyChangestatusResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.NotifyPullstrategyChangestatusResponse(),
             self.do_request('1.0', 'blockchain.bot.pullstrategy.changestatus.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5647,7 +5844,8 @@ class Client:
         Summary: 推送设备状态变更信息
         """
         UtilClient.validate_model(request)
-        return bot_models.NotifyPullstrategyChangestatusResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.NotifyPullstrategyChangestatusResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.pullstrategy.changestatus.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5686,7 +5884,8 @@ class Client:
         Summary: 推送订单信息
         """
         UtilClient.validate_model(request)
-        return bot_models.NotifyPullstrategyChargeorderinfoResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.NotifyPullstrategyChargeorderinfoResponse(),
             self.do_request('1.0', 'blockchain.bot.pullstrategy.chargeorderinfo.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5701,7 +5900,8 @@ class Client:
         Summary: 推送订单信息
         """
         UtilClient.validate_model(request)
-        return bot_models.NotifyPullstrategyChargeorderinfoResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.NotifyPullstrategyChargeorderinfoResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.pullstrategy.chargeorderinfo.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5740,7 +5940,8 @@ class Client:
         Summary: 菜鸟设备监控信息获取
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryScfleaseEqpinfoResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryScfleaseEqpinfoResponse(),
             self.do_request('1.0', 'blockchain.bot.scflease.eqpinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5755,7 +5956,8 @@ class Client:
         Summary: 菜鸟设备监控信息获取
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryScfleaseEqpinfoResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryScfleaseEqpinfoResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.scflease.eqpinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5794,7 +5996,8 @@ class Client:
         Summary: 创建自定义实体
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateCustomerEntityResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateCustomerEntityResponse(),
             self.do_request('1.0', 'blockchain.bot.customer.entity.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5809,7 +6012,8 @@ class Client:
         Summary: 创建自定义实体
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateCustomerEntityResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateCustomerEntityResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.customer.entity.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5848,7 +6052,8 @@ class Client:
         Summary: 更新自定义实体
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateCustomerEntityResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateCustomerEntityResponse(),
             self.do_request('1.0', 'blockchain.bot.customer.entity.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5863,7 +6068,8 @@ class Client:
         Summary: 更新自定义实体
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateCustomerEntityResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateCustomerEntityResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.customer.entity.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5902,7 +6108,8 @@ class Client:
         Summary: 信物链oneapi
         """
         UtilClient.validate_model(request)
-        return bot_models.ExecThingsdidOneapiResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ExecThingsdidOneapiResponse(),
             self.do_request('1.0', 'blockchain.bot.thingsdid.oneapi.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5917,7 +6124,8 @@ class Client:
         Summary: 信物链oneapi
         """
         UtilClient.validate_model(request)
-        return bot_models.ExecThingsdidOneapiResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.ExecThingsdidOneapiResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thingsdid.oneapi.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5956,7 +6164,8 @@ class Client:
         Summary: 信物链存证
         """
         UtilClient.validate_model(request)
-        return bot_models.StartEvidenceStoreResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.StartEvidenceStoreResponse(),
             self.do_request('1.0', 'blockchain.bot.evidence.store.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5971,7 +6180,8 @@ class Client:
         Summary: 信物链存证
         """
         UtilClient.validate_model(request)
-        return bot_models.StartEvidenceStoreResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.StartEvidenceStoreResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.evidence.store.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6010,7 +6220,8 @@ class Client:
         Summary: 信物链存证查询
         """
         UtilClient.validate_model(request)
-        return bot_models.StartEvidenceQueryResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.StartEvidenceQueryResponse(),
             self.do_request('1.0', 'blockchain.bot.evidence.query.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6025,7 +6236,8 @@ class Client:
         Summary: 信物链存证查询
         """
         UtilClient.validate_model(request)
-        return bot_models.StartEvidenceQueryResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.StartEvidenceQueryResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.evidence.query.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6064,7 +6276,8 @@ class Client:
         Summary: 信物链实体身份注册
         """
         UtilClient.validate_model(request)
-        return bot_models.StartThingsdidRegisterResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.StartThingsdidRegisterResponse(),
             self.do_request('1.0', 'blockchain.bot.thingsdid.register.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6079,7 +6292,8 @@ class Client:
         Summary: 信物链实体身份注册
         """
         UtilClient.validate_model(request)
-        return bot_models.StartThingsdidRegisterResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.StartThingsdidRegisterResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thingsdid.register.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6121,7 +6335,8 @@ class Client:
         Summary: 信物链异步操作查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryThingsdidAsyncprocessResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryThingsdidAsyncprocessResponse(),
             self.do_request('1.0', 'blockchain.bot.thingsdid.asyncprocess.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6137,7 +6352,8 @@ class Client:
         Summary: 信物链异步操作查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryThingsdidAsyncprocessResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryThingsdidAsyncprocessResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thingsdid.asyncprocess.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6176,7 +6392,8 @@ class Client:
         Summary: 信物链身份状态更新
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateThingsdidStatusResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateThingsdidStatusResponse(),
             self.do_request('1.0', 'blockchain.bot.thingsdid.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6191,7 +6408,8 @@ class Client:
         Summary: 信物链身份状态更新
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateThingsdidStatusResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateThingsdidStatusResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thingsdid.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6230,7 +6448,8 @@ class Client:
         Summary: 信物链设备空间关联更新
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateThingsdidDevicespaceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateThingsdidDevicespaceResponse(),
             self.do_request('1.0', 'blockchain.bot.thingsdid.devicespace.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6245,7 +6464,8 @@ class Client:
         Summary: 信物链设备空间关联更新
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateThingsdidDevicespaceResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateThingsdidDevicespaceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thingsdid.devicespace.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6284,7 +6504,8 @@ class Client:
         Summary: 信物链实体did查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryThingsdidDidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryThingsdidDidResponse(),
             self.do_request('1.0', 'blockchain.bot.thingsdid.did.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6299,7 +6520,8 @@ class Client:
         Summary: 信物链实体did查询
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryThingsdidDidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryThingsdidDidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thingsdid.did.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6338,7 +6560,8 @@ class Client:
         Summary: 信物链实体身份更新
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateThingsdidDidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateThingsdidDidResponse(),
             self.do_request('1.0', 'blockchain.bot.thingsdid.did.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6353,7 +6576,8 @@ class Client:
         Summary: 信物链实体身份更新
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateThingsdidDidResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateThingsdidDidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thingsdid.did.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6392,7 +6616,8 @@ class Client:
         Summary: 信物链租户信息关联
         """
         UtilClient.validate_model(request)
-        return bot_models.StartTenantBindinfoResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.StartTenantBindinfoResponse(),
             self.do_request('1.0', 'blockchain.bot.tenant.bindinfo.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6407,7 +6632,8 @@ class Client:
         Summary: 信物链租户信息关联
         """
         UtilClient.validate_model(request)
-        return bot_models.StartTenantBindinfoResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.StartTenantBindinfoResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.tenant.bindinfo.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6446,7 +6672,8 @@ class Client:
         Summary: 信物链租户项目创建
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateTenantProjectResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateTenantProjectResponse(),
             self.do_request('1.0', 'blockchain.bot.tenant.project.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6461,7 +6688,8 @@ class Client:
         Summary: 信物链租户项目创建
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateTenantProjectResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateTenantProjectResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.tenant.project.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6503,7 +6731,8 @@ class Client:
         Summary: 信物链实体访问权限更新
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateThingsdidTenantResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateThingsdidTenantResponse(),
             self.do_request('1.0', 'blockchain.bot.thingsdid.tenant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6519,7 +6748,8 @@ class Client:
         Summary: 信物链实体访问权限更新
         """
         UtilClient.validate_model(request)
-        return bot_models.UpdateThingsdidTenantResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.UpdateThingsdidTenantResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thingsdid.tenant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6558,7 +6788,8 @@ class Client:
         Summary: TSM迁移内部使用
         """
         UtilClient.validate_model(request)
-        return bot_models.LoadTsmCertificatetsmResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.LoadTsmCertificatetsmResponse(),
             self.do_request('1.0', 'blockchain.bot.tsm.certificatetsm.load', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6573,7 +6804,8 @@ class Client:
         Summary: TSM迁移内部使用
         """
         UtilClient.validate_model(request)
-        return bot_models.LoadTsmCertificatetsmResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.LoadTsmCertificatetsmResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.tsm.certificatetsm.load', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6612,7 +6844,8 @@ class Client:
         Summary: loadResourceFile
         """
         UtilClient.validate_model(request)
-        return bot_models.LoadTsmResourcefileResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.LoadTsmResourcefileResponse(),
             self.do_request('1.0', 'blockchain.bot.tsm.resourcefile.load', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6627,7 +6860,8 @@ class Client:
         Summary: loadResourceFile
         """
         UtilClient.validate_model(request)
-        return bot_models.LoadTsmResourcefileResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.LoadTsmResourcefileResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.tsm.resourcefile.load', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6666,7 +6900,8 @@ class Client:
         Summary: 触发tlsnotary文件认证任务
         """
         UtilClient.validate_model(request)
-        return bot_models.StartTlsnotaryTaskResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.StartTlsnotaryTaskResponse(),
             self.do_request('1.0', 'blockchain.bot.tlsnotary.task.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6681,7 +6916,8 @@ class Client:
         Summary: 触发tlsnotary文件认证任务
         """
         UtilClient.validate_model(request)
-        return bot_models.StartTlsnotaryTaskResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.StartTlsnotaryTaskResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.tlsnotary.task.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6720,7 +6956,8 @@ class Client:
         Summary: 查询tlsnotary文件认证任务结果
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryTlsnotaryTaskResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryTlsnotaryTaskResponse(),
             self.do_request('1.0', 'blockchain.bot.tlsnotary.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6735,7 +6972,8 @@ class Client:
         Summary: 查询tlsnotary文件认证任务结果
         """
         UtilClient.validate_model(request)
-        return bot_models.QueryTlsnotaryTaskResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.QueryTlsnotaryTaskResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.tlsnotary.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6774,7 +7012,8 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateAntcloudGatewayxFileUploadResponse(),
             self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6789,6 +7028,7 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return bot_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            bot_models.CreateAntcloudGatewayxFileUploadResponse(),
             await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

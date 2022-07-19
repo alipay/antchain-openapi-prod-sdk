@@ -13,8 +13,8 @@
 如未安装 `pip`, 请先至pip官网 [pip user guide](https://pip.pypa.io/en/stable/installing/ "pip User Guide") 安装pip .
 
 ```bash
-# 安装 antchain_sdk_bot
-pip install antchain_sdk_bot
+# 安装 antchain-bot
+pip install antchain-bot
 ```
 
 ## 问题
