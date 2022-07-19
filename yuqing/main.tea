@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.12',
+    sdk_version = '1.1.14',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -251,6 +251,26 @@ model DingTalkContent {
   feedCard?: FeedCard(name='feed_card', example='feedCard'),
   // at
   at?: At(name='at', example='at'),
+}
+
+// 深度分析配置
+model AnalysisConfig {
+  // 文章ID
+  docId?: string(name='doc_id', example='1'),
+  // 文章URL
+  url?: string(name='url', example='http://XXX'),
+  // 项目ID
+  projectId?: long(name='project_id', example='1'),
+  // 模板ID
+  filterId?: long(name='filter_id', example=''),
+  // 关键词列表
+  posKeywordList?: [ string ](name='pos_keyword_list', example=''),
+  // 开始时间
+  publishTimeStart?: long(name='publish_time_start', example=''),
+  // 结束时间
+  publishTimeEnd?: long(name='publish_time_end', example=''),
+  // URL列表
+  urlList?: [ string ](name='url_list', example=''),
 }
 
 // 查询结构体
@@ -413,6 +433,18 @@ model SmsContent {
   developerId?: string(name='developer_id', example='developer_id'),
   // 填充内容
   arguments?: [ Pair ](name='arguments', example='arguments'),
+}
+
+// 邮箱数据
+model EmailContent {
+  // code
+  serviceCode?: string(name='service_code', example='ant_dtech_saas'),
+  // 开发者Id
+  developerId?: string(name='developer_id', example='developer_id'),
+  // 邮箱
+  email: string(name='email', example='94xx@qq.com'),
+  // 参数
+  arguments?: [ Pair ](name='arguments', example=''),
 }
 
 // 商品规格
@@ -701,6 +733,8 @@ model SendProductNoticeRequest = {
   dingTalkContent?: DingTalkContent(name='ding_talk_content'),
   // 短信内容
   smsContent?: SmsContent(name='sms_content'),
+  // email结构体
+  emailContent?: EmailContent(name='email_content'),
 }
 
 model SendProductNoticeResponse = {
@@ -731,5 +765,89 @@ async function sendProductNotice(request: SendProductNoticeRequest): SendProduct
 async function sendProductNoticeEx(request: SendProductNoticeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendProductNoticeResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.yuqing.product.notice.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveDeepanalysisSubmitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 深度分析类型
+  toolType: string(name='tool_type'),
+  // 任务名称
+  name: string(name='name'),
+  // 深度分析配置
+  config: AnalysisConfig(name='config'),
+}
+
+model SaveDeepanalysisSubmitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 深度分析任务ID
+  analysisId?: long(name='analysis_id'),
+  // 其他返回
+  resultJson?: string(name='result_json'),
+}
+
+/**
+ * Description: 创建深度分析
+ * Summary: 创建深度分析
+ */
+async function saveDeepanalysisSubmit(request: SaveDeepanalysisSubmitRequest): SaveDeepanalysisSubmitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveDeepanalysisSubmitEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建深度分析
+ * Summary: 创建深度分析
+ */
+async function saveDeepanalysisSubmitEx(request: SaveDeepanalysisSubmitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveDeepanalysisSubmitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.deepanalysis.submit.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDeepanalysisQueryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 深度分析任务ID
+  analysisId: long(name='analysis_id'),
+}
+
+model QueryDeepanalysisQueryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 深度分析任务ID
+  analysisId?: long(name='analysis_id'),
+  // 分析内容
+  resultJson?: string(name='result_json'),
+}
+
+/**
+ * Description: 查询深度分析
+ * Summary: 查询深度分析
+ */
+async function queryDeepanalysisQuery(request: QueryDeepanalysisQueryRequest): QueryDeepanalysisQueryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDeepanalysisQueryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询深度分析
+ * Summary: 查询深度分析
+ */
+async function queryDeepanalysisQueryEx(request: QueryDeepanalysisQueryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeepanalysisQueryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.yuqing.deepanalysis.query.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
