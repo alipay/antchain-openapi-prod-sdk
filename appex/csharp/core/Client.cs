@@ -137,7 +137,7 @@ namespace AntChain.SDK.APPEX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.20"},
+                        {"sdk_version", "1.3.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.APPEX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.20"},
+                        {"sdk_version", "1.3.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -315,6 +315,300 @@ namespace AntChain.SDK.APPEX
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 为用户在MyPocket创建链上账户
+         * Summary: MyPocket创建链上账户
+         */
+        public CreateMypocketChainaccountResponse CreateMypocketChainaccount(CreateMypocketChainaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateMypocketChainaccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 为用户在MyPocket创建链上账户
+         * Summary: MyPocket创建链上账户
+         */
+        public async Task<CreateMypocketChainaccountResponse> CreateMypocketChainaccountAsync(CreateMypocketChainaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateMypocketChainaccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 为用户在MyPocket创建链上账户
+         * Summary: MyPocket创建链上账户
+         */
+        public CreateMypocketChainaccountResponse CreateMypocketChainaccountEx(CreateMypocketChainaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMypocketChainaccountResponse>(DoRequest("1.0", "blockchain.appex.mypocket.chainaccount.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 为用户在MyPocket创建链上账户
+         * Summary: MyPocket创建链上账户
+         */
+        public async Task<CreateMypocketChainaccountResponse> CreateMypocketChainaccountExAsync(CreateMypocketChainaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMypocketChainaccountResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.chainaccount.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户根据DID和chainID，查询区块链账户
+         * Summary: 用户查询区块链账户
+         */
+        public QueryMypocketChainaccountResponse QueryMypocketChainaccount(QueryMypocketChainaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMypocketChainaccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户根据DID和chainID，查询区块链账户
+         * Summary: 用户查询区块链账户
+         */
+        public async Task<QueryMypocketChainaccountResponse> QueryMypocketChainaccountAsync(QueryMypocketChainaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMypocketChainaccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户根据DID和chainID，查询区块链账户
+         * Summary: 用户查询区块链账户
+         */
+        public QueryMypocketChainaccountResponse QueryMypocketChainaccountEx(QueryMypocketChainaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMypocketChainaccountResponse>(DoRequest("1.0", "blockchain.appex.mypocket.chainaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户根据DID和chainID，查询区块链账户
+         * Summary: 用户查询区块链账户
+         */
+        public async Task<QueryMypocketChainaccountResponse> QueryMypocketChainaccountExAsync(QueryMypocketChainaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMypocketChainaccountResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.chainaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部DApp应用绑定链账户至did
+         * Summary: 外部DApp应用绑定链账户至did
+         */
+        public BindMypocketKmsaccountResponse BindMypocketKmsaccount(BindMypocketKmsaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindMypocketKmsaccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部DApp应用绑定链账户至did
+         * Summary: 外部DApp应用绑定链账户至did
+         */
+        public async Task<BindMypocketKmsaccountResponse> BindMypocketKmsaccountAsync(BindMypocketKmsaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindMypocketKmsaccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部DApp应用绑定链账户至did
+         * Summary: 外部DApp应用绑定链账户至did
+         */
+        public BindMypocketKmsaccountResponse BindMypocketKmsaccountEx(BindMypocketKmsaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindMypocketKmsaccountResponse>(DoRequest("1.0", "blockchain.appex.mypocket.kmsaccount.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部DApp应用绑定链账户至did
+         * Summary: 外部DApp应用绑定链账户至did
+         */
+        public async Task<BindMypocketKmsaccountResponse> BindMypocketKmsaccountExAsync(BindMypocketKmsaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindMypocketKmsaccountResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.kmsaccount.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+         * Summary: 创建普通用户DID账户（支付宝UID）
+         */
+        public CreateMypocketDidaccountbyalipayResponse CreateMypocketDidaccountbyalipay(CreateMypocketDidaccountbyalipayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateMypocketDidaccountbyalipayEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+         * Summary: 创建普通用户DID账户（支付宝UID）
+         */
+        public async Task<CreateMypocketDidaccountbyalipayResponse> CreateMypocketDidaccountbyalipayAsync(CreateMypocketDidaccountbyalipayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateMypocketDidaccountbyalipayExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+         * Summary: 创建普通用户DID账户（支付宝UID）
+         */
+        public CreateMypocketDidaccountbyalipayResponse CreateMypocketDidaccountbyalipayEx(CreateMypocketDidaccountbyalipayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMypocketDidaccountbyalipayResponse>(DoRequest("1.0", "blockchain.appex.mypocket.didaccountbyalipay.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+         * Summary: 创建普通用户DID账户（支付宝UID）
+         */
+        public async Task<CreateMypocketDidaccountbyalipayResponse> CreateMypocketDidaccountbyalipayExAsync(CreateMypocketDidaccountbyalipayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMypocketDidaccountbyalipayResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.didaccountbyalipay.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部DApp应用通过支付宝UID查询普通用户did
+         * Summary: 查询普通用户did（支付宝UID）
+         */
+        public QueryMypocketDidaccountbyalipayResponse QueryMypocketDidaccountbyalipay(QueryMypocketDidaccountbyalipayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMypocketDidaccountbyalipayEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部DApp应用通过支付宝UID查询普通用户did
+         * Summary: 查询普通用户did（支付宝UID）
+         */
+        public async Task<QueryMypocketDidaccountbyalipayResponse> QueryMypocketDidaccountbyalipayAsync(QueryMypocketDidaccountbyalipayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMypocketDidaccountbyalipayExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部DApp应用通过支付宝UID查询普通用户did
+         * Summary: 查询普通用户did（支付宝UID）
+         */
+        public QueryMypocketDidaccountbyalipayResponse QueryMypocketDidaccountbyalipayEx(QueryMypocketDidaccountbyalipayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMypocketDidaccountbyalipayResponse>(DoRequest("1.0", "blockchain.appex.mypocket.didaccountbyalipay.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部DApp应用通过支付宝UID查询普通用户did
+         * Summary: 查询普通用户did（支付宝UID）
+         */
+        public async Task<QueryMypocketDidaccountbyalipayResponse> QueryMypocketDidaccountbyalipayExAsync(QueryMypocketDidaccountbyalipayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMypocketDidaccountbyalipayResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.didaccountbyalipay.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部DApp应用创建用户链上账户
+         * Summary: 外部DApp应用创建用户链上账户
+         */
+        public CreateMypocketEscrowchainaccountResponse CreateMypocketEscrowchainaccount(CreateMypocketEscrowchainaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateMypocketEscrowchainaccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部DApp应用创建用户链上账户
+         * Summary: 外部DApp应用创建用户链上账户
+         */
+        public async Task<CreateMypocketEscrowchainaccountResponse> CreateMypocketEscrowchainaccountAsync(CreateMypocketEscrowchainaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateMypocketEscrowchainaccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部DApp应用创建用户链上账户
+         * Summary: 外部DApp应用创建用户链上账户
+         */
+        public CreateMypocketEscrowchainaccountResponse CreateMypocketEscrowchainaccountEx(CreateMypocketEscrowchainaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMypocketEscrowchainaccountResponse>(DoRequest("1.0", "blockchain.appex.mypocket.escrowchainaccount.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部DApp应用创建用户链上账户
+         * Summary: 外部DApp应用创建用户链上账户
+         */
+        public async Task<CreateMypocketEscrowchainaccountResponse> CreateMypocketEscrowchainaccountExAsync(CreateMypocketEscrowchainaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateMypocketEscrowchainaccountResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.escrowchainaccount.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部DApp应用查询did在指定链上关联的账户
+         * Summary: 外部查询did在指定链上关联的账户
+         */
+        public QueryMypocketEscrowchainaccountResponse QueryMypocketEscrowchainaccount(QueryMypocketEscrowchainaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMypocketEscrowchainaccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部DApp应用查询did在指定链上关联的账户
+         * Summary: 外部查询did在指定链上关联的账户
+         */
+        public async Task<QueryMypocketEscrowchainaccountResponse> QueryMypocketEscrowchainaccountAsync(QueryMypocketEscrowchainaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMypocketEscrowchainaccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部DApp应用查询did在指定链上关联的账户
+         * Summary: 外部查询did在指定链上关联的账户
+         */
+        public QueryMypocketEscrowchainaccountResponse QueryMypocketEscrowchainaccountEx(QueryMypocketEscrowchainaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMypocketEscrowchainaccountResponse>(DoRequest("1.0", "blockchain.appex.mypocket.escrowchainaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部DApp应用查询did在指定链上关联的账户
+         * Summary: 外部查询did在指定链上关联的账户
+         */
+        public async Task<QueryMypocketEscrowchainaccountResponse> QueryMypocketEscrowchainaccountExAsync(QueryMypocketEscrowchainaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMypocketEscrowchainaccountResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.escrowchainaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -1617,6 +1911,48 @@ namespace AntChain.SDK.APPEX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QuerySolutionBmsResponse>(await DoRequestAsync("1.0", "blockchain.appex.solution.bms.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用速搭平台部署合约接口
+         * Summary: 应用速搭平台部署合约接口
+         */
+        public DeploySolutionContractResponse DeploySolutionContract(DeploySolutionContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeploySolutionContractEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用速搭平台部署合约接口
+         * Summary: 应用速搭平台部署合约接口
+         */
+        public async Task<DeploySolutionContractResponse> DeploySolutionContractAsync(DeploySolutionContractRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeploySolutionContractExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用速搭平台部署合约接口
+         * Summary: 应用速搭平台部署合约接口
+         */
+        public DeploySolutionContractResponse DeploySolutionContractEx(DeploySolutionContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeploySolutionContractResponse>(DoRequest("1.0", "blockchain.appex.solution.contract.deploy", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用速搭平台部署合约接口
+         * Summary: 应用速搭平台部署合约接口
+         */
+        public async Task<DeploySolutionContractResponse> DeploySolutionContractExAsync(DeploySolutionContractRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeploySolutionContractResponse>(await DoRequestAsync("1.0", "blockchain.appex.solution.contract.deploy", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
