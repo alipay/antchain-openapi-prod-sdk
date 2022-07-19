@@ -13,12 +13,20 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\APPEX\Models\AuthChannelUserRequest;
 use AntChain\APPEX\Models\AuthChannelUserResponse;
+use AntChain\APPEX\Models\BindMypocketKmsaccountRequest;
+use AntChain\APPEX\Models\BindMypocketKmsaccountResponse;
 use AntChain\APPEX\Models\CancelChannelUserRequest;
 use AntChain\APPEX\Models\CancelChannelUserResponse;
 use AntChain\APPEX\Models\ConfirmUnionApplyRequest;
 use AntChain\APPEX\Models\ConfirmUnionApplyResponse;
 use AntChain\APPEX\Models\CreateAsynformFormRequest;
 use AntChain\APPEX\Models\CreateAsynformFormResponse;
+use AntChain\APPEX\Models\CreateMypocketChainaccountRequest;
+use AntChain\APPEX\Models\CreateMypocketChainaccountResponse;
+use AntChain\APPEX\Models\CreateMypocketDidaccountbyalipayRequest;
+use AntChain\APPEX\Models\CreateMypocketDidaccountbyalipayResponse;
+use AntChain\APPEX\Models\CreateMypocketEscrowchainaccountRequest;
+use AntChain\APPEX\Models\CreateMypocketEscrowchainaccountResponse;
 use AntChain\APPEX\Models\CreateObjectRequest;
 use AntChain\APPEX\Models\CreateObjectResponse;
 use AntChain\APPEX\Models\CreateObjectTransferRequest;
@@ -35,6 +43,8 @@ use AntChain\APPEX\Models\CreateUserDidRequest;
 use AntChain\APPEX\Models\CreateUserDidResponse;
 use AntChain\APPEX\Models\DeleteStatusflowTemplateRequest;
 use AntChain\APPEX\Models\DeleteStatusflowTemplateResponse;
+use AntChain\APPEX\Models\DeploySolutionContractRequest;
+use AntChain\APPEX\Models\DeploySolutionContractResponse;
 use AntChain\APPEX\Models\ExecContractServiceRequest;
 use AntChain\APPEX\Models\ExecContractServiceResponse;
 use AntChain\APPEX\Models\GetSolutionFilenotarystatusRequest;
@@ -57,6 +67,12 @@ use AntChain\APPEX\Models\PagequeryUnionFormRequest;
 use AntChain\APPEX\Models\PagequeryUnionFormResponse;
 use AntChain\APPEX\Models\QueryAsynformStatusRequest;
 use AntChain\APPEX\Models\QueryAsynformStatusResponse;
+use AntChain\APPEX\Models\QueryMypocketChainaccountRequest;
+use AntChain\APPEX\Models\QueryMypocketChainaccountResponse;
+use AntChain\APPEX\Models\QueryMypocketDidaccountbyalipayRequest;
+use AntChain\APPEX\Models\QueryMypocketDidaccountbyalipayResponse;
+use AntChain\APPEX\Models\QueryMypocketEscrowchainaccountRequest;
+use AntChain\APPEX\Models\QueryMypocketEscrowchainaccountResponse;
 use AntChain\APPEX\Models\QuerySolutionBmsRequest;
 use AntChain\APPEX\Models\QuerySolutionBmsResponse;
 use AntChain\APPEX\Models\QuerySolutionFastnotaryRequest;
@@ -220,7 +236,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.20',
+                    'sdk_version'      => '1.3.3',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -264,6 +280,237 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 为用户在MyPocket创建链上账户
+     * Summary: MyPocket创建链上账户.
+     *
+     * @param CreateMypocketChainaccountRequest $request
+     *
+     * @return CreateMypocketChainaccountResponse
+     */
+    public function createMypocketChainaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createMypocketChainaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为用户在MyPocket创建链上账户
+     * Summary: MyPocket创建链上账户.
+     *
+     * @param CreateMypocketChainaccountRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateMypocketChainaccountResponse
+     */
+    public function createMypocketChainaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateMypocketChainaccountResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.chainaccount.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户根据DID和chainID，查询区块链账户
+     * Summary: 用户查询区块链账户.
+     *
+     * @param QueryMypocketChainaccountRequest $request
+     *
+     * @return QueryMypocketChainaccountResponse
+     */
+    public function queryMypocketChainaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMypocketChainaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户根据DID和chainID，查询区块链账户
+     * Summary: 用户查询区块链账户.
+     *
+     * @param QueryMypocketChainaccountRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryMypocketChainaccountResponse
+     */
+    public function queryMypocketChainaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMypocketChainaccountResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.chainaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外部DApp应用绑定链账户至did
+     * Summary: 外部DApp应用绑定链账户至did.
+     *
+     * @param BindMypocketKmsaccountRequest $request
+     *
+     * @return BindMypocketKmsaccountResponse
+     */
+    public function bindMypocketKmsaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindMypocketKmsaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外部DApp应用绑定链账户至did
+     * Summary: 外部DApp应用绑定链账户至did.
+     *
+     * @param BindMypocketKmsaccountRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return BindMypocketKmsaccountResponse
+     */
+    public function bindMypocketKmsaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindMypocketKmsaccountResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.kmsaccount.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+     * Summary: 创建普通用户DID账户（支付宝UID）.
+     *
+     * @param CreateMypocketDidaccountbyalipayRequest $request
+     *
+     * @return CreateMypocketDidaccountbyalipayResponse
+     */
+    public function createMypocketDidaccountbyalipay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createMypocketDidaccountbyalipayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+     * Summary: 创建普通用户DID账户（支付宝UID）.
+     *
+     * @param CreateMypocketDidaccountbyalipayRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateMypocketDidaccountbyalipayResponse
+     */
+    public function createMypocketDidaccountbyalipayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateMypocketDidaccountbyalipayResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.didaccountbyalipay.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外部DApp应用通过支付宝UID查询普通用户did
+     * Summary: 查询普通用户did（支付宝UID）.
+     *
+     * @param QueryMypocketDidaccountbyalipayRequest $request
+     *
+     * @return QueryMypocketDidaccountbyalipayResponse
+     */
+    public function queryMypocketDidaccountbyalipay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMypocketDidaccountbyalipayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外部DApp应用通过支付宝UID查询普通用户did
+     * Summary: 查询普通用户did（支付宝UID）.
+     *
+     * @param QueryMypocketDidaccountbyalipayRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryMypocketDidaccountbyalipayResponse
+     */
+    public function queryMypocketDidaccountbyalipayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMypocketDidaccountbyalipayResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.didaccountbyalipay.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外部DApp应用创建用户链上账户
+     * Summary: 外部DApp应用创建用户链上账户.
+     *
+     * @param CreateMypocketEscrowchainaccountRequest $request
+     *
+     * @return CreateMypocketEscrowchainaccountResponse
+     */
+    public function createMypocketEscrowchainaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createMypocketEscrowchainaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外部DApp应用创建用户链上账户
+     * Summary: 外部DApp应用创建用户链上账户.
+     *
+     * @param CreateMypocketEscrowchainaccountRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateMypocketEscrowchainaccountResponse
+     */
+    public function createMypocketEscrowchainaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateMypocketEscrowchainaccountResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.escrowchainaccount.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外部DApp应用查询did在指定链上关联的账户
+     * Summary: 外部查询did在指定链上关联的账户.
+     *
+     * @param QueryMypocketEscrowchainaccountRequest $request
+     *
+     * @return QueryMypocketEscrowchainaccountResponse
+     */
+    public function queryMypocketEscrowchainaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMypocketEscrowchainaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外部DApp应用查询did在指定链上关联的账户
+     * Summary: 外部查询did在指定链上关联的账户.
+     *
+     * @param QueryMypocketEscrowchainaccountRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryMypocketEscrowchainaccountResponse
+     */
+    public function queryMypocketEscrowchainaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMypocketEscrowchainaccountResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.escrowchainaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1287,5 +1534,38 @@ class Client
         Utils::validateModel($request);
 
         return QuerySolutionBmsResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.solution.bms.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用速搭平台部署合约接口
+     * Summary: 应用速搭平台部署合约接口.
+     *
+     * @param DeploySolutionContractRequest $request
+     *
+     * @return DeploySolutionContractResponse
+     */
+    public function deploySolutionContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deploySolutionContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用速搭平台部署合约接口
+     * Summary: 应用速搭平台部署合约接口.
+     *
+     * @param DeploySolutionContractRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return DeploySolutionContractResponse
+     */
+    public function deploySolutionContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeploySolutionContractResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.solution.contract.deploy', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
