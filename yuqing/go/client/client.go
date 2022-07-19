@@ -459,6 +459,74 @@ func (s *DingTalkContent) SetAt(v *At) *DingTalkContent {
 	return s
 }
 
+// 深度分析配置
+type AnalysisConfig struct {
+	// 文章ID
+	DocId *string `json:"doc_id,omitempty" xml:"doc_id,omitempty"`
+	// 文章URL
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 项目ID
+	ProjectId *int64 `json:"project_id,omitempty" xml:"project_id,omitempty"`
+	// 模板ID
+	FilterId *int64 `json:"filter_id,omitempty" xml:"filter_id,omitempty"`
+	// 关键词列表
+	PosKeywordList []*string `json:"pos_keyword_list,omitempty" xml:"pos_keyword_list,omitempty" type:"Repeated"`
+	// 开始时间
+	PublishTimeStart *int64 `json:"publish_time_start,omitempty" xml:"publish_time_start,omitempty"`
+	// 结束时间
+	PublishTimeEnd *int64 `json:"publish_time_end,omitempty" xml:"publish_time_end,omitempty"`
+	// URL列表
+	UrlList []*string `json:"url_list,omitempty" xml:"url_list,omitempty" type:"Repeated"`
+}
+
+func (s AnalysisConfig) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AnalysisConfig) GoString() string {
+	return s.String()
+}
+
+func (s *AnalysisConfig) SetDocId(v string) *AnalysisConfig {
+	s.DocId = &v
+	return s
+}
+
+func (s *AnalysisConfig) SetUrl(v string) *AnalysisConfig {
+	s.Url = &v
+	return s
+}
+
+func (s *AnalysisConfig) SetProjectId(v int64) *AnalysisConfig {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *AnalysisConfig) SetFilterId(v int64) *AnalysisConfig {
+	s.FilterId = &v
+	return s
+}
+
+func (s *AnalysisConfig) SetPosKeywordList(v []*string) *AnalysisConfig {
+	s.PosKeywordList = v
+	return s
+}
+
+func (s *AnalysisConfig) SetPublishTimeStart(v int64) *AnalysisConfig {
+	s.PublishTimeStart = &v
+	return s
+}
+
+func (s *AnalysisConfig) SetPublishTimeEnd(v int64) *AnalysisConfig {
+	s.PublishTimeEnd = &v
+	return s
+}
+
+func (s *AnalysisConfig) SetUrlList(v []*string) *AnalysisConfig {
+	s.UrlList = v
+	return s
+}
+
 // 查询结构体
 type SearchCondition struct {
 	// 搭配词
@@ -1016,6 +1084,46 @@ func (s *SmsContent) SetDeveloperId(v string) *SmsContent {
 }
 
 func (s *SmsContent) SetArguments(v []*Pair) *SmsContent {
+	s.Arguments = v
+	return s
+}
+
+// 邮箱数据
+type EmailContent struct {
+	// code
+	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty"`
+	// 开发者Id
+	DeveloperId *string `json:"developer_id,omitempty" xml:"developer_id,omitempty"`
+	// 邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty" require:"true"`
+	// 参数
+	Arguments []*Pair `json:"arguments,omitempty" xml:"arguments,omitempty" type:"Repeated"`
+}
+
+func (s EmailContent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EmailContent) GoString() string {
+	return s.String()
+}
+
+func (s *EmailContent) SetServiceCode(v string) *EmailContent {
+	s.ServiceCode = &v
+	return s
+}
+
+func (s *EmailContent) SetDeveloperId(v string) *EmailContent {
+	s.DeveloperId = &v
+	return s
+}
+
+func (s *EmailContent) SetEmail(v string) *EmailContent {
+	s.Email = &v
+	return s
+}
+
+func (s *EmailContent) SetArguments(v []*Pair) *EmailContent {
 	s.Arguments = v
 	return s
 }
@@ -1616,6 +1724,8 @@ type SendProductNoticeRequest struct {
 	DingTalkContent *DingTalkContent `json:"ding_talk_content,omitempty" xml:"ding_talk_content,omitempty"`
 	// 短信内容
 	SmsContent *SmsContent `json:"sms_content,omitempty" xml:"sms_content,omitempty"`
+	// email结构体
+	EmailContent *EmailContent `json:"email_content,omitempty" xml:"email_content,omitempty"`
 }
 
 func (s SendProductNoticeRequest) String() string {
@@ -1648,6 +1758,11 @@ func (s *SendProductNoticeRequest) SetDingTalkContent(v *DingTalkContent) *SendP
 
 func (s *SendProductNoticeRequest) SetSmsContent(v *SmsContent) *SendProductNoticeRequest {
 	s.SmsContent = v
+	return s
+}
+
+func (s *SendProductNoticeRequest) SetEmailContent(v *EmailContent) *SendProductNoticeRequest {
+	s.EmailContent = v
 	return s
 }
 
@@ -1687,6 +1802,174 @@ func (s *SendProductNoticeResponse) SetResultMsg(v string) *SendProductNoticeRes
 
 func (s *SendProductNoticeResponse) SetOperateResult(v bool) *SendProductNoticeResponse {
 	s.OperateResult = &v
+	return s
+}
+
+type SaveDeepanalysisSubmitRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 深度分析类型
+	ToolType *string `json:"tool_type,omitempty" xml:"tool_type,omitempty" require:"true"`
+	// 任务名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 深度分析配置
+	Config *AnalysisConfig `json:"config,omitempty" xml:"config,omitempty" require:"true"`
+}
+
+func (s SaveDeepanalysisSubmitRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveDeepanalysisSubmitRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveDeepanalysisSubmitRequest) SetAuthToken(v string) *SaveDeepanalysisSubmitRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveDeepanalysisSubmitRequest) SetProductInstanceId(v string) *SaveDeepanalysisSubmitRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SaveDeepanalysisSubmitRequest) SetToolType(v string) *SaveDeepanalysisSubmitRequest {
+	s.ToolType = &v
+	return s
+}
+
+func (s *SaveDeepanalysisSubmitRequest) SetName(v string) *SaveDeepanalysisSubmitRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *SaveDeepanalysisSubmitRequest) SetConfig(v *AnalysisConfig) *SaveDeepanalysisSubmitRequest {
+	s.Config = v
+	return s
+}
+
+type SaveDeepanalysisSubmitResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 深度分析任务ID
+	AnalysisId *int64 `json:"analysis_id,omitempty" xml:"analysis_id,omitempty"`
+	// 其他返回
+	ResultJson *string `json:"result_json,omitempty" xml:"result_json,omitempty"`
+}
+
+func (s SaveDeepanalysisSubmitResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveDeepanalysisSubmitResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveDeepanalysisSubmitResponse) SetReqMsgId(v string) *SaveDeepanalysisSubmitResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveDeepanalysisSubmitResponse) SetResultCode(v string) *SaveDeepanalysisSubmitResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveDeepanalysisSubmitResponse) SetResultMsg(v string) *SaveDeepanalysisSubmitResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SaveDeepanalysisSubmitResponse) SetAnalysisId(v int64) *SaveDeepanalysisSubmitResponse {
+	s.AnalysisId = &v
+	return s
+}
+
+func (s *SaveDeepanalysisSubmitResponse) SetResultJson(v string) *SaveDeepanalysisSubmitResponse {
+	s.ResultJson = &v
+	return s
+}
+
+type QueryDeepanalysisQueryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 深度分析任务ID
+	AnalysisId *int64 `json:"analysis_id,omitempty" xml:"analysis_id,omitempty" require:"true"`
+}
+
+func (s QueryDeepanalysisQueryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeepanalysisQueryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeepanalysisQueryRequest) SetAuthToken(v string) *QueryDeepanalysisQueryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDeepanalysisQueryRequest) SetProductInstanceId(v string) *QueryDeepanalysisQueryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDeepanalysisQueryRequest) SetAnalysisId(v int64) *QueryDeepanalysisQueryRequest {
+	s.AnalysisId = &v
+	return s
+}
+
+type QueryDeepanalysisQueryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 深度分析任务ID
+	AnalysisId *int64 `json:"analysis_id,omitempty" xml:"analysis_id,omitempty"`
+	// 分析内容
+	ResultJson *string `json:"result_json,omitempty" xml:"result_json,omitempty"`
+}
+
+func (s QueryDeepanalysisQueryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDeepanalysisQueryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDeepanalysisQueryResponse) SetReqMsgId(v string) *QueryDeepanalysisQueryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDeepanalysisQueryResponse) SetResultCode(v string) *QueryDeepanalysisQueryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDeepanalysisQueryResponse) SetResultMsg(v string) *QueryDeepanalysisQueryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDeepanalysisQueryResponse) SetAnalysisId(v int64) *QueryDeepanalysisQueryResponse {
+	s.AnalysisId = &v
+	return s
+}
+
+func (s *QueryDeepanalysisQueryResponse) SetResultJson(v string) *QueryDeepanalysisQueryResponse {
+	s.ResultJson = &v
 	return s
 }
 
@@ -1812,7 +2095,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.12"),
+				"sdk_version":      tea.String("1.1.14"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2091,6 +2374,74 @@ func (client *Client) SendProductNoticeEx(request *SendProductNoticeRequest, hea
 	}
 	_result = &SendProductNoticeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.product.notice.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建深度分析
+ * Summary: 创建深度分析
+ */
+func (client *Client) SaveDeepanalysisSubmit(request *SaveDeepanalysisSubmitRequest) (_result *SaveDeepanalysisSubmitResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveDeepanalysisSubmitResponse{}
+	_body, _err := client.SaveDeepanalysisSubmitEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建深度分析
+ * Summary: 创建深度分析
+ */
+func (client *Client) SaveDeepanalysisSubmitEx(request *SaveDeepanalysisSubmitRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveDeepanalysisSubmitResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveDeepanalysisSubmitResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.deepanalysis.submit.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询深度分析
+ * Summary: 查询深度分析
+ */
+func (client *Client) QueryDeepanalysisQuery(request *QueryDeepanalysisQueryRequest) (_result *QueryDeepanalysisQueryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDeepanalysisQueryResponse{}
+	_body, _err := client.QueryDeepanalysisQueryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询深度分析
+ * Summary: 查询深度分析
+ */
+func (client *Client) QueryDeepanalysisQueryEx(request *QueryDeepanalysisQueryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDeepanalysisQueryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDeepanalysisQueryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.yuqing.deepanalysis.query.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
