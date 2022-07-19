@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.12'
+                    'sdk_version': '1.1.14'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.12'
+                    'sdk_version': '1.1.14'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +306,8 @@ class Client:
         Summary: 查询舆情列表
         """
         UtilClient.validate_model(request)
-        return yuqing_models.QueryMessagesResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.QueryMessagesResponse(),
             self.do_request('1.0', 'universalsaas.yuqing.messages.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: 查询舆情列表
         """
         UtilClient.validate_model(request)
-        return yuqing_models.QueryMessagesResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.QueryMessagesResponse(),
             await self.do_request_async('1.0', 'universalsaas.yuqing.messages.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: 舆情分析任务提交
         """
         UtilClient.validate_model(request)
-        return yuqing_models.SaveAnalysisSubmitResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.SaveAnalysisSubmitResponse(),
             self.do_request('1.0', 'universalsaas.yuqing.analysis.submit.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: 舆情分析任务提交
         """
         UtilClient.validate_model(request)
-        return yuqing_models.SaveAnalysisSubmitResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.SaveAnalysisSubmitResponse(),
             await self.do_request_async('1.0', 'universalsaas.yuqing.analysis.submit.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: 舆情分析任务查询
         """
         UtilClient.validate_model(request)
-        return yuqing_models.QueryAnalysisQueryResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.QueryAnalysisQueryResponse(),
             self.do_request('1.0', 'universalsaas.yuqing.analysis.query.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +434,8 @@ class Client:
         Summary: 舆情分析任务查询
         """
         UtilClient.validate_model(request)
-        return yuqing_models.QueryAnalysisQueryResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.QueryAnalysisQueryResponse(),
             await self.do_request_async('1.0', 'universalsaas.yuqing.analysis.query.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +474,8 @@ class Client:
         Summary: 废弃
         """
         UtilClient.validate_model(request)
-        return yuqing_models.SaveProductOpenResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.SaveProductOpenResponse(),
             self.do_request('1.0', 'universalsaas.yuqing.product.open.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +490,8 @@ class Client:
         Summary: 废弃
         """
         UtilClient.validate_model(request)
-        return yuqing_models.SaveProductOpenResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.SaveProductOpenResponse(),
             await self.do_request_async('1.0', 'universalsaas.yuqing.product.open.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +530,8 @@ class Client:
         Summary: 废弃
         """
         UtilClient.validate_model(request)
-        return yuqing_models.SaveProductTopResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.SaveProductTopResponse(),
             self.do_request('1.0', 'universalsaas.yuqing.product.top.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +546,8 @@ class Client:
         Summary: 废弃
         """
         UtilClient.validate_model(request)
-        return yuqing_models.SaveProductTopResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.SaveProductTopResponse(),
             await self.do_request_async('1.0', 'universalsaas.yuqing.product.top.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +586,8 @@ class Client:
         Summary: 产品操作接口
         """
         UtilClient.validate_model(request)
-        return yuqing_models.SetProductOperateResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.SetProductOperateResponse(),
             self.do_request('1.0', 'universalsaas.yuqing.product.operate.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +602,8 @@ class Client:
         Summary: 产品操作接口
         """
         UtilClient.validate_model(request)
-        return yuqing_models.SetProductOperateResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.SetProductOperateResponse(),
             await self.do_request_async('1.0', 'universalsaas.yuqing.product.operate.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +642,8 @@ class Client:
         Summary: 发送提醒
         """
         UtilClient.validate_model(request)
-        return yuqing_models.SendProductNoticeResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.SendProductNoticeResponse(),
             self.do_request('1.0', 'universalsaas.yuqing.product.notice.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,6 +658,119 @@ class Client:
         Summary: 发送提醒
         """
         UtilClient.validate_model(request)
-        return yuqing_models.SendProductNoticeResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_models.SendProductNoticeResponse(),
             await self.do_request_async('1.0', 'universalsaas.yuqing.product.notice.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_deepanalysis_submit(
+        self,
+        request: yuqing_models.SaveDeepanalysisSubmitRequest,
+    ) -> yuqing_models.SaveDeepanalysisSubmitResponse:
+        """
+        Description: 创建深度分析
+        Summary: 创建深度分析
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_deepanalysis_submit_ex(request, headers, runtime)
+
+    async def save_deepanalysis_submit_async(
+        self,
+        request: yuqing_models.SaveDeepanalysisSubmitRequest,
+    ) -> yuqing_models.SaveDeepanalysisSubmitResponse:
+        """
+        Description: 创建深度分析
+        Summary: 创建深度分析
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_deepanalysis_submit_ex_async(request, headers, runtime)
+
+    def save_deepanalysis_submit_ex(
+        self,
+        request: yuqing_models.SaveDeepanalysisSubmitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.SaveDeepanalysisSubmitResponse:
+        """
+        Description: 创建深度分析
+        Summary: 创建深度分析
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.SaveDeepanalysisSubmitResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.deepanalysis.submit.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_deepanalysis_submit_ex_async(
+        self,
+        request: yuqing_models.SaveDeepanalysisSubmitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.SaveDeepanalysisSubmitResponse:
+        """
+        Description: 创建深度分析
+        Summary: 创建深度分析
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.SaveDeepanalysisSubmitResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.deepanalysis.submit.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_deepanalysis_query(
+        self,
+        request: yuqing_models.QueryDeepanalysisQueryRequest,
+    ) -> yuqing_models.QueryDeepanalysisQueryResponse:
+        """
+        Description: 查询深度分析
+        Summary: 查询深度分析
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_deepanalysis_query_ex(request, headers, runtime)
+
+    async def query_deepanalysis_query_async(
+        self,
+        request: yuqing_models.QueryDeepanalysisQueryRequest,
+    ) -> yuqing_models.QueryDeepanalysisQueryResponse:
+        """
+        Description: 查询深度分析
+        Summary: 查询深度分析
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_deepanalysis_query_ex_async(request, headers, runtime)
+
+    def query_deepanalysis_query_ex(
+        self,
+        request: yuqing_models.QueryDeepanalysisQueryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.QueryDeepanalysisQueryResponse:
+        """
+        Description: 查询深度分析
+        Summary: 查询深度分析
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.QueryDeepanalysisQueryResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.deepanalysis.query.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_deepanalysis_query_ex_async(
+        self,
+        request: yuqing_models.QueryDeepanalysisQueryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.QueryDeepanalysisQueryResponse:
+        """
+        Description: 查询深度分析
+        Summary: 查询深度分析
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.QueryDeepanalysisQueryResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.deepanalysis.query.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

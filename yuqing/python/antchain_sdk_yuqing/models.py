@@ -70,6 +70,10 @@ class Config(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.access_key_id is not None:
             result['accessKeyId'] = self.access_key_id
@@ -171,6 +175,10 @@ class Link(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.text is not None:
             result['text'] = self.text
@@ -210,6 +218,10 @@ class Btn(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.title is not None:
             result['title'] = self.title
@@ -242,6 +254,10 @@ class Pair(TeaModel):
         self.validate_required(self.value, 'value')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['key'] = self.key
@@ -273,6 +289,10 @@ class Markdown(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.title is not None:
             result['title'] = self.title
@@ -307,6 +327,10 @@ class At(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.at_mobiles is not None:
             result['at_mobiles'] = self.at_mobiles
@@ -357,6 +381,10 @@ class ActionCard(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.title is not None:
             result['title'] = self.title
@@ -409,6 +437,10 @@ class FeedCard(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['links'] = []
         if self.links is not None:
@@ -438,6 +470,10 @@ class Text(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.content is not None:
             result['content'] = self.content
@@ -494,6 +530,10 @@ class DingTalkContent(TeaModel):
             self.at.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.web_hook is not None:
             result['web_hook'] = self.web_hook
@@ -537,6 +577,83 @@ class DingTalkContent(TeaModel):
         if m.get('at') is not None:
             temp_model = At()
             self.at = temp_model.from_map(m['at'])
+        return self
+
+
+class AnalysisConfig(TeaModel):
+    def __init__(
+        self,
+        doc_id: str = None,
+        url: str = None,
+        project_id: int = None,
+        filter_id: int = None,
+        pos_keyword_list: List[str] = None,
+        publish_time_start: int = None,
+        publish_time_end: int = None,
+        url_list: List[str] = None,
+    ):
+        # 文章ID
+        self.doc_id = doc_id
+        # 文章URL
+        self.url = url
+        # 项目ID
+        self.project_id = project_id
+        # 模板ID
+        self.filter_id = filter_id
+        # 关键词列表
+        self.pos_keyword_list = pos_keyword_list
+        # 开始时间
+        self.publish_time_start = publish_time_start
+        # 结束时间
+        self.publish_time_end = publish_time_end
+        # URL列表
+        self.url_list = url_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.doc_id is not None:
+            result['doc_id'] = self.doc_id
+        if self.url is not None:
+            result['url'] = self.url
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.filter_id is not None:
+            result['filter_id'] = self.filter_id
+        if self.pos_keyword_list is not None:
+            result['pos_keyword_list'] = self.pos_keyword_list
+        if self.publish_time_start is not None:
+            result['publish_time_start'] = self.publish_time_start
+        if self.publish_time_end is not None:
+            result['publish_time_end'] = self.publish_time_end
+        if self.url_list is not None:
+            result['url_list'] = self.url_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('doc_id') is not None:
+            self.doc_id = m.get('doc_id')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('filter_id') is not None:
+            self.filter_id = m.get('filter_id')
+        if m.get('pos_keyword_list') is not None:
+            self.pos_keyword_list = m.get('pos_keyword_list')
+        if m.get('publish_time_start') is not None:
+            self.publish_time_start = m.get('publish_time_start')
+        if m.get('publish_time_end') is not None:
+            self.publish_time_end = m.get('publish_time_end')
+        if m.get('url_list') is not None:
+            self.url_list = m.get('url_list')
         return self
 
 
@@ -687,6 +804,10 @@ class SearchCondition(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.ass_keyword_list is not None:
             result['ass_keyword_list'] = self.ass_keyword_list
@@ -963,6 +1084,10 @@ class YuqingMessage(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.author_avatar_url is not None:
             result['author_avatar_url'] = self.author_avatar_url
@@ -1096,6 +1221,10 @@ class SmsContent(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.service_code is not None:
             result['service_code'] = self.service_code
@@ -1125,6 +1254,64 @@ class SmsContent(TeaModel):
         return self
 
 
+class EmailContent(TeaModel):
+    def __init__(
+        self,
+        service_code: str = None,
+        developer_id: str = None,
+        email: str = None,
+        arguments: List[Pair] = None,
+    ):
+        # code
+        self.service_code = service_code
+        # 开发者Id
+        self.developer_id = developer_id
+        # 邮箱
+        self.email = email
+        # 参数
+        self.arguments = arguments
+
+    def validate(self):
+        self.validate_required(self.email, 'email')
+        if self.arguments:
+            for k in self.arguments:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.service_code is not None:
+            result['service_code'] = self.service_code
+        if self.developer_id is not None:
+            result['developer_id'] = self.developer_id
+        if self.email is not None:
+            result['email'] = self.email
+        result['arguments'] = []
+        if self.arguments is not None:
+            for k in self.arguments:
+                result['arguments'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('service_code') is not None:
+            self.service_code = m.get('service_code')
+        if m.get('developer_id') is not None:
+            self.developer_id = m.get('developer_id')
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        self.arguments = []
+        if m.get('arguments') is not None:
+            for k in m.get('arguments'):
+                temp_model = Pair()
+                self.arguments.append(temp_model.from_map(k))
+        return self
+
+
 class CommoditySpec(TeaModel):
     def __init__(
         self,
@@ -1140,6 +1327,10 @@ class CommoditySpec(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.spec_key is not None:
             result['spec_key'] = self.spec_key
@@ -1181,6 +1372,10 @@ class QueryMessagesRequest(TeaModel):
             self.search_condition.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1237,6 +1432,10 @@ class QueryMessagesResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1297,6 +1496,10 @@ class SaveAnalysisSubmitRequest(TeaModel):
         self.validate_required(self.team_hash_id, 'team_hash_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1350,6 +1553,10 @@ class SaveAnalysisSubmitResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1398,6 +1605,10 @@ class QueryAnalysisQueryRequest(TeaModel):
         self.validate_required(self.analysis_id, 'analysis_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1446,6 +1657,10 @@ class QueryAnalysisQueryResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1515,6 +1730,10 @@ class SaveProductOpenRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1586,6 +1805,10 @@ class SaveProductOpenResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1641,6 +1864,10 @@ class SaveProductTopRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1703,6 +1930,10 @@ class SaveProductTopResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1744,6 +1975,10 @@ class SetProductOperateRequest(TeaModel):
         self.validate_required(self.operate_type, 'operate_type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1789,6 +2024,10 @@ class SetProductOperateResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1821,6 +2060,7 @@ class SendProductNoticeRequest(TeaModel):
         notice_type: str = None,
         ding_talk_content: DingTalkContent = None,
         sms_content: SmsContent = None,
+        email_content: EmailContent = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1831,6 +2071,8 @@ class SendProductNoticeRequest(TeaModel):
         self.ding_talk_content = ding_talk_content
         # 短信内容
         self.sms_content = sms_content
+        # email结构体
+        self.email_content = email_content
 
     def validate(self):
         self.validate_required(self.notice_type, 'notice_type')
@@ -1838,8 +2080,14 @@ class SendProductNoticeRequest(TeaModel):
             self.ding_talk_content.validate()
         if self.sms_content:
             self.sms_content.validate()
+        if self.email_content:
+            self.email_content.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1851,6 +2099,8 @@ class SendProductNoticeRequest(TeaModel):
             result['ding_talk_content'] = self.ding_talk_content.to_map()
         if self.sms_content is not None:
             result['sms_content'] = self.sms_content.to_map()
+        if self.email_content is not None:
+            result['email_content'] = self.email_content.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -1867,6 +2117,9 @@ class SendProductNoticeRequest(TeaModel):
         if m.get('sms_content') is not None:
             temp_model = SmsContent()
             self.sms_content = temp_model.from_map(m['sms_content'])
+        if m.get('email_content') is not None:
+            temp_model = EmailContent()
+            self.email_content = temp_model.from_map(m['email_content'])
         return self
 
 
@@ -1891,6 +2144,10 @@ class SendProductNoticeResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1912,6 +2169,219 @@ class SendProductNoticeResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('operate_result') is not None:
             self.operate_result = m.get('operate_result')
+        return self
+
+
+class SaveDeepanalysisSubmitRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tool_type: str = None,
+        name: str = None,
+        config: AnalysisConfig = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 深度分析类型
+        self.tool_type = tool_type
+        # 任务名称
+        self.name = name
+        # 深度分析配置
+        self.config = config
+
+    def validate(self):
+        self.validate_required(self.tool_type, 'tool_type')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.config, 'config')
+        if self.config:
+            self.config.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tool_type is not None:
+            result['tool_type'] = self.tool_type
+        if self.name is not None:
+            result['name'] = self.name
+        if self.config is not None:
+            result['config'] = self.config.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tool_type') is not None:
+            self.tool_type = m.get('tool_type')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('config') is not None:
+            temp_model = AnalysisConfig()
+            self.config = temp_model.from_map(m['config'])
+        return self
+
+
+class SaveDeepanalysisSubmitResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        analysis_id: int = None,
+        result_json: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 深度分析任务ID
+        self.analysis_id = analysis_id
+        # 其他返回
+        self.result_json = result_json
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.analysis_id is not None:
+            result['analysis_id'] = self.analysis_id
+        if self.result_json is not None:
+            result['result_json'] = self.result_json
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('analysis_id') is not None:
+            self.analysis_id = m.get('analysis_id')
+        if m.get('result_json') is not None:
+            self.result_json = m.get('result_json')
+        return self
+
+
+class QueryDeepanalysisQueryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        analysis_id: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 深度分析任务ID
+        self.analysis_id = analysis_id
+
+    def validate(self):
+        self.validate_required(self.analysis_id, 'analysis_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.analysis_id is not None:
+            result['analysis_id'] = self.analysis_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('analysis_id') is not None:
+            self.analysis_id = m.get('analysis_id')
+        return self
+
+
+class QueryDeepanalysisQueryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        analysis_id: int = None,
+        result_json: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 深度分析任务ID
+        self.analysis_id = analysis_id
+        # 分析内容
+        self.result_json = result_json
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.analysis_id is not None:
+            result['analysis_id'] = self.analysis_id
+        if self.result_json is not None:
+            result['result_json'] = self.result_json
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('analysis_id') is not None:
+            self.analysis_id = m.get('analysis_id')
+        if m.get('result_json') is not None:
+            self.result_json = m.get('result_json')
         return self
 
 
