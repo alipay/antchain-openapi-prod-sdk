@@ -174,6 +174,204 @@ func (s *NameValuePair) SetValue(v string) *NameValuePair {
 	return s
 }
 
+// 用户可访问Channel信息
+type UserChannelDTO struct {
+	// 通道名称
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
+	// 通道是否公开可访问
+	PublicAcl *bool `json:"public_acl,omitempty" xml:"public_acl,omitempty" require:"true"`
+	// 创建通道的用户did
+	CreatorDid *string `json:"creator_did,omitempty" xml:"creator_did,omitempty" require:"true"`
+	// 权限到期时间
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s UserChannelDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UserChannelDTO) GoString() string {
+	return s.String()
+}
+
+func (s *UserChannelDTO) SetChannelName(v string) *UserChannelDTO {
+	s.ChannelName = &v
+	return s
+}
+
+func (s *UserChannelDTO) SetPublicAcl(v bool) *UserChannelDTO {
+	s.PublicAcl = &v
+	return s
+}
+
+func (s *UserChannelDTO) SetCreatorDid(v string) *UserChannelDTO {
+	s.CreatorDid = &v
+	return s
+}
+
+func (s *UserChannelDTO) SetValidTime(v string) *UserChannelDTO {
+	s.ValidTime = &v
+	return s
+}
+
+// 用于MyPocket返回链上账户
+type AccountEntry struct {
+	// mychain的账户名字
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
+	// account_name的hash的hex string
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+}
+
+func (s AccountEntry) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccountEntry) GoString() string {
+	return s.String()
+}
+
+func (s *AccountEntry) SetAccountName(v string) *AccountEntry {
+	s.AccountName = &v
+	return s
+}
+
+func (s *AccountEntry) SetAccountId(v string) *AccountEntry {
+	s.AccountId = &v
+	return s
+}
+
+// 访问权限过滤器
+type AccessFilterDTO struct {
+	// 过滤器名称
+	FilterName *string `json:"filter_name,omitempty" xml:"filter_name,omitempty" require:"true"`
+	// 要过滤的字段路径
+	Path *string `json:"path,omitempty" xml:"path,omitempty" require:"true"`
+	// 路径字段的取值范围
+	Target []*string `json:"target,omitempty" xml:"target,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AccessFilterDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccessFilterDTO) GoString() string {
+	return s.String()
+}
+
+func (s *AccessFilterDTO) SetFilterName(v string) *AccessFilterDTO {
+	s.FilterName = &v
+	return s
+}
+
+func (s *AccessFilterDTO) SetPath(v string) *AccessFilterDTO {
+	s.Path = &v
+	return s
+}
+
+func (s *AccessFilterDTO) SetTarget(v []*string) *AccessFilterDTO {
+	s.Target = v
+	return s
+}
+
+// 结果返回过滤
+type ResultFilterDTO struct {
+	// 过滤器名称
+	FilterName *string `json:"filter_name,omitempty" xml:"filter_name,omitempty" require:"true"`
+	// 要返回的字段路径列表
+	PathList []*string `json:"path_list,omitempty" xml:"path_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ResultFilterDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResultFilterDTO) GoString() string {
+	return s.String()
+}
+
+func (s *ResultFilterDTO) SetFilterName(v string) *ResultFilterDTO {
+	s.FilterName = &v
+	return s
+}
+
+func (s *ResultFilterDTO) SetPathList(v []*string) *ResultFilterDTO {
+	s.PathList = v
+	return s
+}
+
+// 数据通道Channel
+type ChannelDTO struct {
+	// 通道名称
+	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
+	// 通道是否公开访问
+	PublicAcl *bool `json:"public_acl,omitempty" xml:"public_acl,omitempty" require:"true"`
+	// 通道创建账户
+	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty" require:"true"`
+}
+
+func (s ChannelDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChannelDTO) GoString() string {
+	return s.String()
+}
+
+func (s *ChannelDTO) SetChannelName(v string) *ChannelDTO {
+	s.ChannelName = &v
+	return s
+}
+
+func (s *ChannelDTO) SetPublicAcl(v bool) *ChannelDTO {
+	s.PublicAcl = &v
+	return s
+}
+
+func (s *ChannelDTO) SetUserDid(v string) *ChannelDTO {
+	s.UserDid = &v
+	return s
+}
+
+// 数据状态驱动
+type StatusDrive struct {
+	// 起始状态
+	FromStatus *string `json:"from_status,omitempty" xml:"from_status,omitempty" require:"true"`
+	// 下一状态
+	ToStatus *string `json:"to_status,omitempty" xml:"to_status,omitempty" require:"true"`
+	// 驱动上链记录哈希
+	DriveHash *string `json:"drive_hash,omitempty" xml:"drive_hash,omitempty" require:"true"`
+	// 链上时间戳
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+}
+
+func (s StatusDrive) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StatusDrive) GoString() string {
+	return s.String()
+}
+
+func (s *StatusDrive) SetFromStatus(v string) *StatusDrive {
+	s.FromStatus = &v
+	return s
+}
+
+func (s *StatusDrive) SetToStatus(v string) *StatusDrive {
+	s.ToStatus = &v
+	return s
+}
+
+func (s *StatusDrive) SetDriveHash(v string) *StatusDrive {
+	s.DriveHash = &v
+	return s
+}
+
+func (s *StatusDrive) SetTimestamp(v int64) *StatusDrive {
+	s.Timestamp = &v
+	return s
+}
+
 // 数据归属权
 type DataTransferObject struct {
 	// 发起方
@@ -222,69 +420,29 @@ func (s *DataTransferObject) SetTimestamp(v int64) *DataTransferObject {
 	return s
 }
 
-// 数据状态驱动
-type StatusDrive struct {
-	// 起始状态
-	FromStatus *string `json:"from_status,omitempty" xml:"from_status,omitempty" require:"true"`
-	// 下一状态
-	ToStatus *string `json:"to_status,omitempty" xml:"to_status,omitempty" require:"true"`
-	// 驱动上链记录哈希
-	DriveHash *string `json:"drive_hash,omitempty" xml:"drive_hash,omitempty" require:"true"`
-	// 链上时间戳
-	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+// 存证记录
+type NotaryRecord struct {
+	// 存证记录
+	Attributes []*NameValuePair `json:"attributes,omitempty" xml:"attributes,omitempty" require:"true" type:"Repeated"`
+	// 二维码链接
+	QrCodeUrl *string `json:"qr_code_url,omitempty" xml:"qr_code_url,omitempty" require:"true"`
 }
 
-func (s StatusDrive) String() string {
+func (s NotaryRecord) String() string {
 	return tea.Prettify(s)
 }
 
-func (s StatusDrive) GoString() string {
+func (s NotaryRecord) GoString() string {
 	return s.String()
 }
 
-func (s *StatusDrive) SetFromStatus(v string) *StatusDrive {
-	s.FromStatus = &v
+func (s *NotaryRecord) SetAttributes(v []*NameValuePair) *NotaryRecord {
+	s.Attributes = v
 	return s
 }
 
-func (s *StatusDrive) SetToStatus(v string) *StatusDrive {
-	s.ToStatus = &v
-	return s
-}
-
-func (s *StatusDrive) SetDriveHash(v string) *StatusDrive {
-	s.DriveHash = &v
-	return s
-}
-
-func (s *StatusDrive) SetTimestamp(v int64) *StatusDrive {
-	s.Timestamp = &v
-	return s
-}
-
-// 结果返回过滤
-type ResultFilterDTO struct {
-	// 过滤器名称
-	FilterName *string `json:"filter_name,omitempty" xml:"filter_name,omitempty" require:"true"`
-	// 要返回的字段路径列表
-	PathList []*string `json:"path_list,omitempty" xml:"path_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s ResultFilterDTO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ResultFilterDTO) GoString() string {
-	return s.String()
-}
-
-func (s *ResultFilterDTO) SetFilterName(v string) *ResultFilterDTO {
-	s.FilterName = &v
-	return s
-}
-
-func (s *ResultFilterDTO) SetPathList(v []*string) *ResultFilterDTO {
-	s.PathList = v
+func (s *NotaryRecord) SetQrCodeUrl(v string) *NotaryRecord {
+	s.QrCodeUrl = &v
 	return s
 }
 
@@ -325,138 +483,6 @@ func (s *FlowTemplate) SetToStatus(v string) *FlowTemplate {
 
 func (s *FlowTemplate) SetStartNode(v bool) *FlowTemplate {
 	s.StartNode = &v
-	return s
-}
-
-// 存证记录
-type NotaryRecord struct {
-	// 存证记录
-	Attributes []*NameValuePair `json:"attributes,omitempty" xml:"attributes,omitempty" require:"true" type:"Repeated"`
-	// 二维码链接
-	QrCodeUrl *string `json:"qr_code_url,omitempty" xml:"qr_code_url,omitempty" require:"true"`
-}
-
-func (s NotaryRecord) String() string {
-	return tea.Prettify(s)
-}
-
-func (s NotaryRecord) GoString() string {
-	return s.String()
-}
-
-func (s *NotaryRecord) SetAttributes(v []*NameValuePair) *NotaryRecord {
-	s.Attributes = v
-	return s
-}
-
-func (s *NotaryRecord) SetQrCodeUrl(v string) *NotaryRecord {
-	s.QrCodeUrl = &v
-	return s
-}
-
-// 用户可访问Channel信息
-type UserChannelDTO struct {
-	// 通道名称
-	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
-	// 通道是否公开可访问
-	PublicAcl *bool `json:"public_acl,omitempty" xml:"public_acl,omitempty" require:"true"`
-	// 创建通道的用户did
-	CreatorDid *string `json:"creator_did,omitempty" xml:"creator_did,omitempty" require:"true"`
-	// 权限到期时间
-	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s UserChannelDTO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UserChannelDTO) GoString() string {
-	return s.String()
-}
-
-func (s *UserChannelDTO) SetChannelName(v string) *UserChannelDTO {
-	s.ChannelName = &v
-	return s
-}
-
-func (s *UserChannelDTO) SetPublicAcl(v bool) *UserChannelDTO {
-	s.PublicAcl = &v
-	return s
-}
-
-func (s *UserChannelDTO) SetCreatorDid(v string) *UserChannelDTO {
-	s.CreatorDid = &v
-	return s
-}
-
-func (s *UserChannelDTO) SetValidTime(v string) *UserChannelDTO {
-	s.ValidTime = &v
-	return s
-}
-
-// 数据通道Channel
-type ChannelDTO struct {
-	// 通道名称
-	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
-	// 通道是否公开访问
-	PublicAcl *bool `json:"public_acl,omitempty" xml:"public_acl,omitempty" require:"true"`
-	// 通道创建账户
-	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty" require:"true"`
-}
-
-func (s ChannelDTO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ChannelDTO) GoString() string {
-	return s.String()
-}
-
-func (s *ChannelDTO) SetChannelName(v string) *ChannelDTO {
-	s.ChannelName = &v
-	return s
-}
-
-func (s *ChannelDTO) SetPublicAcl(v bool) *ChannelDTO {
-	s.PublicAcl = &v
-	return s
-}
-
-func (s *ChannelDTO) SetUserDid(v string) *ChannelDTO {
-	s.UserDid = &v
-	return s
-}
-
-// 访问权限过滤器
-type AccessFilterDTO struct {
-	// 过滤器名称
-	FilterName *string `json:"filter_name,omitempty" xml:"filter_name,omitempty" require:"true"`
-	// 要过滤的字段路径
-	Path *string `json:"path,omitempty" xml:"path,omitempty" require:"true"`
-	// 路径字段的取值范围
-	Target []*string `json:"target,omitempty" xml:"target,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s AccessFilterDTO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AccessFilterDTO) GoString() string {
-	return s.String()
-}
-
-func (s *AccessFilterDTO) SetFilterName(v string) *AccessFilterDTO {
-	s.FilterName = &v
-	return s
-}
-
-func (s *AccessFilterDTO) SetPath(v string) *AccessFilterDTO {
-	s.Path = &v
-	return s
-}
-
-func (s *AccessFilterDTO) SetTarget(v []*string) *AccessFilterDTO {
-	s.Target = v
 	return s
 }
 
@@ -504,6 +530,552 @@ func (s *FormIndexDTO) SetTxHash(v string) *FormIndexDTO {
 
 func (s *FormIndexDTO) SetTxTimestamp(v string) *FormIndexDTO {
 	s.TxTimestamp = &v
+	return s
+}
+
+type CreateMypocketChainaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户的MyPocket账户对应的DID
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 区块链在MyPocket中的唯一ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+}
+
+func (s CreateMypocketChainaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMypocketChainaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMypocketChainaccountRequest) SetAuthToken(v string) *CreateMypocketChainaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateMypocketChainaccountRequest) SetProductInstanceId(v string) *CreateMypocketChainaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateMypocketChainaccountRequest) SetDid(v string) *CreateMypocketChainaccountRequest {
+	s.Did = &v
+	return s
+}
+
+func (s *CreateMypocketChainaccountRequest) SetChainId(v string) *CreateMypocketChainaccountRequest {
+	s.ChainId = &v
+	return s
+}
+
+type CreateMypocketChainaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// mychain账户名字
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty"`
+	// account_name hash的hex字符串
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+}
+
+func (s CreateMypocketChainaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMypocketChainaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMypocketChainaccountResponse) SetReqMsgId(v string) *CreateMypocketChainaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateMypocketChainaccountResponse) SetResultCode(v string) *CreateMypocketChainaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateMypocketChainaccountResponse) SetResultMsg(v string) *CreateMypocketChainaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateMypocketChainaccountResponse) SetAccountName(v string) *CreateMypocketChainaccountResponse {
+	s.AccountName = &v
+	return s
+}
+
+func (s *CreateMypocketChainaccountResponse) SetAccountId(v string) *CreateMypocketChainaccountResponse {
+	s.AccountId = &v
+	return s
+}
+
+type QueryMypocketChainaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 要查询的链账户绑定的DID
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 要查询的区块链账户所在的链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+}
+
+func (s QueryMypocketChainaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMypocketChainaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMypocketChainaccountRequest) SetAuthToken(v string) *QueryMypocketChainaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMypocketChainaccountRequest) SetProductInstanceId(v string) *QueryMypocketChainaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMypocketChainaccountRequest) SetDid(v string) *QueryMypocketChainaccountRequest {
+	s.Did = &v
+	return s
+}
+
+func (s *QueryMypocketChainaccountRequest) SetChainId(v string) *QueryMypocketChainaccountRequest {
+	s.ChainId = &v
+	return s
+}
+
+type QueryMypocketChainaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 包含链账户的name和id
+	ChainAccounts []*AccountEntry `json:"chain_accounts,omitempty" xml:"chain_accounts,omitempty" type:"Repeated"`
+}
+
+func (s QueryMypocketChainaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMypocketChainaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMypocketChainaccountResponse) SetReqMsgId(v string) *QueryMypocketChainaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMypocketChainaccountResponse) SetResultCode(v string) *QueryMypocketChainaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMypocketChainaccountResponse) SetResultMsg(v string) *QueryMypocketChainaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMypocketChainaccountResponse) SetChainAccounts(v []*AccountEntry) *QueryMypocketChainaccountResponse {
+	s.ChainAccounts = v
+	return s
+}
+
+type BindMypocketKmsaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户的DID
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 区块链ID
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+	// 用户的链上账户
+	ChainAccount *string `json:"chain_account,omitempty" xml:"chain_account,omitempty" require:"true"`
+	// 该链账户在BaaS服务的KMS ID
+	KmsId *string `json:"kms_id,omitempty" xml:"kms_id,omitempty" require:"true"`
+}
+
+func (s BindMypocketKmsaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindMypocketKmsaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindMypocketKmsaccountRequest) SetAuthToken(v string) *BindMypocketKmsaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindMypocketKmsaccountRequest) SetProductInstanceId(v string) *BindMypocketKmsaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindMypocketKmsaccountRequest) SetDid(v string) *BindMypocketKmsaccountRequest {
+	s.Did = &v
+	return s
+}
+
+func (s *BindMypocketKmsaccountRequest) SetChainId(v string) *BindMypocketKmsaccountRequest {
+	s.ChainId = &v
+	return s
+}
+
+func (s *BindMypocketKmsaccountRequest) SetChainAccount(v string) *BindMypocketKmsaccountRequest {
+	s.ChainAccount = &v
+	return s
+}
+
+func (s *BindMypocketKmsaccountRequest) SetKmsId(v string) *BindMypocketKmsaccountRequest {
+	s.KmsId = &v
+	return s
+}
+
+type BindMypocketKmsaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindMypocketKmsaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindMypocketKmsaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindMypocketKmsaccountResponse) SetReqMsgId(v string) *BindMypocketKmsaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindMypocketKmsaccountResponse) SetResultCode(v string) *BindMypocketKmsaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindMypocketKmsaccountResponse) SetResultMsg(v string) *BindMypocketKmsaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CreateMypocketDidaccountbyalipayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 支付宝Uid
+	AlipayUid *string `json:"alipay_uid,omitempty" xml:"alipay_uid,omitempty" require:"true"`
+}
+
+func (s CreateMypocketDidaccountbyalipayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMypocketDidaccountbyalipayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMypocketDidaccountbyalipayRequest) SetAuthToken(v string) *CreateMypocketDidaccountbyalipayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateMypocketDidaccountbyalipayRequest) SetProductInstanceId(v string) *CreateMypocketDidaccountbyalipayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateMypocketDidaccountbyalipayRequest) SetAlipayUid(v string) *CreateMypocketDidaccountbyalipayRequest {
+	s.AlipayUid = &v
+	return s
+}
+
+type CreateMypocketDidaccountbyalipayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户的DID
+	Did *string `json:"did,omitempty" xml:"did,omitempty"`
+}
+
+func (s CreateMypocketDidaccountbyalipayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMypocketDidaccountbyalipayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMypocketDidaccountbyalipayResponse) SetReqMsgId(v string) *CreateMypocketDidaccountbyalipayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateMypocketDidaccountbyalipayResponse) SetResultCode(v string) *CreateMypocketDidaccountbyalipayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateMypocketDidaccountbyalipayResponse) SetResultMsg(v string) *CreateMypocketDidaccountbyalipayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateMypocketDidaccountbyalipayResponse) SetDid(v string) *CreateMypocketDidaccountbyalipayResponse {
+	s.Did = &v
+	return s
+}
+
+type QueryMypocketDidaccountbyalipayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 支付宝Uid
+	AlipayUid *string `json:"alipay_uid,omitempty" xml:"alipay_uid,omitempty" require:"true"`
+}
+
+func (s QueryMypocketDidaccountbyalipayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMypocketDidaccountbyalipayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMypocketDidaccountbyalipayRequest) SetAuthToken(v string) *QueryMypocketDidaccountbyalipayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMypocketDidaccountbyalipayRequest) SetProductInstanceId(v string) *QueryMypocketDidaccountbyalipayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMypocketDidaccountbyalipayRequest) SetAlipayUid(v string) *QueryMypocketDidaccountbyalipayRequest {
+	s.AlipayUid = &v
+	return s
+}
+
+type QueryMypocketDidaccountbyalipayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 外部DApp应用通过支付宝UID查询普通用户did
+	Did *string `json:"did,omitempty" xml:"did,omitempty"`
+}
+
+func (s QueryMypocketDidaccountbyalipayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMypocketDidaccountbyalipayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMypocketDidaccountbyalipayResponse) SetReqMsgId(v string) *QueryMypocketDidaccountbyalipayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMypocketDidaccountbyalipayResponse) SetResultCode(v string) *QueryMypocketDidaccountbyalipayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMypocketDidaccountbyalipayResponse) SetResultMsg(v string) *QueryMypocketDidaccountbyalipayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMypocketDidaccountbyalipayResponse) SetDid(v string) *QueryMypocketDidaccountbyalipayResponse {
+	s.Did = &v
+	return s
+}
+
+type CreateMypocketEscrowchainaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户did
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 链id
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+}
+
+func (s CreateMypocketEscrowchainaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMypocketEscrowchainaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMypocketEscrowchainaccountRequest) SetAuthToken(v string) *CreateMypocketEscrowchainaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateMypocketEscrowchainaccountRequest) SetProductInstanceId(v string) *CreateMypocketEscrowchainaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateMypocketEscrowchainaccountRequest) SetDid(v string) *CreateMypocketEscrowchainaccountRequest {
+	s.Did = &v
+	return s
+}
+
+func (s *CreateMypocketEscrowchainaccountRequest) SetChainId(v string) *CreateMypocketEscrowchainaccountRequest {
+	s.ChainId = &v
+	return s
+}
+
+type CreateMypocketEscrowchainaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 账户名称
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty"`
+	// 链上id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+}
+
+func (s CreateMypocketEscrowchainaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateMypocketEscrowchainaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateMypocketEscrowchainaccountResponse) SetReqMsgId(v string) *CreateMypocketEscrowchainaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateMypocketEscrowchainaccountResponse) SetResultCode(v string) *CreateMypocketEscrowchainaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateMypocketEscrowchainaccountResponse) SetResultMsg(v string) *CreateMypocketEscrowchainaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateMypocketEscrowchainaccountResponse) SetAccountName(v string) *CreateMypocketEscrowchainaccountResponse {
+	s.AccountName = &v
+	return s
+}
+
+func (s *CreateMypocketEscrowchainaccountResponse) SetAccountId(v string) *CreateMypocketEscrowchainaccountResponse {
+	s.AccountId = &v
+	return s
+}
+
+type QueryMypocketEscrowchainaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户did
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 链id
+	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
+}
+
+func (s QueryMypocketEscrowchainaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMypocketEscrowchainaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMypocketEscrowchainaccountRequest) SetAuthToken(v string) *QueryMypocketEscrowchainaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMypocketEscrowchainaccountRequest) SetProductInstanceId(v string) *QueryMypocketEscrowchainaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMypocketEscrowchainaccountRequest) SetDid(v string) *QueryMypocketEscrowchainaccountRequest {
+	s.Did = &v
+	return s
+}
+
+func (s *QueryMypocketEscrowchainaccountRequest) SetChainId(v string) *QueryMypocketEscrowchainaccountRequest {
+	s.ChainId = &v
+	return s
+}
+
+type QueryMypocketEscrowchainaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// DID对应的所有链上账户
+	ChainAccounts []*AccountEntry `json:"chain_accounts,omitempty" xml:"chain_accounts,omitempty" type:"Repeated"`
+}
+
+func (s QueryMypocketEscrowchainaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMypocketEscrowchainaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMypocketEscrowchainaccountResponse) SetReqMsgId(v string) *QueryMypocketEscrowchainaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMypocketEscrowchainaccountResponse) SetResultCode(v string) *QueryMypocketEscrowchainaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMypocketEscrowchainaccountResponse) SetResultMsg(v string) *QueryMypocketEscrowchainaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMypocketEscrowchainaccountResponse) SetChainAccounts(v []*AccountEntry) *QueryMypocketEscrowchainaccountResponse {
+	s.ChainAccounts = v
 	return s
 }
 
@@ -3599,6 +4171,111 @@ func (s *QuerySolutionBmsResponse) SetTempContractUrl(v string) *QuerySolutionBm
 	return s
 }
 
+type DeploySolutionContractRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 链ID
+	Bizid *string `json:"bizid,omitempty" xml:"bizid,omitempty" require:"true"`
+	// 链操作者信息
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 合约名称
+	ContractName *string `json:"contract_name,omitempty" xml:"contract_name,omitempty" require:"true"`
+	// 提交记录ID
+	CommitId *string `json:"commit_id,omitempty" xml:"commit_id,omitempty" require:"true"`
+	// 当前分支
+	Branch *string `json:"branch,omitempty" xml:"branch,omitempty" require:"true"`
+	// 合约仓库路径
+	GitRepo *string `json:"git_repo,omitempty" xml:"git_repo,omitempty" require:"true"`
+}
+
+func (s DeploySolutionContractRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeploySolutionContractRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeploySolutionContractRequest) SetAuthToken(v string) *DeploySolutionContractRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeploySolutionContractRequest) SetProductInstanceId(v string) *DeploySolutionContractRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeploySolutionContractRequest) SetBizid(v string) *DeploySolutionContractRequest {
+	s.Bizid = &v
+	return s
+}
+
+func (s *DeploySolutionContractRequest) SetOperator(v string) *DeploySolutionContractRequest {
+	s.Operator = &v
+	return s
+}
+
+func (s *DeploySolutionContractRequest) SetContractName(v string) *DeploySolutionContractRequest {
+	s.ContractName = &v
+	return s
+}
+
+func (s *DeploySolutionContractRequest) SetCommitId(v string) *DeploySolutionContractRequest {
+	s.CommitId = &v
+	return s
+}
+
+func (s *DeploySolutionContractRequest) SetBranch(v string) *DeploySolutionContractRequest {
+	s.Branch = &v
+	return s
+}
+
+func (s *DeploySolutionContractRequest) SetGitRepo(v string) *DeploySolutionContractRequest {
+	s.GitRepo = &v
+	return s
+}
+
+type DeploySolutionContractResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否部署成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s DeploySolutionContractResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeploySolutionContractResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeploySolutionContractResponse) SetReqMsgId(v string) *DeploySolutionContractResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeploySolutionContractResponse) SetResultCode(v string) *DeploySolutionContractResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeploySolutionContractResponse) SetResultMsg(v string) *DeploySolutionContractResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeploySolutionContractResponse) SetSuccess(v bool) *DeploySolutionContractResponse {
+	s.Success = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3721,7 +4398,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.20"),
+				"sdk_version":      tea.String("1.3.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3767,6 +4444,244 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 为用户在MyPocket创建链上账户
+ * Summary: MyPocket创建链上账户
+ */
+func (client *Client) CreateMypocketChainaccount(request *CreateMypocketChainaccountRequest) (_result *CreateMypocketChainaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateMypocketChainaccountResponse{}
+	_body, _err := client.CreateMypocketChainaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 为用户在MyPocket创建链上账户
+ * Summary: MyPocket创建链上账户
+ */
+func (client *Client) CreateMypocketChainaccountEx(request *CreateMypocketChainaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateMypocketChainaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateMypocketChainaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.chainaccount.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户根据DID和chainID，查询区块链账户
+ * Summary: 用户查询区块链账户
+ */
+func (client *Client) QueryMypocketChainaccount(request *QueryMypocketChainaccountRequest) (_result *QueryMypocketChainaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMypocketChainaccountResponse{}
+	_body, _err := client.QueryMypocketChainaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户根据DID和chainID，查询区块链账户
+ * Summary: 用户查询区块链账户
+ */
+func (client *Client) QueryMypocketChainaccountEx(request *QueryMypocketChainaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMypocketChainaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMypocketChainaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.chainaccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 外部DApp应用绑定链账户至did
+ * Summary: 外部DApp应用绑定链账户至did
+ */
+func (client *Client) BindMypocketKmsaccount(request *BindMypocketKmsaccountRequest) (_result *BindMypocketKmsaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindMypocketKmsaccountResponse{}
+	_body, _err := client.BindMypocketKmsaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 外部DApp应用绑定链账户至did
+ * Summary: 外部DApp应用绑定链账户至did
+ */
+func (client *Client) BindMypocketKmsaccountEx(request *BindMypocketKmsaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindMypocketKmsaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindMypocketKmsaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.kmsaccount.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+ * Summary: 创建普通用户DID账户（支付宝UID）
+ */
+func (client *Client) CreateMypocketDidaccountbyalipay(request *CreateMypocketDidaccountbyalipayRequest) (_result *CreateMypocketDidaccountbyalipayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateMypocketDidaccountbyalipayResponse{}
+	_body, _err := client.CreateMypocketDidaccountbyalipayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+ * Summary: 创建普通用户DID账户（支付宝UID）
+ */
+func (client *Client) CreateMypocketDidaccountbyalipayEx(request *CreateMypocketDidaccountbyalipayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateMypocketDidaccountbyalipayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateMypocketDidaccountbyalipayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.didaccountbyalipay.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 外部DApp应用通过支付宝UID查询普通用户did
+ * Summary: 查询普通用户did（支付宝UID）
+ */
+func (client *Client) QueryMypocketDidaccountbyalipay(request *QueryMypocketDidaccountbyalipayRequest) (_result *QueryMypocketDidaccountbyalipayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMypocketDidaccountbyalipayResponse{}
+	_body, _err := client.QueryMypocketDidaccountbyalipayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 外部DApp应用通过支付宝UID查询普通用户did
+ * Summary: 查询普通用户did（支付宝UID）
+ */
+func (client *Client) QueryMypocketDidaccountbyalipayEx(request *QueryMypocketDidaccountbyalipayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMypocketDidaccountbyalipayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMypocketDidaccountbyalipayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.didaccountbyalipay.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 外部DApp应用创建用户链上账户
+ * Summary: 外部DApp应用创建用户链上账户
+ */
+func (client *Client) CreateMypocketEscrowchainaccount(request *CreateMypocketEscrowchainaccountRequest) (_result *CreateMypocketEscrowchainaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateMypocketEscrowchainaccountResponse{}
+	_body, _err := client.CreateMypocketEscrowchainaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 外部DApp应用创建用户链上账户
+ * Summary: 外部DApp应用创建用户链上账户
+ */
+func (client *Client) CreateMypocketEscrowchainaccountEx(request *CreateMypocketEscrowchainaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateMypocketEscrowchainaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateMypocketEscrowchainaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.escrowchainaccount.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 外部DApp应用查询did在指定链上关联的账户
+ * Summary: 外部查询did在指定链上关联的账户
+ */
+func (client *Client) QueryMypocketEscrowchainaccount(request *QueryMypocketEscrowchainaccountRequest) (_result *QueryMypocketEscrowchainaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMypocketEscrowchainaccountResponse{}
+	_body, _err := client.QueryMypocketEscrowchainaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 外部DApp应用查询did在指定链上关联的账户
+ * Summary: 外部查询did在指定链上关联的账户
+ */
+func (client *Client) QueryMypocketEscrowchainaccountEx(request *QueryMypocketEscrowchainaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMypocketEscrowchainaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMypocketEscrowchainaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.escrowchainaccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
@@ -4816,6 +5731,40 @@ func (client *Client) QuerySolutionBmsEx(request *QuerySolutionBmsRequest, heade
 	}
 	_result = &QuerySolutionBmsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.solution.bms.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用速搭平台部署合约接口
+ * Summary: 应用速搭平台部署合约接口
+ */
+func (client *Client) DeploySolutionContract(request *DeploySolutionContractRequest) (_result *DeploySolutionContractResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeploySolutionContractResponse{}
+	_body, _err := client.DeploySolutionContractEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用速搭平台部署合约接口
+ * Summary: 应用速搭平台部署合约接口
+ */
+func (client *Client) DeploySolutionContractEx(request *DeploySolutionContractRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeploySolutionContractResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeploySolutionContractResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.solution.contract.deploy"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
