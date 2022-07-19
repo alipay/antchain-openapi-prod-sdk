@@ -24,6 +24,10 @@ public class SendProductNoticeRequest extends TeaModel {
     @NameInMap("sms_content")
     public SmsContent smsContent;
 
+    // email结构体
+    @NameInMap("email_content")
+    public EmailContent emailContent;
+
     public static SendProductNoticeRequest build(java.util.Map<String, ?> map) throws Exception {
         SendProductNoticeRequest self = new SendProductNoticeRequest();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class SendProductNoticeRequest extends TeaModel {
     }
     public SmsContent getSmsContent() {
         return this.smsContent;
+    }
+
+    public SendProductNoticeRequest setEmailContent(EmailContent emailContent) {
+        this.emailContent = emailContent;
+        return this;
+    }
+    public EmailContent getEmailContent() {
+        return this.emailContent;
     }
 
 }

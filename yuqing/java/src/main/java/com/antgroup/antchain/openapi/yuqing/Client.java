@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.12")
+                    new TeaPair("sdk_version", "1.1.14")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -290,5 +290,43 @@ public class Client {
     public SendProductNoticeResponse sendProductNoticeEx(SendProductNoticeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.product.notice.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendProductNoticeResponse());
+    }
+
+    /**
+     * Description: 创建深度分析
+     * Summary: 创建深度分析
+     */
+    public SaveDeepanalysisSubmitResponse saveDeepanalysisSubmit(SaveDeepanalysisSubmitRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveDeepanalysisSubmitEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建深度分析
+     * Summary: 创建深度分析
+     */
+    public SaveDeepanalysisSubmitResponse saveDeepanalysisSubmitEx(SaveDeepanalysisSubmitRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.deepanalysis.submit.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveDeepanalysisSubmitResponse());
+    }
+
+    /**
+     * Description: 查询深度分析
+     * Summary: 查询深度分析
+     */
+    public QueryDeepanalysisQueryResponse queryDeepanalysisQuery(QueryDeepanalysisQueryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDeepanalysisQueryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询深度分析
+     * Summary: 查询深度分析
+     */
+    public QueryDeepanalysisQueryResponse queryDeepanalysisQueryEx(QueryDeepanalysisQueryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.deepanalysis.query.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeepanalysisQueryResponse());
     }
 }
