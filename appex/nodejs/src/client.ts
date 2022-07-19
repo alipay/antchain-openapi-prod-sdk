@@ -102,36 +102,139 @@ export class NameValuePair extends $tea.Model {
   }
 }
 
-// 数据归属权
-export class DataTransferObject extends $tea.Model {
-  // 发起方
-  from: string;
-  // 转交方
-  to: string;
-  // 流转备注
-  formBody: string;
-  // 链上流转记录
-  txHash: string;
-  // 链上时间戳
-  // 
-  timestamp: number;
+// 用户可访问Channel信息
+export class UserChannelDTO extends $tea.Model {
+  // 通道名称
+  channelName: string;
+  // 通道是否公开可访问
+  publicAcl: boolean;
+  // 创建通道的用户did
+  creatorDid: string;
+  // 权限到期时间
+  validTime: string;
   static names(): { [key: string]: string } {
     return {
-      from: 'from',
-      to: 'to',
-      formBody: 'form_body',
-      txHash: 'tx_hash',
-      timestamp: 'timestamp',
+      channelName: 'channel_name',
+      publicAcl: 'public_acl',
+      creatorDid: 'creator_did',
+      validTime: 'valid_time',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      from: 'string',
-      to: 'string',
-      formBody: 'string',
-      txHash: 'string',
-      timestamp: 'number',
+      channelName: 'string',
+      publicAcl: 'boolean',
+      creatorDid: 'string',
+      validTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用于MyPocket返回链上账户
+export class AccountEntry extends $tea.Model {
+  // mychain的账户名字
+  accountName: string;
+  // account_name的hash的hex string
+  accountId: string;
+  static names(): { [key: string]: string } {
+    return {
+      accountName: 'account_name',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accountName: 'string',
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 访问权限过滤器
+export class AccessFilterDTO extends $tea.Model {
+  // 过滤器名称
+  filterName: string;
+  // 要过滤的字段路径
+  path: string;
+  // 路径字段的取值范围
+  target: string[];
+  static names(): { [key: string]: string } {
+    return {
+      filterName: 'filter_name',
+      path: 'path',
+      target: 'target',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      filterName: 'string',
+      path: 'string',
+      target: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 结果返回过滤
+export class ResultFilterDTO extends $tea.Model {
+  // 过滤器名称
+  filterName: string;
+  // 要返回的字段路径列表
+  pathList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      filterName: 'filter_name',
+      pathList: 'path_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      filterName: 'string',
+      pathList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据通道Channel
+export class ChannelDTO extends $tea.Model {
+  // 通道名称
+  channelName: string;
+  // 通道是否公开访问
+  publicAcl: boolean;
+  // 通道创建账户
+  userDid: string;
+  static names(): { [key: string]: string } {
+    return {
+      channelName: 'channel_name',
+      publicAcl: 'public_acl',
+      userDid: 'user_did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      channelName: 'string',
+      publicAcl: 'boolean',
+      userDid: 'string',
     };
   }
 
@@ -173,23 +276,61 @@ export class StatusDrive extends $tea.Model {
   }
 }
 
-// 结果返回过滤
-export class ResultFilterDTO extends $tea.Model {
-  // 过滤器名称
-  filterName: string;
-  // 要返回的字段路径列表
-  pathList: string[];
+// 数据归属权
+export class DataTransferObject extends $tea.Model {
+  // 发起方
+  from: string;
+  // 转交方
+  to: string;
+  // 流转备注
+  formBody: string;
+  // 链上流转记录
+  txHash: string;
+  // 链上时间戳
+  // 
+  timestamp: number;
   static names(): { [key: string]: string } {
     return {
-      filterName: 'filter_name',
-      pathList: 'path_list',
+      from: 'from',
+      to: 'to',
+      formBody: 'form_body',
+      txHash: 'tx_hash',
+      timestamp: 'timestamp',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      filterName: 'string',
-      pathList: { 'type': 'array', 'itemType': 'string' },
+      from: 'string',
+      to: 'string',
+      formBody: 'string',
+      txHash: 'string',
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 存证记录
+export class NotaryRecord extends $tea.Model {
+  // 存证记录
+  attributes: NameValuePair[];
+  // 二维码链接
+  qrCodeUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      attributes: 'attributes',
+      qrCodeUrl: 'qr_code_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      attributes: { 'type': 'array', 'itemType': NameValuePair },
+      qrCodeUrl: 'string',
     };
   }
 
@@ -231,122 +372,6 @@ export class FlowTemplate extends $tea.Model {
   }
 }
 
-// 存证记录
-export class NotaryRecord extends $tea.Model {
-  // 存证记录
-  attributes: NameValuePair[];
-  // 二维码链接
-  qrCodeUrl: string;
-  static names(): { [key: string]: string } {
-    return {
-      attributes: 'attributes',
-      qrCodeUrl: 'qr_code_url',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      attributes: { 'type': 'array', 'itemType': NameValuePair },
-      qrCodeUrl: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 用户可访问Channel信息
-export class UserChannelDTO extends $tea.Model {
-  // 通道名称
-  channelName: string;
-  // 通道是否公开可访问
-  publicAcl: boolean;
-  // 创建通道的用户did
-  creatorDid: string;
-  // 权限到期时间
-  validTime: string;
-  static names(): { [key: string]: string } {
-    return {
-      channelName: 'channel_name',
-      publicAcl: 'public_acl',
-      creatorDid: 'creator_did',
-      validTime: 'valid_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      channelName: 'string',
-      publicAcl: 'boolean',
-      creatorDid: 'string',
-      validTime: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据通道Channel
-export class ChannelDTO extends $tea.Model {
-  // 通道名称
-  channelName: string;
-  // 通道是否公开访问
-  publicAcl: boolean;
-  // 通道创建账户
-  userDid: string;
-  static names(): { [key: string]: string } {
-    return {
-      channelName: 'channel_name',
-      publicAcl: 'public_acl',
-      userDid: 'user_did',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      channelName: 'string',
-      publicAcl: 'boolean',
-      userDid: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 访问权限过滤器
-export class AccessFilterDTO extends $tea.Model {
-  // 过滤器名称
-  filterName: string;
-  // 要过滤的字段路径
-  path: string;
-  // 路径字段的取值范围
-  target: string[];
-  static names(): { [key: string]: string } {
-    return {
-      filterName: 'filter_name',
-      path: 'path',
-      target: 'target',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      filterName: 'string',
-      path: 'string',
-      target: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 表单链下链上锚定索引
 export class FormIndexDTO extends $tea.Model {
   // 业务表单ID
@@ -376,6 +401,451 @@ export class FormIndexDTO extends $tea.Model {
       blockHeight: 'number',
       txHash: 'string',
       txTimestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateMypocketChainaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户的MyPocket账户对应的DID
+  did: string;
+  // 区块链在MyPocket中的唯一ID
+  chainId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      did: 'did',
+      chainId: 'chain_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      did: 'string',
+      chainId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateMypocketChainaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // mychain账户名字
+  accountName?: string;
+  // account_name hash的hex字符串
+  accountId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accountName: 'account_name',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accountName: 'string',
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMypocketChainaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 要查询的链账户绑定的DID
+  did: string;
+  // 要查询的区块链账户所在的链ID
+  chainId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      did: 'did',
+      chainId: 'chain_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      did: 'string',
+      chainId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMypocketChainaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 包含链账户的name和id
+  chainAccounts?: AccountEntry[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      chainAccounts: 'chain_accounts',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      chainAccounts: { 'type': 'array', 'itemType': AccountEntry },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindMypocketKmsaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户的DID
+  did: string;
+  // 区块链ID
+  chainId: string;
+  // 用户的链上账户
+  chainAccount: string;
+  // 该链账户在BaaS服务的KMS ID 
+  kmsId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      did: 'did',
+      chainId: 'chain_id',
+      chainAccount: 'chain_account',
+      kmsId: 'kms_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      did: 'string',
+      chainId: 'string',
+      chainAccount: 'string',
+      kmsId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindMypocketKmsaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateMypocketDidaccountbyalipayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 支付宝Uid
+  alipayUid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      alipayUid: 'alipay_uid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      alipayUid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateMypocketDidaccountbyalipayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户的DID
+  did?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      did: 'did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      did: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMypocketDidaccountbyalipayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 支付宝Uid
+  alipayUid: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      alipayUid: 'alipay_uid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      alipayUid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMypocketDidaccountbyalipayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 外部DApp应用通过支付宝UID查询普通用户did
+  did?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      did: 'did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      did: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateMypocketEscrowchainaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户did
+  did: string;
+  // 链id
+  chainId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      did: 'did',
+      chainId: 'chain_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      did: 'string',
+      chainId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateMypocketEscrowchainaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 账户名称
+  accountName?: string;
+  // 链上id
+  accountId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accountName: 'account_name',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accountName: 'string',
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMypocketEscrowchainaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户did
+  did: string;
+  // 链id
+  chainId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      did: 'did',
+      chainId: 'chain_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      did: 'string',
+      chainId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMypocketEscrowchainaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // DID对应的所有链上账户
+  chainAccounts?: AccountEntry[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      chainAccounts: 'chain_accounts',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      chainAccounts: { 'type': 'array', 'itemType': AccountEntry },
     };
   }
 
@@ -2763,6 +3233,85 @@ export class QuerySolutionBmsResponse extends $tea.Model {
   }
 }
 
+export class DeploySolutionContractRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链ID
+  bizid: string;
+  // 链操作者信息
+  operator: string;
+  // 合约名称
+  contractName: string;
+  // 提交记录ID
+  commitId: string;
+  // 当前分支
+  branch: string;
+  // 合约仓库路径
+  gitRepo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizid: 'bizid',
+      operator: 'operator',
+      contractName: 'contract_name',
+      commitId: 'commit_id',
+      branch: 'branch',
+      gitRepo: 'git_repo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizid: 'string',
+      operator: 'string',
+      contractName: 'string',
+      commitId: 'string',
+      branch: 'string',
+      gitRepo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeploySolutionContractResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否部署成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2876,7 +3425,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.20",
+          sdk_version: "1.3.3",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2920,6 +3469,139 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 为用户在MyPocket创建链上账户
+   * Summary: MyPocket创建链上账户
+   */
+  async createMypocketChainaccount(request: CreateMypocketChainaccountRequest): Promise<CreateMypocketChainaccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createMypocketChainaccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 为用户在MyPocket创建链上账户
+   * Summary: MyPocket创建链上账户
+   */
+  async createMypocketChainaccountEx(request: CreateMypocketChainaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateMypocketChainaccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateMypocketChainaccountResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.chainaccount.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateMypocketChainaccountResponse({}));
+  }
+
+  /**
+   * Description: 用户根据DID和chainID，查询区块链账户
+   * Summary: 用户查询区块链账户
+   */
+  async queryMypocketChainaccount(request: QueryMypocketChainaccountRequest): Promise<QueryMypocketChainaccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMypocketChainaccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户根据DID和chainID，查询区块链账户
+   * Summary: 用户查询区块链账户
+   */
+  async queryMypocketChainaccountEx(request: QueryMypocketChainaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMypocketChainaccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMypocketChainaccountResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.chainaccount.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMypocketChainaccountResponse({}));
+  }
+
+  /**
+   * Description: 外部DApp应用绑定链账户至did
+   * Summary: 外部DApp应用绑定链账户至did
+   */
+  async bindMypocketKmsaccount(request: BindMypocketKmsaccountRequest): Promise<BindMypocketKmsaccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindMypocketKmsaccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 外部DApp应用绑定链账户至did
+   * Summary: 外部DApp应用绑定链账户至did
+   */
+  async bindMypocketKmsaccountEx(request: BindMypocketKmsaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindMypocketKmsaccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindMypocketKmsaccountResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.kmsaccount.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindMypocketKmsaccountResponse({}));
+  }
+
+  /**
+   * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+   * Summary: 创建普通用户DID账户（支付宝UID）
+   */
+  async createMypocketDidaccountbyalipay(request: CreateMypocketDidaccountbyalipayRequest): Promise<CreateMypocketDidaccountbyalipayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createMypocketDidaccountbyalipayEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+   * Summary: 创建普通用户DID账户（支付宝UID）
+   */
+  async createMypocketDidaccountbyalipayEx(request: CreateMypocketDidaccountbyalipayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateMypocketDidaccountbyalipayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateMypocketDidaccountbyalipayResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.didaccountbyalipay.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateMypocketDidaccountbyalipayResponse({}));
+  }
+
+  /**
+   * Description: 外部DApp应用通过支付宝UID查询普通用户did
+   * Summary: 查询普通用户did（支付宝UID）
+   */
+  async queryMypocketDidaccountbyalipay(request: QueryMypocketDidaccountbyalipayRequest): Promise<QueryMypocketDidaccountbyalipayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMypocketDidaccountbyalipayEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 外部DApp应用通过支付宝UID查询普通用户did
+   * Summary: 查询普通用户did（支付宝UID）
+   */
+  async queryMypocketDidaccountbyalipayEx(request: QueryMypocketDidaccountbyalipayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMypocketDidaccountbyalipayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMypocketDidaccountbyalipayResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.didaccountbyalipay.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMypocketDidaccountbyalipayResponse({}));
+  }
+
+  /**
+   * Description: 外部DApp应用创建用户链上账户
+   * Summary: 外部DApp应用创建用户链上账户
+   */
+  async createMypocketEscrowchainaccount(request: CreateMypocketEscrowchainaccountRequest): Promise<CreateMypocketEscrowchainaccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createMypocketEscrowchainaccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 外部DApp应用创建用户链上账户
+   * Summary: 外部DApp应用创建用户链上账户
+   */
+  async createMypocketEscrowchainaccountEx(request: CreateMypocketEscrowchainaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateMypocketEscrowchainaccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateMypocketEscrowchainaccountResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.escrowchainaccount.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateMypocketEscrowchainaccountResponse({}));
+  }
+
+  /**
+   * Description: 外部DApp应用查询did在指定链上关联的账户
+   * Summary: 外部查询did在指定链上关联的账户
+   */
+  async queryMypocketEscrowchainaccount(request: QueryMypocketEscrowchainaccountRequest): Promise<QueryMypocketEscrowchainaccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMypocketEscrowchainaccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 外部DApp应用查询did在指定链上关联的账户
+   * Summary: 外部查询did在指定链上关联的账户
+   */
+  async queryMypocketEscrowchainaccountEx(request: QueryMypocketEscrowchainaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMypocketEscrowchainaccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMypocketEscrowchainaccountResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.escrowchainaccount.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMypocketEscrowchainaccountResponse({}));
   }
 
   /**
@@ -3509,6 +4191,25 @@ export default class Client {
   async querySolutionBmsEx(request: QuerySolutionBmsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySolutionBmsResponse> {
     Util.validateModel(request);
     return $tea.cast<QuerySolutionBmsResponse>(await this.doRequest("1.0", "blockchain.appex.solution.bms.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySolutionBmsResponse({}));
+  }
+
+  /**
+   * Description: 应用速搭平台部署合约接口
+   * Summary: 应用速搭平台部署合约接口
+   */
+  async deploySolutionContract(request: DeploySolutionContractRequest): Promise<DeploySolutionContractResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deploySolutionContractEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 应用速搭平台部署合约接口
+   * Summary: 应用速搭平台部署合约接口
+   */
+  async deploySolutionContractEx(request: DeploySolutionContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeploySolutionContractResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeploySolutionContractResponse>(await this.doRequest("1.0", "blockchain.appex.solution.contract.deploy", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeploySolutionContractResponse({}));
   }
 
 }
