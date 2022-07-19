@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.20'
+                    'sdk_version': '1.3.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.20'
+                    'sdk_version': '1.3.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -270,6 +270,398 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def create_mypocket_chainaccount(
+        self,
+        request: appex_models.CreateMypocketChainaccountRequest,
+    ) -> appex_models.CreateMypocketChainaccountResponse:
+        """
+        Description: 为用户在MyPocket创建链上账户
+        Summary: MyPocket创建链上账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_mypocket_chainaccount_ex(request, headers, runtime)
+
+    async def create_mypocket_chainaccount_async(
+        self,
+        request: appex_models.CreateMypocketChainaccountRequest,
+    ) -> appex_models.CreateMypocketChainaccountResponse:
+        """
+        Description: 为用户在MyPocket创建链上账户
+        Summary: MyPocket创建链上账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_mypocket_chainaccount_ex_async(request, headers, runtime)
+
+    def create_mypocket_chainaccount_ex(
+        self,
+        request: appex_models.CreateMypocketChainaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.CreateMypocketChainaccountResponse:
+        """
+        Description: 为用户在MyPocket创建链上账户
+        Summary: MyPocket创建链上账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.CreateMypocketChainaccountResponse(),
+            self.do_request('1.0', 'blockchain.appex.mypocket.chainaccount.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_mypocket_chainaccount_ex_async(
+        self,
+        request: appex_models.CreateMypocketChainaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.CreateMypocketChainaccountResponse:
+        """
+        Description: 为用户在MyPocket创建链上账户
+        Summary: MyPocket创建链上账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.CreateMypocketChainaccountResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.mypocket.chainaccount.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_mypocket_chainaccount(
+        self,
+        request: appex_models.QueryMypocketChainaccountRequest,
+    ) -> appex_models.QueryMypocketChainaccountResponse:
+        """
+        Description: 用户根据DID和chainID，查询区块链账户
+        Summary: 用户查询区块链账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mypocket_chainaccount_ex(request, headers, runtime)
+
+    async def query_mypocket_chainaccount_async(
+        self,
+        request: appex_models.QueryMypocketChainaccountRequest,
+    ) -> appex_models.QueryMypocketChainaccountResponse:
+        """
+        Description: 用户根据DID和chainID，查询区块链账户
+        Summary: 用户查询区块链账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_mypocket_chainaccount_ex_async(request, headers, runtime)
+
+    def query_mypocket_chainaccount_ex(
+        self,
+        request: appex_models.QueryMypocketChainaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.QueryMypocketChainaccountResponse:
+        """
+        Description: 用户根据DID和chainID，查询区块链账户
+        Summary: 用户查询区块链账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.QueryMypocketChainaccountResponse(),
+            self.do_request('1.0', 'blockchain.appex.mypocket.chainaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_mypocket_chainaccount_ex_async(
+        self,
+        request: appex_models.QueryMypocketChainaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.QueryMypocketChainaccountResponse:
+        """
+        Description: 用户根据DID和chainID，查询区块链账户
+        Summary: 用户查询区块链账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.QueryMypocketChainaccountResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.mypocket.chainaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_mypocket_kmsaccount(
+        self,
+        request: appex_models.BindMypocketKmsaccountRequest,
+    ) -> appex_models.BindMypocketKmsaccountResponse:
+        """
+        Description: 外部DApp应用绑定链账户至did
+        Summary: 外部DApp应用绑定链账户至did
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_mypocket_kmsaccount_ex(request, headers, runtime)
+
+    async def bind_mypocket_kmsaccount_async(
+        self,
+        request: appex_models.BindMypocketKmsaccountRequest,
+    ) -> appex_models.BindMypocketKmsaccountResponse:
+        """
+        Description: 外部DApp应用绑定链账户至did
+        Summary: 外部DApp应用绑定链账户至did
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_mypocket_kmsaccount_ex_async(request, headers, runtime)
+
+    def bind_mypocket_kmsaccount_ex(
+        self,
+        request: appex_models.BindMypocketKmsaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.BindMypocketKmsaccountResponse:
+        """
+        Description: 外部DApp应用绑定链账户至did
+        Summary: 外部DApp应用绑定链账户至did
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.BindMypocketKmsaccountResponse(),
+            self.do_request('1.0', 'blockchain.appex.mypocket.kmsaccount.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_mypocket_kmsaccount_ex_async(
+        self,
+        request: appex_models.BindMypocketKmsaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.BindMypocketKmsaccountResponse:
+        """
+        Description: 外部DApp应用绑定链账户至did
+        Summary: 外部DApp应用绑定链账户至did
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.BindMypocketKmsaccountResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.mypocket.kmsaccount.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_mypocket_didaccountbyalipay(
+        self,
+        request: appex_models.CreateMypocketDidaccountbyalipayRequest,
+    ) -> appex_models.CreateMypocketDidaccountbyalipayResponse:
+        """
+        Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+        Summary: 创建普通用户DID账户（支付宝UID）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_mypocket_didaccountbyalipay_ex(request, headers, runtime)
+
+    async def create_mypocket_didaccountbyalipay_async(
+        self,
+        request: appex_models.CreateMypocketDidaccountbyalipayRequest,
+    ) -> appex_models.CreateMypocketDidaccountbyalipayResponse:
+        """
+        Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+        Summary: 创建普通用户DID账户（支付宝UID）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_mypocket_didaccountbyalipay_ex_async(request, headers, runtime)
+
+    def create_mypocket_didaccountbyalipay_ex(
+        self,
+        request: appex_models.CreateMypocketDidaccountbyalipayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.CreateMypocketDidaccountbyalipayResponse:
+        """
+        Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+        Summary: 创建普通用户DID账户（支付宝UID）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.CreateMypocketDidaccountbyalipayResponse(),
+            self.do_request('1.0', 'blockchain.appex.mypocket.didaccountbyalipay.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_mypocket_didaccountbyalipay_ex_async(
+        self,
+        request: appex_models.CreateMypocketDidaccountbyalipayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.CreateMypocketDidaccountbyalipayResponse:
+        """
+        Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+        Summary: 创建普通用户DID账户（支付宝UID）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.CreateMypocketDidaccountbyalipayResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.mypocket.didaccountbyalipay.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_mypocket_didaccountbyalipay(
+        self,
+        request: appex_models.QueryMypocketDidaccountbyalipayRequest,
+    ) -> appex_models.QueryMypocketDidaccountbyalipayResponse:
+        """
+        Description: 外部DApp应用通过支付宝UID查询普通用户did
+        Summary: 查询普通用户did（支付宝UID）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mypocket_didaccountbyalipay_ex(request, headers, runtime)
+
+    async def query_mypocket_didaccountbyalipay_async(
+        self,
+        request: appex_models.QueryMypocketDidaccountbyalipayRequest,
+    ) -> appex_models.QueryMypocketDidaccountbyalipayResponse:
+        """
+        Description: 外部DApp应用通过支付宝UID查询普通用户did
+        Summary: 查询普通用户did（支付宝UID）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_mypocket_didaccountbyalipay_ex_async(request, headers, runtime)
+
+    def query_mypocket_didaccountbyalipay_ex(
+        self,
+        request: appex_models.QueryMypocketDidaccountbyalipayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.QueryMypocketDidaccountbyalipayResponse:
+        """
+        Description: 外部DApp应用通过支付宝UID查询普通用户did
+        Summary: 查询普通用户did（支付宝UID）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.QueryMypocketDidaccountbyalipayResponse(),
+            self.do_request('1.0', 'blockchain.appex.mypocket.didaccountbyalipay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_mypocket_didaccountbyalipay_ex_async(
+        self,
+        request: appex_models.QueryMypocketDidaccountbyalipayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.QueryMypocketDidaccountbyalipayResponse:
+        """
+        Description: 外部DApp应用通过支付宝UID查询普通用户did
+        Summary: 查询普通用户did（支付宝UID）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.QueryMypocketDidaccountbyalipayResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.mypocket.didaccountbyalipay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_mypocket_escrowchainaccount(
+        self,
+        request: appex_models.CreateMypocketEscrowchainaccountRequest,
+    ) -> appex_models.CreateMypocketEscrowchainaccountResponse:
+        """
+        Description: 外部DApp应用创建用户链上账户
+        Summary: 外部DApp应用创建用户链上账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_mypocket_escrowchainaccount_ex(request, headers, runtime)
+
+    async def create_mypocket_escrowchainaccount_async(
+        self,
+        request: appex_models.CreateMypocketEscrowchainaccountRequest,
+    ) -> appex_models.CreateMypocketEscrowchainaccountResponse:
+        """
+        Description: 外部DApp应用创建用户链上账户
+        Summary: 外部DApp应用创建用户链上账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_mypocket_escrowchainaccount_ex_async(request, headers, runtime)
+
+    def create_mypocket_escrowchainaccount_ex(
+        self,
+        request: appex_models.CreateMypocketEscrowchainaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.CreateMypocketEscrowchainaccountResponse:
+        """
+        Description: 外部DApp应用创建用户链上账户
+        Summary: 外部DApp应用创建用户链上账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.CreateMypocketEscrowchainaccountResponse(),
+            self.do_request('1.0', 'blockchain.appex.mypocket.escrowchainaccount.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_mypocket_escrowchainaccount_ex_async(
+        self,
+        request: appex_models.CreateMypocketEscrowchainaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.CreateMypocketEscrowchainaccountResponse:
+        """
+        Description: 外部DApp应用创建用户链上账户
+        Summary: 外部DApp应用创建用户链上账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.CreateMypocketEscrowchainaccountResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.mypocket.escrowchainaccount.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_mypocket_escrowchainaccount(
+        self,
+        request: appex_models.QueryMypocketEscrowchainaccountRequest,
+    ) -> appex_models.QueryMypocketEscrowchainaccountResponse:
+        """
+        Description: 外部DApp应用查询did在指定链上关联的账户
+        Summary: 外部查询did在指定链上关联的账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mypocket_escrowchainaccount_ex(request, headers, runtime)
+
+    async def query_mypocket_escrowchainaccount_async(
+        self,
+        request: appex_models.QueryMypocketEscrowchainaccountRequest,
+    ) -> appex_models.QueryMypocketEscrowchainaccountResponse:
+        """
+        Description: 外部DApp应用查询did在指定链上关联的账户
+        Summary: 外部查询did在指定链上关联的账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_mypocket_escrowchainaccount_ex_async(request, headers, runtime)
+
+    def query_mypocket_escrowchainaccount_ex(
+        self,
+        request: appex_models.QueryMypocketEscrowchainaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.QueryMypocketEscrowchainaccountResponse:
+        """
+        Description: 外部DApp应用查询did在指定链上关联的账户
+        Summary: 外部查询did在指定链上关联的账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.QueryMypocketEscrowchainaccountResponse(),
+            self.do_request('1.0', 'blockchain.appex.mypocket.escrowchainaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_mypocket_escrowchainaccount_ex_async(
+        self,
+        request: appex_models.QueryMypocketEscrowchainaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.QueryMypocketEscrowchainaccountResponse:
+        """
+        Description: 外部DApp应用查询did在指定链上关联的账户
+        Summary: 外部查询did在指定链上关联的账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.QueryMypocketEscrowchainaccountResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.mypocket.escrowchainaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def create_user_did(
         self,
@@ -306,7 +698,8 @@ class Client:
         Summary: 区块链身份创建
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateUserDidResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateUserDidResponse(),
             self.do_request('1.0', 'blockchain.appex.user.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +714,8 @@ class Client:
         Summary: 区块链身份创建
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateUserDidResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateUserDidResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.user.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +754,8 @@ class Client:
         Summary: 协作联盟创建申请
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateUnionApplyResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateUnionApplyResponse(),
             self.do_request('1.0', 'blockchain.appex.union.apply.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +770,8 @@ class Client:
         Summary: 协作联盟创建申请
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateUnionApplyResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateUnionApplyResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.union.apply.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +810,8 @@ class Client:
         Summary: 联盟创建申请审核
         """
         UtilClient.validate_model(request)
-        return appex_models.ConfirmUnionApplyResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ConfirmUnionApplyResponse(),
             self.do_request('1.0', 'blockchain.appex.union.apply.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +826,8 @@ class Client:
         Summary: 联盟创建申请审核
         """
         UtilClient.validate_model(request)
-        return appex_models.ConfirmUnionApplyResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ConfirmUnionApplyResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.union.apply.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +866,8 @@ class Client:
         Summary: 在联盟中创建信息通道Channel
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateUnionChannelResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateUnionChannelResponse(),
             self.do_request('1.0', 'blockchain.appex.union.channel.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +882,8 @@ class Client:
         Summary: 在联盟中创建信息通道Channel
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateUnionChannelResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateUnionChannelResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.union.channel.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +922,8 @@ class Client:
         Summary: 成员查询自己拥有访问权限的channel
         """
         UtilClient.validate_model(request)
-        return appex_models.ListUserChannelResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ListUserChannelResponse(),
             self.do_request('1.0', 'blockchain.appex.user.channel.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +938,8 @@ class Client:
         Summary: 成员查询自己拥有访问权限的channel
         """
         UtilClient.validate_model(request)
-        return appex_models.ListUserChannelResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ListUserChannelResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.user.channel.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +978,8 @@ class Client:
         Summary: 联盟公开Channel查询
         """
         UtilClient.validate_model(request)
-        return appex_models.ListUnionPubchannelResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ListUnionPubchannelResponse(),
             self.do_request('1.0', 'blockchain.appex.union.pubchannel.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +994,8 @@ class Client:
         Summary: 联盟公开Channel查询
         """
         UtilClient.validate_model(request)
-        return appex_models.ListUnionPubchannelResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ListUnionPubchannelResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.union.pubchannel.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +1034,8 @@ class Client:
         Summary: Channel授权给用户
         """
         UtilClient.validate_model(request)
-        return appex_models.AuthChannelUserResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.AuthChannelUserResponse(),
             self.do_request('1.0', 'blockchain.appex.channel.user.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +1050,8 @@ class Client:
         Summary: Channel授权给用户
         """
         UtilClient.validate_model(request)
-        return appex_models.AuthChannelUserResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.AuthChannelUserResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.channel.user.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +1090,8 @@ class Client:
         Summary: 取消用户访问Channel的权限
         """
         UtilClient.validate_model(request)
-        return appex_models.CancelChannelUserResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CancelChannelUserResponse(),
             self.do_request('1.0', 'blockchain.appex.channel.user.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +1106,8 @@ class Client:
         Summary: 取消用户访问Channel的权限
         """
         UtilClient.validate_model(request)
-        return appex_models.CancelChannelUserResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CancelChannelUserResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.channel.user.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +1146,8 @@ class Client:
         Summary: 单据加密上链
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateUnionFormResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateUnionFormResponse(),
             self.do_request('1.0', 'blockchain.appex.union.form.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +1162,8 @@ class Client:
         Summary: 单据加密上链
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateUnionFormResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateUnionFormResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.union.form.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +1202,8 @@ class Client:
         Summary: 查询单个表单
         """
         UtilClient.validate_model(request)
-        return appex_models.QueryUnionFormResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.QueryUnionFormResponse(),
             self.do_request('1.0', 'blockchain.appex.union.form.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +1218,8 @@ class Client:
         Summary: 查询单个表单
         """
         UtilClient.validate_model(request)
-        return appex_models.QueryUnionFormResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.QueryUnionFormResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.union.form.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +1258,8 @@ class Client:
         Summary: 通道中用户可以访问的表单列表
         """
         UtilClient.validate_model(request)
-        return appex_models.ListChannelUserformResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ListChannelUserformResponse(),
             self.do_request('1.0', 'blockchain.appex.channel.userform.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +1274,8 @@ class Client:
         Summary: 通道中用户可以访问的表单列表
         """
         UtilClient.validate_model(request)
-        return appex_models.ListChannelUserformResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ListChannelUserformResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.channel.userform.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +1314,8 @@ class Client:
         Summary: 物权上链
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateObjectResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateObjectResponse(),
             self.do_request('1.0', 'blockchain.appex.object.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,7 +1330,8 @@ class Client:
         Summary: 物权上链
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateObjectResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateObjectResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.object.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -954,7 +1370,8 @@ class Client:
         Summary: 数据归属权流转
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateObjectTransferResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateObjectTransferResponse(),
             self.do_request('1.0', 'blockchain.appex.object.transfer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -969,7 +1386,8 @@ class Client:
         Summary: 数据归属权流转
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateObjectTransferResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateObjectTransferResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.object.transfer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1008,7 +1426,8 @@ class Client:
         Summary: 数据归属权流转记录查询
         """
         UtilClient.validate_model(request)
-        return appex_models.ListObjectTransferResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ListObjectTransferResponse(),
             self.do_request('1.0', 'blockchain.appex.object.transfer.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1023,7 +1442,8 @@ class Client:
         Summary: 数据归属权流转记录查询
         """
         UtilClient.validate_model(request)
-        return appex_models.ListObjectTransferResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ListObjectTransferResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.object.transfer.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1062,7 +1482,8 @@ class Client:
         Summary: 状态流驱动模版新增
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateStatusflowTemplateResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateStatusflowTemplateResponse(),
             self.do_request('1.0', 'blockchain.appex.statusflow.template.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1077,7 +1498,8 @@ class Client:
         Summary: 状态流驱动模版新增
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateStatusflowTemplateResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateStatusflowTemplateResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.statusflow.template.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1116,7 +1538,8 @@ class Client:
         Summary: 状态流驱动模版删除
         """
         UtilClient.validate_model(request)
-        return appex_models.DeleteStatusflowTemplateResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.DeleteStatusflowTemplateResponse(),
             self.do_request('1.0', 'blockchain.appex.statusflow.template.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1131,7 +1554,8 @@ class Client:
         Summary: 状态流驱动模版删除
         """
         UtilClient.validate_model(request)
-        return appex_models.DeleteStatusflowTemplateResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.DeleteStatusflowTemplateResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.statusflow.template.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1170,7 +1594,8 @@ class Client:
         Summary: 状态流驱动模版查询
         """
         UtilClient.validate_model(request)
-        return appex_models.QueryStatusflowTemplateResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.QueryStatusflowTemplateResponse(),
             self.do_request('1.0', 'blockchain.appex.statusflow.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1185,7 +1610,8 @@ class Client:
         Summary: 状态流驱动模版查询
         """
         UtilClient.validate_model(request)
-        return appex_models.QueryStatusflowTemplateResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.QueryStatusflowTemplateResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.statusflow.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1224,7 +1650,8 @@ class Client:
         Summary: 数据状态驱动
         """
         UtilClient.validate_model(request)
-        return appex_models.StartDatastatusDriveResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.StartDatastatusDriveResponse(),
             self.do_request('1.0', 'blockchain.appex.datastatus.drive.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1239,7 +1666,8 @@ class Client:
         Summary: 数据状态驱动
         """
         UtilClient.validate_model(request)
-        return appex_models.StartDatastatusDriveResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.StartDatastatusDriveResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.datastatus.drive.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1278,7 +1706,8 @@ class Client:
         Summary: 查询数据状态流转记录
         """
         UtilClient.validate_model(request)
-        return appex_models.ListDatastatusDriveResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ListDatastatusDriveResponse(),
             self.do_request('1.0', 'blockchain.appex.datastatus.drive.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1293,7 +1722,8 @@ class Client:
         Summary: 查询数据状态流转记录
         """
         UtilClient.validate_model(request)
-        return appex_models.ListDatastatusDriveResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ListDatastatusDriveResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.datastatus.drive.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1332,7 +1762,8 @@ class Client:
         Summary: 单据加密异步上链
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateAsynformFormResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateAsynformFormResponse(),
             self.do_request('1.0', 'blockchain.appex.asynform.form.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1347,7 +1778,8 @@ class Client:
         Summary: 单据加密异步上链
         """
         UtilClient.validate_model(request)
-        return appex_models.CreateAsynformFormResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.CreateAsynformFormResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.asynform.form.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1386,7 +1818,8 @@ class Client:
         Summary: 单据分页查询
         """
         UtilClient.validate_model(request)
-        return appex_models.PagequeryUnionFormResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.PagequeryUnionFormResponse(),
             self.do_request('1.0', 'blockchain.appex.union.form.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1401,7 +1834,8 @@ class Client:
         Summary: 单据分页查询
         """
         UtilClient.validate_model(request)
-        return appex_models.PagequeryUnionFormResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.PagequeryUnionFormResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.union.form.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1440,7 +1874,8 @@ class Client:
         Summary: 单据上链状态查询
         """
         UtilClient.validate_model(request)
-        return appex_models.QueryAsynformStatusResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.QueryAsynformStatusResponse(),
             self.do_request('1.0', 'blockchain.appex.asynform.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1455,7 +1890,8 @@ class Client:
         Summary: 单据上链状态查询
         """
         UtilClient.validate_model(request)
-        return appex_models.QueryAsynformStatusResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.QueryAsynformStatusResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.asynform.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1494,7 +1930,8 @@ class Client:
         Summary: 结构化存证查询
         """
         UtilClient.validate_model(request)
-        return appex_models.QuerySolutionFastnotaryResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.QuerySolutionFastnotaryResponse(),
             self.do_request('1.0', 'blockchain.appex.solution.fastnotary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1509,7 +1946,8 @@ class Client:
         Summary: 结构化存证查询
         """
         UtilClient.validate_model(request)
-        return appex_models.QuerySolutionFastnotaryResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.QuerySolutionFastnotaryResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.solution.fastnotary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1548,7 +1986,8 @@ class Client:
         Summary: 发起结构化存证
         """
         UtilClient.validate_model(request)
-        return appex_models.SaveSolutionFastnotaryResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.SaveSolutionFastnotaryResponse(),
             self.do_request('1.0', 'blockchain.appex.solution.fastnotary.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1563,7 +2002,8 @@ class Client:
         Summary: 发起结构化存证
         """
         UtilClient.validate_model(request)
-        return appex_models.SaveSolutionFastnotaryResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.SaveSolutionFastnotaryResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.solution.fastnotary.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1602,7 +2042,8 @@ class Client:
         Summary: 初始化文件存证
         """
         UtilClient.validate_model(request)
-        return appex_models.InitSolutionFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.InitSolutionFilenotaryResponse(),
             self.do_request('1.0', 'blockchain.appex.solution.filenotary.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1617,7 +2058,8 @@ class Client:
         Summary: 初始化文件存证
         """
         UtilClient.validate_model(request)
-        return appex_models.InitSolutionFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.InitSolutionFilenotaryResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.solution.filenotary.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1656,7 +2098,8 @@ class Client:
         Summary: 通知文件上传完成
         """
         UtilClient.validate_model(request)
-        return appex_models.SyncSolutionFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.SyncSolutionFilenotaryResponse(),
             self.do_request('1.0', 'blockchain.appex.solution.filenotary.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1671,7 +2114,8 @@ class Client:
         Summary: 通知文件上传完成
         """
         UtilClient.validate_model(request)
-        return appex_models.SyncSolutionFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.SyncSolutionFilenotaryResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.solution.filenotary.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1710,7 +2154,8 @@ class Client:
         Summary: 获取文件存证的状态
         """
         UtilClient.validate_model(request)
-        return appex_models.GetSolutionFilenotarystatusResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.GetSolutionFilenotarystatusResponse(),
             self.do_request('1.0', 'blockchain.appex.solution.filenotarystatus.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1725,7 +2170,8 @@ class Client:
         Summary: 获取文件存证的状态
         """
         UtilClient.validate_model(request)
-        return appex_models.GetSolutionFilenotarystatusResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.GetSolutionFilenotarystatusResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.solution.filenotarystatus.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1764,7 +2210,8 @@ class Client:
         Summary: 查询文件存证
         """
         UtilClient.validate_model(request)
-        return appex_models.QuerySolutionFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.QuerySolutionFilenotaryResponse(),
             self.do_request('1.0', 'blockchain.appex.solution.filenotary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1779,7 +2226,8 @@ class Client:
         Summary: 查询文件存证
         """
         UtilClient.validate_model(request)
-        return appex_models.QuerySolutionFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.QuerySolutionFilenotaryResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.solution.filenotary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1818,7 +2266,8 @@ class Client:
         Summary: 合约服务调用
         """
         UtilClient.validate_model(request)
-        return appex_models.ExecContractServiceResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ExecContractServiceResponse(),
             self.do_request('1.0', 'blockchain.appex.contract.service.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1833,7 +2282,8 @@ class Client:
         Summary: 合约服务调用
         """
         UtilClient.validate_model(request)
-        return appex_models.ExecContractServiceResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.ExecContractServiceResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.contract.service.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1872,7 +2322,8 @@ class Client:
         Summary: 创建合约应用
         """
         UtilClient.validate_model(request)
-        return appex_models.InitSolutionBmsResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.InitSolutionBmsResponse(),
             self.do_request('1.0', 'blockchain.appex.solution.bms.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1887,7 +2338,8 @@ class Client:
         Summary: 创建合约应用
         """
         UtilClient.validate_model(request)
-        return appex_models.InitSolutionBmsResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.InitSolutionBmsResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.solution.bms.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1926,7 +2378,8 @@ class Client:
         Summary: 获取合约临时oss url
         """
         UtilClient.validate_model(request)
-        return appex_models.QuerySolutionBmsResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.QuerySolutionBmsResponse(),
             self.do_request('1.0', 'blockchain.appex.solution.bms.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1941,6 +2394,63 @@ class Client:
         Summary: 获取合约临时oss url
         """
         UtilClient.validate_model(request)
-        return appex_models.QuerySolutionBmsResponse().from_map(
+        return TeaCore.from_map(
+            appex_models.QuerySolutionBmsResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.solution.bms.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def deploy_solution_contract(
+        self,
+        request: appex_models.DeploySolutionContractRequest,
+    ) -> appex_models.DeploySolutionContractResponse:
+        """
+        Description: 应用速搭平台部署合约接口
+        Summary: 应用速搭平台部署合约接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.deploy_solution_contract_ex(request, headers, runtime)
+
+    async def deploy_solution_contract_async(
+        self,
+        request: appex_models.DeploySolutionContractRequest,
+    ) -> appex_models.DeploySolutionContractResponse:
+        """
+        Description: 应用速搭平台部署合约接口
+        Summary: 应用速搭平台部署合约接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.deploy_solution_contract_ex_async(request, headers, runtime)
+
+    def deploy_solution_contract_ex(
+        self,
+        request: appex_models.DeploySolutionContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.DeploySolutionContractResponse:
+        """
+        Description: 应用速搭平台部署合约接口
+        Summary: 应用速搭平台部署合约接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.DeploySolutionContractResponse(),
+            self.do_request('1.0', 'blockchain.appex.solution.contract.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def deploy_solution_contract_ex_async(
+        self,
+        request: appex_models.DeploySolutionContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.DeploySolutionContractResponse:
+        """
+        Description: 应用速搭平台部署合约接口
+        Summary: 应用速搭平台部署合约接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.DeploySolutionContractResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.solution.contract.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
