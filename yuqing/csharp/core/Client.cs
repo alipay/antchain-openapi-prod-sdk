@@ -137,7 +137,7 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.12"},
+                        {"sdk_version", "1.1.14"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.12"},
+                        {"sdk_version", "1.1.14"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -609,6 +609,90 @@ namespace AntChain.SDK.YUQING
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SendProductNoticeResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.product.notice.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建深度分析
+         * Summary: 创建深度分析
+         */
+        public SaveDeepanalysisSubmitResponse SaveDeepanalysisSubmit(SaveDeepanalysisSubmitRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SaveDeepanalysisSubmitEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建深度分析
+         * Summary: 创建深度分析
+         */
+        public async Task<SaveDeepanalysisSubmitResponse> SaveDeepanalysisSubmitAsync(SaveDeepanalysisSubmitRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SaveDeepanalysisSubmitExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建深度分析
+         * Summary: 创建深度分析
+         */
+        public SaveDeepanalysisSubmitResponse SaveDeepanalysisSubmitEx(SaveDeepanalysisSubmitRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveDeepanalysisSubmitResponse>(DoRequest("1.0", "universalsaas.yuqing.deepanalysis.submit.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建深度分析
+         * Summary: 创建深度分析
+         */
+        public async Task<SaveDeepanalysisSubmitResponse> SaveDeepanalysisSubmitExAsync(SaveDeepanalysisSubmitRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveDeepanalysisSubmitResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.deepanalysis.submit.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询深度分析
+         * Summary: 查询深度分析
+         */
+        public QueryDeepanalysisQueryResponse QueryDeepanalysisQuery(QueryDeepanalysisQueryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDeepanalysisQueryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询深度分析
+         * Summary: 查询深度分析
+         */
+        public async Task<QueryDeepanalysisQueryResponse> QueryDeepanalysisQueryAsync(QueryDeepanalysisQueryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDeepanalysisQueryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询深度分析
+         * Summary: 查询深度分析
+         */
+        public QueryDeepanalysisQueryResponse QueryDeepanalysisQueryEx(QueryDeepanalysisQueryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeepanalysisQueryResponse>(DoRequest("1.0", "universalsaas.yuqing.deepanalysis.query.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询深度分析
+         * Summary: 查询深度分析
+         */
+        public async Task<QueryDeepanalysisQueryResponse> QueryDeepanalysisQueryExAsync(QueryDeepanalysisQueryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDeepanalysisQueryResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.deepanalysis.query.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

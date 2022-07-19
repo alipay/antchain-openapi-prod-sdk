@@ -33,6 +33,11 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=false)]
         public SmsContent SmsContent { get; set; }
 
+        // email结构体
+        [NameInMap("email_content")]
+        [Validation(Required=false)]
+        public EmailContent EmailContent { get; set; }
+
     }
 
 }
