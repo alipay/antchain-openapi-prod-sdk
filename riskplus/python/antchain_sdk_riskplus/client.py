@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.8'
+                    'sdk_version': '1.12.9'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.8'
+                    'sdk_version': '1.12.9'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +306,8 @@ class Client:
         Summary: 策略咨询服务输出
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QuerySecurityPolicyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QuerySecurityPolicyResponse(),
             self.do_request('1.0', 'riskplus.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: 策略咨询服务输出
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QuerySecurityPolicyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QuerySecurityPolicyResponse(),
             await self.do_request_async('1.0', 'riskplus.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: 异步发送安全数据
         """
         UtilClient.validate_model(request)
-        return riskplus_models.SendSecurityDataResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.SendSecurityDataResponse(),
             self.do_request('1.0', 'riskplus.security.data.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: 异步发送安全数据
         """
         UtilClient.validate_model(request)
-        return riskplus_models.SendSecurityDataResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.SendSecurityDataResponse(),
             await self.do_request_async('1.0', 'riskplus.security.data.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: 安全策略确认服务输出
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ConfirmSecurityPolicyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ConfirmSecurityPolicyResponse(),
             self.do_request('1.0', 'riskplus.security.policy.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +434,8 @@ class Client:
         Summary: 安全策略确认服务输出
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ConfirmSecurityPolicyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ConfirmSecurityPolicyResponse(),
             await self.do_request_async('1.0', 'riskplus.security.policy.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +474,8 @@ class Client:
         Summary: 策略咨询服务输出
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CheckSecurityRdsResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CheckSecurityRdsResponse(),
             self.do_request('1.0', 'riskplus.security.rds.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +490,8 @@ class Client:
         Summary: 策略咨询服务输出
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CheckSecurityRdsResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CheckSecurityRdsResponse(),
             await self.do_request_async('1.0', 'riskplus.security.rds.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +530,8 @@ class Client:
         Summary: 安全数据服务输出
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QuerySecurityDataResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QuerySecurityDataResponse(),
             self.do_request('1.0', 'riskplus.security.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +546,8 @@ class Client:
         Summary: 安全数据服务输出
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QuerySecurityDataResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QuerySecurityDataResponse(),
             await self.do_request_async('1.0', 'riskplus.security.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +586,8 @@ class Client:
         Summary: 安全数据服务校验
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CheckSecurityDataResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CheckSecurityDataResponse(),
             self.do_request('1.0', 'riskplus.security.data.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +602,8 @@ class Client:
         Summary: 安全数据服务校验
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CheckSecurityDataResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CheckSecurityDataResponse(),
             await self.do_request_async('1.0', 'riskplus.security.data.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +642,8 @@ class Client:
         Summary: 反欺诈风险数据服务请求执行
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ExecSecurityRiskdataserviceResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ExecSecurityRiskdataserviceResponse(),
             self.do_request('1.0', 'riskplus.security.riskdataservice.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +658,8 @@ class Client:
         Summary: 反欺诈风险数据服务请求执行
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ExecSecurityRiskdataserviceResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ExecSecurityRiskdataserviceResponse(),
             await self.do_request_async('1.0', 'riskplus.security.riskdataservice.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +698,8 @@ class Client:
         Summary: 天枢信贷业务系统线下测试接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheTestResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheTestResponse(),
             self.do_request('1.0', 'riskplus.dubhe.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +714,8 @@ class Client:
         Summary: 天枢信贷业务系统线下测试接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheTestResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheTestResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +754,8 @@ class Client:
         Summary: 天枢系统资金方代码(资金路由)查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheRouterFundrouterResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheRouterFundrouterResponse(),
             self.do_request('1.0', 'riskplus.dubhe.router.fundrouter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +770,8 @@ class Client:
         Summary: 天枢系统资金方代码(资金路由)查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheRouterFundrouterResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheRouterFundrouterResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.router.fundrouter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +810,8 @@ class Client:
         Summary: 天枢系统授信申请接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyDubheCreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubheCreditResponse(),
             self.do_request('1.0', 'riskplus.dubhe.credit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +826,8 @@ class Client:
         Summary: 天枢系统授信申请接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyDubheCreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubheCreditResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.credit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +866,8 @@ class Client:
         Summary: 天枢系统授信额度查询接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheCreditStatusResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheCreditStatusResponse(),
             self.do_request('1.0', 'riskplus.dubhe.credit.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +882,8 @@ class Client:
         Summary: 天枢系统授信额度查询接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheCreditStatusResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheCreditStatusResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.credit.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +922,8 @@ class Client:
         Summary: 天枢系统还款计划试算
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CountDubheRepayReftrialResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CountDubheRepayReftrialResponse(),
             self.do_request('1.0', 'riskplus.dubhe.repay.reftrial.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,7 +938,8 @@ class Client:
         Summary: 天枢系统还款计划试算
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CountDubheRepayReftrialResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CountDubheRepayReftrialResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.repay.reftrial.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -954,7 +978,8 @@ class Client:
         Summary: 天枢系统还款计划查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheRepayListResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheRepayListResponse(),
             self.do_request('1.0', 'riskplus.dubhe.repay.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -969,7 +994,8 @@ class Client:
         Summary: 天枢系统还款计划查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheRepayListResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheRepayListResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.repay.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1008,7 +1034,8 @@ class Client:
         Summary: 天枢系统用信申请接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyDubheUsecreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubheUsecreditResponse(),
             self.do_request('1.0', 'riskplus.dubhe.usecredit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1023,7 +1050,8 @@ class Client:
         Summary: 天枢系统用信申请接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyDubheUsecreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubheUsecreditResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.usecredit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1062,7 +1090,8 @@ class Client:
         Summary: 天枢系统用信申请状态查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheUsecreditStatusResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheUsecreditStatusResponse(),
             self.do_request('1.0', 'riskplus.dubhe.usecredit.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1077,7 +1106,8 @@ class Client:
         Summary: 天枢系统用信申请状态查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheUsecreditStatusResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheUsecreditStatusResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.usecredit.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1116,7 +1146,8 @@ class Client:
         Summary: 天枢系统还款试算
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CountDubheRepayTrialResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CountDubheRepayTrialResponse(),
             self.do_request('1.0', 'riskplus.dubhe.repay.trial.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1131,7 +1162,8 @@ class Client:
         Summary: 天枢系统还款试算
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CountDubheRepayTrialResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CountDubheRepayTrialResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.repay.trial.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1170,7 +1202,8 @@ class Client:
         Summary: 天枢系统主动还款（收银台）接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.RepayDubheRepayCheckstandResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.RepayDubheRepayCheckstandResponse(),
             self.do_request('1.0', 'riskplus.dubhe.repay.checkstand.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1185,7 +1218,8 @@ class Client:
         Summary: 天枢系统主动还款（收银台）接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.RepayDubheRepayCheckstandResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.RepayDubheRepayCheckstandResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.repay.checkstand.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1224,7 +1258,8 @@ class Client:
         Summary: 天枢系统还款信息查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheRepayInfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheRepayInfoResponse(),
             self.do_request('1.0', 'riskplus.dubhe.repay.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1239,7 +1274,8 @@ class Client:
         Summary: 天枢系统还款信息查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheRepayInfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheRepayInfoResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.repay.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1278,7 +1314,8 @@ class Client:
         Summary: 天枢系统客户信息变更接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.UpdateDubheCustomerInfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.UpdateDubheCustomerInfoResponse(),
             self.do_request('1.0', 'riskplus.dubhe.customer.info.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1293,7 +1330,8 @@ class Client:
         Summary: 天枢系统客户信息变更接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.UpdateDubheCustomerInfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.UpdateDubheCustomerInfoResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.customer.info.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1332,7 +1370,8 @@ class Client:
         Summary: 天枢系统协议签约申请(支付宝)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyDubheCustomerAgreementsignResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubheCustomerAgreementsignResponse(),
             self.do_request('1.0', 'riskplus.dubhe.customer.agreementsign.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1347,7 +1386,8 @@ class Client:
         Summary: 天枢系统协议签约申请(支付宝)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyDubheCustomerAgreementsignResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubheCustomerAgreementsignResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.customer.agreementsign.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1386,7 +1426,8 @@ class Client:
         Summary: 天枢系统协议签约查询(支付宝)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheCustomerAgreementsignResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheCustomerAgreementsignResponse(),
             self.do_request('1.0', 'riskplus.dubhe.customer.agreementsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1401,7 +1442,8 @@ class Client:
         Summary: 天枢系统协议签约查询(支付宝)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheCustomerAgreementsignResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheCustomerAgreementsignResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.customer.agreementsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1440,7 +1482,8 @@ class Client:
         Summary: 天枢信贷业务系统主动还款（直接代扣）接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.RepayDubheRepayWithholdResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.RepayDubheRepayWithholdResponse(),
             self.do_request('1.0', 'riskplus.dubhe.repay.withhold.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1455,7 +1498,8 @@ class Client:
         Summary: 天枢信贷业务系统主动还款（直接代扣）接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.RepayDubheRepayWithholdResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.RepayDubheRepayWithholdResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.repay.withhold.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1494,7 +1538,8 @@ class Client:
         Summary: 天枢系统合同获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheSearchContractResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheSearchContractResponse(),
             self.do_request('1.0', 'riskplus.dubhe.search.contract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1509,7 +1554,8 @@ class Client:
         Summary: 天枢系统合同获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheSearchContractResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheSearchContractResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.search.contract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1548,7 +1594,8 @@ class Client:
         Summary: 逾期信息查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheReceiptOverdueResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheReceiptOverdueResponse(),
             self.do_request('1.0', 'riskplus.dubhe.receipt.overdue.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1563,7 +1610,8 @@ class Client:
         Summary: 逾期信息查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubheReceiptOverdueResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubheReceiptOverdueResponse(),
             await self.do_request_async('1.0', 'riskplus.dubhe.receipt.overdue.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1602,7 +1650,8 @@ class Client:
         Summary: 天枢发送短信接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.SendDubbridgeSmsResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.SendDubbridgeSmsResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.sms.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1617,7 +1666,8 @@ class Client:
         Summary: 天枢发送短信接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.SendDubbridgeSmsResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.SendDubbridgeSmsResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.sms.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1656,7 +1706,8 @@ class Client:
         Summary: 天枢批量发送短信接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.SendDubbridgeSmsBatchResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.SendDubbridgeSmsBatchResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.sms.batch.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1671,7 +1722,8 @@ class Client:
         Summary: 天枢批量发送短信接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.SendDubbridgeSmsBatchResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.SendDubbridgeSmsBatchResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.sms.batch.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1710,7 +1762,8 @@ class Client:
         Summary: 天枢系统资金方代码(资金路由)查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeRouterFundrouterResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRouterFundrouterResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.router.fundrouter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1725,7 +1778,8 @@ class Client:
         Summary: 天枢系统资金方代码(资金路由)查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeRouterFundrouterResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRouterFundrouterResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.router.fundrouter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1764,7 +1818,8 @@ class Client:
         Summary: 天枢系统授信申请接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyDubbridgeCreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeCreditResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.credit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1779,7 +1834,8 @@ class Client:
         Summary: 天枢系统授信申请接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyDubbridgeCreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeCreditResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.credit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1835,7 +1891,8 @@ class Client:
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return riskplus_models.UploadDubbridgeFileResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.UploadDubbridgeFileResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1867,7 +1924,8 @@ class Client:
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return riskplus_models.UploadDubbridgeFileResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.UploadDubbridgeFileResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1906,7 +1964,8 @@ class Client:
         Summary: 代扣协议签约申请(银行卡绑卡)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.BindDubbridgeCustomerBankcardResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.BindDubbridgeCustomerBankcardResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.customer.bankcard.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1921,7 +1980,8 @@ class Client:
         Summary: 代扣协议签约申请(银行卡绑卡)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.BindDubbridgeCustomerBankcardResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.BindDubbridgeCustomerBankcardResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.customer.bankcard.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1960,7 +2020,8 @@ class Client:
         Summary: 代扣协议签约校验(银行卡绑卡)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.VerifyDubbridgeCustomerBankcardResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.VerifyDubbridgeCustomerBankcardResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.customer.bankcard.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1975,7 +2036,8 @@ class Client:
         Summary: 代扣协议签约校验(银行卡绑卡)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.VerifyDubbridgeCustomerBankcardResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.VerifyDubbridgeCustomerBankcardResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.customer.bankcard.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2014,7 +2076,8 @@ class Client:
         Summary: 机构通道回调通用接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.NotifyDubbridgeDefininnerchannelResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.NotifyDubbridgeDefininnerchannelResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.defininnerchannel.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2029,7 +2092,8 @@ class Client:
         Summary: 机构通道回调通用接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.NotifyDubbridgeDefininnerchannelResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.NotifyDubbridgeDefininnerchannelResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.defininnerchannel.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2068,7 +2132,8 @@ class Client:
         Summary: 天枢系统授信额度查询接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeCreditStatusResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCreditStatusResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.credit.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2083,7 +2148,8 @@ class Client:
         Summary: 天枢系统授信额度查询接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeCreditStatusResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCreditStatusResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.credit.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2122,7 +2188,8 @@ class Client:
         Summary: 天枢系统企业小微分查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.riskinfo.enterprisescore.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2137,7 +2204,8 @@ class Client:
         Summary: 天枢系统企业小微分查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRiskinfoEnterprisescoreResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.riskinfo.enterprisescore.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2176,7 +2244,8 @@ class Client:
         Summary: 天枢系统风控信息通用查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeRiskinfoCommonResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRiskinfoCommonResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.riskinfo.common.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2191,7 +2260,8 @@ class Client:
         Summary: 天枢系统风控信息通用查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeRiskinfoCommonResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRiskinfoCommonResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.riskinfo.common.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2230,7 +2300,8 @@ class Client:
         Summary: 调额申请
         """
         UtilClient.validate_model(request)
-        return riskplus_models.UpdateDubbridgeInstitutionCreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.UpdateDubbridgeInstitutionCreditResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.institution.credit.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2245,7 +2316,8 @@ class Client:
         Summary: 调额申请
         """
         UtilClient.validate_model(request)
-        return riskplus_models.UpdateDubbridgeInstitutionCreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.UpdateDubbridgeInstitutionCreditResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.institution.credit.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2284,7 +2356,8 @@ class Client:
         Summary: 天枢企业经营数据查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeRiskinfoBusinessinfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRiskinfoBusinessinfoResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.riskinfo.businessinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2299,7 +2372,8 @@ class Client:
         Summary: 天枢企业经营数据查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeRiskinfoBusinessinfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRiskinfoBusinessinfoResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.riskinfo.businessinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2338,7 +2412,8 @@ class Client:
         Summary: 天枢系统协议签约申请(支付宝)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyDubbridgeCustomerAgreementsignResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeCustomerAgreementsignResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.customer.agreementsign.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2353,7 +2428,8 @@ class Client:
         Summary: 天枢系统协议签约申请(支付宝)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyDubbridgeCustomerAgreementsignResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeCustomerAgreementsignResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.customer.agreementsign.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2392,7 +2468,8 @@ class Client:
         Summary: 天枢系统是否授信查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeAccountStatusResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAccountStatusResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.account.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2407,7 +2484,8 @@ class Client:
         Summary: 天枢系统是否授信查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeAccountStatusResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAccountStatusResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.account.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2446,7 +2524,8 @@ class Client:
         Summary: 天枢系统校验是否联登
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeAccountCustomResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAccountCustomResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.account.custom.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2461,7 +2540,8 @@ class Client:
         Summary: 天枢系统校验是否联登
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeAccountCustomResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAccountCustomResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.account.custom.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2500,7 +2580,8 @@ class Client:
         Summary: 天枢系统更新渠道
         """
         UtilClient.validate_model(request)
-        return riskplus_models.UpdateDubbridgeAccountCustomResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.UpdateDubbridgeAccountCustomResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.account.custom.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2515,7 +2596,8 @@ class Client:
         Summary: 天枢系统更新渠道
         """
         UtilClient.validate_model(request)
-        return riskplus_models.UpdateDubbridgeAccountCustomResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.UpdateDubbridgeAccountCustomResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.account.custom.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2554,7 +2636,8 @@ class Client:
         Summary: 天枢系统协议签约查询(支付宝)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeCustomerAgreementsignResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCustomerAgreementsignResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.customer.agreementsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2569,7 +2652,8 @@ class Client:
         Summary: 天枢系统协议签约查询(支付宝)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeCustomerAgreementsignResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCustomerAgreementsignResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.customer.agreementsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2608,7 +2692,8 @@ class Client:
         Summary: 天枢系统客户信息变更接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.UpdateDubbridgeCustomerInfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.UpdateDubbridgeCustomerInfoResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.customer.info.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2623,7 +2708,8 @@ class Client:
         Summary: 天枢系统客户信息变更接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.UpdateDubbridgeCustomerInfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.UpdateDubbridgeCustomerInfoResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.customer.info.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2662,7 +2748,8 @@ class Client:
         Summary: 逾期信息查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeReceiptOverdueResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeReceiptOverdueResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.receipt.overdue.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2677,7 +2764,8 @@ class Client:
         Summary: 逾期信息查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeReceiptOverdueResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeReceiptOverdueResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.receipt.overdue.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2716,7 +2804,8 @@ class Client:
         Summary: 天枢系统主动还款（收银台）接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.RepayDubbridgeRepayCheckstandResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.RepayDubbridgeRepayCheckstandResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.repay.checkstand.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2731,7 +2820,8 @@ class Client:
         Summary: 天枢系统主动还款（收银台）接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.RepayDubbridgeRepayCheckstandResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.RepayDubbridgeRepayCheckstandResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.repay.checkstand.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2770,7 +2860,8 @@ class Client:
         Summary: 天枢系统还款信息查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeRepayInfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepayInfoResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.repay.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2785,7 +2876,8 @@ class Client:
         Summary: 天枢系统还款信息查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeRepayInfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepayInfoResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.repay.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2824,7 +2916,8 @@ class Client:
         Summary: 天枢系统还款计划查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeRepayListResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepayListResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.repay.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2839,7 +2932,8 @@ class Client:
         Summary: 天枢系统还款计划查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeRepayListResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepayListResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.repay.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2878,7 +2972,8 @@ class Client:
         Summary: 天枢系统还款计划试算
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CountDubbridgeRepayReftrialResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CountDubbridgeRepayReftrialResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.repay.reftrial.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2893,7 +2988,8 @@ class Client:
         Summary: 天枢系统还款计划试算
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CountDubbridgeRepayReftrialResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CountDubbridgeRepayReftrialResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.repay.reftrial.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2932,7 +3028,8 @@ class Client:
         Summary: 天枢系统还款试算
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CountDubbridgeRepayTrialResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CountDubbridgeRepayTrialResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.repay.trial.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2947,7 +3044,8 @@ class Client:
         Summary: 天枢系统还款试算
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CountDubbridgeRepayTrialResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CountDubbridgeRepayTrialResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.repay.trial.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2986,7 +3084,8 @@ class Client:
         Summary: 天枢信贷业务系统主动还款（直接代扣）接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.RepayDubbridgeRepayWithholdResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.RepayDubbridgeRepayWithholdResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.repay.withhold.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3001,7 +3100,8 @@ class Client:
         Summary: 天枢信贷业务系统主动还款（直接代扣）接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.RepayDubbridgeRepayWithholdResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.RepayDubbridgeRepayWithholdResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.repay.withhold.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3040,7 +3140,8 @@ class Client:
         Summary: 天枢系统合同获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeSearchContractResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeSearchContractResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.search.contract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3055,7 +3156,8 @@ class Client:
         Summary: 天枢系统合同获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeSearchContractResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeSearchContractResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.search.contract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3094,7 +3196,8 @@ class Client:
         Summary: 天枢系统用信申请接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyDubbridgeUsecreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeUsecreditResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.usecredit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3109,7 +3212,8 @@ class Client:
         Summary: 天枢系统用信申请接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyDubbridgeUsecreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyDubbridgeUsecreditResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.usecredit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3148,7 +3252,8 @@ class Client:
         Summary: 天枢系统用信申请状态查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeUsecreditStatusResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeUsecreditStatusResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.usecredit.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3163,7 +3268,8 @@ class Client:
         Summary: 天枢系统用信申请状态查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeUsecreditStatusResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeUsecreditStatusResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.usecredit.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3202,7 +3308,8 @@ class Client:
         Summary: 天枢系统借款是否结清
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeReceiptStatusResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeReceiptStatusResponse(),
             self.do_request('1.0', 'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3217,7 +3324,8 @@ class Client:
         Summary: 天枢系统借款是否结清
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryDubbridgeReceiptStatusResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeReceiptStatusResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3256,7 +3364,8 @@ class Client:
         Summary: 芝麻四要素接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.VerifyFinserviceZhimaIdentifyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.VerifyFinserviceZhimaIdentifyResponse(),
             self.do_request('1.0', 'riskplus.finservice.zhima.identify.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3271,7 +3380,8 @@ class Client:
         Summary: 芝麻四要素接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.VerifyFinserviceZhimaIdentifyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.VerifyFinserviceZhimaIdentifyResponse(),
             await self.do_request_async('1.0', 'riskplus.finservice.zhima.identify.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3310,7 +3420,8 @@ class Client:
         Summary: 芝麻四要素认证结果查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryFinserviceZhimaIdentifyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryFinserviceZhimaIdentifyResponse(),
             self.do_request('1.0', 'riskplus.finservice.zhima.identify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3325,7 +3436,8 @@ class Client:
         Summary: 芝麻四要素认证结果查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryFinserviceZhimaIdentifyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryFinserviceZhimaIdentifyResponse(),
             await self.do_request_async('1.0', 'riskplus.finservice.zhima.identify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3364,7 +3476,8 @@ class Client:
         Summary: 多源融合平台的数据服务查询接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryMdipDataserviceResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryMdipDataserviceResponse(),
             self.do_request('1.0', 'riskplus.mdip.dataservice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3379,7 +3492,8 @@ class Client:
         Summary: 多源融合平台的数据服务查询接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryMdipDataserviceResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryMdipDataserviceResponse(),
             await self.do_request_async('1.0', 'riskplus.mdip.dataservice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3435,7 +3549,8 @@ class Client:
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return riskplus_models.ReceiveMdipParamsFileResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ReceiveMdipParamsFileResponse(),
             self.do_request('1.0', 'riskplus.mdip.params.file.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3467,7 +3582,8 @@ class Client:
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return riskplus_models.ReceiveMdipParamsFileResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ReceiveMdipParamsFileResponse(),
             await self.do_request_async('1.0', 'riskplus.mdip.params.file.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3506,7 +3622,8 @@ class Client:
         Summary: 【已废弃】
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRbbGenericInvokeResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbGenericInvokeResponse(),
             self.do_request('1.0', 'riskplus.rbb.generic.invoke.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3521,7 +3638,8 @@ class Client:
         Summary: 【已废弃】
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRbbGenericInvokeResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbGenericInvokeResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.generic.invoke.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3560,7 +3678,8 @@ class Client:
         Summary: 【已废弃】
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CreateRbbTokenResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CreateRbbTokenResponse(),
             self.do_request('1.0', 'riskplus.rbb.token.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3575,7 +3694,8 @@ class Client:
         Summary: 【已废弃】
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CreateRbbTokenResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CreateRbbTokenResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.token.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3614,7 +3734,8 @@ class Client:
         Summary: 【已废弃】
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CreateRbbApiGwtokenResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CreateRbbApiGwtokenResponse(),
             self.do_request('1.0', 'riskplus.rbb.api.gwtoken.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3629,7 +3750,8 @@ class Client:
         Summary: 【已废弃】
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CreateRbbApiGwtokenResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CreateRbbApiGwtokenResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.api.gwtoken.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3668,7 +3790,8 @@ class Client:
         Summary: 风险大脑企业版通用查询OpenAPI
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRbbGeneralResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbGeneralResponse(),
             self.do_request('1.0', 'riskplus.rbb.general.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3683,7 +3806,8 @@ class Client:
         Summary: 风险大脑企业版通用查询OpenAPI
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRbbGeneralResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbGeneralResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.general.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3722,7 +3846,8 @@ class Client:
         Summary: 获取登录Token
         """
         UtilClient.validate_model(request)
-        return riskplus_models.GetRbbLoginTokenResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.GetRbbLoginTokenResponse(),
             self.do_request('1.0', 'riskplus.rbb.login.token.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3737,7 +3862,8 @@ class Client:
         Summary: 获取登录Token
         """
         UtilClient.validate_model(request)
-        return riskplus_models.GetRbbLoginTokenResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.GetRbbLoginTokenResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.login.token.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3776,7 +3902,8 @@ class Client:
         Summary: 风险大脑企业版创建租户
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CreateRbbTenantResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CreateRbbTenantResponse(),
             self.do_request('1.0', 'riskplus.rbb.tenant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3791,7 +3918,8 @@ class Client:
         Summary: 风险大脑企业版创建租户
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CreateRbbTenantResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CreateRbbTenantResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.tenant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3830,7 +3958,8 @@ class Client:
         Summary: 风险大脑企业版创建用户
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CreateRbbUserResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CreateRbbUserResponse(),
             self.do_request('1.0', 'riskplus.rbb.user.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3845,7 +3974,8 @@ class Client:
         Summary: 风险大脑企业版创建用户
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CreateRbbUserResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CreateRbbUserResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.user.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3884,7 +4014,8 @@ class Client:
         Summary: 企业准入
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ExecRbbCompanyGuardResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ExecRbbCompanyGuardResponse(),
             self.do_request('1.0', 'riskplus.rbb.company.guard.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3899,7 +4030,8 @@ class Client:
         Summary: 企业准入
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ExecRbbCompanyGuardResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ExecRbbCompanyGuardResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.company.guard.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3938,7 +4070,8 @@ class Client:
         Summary: 企业授信申请
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyRbbCompanyCreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyRbbCompanyCreditResponse(),
             self.do_request('1.0', 'riskplus.rbb.company.credit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3953,7 +4086,8 @@ class Client:
         Summary: 企业授信申请
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyRbbCompanyCreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyRbbCompanyCreditResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.company.credit.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3992,7 +4126,8 @@ class Client:
         Summary: 企业授信结果查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRbbCompanyCreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbCompanyCreditResponse(),
             self.do_request('1.0', 'riskplus.rbb.company.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4007,7 +4142,8 @@ class Client:
         Summary: 企业授信结果查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRbbCompanyCreditResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbCompanyCreditResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.company.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4046,7 +4182,8 @@ class Client:
         Summary: 风险大脑-上交所数据离线同步数据准备状态
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRbbRegdatasyncPreparedResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbRegdatasyncPreparedResponse(),
             self.do_request('1.0', 'riskplus.rbb.regdatasync.prepared.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4061,7 +4198,8 @@ class Client:
         Summary: 风险大脑-上交所数据离线同步数据准备状态
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRbbRegdatasyncPreparedResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbRegdatasyncPreparedResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.regdatasync.prepared.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4100,7 +4238,8 @@ class Client:
         Summary: 风险大脑-上交所数据离线同步数据开始通知
         """
         UtilClient.validate_model(request)
-        return riskplus_models.StartRbbRegdatasyncScheduleResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.StartRbbRegdatasyncScheduleResponse(),
             self.do_request('1.0', 'riskplus.rbb.regdatasync.schedule.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4115,7 +4254,8 @@ class Client:
         Summary: 风险大脑-上交所数据离线同步数据开始通知
         """
         UtilClient.validate_model(request)
-        return riskplus_models.StartRbbRegdatasyncScheduleResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.StartRbbRegdatasyncScheduleResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.regdatasync.schedule.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4154,7 +4294,8 @@ class Client:
         Summary: 风险大脑-上交所数据离线同步数据完成记录
         """
         UtilClient.validate_model(request)
-        return riskplus_models.FinishRbbRegdatasyncScheduleResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.FinishRbbRegdatasyncScheduleResponse(),
             self.do_request('1.0', 'riskplus.rbb.regdatasync.schedule.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4169,7 +4310,8 @@ class Client:
         Summary: 风险大脑-上交所数据离线同步数据完成记录
         """
         UtilClient.validate_model(request)
-        return riskplus_models.FinishRbbRegdatasyncScheduleResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.FinishRbbRegdatasyncScheduleResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.regdatasync.schedule.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4208,7 +4350,8 @@ class Client:
         Summary: 企业准入申请
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyRbbCompanyGuardResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyRbbCompanyGuardResponse(),
             self.do_request('1.0', 'riskplus.rbb.company.guard.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4223,7 +4366,8 @@ class Client:
         Summary: 企业准入申请
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ApplyRbbCompanyGuardResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ApplyRbbCompanyGuardResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.company.guard.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4262,7 +4406,8 @@ class Client:
         Summary: 企业准入结果查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRbbCompanyGuardResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbCompanyGuardResponse(),
             self.do_request('1.0', 'riskplus.rbb.company.guard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4277,7 +4422,8 @@ class Client:
         Summary: 企业准入结果查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRbbCompanyGuardResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbCompanyGuardResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.company.guard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4316,7 +4462,8 @@ class Client:
         Summary: 企业风控给鹰眼使用的zsearch查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRbbObtsZsearchResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbObtsZsearchResponse(),
             self.do_request('1.0', 'riskplus.rbb.obts.zsearch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4331,7 +4478,8 @@ class Client:
         Summary: 企业风控给鹰眼使用的zsearch查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRbbObtsZsearchResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRbbObtsZsearchResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.obts.zsearch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4370,7 +4518,8 @@ class Client:
         Summary: 企业风控客户推送的企业信息
         """
         UtilClient.validate_model(request)
-        return riskplus_models.PushRbbCustomerCompanyinfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.PushRbbCustomerCompanyinfoResponse(),
             self.do_request('1.0', 'riskplus.rbb.customer.companyinfo.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4385,7 +4534,8 @@ class Client:
         Summary: 企业风控客户推送的企业信息
         """
         UtilClient.validate_model(request)
-        return riskplus_models.PushRbbCustomerCompanyinfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.PushRbbCustomerCompanyinfoResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.customer.companyinfo.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4424,7 +4574,8 @@ class Client:
         Summary: 获取签约接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRpgwSignUrlResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRpgwSignUrlResponse(),
             self.do_request('1.0', 'riskplus.rpgw.sign.url.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4439,7 +4590,8 @@ class Client:
         Summary: 获取签约接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRpgwSignUrlResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRpgwSignUrlResponse(),
             await self.do_request_async('1.0', 'riskplus.rpgw.sign.url.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4478,7 +4630,8 @@ class Client:
         Summary: 创建报税用户接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.RegisterRpgwUserEinvoiceResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.RegisterRpgwUserEinvoiceResponse(),
             self.do_request('1.0', 'riskplus.rpgw.user.einvoice.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4493,7 +4646,8 @@ class Client:
         Summary: 创建报税用户接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.RegisterRpgwUserEinvoiceResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.RegisterRpgwUserEinvoiceResponse(),
             await self.do_request_async('1.0', 'riskplus.rpgw.user.einvoice.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4532,7 +4686,8 @@ class Client:
         Summary: 获取签约接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRpgwUserSignurlResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRpgwUserSignurlResponse(),
             self.do_request('1.0', 'riskplus.rpgw.user.signurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4547,7 +4702,8 @@ class Client:
         Summary: 获取签约接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRpgwUserSignurlResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRpgwUserSignurlResponse(),
             await self.do_request_async('1.0', 'riskplus.rpgw.user.signurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4586,7 +4742,8 @@ class Client:
         Summary: 提现
         """
         UtilClient.validate_model(request)
-        return riskplus_models.WithdrawRpgwUserCommissionResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.WithdrawRpgwUserCommissionResponse(),
             self.do_request('1.0', 'riskplus.rpgw.user.commission.withdraw', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4601,7 +4758,8 @@ class Client:
         Summary: 提现
         """
         UtilClient.validate_model(request)
-        return riskplus_models.WithdrawRpgwUserCommissionResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.WithdrawRpgwUserCommissionResponse(),
             await self.do_request_async('1.0', 'riskplus.rpgw.user.commission.withdraw', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4640,7 +4798,8 @@ class Client:
         Summary: 下单等信息同步
         """
         UtilClient.validate_model(request)
-        return riskplus_models.SyncRpgwUserOrderinfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.SyncRpgwUserOrderinfoResponse(),
             self.do_request('1.0', 'riskplus.rpgw.user.orderinfo.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4655,7 +4814,8 @@ class Client:
         Summary: 下单等信息同步
         """
         UtilClient.validate_model(request)
-        return riskplus_models.SyncRpgwUserOrderinfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.SyncRpgwUserOrderinfoResponse(),
             await self.do_request_async('1.0', 'riskplus.rpgw.user.orderinfo.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4694,7 +4854,8 @@ class Client:
         Summary: 签约结果通知
         """
         UtilClient.validate_model(request)
-        return riskplus_models.NotifyRpgwUserSignresultResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.NotifyRpgwUserSignresultResponse(),
             self.do_request('1.0', 'riskplus.rpgw.user.signresult.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4709,7 +4870,8 @@ class Client:
         Summary: 签约结果通知
         """
         UtilClient.validate_model(request)
-        return riskplus_models.NotifyRpgwUserSignresultResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.NotifyRpgwUserSignresultResponse(),
             await self.do_request_async('1.0', 'riskplus.rpgw.user.signresult.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4748,7 +4910,8 @@ class Client:
         Summary: 查询所在地的负面舆情企业列表
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyOpinionResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyOpinionResponse(),
             self.do_request('1.0', 'riskplus.rtop.company.opinion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4763,7 +4926,8 @@ class Client:
         Summary: 查询所在地的负面舆情企业列表
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyOpinionResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyOpinionResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.company.opinion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4802,7 +4966,8 @@ class Client:
         Summary: 查询企业的舆情详情信息
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ListRtopCompanyOpinionsResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ListRtopCompanyOpinionsResponse(),
             self.do_request('1.0', 'riskplus.rtop.company.opinions.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4817,7 +4982,8 @@ class Client:
         Summary: 查询企业的舆情详情信息
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ListRtopCompanyOpinionsResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ListRtopCompanyOpinionsResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.company.opinions.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4856,7 +5022,8 @@ class Client:
         Summary: 查询监测企业的详情
         """
         UtilClient.validate_model(request)
-        return riskplus_models.GetRtopCompanyMonitorResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.GetRtopCompanyMonitorResponse(),
             self.do_request('1.0', 'riskplus.rtop.company.monitor.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4871,7 +5038,8 @@ class Client:
         Summary: 查询监测企业的详情
         """
         UtilClient.validate_model(request)
-        return riskplus_models.GetRtopCompanyMonitorResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.GetRtopCompanyMonitorResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.company.monitor.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4910,7 +5078,8 @@ class Client:
         Summary: 查询所在地的涉众风险企业统计信息
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCrowdriskStatisticResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCrowdriskStatisticResponse(),
             self.do_request('1.0', 'riskplus.rtop.crowdrisk.statistic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4925,7 +5094,8 @@ class Client:
         Summary: 查询所在地的涉众风险企业统计信息
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCrowdriskStatisticResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCrowdriskStatisticResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.crowdrisk.statistic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4964,7 +5134,8 @@ class Client:
         Summary: 查询涉众风险企业的列表
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ListRtopCrowdriskResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ListRtopCrowdriskResponse(),
             self.do_request('1.0', 'riskplus.rtop.crowdrisk.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4979,7 +5150,8 @@ class Client:
         Summary: 查询涉众风险企业的列表
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ListRtopCrowdriskResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ListRtopCrowdriskResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.crowdrisk.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5018,7 +5190,8 @@ class Client:
         Summary: 查询涉众风险企业的详细信息
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCrowdriskDetailResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCrowdriskDetailResponse(),
             self.do_request('1.0', 'riskplus.rtop.crowdrisk.detail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5033,7 +5206,8 @@ class Client:
         Summary: 查询涉众风险企业的详细信息
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCrowdriskDetailResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCrowdriskDetailResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.crowdrisk.detail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5072,7 +5246,8 @@ class Client:
         Summary: 查询风报的详细信息
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopRiskstormResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopRiskstormResponse(),
             self.do_request('1.0', 'riskplus.rtop.riskstorm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5087,7 +5262,8 @@ class Client:
         Summary: 查询风报的详细信息
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopRiskstormResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopRiskstormResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.riskstorm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5126,7 +5302,8 @@ class Client:
         Summary: 监管涉众风险一批企业的影响人数影响金额
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCrowdriskSumResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCrowdriskSumResponse(),
             self.do_request('1.0', 'riskplus.rtop.crowdrisk.sum.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5141,7 +5318,8 @@ class Client:
         Summary: 监管涉众风险一批企业的影响人数影响金额
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCrowdriskSumResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCrowdriskSumResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.crowdrisk.sum.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5180,7 +5358,8 @@ class Client:
         Summary: 监管企业详情获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.GetRtopCompanyDetailResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.GetRtopCompanyDetailResponse(),
             self.do_request('1.0', 'riskplus.rtop.company.detail.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5195,7 +5374,8 @@ class Client:
         Summary: 监管企业详情获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.GetRtopCompanyDetailResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.GetRtopCompanyDetailResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.company.detail.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5234,7 +5414,8 @@ class Client:
         Summary: 企业风险查询接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyRiskinfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyRiskinfoResponse(),
             self.do_request('1.0', 'riskplus.rtop.company.riskinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5249,7 +5430,8 @@ class Client:
         Summary: 企业风险查询接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyRiskinfoResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyRiskinfoResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.company.riskinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5288,7 +5470,8 @@ class Client:
         Summary: 公有云通用风险信息接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ExecRtopGenericInvokeResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ExecRtopGenericInvokeResponse(),
             self.do_request('1.0', 'riskplus.rtop.generic.invoke.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5303,7 +5486,8 @@ class Client:
         Summary: 公有云通用风险信息接口
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ExecRtopGenericInvokeResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ExecRtopGenericInvokeResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.generic.invoke.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5342,7 +5526,8 @@ class Client:
         Summary: 公有云生成token
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CreateRtopTokenResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CreateRtopTokenResponse(),
             self.do_request('1.0', 'riskplus.rtop.token.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5357,7 +5542,8 @@ class Client:
         Summary: 公有云生成token
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CreateRtopTokenResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CreateRtopTokenResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.token.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5396,7 +5582,8 @@ class Client:
         Summary: 标签全量信息获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopRisklabelResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopRisklabelResponse(),
             self.do_request('1.0', 'riskplus.rtop.risklabel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5411,7 +5598,8 @@ class Client:
         Summary: 标签全量信息获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopRisklabelResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopRisklabelResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.risklabel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5450,7 +5638,8 @@ class Client:
         Summary: 企业全量信息获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyResponse(),
             self.do_request('1.0', 'riskplus.rtop.company.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5465,7 +5654,8 @@ class Client:
         Summary: 企业全量信息获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.company.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5507,7 +5697,8 @@ class Client:
         Summary: 标签配置全量信息获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopRisklabelFilterResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopRisklabelFilterResponse(),
             self.do_request('1.0', 'riskplus.rtop.risklabel.filter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5523,7 +5714,8 @@ class Client:
         Summary: 标签配置全量信息获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopRisklabelFilterResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopRisklabelFilterResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.risklabel.filter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5562,7 +5754,8 @@ class Client:
         Summary: 鹰眼项目舆情同步
         """
         UtilClient.validate_model(request)
-        return riskplus_models.PullRegtechNewsResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.PullRegtechNewsResponse(),
             self.do_request('1.0', 'riskplus.regtech.news.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5577,7 +5770,8 @@ class Client:
         Summary: 鹰眼项目舆情同步
         """
         UtilClient.validate_model(request)
-        return riskplus_models.PullRegtechNewsResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.PullRegtechNewsResponse(),
             await self.do_request_async('1.0', 'riskplus.regtech.news.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5616,7 +5810,8 @@ class Client:
         Summary: 查看企业反馈
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyFeedbackResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyFeedbackResponse(),
             self.do_request('1.0', 'riskplus.rtop.company.feedback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5631,7 +5826,8 @@ class Client:
         Summary: 查看企业反馈
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyFeedbackResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyFeedbackResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.company.feedback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5670,7 +5866,8 @@ class Client:
         Summary: 全局动态中的预警企业详细列表查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyAlarmResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyAlarmResponse(),
             self.do_request('1.0', 'riskplus.rtop.company.alarm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5685,7 +5882,8 @@ class Client:
         Summary: 全局动态中的预警企业详细列表查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyAlarmResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyAlarmResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.company.alarm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5724,7 +5922,8 @@ class Client:
         Summary: 查询全局动态中的企业列表里的全部列表
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyRiskyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyRiskyResponse(),
             self.do_request('1.0', 'riskplus.rtop.company.risky.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5739,7 +5938,8 @@ class Client:
         Summary: 查询全局动态中的企业列表里的全部列表
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyRiskyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyRiskyResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.company.risky.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5778,7 +5978,8 @@ class Client:
         Summary: 查询企业列表
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyListResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyListResponse(),
             self.do_request('1.0', 'riskplus.rtop.company.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5793,7 +5994,8 @@ class Client:
         Summary: 查询企业列表
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyListResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyListResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.company.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5832,7 +6034,8 @@ class Client:
         Summary: 标签配置全量信息获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopRisklabelConfigResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopRisklabelConfigResponse(),
             self.do_request('1.0', 'riskplus.rtop.risklabel.config.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5847,7 +6050,8 @@ class Client:
         Summary: 标签配置全量信息获取
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopRisklabelConfigResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopRisklabelConfigResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.risklabel.config.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5886,7 +6090,8 @@ class Client:
         Summary: 企业风险标签信息查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyRiskResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyRiskResponse(),
             self.do_request('1.0', 'riskplus.rtop.company.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5901,7 +6106,8 @@ class Client:
         Summary: 企业风险标签信息查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopCompanyRiskResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopCompanyRiskResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.company.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5940,7 +6146,8 @@ class Client:
         Summary: 重点关联企业
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ListRtopCompanyRelatedResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ListRtopCompanyRelatedResponse(),
             self.do_request('1.0', 'riskplus.rtop.company.related.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5955,7 +6162,8 @@ class Client:
         Summary: 重点关联企业
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ListRtopCompanyRelatedResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ListRtopCompanyRelatedResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.company.related.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5994,7 +6202,8 @@ class Client:
         Summary: 风险标签图片查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopTagImageResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopTagImageResponse(),
             self.do_request('1.0', 'riskplus.rtop.tag.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6009,7 +6218,8 @@ class Client:
         Summary: 风险标签图片查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRtopTagImageResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRtopTagImageResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.tag.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6048,7 +6258,8 @@ class Client:
         Summary: 查询用户收藏企业列表
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ListRtopStarCompanyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ListRtopStarCompanyResponse(),
             self.do_request('1.0', 'riskplus.rtop.star.company.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6063,7 +6274,8 @@ class Client:
         Summary: 查询用户收藏企业列表
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ListRtopStarCompanyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ListRtopStarCompanyResponse(),
             await self.do_request_async('1.0', 'riskplus.rtop.star.company.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6102,7 +6314,8 @@ class Client:
         Summary: 策略咨询服务输出(saas)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRpSecurityPolicyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRpSecurityPolicyResponse(),
             self.do_request('1.0', 'riskplus.rp.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6117,7 +6330,8 @@ class Client:
         Summary: 策略咨询服务输出(saas)
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryRpSecurityPolicyResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryRpSecurityPolicyResponse(),
             await self.do_request_async('1.0', 'riskplus.rp.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6156,7 +6370,8 @@ class Client:
         Summary: 风控事件快照查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QuerySnapshotEventResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QuerySnapshotEventResponse(),
             self.do_request('1.0', 'riskplus.snapshot.event.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6171,7 +6386,8 @@ class Client:
         Summary: 风控事件快照查询
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QuerySnapshotEventResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QuerySnapshotEventResponse(),
             await self.do_request_async('1.0', 'riskplus.snapshot.event.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6227,7 +6443,8 @@ class Client:
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return riskplus_models.UploadUmktParamsFileResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.UploadUmktParamsFileResponse(),
             self.do_request('1.0', 'riskplus.umkt.params.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6259,7 +6476,8 @@ class Client:
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return riskplus_models.UploadUmktParamsFileResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.UploadUmktParamsFileResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.params.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6298,7 +6516,8 @@ class Client:
         Summary: 营销盾实时营销服务
         """
         UtilClient.validate_model(request)
-        return riskplus_models.BatchqueryUmktRtMarketingResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktRtMarketingResponse(),
             self.do_request('1.0', 'riskplus.umkt.rt.marketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6313,7 +6532,8 @@ class Client:
         Summary: 营销盾实时营销服务
         """
         UtilClient.validate_model(request)
-        return riskplus_models.BatchqueryUmktRtMarketingResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktRtMarketingResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.rt.marketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6352,7 +6572,8 @@ class Client:
         Summary: 梦网富信投放事件通知
         """
         UtilClient.validate_model(request)
-        return riskplus_models.SyncUmktRtEventresultResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.SyncUmktRtEventresultResponse(),
             self.do_request('1.0', 'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6367,7 +6588,8 @@ class Client:
         Summary: 梦网富信投放事件通知
         """
         UtilClient.validate_model(request)
-        return riskplus_models.SyncUmktRtEventresultResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.SyncUmktRtEventresultResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.rt.eventresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6406,7 +6628,8 @@ class Client:
         Summary: 营销盾场景租户信息上传or更新
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ImportUmktSceneUploadResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ImportUmktSceneUploadResponse(),
             self.do_request('1.0', 'riskplus.umkt.scene.upload.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6421,7 +6644,8 @@ class Client:
         Summary: 营销盾场景租户信息上传or更新
         """
         UtilClient.validate_model(request)
-        return riskplus_models.ImportUmktSceneUploadResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.ImportUmktSceneUploadResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.scene.upload.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6460,7 +6684,8 @@ class Client:
         Summary: 富信贴尾实时圈客
         """
         UtilClient.validate_model(request)
-        return riskplus_models.BatchqueryUmktRtTailmarketingResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktRtTailmarketingResponse(),
             self.do_request('1.0', 'riskplus.umkt.rt.tailmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6475,7 +6700,8 @@ class Client:
         Summary: 富信贴尾实时圈客
         """
         UtilClient.validate_model(request)
-        return riskplus_models.BatchqueryUmktRtTailmarketingResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryUmktRtTailmarketingResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.rt.tailmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6514,7 +6740,8 @@ class Client:
         Summary: 实时圈客场景策略测试功能
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryUmktScenestrategyTestResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktScenestrategyTestResponse(),
             self.do_request('1.0', 'riskplus.umkt.scenestrategy.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6529,7 +6756,8 @@ class Client:
         Summary: 实时圈客场景策略测试功能
         """
         UtilClient.validate_model(request)
-        return riskplus_models.QueryUmktScenestrategyTestResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktScenestrategyTestResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.scenestrategy.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6568,7 +6796,8 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CreateAntcloudGatewayxFileUploadResponse(),
             self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6583,6 +6812,7 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return riskplus_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            riskplus_models.CreateAntcloudGatewayxFileUploadResponse(),
             await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
