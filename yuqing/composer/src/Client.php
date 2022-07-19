@@ -14,10 +14,14 @@ use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Util\UtilClient;
 use AntChain\YUQING\Models\QueryAnalysisQueryRequest;
 use AntChain\YUQING\Models\QueryAnalysisQueryResponse;
+use AntChain\YUQING\Models\QueryDeepanalysisQueryRequest;
+use AntChain\YUQING\Models\QueryDeepanalysisQueryResponse;
 use AntChain\YUQING\Models\QueryMessagesRequest;
 use AntChain\YUQING\Models\QueryMessagesResponse;
 use AntChain\YUQING\Models\SaveAnalysisSubmitRequest;
 use AntChain\YUQING\Models\SaveAnalysisSubmitResponse;
+use AntChain\YUQING\Models\SaveDeepanalysisSubmitRequest;
+use AntChain\YUQING\Models\SaveDeepanalysisSubmitResponse;
 use AntChain\YUQING\Models\SaveProductOpenRequest;
 use AntChain\YUQING\Models\SaveProductOpenResponse;
 use AntChain\YUQING\Models\SaveProductTopRequest;
@@ -172,7 +176,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.12',
+                    'sdk_version'      => '1.1.14',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -447,5 +451,71 @@ class Client
         Utils::validateModel($request);
 
         return SendProductNoticeResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.product.notice.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建深度分析
+     * Summary: 创建深度分析.
+     *
+     * @param SaveDeepanalysisSubmitRequest $request
+     *
+     * @return SaveDeepanalysisSubmitResponse
+     */
+    public function saveDeepanalysisSubmit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveDeepanalysisSubmitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建深度分析
+     * Summary: 创建深度分析.
+     *
+     * @param SaveDeepanalysisSubmitRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return SaveDeepanalysisSubmitResponse
+     */
+    public function saveDeepanalysisSubmitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveDeepanalysisSubmitResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.deepanalysis.submit.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询深度分析
+     * Summary: 查询深度分析.
+     *
+     * @param QueryDeepanalysisQueryRequest $request
+     *
+     * @return QueryDeepanalysisQueryResponse
+     */
+    public function queryDeepanalysisQuery($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDeepanalysisQueryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询深度分析
+     * Summary: 查询深度分析.
+     *
+     * @param QueryDeepanalysisQueryRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryDeepanalysisQueryResponse
+     */
+    public function queryDeepanalysisQueryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDeepanalysisQueryResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.deepanalysis.query.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

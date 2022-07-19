@@ -36,12 +36,19 @@ class SendProductNoticeRequest extends Model
      * @var SmsContent
      */
     public $smsContent;
+
+    // email结构体
+    /**
+     * @var EmailContent
+     */
+    public $emailContent;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'noticeType'        => 'notice_type',
         'dingTalkContent'   => 'ding_talk_content',
         'smsContent'        => 'sms_content',
+        'emailContent'      => 'email_content',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class SendProductNoticeRequest extends Model
         }
         if (null !== $this->smsContent) {
             $res['sms_content'] = null !== $this->smsContent ? $this->smsContent->toMap() : null;
+        }
+        if (null !== $this->emailContent) {
+            $res['email_content'] = null !== $this->emailContent ? $this->emailContent->toMap() : null;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class SendProductNoticeRequest extends Model
         }
         if (isset($map['sms_content'])) {
             $model->smsContent = SmsContent::fromMap($map['sms_content']);
+        }
+        if (isset($map['email_content'])) {
+            $model->emailContent = EmailContent::fromMap($map['email_content']);
         }
 
         return $model;
