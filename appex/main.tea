@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.20',
+    sdk_version = '1.3.3',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -167,6 +167,66 @@ model NameValuePair {
   value: string(name='value', example='value'),
 }
 
+// 用户可访问Channel信息
+model UserChannelDTO {
+  // 通道名称
+  channelName: string(name='channel_name', example='shop1'),
+  // 通道是否公开可访问
+  publicAcl: boolean(name='public_acl', example='true, false'),
+  // 创建通道的用户did
+  creatorDid: string(name='creator_did', example='did:mychain:ab361842870481b15603c0a4761a67ccfb3e62e7726c5865f0d14d8309469bfc'),
+  // 权限到期时间
+  validTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='valid_time', example='2020-12-15 15:26:00'),
+}
+
+// 用于MyPocket返回链上账户
+model AccountEntry {
+  // mychain的账户名字
+  accountName: string(name='account_name', example='无'),
+  // account_name的hash的hex string
+  accountId: string(name='account_id', example='无'),
+}
+
+// 访问权限过滤器
+model AccessFilterDTO {
+  // 过滤器名称
+  filterName: string(name='filter_name', example='typeFilter'),
+  // 要过滤的字段路径
+  path: string(name='path', example='/body/type'),
+  // 路径字段的取值范围
+  target: [ string ](name='target', example='["Type1", "Type2"]'),
+}
+
+// 结果返回过滤
+model ResultFilterDTO {
+  // 过滤器名称
+  filterName: string(name='filter_name', example='resultFilter'),
+  // 要返回的字段路径列表
+  pathList: [ string ](name='path_list', example=''),
+}
+
+// 数据通道Channel
+model ChannelDTO {
+  // 通道名称
+  channelName: string(name='channel_name', example='shop01'),
+  // 通道是否公开访问
+  publicAcl: boolean(name='public_acl', example='true, false'),
+  // 通道创建账户
+  userDid: string(name='user_did', example='did:mychain:ab361842870481b15603c0a4761a67ccfb3e62e7726c5865f0d14d8309469bfc'),
+}
+
+// 数据状态驱动
+model StatusDrive {
+  // 起始状态
+  fromStatus: string(name='from_status', example=' START'),
+  // 下一状态
+  toStatus: string(name='to_status', example=' NEXT'),
+  // 驱动上链记录哈希
+  driveHash: string(name='drive_hash', example=' cbf34bb98ad466a4640f725ce6c53233b83477feb9ef46537a80287b3c244cfd'),
+  // 链上时间戳
+  timestamp: long(name='timestamp', example=''),
+}
+
 // 数据归属权
 model DataTransferObject {
   // 发起方
@@ -182,24 +242,12 @@ model DataTransferObject {
   timestamp: long(name='timestamp', example=''),
 }
 
-// 数据状态驱动
-model StatusDrive {
-  // 起始状态
-  fromStatus: string(name='from_status', example=' START'),
-  // 下一状态
-  toStatus: string(name='to_status', example=' NEXT'),
-  // 驱动上链记录哈希
-  driveHash: string(name='drive_hash', example=' cbf34bb98ad466a4640f725ce6c53233b83477feb9ef46537a80287b3c244cfd'),
-  // 链上时间戳
-  timestamp: long(name='timestamp', example=''),
-}
-
-// 结果返回过滤
-model ResultFilterDTO {
-  // 过滤器名称
-  filterName: string(name='filter_name', example='resultFilter'),
-  // 要返回的字段路径列表
-  pathList: [ string ](name='path_list', example=''),
+// 存证记录
+model NotaryRecord {
+  // 存证记录
+  attributes: [ NameValuePair ](name='attributes', example=''),
+  // 二维码链接
+  qrCodeUrl: string(name='qr_code_url', example='https://xxx.com/p/s/xxx-web/?bizid=a00e36c5'),
 }
 
 // 自定义流程入参DTO
@@ -214,46 +262,6 @@ model FlowTemplate {
   startNode: boolean(name='start_node', example=' '),
 }
 
-// 存证记录
-model NotaryRecord {
-  // 存证记录
-  attributes: [ NameValuePair ](name='attributes', example=''),
-  // 二维码链接
-  qrCodeUrl: string(name='qr_code_url', example='https://xxx.com/p/s/xxx-web/?bizid=a00e36c5'),
-}
-
-// 用户可访问Channel信息
-model UserChannelDTO {
-  // 通道名称
-  channelName: string(name='channel_name', example='shop1'),
-  // 通道是否公开可访问
-  publicAcl: boolean(name='public_acl', example='true, false'),
-  // 创建通道的用户did
-  creatorDid: string(name='creator_did', example='did:mychain:ab361842870481b15603c0a4761a67ccfb3e62e7726c5865f0d14d8309469bfc'),
-  // 权限到期时间
-  validTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='valid_time', example='2020-12-15 15:26:00'),
-}
-
-// 数据通道Channel
-model ChannelDTO {
-  // 通道名称
-  channelName: string(name='channel_name', example='shop01'),
-  // 通道是否公开访问
-  publicAcl: boolean(name='public_acl', example='true, false'),
-  // 通道创建账户
-  userDid: string(name='user_did', example='did:mychain:ab361842870481b15603c0a4761a67ccfb3e62e7726c5865f0d14d8309469bfc'),
-}
-
-// 访问权限过滤器
-model AccessFilterDTO {
-  // 过滤器名称
-  filterName: string(name='filter_name', example='typeFilter'),
-  // 要过滤的字段路径
-  path: string(name='path', example='/body/type'),
-  // 路径字段的取值范围
-  target: [ string ](name='target', example='["Type1", "Type2"]'),
-}
-
 // 表单链下链上锚定索引
 model FormIndexDTO {
   // 业务表单ID
@@ -266,6 +274,288 @@ model FormIndexDTO {
   txHash: string(name='tx_hash', example='063a580c6f208a71e4cf57672049e9f59df76412e4d810e4c26950c9147c3ced'),
   // 交易时间戳
   txTimestamp: string(name='tx_timestamp', example='1597130279858'),
+}
+
+model CreateMypocketChainaccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户的MyPocket账户对应的DID
+  did: string(name='did'),
+  // 区块链在MyPocket中的唯一ID
+  chainId: string(name='chain_id'),
+}
+
+model CreateMypocketChainaccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // mychain账户名字
+  accountName?: string(name='account_name'),
+  // account_name hash的hex字符串
+  accountId?: string(name='account_id'),
+}
+
+/**
+ * Description: 为用户在MyPocket创建链上账户
+ * Summary: MyPocket创建链上账户
+ */
+async function createMypocketChainaccount(request: CreateMypocketChainaccountRequest): CreateMypocketChainaccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createMypocketChainaccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 为用户在MyPocket创建链上账户
+ * Summary: MyPocket创建链上账户
+ */
+async function createMypocketChainaccountEx(request: CreateMypocketChainaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateMypocketChainaccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.mypocket.chainaccount.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMypocketChainaccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 要查询的链账户绑定的DID
+  did: string(name='did'),
+  // 要查询的区块链账户所在的链ID
+  chainId: string(name='chain_id'),
+}
+
+model QueryMypocketChainaccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 包含链账户的name和id
+  chainAccounts?: [ AccountEntry ](name='chain_accounts'),
+}
+
+/**
+ * Description: 用户根据DID和chainID，查询区块链账户
+ * Summary: 用户查询区块链账户
+ */
+async function queryMypocketChainaccount(request: QueryMypocketChainaccountRequest): QueryMypocketChainaccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMypocketChainaccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户根据DID和chainID，查询区块链账户
+ * Summary: 用户查询区块链账户
+ */
+async function queryMypocketChainaccountEx(request: QueryMypocketChainaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMypocketChainaccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.mypocket.chainaccount.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindMypocketKmsaccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户的DID
+  did: string(name='did'),
+  // 区块链ID
+  chainId: string(name='chain_id'),
+  // 用户的链上账户
+  chainAccount: string(name='chain_account'),
+  // 该链账户在BaaS服务的KMS ID 
+  kmsId: string(name='kms_id'),
+}
+
+model BindMypocketKmsaccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 外部DApp应用绑定链账户至did
+ * Summary: 外部DApp应用绑定链账户至did
+ */
+async function bindMypocketKmsaccount(request: BindMypocketKmsaccountRequest): BindMypocketKmsaccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindMypocketKmsaccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部DApp应用绑定链账户至did
+ * Summary: 外部DApp应用绑定链账户至did
+ */
+async function bindMypocketKmsaccountEx(request: BindMypocketKmsaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindMypocketKmsaccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.mypocket.kmsaccount.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateMypocketDidaccountbyalipayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝Uid
+  alipayUid: string(name='alipay_uid'),
+}
+
+model CreateMypocketDidaccountbyalipayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户的DID
+  did?: string(name='did'),
+}
+
+/**
+ * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+ * Summary: 创建普通用户DID账户（支付宝UID）
+ */
+async function createMypocketDidaccountbyalipay(request: CreateMypocketDidaccountbyalipayRequest): CreateMypocketDidaccountbyalipayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createMypocketDidaccountbyalipayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
+ * Summary: 创建普通用户DID账户（支付宝UID）
+ */
+async function createMypocketDidaccountbyalipayEx(request: CreateMypocketDidaccountbyalipayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateMypocketDidaccountbyalipayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.mypocket.didaccountbyalipay.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMypocketDidaccountbyalipayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝Uid
+  alipayUid: string(name='alipay_uid'),
+}
+
+model QueryMypocketDidaccountbyalipayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 外部DApp应用通过支付宝UID查询普通用户did
+  did?: string(name='did'),
+}
+
+/**
+ * Description: 外部DApp应用通过支付宝UID查询普通用户did
+ * Summary: 查询普通用户did（支付宝UID）
+ */
+async function queryMypocketDidaccountbyalipay(request: QueryMypocketDidaccountbyalipayRequest): QueryMypocketDidaccountbyalipayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMypocketDidaccountbyalipayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部DApp应用通过支付宝UID查询普通用户did
+ * Summary: 查询普通用户did（支付宝UID）
+ */
+async function queryMypocketDidaccountbyalipayEx(request: QueryMypocketDidaccountbyalipayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMypocketDidaccountbyalipayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.mypocket.didaccountbyalipay.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateMypocketEscrowchainaccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户did
+  did: string(name='did'),
+  // 链id
+  chainId: string(name='chain_id'),
+}
+
+model CreateMypocketEscrowchainaccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 账户名称
+  accountName?: string(name='account_name'),
+  // 链上id
+  accountId?: string(name='account_id'),
+}
+
+/**
+ * Description: 外部DApp应用创建用户链上账户
+ * Summary: 外部DApp应用创建用户链上账户
+ */
+async function createMypocketEscrowchainaccount(request: CreateMypocketEscrowchainaccountRequest): CreateMypocketEscrowchainaccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createMypocketEscrowchainaccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部DApp应用创建用户链上账户
+ * Summary: 外部DApp应用创建用户链上账户
+ */
+async function createMypocketEscrowchainaccountEx(request: CreateMypocketEscrowchainaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateMypocketEscrowchainaccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.mypocket.escrowchainaccount.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMypocketEscrowchainaccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户did
+  did: string(name='did'),
+  // 链id
+  chainId: string(name='chain_id'),
+}
+
+model QueryMypocketEscrowchainaccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // DID对应的所有链上账户
+  chainAccounts?: [ AccountEntry ](name='chain_accounts'),
+}
+
+/**
+ * Description: 外部DApp应用查询did在指定链上关联的账户
+ * Summary: 外部查询did在指定链上关联的账户
+ */
+async function queryMypocketEscrowchainaccount(request: QueryMypocketEscrowchainaccountRequest): QueryMypocketEscrowchainaccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMypocketEscrowchainaccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部DApp应用查询did在指定链上关联的账户
+ * Summary: 外部查询did在指定链上关联的账户
+ */
+async function queryMypocketEscrowchainaccountEx(request: QueryMypocketEscrowchainaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMypocketEscrowchainaccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.mypocket.escrowchainaccount.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateUserDidRequest = {
@@ -1746,5 +2036,53 @@ async function querySolutionBms(request: QuerySolutionBmsRequest): QuerySolution
 async function querySolutionBmsEx(request: QuerySolutionBmsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySolutionBmsResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.appex.solution.bms.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeploySolutionContractRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizid: string(name='bizid'),
+  // 链操作者信息
+  operator: string(name='operator'),
+  // 合约名称
+  contractName: string(name='contract_name'),
+  // 提交记录ID
+  commitId: string(name='commit_id'),
+  // 当前分支
+  branch: string(name='branch'),
+  // 合约仓库路径
+  gitRepo: string(name='git_repo'),
+}
+
+model DeploySolutionContractResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否部署成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 应用速搭平台部署合约接口
+ * Summary: 应用速搭平台部署合约接口
+ */
+async function deploySolutionContract(request: DeploySolutionContractRequest): DeploySolutionContractResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deploySolutionContractEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用速搭平台部署合约接口
+ * Summary: 应用速搭平台部署合约接口
+ */
+async function deploySolutionContractEx(request: DeploySolutionContractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeploySolutionContractResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.appex.solution.contract.deploy', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
