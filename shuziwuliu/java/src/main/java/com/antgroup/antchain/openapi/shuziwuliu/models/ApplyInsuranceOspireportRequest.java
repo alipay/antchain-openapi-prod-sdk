@@ -147,6 +147,11 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<ClaimInformation> claimInformations;
 
+    // 客户或物流CP商，针对此票货物的出发仓ID
+    @NameInMap("despatch_warehouse_id")
+    @Validation(maxLength = 100)
+    public String despatchWarehouseId;
+
     public static ApplyInsuranceOspireportRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsuranceOspireportRequest self = new ApplyInsuranceOspireportRequest();
         return TeaModel.build(map, self);
@@ -374,6 +379,14 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     }
     public java.util.List<ClaimInformation> getClaimInformations() {
         return this.claimInformations;
+    }
+
+    public ApplyInsuranceOspireportRequest setDespatchWarehouseId(String despatchWarehouseId) {
+        this.despatchWarehouseId = despatchWarehouseId;
+        return this;
+    }
+    public String getDespatchWarehouseId() {
+        return this.despatchWarehouseId;
     }
 
 }
