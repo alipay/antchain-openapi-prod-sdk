@@ -154,6 +154,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public List<ClaimInformation> ClaimInformations { get; set; }
 
+        // 客户或物流CP商，针对此票货物的出发仓ID
+        [NameInMap("despatch_warehouse_id")]
+        [Validation(Required=false, MaxLength=100)]
+        public string DespatchWarehouseId { get; set; }
+
     }
 
 }
