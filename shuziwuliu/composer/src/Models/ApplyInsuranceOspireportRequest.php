@@ -180,6 +180,12 @@ class ApplyInsuranceOspireportRequest extends Model
      * @var ClaimInformation[]
      */
     public $claimInformations;
+
+    // 客户或物流CP商，针对此票货物的出发仓ID
+    /**
+     * @var string
+     */
+    public $despatchWarehouseId;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -209,6 +215,7 @@ class ApplyInsuranceOspireportRequest extends Model
         'paymentItem'         => 'payment_item',
         'accidentType'        => 'accident_type',
         'claimInformations'   => 'claim_informations',
+        'despatchWarehouseId' => 'despatch_warehouse_id',
     ];
 
     public function validate()
@@ -259,6 +266,7 @@ class ApplyInsuranceOspireportRequest extends Model
         Model::validateMaxLength('accidentAddress', $this->accidentAddress, 500);
         Model::validateMaxLength('paymentItem', $this->paymentItem, 2);
         Model::validateMaxLength('accidentType', $this->accidentType, 20);
+        Model::validateMaxLength('despatchWarehouseId', $this->despatchWarehouseId, 100);
     }
 
     public function toMap()
@@ -353,6 +361,9 @@ class ApplyInsuranceOspireportRequest extends Model
                     $res['claim_informations'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->despatchWarehouseId) {
+            $res['despatch_warehouse_id'] = $this->despatchWarehouseId;
         }
 
         return $res;
@@ -455,6 +466,9 @@ class ApplyInsuranceOspireportRequest extends Model
                     $model->claimInformations[$n++] = null !== $item ? ClaimInformation::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['despatch_warehouse_id'])) {
+            $model->despatchWarehouseId = $map['despatch_warehouse_id'];
         }
 
         return $model;
