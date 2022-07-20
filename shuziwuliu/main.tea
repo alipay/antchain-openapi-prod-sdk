@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.142',
+    sdk_version = '1.3.143',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -7580,6 +7580,8 @@ model ApplyInsuranceOspireportRequest = {
   accidentType: string(maxLength=20, name='accident_type'),
   // 索赔资料附件，最多10个
   claimInformations: [ ClaimInformation ](name='claim_informations'),
+  // 客户或物流CP商，针对此票货物的出发仓ID
+  despatchWarehouseId?: string(maxLength=100, name='despatch_warehouse_id'),
 }
 
 model ApplyInsuranceOspireportResponse = {
