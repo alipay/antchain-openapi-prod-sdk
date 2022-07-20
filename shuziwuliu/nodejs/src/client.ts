@@ -13452,6 +13452,8 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
   accidentType: string;
   // 索赔资料附件，最多10个
   claimInformations: ClaimInformation[];
+  // 客户或物流CP商，针对此票货物的出发仓ID
+  despatchWarehouseId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13482,6 +13484,7 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
       paymentItem: 'payment_item',
       accidentType: 'accident_type',
       claimInformations: 'claim_informations',
+      despatchWarehouseId: 'despatch_warehouse_id',
     };
   }
 
@@ -13515,6 +13518,7 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
       paymentItem: 'string',
       accidentType: 'string',
       claimInformations: { 'type': 'array', 'itemType': ClaimInformation },
+      despatchWarehouseId: 'string',
     };
   }
 
@@ -20743,7 +20747,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.142",
+          sdk_version: "1.3.143",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
