@@ -18879,6 +18879,8 @@ type ApplyInsuranceOspireportRequest struct {
 	AccidentType *string `json:"accident_type,omitempty" xml:"accident_type,omitempty" require:"true" maxLength:"20"`
 	// 索赔资料附件，最多10个
 	ClaimInformations []*ClaimInformation `json:"claim_informations,omitempty" xml:"claim_informations,omitempty" require:"true" type:"Repeated"`
+	// 客户或物流CP商，针对此票货物的出发仓ID
+	DespatchWarehouseId *string `json:"despatch_warehouse_id,omitempty" xml:"despatch_warehouse_id,omitempty" maxLength:"100"`
 }
 
 func (s ApplyInsuranceOspireportRequest) String() string {
@@ -19026,6 +19028,11 @@ func (s *ApplyInsuranceOspireportRequest) SetAccidentType(v string) *ApplyInsura
 
 func (s *ApplyInsuranceOspireportRequest) SetClaimInformations(v []*ClaimInformation) *ApplyInsuranceOspireportRequest {
 	s.ClaimInformations = v
+	return s
+}
+
+func (s *ApplyInsuranceOspireportRequest) SetDespatchWarehouseId(v string) *ApplyInsuranceOspireportRequest {
+	s.DespatchWarehouseId = &v
 	return s
 }
 
@@ -29310,7 +29317,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.142"),
+				"sdk_version":      tea.String("1.3.143"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
