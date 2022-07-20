@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.142'
+                    'sdk_version': '1.3.143'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.142'
+                    'sdk_version': '1.3.143'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +306,8 @@ class Client:
         Summary: 标准化应收账单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateReceivableBillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateReceivableBillResponse(),
             self.do_request('1.0', 'digital.logistic.receivable.bill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: 标准化应收账单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateReceivableBillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateReceivableBillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.receivable.bill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: 创建凭证
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateStandardVoucherResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateStandardVoucherResponse(),
             self.do_request('1.0', 'digital.logistic.standard.voucher.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: 创建凭证
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateStandardVoucherResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateStandardVoucherResponse(),
             await self.do_request_async('1.0', 'digital.logistic.standard.voucher.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: 无车承运平台DIS分布式数字身份申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreatePlatformDidResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreatePlatformDidResponse(),
             self.do_request('1.0', 'digital.logistic.platform.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +434,8 @@ class Client:
         Summary: 无车承运平台DIS分布式数字身份申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreatePlatformDidResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreatePlatformDidResponse(),
             await self.do_request_async('1.0', 'digital.logistic.platform.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +474,8 @@ class Client:
         Summary: 无车承运平台DIS分布式数字身份代理申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateAgentDidResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateAgentDidResponse(),
             self.do_request('1.0', 'digital.logistic.agent.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +490,8 @@ class Client:
         Summary: 无车承运平台DIS分布式数字身份代理申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateAgentDidResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateAgentDidResponse(),
             await self.do_request_async('1.0', 'digital.logistic.agent.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +530,8 @@ class Client:
         Summary: 货主DIS分布式数字身份申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateConsignorDisResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateConsignorDisResponse(),
             self.do_request('1.0', 'digital.logistic.consignor.dis.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +546,8 @@ class Client:
         Summary: 货主DIS分布式数字身份申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateConsignorDisResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateConsignorDisResponse(),
             await self.do_request_async('1.0', 'digital.logistic.consignor.dis.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +586,8 @@ class Client:
         Summary: 司机DIS分布式数字身份申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateDriverDisResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateDriverDisResponse(),
             self.do_request('1.0', 'digital.logistic.driver.dis.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +602,8 @@ class Client:
         Summary: 司机DIS分布式数字身份申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateDriverDisResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateDriverDisResponse(),
             await self.do_request_async('1.0', 'digital.logistic.driver.dis.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +642,8 @@ class Client:
         Summary: 货源订单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCargoOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCargoOrderResponse(),
             self.do_request('1.0', 'digital.logistic.cargo.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +658,8 @@ class Client:
         Summary: 货源订单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCargoOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCargoOrderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.cargo.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +698,8 @@ class Client:
         Summary: 货源支付订单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCargoPayResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCargoPayResponse(),
             self.do_request('1.0', 'digital.logistic.cargo.pay.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +714,8 @@ class Client:
         Summary: 货源支付订单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCargoPayResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCargoPayResponse(),
             await self.do_request_async('1.0', 'digital.logistic.cargo.pay.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +754,8 @@ class Client:
         Summary: 运单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateWaybillOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateWaybillOrderResponse(),
             self.do_request('1.0', 'digital.logistic.waybill.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +770,8 @@ class Client:
         Summary: 运单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateWaybillOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateWaybillOrderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.waybill.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +810,8 @@ class Client:
         Summary: 运单支付订单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateWaybillPayResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateWaybillPayResponse(),
             self.do_request('1.0', 'digital.logistic.waybill.pay.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +826,8 @@ class Client:
         Summary: 运单支付订单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateWaybillPayResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateWaybillPayResponse(),
             await self.do_request_async('1.0', 'digital.logistic.waybill.pay.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +866,8 @@ class Client:
         Summary: 第三方位置信息上报
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ImportWaybillLocationResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ImportWaybillLocationResponse(),
             self.do_request('1.0', 'digital.logistic.waybill.location.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +882,8 @@ class Client:
         Summary: 第三方位置信息上报
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ImportWaybillLocationResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ImportWaybillLocationResponse(),
             await self.do_request_async('1.0', 'digital.logistic.waybill.location.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +922,8 @@ class Client:
         Summary: 发票订单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateWaybillBillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateWaybillBillResponse(),
             self.do_request('1.0', 'digital.logistic.waybill.bill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,7 +938,8 @@ class Client:
         Summary: 发票订单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateWaybillBillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateWaybillBillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.waybill.bill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -954,7 +978,8 @@ class Client:
         Summary: 查询运单状态
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryWaybillStatusResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryWaybillStatusResponse(),
             self.do_request('1.0', 'digital.logistic.waybill.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -969,7 +994,8 @@ class Client:
         Summary: 查询运单状态
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryWaybillStatusResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryWaybillStatusResponse(),
             await self.do_request_async('1.0', 'digital.logistic.waybill.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1011,7 +1037,8 @@ class Client:
         Summary: 运单完成
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.FinishWaybillOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.FinishWaybillOrderResponse(),
             self.do_request('1.0', 'digital.logistic.waybill.order.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1027,7 +1054,8 @@ class Client:
         Summary: 运单完成
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.FinishWaybillOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.FinishWaybillOrderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.waybill.order.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1066,7 +1094,8 @@ class Client:
         Summary: 货源支付订单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCargoPayorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCargoPayorderResponse(),
             self.do_request('1.0', 'digital.logistic.cargo.payorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1081,7 +1110,8 @@ class Client:
         Summary: 货源支付订单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCargoPayorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCargoPayorderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.cargo.payorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1120,7 +1150,8 @@ class Client:
         Summary: 运单运输完成
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveWaybillOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveWaybillOrderResponse(),
             self.do_request('1.0', 'digital.logistic.waybill.order.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1135,7 +1166,8 @@ class Client:
         Summary: 运单运输完成
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveWaybillOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveWaybillOrderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.waybill.order.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1174,7 +1206,8 @@ class Client:
         Summary: 运单关闭
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CloseWaybillOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CloseWaybillOrderResponse(),
             self.do_request('1.0', 'digital.logistic.waybill.order.close', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1189,7 +1222,8 @@ class Client:
         Summary: 运单关闭
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CloseWaybillOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CloseWaybillOrderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.waybill.order.close', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1228,7 +1262,8 @@ class Client:
         Summary: 完成物流运单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.FinishFinanceWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.FinishFinanceWaybillResponse(),
             self.do_request('1.0', 'digital.logistic.finance.waybill.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1243,7 +1278,8 @@ class Client:
         Summary: 完成物流运单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.FinishFinanceWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.FinishFinanceWaybillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.finance.waybill.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1282,7 +1318,8 @@ class Client:
         Summary: 运输完成
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.FinishFinanceTransportResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.FinishFinanceTransportResponse(),
             self.do_request('1.0', 'digital.logistic.finance.transport.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1297,7 +1334,8 @@ class Client:
         Summary: 运输完成
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.FinishFinanceTransportResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.FinishFinanceTransportResponse(),
             await self.do_request_async('1.0', 'digital.logistic.finance.transport.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1336,7 +1374,8 @@ class Client:
         Summary: 更新运单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateFinanceWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateFinanceWaybillResponse(),
             self.do_request('1.0', 'digital.logistic.finance.waybill.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1351,7 +1390,8 @@ class Client:
         Summary: 更新运单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateFinanceWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateFinanceWaybillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.finance.waybill.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1390,7 +1430,8 @@ class Client:
         Summary: 起运运单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.StartFinanceWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.StartFinanceWaybillResponse(),
             self.do_request('1.0', 'digital.logistic.finance.waybill.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1405,7 +1446,8 @@ class Client:
         Summary: 起运运单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.StartFinanceWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.StartFinanceWaybillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.finance.waybill.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1444,7 +1486,8 @@ class Client:
         Summary: 创建承运商账户
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCaptainDisResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCaptainDisResponse(),
             self.do_request('1.0', 'digital.logistic.captain.dis.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1459,7 +1502,8 @@ class Client:
         Summary: 创建承运商账户
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCaptainDisResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCaptainDisResponse(),
             await self.do_request_async('1.0', 'digital.logistic.captain.dis.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1498,7 +1542,8 @@ class Client:
         Summary: 货主账单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCargowaybillBillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCargowaybillBillResponse(),
             self.do_request('1.0', 'digital.logistic.cargowaybill.bill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1513,7 +1558,8 @@ class Client:
         Summary: 货主账单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCargowaybillBillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCargowaybillBillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.cargowaybill.bill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1552,7 +1598,8 @@ class Client:
         Summary: 货主账单确认
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ConfirmCargowaybillBillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ConfirmCargowaybillBillResponse(),
             self.do_request('1.0', 'digital.logistic.cargowaybill.bill.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1567,7 +1614,8 @@ class Client:
         Summary: 货主账单确认
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ConfirmCargowaybillBillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ConfirmCargowaybillBillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.cargowaybill.bill.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1606,7 +1654,8 @@ class Client:
         Summary: 货主账单结算
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCargowaybillBillsettleResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCargowaybillBillsettleResponse(),
             self.do_request('1.0', 'digital.logistic.cargowaybill.billsettle.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1621,7 +1670,8 @@ class Client:
         Summary: 货主账单结算
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCargowaybillBillsettleResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCargowaybillBillsettleResponse(),
             await self.do_request_async('1.0', 'digital.logistic.cargowaybill.billsettle.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1660,7 +1710,8 @@ class Client:
         Summary: 运单平台did更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateWaybillorderPlatformdidResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateWaybillorderPlatformdidResponse(),
             self.do_request('1.0', 'digital.logistic.waybillorder.platformdid.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1675,7 +1726,8 @@ class Client:
         Summary: 运单平台did更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateWaybillorderPlatformdidResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateWaybillorderPlatformdidResponse(),
             await self.do_request_async('1.0', 'digital.logistic.waybillorder.platformdid.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1714,7 +1766,8 @@ class Client:
         Summary: 货主账单更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateCargowaybillBillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateCargowaybillBillResponse(),
             self.do_request('1.0', 'digital.logistic.cargowaybill.bill.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1729,7 +1782,8 @@ class Client:
         Summary: 货主账单更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateCargowaybillBillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateCargowaybillBillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.cargowaybill.bill.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1768,7 +1822,8 @@ class Client:
         Summary: 分布式数字身份申请did集合
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateDisDidResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateDisDidResponse(),
             self.do_request('1.0', 'digital.logistic.dis.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1783,7 +1838,8 @@ class Client:
         Summary: 分布式数字身份申请did集合
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateDisDidResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateDisDidResponse(),
             await self.do_request_async('1.0', 'digital.logistic.dis.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1822,7 +1878,8 @@ class Client:
         Summary: 3PL运输合同上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadTransportContractResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadTransportContractResponse(),
             self.do_request('1.0', 'digital.logistic.transport.contract.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1837,7 +1894,8 @@ class Client:
         Summary: 3PL运输合同上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadTransportContractResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadTransportContractResponse(),
             await self.do_request_async('1.0', 'digital.logistic.transport.contract.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1876,7 +1934,8 @@ class Client:
         Summary: 3PL运输线路上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadTransportRouteResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadTransportRouteResponse(),
             self.do_request('1.0', 'digital.logistic.transport.route.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1891,7 +1950,8 @@ class Client:
         Summary: 3PL运输线路上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadTransportRouteResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadTransportRouteResponse(),
             await self.do_request_async('1.0', 'digital.logistic.transport.route.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1930,7 +1990,8 @@ class Client:
         Summary: 3PL运单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateTransportWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateTransportWaybillResponse(),
             self.do_request('1.0', 'digital.logistic.transport.waybill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1945,7 +2006,8 @@ class Client:
         Summary: 3PL运单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateTransportWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateTransportWaybillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.transport.waybill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1984,7 +2046,8 @@ class Client:
         Summary: 3PL运单状态更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateWaybillActionResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateWaybillActionResponse(),
             self.do_request('1.0', 'digital.logistic.waybill.action.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1999,7 +2062,8 @@ class Client:
         Summary: 3PL运单状态更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateWaybillActionResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateWaybillActionResponse(),
             await self.do_request_async('1.0', 'digital.logistic.waybill.action.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2038,7 +2102,8 @@ class Client:
         Summary: 3PL运单修改
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateTransportWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateTransportWaybillResponse(),
             self.do_request('1.0', 'digital.logistic.transport.waybill.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2053,7 +2118,8 @@ class Client:
         Summary: 3PL运单修改
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateTransportWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateTransportWaybillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.transport.waybill.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2092,7 +2158,8 @@ class Client:
         Summary: 3PL回单上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadTransportReceiptResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadTransportReceiptResponse(),
             self.do_request('1.0', 'digital.logistic.transport.receipt.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2107,7 +2174,8 @@ class Client:
         Summary: 3PL回单上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadTransportReceiptResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadTransportReceiptResponse(),
             await self.do_request_async('1.0', 'digital.logistic.transport.receipt.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2146,7 +2214,8 @@ class Client:
         Summary: 应收账单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateBillReceivablebillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateBillReceivablebillResponse(),
             self.do_request('1.0', 'digital.logistic.bill.receivablebill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2161,7 +2230,8 @@ class Client:
         Summary: 应收账单创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateBillReceivablebillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateBillReceivablebillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.bill.receivablebill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2200,7 +2270,8 @@ class Client:
         Summary: 应收账单状态更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateReceivablebillStatusResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateReceivablebillStatusResponse(),
             self.do_request('1.0', 'digital.logistic.receivablebill.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2215,7 +2286,8 @@ class Client:
         Summary: 应收账单状态更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateReceivablebillStatusResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateReceivablebillStatusResponse(),
             await self.do_request_async('1.0', 'digital.logistic.receivablebill.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2254,7 +2326,8 @@ class Client:
         Summary: 应收账单修改
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateBillReceivablebillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateBillReceivablebillResponse(),
             self.do_request('1.0', 'digital.logistic.bill.receivablebill.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2269,7 +2342,8 @@ class Client:
         Summary: 应收账单修改
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateBillReceivablebillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateBillReceivablebillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.bill.receivablebill.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2308,7 +2382,8 @@ class Client:
         Summary: 路运发票创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateHighwayInvoiceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateHighwayInvoiceResponse(),
             self.do_request('1.0', 'digital.logistic.highway.invoice.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2323,7 +2398,8 @@ class Client:
         Summary: 路运发票创建
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateHighwayInvoiceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateHighwayInvoiceResponse(),
             await self.do_request_async('1.0', 'digital.logistic.highway.invoice.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2362,7 +2438,8 @@ class Client:
         Summary: 运单信息查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryWaybillInfoResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryWaybillInfoResponse(),
             self.do_request('1.0', 'digital.logistic.waybill.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2377,7 +2454,8 @@ class Client:
         Summary: 运单信息查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryWaybillInfoResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryWaybillInfoResponse(),
             await self.do_request_async('1.0', 'digital.logistic.waybill.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2416,7 +2494,8 @@ class Client:
         Summary: 应收账单创建无明细版
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateBillReceivablebillnodetailResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateBillReceivablebillnodetailResponse(),
             self.do_request('1.0', 'digital.logistic.bill.receivablebillnodetail.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2431,7 +2510,8 @@ class Client:
         Summary: 应收账单创建无明细版
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateBillReceivablebillnodetailResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateBillReceivablebillnodetailResponse(),
             await self.do_request_async('1.0', 'digital.logistic.bill.receivablebillnodetail.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2470,7 +2550,8 @@ class Client:
         Summary: 企业信息上传/更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveTrailerCorpResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveTrailerCorpResponse(),
             self.do_request('1.0', 'digital.logistic.trailer.corp.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2485,7 +2566,8 @@ class Client:
         Summary: 企业信息上传/更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveTrailerCorpResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveTrailerCorpResponse(),
             await self.do_request_async('1.0', 'digital.logistic.trailer.corp.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2524,7 +2606,8 @@ class Client:
         Summary: 企业运营数据上传/更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveTrailerTransportResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveTrailerTransportResponse(),
             self.do_request('1.0', 'digital.logistic.trailer.transport.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2539,7 +2622,8 @@ class Client:
         Summary: 企业运营数据上传/更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveTrailerTransportResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveTrailerTransportResponse(),
             await self.do_request_async('1.0', 'digital.logistic.trailer.transport.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2578,7 +2662,8 @@ class Client:
         Summary: 实例状态查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryBusinessInstancestatusResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryBusinessInstancestatusResponse(),
             self.do_request('1.0', 'digital.logistic.business.instancestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2593,7 +2678,8 @@ class Client:
         Summary: 实例状态查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryBusinessInstancestatusResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryBusinessInstancestatusResponse(),
             await self.do_request_async('1.0', 'digital.logistic.business.instancestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2632,7 +2718,8 @@ class Client:
         Summary: 司机信用流转协议签署并开通流转能力
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.OpenCreditDriverResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.OpenCreditDriverResponse(),
             self.do_request('1.0', 'digital.logistic.credit.driver.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2647,7 +2734,8 @@ class Client:
         Summary: 司机信用流转协议签署并开通流转能力
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.OpenCreditDriverResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.OpenCreditDriverResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.driver.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2686,7 +2774,8 @@ class Client:
         Summary: 查询司机信用流转能力开通情况
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditDriverResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditDriverResponse(),
             self.do_request('1.0', 'digital.logistic.credit.driver.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2701,7 +2790,8 @@ class Client:
         Summary: 查询司机信用流转能力开通情况
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditDriverResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditDriverResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.driver.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2740,7 +2830,8 @@ class Client:
         Summary: 查询货主信用流转能力开通情况
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditConsignorResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditConsignorResponse(),
             self.do_request('1.0', 'digital.logistic.credit.consignor.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2755,7 +2846,8 @@ class Client:
         Summary: 查询货主信用流转能力开通情况
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditConsignorResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditConsignorResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.consignor.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2794,7 +2886,8 @@ class Client:
         Summary: 查询货主信用流转额度
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditBalanceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditBalanceResponse(),
             self.do_request('1.0', 'digital.logistic.credit.balance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2809,7 +2902,8 @@ class Client:
         Summary: 查询货主信用流转额度
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditBalanceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditBalanceResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.balance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2848,7 +2942,8 @@ class Client:
         Summary: 发行信用流转批次信息上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadCreditIssueResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadCreditIssueResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issue.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2863,7 +2958,8 @@ class Client:
         Summary: 发行信用流转批次信息上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadCreditIssueResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadCreditIssueResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issue.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2902,7 +2998,8 @@ class Client:
         Summary: 信用流转批次状态查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuebatchstatusResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuebatchstatusResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuebatchstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2917,7 +3014,8 @@ class Client:
         Summary: 信用流转批次状态查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuebatchstatusResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuebatchstatusResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuebatchstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2956,7 +3054,8 @@ class Client:
         Summary: 支付批次撤销
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CancelCreditIssuebatchResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CancelCreditIssuebatchResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuebatch.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2971,7 +3070,8 @@ class Client:
         Summary: 支付批次撤销
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CancelCreditIssuebatchResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CancelCreditIssuebatchResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuebatch.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3010,7 +3110,8 @@ class Client:
         Summary: 根据id查询信用凭证信息
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuebyidResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuebyidResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuebyid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3025,7 +3126,8 @@ class Client:
         Summary: 根据id查询信用凭证信息
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuebyidResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuebyidResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuebyid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3064,7 +3166,8 @@ class Client:
         Summary: 根据时间查询信用凭证信息
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuebytimeResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuebytimeResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuebytime.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3079,7 +3182,8 @@ class Client:
         Summary: 根据时间查询信用凭证信息
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuebytimeResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuebytimeResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuebytime.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3118,7 +3222,8 @@ class Client:
         Summary: 查询用户持有的信用凭证信息
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditUserissueResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditUserissueResponse(),
             self.do_request('1.0', 'digital.logistic.credit.userissue.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3133,7 +3238,8 @@ class Client:
         Summary: 查询用户持有的信用凭证信息
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditUserissueResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditUserissueResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.userissue.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3172,7 +3278,8 @@ class Client:
         Summary: 查询用户信用流转流水记录
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditStatementResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditStatementResponse(),
             self.do_request('1.0', 'digital.logistic.credit.statement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3187,7 +3294,8 @@ class Client:
         Summary: 查询用户信用流转流水记录
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditStatementResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditStatementResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.statement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3226,7 +3334,8 @@ class Client:
         Summary: 信用凭证拆分转让申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCreditIssuetransferResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCreditIssuetransferResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuetransfer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3241,7 +3350,8 @@ class Client:
         Summary: 信用凭证拆分转让申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCreditIssuetransferResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCreditIssuetransferResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuetransfer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3280,7 +3390,8 @@ class Client:
         Summary: 信用凭证拆分转让结果查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuetransferResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuetransferResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuetransfer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3295,7 +3406,8 @@ class Client:
         Summary: 信用凭证拆分转让结果查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuetransferResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuetransferResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuetransfer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3334,7 +3446,8 @@ class Client:
         Summary: 信用凭证融资申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCreditIssuefinanceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCreditIssuefinanceResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuefinance.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3349,7 +3462,8 @@ class Client:
         Summary: 信用凭证融资申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCreditIssuefinanceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCreditIssuefinanceResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuefinance.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3388,7 +3502,8 @@ class Client:
         Summary: 信用凭证融资结果查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuefinanceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuefinanceResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuefinance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3403,7 +3518,8 @@ class Client:
         Summary: 信用凭证融资结果查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuefinanceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuefinanceResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuefinance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3442,7 +3558,8 @@ class Client:
         Summary: 信用凭证清分信息查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuereceivableResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuereceivableResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuereceivable.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3457,7 +3574,8 @@ class Client:
         Summary: 信用凭证清分信息查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuereceivableResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuereceivableResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuereceivable.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3496,7 +3614,8 @@ class Client:
         Summary: 信用凭证资产查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssueamountResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssueamountResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issueamount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3511,7 +3630,8 @@ class Client:
         Summary: 信用凭证资产查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssueamountResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssueamountResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issueamount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3550,7 +3670,8 @@ class Client:
         Summary: 物流金融统一回调接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CallbackCreditCommonResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CallbackCreditCommonResponse(),
             self.do_request('1.0', 'digital.logistic.credit.common.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3565,7 +3686,8 @@ class Client:
         Summary: 物流金融统一回调接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CallbackCreditCommonResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CallbackCreditCommonResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.common.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3604,7 +3726,8 @@ class Client:
         Summary: 信用凭证主动清分
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyCreditIssueclearResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyCreditIssueclearResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issueclear.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3619,7 +3742,8 @@ class Client:
         Summary: 信用凭证主动清分
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyCreditIssueclearResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyCreditIssueclearResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issueclear.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3658,7 +3782,8 @@ class Client:
         Summary: 物流金融代理消息
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SendCreditProxyResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SendCreditProxyResponse(),
             self.do_request('1.0', 'digital.logistic.credit.proxy.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3673,7 +3798,8 @@ class Client:
         Summary: 物流金融代理消息
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SendCreditProxyResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SendCreditProxyResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.proxy.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3712,7 +3838,8 @@ class Client:
         Summary: 运单信用流转核验结果查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CheckCreditWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CheckCreditWaybillResponse(),
             self.do_request('1.0', 'digital.logistic.credit.waybill.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3727,7 +3854,8 @@ class Client:
         Summary: 运单信用流转核验结果查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CheckCreditWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CheckCreditWaybillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.waybill.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3766,7 +3894,8 @@ class Client:
         Summary: 物流金融信用流转司机换绑
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ReopenCreditDriverResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ReopenCreditDriverResponse(),
             self.do_request('1.0', 'digital.logistic.credit.driver.reopen', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3781,7 +3910,8 @@ class Client:
         Summary: 物流金融信用流转司机换绑
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ReopenCreditDriverResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ReopenCreditDriverResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.driver.reopen', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3820,7 +3950,8 @@ class Client:
         Summary: 线下协议授权关系上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadCreditAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadCreditAuthorizationResponse(),
             self.do_request('1.0', 'digital.logistic.credit.authorization.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3835,7 +3966,8 @@ class Client:
         Summary: 线下协议授权关系上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadCreditAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadCreditAuthorizationResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.authorization.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3874,7 +4006,8 @@ class Client:
         Summary: 线上应收转让确认关系
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadCreditConfirmResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadCreditConfirmResponse(),
             self.do_request('1.0', 'digital.logistic.credit.confirm.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3889,7 +4022,8 @@ class Client:
         Summary: 线上应收转让确认关系
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadCreditConfirmResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadCreditConfirmResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.confirm.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3928,7 +4062,8 @@ class Client:
         Summary: 物流信用流转凭证批量发行
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.BatchcreateCreditmodeIssueResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.BatchcreateCreditmodeIssueResponse(),
             self.do_request('1.0', 'digital.logistic.creditmode.issue.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3943,7 +4078,8 @@ class Client:
         Summary: 物流信用流转凭证批量发行
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.BatchcreateCreditmodeIssueResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.BatchcreateCreditmodeIssueResponse(),
             await self.do_request_async('1.0', 'digital.logistic.creditmode.issue.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3982,7 +4118,8 @@ class Client:
         Summary: 物流信用流转按模式主动清分
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyCreditmodeIssueclearResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyCreditmodeIssueclearResponse(),
             self.do_request('1.0', 'digital.logistic.creditmode.issueclear.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3997,7 +4134,8 @@ class Client:
         Summary: 物流信用流转按模式主动清分
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyCreditmodeIssueclearResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyCreditmodeIssueclearResponse(),
             await self.do_request_async('1.0', 'digital.logistic.creditmode.issueclear.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4036,7 +4174,8 @@ class Client:
         Summary: 信用流转发行信息上传SAAS版
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadCreditIssuebysaasResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadCreditIssuebysaasResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuebysaas.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4051,7 +4190,8 @@ class Client:
         Summary: 信用流转发行信息上传SAAS版
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadCreditIssuebysaasResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadCreditIssuebysaasResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuebysaas.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4090,7 +4230,8 @@ class Client:
         Summary: 信用流转B模式发行批次撤销SAAS版
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CancelCreditIssuebatchbysaasResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CancelCreditIssuebatchbysaasResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuebatchbysaas.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4105,7 +4246,8 @@ class Client:
         Summary: 信用流转B模式发行批次撤销SAAS版
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CancelCreditIssuebatchbysaasResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CancelCreditIssuebatchbysaasResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuebatchbysaas.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4144,7 +4286,8 @@ class Client:
         Summary: 信用流转可用额度查询SAAS版
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditBalancebysaasResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditBalancebysaasResponse(),
             self.do_request('1.0', 'digital.logistic.credit.balancebysaas.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4159,7 +4302,8 @@ class Client:
         Summary: 信用流转可用额度查询SAAS版
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditBalancebysaasResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditBalancebysaasResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.balancebysaas.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4198,7 +4342,8 @@ class Client:
         Summary: 信用凭证电子回单获取
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.GetCreditIssuescpticketResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.GetCreditIssuescpticketResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuescpticket.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4213,7 +4358,8 @@ class Client:
         Summary: 信用凭证电子回单获取
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.GetCreditIssuescpticketResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.GetCreditIssuescpticketResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuescpticket.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4252,7 +4398,8 @@ class Client:
         Summary: 信用凭证电子回单获取结果查询接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuescpticketresultResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuescpticketresultResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuescpticketresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4267,7 +4414,8 @@ class Client:
         Summary: 信用凭证电子回单获取结果查询接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditIssuescpticketresultResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditIssuescpticketresultResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuescpticketresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4306,7 +4454,8 @@ class Client:
         Summary: 信用流转A+模式发行信息上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadCreditAplusissueResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadCreditAplusissueResponse(),
             self.do_request('1.0', 'digital.logistic.credit.aplusissue.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4321,7 +4470,8 @@ class Client:
         Summary: 信用流转A+模式发行信息上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadCreditAplusissueResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadCreditAplusissueResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.aplusissue.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4360,7 +4510,8 @@ class Client:
         Summary: 信用流转可用额度查询接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditCreditamountResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditCreditamountResponse(),
             self.do_request('1.0', 'digital.logistic.credit.creditamount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4375,7 +4526,8 @@ class Client:
         Summary: 信用流转可用额度查询接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditCreditamountResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditCreditamountResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.creditamount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4414,7 +4566,8 @@ class Client:
         Summary: 信用流转非授信通用签约接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCreditCommonsignResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCreditCommonsignResponse(),
             self.do_request('1.0', 'digital.logistic.credit.commonsign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4429,7 +4582,8 @@ class Client:
         Summary: 信用流转非授信通用签约接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateCreditCommonsignResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateCreditCommonsignResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.commonsign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4468,7 +4622,8 @@ class Client:
         Summary: 信用流转非授信通用签约查询接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditCommonsignResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditCommonsignResponse(),
             self.do_request('1.0', 'digital.logistic.credit.commonsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4483,7 +4638,8 @@ class Client:
         Summary: 信用流转非授信通用签约查询接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryCreditCommonsignResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryCreditCommonsignResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.commonsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4522,7 +4678,8 @@ class Client:
         Summary: 信用流转凭证合并发行接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.BatchcreateCreditIssueResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.BatchcreateCreditIssueResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issue.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4537,7 +4694,8 @@ class Client:
         Summary: 信用流转凭证合并发行接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.BatchcreateCreditIssueResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.BatchcreateCreditIssueResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issue.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4576,7 +4734,8 @@ class Client:
         Summary: 信用流转凭证合并发行信息上传接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadCreditIssuebatchResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadCreditIssuebatchResponse(),
             self.do_request('1.0', 'digital.logistic.credit.issuebatch.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4591,7 +4750,8 @@ class Client:
         Summary: 信用流转凭证合并发行信息上传接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadCreditIssuebatchResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadCreditIssuebatchResponse(),
             await self.do_request_async('1.0', 'digital.logistic.credit.issuebatch.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4630,7 +4790,8 @@ class Client:
         Summary: 信用凭证电子回单获取(新)
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.GetIssueTransferfileResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.GetIssueTransferfileResponse(),
             self.do_request('1.0', 'digital.logistic.issue.transferfile.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4645,7 +4806,8 @@ class Client:
         Summary: 信用凭证电子回单获取(新)
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.GetIssueTransferfileResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.GetIssueTransferfileResponse(),
             await self.do_request_async('1.0', 'digital.logistic.issue.transferfile.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4684,7 +4846,8 @@ class Client:
         Summary: 投保接口-中华财险-承运人责任险
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsurancepolicyZhonghuacaixianResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsurancepolicyZhonghuacaixianResponse(),
             self.do_request('1.0', 'digital.logistic.insurancepolicy.zhonghuacaixian.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4699,7 +4862,8 @@ class Client:
         Summary: 投保接口-中华财险-承运人责任险
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsurancepolicyZhonghuacaixianResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsurancepolicyZhonghuacaixianResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurancepolicy.zhonghuacaixian.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4738,7 +4902,8 @@ class Client:
         Summary: 退保接口-中华财险-承运人责任险
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CancelInsurancepolicyZhonghuacaixianResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CancelInsurancepolicyZhonghuacaixianResponse(),
             self.do_request('1.0', 'digital.logistic.insurancepolicy.zhonghuacaixian.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4753,7 +4918,8 @@ class Client:
         Summary: 退保接口-中华财险-承运人责任险
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CancelInsurancepolicyZhonghuacaixianResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CancelInsurancepolicyZhonghuacaixianResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurancepolicy.zhonghuacaixian.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4792,7 +4958,8 @@ class Client:
         Summary: 保险理赔通知
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.PushInsurancenotifyClaimResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.PushInsurancenotifyClaimResponse(),
             self.do_request('1.0', 'digital.logistic.insurancenotify.claim.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4807,7 +4974,8 @@ class Client:
         Summary: 保险理赔通知
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.PushInsurancenotifyClaimResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.PushInsurancenotifyClaimResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurancenotify.claim.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4846,7 +5014,8 @@ class Client:
         Summary: 上传文件链接申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceFileurlResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceFileurlResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.fileurl.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4861,7 +5030,8 @@ class Client:
         Summary: 上传文件链接申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceFileurlResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceFileurlResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.fileurl.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4903,7 +5073,8 @@ class Client:
         Summary: 投保接口-承运人平台责任险
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsurancepolicyUniversalResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsurancepolicyUniversalResponse(),
             self.do_request('1.0', 'digital.logistic.insurancepolicy.universal.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4919,7 +5090,8 @@ class Client:
         Summary: 投保接口-承运人平台责任险
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsurancepolicyUniversalResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsurancepolicyUniversalResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurancepolicy.universal.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4958,7 +5130,8 @@ class Client:
         Summary: 退保接口-承运人平台责任险
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CancelInsurancepolicyUniversalResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CancelInsurancepolicyUniversalResponse(),
             self.do_request('1.0', 'digital.logistic.insurancepolicy.universal.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4973,7 +5146,8 @@ class Client:
         Summary: 退保接口-承运人平台责任险
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CancelInsurancepolicyUniversalResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CancelInsurancepolicyUniversalResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurancepolicy.universal.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5012,7 +5186,8 @@ class Client:
         Summary: 离线保单存证推送
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.PushInsuranceOlpResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.PushInsuranceOlpResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.olp.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5027,7 +5202,8 @@ class Client:
         Summary: 离线保单存证推送
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.PushInsuranceOlpResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.PushInsuranceOlpResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.olp.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5066,7 +5242,8 @@ class Client:
         Summary: 离线保单更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateInsuranceOlpResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateInsuranceOlpResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.olp.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5081,7 +5258,8 @@ class Client:
         Summary: 离线保单更新
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateInsuranceOlpResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateInsuranceOlpResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.olp.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5120,7 +5298,8 @@ class Client:
         Summary: 再保分保单推送
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.PushInsuranceReppolicyResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.PushInsuranceReppolicyResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.reppolicy.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5135,7 +5314,8 @@ class Client:
         Summary: 再保分保单推送
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.PushInsuranceReppolicyResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.PushInsuranceReppolicyResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.reppolicy.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5174,7 +5354,8 @@ class Client:
         Summary: 再保批改单推送
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.PushInsuranceRepcorrectResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.PushInsuranceRepcorrectResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.repcorrect.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5189,7 +5370,8 @@ class Client:
         Summary: 再保批改单推送
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.PushInsuranceRepcorrectResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.PushInsuranceRepcorrectResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.repcorrect.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5228,7 +5410,8 @@ class Client:
         Summary: 跨境运费险投保
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceCbrfResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceCbrfResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.cbrf.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5243,7 +5426,8 @@ class Client:
         Summary: 跨境运费险投保
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceCbrfResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceCbrfResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.cbrf.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5282,7 +5466,8 @@ class Client:
         Summary: 跨境运费险理赔
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.RepayInsuranceCbrfResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.RepayInsuranceCbrfResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.cbrf.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5297,7 +5482,8 @@ class Client:
         Summary: 跨境运费险理赔
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.RepayInsuranceCbrfResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.RepayInsuranceCbrfResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.cbrf.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5336,7 +5522,8 @@ class Client:
         Summary: 跨境出口货运险投保
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceCbecResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceCbecResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.cbec.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5351,7 +5538,8 @@ class Client:
         Summary: 跨境出口货运险投保
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceCbecResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceCbecResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.cbec.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5390,7 +5578,8 @@ class Client:
         Summary: 货物入库申报
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceStockinResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceStockinResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.stockin.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5405,7 +5594,8 @@ class Client:
         Summary: 货物入库申报
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceStockinResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceStockinResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.stockin.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5444,7 +5634,8 @@ class Client:
         Summary: 货物库存申报
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceInventoryResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceInventoryResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.inventory.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5459,7 +5650,8 @@ class Client:
         Summary: 货物库存申报
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceInventoryResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceInventoryResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.inventory.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5498,7 +5690,8 @@ class Client:
         Summary: 海外邮包险投保
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceOspiResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceOspiResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.ospi.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5513,7 +5706,8 @@ class Client:
         Summary: 海外邮包险投保
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceOspiResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceOspiResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.ospi.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5552,7 +5746,8 @@ class Client:
         Summary: 海外、跨境邮包险报案
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceOspireportResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceOspireportResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.ospireport.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5567,7 +5762,8 @@ class Client:
         Summary: 海外、跨境邮包险报案
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceOspireportResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceOspireportResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.ospireport.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5606,7 +5802,8 @@ class Client:
         Summary: 海外、跨境邮包险案件结果通知
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.NotifyInsuranceOspireportResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.NotifyInsuranceOspireportResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.ospireport.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5621,7 +5818,8 @@ class Client:
         Summary: 海外、跨境邮包险案件结果通知
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.NotifyInsuranceOspireportResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.NotifyInsuranceOspireportResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.ospireport.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5660,7 +5858,8 @@ class Client:
         Summary: 驿站宝投保
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceYzbResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceYzbResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.yzb.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5675,7 +5874,8 @@ class Client:
         Summary: 驿站宝投保
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceYzbResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceYzbResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.yzb.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5714,7 +5914,8 @@ class Client:
         Summary: 跨境邮包险投保
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceCbpiResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceCbpiResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.cbpi.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5729,7 +5930,8 @@ class Client:
         Summary: 跨境邮包险投保
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceCbpiResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceCbpiResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.cbpi.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5768,7 +5970,8 @@ class Client:
         Summary: 驿站宝报案
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceYzbreportResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceYzbreportResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.yzbreport.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5783,7 +5986,8 @@ class Client:
         Summary: 驿站宝报案
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyInsuranceYzbreportResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyInsuranceYzbreportResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.yzbreport.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5822,7 +6026,8 @@ class Client:
         Summary: 驿站宝案件进度查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryInsuranceYzbreportResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryInsuranceYzbreportResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.yzbreport.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5837,7 +6042,8 @@ class Client:
         Summary: 驿站宝案件进度查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryInsuranceYzbreportResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryInsuranceYzbreportResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.yzbreport.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5876,7 +6082,8 @@ class Client:
         Summary: 零担快运运单上链存证接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveInsuranceWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveInsuranceWaybillResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.waybill.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5891,7 +6098,8 @@ class Client:
         Summary: 零担快运运单上链存证接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveInsuranceWaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveInsuranceWaybillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.waybill.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5930,7 +6138,8 @@ class Client:
         Summary: 保险电子保单查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryInsuranceEpolicyResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryInsuranceEpolicyResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.epolicy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5945,7 +6154,8 @@ class Client:
         Summary: 保险电子保单查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryInsuranceEpolicyResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryInsuranceEpolicyResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.epolicy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5984,7 +6194,8 @@ class Client:
         Summary: 报案案件结果通知（内部）
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.NotifyInsuranceReportresultResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.NotifyInsuranceReportresultResponse(),
             self.do_request('1.0', 'digital.logistic.insurance.reportresult.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5999,7 +6210,8 @@ class Client:
         Summary: 报案案件结果通知（内部）
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.NotifyInsuranceReportresultResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.NotifyInsuranceReportresultResponse(),
             await self.do_request_async('1.0', 'digital.logistic.insurance.reportresult.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6038,7 +6250,8 @@ class Client:
         Summary: 授权签署信息推送
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.PushAuthSigninfoResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.PushAuthSigninfoResponse(),
             self.do_request('1.0', 'digital.logistic.auth.signinfo.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6053,7 +6266,8 @@ class Client:
         Summary: 授权签署信息推送
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.PushAuthSigninfoResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.PushAuthSigninfoResponse(),
             await self.do_request_async('1.0', 'digital.logistic.auth.signinfo.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6092,7 +6306,8 @@ class Client:
         Summary: 委托支付入账查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfPaymentResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfPaymentResponse(),
             self.do_request('1.0', 'digital.logistic.pf.payment.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6107,7 +6322,8 @@ class Client:
         Summary: 委托支付入账查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfPaymentResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfPaymentResponse(),
             await self.do_request_async('1.0', 'digital.logistic.pf.payment.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6146,7 +6362,8 @@ class Client:
         Summary: 借据信息查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfIouResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfIouResponse(),
             self.do_request('1.0', 'digital.logistic.pf.iou.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6161,7 +6378,8 @@ class Client:
         Summary: 借据信息查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfIouResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfIouResponse(),
             await self.do_request_async('1.0', 'digital.logistic.pf.iou.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6200,7 +6418,8 @@ class Client:
         Summary: 授信额度查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfQuotaResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfQuotaResponse(),
             self.do_request('1.0', 'digital.logistic.pf.quota.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6215,7 +6434,8 @@ class Client:
         Summary: 授信额度查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfQuotaResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfQuotaResponse(),
             await self.do_request_async('1.0', 'digital.logistic.pf.quota.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6254,7 +6474,8 @@ class Client:
         Summary: 池融资支用申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyPfWaybillfinancingResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyPfWaybillfinancingResponse(),
             self.do_request('1.0', 'digital.logistic.pf.waybillfinancing.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6269,7 +6490,8 @@ class Client:
         Summary: 池融资支用申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyPfWaybillfinancingResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyPfWaybillfinancingResponse(),
             await self.do_request_async('1.0', 'digital.logistic.pf.waybillfinancing.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6308,7 +6530,8 @@ class Client:
         Summary: 池融资账单质押
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.PushPfPledgeResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.PushPfPledgeResponse(),
             self.do_request('1.0', 'digital.logistic.pf.pledge.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6323,7 +6546,8 @@ class Client:
         Summary: 池融资账单质押
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.PushPfPledgeResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.PushPfPledgeResponse(),
             await self.do_request_async('1.0', 'digital.logistic.pf.pledge.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6362,7 +6586,8 @@ class Client:
         Summary: 质押状态查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfPledgeResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfPledgeResponse(),
             self.do_request('1.0', 'digital.logistic.pf.pledge.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6377,7 +6602,8 @@ class Client:
         Summary: 质押状态查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfPledgeResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfPledgeResponse(),
             await self.do_request_async('1.0', 'digital.logistic.pf.pledge.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6416,7 +6642,8 @@ class Client:
         Summary: 池融资融资支用状态查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfFinancingResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfFinancingResponse(),
             self.do_request('1.0', 'digital.logistic.pf.financing.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6431,7 +6658,8 @@ class Client:
         Summary: 池融资融资支用状态查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfFinancingResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfFinancingResponse(),
             await self.do_request_async('1.0', 'digital.logistic.pf.financing.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6470,7 +6698,8 @@ class Client:
         Summary: 池融资凭证核验结果查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CheckPfVoucherResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CheckPfVoucherResponse(),
             self.do_request('1.0', 'digital.logistic.pf.voucher.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6485,7 +6714,8 @@ class Client:
         Summary: 池融资凭证核验结果查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CheckPfVoucherResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CheckPfVoucherResponse(),
             await self.do_request_async('1.0', 'digital.logistic.pf.voucher.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6524,7 +6754,8 @@ class Client:
         Summary: 提款确认书申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyPfConfirmationResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyPfConfirmationResponse(),
             self.do_request('1.0', 'digital.logistic.pf.confirmation.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6539,7 +6770,8 @@ class Client:
         Summary: 提款确认书申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyPfConfirmationResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyPfConfirmationResponse(),
             await self.do_request_async('1.0', 'digital.logistic.pf.confirmation.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6578,7 +6810,8 @@ class Client:
         Summary: 池融资融资资格申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyPfFinancingqualificationResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyPfFinancingqualificationResponse(),
             self.do_request('1.0', 'digital.logistic.pf.financingqualification.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6593,7 +6826,8 @@ class Client:
         Summary: 池融资融资资格申请
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.ApplyPfFinancingqualificationResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.ApplyPfFinancingqualificationResponse(),
             await self.do_request_async('1.0', 'digital.logistic.pf.financingqualification.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6632,7 +6866,8 @@ class Client:
         Summary: 池融资融资资格申请结果查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfFinancingqualificationResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfFinancingqualificationResponse(),
             self.do_request('1.0', 'digital.logistic.pf.financingqualification.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6647,7 +6882,8 @@ class Client:
         Summary: 池融资融资资格申请结果查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfFinancingqualificationResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfFinancingqualificationResponse(),
             await self.do_request_async('1.0', 'digital.logistic.pf.financingqualification.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6686,7 +6922,8 @@ class Client:
         Summary: 池融资主站回调金融云接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CallbackPfDefinpfResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CallbackPfDefinpfResponse(),
             self.do_request('1.0', 'digital.logistic.pf.definpf.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6701,7 +6938,8 @@ class Client:
         Summary: 池融资主站回调金融云接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CallbackPfDefinpfResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CallbackPfDefinpfResponse(),
             await self.do_request_async('1.0', 'digital.logistic.pf.definpf.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6740,7 +6978,8 @@ class Client:
         Summary: 可提款额度查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfWithdrawResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfWithdrawResponse(),
             self.do_request('1.0', 'digital.logistic.pf.withdraw.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6755,7 +6994,8 @@ class Client:
         Summary: 可提款额度查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryPfWithdrawResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryPfWithdrawResponse(),
             await self.do_request_async('1.0', 'digital.logistic.pf.withdraw.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6794,7 +7034,8 @@ class Client:
         Summary: 创建货代did
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateDidForwarderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateDidForwarderResponse(),
             self.do_request('1.0', 'digital.logistic.did.forwarder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6809,7 +7050,8 @@ class Client:
         Summary: 创建货代did
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateDidForwarderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateDidForwarderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.did.forwarder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6848,7 +7090,8 @@ class Client:
         Summary: 创建saas平台did
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateDidSaasplatformResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateDidSaasplatformResponse(),
             self.do_request('1.0', 'digital.logistic.did.saasplatform.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6863,7 +7106,8 @@ class Client:
         Summary: 创建saas平台did
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateDidSaasplatformResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateDidSaasplatformResponse(),
             await self.do_request_async('1.0', 'digital.logistic.did.saasplatform.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6902,7 +7146,8 @@ class Client:
         Summary: 创建直客did
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateDidClientResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateDidClientResponse(),
             self.do_request('1.0', 'digital.logistic.did.client.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6917,7 +7162,8 @@ class Client:
         Summary: 创建直客did
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateDidClientResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateDidClientResponse(),
             await self.do_request_async('1.0', 'digital.logistic.did.client.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6956,7 +7202,8 @@ class Client:
         Summary: 保存订单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizOrderResponse(),
             self.do_request('1.0', 'digital.logistic.biz.order.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6971,7 +7218,8 @@ class Client:
         Summary: 保存订单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizOrderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.order.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7010,7 +7258,8 @@ class Client:
         Summary: 保存托单文件
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizConsignorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizConsignorderResponse(),
             self.do_request('1.0', 'digital.logistic.biz.consignorder.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7025,7 +7274,8 @@ class Client:
         Summary: 保存托单文件
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizConsignorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizConsignorderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.consignorder.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7064,7 +7314,8 @@ class Client:
         Summary: 保存货物
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizGoodsResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizGoodsResponse(),
             self.do_request('1.0', 'digital.logistic.biz.goods.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7079,7 +7330,8 @@ class Client:
         Summary: 保存货物
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizGoodsResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizGoodsResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.goods.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7118,7 +7370,8 @@ class Client:
         Summary: 保存SO入货通知
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizSonotifyResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizSonotifyResponse(),
             self.do_request('1.0', 'digital.logistic.biz.sonotify.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7133,7 +7386,8 @@ class Client:
         Summary: 保存SO入货通知
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizSonotifyResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizSonotifyResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.sonotify.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7172,7 +7426,8 @@ class Client:
         Summary: 保存订舱单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizBookingorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizBookingorderResponse(),
             self.do_request('1.0', 'digital.logistic.biz.bookingorder.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7187,7 +7442,8 @@ class Client:
         Summary: 保存订舱单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizBookingorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizBookingorderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.bookingorder.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7226,7 +7482,8 @@ class Client:
         Summary: 保存集装箱
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizContainerResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizContainerResponse(),
             self.do_request('1.0', 'digital.logistic.biz.container.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7241,7 +7498,8 @@ class Client:
         Summary: 保存集装箱
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizContainerResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizContainerResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.container.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7280,7 +7538,8 @@ class Client:
         Summary: 保存报关单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizCustomsorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizCustomsorderResponse(),
             self.do_request('1.0', 'digital.logistic.biz.customsorder.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7295,7 +7554,8 @@ class Client:
         Summary: 保存报关单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizCustomsorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizCustomsorderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.customsorder.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7334,7 +7594,8 @@ class Client:
         Summary: 保存拖车单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizVehicleResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizVehicleResponse(),
             self.do_request('1.0', 'digital.logistic.biz.vehicle.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7349,7 +7610,8 @@ class Client:
         Summary: 保存拖车单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizVehicleResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizVehicleResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.vehicle.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7388,7 +7650,8 @@ class Client:
         Summary: 保存master提单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizMasterblResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizMasterblResponse(),
             self.do_request('1.0', 'digital.logistic.biz.masterbl.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7403,7 +7666,8 @@ class Client:
         Summary: 保存master提单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizMasterblResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizMasterblResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.masterbl.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7442,7 +7706,8 @@ class Client:
         Summary: 内审完成
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.FinishBizAuditResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.FinishBizAuditResponse(),
             self.do_request('1.0', 'digital.logistic.biz.audit.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7457,7 +7722,8 @@ class Client:
         Summary: 内审完成
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.FinishBizAuditResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.FinishBizAuditResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.audit.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7496,7 +7762,8 @@ class Client:
         Summary: 保存house提单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizHouseblResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizHouseblResponse(),
             self.do_request('1.0', 'digital.logistic.biz.housebl.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7511,7 +7778,8 @@ class Client:
         Summary: 保存house提单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizHouseblResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizHouseblResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.housebl.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7550,7 +7818,8 @@ class Client:
         Summary: 创建应付账单(已下)
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateBillPaybillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateBillPaybillorderResponse(),
             self.do_request('1.0', 'digital.logistic.bill.paybillorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7565,7 +7834,8 @@ class Client:
         Summary: 创建应付账单(已下)
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateBillPaybillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateBillPaybillorderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.bill.paybillorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7604,7 +7874,8 @@ class Client:
         Summary: 创建应收账单(已下)
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateBillReceiptbillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateBillReceiptbillorderResponse(),
             self.do_request('1.0', 'digital.logistic.bill.receiptbillorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7619,7 +7890,8 @@ class Client:
         Summary: 创建应收账单(已下)
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateBillReceiptbillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateBillReceiptbillorderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.bill.receiptbillorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7658,7 +7930,8 @@ class Client:
         Summary: 保存应付资费项
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBillPaybilltariffResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBillPaybilltariffResponse(),
             self.do_request('1.0', 'digital.logistic.bill.paybilltariff.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7673,7 +7946,8 @@ class Client:
         Summary: 保存应付资费项
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBillPaybilltariffResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBillPaybilltariffResponse(),
             await self.do_request_async('1.0', 'digital.logistic.bill.paybilltariff.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7712,7 +7986,8 @@ class Client:
         Summary: 保存应收资费项
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBillReceiptbilltariffResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBillReceiptbilltariffResponse(),
             self.do_request('1.0', 'digital.logistic.bill.receiptbilltariff.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7727,7 +8002,8 @@ class Client:
         Summary: 保存应收资费项
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBillReceiptbilltariffResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBillReceiptbilltariffResponse(),
             await self.do_request_async('1.0', 'digital.logistic.bill.receiptbilltariff.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7766,7 +8042,8 @@ class Client:
         Summary: 核销应付资费项
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.VerifyBillPaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.VerifyBillPaybillResponse(),
             self.do_request('1.0', 'digital.logistic.bill.paybill.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7781,7 +8058,8 @@ class Client:
         Summary: 核销应付资费项
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.VerifyBillPaybillResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.VerifyBillPaybillResponse(),
             await self.do_request_async('1.0', 'digital.logistic.bill.paybill.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7820,7 +8098,8 @@ class Client:
         Summary: 核销应收资费项
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.VerifyBillReceiptbillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.VerifyBillReceiptbillorderResponse(),
             self.do_request('1.0', 'digital.logistic.bill.receiptbillorder.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7835,7 +8114,8 @@ class Client:
         Summary: 核销应收资费项
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.VerifyBillReceiptbillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.VerifyBillReceiptbillorderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.bill.receiptbillorder.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7874,7 +8154,8 @@ class Client:
         Summary: 更新应付账单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateBillPaybillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateBillPaybillorderResponse(),
             self.do_request('1.0', 'digital.logistic.bill.paybillorder.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7889,7 +8170,8 @@ class Client:
         Summary: 更新应付账单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateBillPaybillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateBillPaybillorderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.bill.paybillorder.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7928,7 +8210,8 @@ class Client:
         Summary: 更新应收账单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateBillReceiptbillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateBillReceiptbillorderResponse(),
             self.do_request('1.0', 'digital.logistic.bill.receiptbillorder.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7943,7 +8226,8 @@ class Client:
         Summary: 更新应收账单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateBillReceiptbillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateBillReceiptbillorderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.bill.receiptbillorder.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7982,7 +8266,8 @@ class Client:
         Summary: 保存应付发票
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBillPayinvoiceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBillPayinvoiceResponse(),
             self.do_request('1.0', 'digital.logistic.bill.payinvoice.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7997,7 +8282,8 @@ class Client:
         Summary: 保存应付发票
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBillPayinvoiceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBillPayinvoiceResponse(),
             await self.do_request_async('1.0', 'digital.logistic.bill.payinvoice.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8036,7 +8322,8 @@ class Client:
         Summary: 保存应收发票
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBillReceiptinvoiceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBillReceiptinvoiceResponse(),
             self.do_request('1.0', 'digital.logistic.bill.receiptinvoice.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8051,7 +8338,8 @@ class Client:
         Summary: 保存应收发票
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBillReceiptinvoiceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBillReceiptinvoiceResponse(),
             await self.do_request_async('1.0', 'digital.logistic.bill.receiptinvoice.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8090,7 +8378,8 @@ class Client:
         Summary: 上传历史数据
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadBizFinancingResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadBizFinancingResponse(),
             self.do_request('1.0', 'digital.logistic.biz.financing.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8105,7 +8394,8 @@ class Client:
         Summary: 上传历史数据
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadBizFinancingResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadBizFinancingResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.financing.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8144,7 +8434,8 @@ class Client:
         Summary: 上传订单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadBizOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadBizOrderResponse(),
             self.do_request('1.0', 'digital.logistic.biz.order.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8159,7 +8450,8 @@ class Client:
         Summary: 上传订单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadBizOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadBizOrderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.order.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8198,7 +8490,8 @@ class Client:
         Summary: 创建船公司did账户
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateDidCarrierResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateDidCarrierResponse(),
             self.do_request('1.0', 'digital.logistic.did.carrier.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8213,7 +8506,8 @@ class Client:
         Summary: 创建船公司did账户
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.CreateDidCarrierResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.CreateDidCarrierResponse(),
             await self.do_request_async('1.0', 'digital.logistic.did.carrier.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8252,7 +8546,8 @@ class Client:
         Summary:  货代授权
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.AuthSysForwarderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.AuthSysForwarderResponse(),
             self.do_request('1.0', 'digital.logistic.sys.forwarder.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8267,7 +8562,8 @@ class Client:
         Summary:  货代授权
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.AuthSysForwarderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.AuthSysForwarderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.sys.forwarder.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8306,7 +8602,8 @@ class Client:
         Summary: master提单信息查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryBizMasterblResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryBizMasterblResponse(),
             self.do_request('1.0', 'digital.logistic.biz.masterbl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8321,7 +8618,8 @@ class Client:
         Summary: master提单信息查询
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.QueryBizMasterblResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.QueryBizMasterblResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.masterbl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8360,7 +8658,8 @@ class Client:
         Summary: 应付发票文件上传接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizPayinvoicefileResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizPayinvoicefileResponse(),
             self.do_request('1.0', 'digital.logistic.biz.payinvoicefile.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8375,7 +8674,8 @@ class Client:
         Summary: 应付发票文件上传接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBizPayinvoicefileResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBizPayinvoicefileResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biz.payinvoicefile.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8414,7 +8714,8 @@ class Client:
         Summary: 托运订单保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewOrderResponse(),
             self.do_request('1.0', 'digital.logistic.biznew.order.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8429,7 +8730,8 @@ class Client:
         Summary: 托运订单保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewOrderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewOrderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biznew.order.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8468,7 +8770,8 @@ class Client:
         Summary: 订舱单创建接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewBookingResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewBookingResponse(),
             self.do_request('1.0', 'digital.logistic.biznew.booking.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8483,7 +8786,8 @@ class Client:
         Summary: 订舱单创建接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewBookingResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewBookingResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biznew.booking.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8522,7 +8826,8 @@ class Client:
         Summary: 拖车单保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewVehicleResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewVehicleResponse(),
             self.do_request('1.0', 'digital.logistic.biznew.vehicle.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8537,7 +8842,8 @@ class Client:
         Summary: 拖车单保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewVehicleResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewVehicleResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biznew.vehicle.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8576,7 +8882,8 @@ class Client:
         Summary: 报关单保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewCustomsResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewCustomsResponse(),
             self.do_request('1.0', 'digital.logistic.biznew.customs.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8591,7 +8898,8 @@ class Client:
         Summary: 报关单保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewCustomsResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewCustomsResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biznew.customs.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8630,7 +8938,8 @@ class Client:
         Summary: 航运提单保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewMasterResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewMasterResponse(),
             self.do_request('1.0', 'digital.logistic.biznew.master.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8645,7 +8954,8 @@ class Client:
         Summary: 航运提单保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewMasterResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewMasterResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biznew.master.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8684,7 +8994,8 @@ class Client:
         Summary: 应付账单保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewPaybillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewPaybillorderResponse(),
             self.do_request('1.0', 'digital.logistic.biznew.paybillorder.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8699,7 +9010,8 @@ class Client:
         Summary: 应付账单保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewPaybillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewPaybillorderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biznew.paybillorder.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8738,7 +9050,8 @@ class Client:
         Summary: 应收账单保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewReceiptbillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewReceiptbillorderResponse(),
             self.do_request('1.0', 'digital.logistic.biznew.receiptbillorder.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8753,7 +9066,8 @@ class Client:
         Summary: 应收账单保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewReceiptbillorderResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewReceiptbillorderResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biznew.receiptbillorder.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8792,7 +9106,8 @@ class Client:
         Summary: 航运发票保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewInvoiceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewInvoiceResponse(),
             self.do_request('1.0', 'digital.logistic.biznew.invoice.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8807,7 +9122,8 @@ class Client:
         Summary: 航运发票保存接口
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.SaveBiznewInvoiceResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.SaveBiznewInvoiceResponse(),
             await self.do_request_async('1.0', 'digital.logistic.biznew.invoice.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8846,7 +9162,8 @@ class Client:
         Summary: 上传电子提单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadShippingEblResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadShippingEblResponse(),
             self.do_request('1.0', 'digital.logistic.shipping.ebl.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8861,7 +9178,8 @@ class Client:
         Summary: 上传电子提单
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadShippingEblResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadShippingEblResponse(),
             await self.do_request_async('1.0', 'digital.logistic.shipping.ebl.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8900,7 +9218,8 @@ class Client:
         Summary: 电子提单批次上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadShippingEblbatchResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadShippingEblbatchResponse(),
             self.do_request('1.0', 'digital.logistic.shipping.eblbatch.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8915,7 +9234,8 @@ class Client:
         Summary: 电子提单批次上传
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UploadShippingEblbatchResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UploadShippingEblbatchResponse(),
             await self.do_request_async('1.0', 'digital.logistic.shipping.eblbatch.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8954,7 +9274,8 @@ class Client:
         Summary: 电子提单批次状态变更
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateShippingEblbatchstatusResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateShippingEblbatchstatusResponse(),
             self.do_request('1.0', 'digital.logistic.shipping.eblbatchstatus.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8969,6 +9290,7 @@ class Client:
         Summary: 电子提单批次状态变更
         """
         UtilClient.validate_model(request)
-        return shuziwuliu_models.UpdateShippingEblbatchstatusResponse().from_map(
+        return TeaCore.from_map(
+            shuziwuliu_models.UpdateShippingEblbatchstatusResponse(),
             await self.do_request_async('1.0', 'digital.logistic.shipping.eblbatchstatus.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

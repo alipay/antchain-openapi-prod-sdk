@@ -13,8 +13,8 @@
 如未安装 `pip`, 请先至pip官网 [pip user guide](https://pip.pypa.io/en/stable/installing/ "pip User Guide") 安装pip .
 
 ```bash
-# 安装 antchain_sdk_shuziwuliu
-pip install antchain_sdk_shuziwuliu
+# 安装 antchain-shuziwuliu
+pip install antchain-shuziwuliu
 ```
 
 ## 问题
