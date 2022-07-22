@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.50"},
+                        {"sdk_version", "1.7.53"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.50"},
+                        {"sdk_version", "1.7.53"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -10655,6 +10655,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExistStubResponse>(await DoRequestAsync("1.0", "twc.notary.stub.exist", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字票根-清分接口
+         * Summary: 数字票根-清分接口
+         */
+        public CreateStubClearingResponse CreateStubClearing(CreateStubClearingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateStubClearingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字票根-清分接口
+         * Summary: 数字票根-清分接口
+         */
+        public async Task<CreateStubClearingResponse> CreateStubClearingAsync(CreateStubClearingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateStubClearingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字票根-清分接口
+         * Summary: 数字票根-清分接口
+         */
+        public CreateStubClearingResponse CreateStubClearingEx(CreateStubClearingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateStubClearingResponse>(DoRequest("1.0", "twc.notary.stub.clearing.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字票根-清分接口
+         * Summary: 数字票根-清分接口
+         */
+        public async Task<CreateStubClearingResponse> CreateStubClearingExAsync(CreateStubClearingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateStubClearingResponse>(await DoRequestAsync("1.0", "twc.notary.stub.clearing.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

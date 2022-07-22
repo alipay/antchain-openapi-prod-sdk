@@ -60,6 +60,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string CustomerId { get; set; }
 
+        // 景区支付宝id，当biz_source为Alipay时，该字段必填
+        [NameInMap("scene_alipay_id")]
+        [Validation(Required=false)]
+        public string SceneAlipayId { get; set; }
+
     }
 
 }
