@@ -29,6 +29,8 @@ use AntChain\MPAASFACEVERIFY\Models\QueryFaceauthRequest;
 use AntChain\MPAASFACEVERIFY\Models\QueryFaceauthResponse;
 use AntChain\MPAASFACEVERIFY\Models\QueryFaceplusRequest;
 use AntChain\MPAASFACEVERIFY\Models\QueryFaceplusResponse;
+use AntChain\MPAASFACEVERIFY\Models\UploadOcrServermodeRequest;
+use AntChain\MPAASFACEVERIFY\Models\UploadOcrServermodeResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -175,7 +177,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.11',
+                    'sdk_version'      => '1.1.12',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -516,5 +518,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryCertifyrecordResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.certifyrecord.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+     * Summary: OCR数据上传接口.
+     *
+     * @param UploadOcrServermodeRequest $request
+     *
+     * @return UploadOcrServermodeResponse
+     */
+    public function uploadOcrServermode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadOcrServermodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+     * Summary: OCR数据上传接口.
+     *
+     * @param UploadOcrServermodeRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UploadOcrServermodeResponse
+     */
+    public function uploadOcrServermodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadOcrServermodeResponse::fromMap($this->doRequest('1.0', 'antfin.mpaasfaceverify.ocr.servermode.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
