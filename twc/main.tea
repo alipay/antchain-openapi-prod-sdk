@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.50',
+    sdk_version = '1.7.53',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -851,6 +851,8 @@ model StubCommonInfo {
   stubAmount: long(name='stub_amount', example='100'),
   // 客户id。支付宝情况下传支付宝id，2088打头；景区时可传自定义的客户id
   customerId: string(name='customer_id', example='2088xxxxx'),
+  // 景区支付宝id，当biz_source为Alipay时，该字段必填
+  sceneAlipayId?: string(name='scene_alipay_id', example='2088xxxxx'),
 }
 
 // 见证流程创建响应数据
@@ -14324,7 +14326,7 @@ model ApplyFlowCertificateRequest = {
   // 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
   certificationType: string(name='certification_type'),
   // 公证处ID，OrgCertification（公证处存证证明）选填，不填则为默认公证处
-  orgId: string(name='org_id'),
+  orgId?: string(name='org_id'),
   // 是否需要legal码，默认为false即不需要，true表示需要
   needLegalCode?: boolean(name='need_legal_code'),
 }
@@ -14414,7 +14416,7 @@ model ApplyStubCertificateRequest = {
   // 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
   certificationType: string(name='certification_type'),
   // 公证处ID，OrgCertification（公证处存证证明）选填，不填则为默认公证处
-  orgId: string(name='org_id'),
+  orgId?: string(name='org_id'),
   // 是否需要legal码，默认为false即不需要，true表示需要
   needLegalCode?: boolean(name='need_legal_code'),
 }
@@ -14625,5 +14627,47 @@ async function existStub(request: ExistStubRequest): ExistStubResponse {
 async function existStubEx(request: ExistStubRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExistStubResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.stub.exist', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateStubClearingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 待分账金额，单位：分。如传100，即为100分，1元
+  stubAmount: long(name='stub_amount'),
+  // 清分状态，CLEARING_SUCCESS（清分成功）；CLEARING_FAIL（清分失败）；CLEARING_NONEED（不需要进行清分）
+  clearingStatus: string(name='clearing_status'),
+  // 数字票根计量字段，当clearing_status为CLEARING_SUCCESS时，该字段必填
+  metricInfo?: MetricInfo(name='metric_info'),
+}
+
+model CreateStubClearingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 数字票根-清分接口
+ * Summary: 数字票根-清分接口
+ */
+async function createStubClearing(request: CreateStubClearingRequest): CreateStubClearingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createStubClearingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字票根-清分接口
+ * Summary: 数字票根-清分接口
+ */
+async function createStubClearingEx(request: CreateStubClearingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateStubClearingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.stub.clearing.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
