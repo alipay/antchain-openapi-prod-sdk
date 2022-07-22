@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.11',
+    sdk_version = '1.1.12',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -620,5 +620,55 @@ async function queryCertifyrecord(request: QueryCertifyrecordRequest): QueryCert
 async function queryCertifyrecordEx(request: QueryCertifyrecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCertifyrecordResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antfin.mpaasfaceverify.certifyrecord.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadOcrServermodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string(name='biz_id'),
+  // 预留扩展业务参数
+  externParam?: string(name='extern_param'),
+  // 对称密钥加密的ocr内容
+  content: string(name='content'),
+  // 非对称密钥加密后的对称密钥
+  contentSig: string(name='content_sig'),
+}
+
+model UploadOcrServermodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 预留扩展结果
+  externInfo?: string(name='extern_info'),
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string(name='result_code_sub'),
+  // result_code_sub对应的文案
+  resultMsgSub?: string(name='result_msg_sub'),
+  // 认证单据号
+  certifyId?: string(name='certify_id'),
+}
+
+/**
+ * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+ * Summary: OCR数据上传接口
+ */
+async function uploadOcrServermode(request: UploadOcrServermodeRequest): UploadOcrServermodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadOcrServermodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+ * Summary: OCR数据上传接口
+ */
+async function uploadOcrServermodeEx(request: UploadOcrServermodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadOcrServermodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antfin.mpaasfaceverify.ocr.servermode.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
