@@ -137,7 +137,7 @@ namespace AntChain.SDK.MPAASFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.11"},
+                        {"sdk_version", "1.1.12"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.MPAASFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.11"},
+                        {"sdk_version", "1.1.12"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -693,6 +693,48 @@ namespace AntChain.SDK.MPAASFACEVERIFY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCertifyrecordResponse>(await DoRequestAsync("1.0", "antfin.mpaasfaceverify.certifyrecord.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+         * Summary: OCR数据上传接口
+         */
+        public UploadOcrServermodeResponse UploadOcrServermode(UploadOcrServermodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadOcrServermodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+         * Summary: OCR数据上传接口
+         */
+        public async Task<UploadOcrServermodeResponse> UploadOcrServermodeAsync(UploadOcrServermodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadOcrServermodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+         * Summary: OCR数据上传接口
+         */
+        public UploadOcrServermodeResponse UploadOcrServermodeEx(UploadOcrServermodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadOcrServermodeResponse>(DoRequest("1.0", "antfin.mpaasfaceverify.ocr.servermode.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+         * Summary: OCR数据上传接口
+         */
+        public async Task<UploadOcrServermodeResponse> UploadOcrServermodeExAsync(UploadOcrServermodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadOcrServermodeResponse>(await DoRequestAsync("1.0", "antfin.mpaasfaceverify.ocr.servermode.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
