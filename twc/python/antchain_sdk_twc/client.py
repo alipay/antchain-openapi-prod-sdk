@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.50'
+                    'sdk_version': '1.7.53'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.50'
+                    'sdk_version': '1.7.53'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +306,8 @@ class Client:
         Summary: 仲裁状态信息变更回调接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CallbackArbitrationStatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CallbackArbitrationStatusResponse(),
             self.do_request('1.0', 'twc.notary.arbitration.status.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: 仲裁状态信息变更回调接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CallbackArbitrationStatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CallbackArbitrationStatusResponse(),
             await self.do_request_async('1.0', 'twc.notary.arbitration.status.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: 仲裁签署状态信息变更回调接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CallbackArbitrationSignstatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CallbackArbitrationSignstatusResponse(),
             self.do_request('1.0', 'twc.notary.arbitration.signstatus.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: 仲裁签署状态信息变更回调接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CallbackArbitrationSignstatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CallbackArbitrationSignstatusResponse(),
             await self.do_request_async('1.0', 'twc.notary.arbitration.signstatus.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: 创建电子合同签署个人帐户
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractAccountResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractAccountResponse(),
             self.do_request('1.0', 'twc.notary.contract.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +434,8 @@ class Client:
         Summary: 创建电子合同签署个人帐户
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractAccountResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractAccountResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +474,8 @@ class Client:
         Summary: 创建电子合同个人帐户印章
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractAccountsealResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractAccountsealResponse(),
             self.do_request('1.0', 'twc.notary.contract.accountseal.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +490,8 @@ class Client:
         Summary: 创建电子合同个人帐户印章
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractAccountsealResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractAccountsealResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.accountseal.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -525,7 +533,8 @@ class Client:
         Summary: 创建电子合同签署机构帐户
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractOrganizationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractOrganizationResponse(),
             self.do_request('1.0', 'twc.notary.contract.organization.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -541,7 +550,8 @@ class Client:
         Summary: 创建电子合同签署机构帐户
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractOrganizationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractOrganizationResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.organization.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -580,7 +590,8 @@ class Client:
         Summary: 创建电子合同机构帐户印章
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractOrgsealResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractOrgsealResponse(),
             self.do_request('1.0', 'twc.notary.contract.orgseal.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -595,7 +606,8 @@ class Client:
         Summary: 创建电子合同机构帐户印章
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractOrgsealResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractOrgsealResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.orgseal.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -634,7 +646,8 @@ class Client:
         Summary: 静默签署授权
         """
         UtilClient.validate_model(request)
-        return twc_models.AuthContractSignResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AuthContractSignResponse(),
             self.do_request('1.0', 'twc.notary.contract.sign.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -649,7 +662,8 @@ class Client:
         Summary: 静默签署授权
         """
         UtilClient.validate_model(request)
-        return twc_models.AuthContractSignResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AuthContractSignResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.sign.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -688,7 +702,8 @@ class Client:
         Summary: 通过文件上传方式创建电子合同签署模板
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractTemplateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractTemplateResponse(),
             self.do_request('1.0', 'twc.notary.contract.template.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -703,7 +718,8 @@ class Client:
         Summary: 通过文件上传方式创建电子合同签署模板
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractTemplateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractTemplateResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.template.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -742,7 +758,8 @@ class Client:
         Summary: 创建电子合同签署流程
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractFlowResponse(),
             self.do_request('1.0', 'twc.notary.contract.flow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -757,7 +774,8 @@ class Client:
         Summary: 创建电子合同签署流程
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractFlowResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.flow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -796,7 +814,8 @@ class Client:
         Summary: 向电子合同签署流程中添加待签署文档
         """
         UtilClient.validate_model(request)
-        return twc_models.AddContractDocumentResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AddContractDocumentResponse(),
             self.do_request('1.0', 'twc.notary.contract.document.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -811,7 +830,8 @@ class Client:
         Summary: 向电子合同签署流程中添加待签署文档
         """
         UtilClient.validate_model(request)
-        return twc_models.AddContractDocumentResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AddContractDocumentResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.document.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -850,7 +870,8 @@ class Client:
         Summary: 添加电子合同签署方自动盖章签署区
         """
         UtilClient.validate_model(request)
-        return twc_models.AddContractSignfieldResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AddContractSignfieldResponse(),
             self.do_request('1.0', 'twc.notary.contract.signfield.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -865,7 +886,8 @@ class Client:
         Summary: 添加电子合同签署方自动盖章签署区
         """
         UtilClient.validate_model(request)
-        return twc_models.AddContractSignfieldResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AddContractSignfieldResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.signfield.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -904,7 +926,8 @@ class Client:
         Summary: 电子合同签署流程开启
         """
         UtilClient.validate_model(request)
-        return twc_models.StartContractFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.StartContractFlowResponse(),
             self.do_request('1.0', 'twc.notary.contract.flow.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -919,7 +942,8 @@ class Client:
         Summary: 电子合同签署流程开启
         """
         UtilClient.validate_model(request)
-        return twc_models.StartContractFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.StartContractFlowResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.flow.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -958,7 +982,8 @@ class Client:
         Summary: 电子合同签署流程归档
         """
         UtilClient.validate_model(request)
-        return twc_models.SaveContractFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SaveContractFlowResponse(),
             self.do_request('1.0', 'twc.notary.contract.flow.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -973,7 +998,8 @@ class Client:
         Summary: 电子合同签署流程归档
         """
         UtilClient.validate_model(request)
-        return twc_models.SaveContractFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SaveContractFlowResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.flow.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1012,7 +1038,8 @@ class Client:
         Summary: 电子合同流程文档下载
         """
         UtilClient.validate_model(request)
-        return twc_models.DownloadContractDocumentResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DownloadContractDocumentResponse(),
             self.do_request('1.0', 'twc.notary.contract.document.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1027,7 +1054,8 @@ class Client:
         Summary: 电子合同流程文档下载
         """
         UtilClient.validate_model(request)
-        return twc_models.DownloadContractDocumentResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DownloadContractDocumentResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.document.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1066,7 +1094,8 @@ class Client:
         Summary: 通过电子合同模板添加文档
         """
         UtilClient.validate_model(request)
-        return twc_models.AddContractFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AddContractFileResponse(),
             self.do_request('1.0', 'twc.notary.contract.file.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1081,7 +1110,8 @@ class Client:
         Summary: 通过电子合同模板添加文档
         """
         UtilClient.validate_model(request)
-        return twc_models.AddContractFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AddContractFileResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.file.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1120,7 +1150,8 @@ class Client:
         Summary: 电子合同平台方注册
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractPlatformResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractPlatformResponse(),
             self.do_request('1.0', 'twc.notary.contract.platform.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1135,7 +1166,8 @@ class Client:
         Summary: 电子合同平台方注册
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractPlatformResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractPlatformResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.platform.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1174,7 +1206,8 @@ class Client:
         Summary: 电子合同平台方的用户注册
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractUserResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractUserResponse(),
             self.do_request('1.0', 'twc.notary.contract.user.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1189,7 +1222,8 @@ class Client:
         Summary: 电子合同平台方的用户注册
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractUserResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractUserResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.user.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1228,7 +1262,8 @@ class Client:
         Summary: 电子合同平台方发起手动签署流程
         """
         UtilClient.validate_model(request)
-        return twc_models.StartContractHandsignResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.StartContractHandsignResponse(),
             self.do_request('1.0', 'twc.notary.contract.handsign.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1243,7 +1278,8 @@ class Client:
         Summary: 电子合同平台方发起手动签署流程
         """
         UtilClient.validate_model(request)
-        return twc_models.StartContractHandsignResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.StartContractHandsignResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.handsign.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1282,7 +1318,8 @@ class Client:
         Summary: 签署流程查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractFlowResponse(),
             self.do_request('1.0', 'twc.notary.contract.flow.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1297,7 +1334,8 @@ class Client:
         Summary: 签署流程查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractFlowResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.flow.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1336,7 +1374,8 @@ class Client:
         Summary: 创建个人/机构图片印章
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractAccountsealimageResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractAccountsealimageResponse(),
             self.do_request('1.0', 'twc.notary.contract.accountsealimage.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1351,7 +1390,8 @@ class Client:
         Summary: 创建个人/机构图片印章
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractAccountsealimageResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractAccountsealimageResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.accountsealimage.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1390,7 +1430,8 @@ class Client:
         Summary: 通过上传方式创建文件
         """
         UtilClient.validate_model(request)
-        return twc_models.GetContractFileuploadurlResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetContractFileuploadurlResponse(),
             self.do_request('1.0', 'twc.notary.contract.fileuploadurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1405,7 +1446,8 @@ class Client:
         Summary: 通过上传方式创建文件
         """
         UtilClient.validate_model(request)
-        return twc_models.GetContractFileuploadurlResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetContractFileuploadurlResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.fileuploadurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1447,7 +1489,8 @@ class Client:
         Summary: 添加平台自动盖章签署区
         """
         UtilClient.validate_model(request)
-        return twc_models.AddContractPlatformsignfieldsResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AddContractPlatformsignfieldsResponse(),
             self.do_request('1.0', 'twc.notary.contract.platformsignfields.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1463,7 +1506,8 @@ class Client:
         Summary: 添加平台自动盖章签署区
         """
         UtilClient.validate_model(request)
-        return twc_models.AddContractPlatformsignfieldsResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AddContractPlatformsignfieldsResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.platformsignfields.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1502,7 +1546,8 @@ class Client:
         Summary: 查询文件详情
         """
         UtilClient.validate_model(request)
-        return twc_models.GetContractFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetContractFileResponse(),
             self.do_request('1.0', 'twc.notary.contract.file.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1517,7 +1562,8 @@ class Client:
         Summary: 查询文件详情
         """
         UtilClient.validate_model(request)
-        return twc_models.GetContractFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetContractFileResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.file.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1556,7 +1602,8 @@ class Client:
         Summary: 查询个人印章
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractAccountsealsResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractAccountsealsResponse(),
             self.do_request('1.0', 'twc.notary.contract.accountseals.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1571,7 +1618,8 @@ class Client:
         Summary: 查询个人印章
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractAccountsealsResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractAccountsealsResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.accountseals.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1610,7 +1658,8 @@ class Client:
         Summary: 查询机构印章
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractOrganizationsealsResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractOrganizationsealsResponse(),
             self.do_request('1.0', 'twc.notary.contract.organizationseals.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1625,7 +1674,8 @@ class Client:
         Summary: 查询机构印章
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractOrganizationsealsResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractOrganizationsealsResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.organizationseals.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1664,7 +1714,8 @@ class Client:
         Summary: 查询流程签署人列表
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractFlowsignerResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractFlowsignerResponse(),
             self.do_request('1.0', 'twc.notary.contract.flowsigner.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1679,7 +1730,8 @@ class Client:
         Summary: 查询流程签署人列表
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractFlowsignerResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractFlowsignerResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.flowsigner.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1718,7 +1770,8 @@ class Client:
         Summary: 查询签署区列表
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractSignfieldsResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractSignfieldsResponse(),
             self.do_request('1.0', 'twc.notary.contract.signfields.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1733,7 +1786,8 @@ class Client:
         Summary: 查询签署区列表
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractSignfieldsResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractSignfieldsResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.signfields.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1772,7 +1826,8 @@ class Client:
         Summary: 查询个人账号
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractAccountResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractAccountResponse(),
             self.do_request('1.0', 'twc.notary.contract.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1787,7 +1842,8 @@ class Client:
         Summary: 查询个人账号
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractAccountResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractAccountResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1826,7 +1882,8 @@ class Client:
         Summary: 查询机构账号
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractOrganizationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractOrganizationResponse(),
             self.do_request('1.0', 'twc.notary.contract.organization.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1841,7 +1898,8 @@ class Client:
         Summary: 查询机构账号
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractOrganizationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractOrganizationResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.organization.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1880,7 +1938,8 @@ class Client:
         Summary: 查询模板详情详情
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractTemplateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractTemplateResponse(),
             self.do_request('1.0', 'twc.notary.contract.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1895,7 +1954,8 @@ class Client:
         Summary: 查询模板详情详情
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractTemplateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractTemplateResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1934,7 +1994,8 @@ class Client:
         Summary: 创建签署流程
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractSignflowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractSignflowResponse(),
             self.do_request('1.0', 'twc.notary.contract.signflow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1949,7 +2010,8 @@ class Client:
         Summary: 创建签署流程
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractSignflowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractSignflowResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.signflow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1988,7 +2050,8 @@ class Client:
         Summary: 商户签署直付通协议
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractRegisterzftResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractRegisterzftResponse(),
             self.do_request('1.0', 'twc.notary.contract.registerzft.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2003,7 +2066,8 @@ class Client:
         Summary: 商户签署直付通协议
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractRegisterzftResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractRegisterzftResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.registerzft.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2042,7 +2106,8 @@ class Client:
         Summary: 创建智能合同模板
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractPlatformtemplateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractPlatformtemplateResponse(),
             self.do_request('1.0', 'twc.notary.contract.platformtemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2057,7 +2122,8 @@ class Client:
         Summary: 创建智能合同模板
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractPlatformtemplateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractPlatformtemplateResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.platformtemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2096,7 +2162,8 @@ class Client:
         Summary: 查询商户直付通入驻信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractMerchantzftResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractMerchantzftResponse(),
             self.do_request('1.0', 'twc.notary.contract.merchantzft.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2111,7 +2178,8 @@ class Client:
         Summary: 查询商户直付通入驻信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractMerchantzftResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractMerchantzftResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.merchantzft.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2150,7 +2218,8 @@ class Client:
         Summary: 列举本租户合同相关交易
         """
         UtilClient.validate_model(request)
-        return twc_models.ListContractOuttradeidResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ListContractOuttradeidResponse(),
             self.do_request('1.0', 'twc.notary.contract.outtradeid.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2165,7 +2234,8 @@ class Client:
         Summary: 列举本租户合同相关交易
         """
         UtilClient.validate_model(request)
-        return twc_models.ListContractOuttradeidResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ListContractOuttradeidResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.outtradeid.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2204,7 +2274,8 @@ class Client:
         Summary: 根据订单id查询订单代扣详情
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractTradedetailResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractTradedetailResponse(),
             self.do_request('1.0', 'twc.notary.contract.tradedetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2219,7 +2290,8 @@ class Client:
         Summary: 根据订单id查询订单代扣详情
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractTradedetailResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractTradedetailResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.tradedetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2258,7 +2330,8 @@ class Client:
         Summary: 商户根据订单id退款
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractMerchantrefundResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractMerchantrefundResponse(),
             self.do_request('1.0', 'twc.notary.contract.merchantrefund.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2273,7 +2346,8 @@ class Client:
         Summary: 商户根据订单id退款
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractMerchantrefundResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractMerchantrefundResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.merchantrefund.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2312,7 +2386,8 @@ class Client:
         Summary: 创建蚂蚁区块链账户
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractAdminaccountResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractAdminaccountResponse(),
             self.do_request('1.0', 'twc.notary.contract.adminaccount.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2327,7 +2402,8 @@ class Client:
         Summary: 创建蚂蚁区块链账户
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractAdminaccountResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractAdminaccountResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.adminaccount.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2366,7 +2442,8 @@ class Client:
         Summary: 商户根据合同id列举所有的tradeId
         """
         UtilClient.validate_model(request)
-        return twc_models.ListContractTradeidsResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ListContractTradeidsResponse(),
             self.do_request('1.0', 'twc.notary.contract.tradeids.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2381,7 +2458,8 @@ class Client:
         Summary: 商户根据合同id列举所有的tradeId
         """
         UtilClient.validate_model(request)
-        return twc_models.ListContractTradeidsResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ListContractTradeidsResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.tradeids.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2420,7 +2498,8 @@ class Client:
         Summary: 商户上传代扣规则
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractCommontriggerResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractCommontriggerResponse(),
             self.do_request('1.0', 'twc.notary.contract.commontrigger.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2435,7 +2514,8 @@ class Client:
         Summary: 商户上传代扣规则
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractCommontriggerResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractCommontriggerResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.commontrigger.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2474,7 +2554,8 @@ class Client:
         Summary: 商户入驻直付通
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractMerchantindirectzftResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractMerchantindirectzftResponse(),
             self.do_request('1.0', 'twc.notary.contract.merchantindirectzft.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2489,7 +2570,8 @@ class Client:
         Summary: 商户入驻直付通
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractMerchantindirectzftResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractMerchantindirectzftResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.merchantindirectzft.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2528,7 +2610,8 @@ class Client:
         Summary: 根据订单id查询直付通商户入驻信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractMerchantindirectzftResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractMerchantindirectzftResponse(),
             self.do_request('1.0', 'twc.notary.contract.merchantindirectzft.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2543,7 +2626,8 @@ class Client:
         Summary: 根据订单id查询直付通商户入驻信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractMerchantindirectzftResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractMerchantindirectzftResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.merchantindirectzft.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2582,7 +2666,8 @@ class Client:
         Summary: 获取支付对账文件的url
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryPayresultfileurlResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryPayresultfileurlResponse(),
             self.do_request('1.0', 'twc.notary.payresultfileurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2597,7 +2682,8 @@ class Client:
         Summary: 获取支付对账文件的url
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryPayresultfileurlResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryPayresultfileurlResponse(),
             await self.do_request_async('1.0', 'twc.notary.payresultfileurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2636,7 +2722,8 @@ class Client:
         Summary: 智能合同图片上传
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractMerchantimageResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractMerchantimageResponse(),
             self.do_request('1.0', 'twc.notary.contract.merchantimage.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2651,7 +2738,8 @@ class Client:
         Summary: 智能合同图片上传
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractMerchantimageResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractMerchantimageResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.merchantimage.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2690,7 +2778,8 @@ class Client:
         Summary: 取消智能合同剩余代扣条目
         """
         UtilClient.validate_model(request)
-        return twc_models.CancelContractPaytradeResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CancelContractPaytradeResponse(),
             self.do_request('1.0', 'twc.notary.contract.paytrade.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2705,7 +2794,8 @@ class Client:
         Summary: 取消智能合同剩余代扣条目
         """
         UtilClient.validate_model(request)
-        return twc_models.CancelContractPaytradeResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CancelContractPaytradeResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.paytrade.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2744,7 +2834,8 @@ class Client:
         Summary: 创建手动签署流程
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractHandsignflowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractHandsignflowResponse(),
             self.do_request('1.0', 'twc.notary.contract.handsignflow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2759,7 +2850,8 @@ class Client:
         Summary: 创建手动签署流程
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractHandsignflowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractHandsignflowResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.handsignflow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2798,7 +2890,8 @@ class Client:
         Summary: 添加电子合同签署方手动盖章签署区
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractHandsignfieldResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractHandsignfieldResponse(),
             self.do_request('1.0', 'twc.notary.contract.handsignfield.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2813,7 +2906,8 @@ class Client:
         Summary: 添加电子合同签署方手动盖章签署区
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractHandsignfieldResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractHandsignfieldResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.handsignfield.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2852,7 +2946,8 @@ class Client:
         Summary: 获取签署地址
         """
         UtilClient.validate_model(request)
-        return twc_models.GetContractSignurlResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetContractSignurlResponse(),
             self.do_request('1.0', 'twc.notary.contract.signurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2867,7 +2962,8 @@ class Client:
         Summary: 获取签署地址
         """
         UtilClient.validate_model(request)
-        return twc_models.GetContractSignurlResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetContractSignurlResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.signurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2906,7 +3002,8 @@ class Client:
         Summary: 可信付代扣规则内容创建
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateWithholdAgreementResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateWithholdAgreementResponse(),
             self.do_request('1.0', 'twc.notary.withhold.agreement.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2921,7 +3018,8 @@ class Client:
         Summary: 可信付代扣规则内容创建
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateWithholdAgreementResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateWithholdAgreementResponse(),
             await self.do_request_async('1.0', 'twc.notary.withhold.agreement.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2960,7 +3058,8 @@ class Client:
         Summary: 查询可信付代扣协议内容
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryWithholdAgreementResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryWithholdAgreementResponse(),
             self.do_request('1.0', 'twc.notary.withhold.agreement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2975,7 +3074,8 @@ class Client:
         Summary: 查询可信付代扣协议内容
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryWithholdAgreementResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryWithholdAgreementResponse(),
             await self.do_request_async('1.0', 'twc.notary.withhold.agreement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3014,7 +3114,8 @@ class Client:
         Summary: 查询可信付协议的入口
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryWithholdAgreementurlResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryWithholdAgreementurlResponse(),
             self.do_request('1.0', 'twc.notary.withhold.agreementurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3029,7 +3130,8 @@ class Client:
         Summary: 查询可信付协议的入口
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryWithholdAgreementurlResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryWithholdAgreementurlResponse(),
             await self.do_request_async('1.0', 'twc.notary.withhold.agreementurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3068,7 +3170,8 @@ class Client:
         Summary: 后台录入商家的产品的逾期日
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateWithholdOverduetimeResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateWithholdOverduetimeResponse(),
             self.do_request('1.0', 'twc.notary.withhold.overduetime.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3083,7 +3186,8 @@ class Client:
         Summary: 后台录入商家的产品的逾期日
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateWithholdOverduetimeResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateWithholdOverduetimeResponse(),
             await self.do_request_async('1.0', 'twc.notary.withhold.overduetime.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3122,7 +3226,8 @@ class Client:
         Summary: 发送代扣请求
         """
         UtilClient.validate_model(request)
-        return twc_models.SendWithholdDeductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SendWithholdDeductResponse(),
             self.do_request('1.0', 'twc.notary.withhold.deduct.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3137,7 +3242,8 @@ class Client:
         Summary: 发送代扣请求
         """
         UtilClient.validate_model(request)
-        return twc_models.SendWithholdDeductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SendWithholdDeductResponse(),
             await self.do_request_async('1.0', 'twc.notary.withhold.deduct.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3176,7 +3282,8 @@ class Client:
         Summary: 可信付代扣结果查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryWithholdPayresultResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryWithholdPayresultResponse(),
             self.do_request('1.0', 'twc.notary.withhold.payresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3191,7 +3298,8 @@ class Client:
         Summary: 可信付代扣结果查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryWithholdPayresultResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryWithholdPayresultResponse(),
             await self.do_request_async('1.0', 'twc.notary.withhold.payresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3230,7 +3338,8 @@ class Client:
         Summary: 可信付退款请求
         """
         UtilClient.validate_model(request)
-        return twc_models.SendWithholdRefundResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SendWithholdRefundResponse(),
             self.do_request('1.0', 'twc.notary.withhold.refund.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3245,7 +3354,8 @@ class Client:
         Summary: 可信付退款请求
         """
         UtilClient.validate_model(request)
-        return twc_models.SendWithholdRefundResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SendWithholdRefundResponse(),
             await self.do_request_async('1.0', 'twc.notary.withhold.refund.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3284,7 +3394,8 @@ class Client:
         Summary: 创建注册邀请任务
         """
         UtilClient.validate_model(request)
-        return twc_models.SendContractInvitationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SendContractInvitationResponse(),
             self.do_request('1.0', 'twc.notary.contract.invitation.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3299,7 +3410,8 @@ class Client:
         Summary: 创建注册邀请任务
         """
         UtilClient.validate_model(request)
-        return twc_models.SendContractInvitationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SendContractInvitationResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.invitation.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3338,7 +3450,8 @@ class Client:
         Summary: 查询代扣规则
         """
         UtilClient.validate_model(request)
-        return twc_models.ListContractPayruleResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ListContractPayruleResponse(),
             self.do_request('1.0', 'twc.notary.contract.payrule.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3353,7 +3466,8 @@ class Client:
         Summary: 查询代扣规则
         """
         UtilClient.validate_model(request)
-        return twc_models.ListContractPayruleResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ListContractPayruleResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.payrule.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3392,7 +3506,8 @@ class Client:
         Summary: 获取可信付免签协议的二维码
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateWithholdQrcodeResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateWithholdQrcodeResponse(),
             self.do_request('1.0', 'twc.notary.withhold.qrcode.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3407,7 +3522,8 @@ class Client:
         Summary: 获取可信付免签协议的二维码
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateWithholdQrcodeResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateWithholdQrcodeResponse(),
             await self.do_request_async('1.0', 'twc.notary.withhold.qrcode.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3446,7 +3562,8 @@ class Client:
         Summary: 取消某一期的代扣规则
         """
         UtilClient.validate_model(request)
-        return twc_models.CancelContractPaysingletradeResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CancelContractPaysingletradeResponse(),
             self.do_request('1.0', 'twc.notary.contract.paysingletrade.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3461,7 +3578,8 @@ class Client:
         Summary: 取消某一期的代扣规则
         """
         UtilClient.validate_model(request)
-        return twc_models.CancelContractPaysingletradeResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CancelContractPaysingletradeResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.paysingletrade.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3500,7 +3618,8 @@ class Client:
         Summary: 申请区块链合同回调加签key
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyContractCallbackkeyResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyContractCallbackkeyResponse(),
             self.do_request('1.0', 'twc.notary.contract.callbackkey.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3515,7 +3634,8 @@ class Client:
         Summary: 申请区块链合同回调加签key
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyContractCallbackkeyResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyContractCallbackkeyResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.callbackkey.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3554,7 +3674,8 @@ class Client:
         Summary: 一步创建签署流程接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractOnestepflowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractOnestepflowResponse(),
             self.do_request('1.0', 'twc.notary.contract.onestepflow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3569,7 +3690,8 @@ class Client:
         Summary: 一步创建签署流程接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractOnestepflowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractOnestepflowResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.onestepflow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3608,7 +3730,8 @@ class Client:
         Summary: 查询合同存证信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractNotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractNotaryResponse(),
             self.do_request('1.0', 'twc.notary.contract.notary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3623,7 +3746,8 @@ class Client:
         Summary: 查询合同存证信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractNotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractNotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.notary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3662,7 +3786,8 @@ class Client:
         Summary: 获取合同存证事务ID
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateEcocontractTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateEcocontractTransResponse(),
             self.do_request('1.0', 'twc.notary.ecocontract.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3677,7 +3802,8 @@ class Client:
         Summary: 获取合同存证事务ID
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateEcocontractTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateEcocontractTransResponse(),
             await self.do_request_async('1.0', 'twc.notary.ecocontract.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3716,7 +3842,8 @@ class Client:
         Summary: 合同文本存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateEcocontractTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateEcocontractTextResponse(),
             self.do_request('1.0', 'twc.notary.ecocontract.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3731,7 +3858,8 @@ class Client:
         Summary: 合同文本存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateEcocontractTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateEcocontractTextResponse(),
             await self.do_request_async('1.0', 'twc.notary.ecocontract.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3770,7 +3898,8 @@ class Client:
         Summary: 搜索关键字坐标
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractWordspositionResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractWordspositionResponse(),
             self.do_request('1.0', 'twc.notary.contract.wordsposition.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3785,7 +3914,8 @@ class Client:
         Summary: 搜索关键字坐标
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractWordspositionResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractWordspositionResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.wordsposition.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3824,7 +3954,8 @@ class Client:
         Summary: 删除签署人
         """
         UtilClient.validate_model(request)
-        return twc_models.DeleteContractSignerResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DeleteContractSignerResponse(),
             self.do_request('1.0', 'twc.notary.contract.signer.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3839,7 +3970,8 @@ class Client:
         Summary: 删除签署人
         """
         UtilClient.validate_model(request)
-        return twc_models.DeleteContractSignerResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DeleteContractSignerResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.signer.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3878,7 +4010,8 @@ class Client:
         Summary: 获取区块链合同存证证明
         """
         UtilClient.validate_model(request)
-        return twc_models.GetContractCertificateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetContractCertificateResponse(),
             self.do_request('1.0', 'twc.notary.contract.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3893,7 +4026,8 @@ class Client:
         Summary: 获取区块链合同存证证明
         """
         UtilClient.validate_model(request)
-        return twc_models.GetContractCertificateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetContractCertificateResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3932,7 +4066,8 @@ class Client:
         Summary: 根据合同流程签署区查询已使用的印章id
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractSignfieldsealidResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractSignfieldsealidResponse(),
             self.do_request('1.0', 'twc.notary.contract.signfieldsealid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3947,7 +4082,8 @@ class Client:
         Summary: 根据合同流程签署区查询已使用的印章id
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractSignfieldsealidResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractSignfieldsealidResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.signfieldsealid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3986,7 +4122,8 @@ class Client:
         Summary: 通知签署方执行合同签署
         """
         UtilClient.validate_model(request)
-        return twc_models.NotifyContractSignerResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.NotifyContractSignerResponse(),
             self.do_request('1.0', 'twc.notary.contract.signer.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4001,7 +4138,8 @@ class Client:
         Summary: 通知签署方执行合同签署
         """
         UtilClient.validate_model(request)
-        return twc_models.NotifyContractSignerResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.NotifyContractSignerResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.signer.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4040,7 +4178,8 @@ class Client:
         Summary: 修改平台方注册信息
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateContractPlatformResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateContractPlatformResponse(),
             self.do_request('1.0', 'twc.notary.contract.platform.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4055,7 +4194,8 @@ class Client:
         Summary: 修改平台方注册信息
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateContractPlatformResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateContractPlatformResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.platform.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4094,7 +4234,8 @@ class Client:
         Summary: 修改用户注册信息
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateContractUserResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateContractUserResponse(),
             self.do_request('1.0', 'twc.notary.contract.user.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4109,7 +4250,8 @@ class Client:
         Summary: 修改用户注册信息
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateContractUserResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateContractUserResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.user.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4148,7 +4290,8 @@ class Client:
         Summary: 修改机构用户注册信息
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateContractOrganizationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateContractOrganizationResponse(),
             self.do_request('1.0', 'twc.notary.contract.organization.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4163,7 +4306,8 @@ class Client:
         Summary: 修改机构用户注册信息
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateContractOrganizationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateContractOrganizationResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.organization.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4202,7 +4346,8 @@ class Client:
         Summary: 商户入驻直付通新接口
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyContractMerchantResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyContractMerchantResponse(),
             self.do_request('1.0', 'twc.notary.contract.merchant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4217,7 +4362,8 @@ class Client:
         Summary: 商户入驻直付通新接口
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyContractMerchantResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyContractMerchantResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.merchant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4256,7 +4402,8 @@ class Client:
         Summary: 直付通商户入驻确认
         """
         UtilClient.validate_model(request)
-        return twc_models.ConfirmContractMerchantResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ConfirmContractMerchantResponse(),
             self.do_request('1.0', 'twc.notary.contract.merchant.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4271,7 +4418,8 @@ class Client:
         Summary: 直付通商户入驻确认
         """
         UtilClient.validate_model(request)
-        return twc_models.ConfirmContractMerchantResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ConfirmContractMerchantResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.merchant.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4310,7 +4458,8 @@ class Client:
         Summary: 创建合同存证事务ID。私有云使用。
         """
         UtilClient.validate_model(request)
-        return twc_models.CreatePrivatecontractTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreatePrivatecontractTransResponse(),
             self.do_request('1.0', 'twc.notary.privatecontract.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4325,7 +4474,8 @@ class Client:
         Summary: 创建合同存证事务ID。私有云使用。
         """
         UtilClient.validate_model(request)
-        return twc_models.CreatePrivatecontractTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreatePrivatecontractTransResponse(),
             await self.do_request_async('1.0', 'twc.notary.privatecontract.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4364,7 +4514,8 @@ class Client:
         Summary: 合同文本存证。私有云使用。
         """
         UtilClient.validate_model(request)
-        return twc_models.CreatePrivatecontractTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreatePrivatecontractTextResponse(),
             self.do_request('1.0', 'twc.notary.privatecontract.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4379,7 +4530,8 @@ class Client:
         Summary: 合同文本存证。私有云使用。
         """
         UtilClient.validate_model(request)
-        return twc_models.CreatePrivatecontractTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreatePrivatecontractTextResponse(),
             await self.do_request_async('1.0', 'twc.notary.privatecontract.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4418,7 +4570,8 @@ class Client:
         Summary: 个人二要素校验
         """
         UtilClient.validate_model(request)
-        return twc_models.VerifyPrivatepersonTwometaResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.VerifyPrivatepersonTwometaResponse(),
             self.do_request('1.0', 'twc.notary.privateperson.twometa.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4433,7 +4586,8 @@ class Client:
         Summary: 个人二要素校验
         """
         UtilClient.validate_model(request)
-        return twc_models.VerifyPrivatepersonTwometaResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.VerifyPrivatepersonTwometaResponse(),
             await self.do_request_async('1.0', 'twc.notary.privateperson.twometa.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4472,7 +4626,8 @@ class Client:
         Summary: 企业二要素校验
         """
         UtilClient.validate_model(request)
-        return twc_models.VerifyPrivatecompanyTwometaResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.VerifyPrivatecompanyTwometaResponse(),
             self.do_request('1.0', 'twc.notary.privatecompany.twometa.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4487,7 +4642,8 @@ class Client:
         Summary: 企业二要素校验
         """
         UtilClient.validate_model(request)
-        return twc_models.VerifyPrivatecompanyTwometaResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.VerifyPrivatecompanyTwometaResponse(),
             await self.do_request_async('1.0', 'twc.notary.privatecompany.twometa.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4526,7 +4682,8 @@ class Client:
         Summary: 企业四要素校验
         """
         UtilClient.validate_model(request)
-        return twc_models.VerifyPrivatecompanyFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.VerifyPrivatecompanyFourmetaResponse(),
             self.do_request('1.0', 'twc.notary.privatecompany.fourmeta.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4541,7 +4698,8 @@ class Client:
         Summary: 企业四要素校验
         """
         UtilClient.validate_model(request)
-        return twc_models.VerifyPrivatecompanyFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.VerifyPrivatecompanyFourmetaResponse(),
             await self.do_request_async('1.0', 'twc.notary.privatecompany.fourmeta.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4580,7 +4738,8 @@ class Client:
         Summary: 私有云的外部用户注册接口.
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyPrivatecontractCertResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyPrivatecontractCertResponse(),
             self.do_request('1.0', 'twc.notary.privatecontract.cert.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4595,7 +4754,8 @@ class Client:
         Summary: 私有云的外部用户注册接口.
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyPrivatecontractCertResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyPrivatecontractCertResponse(),
             await self.do_request_async('1.0', 'twc.notary.privatecontract.cert.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4634,7 +4794,8 @@ class Client:
         Summary: 代扣计划状态查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractTradestatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractTradestatusResponse(),
             self.do_request('1.0', 'twc.notary.contract.tradestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4649,7 +4810,8 @@ class Client:
         Summary: 代扣计划状态查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractTradestatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractTradestatusResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.tradestatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4688,7 +4850,8 @@ class Client:
         Summary: 代扣退款查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractRefundResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractRefundResponse(),
             self.do_request('1.0', 'twc.notary.contract.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4703,7 +4866,8 @@ class Client:
         Summary: 代扣退款查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractRefundResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractRefundResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4742,7 +4906,8 @@ class Client:
         Summary: 私有云服务获取外部用户签署地址
         """
         UtilClient.validate_model(request)
-        return twc_models.GetPrivatecontractSignurlResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetPrivatecontractSignurlResponse(),
             self.do_request('1.0', 'twc.notary.privatecontract.signurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4757,7 +4922,8 @@ class Client:
         Summary: 私有云服务获取外部用户签署地址
         """
         UtilClient.validate_model(request)
-        return twc_models.GetPrivatecontractSignurlResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetPrivatecontractSignurlResponse(),
             await self.do_request_async('1.0', 'twc.notary.privatecontract.signurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4796,7 +4962,8 @@ class Client:
         Summary: 商户入驻直付通进度查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractMerchantorderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractMerchantorderResponse(),
             self.do_request('1.0', 'twc.notary.contract.merchantorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4811,7 +4978,8 @@ class Client:
         Summary: 商户入驻直付通进度查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryContractMerchantorderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryContractMerchantorderResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.merchantorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4850,7 +5018,8 @@ class Client:
         Summary: 商户进件信息修改
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateContractMerchantResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateContractMerchantResponse(),
             self.do_request('1.0', 'twc.notary.contract.merchant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4865,7 +5034,8 @@ class Client:
         Summary: 商户进件信息修改
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateContractMerchantResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateContractMerchantResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.merchant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4904,7 +5074,8 @@ class Client:
         Summary: 二级商户代理挂接接口
         """
         UtilClient.validate_model(request)
-        return twc_models.BindContractMerchantResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.BindContractMerchantResponse(),
             self.do_request('1.0', 'twc.notary.contract.merchant.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4919,7 +5090,8 @@ class Client:
         Summary: 二级商户代理挂接接口
         """
         UtilClient.validate_model(request)
-        return twc_models.BindContractMerchantResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.BindContractMerchantResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.merchant.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4958,7 +5130,8 @@ class Client:
         Summary: 初始化新的私有化合同服务实例
         """
         UtilClient.validate_model(request)
-        return twc_models.InitPrivatecontractIntanceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.InitPrivatecontractIntanceResponse(),
             self.do_request('1.0', 'twc.notary.privatecontract.intance.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4973,7 +5146,8 @@ class Client:
         Summary: 初始化新的私有化合同服务实例
         """
         UtilClient.validate_model(request)
-        return twc_models.InitPrivatecontractIntanceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.InitPrivatecontractIntanceResponse(),
             await self.do_request_async('1.0', 'twc.notary.privatecontract.intance.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5012,7 +5186,8 @@ class Client:
         Summary: 更新私有化合同服务实例信息
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdatePrivatecontractIntanceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdatePrivatecontractIntanceResponse(),
             self.do_request('1.0', 'twc.notary.privatecontract.intance.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5027,7 +5202,8 @@ class Client:
         Summary: 更新私有化合同服务实例信息
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdatePrivatecontractIntanceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdatePrivatecontractIntanceResponse(),
             await self.do_request_async('1.0', 'twc.notary.privatecontract.intance.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5066,7 +5242,8 @@ class Client:
         Summary: 私有云用户证书更新接口.
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdatePrivatecontractCertResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdatePrivatecontractCertResponse(),
             self.do_request('1.0', 'twc.notary.privatecontract.cert.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5081,7 +5258,8 @@ class Client:
         Summary: 私有云用户证书更新接口.
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdatePrivatecontractCertResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdatePrivatecontractCertResponse(),
             await self.do_request_async('1.0', 'twc.notary.privatecontract.cert.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5120,7 +5298,8 @@ class Client:
         Summary: 商户进件申请信息重置
         """
         UtilClient.validate_model(request)
-        return twc_models.ResetContractMerchantapplyResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ResetContractMerchantapplyResponse(),
             self.do_request('1.0', 'twc.notary.contract.merchantapply.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5135,7 +5314,8 @@ class Client:
         Summary: 商户进件申请信息重置
         """
         UtilClient.validate_model(request)
-        return twc_models.ResetContractMerchantapplyResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ResetContractMerchantapplyResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.merchantapply.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5174,7 +5354,8 @@ class Client:
         Summary: 校验私有化合同服务实例权限情况
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckPrivatecontractProvisionResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckPrivatecontractProvisionResponse(),
             self.do_request('1.0', 'twc.notary.privatecontract.provision.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5189,7 +5370,8 @@ class Client:
         Summary: 校验私有化合同服务实例权限情况
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckPrivatecontractProvisionResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckPrivatecontractProvisionResponse(),
             await self.do_request_async('1.0', 'twc.notary.privatecontract.provision.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5228,7 +5410,8 @@ class Client:
         Summary: 私有化合同服务实例计量数据推送
         """
         UtilClient.validate_model(request)
-        return twc_models.PushPrivatecontractGaugeResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.PushPrivatecontractGaugeResponse(),
             self.do_request('1.0', 'twc.notary.privatecontract.gauge.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5243,7 +5426,8 @@ class Client:
         Summary: 私有化合同服务实例计量数据推送
         """
         UtilClient.validate_model(request)
-        return twc_models.PushPrivatecontractGaugeResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.PushPrivatecontractGaugeResponse(),
             await self.do_request_async('1.0', 'twc.notary.privatecontract.gauge.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5282,7 +5466,8 @@ class Client:
         Summary: 法院代扣账户扣款预校验
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckContractCourtdeductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckContractCourtdeductResponse(),
             self.do_request('1.0', 'twc.notary.contract.courtdeduct.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5297,7 +5482,8 @@ class Client:
         Summary: 法院代扣账户扣款预校验
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckContractCourtdeductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckContractCourtdeductResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.courtdeduct.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5336,7 +5522,8 @@ class Client:
         Summary: 法院代扣计划创建
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractCourtdeductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractCourtdeductResponse(),
             self.do_request('1.0', 'twc.notary.contract.courtdeduct.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5351,7 +5538,8 @@ class Client:
         Summary: 法院代扣计划创建
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractCourtdeductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractCourtdeductResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.courtdeduct.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5390,7 +5578,8 @@ class Client:
         Summary: 法院代扣执行扣款
         """
         UtilClient.validate_model(request)
-        return twc_models.ExecContractCourtdeductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ExecContractCourtdeductResponse(),
             self.do_request('1.0', 'twc.notary.contract.courtdeduct.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5405,7 +5594,8 @@ class Client:
         Summary: 法院代扣执行扣款
         """
         UtilClient.validate_model(request)
-        return twc_models.ExecContractCourtdeductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ExecContractCourtdeductResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.courtdeduct.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5444,7 +5634,8 @@ class Client:
         Summary: 向notarycore同步事务数据
         """
         UtilClient.validate_model(request)
-        return twc_models.SyncInnerTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SyncInnerTransResponse(),
             self.do_request('1.0', 'twc.notary.inner.trans.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5459,7 +5650,8 @@ class Client:
         Summary: 向notarycore同步事务数据
         """
         UtilClient.validate_model(request)
-        return twc_models.SyncInnerTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SyncInnerTransResponse(),
             await self.do_request_async('1.0', 'twc.notary.inner.trans.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5498,7 +5690,8 @@ class Client:
         Summary: 向notarycore同步存证数据
         """
         UtilClient.validate_model(request)
-        return twc_models.SyncInnerNotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SyncInnerNotaryResponse(),
             self.do_request('1.0', 'twc.notary.inner.notary.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5513,7 +5706,8 @@ class Client:
         Summary: 向notarycore同步存证数据
         """
         UtilClient.validate_model(request)
-        return twc_models.SyncInnerNotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SyncInnerNotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.inner.notary.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5552,7 +5746,8 @@ class Client:
         Summary: 向notarycore同步子租户数据
         """
         UtilClient.validate_model(request)
-        return twc_models.SyncInnerTwcopenResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SyncInnerTwcopenResponse(),
             self.do_request('1.0', 'twc.notary.inner.twcopen.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5567,7 +5762,8 @@ class Client:
         Summary: 向notarycore同步子租户数据
         """
         UtilClient.validate_model(request)
-        return twc_models.SyncInnerTwcopenResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SyncInnerTwcopenResponse(),
             await self.do_request_async('1.0', 'twc.notary.inner.twcopen.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5606,7 +5802,8 @@ class Client:
         Summary: 向notarycore同步租户数据
         """
         UtilClient.validate_model(request)
-        return twc_models.SyncInnerProvisionResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SyncInnerProvisionResponse(),
             self.do_request('1.0', 'twc.notary.inner.provision.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5621,7 +5818,8 @@ class Client:
         Summary: 向notarycore同步租户数据
         """
         UtilClient.validate_model(request)
-        return twc_models.SyncInnerProvisionResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SyncInnerProvisionResponse(),
             await self.do_request_async('1.0', 'twc.notary.inner.provision.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5660,7 +5858,8 @@ class Client:
         Summary: 向notarycore同步tsr数据
         """
         UtilClient.validate_model(request)
-        return twc_models.SyncInnerTsrResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SyncInnerTsrResponse(),
             self.do_request('1.0', 'twc.notary.inner.tsr.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5675,7 +5874,8 @@ class Client:
         Summary: 向notarycore同步tsr数据
         """
         UtilClient.validate_model(request)
-        return twc_models.SyncInnerTsrResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SyncInnerTsrResponse(),
             await self.do_request_async('1.0', 'twc.notary.inner.tsr.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5714,7 +5914,8 @@ class Client:
         Summary: 企业二要素认证
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckEpidentityTwometaResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckEpidentityTwometaResponse(),
             self.do_request('1.0', 'twc.notary.epidentity.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5729,7 +5930,8 @@ class Client:
         Summary: 企业二要素认证
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckEpidentityTwometaResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckEpidentityTwometaResponse(),
             await self.do_request_async('1.0', 'twc.notary.epidentity.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5768,7 +5970,8 @@ class Client:
         Summary: 企业三要素认证
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckEpidentityThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckEpidentityThreemetaResponse(),
             self.do_request('1.0', 'twc.notary.epidentity.threemeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5783,7 +5986,8 @@ class Client:
         Summary: 企业三要素认证
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckEpidentityThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckEpidentityThreemetaResponse(),
             await self.do_request_async('1.0', 'twc.notary.epidentity.threemeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5822,7 +6026,8 @@ class Client:
         Summary: 企业四要素认证
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckEpidentityFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckEpidentityFourmetaResponse(),
             self.do_request('1.0', 'twc.notary.epidentity.fourmeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5837,7 +6042,8 @@ class Client:
         Summary: 企业四要素认证
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckEpidentityFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckEpidentityFourmetaResponse(),
             await self.do_request_async('1.0', 'twc.notary.epidentity.fourmeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5876,7 +6082,8 @@ class Client:
         Summary: 查询公证订单的有效性
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckNotarizationOrderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckNotarizationOrderResponse(),
             self.do_request('1.0', 'twc.notary.notarization.order.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5891,7 +6098,8 @@ class Client:
         Summary: 查询公证订单的有效性
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckNotarizationOrderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckNotarizationOrderResponse(),
             await self.do_request_async('1.0', 'twc.notary.notarization.order.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5930,7 +6138,8 @@ class Client:
         Summary: 更新公证订单状态
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateNotarizationOrderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateNotarizationOrderResponse(),
             self.do_request('1.0', 'twc.notary.notarization.order.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5945,7 +6154,8 @@ class Client:
         Summary: 更新公证订单状态
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateNotarizationOrderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateNotarizationOrderResponse(),
             await self.do_request_async('1.0', 'twc.notary.notarization.order.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5984,7 +6194,8 @@ class Client:
         Summary: 设置订单属性
         """
         UtilClient.validate_model(request)
-        return twc_models.SetNotarizationOrderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SetNotarizationOrderResponse(),
             self.do_request('1.0', 'twc.notary.notarization.order.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5999,7 +6210,8 @@ class Client:
         Summary: 设置订单属性
         """
         UtilClient.validate_model(request)
-        return twc_models.SetNotarizationOrderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SetNotarizationOrderResponse(),
             await self.do_request_async('1.0', 'twc.notary.notarization.order.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6038,7 +6250,8 @@ class Client:
         Summary: 实人认证初始化
         """
         UtilClient.validate_model(request)
-        return twc_models.InitIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.InitIdentificationFaceauthResponse(),
             self.do_request('1.0', 'twc.notary.identification.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6053,7 +6266,8 @@ class Client:
         Summary: 实人认证初始化
         """
         UtilClient.validate_model(request)
-        return twc_models.InitIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.InitIdentificationFaceauthResponse(),
             await self.do_request_async('1.0', 'twc.notary.identification.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6092,7 +6306,8 @@ class Client:
         Summary: 发起实人认证
         """
         UtilClient.validate_model(request)
-        return twc_models.CertifyIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CertifyIdentificationFaceauthResponse(),
             self.do_request('1.0', 'twc.notary.identification.faceauth.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6107,7 +6322,8 @@ class Client:
         Summary: 发起实人认证
         """
         UtilClient.validate_model(request)
-        return twc_models.CertifyIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CertifyIdentificationFaceauthResponse(),
             await self.do_request_async('1.0', 'twc.notary.identification.faceauth.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6146,7 +6362,8 @@ class Client:
         Summary: 查询实人认证结果
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryIdentificationFaceauthResponse(),
             self.do_request('1.0', 'twc.notary.identification.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6161,7 +6378,8 @@ class Client:
         Summary: 查询实人认证结果
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryIdentificationFaceauthResponse(),
             await self.do_request_async('1.0', 'twc.notary.identification.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6200,7 +6418,8 @@ class Client:
         Summary: 企业法人认证查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryEnterpriseFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryEnterpriseFaceauthResponse(),
             self.do_request('1.0', 'twc.notary.enterprise.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6215,7 +6434,8 @@ class Client:
         Summary: 企业法人认证查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryEnterpriseFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryEnterpriseFaceauthResponse(),
             await self.do_request_async('1.0', 'twc.notary.enterprise.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6254,7 +6474,8 @@ class Client:
         Summary: 企业法人认证初始化
         """
         UtilClient.validate_model(request)
-        return twc_models.InitEnterpriseFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.InitEnterpriseFaceauthResponse(),
             self.do_request('1.0', 'twc.notary.enterprise.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6269,7 +6490,8 @@ class Client:
         Summary: 企业法人认证初始化
         """
         UtilClient.validate_model(request)
-        return twc_models.InitEnterpriseFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.InitEnterpriseFaceauthResponse(),
             await self.do_request_async('1.0', 'twc.notary.enterprise.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6308,7 +6530,8 @@ class Client:
         Summary: 企业法人认证开始
         """
         UtilClient.validate_model(request)
-        return twc_models.CertifyEnterpriseFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CertifyEnterpriseFaceauthResponse(),
             self.do_request('1.0', 'twc.notary.enterprise.faceauth.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6323,7 +6546,8 @@ class Client:
         Summary: 企业法人认证开始
         """
         UtilClient.validate_model(request)
-        return twc_models.CertifyEnterpriseFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CertifyEnterpriseFaceauthResponse(),
             await self.do_request_async('1.0', 'twc.notary.enterprise.faceauth.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6362,7 +6586,8 @@ class Client:
         Summary: 租赁订单创建
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseOrderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseOrderResponse(),
             self.do_request('1.0', 'twc.notary.lease.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6377,7 +6602,8 @@ class Client:
         Summary: 租赁订单创建
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseOrderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseOrderResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6416,7 +6642,8 @@ class Client:
         Summary: 公证场景创建收费订单
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateNotarizationBillResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateNotarizationBillResponse(),
             self.do_request('1.0', 'twc.notary.notarization.bill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6431,7 +6658,8 @@ class Client:
         Summary: 公证场景创建收费订单
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateNotarizationBillResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateNotarizationBillResponse(),
             await self.do_request_async('1.0', 'twc.notary.notarization.bill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6470,7 +6698,8 @@ class Client:
         Summary: 初始化存证证明订单
         """
         UtilClient.validate_model(request)
-        return twc_models.InitCertificationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.InitCertificationResponse(),
             self.do_request('1.0', 'twc.notary.certification.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6485,7 +6714,8 @@ class Client:
         Summary: 初始化存证证明订单
         """
         UtilClient.validate_model(request)
-        return twc_models.InitCertificationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.InitCertificationResponse(),
             await self.do_request_async('1.0', 'twc.notary.certification.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6524,7 +6754,8 @@ class Client:
         Summary: 查询存证证明申请状态
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryCertificationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryCertificationResponse(),
             self.do_request('1.0', 'twc.notary.certification.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6539,7 +6770,8 @@ class Client:
         Summary: 查询存证证明申请状态
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryCertificationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryCertificationResponse(),
             await self.do_request_async('1.0', 'twc.notary.certification.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6578,7 +6810,8 @@ class Client:
         Summary: 可信时间凭证服务 - 获取时间凭证证书
         """
         UtilClient.validate_model(request)
-        return twc_models.GetTsrCertificateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetTsrCertificateResponse(),
             self.do_request('1.0', 'twc.notary.tsr.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6593,7 +6826,8 @@ class Client:
         Summary: 可信时间凭证服务 - 获取时间凭证证书
         """
         UtilClient.validate_model(request)
-        return twc_models.GetTsrCertificateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetTsrCertificateResponse(),
             await self.do_request_async('1.0', 'twc.notary.tsr.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6632,7 +6866,8 @@ class Client:
         Summary: 联合执行履行记录新增/修改接口
         """
         UtilClient.validate_model(request)
-        return twc_models.SaveJointconstraintRecordResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SaveJointconstraintRecordResponse(),
             self.do_request('1.0', 'twc.notary.jointconstraint.record.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6647,7 +6882,8 @@ class Client:
         Summary: 联合执行履行记录新增/修改接口
         """
         UtilClient.validate_model(request)
-        return twc_models.SaveJointconstraintRecordResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SaveJointconstraintRecordResponse(),
             await self.do_request_async('1.0', 'twc.notary.jointconstraint.record.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6686,7 +6922,8 @@ class Client:
         Summary: 履行记录删除接口
         """
         UtilClient.validate_model(request)
-        return twc_models.DeleteJointconstraintRecordResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DeleteJointconstraintRecordResponse(),
             self.do_request('1.0', 'twc.notary.jointconstraint.record.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6701,7 +6938,8 @@ class Client:
         Summary: 履行记录删除接口
         """
         UtilClient.validate_model(request)
-        return twc_models.DeleteJointconstraintRecordResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DeleteJointconstraintRecordResponse(),
             await self.do_request_async('1.0', 'twc.notary.jointconstraint.record.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6740,7 +6978,8 @@ class Client:
         Summary: 违约记录查询接口
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryJointconstraintBreachrecordResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryJointconstraintBreachrecordResponse(),
             self.do_request('1.0', 'twc.notary.jointconstraint.breachrecord.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6755,7 +6994,8 @@ class Client:
         Summary: 违约记录查询接口
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryJointconstraintBreachrecordResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryJointconstraintBreachrecordResponse(),
             await self.do_request_async('1.0', 'twc.notary.jointconstraint.breachrecord.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6794,7 +7034,8 @@ class Client:
         Summary: 调解申请
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyJusticeMediationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyJusticeMediationResponse(),
             self.do_request('1.0', 'twc.notary.justice.mediation.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6809,7 +7050,8 @@ class Client:
         Summary: 调解申请
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyJusticeMediationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyJusticeMediationResponse(),
             await self.do_request_async('1.0', 'twc.notary.justice.mediation.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6848,7 +7090,8 @@ class Client:
         Summary: 调解申请进度查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryJusticeMediationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryJusticeMediationResponse(),
             self.do_request('1.0', 'twc.notary.justice.mediation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6863,7 +7106,8 @@ class Client:
         Summary: 调解申请进度查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryJusticeMediationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryJusticeMediationResponse(),
             await self.do_request_async('1.0', 'twc.notary.justice.mediation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6902,7 +7146,8 @@ class Client:
         Summary: 汇裁证据要素查询接口
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryJusticeCaseinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryJusticeCaseinfoResponse(),
             self.do_request('1.0', 'twc.notary.justice.caseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6917,7 +7162,8 @@ class Client:
         Summary: 汇裁证据要素查询接口
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryJusticeCaseinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryJusticeCaseinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.justice.caseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6956,7 +7202,8 @@ class Client:
         Summary: 获取OSS文件上传路径
         """
         UtilClient.validate_model(request)
-        return twc_models.GetJusticeUploadfilepathResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetJusticeUploadfilepathResponse(),
             self.do_request('1.0', 'twc.notary.justice.uploadfilepath.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6971,7 +7218,8 @@ class Client:
         Summary: 获取OSS文件上传路径
         """
         UtilClient.validate_model(request)
-        return twc_models.GetJusticeUploadfilepathResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetJusticeUploadfilepathResponse(),
             await self.do_request_async('1.0', 'twc.notary.justice.uploadfilepath.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7010,7 +7258,8 @@ class Client:
         Summary: 自动进件案件回写
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateJusticeCasewritebackResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateJusticeCasewritebackResponse(),
             self.do_request('1.0', 'twc.notary.justice.casewriteback.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7025,7 +7274,8 @@ class Client:
         Summary: 自动进件案件回写
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateJusticeCasewritebackResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateJusticeCasewritebackResponse(),
             await self.do_request_async('1.0', 'twc.notary.justice.casewriteback.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7064,7 +7314,8 @@ class Client:
         Summary: 案件基础信息查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryJusticeBasecaseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryJusticeBasecaseResponse(),
             self.do_request('1.0', 'twc.notary.justice.basecase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7079,7 +7330,8 @@ class Client:
         Summary: 案件基础信息查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryJusticeBasecaseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryJusticeBasecaseResponse(),
             await self.do_request_async('1.0', 'twc.notary.justice.basecase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7118,7 +7370,8 @@ class Client:
         Summary: 案件材料下载
         """
         UtilClient.validate_model(request)
-        return twc_models.DownloadJusticeCasefileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DownloadJusticeCasefileResponse(),
             self.do_request('1.0', 'twc.notary.justice.casefile.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7133,7 +7386,8 @@ class Client:
         Summary: 案件材料下载
         """
         UtilClient.validate_model(request)
-        return twc_models.DownloadJusticeCasefileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DownloadJusticeCasefileResponse(),
             await self.do_request_async('1.0', 'twc.notary.justice.casefile.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7172,7 +7426,8 @@ class Client:
         Summary: 融资服务平台上传商品类别信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseProductinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseProductinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.productinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7187,7 +7442,8 @@ class Client:
         Summary: 融资服务平台上传商品类别信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseProductinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseProductinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.productinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7226,7 +7482,8 @@ class Client:
         Summary: 升级融资租赁合约
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateLeaseContractResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateLeaseContractResponse(),
             self.do_request('1.0', 'twc.notary.lease.contract.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7241,7 +7498,8 @@ class Client:
         Summary: 升级融资租赁合约
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateLeaseContractResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateLeaseContractResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.contract.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7280,7 +7538,8 @@ class Client:
         Summary: 租赁平台isv模式代理商户入驻
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseAssetagentregisterResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAssetagentregisterResponse(),
             self.do_request('1.0', 'twc.notary.lease.assetagentregister.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7295,7 +7554,8 @@ class Client:
         Summary: 租赁平台isv模式代理商户入驻
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseAssetagentregisterResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAssetagentregisterResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.assetagentregister.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7334,7 +7594,8 @@ class Client:
         Summary: 融资租赁商品信息查询接口
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseProductinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseProductinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.productinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7349,7 +7610,8 @@ class Client:
         Summary: 融资租赁商品信息查询接口
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseProductinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseProductinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.productinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7388,7 +7650,8 @@ class Client:
         Summary: 同步采购平台订单状态
         """
         UtilClient.validate_model(request)
-        return twc_models.SyncLeaseSupplierorderstatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SyncLeaseSupplierorderstatusResponse(),
             self.do_request('1.0', 'twc.notary.lease.supplierorderstatus.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7403,7 +7666,8 @@ class Client:
         Summary: 同步采购平台订单状态
         """
         UtilClient.validate_model(request)
-        return twc_models.SyncLeaseSupplierorderstatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SyncLeaseSupplierorderstatusResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.supplierorderstatus.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7442,7 +7706,8 @@ class Client:
         Summary: 采购供应商初始化
         """
         UtilClient.validate_model(request)
-        return twc_models.InitLeaseSupplierResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.InitLeaseSupplierResponse(),
             self.do_request('1.0', 'twc.notary.lease.supplier.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7457,7 +7722,8 @@ class Client:
         Summary: 采购供应商初始化
         """
         UtilClient.validate_model(request)
-        return twc_models.InitLeaseSupplierResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.InitLeaseSupplierResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.supplier.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7496,7 +7762,8 @@ class Client:
         Summary: 租赁订单接收采购状态信息，完成采购流程
         """
         UtilClient.validate_model(request)
-        return twc_models.FinishLeaseSupplierstatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.FinishLeaseSupplierstatusResponse(),
             self.do_request('1.0', 'twc.notary.lease.supplierstatus.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7511,7 +7778,8 @@ class Client:
         Summary: 租赁订单接收采购状态信息，完成采购流程
         """
         UtilClient.validate_model(request)
-        return twc_models.FinishLeaseSupplierstatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.FinishLeaseSupplierstatusResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.supplierstatus.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7550,7 +7818,8 @@ class Client:
         Summary: 采购商品初始化
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseSupplierproductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseSupplierproductResponse(),
             self.do_request('1.0', 'twc.notary.lease.supplierproduct.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7565,7 +7834,8 @@ class Client:
         Summary: 采购商品初始化
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseSupplierproductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseSupplierproductResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.supplierproduct.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7604,7 +7874,8 @@ class Client:
         Summary: 链上采购申请
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyLeaseSupplierorderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyLeaseSupplierorderResponse(),
             self.do_request('1.0', 'twc.notary.lease.supplierorder.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7619,7 +7890,8 @@ class Client:
         Summary: 链上采购申请
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyLeaseSupplierorderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyLeaseSupplierorderResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.supplierorder.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7658,7 +7930,8 @@ class Client:
         Summary: 创建融资租赁提前还款人脸认证信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseFinancecertifyResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseFinancecertifyResponse(),
             self.do_request('1.0', 'twc.notary.lease.financecertify.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7673,7 +7946,8 @@ class Client:
         Summary: 创建融资租赁提前还款人脸认证信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseFinancecertifyResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseFinancecertifyResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.financecertify.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7712,7 +7986,8 @@ class Client:
         Summary: 融资租赁提前还款人脸识别核验
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseFinancecertifyResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseFinancecertifyResponse(),
             self.do_request('1.0', 'twc.notary.lease.financecertify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7727,7 +8002,8 @@ class Client:
         Summary: 融资租赁提前还款人脸识别核验
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseFinancecertifyResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseFinancecertifyResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.financecertify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7766,7 +8042,8 @@ class Client:
         Summary: 查询融资租赁合约内核验结果
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseFinancecertifyincontractResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseFinancecertifyincontractResponse(),
             self.do_request('1.0', 'twc.notary.lease.financecertifyincontract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7781,7 +8058,8 @@ class Client:
         Summary: 查询融资租赁合约内核验结果
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseFinancecertifyincontractResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseFinancecertifyincontractResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.financecertifyincontract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7820,7 +8098,8 @@ class Client:
         Summary: 融资租赁用户信息查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseUserResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseUserResponse(),
             self.do_request('1.0', 'twc.notary.lease.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7835,7 +8114,8 @@ class Client:
         Summary: 融资租赁用户信息查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseUserResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseUserResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7874,7 +8154,8 @@ class Client:
         Summary: 融资租赁订单详情查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseOrderdetailinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseOrderdetailinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.orderdetailinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7889,7 +8170,8 @@ class Client:
         Summary: 融资租赁订单详情查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseOrderdetailinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseOrderdetailinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.orderdetailinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7928,7 +8210,8 @@ class Client:
         Summary: 融资租赁租赁机构承诺查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseLeasepromiseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseLeasepromiseResponse(),
             self.do_request('1.0', 'twc.notary.lease.leasepromise.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7943,7 +8226,8 @@ class Client:
         Summary: 融资租赁租赁机构承诺查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseLeasepromiseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseLeasepromiseResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.leasepromise.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7982,7 +8266,8 @@ class Client:
         Summary: 融资租赁资方承诺查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseCreditpromiseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseCreditpromiseResponse(),
             self.do_request('1.0', 'twc.notary.lease.creditpromise.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7997,7 +8282,8 @@ class Client:
         Summary: 融资租赁资方承诺查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseCreditpromiseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseCreditpromiseResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.creditpromise.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8036,7 +8322,8 @@ class Client:
         Summary: 融资租赁订单清分信息查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseClearingResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseClearingResponse(),
             self.do_request('1.0', 'twc.notary.lease.clearing.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8051,7 +8338,8 @@ class Client:
         Summary: 融资租赁订单清分信息查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseClearingResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseClearingResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.clearing.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8090,7 +8378,8 @@ class Client:
         Summary: 融资租赁用户侧还款信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseRentalinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseRentalinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.rentalinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8105,7 +8394,8 @@ class Client:
         Summary: 融资租赁用户侧还款信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseRentalinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseRentalinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.rentalinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8144,7 +8434,8 @@ class Client:
         Summary: 融资租赁资方还款信息查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseRepaymentResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseRepaymentResponse(),
             self.do_request('1.0', 'twc.notary.lease.repayment.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8159,7 +8450,8 @@ class Client:
         Summary: 融资租赁资方还款信息查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseRepaymentResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseRepaymentResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.repayment.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8198,7 +8490,8 @@ class Client:
         Summary: 查询订单商品信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseOrderproductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseOrderproductResponse(),
             self.do_request('1.0', 'twc.notary.lease.orderproduct.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8213,7 +8506,8 @@ class Client:
         Summary: 查询订单商品信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseOrderproductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseOrderproductResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.orderproduct.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8252,7 +8546,8 @@ class Client:
         Summary: 融资租赁查询资金方信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseFinancecreditResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseFinancecreditResponse(),
             self.do_request('1.0', 'twc.notary.lease.financecredit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8267,7 +8562,8 @@ class Client:
         Summary: 融资租赁查询资金方信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseFinancecreditResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseFinancecreditResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.financecredit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8306,7 +8602,8 @@ class Client:
         Summary: 分页查询再融资订单id
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryRefinanceOrderidResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryRefinanceOrderidResponse(),
             self.do_request('1.0', 'twc.notary.refinance.orderid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8321,7 +8618,8 @@ class Client:
         Summary: 分页查询再融资订单id
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryRefinanceOrderidResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryRefinanceOrderidResponse(),
             await self.do_request_async('1.0', 'twc.notary.refinance.orderid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8360,7 +8658,8 @@ class Client:
         Summary: 资产明细
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryRefinanceOrderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryRefinanceOrderResponse(),
             self.do_request('1.0', 'twc.notary.refinance.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8375,7 +8674,8 @@ class Client:
         Summary: 资产明细
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryRefinanceOrderResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryRefinanceOrderResponse(),
             await self.do_request_async('1.0', 'twc.notary.refinance.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8414,7 +8714,8 @@ class Client:
         Summary: 再融资的商品信息查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryRefinanceProductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryRefinanceProductResponse(),
             self.do_request('1.0', 'twc.notary.refinance.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8429,7 +8730,8 @@ class Client:
         Summary: 再融资的商品信息查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryRefinanceProductResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryRefinanceProductResponse(),
             await self.do_request_async('1.0', 'twc.notary.refinance.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8468,7 +8770,8 @@ class Client:
         Summary: 资产包的受让/驳回资产包
         """
         UtilClient.validate_model(request)
-        return twc_models.VerifyRefinancePackageResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.VerifyRefinancePackageResponse(),
             self.do_request('1.0', 'twc.notary.refinance.package.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8483,7 +8786,8 @@ class Client:
         Summary: 资产包的受让/驳回资产包
         """
         UtilClient.validate_model(request)
-        return twc_models.VerifyRefinancePackageResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.VerifyRefinancePackageResponse(),
             await self.do_request_async('1.0', 'twc.notary.refinance.package.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8522,7 +8826,8 @@ class Client:
         Summary: 融资租赁查询清分信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseOrderclearingResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseOrderclearingResponse(),
             self.do_request('1.0', 'twc.notary.lease.orderclearing.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8537,7 +8842,8 @@ class Client:
         Summary: 融资租赁查询清分信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseOrderclearingResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseOrderclearingResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.orderclearing.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8576,7 +8882,8 @@ class Client:
         Summary: 融资租赁提前还款详情查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseRepaymentstatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseRepaymentstatusResponse(),
             self.do_request('1.0', 'twc.notary.lease.repaymentstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8591,7 +8898,8 @@ class Client:
         Summary: 融资租赁提前还款详情查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseRepaymentstatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseRepaymentstatusResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.repaymentstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8630,7 +8938,8 @@ class Client:
         Summary: 核验链上用户的履约情况
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseUserperformanceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseUserperformanceResponse(),
             self.do_request('1.0', 'twc.notary.lease.userperformance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8645,7 +8954,8 @@ class Client:
         Summary: 核验链上用户的履约情况
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseUserperformanceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseUserperformanceResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.userperformance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8684,7 +8994,8 @@ class Client:
         Summary: 履约流水核验查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseRentalverifyResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseRentalverifyResponse(),
             self.do_request('1.0', 'twc.notary.lease.rentalverify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8699,7 +9010,8 @@ class Client:
         Summary: 履约流水核验查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseRentalverifyResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseRentalverifyResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.rentalverify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8738,7 +9050,8 @@ class Client:
         Summary: 创建见证流程
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateWitnessFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateWitnessFlowResponse(),
             self.do_request('1.0', 'twc.notary.witness.flow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8753,7 +9066,8 @@ class Client:
         Summary: 创建见证流程
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateWitnessFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateWitnessFlowResponse(),
             await self.do_request_async('1.0', 'twc.notary.witness.flow.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8792,7 +9106,8 @@ class Client:
         Summary: 保存见证流程快照数据
         """
         UtilClient.validate_model(request)
-        return twc_models.SaveWitnessSnapshotResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SaveWitnessSnapshotResponse(),
             self.do_request('1.0', 'twc.notary.witness.snapshot.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8807,7 +9122,8 @@ class Client:
         Summary: 保存见证流程快照数据
         """
         UtilClient.validate_model(request)
-        return twc_models.SaveWitnessSnapshotResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SaveWitnessSnapshotResponse(),
             await self.do_request_async('1.0', 'twc.notary.witness.snapshot.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8846,7 +9162,8 @@ class Client:
         Summary: 见证流程签署权限校验
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckWitnessSignaccessResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckWitnessSignaccessResponse(),
             self.do_request('1.0', 'twc.notary.witness.signaccess.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8861,7 +9178,8 @@ class Client:
         Summary: 见证流程签署权限校验
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckWitnessSignaccessResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckWitnessSignaccessResponse(),
             await self.do_request_async('1.0', 'twc.notary.witness.signaccess.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8900,7 +9218,8 @@ class Client:
         Summary: 见证流程签署
         """
         UtilClient.validate_model(request)
-        return twc_models.AuthWitnessFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AuthWitnessFlowResponse(),
             self.do_request('1.0', 'twc.notary.witness.flow.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8915,7 +9234,8 @@ class Client:
         Summary: 见证流程签署
         """
         UtilClient.validate_model(request)
-        return twc_models.AuthWitnessFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AuthWitnessFlowResponse(),
             await self.do_request_async('1.0', 'twc.notary.witness.flow.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8954,7 +9274,8 @@ class Client:
         Summary: 见证流程签署确认
         """
         UtilClient.validate_model(request)
-        return twc_models.ConfirmWitnessFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ConfirmWitnessFlowResponse(),
             self.do_request('1.0', 'twc.notary.witness.flow.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8969,7 +9290,8 @@ class Client:
         Summary: 见证流程签署确认
         """
         UtilClient.validate_model(request)
-        return twc_models.ConfirmWitnessFlowResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ConfirmWitnessFlowResponse(),
             await self.do_request_async('1.0', 'twc.notary.witness.flow.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9008,7 +9330,8 @@ class Client:
         Summary: 获取存证事务ID
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateTransResponse(),
             self.do_request('1.0', 'twc.notary.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9023,7 +9346,8 @@ class Client:
         Summary: 获取存证事务ID
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateTransResponse(),
             await self.do_request_async('1.0', 'twc.notary.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9062,7 +9386,8 @@ class Client:
         Summary: 获取事务中所有的存证信息
         """
         UtilClient.validate_model(request)
-        return twc_models.GetTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetTransResponse(),
             self.do_request('1.0', 'twc.notary.trans.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9077,7 +9402,8 @@ class Client:
         Summary: 获取事务中所有的存证信息
         """
         UtilClient.validate_model(request)
-        return twc_models.GetTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetTransResponse(),
             await self.do_request_async('1.0', 'twc.notary.trans.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9116,7 +9442,8 @@ class Client:
         Summary: 文本存证，将文本内容存证上链
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateTextResponse(),
             self.do_request('1.0', 'twc.notary.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9131,7 +9458,8 @@ class Client:
         Summary: 文本存证，将文本内容存证上链
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateTextResponse(),
             await self.do_request_async('1.0', 'twc.notary.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9170,7 +9498,8 @@ class Client:
         Summary: 获取文本存证内容
         """
         UtilClient.validate_model(request)
-        return twc_models.GetTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetTextResponse(),
             self.do_request('1.0', 'twc.notary.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9185,7 +9514,8 @@ class Client:
         Summary: 获取文本存证内容
         """
         UtilClient.validate_model(request)
-        return twc_models.GetTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetTextResponse(),
             await self.do_request_async('1.0', 'twc.notary.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9224,7 +9554,8 @@ class Client:
         Summary: 文件内容存证上链
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateFileResponse(),
             self.do_request('1.0', 'twc.notary.file.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9239,7 +9570,8 @@ class Client:
         Summary: 文件内容存证上链
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateFileResponse(),
             await self.do_request_async('1.0', 'twc.notary.file.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9278,7 +9610,8 @@ class Client:
         Summary: 获取文件存证oss下载地址
         """
         UtilClient.validate_model(request)
-        return twc_models.GetFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetFileResponse(),
             self.do_request('1.0', 'twc.notary.file.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9293,7 +9626,8 @@ class Client:
         Summary: 获取文件存证oss下载地址
         """
         UtilClient.validate_model(request)
-        return twc_models.GetFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetFileResponse(),
             await self.do_request_async('1.0', 'twc.notary.file.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9332,7 +9666,8 @@ class Client:
         Summary: 原文内容存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateSourceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateSourceResponse(),
             self.do_request('1.0', 'twc.notary.source.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9347,7 +9682,8 @@ class Client:
         Summary: 原文内容存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateSourceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateSourceResponse(),
             await self.do_request_async('1.0', 'twc.notary.source.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9386,7 +9722,8 @@ class Client:
         Summary: 获取原文存证oss下载地址
         """
         UtilClient.validate_model(request)
-        return twc_models.GetSourceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetSourceResponse(),
             self.do_request('1.0', 'twc.notary.source.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9401,7 +9738,8 @@ class Client:
         Summary: 获取原文存证oss下载地址
         """
         UtilClient.validate_model(request)
-        return twc_models.GetSourceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetSourceResponse(),
             await self.do_request_async('1.0', 'twc.notary.source.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9440,7 +9778,8 @@ class Client:
         Summary: 存证内容核验
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckStatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckStatusResponse(),
             self.do_request('1.0', 'twc.notary.status.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9455,7 +9794,8 @@ class Client:
         Summary: 存证内容核验
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckStatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckStatusResponse(),
             await self.do_request_async('1.0', 'twc.notary.status.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9494,7 +9834,8 @@ class Client:
         Summary: 融资服务平台部署合约
         """
         UtilClient.validate_model(request)
-        return twc_models.DeployLeaseContractResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DeployLeaseContractResponse(),
             self.do_request('1.0', 'twc.notary.lease.contract.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9509,7 +9850,8 @@ class Client:
         Summary: 融资服务平台部署合约
         """
         UtilClient.validate_model(request)
-        return twc_models.DeployLeaseContractResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DeployLeaseContractResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.contract.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9548,7 +9890,8 @@ class Client:
         Summary: 租赁服务平台授权融资服务平台
         """
         UtilClient.validate_model(request)
-        return twc_models.AuthLeaseContractResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AuthLeaseContractResponse(),
             self.do_request('1.0', 'twc.notary.lease.contract.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9563,7 +9906,8 @@ class Client:
         Summary: 租赁服务平台授权融资服务平台
         """
         UtilClient.validate_model(request)
-        return twc_models.AuthLeaseContractResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.AuthLeaseContractResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.contract.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9602,7 +9946,8 @@ class Client:
         Summary: 租赁服务平台上传用户信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseUserinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseUserinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.userinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9617,7 +9962,8 @@ class Client:
         Summary: 租赁服务平台上传用户信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseUserinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseUserinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.userinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9656,7 +10002,8 @@ class Client:
         Summary: 租赁服务平台上传订单产品/服务信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseOrderinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseOrderinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.orderinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9671,7 +10018,8 @@ class Client:
         Summary: 租赁服务平台上传订单产品/服务信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseOrderinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseOrderinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.orderinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9710,7 +10058,8 @@ class Client:
         Summary: 租赁服务平台上传承诺信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeasePromiseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeasePromiseResponse(),
             self.do_request('1.0', 'twc.notary.lease.promise.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9725,7 +10074,8 @@ class Client:
         Summary: 租赁服务平台上传承诺信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeasePromiseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeasePromiseResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.promise.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9764,7 +10114,8 @@ class Client:
         Summary: 融资平台上传租赁物购买贷款订单信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseVerifyinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseVerifyinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.verifyinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9779,7 +10130,8 @@ class Client:
         Summary: 融资平台上传租赁物购买贷款订单信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseVerifyinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseVerifyinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.verifyinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9818,7 +10170,8 @@ class Client:
         Summary: 融资方上传承诺信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseCreditpromiseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseCreditpromiseResponse(),
             self.do_request('1.0', 'twc.notary.lease.creditpromise.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9833,7 +10186,8 @@ class Client:
         Summary: 融资方上传承诺信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseCreditpromiseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseCreditpromiseResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.creditpromise.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9872,7 +10226,8 @@ class Client:
         Summary: 租赁平台上传支用/还款信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseDisburseinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseDisburseinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.disburseinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9887,7 +10242,8 @@ class Client:
         Summary: 租赁平台上传支用/还款信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseDisburseinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseDisburseinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.disburseinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9926,7 +10282,8 @@ class Client:
         Summary:  查询订单详细信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseOrderinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseOrderinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.orderinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9941,7 +10298,8 @@ class Client:
         Summary:  查询订单详细信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseOrderinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseOrderinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.orderinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9980,7 +10338,8 @@ class Client:
         Summary: 创建金融行业文本存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateFinanceTextnotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateFinanceTextnotaryResponse(),
             self.do_request('1.0', 'twc.notary.finance.textnotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9995,7 +10354,8 @@ class Client:
         Summary: 创建金融行业文本存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateFinanceTextnotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateFinanceTextnotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.finance.textnotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10034,7 +10394,8 @@ class Client:
         Summary: 获取金融行业文本存证
         """
         UtilClient.validate_model(request)
-        return twc_models.GetFinanceTextnotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetFinanceTextnotaryResponse(),
             self.do_request('1.0', 'twc.notary.finance.textnotary.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10049,7 +10410,8 @@ class Client:
         Summary: 获取金融行业文本存证
         """
         UtilClient.validate_model(request)
-        return twc_models.GetFinanceTextnotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetFinanceTextnotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.finance.textnotary.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10088,7 +10450,8 @@ class Client:
         Summary: 创建金融行业文件存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateFinanceFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateFinanceFilenotaryResponse(),
             self.do_request('1.0', 'twc.notary.finance.filenotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10103,7 +10466,8 @@ class Client:
         Summary: 创建金融行业文件存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateFinanceFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateFinanceFilenotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.finance.filenotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10142,7 +10506,8 @@ class Client:
         Summary: 获取金融行业文件存证
         """
         UtilClient.validate_model(request)
-        return twc_models.GetFinanceFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetFinanceFilenotaryResponse(),
             self.do_request('1.0', 'twc.notary.finance.filenotary.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10157,7 +10522,8 @@ class Client:
         Summary: 获取金融行业文件存证
         """
         UtilClient.validate_model(request)
-        return twc_models.GetFinanceFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetFinanceFilenotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.finance.filenotary.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10196,7 +10562,8 @@ class Client:
         Summary: 统一存证核验接口（已下架）
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckIndustryNotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckIndustryNotaryResponse(),
             self.do_request('1.0', 'twc.notary.industry.notary.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10211,7 +10578,8 @@ class Client:
         Summary: 统一存证核验接口（已下架）
         """
         UtilClient.validate_model(request)
-        return twc_models.CheckIndustryNotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CheckIndustryNotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.industry.notary.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10250,7 +10618,8 @@ class Client:
         Summary: 违约案件信息提交服务
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateSueBreakpromiseinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateSueBreakpromiseinfoResponse(),
             self.do_request('1.0', 'twc.notary.sue.breakpromiseinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10265,7 +10634,8 @@ class Client:
         Summary: 违约案件信息提交服务
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateSueBreakpromiseinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateSueBreakpromiseinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.sue.breakpromiseinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10304,7 +10674,8 @@ class Client:
         Summary: 违约案件信息修改服务
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateSueBreakpromiseinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateSueBreakpromiseinfoResponse(),
             self.do_request('1.0', 'twc.notary.sue.breakpromiseinfo.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10319,7 +10690,8 @@ class Client:
         Summary: 违约案件信息修改服务
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateSueBreakpromiseinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateSueBreakpromiseinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.sue.breakpromiseinfo.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10358,7 +10730,8 @@ class Client:
         Summary: 违约案件信息删除服务
         """
         UtilClient.validate_model(request)
-        return twc_models.DeleteSueBreakpromiseinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DeleteSueBreakpromiseinfoResponse(),
             self.do_request('1.0', 'twc.notary.sue.breakpromiseinfo.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10373,7 +10746,8 @@ class Client:
         Summary: 违约案件信息删除服务
         """
         UtilClient.validate_model(request)
-        return twc_models.DeleteSueBreakpromiseinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DeleteSueBreakpromiseinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.sue.breakpromiseinfo.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10412,7 +10786,8 @@ class Client:
         Summary: 查询惩戒信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QuerySueUserinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QuerySueUserinfoResponse(),
             self.do_request('1.0', 'twc.notary.sue.userinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10427,7 +10802,8 @@ class Client:
         Summary: 查询惩戒信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QuerySueUserinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QuerySueUserinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.sue.userinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10466,7 +10842,8 @@ class Client:
         Summary: 升级用户管理合约
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateSueExeplarycontractResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateSueExeplarycontractResponse(),
             self.do_request('1.0', 'twc.notary.sue.exeplarycontract.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10481,7 +10858,8 @@ class Client:
         Summary: 升级用户管理合约
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateSueExeplarycontractResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateSueExeplarycontractResponse(),
             await self.do_request_async('1.0', 'twc.notary.sue.exeplarycontract.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10520,7 +10898,8 @@ class Client:
         Summary: 回退用户管理合约
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateSueExemplaryrevertResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateSueExemplaryrevertResponse(),
             self.do_request('1.0', 'twc.notary.sue.exemplaryrevert.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10535,7 +10914,8 @@ class Client:
         Summary: 回退用户管理合约
         """
         UtilClient.validate_model(request)
-        return twc_models.UpdateSueExemplaryrevertResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.UpdateSueExemplaryrevertResponse(),
             await self.do_request_async('1.0', 'twc.notary.sue.exemplaryrevert.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10574,7 +10954,8 @@ class Client:
         Summary: 融资平台审核订单信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseAuditResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAuditResponse(),
             self.do_request('1.0', 'twc.notary.lease.audit.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10589,7 +10970,8 @@ class Client:
         Summary: 融资平台审核订单信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseAuditResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseAuditResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.audit.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10628,7 +11010,8 @@ class Client:
         Summary: 租赁平台上传付款通知信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeasePaymentfileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeasePaymentfileResponse(),
             self.do_request('1.0', 'twc.notary.lease.paymentfile.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10643,7 +11026,8 @@ class Client:
         Summary: 租赁平台上传付款通知信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeasePaymentfileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeasePaymentfileResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.paymentfile.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10682,7 +11066,8 @@ class Client:
         Summary: 租赁系统上传租金归还记录 分期调用
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseRentalResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseRentalResponse(),
             self.do_request('1.0', 'twc.notary.lease.rental.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10697,7 +11082,8 @@ class Client:
         Summary: 租赁系统上传租金归还记录 分期调用
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseRentalResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseRentalResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.rental.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10736,7 +11122,8 @@ class Client:
         Summary: 清分服务机构上传资金清算记录，分期
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseClearingResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseClearingResponse(),
             self.do_request('1.0', 'twc.notary.lease.clearing.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10751,7 +11138,8 @@ class Client:
         Summary: 清分服务机构上传资金清算记录，分期
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseClearingResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseClearingResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.clearing.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10790,7 +11178,8 @@ class Client:
         Summary: 融资金融机构上传还款信息 每期
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseRepaymentResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseRepaymentResponse(),
             self.do_request('1.0', 'twc.notary.lease.repayment.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10805,7 +11194,8 @@ class Client:
         Summary: 融资金融机构上传还款信息 每期
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseRepaymentResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseRepaymentResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.repayment.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10844,7 +11234,8 @@ class Client:
         Summary: 融资租赁通知系统注册
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseNotifyregisterResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseNotifyregisterResponse(),
             self.do_request('1.0', 'twc.notary.lease.notifyregister.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10859,7 +11250,8 @@ class Client:
         Summary: 融资租赁通知系统注册
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseNotifyregisterResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseNotifyregisterResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.notifyregister.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10898,7 +11290,8 @@ class Client:
         Summary: 根据imeiID查询iot设备的详情
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseIotinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseIotinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.iotinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10913,7 +11306,8 @@ class Client:
         Summary: 根据imeiID查询iot设备的详情
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseIotinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseIotinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.iotinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10952,7 +11346,8 @@ class Client:
         Summary: 法院通用文本存证创建接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateCourtTextnotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateCourtTextnotaryResponse(),
             self.do_request('1.0', 'twc.notary.court.textnotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10967,7 +11362,8 @@ class Client:
         Summary: 法院通用文本存证创建接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateCourtTextnotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateCourtTextnotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.court.textnotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11006,7 +11402,8 @@ class Client:
         Summary: 法院通用文本存证获取接口
         """
         UtilClient.validate_model(request)
-        return twc_models.GetCourtTextnotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetCourtTextnotaryResponse(),
             self.do_request('1.0', 'twc.notary.court.textnotary.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11021,7 +11418,8 @@ class Client:
         Summary: 法院通用文本存证获取接口
         """
         UtilClient.validate_model(request)
-        return twc_models.GetCourtTextnotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetCourtTextnotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.court.textnotary.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11060,7 +11458,8 @@ class Client:
         Summary: 法院通用文件存证创建接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateCourtFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateCourtFilenotaryResponse(),
             self.do_request('1.0', 'twc.notary.court.filenotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11075,7 +11474,8 @@ class Client:
         Summary: 法院通用文件存证创建接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateCourtFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateCourtFilenotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.court.filenotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11114,7 +11514,8 @@ class Client:
         Summary: 法院通用文件存证获取接口
         """
         UtilClient.validate_model(request)
-        return twc_models.GetCourtFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetCourtFilenotaryResponse(),
             self.do_request('1.0', 'twc.notary.court.filenotary.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11129,7 +11530,8 @@ class Client:
         Summary: 法院通用文件存证获取接口
         """
         UtilClient.validate_model(request)
-        return twc_models.GetCourtFilenotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetCourtFilenotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.court.filenotary.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11168,7 +11570,8 @@ class Client:
         Summary: 融资租赁定制化统一入口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseRouteResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseRouteResponse(),
             self.do_request('1.0', 'twc.notary.lease.route.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11183,7 +11586,8 @@ class Client:
         Summary: 融资租赁定制化统一入口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseRouteResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseRouteResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.route.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11222,7 +11626,8 @@ class Client:
         Summary: 查询用户等加密信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseEncryptedinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseEncryptedinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.encryptedinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11237,7 +11642,8 @@ class Client:
         Summary: 查询用户等加密信息
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseEncryptedinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseEncryptedinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.encryptedinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11276,7 +11682,8 @@ class Client:
         Summary: 电子合同文本存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractTextResponse(),
             self.do_request('1.0', 'twc.notary.contract.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11291,7 +11698,8 @@ class Client:
         Summary: 电子合同文本存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateContractTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateContractTextResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11330,7 +11738,8 @@ class Client:
         Summary: 申请电子合同存证报告
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyContractReportResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyContractReportResponse(),
             self.do_request('1.0', 'twc.notary.contract.report.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11345,7 +11754,8 @@ class Client:
         Summary: 申请电子合同存证报告
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyContractReportResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyContractReportResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.report.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11384,7 +11794,8 @@ class Client:
         Summary: 下载合同存证
         """
         UtilClient.validate_model(request)
-        return twc_models.GetContractTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetContractTextResponse(),
             self.do_request('1.0', 'twc.notary.contract.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11399,7 +11810,8 @@ class Client:
         Summary: 下载合同存证
         """
         UtilClient.validate_model(request)
-        return twc_models.GetContractTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetContractTextResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11438,7 +11850,8 @@ class Client:
         Summary: 获取存证事务ID内部接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateInternalTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateInternalTransResponse(),
             self.do_request('1.0', 'twc.notary.internal.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11453,7 +11866,8 @@ class Client:
         Summary: 获取存证事务ID内部接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateInternalTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateInternalTransResponse(),
             await self.do_request_async('1.0', 'twc.notary.internal.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11492,7 +11906,8 @@ class Client:
         Summary: 文本存证内部接口，将文本内容存证上链
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateInternalTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateInternalTextResponse(),
             self.do_request('1.0', 'twc.notary.internal.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11507,7 +11922,8 @@ class Client:
         Summary: 文本存证内部接口，将文本内容存证上链
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateInternalTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateInternalTextResponse(),
             await self.do_request_async('1.0', 'twc.notary.internal.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11546,7 +11962,8 @@ class Client:
         Summary: 租赁业务文本存证，将文本内容存证上链
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseTextResponse(),
             self.do_request('1.0', 'twc.notary.lease.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11561,7 +11978,8 @@ class Client:
         Summary: 租赁业务文本存证，将文本内容存证上链
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseTextResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11600,7 +12018,8 @@ class Client:
         Summary: 租赁业务文件内容存证上链
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseFileResponse(),
             self.do_request('1.0', 'twc.notary.lease.file.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11615,7 +12034,8 @@ class Client:
         Summary: 租赁业务文件内容存证上链
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseFileResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.file.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11654,7 +12074,8 @@ class Client:
         Summary: 租赁业务获取订单存证列表
         """
         UtilClient.validate_model(request)
-        return twc_models.ListLeaseNotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ListLeaseNotaryResponse(),
             self.do_request('1.0', 'twc.notary.lease.notary.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11669,7 +12090,8 @@ class Client:
         Summary: 租赁业务获取订单存证列表
         """
         UtilClient.validate_model(request)
-        return twc_models.ListLeaseNotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ListLeaseNotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.notary.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11708,7 +12130,8 @@ class Client:
         Summary: 查询融资租赁application
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseApplicationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseApplicationResponse(),
             self.do_request('1.0', 'twc.notary.lease.application.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11723,7 +12146,8 @@ class Client:
         Summary: 查询融资租赁application
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseApplicationResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseApplicationResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.application.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11762,7 +12186,8 @@ class Client:
         Summary: 查询application的定义详情
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseApplicationdetailinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseApplicationdetailinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.applicationdetailinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11777,7 +12202,8 @@ class Client:
         Summary: 查询application的定义详情
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseApplicationdetailinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseApplicationdetailinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.applicationdetailinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11816,7 +12242,8 @@ class Client:
         Summary: 融资租赁资方重置订单状态
         """
         UtilClient.validate_model(request)
-        return twc_models.SetLeaseRepaymentstatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SetLeaseRepaymentstatusResponse(),
             self.do_request('1.0', 'twc.notary.lease.repaymentstatus.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11831,7 +12258,8 @@ class Client:
         Summary: 融资租赁资方重置订单状态
         """
         UtilClient.validate_model(request)
-        return twc_models.SetLeaseRepaymentstatusResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.SetLeaseRepaymentstatusResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.repaymentstatus.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11870,7 +12298,8 @@ class Client:
         Summary: 供应商上传采购等相关信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseSupplierinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseSupplierinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.supplierinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11885,7 +12314,8 @@ class Client:
         Summary: 供应商上传采购等相关信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseSupplierinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseSupplierinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.supplierinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11924,7 +12354,8 @@ class Client:
         Summary: mytf的tapp部署
         """
         UtilClient.validate_model(request)
-        return twc_models.DeployMytfTappResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DeployMytfTappResponse(),
             self.do_request('1.0', 'twc.notary.mytf.tapp.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11939,7 +12370,8 @@ class Client:
         Summary: mytf的tapp部署
         """
         UtilClient.validate_model(request)
-        return twc_models.DeployMytfTappResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DeployMytfTappResponse(),
             await self.do_request_async('1.0', 'twc.notary.mytf.tapp.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11978,7 +12410,8 @@ class Client:
         Summary: 供应商更新物流状态、签收记录等信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseSupplierdynamicinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseSupplierdynamicinfoResponse(),
             self.do_request('1.0', 'twc.notary.lease.supplierdynamicinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11993,7 +12426,8 @@ class Client:
         Summary: 供应商更新物流状态、签收记录等信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseSupplierdynamicinfoResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseSupplierdynamicinfoResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.supplierdynamicinfo.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12032,7 +12466,8 @@ class Client:
         Summary: 创建租赁订单相关信息，融资租赁的前置条件
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseBizResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseBizResponse(),
             self.do_request('1.0', 'twc.notary.lease.biz.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12047,7 +12482,8 @@ class Client:
         Summary: 创建租赁订单相关信息，融资租赁的前置条件
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseBizResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseBizResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.biz.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12086,7 +12522,8 @@ class Client:
         Summary: 查询核验结果
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseProofResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseProofResponse(),
             self.do_request('1.0', 'twc.notary.lease.proof.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12101,7 +12538,8 @@ class Client:
         Summary: 查询核验结果
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseProofResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseProofResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.proof.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12140,7 +12578,8 @@ class Client:
         Summary: 大文件内容存证接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLargefileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLargefileResponse(),
             self.do_request('1.0', 'twc.notary.largefile.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12155,7 +12594,8 @@ class Client:
         Summary: 大文件内容存证接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLargefileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLargefileResponse(),
             await self.do_request_async('1.0', 'twc.notary.largefile.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12194,7 +12634,8 @@ class Client:
         Summary: 租赁平台查询接口
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseBizResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseBizResponse(),
             self.do_request('1.0', 'twc.notary.lease.biz.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12209,7 +12650,8 @@ class Client:
         Summary: 租赁平台查询接口
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryLeaseBizResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryLeaseBizResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.biz.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12248,7 +12690,8 @@ class Client:
         Summary: 租赁宝哈希存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseBiznotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseBiznotaryResponse(),
             self.do_request('1.0', 'twc.notary.lease.biznotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12263,7 +12706,8 @@ class Client:
         Summary: 租赁宝哈希存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseBiznotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseBiznotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.biznotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12302,7 +12746,8 @@ class Client:
         Summary: 合同内部文本存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateInternalContractResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateInternalContractResponse(),
             self.do_request('1.0', 'twc.notary.internal.contract.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12317,7 +12762,8 @@ class Client:
         Summary: 合同内部文本存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateInternalContractResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateInternalContractResponse(),
             await self.do_request_async('1.0', 'twc.notary.internal.contract.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12356,7 +12802,8 @@ class Client:
         Summary: 资方上传网商直付通代扣协议核验结果
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseZftagreementsignResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseZftagreementsignResponse(),
             self.do_request('1.0', 'twc.notary.lease.zftagreementsign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12371,7 +12818,8 @@ class Client:
         Summary: 资方上传网商直付通代扣协议核验结果
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseZftagreementsignResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseZftagreementsignResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.zftagreementsign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12410,7 +12858,8 @@ class Client:
         Summary: 资方上传网商直付通代扣协议解约相关信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseZftagreementunsignResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseZftagreementunsignResponse(),
             self.do_request('1.0', 'twc.notary.lease.zftagreementunsign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12425,7 +12874,8 @@ class Client:
         Summary: 资方上传网商直付通代扣协议解约相关信息
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateLeaseZftagreementunsignResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateLeaseZftagreementunsignResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.zftagreementunsign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12464,7 +12914,8 @@ class Client:
         Summary: 获取蚂蚁链版存证证明
         """
         UtilClient.validate_model(request)
-        return twc_models.GetCertificateDetailResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetCertificateDetailResponse(),
             self.do_request('1.0', 'twc.notary.certificate.detail.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12479,7 +12930,8 @@ class Client:
         Summary: 获取蚂蚁链版存证证明
         """
         UtilClient.validate_model(request)
-        return twc_models.GetCertificateDetailResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetCertificateDetailResponse(),
             await self.do_request_async('1.0', 'twc.notary.certificate.detail.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12518,7 +12970,8 @@ class Client:
         Summary: 获取文本存证内容
         """
         UtilClient.validate_model(request)
-        return twc_models.GetInternalTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetInternalTextResponse(),
             self.do_request('1.0', 'twc.notary.internal.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12533,7 +12986,8 @@ class Client:
         Summary: 获取文本存证内容
         """
         UtilClient.validate_model(request)
-        return twc_models.GetInternalTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetInternalTextResponse(),
             await self.do_request_async('1.0', 'twc.notary.internal.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12572,7 +13026,8 @@ class Client:
         Summary: 三方服务获取开通权限，标记开通状态。
         """
         UtilClient.validate_model(request)
-        return twc_models.OpenInternalTwcResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.OpenInternalTwcResponse(),
             self.do_request('1.0', 'twc.notary.internal.twc.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12587,7 +13042,8 @@ class Client:
         Summary: 三方服务获取开通权限，标记开通状态。
         """
         UtilClient.validate_model(request)
-        return twc_models.OpenInternalTwcResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.OpenInternalTwcResponse(),
             await self.do_request_async('1.0', 'twc.notary.internal.twc.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12626,7 +13082,8 @@ class Client:
         Summary: 指定节点获取存证事务id
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateSpecifyTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateSpecifyTransResponse(),
             self.do_request('1.0', 'twc.notary.specify.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12641,7 +13098,8 @@ class Client:
         Summary: 指定节点获取存证事务id
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateSpecifyTransResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateSpecifyTransResponse(),
             await self.do_request_async('1.0', 'twc.notary.specify.trans.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12680,7 +13138,8 @@ class Client:
         Summary: 指定节点文本存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateSpecifyTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateSpecifyTextResponse(),
             self.do_request('1.0', 'twc.notary.specify.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12695,7 +13154,8 @@ class Client:
         Summary: 指定节点文本存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateSpecifyTextResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateSpecifyTextResponse(),
             await self.do_request_async('1.0', 'twc.notary.specify.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12734,7 +13194,8 @@ class Client:
         Summary: 文件存证内部接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateInternalFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateInternalFileResponse(),
             self.do_request('1.0', 'twc.notary.internal.file.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12749,7 +13210,8 @@ class Client:
         Summary: 文件存证内部接口
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateInternalFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateInternalFileResponse(),
             await self.do_request_async('1.0', 'twc.notary.internal.file.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12788,7 +13250,8 @@ class Client:
         Summary: 获取文件存证内容内部接口
         """
         UtilClient.validate_model(request)
-        return twc_models.GetInternalFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetInternalFileResponse(),
             self.do_request('1.0', 'twc.notary.internal.file.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12803,7 +13266,8 @@ class Client:
         Summary: 获取文件存证内容内部接口
         """
         UtilClient.validate_model(request)
-        return twc_models.GetInternalFileResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.GetInternalFileResponse(),
             await self.do_request_async('1.0', 'twc.notary.internal.file.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12842,7 +13306,8 @@ class Client:
         Summary: 创建存证流程实例
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateFlowInstanceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateFlowInstanceResponse(),
             self.do_request('1.0', 'twc.notary.flow.instance.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12857,7 +13322,8 @@ class Client:
         Summary: 创建存证流程实例
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateFlowInstanceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateFlowInstanceResponse(),
             await self.do_request_async('1.0', 'twc.notary.flow.instance.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12896,7 +13362,8 @@ class Client:
         Summary: 存证流程实例完结
         """
         UtilClient.validate_model(request)
-        return twc_models.FinishFlowInstanceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.FinishFlowInstanceResponse(),
             self.do_request('1.0', 'twc.notary.flow.instance.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12911,7 +13378,8 @@ class Client:
         Summary: 存证流程实例完结
         """
         UtilClient.validate_model(request)
-        return twc_models.FinishFlowInstanceResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.FinishFlowInstanceResponse(),
             await self.do_request_async('1.0', 'twc.notary.flow.instance.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12950,7 +13418,8 @@ class Client:
         Summary: 创建阶段存证
         """
         UtilClient.validate_model(request)
-        return twc_models.InitFlowPhaseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.InitFlowPhaseResponse(),
             self.do_request('1.0', 'twc.notary.flow.phase.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12965,7 +13434,8 @@ class Client:
         Summary: 创建阶段存证
         """
         UtilClient.validate_model(request)
-        return twc_models.InitFlowPhaseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.InitFlowPhaseResponse(),
             await self.do_request_async('1.0', 'twc.notary.flow.phase.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13004,7 +13474,8 @@ class Client:
         Summary: 查询阶段存证结果
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryFlowPhaseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryFlowPhaseResponse(),
             self.do_request('1.0', 'twc.notary.flow.phase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13019,7 +13490,8 @@ class Client:
         Summary: 查询阶段存证结果
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryFlowPhaseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryFlowPhaseResponse(),
             await self.do_request_async('1.0', 'twc.notary.flow.phase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13058,7 +13530,8 @@ class Client:
         Summary: 阶段存证数据详情
         """
         UtilClient.validate_model(request)
-        return twc_models.DetailFlowPhaseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DetailFlowPhaseResponse(),
             self.do_request('1.0', 'twc.notary.flow.phase.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13073,7 +13546,8 @@ class Client:
         Summary: 阶段存证数据详情
         """
         UtilClient.validate_model(request)
-        return twc_models.DetailFlowPhaseResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.DetailFlowPhaseResponse(),
             await self.do_request_async('1.0', 'twc.notary.flow.phase.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13112,7 +13586,8 @@ class Client:
         Summary: 一键创建全流程存证实例和阶段存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateFlowOnestepnotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateFlowOnestepnotaryResponse(),
             self.do_request('1.0', 'twc.notary.flow.onestepnotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13127,7 +13602,8 @@ class Client:
         Summary: 一键创建全流程存证实例和阶段存证
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateFlowOnestepnotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateFlowOnestepnotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.flow.onestepnotary.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13166,7 +13642,8 @@ class Client:
         Summary: 查询一键创建全流程存证进度状态
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryFlowOnestepnotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryFlowOnestepnotaryResponse(),
             self.do_request('1.0', 'twc.notary.flow.onestepnotary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13181,7 +13658,8 @@ class Client:
         Summary: 查询一键创建全流程存证进度状态
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryFlowOnestepnotaryResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryFlowOnestepnotaryResponse(),
             await self.do_request_async('1.0', 'twc.notary.flow.onestepnotary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13220,7 +13698,8 @@ class Client:
         Summary: 存证全流程证明申请
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyFlowCertificateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyFlowCertificateResponse(),
             self.do_request('1.0', 'twc.notary.flow.certificate.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13235,7 +13714,8 @@ class Client:
         Summary: 存证全流程证明申请
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyFlowCertificateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyFlowCertificateResponse(),
             await self.do_request_async('1.0', 'twc.notary.flow.certificate.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13274,7 +13754,8 @@ class Client:
         Summary: 存证全流程证明出证进度查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryFlowCertificateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryFlowCertificateResponse(),
             self.do_request('1.0', 'twc.notary.flow.certificate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13289,7 +13770,8 @@ class Client:
         Summary: 存证全流程证明出证进度查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryFlowCertificateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryFlowCertificateResponse(),
             await self.do_request_async('1.0', 'twc.notary.flow.certificate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13328,7 +13810,8 @@ class Client:
         Summary: 数字票根全流程出证申请
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyStubCertificateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyStubCertificateResponse(),
             self.do_request('1.0', 'twc.notary.stub.certificate.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13343,7 +13826,8 @@ class Client:
         Summary: 数字票根全流程出证申请
         """
         UtilClient.validate_model(request)
-        return twc_models.ApplyStubCertificateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ApplyStubCertificateResponse(),
             await self.do_request_async('1.0', 'twc.notary.stub.certificate.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13382,7 +13866,8 @@ class Client:
         Summary: 数字票根全流程证明出证进度查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryStubCertificateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryStubCertificateResponse(),
             self.do_request('1.0', 'twc.notary.stub.certificate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13397,7 +13882,8 @@ class Client:
         Summary: 数字票根全流程证明出证进度查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryStubCertificateResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryStubCertificateResponse(),
             await self.do_request_async('1.0', 'twc.notary.stub.certificate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13436,7 +13922,8 @@ class Client:
         Summary: 数字票根全流程存证进度查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryStubResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryStubResponse(),
             self.do_request('1.0', 'twc.notary.stub.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13451,7 +13938,8 @@ class Client:
         Summary: 数字票根全流程存证进度查询
         """
         UtilClient.validate_model(request)
-        return twc_models.QueryStubResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.QueryStubResponse(),
             await self.do_request_async('1.0', 'twc.notary.stub.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13490,7 +13978,8 @@ class Client:
         Summary: 数字票根全流程存证创建
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateStubResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateStubResponse(),
             self.do_request('1.0', 'twc.notary.stub.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13505,7 +13994,8 @@ class Client:
         Summary: 数字票根全流程存证创建
         """
         UtilClient.validate_model(request)
-        return twc_models.CreateStubResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.CreateStubResponse(),
             await self.do_request_async('1.0', 'twc.notary.stub.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13544,7 +14034,8 @@ class Client:
         Summary: 查询数字票根是否存在
         """
         UtilClient.validate_model(request)
-        return twc_models.ExistStubResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ExistStubResponse(),
             self.do_request('1.0', 'twc.notary.stub.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13559,6 +14050,63 @@ class Client:
         Summary: 查询数字票根是否存在
         """
         UtilClient.validate_model(request)
-        return twc_models.ExistStubResponse().from_map(
+        return TeaCore.from_map(
+            twc_models.ExistStubResponse(),
             await self.do_request_async('1.0', 'twc.notary.stub.exist', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_stub_clearing(
+        self,
+        request: twc_models.CreateStubClearingRequest,
+    ) -> twc_models.CreateStubClearingResponse:
+        """
+        Description: 数字票根-清分接口
+        Summary: 数字票根-清分接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_stub_clearing_ex(request, headers, runtime)
+
+    async def create_stub_clearing_async(
+        self,
+        request: twc_models.CreateStubClearingRequest,
+    ) -> twc_models.CreateStubClearingResponse:
+        """
+        Description: 数字票根-清分接口
+        Summary: 数字票根-清分接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_stub_clearing_ex_async(request, headers, runtime)
+
+    def create_stub_clearing_ex(
+        self,
+        request: twc_models.CreateStubClearingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateStubClearingResponse:
+        """
+        Description: 数字票根-清分接口
+        Summary: 数字票根-清分接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateStubClearingResponse(),
+            self.do_request('1.0', 'twc.notary.stub.clearing.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_stub_clearing_ex_async(
+        self,
+        request: twc_models.CreateStubClearingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateStubClearingResponse:
+        """
+        Description: 数字票根-清分接口
+        Summary: 数字票根-清分接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateStubClearingResponse(),
+            await self.do_request_async('1.0', 'twc.notary.stub.clearing.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

@@ -70,6 +70,10 @@ class Config(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.access_key_id is not None:
             result['accessKeyId'] = self.access_key_id
@@ -166,6 +170,10 @@ class FileInfo(TeaModel):
         self.validate_required(self.file_name, 'file_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.file_key is not None:
             result['file_key'] = self.file_key
@@ -206,6 +214,10 @@ class RentalInstallmentPerformance(TeaModel):
         self.validate_required(self.applied_repayment_amount, 'applied_repayment_amount')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.repayment_period is not None:
             result['repayment_period'] = self.repayment_period
@@ -268,6 +280,10 @@ class OrderItem(TeaModel):
         self.validate_required(self.lease_number, 'lease_number')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.product_name is not None:
             result['product_name'] = self.product_name
@@ -328,6 +344,10 @@ class RentalStagingInformation(TeaModel):
         self.validate_required(self.payment_each_cycle, 'payment_each_cycle')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.installments_number is not None:
             result['installments_number'] = self.installments_number
@@ -396,6 +416,10 @@ class NotaryUser(TeaModel):
         self.validate_required(self.cert_no, 'cert_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.user_type is not None:
             result['user_type'] = self.user_type
@@ -508,6 +532,10 @@ class OrderInfo(TeaModel):
         self.validate_required(self.pay_in_advance, 'pay_in_advance')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.lessor_platform_name is not None:
             result['lessor_platform_name'] = self.lessor_platform_name
@@ -597,6 +625,10 @@ class LogisticsInfo(TeaModel):
         self.validate_required(self.sign_time, 'sign_time')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.delivery_time is not None:
             result['delivery_time'] = self.delivery_time
@@ -644,6 +676,10 @@ class PerformanceInfo(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.rent_pay_total is not None:
             result['rent_pay_total'] = self.rent_pay_total
@@ -729,6 +765,10 @@ class LeaseOrderInfo(TeaModel):
         self.validate_required(self.total_device_price, 'total_device_price')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.lessor_platform_name is not None:
             result['lessor_platform_name'] = self.lessor_platform_name
@@ -822,6 +862,10 @@ class CommitmentInfo(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.total_rent is not None:
             result['total_rent'] = self.total_rent
@@ -879,6 +923,10 @@ class LegalPerson(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -941,6 +989,10 @@ class PhaseNotary(TeaModel):
         self.validate_required(self.origin_data_id, 'origin_data_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.phase_no is not None:
             result['phase_no'] = self.phase_no
@@ -983,6 +1035,10 @@ class LeasePerformanceInfo(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.rent_pay_total is not None:
             result['rent_pay_total'] = self.rent_pay_total
@@ -1045,6 +1101,10 @@ class NaturalPerson(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -1119,6 +1179,10 @@ class Location(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.city is not None:
             result['city'] = self.city
@@ -1189,6 +1253,10 @@ class CaseBasicInfo(TeaModel):
         self.validate_required(self.input_source, 'input_source')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.biz_tenant_id is not None:
             result['biz_tenant_id'] = self.biz_tenant_id
@@ -1253,6 +1321,10 @@ class ContractNotaryDeductExecutionInfo(TeaModel):
         self.validate_required(self.order, 'order')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.payer_id is not None:
             result['payer_id'] = self.payer_id
@@ -1307,6 +1379,10 @@ class MetricInfo(TeaModel):
         self.validate_required(self.collect_serial_number, 'collect_serial_number')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.collect_amount is not None:
             result['collect_amount'] = self.collect_amount
@@ -1355,6 +1431,10 @@ class LeaseCreditPromiseInfo(TeaModel):
         self.validate_required(self.pay_in_advance_money, 'pay_in_advance_money')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.term is not None:
             result['term'] = self.term
@@ -1399,6 +1479,10 @@ class LeaseOrderExtra(TeaModel):
         self.validate_required(self.value, 'value')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['key'] = self.key
@@ -1489,6 +1573,10 @@ class ProposerObject(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -1596,6 +1684,10 @@ class FinanceCertifyRentalInfo(TeaModel):
         self.validate_required(self.rental_return_time, 'rental_return_time')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.rent_term is not None:
             result['rent_term'] = self.rent_term
@@ -1661,6 +1753,10 @@ class ContractSignFieldApplication(TeaModel):
         self.validate_required(self.pos_y, 'pos_y')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.add_sign_time is not None:
             result['add_sign_time'] = self.add_sign_time
@@ -1740,6 +1836,10 @@ class ContractUserOrganizationApplication(TeaModel):
         self.validate_required(self.organization_id, 'organization_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.id_number is not None:
             result['id_number'] = self.id_number
@@ -1804,6 +1904,10 @@ class LeaseEvidentialElement(TeaModel):
             self.performance_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.lease_order_info is not None:
             result['lease_order_info'] = self.lease_order_info.to_map()
@@ -1852,6 +1956,10 @@ class ContractSignField(TeaModel):
         self.validate_required(self.signfield_id, 'signfield_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.account_id is not None:
             result['account_id'] = self.account_id
@@ -1947,6 +2055,10 @@ class ContractSignFieldDetail(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.actor_indentity_type is not None:
             result['actor_indentity_type'] = self.actor_indentity_type
@@ -2074,6 +2186,10 @@ class SupplierInfo(TeaModel):
         self.validate_required(self.agent_supplier_corp_owner_name, 'agent_supplier_corp_owner_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.agent_supplier_id is not None:
             result['agent_supplier_id'] = self.agent_supplier_id
@@ -2130,6 +2246,10 @@ class ContractNotaryDeductPlanInfo(TeaModel):
         self.validate_required(self.timestamp, 'timestamp')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.payer_id is not None:
             result['payer_id'] = self.payer_id
@@ -2206,6 +2326,10 @@ class ContractNotaryFinishInfo(TeaModel):
         self.validate_required(self.timestamp, 'timestamp')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.content is not None:
             result['content'] = self.content
@@ -2282,6 +2406,10 @@ class WitnessDocs(TeaModel):
         self.validate_required(self.third_doc_id, 'third_doc_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.doc_hash is not None:
             result['doc_hash'] = self.doc_hash
@@ -2332,6 +2460,10 @@ class ContractPlatformSignField(TeaModel):
         self.validate_required(self.pos_y, 'pos_y')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.add_sign_time is not None:
             result['add_sign_time'] = self.add_sign_time
@@ -2396,6 +2528,10 @@ class WitnessSignData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.seal_file_keys is not None:
             result['seal_file_keys'] = self.seal_file_keys
@@ -2500,6 +2636,10 @@ class CaseBaseInfo(TeaModel):
         self.validate_required(self.can_download, 'can_download')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.case_id is not None:
             result['case_id'] = self.case_id
@@ -2579,6 +2719,10 @@ class ContractNotaryDocumentInfo(TeaModel):
         self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.content is not None:
             result['content'] = self.content
@@ -2631,6 +2775,10 @@ class KeywordsPosition(TeaModel):
         self.validate_required(self.pos_y, 'pos_y')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.keyword is not None:
             result['keyword'] = self.keyword
@@ -2678,6 +2826,10 @@ class ContractDocAddress(TeaModel):
         self.validate_required(self.file_url, 'file_url')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.file_id is not None:
             result['file_id'] = self.file_id
@@ -2715,6 +2867,7 @@ class StubCommonInfo(TeaModel):
         order_time: str = None,
         stub_amount: int = None,
         customer_id: str = None,
+        scene_alipay_id: str = None,
     ):
         # 项目名称
         self.project_name = project_name
@@ -2736,6 +2889,8 @@ class StubCommonInfo(TeaModel):
         self.stub_amount = stub_amount
         # 客户id。支付宝情况下传支付宝id，2088打头；景区时可传自定义的客户id
         self.customer_id = customer_id
+        # 景区支付宝id，当biz_source为Alipay时，该字段必填
+        self.scene_alipay_id = scene_alipay_id
 
     def validate(self):
         self.validate_required(self.project_name, 'project_name')
@@ -2751,6 +2906,10 @@ class StubCommonInfo(TeaModel):
         self.validate_required(self.customer_id, 'customer_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project_name is not None:
             result['project_name'] = self.project_name
@@ -2772,6 +2931,8 @@ class StubCommonInfo(TeaModel):
             result['stub_amount'] = self.stub_amount
         if self.customer_id is not None:
             result['customer_id'] = self.customer_id
+        if self.scene_alipay_id is not None:
+            result['scene_alipay_id'] = self.scene_alipay_id
         return result
 
     def from_map(self, m: dict = None):
@@ -2796,6 +2957,8 @@ class StubCommonInfo(TeaModel):
             self.stub_amount = m.get('stub_amount')
         if m.get('customer_id') is not None:
             self.customer_id = m.get('customer_id')
+        if m.get('scene_alipay_id') is not None:
+            self.scene_alipay_id = m.get('scene_alipay_id')
         return self
 
 
@@ -2820,6 +2983,10 @@ class WitnessFlowConfig(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.organ_realname_types is not None:
             result['organ_realname_types'] = self.organ_realname_types
@@ -2859,6 +3026,10 @@ class WitnessApprovalData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.approval_flow_id is not None:
             result['approval_flow_id'] = self.approval_flow_id
@@ -2947,6 +3118,10 @@ class SupplierProductItem(TeaModel):
         self.validate_required(self.product_price, 'product_price')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.supplier_name is not None:
             result['supplier_name'] = self.supplier_name
@@ -3051,6 +3226,10 @@ class PhaseQueryResult(TeaModel):
         self.validate_required(self.register_time, 'register_time')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.phase_id is not None:
             result['phase_id'] = self.phase_id
@@ -3091,6 +3270,10 @@ class ApplySupplierOrderProductInput(TeaModel):
         self.validate_required(self.product_num, 'product_num')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.product_id is not None:
             result['product_id'] = self.product_id
@@ -3139,6 +3322,10 @@ class ContractOrganizationApplication(TeaModel):
         self.validate_required(self.name, 'name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.id_number is not None:
             result['id_number'] = self.id_number
@@ -3195,6 +3382,10 @@ class PhaseCreateResult(TeaModel):
         self.validate_required(self.origin_data_id, 'origin_data_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.phase_no is not None:
             result['phase_no'] = self.phase_no
@@ -3259,6 +3450,10 @@ class EvidentialCheckList(TeaModel):
         self.validate_required(self.deposit_type, 'deposit_type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.evidential_name_en is not None:
             result['evidential_name_en'] = self.evidential_name_en
@@ -3317,6 +3512,10 @@ class WitnessSignResult(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.sign_result is not None:
             result['sign_result'] = self.sign_result
@@ -3362,6 +3561,10 @@ class NotaryCheckMeta(TeaModel):
         self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.agency_code is not None:
             result['agency_code'] = self.agency_code
@@ -3414,6 +3617,10 @@ class ContractNotaryDeductRefundInfo(TeaModel):
         self.validate_required(self.timestamp, 'timestamp')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.payer_id is not None:
             result['payer_id'] = self.payer_id
@@ -3450,6 +3657,10 @@ class SupplierLogisticInfo(TeaModel):
         self.validate_required(self.logistic_order_id, 'logistic_order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.logistic_order_id is not None:
             result['logistic_order_id'] = self.logistic_order_id
@@ -3489,6 +3700,10 @@ class ContractSignFlowConfig(TeaModel):
         self.validate_required(self.notice_type, 'notice_type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.notice_developer_url is not None:
             result['notice_developer_url'] = self.notice_developer_url
@@ -3549,6 +3764,10 @@ class RentInfo(TeaModel):
         self.validate_required(self.retained_price, 'retained_price')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.rent_price is not None:
             result['rent_price'] = self.rent_price
@@ -3617,6 +3836,10 @@ class LeaseClearingInfo(TeaModel):
         self.validate_required(self.memo, 'memo')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.return_index is not None:
             result['return_index'] = self.return_index
@@ -3687,6 +3910,10 @@ class CompanyFourMetaInfo(TeaModel):
         self.validate_required(self.legal_person_cert_no, 'legal_person_cert_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.company_cert_name is not None:
             result['company_cert_name'] = self.company_cert_name
@@ -3783,6 +4010,10 @@ class MediationCaseDetailInfo(TeaModel):
         self.validate_required(self.mediation_agreement, 'mediation_agreement')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.case_number is not None:
             result['case_number'] = self.case_number
@@ -3871,6 +4102,10 @@ class PleaderObject(TeaModel):
             self.legal_person.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.party_type is not None:
             result['party_type'] = self.party_type
@@ -3929,6 +4164,10 @@ class ContractNotarySignInfo(TeaModel):
         self.validate_required(self.timestamp, 'timestamp')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.content is not None:
             result['content'] = self.content
@@ -4007,6 +4246,10 @@ class NotaryInfo(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.content_hash is not None:
             result['content_hash'] = self.content_hash
@@ -4073,6 +4316,10 @@ class ContractNotaryInfo(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.tx_hash is not None:
             result['tx_hash'] = self.tx_hash
@@ -4116,6 +4363,10 @@ class PersonInfo(TeaModel):
         self.validate_required(self.cert_no, 'cert_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cert_name is not None:
             result['cert_name'] = self.cert_name
@@ -4156,6 +4407,10 @@ class SupplierOrderProductInfo(TeaModel):
         self.validate_required(self.sn_list, 'sn_list')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.product_id is not None:
             result['product_id'] = self.product_id
@@ -4197,6 +4452,10 @@ class ContractDoc(TeaModel):
         self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.encryption is not None:
             result['encryption'] = self.encryption
@@ -4260,6 +4519,10 @@ class ContractSeal(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.alias is not None:
             result['alias'] = self.alias
@@ -4338,6 +4601,10 @@ class ContractAccountApplication(TeaModel):
         self.validate_required(self.user_id, 'user_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.email is not None:
             result['email'] = self.email
@@ -4411,6 +4678,10 @@ class ContractPlatformSignFieldApplication(TeaModel):
         self.validate_required(self.pos_y, 'pos_y')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.file_id is not None:
             result['file_id'] = self.file_id
@@ -4475,6 +4746,10 @@ class LeaseNotaryRecord(TeaModel):
         self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.phase is not None:
             result['phase'] = self.phase
@@ -4523,6 +4798,10 @@ class EvidentialElement(TeaModel):
             self.performance_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.order_info is not None:
             result['order_info'] = self.order_info.to_map()
@@ -4615,6 +4894,10 @@ class ContractHandSignFieldApplication(TeaModel):
         self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.account_id is not None:
             result['account_id'] = self.account_id
@@ -4711,6 +4994,10 @@ class RefinanceOrderInfoResponse(TeaModel):
         self.validate_required(self.application_id, 'application_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.order_id is not None:
             result['order_id'] = self.order_id
@@ -4763,6 +5050,10 @@ class SupplierProductInfo(TeaModel):
         self.validate_required(self.product_price, 'product_price')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.extra_info is not None:
             result['extra_info'] = self.extra_info
@@ -4827,6 +5118,10 @@ class LeaseOrderProductInfo(TeaModel):
         self.validate_required(self.supplier_isv_account, 'supplier_isv_account')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.product_id is not None:
             result['product_id'] = self.product_id
@@ -4888,6 +5183,10 @@ class OnestepFlowNotaryInfo(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.template_id is not None:
             result['template_id'] = self.template_id
@@ -4952,6 +5251,10 @@ class ContractCreatorApplication(TeaModel):
         self.validate_required(self.creator_id, 'creator_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.email is not None:
             result['email'] = self.email
@@ -5029,6 +5332,10 @@ class ProductInfo(TeaModel):
         self.validate_required(self.product_price, 'product_price')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.need_did is not None:
             result['need_did'] = self.need_did
@@ -5105,6 +5412,10 @@ class PaymentDetail(TeaModel):
         self.validate_required(self.pay_date, 'pay_date')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.biz_trade_id is not None:
             result['biz_trade_id'] = self.biz_trade_id
@@ -5153,6 +5464,10 @@ class ContractNotaryDeductCancelInfo(TeaModel):
         self.validate_required(self.orders, 'orders')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.payer_id is not None:
             result['payer_id'] = self.payer_id
@@ -5207,6 +5522,10 @@ class ContractPlatformAccountApplication(TeaModel):
         self.validate_required(self.user_id, 'user_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.email is not None:
             result['email'] = self.email
@@ -5269,6 +5588,10 @@ class ContractPlatformApplication(TeaModel):
         self.validate_required(self.platform_id, 'platform_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.id_number is not None:
             result['id_number'] = self.id_number
@@ -5341,6 +5664,10 @@ class LeaseRentalInfo(TeaModel):
         self.validate_required(self.remain_term, 'remain_term')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.term is not None:
             result['term'] = self.term
@@ -5433,6 +5760,10 @@ class NotaryCheckResult(TeaModel):
         self.validate_required(self.phase, 'phase')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.block_height is not None:
             result['block_height'] = self.block_height
@@ -5541,6 +5872,10 @@ class LeaseRepaymentInfo(TeaModel):
         self.validate_required(self.overdue_money, 'overdue_money')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.repayment_unique_id is not None:
             result['repayment_unique_id'] = self.repayment_unique_id
@@ -5613,6 +5948,10 @@ class StubExtraInfo(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.ticket_vision is not None:
             result['ticket_vision'] = self.ticket_vision
@@ -5645,6 +5984,10 @@ class LeasePromiseInfo(TeaModel):
         self.validate_required(self.pay_date, 'pay_date')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.term is not None:
             result['term'] = self.term
@@ -5692,6 +6035,10 @@ class ContractUserAccountApplication(TeaModel):
         self.validate_required(self.user_id, 'user_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.email is not None:
             result['email'] = self.email
@@ -5743,6 +6090,10 @@ class CompanyTwoMetaInfo(TeaModel):
         self.validate_required(self.cert_no, 'cert_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cert_name is not None:
             result['cert_name'] = self.cert_name
@@ -5802,6 +6153,10 @@ class ContractFlowSigner(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.sign_order is not None:
             result['sign_order'] = self.sign_order
@@ -5870,6 +6225,10 @@ class RepaymentOrderRequest(TeaModel):
         self.validate_required(self.pay_money, 'pay_money')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.pay_date is not None:
             result['pay_date'] = self.pay_date
@@ -5951,6 +6310,10 @@ class OneStepSignField(TeaModel):
         self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.account_id is not None:
             result['account_id'] = self.account_id
@@ -6066,6 +6429,10 @@ class ContractNotaryInitInfo(TeaModel):
         self.validate_required(self.timestamp, 'timestamp')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.content is not None:
             result['content'] = self.content
@@ -6158,6 +6525,10 @@ class Identity(TeaModel):
         self.validate_required(self.user_type, 'user_type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.agent is not None:
             result['agent'] = self.agent
@@ -6234,6 +6605,10 @@ class CertificateInfo(TeaModel):
         self.validate_required(self.resource_url, 'resource_url')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.hash is not None:
             result['hash'] = self.hash
@@ -6281,6 +6656,10 @@ class ApplySupplierOrderProductOutput(TeaModel):
         self.validate_required(self.pur_order_status, 'pur_order_status')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.order_id is not None:
             result['order_id'] = self.order_id
@@ -6331,6 +6710,10 @@ class ContractPlatformOrganizationApplication(TeaModel):
         self.validate_required(self.name, 'name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.id_number is not None:
             result['id_number'] = self.id_number
@@ -6383,6 +6766,10 @@ class ContractSignFieldSealId(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.file_id is not None:
             result['file_id'] = self.file_id
@@ -6462,6 +6849,10 @@ class ContractTemplateStructComponent(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.font is not None:
             result['font'] = self.font
@@ -6562,6 +6953,10 @@ class TsrResponse(TeaModel):
         self.validate_required(self.sn, 'sn')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.code is not None:
             result['code'] = self.code
@@ -6620,6 +7015,10 @@ class LeaseIotItemInfo(TeaModel):
         self.validate_required(self.raw_data, 'raw_data')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.date is not None:
             result['date'] = self.date
@@ -6663,6 +7062,10 @@ class WitnessConfirmData(TeaModel):
         self.validate_required(self.third_doc_id, 'third_doc_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.doc_file_key is not None:
             result['doc_file_key'] = self.doc_file_key
@@ -6695,6 +7098,10 @@ class ContractAccount(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         return result
 
@@ -6736,6 +7143,10 @@ class CallbackArbitrationStatusRequest(TeaModel):
         self.validate_required(self.status, 'status')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -6794,6 +7205,10 @@ class CallbackArbitrationStatusResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -6851,6 +7266,10 @@ class CallbackArbitrationSignstatusRequest(TeaModel):
         self.validate_required(self.signature, 'signature')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -6912,6 +7331,10 @@ class CallbackArbitrationSignstatusResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -6971,6 +7394,10 @@ class CreateContractAccountRequest(TeaModel):
         self.validate_required(self.user_id, 'user_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -7038,6 +7465,10 @@ class CreateContractAccountResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -7104,6 +7535,10 @@ class CreateContractAccountsealRequest(TeaModel):
         self.validate_required(self.type, 'type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -7177,6 +7612,10 @@ class CreateContractAccountsealResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -7257,6 +7696,10 @@ class CreateContractOrganizationRequest(TeaModel):
         self.validate_required(self.user_id, 'user_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -7328,6 +7771,10 @@ class CreateContractOrganizationResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -7404,6 +7851,10 @@ class CreateContractOrgsealRequest(TeaModel):
         self.validate_required(self.type, 'type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -7489,6 +7940,10 @@ class CreateContractOrgsealResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -7549,6 +8004,10 @@ class AuthContractSignRequest(TeaModel):
         self.validate_required(self.account_id, 'account_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -7600,6 +8059,10 @@ class AuthContractSignResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -7661,6 +8124,10 @@ class CreateContractTemplateRequest(TeaModel):
         self.validate_required(self.file_name, 'file_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -7723,6 +8190,10 @@ class CreateContractTemplateResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -7799,6 +8270,10 @@ class CreateContractFlowRequest(TeaModel):
             self.config_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -7875,6 +8350,10 @@ class CreateContractFlowResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -7932,6 +8411,10 @@ class AddContractDocumentRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -7985,6 +8468,10 @@ class AddContractDocumentResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -8038,6 +8525,10 @@ class AddContractSignfieldRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -8097,6 +8588,10 @@ class AddContractSignfieldResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -8151,6 +8646,10 @@ class StartContractFlowRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -8195,6 +8694,10 @@ class StartContractFlowResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -8240,6 +8743,10 @@ class SaveContractFlowRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -8284,6 +8791,10 @@ class SaveContractFlowResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -8329,6 +8840,10 @@ class DownloadContractDocumentRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -8379,6 +8894,10 @@ class DownloadContractDocumentResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -8441,6 +8960,10 @@ class AddContractFileRequest(TeaModel):
         self.validate_required(self.simple_form_fields, 'simple_form_fields')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -8502,6 +9025,10 @@ class AddContractFileResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -8567,6 +9094,10 @@ class CreateContractPlatformRequest(TeaModel):
             self.platform.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -8626,6 +9157,10 @@ class CreateContractPlatformResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -8694,6 +9229,10 @@ class CreateContractUserRequest(TeaModel):
         self.validate_required(self.user_type, 'user_type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -8754,6 +9293,10 @@ class CreateContractUserResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -8860,6 +9403,10 @@ class StartContractHandsignRequest(TeaModel):
         self.validate_required(self.user_account, 'user_account')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -8975,6 +9522,10 @@ class StartContractHandsignResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -9032,6 +9583,10 @@ class QueryContractFlowRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -9116,6 +9671,10 @@ class QueryContractFlowResponse(TeaModel):
             self.config_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -9234,6 +9793,10 @@ class CreateContractAccountsealimageRequest(TeaModel):
         self.validate_required(self.data, 'data')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -9317,6 +9880,10 @@ class CreateContractAccountsealimageResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -9401,6 +9968,10 @@ class GetContractFileuploadurlRequest(TeaModel):
         self.validate_required(self.file_name, 'file_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -9471,6 +10042,10 @@ class GetContractFileuploadurlResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -9530,6 +10105,10 @@ class AddContractPlatformsignfieldsRequest(TeaModel):
             self.signfields.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -9585,6 +10164,10 @@ class AddContractPlatformsignfieldsResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -9639,6 +10222,10 @@ class GetContractFileRequest(TeaModel):
         self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -9701,6 +10288,10 @@ class GetContractFileResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -9778,6 +10369,10 @@ class QueryContractAccountsealsRequest(TeaModel):
         self.validate_required(self.size, 'size')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -9839,6 +10434,10 @@ class QueryContractAccountsealsResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -9905,6 +10504,10 @@ class QueryContractOrganizationsealsRequest(TeaModel):
         self.validate_required(self.size, 'size')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -9966,6 +10569,10 @@ class QueryContractOrganizationsealsResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -10024,6 +10631,10 @@ class QueryContractFlowsignerRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -10074,6 +10685,10 @@ class QueryContractFlowsignerResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -10134,6 +10749,10 @@ class QueryContractSignfieldsRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -10192,6 +10811,10 @@ class QueryContractSignfieldsResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -10246,6 +10869,10 @@ class QueryContractAccountRequest(TeaModel):
         self.validate_required(self.account_id, 'account_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -10311,6 +10938,10 @@ class QueryContractAccountResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -10384,6 +11015,10 @@ class QueryContractOrganizationRequest(TeaModel):
         self.validate_required(self.org_id, 'org_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -10449,6 +11084,10 @@ class QueryContractOrganizationResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -10522,6 +11161,10 @@ class QueryContractTemplateRequest(TeaModel):
         self.validate_required(self.template_id, 'template_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -10590,6 +11233,10 @@ class QueryContractTemplateResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -10704,6 +11351,10 @@ class CreateContractSignflowRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -10797,6 +11448,10 @@ class CreateContractSignflowResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -11021,6 +11676,10 @@ class CreateContractRegisterzftRequest(TeaModel):
         self.validate_required(self.update, 'update')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -11226,6 +11885,10 @@ class CreateContractRegisterzftResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -11296,6 +11959,10 @@ class CreateContractPlatformtemplateRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -11379,6 +12046,10 @@ class CreateContractPlatformtemplateResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -11432,6 +12103,10 @@ class QueryContractMerchantzftRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -11479,6 +12154,10 @@ class QueryContractMerchantzftResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -11536,6 +12215,10 @@ class ListContractOuttradeidRequest(TeaModel):
         self.validate_required(self.page_size, 'page_size')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -11594,6 +12277,10 @@ class ListContractOuttradeidResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -11651,6 +12338,10 @@ class QueryContractTradedetailRequest(TeaModel):
         self.validate_required(self.out_trade_no, 'out_trade_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -11702,6 +12393,10 @@ class QueryContractTradedetailResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -11763,6 +12458,10 @@ class CreateContractMerchantrefundRequest(TeaModel):
         self.validate_required(self.refund_amount, 'refund_amount')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -11825,6 +12524,10 @@ class CreateContractMerchantrefundResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -11875,6 +12578,10 @@ class CreateContractAdminaccountRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -11915,6 +12622,10 @@ class CreateContractAdminaccountResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -11968,6 +12679,10 @@ class ListContractTradeidsRequest(TeaModel):
         self.validate_required(self.page_size, 'page_size')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -12026,6 +12741,10 @@ class ListContractTradeidsResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -12091,6 +12810,10 @@ class CreateContractCommontriggerRequest(TeaModel):
         self.validate_required(self.user_tuid, 'user_tuid')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -12157,6 +12880,10 @@ class CreateContractCommontriggerResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -12214,6 +12941,10 @@ class CreateContractMerchantindirectzftRequest(TeaModel):
         self.validate_required(self.biz_content, 'biz_content')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -12270,6 +13001,10 @@ class CreateContractMerchantindirectzftResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -12331,6 +13066,10 @@ class QueryContractMerchantindirectzftRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -12396,6 +13135,10 @@ class QueryContractMerchantindirectzftResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -12473,6 +13216,10 @@ class QueryPayresultfileurlRequest(TeaModel):
         self.validate_required(self.bill_type, 'bill_type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -12518,6 +13265,10 @@ class QueryPayresultfileurlResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -12563,6 +13314,10 @@ class CreateContractMerchantimageRequest(TeaModel):
         self.validate_required(self.file_name, 'file_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -12608,6 +13363,10 @@ class CreateContractMerchantimageResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -12649,6 +13408,10 @@ class CancelContractPaytradeRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -12696,6 +13459,10 @@ class CancelContractPaytradeResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -12768,6 +13535,10 @@ class CreateContractHandsignflowRequest(TeaModel):
             self.config_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -12844,6 +13615,10 @@ class CreateContractHandsignflowResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -12901,6 +13676,10 @@ class CreateContractHandsignfieldRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -12960,6 +13739,10 @@ class CreateContractHandsignfieldResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -13027,6 +13810,10 @@ class GetContractSignurlRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -13093,6 +13880,10 @@ class GetContractSignurlResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -13180,6 +13971,10 @@ class CreateWithholdAgreementRequest(TeaModel):
         self.validate_required(self.third_party_id, 'third_party_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -13254,6 +14049,10 @@ class CreateWithholdAgreementResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -13295,6 +14094,10 @@ class QueryWithholdAgreementRequest(TeaModel):
         self.validate_required(self.third_party_id, 'third_party_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -13364,6 +14167,10 @@ class QueryWithholdAgreementResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -13441,6 +14248,10 @@ class QueryWithholdAgreementurlRequest(TeaModel):
         self.validate_required(self.third_party_id, 'third_party_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -13489,6 +14300,10 @@ class QueryWithholdAgreementurlResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -13546,6 +14361,10 @@ class CreateWithholdOverduetimeRequest(TeaModel):
         self.validate_required(self.tenant_id, 'tenant_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -13596,6 +14415,10 @@ class CreateWithholdOverduetimeResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -13654,6 +14477,10 @@ class SendWithholdDeductRequest(TeaModel):
         self.validate_required(self.third_party_id, 'third_party_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -13724,6 +14551,10 @@ class SendWithholdDeductResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -13773,6 +14604,10 @@ class QueryWithholdPayresultRequest(TeaModel):
         self.validate_required(self.out_biz_no, 'out_biz_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -13829,6 +14664,10 @@ class QueryWithholdPayresultResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -13894,6 +14733,10 @@ class SendWithholdRefundRequest(TeaModel):
         self.validate_required(self.remark, 'remark')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -13956,6 +14799,10 @@ class SendWithholdRefundResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -14054,6 +14901,10 @@ class SendContractInvitationRequest(TeaModel):
         self.validate_required(self.invite_type, 'invite_type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -14164,6 +15015,10 @@ class SendContractInvitationResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -14217,6 +15072,10 @@ class ListContractPayruleRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -14264,6 +15123,10 @@ class ListContractPayruleResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -14317,6 +15180,10 @@ class CreateWithholdQrcodeRequest(TeaModel):
         self.validate_required(self.external_agreement_no, 'external_agreement_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -14362,6 +15229,10 @@ class CreateWithholdQrcodeResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -14407,6 +15278,10 @@ class CancelContractPaysingletradeRequest(TeaModel):
         self.validate_required(self.cancel_out_order_no, 'cancel_out_order_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -14458,6 +15333,10 @@ class CancelContractPaysingletradeResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -14504,6 +15383,10 @@ class ApplyContractCallbackkeyRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -14547,6 +15430,10 @@ class ApplyContractCallbackkeyResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -14636,6 +15523,10 @@ class CreateContractOnestepflowRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -14734,6 +15625,10 @@ class CreateContractOnestepflowResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -14783,6 +15678,10 @@ class QueryContractNotaryRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -14833,6 +15732,10 @@ class QueryContractNotaryResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -14898,6 +15801,10 @@ class CreateEcocontractTransRequest(TeaModel):
             self.customer.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -14956,6 +15863,10 @@ class CreateEcocontractTransResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -15030,6 +15941,10 @@ class CreateEcocontractTextRequest(TeaModel):
             self.document_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -15099,6 +16014,10 @@ class CreateEcocontractTextResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -15144,6 +16063,10 @@ class QueryContractWordspositionRequest(TeaModel):
         self.validate_required(self.keywords, 'keywords')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -15201,6 +16124,10 @@ class QueryContractWordspositionResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -15263,6 +16190,10 @@ class DeleteContractSignerRequest(TeaModel):
         self.validate_required(self.account_id, 'account_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -15311,6 +16242,10 @@ class DeleteContractSignerResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -15356,6 +16291,10 @@ class GetContractCertificateRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -15403,6 +16342,10 @@ class GetContractCertificateResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -15458,6 +16401,10 @@ class QueryContractSignfieldsealidRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -15516,6 +16463,10 @@ class QueryContractSignfieldsealidResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -15570,6 +16521,10 @@ class NotifyContractSignerRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -15617,6 +16572,10 @@ class NotifyContractSignerResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -15673,6 +16632,10 @@ class UpdateContractPlatformRequest(TeaModel):
             self.creator.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -15732,6 +16695,10 @@ class UpdateContractPlatformResponse(TeaModel):
             self.creator.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -15802,6 +16769,10 @@ class UpdateContractUserRequest(TeaModel):
         self.validate_required(self.user_id, 'user_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -15884,6 +16855,10 @@ class UpdateContractUserResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -15968,6 +16943,10 @@ class UpdateContractOrganizationRequest(TeaModel):
         self.validate_required(self.organization_id, 'organization_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -16044,6 +17023,10 @@ class UpdateContractOrganizationResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -16108,6 +17091,10 @@ class ApplyContractMerchantRequest(TeaModel):
         self.validate_required(self.biz_content, 'biz_content')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -16168,6 +17155,10 @@ class ApplyContractMerchantResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -16232,6 +17223,10 @@ class ConfirmContractMerchantRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -16289,6 +17284,10 @@ class ConfirmContractMerchantResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -16357,6 +17356,10 @@ class CreatePrivatecontractTransRequest(TeaModel):
             self.customer.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -16415,6 +17418,10 @@ class CreatePrivatecontractTransResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -16489,6 +17496,10 @@ class CreatePrivatecontractTextRequest(TeaModel):
             self.document_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -16558,6 +17569,10 @@ class CreatePrivatecontractTextResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -16605,6 +17620,10 @@ class VerifyPrivatepersonTwometaRequest(TeaModel):
         self.validate_required(self.instance_id, 'instance_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -16657,6 +17676,10 @@ class VerifyPrivatepersonTwometaResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -16712,6 +17735,10 @@ class VerifyPrivatecompanyTwometaRequest(TeaModel):
             self.company_two_meta_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -16764,6 +17791,10 @@ class VerifyPrivatecompanyTwometaResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -16819,6 +17850,10 @@ class VerifyPrivatecompanyFourmetaRequest(TeaModel):
             self.company_four_meta_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -16871,6 +17906,10 @@ class VerifyPrivatecompanyFourmetaResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -16941,6 +17980,10 @@ class ApplyPrivatecontractCertRequest(TeaModel):
         self.validate_required(self.user_cert_number, 'user_cert_number')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -17017,6 +18060,10 @@ class ApplyPrivatecontractCertResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -17078,6 +18125,10 @@ class QueryContractTradestatusRequest(TeaModel):
         self.validate_required(self.out_trade_no, 'out_trade_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -17144,6 +18195,10 @@ class QueryContractTradestatusResponse(TeaModel):
             self.validate_pattern(self.pay_date, 'pay_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -17201,6 +18256,10 @@ class QueryContractRefundRequest(TeaModel):
         self.validate_required(self.refund_id, 'refund_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -17258,6 +18317,10 @@ class QueryContractRefundResponse(TeaModel):
             self.validate_pattern(self.refund_time, 'refund_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -17330,6 +18393,10 @@ class GetPrivatecontractSignurlRequest(TeaModel):
         self.validate_required(self.expiration_time, 'expiration_time')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -17393,6 +18460,10 @@ class GetPrivatecontractSignurlResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -17442,6 +18513,10 @@ class QueryContractMerchantorderRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -17522,6 +18597,10 @@ class QueryContractMerchantorderResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -17615,6 +18694,10 @@ class UpdateContractMerchantRequest(TeaModel):
         self.validate_required(self.biz_content, 'biz_content')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -17656,6 +18739,10 @@ class UpdateContractMerchantResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -17704,6 +18791,10 @@ class BindContractMerchantRequest(TeaModel):
         self.validate_required(self.cert_no, 'cert_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -17753,6 +18844,10 @@ class BindContractMerchantResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -17797,6 +18892,10 @@ class InitPrivatecontractIntanceRequest(TeaModel):
         self.validate_required(self.tenant_id, 'tenant_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -17854,6 +18953,10 @@ class InitPrivatecontractIntanceResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -17915,6 +19018,10 @@ class UpdatePrivatecontractIntanceRequest(TeaModel):
         self.validate_required(self.instance_id, 'instance_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -17957,6 +19064,10 @@ class UpdatePrivatecontractIntanceResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -18021,6 +19132,10 @@ class UpdatePrivatecontractCertRequest(TeaModel):
         self.validate_required(self.update_org_seal, 'update_org_seal')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -18103,6 +19218,10 @@ class UpdatePrivatecontractCertResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -18168,6 +19287,10 @@ class ResetContractMerchantapplyRequest(TeaModel):
         self.validate_required(self.apply_type, 'apply_type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -18213,6 +19336,10 @@ class ResetContractMerchantapplyResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -18254,6 +19381,10 @@ class CheckPrivatecontractProvisionRequest(TeaModel):
         self.validate_required(self.instance_id, 'instance_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -18295,6 +19426,10 @@ class CheckPrivatecontractProvisionResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -18344,6 +19479,10 @@ class PushPrivatecontractGaugeRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -18393,6 +19532,10 @@ class PushPrivatecontractGaugeResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -18442,6 +19585,10 @@ class CheckContractCourtdeductRequest(TeaModel):
         self.validate_required(self.bank_type, 'bank_type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -18494,6 +19641,10 @@ class CheckContractCourtdeductResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -18579,6 +19730,10 @@ class CreateContractCourtdeductRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -18670,6 +19825,10 @@ class CreateContractCourtdeductResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -18727,6 +19886,10 @@ class ExecContractCourtdeductRequest(TeaModel):
         self.validate_required(self.biz_trade_id, 'biz_trade_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -18778,6 +19941,10 @@ class ExecContractCourtdeductResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -18861,6 +20028,10 @@ class SyncInnerTransRequest(TeaModel):
         self.validate_required(self.register_time, 'register_time')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -18939,6 +20110,10 @@ class SyncInnerTransResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -19015,6 +20190,10 @@ class SyncInnerNotaryRequest(TeaModel):
         self.validate_required(self.biz_id, 'biz_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -19097,6 +20276,10 @@ class SyncInnerNotaryResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -19162,6 +20345,10 @@ class SyncInnerTwcopenRequest(TeaModel):
         self.validate_required(self.gmt_modified, 'gmt_modified')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -19228,6 +20415,10 @@ class SyncInnerTwcopenResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -19303,6 +20494,10 @@ class SyncInnerProvisionRequest(TeaModel):
         self.validate_required(self.status, 'status')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -19385,6 +20580,10 @@ class SyncInnerProvisionResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -19422,6 +20621,10 @@ class SyncInnerTsrRequest(TeaModel):
         self.validate_required(self.token, 'token')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -19460,6 +20663,10 @@ class SyncInnerTsrResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -19501,6 +20708,10 @@ class CheckEpidentityTwometaRequest(TeaModel):
         self.validate_required(self.ep_cert_no, 'ep_cert_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -19555,6 +20766,10 @@ class CheckEpidentityTwometaResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -19616,6 +20831,10 @@ class CheckEpidentityThreemetaRequest(TeaModel):
         self.validate_required(self.legal_person_cert_name, 'legal_person_cert_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -19674,6 +20893,10 @@ class CheckEpidentityThreemetaResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -19739,6 +20962,10 @@ class CheckEpidentityFourmetaRequest(TeaModel):
         self.validate_required(self.legal_person_cert_no, 'legal_person_cert_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -19801,6 +21028,10 @@ class CheckEpidentityFourmetaResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -19854,6 +21085,10 @@ class CheckNotarizationOrderRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -19907,6 +21142,10 @@ class CheckNotarizationOrderResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -19971,6 +21210,10 @@ class UpdateNotarizationOrderRequest(TeaModel):
         self.validate_required(self.status, 'status')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -20023,6 +21266,10 @@ class UpdateNotarizationOrderResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -20079,6 +21326,10 @@ class SetNotarizationOrderRequest(TeaModel):
         self.validate_required(self.value, 'value')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -20135,6 +21386,10 @@ class SetNotarizationOrderResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -20187,6 +21442,10 @@ class InitIdentificationFaceauthRequest(TeaModel):
         self.validate_required(self.cert_no, 'cert_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -20236,6 +21495,10 @@ class InitIdentificationFaceauthResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -20286,6 +21549,10 @@ class CertifyIdentificationFaceauthRequest(TeaModel):
         self.validate_required(self.certify_id, 'certify_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -20342,6 +21609,10 @@ class CertifyIdentificationFaceauthResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -20390,6 +21661,10 @@ class QueryIdentificationFaceauthRequest(TeaModel):
         self.validate_required(self.certify_id, 'certify_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -20438,6 +21713,10 @@ class QueryIdentificationFaceauthResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -20483,6 +21762,10 @@ class QueryEnterpriseFaceauthRequest(TeaModel):
         self.validate_required(self.biz_no, 'biz_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -20530,6 +21813,10 @@ class QueryEnterpriseFaceauthResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -20595,6 +21882,10 @@ class InitEnterpriseFaceauthRequest(TeaModel):
         self.validate_required(self.legal_person_cert_no, 'legal_person_cert_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -20652,6 +21943,10 @@ class InitEnterpriseFaceauthResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -20699,6 +21994,10 @@ class CertifyEnterpriseFaceauthRequest(TeaModel):
         self.validate_required(self.biz_no, 'biz_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -20751,6 +22050,10 @@ class CertifyEnterpriseFaceauthResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -20887,6 +22190,10 @@ class CreateLeaseOrderRequest(TeaModel):
             self.validate_minimum(self.tenancy_term_start, 'tenancy_term_start', 0)
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -21016,6 +22323,10 @@ class CreateLeaseOrderResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -21114,6 +22425,10 @@ class CreateNotarizationBillRequest(TeaModel):
         self.validate_required(self.fee_splitting, 'fee_splitting')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -21227,6 +22542,10 @@ class CreateNotarizationBillResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -21281,6 +22600,10 @@ class InitCertificationRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -21345,6 +22668,10 @@ class InitCertificationResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -21398,6 +22725,10 @@ class QueryCertificationRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -21448,6 +22779,10 @@ class QueryCertificationResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -21499,6 +22834,10 @@ class GetTsrCertificateRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -21533,6 +22872,10 @@ class GetTsrCertificateResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -21692,6 +23035,10 @@ class SaveJointconstraintRecordRequest(TeaModel):
             self.validate_pattern(self.payment_deadline, 'payment_deadline', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -21814,6 +23161,10 @@ class SaveJointconstraintRecordResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -21881,6 +23232,10 @@ class DeleteJointconstraintRecordRequest(TeaModel):
         self.validate_required(self.payer_type, 'payer_type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -21935,6 +23290,10 @@ class DeleteJointconstraintRecordResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -21990,6 +23349,10 @@ class QueryJointconstraintBreachrecordRequest(TeaModel):
         self.validate_required(self.cert_number, 'cert_number')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -22046,6 +23409,10 @@ class QueryJointconstraintBreachrecordResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -22099,6 +23466,10 @@ class ApplyJusticeMediationRequest(TeaModel):
         self.validate_required(self.case_body, 'case_body')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -22151,6 +23522,10 @@ class ApplyJusticeMediationResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -22201,6 +23576,10 @@ class QueryJusticeMediationRequest(TeaModel):
         self.validate_required(self.case_number, 'case_number')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -22252,6 +23631,10 @@ class QueryJusticeMediationResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -22305,6 +23688,10 @@ class QueryJusticeCaseinfoRequest(TeaModel):
         self.validate_required(self.case_no, 'case_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -22360,6 +23747,10 @@ class QueryJusticeCaseinfoResponse(TeaModel):
             self.evidential_element.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -22417,6 +23808,10 @@ class GetJusticeUploadfilepathRequest(TeaModel):
         self.validate_required(self.file_name, 'file_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -22471,6 +23866,10 @@ class GetJusticeUploadfilepathResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -22560,6 +23959,10 @@ class CreateJusticeCasewritebackRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -22657,6 +24060,10 @@ class CreateJusticeCasewritebackResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -22731,6 +24138,10 @@ class QueryJusticeBasecaseRequest(TeaModel):
         self.validate_required(self.index_method, 'index_method')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -22793,6 +24204,10 @@ class QueryJusticeBasecaseResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -22851,6 +24266,10 @@ class DownloadJusticeCasefileRequest(TeaModel):
         self.validate_required(self.record_id, 'record_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -22902,6 +24321,10 @@ class DownloadJusticeCasefileResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -23006,6 +24429,10 @@ class CreateLeaseProductinfoRequest(TeaModel):
         self.validate_required(self.supplier_name, 'supplier_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -23114,6 +24541,10 @@ class CreateLeaseProductinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -23166,6 +24597,10 @@ class UpdateLeaseContractRequest(TeaModel):
         self.validate_required(self.contract_id, 'contract_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -23218,6 +24653,10 @@ class UpdateLeaseContractResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -23285,6 +24724,10 @@ class CreateLeaseAssetagentregisterRequest(TeaModel):
         self.validate_required(self.lease_corp_owner_name, 'lease_corp_owner_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -23348,6 +24791,10 @@ class CreateLeaseAssetagentregisterResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -23413,6 +24860,10 @@ class QueryLeaseProductinfoRequest(TeaModel):
         self.validate_required(self.credit_id, 'credit_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -23476,6 +24927,10 @@ class QueryLeaseProductinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -23533,6 +24988,10 @@ class SyncLeaseSupplierorderstatusRequest(TeaModel):
         self.validate_required(self.lease_id, 'lease_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -23588,6 +25047,10 @@ class SyncLeaseSupplierorderstatusResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -23646,6 +25109,10 @@ class InitLeaseSupplierRequest(TeaModel):
             self.supplier.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -23699,6 +25166,10 @@ class InitLeaseSupplierResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -23774,6 +25245,10 @@ class FinishLeaseSupplierstatusRequest(TeaModel):
         self.validate_required(self.supplier_id, 'supplier_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -23851,6 +25326,10 @@ class FinishLeaseSupplierstatusResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -23909,6 +25388,10 @@ class CreateLeaseSupplierproductRequest(TeaModel):
             self.product_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -23962,6 +25445,10 @@ class CreateLeaseSupplierproductResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -24025,6 +25512,10 @@ class ApplyLeaseSupplierorderRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -24101,6 +25592,10 @@ class ApplyLeaseSupplierorderResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -24200,6 +25695,10 @@ class CreateLeaseFinancecertifyRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -24291,6 +25790,10 @@ class CreateLeaseFinancecertifyResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -24351,6 +25854,10 @@ class QueryLeaseFinancecertifyRequest(TeaModel):
         self.validate_required(self.lease_certify_id, 'lease_certify_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -24415,6 +25922,10 @@ class QueryLeaseFinancecertifyResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -24485,6 +25996,10 @@ class QueryLeaseFinancecertifyincontractRequest(TeaModel):
         self.validate_required(self.lease_certify_id, 'lease_certify_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -24540,6 +26055,10 @@ class QueryLeaseFinancecertifyincontractResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -24596,6 +26115,10 @@ class QueryLeaseUserRequest(TeaModel):
         self.validate_required(self.lease_id, 'lease_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -24684,6 +26207,10 @@ class QueryLeaseUserResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -24784,6 +26311,10 @@ class QueryLeaseOrderdetailinfoRequest(TeaModel):
         self.validate_required(self.lease_id, 'lease_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -24893,6 +26424,10 @@ class QueryLeaseOrderdetailinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -25021,6 +26556,10 @@ class QueryLeaseLeasepromiseRequest(TeaModel):
         self.validate_required(self.lease_id, 'lease_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -25088,6 +26627,10 @@ class QueryLeaseLeasepromiseResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -25161,6 +26704,10 @@ class QueryLeaseCreditpromiseRequest(TeaModel):
         self.validate_required(self.lease_id, 'lease_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -25222,6 +26769,10 @@ class QueryLeaseCreditpromiseResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -25287,6 +26838,10 @@ class QueryLeaseClearingRequest(TeaModel):
         self.validate_required(self.lease_id, 'lease_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -25348,6 +26903,10 @@ class QueryLeaseClearingResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -25413,6 +26972,10 @@ class QueryLeaseRentalinfoRequest(TeaModel):
         self.validate_required(self.lease_id, 'lease_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -25474,6 +27037,10 @@ class QueryLeaseRentalinfoResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -25540,6 +27107,10 @@ class QueryLeaseRepaymentRequest(TeaModel):
         self.validate_required(self.application_id, 'application_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -25601,6 +27172,10 @@ class QueryLeaseRepaymentResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -25667,6 +27242,10 @@ class QueryLeaseOrderproductRequest(TeaModel):
         self.validate_required(self.application_id, 'application_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -25728,6 +27307,10 @@ class QueryLeaseOrderproductResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -25797,6 +27380,10 @@ class QueryLeaseFinancecreditRequest(TeaModel):
         self.validate_required(self.term, 'term')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -25850,6 +27437,10 @@ class QueryLeaseFinancecreditResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -25899,6 +27490,10 @@ class QueryRefinanceOrderidRequest(TeaModel):
         self.validate_required(self.page_size, 'page_size')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -25951,6 +27546,10 @@ class QueryRefinanceOrderidResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -26001,6 +27600,10 @@ class QueryRefinanceOrderRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -26046,6 +27649,10 @@ class QueryRefinanceOrderResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -26103,6 +27710,10 @@ class QueryRefinanceProductRequest(TeaModel):
         self.validate_required(self.product_version, 'product_version')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -26160,6 +27771,10 @@ class QueryRefinanceProductResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -26214,6 +27829,10 @@ class VerifyRefinancePackageRequest(TeaModel):
         self.validate_required(self.audit_status, 'audit_status')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -26271,6 +27890,10 @@ class VerifyRefinancePackageResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -26326,6 +27949,10 @@ class QueryLeaseOrderclearingRequest(TeaModel):
         self.validate_required(self.clearing_order_id, 'clearing_order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -26389,6 +28016,10 @@ class QueryLeaseOrderclearingResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -26444,6 +28075,10 @@ class QueryLeaseRepaymentstatusRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -26499,6 +28134,10 @@ class QueryLeaseRepaymentstatusResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -26563,6 +28202,10 @@ class QueryLeaseUserperformanceRequest(TeaModel):
         self.validate_required(self.lease_id, 'lease_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -26623,6 +28266,10 @@ class QueryLeaseUserperformanceResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -26688,6 +28335,10 @@ class QueryLeaseRentalverifyRequest(TeaModel):
         self.validate_required(self.lease_id, 'lease_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -26752,6 +28403,10 @@ class QueryLeaseRentalverifyResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -26844,6 +28499,10 @@ class CreateWitnessFlowRequest(TeaModel):
         self.validate_required(self.token, 'token')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -26951,6 +28610,10 @@ class CreateWitnessFlowResponse(TeaModel):
             self.flow_config.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -27025,6 +28688,10 @@ class SaveWitnessSnapshotRequest(TeaModel):
         self.validate_required(self.token, 'token')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -27089,6 +28756,10 @@ class SaveWitnessSnapshotResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -27190,6 +28861,10 @@ class CheckWitnessSignaccessRequest(TeaModel):
         self.validate_required(self.token, 'token')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -27311,6 +28986,10 @@ class CheckWitnessSignaccessResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -27422,6 +29101,10 @@ class AuthWitnessFlowRequest(TeaModel):
         self.validate_required(self.witness_flow_id, 'witness_flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -27547,6 +29230,10 @@ class AuthWitnessFlowResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -27647,6 +29334,10 @@ class ConfirmWitnessFlowRequest(TeaModel):
         self.validate_required(self.token, 'token')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -27720,6 +29411,10 @@ class ConfirmWitnessFlowResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -27776,6 +29471,10 @@ class CreateTransRequest(TeaModel):
             self.customer.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -27834,6 +29533,10 @@ class CreateTransResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -27880,6 +29583,10 @@ class GetTransRequest(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -27924,6 +29631,10 @@ class GetTransResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -27994,6 +29705,10 @@ class CreateTextRequest(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -28068,6 +29783,10 @@ class CreateTextResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -28128,6 +29847,10 @@ class GetTextRequest(TeaModel):
         self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -28196,6 +29919,10 @@ class GetTextResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -28279,6 +30006,10 @@ class CreateFileRequest(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -28357,6 +30088,10 @@ class CreateFileResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -28417,6 +30152,10 @@ class GetFileRequest(TeaModel):
         self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -28484,6 +30223,10 @@ class GetFileResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -28564,6 +30307,10 @@ class CreateSourceRequest(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -28638,6 +30385,10 @@ class CreateSourceResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -28698,6 +30449,10 @@ class GetSourceRequest(TeaModel):
         self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -28756,6 +30511,10 @@ class GetSourceResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -28801,6 +30560,10 @@ class CheckStatusRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -28850,6 +30613,10 @@ class CheckStatusResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -28896,6 +30663,10 @@ class DeployLeaseContractRequest(TeaModel):
         self.validate_required(self.contract_id, 'contract_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -28944,6 +30715,10 @@ class DeployLeaseContractResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -28993,6 +30768,10 @@ class AuthLeaseContractRequest(TeaModel):
         self.validate_required(self.credit_id, 'credit_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -29041,6 +30820,10 @@ class AuthLeaseContractResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -29160,6 +30943,10 @@ class CreateLeaseUserinfoRequest(TeaModel):
         self.validate_required(self.user_type, 'user_type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -29283,6 +31070,10 @@ class CreateLeaseUserinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -29502,6 +31293,10 @@ class CreateLeaseOrderinfoRequest(TeaModel):
         self.validate_required(self.user_address, 'user_address')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -29760,6 +31555,10 @@ class CreateLeaseOrderinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -29861,6 +31660,10 @@ class CreateLeasePromiseRequest(TeaModel):
             self.validate_max_length(self.down_payment_serial_number, 'down_payment_serial_number', 128)
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -29964,6 +31767,10 @@ class CreateLeasePromiseResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -30075,6 +31882,10 @@ class CreateLeaseVerifyinfoRequest(TeaModel):
         self.validate_required(self.verify_result, 'verify_result')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -30203,6 +32014,10 @@ class CreateLeaseVerifyinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -30303,6 +32118,10 @@ class CreateLeaseCreditpromiseRequest(TeaModel):
         self.validate_required(self.return_time_list, 'return_time_list')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -30411,6 +32230,10 @@ class CreateLeaseCreditpromiseResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -30524,6 +32347,10 @@ class CreateLeaseDisburseinfoRequest(TeaModel):
         self.validate_required(self.return_interest, 'return_interest')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -30636,6 +32463,10 @@ class CreateLeaseDisburseinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -30695,6 +32526,10 @@ class QueryLeaseOrderinfoRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -30755,6 +32590,10 @@ class QueryLeaseOrderinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -30839,6 +32678,10 @@ class CreateFinanceTextnotaryRequest(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -30928,6 +32771,10 @@ class CreateFinanceTextnotaryResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -30992,6 +32839,10 @@ class GetFinanceTextnotaryRequest(TeaModel):
         self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -31063,6 +32914,10 @@ class GetFinanceTextnotaryResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -31177,6 +33032,10 @@ class CreateFinanceFilenotaryRequest(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -31290,6 +33149,10 @@ class CreateFinanceFilenotaryResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -31354,6 +33217,10 @@ class GetFinanceFilenotaryRequest(TeaModel):
         self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -31431,6 +33298,10 @@ class GetFinanceFilenotaryResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -31505,6 +33376,10 @@ class CheckIndustryNotaryRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -31558,6 +33433,10 @@ class CheckIndustryNotaryResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -31663,6 +33542,10 @@ class CreateSueBreakpromiseinfoRequest(TeaModel):
         self.validate_required(self.business_class, 'business_class')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -31767,6 +33650,10 @@ class CreateSueBreakpromiseinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -31851,6 +33738,10 @@ class UpdateSueBreakpromiseinfoRequest(TeaModel):
         self.validate_required(self.business_class, 'business_class')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -31931,6 +33822,10 @@ class UpdateSueBreakpromiseinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -31984,6 +33879,10 @@ class DeleteSueBreakpromiseinfoRequest(TeaModel):
         self.validate_required(self.pre_sue_id, 'pre_sue_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -32035,6 +33934,10 @@ class DeleteSueBreakpromiseinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -32084,6 +33987,10 @@ class QuerySueUserinfoRequest(TeaModel):
         self.validate_required(self.user_id, 'user_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -32131,6 +34038,10 @@ class QuerySueUserinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -32180,6 +34091,10 @@ class UpdateSueExeplarycontractRequest(TeaModel):
         self.validate_required(self.contract_id, 'contract_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -32227,6 +34142,10 @@ class UpdateSueExeplarycontractResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -32276,6 +34195,10 @@ class UpdateSueExemplaryrevertRequest(TeaModel):
         self.validate_required(self.contract_id, 'contract_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -32323,6 +34246,10 @@ class UpdateSueExemplaryrevertResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -32407,6 +34334,10 @@ class CreateLeaseAuditRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -32495,6 +34426,10 @@ class CreateLeaseAuditResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -32570,6 +34505,10 @@ class CreateLeasePaymentfileRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -32651,6 +34590,10 @@ class CreateLeasePaymentfileResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -32753,6 +34696,10 @@ class CreateLeaseRentalRequest(TeaModel):
         self.validate_required(self.return_way, 'return_way')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -32857,6 +34804,10 @@ class CreateLeaseRentalResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -32953,6 +34904,10 @@ class CreateLeaseClearingRequest(TeaModel):
         self.validate_required(self.start_time, 'start_time')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -33054,6 +35009,10 @@ class CreateLeaseClearingResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -33184,6 +35143,10 @@ class CreateLeaseRepaymentRequest(TeaModel):
         self.validate_required(self.source, 'source')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -33315,6 +35278,10 @@ class CreateLeaseRepaymentResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -33361,6 +35328,10 @@ class CreateLeaseNotifyregisterRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -33401,6 +35372,10 @@ class CreateLeaseNotifyregisterResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -33454,6 +35429,10 @@ class QueryLeaseIotinfoRequest(TeaModel):
         self.validate_required(self.start_time, 'start_time')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -33512,6 +35491,10 @@ class QueryLeaseIotinfoResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -33597,6 +35580,10 @@ class CreateCourtTextnotaryRequest(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -33679,6 +35666,10 @@ class CreateCourtTextnotaryResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -33739,6 +35730,10 @@ class GetCourtTextnotaryRequest(TeaModel):
         self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -33813,6 +35808,10 @@ class GetCourtTextnotaryResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -33914,6 +35913,10 @@ class CreateCourtFilenotaryRequest(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -34004,6 +36007,10 @@ class CreateCourtFilenotaryResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -34064,6 +36071,10 @@ class GetCourtFilenotaryRequest(TeaModel):
         self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -34141,6 +36152,10 @@ class GetCourtFilenotaryResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -34211,6 +36226,10 @@ class CreateLeaseRouteRequest(TeaModel):
         self.validate_required(self.biz_content, 'biz_content')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -34265,6 +36284,10 @@ class CreateLeaseRouteResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -34321,6 +36344,10 @@ class QueryLeaseEncryptedinfoRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -34376,6 +36403,10 @@ class QueryLeaseEncryptedinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -34453,6 +36484,10 @@ class CreateContractTextRequest(TeaModel):
             self.document_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -34522,6 +36557,10 @@ class CreateContractTextResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -34594,6 +36633,10 @@ class ApplyContractReportRequest(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -34667,6 +36710,10 @@ class ApplyContractReportResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -34708,6 +36755,10 @@ class GetContractTextRequest(TeaModel):
         self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -34749,6 +36800,10 @@ class GetContractTextResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -34810,6 +36865,10 @@ class CreateInternalTransRequest(TeaModel):
             self.customer.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -34880,6 +36939,10 @@ class CreateInternalTransResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -34963,6 +37026,10 @@ class CreateInternalTextRequest(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -35053,6 +37120,10 @@ class CreateInternalTextResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -35121,6 +37192,10 @@ class CreateLeaseTextRequest(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -35187,6 +37262,10 @@ class CreateLeaseTextResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -35254,6 +37333,10 @@ class CreateLeaseFileRequest(TeaModel):
         self.validate_required(self.transaction_id, 'transaction_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -35324,6 +37407,10 @@ class CreateLeaseFileResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -35371,6 +37458,10 @@ class ListLeaseNotaryRequest(TeaModel):
         self.validate_required(self.order_no, 'order_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -35423,6 +37514,10 @@ class ListLeaseNotaryResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -35473,6 +37568,10 @@ class QueryLeaseApplicationRequest(TeaModel):
         self.validate_required(self.start_id, 'start_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -35524,6 +37623,10 @@ class QueryLeaseApplicationResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -35573,6 +37676,10 @@ class QueryLeaseApplicationdetailinfoRequest(TeaModel):
         self.validate_required(self.application_id, 'application_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -35620,6 +37727,10 @@ class QueryLeaseApplicationdetailinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -35686,6 +37797,10 @@ class SetLeaseRepaymentstatusRequest(TeaModel):
         self.validate_required(self.finish, 'finish')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -35753,6 +37868,10 @@ class SetLeaseRepaymentstatusResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -35837,6 +37956,10 @@ class CreateLeaseSupplierinfoRequest(TeaModel):
         self.validate_required(self.deliver_time, 'deliver_time')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -35921,6 +38044,10 @@ class CreateLeaseSupplierinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -35970,6 +38097,10 @@ class DeployMytfTappRequest(TeaModel):
         self.validate_required(self.tapp_id, 'tapp_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -36008,6 +38139,10 @@ class DeployMytfTappResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -36072,6 +38207,10 @@ class CreateLeaseSupplierdynamicinfoRequest(TeaModel):
         self.validate_required(self.phase, 'phase')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -36151,6 +38290,10 @@ class CreateLeaseSupplierdynamicinfoResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -36207,6 +38350,10 @@ class CreateLeaseBizRequest(TeaModel):
         self.validate_required(self.type, 'type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -36262,6 +38409,10 @@ class CreateLeaseBizResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -36315,6 +38466,10 @@ class QueryLeaseProofRequest(TeaModel):
         self.validate_required(self.application_id, 'application_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -36360,6 +38515,10 @@ class QueryLeaseProofResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -36424,6 +38583,10 @@ class CreateLargefileRequest(TeaModel):
         self.validate_required(self.phase, 'phase')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -36494,6 +38657,10 @@ class CreateLargefileResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -36544,6 +38711,10 @@ class QueryLeaseBizRequest(TeaModel):
         self.validate_required(self.type, 'type')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -36589,6 +38760,10 @@ class QueryLeaseBizResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -36648,6 +38823,10 @@ class CreateLeaseBiznotaryRequest(TeaModel):
         self.validate_required(self.lease_corp_owner_name, 'lease_corp_owner_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -36712,6 +38891,10 @@ class CreateLeaseBiznotaryResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -36805,6 +38988,10 @@ class CreateInternalContractRequest(TeaModel):
             self.refund_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -36894,6 +39081,10 @@ class CreateInternalContractResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -36969,6 +39160,10 @@ class CreateLeaseZftagreementsignRequest(TeaModel):
         self.validate_required(self.agreement_status, 'agreement_status')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -37056,6 +39251,10 @@ class CreateLeaseZftagreementsignResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -37121,6 +39320,10 @@ class CreateLeaseZftagreementunsignRequest(TeaModel):
         self.validate_required(self.unsign_time, 'unsign_time')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -37184,6 +39387,10 @@ class CreateLeaseZftagreementunsignResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -37233,6 +39440,10 @@ class GetCertificateDetailRequest(TeaModel):
         self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -37280,6 +39491,10 @@ class GetCertificateDetailResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -37352,6 +39567,10 @@ class GetInternalTextRequest(TeaModel):
         self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -37432,6 +39651,10 @@ class GetInternalTextResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -37498,6 +39721,10 @@ class OpenInternalTwcRequest(TeaModel):
         self.validate_required(self.auth_code, 'auth_code')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -37554,6 +39781,10 @@ class OpenInternalTwcResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -37617,6 +39848,10 @@ class CreateSpecifyTransRequest(TeaModel):
         self.validate_required(self.chain_account, 'chain_account')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -37683,6 +39918,10 @@ class CreateSpecifyTransResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -37761,6 +40000,10 @@ class CreateSpecifyTextRequest(TeaModel):
         self.validate_required(self.chain_account, 'chain_account')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -37843,6 +40086,10 @@ class CreateSpecifyTextResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -37927,6 +40174,10 @@ class CreateInternalFileRequest(TeaModel):
             self.location.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -38017,6 +40268,10 @@ class CreateInternalFileResponse(TeaModel):
             self.tsr.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -38087,6 +40342,10 @@ class GetInternalFileRequest(TeaModel):
             self.location.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -38166,6 +40425,10 @@ class GetInternalFileResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -38232,6 +40495,10 @@ class CreateFlowInstanceRequest(TeaModel):
             self.notary_user.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -38286,6 +40553,10 @@ class CreateFlowInstanceResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -38330,6 +40601,10 @@ class FinishFlowInstanceRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -38375,6 +40650,10 @@ class FinishFlowInstanceResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -38428,6 +40707,10 @@ class InitFlowPhaseRequest(TeaModel):
         self.validate_required(self.origin_data_id, 'origin_data_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -38481,6 +40764,10 @@ class InitFlowPhaseResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -38526,6 +40813,10 @@ class QueryFlowPhaseRequest(TeaModel):
         self.validate_required(self.phase_id, 'phase_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -38577,6 +40868,10 @@ class QueryFlowPhaseResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -38634,6 +40929,10 @@ class DetailFlowPhaseRequest(TeaModel):
         self.validate_required(self.tx_hash, 'tx_hash')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -38705,6 +41004,10 @@ class DetailFlowPhaseResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -38795,6 +41098,10 @@ class CreateFlowOnestepnotaryRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -38864,6 +41171,10 @@ class CreateFlowOnestepnotaryResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -38917,6 +41228,10 @@ class QueryFlowOnestepnotaryRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -38971,6 +41286,10 @@ class QueryFlowOnestepnotaryResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -39033,9 +41352,12 @@ class ApplyFlowCertificateRequest(TeaModel):
     def validate(self):
         self.validate_required(self.flow_id, 'flow_id')
         self.validate_required(self.certification_type, 'certification_type')
-        self.validate_required(self.org_id, 'org_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -39089,6 +41411,10 @@ class ApplyFlowCertificateResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -39138,6 +41464,10 @@ class QueryFlowCertificateRequest(TeaModel):
         self.validate_required(self.order_no, 'order_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -39193,6 +41523,10 @@ class QueryFlowCertificateResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -39250,9 +41584,12 @@ class ApplyStubCertificateRequest(TeaModel):
     def validate(self):
         self.validate_required(self.flow_id, 'flow_id')
         self.validate_required(self.certification_type, 'certification_type')
-        self.validate_required(self.org_id, 'org_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -39306,6 +41643,10 @@ class ApplyStubCertificateResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -39355,6 +41696,10 @@ class QueryStubCertificateRequest(TeaModel):
         self.validate_required(self.order_no, 'order_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -39410,6 +41755,10 @@ class QueryStubCertificateResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -39462,6 +41811,10 @@ class QueryStubRequest(TeaModel):
         self.validate_required(self.flow_id, 'flow_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -39516,6 +41869,10 @@ class QueryStubResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -39588,6 +41945,10 @@ class CreateStubRequest(TeaModel):
             self.metric_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -39651,6 +42012,10 @@ class CreateStubResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -39709,6 +42074,10 @@ class ExistStubRequest(TeaModel):
         self.validate_required(self.scene_name, 'scene_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -39758,6 +42127,10 @@ class ExistStubResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -39779,6 +42152,115 @@ class ExistStubResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('exist') is not None:
             self.exist = m.get('exist')
+        return self
+
+
+class CreateStubClearingRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        flow_id: str = None,
+        stub_amount: int = None,
+        clearing_status: str = None,
+        metric_info: MetricInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 流程id
+        self.flow_id = flow_id
+        # 待分账金额，单位：分。如传100，即为100分，1元
+        self.stub_amount = stub_amount
+        # 清分状态，CLEARING_SUCCESS（清分成功）；CLEARING_FAIL（清分失败）；CLEARING_NONEED（不需要进行清分）
+        self.clearing_status = clearing_status
+        # 数字票根计量字段，当clearing_status为CLEARING_SUCCESS时，该字段必填
+        self.metric_info = metric_info
+
+    def validate(self):
+        self.validate_required(self.flow_id, 'flow_id')
+        self.validate_required(self.stub_amount, 'stub_amount')
+        self.validate_required(self.clearing_status, 'clearing_status')
+        if self.metric_info:
+            self.metric_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.stub_amount is not None:
+            result['stub_amount'] = self.stub_amount
+        if self.clearing_status is not None:
+            result['clearing_status'] = self.clearing_status
+        if self.metric_info is not None:
+            result['metric_info'] = self.metric_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('stub_amount') is not None:
+            self.stub_amount = m.get('stub_amount')
+        if m.get('clearing_status') is not None:
+            self.clearing_status = m.get('clearing_status')
+        if m.get('metric_info') is not None:
+            temp_model = MetricInfo()
+            self.metric_info = temp_model.from_map(m['metric_info'])
+        return self
+
+
+class CreateStubClearingResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
