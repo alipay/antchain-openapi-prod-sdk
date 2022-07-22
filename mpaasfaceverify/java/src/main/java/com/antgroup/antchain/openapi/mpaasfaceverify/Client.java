@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.11")
+                    new TeaPair("sdk_version", "1.1.12")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -328,5 +328,24 @@ public class Client {
     public QueryCertifyrecordResponse queryCertifyrecordEx(QueryCertifyrecordRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCertifyrecordResponse());
+    }
+
+    /**
+     * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+     * Summary: OCR数据上传接口
+     */
+    public UploadOcrServermodeResponse uploadOcrServermode(UploadOcrServermodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadOcrServermodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+     * Summary: OCR数据上传接口
+     */
+    public UploadOcrServermodeResponse uploadOcrServermodeEx(UploadOcrServermodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.ocr.servermode.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadOcrServermodeResponse());
     }
 }
