@@ -843,6 +843,89 @@ export class QueryCertifyrecordResponse extends $tea.Model {
   }
 }
 
+export class UploadOcrServermodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+  bizId: string;
+  // 预留扩展业务参数
+  externParam?: string;
+  // 对称密钥加密的ocr内容
+  content: string;
+  // 非对称密钥加密后的对称密钥
+  contentSig: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      externParam: 'extern_param',
+      content: 'content',
+      contentSig: 'content_sig',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      externParam: 'string',
+      content: 'string',
+      contentSig: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadOcrServermodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 预留扩展结果
+  externInfo?: string;
+  // 产品结果明细，不影响决策
+  resultCodeSub?: string;
+  // result_code_sub对应的文案
+  resultMsgSub?: string;
+  // 认证单据号
+  certifyId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+      resultCodeSub: 'result_code_sub',
+      resultMsgSub: 'result_msg_sub',
+      certifyId: 'certify_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+      resultCodeSub: 'string',
+      resultMsgSub: 'string',
+      certifyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -956,7 +1039,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.11",
+          sdk_version: "1.1.12",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1171,6 +1254,25 @@ export default class Client {
   async queryCertifyrecordEx(request: QueryCertifyrecordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCertifyrecordResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryCertifyrecordResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.certifyrecord.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCertifyrecordResponse({}));
+  }
+
+  /**
+   * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+   * Summary: OCR数据上传接口
+   */
+  async uploadOcrServermode(request: UploadOcrServermodeRequest): Promise<UploadOcrServermodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadOcrServermodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+   * Summary: OCR数据上传接口
+   */
+  async uploadOcrServermodeEx(request: UploadOcrServermodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadOcrServermodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadOcrServermodeResponse>(await this.doRequest("1.0", "antfin.mpaasfaceverify.ocr.servermode.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadOcrServermodeResponse({}));
   }
 
 }
