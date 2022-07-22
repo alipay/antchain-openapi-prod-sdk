@@ -87,17 +87,26 @@ class StubCommonInfo extends Model
      * @var string
      */
     public $customerId;
+
+    // 景区支付宝id，当biz_source为Alipay时，该字段必填
+    /**
+     * @example 2088xxxxx
+     *
+     * @var string
+     */
+    public $sceneAlipayId;
     protected $_name = [
-        'projectName' => 'project_name',
-        'sceneName'   => 'scene_name',
-        'bizType'     => 'biz_type',
-        'bizSource'   => 'biz_source',
-        'orderId'     => 'order_id',
-        'orderName'   => 'order_name',
-        'orderAmount' => 'order_amount',
-        'orderTime'   => 'order_time',
-        'stubAmount'  => 'stub_amount',
-        'customerId'  => 'customer_id',
+        'projectName'   => 'project_name',
+        'sceneName'     => 'scene_name',
+        'bizType'       => 'biz_type',
+        'bizSource'     => 'biz_source',
+        'orderId'       => 'order_id',
+        'orderName'     => 'order_name',
+        'orderAmount'   => 'order_amount',
+        'orderTime'     => 'order_time',
+        'stubAmount'    => 'stub_amount',
+        'customerId'    => 'customer_id',
+        'sceneAlipayId' => 'scene_alipay_id',
     ];
 
     public function validate()
@@ -147,6 +156,9 @@ class StubCommonInfo extends Model
         if (null !== $this->customerId) {
             $res['customer_id'] = $this->customerId;
         }
+        if (null !== $this->sceneAlipayId) {
+            $res['scene_alipay_id'] = $this->sceneAlipayId;
+        }
 
         return $res;
     }
@@ -188,6 +200,9 @@ class StubCommonInfo extends Model
         }
         if (isset($map['customer_id'])) {
             $model->customerId = $map['customer_id'];
+        }
+        if (isset($map['scene_alipay_id'])) {
+            $model->sceneAlipayId = $map['scene_alipay_id'];
         }
 
         return $model;

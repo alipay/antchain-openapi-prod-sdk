@@ -215,6 +215,8 @@ use AntChain\TWC\Models\CreateSpecifyTextRequest;
 use AntChain\TWC\Models\CreateSpecifyTextResponse;
 use AntChain\TWC\Models\CreateSpecifyTransRequest;
 use AntChain\TWC\Models\CreateSpecifyTransResponse;
+use AntChain\TWC\Models\CreateStubClearingRequest;
+use AntChain\TWC\Models\CreateStubClearingResponse;
 use AntChain\TWC\Models\CreateStubRequest;
 use AntChain\TWC\Models\CreateStubResponse;
 use AntChain\TWC\Models\CreateSueBreakpromiseinfoRequest;
@@ -650,7 +652,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.50',
+                    'sdk_version'      => '1.7.53',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -8816,5 +8818,38 @@ class Client
         Utils::validateModel($request);
 
         return ExistStubResponse::fromMap($this->doRequest('1.0', 'twc.notary.stub.exist', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字票根-清分接口
+     * Summary: 数字票根-清分接口.
+     *
+     * @param CreateStubClearingRequest $request
+     *
+     * @return CreateStubClearingResponse
+     */
+    public function createStubClearing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createStubClearingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字票根-清分接口
+     * Summary: 数字票根-清分接口.
+     *
+     * @param CreateStubClearingRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateStubClearingResponse
+     */
+    public function createStubClearingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateStubClearingResponse::fromMap($this->doRequest('1.0', 'twc.notary.stub.clearing.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -55,7 +55,6 @@ class ApplyFlowCertificateRequest extends Model
     {
         Model::validateRequired('flowId', $this->flowId, true);
         Model::validateRequired('certificationType', $this->certificationType, true);
-        Model::validateRequired('orgId', $this->orgId, true);
     }
 
     public function toMap()
