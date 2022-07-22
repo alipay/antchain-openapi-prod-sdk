@@ -1184,6 +1184,118 @@ func (s *QueryCertifyrecordResponse) SetResultMsgSub(v string) *QueryCertifyreco
 	return s
 }
 
+type UploadOcrServermodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 对称密钥加密的ocr内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 非对称密钥加密后的对称密钥
+	ContentSig *string `json:"content_sig,omitempty" xml:"content_sig,omitempty" require:"true"`
+}
+
+func (s UploadOcrServermodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadOcrServermodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadOcrServermodeRequest) SetAuthToken(v string) *UploadOcrServermodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadOcrServermodeRequest) SetProductInstanceId(v string) *UploadOcrServermodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadOcrServermodeRequest) SetBizId(v string) *UploadOcrServermodeRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *UploadOcrServermodeRequest) SetExternParam(v string) *UploadOcrServermodeRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *UploadOcrServermodeRequest) SetContent(v string) *UploadOcrServermodeRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *UploadOcrServermodeRequest) SetContentSig(v string) *UploadOcrServermodeRequest {
+	s.ContentSig = &v
+	return s
+}
+
+type UploadOcrServermodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 预留扩展结果
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 产品结果明细，不影响决策
+	ResultCodeSub *string `json:"result_code_sub,omitempty" xml:"result_code_sub,omitempty"`
+	// result_code_sub对应的文案
+	ResultMsgSub *string `json:"result_msg_sub,omitempty" xml:"result_msg_sub,omitempty"`
+	// 认证单据号
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+}
+
+func (s UploadOcrServermodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadOcrServermodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadOcrServermodeResponse) SetReqMsgId(v string) *UploadOcrServermodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadOcrServermodeResponse) SetResultCode(v string) *UploadOcrServermodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadOcrServermodeResponse) SetResultMsg(v string) *UploadOcrServermodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadOcrServermodeResponse) SetExternInfo(v string) *UploadOcrServermodeResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *UploadOcrServermodeResponse) SetResultCodeSub(v string) *UploadOcrServermodeResponse {
+	s.ResultCodeSub = &v
+	return s
+}
+
+func (s *UploadOcrServermodeResponse) SetResultMsgSub(v string) *UploadOcrServermodeResponse {
+	s.ResultMsgSub = &v
+	return s
+}
+
+func (s *UploadOcrServermodeResponse) SetCertifyId(v string) *UploadOcrServermodeResponse {
+	s.CertifyId = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1306,7 +1418,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.11"),
+				"sdk_version":      tea.String("1.1.12"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1653,6 +1765,40 @@ func (client *Client) QueryCertifyrecordEx(request *QueryCertifyrecordRequest, h
 	}
 	_result = &QueryCertifyrecordResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antfin.mpaasfaceverify.certifyrecord.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+ * Summary: OCR数据上传接口
+ */
+func (client *Client) UploadOcrServermode(request *UploadOcrServermodeRequest) (_result *UploadOcrServermodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadOcrServermodeResponse{}
+	_body, _err := client.UploadOcrServermodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+ * Summary: OCR数据上传接口
+ */
+func (client *Client) UploadOcrServermodeEx(request *UploadOcrServermodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadOcrServermodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadOcrServermodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antfin.mpaasfaceverify.ocr.servermode.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
