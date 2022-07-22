@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.11'
+                    'sdk_version': '1.1.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -235,7 +235,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.11'
+                    'sdk_version': '1.1.12'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -304,7 +304,8 @@ class Client:
         Summary: 实人认证初始化
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.InitFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.InitFaceauthResponse(),
             self.do_request('1.0', 'antfin.mpaasfaceverify.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -319,7 +320,8 @@ class Client:
         Summary: 实人认证初始化
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.InitFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.InitFaceauthResponse(),
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -358,7 +360,8 @@ class Client:
         Summary: 实人认证查询
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.QueryFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryFaceauthResponse(),
             self.do_request('1.0', 'antfin.mpaasfaceverify.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -373,7 +376,8 @@ class Client:
         Summary: 实人认证查询
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.QueryFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryFaceauthResponse(),
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -412,7 +416,8 @@ class Client:
         Summary: 人脸双因子认证服务端初始化
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.InitFaceplusResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.InitFaceplusResponse(),
             self.do_request('1.0', 'antfin.mpaasfaceverify.faceplus.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -427,7 +432,8 @@ class Client:
         Summary: 人脸双因子认证服务端初始化
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.InitFaceplusResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.InitFaceplusResponse(),
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.faceplus.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -466,7 +472,8 @@ class Client:
         Summary: 人脸双因子认证服务端查询
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.QueryFaceplusResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryFaceplusResponse(),
             self.do_request('1.0', 'antfin.mpaasfaceverify.faceplus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -481,7 +488,8 @@ class Client:
         Summary: 人脸双因子认证服务端查询
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.QueryFaceplusResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryFaceplusResponse(),
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.faceplus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -520,7 +528,8 @@ class Client:
         Summary: 获取认证资料
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.QueryFaceauthFileResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryFaceauthFileResponse(),
             self.do_request('1.0', 'antfin.mpaasfaceverify.faceauth.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -535,7 +544,8 @@ class Client:
         Summary: 获取认证资料
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.QueryFaceauthFileResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryFaceauthFileResponse(),
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.faceauth.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -574,7 +584,8 @@ class Client:
         Summary: 实人认证核验源服务
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.CertifyServermodeResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.CertifyServermodeResponse(),
             self.do_request('1.0', 'antfin.mpaasfaceverify.servermode.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -589,7 +600,8 @@ class Client:
         Summary: 实人认证核验源服务
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.CertifyServermodeResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.CertifyServermodeResponse(),
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.servermode.certify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -628,7 +640,8 @@ class Client:
         Summary: 实人认证单据初始化服务
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.InitCertifyrecordRealpersonResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.InitCertifyrecordRealpersonResponse(),
             self.do_request('1.0', 'antfin.mpaasfaceverify.certifyrecord.realperson.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -643,7 +656,8 @@ class Client:
         Summary: 实人认证单据初始化服务
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.InitCertifyrecordRealpersonResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.InitCertifyrecordRealpersonResponse(),
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.certifyrecord.realperson.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -682,7 +696,8 @@ class Client:
         Summary: 认证单据初始化服务(无身份)
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.InitCertifyrecordResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.InitCertifyrecordResponse(),
             self.do_request('1.0', 'antfin.mpaasfaceverify.certifyrecord.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -697,7 +712,8 @@ class Client:
         Summary: 认证单据初始化服务(无身份)
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.InitCertifyrecordResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.InitCertifyrecordResponse(),
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.certifyrecord.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -736,7 +752,8 @@ class Client:
         Summary: 实人认证查询(certifyId)
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.QueryCertifyrecordResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryCertifyrecordResponse(),
             self.do_request('1.0', 'antfin.mpaasfaceverify.certifyrecord.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -751,6 +768,63 @@ class Client:
         Summary: 实人认证查询(certifyId)
         """
         UtilClient.validate_model(request)
-        return mpaasfaceverify_models.QueryCertifyrecordResponse().from_map(
+        return TeaCore.from_map(
+            mpaasfaceverify_models.QueryCertifyrecordResponse(),
             await self.do_request_async('1.0', 'antfin.mpaasfaceverify.certifyrecord.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_ocr_servermode(
+        self,
+        request: mpaasfaceverify_models.UploadOcrServermodeRequest,
+    ) -> mpaasfaceverify_models.UploadOcrServermodeResponse:
+        """
+        Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+        Summary: OCR数据上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_ocr_servermode_ex(request, headers, runtime)
+
+    async def upload_ocr_servermode_async(
+        self,
+        request: mpaasfaceverify_models.UploadOcrServermodeRequest,
+    ) -> mpaasfaceverify_models.UploadOcrServermodeResponse:
+        """
+        Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+        Summary: OCR数据上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_ocr_servermode_ex_async(request, headers, runtime)
+
+    def upload_ocr_servermode_ex(
+        self,
+        request: mpaasfaceverify_models.UploadOcrServermodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.UploadOcrServermodeResponse:
+        """
+        Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+        Summary: OCR数据上传接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.UploadOcrServermodeResponse(),
+            self.do_request('1.0', 'antfin.mpaasfaceverify.ocr.servermode.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_ocr_servermode_ex_async(
+        self,
+        request: mpaasfaceverify_models.UploadOcrServermodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mpaasfaceverify_models.UploadOcrServermodeResponse:
+        """
+        Description: 调用”纯服务端OCR数据上传“接口，存储OCR数据，返回计费单据号
+        Summary: OCR数据上传接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mpaasfaceverify_models.UploadOcrServermodeResponse(),
+            await self.do_request_async('1.0', 'antfin.mpaasfaceverify.ocr.servermode.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
