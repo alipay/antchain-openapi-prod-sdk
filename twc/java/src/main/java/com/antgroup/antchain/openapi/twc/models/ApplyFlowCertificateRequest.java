@@ -23,7 +23,6 @@ public class ApplyFlowCertificateRequest extends TeaModel {
 
     // 公证处ID，OrgCertification（公证处存证证明）选填，不填则为默认公证处
     @NameInMap("org_id")
-    @Validation(required = true)
     public String orgId;
 
     // 是否需要legal码，默认为false即不需要，true表示需要

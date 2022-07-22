@@ -53,6 +53,10 @@ public class StubCommonInfo extends TeaModel {
     @Validation(required = true)
     public String customerId;
 
+    // 景区支付宝id，当biz_source为Alipay时，该字段必填
+    @NameInMap("scene_alipay_id")
+    public String sceneAlipayId;
+
     public static StubCommonInfo build(java.util.Map<String, ?> map) throws Exception {
         StubCommonInfo self = new StubCommonInfo();
         return TeaModel.build(map, self);
@@ -136,6 +140,14 @@ public class StubCommonInfo extends TeaModel {
     }
     public String getCustomerId() {
         return this.customerId;
+    }
+
+    public StubCommonInfo setSceneAlipayId(String sceneAlipayId) {
+        this.sceneAlipayId = sceneAlipayId;
+        return this;
+    }
+    public String getSceneAlipayId() {
+        return this.sceneAlipayId;
     }
 
 }
