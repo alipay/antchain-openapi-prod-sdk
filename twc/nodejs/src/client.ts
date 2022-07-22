@@ -1732,6 +1732,8 @@ export class StubCommonInfo extends $tea.Model {
   stubAmount: number;
   // 客户id。支付宝情况下传支付宝id，2088打头；景区时可传自定义的客户id
   customerId: string;
+  // 景区支付宝id，当biz_source为Alipay时，该字段必填
+  sceneAlipayId?: string;
   static names(): { [key: string]: string } {
     return {
       projectName: 'project_name',
@@ -1744,6 +1746,7 @@ export class StubCommonInfo extends $tea.Model {
       orderTime: 'order_time',
       stubAmount: 'stub_amount',
       customerId: 'customer_id',
+      sceneAlipayId: 'scene_alipay_id',
     };
   }
 
@@ -1759,6 +1762,7 @@ export class StubCommonInfo extends $tea.Model {
       orderTime: 'string',
       stubAmount: 'number',
       customerId: 'string',
+      sceneAlipayId: 'string',
     };
   }
 
@@ -25010,7 +25014,7 @@ export class ApplyFlowCertificateRequest extends $tea.Model {
   // 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
   certificationType: string;
   // 公证处ID，OrgCertification（公证处存证证明）选填，不填则为默认公证处
-  orgId: string;
+  orgId?: string;
   // 是否需要legal码，默认为false即不需要，true表示需要
   needLegalCode?: boolean;
   static names(): { [key: string]: string } {
@@ -25156,7 +25160,7 @@ export class ApplyStubCertificateRequest extends $tea.Model {
   // 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
   certificationType: string;
   // 公证处ID，OrgCertification（公证处存证证明）选填，不填则为默认公证处
-  orgId: string;
+  orgId?: string;
   // 是否需要legal码，默认为false即不需要，true表示需要
   needLegalCode?: boolean;
   static names(): { [key: string]: string } {
@@ -25506,6 +25510,73 @@ export class ExistStubResponse extends $tea.Model {
   }
 }
 
+export class CreateStubClearingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id
+  flowId: string;
+  // 待分账金额，单位：分。如传100，即为100分，1元
+  stubAmount: number;
+  // 清分状态，CLEARING_SUCCESS（清分成功）；CLEARING_FAIL（清分失败）；CLEARING_NONEED（不需要进行清分）
+  clearingStatus: string;
+  // 数字票根计量字段，当clearing_status为CLEARING_SUCCESS时，该字段必填
+  metricInfo?: MetricInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      stubAmount: 'stub_amount',
+      clearingStatus: 'clearing_status',
+      metricInfo: 'metric_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      stubAmount: 'number',
+      clearingStatus: 'string',
+      metricInfo: MetricInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateStubClearingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -25619,7 +25690,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.50",
+          sdk_version: "1.7.53",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -30341,6 +30412,25 @@ export default class Client {
   async existStubEx(request: ExistStubRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExistStubResponse> {
     Util.validateModel(request);
     return $tea.cast<ExistStubResponse>(await this.doRequest("1.0", "twc.notary.stub.exist", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExistStubResponse({}));
+  }
+
+  /**
+   * Description: 数字票根-清分接口
+   * Summary: 数字票根-清分接口
+   */
+  async createStubClearing(request: CreateStubClearingRequest): Promise<CreateStubClearingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createStubClearingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字票根-清分接口
+   * Summary: 数字票根-清分接口
+   */
+  async createStubClearingEx(request: CreateStubClearingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateStubClearingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateStubClearingResponse>(await this.doRequest("1.0", "twc.notary.stub.clearing.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateStubClearingResponse({}));
   }
 
 }
