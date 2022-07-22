@@ -2341,6 +2341,8 @@ type StubCommonInfo struct {
 	StubAmount *int64 `json:"stub_amount,omitempty" xml:"stub_amount,omitempty" require:"true"`
 	// 客户id。支付宝情况下传支付宝id，2088打头；景区时可传自定义的客户id
 	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
+	// 景区支付宝id，当biz_source为Alipay时，该字段必填
+	SceneAlipayId *string `json:"scene_alipay_id,omitempty" xml:"scene_alipay_id,omitempty"`
 }
 
 func (s StubCommonInfo) String() string {
@@ -2398,6 +2400,11 @@ func (s *StubCommonInfo) SetStubAmount(v int64) *StubCommonInfo {
 
 func (s *StubCommonInfo) SetCustomerId(v string) *StubCommonInfo {
 	s.CustomerId = &v
+	return s
+}
+
+func (s *StubCommonInfo) SetSceneAlipayId(v string) *StubCommonInfo {
+	s.SceneAlipayId = &v
 	return s
 }
 
@@ -33914,7 +33921,7 @@ type ApplyFlowCertificateRequest struct {
 	// 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
 	CertificationType *string `json:"certification_type,omitempty" xml:"certification_type,omitempty" require:"true"`
 	// 公证处ID，OrgCertification（公证处存证证明）选填，不填则为默认公证处
-	OrgId *string `json:"org_id,omitempty" xml:"org_id,omitempty" require:"true"`
+	OrgId *string `json:"org_id,omitempty" xml:"org_id,omitempty"`
 	// 是否需要legal码，默认为false即不需要，true表示需要
 	NeedLegalCode *bool `json:"need_legal_code,omitempty" xml:"need_legal_code,omitempty"`
 }
@@ -34103,7 +34110,7 @@ type ApplyStubCertificateRequest struct {
 	// 证书类型，AntchainCertification（蚂蚁链存证证明）、OrgCertification（公证处存证证明），目前支持公证处
 	CertificationType *string `json:"certification_type,omitempty" xml:"certification_type,omitempty" require:"true"`
 	// 公证处ID，OrgCertification（公证处存证证明）选填，不填则为默认公证处
-	OrgId *string `json:"org_id,omitempty" xml:"org_id,omitempty" require:"true"`
+	OrgId *string `json:"org_id,omitempty" xml:"org_id,omitempty"`
 	// 是否需要legal码，默认为false即不需要，true表示需要
 	NeedLegalCode *bool `json:"need_legal_code,omitempty" xml:"need_legal_code,omitempty"`
 }
@@ -34556,6 +34563,90 @@ func (s *ExistStubResponse) SetExist(v bool) *ExistStubResponse {
 	return s
 }
 
+type CreateStubClearingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 流程id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
+	// 待分账金额，单位：分。如传100，即为100分，1元
+	StubAmount *int64 `json:"stub_amount,omitempty" xml:"stub_amount,omitempty" require:"true"`
+	// 清分状态，CLEARING_SUCCESS（清分成功）；CLEARING_FAIL（清分失败）；CLEARING_NONEED（不需要进行清分）
+	ClearingStatus *string `json:"clearing_status,omitempty" xml:"clearing_status,omitempty" require:"true"`
+	// 数字票根计量字段，当clearing_status为CLEARING_SUCCESS时，该字段必填
+	MetricInfo *MetricInfo `json:"metric_info,omitempty" xml:"metric_info,omitempty"`
+}
+
+func (s CreateStubClearingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateStubClearingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateStubClearingRequest) SetAuthToken(v string) *CreateStubClearingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateStubClearingRequest) SetProductInstanceId(v string) *CreateStubClearingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateStubClearingRequest) SetFlowId(v string) *CreateStubClearingRequest {
+	s.FlowId = &v
+	return s
+}
+
+func (s *CreateStubClearingRequest) SetStubAmount(v int64) *CreateStubClearingRequest {
+	s.StubAmount = &v
+	return s
+}
+
+func (s *CreateStubClearingRequest) SetClearingStatus(v string) *CreateStubClearingRequest {
+	s.ClearingStatus = &v
+	return s
+}
+
+func (s *CreateStubClearingRequest) SetMetricInfo(v *MetricInfo) *CreateStubClearingRequest {
+	s.MetricInfo = v
+	return s
+}
+
+type CreateStubClearingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateStubClearingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateStubClearingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateStubClearingResponse) SetReqMsgId(v string) *CreateStubClearingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateStubClearingResponse) SetResultCode(v string) *CreateStubClearingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateStubClearingResponse) SetResultMsg(v string) *CreateStubClearingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -34678,7 +34769,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.50"),
+				"sdk_version":      tea.String("1.7.53"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -43087,6 +43178,40 @@ func (client *Client) ExistStubEx(request *ExistStubRequest, headers map[string]
 	}
 	_result = &ExistStubResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.stub.exist"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字票根-清分接口
+ * Summary: 数字票根-清分接口
+ */
+func (client *Client) CreateStubClearing(request *CreateStubClearingRequest) (_result *CreateStubClearingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateStubClearingResponse{}
+	_body, _err := client.CreateStubClearingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字票根-清分接口
+ * Summary: 数字票根-清分接口
+ */
+func (client *Client) CreateStubClearingEx(request *CreateStubClearingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateStubClearingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateStubClearingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.stub.clearing.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
