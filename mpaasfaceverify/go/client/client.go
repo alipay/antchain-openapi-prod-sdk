@@ -1190,6 +1190,8 @@ type UploadOcrServermodeRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 操作类型
+	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty"`
 	// 预留扩展业务参数
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 	// 对称密钥加密的ocr内容
@@ -1218,6 +1220,11 @@ func (s *UploadOcrServermodeRequest) SetProductInstanceId(v string) *UploadOcrSe
 
 func (s *UploadOcrServermodeRequest) SetBizId(v string) *UploadOcrServermodeRequest {
 	s.BizId = &v
+	return s
+}
+
+func (s *UploadOcrServermodeRequest) SetOperationType(v string) *UploadOcrServermodeRequest {
+	s.OperationType = &v
 	return s
 }
 
@@ -1418,7 +1425,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.12"),
+				"sdk_version":      tea.String("1.1.13"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
