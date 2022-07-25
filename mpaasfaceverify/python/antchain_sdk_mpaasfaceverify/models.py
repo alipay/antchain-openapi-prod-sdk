@@ -1387,6 +1387,7 @@ class UploadOcrServermodeRequest(TeaModel):
         product_instance_id: str = None,
         biz_id: str = None,
         operation_type: str = None,
+        charge_code: str = None,
         extern_param: str = None,
         content: str = None,
         content_sig: str = None,
@@ -1398,6 +1399,8 @@ class UploadOcrServermodeRequest(TeaModel):
         self.biz_id = biz_id
         # 操作类型
         self.operation_type = operation_type
+        # 计费规则码
+        self.charge_code = charge_code
         # 预留扩展业务参数
         self.extern_param = extern_param
         # 对称密钥加密的ocr内容
@@ -1407,6 +1410,7 @@ class UploadOcrServermodeRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.charge_code, 'charge_code')
         self.validate_required(self.content, 'content')
         self.validate_required(self.content_sig, 'content_sig')
 
@@ -1424,6 +1428,8 @@ class UploadOcrServermodeRequest(TeaModel):
             result['biz_id'] = self.biz_id
         if self.operation_type is not None:
             result['operation_type'] = self.operation_type
+        if self.charge_code is not None:
+            result['charge_code'] = self.charge_code
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
         if self.content is not None:
@@ -1442,6 +1448,8 @@ class UploadOcrServermodeRequest(TeaModel):
             self.biz_id = m.get('biz_id')
         if m.get('operation_type') is not None:
             self.operation_type = m.get('operation_type')
+        if m.get('charge_code') is not None:
+            self.charge_code = m.get('charge_code')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
         if m.get('content') is not None:
