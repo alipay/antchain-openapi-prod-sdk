@@ -25,6 +25,12 @@ class UploadOcrServermodeRequest extends Model
      */
     public $bizId;
 
+    // 操作类型
+    /**
+     * @var string
+     */
+    public $operationType;
+
     // 预留扩展业务参数
     /**
      * @var string
@@ -46,6 +52,7 @@ class UploadOcrServermodeRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'bizId'             => 'biz_id',
+        'operationType'     => 'operation_type',
         'externParam'       => 'extern_param',
         'content'           => 'content',
         'contentSig'        => 'content_sig',
@@ -69,6 +76,9 @@ class UploadOcrServermodeRequest extends Model
         }
         if (null !== $this->bizId) {
             $res['biz_id'] = $this->bizId;
+        }
+        if (null !== $this->operationType) {
+            $res['operation_type'] = $this->operationType;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
@@ -99,6 +109,9 @@ class UploadOcrServermodeRequest extends Model
         }
         if (isset($map['biz_id'])) {
             $model->bizId = $map['biz_id'];
+        }
+        if (isset($map['operation_type'])) {
+            $model->operationType = $map['operation_type'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];
