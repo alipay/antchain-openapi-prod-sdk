@@ -20,6 +20,11 @@ public class UploadOcrServermodeRequest extends TeaModel {
     @NameInMap("operation_type")
     public String operationType;
 
+    // 计费规则码
+    @NameInMap("charge_code")
+    @Validation(required = true)
+    public String chargeCode;
+
     // 预留扩展业务参数
     @NameInMap("extern_param")
     public String externParam;
@@ -69,6 +74,14 @@ public class UploadOcrServermodeRequest extends TeaModel {
     }
     public String getOperationType() {
         return this.operationType;
+    }
+
+    public UploadOcrServermodeRequest setChargeCode(String chargeCode) {
+        this.chargeCode = chargeCode;
+        return this;
+    }
+    public String getChargeCode() {
+        return this.chargeCode;
     }
 
     public UploadOcrServermodeRequest setExternParam(String externParam) {

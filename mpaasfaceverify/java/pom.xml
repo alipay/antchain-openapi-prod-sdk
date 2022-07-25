@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-mpaasfaceverify</artifactId>
-  <version>1.1.13</version>
+  <version>1.1.14</version>
   <packaging>jar</packaging>
   <name>openapi-mpaasfaceverify</name>
   <description>Ant Chain MPAASFACEVERIFY SDK for Java
