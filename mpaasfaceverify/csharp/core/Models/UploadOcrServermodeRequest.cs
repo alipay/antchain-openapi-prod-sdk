@@ -23,6 +23,11 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
         [Validation(Required=true)]
         public string BizId { get; set; }
 
+        // 操作类型
+        [NameInMap("operation_type")]
+        [Validation(Required=false)]
+        public string OperationType { get; set; }
+
         // 预留扩展业务参数
         [NameInMap("extern_param")]
         [Validation(Required=false)]
