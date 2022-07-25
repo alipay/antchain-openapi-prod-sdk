@@ -31,6 +31,12 @@ class UploadOcrServermodeRequest extends Model
      */
     public $operationType;
 
+    // 计费规则码
+    /**
+     * @var string
+     */
+    public $chargeCode;
+
     // 预留扩展业务参数
     /**
      * @var string
@@ -53,6 +59,7 @@ class UploadOcrServermodeRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'bizId'             => 'biz_id',
         'operationType'     => 'operation_type',
+        'chargeCode'        => 'charge_code',
         'externParam'       => 'extern_param',
         'content'           => 'content',
         'contentSig'        => 'content_sig',
@@ -61,6 +68,7 @@ class UploadOcrServermodeRequest extends Model
     public function validate()
     {
         Model::validateRequired('bizId', $this->bizId, true);
+        Model::validateRequired('chargeCode', $this->chargeCode, true);
         Model::validateRequired('content', $this->content, true);
         Model::validateRequired('contentSig', $this->contentSig, true);
     }
@@ -79,6 +87,9 @@ class UploadOcrServermodeRequest extends Model
         }
         if (null !== $this->operationType) {
             $res['operation_type'] = $this->operationType;
+        }
+        if (null !== $this->chargeCode) {
+            $res['charge_code'] = $this->chargeCode;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
@@ -112,6 +123,9 @@ class UploadOcrServermodeRequest extends Model
         }
         if (isset($map['operation_type'])) {
             $model->operationType = $map['operation_type'];
+        }
+        if (isset($map['charge_code'])) {
+            $model->chargeCode = $map['charge_code'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];
