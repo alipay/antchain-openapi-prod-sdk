@@ -28,6 +28,11 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
         [Validation(Required=false)]
         public string OperationType { get; set; }
 
+        // 计费规则码
+        [NameInMap("charge_code")]
+        [Validation(Required=true)]
+        public string ChargeCode { get; set; }
+
         // 预留扩展业务参数
         [NameInMap("extern_param")]
         [Validation(Required=false)]
