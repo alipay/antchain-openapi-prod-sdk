@@ -1386,6 +1386,7 @@ class UploadOcrServermodeRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         biz_id: str = None,
+        operation_type: str = None,
         extern_param: str = None,
         content: str = None,
         content_sig: str = None,
@@ -1395,6 +1396,8 @@ class UploadOcrServermodeRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
         self.biz_id = biz_id
+        # 操作类型
+        self.operation_type = operation_type
         # 预留扩展业务参数
         self.extern_param = extern_param
         # 对称密钥加密的ocr内容
@@ -1419,6 +1422,8 @@ class UploadOcrServermodeRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.biz_id is not None:
             result['biz_id'] = self.biz_id
+        if self.operation_type is not None:
+            result['operation_type'] = self.operation_type
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
         if self.content is not None:
@@ -1435,6 +1440,8 @@ class UploadOcrServermodeRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('biz_id') is not None:
             self.biz_id = m.get('biz_id')
+        if m.get('operation_type') is not None:
+            self.operation_type = m.get('operation_type')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
         if m.get('content') is not None:
