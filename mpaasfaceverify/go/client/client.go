@@ -1192,6 +1192,8 @@ type UploadOcrServermodeRequest struct {
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
 	// 操作类型
 	OperationType *string `json:"operation_type,omitempty" xml:"operation_type,omitempty"`
+	// 计费规则码
+	ChargeCode *string `json:"charge_code,omitempty" xml:"charge_code,omitempty" require:"true"`
 	// 预留扩展业务参数
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 	// 对称密钥加密的ocr内容
@@ -1225,6 +1227,11 @@ func (s *UploadOcrServermodeRequest) SetBizId(v string) *UploadOcrServermodeRequ
 
 func (s *UploadOcrServermodeRequest) SetOperationType(v string) *UploadOcrServermodeRequest {
 	s.OperationType = &v
+	return s
+}
+
+func (s *UploadOcrServermodeRequest) SetChargeCode(v string) *UploadOcrServermodeRequest {
+	s.ChargeCode = &v
 	return s
 }
 
@@ -1425,7 +1432,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.13"),
+				"sdk_version":      tea.String("1.1.14"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
