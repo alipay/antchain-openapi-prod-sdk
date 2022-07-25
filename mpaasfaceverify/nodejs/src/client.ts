@@ -849,6 +849,8 @@ export class UploadOcrServermodeRequest extends $tea.Model {
   productInstanceId?: string;
   // 租户请求的唯一标志，该标识作为对账的关键信息，商户要保证其唯一性
   bizId: string;
+  // 操作类型
+  operationType?: string;
   // 预留扩展业务参数
   externParam?: string;
   // 对称密钥加密的ocr内容
@@ -860,6 +862,7 @@ export class UploadOcrServermodeRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       bizId: 'biz_id',
+      operationType: 'operation_type',
       externParam: 'extern_param',
       content: 'content',
       contentSig: 'content_sig',
@@ -871,6 +874,7 @@ export class UploadOcrServermodeRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       bizId: 'string',
+      operationType: 'string',
       externParam: 'string',
       content: 'string',
       contentSig: 'string',
@@ -1039,7 +1043,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.12",
+          sdk_version: "1.1.13",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
