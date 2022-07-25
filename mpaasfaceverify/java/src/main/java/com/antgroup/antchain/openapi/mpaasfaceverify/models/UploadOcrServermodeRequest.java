@@ -16,6 +16,10 @@ public class UploadOcrServermodeRequest extends TeaModel {
     @Validation(required = true)
     public String bizId;
 
+    // 操作类型
+    @NameInMap("operation_type")
+    public String operationType;
+
     // 预留扩展业务参数
     @NameInMap("extern_param")
     public String externParam;
@@ -57,6 +61,14 @@ public class UploadOcrServermodeRequest extends TeaModel {
     }
     public String getBizId() {
         return this.bizId;
+    }
+
+    public UploadOcrServermodeRequest setOperationType(String operationType) {
+        this.operationType = operationType;
+        return this;
+    }
+    public String getOperationType() {
+        return this.operationType;
     }
 
     public UploadOcrServermodeRequest setExternParam(String externParam) {
