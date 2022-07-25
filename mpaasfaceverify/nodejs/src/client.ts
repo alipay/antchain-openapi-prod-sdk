@@ -851,6 +851,8 @@ export class UploadOcrServermodeRequest extends $tea.Model {
   bizId: string;
   // 操作类型
   operationType?: string;
+  // 计费规则码
+  chargeCode: string;
   // 预留扩展业务参数
   externParam?: string;
   // 对称密钥加密的ocr内容
@@ -863,6 +865,7 @@ export class UploadOcrServermodeRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       bizId: 'biz_id',
       operationType: 'operation_type',
+      chargeCode: 'charge_code',
       externParam: 'extern_param',
       content: 'content',
       contentSig: 'content_sig',
@@ -875,6 +878,7 @@ export class UploadOcrServermodeRequest extends $tea.Model {
       productInstanceId: 'string',
       bizId: 'string',
       operationType: 'string',
+      chargeCode: 'string',
       externParam: 'string',
       content: 'string',
       contentSig: 'string',
@@ -1043,7 +1047,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.13",
+          sdk_version: "1.1.14",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
