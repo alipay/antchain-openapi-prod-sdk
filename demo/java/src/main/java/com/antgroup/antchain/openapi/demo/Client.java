@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.92")
+                    new TeaPair("sdk_version", "1.0.94")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -449,6 +449,25 @@ public class Client {
     }
 
     /**
+     * Description: 1·2
+     * Summary: 测试
+     */
+    public BindAsdAsdResponse bindAsdAsd(BindAsdAsdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindAsdAsdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 1·2
+     * Summary: 测试
+     */
+    public BindAsdAsdResponse bindAsdAsdEx(BindAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.asd.asd.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindAsdAsdResponse());
+    }
+
+    /**
      * Description: asd
      * Summary: asd
      */
@@ -506,7 +525,7 @@ public class Client {
     }
 
     /**
-     * Description: 测试使用
+     * Description: 测试使用1
      * Summary: 测试创建
      */
     public QueryTestGatewayTestResponse queryTestGatewayTest(QueryTestGatewayTestRequest request) throws Exception {
@@ -516,7 +535,7 @@ public class Client {
     }
 
     /**
-     * Description: 测试使用
+     * Description: 测试使用1
      * Summary: 测试创建
      */
     public QueryTestGatewayTestResponse queryTestGatewayTestEx(QueryTestGatewayTestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
