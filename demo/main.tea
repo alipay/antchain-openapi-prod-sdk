@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.92',
+    sdk_version = '1.0.94',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -768,6 +768,40 @@ async function queryAdAsdAsdEx(request: QueryAdAsdAsdRequest, headers: map[strin
   return doRequest('1.0' ,'demo.ad.asd.asd.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model BindAsdAsdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BindAsdAsdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 1·2
+ * Summary: 测试
+ */
+async function bindAsdAsd(request: BindAsdAsdRequest): BindAsdAsdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindAsdAsdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 1·2
+ * Summary: 测试
+ */
+async function bindAsdAsdEx(request: BindAsdAsdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindAsdAsdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.asd.asd.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model BindAsdAsdAsdRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -900,7 +934,7 @@ model QueryTestGatewayTestResponse = {
 }
 
 /**
- * Description: 测试使用
+ * Description: 测试使用1
  * Summary: 测试创建
  */
 async function queryTestGatewayTest(request: QueryTestGatewayTestRequest): QueryTestGatewayTestResponse {
@@ -910,7 +944,7 @@ async function queryTestGatewayTest(request: QueryTestGatewayTestRequest): Query
 }
 
 /**
- * Description: 测试使用
+ * Description: 测试使用1
  * Summary: 测试创建
  */
 async function queryTestGatewayTestEx(request: QueryTestGatewayTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestGatewayTestResponse {
