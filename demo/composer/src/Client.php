@@ -15,6 +15,8 @@ use AntChain\DEMO\Models\BindAaaBbbCccRequest;
 use AntChain\DEMO\Models\BindAaaBbbCccResponse;
 use AntChain\DEMO\Models\BindAsdAsdAsdRequest;
 use AntChain\DEMO\Models\BindAsdAsdAsdResponse;
+use AntChain\DEMO\Models\BindAsdAsdRequest;
+use AntChain\DEMO\Models\BindAsdAsdResponse;
 use AntChain\DEMO\Models\BindDemoCheckEeeRequest;
 use AntChain\DEMO\Models\BindDemoCheckEeeResponse;
 use AntChain\DEMO\Models\BindGatewayAbcTestRequest;
@@ -204,7 +206,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.92',
+                    'sdk_version'      => '1.0.94',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -733,6 +735,39 @@ class Client
     }
 
     /**
+     * Description: 1·2
+     * Summary: 测试.
+     *
+     * @param BindAsdAsdRequest $request
+     *
+     * @return BindAsdAsdResponse
+     */
+    public function bindAsdAsd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindAsdAsdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 1·2
+     * Summary: 测试.
+     *
+     * @param BindAsdAsdRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return BindAsdAsdResponse
+     */
+    public function bindAsdAsdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.asd.asd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: asd
      * Summary: asd.
      *
@@ -832,7 +867,7 @@ class Client
     }
 
     /**
-     * Description: 测试使用
+     * Description: 测试使用1
      * Summary: 测试创建.
      *
      * @param QueryTestGatewayTestRequest $request
@@ -848,7 +883,7 @@ class Client
     }
 
     /**
-     * Description: 测试使用
+     * Description: 测试使用1
      * Summary: 测试创建.
      *
      * @param QueryTestGatewayTestRequest $request
