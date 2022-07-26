@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.92'
+                    'sdk_version': '1.0.94'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.92'
+                    'sdk_version': '1.0.94'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1093,6 +1093,62 @@ class Client:
             await self.do_request_async('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def bind_asd_asd(
+        self,
+        request: demo_models.BindAsdAsdRequest,
+    ) -> demo_models.BindAsdAsdResponse:
+        """
+        Description: 1·2
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_asd_asd_ex(request, headers, runtime)
+
+    async def bind_asd_asd_async(
+        self,
+        request: demo_models.BindAsdAsdRequest,
+    ) -> demo_models.BindAsdAsdResponse:
+        """
+        Description: 1·2
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_asd_asd_ex_async(request, headers, runtime)
+
+    def bind_asd_asd_ex(
+        self,
+        request: demo_models.BindAsdAsdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.BindAsdAsdResponse:
+        """
+        Description: 1·2
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.BindAsdAsdResponse(),
+            self.do_request('1.0', 'demo.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_asd_asd_ex_async(
+        self,
+        request: demo_models.BindAsdAsdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.BindAsdAsdResponse:
+        """
+        Description: 1·2
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.BindAsdAsdResponse(),
+            await self.do_request_async('1.0', 'demo.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def bind_asd_asd_asd(
         self,
         request: demo_models.BindAsdAsdAsdRequest,
@@ -1266,7 +1322,7 @@ class Client:
         request: demo_models.QueryTestGatewayTestRequest,
     ) -> demo_models.QueryTestGatewayTestResponse:
         """
-        Description: 测试使用
+        Description: 测试使用1
         Summary: 测试创建
         """
         runtime = util_models.RuntimeOptions()
@@ -1278,7 +1334,7 @@ class Client:
         request: demo_models.QueryTestGatewayTestRequest,
     ) -> demo_models.QueryTestGatewayTestResponse:
         """
-        Description: 测试使用
+        Description: 测试使用1
         Summary: 测试创建
         """
         runtime = util_models.RuntimeOptions()
@@ -1292,7 +1348,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> demo_models.QueryTestGatewayTestResponse:
         """
-        Description: 测试使用
+        Description: 测试使用1
         Summary: 测试创建
         """
         UtilClient.validate_model(request)
@@ -1308,7 +1364,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> demo_models.QueryTestGatewayTestResponse:
         """
-        Description: 测试使用
+        Description: 测试使用1
         Summary: 测试创建
         """
         UtilClient.validate_model(request)
