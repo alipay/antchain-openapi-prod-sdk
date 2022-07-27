@@ -24,15 +24,20 @@ namespace AntChain.SDK.RISKNET.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 测试结果
+        // 风险咨询是否查得
+        [NameInMap("found")]
+        [Validation(Required=false)]
+        public string Found { get; set; }
+
+        // 风险咨询结果
         [NameInMap("risk_result")]
         [Validation(Required=false)]
         public string RiskResult { get; set; }
 
-        // 风险咨询结果描述
-        [NameInMap("risk_result_desc")]
+        // 风险咨询结果补充讯息
+        [NameInMap("risk_result_ext")]
         [Validation(Required=false)]
-        public string RiskResultDesc { get; set; }
+        public string RiskResultExt { get; set; }
 
     }
 
