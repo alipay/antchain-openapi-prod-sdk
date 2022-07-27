@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1'
+                    'sdk_version': '1.0.6'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -235,7 +235,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1'
+                    'sdk_version': '1.0.6'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -304,7 +304,8 @@ class Client:
         Summary: 安全科技商业化RISKNET通用接口
         """
         UtilClient.validate_model(request)
-        return risknet_models.QueryGeneralResponse().from_map(
+        return TeaCore.from_map(
+            risknet_models.QueryGeneralResponse(),
             self.do_request('1.0', 'antsecuritytech.risknet.general.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -319,6 +320,7 @@ class Client:
         Summary: 安全科技商业化RISKNET通用接口
         """
         UtilClient.validate_model(request)
-        return risknet_models.QueryGeneralResponse().from_map(
+        return TeaCore.from_map(
+            risknet_models.QueryGeneralResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.risknet.general.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

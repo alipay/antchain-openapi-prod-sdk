@@ -69,6 +69,10 @@ class Config(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.access_key_id is not None:
             result['accessKeyId'] = self.access_key_id
@@ -155,9 +159,9 @@ class QueryGeneralRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         service: str = None,
+        service_mode: str = None,
         user_authorization: str = None,
         encrypted_random_no: str = None,
-        service_mode: str = None,
         external_id: str = None,
         bank_card_no: str = None,
         user_id: str = None,
@@ -165,41 +169,59 @@ class QueryGeneralRequest(TeaModel):
         cert_no: str = None,
         lbs: str = None,
         sales_amount: str = None,
+        cert_type: str = None,
+        guid: str = None,
+        biz_license_no: str = None,
+        sec_load_test: str = None,
+        scene_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # test
+        # 调用服务名
         self.service = service
+        # 服务模式
+        self.service_mode = service_mode
         # 用于标记是否获得用户授权  1:获得授权（默认）
         # 0:未获得授权
         self.user_authorization = user_authorization
         # 经过RSA加密的用于AES加密的随机数密钥
         self.encrypted_random_no = encrypted_random_no
-        # 服务模式
-        self.service_mode = service_mode
         # 记录外部调用ISV
         self.external_id = external_id
-        # 银行卡号（加密）
+        # 银行卡号
         self.bank_card_no = bank_card_no
         # 支付宝id	用于输入用户支付宝的 2088 账号
         self.user_id = user_id
         # 电话号码
         self.mobile_no = mobile_no
-        # 身份证
+        # 证件号码
         self.cert_no = cert_no
         # 用于输入用户产生交易时的地理位置信息
         self.lbs = lbs
         # 用户购买或使用服务时产生的具体金额
         self.sales_amount = sales_amount
+        # 证件类型
+        self.cert_type = cert_type
+        # 企业工商注册ID
+        self.guid = guid
+        # 统一信用代码
+        self.biz_license_no = biz_license_no
+        # 压测标
+        self.sec_load_test = sec_load_test
+        # 场景ID
+        self.scene_id = scene_id
 
     def validate(self):
         self.validate_required(self.service, 'service')
-        self.validate_required(self.user_authorization, 'user_authorization')
-        self.validate_required(self.encrypted_random_no, 'encrypted_random_no')
         self.validate_required(self.service_mode, 'service_mode')
+        self.validate_required(self.user_authorization, 'user_authorization')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -207,12 +229,12 @@ class QueryGeneralRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.service is not None:
             result['service'] = self.service
+        if self.service_mode is not None:
+            result['service_mode'] = self.service_mode
         if self.user_authorization is not None:
             result['user_authorization'] = self.user_authorization
         if self.encrypted_random_no is not None:
             result['encrypted_random_no'] = self.encrypted_random_no
-        if self.service_mode is not None:
-            result['service_mode'] = self.service_mode
         if self.external_id is not None:
             result['external_id'] = self.external_id
         if self.bank_card_no is not None:
@@ -227,6 +249,16 @@ class QueryGeneralRequest(TeaModel):
             result['lbs'] = self.lbs
         if self.sales_amount is not None:
             result['sales_amount'] = self.sales_amount
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.guid is not None:
+            result['guid'] = self.guid
+        if self.biz_license_no is not None:
+            result['biz_license_no'] = self.biz_license_no
+        if self.sec_load_test is not None:
+            result['sec_load_test'] = self.sec_load_test
+        if self.scene_id is not None:
+            result['scene_id'] = self.scene_id
         return result
 
     def from_map(self, m: dict = None):
@@ -237,12 +269,12 @@ class QueryGeneralRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('service') is not None:
             self.service = m.get('service')
+        if m.get('service_mode') is not None:
+            self.service_mode = m.get('service_mode')
         if m.get('user_authorization') is not None:
             self.user_authorization = m.get('user_authorization')
         if m.get('encrypted_random_no') is not None:
             self.encrypted_random_no = m.get('encrypted_random_no')
-        if m.get('service_mode') is not None:
-            self.service_mode = m.get('service_mode')
         if m.get('external_id') is not None:
             self.external_id = m.get('external_id')
         if m.get('bank_card_no') is not None:
@@ -257,6 +289,16 @@ class QueryGeneralRequest(TeaModel):
             self.lbs = m.get('lbs')
         if m.get('sales_amount') is not None:
             self.sales_amount = m.get('sales_amount')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('guid') is not None:
+            self.guid = m.get('guid')
+        if m.get('biz_license_no') is not None:
+            self.biz_license_no = m.get('biz_license_no')
+        if m.get('sec_load_test') is not None:
+            self.sec_load_test = m.get('sec_load_test')
+        if m.get('scene_id') is not None:
+            self.scene_id = m.get('scene_id')
         return self
 
 
@@ -266,8 +308,9 @@ class QueryGeneralResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        found: str = None,
         risk_result: str = None,
-        risk_result_desc: str = None,
+        risk_result_ext: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -275,15 +318,21 @@ class QueryGeneralResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 测试结果
+        # 风险咨询是否查得
+        self.found = found
+        # 风险咨询结果
         self.risk_result = risk_result
-        # 风险咨询结果描述
-        self.risk_result_desc = risk_result_desc
+        # 风险咨询结果补充讯息
+        self.risk_result_ext = risk_result_ext
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -291,10 +340,12 @@ class QueryGeneralResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.found is not None:
+            result['found'] = self.found
         if self.risk_result is not None:
             result['risk_result'] = self.risk_result
-        if self.risk_result_desc is not None:
-            result['risk_result_desc'] = self.risk_result_desc
+        if self.risk_result_ext is not None:
+            result['risk_result_ext'] = self.risk_result_ext
         return result
 
     def from_map(self, m: dict = None):
@@ -305,10 +356,12 @@ class QueryGeneralResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('found') is not None:
+            self.found = m.get('found')
         if m.get('risk_result') is not None:
             self.risk_result = m.get('risk_result')
-        if m.get('risk_result_desc') is not None:
-            self.risk_result_desc = m.get('risk_result_desc')
+        if m.get('risk_result_ext') is not None:
+            self.risk_result_ext = m.get('risk_result_ext')
         return self
 
 
