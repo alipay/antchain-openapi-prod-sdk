@@ -81,37 +81,47 @@ export class QueryGeneralRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // test
+  // 调用服务名
   service: string;
+  // 服务模式
+  serviceMode: string;
   // 用于标记是否获得用户授权  1:获得授权（默认）
   // 0:未获得授权
   userAuthorization: string;
   // 经过RSA加密的用于AES加密的随机数密钥
-  encryptedRandomNo: string;
-  // 服务模式
-  serviceMode: string;
+  encryptedRandomNo?: string;
   // 记录外部调用ISV
   externalId?: string;
-  // 银行卡号（加密）
+  // 银行卡号
   bankCardNo?: string;
   // 支付宝id	用于输入用户支付宝的 2088 账号
   userId?: string;
   // 电话号码
   mobileNo?: string;
-  // 身份证
+  // 证件号码
   certNo?: string;
   // 用于输入用户产生交易时的地理位置信息
   lbs?: string;
   // 用户购买或使用服务时产生的具体金额
   salesAmount?: string;
+  // 证件类型
+  certType?: string;
+  // 企业工商注册ID
+  guid?: string;
+  // 统一信用代码
+  bizLicenseNo?: string;
+  // 压测标
+  secLoadTest?: string;
+  // 场景ID
+  sceneId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       service: 'service',
+      serviceMode: 'service_mode',
       userAuthorization: 'user_authorization',
       encryptedRandomNo: 'encrypted_random_no',
-      serviceMode: 'service_mode',
       externalId: 'external_id',
       bankCardNo: 'bank_card_no',
       userId: 'user_id',
@@ -119,6 +129,11 @@ export class QueryGeneralRequest extends $tea.Model {
       certNo: 'cert_no',
       lbs: 'lbs',
       salesAmount: 'sales_amount',
+      certType: 'cert_type',
+      guid: 'guid',
+      bizLicenseNo: 'biz_license_no',
+      secLoadTest: 'sec_load_test',
+      sceneId: 'scene_id',
     };
   }
 
@@ -127,9 +142,9 @@ export class QueryGeneralRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       service: 'string',
+      serviceMode: 'string',
       userAuthorization: 'string',
       encryptedRandomNo: 'string',
-      serviceMode: 'string',
       externalId: 'string',
       bankCardNo: 'string',
       userId: 'string',
@@ -137,6 +152,11 @@ export class QueryGeneralRequest extends $tea.Model {
       certNo: 'string',
       lbs: 'string',
       salesAmount: 'string',
+      certType: 'string',
+      guid: 'string',
+      bizLicenseNo: 'string',
+      secLoadTest: 'string',
+      sceneId: 'string',
     };
   }
 
@@ -152,17 +172,20 @@ export class QueryGeneralResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 测试结果
+  // 风险咨询是否查得
+  found?: string;
+  // 风险咨询结果
   riskResult?: string;
-  // 风险咨询结果描述
-  riskResultDesc?: string;
+  // 风险咨询结果补充讯息
+  riskResultExt?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      found: 'found',
       riskResult: 'risk_result',
-      riskResultDesc: 'risk_result_desc',
+      riskResultExt: 'risk_result_ext',
     };
   }
 
@@ -171,8 +194,9 @@ export class QueryGeneralResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      found: 'string',
       riskResult: 'string',
-      riskResultDesc: 'string',
+      riskResultExt: 'string',
     };
   }
 
@@ -294,7 +318,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.0.6",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
