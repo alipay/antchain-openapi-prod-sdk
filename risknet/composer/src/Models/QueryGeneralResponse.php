@@ -26,23 +26,30 @@ class QueryGeneralResponse extends Model
      */
     public $resultMsg;
 
-    // 测试结果
+    // 风险咨询是否查得
+    /**
+     * @var string
+     */
+    public $found;
+
+    // 风险咨询结果
     /**
      * @var string
      */
     public $riskResult;
 
-    // 风险咨询结果描述
+    // 风险咨询结果补充讯息
     /**
      * @var string
      */
-    public $riskResultDesc;
+    public $riskResultExt;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'riskResult'     => 'risk_result',
-        'riskResultDesc' => 'risk_result_desc',
+        'reqMsgId'      => 'req_msg_id',
+        'resultCode'    => 'result_code',
+        'resultMsg'     => 'result_msg',
+        'found'         => 'found',
+        'riskResult'    => 'risk_result',
+        'riskResultExt' => 'risk_result_ext',
     ];
 
     public function validate()
@@ -61,11 +68,14 @@ class QueryGeneralResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->found) {
+            $res['found'] = $this->found;
+        }
         if (null !== $this->riskResult) {
             $res['risk_result'] = $this->riskResult;
         }
-        if (null !== $this->riskResultDesc) {
-            $res['risk_result_desc'] = $this->riskResultDesc;
+        if (null !== $this->riskResultExt) {
+            $res['risk_result_ext'] = $this->riskResultExt;
         }
 
         return $res;
@@ -88,11 +98,14 @@ class QueryGeneralResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
+        if (isset($map['found'])) {
+            $model->found = $map['found'];
+        }
         if (isset($map['risk_result'])) {
             $model->riskResult = $map['risk_result'];
         }
-        if (isset($map['risk_result_desc'])) {
-            $model->riskResultDesc = $map['risk_result_desc'];
+        if (isset($map['risk_result_ext'])) {
+            $model->riskResultExt = $map['risk_result_ext'];
         }
 
         return $model;

@@ -19,11 +19,17 @@ class QueryGeneralRequest extends Model
      */
     public $productInstanceId;
 
-    // test
+    // 调用服务名
     /**
      * @var string
      */
     public $service;
+
+    // 服务模式
+    /**
+     * @var string
+     */
+    public $serviceMode;
 
     // 用于标记是否获得用户授权  1:获得授权（默认）
     // 0:未获得授权
@@ -38,19 +44,13 @@ class QueryGeneralRequest extends Model
      */
     public $encryptedRandomNo;
 
-    // 服务模式
-    /**
-     * @var string
-     */
-    public $serviceMode;
-
     // 记录外部调用ISV
     /**
      * @var string
      */
     public $externalId;
 
-    // 银行卡号（加密）
+    // 银行卡号
     /**
      * @var string
      */
@@ -68,7 +68,7 @@ class QueryGeneralRequest extends Model
      */
     public $mobileNo;
 
-    // 身份证
+    // 证件号码
     /**
      * @var string
      */
@@ -85,13 +85,43 @@ class QueryGeneralRequest extends Model
      * @var string
      */
     public $salesAmount;
+
+    // 证件类型
+    /**
+     * @var string
+     */
+    public $certType;
+
+    // 企业工商注册ID
+    /**
+     * @var string
+     */
+    public $guid;
+
+    // 统一信用代码
+    /**
+     * @var string
+     */
+    public $bizLicenseNo;
+
+    // 压测标
+    /**
+     * @var string
+     */
+    public $secLoadTest;
+
+    // 场景ID
+    /**
+     * @var string
+     */
+    public $sceneId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'service'           => 'service',
+        'serviceMode'       => 'service_mode',
         'userAuthorization' => 'user_authorization',
         'encryptedRandomNo' => 'encrypted_random_no',
-        'serviceMode'       => 'service_mode',
         'externalId'        => 'external_id',
         'bankCardNo'        => 'bank_card_no',
         'userId'            => 'user_id',
@@ -99,14 +129,18 @@ class QueryGeneralRequest extends Model
         'certNo'            => 'cert_no',
         'lbs'               => 'lbs',
         'salesAmount'       => 'sales_amount',
+        'certType'          => 'cert_type',
+        'guid'              => 'guid',
+        'bizLicenseNo'      => 'biz_license_no',
+        'secLoadTest'       => 'sec_load_test',
+        'sceneId'           => 'scene_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('service', $this->service, true);
-        Model::validateRequired('userAuthorization', $this->userAuthorization, true);
-        Model::validateRequired('encryptedRandomNo', $this->encryptedRandomNo, true);
         Model::validateRequired('serviceMode', $this->serviceMode, true);
+        Model::validateRequired('userAuthorization', $this->userAuthorization, true);
     }
 
     public function toMap()
@@ -121,14 +155,14 @@ class QueryGeneralRequest extends Model
         if (null !== $this->service) {
             $res['service'] = $this->service;
         }
+        if (null !== $this->serviceMode) {
+            $res['service_mode'] = $this->serviceMode;
+        }
         if (null !== $this->userAuthorization) {
             $res['user_authorization'] = $this->userAuthorization;
         }
         if (null !== $this->encryptedRandomNo) {
             $res['encrypted_random_no'] = $this->encryptedRandomNo;
-        }
-        if (null !== $this->serviceMode) {
-            $res['service_mode'] = $this->serviceMode;
         }
         if (null !== $this->externalId) {
             $res['external_id'] = $this->externalId;
@@ -151,6 +185,21 @@ class QueryGeneralRequest extends Model
         if (null !== $this->salesAmount) {
             $res['sales_amount'] = $this->salesAmount;
         }
+        if (null !== $this->certType) {
+            $res['cert_type'] = $this->certType;
+        }
+        if (null !== $this->guid) {
+            $res['guid'] = $this->guid;
+        }
+        if (null !== $this->bizLicenseNo) {
+            $res['biz_license_no'] = $this->bizLicenseNo;
+        }
+        if (null !== $this->secLoadTest) {
+            $res['sec_load_test'] = $this->secLoadTest;
+        }
+        if (null !== $this->sceneId) {
+            $res['scene_id'] = $this->sceneId;
+        }
 
         return $res;
     }
@@ -172,14 +221,14 @@ class QueryGeneralRequest extends Model
         if (isset($map['service'])) {
             $model->service = $map['service'];
         }
+        if (isset($map['service_mode'])) {
+            $model->serviceMode = $map['service_mode'];
+        }
         if (isset($map['user_authorization'])) {
             $model->userAuthorization = $map['user_authorization'];
         }
         if (isset($map['encrypted_random_no'])) {
             $model->encryptedRandomNo = $map['encrypted_random_no'];
-        }
-        if (isset($map['service_mode'])) {
-            $model->serviceMode = $map['service_mode'];
         }
         if (isset($map['external_id'])) {
             $model->externalId = $map['external_id'];
@@ -201,6 +250,21 @@ class QueryGeneralRequest extends Model
         }
         if (isset($map['sales_amount'])) {
             $model->salesAmount = $map['sales_amount'];
+        }
+        if (isset($map['cert_type'])) {
+            $model->certType = $map['cert_type'];
+        }
+        if (isset($map['guid'])) {
+            $model->guid = $map['guid'];
+        }
+        if (isset($map['biz_license_no'])) {
+            $model->bizLicenseNo = $map['biz_license_no'];
+        }
+        if (isset($map['sec_load_test'])) {
+            $model->secLoadTest = $map['sec_load_test'];
+        }
+        if (isset($map['scene_id'])) {
+            $model->sceneId = $map['scene_id'];
         }
 
         return $model;
