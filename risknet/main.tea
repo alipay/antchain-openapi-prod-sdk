@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.0.6',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -163,29 +163,39 @@ model QueryGeneralRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // test
+  // 调用服务名
   service: string(name='service'),
+  // 服务模式
+  serviceMode: string(name='service_mode'),
   // 用于标记是否获得用户授权  1:获得授权（默认）
   // 0:未获得授权
   userAuthorization: string(name='user_authorization'),
   // 经过RSA加密的用于AES加密的随机数密钥
-  encryptedRandomNo: string(name='encrypted_random_no'),
-  // 服务模式
-  serviceMode: string(name='service_mode'),
+  encryptedRandomNo?: string(name='encrypted_random_no'),
   // 记录外部调用ISV
   externalId?: string(name='external_id'),
-  // 银行卡号（加密）
+  // 银行卡号
   bankCardNo?: string(name='bank_card_no'),
   // 支付宝id	用于输入用户支付宝的 2088 账号
   userId?: string(name='user_id'),
   // 电话号码
   mobileNo?: string(name='mobile_no'),
-  // 身份证
+  // 证件号码
   certNo?: string(name='cert_no'),
   // 用于输入用户产生交易时的地理位置信息
   lbs?: string(name='lbs'),
   // 用户购买或使用服务时产生的具体金额
   salesAmount?: string(name='sales_amount'),
+  // 证件类型
+  certType?: string(name='cert_type'),
+  // 企业工商注册ID
+  guid?: string(name='guid'),
+  // 统一信用代码
+  bizLicenseNo?: string(name='biz_license_no'),
+  // 压测标
+  secLoadTest?: string(name='sec_load_test'),
+  // 场景ID
+  sceneId?: string(name='scene_id'),
 }
 
 model QueryGeneralResponse = {
@@ -195,10 +205,12 @@ model QueryGeneralResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 测试结果
+  // 风险咨询是否查得
+  found?: string(name='found'),
+  // 风险咨询结果
   riskResult?: string(name='risk_result'),
-  // 风险咨询结果描述
-  riskResultDesc?: string(name='risk_result_desc'),
+  // 风险咨询结果补充讯息
+  riskResultExt?: string(name='risk_result_ext'),
 }
 
 /**
