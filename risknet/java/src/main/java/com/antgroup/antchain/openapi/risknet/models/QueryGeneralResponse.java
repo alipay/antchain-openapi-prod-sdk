@@ -16,13 +16,17 @@ public class QueryGeneralResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 测试结果
+    // 风险咨询是否查得
+    @NameInMap("found")
+    public String found;
+
+    // 风险咨询结果
     @NameInMap("risk_result")
     public String riskResult;
 
-    // 风险咨询结果描述
-    @NameInMap("risk_result_desc")
-    public String riskResultDesc;
+    // 风险咨询结果补充讯息
+    @NameInMap("risk_result_ext")
+    public String riskResultExt;
 
     public static QueryGeneralResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryGeneralResponse self = new QueryGeneralResponse();
@@ -53,6 +57,14 @@ public class QueryGeneralResponse extends TeaModel {
         return this.resultMsg;
     }
 
+    public QueryGeneralResponse setFound(String found) {
+        this.found = found;
+        return this;
+    }
+    public String getFound() {
+        return this.found;
+    }
+
     public QueryGeneralResponse setRiskResult(String riskResult) {
         this.riskResult = riskResult;
         return this;
@@ -61,12 +73,12 @@ public class QueryGeneralResponse extends TeaModel {
         return this.riskResult;
     }
 
-    public QueryGeneralResponse setRiskResultDesc(String riskResultDesc) {
-        this.riskResultDesc = riskResultDesc;
+    public QueryGeneralResponse setRiskResultExt(String riskResultExt) {
+        this.riskResultExt = riskResultExt;
         return this;
     }
-    public String getRiskResultDesc() {
-        return this.riskResultDesc;
+    public String getRiskResultExt() {
+        return this.riskResultExt;
     }
 
 }

@@ -11,10 +11,15 @@ public class QueryGeneralRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // test
+    // 调用服务名
     @NameInMap("service")
     @Validation(required = true)
     public String service;
+
+    // 服务模式
+    @NameInMap("service_mode")
+    @Validation(required = true)
+    public String serviceMode;
 
     // 用于标记是否获得用户授权  1:获得授权（默认）
     // 0:未获得授权
@@ -24,19 +29,13 @@ public class QueryGeneralRequest extends TeaModel {
 
     // 经过RSA加密的用于AES加密的随机数密钥
     @NameInMap("encrypted_random_no")
-    @Validation(required = true)
     public String encryptedRandomNo;
-
-    // 服务模式
-    @NameInMap("service_mode")
-    @Validation(required = true)
-    public String serviceMode;
 
     // 记录外部调用ISV
     @NameInMap("external_id")
     public String externalId;
 
-    // 银行卡号（加密）
+    // 银行卡号
     @NameInMap("bank_card_no")
     public String bankCardNo;
 
@@ -48,7 +47,7 @@ public class QueryGeneralRequest extends TeaModel {
     @NameInMap("mobile_no")
     public String mobileNo;
 
-    // 身份证
+    // 证件号码
     @NameInMap("cert_no")
     public String certNo;
 
@@ -59,6 +58,26 @@ public class QueryGeneralRequest extends TeaModel {
     // 用户购买或使用服务时产生的具体金额
     @NameInMap("sales_amount")
     public String salesAmount;
+
+    // 证件类型
+    @NameInMap("cert_type")
+    public String certType;
+
+    // 企业工商注册ID
+    @NameInMap("guid")
+    public String guid;
+
+    // 统一信用代码
+    @NameInMap("biz_license_no")
+    public String bizLicenseNo;
+
+    // 压测标
+    @NameInMap("sec_load_test")
+    public String secLoadTest;
+
+    // 场景ID
+    @NameInMap("scene_id")
+    public String sceneId;
 
     public static QueryGeneralRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryGeneralRequest self = new QueryGeneralRequest();
@@ -89,6 +108,14 @@ public class QueryGeneralRequest extends TeaModel {
         return this.service;
     }
 
+    public QueryGeneralRequest setServiceMode(String serviceMode) {
+        this.serviceMode = serviceMode;
+        return this;
+    }
+    public String getServiceMode() {
+        return this.serviceMode;
+    }
+
     public QueryGeneralRequest setUserAuthorization(String userAuthorization) {
         this.userAuthorization = userAuthorization;
         return this;
@@ -103,14 +130,6 @@ public class QueryGeneralRequest extends TeaModel {
     }
     public String getEncryptedRandomNo() {
         return this.encryptedRandomNo;
-    }
-
-    public QueryGeneralRequest setServiceMode(String serviceMode) {
-        this.serviceMode = serviceMode;
-        return this;
-    }
-    public String getServiceMode() {
-        return this.serviceMode;
     }
 
     public QueryGeneralRequest setExternalId(String externalId) {
@@ -167,6 +186,46 @@ public class QueryGeneralRequest extends TeaModel {
     }
     public String getSalesAmount() {
         return this.salesAmount;
+    }
+
+    public QueryGeneralRequest setCertType(String certType) {
+        this.certType = certType;
+        return this;
+    }
+    public String getCertType() {
+        return this.certType;
+    }
+
+    public QueryGeneralRequest setGuid(String guid) {
+        this.guid = guid;
+        return this;
+    }
+    public String getGuid() {
+        return this.guid;
+    }
+
+    public QueryGeneralRequest setBizLicenseNo(String bizLicenseNo) {
+        this.bizLicenseNo = bizLicenseNo;
+        return this;
+    }
+    public String getBizLicenseNo() {
+        return this.bizLicenseNo;
+    }
+
+    public QueryGeneralRequest setSecLoadTest(String secLoadTest) {
+        this.secLoadTest = secLoadTest;
+        return this;
+    }
+    public String getSecLoadTest() {
+        return this.secLoadTest;
+    }
+
+    public QueryGeneralRequest setSceneId(String sceneId) {
+        this.sceneId = sceneId;
+        return this;
+    }
+    public String getSceneId() {
+        return this.sceneId;
     }
 
 }
