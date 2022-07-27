@@ -152,29 +152,39 @@ type QueryGeneralRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// test
+	// 调用服务名
 	Service *string `json:"service,omitempty" xml:"service,omitempty" require:"true"`
+	// 服务模式
+	ServiceMode *string `json:"service_mode,omitempty" xml:"service_mode,omitempty" require:"true"`
 	// 用于标记是否获得用户授权  1:获得授权（默认）
 	// 0:未获得授权
 	UserAuthorization *string `json:"user_authorization,omitempty" xml:"user_authorization,omitempty" require:"true"`
 	// 经过RSA加密的用于AES加密的随机数密钥
-	EncryptedRandomNo *string `json:"encrypted_random_no,omitempty" xml:"encrypted_random_no,omitempty" require:"true"`
-	// 服务模式
-	ServiceMode *string `json:"service_mode,omitempty" xml:"service_mode,omitempty" require:"true"`
+	EncryptedRandomNo *string `json:"encrypted_random_no,omitempty" xml:"encrypted_random_no,omitempty"`
 	// 记录外部调用ISV
 	ExternalId *string `json:"external_id,omitempty" xml:"external_id,omitempty"`
-	// 银行卡号（加密）
+	// 银行卡号
 	BankCardNo *string `json:"bank_card_no,omitempty" xml:"bank_card_no,omitempty"`
 	// 支付宝id	用于输入用户支付宝的 2088 账号
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
 	// 电话号码
 	MobileNo *string `json:"mobile_no,omitempty" xml:"mobile_no,omitempty"`
-	// 身份证
+	// 证件号码
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
 	// 用于输入用户产生交易时的地理位置信息
 	Lbs *string `json:"lbs,omitempty" xml:"lbs,omitempty"`
 	// 用户购买或使用服务时产生的具体金额
 	SalesAmount *string `json:"sales_amount,omitempty" xml:"sales_amount,omitempty"`
+	// 证件类型
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 企业工商注册ID
+	Guid *string `json:"guid,omitempty" xml:"guid,omitempty"`
+	// 统一信用代码
+	BizLicenseNo *string `json:"biz_license_no,omitempty" xml:"biz_license_no,omitempty"`
+	// 压测标
+	SecLoadTest *string `json:"sec_load_test,omitempty" xml:"sec_load_test,omitempty"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty"`
 }
 
 func (s QueryGeneralRequest) String() string {
@@ -200,6 +210,11 @@ func (s *QueryGeneralRequest) SetService(v string) *QueryGeneralRequest {
 	return s
 }
 
+func (s *QueryGeneralRequest) SetServiceMode(v string) *QueryGeneralRequest {
+	s.ServiceMode = &v
+	return s
+}
+
 func (s *QueryGeneralRequest) SetUserAuthorization(v string) *QueryGeneralRequest {
 	s.UserAuthorization = &v
 	return s
@@ -207,11 +222,6 @@ func (s *QueryGeneralRequest) SetUserAuthorization(v string) *QueryGeneralReques
 
 func (s *QueryGeneralRequest) SetEncryptedRandomNo(v string) *QueryGeneralRequest {
 	s.EncryptedRandomNo = &v
-	return s
-}
-
-func (s *QueryGeneralRequest) SetServiceMode(v string) *QueryGeneralRequest {
-	s.ServiceMode = &v
 	return s
 }
 
@@ -250,6 +260,31 @@ func (s *QueryGeneralRequest) SetSalesAmount(v string) *QueryGeneralRequest {
 	return s
 }
 
+func (s *QueryGeneralRequest) SetCertType(v string) *QueryGeneralRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *QueryGeneralRequest) SetGuid(v string) *QueryGeneralRequest {
+	s.Guid = &v
+	return s
+}
+
+func (s *QueryGeneralRequest) SetBizLicenseNo(v string) *QueryGeneralRequest {
+	s.BizLicenseNo = &v
+	return s
+}
+
+func (s *QueryGeneralRequest) SetSecLoadTest(v string) *QueryGeneralRequest {
+	s.SecLoadTest = &v
+	return s
+}
+
+func (s *QueryGeneralRequest) SetSceneId(v string) *QueryGeneralRequest {
+	s.SceneId = &v
+	return s
+}
+
 type QueryGeneralResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -257,10 +292,12 @@ type QueryGeneralResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 测试结果
+	// 风险咨询是否查得
+	Found *string `json:"found,omitempty" xml:"found,omitempty"`
+	// 风险咨询结果
 	RiskResult *string `json:"risk_result,omitempty" xml:"risk_result,omitempty"`
-	// 风险咨询结果描述
-	RiskResultDesc *string `json:"risk_result_desc,omitempty" xml:"risk_result_desc,omitempty"`
+	// 风险咨询结果补充讯息
+	RiskResultExt *string `json:"risk_result_ext,omitempty" xml:"risk_result_ext,omitempty"`
 }
 
 func (s QueryGeneralResponse) String() string {
@@ -286,13 +323,18 @@ func (s *QueryGeneralResponse) SetResultMsg(v string) *QueryGeneralResponse {
 	return s
 }
 
+func (s *QueryGeneralResponse) SetFound(v string) *QueryGeneralResponse {
+	s.Found = &v
+	return s
+}
+
 func (s *QueryGeneralResponse) SetRiskResult(v string) *QueryGeneralResponse {
 	s.RiskResult = &v
 	return s
 }
 
-func (s *QueryGeneralResponse) SetRiskResultDesc(v string) *QueryGeneralResponse {
-	s.RiskResultDesc = &v
+func (s *QueryGeneralResponse) SetRiskResultExt(v string) *QueryGeneralResponse {
+	s.RiskResultExt = &v
 	return s
 }
 
@@ -418,7 +460,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.6"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
