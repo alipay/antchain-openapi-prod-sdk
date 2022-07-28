@@ -42,6 +42,12 @@ class BatchqueryUmktRtMarketingRequest extends Model
      * @var string
      */
     public $bizSerialNo;
+
+    // 访问类型，PROD/TEST，正式流量/测试流量
+    /**
+     * @var string
+     */
+    public $visitType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class BatchqueryUmktRtMarketingRequest extends Model
         'queryTemplate'     => 'query_template',
         'customerKeys'      => 'customer_keys',
         'bizSerialNo'       => 'biz_serial_no',
+        'visitType'         => 'visit_type',
     ];
 
     public function validate()
@@ -56,6 +63,7 @@ class BatchqueryUmktRtMarketingRequest extends Model
         Model::validateRequired('sceneStrategyId', $this->sceneStrategyId, true);
         Model::validateRequired('customerKeys', $this->customerKeys, true);
         Model::validateRequired('bizSerialNo', $this->bizSerialNo, true);
+        Model::validateRequired('visitType', $this->visitType, true);
     }
 
     public function toMap()
@@ -78,6 +86,9 @@ class BatchqueryUmktRtMarketingRequest extends Model
         }
         if (null !== $this->bizSerialNo) {
             $res['biz_serial_no'] = $this->bizSerialNo;
+        }
+        if (null !== $this->visitType) {
+            $res['visit_type'] = $this->visitType;
         }
 
         return $res;
@@ -110,6 +121,9 @@ class BatchqueryUmktRtMarketingRequest extends Model
         }
         if (isset($map['biz_serial_no'])) {
             $model->bizSerialNo = $map['biz_serial_no'];
+        }
+        if (isset($map['visit_type'])) {
+            $model->visitType = $map['visit_type'];
         }
 
         return $model;
