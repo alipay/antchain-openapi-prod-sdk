@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.9"},
+                        {"sdk_version", "1.12.11"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.9"},
+                        {"sdk_version", "1.12.11"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -5245,6 +5245,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryUmktScenestrategyTestResponse>(await DoRequestAsync("1.0", "riskplus.umkt.scenestrategy.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发起AI外呼
+         * Summary: 发起AI外呼
+         */
+        public ApplyUmktRobotcallResponse ApplyUmktRobotcall(ApplyUmktRobotcallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyUmktRobotcallEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发起AI外呼
+         * Summary: 发起AI外呼
+         */
+        public async Task<ApplyUmktRobotcallResponse> ApplyUmktRobotcallAsync(ApplyUmktRobotcallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyUmktRobotcallExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发起AI外呼
+         * Summary: 发起AI外呼
+         */
+        public ApplyUmktRobotcallResponse ApplyUmktRobotcallEx(ApplyUmktRobotcallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyUmktRobotcallResponse>(DoRequest("1.0", "riskplus.umkt.robotcall.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发起AI外呼
+         * Summary: 发起AI外呼
+         */
+        public async Task<ApplyUmktRobotcallResponse> ApplyUmktRobotcallExAsync(ApplyUmktRobotcallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyUmktRobotcallResponse>(await DoRequestAsync("1.0", "riskplus.umkt.robotcall.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

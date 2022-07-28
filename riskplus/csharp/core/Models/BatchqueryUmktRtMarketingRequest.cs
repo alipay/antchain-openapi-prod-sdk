@@ -38,6 +38,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string BizSerialNo { get; set; }
 
+        // 访问类型，PROD/TEST，正式流量/测试流量
+        [NameInMap("visit_type")]
+        [Validation(Required=true)]
+        public string VisitType { get; set; }
+
     }
 
 }
