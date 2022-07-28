@@ -87,6 +87,10 @@ public class CreateRecordscreenRequest extends TeaModel {
     @NameInMap("legal_person_no")
     public String legalPersonNo;
 
+    // 法人证件类型（非必传，默认IDENTITY_CARD）
+    @NameInMap("legal_person_type")
+    public String legalPersonType;
+
     // 企业用户取证人姓名(如果certType为BUSINESS_LICENSE 则必传)
     @NameInMap("agent_name")
     public String agentName;
@@ -99,6 +103,23 @@ public class CreateRecordscreenRequest extends TeaModel {
     @NameInMap("phone_num")
     public String phoneNum;
 
+    // 是否自动化取证
+    @NameInMap("automatic")
+    public Boolean automatic;
+
+    // 取证目标类型： 微信公众号：WEIXIN_MP 其它：OTHER
+    // 
+    @NameInMap("target_type")
+    public String targetType;
+
+    // 是否支持UAC通行 默认false
+    @NameInMap("support_uac")
+    public Boolean supportUac;
+
+    // 取证脚本集Id
+    @NameInMap("scripts_package_id")
+    public String scriptsPackageId;
+
     // 代理信息
     @NameInMap("proxy_info")
     public ProxyData proxyInfo;
@@ -107,6 +128,18 @@ public class CreateRecordscreenRequest extends TeaModel {
     @NameInMap("client_token")
     @Validation(required = true)
     public String clientToken;
+
+    // 其他取证网址
+    @NameInMap("inventory")
+    public String inventory;
+
+    // 音视频取证信息
+    @NameInMap("audio_video_infos")
+    public java.util.List<EvidenceUrlInfo> audioVideoInfos;
+
+    // 放弃取证信息
+    @NameInMap("screen_cancel_info")
+    public ScreenCancelInfo screenCancelInfo;
 
     public static CreateRecordscreenRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateRecordscreenRequest self = new CreateRecordscreenRequest();
@@ -265,6 +298,14 @@ public class CreateRecordscreenRequest extends TeaModel {
         return this.legalPersonNo;
     }
 
+    public CreateRecordscreenRequest setLegalPersonType(String legalPersonType) {
+        this.legalPersonType = legalPersonType;
+        return this;
+    }
+    public String getLegalPersonType() {
+        return this.legalPersonType;
+    }
+
     public CreateRecordscreenRequest setAgentName(String agentName) {
         this.agentName = agentName;
         return this;
@@ -289,6 +330,38 @@ public class CreateRecordscreenRequest extends TeaModel {
         return this.phoneNum;
     }
 
+    public CreateRecordscreenRequest setAutomatic(Boolean automatic) {
+        this.automatic = automatic;
+        return this;
+    }
+    public Boolean getAutomatic() {
+        return this.automatic;
+    }
+
+    public CreateRecordscreenRequest setTargetType(String targetType) {
+        this.targetType = targetType;
+        return this;
+    }
+    public String getTargetType() {
+        return this.targetType;
+    }
+
+    public CreateRecordscreenRequest setSupportUac(Boolean supportUac) {
+        this.supportUac = supportUac;
+        return this;
+    }
+    public Boolean getSupportUac() {
+        return this.supportUac;
+    }
+
+    public CreateRecordscreenRequest setScriptsPackageId(String scriptsPackageId) {
+        this.scriptsPackageId = scriptsPackageId;
+        return this;
+    }
+    public String getScriptsPackageId() {
+        return this.scriptsPackageId;
+    }
+
     public CreateRecordscreenRequest setProxyInfo(ProxyData proxyInfo) {
         this.proxyInfo = proxyInfo;
         return this;
@@ -303,6 +376,30 @@ public class CreateRecordscreenRequest extends TeaModel {
     }
     public String getClientToken() {
         return this.clientToken;
+    }
+
+    public CreateRecordscreenRequest setInventory(String inventory) {
+        this.inventory = inventory;
+        return this;
+    }
+    public String getInventory() {
+        return this.inventory;
+    }
+
+    public CreateRecordscreenRequest setAudioVideoInfos(java.util.List<EvidenceUrlInfo> audioVideoInfos) {
+        this.audioVideoInfos = audioVideoInfos;
+        return this;
+    }
+    public java.util.List<EvidenceUrlInfo> getAudioVideoInfos() {
+        return this.audioVideoInfos;
+    }
+
+    public CreateRecordscreenRequest setScreenCancelInfo(ScreenCancelInfo screenCancelInfo) {
+        this.screenCancelInfo = screenCancelInfo;
+        return this;
+    }
+    public ScreenCancelInfo getScreenCancelInfo() {
+        return this.screenCancelInfo;
     }
 
 }

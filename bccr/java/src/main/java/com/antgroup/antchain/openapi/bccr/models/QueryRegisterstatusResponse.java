@@ -56,17 +56,13 @@ public class QueryRegisterstatusResponse extends TeaModel {
     @NameInMap("package_url")
     public String packageUrl;
 
+    // 证据包存证交易HASH  注意只有生成了证据包才会返回
+    @NameInMap("package_tx_hash")
+    public String packageTxHash;
+
     // 权利声明书下载地址 注意只有传递了权利信息并且生成了权利声明书才会返回
     @NameInMap("statement_url")
     public String statementUrl;
-
-    // 权利声明书存证交易HASH  注意只有传递了权利信息并且生成了权利声明书才会返回
-    @NameInMap("statement_tx_hash")
-    public String statementTxHash;
-
-    // 登记人信息存证交易HASH
-    @NameInMap("register_person_tx_hash")
-    public String registerPersonTxHash;
 
     // 安全信息
     @NameInMap("security")
@@ -181,28 +177,20 @@ public class QueryRegisterstatusResponse extends TeaModel {
         return this.packageUrl;
     }
 
+    public QueryRegisterstatusResponse setPackageTxHash(String packageTxHash) {
+        this.packageTxHash = packageTxHash;
+        return this;
+    }
+    public String getPackageTxHash() {
+        return this.packageTxHash;
+    }
+
     public QueryRegisterstatusResponse setStatementUrl(String statementUrl) {
         this.statementUrl = statementUrl;
         return this;
     }
     public String getStatementUrl() {
         return this.statementUrl;
-    }
-
-    public QueryRegisterstatusResponse setStatementTxHash(String statementTxHash) {
-        this.statementTxHash = statementTxHash;
-        return this;
-    }
-    public String getStatementTxHash() {
-        return this.statementTxHash;
-    }
-
-    public QueryRegisterstatusResponse setRegisterPersonTxHash(String registerPersonTxHash) {
-        this.registerPersonTxHash = registerPersonTxHash;
-        return this;
-    }
-    public String getRegisterPersonTxHash() {
-        return this.registerPersonTxHash;
     }
 
     public QueryRegisterstatusResponse setSecurity(SecurityData security) {

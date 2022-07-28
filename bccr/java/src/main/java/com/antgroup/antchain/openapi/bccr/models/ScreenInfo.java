@@ -24,14 +24,6 @@ public class ScreenInfo extends TeaModel {
     @NameInMap("video_file")
     public String videoFile;
 
-    // 操作日志交易hash
-    @NameInMap("process_log_file_tx_hash")
-    public String processLogFileTxHash;
-
-    // 自清洁日志交易hash
-    @NameInMap("check_log_file_tx_hash")
-    public String checkLogFileTxHash;
-
     public static ScreenInfo build(java.util.Map<String, ?> map) throws Exception {
         ScreenInfo self = new ScreenInfo();
         return TeaModel.build(map, self);
@@ -75,22 +67,6 @@ public class ScreenInfo extends TeaModel {
     }
     public String getVideoFile() {
         return this.videoFile;
-    }
-
-    public ScreenInfo setProcessLogFileTxHash(String processLogFileTxHash) {
-        this.processLogFileTxHash = processLogFileTxHash;
-        return this;
-    }
-    public String getProcessLogFileTxHash() {
-        return this.processLogFileTxHash;
-    }
-
-    public ScreenInfo setCheckLogFileTxHash(String checkLogFileTxHash) {
-        this.checkLogFileTxHash = checkLogFileTxHash;
-        return this;
-    }
-    public String getCheckLogFileTxHash() {
-        return this.checkLogFileTxHash;
     }
 
 }

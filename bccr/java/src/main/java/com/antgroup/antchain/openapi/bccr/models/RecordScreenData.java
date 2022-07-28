@@ -68,6 +68,14 @@ public class RecordScreenData extends TeaModel {
     @NameInMap("certificate_storage_no")
     public String certificateStorageNo;
 
+    // 证据包存证交易hash
+    @NameInMap("zip_tx_hash")
+    public String zipTxHash;
+
+    // 取证备注信息
+    @NameInMap("inventory")
+    public String inventory;
+
     public static RecordScreenData build(java.util.Map<String, ?> map) throws Exception {
         RecordScreenData self = new RecordScreenData();
         return TeaModel.build(map, self);
@@ -191,6 +199,22 @@ public class RecordScreenData extends TeaModel {
     }
     public String getCertificateStorageNo() {
         return this.certificateStorageNo;
+    }
+
+    public RecordScreenData setZipTxHash(String zipTxHash) {
+        this.zipTxHash = zipTxHash;
+        return this;
+    }
+    public String getZipTxHash() {
+        return this.zipTxHash;
+    }
+
+    public RecordScreenData setInventory(String inventory) {
+        this.inventory = inventory;
+        return this;
+    }
+    public String getInventory() {
+        return this.inventory;
     }
 
 }

@@ -66,17 +66,47 @@ public class AddRegisterRequest extends TeaModel {
     @NameInMap("phone_num")
     public String phoneNum;
 
+    // 作品信息
+    @NameInMap("works_info")
+    public WorksInfo worksInfo;
+
+    // 是否创建权利声明书（默认否，选是需要rightsInfo传递对应信息）
+    @NameInMap("create_statement")
+    public Boolean createStatement;
+
+    // 企业经办人姓名（如果certType为BUSINESS_LICENSE并且createStatement为true则必传）
+    @NameInMap("manager_name")
+    @Validation(maxLength = 32)
+    public String managerName;
+
+    // 企业经办人身份证号（如果certType为BUSINESS_LICENSE并且createStatement为true则必传）
+    @NameInMap("manager_no")
+    @Validation(maxLength = 30)
+    public String managerNo;
+
+    // 权利信息
+    @NameInMap("rights_info")
+    public RightsInfo rightsInfo;
+
+    // 附属证据信息（最多5个文件，传递的是FileId）
+    @NameInMap("ancillary_evidence")
+    public java.util.List<String> ancillaryEvidence;
+
+    // 著作权人信息
+    @NameInMap("copyright_owner_info")
+    public CopyrightCertInfo copyrightOwnerInfo;
+
     // 幂等
     @NameInMap("client_token")
     public String clientToken;
 
-    // 代理信息
-    @NameInMap("proxy_info")
-    public ProxyData proxyInfo;
-
     // 同步账号信息
     @NameInMap("sync_info")
     public AccountData syncInfo;
+
+    // 代理信息
+    @NameInMap("proxy_info")
+    public ProxyData proxyInfo;
 
     public static AddRegisterRequest build(java.util.Map<String, ?> map) throws Exception {
         AddRegisterRequest self = new AddRegisterRequest();
@@ -195,6 +225,62 @@ public class AddRegisterRequest extends TeaModel {
         return this.phoneNum;
     }
 
+    public AddRegisterRequest setWorksInfo(WorksInfo worksInfo) {
+        this.worksInfo = worksInfo;
+        return this;
+    }
+    public WorksInfo getWorksInfo() {
+        return this.worksInfo;
+    }
+
+    public AddRegisterRequest setCreateStatement(Boolean createStatement) {
+        this.createStatement = createStatement;
+        return this;
+    }
+    public Boolean getCreateStatement() {
+        return this.createStatement;
+    }
+
+    public AddRegisterRequest setManagerName(String managerName) {
+        this.managerName = managerName;
+        return this;
+    }
+    public String getManagerName() {
+        return this.managerName;
+    }
+
+    public AddRegisterRequest setManagerNo(String managerNo) {
+        this.managerNo = managerNo;
+        return this;
+    }
+    public String getManagerNo() {
+        return this.managerNo;
+    }
+
+    public AddRegisterRequest setRightsInfo(RightsInfo rightsInfo) {
+        this.rightsInfo = rightsInfo;
+        return this;
+    }
+    public RightsInfo getRightsInfo() {
+        return this.rightsInfo;
+    }
+
+    public AddRegisterRequest setAncillaryEvidence(java.util.List<String> ancillaryEvidence) {
+        this.ancillaryEvidence = ancillaryEvidence;
+        return this;
+    }
+    public java.util.List<String> getAncillaryEvidence() {
+        return this.ancillaryEvidence;
+    }
+
+    public AddRegisterRequest setCopyrightOwnerInfo(CopyrightCertInfo copyrightOwnerInfo) {
+        this.copyrightOwnerInfo = copyrightOwnerInfo;
+        return this;
+    }
+    public CopyrightCertInfo getCopyrightOwnerInfo() {
+        return this.copyrightOwnerInfo;
+    }
+
     public AddRegisterRequest setClientToken(String clientToken) {
         this.clientToken = clientToken;
         return this;
@@ -203,20 +289,20 @@ public class AddRegisterRequest extends TeaModel {
         return this.clientToken;
     }
 
-    public AddRegisterRequest setProxyInfo(ProxyData proxyInfo) {
-        this.proxyInfo = proxyInfo;
-        return this;
-    }
-    public ProxyData getProxyInfo() {
-        return this.proxyInfo;
-    }
-
     public AddRegisterRequest setSyncInfo(AccountData syncInfo) {
         this.syncInfo = syncInfo;
         return this;
     }
     public AccountData getSyncInfo() {
         return this.syncInfo;
+    }
+
+    public AddRegisterRequest setProxyInfo(ProxyData proxyInfo) {
+        this.proxyInfo = proxyInfo;
+        return this;
+    }
+    public ProxyData getProxyInfo() {
+        return this.proxyInfo;
     }
 
 }

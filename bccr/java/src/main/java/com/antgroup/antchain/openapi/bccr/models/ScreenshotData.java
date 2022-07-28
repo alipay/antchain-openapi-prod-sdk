@@ -11,7 +11,6 @@ public class ScreenshotData extends TeaModel {
 
     // 网页取证时间
     @NameInMap("gmt_evidence")
-    @Validation(required = true)
     public Long gmtEvidence;
 
     // 网页取证文件Hash值
@@ -61,6 +60,18 @@ public class ScreenshotData extends TeaModel {
     // 网页title
     @NameInMap("head_title")
     public String headTitle;
+
+    // 证据包交易hash
+    @NameInMap("zip_tx_hash")
+    public String zipTxHash;
+
+    // 网页取证失败原因
+    @NameInMap("error_reason")
+    public String errorReason;
+
+    // 中文失败原因
+    @NameInMap("error_reason_cn")
+    public String errorReasonCn;
 
     public static ScreenshotData build(java.util.Map<String, ?> map) throws Exception {
         ScreenshotData self = new ScreenshotData();
@@ -177,6 +188,30 @@ public class ScreenshotData extends TeaModel {
     }
     public String getHeadTitle() {
         return this.headTitle;
+    }
+
+    public ScreenshotData setZipTxHash(String zipTxHash) {
+        this.zipTxHash = zipTxHash;
+        return this;
+    }
+    public String getZipTxHash() {
+        return this.zipTxHash;
+    }
+
+    public ScreenshotData setErrorReason(String errorReason) {
+        this.errorReason = errorReason;
+        return this;
+    }
+    public String getErrorReason() {
+        return this.errorReason;
+    }
+
+    public ScreenshotData setErrorReasonCn(String errorReasonCn) {
+        this.errorReasonCn = errorReasonCn;
+        return this;
+    }
+    public String getErrorReasonCn() {
+        return this.errorReasonCn;
     }
 
 }

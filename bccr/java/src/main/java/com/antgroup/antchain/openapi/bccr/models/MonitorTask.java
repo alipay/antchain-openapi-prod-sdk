@@ -117,9 +117,13 @@ public class MonitorTask extends TeaModel {
     @NameInMap("submit_type")
     public String submitType;
 
-    // 当status为failure时的具体错误信息
+    // 当status为failure时的具体错误信息（中文描述）
     @NameInMap("failure_msg")
     public String failureMsg;
+
+    // 当status为failure时的具体错误信息（错误枚举）
+    @NameInMap("failure_code")
+    public String failureCode;
 
     public static MonitorTask build(java.util.Map<String, ?> map) throws Exception {
         MonitorTask self = new MonitorTask();
@@ -268,6 +272,14 @@ public class MonitorTask extends TeaModel {
     }
     public String getFailureMsg() {
         return this.failureMsg;
+    }
+
+    public MonitorTask setFailureCode(String failureCode) {
+        this.failureCode = failureCode;
+        return this;
+    }
+    public String getFailureCode() {
+        return this.failureCode;
     }
 
 }

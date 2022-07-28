@@ -24,6 +24,11 @@ public class NotaryPublicOffice extends TeaModel {
     @Validation(required = true)
     public String city;
 
+    // 公证处完整名称
+    @NameInMap("org_name")
+    @Validation(required = true)
+    public String orgName;
+
     public static NotaryPublicOffice build(java.util.Map<String, ?> map) throws Exception {
         NotaryPublicOffice self = new NotaryPublicOffice();
         return TeaModel.build(map, self);
@@ -59,6 +64,14 @@ public class NotaryPublicOffice extends TeaModel {
     }
     public String getCity() {
         return this.city;
+    }
+
+    public NotaryPublicOffice setOrgName(String orgName) {
+        this.orgName = orgName;
+        return this;
+    }
+    public String getOrgName() {
+        return this.orgName;
     }
 
 }

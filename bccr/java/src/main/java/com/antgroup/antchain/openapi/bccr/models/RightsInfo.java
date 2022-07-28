@@ -4,16 +4,6 @@ package com.antgroup.antchain.openapi.bccr.models;
 import com.aliyun.tea.*;
 
 public class RightsInfo extends TeaModel {
-    // 作品名称（最长128个字符）
-    @NameInMap("work_name")
-    @Validation(required = true, maxLength = 128)
-    public String workName;
-
-    // 作品类型
-    @NameInMap("work_type")
-    @Validation(required = true)
-    public String workType;
-
     // 作品创作完成时间
     @NameInMap("completed_time")
     @Validation(required = true)
@@ -61,22 +51,6 @@ public class RightsInfo extends TeaModel {
     public static RightsInfo build(java.util.Map<String, ?> map) throws Exception {
         RightsInfo self = new RightsInfo();
         return TeaModel.build(map, self);
-    }
-
-    public RightsInfo setWorkName(String workName) {
-        this.workName = workName;
-        return this;
-    }
-    public String getWorkName() {
-        return this.workName;
-    }
-
-    public RightsInfo setWorkType(String workType) {
-        this.workType = workType;
-        return this;
-    }
-    public String getWorkType() {
-        return this.workType;
     }
 
     public RightsInfo setCompletedTime(Long completedTime) {

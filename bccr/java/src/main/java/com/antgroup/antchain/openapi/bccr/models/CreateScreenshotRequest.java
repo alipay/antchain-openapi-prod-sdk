@@ -53,6 +53,10 @@ public class CreateScreenshotRequest extends TeaModel {
     @NameInMap("legal_person_no")
     public String legalPersonNo;
 
+    // 法人证件类型
+    @NameInMap("legal_person_type")
+    public String legalPersonType;
+
     // 企业用户取证人姓名(如果certType为BUSINESS_LICENSE 则必传)
     @NameInMap("agent_name")
     public String agentName;
@@ -165,6 +169,14 @@ public class CreateScreenshotRequest extends TeaModel {
     }
     public String getLegalPersonNo() {
         return this.legalPersonNo;
+    }
+
+    public CreateScreenshotRequest setLegalPersonType(String legalPersonType) {
+        this.legalPersonType = legalPersonType;
+        return this;
+    }
+    public String getLegalPersonType() {
+        return this.legalPersonType;
     }
 
     public CreateScreenshotRequest setAgentName(String agentName) {

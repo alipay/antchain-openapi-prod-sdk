@@ -79,6 +79,10 @@ public class CreateMonitorTaskRequest extends TeaModel {
     @Validation(required = true)
     public String clientToken;
 
+    // 原监测任务id
+    @NameInMap("origin_monitor_task_id")
+    public String originMonitorTaskId;
+
     public static CreateMonitorTaskRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateMonitorTaskRequest self = new CreateMonitorTaskRequest();
         return TeaModel.build(map, self);
@@ -202,6 +206,14 @@ public class CreateMonitorTaskRequest extends TeaModel {
     }
     public String getClientToken() {
         return this.clientToken;
+    }
+
+    public CreateMonitorTaskRequest setOriginMonitorTaskId(String originMonitorTaskId) {
+        this.originMonitorTaskId = originMonitorTaskId;
+        return this;
+    }
+    public String getOriginMonitorTaskId() {
+        return this.originMonitorTaskId;
     }
 
 }

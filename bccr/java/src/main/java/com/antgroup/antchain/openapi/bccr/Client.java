@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.0")
+                    new TeaPair("sdk_version", "1.15.11")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -556,5 +556,233 @@ public class Client {
     public ListNotaryResponse listNotaryEx(ListNotaryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.notary.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListNotaryResponse());
+    }
+
+    /**
+     * Description: 新增版权定向监测任务
+     * Summary: 新增版权定向监测
+     */
+    public CreateDirectmonitorTaskResponse createDirectmonitorTask(CreateDirectmonitorTaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDirectmonitorTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 新增版权定向监测任务
+     * Summary: 新增版权定向监测
+     */
+    public CreateDirectmonitorTaskResponse createDirectmonitorTaskEx(CreateDirectmonitorTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.directmonitor.task.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDirectmonitorTaskResponse());
+    }
+
+    /**
+     * Description: 查询版权定向监测结果
+     * Summary: 查询版权定向监测结果
+     */
+    public QueryDirectmonitorResultResponse queryDirectmonitorResult(QueryDirectmonitorResultRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDirectmonitorResultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询版权定向监测结果
+     * Summary: 查询版权定向监测结果
+     */
+    public QueryDirectmonitorResultResponse queryDirectmonitorResultEx(QueryDirectmonitorResultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.directmonitor.result.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDirectmonitorResultResponse());
+    }
+
+    /**
+     * Description: DCI预登记
+     * Summary: dci预登记
+     */
+    public CreateDciPreregistrationResponse createDciPreregistration(CreateDciPreregistrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDciPreregistrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: DCI预登记
+     * Summary: dci预登记
+     */
+    public CreateDciPreregistrationResponse createDciPreregistrationEx(CreateDciPreregistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.preregistration.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDciPreregistrationResponse());
+    }
+
+    /**
+     * Description: 查询dci预登记信息
+     * Summary: 查询dci预登记信息
+     */
+    public QueryDciPreregistrationResponse queryDciPreregistration(QueryDciPreregistrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDciPreregistrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询dci预登记信息
+     * Summary: 查询dci预登记信息
+     */
+    public QueryDciPreregistrationResponse queryDciPreregistrationEx(QueryDciPreregistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.preregistration.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDciPreregistrationResponse());
+    }
+
+    /**
+     * Description: 注册dci账号
+     * Summary: 注册dci账号
+     */
+    public AddDciUserResponse addDciUser(AddDciUserRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addDciUserEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 注册dci账号
+     * Summary: 注册dci账号
+     */
+    public AddDciUserResponse addDciUserEx(AddDciUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.user.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddDciUserResponse());
+    }
+
+    /**
+     * Description: dci预登记再确认
+     * Summary: dci预登记再确认
+     */
+    public RetryDciPreregistrationResponse retryDciPreregistration(RetryDciPreregistrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.retryDciPreregistrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: dci预登记再确认
+     * Summary: dci预登记再确认
+     */
+    public RetryDciPreregistrationResponse retryDciPreregistrationEx(RetryDciPreregistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.preregistration.retry", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RetryDciPreregistrationResponse());
+    }
+
+    /**
+     * Description: 查询dci账号信息
+     * Summary: 查询dci账号信息
+     */
+    public QueryDciUserResponse queryDciUser(QueryDciUserRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDciUserEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询dci账号信息
+     * Summary: 查询dci账号信息
+     */
+    public QueryDciUserResponse queryDciUserEx(QueryDciUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.user.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDciUserResponse());
+    }
+
+    /**
+     * Description: Dci预登记公示地址查询
+     * Summary: Dci预登记公示地址查询
+     */
+    public QueryDciPreregpublicationResponse queryDciPreregpublication(QueryDciPreregpublicationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDciPreregpublicationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: Dci预登记公示地址查询
+     * Summary: Dci预登记公示地址查询
+     */
+    public QueryDciPreregpublicationResponse queryDciPreregpublicationEx(QueryDciPreregpublicationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.preregpublication.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDciPreregpublicationResponse());
+    }
+
+    /**
+     * Description: 商品发布
+     * Summary: 商品发布
+     */
+    public PublishGoodResponse publishGood(PublishGoodRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.publishGoodEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商品发布
+     * Summary: 商品发布
+     */
+    public PublishGoodResponse publishGoodEx(PublishGoodRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.good.publish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PublishGoodResponse());
+    }
+
+    /**
+     * Description: 商品发布查询
+     * Summary: 商品发布查询
+     */
+    public QueryGoodsPublishResponse queryGoodsPublish(QueryGoodsPublishRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGoodsPublishEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商品发布查询
+     * Summary: 商品发布查询
+     */
+    public QueryGoodsPublishResponse queryGoodsPublishEx(QueryGoodsPublishRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.goods.publish.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGoodsPublishResponse());
+    }
+
+    /**
+     * Description: 商品更新
+     * Summary: 商品更新
+     */
+    public UpdateGoodsResponse updateGoods(UpdateGoodsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateGoodsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商品更新
+     * Summary: 商品更新
+     */
+    public UpdateGoodsResponse updateGoodsEx(UpdateGoodsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.goods.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateGoodsResponse());
+    }
+
+    /**
+     * Description: 商品查询
+     * Summary: 商品查询
+     */
+    public QueryGoodsResponse queryGoods(QueryGoodsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGoodsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商品查询
+     * Summary: 商品查询
+     */
+    public QueryGoodsResponse queryGoodsEx(QueryGoodsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.goods.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGoodsResponse());
     }
 }
