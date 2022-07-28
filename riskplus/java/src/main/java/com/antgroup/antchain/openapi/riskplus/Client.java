@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.9")
+                    new TeaPair("sdk_version", "1.12.11")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -2388,6 +2388,25 @@ public class Client {
     public QueryUmktScenestrategyTestResponse queryUmktScenestrategyTestEx(QueryUmktScenestrategyTestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.scenestrategy.test.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktScenestrategyTestResponse());
+    }
+
+    /**
+     * Description: 发起AI外呼
+     * Summary: 发起AI外呼
+     */
+    public ApplyUmktRobotcallResponse applyUmktRobotcall(ApplyUmktRobotcallRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyUmktRobotcallEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 发起AI外呼
+     * Summary: 发起AI外呼
+     */
+    public ApplyUmktRobotcallResponse applyUmktRobotcallEx(ApplyUmktRobotcallRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.robotcall.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyUmktRobotcallResponse());
     }
 
     /**

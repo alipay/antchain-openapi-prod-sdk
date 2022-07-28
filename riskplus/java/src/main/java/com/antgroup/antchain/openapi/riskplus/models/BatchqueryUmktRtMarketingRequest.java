@@ -30,6 +30,11 @@ public class BatchqueryUmktRtMarketingRequest extends TeaModel {
     @Validation(required = true)
     public String bizSerialNo;
 
+    // 访问类型，PROD/TEST，正式流量/测试流量
+    @NameInMap("visit_type")
+    @Validation(required = true)
+    public String visitType;
+
     public static BatchqueryUmktRtMarketingRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryUmktRtMarketingRequest self = new BatchqueryUmktRtMarketingRequest();
         return TeaModel.build(map, self);
@@ -81,6 +86,14 @@ public class BatchqueryUmktRtMarketingRequest extends TeaModel {
     }
     public String getBizSerialNo() {
         return this.bizSerialNo;
+    }
+
+    public BatchqueryUmktRtMarketingRequest setVisitType(String visitType) {
+        this.visitType = visitType;
+        return this;
+    }
+    public String getVisitType() {
+        return this.visitType;
     }
 
 }
