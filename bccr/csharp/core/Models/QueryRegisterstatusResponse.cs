@@ -74,20 +74,15 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string PackageUrl { get; set; }
 
+        // 证据包存证交易HASH  注意只有生成了证据包才会返回
+        [NameInMap("package_tx_hash")]
+        [Validation(Required=false)]
+        public string PackageTxHash { get; set; }
+
         // 权利声明书下载地址 注意只有传递了权利信息并且生成了权利声明书才会返回
         [NameInMap("statement_url")]
         [Validation(Required=false)]
         public string StatementUrl { get; set; }
-
-        // 权利声明书存证交易HASH  注意只有传递了权利信息并且生成了权利声明书才会返回
-        [NameInMap("statement_tx_hash")]
-        [Validation(Required=false)]
-        public string StatementTxHash { get; set; }
-
-        // 登记人信息存证交易HASH
-        [NameInMap("register_person_tx_hash")]
-        [Validation(Required=false)]
-        public string RegisterPersonTxHash { get; set; }
 
         // 安全信息
         [NameInMap("security")]

@@ -132,10 +132,15 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string SubmitType { get; set; }
 
-        // 当status为failure时的具体错误信息
+        // 当status为failure时的具体错误信息（中文描述）
         [NameInMap("failure_msg")]
         [Validation(Required=false)]
         public string FailureMsg { get; set; }
+
+        // 当status为failure时的具体错误信息（错误枚举）
+        [NameInMap("failure_code")]
+        [Validation(Required=false)]
+        public string FailureCode { get; set; }
 
     }
 

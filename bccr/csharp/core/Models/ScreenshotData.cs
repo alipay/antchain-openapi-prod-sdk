@@ -17,7 +17,7 @@ namespace AntChain.SDK.BCCR.Models
 
         // 网页取证时间
         [NameInMap("gmt_evidence")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? GmtEvidence { get; set; }
 
         // 网页取证文件Hash值
@@ -79,6 +79,21 @@ namespace AntChain.SDK.BCCR.Models
         [NameInMap("head_title")]
         [Validation(Required=false)]
         public string HeadTitle { get; set; }
+
+        // 证据包交易hash
+        [NameInMap("zip_tx_hash")]
+        [Validation(Required=false)]
+        public string ZipTxHash { get; set; }
+
+        // 网页取证失败原因
+        [NameInMap("error_reason")]
+        [Validation(Required=false)]
+        public string ErrorReason { get; set; }
+
+        // 中文失败原因
+        [NameInMap("error_reason_cn")]
+        [Validation(Required=false)]
+        public string ErrorReasonCn { get; set; }
 
     }
 

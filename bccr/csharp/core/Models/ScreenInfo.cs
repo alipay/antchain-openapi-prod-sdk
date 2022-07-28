@@ -35,16 +35,6 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string VideoFile { get; set; }
 
-        // 操作日志交易hash
-        [NameInMap("process_log_file_tx_hash")]
-        [Validation(Required=false)]
-        public string ProcessLogFileTxHash { get; set; }
-
-        // 自清洁日志交易hash
-        [NameInMap("check_log_file_tx_hash")]
-        [Validation(Required=false)]
-        public string CheckLogFileTxHash { get; set; }
-
     }
 
 }

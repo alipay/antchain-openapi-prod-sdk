@@ -30,6 +30,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string City { get; set; }
 
+        // 公证处完整名称
+        [NameInMap("org_name")]
+        [Validation(Required=true)]
+        public string OrgName { get; set; }
+
     }
 
 }

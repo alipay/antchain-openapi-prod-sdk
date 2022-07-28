@@ -85,6 +85,16 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string CertificateStorageNo { get; set; }
 
+        // 证据包存证交易hash
+        [NameInMap("zip_tx_hash")]
+        [Validation(Required=false)]
+        public string ZipTxHash { get; set; }
+
+        // 取证备注信息
+        [NameInMap("inventory")]
+        [Validation(Required=false)]
+        public string Inventory { get; set; }
+
     }
 
 }

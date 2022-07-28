@@ -103,6 +103,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string LegalPersonNo { get; set; }
 
+        // 法人证件类型（非必传，默认IDENTITY_CARD）
+        [NameInMap("legal_person_type")]
+        [Validation(Required=false)]
+        public string LegalPersonType { get; set; }
+
         // 企业用户取证人姓名(如果certType为BUSINESS_LICENSE 则必传)
         [NameInMap("agent_name")]
         [Validation(Required=false)]
@@ -118,6 +123,27 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string PhoneNum { get; set; }
 
+        // 是否自动化取证
+        [NameInMap("automatic")]
+        [Validation(Required=false)]
+        public bool? Automatic { get; set; }
+
+        // 取证目标类型： 微信公众号：WEIXIN_MP 其它：OTHER
+        // 
+        [NameInMap("target_type")]
+        [Validation(Required=false)]
+        public string TargetType { get; set; }
+
+        // 是否支持UAC通行 默认false
+        [NameInMap("support_uac")]
+        [Validation(Required=false)]
+        public bool? SupportUac { get; set; }
+
+        // 取证脚本集Id
+        [NameInMap("scripts_package_id")]
+        [Validation(Required=false)]
+        public string ScriptsPackageId { get; set; }
+
         // 代理信息
         [NameInMap("proxy_info")]
         [Validation(Required=false)]
@@ -127,6 +153,21 @@ namespace AntChain.SDK.BCCR.Models
         [NameInMap("client_token")]
         [Validation(Required=true)]
         public string ClientToken { get; set; }
+
+        // 其他取证网址
+        [NameInMap("inventory")]
+        [Validation(Required=false)]
+        public string Inventory { get; set; }
+
+        // 音视频取证信息
+        [NameInMap("audio_video_infos")]
+        [Validation(Required=false)]
+        public List<EvidenceUrlInfo> AudioVideoInfos { get; set; }
+
+        // 放弃取证信息
+        [NameInMap("screen_cancel_info")]
+        [Validation(Required=false)]
+        public ScreenCancelInfo ScreenCancelInfo { get; set; }
 
     }
 

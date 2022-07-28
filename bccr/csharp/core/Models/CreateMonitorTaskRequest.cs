@@ -93,6 +93,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string ClientToken { get; set; }
 
+        // 原监测任务id
+        [NameInMap("origin_monitor_task_id")]
+        [Validation(Required=false)]
+        public string OriginMonitorTaskId { get; set; }
+
     }
 
 }

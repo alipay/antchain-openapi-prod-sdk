@@ -63,6 +63,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string LegalPersonNo { get; set; }
 
+        // 法人证件类型
+        [NameInMap("legal_person_type")]
+        [Validation(Required=false)]
+        public string LegalPersonType { get; set; }
+
         // 企业用户取证人姓名(如果certType为BUSINESS_LICENSE 则必传)
         [NameInMap("agent_name")]
         [Validation(Required=false)]

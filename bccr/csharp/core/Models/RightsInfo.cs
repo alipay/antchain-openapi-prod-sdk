@@ -10,16 +10,6 @@ namespace AntChain.SDK.BCCR.Models
 {
     // 权利信息
     public class RightsInfo : TeaModel {
-        // 作品名称（最长128个字符）
-        [NameInMap("work_name")]
-        [Validation(Required=true, MaxLength=128)]
-        public string WorkName { get; set; }
-
-        // 作品类型
-        [NameInMap("work_type")]
-        [Validation(Required=true)]
-        public string WorkType { get; set; }
-
         // 作品创作完成时间
         [NameInMap("completed_time")]
         [Validation(Required=true)]
