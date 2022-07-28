@@ -11709,6 +11709,8 @@ export class BatchqueryUmktRtMarketingRequest extends $tea.Model {
   customerKeys: string[];
   // 业务方流水号
   bizSerialNo: string;
+  // 访问类型，PROD/TEST，正式流量/测试流量
+  visitType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11717,6 +11719,7 @@ export class BatchqueryUmktRtMarketingRequest extends $tea.Model {
       queryTemplate: 'query_template',
       customerKeys: 'customer_keys',
       bizSerialNo: 'biz_serial_no',
+      visitType: 'visit_type',
     };
   }
 
@@ -11728,6 +11731,7 @@ export class BatchqueryUmktRtMarketingRequest extends $tea.Model {
       queryTemplate: 'string',
       customerKeys: { 'type': 'array', 'itemType': 'string' },
       bizSerialNo: 'string',
+      visitType: 'string',
     };
   }
 
@@ -12048,6 +12052,85 @@ export class QueryUmktScenestrategyTestResponse extends $tea.Model {
   }
 }
 
+export class ApplyUmktRobotcallRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外呼主叫号码
+  calledShowNumber: string;
+  // 被叫号码
+  calledNumber: string;
+  // 机器人id
+  robotId: number;
+  // 是否开启录音
+  recordFlag?: boolean;
+  // 是否开启早媒体
+  earlyMediaAsr?: boolean;
+  // 机器人参数
+  params?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      calledShowNumber: 'called_show_number',
+      calledNumber: 'called_number',
+      robotId: 'robot_id',
+      recordFlag: 'record_flag',
+      earlyMediaAsr: 'early_media_asr',
+      params: 'params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      calledShowNumber: 'string',
+      calledNumber: 'string',
+      robotId: 'number',
+      recordFlag: 'boolean',
+      earlyMediaAsr: 'boolean',
+      params: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyUmktRobotcallResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 呼叫记录id
+  callId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      callId: 'call_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      callId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -12249,7 +12332,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.9",
+          sdk_version: "1.12.11",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -14524,6 +14607,25 @@ export default class Client {
   async queryUmktScenestrategyTestEx(request: QueryUmktScenestrategyTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktScenestrategyTestResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryUmktScenestrategyTestResponse>(await this.doRequest("1.0", "riskplus.umkt.scenestrategy.test.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktScenestrategyTestResponse({}));
+  }
+
+  /**
+   * Description: 发起AI外呼
+   * Summary: 发起AI外呼
+   */
+  async applyUmktRobotcall(request: ApplyUmktRobotcallRequest): Promise<ApplyUmktRobotcallResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyUmktRobotcallEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发起AI外呼
+   * Summary: 发起AI外呼
+   */
+  async applyUmktRobotcallEx(request: ApplyUmktRobotcallRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyUmktRobotcallResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyUmktRobotcallResponse>(await this.doRequest("1.0", "riskplus.umkt.robotcall.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyUmktRobotcallResponse({}));
   }
 
   /**

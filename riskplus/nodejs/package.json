@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/riskplus",
-  "version": "1.12.9",
+  "version": "1.12.11",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
