@@ -121,6 +121,12 @@ class CreateRecordscreenRequest extends Model
      */
     public $legalPersonNo;
 
+    // 法人证件类型（非必传，默认IDENTITY_CARD）
+    /**
+     * @var string
+     */
+    public $legalPersonType;
+
     // 企业用户取证人姓名(如果certType为BUSINESS_LICENSE 则必传)
     /**
      * @var string
@@ -139,6 +145,31 @@ class CreateRecordscreenRequest extends Model
      */
     public $phoneNum;
 
+    // 是否自动化取证
+    /**
+     * @var bool
+     */
+    public $automatic;
+
+    // 取证目标类型： 微信公众号：WEIXIN_MP 其它：OTHER
+    //
+    /**
+     * @var string
+     */
+    public $targetType;
+
+    // 是否支持UAC通行 默认false
+    /**
+     * @var bool
+     */
+    public $supportUac;
+
+    // 取证脚本集Id
+    /**
+     * @var string
+     */
+    public $scriptsPackageId;
+
     // 代理信息
     /**
      * @var ProxyData
@@ -150,6 +181,24 @@ class CreateRecordscreenRequest extends Model
      * @var string
      */
     public $clientToken;
+
+    // 其他取证网址
+    /**
+     * @var string
+     */
+    public $inventory;
+
+    // 音视频取证信息
+    /**
+     * @var EvidenceUrlInfo[]
+     */
+    public $audioVideoInfos;
+
+    // 放弃取证信息
+    /**
+     * @var ScreenCancelInfo
+     */
+    public $screenCancelInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -170,11 +219,19 @@ class CreateRecordscreenRequest extends Model
         'certType'          => 'cert_type',
         'legalPersonName'   => 'legal_person_name',
         'legalPersonNo'     => 'legal_person_no',
+        'legalPersonType'   => 'legal_person_type',
         'agentName'         => 'agent_name',
         'agentNo'           => 'agent_no',
         'phoneNum'          => 'phone_num',
+        'automatic'         => 'automatic',
+        'targetType'        => 'target_type',
+        'supportUac'        => 'support_uac',
+        'scriptsPackageId'  => 'scripts_package_id',
         'proxyInfo'         => 'proxy_info',
         'clientToken'       => 'client_token',
+        'inventory'         => 'inventory',
+        'audioVideoInfos'   => 'audio_video_infos',
+        'screenCancelInfo'  => 'screen_cancel_info',
     ];
 
     public function validate()
@@ -252,6 +309,9 @@ class CreateRecordscreenRequest extends Model
         if (null !== $this->legalPersonNo) {
             $res['legal_person_no'] = $this->legalPersonNo;
         }
+        if (null !== $this->legalPersonType) {
+            $res['legal_person_type'] = $this->legalPersonType;
+        }
         if (null !== $this->agentName) {
             $res['agent_name'] = $this->agentName;
         }
@@ -261,11 +321,38 @@ class CreateRecordscreenRequest extends Model
         if (null !== $this->phoneNum) {
             $res['phone_num'] = $this->phoneNum;
         }
+        if (null !== $this->automatic) {
+            $res['automatic'] = $this->automatic;
+        }
+        if (null !== $this->targetType) {
+            $res['target_type'] = $this->targetType;
+        }
+        if (null !== $this->supportUac) {
+            $res['support_uac'] = $this->supportUac;
+        }
+        if (null !== $this->scriptsPackageId) {
+            $res['scripts_package_id'] = $this->scriptsPackageId;
+        }
         if (null !== $this->proxyInfo) {
             $res['proxy_info'] = null !== $this->proxyInfo ? $this->proxyInfo->toMap() : null;
         }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
+        }
+        if (null !== $this->inventory) {
+            $res['inventory'] = $this->inventory;
+        }
+        if (null !== $this->audioVideoInfos) {
+            $res['audio_video_infos'] = [];
+            if (null !== $this->audioVideoInfos && \is_array($this->audioVideoInfos)) {
+                $n = 0;
+                foreach ($this->audioVideoInfos as $item) {
+                    $res['audio_video_infos'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->screenCancelInfo) {
+            $res['screen_cancel_info'] = null !== $this->screenCancelInfo ? $this->screenCancelInfo->toMap() : null;
         }
 
         return $res;
@@ -338,6 +425,9 @@ class CreateRecordscreenRequest extends Model
         if (isset($map['legal_person_no'])) {
             $model->legalPersonNo = $map['legal_person_no'];
         }
+        if (isset($map['legal_person_type'])) {
+            $model->legalPersonType = $map['legal_person_type'];
+        }
         if (isset($map['agent_name'])) {
             $model->agentName = $map['agent_name'];
         }
@@ -347,11 +437,38 @@ class CreateRecordscreenRequest extends Model
         if (isset($map['phone_num'])) {
             $model->phoneNum = $map['phone_num'];
         }
+        if (isset($map['automatic'])) {
+            $model->automatic = $map['automatic'];
+        }
+        if (isset($map['target_type'])) {
+            $model->targetType = $map['target_type'];
+        }
+        if (isset($map['support_uac'])) {
+            $model->supportUac = $map['support_uac'];
+        }
+        if (isset($map['scripts_package_id'])) {
+            $model->scriptsPackageId = $map['scripts_package_id'];
+        }
         if (isset($map['proxy_info'])) {
             $model->proxyInfo = ProxyData::fromMap($map['proxy_info']);
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
+        }
+        if (isset($map['inventory'])) {
+            $model->inventory = $map['inventory'];
+        }
+        if (isset($map['audio_video_infos'])) {
+            if (!empty($map['audio_video_infos'])) {
+                $model->audioVideoInfos = [];
+                $n                      = 0;
+                foreach ($map['audio_video_infos'] as $item) {
+                    $model->audioVideoInfos[$n++] = null !== $item ? EvidenceUrlInfo::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['screen_cancel_info'])) {
+            $model->screenCancelInfo = ScreenCancelInfo::fromMap($map['screen_cancel_info']);
         }
 
         return $model;

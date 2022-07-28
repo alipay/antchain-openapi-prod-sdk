@@ -181,13 +181,21 @@ class MonitorTask extends Model
      */
     public $submitType;
 
-    // 当status为failure时的具体错误信息
+    // 当status为failure时的具体错误信息（中文描述）
     /**
      * @example error
      *
      * @var string
      */
     public $failureMsg;
+
+    // 当status为failure时的具体错误信息（错误枚举）
+    /**
+     * @example SERVER_ERROR
+     *
+     * @var string
+     */
+    public $failureCode;
     protected $_name = [
         'contentDesc'        => 'content_desc',
         'contentTitle'       => 'content_title',
@@ -207,6 +215,7 @@ class MonitorTask extends Model
         'submitContent'      => 'submit_content',
         'submitType'         => 'submit_type',
         'failureMsg'         => 'failure_msg',
+        'failureCode'        => 'failure_code',
     ];
 
     public function validate()
@@ -278,6 +287,9 @@ class MonitorTask extends Model
         if (null !== $this->failureMsg) {
             $res['failure_msg'] = $this->failureMsg;
         }
+        if (null !== $this->failureCode) {
+            $res['failure_code'] = $this->failureCode;
+        }
 
         return $res;
     }
@@ -347,6 +359,9 @@ class MonitorTask extends Model
         }
         if (isset($map['failure_msg'])) {
             $model->failureMsg = $map['failure_msg'];
+        }
+        if (isset($map['failure_code'])) {
+            $model->failureCode = $map['failure_code'];
         }
 
         return $model;

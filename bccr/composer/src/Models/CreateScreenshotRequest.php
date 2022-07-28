@@ -73,6 +73,12 @@ class CreateScreenshotRequest extends Model
      */
     public $legalPersonNo;
 
+    // 法人证件类型
+    /**
+     * @var string
+     */
+    public $legalPersonType;
+
     // 企业用户取证人姓名(如果certType为BUSINESS_LICENSE 则必传)
     /**
      * @var string
@@ -114,6 +120,7 @@ class CreateScreenshotRequest extends Model
         'certType'          => 'cert_type',
         'legalPersonName'   => 'legal_person_name',
         'legalPersonNo'     => 'legal_person_no',
+        'legalPersonType'   => 'legal_person_type',
         'agentName'         => 'agent_name',
         'agentNo'           => 'agent_no',
         'phoneNum'          => 'phone_num',
@@ -172,6 +179,9 @@ class CreateScreenshotRequest extends Model
         }
         if (null !== $this->legalPersonNo) {
             $res['legal_person_no'] = $this->legalPersonNo;
+        }
+        if (null !== $this->legalPersonType) {
+            $res['legal_person_type'] = $this->legalPersonType;
         }
         if (null !== $this->agentName) {
             $res['agent_name'] = $this->agentName;
@@ -232,6 +242,9 @@ class CreateScreenshotRequest extends Model
         }
         if (isset($map['legal_person_no'])) {
             $model->legalPersonNo = $map['legal_person_no'];
+        }
+        if (isset($map['legal_person_type'])) {
+            $model->legalPersonType = $map['legal_person_type'];
         }
         if (isset($map['agent_name'])) {
             $model->agentName = $map['agent_name'];

@@ -91,41 +91,90 @@ class AddRegisterRequest extends Model
      */
     public $phoneNum;
 
+    // 作品信息
+    /**
+     * @var WorksInfo
+     */
+    public $worksInfo;
+
+    // 是否创建权利声明书（默认否，选是需要rightsInfo传递对应信息）
+    /**
+     * @var bool
+     */
+    public $createStatement;
+
+    // 企业经办人姓名（如果certType为BUSINESS_LICENSE并且createStatement为true则必传）
+    /**
+     * @var string
+     */
+    public $managerName;
+
+    // 企业经办人身份证号（如果certType为BUSINESS_LICENSE并且createStatement为true则必传）
+    /**
+     * @var string
+     */
+    public $managerNo;
+
+    // 权利信息
+    /**
+     * @var RightsInfo
+     */
+    public $rightsInfo;
+
+    // 附属证据信息（最多5个文件，传递的是FileId）
+    /**
+     * @var string[]
+     */
+    public $ancillaryEvidence;
+
+    // 著作权人信息
+    /**
+     * @var CopyrightCertInfo
+     */
+    public $copyrightOwnerInfo;
+
     // 幂等
     /**
      * @var string
      */
     public $clientToken;
 
-    // 代理信息
-    /**
-     * @var ProxyData
-     */
-    public $proxyInfo;
-
     // 同步账号信息
     /**
      * @var AccountData
      */
     public $syncInfo;
+
+    // 代理信息
+    /**
+     * @var ProxyData
+     */
+    public $proxyInfo;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'fileId'            => 'file_id',
-        'createCertificate' => 'create_certificate',
-        'certificateType'   => 'certificate_type',
-        'createPackage'     => 'create_package',
-        'orgId'             => 'org_id',
-        'name'              => 'name',
-        'type'              => 'type',
-        'memo'              => 'memo',
-        'certName'          => 'cert_name',
-        'certNo'            => 'cert_no',
-        'certType'          => 'cert_type',
-        'phoneNum'          => 'phone_num',
-        'clientToken'       => 'client_token',
-        'proxyInfo'         => 'proxy_info',
-        'syncInfo'          => 'sync_info',
+        'authToken'          => 'auth_token',
+        'productInstanceId'  => 'product_instance_id',
+        'fileId'             => 'file_id',
+        'createCertificate'  => 'create_certificate',
+        'certificateType'    => 'certificate_type',
+        'createPackage'      => 'create_package',
+        'orgId'              => 'org_id',
+        'name'               => 'name',
+        'type'               => 'type',
+        'memo'               => 'memo',
+        'certName'           => 'cert_name',
+        'certNo'             => 'cert_no',
+        'certType'           => 'cert_type',
+        'phoneNum'           => 'phone_num',
+        'worksInfo'          => 'works_info',
+        'createStatement'    => 'create_statement',
+        'managerName'        => 'manager_name',
+        'managerNo'          => 'manager_no',
+        'rightsInfo'         => 'rights_info',
+        'ancillaryEvidence'  => 'ancillary_evidence',
+        'copyrightOwnerInfo' => 'copyright_owner_info',
+        'clientToken'        => 'client_token',
+        'syncInfo'           => 'sync_info',
+        'proxyInfo'          => 'proxy_info',
     ];
 
     public function validate()
@@ -138,6 +187,8 @@ class AddRegisterRequest extends Model
         Model::validateRequired('certType', $this->certType, true);
         Model::validateMaxLength('name', $this->name, 128);
         Model::validateMaxLength('memo', $this->memo, 512);
+        Model::validateMaxLength('managerName', $this->managerName, 32);
+        Model::validateMaxLength('managerNo', $this->managerNo, 30);
     }
 
     public function toMap()
@@ -185,14 +236,35 @@ class AddRegisterRequest extends Model
         if (null !== $this->phoneNum) {
             $res['phone_num'] = $this->phoneNum;
         }
+        if (null !== $this->worksInfo) {
+            $res['works_info'] = null !== $this->worksInfo ? $this->worksInfo->toMap() : null;
+        }
+        if (null !== $this->createStatement) {
+            $res['create_statement'] = $this->createStatement;
+        }
+        if (null !== $this->managerName) {
+            $res['manager_name'] = $this->managerName;
+        }
+        if (null !== $this->managerNo) {
+            $res['manager_no'] = $this->managerNo;
+        }
+        if (null !== $this->rightsInfo) {
+            $res['rights_info'] = null !== $this->rightsInfo ? $this->rightsInfo->toMap() : null;
+        }
+        if (null !== $this->ancillaryEvidence) {
+            $res['ancillary_evidence'] = $this->ancillaryEvidence;
+        }
+        if (null !== $this->copyrightOwnerInfo) {
+            $res['copyright_owner_info'] = null !== $this->copyrightOwnerInfo ? $this->copyrightOwnerInfo->toMap() : null;
+        }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
         }
-        if (null !== $this->proxyInfo) {
-            $res['proxy_info'] = null !== $this->proxyInfo ? $this->proxyInfo->toMap() : null;
-        }
         if (null !== $this->syncInfo) {
             $res['sync_info'] = null !== $this->syncInfo ? $this->syncInfo->toMap() : null;
+        }
+        if (null !== $this->proxyInfo) {
+            $res['proxy_info'] = null !== $this->proxyInfo ? $this->proxyInfo->toMap() : null;
         }
 
         return $res;
@@ -248,14 +320,37 @@ class AddRegisterRequest extends Model
         if (isset($map['phone_num'])) {
             $model->phoneNum = $map['phone_num'];
         }
+        if (isset($map['works_info'])) {
+            $model->worksInfo = WorksInfo::fromMap($map['works_info']);
+        }
+        if (isset($map['create_statement'])) {
+            $model->createStatement = $map['create_statement'];
+        }
+        if (isset($map['manager_name'])) {
+            $model->managerName = $map['manager_name'];
+        }
+        if (isset($map['manager_no'])) {
+            $model->managerNo = $map['manager_no'];
+        }
+        if (isset($map['rights_info'])) {
+            $model->rightsInfo = RightsInfo::fromMap($map['rights_info']);
+        }
+        if (isset($map['ancillary_evidence'])) {
+            if (!empty($map['ancillary_evidence'])) {
+                $model->ancillaryEvidence = $map['ancillary_evidence'];
+            }
+        }
+        if (isset($map['copyright_owner_info'])) {
+            $model->copyrightOwnerInfo = CopyrightCertInfo::fromMap($map['copyright_owner_info']);
+        }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
         }
-        if (isset($map['proxy_info'])) {
-            $model->proxyInfo = ProxyData::fromMap($map['proxy_info']);
-        }
         if (isset($map['sync_info'])) {
             $model->syncInfo = AccountData::fromMap($map['sync_info']);
+        }
+        if (isset($map['proxy_info'])) {
+            $model->proxyInfo = ProxyData::fromMap($map['proxy_info']);
         }
 
         return $model;

@@ -8,22 +8,6 @@ use AlibabaCloud\Tea\Model;
 
 class RightsInfo extends Model
 {
-    // 作品名称（最长128个字符）
-    /**
-     * @example test
-     *
-     * @var string
-     */
-    public $workName;
-
-    // 作品类型
-    /**
-     * @example VIDEO
-     *
-     * @var string
-     */
-    public $workType;
-
     // 作品创作完成时间
     /**
      * @example 1629364618790
@@ -96,8 +80,6 @@ class RightsInfo extends Model
      */
     public $authorCertNo;
     protected $_name = [
-        'workName'       => 'work_name',
-        'workType'       => 'work_type',
         'completedTime'  => 'completed_time',
         'completedPlace' => 'completed_place',
         'isPublish'      => 'is_publish',
@@ -111,13 +93,10 @@ class RightsInfo extends Model
 
     public function validate()
     {
-        Model::validateRequired('workName', $this->workName, true);
-        Model::validateRequired('workType', $this->workType, true);
         Model::validateRequired('completedTime', $this->completedTime, true);
         Model::validateRequired('completedPlace', $this->completedPlace, true);
         Model::validateRequired('isPublish', $this->isPublish, true);
         Model::validateRequired('isAuthor', $this->isAuthor, true);
-        Model::validateMaxLength('workName', $this->workName, 128);
         Model::validateMaxLength('completedPlace', $this->completedPlace, 128);
         Model::validateMaxLength('publishPlace', $this->publishPlace, 128);
         Model::validateMaxLength('publishWeb', $this->publishWeb, 1024);
@@ -128,12 +107,6 @@ class RightsInfo extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->workName) {
-            $res['work_name'] = $this->workName;
-        }
-        if (null !== $this->workType) {
-            $res['work_type'] = $this->workType;
-        }
         if (null !== $this->completedTime) {
             $res['completed_time'] = $this->completedTime;
         }
@@ -173,12 +146,6 @@ class RightsInfo extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['work_name'])) {
-            $model->workName = $map['work_name'];
-        }
-        if (isset($map['work_type'])) {
-            $model->workType = $map['work_type'];
-        }
         if (isset($map['completed_time'])) {
             $model->completedTime = $map['completed_time'];
         }

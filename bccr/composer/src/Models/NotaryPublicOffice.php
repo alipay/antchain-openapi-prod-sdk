@@ -39,11 +39,20 @@ class NotaryPublicOffice extends Model
      * @var string
      */
     public $city;
+
+    // 公证处完整名称
+    /**
+     * @example 厦门市鹭江公证处
+     *
+     * @var string
+     */
+    public $orgName;
     protected $_name = [
         'code'     => 'code',
         'name'     => 'name',
         'province' => 'province',
         'city'     => 'city',
+        'orgName'  => 'org_name',
     ];
 
     public function validate()
@@ -52,6 +61,7 @@ class NotaryPublicOffice extends Model
         Model::validateRequired('name', $this->name, true);
         Model::validateRequired('province', $this->province, true);
         Model::validateRequired('city', $this->city, true);
+        Model::validateRequired('orgName', $this->orgName, true);
     }
 
     public function toMap()
@@ -68,6 +78,9 @@ class NotaryPublicOffice extends Model
         }
         if (null !== $this->city) {
             $res['city'] = $this->city;
+        }
+        if (null !== $this->orgName) {
+            $res['org_name'] = $this->orgName;
         }
 
         return $res;
@@ -92,6 +105,9 @@ class NotaryPublicOffice extends Model
         }
         if (isset($map['city'])) {
             $model->city = $map['city'];
+        }
+        if (isset($map['org_name'])) {
+            $model->orgName = $map['org_name'];
         }
 
         return $model;

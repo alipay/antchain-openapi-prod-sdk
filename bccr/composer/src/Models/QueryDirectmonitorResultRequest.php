@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class VerifyBlockchainRequest extends Model
+class QueryDirectmonitorResultRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,29 +19,36 @@ class VerifyBlockchainRequest extends Model
      */
     public $productInstanceId;
 
-    // 统一证据编号（存证交易HASH）
+    // 监测任务id
     /**
      * @var string
      */
-    public $txHash;
+    public $monitorTaskId;
 
-    // 文件HASH，使用HEX的完整表示，如 6460c949f8a347eb...
-    //
-    // (和fileId 二选一，必传一个，都传按fileHash为准)
+    // 页面大小(1-200)
     /**
-     * @var string
+     * @var int
      */
-    public $fileHash;
+    public $pageSize;
+
+    // 页码(>0)
+    /**
+     * @var int
+     */
+    public $pageIndex;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'txHash'            => 'tx_hash',
-        'fileHash'          => 'file_hash',
+        'monitorTaskId'     => 'monitor_task_id',
+        'pageSize'          => 'page_size',
+        'pageIndex'         => 'page_index',
     ];
 
     public function validate()
     {
-        Model::validateRequired('txHash', $this->txHash, true);
+        Model::validateRequired('monitorTaskId', $this->monitorTaskId, true);
+        Model::validateRequired('pageSize', $this->pageSize, true);
+        Model::validateRequired('pageIndex', $this->pageIndex, true);
     }
 
     public function toMap()
@@ -53,11 +60,14 @@ class VerifyBlockchainRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
+        if (null !== $this->monitorTaskId) {
+            $res['monitor_task_id'] = $this->monitorTaskId;
         }
-        if (null !== $this->fileHash) {
-            $res['file_hash'] = $this->fileHash;
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->pageIndex) {
+            $res['page_index'] = $this->pageIndex;
         }
 
         return $res;
@@ -66,7 +76,7 @@ class VerifyBlockchainRequest extends Model
     /**
      * @param array $map
      *
-     * @return VerifyBlockchainRequest
+     * @return QueryDirectmonitorResultRequest
      */
     public static function fromMap($map = [])
     {
@@ -77,11 +87,14 @@ class VerifyBlockchainRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
+        if (isset($map['monitor_task_id'])) {
+            $model->monitorTaskId = $map['monitor_task_id'];
         }
-        if (isset($map['file_hash'])) {
-            $model->fileHash = $map['file_hash'];
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['page_index'])) {
+            $model->pageIndex = $map['page_index'];
         }
 
         return $model;

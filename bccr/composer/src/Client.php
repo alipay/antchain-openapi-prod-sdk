@@ -11,12 +11,18 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\BCCR\Models\AddDciUserRequest;
+use AntChain\BCCR\Models\AddDciUserResponse;
 use AntChain\BCCR\Models\AddHashregisterRequest;
 use AntChain\BCCR\Models\AddHashregisterResponse;
 use AntChain\BCCR\Models\AddRegisterRequest;
 use AntChain\BCCR\Models\AddRegisterResponse;
 use AntChain\BCCR\Models\CreateCertificateRequest;
 use AntChain\BCCR\Models\CreateCertificateResponse;
+use AntChain\BCCR\Models\CreateDciPreregistrationRequest;
+use AntChain\BCCR\Models\CreateDciPreregistrationResponse;
+use AntChain\BCCR\Models\CreateDirectmonitorTaskRequest;
+use AntChain\BCCR\Models\CreateDirectmonitorTaskResponse;
 use AntChain\BCCR\Models\CreateMonitorTaskRequest;
 use AntChain\BCCR\Models\CreateMonitorTaskResponse;
 use AntChain\BCCR\Models\CreateRecodescreenRequest;
@@ -33,6 +39,20 @@ use AntChain\BCCR\Models\ListMonitorProviderRequest;
 use AntChain\BCCR\Models\ListMonitorProviderResponse;
 use AntChain\BCCR\Models\ListNotaryRequest;
 use AntChain\BCCR\Models\ListNotaryResponse;
+use AntChain\BCCR\Models\PublishGoodRequest;
+use AntChain\BCCR\Models\PublishGoodResponse;
+use AntChain\BCCR\Models\QueryDciPreregistrationRequest;
+use AntChain\BCCR\Models\QueryDciPreregistrationResponse;
+use AntChain\BCCR\Models\QueryDciPreregpublicationRequest;
+use AntChain\BCCR\Models\QueryDciPreregpublicationResponse;
+use AntChain\BCCR\Models\QueryDciUserRequest;
+use AntChain\BCCR\Models\QueryDciUserResponse;
+use AntChain\BCCR\Models\QueryDirectmonitorResultRequest;
+use AntChain\BCCR\Models\QueryDirectmonitorResultResponse;
+use AntChain\BCCR\Models\QueryGoodsPublishRequest;
+use AntChain\BCCR\Models\QueryGoodsPublishResponse;
+use AntChain\BCCR\Models\QueryGoodsRequest;
+use AntChain\BCCR\Models\QueryGoodsResponse;
 use AntChain\BCCR\Models\QueryMonitorResultRequest;
 use AntChain\BCCR\Models\QueryMonitorResultResponse;
 use AntChain\BCCR\Models\QueryMonitorTaskRequest;
@@ -49,8 +69,12 @@ use AntChain\BCCR\Models\QueryUserListRequest;
 use AntChain\BCCR\Models\QueryUserListResponse;
 use AntChain\BCCR\Models\QueryUserRequest;
 use AntChain\BCCR\Models\QueryUserResponse;
+use AntChain\BCCR\Models\RetryDciPreregistrationRequest;
+use AntChain\BCCR\Models\RetryDciPreregistrationResponse;
 use AntChain\BCCR\Models\StopMonitorTaskRequest;
 use AntChain\BCCR\Models\StopMonitorTaskResponse;
+use AntChain\BCCR\Models\UpdateGoodsRequest;
+use AntChain\BCCR\Models\UpdateGoodsResponse;
 use AntChain\BCCR\Models\VerifyBlockchainRequest;
 use AntChain\BCCR\Models\VerifyBlockchainResponse;
 use AntChain\Util\UtilClient;
@@ -172,7 +196,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 监测提供商能力
+            // 网页取证具体信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -200,7 +224,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.0',
+                    'sdk_version'      => '1.15.11',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -937,5 +961,401 @@ class Client
         Utils::validateModel($request);
 
         return ListNotaryResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.notary.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增版权定向监测任务
+     * Summary: 新增版权定向监测.
+     *
+     * @param CreateDirectmonitorTaskRequest $request
+     *
+     * @return CreateDirectmonitorTaskResponse
+     */
+    public function createDirectmonitorTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDirectmonitorTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增版权定向监测任务
+     * Summary: 新增版权定向监测.
+     *
+     * @param CreateDirectmonitorTaskRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CreateDirectmonitorTaskResponse
+     */
+    public function createDirectmonitorTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDirectmonitorTaskResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.directmonitor.task.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询版权定向监测结果
+     * Summary: 查询版权定向监测结果.
+     *
+     * @param QueryDirectmonitorResultRequest $request
+     *
+     * @return QueryDirectmonitorResultResponse
+     */
+    public function queryDirectmonitorResult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDirectmonitorResultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询版权定向监测结果
+     * Summary: 查询版权定向监测结果.
+     *
+     * @param QueryDirectmonitorResultRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryDirectmonitorResultResponse
+     */
+    public function queryDirectmonitorResultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDirectmonitorResultResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.directmonitor.result.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: DCI预登记
+     * Summary: dci预登记.
+     *
+     * @param CreateDciPreregistrationRequest $request
+     *
+     * @return CreateDciPreregistrationResponse
+     */
+    public function createDciPreregistration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDciPreregistrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: DCI预登记
+     * Summary: dci预登记.
+     *
+     * @param CreateDciPreregistrationRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CreateDciPreregistrationResponse
+     */
+    public function createDciPreregistrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDciPreregistrationResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.preregistration.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询dci预登记信息
+     * Summary: 查询dci预登记信息.
+     *
+     * @param QueryDciPreregistrationRequest $request
+     *
+     * @return QueryDciPreregistrationResponse
+     */
+    public function queryDciPreregistration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDciPreregistrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询dci预登记信息
+     * Summary: 查询dci预登记信息.
+     *
+     * @param QueryDciPreregistrationRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryDciPreregistrationResponse
+     */
+    public function queryDciPreregistrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDciPreregistrationResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.preregistration.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 注册dci账号
+     * Summary: 注册dci账号.
+     *
+     * @param AddDciUserRequest $request
+     *
+     * @return AddDciUserResponse
+     */
+    public function addDciUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addDciUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 注册dci账号
+     * Summary: 注册dci账号.
+     *
+     * @param AddDciUserRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return AddDciUserResponse
+     */
+    public function addDciUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddDciUserResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.user.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: dci预登记再确认
+     * Summary: dci预登记再确认.
+     *
+     * @param RetryDciPreregistrationRequest $request
+     *
+     * @return RetryDciPreregistrationResponse
+     */
+    public function retryDciPreregistration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->retryDciPreregistrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: dci预登记再确认
+     * Summary: dci预登记再确认.
+     *
+     * @param RetryDciPreregistrationRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return RetryDciPreregistrationResponse
+     */
+    public function retryDciPreregistrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RetryDciPreregistrationResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.preregistration.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询dci账号信息
+     * Summary: 查询dci账号信息.
+     *
+     * @param QueryDciUserRequest $request
+     *
+     * @return QueryDciUserResponse
+     */
+    public function queryDciUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDciUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询dci账号信息
+     * Summary: 查询dci账号信息.
+     *
+     * @param QueryDciUserRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryDciUserResponse
+     */
+    public function queryDciUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDciUserResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.user.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: Dci预登记公示地址查询
+     * Summary: Dci预登记公示地址查询.
+     *
+     * @param QueryDciPreregpublicationRequest $request
+     *
+     * @return QueryDciPreregpublicationResponse
+     */
+    public function queryDciPreregpublication($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDciPreregpublicationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: Dci预登记公示地址查询
+     * Summary: Dci预登记公示地址查询.
+     *
+     * @param QueryDciPreregpublicationRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryDciPreregpublicationResponse
+     */
+    public function queryDciPreregpublicationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDciPreregpublicationResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.preregpublication.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品发布
+     * Summary: 商品发布.
+     *
+     * @param PublishGoodRequest $request
+     *
+     * @return PublishGoodResponse
+     */
+    public function publishGood($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->publishGoodEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品发布
+     * Summary: 商品发布.
+     *
+     * @param PublishGoodRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return PublishGoodResponse
+     */
+    public function publishGoodEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PublishGoodResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.good.publish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品发布查询
+     * Summary: 商品发布查询.
+     *
+     * @param QueryGoodsPublishRequest $request
+     *
+     * @return QueryGoodsPublishResponse
+     */
+    public function queryGoodsPublish($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGoodsPublishEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品发布查询
+     * Summary: 商品发布查询.
+     *
+     * @param QueryGoodsPublishRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryGoodsPublishResponse
+     */
+    public function queryGoodsPublishEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGoodsPublishResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.goods.publish.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品更新
+     * Summary: 商品更新.
+     *
+     * @param UpdateGoodsRequest $request
+     *
+     * @return UpdateGoodsResponse
+     */
+    public function updateGoods($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateGoodsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品更新
+     * Summary: 商品更新.
+     *
+     * @param UpdateGoodsRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return UpdateGoodsResponse
+     */
+    public function updateGoodsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateGoodsResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.goods.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品查询
+     * Summary: 商品查询.
+     *
+     * @param QueryGoodsRequest $request
+     *
+     * @return QueryGoodsResponse
+     */
+    public function queryGoods($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGoodsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品查询
+     * Summary: 商品查询.
+     *
+     * @param QueryGoodsRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return QueryGoodsResponse
+     */
+    public function queryGoodsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGoodsResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.goods.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class VerifyBlockchainRequest extends Model
+class QueryDciPreregistrationRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,29 +19,28 @@ class VerifyBlockchainRequest extends Model
      */
     public $productInstanceId;
 
-    // 统一证据编号（存证交易HASH）
+    // dci用户id
     /**
      * @var string
      */
-    public $txHash;
+    public $dciUserId;
 
-    // 文件HASH，使用HEX的完整表示，如 6460c949f8a347eb...
-    //
-    // (和fileId 二选一，必传一个，都传按fileHash为准)
+    // dci内容id
     /**
      * @var string
      */
-    public $fileHash;
+    public $dciContentId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'txHash'            => 'tx_hash',
-        'fileHash'          => 'file_hash',
+        'dciUserId'         => 'dci_user_id',
+        'dciContentId'      => 'dci_content_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('txHash', $this->txHash, true);
+        Model::validateRequired('dciUserId', $this->dciUserId, true);
+        Model::validateRequired('dciContentId', $this->dciContentId, true);
     }
 
     public function toMap()
@@ -53,11 +52,11 @@ class VerifyBlockchainRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
+        if (null !== $this->dciUserId) {
+            $res['dci_user_id'] = $this->dciUserId;
         }
-        if (null !== $this->fileHash) {
-            $res['file_hash'] = $this->fileHash;
+        if (null !== $this->dciContentId) {
+            $res['dci_content_id'] = $this->dciContentId;
         }
 
         return $res;
@@ -66,7 +65,7 @@ class VerifyBlockchainRequest extends Model
     /**
      * @param array $map
      *
-     * @return VerifyBlockchainRequest
+     * @return QueryDciPreregistrationRequest
      */
     public static function fromMap($map = [])
     {
@@ -77,11 +76,11 @@ class VerifyBlockchainRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
+        if (isset($map['dci_user_id'])) {
+            $model->dciUserId = $map['dci_user_id'];
         }
-        if (isset($map['file_hash'])) {
-            $model->fileHash = $map['file_hash'];
+        if (isset($map['dci_content_id'])) {
+            $model->dciContentId = $map['dci_content_id'];
         }
 
         return $model;

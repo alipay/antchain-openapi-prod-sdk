@@ -106,22 +106,29 @@ class CreateMonitorTaskRequest extends Model
      * @var string
      */
     public $clientToken;
+
+    // 原监测任务id
+    /**
+     * @var string
+     */
+    public $originMonitorTaskId;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'submitContent'     => 'submit_content',
-        'submitType'        => 'submit_type',
-        'fileType'          => 'file_type',
-        'taskName'          => 'task_name',
-        'contentTitle'      => 'content_title',
-        'keywords'          => 'keywords',
-        'contentDesc'       => 'content_desc',
-        'providerId'        => 'provider_id',
-        'scopes'            => 'scopes',
-        'taskStart'         => 'task_start',
-        'taskDuration'      => 'task_duration',
-        'proxyInfo'         => 'proxy_info',
-        'clientToken'       => 'client_token',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'submitContent'       => 'submit_content',
+        'submitType'          => 'submit_type',
+        'fileType'            => 'file_type',
+        'taskName'            => 'task_name',
+        'contentTitle'        => 'content_title',
+        'keywords'            => 'keywords',
+        'contentDesc'         => 'content_desc',
+        'providerId'          => 'provider_id',
+        'scopes'              => 'scopes',
+        'taskStart'           => 'task_start',
+        'taskDuration'        => 'task_duration',
+        'proxyInfo'           => 'proxy_info',
+        'clientToken'         => 'client_token',
+        'originMonitorTaskId' => 'origin_monitor_task_id',
     ];
 
     public function validate()
@@ -181,6 +188,9 @@ class CreateMonitorTaskRequest extends Model
         }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
+        }
+        if (null !== $this->originMonitorTaskId) {
+            $res['origin_monitor_task_id'] = $this->originMonitorTaskId;
         }
 
         return $res;
@@ -242,6 +252,9 @@ class CreateMonitorTaskRequest extends Model
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
+        }
+        if (isset($map['origin_monitor_task_id'])) {
+            $model->originMonitorTaskId = $map['origin_monitor_task_id'];
         }
 
         return $model;

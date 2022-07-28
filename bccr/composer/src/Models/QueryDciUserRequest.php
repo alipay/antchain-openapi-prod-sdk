@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class VerifyBlockchainRequest extends Model
+class QueryDciUserRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,29 +19,36 @@ class VerifyBlockchainRequest extends Model
      */
     public $productInstanceId;
 
-    // 统一证据编号（存证交易HASH）
+    // 证件类型
     /**
      * @var string
      */
-    public $txHash;
+    public $certificateType;
 
-    // 文件HASH，使用HEX的完整表示，如 6460c949f8a347eb...
-    //
-    // (和fileId 二选一，必传一个，都传按fileHash为准)
+    // 证件号
     /**
      * @var string
      */
-    public $fileHash;
+    public $certificateNumber;
+
+    // 手机号
+    /**
+     * @var string
+     */
+    public $phone;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'txHash'            => 'tx_hash',
-        'fileHash'          => 'file_hash',
+        'certificateType'   => 'certificate_type',
+        'certificateNumber' => 'certificate_number',
+        'phone'             => 'phone',
     ];
 
     public function validate()
     {
-        Model::validateRequired('txHash', $this->txHash, true);
+        Model::validateRequired('certificateType', $this->certificateType, true);
+        Model::validateRequired('certificateNumber', $this->certificateNumber, true);
+        Model::validateRequired('phone', $this->phone, true);
     }
 
     public function toMap()
@@ -53,11 +60,14 @@ class VerifyBlockchainRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
+        if (null !== $this->certificateType) {
+            $res['certificate_type'] = $this->certificateType;
         }
-        if (null !== $this->fileHash) {
-            $res['file_hash'] = $this->fileHash;
+        if (null !== $this->certificateNumber) {
+            $res['certificate_number'] = $this->certificateNumber;
+        }
+        if (null !== $this->phone) {
+            $res['phone'] = $this->phone;
         }
 
         return $res;
@@ -66,7 +76,7 @@ class VerifyBlockchainRequest extends Model
     /**
      * @param array $map
      *
-     * @return VerifyBlockchainRequest
+     * @return QueryDciUserRequest
      */
     public static function fromMap($map = [])
     {
@@ -77,11 +87,14 @@ class VerifyBlockchainRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
+        if (isset($map['certificate_type'])) {
+            $model->certificateType = $map['certificate_type'];
         }
-        if (isset($map['file_hash'])) {
-            $model->fileHash = $map['file_hash'];
+        if (isset($map['certificate_number'])) {
+            $model->certificateNumber = $map['certificate_number'];
+        }
+        if (isset($map['phone'])) {
+            $model->phone = $map['phone'];
         }
 
         return $model;

@@ -127,6 +127,22 @@ class RecordScreenData extends Model
      * @var string
      */
     public $certificateStorageNo;
+
+    // 证据包存证交易hash
+    /**
+     * @example 0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd
+     *
+     * @var string
+     */
+    public $zipTxHash;
+
+    // 取证备注信息
+    /**
+     * @example {    "urls": [       "https://www.baidu.com",       "https://www.mydcs.com"    ] }
+     *
+     * @var string
+     */
+    public $inventory;
     protected $_name = [
         'errorReason'          => 'error_reason',
         'fileHash'             => 'file_hash',
@@ -143,6 +159,8 @@ class RecordScreenData extends Model
         'timestamp'            => 'timestamp',
         'certificateUrl'       => 'certificate_url',
         'certificateStorageNo' => 'certificate_storage_no',
+        'zipTxHash'            => 'zip_tx_hash',
+        'inventory'            => 'inventory',
     ];
 
     public function validate()
@@ -201,6 +219,12 @@ class RecordScreenData extends Model
         if (null !== $this->certificateStorageNo) {
             $res['certificate_storage_no'] = $this->certificateStorageNo;
         }
+        if (null !== $this->zipTxHash) {
+            $res['zip_tx_hash'] = $this->zipTxHash;
+        }
+        if (null !== $this->inventory) {
+            $res['inventory'] = $this->inventory;
+        }
 
         return $res;
     }
@@ -257,6 +281,12 @@ class RecordScreenData extends Model
         }
         if (isset($map['certificate_storage_no'])) {
             $model->certificateStorageNo = $map['certificate_storage_no'];
+        }
+        if (isset($map['zip_tx_hash'])) {
+            $model->zipTxHash = $map['zip_tx_hash'];
+        }
+        if (isset($map['inventory'])) {
+            $model->inventory = $map['inventory'];
         }
 
         return $model;

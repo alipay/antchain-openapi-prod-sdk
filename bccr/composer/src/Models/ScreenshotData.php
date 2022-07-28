@@ -119,6 +119,30 @@ class ScreenshotData extends Model
      * @var string
      */
     public $headTitle;
+
+    // 证据包交易hash
+    /**
+     * @example 0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd
+     *
+     * @var string
+     */
+    public $zipTxHash;
+
+    // 网页取证失败原因
+    /**
+     * @example error
+     *
+     * @var string
+     */
+    public $errorReason;
+
+    // 中文失败原因
+    /**
+     * @example 中文失败原因
+     *
+     * @var string
+     */
+    public $errorReasonCn;
     protected $_name = [
         'url'                  => 'url',
         'gmtEvidence'          => 'gmt_evidence',
@@ -134,12 +158,14 @@ class ScreenshotData extends Model
         'screenshotZip'        => 'screenshot_zip',
         'screenshotInfo'       => 'screenshot_info',
         'headTitle'            => 'head_title',
+        'zipTxHash'            => 'zip_tx_hash',
+        'errorReason'          => 'error_reason',
+        'errorReasonCn'        => 'error_reason_cn',
     ];
 
     public function validate()
     {
         Model::validateRequired('url', $this->url, true);
-        Model::validateRequired('gmtEvidence', $this->gmtEvidence, true);
     }
 
     public function toMap()
@@ -186,6 +212,15 @@ class ScreenshotData extends Model
         }
         if (null !== $this->headTitle) {
             $res['head_title'] = $this->headTitle;
+        }
+        if (null !== $this->zipTxHash) {
+            $res['zip_tx_hash'] = $this->zipTxHash;
+        }
+        if (null !== $this->errorReason) {
+            $res['error_reason'] = $this->errorReason;
+        }
+        if (null !== $this->errorReasonCn) {
+            $res['error_reason_cn'] = $this->errorReasonCn;
         }
 
         return $res;
@@ -240,6 +275,15 @@ class ScreenshotData extends Model
         }
         if (isset($map['head_title'])) {
             $model->headTitle = $map['head_title'];
+        }
+        if (isset($map['zip_tx_hash'])) {
+            $model->zipTxHash = $map['zip_tx_hash'];
+        }
+        if (isset($map['error_reason'])) {
+            $model->errorReason = $map['error_reason'];
+        }
+        if (isset($map['error_reason_cn'])) {
+            $model->errorReasonCn = $map['error_reason_cn'];
         }
 
         return $model;
