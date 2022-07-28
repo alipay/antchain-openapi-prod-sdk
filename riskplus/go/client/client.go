@@ -15631,6 +15631,8 @@ type BatchqueryUmktRtMarketingRequest struct {
 	CustomerKeys []*string `json:"customer_keys,omitempty" xml:"customer_keys,omitempty" require:"true" type:"Repeated"`
 	// 业务方流水号
 	BizSerialNo *string `json:"biz_serial_no,omitempty" xml:"biz_serial_no,omitempty" require:"true"`
+	// 访问类型，PROD/TEST，正式流量/测试流量
+	VisitType *string `json:"visit_type,omitempty" xml:"visit_type,omitempty" require:"true"`
 }
 
 func (s BatchqueryUmktRtMarketingRequest) String() string {
@@ -15668,6 +15670,11 @@ func (s *BatchqueryUmktRtMarketingRequest) SetCustomerKeys(v []*string) *Batchqu
 
 func (s *BatchqueryUmktRtMarketingRequest) SetBizSerialNo(v string) *BatchqueryUmktRtMarketingRequest {
 	s.BizSerialNo = &v
+	return s
+}
+
+func (s *BatchqueryUmktRtMarketingRequest) SetVisitType(v string) *BatchqueryUmktRtMarketingRequest {
+	s.VisitType = &v
 	return s
 }
 
@@ -16064,6 +16071,111 @@ func (s *QueryUmktScenestrategyTestResponse) SetQueryResult(v []*CustomerUmktInf
 	return s
 }
 
+type ApplyUmktRobotcallRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外呼主叫号码
+	CalledShowNumber *string `json:"called_show_number,omitempty" xml:"called_show_number,omitempty" require:"true"`
+	// 被叫号码
+	CalledNumber *string `json:"called_number,omitempty" xml:"called_number,omitempty" require:"true"`
+	// 机器人id
+	RobotId *int64 `json:"robot_id,omitempty" xml:"robot_id,omitempty" require:"true"`
+	// 是否开启录音
+	RecordFlag *bool `json:"record_flag,omitempty" xml:"record_flag,omitempty"`
+	// 是否开启早媒体
+	EarlyMediaAsr *bool `json:"early_media_asr,omitempty" xml:"early_media_asr,omitempty"`
+	// 机器人参数
+	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+}
+
+func (s ApplyUmktRobotcallRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyUmktRobotcallRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyUmktRobotcallRequest) SetAuthToken(v string) *ApplyUmktRobotcallRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyUmktRobotcallRequest) SetProductInstanceId(v string) *ApplyUmktRobotcallRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyUmktRobotcallRequest) SetCalledShowNumber(v string) *ApplyUmktRobotcallRequest {
+	s.CalledShowNumber = &v
+	return s
+}
+
+func (s *ApplyUmktRobotcallRequest) SetCalledNumber(v string) *ApplyUmktRobotcallRequest {
+	s.CalledNumber = &v
+	return s
+}
+
+func (s *ApplyUmktRobotcallRequest) SetRobotId(v int64) *ApplyUmktRobotcallRequest {
+	s.RobotId = &v
+	return s
+}
+
+func (s *ApplyUmktRobotcallRequest) SetRecordFlag(v bool) *ApplyUmktRobotcallRequest {
+	s.RecordFlag = &v
+	return s
+}
+
+func (s *ApplyUmktRobotcallRequest) SetEarlyMediaAsr(v bool) *ApplyUmktRobotcallRequest {
+	s.EarlyMediaAsr = &v
+	return s
+}
+
+func (s *ApplyUmktRobotcallRequest) SetParams(v string) *ApplyUmktRobotcallRequest {
+	s.Params = &v
+	return s
+}
+
+type ApplyUmktRobotcallResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 呼叫记录id
+	CallId *string `json:"call_id,omitempty" xml:"call_id,omitempty"`
+}
+
+func (s ApplyUmktRobotcallResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyUmktRobotcallResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyUmktRobotcallResponse) SetReqMsgId(v string) *ApplyUmktRobotcallResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyUmktRobotcallResponse) SetResultCode(v string) *ApplyUmktRobotcallResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyUmktRobotcallResponse) SetResultMsg(v string) *ApplyUmktRobotcallResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyUmktRobotcallResponse) SetCallId(v string) *ApplyUmktRobotcallResponse {
+	s.CallId = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -16306,7 +16418,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.9"),
+				"sdk_version":      tea.String("1.12.11"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -20312,6 +20424,40 @@ func (client *Client) QueryUmktScenestrategyTestEx(request *QueryUmktScenestrate
 	}
 	_result = &QueryUmktScenestrategyTestResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.scenestrategy.test.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发起AI外呼
+ * Summary: 发起AI外呼
+ */
+func (client *Client) ApplyUmktRobotcall(request *ApplyUmktRobotcallRequest) (_result *ApplyUmktRobotcallResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyUmktRobotcallResponse{}
+	_body, _err := client.ApplyUmktRobotcallEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发起AI外呼
+ * Summary: 发起AI外呼
+ */
+func (client *Client) ApplyUmktRobotcallEx(request *ApplyUmktRobotcallRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyUmktRobotcallResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyUmktRobotcallResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.robotcall.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
