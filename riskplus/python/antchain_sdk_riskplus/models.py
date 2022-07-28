@@ -19491,6 +19491,7 @@ class BatchqueryUmktRtMarketingRequest(TeaModel):
         query_template: str = None,
         customer_keys: List[str] = None,
         biz_serial_no: str = None,
+        visit_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -19503,11 +19504,14 @@ class BatchqueryUmktRtMarketingRequest(TeaModel):
         self.customer_keys = customer_keys
         # 业务方流水号
         self.biz_serial_no = biz_serial_no
+        # 访问类型，PROD/TEST，正式流量/测试流量
+        self.visit_type = visit_type
 
     def validate(self):
         self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
         self.validate_required(self.customer_keys, 'customer_keys')
         self.validate_required(self.biz_serial_no, 'biz_serial_no')
+        self.validate_required(self.visit_type, 'visit_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -19527,6 +19531,8 @@ class BatchqueryUmktRtMarketingRequest(TeaModel):
             result['customer_keys'] = self.customer_keys
         if self.biz_serial_no is not None:
             result['biz_serial_no'] = self.biz_serial_no
+        if self.visit_type is not None:
+            result['visit_type'] = self.visit_type
         return result
 
     def from_map(self, m: dict = None):
@@ -19543,6 +19549,8 @@ class BatchqueryUmktRtMarketingRequest(TeaModel):
             self.customer_keys = m.get('customer_keys')
         if m.get('biz_serial_no') is not None:
             self.biz_serial_no = m.get('biz_serial_no')
+        if m.get('visit_type') is not None:
+            self.visit_type = m.get('visit_type')
         return self
 
 
@@ -20068,6 +20076,133 @@ class QueryUmktScenestrategyTestResponse(TeaModel):
             for k in m.get('query_result'):
                 temp_model = CustomerUmktInfoModel()
                 self.query_result.append(temp_model.from_map(k))
+        return self
+
+
+class ApplyUmktRobotcallRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        called_show_number: str = None,
+        called_number: str = None,
+        robot_id: int = None,
+        record_flag: bool = None,
+        early_media_asr: bool = None,
+        params: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 外呼主叫号码
+        self.called_show_number = called_show_number
+        # 被叫号码
+        self.called_number = called_number
+        # 机器人id
+        self.robot_id = robot_id
+        # 是否开启录音
+        self.record_flag = record_flag
+        # 是否开启早媒体
+        self.early_media_asr = early_media_asr
+        # 机器人参数
+        self.params = params
+
+    def validate(self):
+        self.validate_required(self.called_show_number, 'called_show_number')
+        self.validate_required(self.called_number, 'called_number')
+        self.validate_required(self.robot_id, 'robot_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.called_show_number is not None:
+            result['called_show_number'] = self.called_show_number
+        if self.called_number is not None:
+            result['called_number'] = self.called_number
+        if self.robot_id is not None:
+            result['robot_id'] = self.robot_id
+        if self.record_flag is not None:
+            result['record_flag'] = self.record_flag
+        if self.early_media_asr is not None:
+            result['early_media_asr'] = self.early_media_asr
+        if self.params is not None:
+            result['params'] = self.params
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('called_show_number') is not None:
+            self.called_show_number = m.get('called_show_number')
+        if m.get('called_number') is not None:
+            self.called_number = m.get('called_number')
+        if m.get('robot_id') is not None:
+            self.robot_id = m.get('robot_id')
+        if m.get('record_flag') is not None:
+            self.record_flag = m.get('record_flag')
+        if m.get('early_media_asr') is not None:
+            self.early_media_asr = m.get('early_media_asr')
+        if m.get('params') is not None:
+            self.params = m.get('params')
+        return self
+
+
+class ApplyUmktRobotcallResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        call_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 呼叫记录id
+        self.call_id = call_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.call_id is not None:
+            result['call_id'] = self.call_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('call_id') is not None:
+            self.call_id = m.get('call_id')
         return self
 
 
