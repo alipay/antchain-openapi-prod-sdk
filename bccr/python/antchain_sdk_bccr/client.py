@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 监测提供商能力
+            # 网页取证具体信息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.0'
+                    'sdk_version': '1.15.11'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 监测提供商能力
+            # 网页取证具体信息
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.0'
+                    'sdk_version': '1.15.11'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +306,8 @@ class Client:
         Summary: 获取授权访问oss链接
         """
         UtilClient.validate_model(request)
-        return bccr_models.GetUploadurlResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.GetUploadurlResponse(),
             self.do_request('1.0', 'blockchain.bccr.uploadurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: 获取授权访问oss链接
         """
         UtilClient.validate_model(request)
-        return bccr_models.GetUploadurlResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.GetUploadurlResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.uploadurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: 新增HASH版权登记
         """
         UtilClient.validate_model(request)
-        return bccr_models.AddHashregisterResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.AddHashregisterResponse(),
             self.do_request('1.0', 'blockchain.bccr.hashregister.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: 新增HASH版权登记
         """
         UtilClient.validate_model(request)
-        return bccr_models.AddHashregisterResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.AddHashregisterResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.hashregister.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: 新增版权登记
         """
         UtilClient.validate_model(request)
-        return bccr_models.AddRegisterResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.AddRegisterResponse(),
             self.do_request('1.0', 'blockchain.bccr.register.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +434,8 @@ class Client:
         Summary: 新增版权登记
         """
         UtilClient.validate_model(request)
-        return bccr_models.AddRegisterResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.AddRegisterResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.register.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +474,8 @@ class Client:
         Summary: 查询版权登记状态
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryRegisterstatusResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryRegisterstatusResponse(),
             self.do_request('1.0', 'blockchain.bccr.registerstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +490,8 @@ class Client:
         Summary: 查询版权登记状态
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryRegisterstatusResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryRegisterstatusResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.registerstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +530,8 @@ class Client:
         Summary: 生成版权登记证书
         """
         UtilClient.validate_model(request)
-        return bccr_models.CreateCertificateResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.CreateCertificateResponse(),
             self.do_request('1.0', 'blockchain.bccr.certificate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +546,8 @@ class Client:
         Summary: 生成版权登记证书
         """
         UtilClient.validate_model(request)
-        return bccr_models.CreateCertificateResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.CreateCertificateResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.certificate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +586,8 @@ class Client:
         Summary: 获取版权登记证书
         """
         UtilClient.validate_model(request)
-        return bccr_models.GetCertificateResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.GetCertificateResponse(),
             self.do_request('1.0', 'blockchain.bccr.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +602,8 @@ class Client:
         Summary: 获取版权登记证书
         """
         UtilClient.validate_model(request)
-        return bccr_models.GetCertificateResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.GetCertificateResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +642,8 @@ class Client:
         Summary: 新增版权监测
         """
         UtilClient.validate_model(request)
-        return bccr_models.CreateMonitorTaskResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.CreateMonitorTaskResponse(),
             self.do_request('1.0', 'blockchain.bccr.monitor.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +658,8 @@ class Client:
         Summary: 新增版权监测
         """
         UtilClient.validate_model(request)
-        return bccr_models.CreateMonitorTaskResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.CreateMonitorTaskResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.monitor.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +698,8 @@ class Client:
         Summary: 停止版权监测
         """
         UtilClient.validate_model(request)
-        return bccr_models.StopMonitorTaskResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.StopMonitorTaskResponse(),
             self.do_request('1.0', 'blockchain.bccr.monitor.task.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +714,8 @@ class Client:
         Summary: 停止版权监测
         """
         UtilClient.validate_model(request)
-        return bccr_models.StopMonitorTaskResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.StopMonitorTaskResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.monitor.task.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +754,8 @@ class Client:
         Summary: 查询版权监测
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryMonitorTaskResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryMonitorTaskResponse(),
             self.do_request('1.0', 'blockchain.bccr.monitor.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +770,8 @@ class Client:
         Summary: 查询版权监测
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryMonitorTaskResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryMonitorTaskResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.monitor.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +810,8 @@ class Client:
         Summary: 查询版权监测结果
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryMonitorResultResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryMonitorResultResponse(),
             self.do_request('1.0', 'blockchain.bccr.monitor.result.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +826,8 @@ class Client:
         Summary: 查询版权监测结果
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryMonitorResultResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryMonitorResultResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.monitor.result.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +866,8 @@ class Client:
         Summary: 获取传播监测能力服务商列表
         """
         UtilClient.validate_model(request)
-        return bccr_models.ListMonitorProviderResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.ListMonitorProviderResponse(),
             self.do_request('1.0', 'blockchain.bccr.monitor.provider.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +882,8 @@ class Client:
         Summary: 获取传播监测能力服务商列表
         """
         UtilClient.validate_model(request)
-        return bccr_models.ListMonitorProviderResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.ListMonitorProviderResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.monitor.provider.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +922,8 @@ class Client:
         Summary: 创建录屏取证(废弃)
         """
         UtilClient.validate_model(request)
-        return bccr_models.CreateRecodescreenResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.CreateRecodescreenResponse(),
             self.do_request('1.0', 'blockchain.bccr.recodescreen.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,7 +938,8 @@ class Client:
         Summary: 创建录屏取证(废弃)
         """
         UtilClient.validate_model(request)
-        return bccr_models.CreateRecodescreenResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.CreateRecodescreenResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.recodescreen.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -954,7 +978,8 @@ class Client:
         Summary: 查询录屏取证(废弃)
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryRecodescreenResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryRecodescreenResponse(),
             self.do_request('1.0', 'blockchain.bccr.recodescreen.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -969,7 +994,8 @@ class Client:
         Summary: 查询录屏取证(废弃)
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryRecodescreenResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryRecodescreenResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.recodescreen.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1008,7 +1034,8 @@ class Client:
         Summary: 用户信息查询
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryUserResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryUserResponse(),
             self.do_request('1.0', 'blockchain.bccr.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1023,7 +1050,8 @@ class Client:
         Summary: 用户信息查询
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryUserResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryUserResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1062,7 +1090,8 @@ class Client:
         Summary: 查询用户信息列表
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryUserListResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryUserListResponse(),
             self.do_request('1.0', 'blockchain.bccr.user.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1077,7 +1106,8 @@ class Client:
         Summary: 查询用户信息列表
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryUserListResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryUserListResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.user.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1116,7 +1146,8 @@ class Client:
         Summary: 创建网页取证
         """
         UtilClient.validate_model(request)
-        return bccr_models.CreateScreenshotResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.CreateScreenshotResponse(),
             self.do_request('1.0', 'blockchain.bccr.screenshot.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1131,7 +1162,8 @@ class Client:
         Summary: 创建网页取证
         """
         UtilClient.validate_model(request)
-        return bccr_models.CreateScreenshotResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.CreateScreenshotResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.screenshot.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1170,7 +1202,8 @@ class Client:
         Summary: 查询网页取证
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryScreenshotResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryScreenshotResponse(),
             self.do_request('1.0', 'blockchain.bccr.screenshot.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1185,7 +1218,8 @@ class Client:
         Summary: 查询网页取证
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryScreenshotResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryScreenshotResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.screenshot.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1224,7 +1258,8 @@ class Client:
         Summary: 链上核验
         """
         UtilClient.validate_model(request)
-        return bccr_models.VerifyBlockchainResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.VerifyBlockchainResponse(),
             self.do_request('1.0', 'blockchain.bccr.blockchain.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1239,7 +1274,8 @@ class Client:
         Summary: 链上核验
         """
         UtilClient.validate_model(request)
-        return bccr_models.VerifyBlockchainResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.VerifyBlockchainResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.blockchain.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1278,7 +1314,8 @@ class Client:
         Summary: 创建录屏取证
         """
         UtilClient.validate_model(request)
-        return bccr_models.CreateRecordscreenResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.CreateRecordscreenResponse(),
             self.do_request('1.0', 'blockchain.bccr.recordscreen.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1293,7 +1330,8 @@ class Client:
         Summary: 创建录屏取证
         """
         UtilClient.validate_model(request)
-        return bccr_models.CreateRecordscreenResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.CreateRecordscreenResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.recordscreen.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1332,7 +1370,8 @@ class Client:
         Summary: 查询录屏取证
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryRecordscreenResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryRecordscreenResponse(),
             self.do_request('1.0', 'blockchain.bccr.recordscreen.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1347,7 +1386,8 @@ class Client:
         Summary: 查询录屏取证
         """
         UtilClient.validate_model(request)
-        return bccr_models.QueryRecordscreenResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.QueryRecordscreenResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.recordscreen.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1386,7 +1426,8 @@ class Client:
         Summary: 获取支持的公证处列表
         """
         UtilClient.validate_model(request)
-        return bccr_models.ListNotaryResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.ListNotaryResponse(),
             self.do_request('1.0', 'blockchain.bccr.notary.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1401,6 +1442,679 @@ class Client:
         Summary: 获取支持的公证处列表
         """
         UtilClient.validate_model(request)
-        return bccr_models.ListNotaryResponse().from_map(
+        return TeaCore.from_map(
+            bccr_models.ListNotaryResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.notary.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_directmonitor_task(
+        self,
+        request: bccr_models.CreateDirectmonitorTaskRequest,
+    ) -> bccr_models.CreateDirectmonitorTaskResponse:
+        """
+        Description: 新增版权定向监测任务
+        Summary: 新增版权定向监测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_directmonitor_task_ex(request, headers, runtime)
+
+    async def create_directmonitor_task_async(
+        self,
+        request: bccr_models.CreateDirectmonitorTaskRequest,
+    ) -> bccr_models.CreateDirectmonitorTaskResponse:
+        """
+        Description: 新增版权定向监测任务
+        Summary: 新增版权定向监测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_directmonitor_task_ex_async(request, headers, runtime)
+
+    def create_directmonitor_task_ex(
+        self,
+        request: bccr_models.CreateDirectmonitorTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateDirectmonitorTaskResponse:
+        """
+        Description: 新增版权定向监测任务
+        Summary: 新增版权定向监测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateDirectmonitorTaskResponse(),
+            self.do_request('1.0', 'blockchain.bccr.directmonitor.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_directmonitor_task_ex_async(
+        self,
+        request: bccr_models.CreateDirectmonitorTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateDirectmonitorTaskResponse:
+        """
+        Description: 新增版权定向监测任务
+        Summary: 新增版权定向监测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateDirectmonitorTaskResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.directmonitor.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_directmonitor_result(
+        self,
+        request: bccr_models.QueryDirectmonitorResultRequest,
+    ) -> bccr_models.QueryDirectmonitorResultResponse:
+        """
+        Description: 查询版权定向监测结果
+        Summary: 查询版权定向监测结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_directmonitor_result_ex(request, headers, runtime)
+
+    async def query_directmonitor_result_async(
+        self,
+        request: bccr_models.QueryDirectmonitorResultRequest,
+    ) -> bccr_models.QueryDirectmonitorResultResponse:
+        """
+        Description: 查询版权定向监测结果
+        Summary: 查询版权定向监测结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_directmonitor_result_ex_async(request, headers, runtime)
+
+    def query_directmonitor_result_ex(
+        self,
+        request: bccr_models.QueryDirectmonitorResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDirectmonitorResultResponse:
+        """
+        Description: 查询版权定向监测结果
+        Summary: 查询版权定向监测结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDirectmonitorResultResponse(),
+            self.do_request('1.0', 'blockchain.bccr.directmonitor.result.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_directmonitor_result_ex_async(
+        self,
+        request: bccr_models.QueryDirectmonitorResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDirectmonitorResultResponse:
+        """
+        Description: 查询版权定向监测结果
+        Summary: 查询版权定向监测结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDirectmonitorResultResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.directmonitor.result.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_dci_preregistration(
+        self,
+        request: bccr_models.CreateDciPreregistrationRequest,
+    ) -> bccr_models.CreateDciPreregistrationResponse:
+        """
+        Description: DCI预登记
+        Summary: dci预登记
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_dci_preregistration_ex(request, headers, runtime)
+
+    async def create_dci_preregistration_async(
+        self,
+        request: bccr_models.CreateDciPreregistrationRequest,
+    ) -> bccr_models.CreateDciPreregistrationResponse:
+        """
+        Description: DCI预登记
+        Summary: dci预登记
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_dci_preregistration_ex_async(request, headers, runtime)
+
+    def create_dci_preregistration_ex(
+        self,
+        request: bccr_models.CreateDciPreregistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateDciPreregistrationResponse:
+        """
+        Description: DCI预登记
+        Summary: dci预登记
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateDciPreregistrationResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.preregistration.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_dci_preregistration_ex_async(
+        self,
+        request: bccr_models.CreateDciPreregistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateDciPreregistrationResponse:
+        """
+        Description: DCI预登记
+        Summary: dci预登记
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateDciPreregistrationResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.preregistration.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dci_preregistration(
+        self,
+        request: bccr_models.QueryDciPreregistrationRequest,
+    ) -> bccr_models.QueryDciPreregistrationResponse:
+        """
+        Description: 查询dci预登记信息
+        Summary: 查询dci预登记信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dci_preregistration_ex(request, headers, runtime)
+
+    async def query_dci_preregistration_async(
+        self,
+        request: bccr_models.QueryDciPreregistrationRequest,
+    ) -> bccr_models.QueryDciPreregistrationResponse:
+        """
+        Description: 查询dci预登记信息
+        Summary: 查询dci预登记信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dci_preregistration_ex_async(request, headers, runtime)
+
+    def query_dci_preregistration_ex(
+        self,
+        request: bccr_models.QueryDciPreregistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDciPreregistrationResponse:
+        """
+        Description: 查询dci预登记信息
+        Summary: 查询dci预登记信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDciPreregistrationResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.preregistration.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dci_preregistration_ex_async(
+        self,
+        request: bccr_models.QueryDciPreregistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDciPreregistrationResponse:
+        """
+        Description: 查询dci预登记信息
+        Summary: 查询dci预登记信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDciPreregistrationResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.preregistration.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_dci_user(
+        self,
+        request: bccr_models.AddDciUserRequest,
+    ) -> bccr_models.AddDciUserResponse:
+        """
+        Description: 注册dci账号
+        Summary: 注册dci账号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_dci_user_ex(request, headers, runtime)
+
+    async def add_dci_user_async(
+        self,
+        request: bccr_models.AddDciUserRequest,
+    ) -> bccr_models.AddDciUserResponse:
+        """
+        Description: 注册dci账号
+        Summary: 注册dci账号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_dci_user_ex_async(request, headers, runtime)
+
+    def add_dci_user_ex(
+        self,
+        request: bccr_models.AddDciUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.AddDciUserResponse:
+        """
+        Description: 注册dci账号
+        Summary: 注册dci账号
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.AddDciUserResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.user.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_dci_user_ex_async(
+        self,
+        request: bccr_models.AddDciUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.AddDciUserResponse:
+        """
+        Description: 注册dci账号
+        Summary: 注册dci账号
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.AddDciUserResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.user.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def retry_dci_preregistration(
+        self,
+        request: bccr_models.RetryDciPreregistrationRequest,
+    ) -> bccr_models.RetryDciPreregistrationResponse:
+        """
+        Description: dci预登记再确认
+        Summary: dci预登记再确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.retry_dci_preregistration_ex(request, headers, runtime)
+
+    async def retry_dci_preregistration_async(
+        self,
+        request: bccr_models.RetryDciPreregistrationRequest,
+    ) -> bccr_models.RetryDciPreregistrationResponse:
+        """
+        Description: dci预登记再确认
+        Summary: dci预登记再确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.retry_dci_preregistration_ex_async(request, headers, runtime)
+
+    def retry_dci_preregistration_ex(
+        self,
+        request: bccr_models.RetryDciPreregistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.RetryDciPreregistrationResponse:
+        """
+        Description: dci预登记再确认
+        Summary: dci预登记再确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.RetryDciPreregistrationResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.preregistration.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def retry_dci_preregistration_ex_async(
+        self,
+        request: bccr_models.RetryDciPreregistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.RetryDciPreregistrationResponse:
+        """
+        Description: dci预登记再确认
+        Summary: dci预登记再确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.RetryDciPreregistrationResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.preregistration.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dci_user(
+        self,
+        request: bccr_models.QueryDciUserRequest,
+    ) -> bccr_models.QueryDciUserResponse:
+        """
+        Description: 查询dci账号信息
+        Summary: 查询dci账号信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dci_user_ex(request, headers, runtime)
+
+    async def query_dci_user_async(
+        self,
+        request: bccr_models.QueryDciUserRequest,
+    ) -> bccr_models.QueryDciUserResponse:
+        """
+        Description: 查询dci账号信息
+        Summary: 查询dci账号信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dci_user_ex_async(request, headers, runtime)
+
+    def query_dci_user_ex(
+        self,
+        request: bccr_models.QueryDciUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDciUserResponse:
+        """
+        Description: 查询dci账号信息
+        Summary: 查询dci账号信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDciUserResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dci_user_ex_async(
+        self,
+        request: bccr_models.QueryDciUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDciUserResponse:
+        """
+        Description: 查询dci账号信息
+        Summary: 查询dci账号信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDciUserResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dci_preregpublication(
+        self,
+        request: bccr_models.QueryDciPreregpublicationRequest,
+    ) -> bccr_models.QueryDciPreregpublicationResponse:
+        """
+        Description: Dci预登记公示地址查询
+        Summary: Dci预登记公示地址查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dci_preregpublication_ex(request, headers, runtime)
+
+    async def query_dci_preregpublication_async(
+        self,
+        request: bccr_models.QueryDciPreregpublicationRequest,
+    ) -> bccr_models.QueryDciPreregpublicationResponse:
+        """
+        Description: Dci预登记公示地址查询
+        Summary: Dci预登记公示地址查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dci_preregpublication_ex_async(request, headers, runtime)
+
+    def query_dci_preregpublication_ex(
+        self,
+        request: bccr_models.QueryDciPreregpublicationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDciPreregpublicationResponse:
+        """
+        Description: Dci预登记公示地址查询
+        Summary: Dci预登记公示地址查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDciPreregpublicationResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.preregpublication.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dci_preregpublication_ex_async(
+        self,
+        request: bccr_models.QueryDciPreregpublicationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryDciPreregpublicationResponse:
+        """
+        Description: Dci预登记公示地址查询
+        Summary: Dci预登记公示地址查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryDciPreregpublicationResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.preregpublication.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def publish_good(
+        self,
+        request: bccr_models.PublishGoodRequest,
+    ) -> bccr_models.PublishGoodResponse:
+        """
+        Description: 商品发布
+        Summary: 商品发布
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.publish_good_ex(request, headers, runtime)
+
+    async def publish_good_async(
+        self,
+        request: bccr_models.PublishGoodRequest,
+    ) -> bccr_models.PublishGoodResponse:
+        """
+        Description: 商品发布
+        Summary: 商品发布
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.publish_good_ex_async(request, headers, runtime)
+
+    def publish_good_ex(
+        self,
+        request: bccr_models.PublishGoodRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.PublishGoodResponse:
+        """
+        Description: 商品发布
+        Summary: 商品发布
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.PublishGoodResponse(),
+            self.do_request('1.0', 'blockchain.bccr.good.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def publish_good_ex_async(
+        self,
+        request: bccr_models.PublishGoodRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.PublishGoodResponse:
+        """
+        Description: 商品发布
+        Summary: 商品发布
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.PublishGoodResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.good.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_goods_publish(
+        self,
+        request: bccr_models.QueryGoodsPublishRequest,
+    ) -> bccr_models.QueryGoodsPublishResponse:
+        """
+        Description: 商品发布查询
+        Summary: 商品发布查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_goods_publish_ex(request, headers, runtime)
+
+    async def query_goods_publish_async(
+        self,
+        request: bccr_models.QueryGoodsPublishRequest,
+    ) -> bccr_models.QueryGoodsPublishResponse:
+        """
+        Description: 商品发布查询
+        Summary: 商品发布查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_goods_publish_ex_async(request, headers, runtime)
+
+    def query_goods_publish_ex(
+        self,
+        request: bccr_models.QueryGoodsPublishRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryGoodsPublishResponse:
+        """
+        Description: 商品发布查询
+        Summary: 商品发布查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryGoodsPublishResponse(),
+            self.do_request('1.0', 'blockchain.bccr.goods.publish.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_goods_publish_ex_async(
+        self,
+        request: bccr_models.QueryGoodsPublishRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryGoodsPublishResponse:
+        """
+        Description: 商品发布查询
+        Summary: 商品发布查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryGoodsPublishResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.goods.publish.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_goods(
+        self,
+        request: bccr_models.UpdateGoodsRequest,
+    ) -> bccr_models.UpdateGoodsResponse:
+        """
+        Description: 商品更新
+        Summary: 商品更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_goods_ex(request, headers, runtime)
+
+    async def update_goods_async(
+        self,
+        request: bccr_models.UpdateGoodsRequest,
+    ) -> bccr_models.UpdateGoodsResponse:
+        """
+        Description: 商品更新
+        Summary: 商品更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_goods_ex_async(request, headers, runtime)
+
+    def update_goods_ex(
+        self,
+        request: bccr_models.UpdateGoodsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.UpdateGoodsResponse:
+        """
+        Description: 商品更新
+        Summary: 商品更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.UpdateGoodsResponse(),
+            self.do_request('1.0', 'blockchain.bccr.goods.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_goods_ex_async(
+        self,
+        request: bccr_models.UpdateGoodsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.UpdateGoodsResponse:
+        """
+        Description: 商品更新
+        Summary: 商品更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.UpdateGoodsResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.goods.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_goods(
+        self,
+        request: bccr_models.QueryGoodsRequest,
+    ) -> bccr_models.QueryGoodsResponse:
+        """
+        Description: 商品查询
+        Summary: 商品查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_goods_ex(request, headers, runtime)
+
+    async def query_goods_async(
+        self,
+        request: bccr_models.QueryGoodsRequest,
+    ) -> bccr_models.QueryGoodsResponse:
+        """
+        Description: 商品查询
+        Summary: 商品查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_goods_ex_async(request, headers, runtime)
+
+    def query_goods_ex(
+        self,
+        request: bccr_models.QueryGoodsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryGoodsResponse:
+        """
+        Description: 商品查询
+        Summary: 商品查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryGoodsResponse(),
+            self.do_request('1.0', 'blockchain.bccr.goods.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_goods_ex_async(
+        self,
+        request: bccr_models.QueryGoodsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryGoodsResponse:
+        """
+        Description: 商品查询
+        Summary: 商品查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryGoodsResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.goods.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
