@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.9',
+    sdk_version = '1.12.11',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -6669,6 +6669,8 @@ model BatchqueryUmktRtMarketingRequest = {
   customerKeys: [ string ](name='customer_keys'),
   // 业务方流水号
   bizSerialNo: string(name='biz_serial_no'),
+  // 访问类型，PROD/TEST，正式流量/测试流量
+  visitType: string(name='visit_type'),
 }
 
 model BatchqueryUmktRtMarketingResponse = {
@@ -6875,6 +6877,54 @@ async function queryUmktScenestrategyTest(request: QueryUmktScenestrategyTestReq
 async function queryUmktScenestrategyTestEx(request: QueryUmktScenestrategyTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktScenestrategyTestResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.scenestrategy.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyUmktRobotcallRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外呼主叫号码
+  calledShowNumber: string(name='called_show_number'),
+  // 被叫号码
+  calledNumber: string(name='called_number'),
+  // 机器人id
+  robotId: long(name='robot_id'),
+  // 是否开启录音
+  recordFlag?: boolean(name='record_flag'),
+  // 是否开启早媒体
+  earlyMediaAsr?: boolean(name='early_media_asr'),
+  // 机器人参数
+  params?: string(name='params'),
+}
+
+model ApplyUmktRobotcallResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 呼叫记录id
+  callId?: string(name='call_id'),
+}
+
+/**
+ * Description: 发起AI外呼
+ * Summary: 发起AI外呼
+ */
+async function applyUmktRobotcall(request: ApplyUmktRobotcallRequest): ApplyUmktRobotcallResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyUmktRobotcallEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起AI外呼
+ * Summary: 发起AI外呼
+ */
+async function applyUmktRobotcallEx(request: ApplyUmktRobotcallRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyUmktRobotcallResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.robotcall.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
