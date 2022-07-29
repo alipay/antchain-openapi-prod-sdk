@@ -25,6 +25,11 @@ namespace AntChain.SDK.INTEGRATION_MACHINE.Models
         [Validation(Required=true)]
         public string HealthCode { get; set; }
 
+        // 体温
+        [NameInMap("temperature")]
+        [Validation(Required=true)]
+        public string Temperature { get; set; }
+
         // 行程信息
         // 
         [NameInMap("travel_info")]
@@ -72,7 +77,7 @@ namespace AntChain.SDK.INTEGRATION_MACHINE.Models
         [Validation(Required=true)]
         public string Latitude { get; set; }
 
-        // 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸）
+        // 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸, 99:刷苏州市民卡
         // 
         [NameInMap("pass_mode")]
         [Validation(Required=true)]
