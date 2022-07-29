@@ -364,6 +364,8 @@ export class HealthInfoLog extends $tea.Model {
   certName: string;
   // 健康码颜色(绿色:1,黄码:2,红码:3,灰码:4)
   healthCode: string;
+  // 体温
+  temperature: string;
   // 行程信息
   // 
   travelInfo: TravelInfo;
@@ -387,7 +389,7 @@ export class HealthInfoLog extends $tea.Model {
   longitude: string;
   // 纬度
   latitude: string;
-  // 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸）
+  // 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸, 99:刷苏州市民卡
   // 
   passMode: string;
   // 通行时长(单位:毫秒)
@@ -404,6 +406,7 @@ export class HealthInfoLog extends $tea.Model {
       certNo: 'cert_no',
       certName: 'cert_name',
       healthCode: 'health_code',
+      temperature: 'temperature',
       travelInfo: 'travel_info',
       nucleicAcidInfo: 'nucleic_acid_info',
       vaccinationInfo: 'vaccination_info',
@@ -424,6 +427,7 @@ export class HealthInfoLog extends $tea.Model {
       certNo: 'string',
       certName: 'string',
       healthCode: 'string',
+      temperature: 'string',
       travelInfo: TravelInfo,
       nucleicAcidInfo: NucleicAcidInfo,
       vaccinationInfo: VaccinationInfo,
@@ -1195,7 +1199,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.12",
+          sdk_version: "1.0.13",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
