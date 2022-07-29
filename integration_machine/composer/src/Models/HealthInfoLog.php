@@ -32,6 +32,14 @@ class HealthInfoLog extends Model
      */
     public $healthCode;
 
+    // 体温
+    /**
+     * @example 37.5
+     *
+     * @var string
+     */
+    public $temperature;
+
     // 行程信息
     //
     /**
@@ -103,7 +111,7 @@ class HealthInfoLog extends Model
      */
     public $latitude;
 
-    // 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸）
+    // 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸, 99:刷苏州市民卡
     //
     /**
      * @example 反扫
@@ -142,6 +150,7 @@ class HealthInfoLog extends Model
         'certNo'           => 'cert_no',
         'certName'         => 'cert_name',
         'healthCode'       => 'health_code',
+        'temperature'      => 'temperature',
         'travelInfo'       => 'travel_info',
         'nucleicAcidInfo'  => 'nucleic_acid_info',
         'vaccinationInfo'  => 'vaccination_info',
@@ -161,6 +170,7 @@ class HealthInfoLog extends Model
         Model::validateRequired('certNo', $this->certNo, true);
         Model::validateRequired('certName', $this->certName, true);
         Model::validateRequired('healthCode', $this->healthCode, true);
+        Model::validateRequired('temperature', $this->temperature, true);
         Model::validateRequired('travelInfo', $this->travelInfo, true);
         Model::validateRequired('nucleicAcidInfo', $this->nucleicAcidInfo, true);
         Model::validateRequired('vaccinationInfo', $this->vaccinationInfo, true);
@@ -186,6 +196,9 @@ class HealthInfoLog extends Model
         }
         if (null !== $this->healthCode) {
             $res['health_code'] = $this->healthCode;
+        }
+        if (null !== $this->temperature) {
+            $res['temperature'] = $this->temperature;
         }
         if (null !== $this->travelInfo) {
             $res['travel_info'] = null !== $this->travelInfo ? $this->travelInfo->toMap() : null;
@@ -243,6 +256,9 @@ class HealthInfoLog extends Model
         }
         if (isset($map['health_code'])) {
             $model->healthCode = $map['health_code'];
+        }
+        if (isset($map['temperature'])) {
+            $model->temperature = $map['temperature'];
         }
         if (isset($map['travel_info'])) {
             $model->travelInfo = TravelInfo::fromMap($map['travel_info']);
