@@ -2511,7 +2511,7 @@ export class IotBasicUserRequest extends $tea.Model {
 
 // 设备业务数据
 export class BizContentGroup extends $tea.Model {
-  // 设备链上Id
+  // 设备链上Id，与scene参数至少有一个参数不为空
   // 
   // 
   chainDeviceId?: string;
@@ -7594,8 +7594,8 @@ export class SendCollectorDevicebizdataRequest extends $tea.Model {
   nonce: string;
   // 上传数据
   content: BizContentGroup[];
-  // 场景码
-  scene: string;
+  // 场景码，与content中的chainDeviceId至少有一个不为空
+  scene?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -12363,7 +12363,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.115",
+          sdk_version: "1.6.116",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
