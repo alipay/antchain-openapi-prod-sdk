@@ -19,6 +19,11 @@ public class HealthInfoLog extends TeaModel {
     @Validation(required = true)
     public String healthCode;
 
+    // 体温
+    @NameInMap("temperature")
+    @Validation(required = true)
+    public String temperature;
+
     // 行程信息
     // 
     @NameInMap("travel_info")
@@ -66,7 +71,7 @@ public class HealthInfoLog extends TeaModel {
     @Validation(required = true)
     public String latitude;
 
-    // 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸）
+    // 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸, 99:刷苏州市民卡
     // 
     @NameInMap("pass_mode")
     @Validation(required = true)
@@ -117,6 +122,14 @@ public class HealthInfoLog extends TeaModel {
     }
     public String getHealthCode() {
         return this.healthCode;
+    }
+
+    public HealthInfoLog setTemperature(String temperature) {
+        this.temperature = temperature;
+        return this;
+    }
+    public String getTemperature() {
+        return this.temperature;
     }
 
     public HealthInfoLog setTravelInfo(TravelInfo travelInfo) {
