@@ -460,6 +460,8 @@ type HealthInfoLog struct {
 	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
 	// 健康码颜色(绿色:1,黄码:2,红码:3,灰码:4)
 	HealthCode *string `json:"health_code,omitempty" xml:"health_code,omitempty" require:"true"`
+	// 体温
+	Temperature *string `json:"temperature,omitempty" xml:"temperature,omitempty" require:"true"`
 	// 行程信息
 	//
 	TravelInfo *TravelInfo `json:"travel_info,omitempty" xml:"travel_info,omitempty" require:"true"`
@@ -483,7 +485,7 @@ type HealthInfoLog struct {
 	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty" require:"true"`
 	// 纬度
 	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty" require:"true"`
-	// 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸）
+	// 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸, 99:刷苏州市民卡
 	//
 	PassMode *string `json:"pass_mode,omitempty" xml:"pass_mode,omitempty" require:"true"`
 	// 通行时长(单位:毫秒)
@@ -517,6 +519,11 @@ func (s *HealthInfoLog) SetCertName(v string) *HealthInfoLog {
 
 func (s *HealthInfoLog) SetHealthCode(v string) *HealthInfoLog {
 	s.HealthCode = &v
+	return s
+}
+
+func (s *HealthInfoLog) SetTemperature(v string) *HealthInfoLog {
+	s.Temperature = &v
 	return s
 }
 
@@ -1561,7 +1568,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.12"),
+				"sdk_version":      tea.String("1.0.13"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
