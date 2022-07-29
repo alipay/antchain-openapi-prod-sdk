@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.115',
+    sdk_version = '1.6.116',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1211,7 +1211,7 @@ model IotBasicUserRequest {
 
 // 设备业务数据
 model BizContentGroup {
-  // 设备链上Id
+  // 设备链上Id，与scene参数至少有一个参数不为空
   // 
   // 
   chainDeviceId?: string(name='chain_device_id', example='txhash123'),
@@ -4319,8 +4319,8 @@ model SendCollectorDevicebizdataRequest = {
   nonce: string(name='nonce'),
   // 上传数据
   content: [ BizContentGroup ](name='content'),
-  // 场景码
-  scene: string(name='scene'),
+  // 场景码，与content中的chainDeviceId至少有一个不为空
+  scene?: string(name='scene'),
 }
 
 model SendCollectorDevicebizdataResponse = {
