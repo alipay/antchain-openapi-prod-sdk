@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.bot.models;
 import com.aliyun.tea.*;
 
 public class BizContentGroup extends TeaModel {
-    // 设备链上Id
+    // 设备链上Id，与scene参数至少有一个参数不为空
     // 
     // 
     @NameInMap("chain_device_id")

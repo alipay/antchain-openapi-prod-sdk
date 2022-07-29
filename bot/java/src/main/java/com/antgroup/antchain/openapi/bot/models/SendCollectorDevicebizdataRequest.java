@@ -30,9 +30,8 @@ public class SendCollectorDevicebizdataRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<BizContentGroup> content;
 
-    // 场景码
+    // 场景码，与content中的chainDeviceId至少有一个不为空
     @NameInMap("scene")
-    @Validation(required = true)
     public String scene;
 
     public static SendCollectorDevicebizdataRequest build(java.util.Map<String, ?> map) throws Exception {
