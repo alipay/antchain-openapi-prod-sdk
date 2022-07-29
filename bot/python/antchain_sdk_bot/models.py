@@ -4095,7 +4095,7 @@ class BizContentGroup(TeaModel):
         biz_type: str = None,
         content: str = None,
     ):
-        # 设备链上Id
+        # 设备链上Id，与scene参数至少有一个参数不为空
         # 
         # 
         self.chain_device_id = chain_device_id
@@ -12357,7 +12357,7 @@ class SendCollectorDevicebizdataRequest(TeaModel):
         self.nonce = nonce
         # 上传数据
         self.content = content
-        # 场景码
+        # 场景码，与content中的chainDeviceId至少有一个不为空
         self.scene = scene
 
     def validate(self):
@@ -12368,7 +12368,6 @@ class SendCollectorDevicebizdataRequest(TeaModel):
             for k in self.content:
                 if k:
                     k.validate()
-        self.validate_required(self.scene, 'scene')
 
     def to_map(self):
         _map = super().to_map()
