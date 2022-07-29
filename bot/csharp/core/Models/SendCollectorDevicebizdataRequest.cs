@@ -37,9 +37,9 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public List<BizContentGroup> Content { get; set; }
 
-        // 场景码
+        // 场景码，与content中的chainDeviceId至少有一个不为空
         [NameInMap("scene")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Scene { get; set; }
 
     }
