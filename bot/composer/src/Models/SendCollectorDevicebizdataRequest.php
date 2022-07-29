@@ -41,7 +41,7 @@ class SendCollectorDevicebizdataRequest extends Model
      */
     public $content;
 
-    // 场景码
+    // 场景码，与content中的chainDeviceId至少有一个不为空
     /**
      * @var string
      */
@@ -60,7 +60,6 @@ class SendCollectorDevicebizdataRequest extends Model
         Model::validateRequired('dataModelId', $this->dataModelId, true);
         Model::validateRequired('nonce', $this->nonce, true);
         Model::validateRequired('content', $this->content, true);
-        Model::validateRequired('scene', $this->scene, true);
     }
 
     public function toMap()

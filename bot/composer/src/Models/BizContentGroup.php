@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class BizContentGroup extends Model
 {
-    // 设备链上Id
+    // 设备链上Id，与scene参数至少有一个参数不为空
     //
     //
     /**
