@@ -70,6 +70,10 @@ class Config(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.access_key_id is not None:
             result['accessKeyId'] = self.access_key_id
@@ -165,6 +169,10 @@ class SceneInfo(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.scene_name is not None:
             result['scene_name'] = self.scene_name
@@ -201,6 +209,10 @@ class TravelInfo(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.travel_code is not None:
             result['travel_code'] = self.travel_code
@@ -232,6 +244,10 @@ class AntigenInfo(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.antigen_result is not None:
             result['antigen_result'] = self.antigen_result
@@ -269,6 +285,10 @@ class NucleicAcidInfo(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.report_type is not None:
             result['report_type'] = self.report_type
@@ -315,6 +335,10 @@ class VaccinationInfo(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.vaccination_code is not None:
             result['vaccination_code'] = self.vaccination_code
@@ -351,6 +375,10 @@ class AntigenInformation(TeaModel):
         self.validate_required(self.antigen_time, 'antigen_time')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.antigen_result is not None:
             result['antigen_result'] = self.antigen_result
@@ -383,6 +411,10 @@ class NucleicAcidInformation(TeaModel):
         self.validate_required(self.nucleic_acid_time, 'nucleic_acid_time')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.nucleic_acid_result is not None:
             result['nucleic_acid_result'] = self.nucleic_acid_result
@@ -415,6 +447,10 @@ class VaccinationInformation(TeaModel):
         self.validate_required(self.vaccination_time, 'vaccination_time')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.vaccination_status is not None:
             result['vaccination_status'] = self.vaccination_status
@@ -453,6 +489,10 @@ class ArgsNameValue(TeaModel):
         self.validate_required(self.args_value, 'args_value')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.args_name is not None:
             result['args_name'] = self.args_name
@@ -493,6 +533,10 @@ class SceneInformation(TeaModel):
         self.validate_required(self.scene_id, 'scene_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.scene_address is not None:
             result['scene_address'] = self.scene_address
@@ -515,6 +559,7 @@ class HealthInfoLog(TeaModel):
         cert_no: str = None,
         cert_name: str = None,
         health_code: str = None,
+        temperature: str = None,
         travel_info: TravelInfo = None,
         nucleic_acid_info: NucleicAcidInfo = None,
         vaccination_info: VaccinationInfo = None,
@@ -534,6 +579,8 @@ class HealthInfoLog(TeaModel):
         self.cert_name = cert_name
         # 健康码颜色(绿色:1,黄码:2,红码:3,灰码:4)
         self.health_code = health_code
+        # 体温
+        self.temperature = temperature
         # 行程信息
         # 
         self.travel_info = travel_info
@@ -557,7 +604,7 @@ class HealthInfoLog(TeaModel):
         self.longitude = longitude
         # 纬度
         self.latitude = latitude
-        # 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸）
+        # 通行方式（1:自动刷脸, 2:刷证非1:1, 3:刷证1:1, 4:反扫, 5:刷奥智定制卡, 6:手动刷脸, 99:刷苏州市民卡
         # 
         self.pass_mode = pass_mode
         # 通行时长(单位:毫秒)
@@ -574,6 +621,7 @@ class HealthInfoLog(TeaModel):
         self.validate_required(self.cert_no, 'cert_no')
         self.validate_required(self.cert_name, 'cert_name')
         self.validate_required(self.health_code, 'health_code')
+        self.validate_required(self.temperature, 'temperature')
         self.validate_required(self.travel_info, 'travel_info')
         if self.travel_info:
             self.travel_info.validate()
@@ -598,6 +646,10 @@ class HealthInfoLog(TeaModel):
         self.validate_required(self.pass_result, 'pass_result')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cert_no is not None:
             result['cert_no'] = self.cert_no
@@ -605,6 +657,8 @@ class HealthInfoLog(TeaModel):
             result['cert_name'] = self.cert_name
         if self.health_code is not None:
             result['health_code'] = self.health_code
+        if self.temperature is not None:
+            result['temperature'] = self.temperature
         if self.travel_info is not None:
             result['travel_info'] = self.travel_info.to_map()
         if self.nucleic_acid_info is not None:
@@ -639,6 +693,8 @@ class HealthInfoLog(TeaModel):
             self.cert_name = m.get('cert_name')
         if m.get('health_code') is not None:
             self.health_code = m.get('health_code')
+        if m.get('temperature') is not None:
+            self.temperature = m.get('temperature')
         if m.get('travel_info') is not None:
             temp_model = TravelInfo()
             self.travel_info = temp_model.from_map(m['travel_info'])
@@ -690,6 +746,10 @@ class HealthInfo(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.health_code is not None:
             result['health_code'] = self.health_code
@@ -726,6 +786,10 @@ class TravelInformation(TeaModel):
         self.validate_required(self.travel_path, 'travel_path')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.travel_code is not None:
             result['travel_code'] = self.travel_code
@@ -785,6 +849,10 @@ class QueryHealthinfoRequest(TeaModel):
         self.validate_required(self.health_types, 'health_types')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -876,6 +944,10 @@ class QueryHealthinfoResponse(TeaModel):
             self.scene_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1026,6 +1098,10 @@ class PushHealthinfologRequest(TeaModel):
             self.scene_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1153,6 +1229,10 @@ class PushHealthinfologResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1212,6 +1292,10 @@ class GetHealthinfoRequest(TeaModel):
         self.validate_required(self.health_types, 'health_types')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1311,6 +1395,10 @@ class GetHealthinfoResponse(TeaModel):
             self.scene_info.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1394,6 +1482,10 @@ class QueryDeviceargsRequest(TeaModel):
         self.validate_required(self.corp_name, 'corp_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1442,6 +1534,10 @@ class QueryDeviceargsResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1500,6 +1596,10 @@ class InitDeviceargsRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1551,6 +1651,10 @@ class InitDeviceargsResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1608,6 +1712,10 @@ class QueryHealthinfologRequest(TeaModel):
             self.validate_minimum(self.page_size, 'page_size', 1)
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1674,6 +1782,10 @@ class QueryHealthinfologResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id

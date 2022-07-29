@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.12'
+                    'sdk_version': '1.0.13'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.12'
+                    'sdk_version': '1.0.13'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +306,8 @@ class Client:
         Summary: 查询防疫健康信息
         """
         UtilClient.validate_model(request)
-        return integration__machine_models.QueryHealthinfoResponse().from_map(
+        return TeaCore.from_map(
+            integration__machine_models.QueryHealthinfoResponse(),
             self.do_request('1.0', 'antchain.antim.healthinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: 查询防疫健康信息
         """
         UtilClient.validate_model(request)
-        return integration__machine_models.QueryHealthinfoResponse().from_map(
+        return TeaCore.from_map(
+            integration__machine_models.QueryHealthinfoResponse(),
             await self.do_request_async('1.0', 'antchain.antim.healthinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: 上报通行记录
         """
         UtilClient.validate_model(request)
-        return integration__machine_models.PushHealthinfologResponse().from_map(
+        return TeaCore.from_map(
+            integration__machine_models.PushHealthinfologResponse(),
             self.do_request('1.0', 'antchain.antim.healthinfolog.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: 上报通行记录
         """
         UtilClient.validate_model(request)
-        return integration__machine_models.PushHealthinfologResponse().from_map(
+        return TeaCore.from_map(
+            integration__machine_models.PushHealthinfologResponse(),
             await self.do_request_async('1.0', 'antchain.antim.healthinfolog.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: 健康身份二维码反查防疫健康信息
         """
         UtilClient.validate_model(request)
-        return integration__machine_models.GetHealthinfoResponse().from_map(
+        return TeaCore.from_map(
+            integration__machine_models.GetHealthinfoResponse(),
             self.do_request('1.0', 'antchain.antim.healthinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +434,8 @@ class Client:
         Summary: 健康身份二维码反查防疫健康信息
         """
         UtilClient.validate_model(request)
-        return integration__machine_models.GetHealthinfoResponse().from_map(
+        return TeaCore.from_map(
+            integration__machine_models.GetHealthinfoResponse(),
             await self.do_request_async('1.0', 'antchain.antim.healthinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +474,8 @@ class Client:
         Summary: 健康码设备配置参数列表查询
         """
         UtilClient.validate_model(request)
-        return integration__machine_models.QueryDeviceargsResponse().from_map(
+        return TeaCore.from_map(
+            integration__machine_models.QueryDeviceargsResponse(),
             self.do_request('1.0', 'antchain.antim.deviceargs.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +490,8 @@ class Client:
         Summary: 健康码设备配置参数列表查询
         """
         UtilClient.validate_model(request)
-        return integration__machine_models.QueryDeviceargsResponse().from_map(
+        return TeaCore.from_map(
+            integration__machine_models.QueryDeviceargsResponse(),
             await self.do_request_async('1.0', 'antchain.antim.deviceargs.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +530,8 @@ class Client:
         Summary: 健康码设备参数配置初始化
         """
         UtilClient.validate_model(request)
-        return integration__machine_models.InitDeviceargsResponse().from_map(
+        return TeaCore.from_map(
+            integration__machine_models.InitDeviceargsResponse(),
             self.do_request('1.0', 'antchain.antim.deviceargs.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +546,8 @@ class Client:
         Summary: 健康码设备参数配置初始化
         """
         UtilClient.validate_model(request)
-        return integration__machine_models.InitDeviceargsResponse().from_map(
+        return TeaCore.from_map(
+            integration__machine_models.InitDeviceargsResponse(),
             await self.do_request_async('1.0', 'antchain.antim.deviceargs.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +586,8 @@ class Client:
         Summary: 通行记录查询
         """
         UtilClient.validate_model(request)
-        return integration__machine_models.QueryHealthinfologResponse().from_map(
+        return TeaCore.from_map(
+            integration__machine_models.QueryHealthinfologResponse(),
             self.do_request('1.0', 'antchain.antim.healthinfolog.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,6 +602,7 @@ class Client:
         Summary: 通行记录查询
         """
         UtilClient.validate_model(request)
-        return integration__machine_models.QueryHealthinfologResponse().from_map(
+        return TeaCore.from_map(
+            integration__machine_models.QueryHealthinfologResponse(),
             await self.do_request_async('1.0', 'antchain.antim.healthinfolog.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
