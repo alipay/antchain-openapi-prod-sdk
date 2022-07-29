@@ -3355,7 +3355,7 @@ func (s *IotBasicUserRequest) SetLoginName(v string) *IotBasicUserRequest {
 
 // 设备业务数据
 type BizContentGroup struct {
-	// 设备链上Id
+	// 设备链上Id，与scene参数至少有一个参数不为空
 	//
 	//
 	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty"`
@@ -9850,8 +9850,8 @@ type SendCollectorDevicebizdataRequest struct {
 	Nonce *string `json:"nonce,omitempty" xml:"nonce,omitempty" require:"true"`
 	// 上传数据
 	Content []*BizContentGroup `json:"content,omitempty" xml:"content,omitempty" require:"true" type:"Repeated"`
-	// 场景码
-	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 场景码，与content中的chainDeviceId至少有一个不为空
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
 }
 
 func (s SendCollectorDevicebizdataRequest) String() string {
@@ -15991,7 +15991,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.115"),
+				"sdk_version":      tea.String("1.6.116"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
