@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.69',
+    sdk_version = '1.3.73',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -371,8 +371,10 @@ model IPCodeIpOwnerInfo {
   ipOwnerImageTmp?: string(name='ip_owner_image_tmp', example='http://xxx'),
   // ip描述
   ipDescription?: string(name='ip_description', example='这是一段ip描述'),
-  // 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息
+  // 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息；4是自定义
   ipOwnerType?: long(name='ip_owner_type', example=''),
+  // 自定义资质信息类型
+  ipOwnerCustom?: string(name='ip_owner_custom', example='资质信息'),
 }
 
 // IP授权服务: ContactInfo
@@ -1667,6 +1669,10 @@ model IPCodeFlowInfo {
   codeCollectTime?: long(name='code_collect_time', example='56783872489327492'),
   // 收藏交易哈希
   codeTransHash?: string(name='code_trans_hash', example='dhjysgfhjdsgfhsjguyew7373yuetyudgysadg'),
+  // 收藏交易块高
+  codeTransBlockNumber?: long(name='code_trans_block_number', example='块高'),
+  // 流转信息jsonstring
+  extInfo?: string(name='ext_info', example='流转信息jsonstring'),
 }
 
 // 钱包信息
@@ -12404,6 +12410,10 @@ model ReceiveIpCodeRequest = {
   gps?: string(name='gps'),
   // 用户头像地址
   avatar: string(name='avatar'),
+  // true 发起流转，false 正常领取，默认false
+  flowEn?: boolean(name='flow_en'),
+  // 交易单ID（流转订单）、支付宝交易号、交易金额、流转交易平台、平台logo、原持有人ID 等信息，由调用方构造
+  extInfo?: string(name='ext_info'),
 }
 
 model ReceiveIpCodeResponse = {
@@ -14175,6 +14185,10 @@ model SetIpOrdermemoRequest = {
   ipOrderId: string(name='ip_order_id'),
   // 备注信息
   memo: string(name='memo'),
+  // 更新订单功能 0 基础功能，1 领用收藏，2持有流转等
+  features?: [ long ](name='features'),
+  // 订单ID列表-更新订单功能使用
+  orderIds?: [ string ](name='order_ids'),
 }
 
 model SetIpOrdermemoResponse = {
