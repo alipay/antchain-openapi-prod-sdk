@@ -836,8 +836,10 @@ type IPCodeIpOwnerInfo struct {
 	IpOwnerImageTmp *string `json:"ip_owner_image_tmp,omitempty" xml:"ip_owner_image_tmp,omitempty"`
 	// ip描述
 	IpDescription *string `json:"ip_description,omitempty" xml:"ip_description,omitempty"`
-	// 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息
+	// 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息；4是自定义
 	IpOwnerType *int64 `json:"ip_owner_type,omitempty" xml:"ip_owner_type,omitempty"`
+	// 自定义资质信息类型
+	IpOwnerCustom *string `json:"ip_owner_custom,omitempty" xml:"ip_owner_custom,omitempty"`
 }
 
 func (s IPCodeIpOwnerInfo) String() string {
@@ -870,6 +872,11 @@ func (s *IPCodeIpOwnerInfo) SetIpDescription(v string) *IPCodeIpOwnerInfo {
 
 func (s *IPCodeIpOwnerInfo) SetIpOwnerType(v int64) *IPCodeIpOwnerInfo {
 	s.IpOwnerType = &v
+	return s
+}
+
+func (s *IPCodeIpOwnerInfo) SetIpOwnerCustom(v string) *IPCodeIpOwnerInfo {
+	s.IpOwnerCustom = &v
 	return s
 }
 
@@ -5216,6 +5223,10 @@ type IPCodeFlowInfo struct {
 	CodeCollectTime *int64 `json:"code_collect_time,omitempty" xml:"code_collect_time,omitempty"`
 	// 收藏交易哈希
 	CodeTransHash *string `json:"code_trans_hash,omitempty" xml:"code_trans_hash,omitempty"`
+	// 收藏交易块高
+	CodeTransBlockNumber *int64 `json:"code_trans_block_number,omitempty" xml:"code_trans_block_number,omitempty"`
+	// 流转信息jsonstring
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s IPCodeFlowInfo) String() string {
@@ -5238,6 +5249,16 @@ func (s *IPCodeFlowInfo) SetCodeCollectTime(v int64) *IPCodeFlowInfo {
 
 func (s *IPCodeFlowInfo) SetCodeTransHash(v string) *IPCodeFlowInfo {
 	s.CodeTransHash = &v
+	return s
+}
+
+func (s *IPCodeFlowInfo) SetCodeTransBlockNumber(v int64) *IPCodeFlowInfo {
+	s.CodeTransBlockNumber = &v
+	return s
+}
+
+func (s *IPCodeFlowInfo) SetExtInfo(v string) *IPCodeFlowInfo {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -29111,6 +29132,10 @@ type ReceiveIpCodeRequest struct {
 	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
 	// 用户头像地址
 	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty" require:"true"`
+	// true 发起流转，false 正常领取，默认false
+	FlowEn *bool `json:"flow_en,omitempty" xml:"flow_en,omitempty"`
+	// 交易单ID（流转订单）、支付宝交易号、交易金额、流转交易平台、平台logo、原持有人ID 等信息，由调用方构造
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s ReceiveIpCodeRequest) String() string {
@@ -29163,6 +29188,16 @@ func (s *ReceiveIpCodeRequest) SetGps(v string) *ReceiveIpCodeRequest {
 
 func (s *ReceiveIpCodeRequest) SetAvatar(v string) *ReceiveIpCodeRequest {
 	s.Avatar = &v
+	return s
+}
+
+func (s *ReceiveIpCodeRequest) SetFlowEn(v bool) *ReceiveIpCodeRequest {
+	s.FlowEn = &v
+	return s
+}
+
+func (s *ReceiveIpCodeRequest) SetExtInfo(v string) *ReceiveIpCodeRequest {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -33112,6 +33147,10 @@ type SetIpOrdermemoRequest struct {
 	IpOrderId *string `json:"ip_order_id,omitempty" xml:"ip_order_id,omitempty" require:"true"`
 	// 备注信息
 	Memo *string `json:"memo,omitempty" xml:"memo,omitempty" require:"true"`
+	// 更新订单功能 0 基础功能，1 领用收藏，2持有流转等
+	Features []*int64 `json:"features,omitempty" xml:"features,omitempty" type:"Repeated"`
+	// 订单ID列表-更新订单功能使用
+	OrderIds []*string `json:"order_ids,omitempty" xml:"order_ids,omitempty" type:"Repeated"`
 }
 
 func (s SetIpOrdermemoRequest) String() string {
@@ -33144,6 +33183,16 @@ func (s *SetIpOrdermemoRequest) SetIpOrderId(v string) *SetIpOrdermemoRequest {
 
 func (s *SetIpOrdermemoRequest) SetMemo(v string) *SetIpOrdermemoRequest {
 	s.Memo = &v
+	return s
+}
+
+func (s *SetIpOrdermemoRequest) SetFeatures(v []*int64) *SetIpOrdermemoRequest {
+	s.Features = v
+	return s
+}
+
+func (s *SetIpOrdermemoRequest) SetOrderIds(v []*string) *SetIpOrdermemoRequest {
+	s.OrderIds = v
 	return s
 }
 
@@ -37978,7 +38027,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.69"),
+				"sdk_version":      tea.String("1.3.73"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
