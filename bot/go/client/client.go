@@ -3401,6 +3401,32 @@ func (s *BizContentGroup) SetContent(v string) *BizContentGroup {
 	return s
 }
 
+// 菜鸟设备监控信息获取请求体
+type ScfLeaseEqpInfoQueryRequest struct {
+	// 设备识别号
+	DeviceNo *string `json:"device_no,omitempty" xml:"device_no,omitempty" require:"true"`
+	// 运营日期
+	OperationDate *string `json:"operation_date,omitempty" xml:"operation_date,omitempty" require:"true"`
+}
+
+func (s ScfLeaseEqpInfoQueryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ScfLeaseEqpInfoQueryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ScfLeaseEqpInfoQueryRequest) SetDeviceNo(v string) *ScfLeaseEqpInfoQueryRequest {
+	s.DeviceNo = &v
+	return s
+}
+
+func (s *ScfLeaseEqpInfoQueryRequest) SetOperationDate(v string) *ScfLeaseEqpInfoQueryRequest {
+	s.OperationDate = &v
+	return s
+}
+
 // 组织请求注册更新结构体，应用在注册/更新API的ThingExtraParams
 type CorporateReqModel struct {
 	// 组织地址
@@ -13964,10 +13990,8 @@ type QueryScfleaseEqpinfoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 设备识别号
-	DeviceNo *string `json:"device_no,omitempty" xml:"device_no,omitempty" require:"true"`
-	// 运营日期
-	OperationDate *string `json:"operation_date,omitempty" xml:"operation_date,omitempty" require:"true"`
+	// 请求体
+	Request []*ScfLeaseEqpInfoQueryRequest `json:"request,omitempty" xml:"request,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s QueryScfleaseEqpinfoRequest) String() string {
@@ -13988,13 +14012,8 @@ func (s *QueryScfleaseEqpinfoRequest) SetProductInstanceId(v string) *QueryScfle
 	return s
 }
 
-func (s *QueryScfleaseEqpinfoRequest) SetDeviceNo(v string) *QueryScfleaseEqpinfoRequest {
-	s.DeviceNo = &v
-	return s
-}
-
-func (s *QueryScfleaseEqpinfoRequest) SetOperationDate(v string) *QueryScfleaseEqpinfoRequest {
-	s.OperationDate = &v
+func (s *QueryScfleaseEqpinfoRequest) SetRequest(v []*ScfLeaseEqpInfoQueryRequest) *QueryScfleaseEqpinfoRequest {
+	s.Request = v
 	return s
 }
 
@@ -15991,7 +16010,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.116"),
+				"sdk_version":      tea.String("1.6.118"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
