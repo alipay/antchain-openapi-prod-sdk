@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.116',
+    sdk_version = '1.6.118',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1227,6 +1227,14 @@ model BizContentGroup {
   // 
   // 
   content: string(name='content', example='{"":"",""}'),
+}
+
+// 菜鸟设备监控信息获取请求体
+model ScfLeaseEqpInfoQueryRequest {
+  // 设备识别号
+  deviceNo: string(name='device_no', example='10010100101'),
+  // 运营日期
+  operationDate: string(name='operation_date', example='2021-07-20 11:34:00'),
 }
 
 // 组织请求注册更新结构体，应用在注册/更新API的ThingExtraParams
@@ -6309,10 +6317,8 @@ model QueryScfleaseEqpinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 设备识别号
-  deviceNo: string(name='device_no'),
-  // 运营日期
-  operationDate: string(name='operation_date'),
+  // 请求体
+  request: [ ScfLeaseEqpInfoQueryRequest ](name='request'),
 }
 
 model QueryScfleaseEqpinfoResponse = {
