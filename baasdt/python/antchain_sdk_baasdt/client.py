@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.69'
+                    'sdk_version': '1.3.73'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.69'
+                    'sdk_version': '1.3.73'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +306,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-创建卡密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardCreateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardCreateResponse(),
             self.do_request('1.0', 'baas.antdao.card.create.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-创建卡密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardCreateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardCreateResponse(),
             await self.do_request_async('1.0', 'baas.antdao.card.create.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-查询卡密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardQueryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardQueryResponse(),
             self.do_request('1.0', 'baas.antdao.card.query.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-查询卡密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardQueryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardQueryResponse(),
             await self.do_request_async('1.0', 'baas.antdao.card.query.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-记名卡发行
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardBindnameResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardBindnameResponse(),
             self.do_request('1.0', 'baas.antdao.card.bindname.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +434,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-记名卡发行
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardBindnameResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardBindnameResponse(),
             await self.do_request_async('1.0', 'baas.antdao.card.bindname.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +474,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-充值卡密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardChargeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardChargeResponse(),
             self.do_request('1.0', 'baas.antdao.card.charge.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +490,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-充值卡密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardChargeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardChargeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.card.charge.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +530,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-核销卡密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardWriteoffResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardWriteoffResponse(),
             self.do_request('1.0', 'baas.antdao.card.writeoff.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +546,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-核销卡密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardWriteoffResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardWriteoffResponse(),
             await self.do_request_async('1.0', 'baas.antdao.card.writeoff.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +586,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-过期卡密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardExpiredResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardExpiredResponse(),
             self.do_request('1.0', 'baas.antdao.card.expired.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +602,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-过期卡密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardExpiredResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardExpiredResponse(),
             await self.do_request_async('1.0', 'baas.antdao.card.expired.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +642,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-风控禁用
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardForbiddenResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardForbiddenResponse(),
             self.do_request('1.0', 'baas.antdao.card.forbidden.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +658,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-风控禁用
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardForbiddenResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardForbiddenResponse(),
             await self.do_request_async('1.0', 'baas.antdao.card.forbidden.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +698,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-充值重置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardChargeresetResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardChargeresetResponse(),
             self.do_request('1.0', 'baas.antdao.card.chargereset.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +714,8 @@ class Client:
         Summary: 数字商品服务-电子券卡密服务-充值重置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCardChargeresetResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCardChargeresetResponse(),
             await self.do_request_async('1.0', 'baas.antdao.card.chargereset.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +754,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-个人/机构注册
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConsumecardAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConsumecardAccountResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +770,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-个人/机构注册
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConsumecardAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConsumecardAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +810,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-个人/机构注销
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OfflineConsumecardAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OfflineConsumecardAccountResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.account.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +826,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-个人/机构注销
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OfflineConsumecardAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OfflineConsumecardAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.account.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +866,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-企业消费卡回退
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ReclaimConsumecardWalletResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ReclaimConsumecardWalletResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.wallet.reclaim', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +882,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-企业消费卡回退
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ReclaimConsumecardWalletResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ReclaimConsumecardWalletResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.wallet.reclaim', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +922,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账户禁用
         """
         UtilClient.validate_model(request)
-        return baasdt_models.FreezeConsumecardAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.FreezeConsumecardAccountResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.account.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,7 +938,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账户禁用
         """
         UtilClient.validate_model(request)
-        return baasdt_models.FreezeConsumecardAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.FreezeConsumecardAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.account.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -954,7 +978,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账户解禁
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UnfreezeConsumecardAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UnfreezeConsumecardAccountResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.account.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -969,7 +994,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账户解禁
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UnfreezeConsumecardAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UnfreezeConsumecardAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.account.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1008,7 +1034,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-消费卡风控调整
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateConsumecardRiskcontrolResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateConsumecardRiskcontrolResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.riskcontrol.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1023,7 +1050,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-消费卡风控调整
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateConsumecardRiskcontrolResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateConsumecardRiskcontrolResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.riskcontrol.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1062,7 +1090,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardBillResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardBillResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.bill.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1077,7 +1106,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardBillResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardBillResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.bill.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1116,7 +1146,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-消费卡充值冻结
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ChargeConsumecardWalletResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ChargeConsumecardWalletResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.wallet.charge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1131,7 +1162,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-消费卡充值冻结
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ChargeConsumecardWalletResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ChargeConsumecardWalletResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.wallet.charge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1170,7 +1202,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-更新账户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateConsumecardAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateConsumecardAccountResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.account.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1185,7 +1218,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-更新账户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateConsumecardAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateConsumecardAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.account.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1224,7 +1258,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单创建
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConsumecardBillResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConsumecardBillResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.bill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1239,7 +1274,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单创建
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConsumecardBillResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConsumecardBillResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.bill.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1278,7 +1314,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单创建确认
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmConsumecardBillcreateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmConsumecardBillcreateResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.billcreate.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1293,7 +1330,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单创建确认
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmConsumecardBillcreateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmConsumecardBillcreateResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.billcreate.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1332,7 +1370,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-取消账单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CancelConsumecardBillResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CancelConsumecardBillResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.bill.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1347,7 +1386,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-取消账单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CancelConsumecardBillResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CancelConsumecardBillResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.bill.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1386,7 +1426,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单支付
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardBillpayResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardBillpayResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.billpay.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1401,7 +1442,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单支付
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardBillpayResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardBillpayResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.billpay.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1440,7 +1482,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单和交易核销
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardOrderwriteoffResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardOrderwriteoffResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.orderwriteoff.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1455,7 +1498,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单和交易核销
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardOrderwriteoffResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardOrderwriteoffResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.orderwriteoff.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1494,7 +1538,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单退款处理
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmConsumecardBillrefundResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmConsumecardBillrefundResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.billrefund.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1509,7 +1554,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单退款处理
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmConsumecardBillrefundResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmConsumecardBillrefundResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.billrefund.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1548,7 +1594,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询账户信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardAccountResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1563,7 +1610,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询账户信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1602,7 +1650,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-开通钱包
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OpenConsumecardWalletResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OpenConsumecardWalletResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.wallet.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1617,7 +1666,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-开通钱包
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OpenConsumecardWalletResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OpenConsumecardWalletResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.wallet.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1656,7 +1706,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询钱包
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardWalletResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardWalletResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.wallet.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1671,7 +1722,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询钱包
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardWalletResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardWalletResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.wallet.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1710,7 +1762,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-充值并兑换资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardWalletchargetotokenResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardWalletchargetotokenResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.walletchargetotoken.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1725,7 +1778,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-充值并兑换资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardWalletchargetotokenResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardWalletchargetotokenResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.walletchargetotoken.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1764,7 +1818,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-湮灭资产并提现
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardWalletredeemtokenResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardWalletredeemtokenResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.walletredeemtoken.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1779,7 +1834,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-湮灭资产并提现
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardWalletredeemtokenResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardWalletredeemtokenResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.walletredeemtoken.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1818,7 +1874,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-买家发起交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.StartConsumecardPurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.StartConsumecardPurchaseResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.purchase.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1833,7 +1890,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-买家发起交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.StartConsumecardPurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.StartConsumecardPurchaseResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.purchase.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1872,7 +1930,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-买家取消交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CancelConsumecardBuyerpurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CancelConsumecardBuyerpurchaseResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.buyerpurchase.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1887,7 +1946,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-买家取消交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CancelConsumecardBuyerpurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CancelConsumecardBuyerpurchaseResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.buyerpurchase.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1926,7 +1986,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-买家申请退款
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyConsumecardPurchaserefundResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyConsumecardPurchaserefundResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.purchaserefund.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1941,7 +2002,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-买家申请退款
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyConsumecardPurchaserefundResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyConsumecardPurchaserefundResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.purchaserefund.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1980,7 +2042,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-买家申请售后
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyConsumecardPurchasereplaceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyConsumecardPurchasereplaceResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.purchasereplace.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1995,7 +2058,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-买家申请售后
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyConsumecardPurchasereplaceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyConsumecardPurchasereplaceResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.purchasereplace.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2034,7 +2098,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-买家确认收货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardPurchasereceiveResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardPurchasereceiveResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.purchasereceive.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2049,7 +2114,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-买家确认收货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardPurchasereceiveResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardPurchasereceiveResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.purchasereceive.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2088,7 +2154,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-卖家拒绝交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RefuseConsumecardPurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RefuseConsumecardPurchaseResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.purchase.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2103,7 +2170,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-卖家拒绝交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RefuseConsumecardPurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RefuseConsumecardPurchaseResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.purchase.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2142,7 +2210,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-卖家退款操作
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardPurchaserefundResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardPurchaserefundResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.purchaserefund.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2157,7 +2226,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-卖家退款操作
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardPurchaserefundResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardPurchaserefundResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.purchaserefund.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2196,7 +2266,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-卖家换货操作
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardPurchasereplaceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardPurchasereplaceResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.purchasereplace.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2211,7 +2282,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-卖家换货操作
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardPurchasereplaceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardPurchasereplaceResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.purchasereplace.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2250,7 +2322,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-卖家接单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmConsumecardPurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmConsumecardPurchaseResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.purchase.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2265,7 +2338,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-卖家接单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmConsumecardPurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmConsumecardPurchaseResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.purchase.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2304,7 +2378,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-卖家发货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SendConsumecardPurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SendConsumecardPurchaseResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.purchase.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2319,7 +2394,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-卖家发货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SendConsumecardPurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SendConsumecardPurchaseResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.purchase.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2358,7 +2434,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-卖家售后补发货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ReplaceConsumecardPurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ReplaceConsumecardPurchaseResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.purchase.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2373,7 +2450,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-卖家售后补发货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ReplaceConsumecardPurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ReplaceConsumecardPurchaseResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.purchase.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2412,7 +2490,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-发布商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConsumecardGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConsumecardGoodsResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.goods.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2427,7 +2506,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-发布商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConsumecardGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConsumecardGoodsResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.goods.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2466,7 +2546,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-更新商品信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateConsumecardGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateConsumecardGoodsResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.goods.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2481,7 +2562,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-更新商品信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateConsumecardGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateConsumecardGoodsResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.goods.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2520,7 +2602,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-开放购买权限
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OpenConsumecardGoodstocustomResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OpenConsumecardGoodstocustomResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.goodstocustom.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2535,7 +2618,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-开放购买权限
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OpenConsumecardGoodstocustomResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OpenConsumecardGoodstocustomResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.goodstocustom.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2574,7 +2658,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-新增商品类别
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConsumecardGoodscategoryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConsumecardGoodscategoryResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.goodscategory.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2589,7 +2674,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-新增商品类别
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConsumecardGoodscategoryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConsumecardGoodscategoryResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.goodscategory.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2628,7 +2714,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-设置一客一价
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardGoodscustompriceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardGoodscustompriceResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.goodscustomprice.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2643,7 +2730,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-设置一客一价
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardGoodscustompriceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardGoodscustompriceResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.goodscustomprice.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2682,7 +2770,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-上传图片
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadConsumecardGoodsimageResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadConsumecardGoodsimageResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.goodsimage.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2697,7 +2786,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-上传图片
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadConsumecardGoodsimageResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadConsumecardGoodsimageResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.goodsimage.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2736,7 +2826,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-企业提现试算
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardOrdertrywithdrawResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardOrdertrywithdrawResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.ordertrywithdraw.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2751,7 +2842,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-企业提现试算
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardOrdertrywithdrawResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardOrdertrywithdrawResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.ordertrywithdraw.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2790,7 +2882,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-根据区块提现
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardOrderwithdrawbyblocknumResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardOrderwithdrawbyblocknumResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.orderwithdrawbyblocknum.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2805,7 +2898,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-根据区块提现
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardOrderwithdrawbyblocknumResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardOrderwithdrawbyblocknumResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.orderwithdrawbyblocknum.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2844,7 +2938,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-根据订单表提现
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardOrderwithdrawbyidsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardOrderwithdrawbyidsResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.orderwithdrawbyids.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2859,7 +2954,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-根据订单表提现
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecConsumecardOrderwithdrawbyidsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecConsumecardOrderwithdrawbyidsResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.orderwithdrawbyids.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2898,7 +2994,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-获取提现结果
         """
         UtilClient.validate_model(request)
-        return baasdt_models.GetConsumecardOrderwithdrawresultResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.GetConsumecardOrderwithdrawresultResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.orderwithdrawresult.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2913,7 +3010,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-获取提现结果
         """
         UtilClient.validate_model(request)
-        return baasdt_models.GetConsumecardOrderwithdrawresultResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.GetConsumecardOrderwithdrawresultResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.orderwithdrawresult.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2952,7 +3050,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询可回退金额
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardWalletredeemableResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardWalletredeemableResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.walletredeemable.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2967,7 +3066,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询可回退金额
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardWalletredeemableResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardWalletredeemableResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.walletredeemable.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3006,7 +3106,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询商品发布
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardGoodscreateresultResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardGoodscreateresultResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.goodscreateresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3021,7 +3122,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询商品发布
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardGoodscreateresultResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardGoodscreateresultResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.goodscreateresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3060,7 +3162,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询商品信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardGoodsResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.goods.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3075,7 +3178,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询商品信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardGoodsResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.goods.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3114,7 +3218,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单退款申请
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyConsumecardBillrefundResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyConsumecardBillrefundResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.billrefund.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3129,7 +3234,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-账单退款申请
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyConsumecardBillrefundResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyConsumecardBillrefundResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.billrefund.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3168,7 +3274,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-交易查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardPurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardPurchaseResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.purchase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3183,7 +3290,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-交易查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardPurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardPurchaseResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.purchase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3222,7 +3330,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-获取区块
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardBlockResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardBlockResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.block.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3237,7 +3346,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-获取区块
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardBlockResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardBlockResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.block.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3276,7 +3386,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查最新区块高度
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardLastblocknumberResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardLastblocknumberResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.lastblocknumber.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3291,7 +3402,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查最新区块高度
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardLastblocknumberResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardLastblocknumberResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.lastblocknumber.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3330,7 +3442,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-更新结果查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardGoodsupdateresultResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardGoodsupdateresultResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.goodsupdateresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3345,7 +3458,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-更新结果查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardGoodsupdateresultResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardGoodsupdateresultResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.goodsupdateresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3384,7 +3498,8 @@ class Client:
         Summary: 数字商品服务--消费卡服务-卖家取消交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CancelConsumecardSellerpurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CancelConsumecardSellerpurchaseResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.sellerpurchase.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3399,7 +3514,8 @@ class Client:
         Summary: 数字商品服务--消费卡服务-卖家取消交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CancelConsumecardSellerpurchaseResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CancelConsumecardSellerpurchaseResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.sellerpurchase.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3438,7 +3554,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-配置手续费
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardCommissionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardCommissionResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.commission.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3453,7 +3570,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-配置手续费
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardCommissionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardCommissionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.commission.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3492,7 +3610,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-删除手续费配置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveConsumecardCommissionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveConsumecardCommissionResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.commission.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3507,7 +3626,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-删除手续费配置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveConsumecardCommissionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveConsumecardCommissionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.commission.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3546,7 +3666,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询手续费信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardCommissionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardCommissionResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.commission.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3561,7 +3682,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询手续费信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardCommissionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardCommissionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.commission.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3600,7 +3722,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-设置手续费管理
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardCommissionmanagerResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardCommissionmanagerResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.commissionmanager.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3615,7 +3738,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-设置手续费管理
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardCommissionmanagerResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardCommissionmanagerResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.commissionmanager.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3654,7 +3778,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-设置商品状态
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardGoodsstatusResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardGoodsstatusResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.goodsstatus.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3669,7 +3794,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-设置商品状态
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardGoodsstatusResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardGoodsstatusResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.goodsstatus.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3708,7 +3834,8 @@ class Client:
         Summary: 数字商品-消费卡服务-个人用户签约
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConsumecardReceiptcontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConsumecardReceiptcontractResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.receiptcontract.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3723,7 +3850,8 @@ class Client:
         Summary: 数字商品-消费卡服务-个人用户签约
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConsumecardReceiptcontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConsumecardReceiptcontractResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.receiptcontract.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3762,7 +3890,8 @@ class Client:
         Summary: 数字商品-消费卡服务-个人协议解约
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveConsumecardReceiptcontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveConsumecardReceiptcontractResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.receiptcontract.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3777,7 +3906,8 @@ class Client:
         Summary: 数字商品-消费卡服务-个人协议解约
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveConsumecardReceiptcontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveConsumecardReceiptcontractResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.receiptcontract.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3816,7 +3946,8 @@ class Client:
         Summary: 数字商品-消费卡服务-个人协议查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardReceiptcontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardReceiptcontractResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.receiptcontract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3831,7 +3962,8 @@ class Client:
         Summary: 数字商品-消费卡服务-个人协议查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardReceiptcontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardReceiptcontractResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.receiptcontract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3870,7 +4002,8 @@ class Client:
         Summary: 数字商品-消费卡服务-商家用户签约
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConsumecardBillingcontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConsumecardBillingcontractResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.billingcontract.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3885,7 +4018,8 @@ class Client:
         Summary: 数字商品-消费卡服务-商家用户签约
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConsumecardBillingcontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConsumecardBillingcontractResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.billingcontract.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3924,7 +4058,8 @@ class Client:
         Summary: 数字商品-消费卡服务-商家协议解约
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveConsumecardBillingcontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveConsumecardBillingcontractResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.billingcontract.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3939,7 +4074,8 @@ class Client:
         Summary: 数字商品-消费卡服务-商家协议解约
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveConsumecardBillingcontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveConsumecardBillingcontractResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.billingcontract.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3978,7 +4114,8 @@ class Client:
         Summary: 数字商品-消费卡服务-商家协议查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardBillingcontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardBillingcontractResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.billingcontract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3993,7 +4130,8 @@ class Client:
         Summary: 数字商品-消费卡服务-商家协议查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardBillingcontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardBillingcontractResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.billingcontract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4032,7 +4170,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-增加一级分账方
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AddConsumecardCommissionpartyResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AddConsumecardCommissionpartyResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.commissionparty.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4047,7 +4186,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-增加一级分账方
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AddConsumecardCommissionpartyResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AddConsumecardCommissionpartyResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.commissionparty.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4086,7 +4226,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-删除一级分账方
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveConsumecardCommissionpartyResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveConsumecardCommissionpartyResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.commissionparty.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4101,7 +4242,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-删除一级分账方
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveConsumecardCommissionpartyResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveConsumecardCommissionpartyResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.commissionparty.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4140,7 +4282,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-增加手续费周期
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AddConsumecardCommissionperiodResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AddConsumecardCommissionperiodResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.commissionperiod.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4155,7 +4298,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-增加手续费周期
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AddConsumecardCommissionperiodResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AddConsumecardCommissionperiodResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.commissionperiod.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4194,7 +4338,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-删除手续费周期
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveConsumecardCommissionperiodResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveConsumecardCommissionperiodResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.commissionperiod.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4209,7 +4354,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-删除手续费周期
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveConsumecardCommissionperiodResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveConsumecardCommissionperiodResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.commissionperiod.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4248,7 +4394,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询统计信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardCounterResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardCounterResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.counter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4263,7 +4410,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询统计信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardCounterResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardCounterResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.counter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4302,7 +4450,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-场景码配置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardProductcodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardProductcodeResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.productcode.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4317,7 +4466,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-场景码配置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetConsumecardProductcodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetConsumecardProductcodeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.productcode.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4356,7 +4506,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询场景码配置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardProductcodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardProductcodeResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.productcode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4371,7 +4522,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询场景码配置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardProductcodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardProductcodeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.productcode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4410,7 +4562,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-删除场景码配置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveConsumecardProductcodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveConsumecardProductcodeResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.productcode.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4425,7 +4578,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-删除场景码配置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveConsumecardProductcodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveConsumecardProductcodeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.productcode.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4464,7 +4618,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询图片URL
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardGoodsimageResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardGoodsimageResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.goodsimage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4479,7 +4634,8 @@ class Client:
         Summary: 数字商品服务-消费卡服务-查询图片URL
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConsumecardGoodsimageResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConsumecardGoodsimageResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.goodsimage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4535,7 +4691,8 @@ class Client:
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return baasdt_models.UploadConsumecardFileResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadConsumecardFileResponse(),
             self.do_request('1.0', 'baas.antdao.consumecard.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4567,7 +4724,8 @@ class Client:
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return baasdt_models.UploadConsumecardFileResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadConsumecardFileResponse(),
             await self.do_request_async('1.0', 'baas.antdao.consumecard.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4606,7 +4764,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-查询电子券
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryCouponResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryCouponResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4621,7 +4780,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-查询电子券
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryCouponResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryCouponResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4660,7 +4820,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-创建单个电子券
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateCouponResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateCouponResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4675,7 +4836,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-创建单个电子券
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateCouponResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateCouponResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4714,7 +4876,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券风控禁用
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponForbiddenResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponForbiddenResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.forbidden.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4729,7 +4892,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券风控禁用
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponForbiddenResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponForbiddenResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.forbidden.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4768,7 +4932,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券风控启用
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponEnableResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponEnableResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.enable.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4783,7 +4948,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券风控启用
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponEnableResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponEnableResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.enable.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4822,7 +4988,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券过期
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponExpireResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponExpireResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.expire.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4837,7 +5004,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券过期
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponExpireResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponExpireResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.expire.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4876,7 +5044,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券核销
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponWriteoffResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponWriteoffResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.writeoff.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4891,7 +5060,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券核销
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponWriteoffResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponWriteoffResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.writeoff.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4930,7 +5100,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-券激活码超时
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponTimeoutResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponTimeoutResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.timeout.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4945,7 +5116,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-券激活码超时
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponTimeoutResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponTimeoutResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.timeout.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4984,7 +5156,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-激活电子券
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponActivateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponActivateResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.activate.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4999,7 +5172,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-激活电子券
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponActivateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponActivateResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.activate.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5038,7 +5212,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券转让
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponTransferResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponTransferResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.transfer.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5053,7 +5228,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券转让
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponTransferResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponTransferResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.transfer.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5092,7 +5268,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券记名
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponSignResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponSignResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.sign.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5107,7 +5284,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券记名
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponSignResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponSignResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.sign.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5146,7 +5324,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-绑定电子券
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponBindResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponBindResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.bind.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5161,7 +5340,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-绑定电子券
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecCouponBindResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecCouponBindResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.bind.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5200,7 +5380,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券批量创建
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchcreateCouponResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchcreateCouponResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5215,7 +5396,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券批量创建
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchcreateCouponResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchcreateCouponResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5254,7 +5436,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券列表创建
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateCouponListResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateCouponListResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.list.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5269,7 +5452,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券列表创建
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateCouponListResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateCouponListResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.list.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5308,7 +5492,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-创建电子券批次
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateCouponCollectionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateCouponCollectionResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.collection.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5323,7 +5508,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-创建电子券批次
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateCouponCollectionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateCouponCollectionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.collection.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5362,7 +5548,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券批次查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryCouponCollectionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryCouponCollectionResponse(),
             self.do_request('1.0', 'baas.antdao.coupon.collection.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5377,7 +5564,8 @@ class Client:
         Summary: 数字商品服务-电子券服务-电子券批次查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryCouponCollectionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryCouponCollectionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.coupon.collection.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5416,7 +5604,8 @@ class Client:
         Summary: 数字商品服务-商户管理-查询用户信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMerchantUserResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMerchantUserResponse(),
             self.do_request('1.0', 'baas.antdao.merchant.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5431,7 +5620,8 @@ class Client:
         Summary: 数字商品服务-商户管理-查询用户信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMerchantUserResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMerchantUserResponse(),
             await self.do_request_async('1.0', 'baas.antdao.merchant.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5470,7 +5660,8 @@ class Client:
         Summary: 数字商品服务-商户管理-商户创建用户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateMerchantUserResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateMerchantUserResponse(),
             self.do_request('1.0', 'baas.antdao.merchant.user.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5485,7 +5676,8 @@ class Client:
         Summary: 数字商品服务-商户管理-商户创建用户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateMerchantUserResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateMerchantUserResponse(),
             await self.do_request_async('1.0', 'baas.antdao.merchant.user.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5524,7 +5716,8 @@ class Client:
         Summary: 数字商品服务-商户管理-查询商户信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMerchantResponse(),
             self.do_request('1.0', 'baas.antdao.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5539,7 +5732,8 @@ class Client:
         Summary: 数字商品服务-商户管理-查询商户信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMerchantResponse(),
             await self.do_request_async('1.0', 'baas.antdao.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5578,7 +5772,8 @@ class Client:
         Summary: 数字商品服务-OSS服务-上传图片
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadImageResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadImageResponse(),
             self.do_request('1.0', 'baas.antdao.image.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5593,7 +5788,8 @@ class Client:
         Summary: 数字商品服务-OSS服务-上传图片
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadImageResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadImageResponse(),
             await self.do_request_async('1.0', 'baas.antdao.image.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5632,7 +5828,8 @@ class Client:
         Summary: 数字商品服务-密钥管理-获取用户公钥
         """
         UtilClient.validate_model(request)
-        return baasdt_models.GetPkiPublickeyResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.GetPkiPublickeyResponse(),
             self.do_request('1.0', 'baas.antdao.pki.publickey.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5647,7 +5844,8 @@ class Client:
         Summary: 数字商品服务-密钥管理-获取用户公钥
         """
         UtilClient.validate_model(request)
-        return baasdt_models.GetPkiPublickeyResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.GetPkiPublickeyResponse(),
             await self.do_request_async('1.0', 'baas.antdao.pki.publickey.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5686,7 +5884,8 @@ class Client:
         Summary: 数字商品服务-密钥管理-公钥加密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecPkiEncryptResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecPkiEncryptResponse(),
             self.do_request('1.0', 'baas.antdao.pki.encrypt.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5701,7 +5900,8 @@ class Client:
         Summary: 数字商品服务-密钥管理-公钥加密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecPkiEncryptResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecPkiEncryptResponse(),
             await self.do_request_async('1.0', 'baas.antdao.pki.encrypt.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5740,7 +5940,8 @@ class Client:
         Summary: 数字商品服务-密钥管理-私钥解密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecPkiDecryptResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecPkiDecryptResponse(),
             self.do_request('1.0', 'baas.antdao.pki.decrypt.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5755,7 +5956,8 @@ class Client:
         Summary: 数字商品服务-密钥管理-私钥解密
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecPkiDecryptResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecPkiDecryptResponse(),
             await self.do_request_async('1.0', 'baas.antdao.pki.decrypt.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5794,7 +5996,8 @@ class Client:
         Summary: 数字商品服务-商户管理-更新商户友商
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateMerchantFriendResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateMerchantFriendResponse(),
             self.do_request('1.0', 'baas.antdao.merchant.friend.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5809,7 +6012,8 @@ class Client:
         Summary: 数字商品服务-商户管理-更新商户友商
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateMerchantFriendResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateMerchantFriendResponse(),
             await self.do_request_async('1.0', 'baas.antdao.merchant.friend.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5848,7 +6052,8 @@ class Client:
         Summary: 数字商品服务-商品服务-创建商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateEquityResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateEquityResponse(),
             self.do_request('1.0', 'baas.antdao.equity.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5863,7 +6068,8 @@ class Client:
         Summary: 数字商品服务-商品服务-创建商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateEquityResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateEquityResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5905,7 +6111,8 @@ class Client:
         Summary: 数字商品服务-商品服务-下线商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OfflineEquityResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OfflineEquityResponse(),
             self.do_request('1.0', 'baas.antdao.equity.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5921,7 +6128,8 @@ class Client:
         Summary: 数字商品服务-商品服务-下线商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OfflineEquityResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OfflineEquityResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5963,7 +6171,8 @@ class Client:
         Summary: 数字商品服务-商品服务-冻结商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.FreezeEquityResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.FreezeEquityResponse(),
             self.do_request('1.0', 'baas.antdao.equity.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5979,7 +6188,8 @@ class Client:
         Summary: 数字商品服务-商品服务-冻结商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.FreezeEquityResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.FreezeEquityResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6018,7 +6228,8 @@ class Client:
         Summary: 数字商品服务-商品服务-授权兑换
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OpenEquityMerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OpenEquityMerchantResponse(),
             self.do_request('1.0', 'baas.antdao.equity.merchant.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6033,7 +6244,8 @@ class Client:
         Summary: 数字商品服务-商品服务-授权兑换
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OpenEquityMerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OpenEquityMerchantResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.merchant.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6072,7 +6284,8 @@ class Client:
         Summary: 数字商品服务-商品服务-用户兑换价格设置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AuthEquityMerchantuserpriceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AuthEquityMerchantuserpriceResponse(),
             self.do_request('1.0', 'baas.antdao.equity.merchantuserprice.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6087,7 +6300,8 @@ class Client:
         Summary: 数字商品服务-商品服务-用户兑换价格设置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AuthEquityMerchantuserpriceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AuthEquityMerchantuserpriceResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.merchantuserprice.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6129,7 +6343,8 @@ class Client:
         Summary: 数字商品服务-商品服务-更新商品价格
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateEquityDefaultpriceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateEquityDefaultpriceResponse(),
             self.do_request('1.0', 'baas.antdao.equity.defaultprice.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6145,7 +6360,8 @@ class Client:
         Summary: 数字商品服务-商品服务-更新商品价格
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateEquityDefaultpriceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateEquityDefaultpriceResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.defaultprice.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6184,7 +6400,8 @@ class Client:
         Summary: 数字商品服务-商品服务-更新自定义定价
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateEquityTenantpriceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateEquityTenantpriceResponse(),
             self.do_request('1.0', 'baas.antdao.equity.tenantprice.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6199,7 +6416,8 @@ class Client:
         Summary: 数字商品服务-商品服务-更新自定义定价
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateEquityTenantpriceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateEquityTenantpriceResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.tenantprice.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6241,7 +6459,8 @@ class Client:
         Summary: 数字商品服务-商品服务-增加权益库存
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AddEquityCountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AddEquityCountResponse(),
             self.do_request('1.0', 'baas.antdao.equity.count.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6257,7 +6476,8 @@ class Client:
         Summary: 数字商品服务-商品服务-增加权益库存
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AddEquityCountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AddEquityCountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.count.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6299,7 +6519,8 @@ class Client:
         Summary: 数字商品服务-商品服务-更新兑换限制规则
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateEquityExchangelimitResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateEquityExchangelimitResponse(),
             self.do_request('1.0', 'baas.antdao.equity.exchangelimit.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6315,7 +6536,8 @@ class Client:
         Summary: 数字商品服务-商品服务-更新兑换限制规则
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateEquityExchangelimitResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateEquityExchangelimitResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.exchangelimit.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6357,7 +6579,8 @@ class Client:
         Summary: 数字商品服务-商品服务-更新有效期
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateEquityValidtimeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateEquityValidtimeResponse(),
             self.do_request('1.0', 'baas.antdao.equity.validtime.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6373,7 +6596,8 @@ class Client:
         Summary: 数字商品服务-商品服务-更新有效期
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateEquityValidtimeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateEquityValidtimeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.validtime.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6412,7 +6636,8 @@ class Client:
         Summary: 数字商品服务-商品服务-查询商品信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryEquityResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryEquityResponse(),
             self.do_request('1.0', 'baas.antdao.equity.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6427,7 +6652,8 @@ class Client:
         Summary: 数字商品服务-商品服务-查询商品信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryEquityResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryEquityResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6466,7 +6692,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-用户身份发起兑换
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecExchangeByuserResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecExchangeByuserResponse(),
             self.do_request('1.0', 'baas.antdao.exchange.byuser.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6481,7 +6708,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-用户身份发起兑换
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecExchangeByuserResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecExchangeByuserResponse(),
             await self.do_request_async('1.0', 'baas.antdao.exchange.byuser.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6520,7 +6748,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-商户身份发起兑换
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecExchangeBymerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecExchangeBymerchantResponse(),
             self.do_request('1.0', 'baas.antdao.exchange.bymerchant.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6535,7 +6764,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-商户身份发起兑换
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecExchangeBymerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecExchangeBymerchantResponse(),
             await self.do_request_async('1.0', 'baas.antdao.exchange.bymerchant.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6574,7 +6804,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-确认接单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmExchangeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmExchangeResponse(),
             self.do_request('1.0', 'baas.antdao.exchange.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6589,7 +6820,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-确认接单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmExchangeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmExchangeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.exchange.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6628,7 +6860,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-拒绝发货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecExchangeOutofstoreResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecExchangeOutofstoreResponse(),
             self.do_request('1.0', 'baas.antdao.exchange.outofstore.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6643,7 +6876,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-拒绝发货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecExchangeOutofstoreResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecExchangeOutofstoreResponse(),
             await self.do_request_async('1.0', 'baas.antdao.exchange.outofstore.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6682,7 +6916,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-兑换发货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SendExchangeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SendExchangeResponse(),
             self.do_request('1.0', 'baas.antdao.exchange.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6697,7 +6932,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-兑换发货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SendExchangeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SendExchangeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.exchange.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6736,7 +6972,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-用户身份确认收货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecExchangeReceivebyuserResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecExchangeReceivebyuserResponse(),
             self.do_request('1.0', 'baas.antdao.exchange.receivebyuser.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6751,7 +6988,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-用户身份确认收货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecExchangeReceivebyuserResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecExchangeReceivebyuserResponse(),
             await self.do_request_async('1.0', 'baas.antdao.exchange.receivebyuser.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6790,7 +7028,8 @@ class Client:
         Summary: 数字商品服务-资产服务-资产过期
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetExpireResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetExpireResponse(),
             self.do_request('1.0', 'baas.antdao.asset.expire.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6805,7 +7044,8 @@ class Client:
         Summary: 数字商品服务-资产服务-资产过期
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetExpireResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetExpireResponse(),
             await self.do_request_async('1.0', 'baas.antdao.asset.expire.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6844,7 +7084,8 @@ class Client:
         Summary: 数字商品服务-资产服务-查询资产流转流水
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryAssetInstructionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryAssetInstructionResponse(),
             self.do_request('1.0', 'baas.antdao.asset.instruction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6859,7 +7100,8 @@ class Client:
         Summary: 数字商品服务-资产服务-查询资产流转流水
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryAssetInstructionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryAssetInstructionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.asset.instruction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6901,7 +7143,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-查询商品兑换流水
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryExchangeInstructionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryExchangeInstructionResponse(),
             self.do_request('1.0', 'baas.antdao.exchange.instruction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6917,7 +7160,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-查询商品兑换流水
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryExchangeInstructionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryExchangeInstructionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.exchange.instruction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6956,7 +7200,8 @@ class Client:
         Summary: 数字商品服务-资产服务-资产初始化发行
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetIssueResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetIssueResponse(),
             self.do_request('1.0', 'baas.antdao.asset.issue.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6971,7 +7216,8 @@ class Client:
         Summary: 数字商品服务-资产服务-资产初始化发行
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetIssueResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetIssueResponse(),
             await self.do_request_async('1.0', 'baas.antdao.asset.issue.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7010,7 +7256,8 @@ class Client:
         Summary: 数字商品服务-资产服务-赎回资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetRedeemResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetRedeemResponse(),
             self.do_request('1.0', 'baas.antdao.asset.redeem.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7025,7 +7272,8 @@ class Client:
         Summary: 数字商品服务-资产服务-赎回资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetRedeemResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetRedeemResponse(),
             await self.do_request_async('1.0', 'baas.antdao.asset.redeem.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7064,7 +7312,8 @@ class Client:
         Summary: 数字商品服务-资产服务-发放资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetGrantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetGrantResponse(),
             self.do_request('1.0', 'baas.antdao.asset.grant.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7079,7 +7328,8 @@ class Client:
         Summary: 数字商品服务-资产服务-发放资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetGrantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetGrantResponse(),
             await self.do_request_async('1.0', 'baas.antdao.asset.grant.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7118,7 +7368,8 @@ class Client:
         Summary: 数字商品服务-资产服务-发放回退资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetGrantrefundResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetGrantrefundResponse(),
             self.do_request('1.0', 'baas.antdao.asset.grantrefund.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7133,7 +7384,8 @@ class Client:
         Summary: 数字商品服务-资产服务-发放回退资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetGrantrefundResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetGrantrefundResponse(),
             await self.do_request_async('1.0', 'baas.antdao.asset.grantrefund.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7172,7 +7424,8 @@ class Client:
         Summary: 数字商品服务-资产服务-风控调整资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetAdjustResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetAdjustResponse(),
             self.do_request('1.0', 'baas.antdao.asset.adjust.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7187,7 +7440,8 @@ class Client:
         Summary: 数字商品服务-资产服务-风控调整资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetAdjustResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetAdjustResponse(),
             await self.do_request_async('1.0', 'baas.antdao.asset.adjust.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7226,7 +7480,8 @@ class Client:
         Summary: 数字商品服务-资产服务-资产查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryAssetResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryAssetResponse(),
             self.do_request('1.0', 'baas.antdao.asset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7241,7 +7496,8 @@ class Client:
         Summary: 数字商品服务-资产服务-资产查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryAssetResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryAssetResponse(),
             await self.do_request_async('1.0', 'baas.antdao.asset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7280,7 +7536,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-商户身份确认收货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecExchangeReceivebymerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecExchangeReceivebymerchantResponse(),
             self.do_request('1.0', 'baas.antdao.exchange.receivebymerchant.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7295,7 +7552,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-商户身份确认收货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecExchangeReceivebymerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecExchangeReceivebymerchantResponse(),
             await self.do_request_async('1.0', 'baas.antdao.exchange.receivebymerchant.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7334,7 +7592,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取区块信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockResponse(),
             self.do_request('1.0', 'baas.antdao.block.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7349,7 +7608,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取区块信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockResponse(),
             await self.do_request_async('1.0', 'baas.antdao.block.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7388,7 +7648,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取最新区块高度
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockLastblocknumberResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockLastblocknumberResponse(),
             self.do_request('1.0', 'baas.antdao.block.lastblocknumber.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7403,7 +7664,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取最新区块高度
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockLastblocknumberResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockLastblocknumberResponse(),
             await self.do_request_async('1.0', 'baas.antdao.block.lastblocknumber.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7442,7 +7704,8 @@ class Client:
         Summary: 数字商品服务-商品服务-更新商品属性信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateEquityResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateEquityResponse(),
             self.do_request('1.0', 'baas.antdao.equity.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7457,7 +7720,8 @@ class Client:
         Summary: 数字商品服务-商品服务-更新商品属性信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateEquityResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateEquityResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7496,7 +7760,8 @@ class Client:
         Summary: 数字商品服务-商品服务-发布商品结果查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryEquityCreateresultResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryEquityCreateresultResponse(),
             self.do_request('1.0', 'baas.antdao.equity.createresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7511,7 +7776,8 @@ class Client:
         Summary: 数字商品服务-商品服务-发布商品结果查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryEquityCreateresultResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryEquityCreateresultResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.createresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7550,7 +7816,8 @@ class Client:
         Summary: 数字商品服务-商品服务-查询商品兑换流水
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryEquityInstructionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryEquityInstructionResponse(),
             self.do_request('1.0', 'baas.antdao.equity.instruction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7565,7 +7832,8 @@ class Client:
         Summary: 数字商品服务-商品服务-查询商品兑换流水
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryEquityInstructionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryEquityInstructionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.instruction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7604,7 +7872,8 @@ class Client:
         Summary: 数字商品服务-OSS服务-获取图片URL
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryImageResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryImageResponse(),
             self.do_request('1.0', 'baas.antdao.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7619,7 +7888,8 @@ class Client:
         Summary: 数字商品服务-OSS服务-获取图片URL
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryImageResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryImageResponse(),
             await self.do_request_async('1.0', 'baas.antdao.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7658,7 +7928,8 @@ class Client:
         Summary: 数字商品服务-商品服务-更新商品状态
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateEquityStatusResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateEquityStatusResponse(),
             self.do_request('1.0', 'baas.antdao.equity.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7673,7 +7944,8 @@ class Client:
         Summary: 数字商品服务-商品服务-更新商品状态
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateEquityStatusResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateEquityStatusResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7712,7 +7984,8 @@ class Client:
         Summary: 数字商品服务-商户管理-设置备付金金额
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetMerchantProvisionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetMerchantProvisionResponse(),
             self.do_request('1.0', 'baas.antdao.merchant.provision.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7727,7 +8000,8 @@ class Client:
         Summary: 数字商品服务-商户管理-设置备付金金额
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetMerchantProvisionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetMerchantProvisionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.merchant.provision.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7766,7 +8040,8 @@ class Client:
         Summary: 数字商品服务-商户管理-更新备付金金额
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateMerchantProvisionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateMerchantProvisionResponse(),
             self.do_request('1.0', 'baas.antdao.merchant.provision.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7781,7 +8056,8 @@ class Client:
         Summary: 数字商品服务-商户管理-更新备付金金额
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateMerchantProvisionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateMerchantProvisionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.merchant.provision.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7820,7 +8096,8 @@ class Client:
         Summary: 数字商品服务-商品服务-核销商品兑换交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecEquityInstructionwriteoffResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecEquityInstructionwriteoffResponse(),
             self.do_request('1.0', 'baas.antdao.equity.instructionwriteoff.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7835,7 +8112,8 @@ class Client:
         Summary: 数字商品服务-商品服务-核销商品兑换交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecEquityInstructionwriteoffResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecEquityInstructionwriteoffResponse(),
             await self.do_request_async('1.0', 'baas.antdao.equity.instructionwriteoff.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7874,7 +8152,8 @@ class Client:
         Summary: 数字商品服务-商户管理-查租户备付金列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMerchantProvisionsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMerchantProvisionsResponse(),
             self.do_request('1.0', 'baas.antdao.merchant.provisions.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7889,7 +8168,8 @@ class Client:
         Summary: 数字商品服务-商户管理-查租户备付金列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMerchantProvisionsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMerchantProvisionsResponse(),
             await self.do_request_async('1.0', 'baas.antdao.merchant.provisions.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7928,7 +8208,8 @@ class Client:
         Summary: 数字商品服务-商户管理-查询可兑换商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMerchantExchangeableequitylistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMerchantExchangeableequitylistResponse(),
             self.do_request('1.0', 'baas.antdao.merchant.exchangeableequitylist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7943,7 +8224,8 @@ class Client:
         Summary: 数字商品服务-商户管理-查询可兑换商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMerchantExchangeableequitylistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMerchantExchangeableequitylistResponse(),
             await self.do_request_async('1.0', 'baas.antdao.merchant.exchangeableequitylist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7982,7 +8264,8 @@ class Client:
         Summary: 数字商品服务-商户管理-查询可兑商品明细
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMerchantExchangeableequitydetailResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMerchantExchangeableequitydetailResponse(),
             self.do_request('1.0', 'baas.antdao.merchant.exchangeableequitydetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7997,7 +8280,8 @@ class Client:
         Summary: 数字商品服务-商户管理-查询可兑商品明细
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMerchantExchangeableequitydetailResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMerchantExchangeableequitydetailResponse(),
             await self.do_request_async('1.0', 'baas.antdao.merchant.exchangeableequitydetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8036,7 +8320,8 @@ class Client:
         Summary: 数字商品服务-资产服务-创建资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetCreateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetCreateResponse(),
             self.do_request('1.0', 'baas.antdao.asset.create.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8051,7 +8336,8 @@ class Client:
         Summary: 数字商品服务-资产服务-创建资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetCreateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetCreateResponse(),
             await self.do_request_async('1.0', 'baas.antdao.asset.create.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8090,7 +8376,8 @@ class Client:
         Summary: 数字商品服务-资产服务-资产铸币
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetGenerateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetGenerateResponse(),
             self.do_request('1.0', 'baas.antdao.asset.generate.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8105,7 +8392,8 @@ class Client:
         Summary: 数字商品服务-资产服务-资产铸币
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecAssetGenerateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecAssetGenerateResponse(),
             await self.do_request_async('1.0', 'baas.antdao.asset.generate.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8144,7 +8432,8 @@ class Client:
         Summary: 数字商品服务-商户管理-创建商户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateMerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateMerchantResponse(),
             self.do_request('1.0', 'baas.antdao.merchant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8159,7 +8448,8 @@ class Client:
         Summary: 数字商品服务-商户管理-创建商户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateMerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateMerchantResponse(),
             await self.do_request_async('1.0', 'baas.antdao.merchant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8198,7 +8488,8 @@ class Client:
         Summary: 数字商品服务-商户管理-设置资金管理员
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetMerchantFundmanagerResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetMerchantFundmanagerResponse(),
             self.do_request('1.0', 'baas.antdao.merchant.fundmanager.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8213,7 +8504,8 @@ class Client:
         Summary: 数字商品服务-商户管理-设置资金管理员
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetMerchantFundmanagerResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetMerchantFundmanagerResponse(),
             await self.do_request_async('1.0', 'baas.antdao.merchant.fundmanager.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8252,7 +8544,8 @@ class Client:
         Summary: 数字商品服务-商户管理-创建备付金账户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateMerchantProvisionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateMerchantProvisionResponse(),
             self.do_request('1.0', 'baas.antdao.merchant.provision.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8267,7 +8560,8 @@ class Client:
         Summary: 数字商品服务-商户管理-创建备付金账户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateMerchantProvisionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateMerchantProvisionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.merchant.provision.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8306,7 +8600,8 @@ class Client:
         Summary: 数字商品服务-管理服务-代理权限查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConfigDelegaterelationResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConfigDelegaterelationResponse(),
             self.do_request('1.0', 'baas.antdao.config.delegaterelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8321,7 +8616,8 @@ class Client:
         Summary: 数字商品服务-管理服务-代理权限查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConfigDelegaterelationResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConfigDelegaterelationResponse(),
             await self.do_request_async('1.0', 'baas.antdao.config.delegaterelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8360,7 +8656,8 @@ class Client:
         Summary: 数字商品服务-管理服务-设置代理权限
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateConfigDelegaterelationResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateConfigDelegaterelationResponse(),
             self.do_request('1.0', 'baas.antdao.config.delegaterelation.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8375,7 +8672,8 @@ class Client:
         Summary: 数字商品服务-管理服务-设置代理权限
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateConfigDelegaterelationResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateConfigDelegaterelationResponse(),
             await self.do_request_async('1.0', 'baas.antdao.config.delegaterelation.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8414,7 +8712,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-查询接口白名单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConfigWhitelistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConfigWhitelistResponse(),
             self.do_request('1.0', 'baas.antdao.config.whitelist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8429,7 +8728,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-查询接口白名单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryConfigWhitelistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryConfigWhitelistResponse(),
             await self.do_request_async('1.0', 'baas.antdao.config.whitelist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8468,7 +8768,8 @@ class Client:
         Summary: 数字商品服务-管理服务-设置访问白名单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateConfigWhitelistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateConfigWhitelistResponse(),
             self.do_request('1.0', 'baas.antdao.config.whitelist.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8483,7 +8784,8 @@ class Client:
         Summary: 数字商品服务-管理服务-设置访问白名单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateConfigWhitelistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateConfigWhitelistResponse(),
             await self.do_request_async('1.0', 'baas.antdao.config.whitelist.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8522,7 +8824,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-申请售后(商家)
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyExchangeAftersaleResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyExchangeAftersaleResponse(),
             self.do_request('1.0', 'baas.antdao.exchange.aftersale.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8537,7 +8840,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-申请售后(商家)
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyExchangeAftersaleResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyExchangeAftersaleResponse(),
             await self.do_request_async('1.0', 'baas.antdao.exchange.aftersale.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8576,7 +8880,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-同意售后
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecExchangeAgreeaftersaleResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecExchangeAgreeaftersaleResponse(),
             self.do_request('1.0', 'baas.antdao.exchange.agreeaftersale.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8591,7 +8896,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-同意售后
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecExchangeAgreeaftersaleResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecExchangeAgreeaftersaleResponse(),
             await self.do_request_async('1.0', 'baas.antdao.exchange.agreeaftersale.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8630,7 +8936,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-拒绝售后
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RefuseExchangeAftersaleResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RefuseExchangeAftersaleResponse(),
             self.do_request('1.0', 'baas.antdao.exchange.aftersale.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8645,7 +8952,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-拒绝售后
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RefuseExchangeAftersaleResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RefuseExchangeAftersaleResponse(),
             await self.do_request_async('1.0', 'baas.antdao.exchange.aftersale.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8684,7 +8992,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-重新发货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SendExchangeAftersaleResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SendExchangeAftersaleResponse(),
             self.do_request('1.0', 'baas.antdao.exchange.aftersale.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8699,7 +9008,8 @@ class Client:
         Summary: 数字商品服务-兑换服务-重新发货
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SendExchangeAftersaleResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SendExchangeAftersaleResponse(),
             await self.do_request_async('1.0', 'baas.antdao.exchange.aftersale.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8738,7 +9048,8 @@ class Client:
         Summary:  数字商品服务-兑换服务-商户确认售后
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmExchangeAftersaleResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmExchangeAftersaleResponse(),
             self.do_request('1.0', 'baas.antdao.exchange.aftersale.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8753,7 +9064,8 @@ class Client:
         Summary:  数字商品服务-兑换服务-商户确认售后
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmExchangeAftersaleResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmExchangeAftersaleResponse(),
             await self.do_request_async('1.0', 'baas.antdao.exchange.aftersale.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8792,7 +9104,8 @@ class Client:
         Summary: 数字商品服务-存证服务-消费卡链上发布
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecDataDepositResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecDataDepositResponse(),
             self.do_request('1.0', 'baas.antdao.data.deposit.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8807,7 +9120,8 @@ class Client:
         Summary: 数字商品服务-存证服务-消费卡链上发布
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecDataDepositResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecDataDepositResponse(),
             await self.do_request_async('1.0', 'baas.antdao.data.deposit.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8846,7 +9160,8 @@ class Client:
         Summary: 数字商品服务-商品服务-设置商品手续费
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetCommissionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetCommissionResponse(),
             self.do_request('1.0', 'baas.antdao.commission.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8861,7 +9176,8 @@ class Client:
         Summary: 数字商品服务-商品服务-设置商品手续费
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetCommissionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetCommissionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.commission.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8900,7 +9216,8 @@ class Client:
         Summary: 数字商品服务-商品服务-查询商品手续费
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryCommissionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryCommissionResponse(),
             self.do_request('1.0', 'baas.antdao.commission.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8915,7 +9232,8 @@ class Client:
         Summary: 数字商品服务-商品服务-查询商品手续费
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryCommissionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryCommissionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.commission.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8954,7 +9272,8 @@ class Client:
         Summary: 数字商品服务-商品服务-设置收手续费商户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetCommissionMerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetCommissionMerchantResponse(),
             self.do_request('1.0', 'baas.antdao.commission.merchant.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8969,7 +9288,8 @@ class Client:
         Summary: 数字商品服务-商品服务-设置收手续费商户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetCommissionMerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetCommissionMerchantResponse(),
             await self.do_request_async('1.0', 'baas.antdao.commission.merchant.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9008,7 +9328,8 @@ class Client:
         Summary: 数字商品服务-商品服务-查询收手续费商户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryCommissionMerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryCommissionMerchantResponse(),
             self.do_request('1.0', 'baas.antdao.commission.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9023,7 +9344,8 @@ class Client:
         Summary: 数字商品服务-商品服务-查询收手续费商户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryCommissionMerchantResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryCommissionMerchantResponse(),
             await self.do_request_async('1.0', 'baas.antdao.commission.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9062,7 +9384,8 @@ class Client:
         Summary: 数字商品服务-管理服务-创建链上账户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConfigChainaccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConfigChainaccountResponse(),
             self.do_request('1.0', 'baas.antdao.config.chainaccount.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9077,7 +9400,8 @@ class Client:
         Summary: 数字商品服务-管理服务-创建链上账户
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateConfigChainaccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateConfigChainaccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.config.chainaccount.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9116,7 +9440,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-发起套餐交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.StartIpPackagetradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.StartIpPackagetradeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.packagetrade.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9131,7 +9456,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-发起套餐交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.StartIpPackagetradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.StartIpPackagetradeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.packagetrade.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9170,7 +9496,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-取消交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CancelIpPackagetradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CancelIpPackagetradeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.packagetrade.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9185,7 +9512,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-取消交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CancelIpPackagetradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CancelIpPackagetradeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.packagetrade.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9224,7 +9552,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-上传套餐数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadIpPackagetradesalesResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadIpPackagetradesalesResponse(),
             self.do_request('1.0', 'baas.antdao.ip.packagetradesales.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9239,7 +9568,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-上传套餐数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadIpPackagetradesalesResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadIpPackagetradesalesResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.packagetradesales.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9278,7 +9608,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-发起授权交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.StartIpAuthtradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.StartIpAuthtradeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.authtrade.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9293,7 +9624,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-发起授权交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.StartIpAuthtradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.StartIpAuthtradeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.authtrade.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9332,7 +9664,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-上传销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadIpAuthtradesalesResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadIpAuthtradesalesResponse(),
             self.do_request('1.0', 'baas.antdao.ip.authtradesales.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9347,7 +9680,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-上传销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadIpAuthtradesalesResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadIpAuthtradesalesResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.authtradesales.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9386,7 +9720,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-取消授权账单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CancelIpAuthtradebillResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CancelIpAuthtradebillResponse(),
             self.do_request('1.0', 'baas.antdao.ip.authtradebill.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9401,7 +9736,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-取消授权账单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CancelIpAuthtradebillResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CancelIpAuthtradebillResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.authtradebill.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9440,7 +9776,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询账单状态
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpBillstatusResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpBillstatusResponse(),
             self.do_request('1.0', 'baas.antdao.ip.billstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9455,7 +9792,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询账单状态
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpBillstatusResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpBillstatusResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.billstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9494,7 +9832,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询订单列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpOrderlistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpOrderlistResponse(),
             self.do_request('1.0', 'baas.antdao.ip.orderlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9509,7 +9848,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询订单列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpOrderlistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpOrderlistResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.orderlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9548,7 +9888,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-ip创建
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateIpGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateIpGoodsResponse(),
             self.do_request('1.0', 'baas.antdao.ip.goods.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9563,7 +9904,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-ip创建
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateIpGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateIpGoodsResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.goods.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9602,7 +9944,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-渠道信息添加
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AddIpChannelResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AddIpChannelResponse(),
             self.do_request('1.0', 'baas.antdao.ip.channel.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9617,7 +9960,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-渠道信息添加
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AddIpChannelResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AddIpChannelResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.channel.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9656,7 +10000,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询订单详情
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpOrderinfoResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpOrderinfoResponse(),
             self.do_request('1.0', 'baas.antdao.ip.orderinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9671,7 +10016,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询订单详情
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpOrderinfoResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpOrderinfoResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.orderinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9710,7 +10056,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-批量查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpGoodsResponse(),
             self.do_request('1.0', 'baas.antdao.ip.goods.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9725,7 +10072,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-批量查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpGoodsResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.goods.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9764,7 +10112,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询渠道详细
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpGoodsdetailwithchannelResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpGoodsdetailwithchannelResponse(),
             self.do_request('1.0', 'baas.antdao.ip.goodsdetailwithchannel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9779,7 +10128,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询渠道详细
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpGoodsdetailwithchannelResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpGoodsdetailwithchannelResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.goodsdetailwithchannel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9818,7 +10168,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-IP详情查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpDetailResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpDetailResponse(),
             self.do_request('1.0', 'baas.antdao.ip.detail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9833,7 +10184,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-IP详情查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpDetailResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpDetailResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.detail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9872,7 +10224,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-ip更新
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateIpGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateIpGoodsResponse(),
             self.do_request('1.0', 'baas.antdao.ip.goods.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9887,7 +10240,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-ip更新
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateIpGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateIpGoodsResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.goods.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9926,7 +10280,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-渠道信息更新
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateIpChannelResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateIpChannelResponse(),
             self.do_request('1.0', 'baas.antdao.ip.channel.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9941,7 +10296,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-渠道信息更新
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateIpChannelResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateIpChannelResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.channel.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9980,7 +10336,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-上架
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OnlineIpResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OnlineIpResponse(),
             self.do_request('1.0', 'baas.antdao.ip.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9995,7 +10352,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-上架
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OnlineIpResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OnlineIpResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10034,7 +10392,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-下架
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OfflineIpResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OfflineIpResponse(),
             self.do_request('1.0', 'baas.antdao.ip.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10049,7 +10408,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-下架
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OfflineIpResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OfflineIpResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10088,7 +10448,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-账户创建
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateIpAccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10103,7 +10464,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-账户创建
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateIpAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10142,7 +10504,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-账户冻结
         """
         UtilClient.validate_model(request)
-        return baasdt_models.FreezeIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.FreezeIpAccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.account.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10157,7 +10520,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-账户冻结
         """
         UtilClient.validate_model(request)
-        return baasdt_models.FreezeIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.FreezeIpAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.account.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10196,7 +10560,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-账户解冻
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UnfreezeIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UnfreezeIpAccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.account.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10211,7 +10576,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-账户解冻
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UnfreezeIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UnfreezeIpAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.account.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10250,7 +10616,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-账户查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpAccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10265,7 +10632,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-账户查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10304,7 +10672,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-版权方申请
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyIpAccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.account.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10319,7 +10688,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-版权方申请
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyIpAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.account.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10358,7 +10728,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查申请进度
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CheckIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CheckIpAccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.account.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10373,7 +10744,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查申请进度
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CheckIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CheckIpAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.account.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10412,7 +10784,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-ip创建审批
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpGoodsResponse(),
             self.do_request('1.0', 'baas.antdao.ip.goods.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10427,7 +10800,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-ip创建审批
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpGoodsResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.goods.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10469,7 +10843,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-审批信息查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpApprovalResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpApprovalResponse(),
             self.do_request('1.0', 'baas.antdao.ip.approval.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10485,7 +10860,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-审批信息查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpApprovalResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpApprovalResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.approval.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10524,7 +10900,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-运营审核确认
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpAccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.account.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10539,7 +10916,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-运营审核确认
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.account.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10578,7 +10956,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-运营审核拒绝
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RefuseIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RefuseIpAccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.account.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10593,7 +10972,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-运营审核拒绝
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RefuseIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RefuseIpAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.account.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10632,7 +11012,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-申请信息查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PullIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PullIpAccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.account.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10647,7 +11028,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-申请信息查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PullIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PullIpAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.account.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10686,7 +11068,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-MCC查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpMccResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpMccResponse(),
             self.do_request('1.0', 'baas.antdao.ip.mcc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10701,7 +11084,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-MCC查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpMccResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpMccResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.mcc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10740,7 +11124,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-IP标签查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpTypeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpTypeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.type.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10755,7 +11140,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-IP标签查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpTypeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpTypeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.type.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10794,7 +11180,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-审批批量查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpApprovalandchannelResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpApprovalandchannelResponse(),
             self.do_request('1.0', 'baas.antdao.ip.approvalandchannel.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10809,7 +11196,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-审批批量查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpApprovalandchannelResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpApprovalandchannelResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.approvalandchannel.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10848,7 +11236,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询商家信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpAccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.account.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10863,7 +11252,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询商家信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.account.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10902,7 +11292,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查账户列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpSellerResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpSellerResponse(),
             self.do_request('1.0', 'baas.antdao.ip.seller.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10917,7 +11308,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查账户列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpSellerResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpSellerResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.seller.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10956,7 +11348,8 @@ class Client:
         Summary: 数字商品服务-IP服务-UNI码申请
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyIpCodeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.code.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10971,7 +11364,8 @@ class Client:
         Summary: 数字商品服务-IP服务-UNI码申请
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyIpCodeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.code.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11013,7 +11407,8 @@ class Client:
         Summary: 数字商品服务-IP服务-凭证源码查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpCodeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.code.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11029,7 +11424,8 @@ class Client:
         Summary: 数字商品服务-IP服务-凭证源码查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpCodeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.code.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11068,7 +11464,8 @@ class Client:
         Summary: 数字商品服务-IP服务-UNI码校验
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CheckIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CheckIpCodeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.code.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11083,7 +11480,8 @@ class Client:
         Summary: 数字商品服务-IP服务-UNI码校验
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CheckIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CheckIpCodeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.code.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11122,7 +11520,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-IP更新审核
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpUpdateapprovalResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpUpdateapprovalResponse(),
             self.do_request('1.0', 'baas.antdao.ip.updateapproval.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11137,7 +11536,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-IP更新审核
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpUpdateapprovalResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpUpdateapprovalResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.updateapproval.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11176,7 +11576,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-sku设置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpSkuResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpSkuResponse(),
             self.do_request('1.0', 'baas.antdao.ip.sku.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11191,7 +11592,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-sku设置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpSkuResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpSkuResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.sku.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11230,7 +11632,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询更新数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpGoodsupdateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpGoodsupdateResponse(),
             self.do_request('1.0', 'baas.antdao.ip.goodsupdate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11245,7 +11648,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询更新数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpGoodsupdateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpGoodsupdateResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.goodsupdate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11284,7 +11688,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询账单列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpBillResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpBillResponse(),
             self.do_request('1.0', 'baas.antdao.ip.bill.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11299,7 +11704,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询账单列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpBillResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpBillResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.bill.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11338,7 +11744,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-sku查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpSkuconfigResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpSkuconfigResponse(),
             self.do_request('1.0', 'baas.antdao.ip.skuconfig.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11353,7 +11760,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-sku查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpSkuconfigResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpSkuconfigResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.skuconfig.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11392,7 +11800,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-版权方导入
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ImportIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ImportIpAccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.account.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11407,7 +11816,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-版权方导入
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ImportIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ImportIpAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.account.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11446,7 +11856,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-sku清空
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveIpSkuResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveIpSkuResponse(),
             self.do_request('1.0', 'baas.antdao.ip.sku.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11461,7 +11872,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-sku清空
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveIpSkuResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveIpSkuResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.sku.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11500,7 +11912,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-创建监修报审
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateIpSuperviseapproveResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateIpSuperviseapproveResponse(),
             self.do_request('1.0', 'baas.antdao.ip.superviseapprove.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11515,7 +11928,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-创建监修报审
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateIpSuperviseapproveResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateIpSuperviseapproveResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.superviseapprove.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11554,7 +11968,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-监修报审审批
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpSuperviseapproveResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpSuperviseapproveResponse(),
             self.do_request('1.0', 'baas.antdao.ip.superviseapprove.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11569,7 +11984,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-监修报审审批
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpSuperviseapproveResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpSuperviseapproveResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.superviseapprove.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11608,7 +12024,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-推进监修报审
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PushIpSuperviseapproveResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PushIpSuperviseapproveResponse(),
             self.do_request('1.0', 'baas.antdao.ip.superviseapprove.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11623,7 +12040,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-推进监修报审
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PushIpSuperviseapproveResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PushIpSuperviseapproveResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.superviseapprove.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11662,7 +12080,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询监修报审
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpSuperviseapproveResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpSuperviseapproveResponse(),
             self.do_request('1.0', 'baas.antdao.ip.superviseapprove.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11677,7 +12096,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询监修报审
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpSuperviseapproveResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpSuperviseapproveResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.superviseapprove.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11716,7 +12136,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-数字凭证领取
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ReceiveIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ReceiveIpCodeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.code.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11731,7 +12152,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-数字凭证领取
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ReceiveIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ReceiveIpCodeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.code.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11770,7 +12192,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-数字凭证列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpCodeinfoResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpCodeinfoResponse(),
             self.do_request('1.0', 'baas.antdao.ip.codeinfo.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11785,7 +12208,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-数字凭证列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpCodeinfoResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpCodeinfoResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.codeinfo.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11824,7 +12248,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-创建增值服务
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateIpValueaddResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateIpValueaddResponse(),
             self.do_request('1.0', 'baas.antdao.ip.valueadd.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11839,7 +12264,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-创建增值服务
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateIpValueaddResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateIpValueaddResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.valueadd.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11878,7 +12304,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-更新增值服务
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateIpValueaddResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateIpValueaddResponse(),
             self.do_request('1.0', 'baas.antdao.ip.valueadd.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11893,7 +12320,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-更新增值服务
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateIpValueaddResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateIpValueaddResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.valueadd.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11932,7 +12360,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-设置增值服务
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpValueaddskuResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpValueaddskuResponse(),
             self.do_request('1.0', 'baas.antdao.ip.valueaddsku.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11947,7 +12376,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-设置增值服务
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpValueaddskuResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpValueaddskuResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.valueaddsku.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11986,7 +12416,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-服务上下架
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OnlineIpValueaddResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OnlineIpValueaddResponse(),
             self.do_request('1.0', 'baas.antdao.ip.valueadd.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12001,7 +12432,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-服务上下架
         """
         UtilClient.validate_model(request)
-        return baasdt_models.OnlineIpValueaddResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.OnlineIpValueaddResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.valueadd.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12040,7 +12472,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-增值服务查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpValueaddResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpValueaddResponse(),
             self.do_request('1.0', 'baas.antdao.ip.valueadd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12055,7 +12488,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-增值服务查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpValueaddResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpValueaddResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.valueadd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12094,7 +12528,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-增值服务查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpValueaddResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpValueaddResponse(),
             self.do_request('1.0', 'baas.antdao.ip.valueadd.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12109,7 +12544,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-增值服务查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpValueaddResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpValueaddResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.valueadd.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12148,7 +12584,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-上传销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadIpTradesalesResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadIpTradesalesResponse(),
             self.do_request('1.0', 'baas.antdao.ip.tradesales.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12163,7 +12600,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-上传销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadIpTradesalesResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadIpTradesalesResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.tradesales.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12202,7 +12640,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-C用户授权
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AuthIpUserResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AuthIpUserResponse(),
             self.do_request('1.0', 'baas.antdao.ip.user.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12217,7 +12656,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-C用户授权
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AuthIpUserResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AuthIpUserResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.user.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12256,7 +12696,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-IP删除
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveIpGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveIpGoodsResponse(),
             self.do_request('1.0', 'baas.antdao.ip.goods.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12271,7 +12712,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-IP删除
         """
         UtilClient.validate_model(request)
-        return baasdt_models.RemoveIpGoodsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.RemoveIpGoodsResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.goods.remove', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12310,7 +12752,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-ip数量统计
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CountIpNumResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CountIpNumResponse(),
             self.do_request('1.0', 'baas.antdao.ip.num.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12325,7 +12768,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-ip数量统计
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CountIpNumResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CountIpNumResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.num.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12364,7 +12808,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-pv统计
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CountIpPvResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CountIpPvResponse(),
             self.do_request('1.0', 'baas.antdao.ip.pv.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12379,7 +12824,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-pv统计
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CountIpPvResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CountIpPvResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.pv.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12418,7 +12864,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-数字凭证详情
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpCodeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.code.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12433,7 +12880,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-数字凭证详情
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpCodeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.code.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12472,7 +12920,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-账户统计
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CountIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CountIpAccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.account.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12487,7 +12936,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-账户统计
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CountIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CountIpAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.account.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12526,7 +12976,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询订单统计
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpOrderstatisticResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpOrderstatisticResponse(),
             self.do_request('1.0', 'baas.antdao.ip.orderstatistic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12541,7 +12992,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询订单统计
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpOrderstatisticResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpOrderstatisticResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.orderstatistic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12580,7 +13032,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-ip更新图库
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateIpGoodsgalleryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateIpGoodsgalleryResponse(),
             self.do_request('1.0', 'baas.antdao.ip.goodsgallery.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12595,7 +13048,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-ip更新图库
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateIpGoodsgalleryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateIpGoodsgalleryResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.goodsgallery.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12634,7 +13088,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询ip图库
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpGoodsgalleryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpGoodsgalleryResponse(),
             self.do_request('1.0', 'baas.antdao.ip.goodsgallery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12649,7 +13104,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询ip图库
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpGoodsgalleryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpGoodsgalleryResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.goodsgallery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12688,7 +13144,8 @@ class Client:
         Summary: 数字商品服务-IP服务-UNI码信息配置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpCodeinfoResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpCodeinfoResponse(),
             self.do_request('1.0', 'baas.antdao.ip.codeinfo.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12703,7 +13160,8 @@ class Client:
         Summary: 数字商品服务-IP服务-UNI码信息配置
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpCodeinfoResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpCodeinfoResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.codeinfo.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12742,7 +13200,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询图库记录
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpGalleryinstructionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpGalleryinstructionResponse(),
             self.do_request('1.0', 'baas.antdao.ip.galleryinstruction.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12757,7 +13216,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询图库记录
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpGalleryinstructionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpGalleryinstructionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.galleryinstruction.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12796,7 +13256,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-订单图库确认
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpOrdergalleryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpOrdergalleryResponse(),
             self.do_request('1.0', 'baas.antdao.ip.ordergallery.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12811,7 +13272,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-订单图库确认
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpOrdergalleryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpOrdergalleryResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.ordergallery.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12850,7 +13312,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-审批定向授权
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpAuthtradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpAuthtradeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.authtrade.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12865,7 +13328,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-审批定向授权
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpAuthtradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpAuthtradeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.authtrade.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12904,7 +13368,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-审批套餐授权
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpPackagetradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpPackagetradeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.packagetrade.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12919,7 +13384,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-审批套餐授权
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpPackagetradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpPackagetradeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.packagetrade.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12958,7 +13424,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-申请套餐交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyIpPackagetradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyIpPackagetradeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.packagetrade.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12973,7 +13440,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-申请套餐交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyIpPackagetradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyIpPackagetradeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.packagetrade.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13012,7 +13480,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-申请授权交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyIpAuthtradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyIpAuthtradeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.authtrade.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13027,7 +13496,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-申请授权交易
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ApplyIpAuthtradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ApplyIpAuthtradeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.authtrade.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13066,7 +13536,8 @@ class Client:
         Summary: 数字商品服务-IP服务-UNI码配置查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpCodeinfoResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpCodeinfoResponse(),
             self.do_request('1.0', 'baas.antdao.ip.codeinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13081,7 +13552,8 @@ class Client:
         Summary: 数字商品服务-IP服务-UNI码配置查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpCodeinfoResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpCodeinfoResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.codeinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13120,7 +13592,8 @@ class Client:
         Summary: ip审批信息批量查询（带上更新信息）
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpApprovalwithupdateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpApprovalwithupdateResponse(),
             self.do_request('1.0', 'baas.antdao.ip.approvalwithupdate.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13135,7 +13608,8 @@ class Client:
         Summary: ip审批信息批量查询（带上更新信息）
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpApprovalwithupdateResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpApprovalwithupdateResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.approvalwithupdate.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13174,7 +13648,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-账户信息补充
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateIpAccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.account.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13189,7 +13664,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-账户信息补充
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateIpAccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateIpAccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.account.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13228,7 +13704,8 @@ class Client:
         Summary: 数字商品服务-IP-查询账户渠道列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpAccountsettlementResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpAccountsettlementResponse(),
             self.do_request('1.0', 'baas.antdao.ip.accountsettlement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13243,7 +13720,8 @@ class Client:
         Summary: 数字商品服务-IP-查询账户渠道列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpAccountsettlementResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpAccountsettlementResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.accountsettlement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13282,7 +13760,8 @@ class Client:
         Summary: 数字商品-IP授权服务-申请开通新渠道
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AddIpAccountsettlementResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AddIpAccountsettlementResponse(),
             self.do_request('1.0', 'baas.antdao.ip.accountsettlement.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13297,7 +13776,8 @@ class Client:
         Summary: 数字商品-IP授权服务-申请开通新渠道
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AddIpAccountsettlementResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AddIpAccountsettlementResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.accountsettlement.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13336,7 +13816,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-签署订单合同
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SignIpOrdercontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SignIpOrdercontractResponse(),
             self.do_request('1.0', 'baas.antdao.ip.ordercontract.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13351,7 +13832,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-签署订单合同
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SignIpOrdercontractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SignIpOrdercontractResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.ordercontract.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13390,7 +13872,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-绑定商品ID
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpOrdergoodsidsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpOrdergoodsidsResponse(),
             self.do_request('1.0', 'baas.antdao.ip.ordergoodsids.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13405,7 +13888,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-绑定商品ID
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpOrdergoodsidsResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpOrdergoodsidsResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.ordergoodsids.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13444,7 +13928,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查日销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpSalesbydayResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpSalesbydayResponse(),
             self.do_request('1.0', 'baas.antdao.ip.salesbyday.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13459,7 +13944,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查日销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpSalesbydayResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpSalesbydayResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.salesbyday.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13498,7 +13984,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-文件版权保护
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateIpCopyrightResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateIpCopyrightResponse(),
             self.do_request('1.0', 'baas.antdao.ip.copyright.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13513,7 +14000,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-文件版权保护
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateIpCopyrightResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateIpCopyrightResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.copyright.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13552,7 +14040,8 @@ class Client:
         Summary: 数字商品-IP授权服务-文件版权状态查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpCopyrightResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpCopyrightResponse(),
             self.do_request('1.0', 'baas.antdao.ip.copyright.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13567,7 +14056,8 @@ class Client:
         Summary: 数字商品-IP授权服务-文件版权状态查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpCopyrightResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpCopyrightResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.copyright.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13606,7 +14096,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-编辑订单备注
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpOrdermemoResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpOrdermemoResponse(),
             self.do_request('1.0', 'baas.antdao.ip.ordermemo.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13621,7 +14112,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-编辑订单备注
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpOrdermemoResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpOrdermemoResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.ordermemo.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13660,7 +14152,8 @@ class Client:
         Summary: 数字商品服务-IP-开通版权方渠道
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpAccountsettlementResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpAccountsettlementResponse(),
             self.do_request('1.0', 'baas.antdao.ip.accountsettlement.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13675,7 +14168,8 @@ class Client:
         Summary: 数字商品服务-IP-开通版权方渠道
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpAccountsettlementResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpAccountsettlementResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.accountsettlement.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13714,7 +14208,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpSalesResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpSalesResponse(),
             self.do_request('1.0', 'baas.antdao.ip.sales.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13729,7 +14224,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpSalesResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpSalesResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.sales.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13768,7 +14264,8 @@ class Client:
         Summary: 数字商品-IP授权服务-查询版权方列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpAccountsettlementResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpAccountsettlementResponse(),
             self.do_request('1.0', 'baas.antdao.ip.accountsettlement.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13783,7 +14280,8 @@ class Client:
         Summary: 数字商品-IP授权服务-查询版权方列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpAccountsettlementResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpAccountsettlementResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.accountsettlement.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13822,7 +14320,8 @@ class Client:
         Summary: 数字商品服务-IP服务-UNI码查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PullIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PullIpCodeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.code.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13837,7 +14336,8 @@ class Client:
         Summary: 数字商品服务-IP服务-UNI码查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PullIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PullIpCodeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.code.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13876,7 +14376,8 @@ class Client:
         Summary: 数字商品服务-IP-查询用户感兴趣的商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpGoodsinterestResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpGoodsinterestResponse(),
             self.do_request('1.0', 'baas.antdao.ip.goodsinterest.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13891,7 +14392,8 @@ class Client:
         Summary: 数字商品服务-IP-查询用户感兴趣的商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BatchqueryIpGoodsinterestResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BatchqueryIpGoodsinterestResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.goodsinterest.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13930,7 +14432,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-合同账户查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpTwcaccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpTwcaccountResponse(),
             self.do_request('1.0', 'baas.antdao.ip.twcaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13945,7 +14448,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-合同账户查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpTwcaccountResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpTwcaccountResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.twcaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13984,7 +14488,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-授权URI
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BindIpShopResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BindIpShopResponse(),
             self.do_request('1.0', 'baas.antdao.ip.shop.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13999,7 +14504,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-授权URI
         """
         UtilClient.validate_model(request)
-        return baasdt_models.BindIpShopResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.BindIpShopResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.shop.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14038,7 +14544,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-店铺授权结果
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AuthIpShopResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AuthIpShopResponse(),
             self.do_request('1.0', 'baas.antdao.ip.shop.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14053,7 +14560,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-店铺授权结果
         """
         UtilClient.validate_model(request)
-        return baasdt_models.AuthIpShopResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.AuthIpShopResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.shop.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14092,7 +14600,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-商户授权列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ListIpShopResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ListIpShopResponse(),
             self.do_request('1.0', 'baas.antdao.ip.shop.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14107,7 +14616,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-商户授权列表
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ListIpShopResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ListIpShopResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.shop.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14146,7 +14656,8 @@ class Client:
         Summary: 数字商品服务-IP服务-查UNI收藏证书
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpCodecollectResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpCodecollectResponse(),
             self.do_request('1.0', 'baas.antdao.ip.codecollect.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14161,7 +14672,8 @@ class Client:
         Summary: 数字商品服务-IP服务-查UNI收藏证书
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpCodecollectResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpCodecollectResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.codecollect.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14200,7 +14712,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-商品查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.GetIpShopResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.GetIpShopResponse(),
             self.do_request('1.0', 'baas.antdao.ip.shop.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14215,7 +14728,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-商品查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.GetIpShopResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.GetIpShopResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.shop.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14254,7 +14768,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-绑定商品ID
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpOrdergoodsidResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpOrdergoodsidResponse(),
             self.do_request('1.0', 'baas.antdao.ip.ordergoodsid.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14269,7 +14784,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-绑定商品ID
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpOrdergoodsidResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpOrdergoodsidResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.ordergoodsid.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14308,7 +14824,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-校正销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpSalescorrectionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpSalescorrectionResponse(),
             self.do_request('1.0', 'baas.antdao.ip.salescorrection.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14323,7 +14840,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-校正销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SetIpSalescorrectionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SetIpSalescorrectionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.salescorrection.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14362,7 +14880,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-确认销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpSalessummaryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpSalessummaryResponse(),
             self.do_request('1.0', 'baas.antdao.ip.salessummary.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14377,7 +14896,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-确认销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpSalessummaryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpSalessummaryResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.salessummary.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14416,7 +14936,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-销售数据上传
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadIpSaleseverylistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadIpSaleseverylistResponse(),
             self.do_request('1.0', 'baas.antdao.ip.saleseverylist.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14431,7 +14952,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-销售数据上传
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadIpSaleseverylistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadIpSaleseverylistResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.saleseverylist.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14470,7 +14992,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpSalessummaryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpSalessummaryResponse(),
             self.do_request('1.0', 'baas.antdao.ip.salessummary.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14485,7 +15008,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询销售数据
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpSalessummaryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpSalessummaryResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.salessummary.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14524,7 +15048,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-刷新账单状态
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ReopenIpBillResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ReopenIpBillResponse(),
             self.do_request('1.0', 'baas.antdao.ip.bill.reopen', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14539,7 +15064,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-刷新账单状态
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ReopenIpBillResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ReopenIpBillResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.bill.reopen', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14578,7 +15104,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-授权交易问询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.InitIpAuthtradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.InitIpAuthtradeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.authtrade.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14593,7 +15120,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-授权交易问询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.InitIpAuthtradeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.InitIpAuthtradeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.authtrade.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14632,7 +15160,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询订单历史
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpOrderhistoryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpOrderhistoryResponse(),
             self.do_request('1.0', 'baas.antdao.ip.orderhistory.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14647,7 +15176,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-查询订单历史
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryIpOrderhistoryResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryIpOrderhistoryResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.orderhistory.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14686,7 +15216,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-确认线下回款
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpBillpayResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpBillpayResponse(),
             self.do_request('1.0', 'baas.antdao.ip.billpay.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14701,7 +15232,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-确认线下回款
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ConfirmIpBillpayResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ConfirmIpBillpayResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.billpay.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14740,7 +15272,8 @@ class Client:
         Summary: 数字商品服务-IP服务-UNI码失效
         """
         UtilClient.validate_model(request)
-        return baasdt_models.DisableIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.DisableIpCodeResponse(),
             self.do_request('1.0', 'baas.antdao.ip.code.disable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14755,7 +15288,8 @@ class Client:
         Summary: 数字商品服务-IP服务-UNI码失效
         """
         UtilClient.validate_model(request)
-        return baasdt_models.DisableIpCodeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.DisableIpCodeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.code.disable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14794,7 +15328,8 @@ class Client:
         Summary: 数字商品服务-IP服务-上传UNI流转
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadIpCodecirculationResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadIpCodecirculationResponse(),
             self.do_request('1.0', 'baas.antdao.ip.codecirculation.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14809,7 +15344,8 @@ class Client:
         Summary: 数字商品服务-IP服务-上传UNI流转
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UploadIpCodecirculationResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UploadIpCodecirculationResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.codecirculation.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14848,7 +15384,8 @@ class Client:
         Summary: 数字商品服务-IP服务-查询UNI流转
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpCodecirculationResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpCodecirculationResponse(),
             self.do_request('1.0', 'baas.antdao.ip.codecirculation.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14863,7 +15400,8 @@ class Client:
         Summary: 数字商品服务-IP服务-查询UNI流转
         """
         UtilClient.validate_model(request)
-        return baasdt_models.PagequeryIpCodecirculationResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.PagequeryIpCodecirculationResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.codecirculation.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14902,7 +15440,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-签署合同
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SignIpContractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SignIpContractResponse(),
             self.do_request('1.0', 'baas.antdao.ip.contract.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14917,7 +15456,8 @@ class Client:
         Summary: 数字商品服务-IP授权服务-签署合同
         """
         UtilClient.validate_model(request)
-        return baasdt_models.SignIpContractResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.SignIpContractResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.contract.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14956,7 +15496,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取区块信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisBlockResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisBlockResponse(),
             self.do_request('1.0', 'baas.antdao.blockanalysis.block.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14971,7 +15512,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取区块信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisBlockResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisBlockResponse(),
             await self.do_request_async('1.0', 'baas.antdao.blockanalysis.block.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15010,7 +15552,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取最新区块高度
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisLastblocknumberResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisLastblocknumberResponse(),
             self.do_request('1.0', 'baas.antdao.blockanalysis.lastblocknumber.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15025,7 +15568,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取最新区块高度
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisLastblocknumberResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisLastblocknumberResponse(),
             await self.do_request_async('1.0', 'baas.antdao.blockanalysis.lastblocknumber.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15064,7 +15608,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取已授权商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisOpenedequitiesResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisOpenedequitiesResponse(),
             self.do_request('1.0', 'baas.antdao.blockanalysis.openedequities.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15079,7 +15624,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取已授权商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisOpenedequitiesResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisOpenedequitiesResponse(),
             await self.do_request_async('1.0', 'baas.antdao.blockanalysis.openedequities.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15118,7 +15664,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-已设用户价格商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisUserpriceupdatedequitiesResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisUserpriceupdatedequitiesResponse(),
             self.do_request('1.0', 'baas.antdao.blockanalysis.userpriceupdatedequities.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15133,7 +15680,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-已设用户价格商品
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisUserpriceupdatedequitiesResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisUserpriceupdatedequitiesResponse(),
             await self.do_request_async('1.0', 'baas.antdao.blockanalysis.userpriceupdatedequities.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15172,7 +15720,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-查询可提现资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisUnwriteoffvalueResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisUnwriteoffvalueResponse(),
             self.do_request('1.0', 'baas.antdao.blockanalysis.unwriteoffvalue.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15187,7 +15736,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-查询可提现资产
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisUnwriteoffvalueResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisUnwriteoffvalueResponse(),
             await self.do_request_async('1.0', 'baas.antdao.blockanalysis.unwriteoffvalue.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15226,7 +15776,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-设置代理权限
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateBlockanalysisDelegaterelationResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateBlockanalysisDelegaterelationResponse(),
             self.do_request('1.0', 'baas.antdao.blockanalysis.delegaterelation.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15241,7 +15792,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-设置代理权限
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateBlockanalysisDelegaterelationResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateBlockanalysisDelegaterelationResponse(),
             await self.do_request_async('1.0', 'baas.antdao.blockanalysis.delegaterelation.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15280,7 +15832,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-设置访问白名单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateBlockanalysisWhitelistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateBlockanalysisWhitelistResponse(),
             self.do_request('1.0', 'baas.antdao.blockanalysis.whitelist.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15295,7 +15848,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-设置访问白名单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.UpdateBlockanalysisWhitelistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.UpdateBlockanalysisWhitelistResponse(),
             await self.do_request_async('1.0', 'baas.antdao.blockanalysis.whitelist.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15334,7 +15888,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-代理权限查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisDelegaterelationResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisDelegaterelationResponse(),
             self.do_request('1.0', 'baas.antdao.blockanalysis.delegaterelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15349,7 +15904,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-代理权限查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisDelegaterelationResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisDelegaterelationResponse(),
             await self.do_request_async('1.0', 'baas.antdao.blockanalysis.delegaterelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15388,7 +15944,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-查询接口白名单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisWhitelistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisWhitelistResponse(),
             self.do_request('1.0', 'baas.antdao.blockanalysis.whitelist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15403,7 +15960,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-查询接口白名单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisWhitelistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisWhitelistResponse(),
             await self.do_request_async('1.0', 'baas.antdao.blockanalysis.whitelist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15442,7 +16000,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取交易信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisTransactionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisTransactionResponse(),
             self.do_request('1.0', 'baas.antdao.blockanalysis.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15457,7 +16016,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取交易信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisTransactionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisTransactionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.blockanalysis.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15496,7 +16056,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取商品授权信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisEquityauthlistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisEquityauthlistResponse(),
             self.do_request('1.0', 'baas.antdao.blockanalysis.equityauthlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15511,7 +16072,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取商品授权信息
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisEquityauthlistResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisEquityauthlistResponse(),
             await self.do_request_async('1.0', 'baas.antdao.blockanalysis.equityauthlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15550,7 +16112,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取下个相关区块
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisNextblockResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisNextblockResponse(),
             self.do_request('1.0', 'baas.antdao.blockanalysis.nextblock.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15565,7 +16128,8 @@ class Client:
         Summary: 数字商品服务-拉块服务-获取下个相关区块
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryBlockanalysisNextblockResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryBlockanalysisNextblockResponse(),
             await self.do_request_async('1.0', 'baas.antdao.blockanalysis.nextblock.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15604,7 +16168,8 @@ class Client:
         Summary: 数字商品服务-商品服务-商品列表查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMypointsSkuResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMypointsSkuResponse(),
             self.do_request('1.0', 'baas.antdao.mypoints.sku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15619,7 +16184,8 @@ class Client:
         Summary: 数字商品服务-商品服务-商品列表查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMypointsSkuResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMypointsSkuResponse(),
             await self.do_request_async('1.0', 'baas.antdao.mypoints.sku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15658,7 +16224,8 @@ class Client:
         Summary: 数字商品服务-商品服务-积分预算库查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMypointsMerchantbalanceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMypointsMerchantbalanceResponse(),
             self.do_request('1.0', 'baas.antdao.mypoints.merchantbalance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15673,7 +16240,8 @@ class Client:
         Summary: 数字商品服务-商品服务-积分预算库查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMypointsMerchantbalanceResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMypointsMerchantbalanceResponse(),
             await self.do_request_async('1.0', 'baas.antdao.mypoints.merchantbalance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15712,7 +16280,8 @@ class Client:
         Summary: 数字商品服务-商品服务-商品预下单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecMypointsPreorderskuResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecMypointsPreorderskuResponse(),
             self.do_request('1.0', 'baas.antdao.mypoints.preordersku.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15727,7 +16296,8 @@ class Client:
         Summary: 数字商品服务-商品服务-商品预下单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecMypointsPreorderskuResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecMypointsPreorderskuResponse(),
             await self.do_request_async('1.0', 'baas.antdao.mypoints.preordersku.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15766,7 +16336,8 @@ class Client:
         Summary: 数字商品服务-商品服务-商品下单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecMypointsOrderskuResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecMypointsOrderskuResponse(),
             self.do_request('1.0', 'baas.antdao.mypoints.ordersku.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15781,7 +16352,8 @@ class Client:
         Summary: 数字商品服务-商品服务-商品下单
         """
         UtilClient.validate_model(request)
-        return baasdt_models.ExecMypointsOrderskuResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.ExecMypointsOrderskuResponse(),
             await self.do_request_async('1.0', 'baas.antdao.mypoints.ordersku.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15820,7 +16392,8 @@ class Client:
         Summary: 数字商品服务-商品服务-商品费率查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMypointsSkufeeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMypointsSkufeeResponse(),
             self.do_request('1.0', 'baas.antdao.mypoints.skufee.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15835,7 +16408,8 @@ class Client:
         Summary: 数字商品服务-商品服务-商品费率查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMypointsSkufeeResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMypointsSkufeeResponse(),
             await self.do_request_async('1.0', 'baas.antdao.mypoints.skufee.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15874,7 +16448,8 @@ class Client:
         Summary: 数字商品服务-商品服务-预下单流水查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMypointsPreorderinstructionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMypointsPreorderinstructionResponse(),
             self.do_request('1.0', 'baas.antdao.mypoints.preorderinstruction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15889,7 +16464,8 @@ class Client:
         Summary: 数字商品服务-商品服务-预下单流水查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMypointsPreorderinstructionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMypointsPreorderinstructionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.mypoints.preorderinstruction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15928,7 +16504,8 @@ class Client:
         Summary: 数字商品服务-商品服务-商品下单流水查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMypointsOrderinstructionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMypointsOrderinstructionResponse(),
             self.do_request('1.0', 'baas.antdao.mypoints.orderinstruction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15943,7 +16520,8 @@ class Client:
         Summary: 数字商品服务-商品服务-商品下单流水查询
         """
         UtilClient.validate_model(request)
-        return baasdt_models.QueryMypointsOrderinstructionResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.QueryMypointsOrderinstructionResponse(),
             await self.do_request_async('1.0', 'baas.antdao.mypoints.orderinstruction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15982,7 +16560,8 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateAntcloudGatewayxFileUploadResponse(),
             self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15997,6 +16576,7 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return baasdt_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            baasdt_models.CreateAntcloudGatewayxFileUploadResponse(),
             await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
