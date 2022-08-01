@@ -44,6 +44,14 @@ public class ReceiveIpCodeRequest extends TeaModel {
     @Validation(required = true)
     public String avatar;
 
+    // true 发起流转，false 正常领取，默认false
+    @NameInMap("flow_en")
+    public Boolean flowEn;
+
+    // 交易单ID（流转订单）、支付宝交易号、交易金额、流转交易平台、平台logo、原持有人ID 等信息，由调用方构造
+    @NameInMap("ext_info")
+    public String extInfo;
+
     public static ReceiveIpCodeRequest build(java.util.Map<String, ?> map) throws Exception {
         ReceiveIpCodeRequest self = new ReceiveIpCodeRequest();
         return TeaModel.build(map, self);
@@ -119,6 +127,22 @@ public class ReceiveIpCodeRequest extends TeaModel {
     }
     public String getAvatar() {
         return this.avatar;
+    }
+
+    public ReceiveIpCodeRequest setFlowEn(Boolean flowEn) {
+        this.flowEn = flowEn;
+        return this;
+    }
+    public Boolean getFlowEn() {
+        return this.flowEn;
+    }
+
+    public ReceiveIpCodeRequest setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
 }

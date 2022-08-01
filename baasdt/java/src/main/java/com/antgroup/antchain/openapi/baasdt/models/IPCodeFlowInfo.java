@@ -16,6 +16,14 @@ public class IPCodeFlowInfo extends TeaModel {
     @NameInMap("code_trans_hash")
     public String codeTransHash;
 
+    // 收藏交易块高
+    @NameInMap("code_trans_block_number")
+    public Long codeTransBlockNumber;
+
+    // 流转信息jsonstring
+    @NameInMap("ext_info")
+    public String extInfo;
+
     public static IPCodeFlowInfo build(java.util.Map<String, ?> map) throws Exception {
         IPCodeFlowInfo self = new IPCodeFlowInfo();
         return TeaModel.build(map, self);
@@ -43,6 +51,22 @@ public class IPCodeFlowInfo extends TeaModel {
     }
     public String getCodeTransHash() {
         return this.codeTransHash;
+    }
+
+    public IPCodeFlowInfo setCodeTransBlockNumber(Long codeTransBlockNumber) {
+        this.codeTransBlockNumber = codeTransBlockNumber;
+        return this;
+    }
+    public Long getCodeTransBlockNumber() {
+        return this.codeTransBlockNumber;
+    }
+
+    public IPCodeFlowInfo setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
 }
