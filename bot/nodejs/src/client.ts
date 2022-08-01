@@ -2550,6 +2550,31 @@ export class BizContentGroup extends $tea.Model {
   }
 }
 
+// 菜鸟设备监控信息获取请求体
+export class ScfLeaseEqpInfoQueryRequest extends $tea.Model {
+  // 设备识别号
+  deviceNo: string;
+  // 运营日期
+  operationDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      deviceNo: 'device_no',
+      operationDate: 'operation_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deviceNo: 'string',
+      operationDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 组织请求注册更新结构体，应用在注册/更新API的ThingExtraParams
 export class CorporateReqModel extends $tea.Model {
   // 组织地址
@@ -10778,16 +10803,13 @@ export class QueryScfleaseEqpinfoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 设备识别号
-  deviceNo: string;
-  // 运营日期
-  operationDate: string;
+  // 请求体
+  request: ScfLeaseEqpInfoQueryRequest[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      deviceNo: 'device_no',
-      operationDate: 'operation_date',
+      request: 'request',
     };
   }
 
@@ -10795,8 +10817,7 @@ export class QueryScfleaseEqpinfoRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      deviceNo: 'string',
-      operationDate: 'string',
+      request: { 'type': 'array', 'itemType': ScfLeaseEqpInfoQueryRequest },
     };
   }
 
@@ -12363,7 +12384,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.116",
+          sdk_version: "1.6.118",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
