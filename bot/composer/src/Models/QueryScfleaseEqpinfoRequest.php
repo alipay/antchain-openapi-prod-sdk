@@ -19,28 +19,20 @@ class QueryScfleaseEqpinfoRequest extends Model
      */
     public $productInstanceId;
 
-    // 设备识别号
+    // 请求体
     /**
-     * @var string
+     * @var ScfLeaseEqpInfoQueryRequest[]
      */
-    public $deviceNo;
-
-    // 运营日期
-    /**
-     * @var string
-     */
-    public $operationDate;
+    public $request;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'deviceNo'          => 'device_no',
-        'operationDate'     => 'operation_date',
+        'request'           => 'request',
     ];
 
     public function validate()
     {
-        Model::validateRequired('deviceNo', $this->deviceNo, true);
-        Model::validateRequired('operationDate', $this->operationDate, true);
+        Model::validateRequired('request', $this->request, true);
     }
 
     public function toMap()
@@ -52,11 +44,14 @@ class QueryScfleaseEqpinfoRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->deviceNo) {
-            $res['device_no'] = $this->deviceNo;
-        }
-        if (null !== $this->operationDate) {
-            $res['operation_date'] = $this->operationDate;
+        if (null !== $this->request) {
+            $res['request'] = [];
+            if (null !== $this->request && \is_array($this->request)) {
+                $n = 0;
+                foreach ($this->request as $item) {
+                    $res['request'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -76,11 +71,14 @@ class QueryScfleaseEqpinfoRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['device_no'])) {
-            $model->deviceNo = $map['device_no'];
-        }
-        if (isset($map['operation_date'])) {
-            $model->operationDate = $map['operation_date'];
+        if (isset($map['request'])) {
+            if (!empty($map['request'])) {
+                $model->request = [];
+                $n              = 0;
+                foreach ($map['request'] as $item) {
+                    $model->request[$n++] = null !== $item ? ScfLeaseEqpInfoQueryRequest::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
