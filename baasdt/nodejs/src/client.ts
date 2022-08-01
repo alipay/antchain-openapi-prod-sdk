@@ -627,8 +627,10 @@ export class IPCodeIpOwnerInfo extends $tea.Model {
   ipOwnerImageTmp?: string;
   // ip描述
   ipDescription?: string;
-  // 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息
+  // 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息；4是自定义
   ipOwnerType?: number;
+  // 自定义资质信息类型
+  ipOwnerCustom?: string;
   static names(): { [key: string]: string } {
     return {
       ipOwnerName: 'ip_owner_name',
@@ -636,6 +638,7 @@ export class IPCodeIpOwnerInfo extends $tea.Model {
       ipOwnerImageTmp: 'ip_owner_image_tmp',
       ipDescription: 'ip_description',
       ipOwnerType: 'ip_owner_type',
+      ipOwnerCustom: 'ip_owner_custom',
     };
   }
 
@@ -646,6 +649,7 @@ export class IPCodeIpOwnerInfo extends $tea.Model {
       ipOwnerImageTmp: 'string',
       ipDescription: 'string',
       ipOwnerType: 'number',
+      ipOwnerCustom: 'string',
     };
   }
 
@@ -3725,11 +3729,17 @@ export class IPCodeFlowInfo extends $tea.Model {
   codeCollectTime?: number;
   // 收藏交易哈希
   codeTransHash?: string;
+  // 收藏交易块高
+  codeTransBlockNumber?: number;
+  // 流转信息jsonstring
+  extInfo?: string;
   static names(): { [key: string]: string } {
     return {
       codeOwnerName: 'code_owner_name',
       codeCollectTime: 'code_collect_time',
       codeTransHash: 'code_trans_hash',
+      codeTransBlockNumber: 'code_trans_block_number',
+      extInfo: 'ext_info',
     };
   }
 
@@ -3738,6 +3748,8 @@ export class IPCodeFlowInfo extends $tea.Model {
       codeOwnerName: 'string',
       codeCollectTime: 'number',
       codeTransHash: 'string',
+      codeTransBlockNumber: 'number',
+      extInfo: 'string',
     };
   }
 
@@ -21777,6 +21789,10 @@ export class ReceiveIpCodeRequest extends $tea.Model {
   gps?: string;
   // 用户头像地址
   avatar: string;
+  // true 发起流转，false 正常领取，默认false
+  flowEn?: boolean;
+  // 交易单ID（流转订单）、支付宝交易号、交易金额、流转交易平台、平台logo、原持有人ID 等信息，由调用方构造
+  extInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -21788,6 +21804,8 @@ export class ReceiveIpCodeRequest extends $tea.Model {
       phoneNumber: 'phone_number',
       gps: 'gps',
       avatar: 'avatar',
+      flowEn: 'flow_en',
+      extInfo: 'ext_info',
     };
   }
 
@@ -21802,6 +21820,8 @@ export class ReceiveIpCodeRequest extends $tea.Model {
       phoneNumber: 'string',
       gps: 'string',
       avatar: 'string',
+      flowEn: 'boolean',
+      extInfo: 'string',
     };
   }
 
@@ -24727,6 +24747,10 @@ export class SetIpOrdermemoRequest extends $tea.Model {
   ipOrderId: string;
   // 备注信息
   memo: string;
+  // 更新订单功能 0 基础功能，1 领用收藏，2持有流转等
+  features?: number[];
+  // 订单ID列表-更新订单功能使用
+  orderIds?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -24734,6 +24758,8 @@ export class SetIpOrdermemoRequest extends $tea.Model {
       baseRequest: 'base_request',
       ipOrderId: 'ip_order_id',
       memo: 'memo',
+      features: 'features',
+      orderIds: 'order_ids',
     };
   }
 
@@ -24744,6 +24770,8 @@ export class SetIpOrdermemoRequest extends $tea.Model {
       baseRequest: BaseRequestInfo,
       ipOrderId: 'string',
       memo: 'string',
+      features: { 'type': 'array', 'itemType': 'number' },
+      orderIds: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -28402,7 +28430,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.69",
+          sdk_version: "1.3.73",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
