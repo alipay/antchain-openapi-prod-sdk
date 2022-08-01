@@ -11,15 +11,10 @@ public class QueryScfleaseEqpinfoRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 设备识别号
-    @NameInMap("device_no")
+    // 请求体
+    @NameInMap("request")
     @Validation(required = true)
-    public String deviceNo;
-
-    // 运营日期
-    @NameInMap("operation_date")
-    @Validation(required = true)
-    public String operationDate;
+    public java.util.List<ScfLeaseEqpInfoQueryRequest> request;
 
     public static QueryScfleaseEqpinfoRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryScfleaseEqpinfoRequest self = new QueryScfleaseEqpinfoRequest();
@@ -42,20 +37,12 @@ public class QueryScfleaseEqpinfoRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryScfleaseEqpinfoRequest setDeviceNo(String deviceNo) {
-        this.deviceNo = deviceNo;
+    public QueryScfleaseEqpinfoRequest setRequest(java.util.List<ScfLeaseEqpInfoQueryRequest> request) {
+        this.request = request;
         return this;
     }
-    public String getDeviceNo() {
-        return this.deviceNo;
-    }
-
-    public QueryScfleaseEqpinfoRequest setOperationDate(String operationDate) {
-        this.operationDate = operationDate;
-        return this;
-    }
-    public String getOperationDate() {
-        return this.operationDate;
+    public java.util.List<ScfLeaseEqpInfoQueryRequest> getRequest() {
+        return this.request;
     }
 
 }
