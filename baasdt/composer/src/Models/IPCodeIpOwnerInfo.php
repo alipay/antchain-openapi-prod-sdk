@@ -40,19 +40,28 @@ class IPCodeIpOwnerInfo extends Model
      */
     public $ipDescription;
 
-    // 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息
+    // 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息；4是自定义
     /**
      * @example
      *
      * @var int
      */
     public $ipOwnerType;
+
+    // 自定义资质信息类型
+    /**
+     * @example 资质信息
+     *
+     * @var string
+     */
+    public $ipOwnerCustom;
     protected $_name = [
         'ipOwnerName'     => 'ip_owner_name',
         'ipOwnerImage'    => 'ip_owner_image',
         'ipOwnerImageTmp' => 'ip_owner_image_tmp',
         'ipDescription'   => 'ip_description',
         'ipOwnerType'     => 'ip_owner_type',
+        'ipOwnerCustom'   => 'ip_owner_custom',
     ];
 
     public function validate()
@@ -76,6 +85,9 @@ class IPCodeIpOwnerInfo extends Model
         }
         if (null !== $this->ipOwnerType) {
             $res['ip_owner_type'] = $this->ipOwnerType;
+        }
+        if (null !== $this->ipOwnerCustom) {
+            $res['ip_owner_custom'] = $this->ipOwnerCustom;
         }
 
         return $res;
@@ -103,6 +115,9 @@ class IPCodeIpOwnerInfo extends Model
         }
         if (isset($map['ip_owner_type'])) {
             $model->ipOwnerType = $map['ip_owner_type'];
+        }
+        if (isset($map['ip_owner_custom'])) {
+            $model->ipOwnerCustom = $map['ip_owner_custom'];
         }
 
         return $model;

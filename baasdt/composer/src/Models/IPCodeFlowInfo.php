@@ -31,10 +31,28 @@ class IPCodeFlowInfo extends Model
      * @var string
      */
     public $codeTransHash;
+
+    // 收藏交易块高
+    /**
+     * @example 块高
+     *
+     * @var int
+     */
+    public $codeTransBlockNumber;
+
+    // 流转信息jsonstring
+    /**
+     * @example 流转信息jsonstring
+     *
+     * @var string
+     */
+    public $extInfo;
     protected $_name = [
-        'codeOwnerName'   => 'code_owner_name',
-        'codeCollectTime' => 'code_collect_time',
-        'codeTransHash'   => 'code_trans_hash',
+        'codeOwnerName'        => 'code_owner_name',
+        'codeCollectTime'      => 'code_collect_time',
+        'codeTransHash'        => 'code_trans_hash',
+        'codeTransBlockNumber' => 'code_trans_block_number',
+        'extInfo'              => 'ext_info',
     ];
 
     public function validate()
@@ -52,6 +70,12 @@ class IPCodeFlowInfo extends Model
         }
         if (null !== $this->codeTransHash) {
             $res['code_trans_hash'] = $this->codeTransHash;
+        }
+        if (null !== $this->codeTransBlockNumber) {
+            $res['code_trans_block_number'] = $this->codeTransBlockNumber;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
         }
 
         return $res;
@@ -73,6 +97,12 @@ class IPCodeFlowInfo extends Model
         }
         if (isset($map['code_trans_hash'])) {
             $model->codeTransHash = $map['code_trans_hash'];
+        }
+        if (isset($map['code_trans_block_number'])) {
+            $model->codeTransBlockNumber = $map['code_trans_block_number'];
+        }
+        if (isset($map['ext_info'])) {
+            $model->extInfo = $map['ext_info'];
         }
 
         return $model;

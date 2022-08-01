@@ -36,12 +36,26 @@ class SetIpOrdermemoRequest extends Model
      * @var string
      */
     public $memo;
+
+    // 更新订单功能 0 基础功能，1 领用收藏，2持有流转等
+    /**
+     * @var int[]
+     */
+    public $features;
+
+    // 订单ID列表-更新订单功能使用
+    /**
+     * @var string[]
+     */
+    public $orderIds;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'baseRequest'       => 'base_request',
         'ipOrderId'         => 'ip_order_id',
         'memo'              => 'memo',
+        'features'          => 'features',
+        'orderIds'          => 'order_ids',
     ];
 
     public function validate()
@@ -69,6 +83,12 @@ class SetIpOrdermemoRequest extends Model
         if (null !== $this->memo) {
             $res['memo'] = $this->memo;
         }
+        if (null !== $this->features) {
+            $res['features'] = $this->features;
+        }
+        if (null !== $this->orderIds) {
+            $res['order_ids'] = $this->orderIds;
+        }
 
         return $res;
     }
@@ -95,6 +115,16 @@ class SetIpOrdermemoRequest extends Model
         }
         if (isset($map['memo'])) {
             $model->memo = $map['memo'];
+        }
+        if (isset($map['features'])) {
+            if (!empty($map['features'])) {
+                $model->features = $map['features'];
+            }
+        }
+        if (isset($map['order_ids'])) {
+            if (!empty($map['order_ids'])) {
+                $model->orderIds = $map['order_ids'];
+            }
         }
 
         return $model;

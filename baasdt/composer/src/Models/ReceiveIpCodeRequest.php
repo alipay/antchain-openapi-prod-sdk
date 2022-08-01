@@ -60,6 +60,18 @@ class ReceiveIpCodeRequest extends Model
      * @var string
      */
     public $avatar;
+
+    // true 发起流转，false 正常领取，默认false
+    /**
+     * @var bool
+     */
+    public $flowEn;
+
+    // 交易单ID（流转订单）、支付宝交易号、交易金额、流转交易平台、平台logo、原持有人ID 等信息，由调用方构造
+    /**
+     * @var string
+     */
+    public $extInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +82,8 @@ class ReceiveIpCodeRequest extends Model
         'phoneNumber'       => 'phone_number',
         'gps'               => 'gps',
         'avatar'            => 'avatar',
+        'flowEn'            => 'flow_en',
+        'extInfo'           => 'ext_info',
     ];
 
     public function validate()
@@ -111,6 +125,12 @@ class ReceiveIpCodeRequest extends Model
         if (null !== $this->avatar) {
             $res['avatar'] = $this->avatar;
         }
+        if (null !== $this->flowEn) {
+            $res['flow_en'] = $this->flowEn;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
+        }
 
         return $res;
     }
@@ -149,6 +169,12 @@ class ReceiveIpCodeRequest extends Model
         }
         if (isset($map['avatar'])) {
             $model->avatar = $map['avatar'];
+        }
+        if (isset($map['flow_en'])) {
+            $model->flowEn = $map['flow_en'];
+        }
+        if (isset($map['ext_info'])) {
+            $model->extInfo = $map['ext_info'];
         }
 
         return $model;
