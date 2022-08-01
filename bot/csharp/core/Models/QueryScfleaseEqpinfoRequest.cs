@@ -18,15 +18,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 设备识别号
-        [NameInMap("device_no")]
+        // 请求体
+        [NameInMap("request")]
         [Validation(Required=true)]
-        public string DeviceNo { get; set; }
-
-        // 运营日期
-        [NameInMap("operation_date")]
-        [Validation(Required=true)]
-        public string OperationDate { get; set; }
+        public List<ScfLeaseEqpInfoQueryRequest> Request { get; set; }
 
     }
 
