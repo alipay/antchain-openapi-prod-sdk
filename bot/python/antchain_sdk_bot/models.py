@@ -4146,6 +4146,42 @@ class BizContentGroup(TeaModel):
         return self
 
 
+class ScfLeaseEqpInfoQueryRequest(TeaModel):
+    def __init__(
+        self,
+        device_no: str = None,
+        operation_date: str = None,
+    ):
+        # 设备识别号
+        self.device_no = device_no
+        # 运营日期
+        self.operation_date = operation_date
+
+    def validate(self):
+        self.validate_required(self.device_no, 'device_no')
+        self.validate_required(self.operation_date, 'operation_date')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_no is not None:
+            result['device_no'] = self.device_no
+        if self.operation_date is not None:
+            result['operation_date'] = self.operation_date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('device_no') is not None:
+            self.device_no = m.get('device_no')
+        if m.get('operation_date') is not None:
+            self.operation_date = m.get('operation_date')
+        return self
+
+
 class CorporateReqModel(TeaModel):
     def __init__(
         self,
@@ -17490,20 +17526,20 @@ class QueryScfleaseEqpinfoRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        device_no: str = None,
-        operation_date: str = None,
+        request: List[ScfLeaseEqpInfoQueryRequest] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 设备识别号
-        self.device_no = device_no
-        # 运营日期
-        self.operation_date = operation_date
+        # 请求体
+        self.request = request
 
     def validate(self):
-        self.validate_required(self.device_no, 'device_no')
-        self.validate_required(self.operation_date, 'operation_date')
+        self.validate_required(self.request, 'request')
+        if self.request:
+            for k in self.request:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -17515,10 +17551,10 @@ class QueryScfleaseEqpinfoRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.device_no is not None:
-            result['device_no'] = self.device_no
-        if self.operation_date is not None:
-            result['operation_date'] = self.operation_date
+        result['request'] = []
+        if self.request is not None:
+            for k in self.request:
+                result['request'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -17527,10 +17563,11 @@ class QueryScfleaseEqpinfoRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('device_no') is not None:
-            self.device_no = m.get('device_no')
-        if m.get('operation_date') is not None:
-            self.operation_date = m.get('operation_date')
+        self.request = []
+        if m.get('request') is not None:
+            for k in m.get('request'):
+                temp_model = ScfLeaseEqpInfoQueryRequest()
+                self.request.append(temp_model.from_map(k))
         return self
 
 
