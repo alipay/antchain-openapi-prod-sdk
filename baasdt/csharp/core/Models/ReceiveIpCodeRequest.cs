@@ -53,6 +53,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=true)]
         public string Avatar { get; set; }
 
+        // true 发起流转，false 正常领取，默认false
+        [NameInMap("flow_en")]
+        [Validation(Required=false)]
+        public bool? FlowEn { get; set; }
+
+        // 交易单ID（流转订单）、支付宝交易号、交易金额、流转交易平台、平台logo、原持有人ID 等信息，由调用方构造
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public string ExtInfo { get; set; }
+
     }
 
 }

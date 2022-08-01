@@ -30,10 +30,15 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string IpDescription { get; set; }
 
-        // 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息
+        // 默认为空或者0是版权信息；1是著作信息；2是创作信息；3是联名信息；4是自定义
         [NameInMap("ip_owner_type")]
         [Validation(Required=false)]
         public long? IpOwnerType { get; set; }
+
+        // 自定义资质信息类型
+        [NameInMap("ip_owner_custom")]
+        [Validation(Required=false)]
+        public string IpOwnerCustom { get; set; }
 
     }
 

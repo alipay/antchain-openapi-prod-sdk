@@ -25,6 +25,16 @@ namespace AntChain.SDK.BAASDT.Models
         [Validation(Required=false)]
         public string CodeTransHash { get; set; }
 
+        // 收藏交易块高
+        [NameInMap("code_trans_block_number")]
+        [Validation(Required=false)]
+        public long? CodeTransBlockNumber { get; set; }
+
+        // 流转信息jsonstring
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public string ExtInfo { get; set; }
+
     }
 
 }
