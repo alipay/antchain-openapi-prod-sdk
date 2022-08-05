@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.10'
+                    'sdk_version': '1.7.26'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.10'
+                    'sdk_version': '1.7.26'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +306,8 @@ class Client:
         Summary: 统一客户认证接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.AuthCustomerResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.AuthCustomerResponse(),
             self.do_request('1.0', 'antchain.bbp.customer.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: 统一客户认证接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.AuthCustomerResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.AuthCustomerResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.customer.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: 统一客户注册接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.CreateCustomerResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.CreateCustomerResponse(),
             self.do_request('1.0', 'antchain.bbp.customer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: 统一客户注册接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.CreateCustomerResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.CreateCustomerResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.customer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: 客户信息查询
         """
         UtilClient.validate_model(request)
-        return bbp_models.QueryCustomerResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.QueryCustomerResponse(),
             self.do_request('1.0', 'antchain.bbp.customer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +434,8 @@ class Client:
         Summary: 客户信息查询
         """
         UtilClient.validate_model(request)
-        return bbp_models.QueryCustomerResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.QueryCustomerResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.customer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +474,8 @@ class Client:
         Summary: 核身初始化接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.InitVerifyResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.InitVerifyResponse(),
             self.do_request('1.0', 'antchain.bbp.verify.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +490,8 @@ class Client:
         Summary: 核身初始化接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.InitVerifyResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.InitVerifyResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.verify.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +530,8 @@ class Client:
         Summary: 核身产品渲染接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.StartVerifyResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.StartVerifyResponse(),
             self.do_request('1.0', 'antchain.bbp.verify.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +546,8 @@ class Client:
         Summary: 核身产品渲染接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.StartVerifyResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.StartVerifyResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.verify.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +586,8 @@ class Client:
         Summary: 核身结果查询
         """
         UtilClient.validate_model(request)
-        return bbp_models.CheckVerifyResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.CheckVerifyResponse(),
             self.do_request('1.0', 'antchain.bbp.verify.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +602,8 @@ class Client:
         Summary: 核身结果查询
         """
         UtilClient.validate_model(request)
-        return bbp_models.CheckVerifyResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.CheckVerifyResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.verify.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +642,8 @@ class Client:
         Summary: 企业四要素认证
         """
         UtilClient.validate_model(request)
-        return bbp_models.VerifyMetaResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.VerifyMetaResponse(),
             self.do_request('1.0', 'antchain.bbp.meta.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,8 +658,65 @@ class Client:
         Summary: 企业四要素认证
         """
         UtilClient.validate_model(request)
-        return bbp_models.VerifyMetaResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.VerifyMetaResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.meta.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_enterprise_businessinfo(
+        self,
+        request: bbp_models.QueryEnterpriseBusinessinfoRequest,
+    ) -> bbp_models.QueryEnterpriseBusinessinfoResponse:
+        """
+        Description: 经营信息查询
+        Summary: 经营信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_enterprise_businessinfo_ex(request, headers, runtime)
+
+    async def query_enterprise_businessinfo_async(
+        self,
+        request: bbp_models.QueryEnterpriseBusinessinfoRequest,
+    ) -> bbp_models.QueryEnterpriseBusinessinfoResponse:
+        """
+        Description: 经营信息查询
+        Summary: 经营信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_enterprise_businessinfo_ex_async(request, headers, runtime)
+
+    def query_enterprise_businessinfo_ex(
+        self,
+        request: bbp_models.QueryEnterpriseBusinessinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.QueryEnterpriseBusinessinfoResponse:
+        """
+        Description: 经营信息查询
+        Summary: 经营信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.QueryEnterpriseBusinessinfoResponse(),
+            self.do_request('1.0', 'antchain.bbp.enterprise.businessinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_enterprise_businessinfo_ex_async(
+        self,
+        request: bbp_models.QueryEnterpriseBusinessinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.QueryEnterpriseBusinessinfoResponse:
+        """
+        Description: 经营信息查询
+        Summary: 经营信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.QueryEnterpriseBusinessinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.enterprise.businessinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_contract_rule(
@@ -684,7 +754,8 @@ class Client:
         Summary: 外包薪资规则合约发布接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.ApplyContractRuleResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.ApplyContractRuleResponse(),
             self.do_request('1.0', 'antchain.bbp.contract.rule.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +770,8 @@ class Client:
         Summary: 外包薪资规则合约发布接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.ApplyContractRuleResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.ApplyContractRuleResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.contract.rule.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +810,8 @@ class Client:
         Summary: 外包薪资规则合约查询接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.GetContractRuleResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.GetContractRuleResponse(),
             self.do_request('1.0', 'antchain.bbp.contract.rule.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +826,8 @@ class Client:
         Summary: 外包薪资规则合约查询接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.GetContractRuleResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.GetContractRuleResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.contract.rule.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +866,8 @@ class Client:
         Summary: 长城汽车的考勤信息上传接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.UploadStaffAttendanceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.UploadStaffAttendanceResponse(),
             self.do_request('1.0', 'antchain.bbp.staff.attendance.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +882,8 @@ class Client:
         Summary: 长城汽车的考勤信息上传接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.UploadStaffAttendanceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.UploadStaffAttendanceResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.staff.attendance.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +922,8 @@ class Client:
         Summary: 长城汽车的考勤信息获取
         """
         UtilClient.validate_model(request)
-        return bbp_models.QueryStaffAttendanceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.QueryStaffAttendanceResponse(),
             self.do_request('1.0', 'antchain.bbp.staff.attendance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +938,8 @@ class Client:
         Summary: 长城汽车的考勤信息获取
         """
         UtilClient.validate_model(request)
-        return bbp_models.QueryStaffAttendanceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.QueryStaffAttendanceResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.staff.attendance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +978,8 @@ class Client:
         Summary: 长城汽车的考核信息
         """
         UtilClient.validate_model(request)
-        return bbp_models.UploadStaffAssessmentResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.UploadStaffAssessmentResponse(),
             self.do_request('1.0', 'antchain.bbp.staff.assessment.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,7 +994,8 @@ class Client:
         Summary: 长城汽车的考核信息
         """
         UtilClient.validate_model(request)
-        return bbp_models.UploadStaffAssessmentResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.UploadStaffAssessmentResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.staff.assessment.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -954,7 +1034,8 @@ class Client:
         Summary: 考核信息查询
         """
         UtilClient.validate_model(request)
-        return bbp_models.QueryStaffAssessmentResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.QueryStaffAssessmentResponse(),
             self.do_request('1.0', 'antchain.bbp.staff.assessment.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -969,7 +1050,8 @@ class Client:
         Summary: 考核信息查询
         """
         UtilClient.validate_model(request)
-        return bbp_models.QueryStaffAssessmentResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.QueryStaffAssessmentResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.staff.assessment.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1008,7 +1090,8 @@ class Client:
         Summary: 对账单执行接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.ExecContractReconciliationResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.ExecContractReconciliationResponse(),
             self.do_request('1.0', 'antchain.bbp.contract.reconciliation.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1023,7 +1106,8 @@ class Client:
         Summary: 对账单执行接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.ExecContractReconciliationResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.ExecContractReconciliationResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.contract.reconciliation.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1062,7 +1146,8 @@ class Client:
         Summary: 结算单确认
         """
         UtilClient.validate_model(request)
-        return bbp_models.ConfirmContractReconciliationResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.ConfirmContractReconciliationResponse(),
             self.do_request('1.0', 'antchain.bbp.contract.reconciliation.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1077,7 +1162,8 @@ class Client:
         Summary: 结算单确认
         """
         UtilClient.validate_model(request)
-        return bbp_models.ConfirmContractReconciliationResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.ConfirmContractReconciliationResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.contract.reconciliation.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1116,7 +1202,8 @@ class Client:
         Summary: 查询结算单
         """
         UtilClient.validate_model(request)
-        return bbp_models.QueryContractReconciliationResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.QueryContractReconciliationResponse(),
             self.do_request('1.0', 'antchain.bbp.contract.reconciliation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1131,8 +1218,289 @@ class Client:
         Summary: 查询结算单
         """
         UtilClient.validate_model(request)
-        return bbp_models.QueryContractReconciliationResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.QueryContractReconciliationResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.contract.reconciliation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_customer(
+        self,
+        request: bbp_models.VerifyCustomerRequest,
+    ) -> bbp_models.VerifyCustomerResponse:
+        """
+        Description: DID创建及核验
+        Summary: DID创建及核验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_customer_ex(request, headers, runtime)
+
+    async def verify_customer_async(
+        self,
+        request: bbp_models.VerifyCustomerRequest,
+    ) -> bbp_models.VerifyCustomerResponse:
+        """
+        Description: DID创建及核验
+        Summary: DID创建及核验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_customer_ex_async(request, headers, runtime)
+
+    def verify_customer_ex(
+        self,
+        request: bbp_models.VerifyCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.VerifyCustomerResponse:
+        """
+        Description: DID创建及核验
+        Summary: DID创建及核验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.VerifyCustomerResponse(),
+            self.do_request('1.0', 'antchain.bbp.customer.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_customer_ex_async(
+        self,
+        request: bbp_models.VerifyCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.VerifyCustomerResponse:
+        """
+        Description: DID创建及核验
+        Summary: DID创建及核验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.VerifyCustomerResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.customer.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def match_did_account(
+        self,
+        request: bbp_models.MatchDidAccountRequest,
+    ) -> bbp_models.MatchDidAccountResponse:
+        """
+        Description: 身份关联链上账户
+        Summary: 身份关联链上账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.match_did_account_ex(request, headers, runtime)
+
+    async def match_did_account_async(
+        self,
+        request: bbp_models.MatchDidAccountRequest,
+    ) -> bbp_models.MatchDidAccountResponse:
+        """
+        Description: 身份关联链上账户
+        Summary: 身份关联链上账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.match_did_account_ex_async(request, headers, runtime)
+
+    def match_did_account_ex(
+        self,
+        request: bbp_models.MatchDidAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.MatchDidAccountResponse:
+        """
+        Description: 身份关联链上账户
+        Summary: 身份关联链上账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.MatchDidAccountResponse(),
+            self.do_request('1.0', 'antchain.bbp.did.account.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def match_did_account_ex_async(
+        self,
+        request: bbp_models.MatchDidAccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.MatchDidAccountResponse:
+        """
+        Description: 身份关联链上账户
+        Summary: 身份关联链上账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.MatchDidAccountResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.did.account.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def match_did_assets(
+        self,
+        request: bbp_models.MatchDidAssetsRequest,
+    ) -> bbp_models.MatchDidAssetsResponse:
+        """
+        Description: 身份关数字资产
+        Summary: 身份关数字资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.match_did_assets_ex(request, headers, runtime)
+
+    async def match_did_assets_async(
+        self,
+        request: bbp_models.MatchDidAssetsRequest,
+    ) -> bbp_models.MatchDidAssetsResponse:
+        """
+        Description: 身份关数字资产
+        Summary: 身份关数字资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.match_did_assets_ex_async(request, headers, runtime)
+
+    def match_did_assets_ex(
+        self,
+        request: bbp_models.MatchDidAssetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.MatchDidAssetsResponse:
+        """
+        Description: 身份关数字资产
+        Summary: 身份关数字资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.MatchDidAssetsResponse(),
+            self.do_request('1.0', 'antchain.bbp.did.assets.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def match_did_assets_ex_async(
+        self,
+        request: bbp_models.MatchDidAssetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.MatchDidAssetsResponse:
+        """
+        Description: 身份关数字资产
+        Summary: 身份关数字资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.MatchDidAssetsResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.did.assets.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_did_customer(
+        self,
+        request: bbp_models.CreateDidCustomerRequest,
+    ) -> bbp_models.CreateDidCustomerResponse:
+        """
+        Description: DID创建及核验
+        Summary: DID创建及核验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_did_customer_ex(request, headers, runtime)
+
+    async def create_did_customer_async(
+        self,
+        request: bbp_models.CreateDidCustomerRequest,
+    ) -> bbp_models.CreateDidCustomerResponse:
+        """
+        Description: DID创建及核验
+        Summary: DID创建及核验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_did_customer_ex_async(request, headers, runtime)
+
+    def create_did_customer_ex(
+        self,
+        request: bbp_models.CreateDidCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.CreateDidCustomerResponse:
+        """
+        Description: DID创建及核验
+        Summary: DID创建及核验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.CreateDidCustomerResponse(),
+            self.do_request('1.0', 'antchain.bbp.did.customer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_did_customer_ex_async(
+        self,
+        request: bbp_models.CreateDidCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.CreateDidCustomerResponse:
+        """
+        Description: DID创建及核验
+        Summary: DID创建及核验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.CreateDidCustomerResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.did.customer.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_did_enterprise(
+        self,
+        request: bbp_models.CreateDidEnterpriseRequest,
+    ) -> bbp_models.CreateDidEnterpriseResponse:
+        """
+        Description: 企业DID创建及核验
+        Summary: 企业DID创建及核验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_did_enterprise_ex(request, headers, runtime)
+
+    async def create_did_enterprise_async(
+        self,
+        request: bbp_models.CreateDidEnterpriseRequest,
+    ) -> bbp_models.CreateDidEnterpriseResponse:
+        """
+        Description: 企业DID创建及核验
+        Summary: 企业DID创建及核验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_did_enterprise_ex_async(request, headers, runtime)
+
+    def create_did_enterprise_ex(
+        self,
+        request: bbp_models.CreateDidEnterpriseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.CreateDidEnterpriseResponse:
+        """
+        Description: 企业DID创建及核验
+        Summary: 企业DID创建及核验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.CreateDidEnterpriseResponse(),
+            self.do_request('1.0', 'antchain.bbp.did.enterprise.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_did_enterprise_ex_async(
+        self,
+        request: bbp_models.CreateDidEnterpriseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.CreateDidEnterpriseResponse:
+        """
+        Description: 企业DID创建及核验
+        Summary: 企业DID创建及核验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.CreateDidEnterpriseResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.did.enterprise.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def init_insurance_user(
@@ -1170,7 +1538,8 @@ class Client:
         Summary: 用户登陆页面埋点
         """
         UtilClient.validate_model(request)
-        return bbp_models.InitInsuranceUserResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.InitInsuranceUserResponse(),
             self.do_request('1.0', 'antchain.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1185,7 +1554,8 @@ class Client:
         Summary: 用户登陆页面埋点
         """
         UtilClient.validate_model(request)
-        return bbp_models.InitInsuranceUserResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.InitInsuranceUserResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1224,7 +1594,8 @@ class Client:
         Summary: 获取授权信息
         """
         UtilClient.validate_model(request)
-        return bbp_models.QueryInsuranceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.QueryInsuranceResponse(),
             self.do_request('1.0', 'antchain.bbp.insurance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1239,7 +1610,8 @@ class Client:
         Summary: 获取授权信息
         """
         UtilClient.validate_model(request)
-        return bbp_models.QueryInsuranceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.QueryInsuranceResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.insurance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1278,7 +1650,8 @@ class Client:
         Summary: 保单信息上链
         """
         UtilClient.validate_model(request)
-        return bbp_models.OperateInsuranceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.OperateInsuranceResponse(),
             self.do_request('1.0', 'antchain.bbp.insurance.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1293,7 +1666,8 @@ class Client:
         Summary: 保单信息上链
         """
         UtilClient.validate_model(request)
-        return bbp_models.OperateInsuranceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.OperateInsuranceResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.insurance.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1349,7 +1723,8 @@ class Client:
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return bbp_models.UploadInsuranceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.UploadInsuranceResponse(),
             self.do_request('1.0', 'antchain.bbp.insurance.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1381,7 +1756,8 @@ class Client:
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return bbp_models.UploadInsuranceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.UploadInsuranceResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.insurance.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1420,7 +1796,8 @@ class Client:
         Summary: 理赔受理上链
         """
         UtilClient.validate_model(request)
-        return bbp_models.SyncInsuranceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.SyncInsuranceResponse(),
             self.do_request('1.0', 'antchain.bbp.insurance.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1435,7 +1812,8 @@ class Client:
         Summary: 理赔受理上链
         """
         UtilClient.validate_model(request)
-        return bbp_models.SyncInsuranceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.SyncInsuranceResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.insurance.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1474,7 +1852,8 @@ class Client:
         Summary: 保单退保接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.CancelInsuranceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.CancelInsuranceResponse(),
             self.do_request('1.0', 'antchain.bbp.insurance.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1489,8 +1868,121 @@ class Client:
         Summary: 保单退保接口
         """
         UtilClient.validate_model(request)
-        return bbp_models.CancelInsuranceResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.CancelInsuranceResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.insurance.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_insurance_records(
+        self,
+        request: bbp_models.QueryInsuranceRecordsRequest,
+    ) -> bbp_models.QueryInsuranceRecordsResponse:
+        """
+        Description: 查询用户的数据库保单记录
+        Summary: 用户保单信息列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_insurance_records_ex(request, headers, runtime)
+
+    async def query_insurance_records_async(
+        self,
+        request: bbp_models.QueryInsuranceRecordsRequest,
+    ) -> bbp_models.QueryInsuranceRecordsResponse:
+        """
+        Description: 查询用户的数据库保单记录
+        Summary: 用户保单信息列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_insurance_records_ex_async(request, headers, runtime)
+
+    def query_insurance_records_ex(
+        self,
+        request: bbp_models.QueryInsuranceRecordsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.QueryInsuranceRecordsResponse:
+        """
+        Description: 查询用户的数据库保单记录
+        Summary: 用户保单信息列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.QueryInsuranceRecordsResponse(),
+            self.do_request('1.0', 'antchain.bbp.insurance.records.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_insurance_records_ex_async(
+        self,
+        request: bbp_models.QueryInsuranceRecordsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.QueryInsuranceRecordsResponse:
+        """
+        Description: 查询用户的数据库保单记录
+        Summary: 用户保单信息列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.QueryInsuranceRecordsResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.insurance.records.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_insurance_chain(
+        self,
+        request: bbp_models.QueryInsuranceChainRequest,
+    ) -> bbp_models.QueryInsuranceChainResponse:
+        """
+        Description: 保单链上信息查询
+        Summary: 保单链上信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_insurance_chain_ex(request, headers, runtime)
+
+    async def query_insurance_chain_async(
+        self,
+        request: bbp_models.QueryInsuranceChainRequest,
+    ) -> bbp_models.QueryInsuranceChainResponse:
+        """
+        Description: 保单链上信息查询
+        Summary: 保单链上信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_insurance_chain_ex_async(request, headers, runtime)
+
+    def query_insurance_chain_ex(
+        self,
+        request: bbp_models.QueryInsuranceChainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.QueryInsuranceChainResponse:
+        """
+        Description: 保单链上信息查询
+        Summary: 保单链上信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.QueryInsuranceChainResponse(),
+            self.do_request('1.0', 'antchain.bbp.insurance.chain.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_insurance_chain_ex_async(
+        self,
+        request: bbp_models.QueryInsuranceChainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.QueryInsuranceChainResponse:
+        """
+        Description: 保单链上信息查询
+        Summary: 保单链上信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.QueryInsuranceChainResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.insurance.chain.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
@@ -1528,7 +2020,8 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return bbp_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.CreateAntcloudGatewayxFileUploadResponse(),
             self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1543,6 +2036,7 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return bbp_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            bbp_models.CreateAntcloudGatewayxFileUploadResponse(),
             await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
