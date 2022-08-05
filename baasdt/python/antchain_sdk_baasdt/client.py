@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.73'
+                    'sdk_version': '1.3.74'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.73'
+                    'sdk_version': '1.3.74'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -15459,6 +15459,62 @@ class Client:
         return TeaCore.from_map(
             baasdt_models.SignIpContractResponse(),
             await self.do_request_async('1.0', 'baas.antdao.ip.contract.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ip_tradeview(
+        self,
+        request: baasdt_models.QueryIpTradeviewRequest,
+    ) -> baasdt_models.QueryIpTradeviewResponse:
+        """
+        Description: 对接支付宝收单产品-查询支付宝订单详情
+        Summary: 数字商品服务-IP授权-支付宝收单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ip_tradeview_ex(request, headers, runtime)
+
+    async def query_ip_tradeview_async(
+        self,
+        request: baasdt_models.QueryIpTradeviewRequest,
+    ) -> baasdt_models.QueryIpTradeviewResponse:
+        """
+        Description: 对接支付宝收单产品-查询支付宝订单详情
+        Summary: 数字商品服务-IP授权-支付宝收单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ip_tradeview_ex_async(request, headers, runtime)
+
+    def query_ip_tradeview_ex(
+        self,
+        request: baasdt_models.QueryIpTradeviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpTradeviewResponse:
+        """
+        Description: 对接支付宝收单产品-查询支付宝订单详情
+        Summary: 数字商品服务-IP授权-支付宝收单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.QueryIpTradeviewResponse(),
+            self.do_request('1.0', 'baas.antdao.ip.tradeview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ip_tradeview_ex_async(
+        self,
+        request: baasdt_models.QueryIpTradeviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> baasdt_models.QueryIpTradeviewResponse:
+        """
+        Description: 对接支付宝收单产品-查询支付宝订单详情
+        Summary: 数字商品服务-IP授权-支付宝收单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            baasdt_models.QueryIpTradeviewResponse(),
+            await self.do_request_async('1.0', 'baas.antdao.ip.tradeview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_blockanalysis_block(
