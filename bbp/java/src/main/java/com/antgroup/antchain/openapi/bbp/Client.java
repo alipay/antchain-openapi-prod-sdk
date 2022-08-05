@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.10")
+                    new TeaPair("sdk_version", "1.7.26")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -293,6 +293,25 @@ public class Client {
     }
 
     /**
+     * Description: 经营信息查询
+     * Summary: 经营信息查询
+     */
+    public QueryEnterpriseBusinessinfoResponse queryEnterpriseBusinessinfo(QueryEnterpriseBusinessinfoRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEnterpriseBusinessinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 经营信息查询
+     * Summary: 经营信息查询
+     */
+    public QueryEnterpriseBusinessinfoResponse queryEnterpriseBusinessinfoEx(QueryEnterpriseBusinessinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.enterprise.businessinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEnterpriseBusinessinfoResponse());
+    }
+
+    /**
      * Description: 定义外包的薪资方案接口,以【服务商、项目类别、领域、角色、资质】为unique
      * Summary: 外包薪资规则合约发布接口
      */
@@ -466,6 +485,101 @@ public class Client {
     }
 
     /**
+     * Description: DID创建及核验
+     * Summary: DID创建及核验
+     */
+    public VerifyCustomerResponse verifyCustomer(VerifyCustomerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyCustomerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: DID创建及核验
+     * Summary: DID创建及核验
+     */
+    public VerifyCustomerResponse verifyCustomerEx(VerifyCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.customer.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyCustomerResponse());
+    }
+
+    /**
+     * Description: 身份关联链上账户
+     * Summary: 身份关联链上账户
+     */
+    public MatchDidAccountResponse matchDidAccount(MatchDidAccountRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.matchDidAccountEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 身份关联链上账户
+     * Summary: 身份关联链上账户
+     */
+    public MatchDidAccountResponse matchDidAccountEx(MatchDidAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.did.account.match", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new MatchDidAccountResponse());
+    }
+
+    /**
+     * Description: 身份关数字资产
+     * Summary: 身份关数字资产
+     */
+    public MatchDidAssetsResponse matchDidAssets(MatchDidAssetsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.matchDidAssetsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 身份关数字资产
+     * Summary: 身份关数字资产
+     */
+    public MatchDidAssetsResponse matchDidAssetsEx(MatchDidAssetsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.did.assets.match", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new MatchDidAssetsResponse());
+    }
+
+    /**
+     * Description: DID创建及核验
+     * Summary: DID创建及核验
+     */
+    public CreateDidCustomerResponse createDidCustomer(CreateDidCustomerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDidCustomerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: DID创建及核验
+     * Summary: DID创建及核验
+     */
+    public CreateDidCustomerResponse createDidCustomerEx(CreateDidCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.did.customer.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDidCustomerResponse());
+    }
+
+    /**
+     * Description: 企业DID创建及核验
+     * Summary: 企业DID创建及核验
+     */
+    public CreateDidEnterpriseResponse createDidEnterprise(CreateDidEnterpriseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDidEnterpriseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企业DID创建及核验
+     * Summary: 企业DID创建及核验
+     */
+    public CreateDidEnterpriseResponse createDidEnterpriseEx(CreateDidEnterpriseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.did.enterprise.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDidEnterpriseResponse());
+    }
+
+    /**
      * Description: 记录用户登录保司小程序信息
      * Summary: 用户登陆页面埋点
      */
@@ -598,6 +712,44 @@ public class Client {
     public CancelInsuranceResponse cancelInsuranceEx(CancelInsuranceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.insurance.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelInsuranceResponse());
+    }
+
+    /**
+     * Description: 查询用户的数据库保单记录
+     * Summary: 用户保单信息列表查询
+     */
+    public QueryInsuranceRecordsResponse queryInsuranceRecords(QueryInsuranceRecordsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInsuranceRecordsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询用户的数据库保单记录
+     * Summary: 用户保单信息列表查询
+     */
+    public QueryInsuranceRecordsResponse queryInsuranceRecordsEx(QueryInsuranceRecordsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.insurance.records.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInsuranceRecordsResponse());
+    }
+
+    /**
+     * Description: 保单链上信息查询
+     * Summary: 保单链上信息查询
+     */
+    public QueryInsuranceChainResponse queryInsuranceChain(QueryInsuranceChainRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInsuranceChainEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 保单链上信息查询
+     * Summary: 保单链上信息查询
+     */
+    public QueryInsuranceChainResponse queryInsuranceChainEx(QueryInsuranceChainRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.insurance.chain.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInsuranceChainResponse());
     }
 
     /**

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-bbp</artifactId>
-  <version>1.7.10</version>
+  <version>1.7.26</version>
   <packaging>jar</packaging>
   <name>openapi-bbp</name>
   <description>Ant Chain BBP SDK for Java
@@ -46,7 +46,7 @@
     <dependency>
       <groupId>com.aliyun</groupId>
       <artifactId>tea-util</artifactId>
-      <version>0.2.13</version>
+      <version>0.2.14</version>
     </dependency>
     <dependency>
       <groupId>com.aliyun</groupId>
