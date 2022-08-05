@@ -26680,6 +26680,73 @@ export class SignIpContractResponse extends $tea.Model {
   }
 }
 
+export class QueryIpTradeviewRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基础参数
+  baseRequest: BaseRequestInfo;
+  // 支付宝交易单号
+  tradeNo: string;
+  // 发起请求的2088，会校验是否为订单交易方
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      baseRequest: 'base_request',
+      tradeNo: 'trade_no',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      baseRequest: BaseRequestInfo,
+      tradeNo: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpTradeviewResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单信息JSONString
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryBlockanalysisBlockRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -28430,7 +28497,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.73",
+          sdk_version: "1.3.74",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -33643,6 +33710,25 @@ export default class Client {
   async signIpContractEx(request: SignIpContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SignIpContractResponse> {
     Util.validateModel(request);
     return $tea.cast<SignIpContractResponse>(await this.doRequest("1.0", "baas.antdao.ip.contract.sign", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SignIpContractResponse({}));
+  }
+
+  /**
+   * Description: 对接支付宝收单产品-查询支付宝订单详情
+   * Summary: 数字商品服务-IP授权-支付宝收单查询
+   */
+  async queryIpTradeview(request: QueryIpTradeviewRequest): Promise<QueryIpTradeviewResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpTradeviewEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 对接支付宝收单产品-查询支付宝订单详情
+   * Summary: 数字商品服务-IP授权-支付宝收单查询
+   */
+  async queryIpTradeviewEx(request: QueryIpTradeviewRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpTradeviewResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpTradeviewResponse>(await this.doRequest("1.0", "baas.antdao.ip.tradeview.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpTradeviewResponse({}));
   }
 
   /**
