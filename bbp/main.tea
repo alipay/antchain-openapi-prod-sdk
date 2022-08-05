@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.10',
+    sdk_version = '1.7.26',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -322,6 +322,48 @@ model QueryMap {
   name: string(name='name', example='BUSINESS_INFO'),
   // 查询参数
   value?: [ NameValuePair ](name='value', example=''),
+}
+
+// 用户宠物保单信息模型
+model InsuranceRecordModel {
+  // 保司编码
+  mechanismCode: string(name='mechanism_code', example='test'),
+  // 保单号
+  policyNo: string(name='policy_no', example='test'),
+  // 保险产品SKU
+  thirdPartSku?: string(name='third_part_sku', example='test'),
+  // 保司机构名称
+  mechanismName?: string(name='mechanism_name', example='test'),
+  // 保险类型
+  insuranceType: string(name='insurance_type', example='test'),
+  // 用户ID，天猫uid
+  sourceUid: string(name='source_uid', example='test'),
+  // 渠道来源 TIANMAO（天猫）
+  source: string(name='source', example='test'),
+  // 用户类型 PERSON
+  userType: string(name='user_type', example='test'),
+  // 扩展信息 （保单附件路径）
+  extend?: string(name='extend', example='test'),
+  // 保单生效时间
+  policyEffectTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='policy_effect_time', example='test'),
+  // 保单失效时间
+  policyInvalidTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='policy_invalid_time', example='test'),
+  // 订单总金额 单位为分
+  policyTotalAmount: long(name='policy_total_amount', example='test'),
+  // 保费支付日期
+  policyPayDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='policy_pay_date', example='test'),
+  // 保单支付总期数
+  policyTotalStage: long(name='policy_total_stage', example='test'),
+  // 每期支付金额
+  policyStageAverAmount?: long(name='policy_stage_aver_amount', example='test'),
+  // 保单已支付期数
+  policyPaidStage?: long(name='policy_paid_stage', example='test'),
+  // 订单时间
+  orderTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='order_time', example='test'),
+  // 活动码 赠险/商业险
+  activityCode?: string(name='activity_code', example='test'),
+  // 授权类型 0 非授权 1 授权
+  authorizationType: long(name='authorization_type', example='test'),
 }
 
 // 考勤信息
@@ -782,6 +824,56 @@ async function verifyMetaEx(request: VerifyMetaRequest, headers: map[string]stri
   return doRequest('1.0' ,'antchain.bbp.meta.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryEnterpriseBusinessinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  bizCode: string(name='biz_code'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业唯一编码
+  epCertNo: string(name='ep_cert_no'),
+}
+
+model QueryEnterpriseBusinessinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 签名之后的结果
+  signature?: string(name='signature'),
+  // 国民经济行业代码
+  industryCode?: string(name='industry_code'),
+  // 国民经济行业名称
+  industryName?: string(name='industry_name'),
+  // 行业门类代码
+  industryPhyCode?: string(name='industry_phy_code'),
+  // 行业门类名称
+  industryPhyName?: string(name='industry_phy_name'),
+}
+
+/**
+ * Description: 经营信息查询
+ * Summary: 经营信息查询
+ */
+async function queryEnterpriseBusinessinfo(request: QueryEnterpriseBusinessinfoRequest): QueryEnterpriseBusinessinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEnterpriseBusinessinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 经营信息查询
+ * Summary: 经营信息查询
+ */
+async function queryEnterpriseBusinessinfoEx(request: QueryEnterpriseBusinessinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEnterpriseBusinessinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.bbp.enterprise.businessinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model ApplyContractRuleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1160,6 +1252,258 @@ async function queryContractReconciliationEx(request: QueryContractReconciliatio
   return doRequest('1.0' ,'antchain.bbp.contract.reconciliation.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model VerifyCustomerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  bizCode?: string(name='biz_code'),
+  // 支付宝uid
+  alipayUid: string(name='alipay_uid'),
+  // 个人名称
+  personName?: string(name='person_name'),
+  // 个人联系电话
+  personPhone?: string(name='person_phone'),
+  // 核验证件号
+  personCertNo?: string(name='person_cert_no'),
+  // 个人身份类型  RESIDENT（身份证）
+  personCertType?: string(name='person_cert_type'),
+}
+
+model VerifyCustomerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户生成的did
+  did?: string(name='did'),
+}
+
+/**
+ * Description: DID创建及核验
+ * Summary: DID创建及核验
+ */
+async function verifyCustomer(request: VerifyCustomerRequest): VerifyCustomerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyCustomerEx(request, headers, runtime);
+}
+
+/**
+ * Description: DID创建及核验
+ * Summary: DID创建及核验
+ */
+async function verifyCustomerEx(request: VerifyCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyCustomerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.bbp.customer.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model MatchDidAccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码(YYX)
+  bizCode: string(name='biz_code'),
+  // 支付宝uid
+  uid: string(name='uid'),
+  // 分布式id ，双向check
+  did: string(name='did'),
+  // 链id
+  chainId?: string(name='chain_id'),
+  // 链账户
+  chainAccount: string(name='chain_account'),
+  // 托管情况下包含
+  kmsKeyId?: string(name='kms_key_id'),
+}
+
+model MatchDidAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 身份关联链上账户
+ * Summary: 身份关联链上账户
+ */
+async function matchDidAccount(request: MatchDidAccountRequest): MatchDidAccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return matchDidAccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 身份关联链上账户
+ * Summary: 身份关联链上账户
+ */
+async function matchDidAccountEx(request: MatchDidAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): MatchDidAccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.bbp.did.account.match', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model MatchDidAssetsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码(YYX)
+  bizCode: string(name='biz_code'),
+  // 支付宝uid
+  uid: string(name='uid'),
+  // 分布式id ，双向check
+  did: string(name='did'),
+  // 链id
+  chainId?: string(name='chain_id'),
+  // 链账户
+  chainAccount: string(name='chain_account'),
+  // 链资产地址 HASH
+  contract: string(name='contract'),
+  // 合约类型 0-WASM
+  contractType: long(name='contract_type'),
+  // 资产类型
+  assertType: string(name='assert_type'),
+  // 上次资产发生变更的区块高度
+  blockNumber?: string(name='block_number'),
+  // 上次资产发生变更的序号
+  txIndex: string(name='tx_index'),
+  // 上次资产发生变更的交易序列号
+  longIndex: string(name='long_index'),
+  // 资产名称
+  assertName: string(name='assert_name'),
+  // 资产信息（资产描述信息）
+  assertData: string(name='assert_data'),
+  // 资产ID
+  assertId: string(name='assert_id'),
+}
+
+model MatchDidAssetsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 资产id
+  assertId?: string(name='assert_id'),
+}
+
+/**
+ * Description: 身份关数字资产
+ * Summary: 身份关数字资产
+ */
+async function matchDidAssets(request: MatchDidAssetsRequest): MatchDidAssetsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return matchDidAssetsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 身份关数字资产
+ * Summary: 身份关数字资产
+ */
+async function matchDidAssetsEx(request: MatchDidAssetsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): MatchDidAssetsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.bbp.did.assets.match', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDidCustomerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  bizCode: string(name='biz_code'),
+  // 支付宝uid
+  alipayUid: string(name='alipay_uid'),
+  // 个人名称
+  personName?: string(name='person_name'),
+  // 个人联系电话
+  personPhone?: string(name='person_phone'),
+  // 核验证件号
+  personCertNo?: string(name='person_cert_no'),
+  // 个人身份类型
+  personCertType?: string(name='person_cert_type'),
+}
+
+model CreateDidCustomerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户生成的did	用户的did
+  did?: string(name='did'),
+  // 用户昵称
+  nickname?: string(name='nickname'),
+}
+
+/**
+ * Description: DID创建及核验
+ * Summary: DID创建及核验
+ */
+async function createDidCustomer(request: CreateDidCustomerRequest): CreateDidCustomerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDidCustomerEx(request, headers, runtime);
+}
+
+/**
+ * Description: DID创建及核验
+ * Summary: DID创建及核验
+ */
+async function createDidCustomerEx(request: CreateDidCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDidCustomerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.bbp.did.customer.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDidEnterpriseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  bizCode: string(name='biz_code'),
+  // 企业唯一编码
+  enterpriseCode: string(name='enterprise_code'),
+  // 企业名称
+  enterpriseName?: string(name='enterprise_name'),
+  // ORG_CERT 全国组织机构代码证书
+  certType?: string(name='cert_type'),
+}
+
+model CreateDidEnterpriseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 企业用户生成的did
+  did?: string(name='did'),
+}
+
+/**
+ * Description: 企业DID创建及核验
+ * Summary: 企业DID创建及核验
+ */
+async function createDidEnterprise(request: CreateDidEnterpriseRequest): CreateDidEnterpriseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDidEnterpriseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业DID创建及核验
+ * Summary: 企业DID创建及核验
+ */
+async function createDidEnterpriseEx(request: CreateDidEnterpriseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDidEnterpriseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.bbp.did.enterprise.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model InitInsuranceUserRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1494,6 +1838,96 @@ async function cancelInsurance(request: CancelInsuranceRequest): CancelInsurance
 async function cancelInsuranceEx(request: CancelInsuranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelInsuranceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.bbp.insurance.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInsuranceRecordsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 第三方Id，此处为天猫uid
+  sourceUid: string(name='source_uid'),
+  // 保司编码
+  mechanismCode: string(name='mechanism_code'),
+}
+
+model QueryInsuranceRecordsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户保单信息集合
+  insuranceRecordsList?: [ InsuranceRecordModel ](name='insurance_records_list'),
+}
+
+/**
+ * Description: 查询用户的数据库保单记录
+ * Summary: 用户保单信息列表查询
+ */
+async function queryInsuranceRecords(request: QueryInsuranceRecordsRequest): QueryInsuranceRecordsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInsuranceRecordsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询用户的数据库保单记录
+ * Summary: 用户保单信息列表查询
+ */
+async function queryInsuranceRecordsEx(request: QueryInsuranceRecordsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInsuranceRecordsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.bbp.insurance.records.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInsuranceChainRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 第三方Id，此处为天猫uid
+  sourceUid: string(name='source_uid'),
+  // 保单号
+  policyNo: string(name='policy_no'),
+}
+
+model QueryInsuranceChainResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 保司编码
+  merchanismCode?: string(name='merchanism_code'),
+  // 订单来源 TIANMAO
+  source?: string(name='source'),
+  // 保险类型
+  insuraceType?: string(name='insurace_type'),
+  // 保单加密信息（加密数据，由保司持有密钥）
+  insuranceContext?: string(name='insurance_context'),
+  // 退保保单信息（加密数据，由保司持有密钥）
+  insuranceClaimContext?: string(name='insurance_claim_context'),
+  // 保单理赔信息（加密数据，由保司持有密钥）
+  insuranceSurrenderContext?: string(name='insurance_surrender_context'),
+}
+
+/**
+ * Description: 保单链上信息查询
+ * Summary: 保单链上信息查询
+ */
+async function queryInsuranceChain(request: QueryInsuranceChainRequest): QueryInsuranceChainResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInsuranceChainEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保单链上信息查询
+ * Summary: 保单链上信息查询
+ */
+async function queryInsuranceChainEx(request: QueryInsuranceChainRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInsuranceChainResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.bbp.insurance.chain.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
