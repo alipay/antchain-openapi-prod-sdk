@@ -423,6 +423,8 @@ use AntChain\BAASDT\Models\QueryIpSkuconfigRequest;
 use AntChain\BAASDT\Models\QueryIpSkuconfigResponse;
 use AntChain\BAASDT\Models\QueryIpSuperviseapproveRequest;
 use AntChain\BAASDT\Models\QueryIpSuperviseapproveResponse;
+use AntChain\BAASDT\Models\QueryIpTradeviewRequest;
+use AntChain\BAASDT\Models\QueryIpTradeviewResponse;
 use AntChain\BAASDT\Models\QueryIpTwcaccountRequest;
 use AntChain\BAASDT\Models\QueryIpTwcaccountResponse;
 use AntChain\BAASDT\Models\QueryIpTypeRequest;
@@ -738,7 +740,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.73',
+                    'sdk_version'      => '1.3.74',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -9728,6 +9730,39 @@ class Client
         Utils::validateModel($request);
 
         return SignIpContractResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.contract.sign', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对接支付宝收单产品-查询支付宝订单详情
+     * Summary: 数字商品服务-IP授权-支付宝收单查询.
+     *
+     * @param QueryIpTradeviewRequest $request
+     *
+     * @return QueryIpTradeviewResponse
+     */
+    public function queryIpTradeview($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIpTradeviewEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对接支付宝收单产品-查询支付宝订单详情
+     * Summary: 数字商品服务-IP授权-支付宝收单查询.
+     *
+     * @param QueryIpTradeviewRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryIpTradeviewResponse
+     */
+    public function queryIpTradeviewEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIpTradeviewResponse::fromMap($this->doRequest('1.0', 'baas.antdao.ip.tradeview.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
