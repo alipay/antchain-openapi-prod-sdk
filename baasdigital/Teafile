@@ -1,0 +1,71 @@
+{
+  "scope": "antchain",
+  "name": "BAASDIGITAL",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.antgroup.antchain.openapi:openapi-baasdigital:1.0.34",
+    "go": "github.com/antchain-openapi-sdk-go/baasdigital/client:v1.0.34",
+    "csharp": "AntChain.SDK.BAASDIGITAL:0.0.1",
+    "ts": "@antchain/baasdigital:^1.0.0",
+    "php": "antchain/baasdigital:1.0.34",
+    "python": "antchain_sdk_baasdigital:0.0.1"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AntchainUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.antgroup.antchain.openapi.baasdigital",
+    "packageInfo": {
+      "description": "Ant Chain BAASDIGITAL SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "groupId": "com.antgroup.antchain.openapi",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.BAASDIGITAL",
+    "packageInfo": {
+      "name": "baasdigital",
+      "title": "antchain-baasdigital",
+      "description": "Ant Chain BAASDIGITAL SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.BAASDIGITAL",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/baasdigital",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_baasdigital",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_baasdigital",
+      "desc": "Ant Chain BAASDIGITAL SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
