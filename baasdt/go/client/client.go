@@ -35706,6 +35706,90 @@ func (s *SignIpContractResponse) SetSignedContractFileUrl(v string) *SignIpContr
 	return s
 }
 
+type QueryIpTradeviewRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 支付宝交易单号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true"`
+	// 发起请求的2088，会校验是否为订单交易方
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s QueryIpTradeviewRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpTradeviewRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpTradeviewRequest) SetAuthToken(v string) *QueryIpTradeviewRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpTradeviewRequest) SetProductInstanceId(v string) *QueryIpTradeviewRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpTradeviewRequest) SetBaseRequest(v *BaseRequestInfo) *QueryIpTradeviewRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *QueryIpTradeviewRequest) SetTradeNo(v string) *QueryIpTradeviewRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *QueryIpTradeviewRequest) SetUserId(v string) *QueryIpTradeviewRequest {
+	s.UserId = &v
+	return s
+}
+
+type QueryIpTradeviewResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单信息JSONString
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryIpTradeviewResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpTradeviewResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpTradeviewResponse) SetReqMsgId(v string) *QueryIpTradeviewResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpTradeviewResponse) SetResultCode(v string) *QueryIpTradeviewResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpTradeviewResponse) SetResultMsg(v string) *QueryIpTradeviewResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpTradeviewResponse) SetResult(v string) *QueryIpTradeviewResponse {
+	s.Result = &v
+	return s
+}
+
 type QueryBlockanalysisBlockRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -38027,7 +38111,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.73"),
+				"sdk_version":      tea.String("1.3.74"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -47295,6 +47379,40 @@ func (client *Client) SignIpContractEx(request *SignIpContractRequest, headers m
 	}
 	_result = &SignIpContractResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.contract.sign"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 对接支付宝收单产品-查询支付宝订单详情
+ * Summary: 数字商品服务-IP授权-支付宝收单查询
+ */
+func (client *Client) QueryIpTradeview(request *QueryIpTradeviewRequest) (_result *QueryIpTradeviewResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpTradeviewResponse{}
+	_body, _err := client.QueryIpTradeviewEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 对接支付宝收单产品-查询支付宝订单详情
+ * Summary: 数字商品服务-IP授权-支付宝收单查询
+ */
+func (client *Client) QueryIpTradeviewEx(request *QueryIpTradeviewRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpTradeviewResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpTradeviewResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.tradeview.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
