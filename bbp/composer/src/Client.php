@@ -25,6 +25,10 @@ use AntChain\BBP\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\BBP\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\BBP\Models\CreateCustomerRequest;
 use AntChain\BBP\Models\CreateCustomerResponse;
+use AntChain\BBP\Models\CreateDidCustomerRequest;
+use AntChain\BBP\Models\CreateDidCustomerResponse;
+use AntChain\BBP\Models\CreateDidEnterpriseRequest;
+use AntChain\BBP\Models\CreateDidEnterpriseResponse;
 use AntChain\BBP\Models\ExecContractReconciliationRequest;
 use AntChain\BBP\Models\ExecContractReconciliationResponse;
 use AntChain\BBP\Models\GetContractRuleRequest;
@@ -33,12 +37,22 @@ use AntChain\BBP\Models\InitInsuranceUserRequest;
 use AntChain\BBP\Models\InitInsuranceUserResponse;
 use AntChain\BBP\Models\InitVerifyRequest;
 use AntChain\BBP\Models\InitVerifyResponse;
+use AntChain\BBP\Models\MatchDidAccountRequest;
+use AntChain\BBP\Models\MatchDidAccountResponse;
+use AntChain\BBP\Models\MatchDidAssetsRequest;
+use AntChain\BBP\Models\MatchDidAssetsResponse;
 use AntChain\BBP\Models\OperateInsuranceRequest;
 use AntChain\BBP\Models\OperateInsuranceResponse;
 use AntChain\BBP\Models\QueryContractReconciliationRequest;
 use AntChain\BBP\Models\QueryContractReconciliationResponse;
 use AntChain\BBP\Models\QueryCustomerRequest;
 use AntChain\BBP\Models\QueryCustomerResponse;
+use AntChain\BBP\Models\QueryEnterpriseBusinessinfoRequest;
+use AntChain\BBP\Models\QueryEnterpriseBusinessinfoResponse;
+use AntChain\BBP\Models\QueryInsuranceChainRequest;
+use AntChain\BBP\Models\QueryInsuranceChainResponse;
+use AntChain\BBP\Models\QueryInsuranceRecordsRequest;
+use AntChain\BBP\Models\QueryInsuranceRecordsResponse;
 use AntChain\BBP\Models\QueryInsuranceRequest;
 use AntChain\BBP\Models\QueryInsuranceResponse;
 use AntChain\BBP\Models\QueryStaffAssessmentRequest;
@@ -55,6 +69,8 @@ use AntChain\BBP\Models\UploadStaffAssessmentRequest;
 use AntChain\BBP\Models\UploadStaffAssessmentResponse;
 use AntChain\BBP\Models\UploadStaffAttendanceRequest;
 use AntChain\BBP\Models\UploadStaffAttendanceResponse;
+use AntChain\BBP\Models\VerifyCustomerRequest;
+use AntChain\BBP\Models\VerifyCustomerResponse;
 use AntChain\BBP\Models\VerifyMetaRequest;
 use AntChain\BBP\Models\VerifyMetaResponse;
 use AntChain\Util\UtilClient;
@@ -204,7 +220,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.10',
+                    'sdk_version'      => '1.7.26',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -479,6 +495,39 @@ class Client
         Utils::validateModel($request);
 
         return VerifyMetaResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.meta.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 经营信息查询
+     * Summary: 经营信息查询.
+     *
+     * @param QueryEnterpriseBusinessinfoRequest $request
+     *
+     * @return QueryEnterpriseBusinessinfoResponse
+     */
+    public function queryEnterpriseBusinessinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEnterpriseBusinessinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 经营信息查询
+     * Summary: 经营信息查询.
+     *
+     * @param QueryEnterpriseBusinessinfoRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryEnterpriseBusinessinfoResponse
+     */
+    public function queryEnterpriseBusinessinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEnterpriseBusinessinfoResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.enterprise.businessinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -779,6 +828,171 @@ class Client
     }
 
     /**
+     * Description: DID创建及核验
+     * Summary: DID创建及核验.
+     *
+     * @param VerifyCustomerRequest $request
+     *
+     * @return VerifyCustomerResponse
+     */
+    public function verifyCustomer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyCustomerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: DID创建及核验
+     * Summary: DID创建及核验.
+     *
+     * @param VerifyCustomerRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return VerifyCustomerResponse
+     */
+    public function verifyCustomerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyCustomerResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.customer.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 身份关联链上账户
+     * Summary: 身份关联链上账户.
+     *
+     * @param MatchDidAccountRequest $request
+     *
+     * @return MatchDidAccountResponse
+     */
+    public function matchDidAccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->matchDidAccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 身份关联链上账户
+     * Summary: 身份关联链上账户.
+     *
+     * @param MatchDidAccountRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return MatchDidAccountResponse
+     */
+    public function matchDidAccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return MatchDidAccountResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.did.account.match', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 身份关数字资产
+     * Summary: 身份关数字资产.
+     *
+     * @param MatchDidAssetsRequest $request
+     *
+     * @return MatchDidAssetsResponse
+     */
+    public function matchDidAssets($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->matchDidAssetsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 身份关数字资产
+     * Summary: 身份关数字资产.
+     *
+     * @param MatchDidAssetsRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return MatchDidAssetsResponse
+     */
+    public function matchDidAssetsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return MatchDidAssetsResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.did.assets.match', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: DID创建及核验
+     * Summary: DID创建及核验.
+     *
+     * @param CreateDidCustomerRequest $request
+     *
+     * @return CreateDidCustomerResponse
+     */
+    public function createDidCustomer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidCustomerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: DID创建及核验
+     * Summary: DID创建及核验.
+     *
+     * @param CreateDidCustomerRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateDidCustomerResponse
+     */
+    public function createDidCustomerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidCustomerResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.did.customer.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业DID创建及核验
+     * Summary: 企业DID创建及核验.
+     *
+     * @param CreateDidEnterpriseRequest $request
+     *
+     * @return CreateDidEnterpriseResponse
+     */
+    public function createDidEnterprise($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidEnterpriseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业DID创建及核验
+     * Summary: 企业DID创建及核验.
+     *
+     * @param CreateDidEnterpriseRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateDidEnterpriseResponse
+     */
+    public function createDidEnterpriseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidEnterpriseResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.did.enterprise.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 记录用户登录保司小程序信息
      * Summary: 用户登陆页面埋点.
      *
@@ -992,6 +1206,72 @@ class Client
         Utils::validateModel($request);
 
         return CancelInsuranceResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.insurance.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询用户的数据库保单记录
+     * Summary: 用户保单信息列表查询.
+     *
+     * @param QueryInsuranceRecordsRequest $request
+     *
+     * @return QueryInsuranceRecordsResponse
+     */
+    public function queryInsuranceRecords($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInsuranceRecordsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询用户的数据库保单记录
+     * Summary: 用户保单信息列表查询.
+     *
+     * @param QueryInsuranceRecordsRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryInsuranceRecordsResponse
+     */
+    public function queryInsuranceRecordsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInsuranceRecordsResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.insurance.records.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保单链上信息查询
+     * Summary: 保单链上信息查询.
+     *
+     * @param QueryInsuranceChainRequest $request
+     *
+     * @return QueryInsuranceChainResponse
+     */
+    public function queryInsuranceChain($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInsuranceChainEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保单链上信息查询
+     * Summary: 保单链上信息查询.
+     *
+     * @param QueryInsuranceChainRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryInsuranceChainResponse
+     */
+    public function queryInsuranceChainEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInsuranceChainResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.insurance.chain.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
