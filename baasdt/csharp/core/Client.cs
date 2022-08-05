@@ -137,7 +137,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.73"},
+                        {"sdk_version", "1.3.74"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.BAASDT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.73"},
+                        {"sdk_version", "1.3.74"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -11737,6 +11737,48 @@ namespace AntChain.SDK.BAASDT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SignIpContractResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.contract.sign", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 对接支付宝收单产品-查询支付宝订单详情
+         * Summary: 数字商品服务-IP授权-支付宝收单查询
+         */
+        public QueryIpTradeviewResponse QueryIpTradeview(QueryIpTradeviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIpTradeviewEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对接支付宝收单产品-查询支付宝订单详情
+         * Summary: 数字商品服务-IP授权-支付宝收单查询
+         */
+        public async Task<QueryIpTradeviewResponse> QueryIpTradeviewAsync(QueryIpTradeviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIpTradeviewExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对接支付宝收单产品-查询支付宝订单详情
+         * Summary: 数字商品服务-IP授权-支付宝收单查询
+         */
+        public QueryIpTradeviewResponse QueryIpTradeviewEx(QueryIpTradeviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIpTradeviewResponse>(DoRequest("1.0", "baas.antdao.ip.tradeview.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 对接支付宝收单产品-查询支付宝订单详情
+         * Summary: 数字商品服务-IP授权-支付宝收单查询
+         */
+        public async Task<QueryIpTradeviewResponse> QueryIpTradeviewExAsync(QueryIpTradeviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIpTradeviewResponse>(await DoRequestAsync("1.0", "baas.antdao.ip.tradeview.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
