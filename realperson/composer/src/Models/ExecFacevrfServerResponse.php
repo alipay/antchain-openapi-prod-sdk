@@ -43,13 +43,20 @@ class ExecFacevrfServerResponse extends Model
      * @var string
      */
     public $reason;
+
+    // 认证主体附件信息，包含共计类型等
+    /**
+     * @var string
+     */
+    public $materialInfo;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'certifyId'  => 'certify_id',
-        'passed'     => 'passed',
-        'reason'     => 'reason',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'certifyId'    => 'certify_id',
+        'passed'       => 'passed',
+        'reason'       => 'reason',
+        'materialInfo' => 'material_info',
     ];
 
     public function validate()
@@ -76,6 +83,9 @@ class ExecFacevrfServerResponse extends Model
         }
         if (null !== $this->reason) {
             $res['reason'] = $this->reason;
+        }
+        if (null !== $this->materialInfo) {
+            $res['material_info'] = $this->materialInfo;
         }
 
         return $res;
@@ -106,6 +116,9 @@ class ExecFacevrfServerResponse extends Model
         }
         if (isset($map['reason'])) {
             $model->reason = $map['reason'];
+        }
+        if (isset($map['material_info'])) {
+            $model->materialInfo = $map['material_info'];
         }
 
         return $model;

@@ -121,6 +121,12 @@ class CreateFacevrfServerRequest extends Model
      * @var bool
      */
     public $callbackNeedRetry;
+
+    // 活体检测的类型
+    /**
+     * @var string
+     */
+    public $model;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -141,6 +147,7 @@ class CreateFacevrfServerRequest extends Model
         'userIp'            => 'user_ip',
         'userMobile'        => 'user_mobile',
         'callbackNeedRetry' => 'callback_need_retry',
+        'model'             => 'model',
     ];
 
     public function validate()
@@ -214,6 +221,9 @@ class CreateFacevrfServerRequest extends Model
         if (null !== $this->callbackNeedRetry) {
             $res['callback_need_retry'] = $this->callbackNeedRetry;
         }
+        if (null !== $this->model) {
+            $res['model'] = $this->model;
+        }
 
         return $res;
     }
@@ -282,6 +292,9 @@ class CreateFacevrfServerRequest extends Model
         }
         if (isset($map['callback_need_retry'])) {
             $model->callbackNeedRetry = $map['callback_need_retry'];
+        }
+        if (isset($map['model'])) {
+            $model->model = $map['model'];
         }
 
         return $model;

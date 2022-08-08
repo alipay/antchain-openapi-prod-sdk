@@ -23,6 +23,8 @@ use AntChain\REALPERSON\Models\CheckRouteThreemetaRequest;
 use AntChain\REALPERSON\Models\CheckRouteThreemetaResponse;
 use AntChain\REALPERSON\Models\CheckRouteTwometaRequest;
 use AntChain\REALPERSON\Models\CheckRouteTwometaResponse;
+use AntChain\REALPERSON\Models\CheckTwometaHashRequest;
+use AntChain\REALPERSON\Models\CheckTwometaHashResponse;
 use AntChain\REALPERSON\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\REALPERSON\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\REALPERSON\Models\CreateFacevrfServerRequest;
@@ -188,7 +190,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.4',
+                    'sdk_version'      => '1.7.0',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -712,6 +714,39 @@ class Client
         Utils::validateModel($request);
 
         return CheckAnticheatPersonalResponse::fromMap($this->doRequest('1.0', 'di.realperson.anticheat.personal.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二要素支持hash主体信息
+     * Summary: 个人二要素核验支持hash的主体信息.
+     *
+     * @param CheckTwometaHashRequest $request
+     *
+     * @return CheckTwometaHashResponse
+     */
+    public function checkTwometaHash($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkTwometaHashEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二要素支持hash主体信息
+     * Summary: 个人二要素核验支持hash的主体信息.
+     *
+     * @param CheckTwometaHashRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CheckTwometaHashResponse
+     */
+    public function checkTwometaHashEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckTwometaHashResponse::fromMap($this->doRequest('1.0', 'di.realperson.twometa.hash.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
