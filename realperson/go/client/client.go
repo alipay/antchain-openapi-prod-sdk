@@ -414,6 +414,8 @@ type CreateFacevrfServerRequest struct {
 	UserMobile *string `json:"user_mobile,omitempty" xml:"user_mobile,omitempty"`
 	// callbackUrl回调时是否需要重试，默认false(不需要重试)
 	CallbackNeedRetry *bool `json:"callback_need_retry,omitempty" xml:"callback_need_retry,omitempty"`
+	// 活体检测的类型
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
 }
 
 func (s CreateFacevrfServerRequest) String() string {
@@ -516,6 +518,11 @@ func (s *CreateFacevrfServerRequest) SetUserMobile(v string) *CreateFacevrfServe
 
 func (s *CreateFacevrfServerRequest) SetCallbackNeedRetry(v bool) *CreateFacevrfServerRequest {
 	s.CallbackNeedRetry = &v
+	return s
+}
+
+func (s *CreateFacevrfServerRequest) SetModel(v string) *CreateFacevrfServerRequest {
+	s.Model = &v
 	return s
 }
 
@@ -693,6 +700,8 @@ type ExecFacevrfServerResponse struct {
 	Passed *string `json:"passed,omitempty" xml:"passed,omitempty"`
 	// 业务失败原因
 	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	// 认证主体附件信息，包含共计类型等
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
 }
 
 func (s ExecFacevrfServerResponse) String() string {
@@ -730,6 +739,11 @@ func (s *ExecFacevrfServerResponse) SetPassed(v string) *ExecFacevrfServerRespon
 
 func (s *ExecFacevrfServerResponse) SetReason(v string) *ExecFacevrfServerResponse {
 	s.Reason = &v
+	return s
+}
+
+func (s *ExecFacevrfServerResponse) SetMaterialInfo(v string) *ExecFacevrfServerResponse {
+	s.MaterialInfo = &v
 	return s
 }
 
@@ -1944,6 +1958,97 @@ func (s *CheckAnticheatPersonalResponse) SetExternInfo(v string) *CheckAnticheat
 	return s
 }
 
+type CheckTwometaHashRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// hash后的身份证号，不区分大小写，使用的hash算法参考hash_type字段
+	CertNoHash *string `json:"cert_no_hash,omitempty" xml:"cert_no_hash,omitempty" require:"true"`
+	// hash后的姓名，不区分大小写，使用的hash类型参考hash_type
+	CertNameHash *string `json:"cert_name_hash,omitempty" xml:"cert_name_hash,omitempty" require:"true"`
+	// 本次核验id
+	OuterOrderId *string `json:"outer_order_id,omitempty" xml:"outer_order_id,omitempty" require:"true"`
+	// 支持的hash类型
+	HashType *string `json:"hash_type,omitempty" xml:"hash_type,omitempty" require:"true"`
+	// json格式的扩展字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckTwometaHashRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckTwometaHashRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckTwometaHashRequest) SetAuthToken(v string) *CheckTwometaHashRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckTwometaHashRequest) SetProductInstanceId(v string) *CheckTwometaHashRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckTwometaHashRequest) SetCertNoHash(v string) *CheckTwometaHashRequest {
+	s.CertNoHash = &v
+	return s
+}
+
+func (s *CheckTwometaHashRequest) SetCertNameHash(v string) *CheckTwometaHashRequest {
+	s.CertNameHash = &v
+	return s
+}
+
+func (s *CheckTwometaHashRequest) SetOuterOrderId(v string) *CheckTwometaHashRequest {
+	s.OuterOrderId = &v
+	return s
+}
+
+func (s *CheckTwometaHashRequest) SetHashType(v string) *CheckTwometaHashRequest {
+	s.HashType = &v
+	return s
+}
+
+func (s *CheckTwometaHashRequest) SetExternInfo(v string) *CheckTwometaHashRequest {
+	s.ExternInfo = &v
+	return s
+}
+
+type CheckTwometaHashResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CheckTwometaHashResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckTwometaHashResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckTwometaHashResponse) SetReqMsgId(v string) *CheckTwometaHashResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckTwometaHashResponse) SetResultCode(v string) *CheckTwometaHashResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckTwometaHashResponse) SetResultMsg(v string) *CheckTwometaHashResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2186,7 +2291,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.4"),
+				"sdk_version":      tea.String("1.7.0"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2732,6 +2837,40 @@ func (client *Client) CheckAnticheatPersonalEx(request *CheckAnticheatPersonalRe
 	}
 	_result = &CheckAnticheatPersonalResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.anticheat.personal.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 二要素支持hash主体信息
+ * Summary: 个人二要素核验支持hash的主体信息
+ */
+func (client *Client) CheckTwometaHash(request *CheckTwometaHashRequest) (_result *CheckTwometaHashResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckTwometaHashResponse{}
+	_body, _err := client.CheckTwometaHashEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 二要素支持hash主体信息
+ * Summary: 个人二要素核验支持hash的主体信息
+ */
+func (client *Client) CheckTwometaHashEx(request *CheckTwometaHashRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckTwometaHashResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckTwometaHashResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.twometa.hash.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
