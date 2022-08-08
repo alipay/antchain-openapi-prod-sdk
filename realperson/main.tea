@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.4',
+    sdk_version = '1.7.0',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -283,6 +283,8 @@ model CreateFacevrfServerRequest = {
   userMobile?: string(name='user_mobile'),
   // callbackUrl回调时是否需要重试，默认false(不需要重试)
   callbackNeedRetry?: boolean(name='callback_need_retry'),
+  // 活体检测的类型
+  model?: string(name='model'),
 }
 
 model CreateFacevrfServerResponse = {
@@ -362,6 +364,8 @@ model ExecFacevrfServerResponse = {
   passed?: string(name='passed'),
   // 业务失败原因
   reason?: string(name='reason'),
+  // 认证主体附件信息，包含共计类型等
+  materialInfo?: string(name='material_info'),
 }
 
 /**
@@ -952,6 +956,50 @@ async function checkAnticheatPersonal(request: CheckAnticheatPersonalRequest): C
 async function checkAnticheatPersonalEx(request: CheckAnticheatPersonalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckAnticheatPersonalResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'di.realperson.anticheat.personal.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckTwometaHashRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // hash后的身份证号，不区分大小写，使用的hash算法参考hash_type字段
+  certNoHash: string(name='cert_no_hash'),
+  // hash后的姓名，不区分大小写，使用的hash类型参考hash_type
+  certNameHash: string(name='cert_name_hash'),
+  // 本次核验id
+  outerOrderId: string(name='outer_order_id'),
+  // 支持的hash类型
+  hashType: string(name='hash_type'),
+  // json格式的扩展字段
+  externInfo?: string(name='extern_info'),
+}
+
+model CheckTwometaHashResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 二要素支持hash主体信息
+ * Summary: 个人二要素核验支持hash的主体信息
+ */
+async function checkTwometaHash(request: CheckTwometaHashRequest): CheckTwometaHashResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkTwometaHashEx(request, headers, runtime);
+}
+
+/**
+ * Description: 二要素支持hash主体信息
+ * Summary: 个人二要素核验支持hash的主体信息
+ */
+async function checkTwometaHashEx(request: CheckTwometaHashRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckTwometaHashResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.twometa.hash.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
