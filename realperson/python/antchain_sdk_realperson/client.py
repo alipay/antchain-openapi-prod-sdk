@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.4'
+                    'sdk_version': '1.7.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.4'
+                    'sdk_version': '1.7.0'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +306,8 @@ class Client:
         Summary: 认证查询
         """
         UtilClient.validate_model(request)
-        return realperson_models.QueryFacevrfServerResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.QueryFacevrfServerResponse(),
             self.do_request('1.0', 'di.realperson.facevrf.server.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +322,8 @@ class Client:
         Summary: 认证查询
         """
         UtilClient.validate_model(request)
-        return realperson_models.QueryFacevrfServerResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.QueryFacevrfServerResponse(),
             await self.do_request_async('1.0', 'di.realperson.facevrf.server.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +362,8 @@ class Client:
         Summary: 认证创建
         """
         UtilClient.validate_model(request)
-        return realperson_models.CreateFacevrfServerResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CreateFacevrfServerResponse(),
             self.do_request('1.0', 'di.realperson.facevrf.server.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +378,8 @@ class Client:
         Summary: 认证创建
         """
         UtilClient.validate_model(request)
-        return realperson_models.CreateFacevrfServerResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CreateFacevrfServerResponse(),
             await self.do_request_async('1.0', 'di.realperson.facevrf.server.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +418,8 @@ class Client:
         Summary: 纯服务端比对
         """
         UtilClient.validate_model(request)
-        return realperson_models.ExecFacevrfServerResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.ExecFacevrfServerResponse(),
             self.do_request('1.0', 'di.realperson.facevrf.server.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +434,8 @@ class Client:
         Summary: 纯服务端比对
         """
         UtilClient.validate_model(request)
-        return realperson_models.ExecFacevrfServerResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.ExecFacevrfServerResponse(),
             await self.do_request_async('1.0', 'di.realperson.facevrf.server.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +474,8 @@ class Client:
         Summary: 商户获取司法链上刷脸存证和统一证据ID
         """
         UtilClient.validate_model(request)
-        return realperson_models.GetFacevrfEvidenceResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.GetFacevrfEvidenceResponse(),
             self.do_request('1.0', 'di.realperson.facevrf.evidence.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +490,8 @@ class Client:
         Summary: 商户获取司法链上刷脸存证和统一证据ID
         """
         UtilClient.validate_model(request)
-        return realperson_models.GetFacevrfEvidenceResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.GetFacevrfEvidenceResponse(),
             await self.do_request_async('1.0', 'di.realperson.facevrf.evidence.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +530,8 @@ class Client:
         Summary: 个人二要素认证
         """
         UtilClient.validate_model(request)
-        return realperson_models.CheckIndividualidTwometaResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CheckIndividualidTwometaResponse(),
             self.do_request('1.0', 'di.realperson.individualid.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +546,8 @@ class Client:
         Summary: 个人二要素认证
         """
         UtilClient.validate_model(request)
-        return realperson_models.CheckIndividualidTwometaResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CheckIndividualidTwometaResponse(),
             await self.do_request_async('1.0', 'di.realperson.individualid.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +586,8 @@ class Client:
         Summary: 个人三要素认证
         """
         UtilClient.validate_model(request)
-        return realperson_models.CheckIndividualidThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CheckIndividualidThreemetaResponse(),
             self.do_request('1.0', 'di.realperson.individualid.threemeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +602,8 @@ class Client:
         Summary: 个人三要素认证
         """
         UtilClient.validate_model(request)
-        return realperson_models.CheckIndividualidThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CheckIndividualidThreemetaResponse(),
             await self.do_request_async('1.0', 'di.realperson.individualid.threemeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +642,8 @@ class Client:
         Summary: 个人四要素认证
         """
         UtilClient.validate_model(request)
-        return realperson_models.CheckIndividualidFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CheckIndividualidFourmetaResponse(),
             self.do_request('1.0', 'di.realperson.individualid.fourmeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +658,8 @@ class Client:
         Summary: 个人四要素认证
         """
         UtilClient.validate_model(request)
-        return realperson_models.CheckIndividualidFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CheckIndividualidFourmetaResponse(),
             await self.do_request_async('1.0', 'di.realperson.individualid.fourmeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +698,8 @@ class Client:
         Summary: 个人三要素认证（场景路由）
         """
         UtilClient.validate_model(request)
-        return realperson_models.CheckRouteThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CheckRouteThreemetaResponse(),
             self.do_request('1.0', 'di.realperson.route.threemeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +714,8 @@ class Client:
         Summary: 个人三要素认证（场景路由）
         """
         UtilClient.validate_model(request)
-        return realperson_models.CheckRouteThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CheckRouteThreemetaResponse(),
             await self.do_request_async('1.0', 'di.realperson.route.threemeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -755,7 +771,8 @@ class Client:
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return realperson_models.CreateVoiceprintServermodeResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CreateVoiceprintServermodeResponse(),
             self.do_request('1.0', 'di.realperson.voiceprint.servermode.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -787,7 +804,8 @@ class Client:
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return realperson_models.CreateVoiceprintServermodeResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CreateVoiceprintServermodeResponse(),
             await self.do_request_async('1.0', 'di.realperson.voiceprint.servermode.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -826,7 +844,8 @@ class Client:
         Summary: 纯服务端声纹比对
         """
         UtilClient.validate_model(request)
-        return realperson_models.VerifyVoiceprintServermodeResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.VerifyVoiceprintServermodeResponse(),
             self.do_request('1.0', 'di.realperson.voiceprint.servermode.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -841,7 +860,8 @@ class Client:
         Summary: 纯服务端声纹比对
         """
         UtilClient.validate_model(request)
-        return realperson_models.VerifyVoiceprintServermodeResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.VerifyVoiceprintServermodeResponse(),
             await self.do_request_async('1.0', 'di.realperson.voiceprint.servermode.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -880,7 +900,8 @@ class Client:
         Summary: 个人二要素认证（场景路由）
         """
         UtilClient.validate_model(request)
-        return realperson_models.CheckRouteTwometaResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CheckRouteTwometaResponse(),
             self.do_request('1.0', 'di.realperson.route.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -895,7 +916,8 @@ class Client:
         Summary: 个人二要素认证（场景路由）
         """
         UtilClient.validate_model(request)
-        return realperson_models.CheckRouteTwometaResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CheckRouteTwometaResponse(),
             await self.do_request_async('1.0', 'di.realperson.route.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -934,7 +956,8 @@ class Client:
         Summary: 移动风险设备查询
         """
         UtilClient.validate_model(request)
-        return realperson_models.QueryMobileRiskResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.QueryMobileRiskResponse(),
             self.do_request('1.0', 'di.realperson.mobile.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -949,7 +972,8 @@ class Client:
         Summary: 移动风险设备查询
         """
         UtilClient.validate_model(request)
-        return realperson_models.QueryMobileRiskResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.QueryMobileRiskResponse(),
             await self.do_request_async('1.0', 'di.realperson.mobile.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -988,7 +1012,8 @@ class Client:
         Summary: 查询认证人、认证时间等相关信息
         """
         UtilClient.validate_model(request)
-        return realperson_models.DetailFacevrfServerResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.DetailFacevrfServerResponse(),
             self.do_request('1.0', 'di.realperson.facevrf.server.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1003,7 +1028,8 @@ class Client:
         Summary: 查询认证人、认证时间等相关信息
         """
         UtilClient.validate_model(request)
-        return realperson_models.DetailFacevrfServerResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.DetailFacevrfServerResponse(),
             await self.do_request_async('1.0', 'di.realperson.facevrf.server.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1042,7 +1068,8 @@ class Client:
         Summary: 个人反欺诈风险校验
         """
         UtilClient.validate_model(request)
-        return realperson_models.CheckAnticheatPersonalResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CheckAnticheatPersonalResponse(),
             self.do_request('1.0', 'di.realperson.anticheat.personal.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1057,8 +1084,65 @@ class Client:
         Summary: 个人反欺诈风险校验
         """
         UtilClient.validate_model(request)
-        return realperson_models.CheckAnticheatPersonalResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CheckAnticheatPersonalResponse(),
             await self.do_request_async('1.0', 'di.realperson.anticheat.personal.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_twometa_hash(
+        self,
+        request: realperson_models.CheckTwometaHashRequest,
+    ) -> realperson_models.CheckTwometaHashResponse:
+        """
+        Description: 二要素支持hash主体信息
+        Summary: 个人二要素核验支持hash的主体信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_twometa_hash_ex(request, headers, runtime)
+
+    async def check_twometa_hash_async(
+        self,
+        request: realperson_models.CheckTwometaHashRequest,
+    ) -> realperson_models.CheckTwometaHashResponse:
+        """
+        Description: 二要素支持hash主体信息
+        Summary: 个人二要素核验支持hash的主体信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_twometa_hash_ex_async(request, headers, runtime)
+
+    def check_twometa_hash_ex(
+        self,
+        request: realperson_models.CheckTwometaHashRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckTwometaHashResponse:
+        """
+        Description: 二要素支持hash主体信息
+        Summary: 个人二要素核验支持hash的主体信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CheckTwometaHashResponse(),
+            self.do_request('1.0', 'di.realperson.twometa.hash.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_twometa_hash_ex_async(
+        self,
+        request: realperson_models.CheckTwometaHashRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckTwometaHashResponse:
+        """
+        Description: 二要素支持hash主体信息
+        Summary: 个人二要素核验支持hash的主体信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CheckTwometaHashResponse(),
+            await self.do_request_async('1.0', 'di.realperson.twometa.hash.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
@@ -1096,7 +1180,8 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return realperson_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CreateAntcloudGatewayxFileUploadResponse(),
             self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1111,6 +1196,7 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return realperson_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            realperson_models.CreateAntcloudGatewayxFileUploadResponse(),
             await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

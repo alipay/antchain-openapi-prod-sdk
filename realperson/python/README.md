@@ -13,8 +13,8 @@ English | [简体中文](README-CN.md)
 Python SDK uses a common package management tool named `pip`. If pip is not installed, see the [pip user guide](https://pip.pypa.io/en/stable/installing/ "pip User Guide") to install pip.
 
 ```bash
-# Install the antchain_sdk_realperson
-pip install antchain_sdk_realperson
+# Install the antchain-realperson
+pip install antchain-realperson
 ```
 
 ## Issues

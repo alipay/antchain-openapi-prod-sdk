@@ -70,6 +70,10 @@ class Config(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.access_key_id is not None:
             result['accessKeyId'] = self.access_key_id
@@ -171,6 +175,10 @@ class AudioMeta(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.sample_freq is not None:
             result['sample_freq'] = self.sample_freq
@@ -213,6 +221,10 @@ class Audio(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.token is not None:
             result['token'] = self.token
@@ -249,6 +261,10 @@ class XNameValuePair(TeaModel):
         self.validate_required(self.value, 'value')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -297,6 +313,10 @@ class QueryFacevrfServerRequest(TeaModel):
         self.validate_required(self.scene_id, 'scene_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -366,6 +386,10 @@ class QueryFacevrfServerResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -428,6 +452,7 @@ class CreateFacevrfServerRequest(TeaModel):
         user_ip: str = None,
         user_mobile: str = None,
         callback_need_retry: bool = None,
+        model: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -467,6 +492,8 @@ class CreateFacevrfServerRequest(TeaModel):
         self.user_mobile = user_mobile
         # callbackUrl回调时是否需要重试，默认false(不需要重试)
         self.callback_need_retry = callback_need_retry
+        # 活体检测的类型
+        self.model = model
 
     def validate(self):
         self.validate_required(self.biz_code, 'biz_code')
@@ -478,6 +505,10 @@ class CreateFacevrfServerRequest(TeaModel):
         self.validate_required(self.scene_id, 'scene_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -517,6 +548,8 @@ class CreateFacevrfServerRequest(TeaModel):
             result['user_mobile'] = self.user_mobile
         if self.callback_need_retry is not None:
             result['callback_need_retry'] = self.callback_need_retry
+        if self.model is not None:
+            result['model'] = self.model
         return result
 
     def from_map(self, m: dict = None):
@@ -559,6 +592,8 @@ class CreateFacevrfServerRequest(TeaModel):
             self.user_mobile = m.get('user_mobile')
         if m.get('callback_need_retry') is not None:
             self.callback_need_retry = m.get('callback_need_retry')
+        if m.get('model') is not None:
+            self.model = m.get('model')
         return self
 
 
@@ -586,6 +621,10 @@ class CreateFacevrfServerResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -673,6 +712,10 @@ class ExecFacevrfServerRequest(TeaModel):
         self.validate_required(self.facial_picture_auth, 'facial_picture_auth')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -750,6 +793,7 @@ class ExecFacevrfServerResponse(TeaModel):
         certify_id: str = None,
         passed: str = None,
         reason: str = None,
+        material_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -763,11 +807,17 @@ class ExecFacevrfServerResponse(TeaModel):
         self.passed = passed
         # 业务失败原因
         self.reason = reason
+        # 认证主体附件信息，包含共计类型等
+        self.material_info = material_info
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -781,6 +831,8 @@ class ExecFacevrfServerResponse(TeaModel):
             result['passed'] = self.passed
         if self.reason is not None:
             result['reason'] = self.reason
+        if self.material_info is not None:
+            result['material_info'] = self.material_info
         return result
 
     def from_map(self, m: dict = None):
@@ -797,6 +849,8 @@ class ExecFacevrfServerResponse(TeaModel):
             self.passed = m.get('passed')
         if m.get('reason') is not None:
             self.reason = m.get('reason')
+        if m.get('material_info') is not None:
+            self.material_info = m.get('material_info')
         return self
 
 
@@ -817,6 +871,10 @@ class GetFacevrfEvidenceRequest(TeaModel):
         self.validate_required(self.certify_id, 'certify_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -870,6 +928,10 @@ class GetFacevrfEvidenceResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -941,6 +1003,10 @@ class CheckIndividualidTwometaRequest(TeaModel):
         self.validate_required(self.cert_no, 'cert_no')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1001,6 +1067,10 @@ class CheckIndividualidTwometaResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1062,6 +1132,10 @@ class CheckIndividualidThreemetaRequest(TeaModel):
         self.validate_required(self.mobile, 'mobile')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1123,6 +1197,10 @@ class CheckIndividualidThreemetaResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1189,6 +1267,10 @@ class CheckIndividualidFourmetaRequest(TeaModel):
         self.validate_required(self.bank_card, 'bank_card')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1255,6 +1337,10 @@ class CheckIndividualidFourmetaResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1319,6 +1405,10 @@ class CheckRouteThreemetaRequest(TeaModel):
         self.validate_required(self.scene, 'scene')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1383,6 +1473,10 @@ class CheckRouteThreemetaResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1458,6 +1552,10 @@ class CreateVoiceprintServermodeRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1539,6 +1637,10 @@ class CreateVoiceprintServermodeResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1608,6 +1710,10 @@ class VerifyVoiceprintServermodeRequest(TeaModel):
             self.audio_meta.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1679,6 +1785,10 @@ class VerifyVoiceprintServermodeResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1748,6 +1858,10 @@ class CheckRouteTwometaRequest(TeaModel):
         self.validate_required(self.scene, 'scene')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1810,6 +1924,10 @@ class CheckRouteTwometaResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1862,6 +1980,10 @@ class QueryMobileRiskRequest(TeaModel):
         self.validate_required(self.apdid_token, 'apdid_token')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -1914,6 +2036,10 @@ class QueryMobileRiskResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -1962,6 +2088,10 @@ class DetailFacevrfServerRequest(TeaModel):
         self.validate_required(self.certify_id, 'certify_id')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2017,6 +2147,10 @@ class DetailFacevrfServerResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2083,6 +2217,10 @@ class CheckAnticheatPersonalRequest(TeaModel):
         self.validate_required(self.company_name, 'company_name')
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2150,6 +2288,10 @@ class CheckAnticheatPersonalResponse(TeaModel):
         pass
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
@@ -2179,6 +2321,120 @@ class CheckAnticheatPersonalResponse(TeaModel):
             self.risk_level_desc = m.get('risk_level_desc')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
+        return self
+
+
+class CheckTwometaHashRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        cert_no_hash: str = None,
+        cert_name_hash: str = None,
+        outer_order_id: str = None,
+        hash_type: str = None,
+        extern_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # hash后的身份证号，不区分大小写，使用的hash算法参考hash_type字段
+        self.cert_no_hash = cert_no_hash
+        # hash后的姓名，不区分大小写，使用的hash类型参考hash_type
+        self.cert_name_hash = cert_name_hash
+        # 本次核验id
+        self.outer_order_id = outer_order_id
+        # 支持的hash类型
+        self.hash_type = hash_type
+        # json格式的扩展字段
+        self.extern_info = extern_info
+
+    def validate(self):
+        self.validate_required(self.cert_no_hash, 'cert_no_hash')
+        self.validate_required(self.cert_name_hash, 'cert_name_hash')
+        self.validate_required(self.outer_order_id, 'outer_order_id')
+        self.validate_required(self.hash_type, 'hash_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.cert_no_hash is not None:
+            result['cert_no_hash'] = self.cert_no_hash
+        if self.cert_name_hash is not None:
+            result['cert_name_hash'] = self.cert_name_hash
+        if self.outer_order_id is not None:
+            result['outer_order_id'] = self.outer_order_id
+        if self.hash_type is not None:
+            result['hash_type'] = self.hash_type
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('cert_no_hash') is not None:
+            self.cert_no_hash = m.get('cert_no_hash')
+        if m.get('cert_name_hash') is not None:
+            self.cert_name_hash = m.get('cert_name_hash')
+        if m.get('outer_order_id') is not None:
+            self.outer_order_id = m.get('outer_order_id')
+        if m.get('hash_type') is not None:
+            self.hash_type = m.get('hash_type')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        return self
+
+
+class CheckTwometaHashResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
@@ -2218,6 +2474,10 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
             self.validate_max_length(self.file_name, 'file_name', 100)
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
@@ -2289,6 +2549,10 @@ class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
