@@ -87,6 +87,10 @@ public class CreateFacevrfServerRequest extends TeaModel {
     @NameInMap("callback_need_retry")
     public Boolean callbackNeedRetry;
 
+    // 活体检测的类型
+    @NameInMap("model")
+    public String model;
+
     public static CreateFacevrfServerRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateFacevrfServerRequest self = new CreateFacevrfServerRequest();
         return TeaModel.build(map, self);
@@ -242,6 +246,14 @@ public class CreateFacevrfServerRequest extends TeaModel {
     }
     public Boolean getCallbackNeedRetry() {
         return this.callbackNeedRetry;
+    }
+
+    public CreateFacevrfServerRequest setModel(String model) {
+        this.model = model;
+        return this;
+    }
+    public String getModel() {
+        return this.model;
     }
 
 }

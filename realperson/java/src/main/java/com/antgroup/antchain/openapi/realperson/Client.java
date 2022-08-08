@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.4")
+                    new TeaPair("sdk_version", "1.7.0")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -444,6 +444,25 @@ public class Client {
     public CheckAnticheatPersonalResponse checkAnticheatPersonalEx(CheckAnticheatPersonalRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.anticheat.personal.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAnticheatPersonalResponse());
+    }
+
+    /**
+     * Description: 二要素支持hash主体信息
+     * Summary: 个人二要素核验支持hash的主体信息
+     */
+    public CheckTwometaHashResponse checkTwometaHash(CheckTwometaHashRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkTwometaHashEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 二要素支持hash主体信息
+     * Summary: 个人二要素核验支持hash的主体信息
+     */
+    public CheckTwometaHashResponse checkTwometaHashEx(CheckTwometaHashRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.twometa.hash.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckTwometaHashResponse());
     }
 
     /**

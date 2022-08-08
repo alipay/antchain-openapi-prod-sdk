@@ -28,6 +28,10 @@ public class ExecFacevrfServerResponse extends TeaModel {
     @NameInMap("reason")
     public String reason;
 
+    // 认证主体附件信息，包含共计类型等
+    @NameInMap("material_info")
+    public String materialInfo;
+
     public static ExecFacevrfServerResponse build(java.util.Map<String, ?> map) throws Exception {
         ExecFacevrfServerResponse self = new ExecFacevrfServerResponse();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class ExecFacevrfServerResponse extends TeaModel {
     }
     public String getReason() {
         return this.reason;
+    }
+
+    public ExecFacevrfServerResponse setMaterialInfo(String materialInfo) {
+        this.materialInfo = materialInfo;
+        return this;
+    }
+    public String getMaterialInfo() {
+        return this.materialInfo;
     }
 
 }
