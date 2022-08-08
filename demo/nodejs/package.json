@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/demo",
-  "version": "1.0.94",
+  "version": "1.0.105",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
