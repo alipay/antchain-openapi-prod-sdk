@@ -104,6 +104,11 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public bool? CallbackNeedRetry { get; set; }
 
+        // 活体检测的类型
+        [NameInMap("model")]
+        [Validation(Required=false)]
+        public string Model { get; set; }
+
     }
 
 }

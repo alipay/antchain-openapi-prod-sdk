@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.4"},
+                        {"sdk_version", "1.7.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.4"},
+                        {"sdk_version", "1.7.0"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -949,6 +949,48 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckAnticheatPersonalResponse>(await DoRequestAsync("1.0", "di.realperson.anticheat.personal.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二要素支持hash主体信息
+         * Summary: 个人二要素核验支持hash的主体信息
+         */
+        public CheckTwometaHashResponse CheckTwometaHash(CheckTwometaHashRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckTwometaHashEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二要素支持hash主体信息
+         * Summary: 个人二要素核验支持hash的主体信息
+         */
+        public async Task<CheckTwometaHashResponse> CheckTwometaHashAsync(CheckTwometaHashRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckTwometaHashExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二要素支持hash主体信息
+         * Summary: 个人二要素核验支持hash的主体信息
+         */
+        public CheckTwometaHashResponse CheckTwometaHashEx(CheckTwometaHashRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckTwometaHashResponse>(DoRequest("1.0", "di.realperson.twometa.hash.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二要素支持hash主体信息
+         * Summary: 个人二要素核验支持hash的主体信息
+         */
+        public async Task<CheckTwometaHashResponse> CheckTwometaHashExAsync(CheckTwometaHashRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckTwometaHashResponse>(await DoRequestAsync("1.0", "di.realperson.twometa.hash.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
