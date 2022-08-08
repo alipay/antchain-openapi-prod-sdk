@@ -296,6 +296,8 @@ export class CreateFacevrfServerRequest extends $tea.Model {
   userMobile?: string;
   // callbackUrl回调时是否需要重试，默认false(不需要重试)
   callbackNeedRetry?: boolean;
+  // 活体检测的类型
+  model?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -317,6 +319,7 @@ export class CreateFacevrfServerRequest extends $tea.Model {
       userIp: 'user_ip',
       userMobile: 'user_mobile',
       callbackNeedRetry: 'callback_need_retry',
+      model: 'model',
     };
   }
 
@@ -341,6 +344,7 @@ export class CreateFacevrfServerRequest extends $tea.Model {
       userIp: 'string',
       userMobile: 'string',
       callbackNeedRetry: 'boolean',
+      model: 'string',
     };
   }
 
@@ -473,6 +477,8 @@ export class ExecFacevrfServerResponse extends $tea.Model {
   passed?: string;
   // 业务失败原因
   reason?: string;
+  // 认证主体附件信息，包含共计类型等
+  materialInfo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -481,6 +487,7 @@ export class ExecFacevrfServerResponse extends $tea.Model {
       certifyId: 'certify_id',
       passed: 'passed',
       reason: 'reason',
+      materialInfo: 'material_info',
     };
   }
 
@@ -492,6 +499,7 @@ export class ExecFacevrfServerResponse extends $tea.Model {
       certifyId: 'string',
       passed: 'string',
       reason: 'string',
+      materialInfo: 'string',
     };
   }
 
@@ -1405,6 +1413,77 @@ export class CheckAnticheatPersonalResponse extends $tea.Model {
   }
 }
 
+export class CheckTwometaHashRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // hash后的身份证号，不区分大小写，使用的hash算法参考hash_type字段
+  certNoHash: string;
+  // hash后的姓名，不区分大小写，使用的hash类型参考hash_type
+  certNameHash: string;
+  // 本次核验id
+  outerOrderId: string;
+  // 支持的hash类型
+  hashType: string;
+  // json格式的扩展字段
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certNoHash: 'cert_no_hash',
+      certNameHash: 'cert_name_hash',
+      outerOrderId: 'outer_order_id',
+      hashType: 'hash_type',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certNoHash: 'string',
+      certNameHash: 'string',
+      outerOrderId: 'string',
+      hashType: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckTwometaHashResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1606,7 +1685,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.4",
+          sdk_version: "1.7.0",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1937,6 +2016,25 @@ export default class Client {
   async checkAnticheatPersonalEx(request: CheckAnticheatPersonalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckAnticheatPersonalResponse> {
     Util.validateModel(request);
     return $tea.cast<CheckAnticheatPersonalResponse>(await this.doRequest("1.0", "di.realperson.anticheat.personal.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckAnticheatPersonalResponse({}));
+  }
+
+  /**
+   * Description: 二要素支持hash主体信息
+   * Summary: 个人二要素核验支持hash的主体信息
+   */
+  async checkTwometaHash(request: CheckTwometaHashRequest): Promise<CheckTwometaHashResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkTwometaHashEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 二要素支持hash主体信息
+   * Summary: 个人二要素核验支持hash的主体信息
+   */
+  async checkTwometaHashEx(request: CheckTwometaHashRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckTwometaHashResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckTwometaHashResponse>(await this.doRequest("1.0", "di.realperson.twometa.hash.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckTwometaHashResponse({}));
   }
 
   /**
