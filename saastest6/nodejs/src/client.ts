@@ -115,6 +115,31 @@ export class DemoClass extends $tea.Model {
   }
 }
 
+// 键值对，兼容map用
+export class NameValuePair extends $tea.Model {
+  // 键名
+  name: string;
+  // 键值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // TestStruct
 export class TestStruct extends $tea.Model {
   // x
@@ -136,6 +161,31 @@ export class TestStruct extends $tea.Model {
       x: 'string',
       y: DemoClass,
       z: { 'type': 'array', 'itemType': DemoClass },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// Map<String,Object> 集合
+export class QueryMap extends $tea.Model {
+  // 键值
+  name: string;
+  // 额外用户信息
+  value?: NameValuePair[];
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: { 'type': 'array', 'itemType': NameValuePair },
     };
   }
 
@@ -303,6 +353,73 @@ export class CreateAntcloudOpenapiApiserviceGroupRequest extends $tea.Model {
 }
 
 export class CreateAntcloudOpenapiApiserviceGroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitDemoBbpInsuranceUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 保司编码
+  businessCode: string;
+  // 第三方id，此处为天猫uid
+  thirdPartId: string;
+  // 来源渠道
+  channel: string;
+  // 埋点信息
+  burieds?: QueryMap;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      businessCode: 'business_code',
+      thirdPartId: 'third_part_id',
+      channel: 'channel',
+      burieds: 'burieds',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      businessCode: 'string',
+      thirdPartId: 'string',
+      channel: 'string',
+      burieds: QueryMap,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitDemoBbpInsuranceUserResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -531,7 +648,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.10",
+          sdk_version: "1.0.11",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -636,6 +753,25 @@ export default class Client {
   async createAntcloudOpenapiApiserviceGroupEx(request: CreateAntcloudOpenapiApiserviceGroupRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudOpenapiApiserviceGroupResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateAntcloudOpenapiApiserviceGroupResponse>(await this.doRequest("1.0", "antcloud.openapi.apiservice.group.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudOpenapiApiserviceGroupResponse({}));
+  }
+
+  /**
+   * Description: 保司用户埋点信息
+   * Summary: 用户登陆页面埋点
+   */
+  async initDemoBbpInsuranceUser(request: InitDemoBbpInsuranceUserRequest): Promise<InitDemoBbpInsuranceUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initDemoBbpInsuranceUserEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 保司用户埋点信息
+   * Summary: 用户登陆页面埋点
+   */
+  async initDemoBbpInsuranceUserEx(request: InitDemoBbpInsuranceUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitDemoBbpInsuranceUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitDemoBbpInsuranceUserResponse>(await this.doRequest("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitDemoBbpInsuranceUserResponse({}));
   }
 
   /**
