@@ -17,6 +17,8 @@ use AntChain\SaasTest6\Models\CreateAntcloudOpenapiApiserviceGroupRequest;
 use AntChain\SaasTest6\Models\CreateAntcloudOpenapiApiserviceGroupResponse;
 use AntChain\SaasTest6\Models\EchoDemoGatewayCheckRequest;
 use AntChain\SaasTest6\Models\EchoDemoGatewayCheckResponse;
+use AntChain\SaasTest6\Models\InitDemoBbpInsuranceUserRequest;
+use AntChain\SaasTest6\Models\InitDemoBbpInsuranceUserResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -164,7 +166,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.10',
+                    'sdk_version'      => '1.0.11',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -294,6 +296,39 @@ class Client
         Utils::validateModel($request);
 
         return CreateAntcloudOpenapiApiserviceGroupResponse::fromMap($this->doRequest('1.0', 'antcloud.openapi.apiservice.group.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点.
+     *
+     * @param InitDemoBbpInsuranceUserRequest $request
+     *
+     * @return InitDemoBbpInsuranceUserResponse
+     */
+    public function initDemoBbpInsuranceUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initDemoBbpInsuranceUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点.
+     *
+     * @param InitDemoBbpInsuranceUserRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return InitDemoBbpInsuranceUserResponse
+     */
+    public function initDemoBbpInsuranceUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitDemoBbpInsuranceUserResponse::fromMap($this->doRequest('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
