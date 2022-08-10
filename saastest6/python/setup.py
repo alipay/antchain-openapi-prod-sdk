@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_saastest6.
 
-Created on 09/08/2022
+Created on 10/08/2022
 
 @author: Ant Chain SDK
 """
