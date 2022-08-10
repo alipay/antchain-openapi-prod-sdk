@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-saastest6</artifactId>
-  <version>1.0.7</version>
+  <version>1.0.11</version>
   <packaging>jar</packaging>
   <name>openapi-saastest6</name>
   <description>Ant Chain SaasTest6 SDK for Java
