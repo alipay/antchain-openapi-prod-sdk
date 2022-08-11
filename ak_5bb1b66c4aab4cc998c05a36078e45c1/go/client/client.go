@@ -976,14 +976,6 @@ type InitAntchainBbpVerifyRequest struct {
 	CallbackEnum *string `json:"callback_enum,omitempty" xml:"callback_enum,omitempty"`
 	// 核身产品列表
 	ValidateFlows []*GwValidateProduct `json:"validate_flows,omitempty" xml:"validate_flows,omitempty" require:"true" type:"Repeated"`
-	// 核身id
-	VerifyId *string `json:"verify_id,omitempty" xml:"verify_id,omitempty"`
-	// 核身请求地址url
-	VerifyUrl *string `json:"verify_url,omitempty" xml:"verify_url,omitempty"`
-	// 核身处理状态:INITIAL、PROCESSING、SUCCESS、EXPIRED、FAIL
-	VerifyStatus *string `json:"verify_status,omitempty" xml:"verify_status,omitempty"`
-	// 可用产品集合
-	ValidProd []*GwValidateProduct `json:"valid_prod,omitempty" xml:"valid_prod,omitempty" type:"Repeated"`
 }
 
 func (s InitAntchainBbpVerifyRequest) String() string {
@@ -1026,26 +1018,6 @@ func (s *InitAntchainBbpVerifyRequest) SetCallbackEnum(v string) *InitAntchainBb
 
 func (s *InitAntchainBbpVerifyRequest) SetValidateFlows(v []*GwValidateProduct) *InitAntchainBbpVerifyRequest {
 	s.ValidateFlows = v
-	return s
-}
-
-func (s *InitAntchainBbpVerifyRequest) SetVerifyId(v string) *InitAntchainBbpVerifyRequest {
-	s.VerifyId = &v
-	return s
-}
-
-func (s *InitAntchainBbpVerifyRequest) SetVerifyUrl(v string) *InitAntchainBbpVerifyRequest {
-	s.VerifyUrl = &v
-	return s
-}
-
-func (s *InitAntchainBbpVerifyRequest) SetVerifyStatus(v string) *InitAntchainBbpVerifyRequest {
-	s.VerifyStatus = &v
-	return s
-}
-
-func (s *InitAntchainBbpVerifyRequest) SetValidProd(v []*GwValidateProduct) *InitAntchainBbpVerifyRequest {
-	s.ValidProd = v
 	return s
 }
 
@@ -1121,8 +1093,6 @@ type StartAntchainBbpVerifyRequest struct {
 	ProductAction *string `json:"product_action,omitempty" xml:"product_action,omitempty" require:"true"`
 	// 业务id
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
-	// 核身渲染结果
-	Result []*GwVerifyViewResult `json:"result,omitempty" xml:"result,omitempty" type:"Repeated"`
 }
 
 func (s StartAntchainBbpVerifyRequest) String() string {
@@ -1160,11 +1130,6 @@ func (s *StartAntchainBbpVerifyRequest) SetProductAction(v string) *StartAntchai
 
 func (s *StartAntchainBbpVerifyRequest) SetBizId(v string) *StartAntchainBbpVerifyRequest {
 	s.BizId = &v
-	return s
-}
-
-func (s *StartAntchainBbpVerifyRequest) SetResult(v []*GwVerifyViewResult) *StartAntchainBbpVerifyRequest {
-	s.Result = v
 	return s
 }
 
@@ -1221,8 +1186,6 @@ type CheckAntchainBbpVerifyRequest struct {
 	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
 	// 核身产品码
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
-	// 核身结果枚举：PASS-核身成功，INITIAL-初始化，PROCESS-处理中，FAIL-失败
-	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 }
 
 func (s CheckAntchainBbpVerifyRequest) String() string {
@@ -1265,11 +1228,6 @@ func (s *CheckAntchainBbpVerifyRequest) SetBizId(v string) *CheckAntchainBbpVeri
 
 func (s *CheckAntchainBbpVerifyRequest) SetProductCode(v string) *CheckAntchainBbpVerifyRequest {
 	s.ProductCode = &v
-	return s
-}
-
-func (s *CheckAntchainBbpVerifyRequest) SetStatus(v string) *CheckAntchainBbpVerifyRequest {
-	s.Status = &v
 	return s
 }
 
@@ -1328,8 +1286,6 @@ type RunAntchainSaasMarketServiceRequest struct {
 	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
 	// 业务参数，map格式
 	Params []*KeyValuePair `json:"params,omitempty" xml:"params,omitempty" type:"Repeated"`
-	// 服务调用结果
-	ResultData []*KeyValuePair `json:"result_data,omitempty" xml:"result_data,omitempty" type:"Repeated"`
 }
 
 func (s RunAntchainSaasMarketServiceRequest) String() string {
@@ -1380,11 +1336,6 @@ func (s *RunAntchainSaasMarketServiceRequest) SetParams(v []*KeyValuePair) *RunA
 	return s
 }
 
-func (s *RunAntchainSaasMarketServiceRequest) SetResultData(v []*KeyValuePair) *RunAntchainSaasMarketServiceRequest {
-	s.ResultData = v
-	return s
-}
-
 type RunAntchainSaasMarketServiceResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -1430,8 +1381,6 @@ type QueryAntchainSaasMarketSolutionRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 解决方案code
 	SolutionCode *string `json:"solution_code,omitempty" xml:"solution_code,omitempty" require:"true"`
-	// 查询结果
-	ResultData []*KeyValuePair `json:"result_data,omitempty" xml:"result_data,omitempty" type:"Repeated"`
 }
 
 func (s QueryAntchainSaasMarketSolutionRequest) String() string {
@@ -1454,11 +1403,6 @@ func (s *QueryAntchainSaasMarketSolutionRequest) SetProductInstanceId(v string) 
 
 func (s *QueryAntchainSaasMarketSolutionRequest) SetSolutionCode(v string) *QueryAntchainSaasMarketSolutionRequest {
 	s.SolutionCode = &v
-	return s
-}
-
-func (s *QueryAntchainSaasMarketSolutionRequest) SetResultData(v []*KeyValuePair) *QueryAntchainSaasMarketSolutionRequest {
-	s.ResultData = v
 	return s
 }
 
@@ -1539,8 +1483,6 @@ type VerifyAntchainBbpMetaRequest struct {
 	PersonCertType *string `json:"person_cert_type,omitempty" xml:"person_cert_type,omitempty"`
 	// 扩展信息
 	ExtensionInfo *NameValuePair `json:"extension_info,omitempty" xml:"extension_info,omitempty"`
-	// 要素认证结果
-	Result *CustomerAuthResult `json:"result,omitempty" xml:"result,omitempty"`
 }
 
 func (s VerifyAntchainBbpMetaRequest) String() string {
@@ -1643,11 +1585,6 @@ func (s *VerifyAntchainBbpMetaRequest) SetPersonCertType(v string) *VerifyAntcha
 
 func (s *VerifyAntchainBbpMetaRequest) SetExtensionInfo(v *NameValuePair) *VerifyAntchainBbpMetaRequest {
 	s.ExtensionInfo = v
-	return s
-}
-
-func (s *VerifyAntchainBbpMetaRequest) SetResult(v *CustomerAuthResult) *VerifyAntchainBbpMetaRequest {
-	s.Result = v
 	return s
 }
 
@@ -1754,8 +1691,6 @@ type CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest struct {
 	HoloxCheckEvent *HoloxCheckEvent `json:"holox_check_event,omitempty" xml:"holox_check_event,omitempty"`
 	// 123
 	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
-	// 大安全风控接口返回结果
-	Data *HoloxCheckResult `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest) String() string {
@@ -1783,11 +1718,6 @@ func (s *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest) SetHoloxCheckE
 
 func (s *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest) SetServiceVersion(v string) *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest {
 	s.ServiceVersion = &v
-	return s
-}
-
-func (s *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest) SetData(v *HoloxCheckResult) *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest {
-	s.Data = v
 	return s
 }
 
@@ -1838,8 +1768,6 @@ type QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest struct {
 	SecurityUniformRequest *SecurityUniformRequest `json:"security_uniform_request,omitempty" xml:"security_uniform_request,omitempty" require:"true"`
 	// 123
 	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
-	// 返回结果
-	Data *SecurityUniformResponse `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest) String() string {
@@ -1867,11 +1795,6 @@ func (s *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest) SetSecurity
 
 func (s *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest) SetServiceVersion(v string) *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest {
 	s.ServiceVersion = &v
-	return s
-}
-
-func (s *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest) SetData(v *SecurityUniformResponse) *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest {
-	s.Data = v
 	return s
 }
 
@@ -1922,8 +1845,6 @@ type CheckSaasSecurityRdsRdsserviceRequest struct {
 	RdsServiceCheckRequest *string `json:"rds_service_check_request,omitempty" xml:"rds_service_check_request,omitempty" require:"true"`
 	// 服务版本
 	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
-	// 是否是机器
-	Data *int64 `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s CheckSaasSecurityRdsRdsserviceRequest) String() string {
@@ -1951,11 +1872,6 @@ func (s *CheckSaasSecurityRdsRdsserviceRequest) SetRdsServiceCheckRequest(v stri
 
 func (s *CheckSaasSecurityRdsRdsserviceRequest) SetServiceVersion(v string) *CheckSaasSecurityRdsRdsserviceRequest {
 	s.ServiceVersion = &v
-	return s
-}
-
-func (s *CheckSaasSecurityRdsRdsserviceRequest) SetData(v int64) *CheckSaasSecurityRdsRdsserviceRequest {
-	s.Data = &v
 	return s
 }
 
@@ -2006,8 +1922,6 @@ type QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest struct {
 	InfosecContentQuery *InfoSecContentQuery `json:"infosec_content_query,omitempty" xml:"infosec_content_query,omitempty" require:"true"`
 	// 123
 	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
-	// 返回回调结果
-	Data *InfoSecContentQueryResult `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest) String() string {
@@ -2035,11 +1949,6 @@ func (s *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest) SetInfose
 
 func (s *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest) SetServiceVersion(v string) *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest {
 	s.ServiceVersion = &v
-	return s
-}
-
-func (s *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest) SetData(v *InfoSecContentQueryResult) *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest {
-	s.Data = v
 	return s
 }
 
@@ -2090,8 +1999,6 @@ type VerifySaasSecurityRdslibAntcaptchaserviceRequest struct {
 	RdsAnalyzeRequest *RdsAnalyzeRequest `json:"rds_analyze_request,omitempty" xml:"rds_analyze_request,omitempty" require:"true"`
 	// 服务版本
 	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
-	// 是否是机器人
-	Data *RdslibAntcaptchaservice `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s VerifySaasSecurityRdslibAntcaptchaserviceRequest) String() string {
@@ -2119,11 +2026,6 @@ func (s *VerifySaasSecurityRdslibAntcaptchaserviceRequest) SetRdsAnalyzeRequest(
 
 func (s *VerifySaasSecurityRdslibAntcaptchaserviceRequest) SetServiceVersion(v string) *VerifySaasSecurityRdslibAntcaptchaserviceRequest {
 	s.ServiceVersion = &v
-	return s
-}
-
-func (s *VerifySaasSecurityRdslibAntcaptchaserviceRequest) SetData(v *RdslibAntcaptchaservice) *VerifySaasSecurityRdslibAntcaptchaserviceRequest {
-	s.Data = v
 	return s
 }
 
@@ -2174,8 +2076,6 @@ type QuerySaasSecurityTscenterUmidqueryserviceRequest struct {
 	TokenId *string `json:"token_id,omitempty" xml:"token_id,omitempty" require:"true"`
 	// 服务版本
 	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
-	// 返回的umid
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QuerySaasSecurityTscenterUmidqueryserviceRequest) String() string {
@@ -2203,11 +2103,6 @@ func (s *QuerySaasSecurityTscenterUmidqueryserviceRequest) SetTokenId(v string) 
 
 func (s *QuerySaasSecurityTscenterUmidqueryserviceRequest) SetServiceVersion(v string) *QuerySaasSecurityTscenterUmidqueryserviceRequest {
 	s.ServiceVersion = &v
-	return s
-}
-
-func (s *QuerySaasSecurityTscenterUmidqueryserviceRequest) SetData(v string) *QuerySaasSecurityTscenterUmidqueryserviceRequest {
-	s.Data = &v
 	return s
 }
 
@@ -2258,8 +2153,6 @@ type QuerySaasSecurityInfosecOpencheckservicequeryRequest struct {
 	Event *string `json:"event,omitempty" xml:"event,omitempty" require:"true"`
 	// 服务版本
 	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
-	// 大安全内容检测接口返回结果
-	Data *ContentQueryResultModel `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QuerySaasSecurityInfosecOpencheckservicequeryRequest) String() string {
@@ -2287,11 +2180,6 @@ func (s *QuerySaasSecurityInfosecOpencheckservicequeryRequest) SetEvent(v string
 
 func (s *QuerySaasSecurityInfosecOpencheckservicequeryRequest) SetServiceVersion(v string) *QuerySaasSecurityInfosecOpencheckservicequeryRequest {
 	s.ServiceVersion = &v
-	return s
-}
-
-func (s *QuerySaasSecurityInfosecOpencheckservicequeryRequest) SetData(v *ContentQueryResultModel) *QuerySaasSecurityInfosecOpencheckservicequeryRequest {
-	s.Data = v
 	return s
 }
 
@@ -2456,7 +2344,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.6"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
