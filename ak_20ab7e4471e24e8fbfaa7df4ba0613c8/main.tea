@@ -1,0 +1,763 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.2',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// Did Doc中的服务字段描述
+model DidDocServicesInfo {
+  // 服务的扩展字段
+  extension?: string(name='extension', example='json string'),
+  // 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务：
+  // DidAuthService， 有且只能有一个，并且id必须为didauth-1；
+  // VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
+  id: string(name='id', example='service-id1'),
+  // 服务的可访问地址
+  serviceEndpoint: string(name='service_endpoint', example='http://example.com'),
+  // 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
+  type: string(name='type', example='KYBServiceType'),
+}
+
+// 证书详情
+model BareClaim {
+  // 下面的内容由调用者自己定义，建议只存放必要的声明信息，不要放置敏感数据
+  claim: string(name='claim', example='{"degree": {"type": "BachelorDegree","name": "Baccalauréat en musiques numériques"}}'),
+  // 证书类型
+  type?: string(name='type', example='claimtype'),
+}
+
+model StartBaasDidCorporateAgentcreateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 扩展字段
+  extensionInfo?: string(name='extension_info'),
+  // 所有需要关联的外键，外键必须已did auth key controller的did作为前缀+“sidekey:”+外键
+  indexs?: [ string ](name='indexs'),
+  // 企业名称
+  ownerName?: string(name='owner_name'),
+  // 自定义企业唯一id，企业在自有模式下的唯一号bid的hash值，调用者需要保证其唯一性
+  ownerUid: string(maxLength=128, name='owner_uid'),
+  // 携带自己定义的服务类型
+  services?: [ DidDocServicesInfo ](name='services'),
+  // 生成的did字符串
+  did?: string(name='did'),
+}
+
+model StartBaasDidCorporateAgentcreateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成的did字符串
+  did?: string(name='did'),
+}
+
+/**
+ * Description: 通过代理模式为企业创建did
+ * Summary: 通过代理模式为企业创建did
+ */
+async function startBaasDidCorporateAgentcreate(request: StartBaasDidCorporateAgentcreateRequest): StartBaasDidCorporateAgentcreateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasDidCorporateAgentcreateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过代理模式为企业创建did
+ * Summary: 通过代理模式为企业创建did
+ */
+async function startBaasDidCorporateAgentcreateEx(request: StartBaasDidCorporateAgentcreateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasDidCorporateAgentcreateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.corporate.agentcreate.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartBaasDidPersonAgentcreateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业自定信息
+  extensionInfo?: string(name='extension_info'),
+  // 所有需要关联的外键，外键必须已did auth key controller的did作为前缀+“sidekey:”+外键
+  indexs?: [ string ](name='indexs'),
+  // 名称
+  ownerName?: string(name='owner_name'),
+  // 唯一号，比如可以是hash(证件类型+企业营业执照号) 计算出来的唯一值等
+  ownerUid: string(name='owner_uid'),
+  // 携带自己定义的服务类型
+  services?: [ DidDocServicesInfo ](name='services'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 生成的did字符串
+  did?: string(name='did'),
+}
+
+model StartBaasDidPersonAgentcreateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成的did字符串
+  did?: string(name='did'),
+}
+
+/**
+ * Description: 通过代理模式为个人创建did
+ * Summary: 通过代理模式为个人创建did
+ */
+async function startBaasDidPersonAgentcreate(request: StartBaasDidPersonAgentcreateRequest): StartBaasDidPersonAgentcreateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasDidPersonAgentcreateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过代理模式为个人创建did
+ * Summary: 通过代理模式为个人创建did
+ */
+async function startBaasDidPersonAgentcreateEx(request: StartBaasDidPersonAgentcreateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasDidPersonAgentcreateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.person.agentcreate.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartBaasDidCorporateSelfcreateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 扩展信息
+  extension?: string(name='extension'),
+  // 公司名称
+  ownerName?: string(name='owner_name'),
+  // 携带自己定义的服务类型
+  services?: [ DidDocServicesInfo ](name='services'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 生成的did字符串
+  did?: string(name='did'),
+}
+
+model StartBaasDidCorporateSelfcreateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成的did字符串
+  did?: string(name='did'),
+}
+
+/**
+ * Description: 直接创建自己的企业did
+ * Summary: 直接创建自己的企业did
+ */
+async function startBaasDidCorporateSelfcreate(request: StartBaasDidCorporateSelfcreateRequest): StartBaasDidCorporateSelfcreateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasDidCorporateSelfcreateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 直接创建自己的企业did
+ * Summary: 直接创建自己的企业did
+ */
+async function startBaasDidCorporateSelfcreateEx(request: StartBaasDidCorporateSelfcreateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasDidCorporateSelfcreateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.corporate.selfcreate.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartBaasDidVerifiableclaimIssureRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 颁发证书声明
+  bareClaim: BareClaim(name='bare_claim'),
+  // 过期时间
+  expire: long(name='expire'),
+  // 由谁来颁发，该did必须为调用者自己或者自己代理的did
+  issuer: string(name='issuer'),
+  // 为哪个did颁发
+  subject: string(name='subject'),
+  // 验证声明类型，目前默认VerifiableCredential
+  type?: [ string ](name='type'),
+  // 验证声明状态方式，目前只支持直接通过声明id上链查找状态方式，后续会支持更多方式
+  verifyStatusType?: string(name='verify_status_type'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
+  verifiableClaimContent?: string(name='verifiable_claim_content'),
+  // 声明id
+  verifiableClaimId?: string(name='verifiable_claim_id'),
+}
+
+model StartBaasDidVerifiableclaimIssureResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
+  verifiableClaimContent?: string(name='verifiable_claim_content'),
+  // 声明id
+  verifiableClaimId?: string(name='verifiable_claim_id'),
+}
+
+/**
+ * Description: 使用自己或者代理的did为指定did颁发证书
+ * Summary: 为指定did颁发证书
+ */
+async function startBaasDidVerifiableclaimIssure(request: StartBaasDidVerifiableclaimIssureRequest): StartBaasDidVerifiableclaimIssureResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasDidVerifiableclaimIssureEx(request, headers, runtime);
+}
+
+/**
+ * Description: 使用自己或者代理的did为指定did颁发证书
+ * Summary: 为指定did颁发证书
+ */
+async function startBaasDidVerifiableclaimIssureEx(request: StartBaasDidVerifiableclaimIssureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasDidVerifiableclaimIssureResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.verifiableclaim.issure.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartBaasDidVerifiableclaimVerifierRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用于零知识证明类型的可验证声明的验证。index是对应于完整VC的一个json字符串，其中key值保持和原始VC一致，value如果是1表示verificate_claim对应key携带的是对应field的原始值，而如果Key的value是0表示verificate_claim对应key携带的是对应field的merkle root值。
+  indexs?: string(name='indexs'),
+  // 可验证声明
+  verifiableClaim: string(name='verifiable_claim'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+}
+
+model StartBaasDidVerifiableclaimVerifierResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 验证可验证声明
+ * Summary: 验证可验证声明
+ */
+async function startBaasDidVerifiableclaimVerifier(request: StartBaasDidVerifiableclaimVerifierRequest): StartBaasDidVerifiableclaimVerifierResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasDidVerifiableclaimVerifierEx(request, headers, runtime);
+}
+
+/**
+ * Description: 验证可验证声明
+ * Summary: 验证可验证声明
+ */
+async function startBaasDidVerifiableclaimVerifierEx(request: StartBaasDidVerifiableclaimVerifierRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasDidVerifiableclaimVerifierResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.verifiableclaim.verifier.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasDidVcRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // vc id，可通过该字符串来查询vc具体内容
+  vcId: string(name='vc_id'),
+  // 验证者id
+  verifierDid?: string(name='verifier_did'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
+  vcContent?: string(name='vc_content'),
+}
+
+model QueryBaasDidVcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
+  vcContent?: string(name='vc_content'),
+}
+
+/**
+ * Description: 通过vcid查询vc内容
+ * Summary: 通过vcid查询vc内容
+ */
+async function queryBaasDidVc(request: QueryBaasDidVcRequest): QueryBaasDidVcResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasDidVcEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过vcid查询vc内容
+ * Summary: 通过vcid查询vc内容
+ */
+async function queryBaasDidVcEx(request: QueryBaasDidVcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasDidVcResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.vc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBaasDidPersonWiththreemetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 身份证号码
+  certNo: string(name='cert_no'),
+  // 扩展字段
+  extensionInfo?: string(name='extension_info'),
+  // 手机号码
+  mobile: string(name='mobile'),
+  // 姓名
+  name: string(name='name'),
+  // 名称
+  ownerName?: string(name='owner_name'),
+  // 自定义个人唯一id，个人在自有模式下的唯一号，调用者需要保证其唯一性 
+  ownerUid: string(name='owner_uid'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 生成的did字符串
+  did?: string(name='did'),
+  // 颁发的vcId
+  vcId?: string(name='vc_id'),
+}
+
+model CreateBaasDidPersonWiththreemetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成的did字符串
+  did?: string(name='did'),
+  // 颁发的vcId
+  vcId?: string(name='vc_id'),
+}
+
+/**
+ * Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
+ * Summary: 通过个人三要素验证后创建个人did
+ */
+async function createBaasDidPersonWiththreemeta(request: CreateBaasDidPersonWiththreemetaRequest): CreateBaasDidPersonWiththreemetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBaasDidPersonWiththreemetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
+ * Summary: 通过个人三要素验证后创建个人did
+ */
+async function createBaasDidPersonWiththreemetaEx(request: CreateBaasDidPersonWiththreemetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaasDidPersonWiththreemetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.person.withthreemeta.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartBaasDidVcrepositoryIssueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 配置此列表，则说明需要DIS对证书声明内容加密处理，并且控制访问权限，此列表为初始配置的did名单，拥有对此颁发证书的读取权限。
+  // 如果不配置此列表，则DIS默认将明文存储此证书，任何did都可以访问此证书声明内容。
+  // 
+  authDidList?: [ string ](name='auth_did_list'),
+  // 颁发证书声明的原始声明内容，其中claim字段为json格式
+  bareClaim: BareClaim(name='bare_claim'),
+  // 过期时间，如果用不过期可以设置为：-1。
+  // 注意如果证书过期，则无法再通过VC Repository读取访问此证书内容。
+  expire: long(name='expire'),
+  // 颁发证书方，该did必须为调用者自己或者自己代理的did。
+  // 
+  issuer: string(name='issuer'),
+  // 1 - 指定id将被按照verifiable_claim_id = "vc:mychain:" + SHA256(Joiner.on(":").join(subject, verifiable_claim_id.substring(0,50)))+verifiable_claim_id.substring(50);此表达式参与SHA256的 verifiable_claim_id 为用户指定的参数。
+  specifiedClaimIdType?: long(name='specified_claim_id_type'),
+  // 颁发证书的目标did，此目标did将拥有存储到VC Repository的数据管控权限，比如：授权给其它did读取此证书的权限。
+  subject: string(name='subject'),
+  // 通过层级定义的证书类型说明，在使用VC Repository的情况下默认为：["VerifiableCredential","DelegateVCRepository"]。
+  // 如果用户希望通过type来过滤读取证书VC，那么可以在此列表后面追加层次定义说明，方便后续读取证书在VC Repository进行过滤。（如果读取方已知verifiable_claim_id可以直接过滤读取）
+  type?: [ string ](name='type'),
+  // 如果指定，最终会使用此id会参与生成的证书的verifiable_claim_id，但是调用方需要保证设置值的唯一性，重复的id会引起最终verifiable_claim_id重复，导致被拒绝颁发证书。
+  // 如果不指定，则会随机生成一个规范的verifiable_claim_id。
+  // verifiable_claim_id = "vc:mychain:" + SHA256(Joiner.on(":").join(subject, verifiable_claim_id)); 此表达式参与SHA256的 verifiable_claim_id 为用户指定的参数。
+  verifiableClaimId?: string(name='verifiable_claim_id'),
+  // 验证声明状态方式，目前只支持直接通过声明id上链查找状态方式，后续会支持更多方式
+  verifyStatusType?: string(name='verify_status_type'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
+  verifiableClaimContent?: string(name='verifiable_claim_content'),
+}
+
+model StartBaasDidVcrepositoryIssueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 可验证声明的完整声明 {"content":{"verion":"0.7.0","issuer":"xxxx","subject":"xxxx","expire":1530735444,"issucanceDate":1530735000,"id":"XXXX","claim":{//用户自定义},"status":{"type":"XXXX","id":"XXXXX"}},"proof":{"type":"ecdsa","created":"2018-06-18T21:19:10Z","verificationMethod":"XXXX","signatureValue":"XXXXX"}}
+  verifiableClaimContent?: string(name='verifiable_claim_content'),
+  // 颁发的证书唯一id，颁发成功后返回。
+  verifiableClaimId?: string(name='verifiable_claim_id'),
+}
+
+/**
+ * Description: 使用自己或者代理的did为指定did颁发证书，同时在VC Repository中对证书VC进行存储。
+支持授权管理，只有被授权的did未来才可以访问获取此颁发的证书数据。
+ * Summary: 指定did颁发证书，并存储
+ */
+async function startBaasDidVcrepositoryIssue(request: StartBaasDidVcrepositoryIssueRequest): StartBaasDidVcrepositoryIssueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasDidVcrepositoryIssueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 使用自己或者代理的did为指定did颁发证书，同时在VC Repository中对证书VC进行存储。
+支持授权管理，只有被授权的did未来才可以访问获取此颁发的证书数据。
+ * Summary: 指定did颁发证书，并存储
+ */
+async function startBaasDidVcrepositoryIssueEx(request: StartBaasDidVcrepositoryIssueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasDidVcrepositoryIssueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.vcrepository.issue.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateBaasDidServicesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 新增的服务信息
+  addSevices?: [ DidDocServicesInfo ](name='add_sevices'),
+  // 要删除的服务id列表
+  delServices?: [ string ](name='del_services'),
+  // 指定要更新的did
+  did: string(name='did'),
+  // did类型，个人|企业|设备(IOT)
+  didType: string(name='did_type'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 更新后的did doc
+  didDoc?: string(name='did_doc'),
+}
+
+model UpdateBaasDidServicesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 更新后的did doc
+  didDoc?: string(name='did_doc'),
+}
+
+/**
+ * Description: 代理模式下更新企业did doc中service中的字段
+ * Summary: 代理更新企业did中的services
+ */
+async function updateBaasDidServices(request: UpdateBaasDidServicesRequest): UpdateBaasDidServicesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBaasDidServicesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代理模式下更新企业did doc中service中的字段
+ * Summary: 代理更新企业did中的services
+ */
+async function updateBaasDidServicesEx(request: UpdateBaasDidServicesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBaasDidServicesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.services.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBaasDidPersonWithtwometaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 身份证号码
+  certNo: string(name='cert_no'),
+  // 扩展字段
+  extensionInfo?: string(name='extension_info'),
+  // 姓名
+  name: string(name='name'),
+  // 名称
+  ownerName?: string(name='owner_name'),
+  // 自定义个人唯一id，个人在自有模式下的唯一号，调用者需要保证其唯一性
+  ownerUid: string(name='owner_uid'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 生成的did字符串
+  did?: string(name='did'),
+  // 颁发的vcId
+  vcId?: string(name='vc_id'),
+}
+
+model CreateBaasDidPersonWithtwometaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成的did字符串
+  did?: string(name='did'),
+  // 颁发的vcId
+  vcId?: string(name='vc_id'),
+}
+
+/**
+ * Description: 通过个人二要素验证后创建个人did，若未通过个人二要素验证，则不创建did并报错
+ * Summary: 通过个人二要素验证后创建个人did
+ */
+async function createBaasDidPersonWithtwometa(request: CreateBaasDidPersonWithtwometaRequest): CreateBaasDidPersonWithtwometaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBaasDidPersonWithtwometaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过个人二要素验证后创建个人did，若未通过个人二要素验证，则不创建did并报错
+ * Summary: 通过个人二要素验证后创建个人did
+ */
+async function createBaasDidPersonWithtwometaEx(request: CreateBaasDidPersonWithtwometaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaasDidPersonWithtwometaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.person.withtwometa.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBaasDidPersonWithfourmetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 银行卡号
+  bankCard: string(name='bank_card'),
+  // 身份证号码
+  // 
+  certNo: string(name='cert_no'),
+  // 扩展字段
+  // 
+  extensionInfo?: string(name='extension_info'),
+  // 手机号码
+  // 
+  mobile: string(name='mobile'),
+  // 姓名
+  // 
+  name: string(name='name'),
+  // 名称
+  // 
+  ownerName?: string(name='owner_name'),
+  // 自定义个人唯一id，个人在自有模式下的唯一号，调用者需要保证其唯一性
+  ownerUid: string(name='owner_uid'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 生成的did字符串
+  // 
+  did?: string(name='did'),
+  // 颁发的vcId
+  // 
+  vcId?: string(name='vc_id'),
+}
+
+model CreateBaasDidPersonWithfourmetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成的did字符串
+  // 
+  did?: string(name='did'),
+  // 颁发的vcId
+  // 
+  vcId?: string(name='vc_id'),
+}
+
+/**
+ * Description: 通过个人四要素验证后创建个人did
+ * Summary: 通过个人四要素验证后创建个人did
+ */
+async function createBaasDidPersonWithfourmeta(request: CreateBaasDidPersonWithfourmetaRequest): CreateBaasDidPersonWithfourmetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBaasDidPersonWithfourmetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过个人四要素验证后创建个人did
+ * Summary: 通过个人四要素验证后创建个人did
+ */
+async function createBaasDidPersonWithfourmetaEx(request: CreateBaasDidPersonWithfourmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaasDidPersonWithfourmetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.person.withfourmeta.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
