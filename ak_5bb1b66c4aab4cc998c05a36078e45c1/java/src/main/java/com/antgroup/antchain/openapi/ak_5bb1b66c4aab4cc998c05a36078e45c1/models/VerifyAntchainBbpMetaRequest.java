@@ -85,10 +85,6 @@ public class VerifyAntchainBbpMetaRequest extends TeaModel {
     @NameInMap("extension_info")
     public NameValuePair extensionInfo;
 
-    // 要素认证结果
-    @NameInMap("result")
-    public CustomerAuthResult result;
-
     public static VerifyAntchainBbpMetaRequest build(java.util.Map<String, ?> map) throws Exception {
         VerifyAntchainBbpMetaRequest self = new VerifyAntchainBbpMetaRequest();
         return TeaModel.build(map, self);
@@ -244,14 +240,6 @@ public class VerifyAntchainBbpMetaRequest extends TeaModel {
     }
     public NameValuePair getExtensionInfo() {
         return this.extensionInfo;
-    }
-
-    public VerifyAntchainBbpMetaRequest setResult(CustomerAuthResult result) {
-        this.result = result;
-        return this;
-    }
-    public CustomerAuthResult getResult() {
-        return this.result;
     }
 
 }

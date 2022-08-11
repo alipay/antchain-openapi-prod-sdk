@@ -21,10 +21,6 @@ public class CheckSaasSecurityRdsRdsserviceRequest extends TeaModel {
     @Validation(required = true)
     public String serviceVersion;
 
-    // 是否是机器
-    @NameInMap("data")
-    public Long data;
-
     public static CheckSaasSecurityRdsRdsserviceRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckSaasSecurityRdsRdsserviceRequest self = new CheckSaasSecurityRdsRdsserviceRequest();
         return TeaModel.build(map, self);
@@ -60,14 +56,6 @@ public class CheckSaasSecurityRdsRdsserviceRequest extends TeaModel {
     }
     public String getServiceVersion() {
         return this.serviceVersion;
-    }
-
-    public CheckSaasSecurityRdsRdsserviceRequest setData(Long data) {
-        this.data = data;
-        return this;
-    }
-    public Long getData() {
-        return this.data;
     }
 
 }

@@ -21,10 +21,6 @@ public class QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest extend
     @Validation(required = true)
     public String serviceVersion;
 
-    // 返回回调结果
-    @NameInMap("data")
-    public InfoSecContentQueryResult data;
-
     public static QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest build(java.util.Map<String, ?> map) throws Exception {
         QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest self = new QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest();
         return TeaModel.build(map, self);
@@ -60,14 +56,6 @@ public class QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest extend
     }
     public String getServiceVersion() {
         return this.serviceVersion;
-    }
-
-    public QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest setData(InfoSecContentQueryResult data) {
-        this.data = data;
-        return this;
-    }
-    public InfoSecContentQueryResult getData() {
-        return this.data;
     }
 
 }

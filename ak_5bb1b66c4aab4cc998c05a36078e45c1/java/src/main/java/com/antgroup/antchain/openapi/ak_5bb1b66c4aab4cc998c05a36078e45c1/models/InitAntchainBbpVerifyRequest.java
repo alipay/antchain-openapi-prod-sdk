@@ -34,22 +34,6 @@ public class InitAntchainBbpVerifyRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<GwValidateProduct> validateFlows;
 
-    // 核身id
-    @NameInMap("verify_id")
-    public String verifyId;
-
-    // 核身请求地址url
-    @NameInMap("verify_url")
-    public String verifyUrl;
-
-    // 核身处理状态:INITIAL、PROCESSING、SUCCESS、EXPIRED、FAIL
-    @NameInMap("verify_status")
-    public String verifyStatus;
-
-    // 可用产品集合
-    @NameInMap("valid_prod")
-    public java.util.List<GwValidateProduct> validProd;
-
     public static InitAntchainBbpVerifyRequest build(java.util.Map<String, ?> map) throws Exception {
         InitAntchainBbpVerifyRequest self = new InitAntchainBbpVerifyRequest();
         return TeaModel.build(map, self);
@@ -109,38 +93,6 @@ public class InitAntchainBbpVerifyRequest extends TeaModel {
     }
     public java.util.List<GwValidateProduct> getValidateFlows() {
         return this.validateFlows;
-    }
-
-    public InitAntchainBbpVerifyRequest setVerifyId(String verifyId) {
-        this.verifyId = verifyId;
-        return this;
-    }
-    public String getVerifyId() {
-        return this.verifyId;
-    }
-
-    public InitAntchainBbpVerifyRequest setVerifyUrl(String verifyUrl) {
-        this.verifyUrl = verifyUrl;
-        return this;
-    }
-    public String getVerifyUrl() {
-        return this.verifyUrl;
-    }
-
-    public InitAntchainBbpVerifyRequest setVerifyStatus(String verifyStatus) {
-        this.verifyStatus = verifyStatus;
-        return this;
-    }
-    public String getVerifyStatus() {
-        return this.verifyStatus;
-    }
-
-    public InitAntchainBbpVerifyRequest setValidProd(java.util.List<GwValidateProduct> validProd) {
-        this.validProd = validProd;
-        return this;
-    }
-    public java.util.List<GwValidateProduct> getValidProd() {
-        return this.validProd;
     }
 
 }

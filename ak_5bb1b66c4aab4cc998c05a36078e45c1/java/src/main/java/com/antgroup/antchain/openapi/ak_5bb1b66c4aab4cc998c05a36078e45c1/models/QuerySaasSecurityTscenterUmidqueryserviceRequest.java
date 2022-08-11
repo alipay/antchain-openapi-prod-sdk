@@ -21,10 +21,6 @@ public class QuerySaasSecurityTscenterUmidqueryserviceRequest extends TeaModel {
     @Validation(required = true)
     public String serviceVersion;
 
-    // 返回的umid
-    @NameInMap("data")
-    public String data;
-
     public static QuerySaasSecurityTscenterUmidqueryserviceRequest build(java.util.Map<String, ?> map) throws Exception {
         QuerySaasSecurityTscenterUmidqueryserviceRequest self = new QuerySaasSecurityTscenterUmidqueryserviceRequest();
         return TeaModel.build(map, self);
@@ -60,14 +56,6 @@ public class QuerySaasSecurityTscenterUmidqueryserviceRequest extends TeaModel {
     }
     public String getServiceVersion() {
         return this.serviceVersion;
-    }
-
-    public QuerySaasSecurityTscenterUmidqueryserviceRequest setData(String data) {
-        this.data = data;
-        return this;
-    }
-    public String getData() {
-        return this.data;
     }
 
 }

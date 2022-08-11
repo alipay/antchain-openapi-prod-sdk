@@ -20,10 +20,6 @@ public class CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest extends Tea
     @Validation(required = true)
     public String serviceVersion;
 
-    // 大安全风控接口返回结果
-    @NameInMap("data")
-    public HoloxCheckResult data;
-
     public static CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest self = new CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest();
         return TeaModel.build(map, self);
@@ -59,14 +55,6 @@ public class CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest extends Tea
     }
     public String getServiceVersion() {
         return this.serviceVersion;
-    }
-
-    public CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest setData(HoloxCheckResult data) {
-        this.data = data;
-        return this;
-    }
-    public HoloxCheckResult getData() {
-        return this.data;
     }
 
 }

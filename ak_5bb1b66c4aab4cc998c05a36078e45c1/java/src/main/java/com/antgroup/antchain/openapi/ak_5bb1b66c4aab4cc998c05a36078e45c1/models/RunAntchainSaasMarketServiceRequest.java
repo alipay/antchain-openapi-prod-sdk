@@ -39,10 +39,6 @@ public class RunAntchainSaasMarketServiceRequest extends TeaModel {
     @NameInMap("params")
     public java.util.List<KeyValuePair> params;
 
-    // 服务调用结果
-    @NameInMap("result_data")
-    public java.util.List<KeyValuePair> resultData;
-
     public static RunAntchainSaasMarketServiceRequest build(java.util.Map<String, ?> map) throws Exception {
         RunAntchainSaasMarketServiceRequest self = new RunAntchainSaasMarketServiceRequest();
         return TeaModel.build(map, self);
@@ -110,14 +106,6 @@ public class RunAntchainSaasMarketServiceRequest extends TeaModel {
     }
     public java.util.List<KeyValuePair> getParams() {
         return this.params;
-    }
-
-    public RunAntchainSaasMarketServiceRequest setResultData(java.util.List<KeyValuePair> resultData) {
-        this.resultData = resultData;
-        return this;
-    }
-    public java.util.List<KeyValuePair> getResultData() {
-        return this.resultData;
     }
 
 }

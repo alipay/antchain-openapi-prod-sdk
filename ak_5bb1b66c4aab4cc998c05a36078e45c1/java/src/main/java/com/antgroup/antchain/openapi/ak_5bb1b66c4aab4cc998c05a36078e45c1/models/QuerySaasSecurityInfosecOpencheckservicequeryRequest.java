@@ -21,10 +21,6 @@ public class QuerySaasSecurityInfosecOpencheckservicequeryRequest extends TeaMod
     @Validation(required = true)
     public String serviceVersion;
 
-    // 大安全内容检测接口返回结果
-    @NameInMap("data")
-    public ContentQueryResultModel data;
-
     public static QuerySaasSecurityInfosecOpencheckservicequeryRequest build(java.util.Map<String, ?> map) throws Exception {
         QuerySaasSecurityInfosecOpencheckservicequeryRequest self = new QuerySaasSecurityInfosecOpencheckservicequeryRequest();
         return TeaModel.build(map, self);
@@ -60,14 +56,6 @@ public class QuerySaasSecurityInfosecOpencheckservicequeryRequest extends TeaMod
     }
     public String getServiceVersion() {
         return this.serviceVersion;
-    }
-
-    public QuerySaasSecurityInfosecOpencheckservicequeryRequest setData(ContentQueryResultModel data) {
-        this.data = data;
-        return this;
-    }
-    public ContentQueryResultModel getData() {
-        return this.data;
     }
 
 }

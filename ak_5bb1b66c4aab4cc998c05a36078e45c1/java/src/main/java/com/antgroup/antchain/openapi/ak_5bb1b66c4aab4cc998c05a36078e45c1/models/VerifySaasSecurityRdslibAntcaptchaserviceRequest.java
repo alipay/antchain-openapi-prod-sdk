@@ -21,10 +21,6 @@ public class VerifySaasSecurityRdslibAntcaptchaserviceRequest extends TeaModel {
     @Validation(required = true)
     public String serviceVersion;
 
-    // 是否是机器人
-    @NameInMap("data")
-    public RdslibAntcaptchaservice data;
-
     public static VerifySaasSecurityRdslibAntcaptchaserviceRequest build(java.util.Map<String, ?> map) throws Exception {
         VerifySaasSecurityRdslibAntcaptchaserviceRequest self = new VerifySaasSecurityRdslibAntcaptchaserviceRequest();
         return TeaModel.build(map, self);
@@ -60,14 +56,6 @@ public class VerifySaasSecurityRdslibAntcaptchaserviceRequest extends TeaModel {
     }
     public String getServiceVersion() {
         return this.serviceVersion;
-    }
-
-    public VerifySaasSecurityRdslibAntcaptchaserviceRequest setData(RdslibAntcaptchaservice data) {
-        this.data = data;
-        return this;
-    }
-    public RdslibAntcaptchaservice getData() {
-        return this.data;
     }
 
 }

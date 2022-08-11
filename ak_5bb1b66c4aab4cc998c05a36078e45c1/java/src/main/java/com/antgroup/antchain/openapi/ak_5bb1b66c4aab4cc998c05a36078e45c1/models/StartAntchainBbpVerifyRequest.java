@@ -31,10 +31,6 @@ public class StartAntchainBbpVerifyRequest extends TeaModel {
     @Validation(required = true)
     public String bizId;
 
-    // 核身渲染结果
-    @NameInMap("result")
-    public java.util.List<GwVerifyViewResult> result;
-
     public static StartAntchainBbpVerifyRequest build(java.util.Map<String, ?> map) throws Exception {
         StartAntchainBbpVerifyRequest self = new StartAntchainBbpVerifyRequest();
         return TeaModel.build(map, self);
@@ -86,14 +82,6 @@ public class StartAntchainBbpVerifyRequest extends TeaModel {
     }
     public String getBizId() {
         return this.bizId;
-    }
-
-    public StartAntchainBbpVerifyRequest setResult(java.util.List<GwVerifyViewResult> result) {
-        this.result = result;
-        return this;
-    }
-    public java.util.List<GwVerifyViewResult> getResult() {
-        return this.result;
     }
 
 }

@@ -16,10 +16,6 @@ public class QueryAntchainSaasMarketSolutionRequest extends TeaModel {
     @Validation(required = true)
     public String solutionCode;
 
-    // 查询结果
-    @NameInMap("result_data")
-    public java.util.List<KeyValuePair> resultData;
-
     public static QueryAntchainSaasMarketSolutionRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAntchainSaasMarketSolutionRequest self = new QueryAntchainSaasMarketSolutionRequest();
         return TeaModel.build(map, self);
@@ -47,14 +43,6 @@ public class QueryAntchainSaasMarketSolutionRequest extends TeaModel {
     }
     public String getSolutionCode() {
         return this.solutionCode;
-    }
-
-    public QueryAntchainSaasMarketSolutionRequest setResultData(java.util.List<KeyValuePair> resultData) {
-        this.resultData = resultData;
-        return this;
-    }
-    public java.util.List<KeyValuePair> getResultData() {
-        return this.resultData;
     }
 
 }

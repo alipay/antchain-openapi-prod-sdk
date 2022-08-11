@@ -36,10 +36,6 @@ public class CheckAntchainBbpVerifyRequest extends TeaModel {
     @Validation(required = true)
     public String productCode;
 
-    // 核身结果枚举：PASS-核身成功，INITIAL-初始化，PROCESS-处理中，FAIL-失败
-    @NameInMap("status")
-    public String status;
-
     public static CheckAntchainBbpVerifyRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckAntchainBbpVerifyRequest self = new CheckAntchainBbpVerifyRequest();
         return TeaModel.build(map, self);
@@ -99,14 +95,6 @@ public class CheckAntchainBbpVerifyRequest extends TeaModel {
     }
     public String getProductCode() {
         return this.productCode;
-    }
-
-    public CheckAntchainBbpVerifyRequest setStatus(String status) {
-        this.status = status;
-        return this;
-    }
-    public String getStatus() {
-        return this.status;
     }
 
 }

@@ -21,10 +21,6 @@ public class QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest extends 
     @Validation(required = true)
     public String serviceVersion;
 
-    // 返回结果
-    @NameInMap("data")
-    public SecurityUniformResponse data;
-
     public static QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest build(java.util.Map<String, ?> map) throws Exception {
         QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest self = new QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest();
         return TeaModel.build(map, self);
@@ -60,14 +56,6 @@ public class QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest extends 
     }
     public String getServiceVersion() {
         return this.serviceVersion;
-    }
-
-    public QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest setData(SecurityUniformResponse data) {
-        this.data = data;
-        return this;
-    }
-    public SecurityUniformResponse getData() {
-        return this.data;
     }
 
 }
