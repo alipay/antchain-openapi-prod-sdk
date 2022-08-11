@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.3',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -196,6 +196,14 @@ model CustomerAuthResult {
   pass: boolean(name='pass', example='true, false'),
   // 业务ID
   disReqMsgId?: string(name='dis_req_msg_id', example='xxx'),
+}
+
+// 键值对，兼容map用
+model KeyValuePair {
+  // key
+  key: string(name='key', example='key'),
+  // value
+  value?: string(name='value', example='value'),
 }
 
 // 核身渲染结果
@@ -382,6 +390,96 @@ async function checkAntchainBbpVerify(request: CheckAntchainBbpVerifyRequest): C
 async function checkAntchainBbpVerifyEx(request: CheckAntchainBbpVerifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckAntchainBbpVerifyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.bbp.verify.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RunAntchainSaasMarketServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务方传入，幂等用。
+  bizId: string(name='biz_id'),
+  // saas产品code
+  productCode: string(name='product_code'),
+  // 服务code
+  serviceCode: string(name='service_code'),
+  // 子服务code
+  subServiceCode?: string(name='sub_service_code'),
+  // 服务版本
+  serviceVersion: string(name='service_version'),
+  // 业务参数，map格式
+  params?: [ KeyValuePair ](name='params'),
+  // 服务调用结果
+  resultData?: [ KeyValuePair ](name='result_data'),
+}
+
+model RunAntchainSaasMarketServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 服务调用结果
+  resultData?: [ KeyValuePair ](name='result_data'),
+}
+
+/**
+ * Description: SaaS服务调用
+ * Summary: SaaS服务调用
+ */
+async function runAntchainSaasMarketService(request: RunAntchainSaasMarketServiceRequest): RunAntchainSaasMarketServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return runAntchainSaasMarketServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: SaaS服务调用
+ * Summary: SaaS服务调用
+ */
+async function runAntchainSaasMarketServiceEx(request: RunAntchainSaasMarketServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RunAntchainSaasMarketServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.market.service.run', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainSaasMarketSolutionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 解决方案code
+  solutionCode: string(name='solution_code'),
+  // 查询结果
+  resultData?: [ KeyValuePair ](name='result_data'),
+}
+
+model QueryAntchainSaasMarketSolutionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果
+  resultData?: [ KeyValuePair ](name='result_data'),
+}
+
+/**
+ * Description: 查询解决方案，包括能力列表
+ * Summary: 查询解决方案，包括能力列表
+ */
+async function queryAntchainSaasMarketSolution(request: QueryAntchainSaasMarketSolutionRequest): QueryAntchainSaasMarketSolutionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainSaasMarketSolutionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询解决方案，包括能力列表
+ * Summary: 查询解决方案，包括能力列表
+ */
+async function queryAntchainSaasMarketSolutionEx(request: QueryAntchainSaasMarketSolutionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainSaasMarketSolutionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.saas.market.solution.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyAntchainBbpMetaRequest = {
