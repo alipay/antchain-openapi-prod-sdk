@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_20ab7e4471e24e8fbfaa7df4ba0613c8
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.Ak_20ab7e4471e24e8fbfaa7df4ba0613c8
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -570,6 +570,90 @@ namespace AntChain.SDK.Ak_20ab7e4471e24e8fbfaa7df4ba0613c8
         }
 
         /**
+         * Description: 开始实人认证
+         * Summary: 开始实人认证
+         */
+        public StartBaasDidIdentificationFaceauthResponse StartBaasDidIdentificationFaceauth(StartBaasDidIdentificationFaceauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartBaasDidIdentificationFaceauthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开始实人认证
+         * Summary: 开始实人认证
+         */
+        public async Task<StartBaasDidIdentificationFaceauthResponse> StartBaasDidIdentificationFaceauthAsync(StartBaasDidIdentificationFaceauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartBaasDidIdentificationFaceauthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开始实人认证
+         * Summary: 开始实人认证
+         */
+        public StartBaasDidIdentificationFaceauthResponse StartBaasDidIdentificationFaceauthEx(StartBaasDidIdentificationFaceauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartBaasDidIdentificationFaceauthResponse>(DoRequest("1.0", "baas.did.identification.faceauth.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 开始实人认证
+         * Summary: 开始实人认证
+         */
+        public async Task<StartBaasDidIdentificationFaceauthResponse> StartBaasDidIdentificationFaceauthExAsync(StartBaasDidIdentificationFaceauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartBaasDidIdentificationFaceauthResponse>(await DoRequestAsync("1.0", "baas.did.identification.faceauth.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询实人认证结果
+         * Summary: 查询实人认证结果
+         */
+        public QueryBaasDidIdentificationFaceauthResponse QueryBaasDidIdentificationFaceauth(QueryBaasDidIdentificationFaceauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBaasDidIdentificationFaceauthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询实人认证结果
+         * Summary: 查询实人认证结果
+         */
+        public async Task<QueryBaasDidIdentificationFaceauthResponse> QueryBaasDidIdentificationFaceauthAsync(QueryBaasDidIdentificationFaceauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBaasDidIdentificationFaceauthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询实人认证结果
+         * Summary: 查询实人认证结果
+         */
+        public QueryBaasDidIdentificationFaceauthResponse QueryBaasDidIdentificationFaceauthEx(QueryBaasDidIdentificationFaceauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBaasDidIdentificationFaceauthResponse>(DoRequest("1.0", "baas.did.identification.faceauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询实人认证结果
+         * Summary: 查询实人认证结果
+         */
+        public async Task<QueryBaasDidIdentificationFaceauthResponse> QueryBaasDidIdentificationFaceauthExAsync(QueryBaasDidIdentificationFaceauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBaasDidIdentificationFaceauthResponse>(await DoRequestAsync("1.0", "baas.did.identification.faceauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
          * Summary: 通过个人三要素验证后创建个人did
          */
@@ -609,6 +693,48 @@ namespace AntChain.SDK.Ak_20ab7e4471e24e8fbfaa7df4ba0613c8
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateBaasDidPersonWiththreemetaResponse>(await DoRequestAsync("1.0", "baas.did.person.withthreemeta.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+         * Summary: 通过企业三要素验证后创建企业did
+         */
+        public CreateBaasDidCorporateWiththreemetaResponse CreateBaasDidCorporateWiththreemeta(CreateBaasDidCorporateWiththreemetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateBaasDidCorporateWiththreemetaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+         * Summary: 通过企业三要素验证后创建企业did
+         */
+        public async Task<CreateBaasDidCorporateWiththreemetaResponse> CreateBaasDidCorporateWiththreemetaAsync(CreateBaasDidCorporateWiththreemetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateBaasDidCorporateWiththreemetaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+         * Summary: 通过企业三要素验证后创建企业did
+         */
+        public CreateBaasDidCorporateWiththreemetaResponse CreateBaasDidCorporateWiththreemetaEx(CreateBaasDidCorporateWiththreemetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBaasDidCorporateWiththreemetaResponse>(DoRequest("1.0", "baas.did.corporate.withthreemeta.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+         * Summary: 通过企业三要素验证后创建企业did
+         */
+        public async Task<CreateBaasDidCorporateWiththreemetaResponse> CreateBaasDidCorporateWiththreemetaExAsync(CreateBaasDidCorporateWiththreemetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBaasDidCorporateWiththreemetaResponse>(await DoRequestAsync("1.0", "baas.did.corporate.withthreemeta.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -655,6 +781,90 @@ namespace AntChain.SDK.Ak_20ab7e4471e24e8fbfaa7df4ba0613c8
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<StartBaasDidVcrepositoryIssueResponse>(await DoRequestAsync("1.0", "baas.did.vcrepository.issue.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 注册自定义的服务类型，目前只有租户did可以调用
+         * Summary: 注册自定义服务类型
+         */
+        public StartBaasDidAgentServicetypeResponse StartBaasDidAgentServicetype(StartBaasDidAgentServicetypeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartBaasDidAgentServicetypeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 注册自定义的服务类型，目前只有租户did可以调用
+         * Summary: 注册自定义服务类型
+         */
+        public async Task<StartBaasDidAgentServicetypeResponse> StartBaasDidAgentServicetypeAsync(StartBaasDidAgentServicetypeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartBaasDidAgentServicetypeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 注册自定义的服务类型，目前只有租户did可以调用
+         * Summary: 注册自定义服务类型
+         */
+        public StartBaasDidAgentServicetypeResponse StartBaasDidAgentServicetypeEx(StartBaasDidAgentServicetypeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartBaasDidAgentServicetypeResponse>(DoRequest("1.0", "baas.did.agent.servicetype.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 注册自定义的服务类型，目前只有租户did可以调用
+         * Summary: 注册自定义服务类型
+         */
+        public async Task<StartBaasDidAgentServicetypeResponse> StartBaasDidAgentServicetypeExAsync(StartBaasDidAgentServicetypeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartBaasDidAgentServicetypeResponse>(await DoRequestAsync("1.0", "baas.did.agent.servicetype.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询指定服务类型的定义，不支持全量查询
+         * Summary: 查询指定服务类型的定义
+         */
+        public QueryBaasDidAgentServicetypeResponse QueryBaasDidAgentServicetype(QueryBaasDidAgentServicetypeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBaasDidAgentServicetypeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询指定服务类型的定义，不支持全量查询
+         * Summary: 查询指定服务类型的定义
+         */
+        public async Task<QueryBaasDidAgentServicetypeResponse> QueryBaasDidAgentServicetypeAsync(QueryBaasDidAgentServicetypeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBaasDidAgentServicetypeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询指定服务类型的定义，不支持全量查询
+         * Summary: 查询指定服务类型的定义
+         */
+        public QueryBaasDidAgentServicetypeResponse QueryBaasDidAgentServicetypeEx(QueryBaasDidAgentServicetypeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBaasDidAgentServicetypeResponse>(DoRequest("1.0", "baas.did.agent.servicetype.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询指定服务类型的定义，不支持全量查询
+         * Summary: 查询指定服务类型的定义
+         */
+        public async Task<QueryBaasDidAgentServicetypeResponse> QueryBaasDidAgentServicetypeExAsync(QueryBaasDidAgentServicetypeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBaasDidAgentServicetypeResponse>(await DoRequestAsync("1.0", "baas.did.agent.servicetype.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -742,6 +952,90 @@ namespace AntChain.SDK.Ak_20ab7e4471e24e8fbfaa7df4ba0613c8
         }
 
         /**
+         * Description: 通过企业二要素验证后创建企业did
+         * Summary: 通过企业二要素验证后创建企业did
+         */
+        public CreateBaasDidCorporateWithtwometaResponse CreateBaasDidCorporateWithtwometa(CreateBaasDidCorporateWithtwometaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateBaasDidCorporateWithtwometaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过企业二要素验证后创建企业did
+         * Summary: 通过企业二要素验证后创建企业did
+         */
+        public async Task<CreateBaasDidCorporateWithtwometaResponse> CreateBaasDidCorporateWithtwometaAsync(CreateBaasDidCorporateWithtwometaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateBaasDidCorporateWithtwometaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过企业二要素验证后创建企业did
+         * Summary: 通过企业二要素验证后创建企业did
+         */
+        public CreateBaasDidCorporateWithtwometaResponse CreateBaasDidCorporateWithtwometaEx(CreateBaasDidCorporateWithtwometaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBaasDidCorporateWithtwometaResponse>(DoRequest("1.0", "baas.did.corporate.withtwometa.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过企业二要素验证后创建企业did
+         * Summary: 通过企业二要素验证后创建企业did
+         */
+        public async Task<CreateBaasDidCorporateWithtwometaResponse> CreateBaasDidCorporateWithtwometaExAsync(CreateBaasDidCorporateWithtwometaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBaasDidCorporateWithtwometaResponse>(await DoRequestAsync("1.0", "baas.did.corporate.withtwometa.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过企业四要素验证后创建企业did
+         * Summary: 通过企业四要素验证后创建企业did
+         */
+        public CreateBaasDidCorporateWithfourmetaResponse CreateBaasDidCorporateWithfourmeta(CreateBaasDidCorporateWithfourmetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateBaasDidCorporateWithfourmetaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过企业四要素验证后创建企业did
+         * Summary: 通过企业四要素验证后创建企业did
+         */
+        public async Task<CreateBaasDidCorporateWithfourmetaResponse> CreateBaasDidCorporateWithfourmetaAsync(CreateBaasDidCorporateWithfourmetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateBaasDidCorporateWithfourmetaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过企业四要素验证后创建企业did
+         * Summary: 通过企业四要素验证后创建企业did
+         */
+        public CreateBaasDidCorporateWithfourmetaResponse CreateBaasDidCorporateWithfourmetaEx(CreateBaasDidCorporateWithfourmetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBaasDidCorporateWithfourmetaResponse>(DoRequest("1.0", "baas.did.corporate.withfourmeta.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过企业四要素验证后创建企业did
+         * Summary: 通过企业四要素验证后创建企业did
+         */
+        public async Task<CreateBaasDidCorporateWithfourmetaResponse> CreateBaasDidCorporateWithfourmetaExAsync(CreateBaasDidCorporateWithfourmetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBaasDidCorporateWithfourmetaResponse>(await DoRequestAsync("1.0", "baas.did.corporate.withfourmeta.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 通过个人四要素验证后创建个人did
          * Summary: 通过个人四要素验证后创建个人did
          */
@@ -781,6 +1075,90 @@ namespace AntChain.SDK.Ak_20ab7e4471e24e8fbfaa7df4ba0613c8
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateBaasDidPersonWithfourmetaResponse>(await DoRequestAsync("1.0", "baas.did.person.withfourmeta.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业法人刷脸认证
+         * Summary: 企业法人刷脸认证
+         */
+        public StartBaasDidCorporateFaceauthResponse StartBaasDidCorporateFaceauth(StartBaasDidCorporateFaceauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartBaasDidCorporateFaceauthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业法人刷脸认证
+         * Summary: 企业法人刷脸认证
+         */
+        public async Task<StartBaasDidCorporateFaceauthResponse> StartBaasDidCorporateFaceauthAsync(StartBaasDidCorporateFaceauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartBaasDidCorporateFaceauthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业法人刷脸认证
+         * Summary: 企业法人刷脸认证
+         */
+        public StartBaasDidCorporateFaceauthResponse StartBaasDidCorporateFaceauthEx(StartBaasDidCorporateFaceauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartBaasDidCorporateFaceauthResponse>(DoRequest("1.0", "baas.did.corporate.faceauth.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业法人刷脸认证
+         * Summary: 企业法人刷脸认证
+         */
+        public async Task<StartBaasDidCorporateFaceauthResponse> StartBaasDidCorporateFaceauthExAsync(StartBaasDidCorporateFaceauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartBaasDidCorporateFaceauthResponse>(await DoRequestAsync("1.0", "baas.did.corporate.faceauth.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询企业法人实人结果
+         * Summary: 查询企业法人实人结果
+         */
+        public QueryBaasDidCorporateFaceauthResponse QueryBaasDidCorporateFaceauth(QueryBaasDidCorporateFaceauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBaasDidCorporateFaceauthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询企业法人实人结果
+         * Summary: 查询企业法人实人结果
+         */
+        public async Task<QueryBaasDidCorporateFaceauthResponse> QueryBaasDidCorporateFaceauthAsync(QueryBaasDidCorporateFaceauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBaasDidCorporateFaceauthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询企业法人实人结果
+         * Summary: 查询企业法人实人结果
+         */
+        public QueryBaasDidCorporateFaceauthResponse QueryBaasDidCorporateFaceauthEx(QueryBaasDidCorporateFaceauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBaasDidCorporateFaceauthResponse>(DoRequest("1.0", "baas.did.corporate.faceauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询企业法人实人结果
+         * Summary: 查询企业法人实人结果
+         */
+        public async Task<QueryBaasDidCorporateFaceauthResponse> QueryBaasDidCorporateFaceauthExAsync(QueryBaasDidCorporateFaceauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBaasDidCorporateFaceauthResponse>(await DoRequestAsync("1.0", "baas.did.corporate.faceauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
