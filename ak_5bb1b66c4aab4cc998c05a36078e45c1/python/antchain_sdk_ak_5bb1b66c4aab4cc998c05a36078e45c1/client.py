@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 键值对，兼容map用
+            # 123
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.0.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +212,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 键值对，兼容map用
+            # 123
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3'
+                    'sdk_version': '1.0.5'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -605,4 +605,396 @@ class Client:
         return TeaCore.from_map(
             ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.VerifyAntchainBbpMetaResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.meta.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_saas_security_infosec_holoxcontentcheckservice(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_saas_security_infosec_holoxcontentcheckservice_ex(request, headers, runtime)
+
+    async def check_saas_security_infosec_holoxcontentcheckservice_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_saas_security_infosec_holoxcontentcheckservice_ex_async(request, headers, runtime)
+
+    def check_saas_security_infosec_holoxcontentcheckservice_ex(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse(),
+            self.do_request('1.0', 'saas.security.infosec.holoxcontentcheckservice.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_saas_security_infosec_holoxcontentcheckservice_ex_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse(),
+            await self.do_request_async('1.0', 'saas.security.infosec.holoxcontentcheckservice.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_saas_security_securitycore_securityuniformservice(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_saas_security_securitycore_securityuniformservice_ex(request, headers, runtime)
+
+    async def query_saas_security_securitycore_securityuniformservice_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_saas_security_securitycore_securityuniformservice_ex_async(request, headers, runtime)
+
+    def query_saas_security_securitycore_securityuniformservice_ex(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse(),
+            self.do_request('1.0', 'saas.security.securitycore.securityuniformservice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_saas_security_securitycore_securityuniformservice_ex_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse(),
+            await self.do_request_async('1.0', 'saas.security.securitycore.securityuniformservice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_saas_security_rds_rdsservice(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityRdsRdsserviceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityRdsRdsserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_saas_security_rds_rdsservice_ex(request, headers, runtime)
+
+    async def check_saas_security_rds_rdsservice_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityRdsRdsserviceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityRdsRdsserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_saas_security_rds_rdsservice_ex_async(request, headers, runtime)
+
+    def check_saas_security_rds_rdsservice_ex(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityRdsRdsserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityRdsRdsserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityRdsRdsserviceResponse(),
+            self.do_request('1.0', 'saas.security.rds.rdsservice.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_saas_security_rds_rdsservice_ex_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityRdsRdsserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityRdsRdsserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckSaasSecurityRdsRdsserviceResponse(),
+            await self.do_request_async('1.0', 'saas.security.rds.rdsservice.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_saas_security_infosec_holoxcontentcheckqueryservice(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse:
+        """
+        Description: 123
+        Summary: 大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_saas_security_infosec_holoxcontentcheckqueryservice_ex(request, headers, runtime)
+
+    async def query_saas_security_infosec_holoxcontentcheckqueryservice_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse:
+        """
+        Description: 123
+        Summary: 大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_saas_security_infosec_holoxcontentcheckqueryservice_ex_async(request, headers, runtime)
+
+    def query_saas_security_infosec_holoxcontentcheckqueryservice_ex(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse:
+        """
+        Description: 123
+        Summary: 大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse(),
+            self.do_request('1.0', 'saas.security.infosec.holoxcontentcheckqueryservice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_saas_security_infosec_holoxcontentcheckqueryservice_ex_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse:
+        """
+        Description: 123
+        Summary: 大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse(),
+            await self.do_request_async('1.0', 'saas.security.infosec.holoxcontentcheckqueryservice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_saas_security_rdslib_antcaptchaservice(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.VerifySaasSecurityRdslibAntcaptchaserviceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.VerifySaasSecurityRdslibAntcaptchaserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_saas_security_rdslib_antcaptchaservice_ex(request, headers, runtime)
+
+    async def verify_saas_security_rdslib_antcaptchaservice_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.VerifySaasSecurityRdslibAntcaptchaserviceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.VerifySaasSecurityRdslibAntcaptchaserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_saas_security_rdslib_antcaptchaservice_ex_async(request, headers, runtime)
+
+    def verify_saas_security_rdslib_antcaptchaservice_ex(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.VerifySaasSecurityRdslibAntcaptchaserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.VerifySaasSecurityRdslibAntcaptchaserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.VerifySaasSecurityRdslibAntcaptchaserviceResponse(),
+            self.do_request('1.0', 'saas.security.rdslib.antcaptchaservice.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_saas_security_rdslib_antcaptchaservice_ex_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.VerifySaasSecurityRdslibAntcaptchaserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.VerifySaasSecurityRdslibAntcaptchaserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.VerifySaasSecurityRdslibAntcaptchaserviceResponse(),
+            await self.do_request_async('1.0', 'saas.security.rdslib.antcaptchaservice.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_saas_security_tscenter_umidqueryservice(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityTscenterUmidqueryserviceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityTscenterUmidqueryserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_saas_security_tscenter_umidqueryservice_ex(request, headers, runtime)
+
+    async def query_saas_security_tscenter_umidqueryservice_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityTscenterUmidqueryserviceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityTscenterUmidqueryserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_saas_security_tscenter_umidqueryservice_ex_async(request, headers, runtime)
+
+    def query_saas_security_tscenter_umidqueryservice_ex(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityTscenterUmidqueryserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityTscenterUmidqueryserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityTscenterUmidqueryserviceResponse(),
+            self.do_request('1.0', 'saas.security.tscenter.umidqueryservice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_saas_security_tscenter_umidqueryservice_ex_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityTscenterUmidqueryserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityTscenterUmidqueryserviceResponse:
+        """
+        Description: 大安全接口
+        Summary: 大安全接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityTscenterUmidqueryserviceResponse(),
+            await self.do_request_async('1.0', 'saas.security.tscenter.umidqueryservice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_saas_security_infosec_opencheckservicequery(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecOpencheckservicequeryRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecOpencheckservicequeryResponse:
+        """
+        Description: 大安全内容检测结果查询接口
+        Summary: 大安全内容检测结果查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_saas_security_infosec_opencheckservicequery_ex(request, headers, runtime)
+
+    async def query_saas_security_infosec_opencheckservicequery_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecOpencheckservicequeryRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecOpencheckservicequeryResponse:
+        """
+        Description: 大安全内容检测结果查询接口
+        Summary: 大安全内容检测结果查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_saas_security_infosec_opencheckservicequery_ex_async(request, headers, runtime)
+
+    def query_saas_security_infosec_opencheckservicequery_ex(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecOpencheckservicequeryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecOpencheckservicequeryResponse:
+        """
+        Description: 大安全内容检测结果查询接口
+        Summary: 大安全内容检测结果查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecOpencheckservicequeryResponse(),
+            self.do_request('1.0', 'saas.security.infosec.opencheckservicequery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_saas_security_infosec_opencheckservicequery_ex_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecOpencheckservicequeryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecOpencheckservicequeryResponse:
+        """
+        Description: 大安全内容检测结果查询接口
+        Summary: 大安全内容检测结果查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QuerySaasSecurityInfosecOpencheckservicequeryResponse(),
+            await self.do_request_async('1.0', 'saas.security.infosec.opencheckservicequery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
