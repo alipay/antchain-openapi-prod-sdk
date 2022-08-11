@@ -11,18 +11,36 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\CreateBaasDidCorporateWithfourmetaRequest;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\CreateBaasDidCorporateWithfourmetaResponse;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\CreateBaasDidCorporateWiththreemetaRequest;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\CreateBaasDidCorporateWiththreemetaResponse;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\CreateBaasDidCorporateWithtwometaRequest;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\CreateBaasDidCorporateWithtwometaResponse;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\CreateBaasDidPersonWithfourmetaRequest;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\CreateBaasDidPersonWithfourmetaResponse;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\CreateBaasDidPersonWiththreemetaRequest;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\CreateBaasDidPersonWiththreemetaResponse;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\CreateBaasDidPersonWithtwometaRequest;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\CreateBaasDidPersonWithtwometaResponse;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\QueryBaasDidAgentServicetypeRequest;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\QueryBaasDidAgentServicetypeResponse;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\QueryBaasDidCorporateFaceauthRequest;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\QueryBaasDidCorporateFaceauthResponse;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\QueryBaasDidIdentificationFaceauthRequest;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\QueryBaasDidIdentificationFaceauthResponse;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\QueryBaasDidVcRequest;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\QueryBaasDidVcResponse;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\StartBaasDidAgentServicetypeRequest;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\StartBaasDidAgentServicetypeResponse;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\StartBaasDidCorporateAgentcreateRequest;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\StartBaasDidCorporateAgentcreateResponse;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\StartBaasDidCorporateFaceauthRequest;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\StartBaasDidCorporateFaceauthResponse;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\StartBaasDidCorporateSelfcreateRequest;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\StartBaasDidCorporateSelfcreateResponse;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\StartBaasDidIdentificationFaceauthRequest;
+use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\StartBaasDidIdentificationFaceauthResponse;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\StartBaasDidPersonAgentcreateRequest;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\StartBaasDidPersonAgentcreateResponse;
 use AntChain\Ak_20ab7e4471e24e8fbfaa7df4ba0613c8\Models\StartBaasDidVcrepositoryIssueRequest;
@@ -180,7 +198,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.0.3',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -425,6 +443,72 @@ class Client
     }
 
     /**
+     * Description: 开始实人认证
+     * Summary: 开始实人认证
+     *
+     * @param StartBaasDidIdentificationFaceauthRequest $request
+     *
+     * @return StartBaasDidIdentificationFaceauthResponse
+     */
+    public function startBaasDidIdentificationFaceauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startBaasDidIdentificationFaceauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开始实人认证
+     * Summary: 开始实人认证
+     *
+     * @param StartBaasDidIdentificationFaceauthRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return StartBaasDidIdentificationFaceauthResponse
+     */
+    public function startBaasDidIdentificationFaceauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartBaasDidIdentificationFaceauthResponse::fromMap($this->doRequest('1.0', 'baas.did.identification.faceauth.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询实人认证结果
+     * Summary: 查询实人认证结果.
+     *
+     * @param QueryBaasDidIdentificationFaceauthRequest $request
+     *
+     * @return QueryBaasDidIdentificationFaceauthResponse
+     */
+    public function queryBaasDidIdentificationFaceauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBaasDidIdentificationFaceauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询实人认证结果
+     * Summary: 查询实人认证结果.
+     *
+     * @param QueryBaasDidIdentificationFaceauthRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryBaasDidIdentificationFaceauthResponse
+     */
+    public function queryBaasDidIdentificationFaceauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBaasDidIdentificationFaceauthResponse::fromMap($this->doRequest('1.0', 'baas.did.identification.faceauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
      * Summary: 通过个人三要素验证后创建个人did.
      *
@@ -455,6 +539,39 @@ class Client
         Utils::validateModel($request);
 
         return CreateBaasDidPersonWiththreemetaResponse::fromMap($this->doRequest('1.0', 'baas.did.person.withthreemeta.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+     * Summary: 通过企业三要素验证后创建企业did.
+     *
+     * @param CreateBaasDidCorporateWiththreemetaRequest $request
+     *
+     * @return CreateBaasDidCorporateWiththreemetaResponse
+     */
+    public function createBaasDidCorporateWiththreemeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBaasDidCorporateWiththreemetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+     * Summary: 通过企业三要素验证后创建企业did.
+     *
+     * @param CreateBaasDidCorporateWiththreemetaRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return CreateBaasDidCorporateWiththreemetaResponse
+     */
+    public function createBaasDidCorporateWiththreemetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBaasDidCorporateWiththreemetaResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.withthreemeta.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -490,6 +607,72 @@ class Client
         Utils::validateModel($request);
 
         return StartBaasDidVcrepositoryIssueResponse::fromMap($this->doRequest('1.0', 'baas.did.vcrepository.issue.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 注册自定义的服务类型，目前只有租户did可以调用
+     * Summary: 注册自定义服务类型.
+     *
+     * @param StartBaasDidAgentServicetypeRequest $request
+     *
+     * @return StartBaasDidAgentServicetypeResponse
+     */
+    public function startBaasDidAgentServicetype($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startBaasDidAgentServicetypeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 注册自定义的服务类型，目前只有租户did可以调用
+     * Summary: 注册自定义服务类型.
+     *
+     * @param StartBaasDidAgentServicetypeRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return StartBaasDidAgentServicetypeResponse
+     */
+    public function startBaasDidAgentServicetypeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartBaasDidAgentServicetypeResponse::fromMap($this->doRequest('1.0', 'baas.did.agent.servicetype.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询指定服务类型的定义，不支持全量查询
+     * Summary: 查询指定服务类型的定义.
+     *
+     * @param QueryBaasDidAgentServicetypeRequest $request
+     *
+     * @return QueryBaasDidAgentServicetypeResponse
+     */
+    public function queryBaasDidAgentServicetype($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBaasDidAgentServicetypeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询指定服务类型的定义，不支持全量查询
+     * Summary: 查询指定服务类型的定义.
+     *
+     * @param QueryBaasDidAgentServicetypeRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryBaasDidAgentServicetypeResponse
+     */
+    public function queryBaasDidAgentServicetypeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBaasDidAgentServicetypeResponse::fromMap($this->doRequest('1.0', 'baas.did.agent.servicetype.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -559,6 +742,72 @@ class Client
     }
 
     /**
+     * Description: 通过企业二要素验证后创建企业did
+     * Summary: 通过企业二要素验证后创建企业did.
+     *
+     * @param CreateBaasDidCorporateWithtwometaRequest $request
+     *
+     * @return CreateBaasDidCorporateWithtwometaResponse
+     */
+    public function createBaasDidCorporateWithtwometa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBaasDidCorporateWithtwometaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过企业二要素验证后创建企业did
+     * Summary: 通过企业二要素验证后创建企业did.
+     *
+     * @param CreateBaasDidCorporateWithtwometaRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return CreateBaasDidCorporateWithtwometaResponse
+     */
+    public function createBaasDidCorporateWithtwometaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBaasDidCorporateWithtwometaResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.withtwometa.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过企业四要素验证后创建企业did
+     * Summary: 通过企业四要素验证后创建企业did.
+     *
+     * @param CreateBaasDidCorporateWithfourmetaRequest $request
+     *
+     * @return CreateBaasDidCorporateWithfourmetaResponse
+     */
+    public function createBaasDidCorporateWithfourmeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBaasDidCorporateWithfourmetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过企业四要素验证后创建企业did
+     * Summary: 通过企业四要素验证后创建企业did.
+     *
+     * @param CreateBaasDidCorporateWithfourmetaRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return CreateBaasDidCorporateWithfourmetaResponse
+     */
+    public function createBaasDidCorporateWithfourmetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBaasDidCorporateWithfourmetaResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.withfourmeta.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 通过个人四要素验证后创建个人did
      * Summary: 通过个人四要素验证后创建个人did.
      *
@@ -589,5 +838,71 @@ class Client
         Utils::validateModel($request);
 
         return CreateBaasDidPersonWithfourmetaResponse::fromMap($this->doRequest('1.0', 'baas.did.person.withfourmeta.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业法人刷脸认证
+     * Summary: 企业法人刷脸认证
+     *
+     * @param StartBaasDidCorporateFaceauthRequest $request
+     *
+     * @return StartBaasDidCorporateFaceauthResponse
+     */
+    public function startBaasDidCorporateFaceauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startBaasDidCorporateFaceauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业法人刷脸认证
+     * Summary: 企业法人刷脸认证
+     *
+     * @param StartBaasDidCorporateFaceauthRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return StartBaasDidCorporateFaceauthResponse
+     */
+    public function startBaasDidCorporateFaceauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartBaasDidCorporateFaceauthResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.faceauth.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询企业法人实人结果
+     * Summary: 查询企业法人实人结果.
+     *
+     * @param QueryBaasDidCorporateFaceauthRequest $request
+     *
+     * @return QueryBaasDidCorporateFaceauthResponse
+     */
+    public function queryBaasDidCorporateFaceauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBaasDidCorporateFaceauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询企业法人实人结果
+     * Summary: 查询企业法人实人结果.
+     *
+     * @param QueryBaasDidCorporateFaceauthRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryBaasDidCorporateFaceauthResponse
+     */
+    public function queryBaasDidCorporateFaceauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBaasDidCorporateFaceauthResponse::fromMap($this->doRequest('1.0', 'baas.did.corporate.faceauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
