@@ -1,0 +1,570 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 电子签约签署区
+model ArSignField {
+  // 签署页
+  posPage?: string(name='pos_page', example='1'),
+  // 签署区x坐标
+  posX?: string(name='pos_x', example='158.72531'),
+  // 签署区y坐标
+  posY?: string(name='pos_y', example='431.05658'),
+  // 签署日期签署页
+  signDatePosPage?: string(name='sign_date_pos_page', example='1'),
+  // 签署日期的签署坐标x
+  signDatePosX?: string(name='sign_date_pos_x', example='158.7251'),
+  // 签署日期签署坐标y
+  signDatePosY?: string(name='sign_date_pos_y', example='431.0565'),
+}
+
+// 个人
+model Person {
+  // 身份证地址
+  address?: string(name='address', example='xx省xx市xx区xx街道xx133号'),
+  // 居民身份证号
+  certNo?: string(name='cert_no', example='330108******1231'),
+  // 证件类型,比如：ID_CARD=身份证
+  certType?: string(name='cert_type', example='ID_CARD'),
+  // 客户编号
+  cmNo?: string(name='cm_no', example='20200810001220010000000000000001'),
+  // 电子邮箱
+  email?: string(name='email', example='xx@xx.com'),
+  // 证件反面照片oss存储路径
+  certBackPicOssKey?: string(name='cert_back_pic_oss_key', example='bk-ningbo/20200810001220080000000000000001/absdfs.jpg'),
+  // 证件正面照片OSS存储路径
+  certFrontPicOssKey?: string(name='cert_front_pic_oss_key', example='bk-ningbo/20200810001220080000000000000001/absdfs.jpg'),
+  // 手机号
+  mobile?: string(name='mobile', example='135****2323'),
+  // 客户姓名
+  name?: string(name='name', example='成吉思汗'),
+  // 身份证所在地邮编
+  postCode?: string(name='post_code', example='310051'),
+}
+
+// 合同模版
+model ArTemplate {
+  // 合同模版号
+  arTpNo?: string(name='ar_tp_no', example='20200810001220050000000000000001'),
+  // 合同版本
+  arTpVersion?: long(name='ar_tp_version', example='1'),
+  // 合同模版类型，比如：CT_AUTH_HOUSE_QUERY=房屋查询授权合同
+  arType?: string(name='ar_type', example='CT_AUTH_HOUSE_QUERY'),
+  // 区块链智能合同的合同模版号
+  mycTpId?: string(name='myc_tp_id', example='523231212121212'),
+  // 合同名称
+  name?: string(name='name', example='房屋查询授权合同'),
+  // 合同模版归属机构编号
+  orgNo?: string(name='org_no', example='20200810001220030000000000000001'),
+  // 合同模版归属机构类型，比如：BANK=银行
+  orgType?: string(name='org_type', example='BANK'),
+  // 合同模版OSS存储路径
+  pdfOssKey?: string(name='pdf_oss_key', example='rcp/artp/232323232323.pdf'),
+  // 合同变量,Map<String,String>的json格式
+  varJson?: string(name='var_json', example='{"mortgageAgreementNo":"{\"required\":true,\"regEx\":\"^[a-zA-Z0-9]{10,64}$\"}"}'),
+  // 签署区设置
+  signAreaJson?: string(name='sign_area_json', example='Map<String,String>的json格式'),
+}
+
+// 电子签约相关配置
+model ArSignConfig {
+  // 签约者类型，比如：BANK=银行
+  arSignerType?: string(name='ar_signer_type', example='BANK'),
+  // 签署区列表
+  arSignFields?: [ ArSignField ](name='ar_sign_fields', example=''),
+  // 签署人
+  signer?: Person(name='signer', example=''),
+}
+
+// 房屋抵押信息
+model HouseMgInfo {
+  // 债权金额，人民币默认单位元，保留两位小数点
+  debtAmount?: string(name='debt_amount', example='350000.00'),
+  // 债权金额货币类型，比如：CNY=人民币
+  debtAmountCurrency?: string(name='debt_amount_currency', example='CNY'),
+  // 抵押权人证件号码
+  mortgageeCertNo?: string(name='mortgagee_cert_no', example='3332XC23232'),
+  // 抵押权人证件类型,比如：UNIFIED_SOCIAL_CODE=统一社会信用代码
+  mortgageeCertType?: string(name='mortgagee_cert_type', example='UNIFIED_SOCIAL_CODE'),
+  // 抵押权人名称
+  mortgageeName?: string(name='mortgagee_name', example='XX银行xx分行'),
+  // 履债结束日期
+  debtEndDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='debt_end_date', example='2018-10-10T10:10:00Z'),
+  // 履债起始日期
+  debtStartDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='debt_start_date', example='2018-10-10T10:10:00Z'),
+  // 登记时间
+  registeredDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='registered_date', example='2018-10-10T10:10:00Z'),
+  // 房产链内部房产编号
+  houseNo?: string(name='house_no', example='20200810001220100000000000000001'),
+}
+
+// 产权人
+model HouseOwner {
+  // 姓名
+  name?: string(name='name', example='张三'),
+  // 证件类型
+  certType?: string(name='cert_type', example='ID_CARD'),
+  // 证件号
+  certNo?: string(name='cert_no', example='330108****1232'),
+  // 手机号
+  mobile?: string(name='mobile', example='13512334454'),
+  // 身份证正面照片存储路径
+  certFrontPicOssKey?: string(name='cert_front_pic_oss_key', example='bk-ningbo/12334343434/a.pdf'),
+  // 身份证反面照片存储路径
+  certBackPicOssKey?: string(name='cert_back_pic_oss_key', example='bk-ningbo/12334343434/a.pdf'),
+  // 权利人主体类型，PERSON=个人
+  obligeeType?: string(name='obligee_type', example='PERSON'),
+  // 权利人类型
+  obligeeRole?: string(name='obligee_role', example='USER_OWNER'),
+  // 共有情况
+  ownershipStatus?: string(name='ownership_status', example='SHARE_COOWNER'),
+  // 权证类型
+  houseCertType?: string(name='house_cert_type', example='HOUSE_OWNERSHIP_CERT'),
+  // 权证号
+  houseCertNo?: string(name='house_cert_no', example='浙（2017）证宁波市不动产权第0023234号'),
+  // 权利比例
+  rightsRate?: string(name='rights_rate', example='20'),
+  // 房产链内部客户编号
+  cmNo?: string(name='cm_no', example='20200810001220100000000000000001'),
+  // 房产链内部房产编号
+  houseNo?: string(name='house_no', example='20200810001220100000000000000001'),
+}
+
+// 房产限制信息
+model HouseRestrictionInfo {
+  // 申请人
+  // 
+  applicant?: string(name='applicant', example='XXX机构或XX人名称'),
+  // 限制结束日期
+  restrictionEndDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='restriction_end_date', example='2018-10-10T10:10:00Z'),
+  // 限制起始日期
+  restrictionStartDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='restriction_start_date', example='2018-10-10T10:10:00Z'),
+  // 来文单位
+  fromOrgName?: string(name='from_org_name', example='xx中级人民法院'),
+  // 登记时间
+  registerTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='register_time', example='2018-10-10T10:10:00Z'),
+  // 限制金额，人民币默认单位元，保留两位小数点
+  restrictedAmount?: string(name='restricted_amount', example='5000000.00'),
+  // 限制金额货币类型，比如：CNY=人民币
+  restrictedAmountCurrency?: string(name='restricted_amount_currency', example='CNY'),
+  // 限制文号
+  restrictionNo?: string(name='restriction_no', example='法第232323号'),
+  // 房产链内部房产编号
+  houseNo?: string(name='house_no', example='20200810001220100000000000000001'),
+}
+
+// 房产
+model House {
+  // 房屋所在区/县地区编码
+  areaCode?: string(name='area_code', example='330108'),
+  // 是否有异议，Y-是，N-否
+  claimed?: string(name='claimed', example='N'),
+  // 是否有文件备案
+  fileRecorded?: string(name='file_recorded', example='N'),
+  // 产证编号
+  houseCertNo?: string(name='house_cert_no', example='浙xx第xx权证xxxx号'),
+  // 权证类型，比如：HOUSE_CERT=房屋所有权证
+  houseCertType?: string(name='house_cert_type', example='HOUSE_CERT'),
+  // 房产编号
+  houseCode?: string(name='house_code', example='2343413233'),
+  // 抵押信息列表
+  houseMgInfos?: [ HouseMgInfo ](name='house_mg_infos', example=''),
+  // 房产编号
+  houseNo?: string(name='house_no', example='20200810001220100000000000000001'),
+  // 产权人列表
+  houseOwners?: [ HouseOwner ](name='house_owners', example=''),
+  // 限制信息列表
+  houseRestrictionInfos?: [ HouseRestrictionInfo ](name='house_restriction_infos', example=''),
+  // 不动产单元号
+  houseUnitCode?: string(name='house_unit_code', example='330102001003GB00055F00010312'),
+  // 不动产单元号，待废弃字段
+  houseUnitCodes?: [ string ](name='house_unit_codes', example=''),
+  // 隐形产权人列表
+  invisibleHouseOwners?: [ HouseOwner ](name='invisible_house_owners', example=''),
+  // 房屋所在地址信息
+  location?: string(name='location', example='xx省xx市xx区xx街道xx路xx号'),
+  // 是否有抵押，Y-是，N-否
+  mortgaged?: string(name='mortgaged', example='N'),
+  // 共有情况,比如：SHARE_COOWNER=共同共有
+  ownershipStatus?: string(name='ownership_status', example='SHARE_COOWNER'),
+  // 数据获取时间
+  queryTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='query_time', example='2020-08-12 00:23:32'),
+  // 用途,比如：HOUSE=住宅
+  realtyUsage?: string(name='realty_usage', example='HOUSE'),
+  // 是否有查封：Y-是，N-否
+  seized?: string(name='seized', example='N'),
+  // 土地分摊面积
+  sharingLandArea?: string(name='sharing_land_area', example='10233.34'),
+  // 土地分摊面积单位，比如：SQUARE_METER=平方米
+  sharingLandAreaUnit?: string(name='sharing_land_area_unit', example='SQUARE_METER'),
+  // 当前产证归属的房产链产权人内部编号
+  houseOwnerCmNo?: string(name='house_owner_cm_no', example='20200810001220100000000000000001'),
+  // 建筑面积
+  structureArea?: string(name='structure_area', example='120.23'),
+  // 建筑面积单位，比如：SQUARE_METER=平方米
+  structureAreaUnit?: string(name='structure_area_unit', example='SQUARE_METER'),
+  // 权利性质
+  rightsNature?: string(name='rights_nature', example='出让/存量房'),
+  // 权利类型,STATE_OWNED_CONSTRUCTION_LAND_AND_BUILDING=国有建设用地使用权/房屋（构筑物）所有权
+  rightsType?: string(name='rights_type', example='STATE_OWNED_CONSTRUCTION_LAND_AND_BUILDING'),
+  // 房屋性质,COMMERCIAL_HOUSING=商品房
+  houseNature?: string(name='house_nature', example='COMMERCIAL_HOUSING'),
+  // 土地证号
+  landCertNo?: string(name='land_cert_no', example='2334532323232'),
+  // 土地用途
+  landUsage?: string(name='land_usage', example='住宅用地'),
+  // 土地性质,SELL=出让
+  landNature?: string(name='land_nature', example='SELL'),
+  // 土地使用权开始日期
+  landUseStartDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='land_use_start_date', example='2018-10-10T10:10:00Z'),
+  // 土地使用权终止日期
+  landUseEndDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='land_use_end_date', example='2018-10-10T10:10:00Z'),
+  // 总层数
+  totalFloor?: string(name='total_floor', example='30'),
+  // 所在层
+  itsFloor?: string(name='its_floor', example='23'),
+  // 建造年份
+  builtYear?: string(name='built_year', example='2020'),
+  // 登薄日期
+  regDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='reg_date', example='2018-10-10T10:10:00Z'),
+  // 证书附记备注
+  certRemark?: string(name='cert_remark', example='证书附记备注'),
+  // 证书状态描述
+  certStatus?: string(name='cert_status', example='一般抵押（2次），查封限制（1次）'),
+}
+
+// 附件材料
+model Archive {
+  // 附件内容的Hash值
+  archiveHash?: string(name='archive_hash', example='668fa851746fdf358c5f96efe87d07178b49b17c143e06a659c368e83de2027e'),
+  // 附件材料类型，比如：AT_SUOYOUQUANZHENG=房屋所有权证
+  archiveType?: string(name='archive_type', example='AT_SUOYOUQUANZHENG'),
+  // 移动后到银行目录下的oss存储路径
+  bankOssKey?: string(name='bank_oss_key', example='bk-ningbo/rcp/1434343413132/a.pdf'),
+  // 附件KEY，也是oss的存储路径，原始保存路径
+  ossKey?: string(name='oss_key', example='bk-ningbo/2334545423232/abc.jpg'),
+  // 附件来源外部业务单号
+  outBizNo?: string(name='out_biz_no', example='20200810001220080000000000000001'),
+  // 机构编号
+  ownerNo?: string(name='owner_no', example='20200810001220030000000000000001'),
+  // 附件材料归属机构类型，比如：BANK=银行
+  ownerType?: string(name='owner_type', example='BANK'),
+  // 移动到不动产中心目录下的oss存储路径
+  rtcOssKey?: string(name='rtc_oss_key', example='rtc-zhuhai/rcp/1434343413132/a.pdf'),
+  // 材料附件来源场景，比如：ASS_BK_APPLY=银行申请抵押提交
+  scene?: string(name='scene', example='ASS_BK_APPLY'),
+  // 房产链平台的存储路径
+  rcpOssKey?: string(name='rcp_oss_key', example='rcp/3323232/a.pdf'),
+  // 助贷平台的访问路径
+  loanAssistPlatformOssKey?: string(name='loan_assist_platform_oss_key', example='jiebei/23434343/a.pdf'),
+}
+
+// 合同
+model Agreement {
+  // 电子合同pdf文件存储路径
+  arArchiveOssPath?: string(name='ar_archive_oss_path', example='bk-ningbo/rpc/20200810001220130000000000000001/2312121.pdf'),
+  // 合同编号
+  arNo?: string(name='ar_no', example='20200810001220120000000000000001'),
+  // 合同模版
+  arTemplate?: ArTemplate(name='ar_template', example='aa'),
+  // 合同类型，比如：房屋查询授权合同
+  arType?: string(name='ar_type', example='CT_AUTH_HOUSE_QUERY'),
+  // 需要签署合同的角色列表，如：BANK,HOUSE_OWNER,BORROWER
+  arSignerRoles?: [ string ](name='ar_signer_roles', example=''),
+  // 合同模版需要的变量和值集合,Map<String,String>的json格式
+  arVarValueJson?: string(name='ar_var_value_json', example='{"k1":"v1","k2":"v2"}'),
+  // 区块链智能合同合同文件号
+  mycFileNo?: string(name='myc_file_no', example='2232322344545'),
+  // 外部合同编号(银行生成)
+  outArNo?: string(name='out_ar_no', example='334345454131313131'),
+  // 合同签署流程编号
+  procNo?: string(name='proc_no', example='20200810001220110000000000000001'),
+  // 合同签署时间
+  signTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='sign_time', example='2018-10-10T10:10:00Z'),
+  // 签署状态，比如：SUCC=签署完成
+  status?: string(name='status', example='SUCC'),
+  // 待签署的合同文档oss存储路径，仅当不动产合同才有
+  unSignArArchiveOssPath?: string(name='un_sign_ar_archive_oss_path', example='rtc-zhuhai/13232323343/2334.pdf'),
+  // 合同生成方式，AR_TP=模版
+  arGenerateType?: string(name='ar_generate_type', example='AR_TP'),
+  // 智能合同部分的签署区设置
+  ctSignConfigs?: [ ArSignConfig ](name='ct_sign_configs', example=''),
+  // 机构自主签署部分的签署区设置
+  orgSignConfigs?: [ ArSignConfig ](name='org_sign_configs', example=''),
+  // 机构签署状态，SUCC=签署完成
+  orgSignStatus?: string(name='org_sign_status', example='SUCC'),
+  // 机构签署完成时间
+  orgSignTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='org_sign_time', example='2018-10-10T10:10:00Z'),
+  // 机构签署完成后的合同存储路径
+  orgArArchiveOssPath?: string(name='org_ar_archive_oss_path', example='bk-ningbo/12334343434/a.pdf'),
+  // 最终签署完成的合同存储路径
+  finalArArchiveOssPath?: string(name='final_ar_archive_oss_path', example='bk_ningbo/20200810001221010000000000000001/23332323.pdf'),
+}
+
+model StartBlockchainArecRcpMgRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待签署的合同列表
+  agreements: [ Agreement ](name='agreements'),
+  // 材料清单列表
+  archives?: [ Archive ](name='archives'),
+  // 合同变量和值的全集，Map<String,String>的json格式
+  arVarValueJson: string(name='ar_var_value_json'),
+  // 银行编号
+  bankNo: string(name='bank_no'),
+  // 借款人
+  borrower: Person(name='borrower'),
+  // 扩展字段
+  extendJson?: string(name='extend_json'),
+  // 抵押房产
+  house: House(name='house'),
+  // 婚姻状况,比如：MARRIED=已婚
+  maritalStatus: string(name='marital_status'),
+  // 外部业务单号，银行提供
+  outBizNo: string(name='out_biz_no'),
+  // 登记设立原因，比如：LOAN=借贷
+  regReason: string(name='reg_reason'),
+  // 登记设立原因备注
+  regReasonRemark?: string(name='reg_reason_remark'),
+  // 登记权利,比如：MORTGAGE_RIGHTS=抵押权
+  regRights: string(name='reg_rights'),
+  // 登记类型，比如：FIRST_REG=首次登记
+  regType: string(name='reg_type'),
+  // 配偶
+  spouse?: Person(name='spouse'),
+  // 抵押单号
+  mgOrderNo?: string(name='mg_order_no'),
+}
+
+model StartBlockchainArecRcpMgResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 抵押单号
+  mgOrderNo?: string(name='mg_order_no'),
+}
+
+/**
+ * Description: 房屋抵押贷款业务，发起抵押登记服务
+ * Summary: 发起抵押登记
+ */
+async function startBlockchainArecRcpMg(request: StartBlockchainArecRcpMgRequest): StartBlockchainArecRcpMgResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBlockchainArecRcpMgEx(request, headers, runtime);
+}
+
+/**
+ * Description: 房屋抵押贷款业务，发起抵押登记服务
+ * Summary: 发起抵押登记
+ */
+async function startBlockchainArecRcpMgEx(request: StartBlockchainArecRcpMgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBlockchainArecRcpMgResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.arec.rcp.mg.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmBlockchainArecRcpMgRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 银行编号
+  bankNo: string(name='bank_no'),
+  // 抵押单号
+  mgOrderNo: string(name='mg_order_no'),
+  // 确认抵押登记结果，Y:继续,N:中止抵押
+  result: string(name='result'),
+  // 银行返回的中止抵押原因code
+  failCode?: string(name='fail_code'),
+  // 银行反馈的中止抵押原因描述
+  failDesc?: string(name='fail_desc'),
+}
+
+model ConfirmBlockchainArecRcpMgResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 房屋抵押登记业务，银行确认抵押登记服务
+ * Summary: 确认抵押登记
+ */
+async function confirmBlockchainArecRcpMg(request: ConfirmBlockchainArecRcpMgRequest): ConfirmBlockchainArecRcpMgResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmBlockchainArecRcpMgEx(request, headers, runtime);
+}
+
+/**
+ * Description: 房屋抵押登记业务，银行确认抵押登记服务
+ * Summary: 确认抵押登记
+ */
+async function confirmBlockchainArecRcpMgEx(request: ConfirmBlockchainArecRcpMgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmBlockchainArecRcpMgResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.arec.rcp.mg.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
