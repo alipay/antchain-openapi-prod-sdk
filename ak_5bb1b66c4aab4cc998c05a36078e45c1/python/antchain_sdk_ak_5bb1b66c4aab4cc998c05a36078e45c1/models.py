@@ -1188,10 +1188,6 @@ class InitAntchainBbpVerifyRequest(TeaModel):
         extern_params: List[NameValuePair] = None,
         callback_enum: str = None,
         validate_flows: List[GwValidateProduct] = None,
-        verify_id: str = None,
-        verify_url: str = None,
-        verify_status: str = None,
-        valid_prod: List[GwValidateProduct] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1206,14 +1202,6 @@ class InitAntchainBbpVerifyRequest(TeaModel):
         self.callback_enum = callback_enum
         # 核身产品列表
         self.validate_flows = validate_flows
-        # 核身id
-        self.verify_id = verify_id
-        # 核身请求地址url
-        self.verify_url = verify_url
-        # 核身处理状态:INITIAL、PROCESSING、SUCCESS、EXPIRED、FAIL
-        self.verify_status = verify_status
-        # 可用产品集合
-        self.valid_prod = valid_prod
 
     def validate(self):
         self.validate_required(self.verify_scene, 'verify_scene')
@@ -1227,10 +1215,6 @@ class InitAntchainBbpVerifyRequest(TeaModel):
         self.validate_required(self.validate_flows, 'validate_flows')
         if self.validate_flows:
             for k in self.validate_flows:
-                if k:
-                    k.validate()
-        if self.valid_prod:
-            for k in self.valid_prod:
                 if k:
                     k.validate()
 
@@ -1258,16 +1242,6 @@ class InitAntchainBbpVerifyRequest(TeaModel):
         if self.validate_flows is not None:
             for k in self.validate_flows:
                 result['validate_flows'].append(k.to_map() if k else None)
-        if self.verify_id is not None:
-            result['verify_id'] = self.verify_id
-        if self.verify_url is not None:
-            result['verify_url'] = self.verify_url
-        if self.verify_status is not None:
-            result['verify_status'] = self.verify_status
-        result['valid_prod'] = []
-        if self.valid_prod is not None:
-            for k in self.valid_prod:
-                result['valid_prod'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1293,17 +1267,6 @@ class InitAntchainBbpVerifyRequest(TeaModel):
             for k in m.get('validate_flows'):
                 temp_model = GwValidateProduct()
                 self.validate_flows.append(temp_model.from_map(k))
-        if m.get('verify_id') is not None:
-            self.verify_id = m.get('verify_id')
-        if m.get('verify_url') is not None:
-            self.verify_url = m.get('verify_url')
-        if m.get('verify_status') is not None:
-            self.verify_status = m.get('verify_status')
-        self.valid_prod = []
-        if m.get('valid_prod') is not None:
-            for k in m.get('valid_prod'):
-                temp_model = GwValidateProduct()
-                self.valid_prod.append(temp_model.from_map(k))
         return self
 
 
@@ -1394,7 +1357,6 @@ class StartAntchainBbpVerifyRequest(TeaModel):
         group: str = None,
         product_action: str = None,
         biz_id: str = None,
-        result: List[GwVerifyViewResult] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1407,18 +1369,12 @@ class StartAntchainBbpVerifyRequest(TeaModel):
         self.product_action = product_action
         # 业务id
         self.biz_id = biz_id
-        # 核身渲染结果
-        self.result = result
 
     def validate(self):
         self.validate_required(self.verify_id, 'verify_id')
         self.validate_required(self.group, 'group')
         self.validate_required(self.product_action, 'product_action')
         self.validate_required(self.biz_id, 'biz_id')
-        if self.result:
-            for k in self.result:
-                if k:
-                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1438,10 +1394,6 @@ class StartAntchainBbpVerifyRequest(TeaModel):
             result['product_action'] = self.product_action
         if self.biz_id is not None:
             result['biz_id'] = self.biz_id
-        result['result'] = []
-        if self.result is not None:
-            for k in self.result:
-                result['result'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1458,11 +1410,6 @@ class StartAntchainBbpVerifyRequest(TeaModel):
             self.product_action = m.get('product_action')
         if m.get('biz_id') is not None:
             self.biz_id = m.get('biz_id')
-        self.result = []
-        if m.get('result') is not None:
-            for k in m.get('result'):
-                temp_model = GwVerifyViewResult()
-                self.result.append(temp_model.from_map(k))
         return self
 
 
@@ -1533,7 +1480,6 @@ class CheckAntchainBbpVerifyRequest(TeaModel):
         product_action: str = None,
         biz_id: str = None,
         product_code: str = None,
-        status: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1548,8 +1494,6 @@ class CheckAntchainBbpVerifyRequest(TeaModel):
         self.biz_id = biz_id
         # 核身产品码
         self.product_code = product_code
-        # 核身结果枚举：PASS-核身成功，INITIAL-初始化，PROCESS-处理中，FAIL-失败
-        self.status = status
 
     def validate(self):
         self.validate_required(self.verify_id, 'verify_id')
@@ -1578,8 +1522,6 @@ class CheckAntchainBbpVerifyRequest(TeaModel):
             result['biz_id'] = self.biz_id
         if self.product_code is not None:
             result['product_code'] = self.product_code
-        if self.status is not None:
-            result['status'] = self.status
         return result
 
     def from_map(self, m: dict = None):
@@ -1598,8 +1540,6 @@ class CheckAntchainBbpVerifyRequest(TeaModel):
             self.biz_id = m.get('biz_id')
         if m.get('product_code') is not None:
             self.product_code = m.get('product_code')
-        if m.get('status') is not None:
-            self.status = m.get('status')
         return self
 
 
@@ -1663,7 +1603,6 @@ class RunAntchainSaasMarketServiceRequest(TeaModel):
         sub_service_code: str = None,
         service_version: str = None,
         params: List[KeyValuePair] = None,
-        result_data: List[KeyValuePair] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1680,8 +1619,6 @@ class RunAntchainSaasMarketServiceRequest(TeaModel):
         self.service_version = service_version
         # 业务参数，map格式
         self.params = params
-        # 服务调用结果
-        self.result_data = result_data
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -1690,10 +1627,6 @@ class RunAntchainSaasMarketServiceRequest(TeaModel):
         self.validate_required(self.service_version, 'service_version')
         if self.params:
             for k in self.params:
-                if k:
-                    k.validate()
-        if self.result_data:
-            for k in self.result_data:
                 if k:
                     k.validate()
 
@@ -1721,10 +1654,6 @@ class RunAntchainSaasMarketServiceRequest(TeaModel):
         if self.params is not None:
             for k in self.params:
                 result['params'].append(k.to_map() if k else None)
-        result['result_data'] = []
-        if self.result_data is not None:
-            for k in self.result_data:
-                result['result_data'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1748,11 +1677,6 @@ class RunAntchainSaasMarketServiceRequest(TeaModel):
             for k in m.get('params'):
                 temp_model = KeyValuePair()
                 self.params.append(temp_model.from_map(k))
-        self.result_data = []
-        if m.get('result_data') is not None:
-            for k in m.get('result_data'):
-                temp_model = KeyValuePair()
-                self.result_data.append(temp_model.from_map(k))
         return self
 
 
@@ -1819,22 +1743,15 @@ class QueryAntchainSaasMarketSolutionRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         solution_code: str = None,
-        result_data: List[KeyValuePair] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 解决方案code
         self.solution_code = solution_code
-        # 查询结果
-        self.result_data = result_data
 
     def validate(self):
         self.validate_required(self.solution_code, 'solution_code')
-        if self.result_data:
-            for k in self.result_data:
-                if k:
-                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1848,10 +1765,6 @@ class QueryAntchainSaasMarketSolutionRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.solution_code is not None:
             result['solution_code'] = self.solution_code
-        result['result_data'] = []
-        if self.result_data is not None:
-            for k in self.result_data:
-                result['result_data'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1862,11 +1775,6 @@ class QueryAntchainSaasMarketSolutionRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('solution_code') is not None:
             self.solution_code = m.get('solution_code')
-        self.result_data = []
-        if m.get('result_data') is not None:
-            for k in m.get('result_data'):
-                temp_model = KeyValuePair()
-                self.result_data.append(temp_model.from_map(k))
         return self
 
 
@@ -1949,7 +1857,6 @@ class VerifyAntchainBbpMetaRequest(TeaModel):
         person_cert_no: str = None,
         person_cert_type: str = None,
         extension_info: NameValuePair = None,
-        result: CustomerAuthResult = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1988,8 +1895,6 @@ class VerifyAntchainBbpMetaRequest(TeaModel):
         self.person_cert_type = person_cert_type
         # 扩展信息
         self.extension_info = extension_info
-        # 要素认证结果
-        self.result = result
 
     def validate(self):
         self.validate_required(self.ep_cert_name, 'ep_cert_name')
@@ -2000,8 +1905,6 @@ class VerifyAntchainBbpMetaRequest(TeaModel):
         self.validate_required(self.certify_enum, 'certify_enum')
         if self.extension_info:
             self.extension_info.validate()
-        if self.result:
-            self.result.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -2047,8 +1950,6 @@ class VerifyAntchainBbpMetaRequest(TeaModel):
             result['person_cert_type'] = self.person_cert_type
         if self.extension_info is not None:
             result['extension_info'] = self.extension_info.to_map()
-        if self.result is not None:
-            result['result'] = self.result.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -2092,9 +1993,6 @@ class VerifyAntchainBbpMetaRequest(TeaModel):
         if m.get('extension_info') is not None:
             temp_model = NameValuePair()
             self.extension_info = temp_model.from_map(m['extension_info'])
-        if m.get('result') is not None:
-            temp_model = CustomerAuthResult()
-            self.result = temp_model.from_map(m['result'])
         return self
 
 
@@ -2232,7 +2130,6 @@ class CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest(TeaModel):
         product_instance_id: str = None,
         holox_check_event: HoloxCheckEvent = None,
         service_version: str = None,
-        data: HoloxCheckResult = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2241,15 +2138,11 @@ class CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest(TeaModel):
         self.holox_check_event = holox_check_event
         # 123
         self.service_version = service_version
-        # 大安全风控接口返回结果
-        self.data = data
 
     def validate(self):
         if self.holox_check_event:
             self.holox_check_event.validate()
         self.validate_required(self.service_version, 'service_version')
-        if self.data:
-            self.data.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -2265,8 +2158,6 @@ class CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest(TeaModel):
             result['holox_check_event'] = self.holox_check_event.to_map()
         if self.service_version is not None:
             result['service_version'] = self.service_version
-        if self.data is not None:
-            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -2280,9 +2171,6 @@ class CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest(TeaModel):
             self.holox_check_event = temp_model.from_map(m['holox_check_event'])
         if m.get('service_version') is not None:
             self.service_version = m.get('service_version')
-        if m.get('data') is not None:
-            temp_model = HoloxCheckResult()
-            self.data = temp_model.from_map(m['data'])
         return self
 
 
@@ -2344,7 +2232,6 @@ class QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest(TeaModel):
         product_instance_id: str = None,
         security_uniform_request: SecurityUniformRequest = None,
         service_version: str = None,
-        data: SecurityUniformResponse = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2353,16 +2240,12 @@ class QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest(TeaModel):
         self.security_uniform_request = security_uniform_request
         # 123
         self.service_version = service_version
-        # 返回结果
-        self.data = data
 
     def validate(self):
         self.validate_required(self.security_uniform_request, 'security_uniform_request')
         if self.security_uniform_request:
             self.security_uniform_request.validate()
         self.validate_required(self.service_version, 'service_version')
-        if self.data:
-            self.data.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -2378,8 +2261,6 @@ class QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest(TeaModel):
             result['security_uniform_request'] = self.security_uniform_request.to_map()
         if self.service_version is not None:
             result['service_version'] = self.service_version
-        if self.data is not None:
-            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -2393,9 +2274,6 @@ class QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest(TeaModel):
             self.security_uniform_request = temp_model.from_map(m['security_uniform_request'])
         if m.get('service_version') is not None:
             self.service_version = m.get('service_version')
-        if m.get('data') is not None:
-            temp_model = SecurityUniformResponse()
-            self.data = temp_model.from_map(m['data'])
         return self
 
 
@@ -2457,7 +2335,6 @@ class CheckSaasSecurityRdsRdsserviceRequest(TeaModel):
         product_instance_id: str = None,
         rds_service_check_request: str = None,
         service_version: str = None,
-        data: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2466,8 +2343,6 @@ class CheckSaasSecurityRdsRdsserviceRequest(TeaModel):
         self.rds_service_check_request = rds_service_check_request
         # 服务版本
         self.service_version = service_version
-        # 是否是机器
-        self.data = data
 
     def validate(self):
         self.validate_required(self.rds_service_check_request, 'rds_service_check_request')
@@ -2487,8 +2362,6 @@ class CheckSaasSecurityRdsRdsserviceRequest(TeaModel):
             result['rds_service_check_request'] = self.rds_service_check_request
         if self.service_version is not None:
             result['service_version'] = self.service_version
-        if self.data is not None:
-            result['data'] = self.data
         return result
 
     def from_map(self, m: dict = None):
@@ -2501,8 +2374,6 @@ class CheckSaasSecurityRdsRdsserviceRequest(TeaModel):
             self.rds_service_check_request = m.get('rds_service_check_request')
         if m.get('service_version') is not None:
             self.service_version = m.get('service_version')
-        if m.get('data') is not None:
-            self.data = m.get('data')
         return self
 
 
@@ -2562,7 +2433,6 @@ class QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest(TeaModel):
         product_instance_id: str = None,
         infosec_content_query: InfoSecContentQuery = None,
         service_version: str = None,
-        data: InfoSecContentQueryResult = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2571,16 +2441,12 @@ class QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest(TeaModel):
         self.infosec_content_query = infosec_content_query
         # 123
         self.service_version = service_version
-        # 返回回调结果
-        self.data = data
 
     def validate(self):
         self.validate_required(self.infosec_content_query, 'infosec_content_query')
         if self.infosec_content_query:
             self.infosec_content_query.validate()
         self.validate_required(self.service_version, 'service_version')
-        if self.data:
-            self.data.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -2596,8 +2462,6 @@ class QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest(TeaModel):
             result['infosec_content_query'] = self.infosec_content_query.to_map()
         if self.service_version is not None:
             result['service_version'] = self.service_version
-        if self.data is not None:
-            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -2611,9 +2475,6 @@ class QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest(TeaModel):
             self.infosec_content_query = temp_model.from_map(m['infosec_content_query'])
         if m.get('service_version') is not None:
             self.service_version = m.get('service_version')
-        if m.get('data') is not None:
-            temp_model = InfoSecContentQueryResult()
-            self.data = temp_model.from_map(m['data'])
         return self
 
 
@@ -2675,7 +2536,6 @@ class VerifySaasSecurityRdslibAntcaptchaserviceRequest(TeaModel):
         product_instance_id: str = None,
         rds_analyze_request: RdsAnalyzeRequest = None,
         service_version: str = None,
-        data: RdslibAntcaptchaservice = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2684,16 +2544,12 @@ class VerifySaasSecurityRdslibAntcaptchaserviceRequest(TeaModel):
         self.rds_analyze_request = rds_analyze_request
         # 服务版本
         self.service_version = service_version
-        # 是否是机器人
-        self.data = data
 
     def validate(self):
         self.validate_required(self.rds_analyze_request, 'rds_analyze_request')
         if self.rds_analyze_request:
             self.rds_analyze_request.validate()
         self.validate_required(self.service_version, 'service_version')
-        if self.data:
-            self.data.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -2709,8 +2565,6 @@ class VerifySaasSecurityRdslibAntcaptchaserviceRequest(TeaModel):
             result['rds_analyze_request'] = self.rds_analyze_request.to_map()
         if self.service_version is not None:
             result['service_version'] = self.service_version
-        if self.data is not None:
-            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -2724,9 +2578,6 @@ class VerifySaasSecurityRdslibAntcaptchaserviceRequest(TeaModel):
             self.rds_analyze_request = temp_model.from_map(m['rds_analyze_request'])
         if m.get('service_version') is not None:
             self.service_version = m.get('service_version')
-        if m.get('data') is not None:
-            temp_model = RdslibAntcaptchaservice()
-            self.data = temp_model.from_map(m['data'])
         return self
 
 
@@ -2788,7 +2639,6 @@ class QuerySaasSecurityTscenterUmidqueryserviceRequest(TeaModel):
         product_instance_id: str = None,
         token_id: str = None,
         service_version: str = None,
-        data: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2797,8 +2647,6 @@ class QuerySaasSecurityTscenterUmidqueryserviceRequest(TeaModel):
         self.token_id = token_id
         # 服务版本
         self.service_version = service_version
-        # 返回的umid
-        self.data = data
 
     def validate(self):
         self.validate_required(self.token_id, 'token_id')
@@ -2818,8 +2666,6 @@ class QuerySaasSecurityTscenterUmidqueryserviceRequest(TeaModel):
             result['token_id'] = self.token_id
         if self.service_version is not None:
             result['service_version'] = self.service_version
-        if self.data is not None:
-            result['data'] = self.data
         return result
 
     def from_map(self, m: dict = None):
@@ -2832,8 +2678,6 @@ class QuerySaasSecurityTscenterUmidqueryserviceRequest(TeaModel):
             self.token_id = m.get('token_id')
         if m.get('service_version') is not None:
             self.service_version = m.get('service_version')
-        if m.get('data') is not None:
-            self.data = m.get('data')
         return self
 
 
@@ -2893,7 +2737,6 @@ class QuerySaasSecurityInfosecOpencheckservicequeryRequest(TeaModel):
         product_instance_id: str = None,
         event: str = None,
         service_version: str = None,
-        data: ContentQueryResultModel = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2902,14 +2745,10 @@ class QuerySaasSecurityInfosecOpencheckservicequeryRequest(TeaModel):
         self.event = event
         # 服务版本
         self.service_version = service_version
-        # 大安全内容检测接口返回结果
-        self.data = data
 
     def validate(self):
         self.validate_required(self.event, 'event')
         self.validate_required(self.service_version, 'service_version')
-        if self.data:
-            self.data.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -2925,8 +2764,6 @@ class QuerySaasSecurityInfosecOpencheckservicequeryRequest(TeaModel):
             result['event'] = self.event
         if self.service_version is not None:
             result['service_version'] = self.service_version
-        if self.data is not None:
-            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -2939,9 +2776,6 @@ class QuerySaasSecurityInfosecOpencheckservicequeryRequest(TeaModel):
             self.event = m.get('event')
         if m.get('service_version') is not None:
             self.service_version = m.get('service_version')
-        if m.get('data') is not None:
-            temp_model = ContentQueryResultModel()
-            self.data = temp_model.from_map(m['data'])
         return self
 
 
