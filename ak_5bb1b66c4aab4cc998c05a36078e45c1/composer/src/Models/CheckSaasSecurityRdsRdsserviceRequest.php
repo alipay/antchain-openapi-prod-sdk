@@ -30,18 +30,11 @@ class CheckSaasSecurityRdsRdsserviceRequest extends Model
      * @var string
      */
     public $serviceVersion;
-
-    // 是否是机器
-    /**
-     * @var int
-     */
-    public $data;
     protected $_name = [
         'authToken'              => 'auth_token',
         'productInstanceId'      => 'product_instance_id',
         'rdsServiceCheckRequest' => 'rds_service_check_request',
         'serviceVersion'         => 'service_version',
-        'data'                   => 'data',
     ];
 
     public function validate()
@@ -64,9 +57,6 @@ class CheckSaasSecurityRdsRdsserviceRequest extends Model
         }
         if (null !== $this->serviceVersion) {
             $res['service_version'] = $this->serviceVersion;
-        }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
         }
 
         return $res;
@@ -91,9 +81,6 @@ class CheckSaasSecurityRdsRdsserviceRequest extends Model
         }
         if (isset($map['service_version'])) {
             $model->serviceVersion = $map['service_version'];
-        }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
         }
 
         return $model;

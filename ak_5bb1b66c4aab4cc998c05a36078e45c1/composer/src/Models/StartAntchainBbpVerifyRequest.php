@@ -42,12 +42,6 @@ class StartAntchainBbpVerifyRequest extends Model
      * @var string
      */
     public $bizId;
-
-    // 核身渲染结果
-    /**
-     * @var GwVerifyViewResult[]
-     */
-    public $result;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -55,7 +49,6 @@ class StartAntchainBbpVerifyRequest extends Model
         'group'             => 'group',
         'productAction'     => 'product_action',
         'bizId'             => 'biz_id',
-        'result'            => 'result',
     ];
 
     public function validate()
@@ -87,15 +80,6 @@ class StartAntchainBbpVerifyRequest extends Model
         if (null !== $this->bizId) {
             $res['biz_id'] = $this->bizId;
         }
-        if (null !== $this->result) {
-            $res['result'] = [];
-            if (null !== $this->result && \is_array($this->result)) {
-                $n = 0;
-                foreach ($this->result as $item) {
-                    $res['result'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
 
         return $res;
     }
@@ -125,15 +109,6 @@ class StartAntchainBbpVerifyRequest extends Model
         }
         if (isset($map['biz_id'])) {
             $model->bizId = $map['biz_id'];
-        }
-        if (isset($map['result'])) {
-            if (!empty($map['result'])) {
-                $model->result = [];
-                $n             = 0;
-                foreach ($map['result'] as $item) {
-                    $model->result[$n++] = null !== $item ? GwVerifyViewResult::fromMap($item) : $item;
-                }
-            }
         }
 
         return $model;

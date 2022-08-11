@@ -30,18 +30,11 @@ class VerifySaasSecurityRdslibAntcaptchaserviceRequest extends Model
      * @var string
      */
     public $serviceVersion;
-
-    // 是否是机器人
-    /**
-     * @var RdslibAntcaptchaservice
-     */
-    public $data;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'rdsAnalyzeRequest' => 'rds_analyze_request',
         'serviceVersion'    => 'service_version',
-        'data'              => 'data',
     ];
 
     public function validate()
@@ -64,9 +57,6 @@ class VerifySaasSecurityRdslibAntcaptchaserviceRequest extends Model
         }
         if (null !== $this->serviceVersion) {
             $res['service_version'] = $this->serviceVersion;
-        }
-        if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -91,9 +81,6 @@ class VerifySaasSecurityRdslibAntcaptchaserviceRequest extends Model
         }
         if (isset($map['service_version'])) {
             $model->serviceVersion = $map['service_version'];
-        }
-        if (isset($map['data'])) {
-            $model->data = RdslibAntcaptchaservice::fromMap($map['data']);
         }
 
         return $model;

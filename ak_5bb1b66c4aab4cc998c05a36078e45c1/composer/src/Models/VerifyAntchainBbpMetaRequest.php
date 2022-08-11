@@ -120,12 +120,6 @@ class VerifyAntchainBbpMetaRequest extends Model
      * @var NameValuePair
      */
     public $extensionInfo;
-
-    // 要素认证结果
-    /**
-     * @var CustomerAuthResult
-     */
-    public $result;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -146,7 +140,6 @@ class VerifyAntchainBbpMetaRequest extends Model
         'personCertNo'          => 'person_cert_no',
         'personCertType'        => 'person_cert_type',
         'extensionInfo'         => 'extension_info',
-        'result'                => 'result',
     ];
 
     public function validate()
@@ -219,9 +212,6 @@ class VerifyAntchainBbpMetaRequest extends Model
         if (null !== $this->extensionInfo) {
             $res['extension_info'] = null !== $this->extensionInfo ? $this->extensionInfo->toMap() : null;
         }
-        if (null !== $this->result) {
-            $res['result'] = null !== $this->result ? $this->result->toMap() : null;
-        }
 
         return $res;
     }
@@ -290,9 +280,6 @@ class VerifyAntchainBbpMetaRequest extends Model
         }
         if (isset($map['extension_info'])) {
             $model->extensionInfo = NameValuePair::fromMap($map['extension_info']);
-        }
-        if (isset($map['result'])) {
-            $model->result = CustomerAuthResult::fromMap($map['result']);
         }
 
         return $model;

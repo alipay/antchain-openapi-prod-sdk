@@ -54,12 +54,6 @@ class RunAntchainSaasMarketServiceRequest extends Model
      * @var KeyValuePair[]
      */
     public $params;
-
-    // 服务调用结果
-    /**
-     * @var KeyValuePair[]
-     */
-    public $resultData;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -69,7 +63,6 @@ class RunAntchainSaasMarketServiceRequest extends Model
         'subServiceCode'    => 'sub_service_code',
         'serviceVersion'    => 'service_version',
         'params'            => 'params',
-        'resultData'        => 'result_data',
     ];
 
     public function validate()
@@ -113,15 +106,6 @@ class RunAntchainSaasMarketServiceRequest extends Model
                 }
             }
         }
-        if (null !== $this->resultData) {
-            $res['result_data'] = [];
-            if (null !== $this->resultData && \is_array($this->resultData)) {
-                $n = 0;
-                foreach ($this->resultData as $item) {
-                    $res['result_data'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
 
         return $res;
     }
@@ -161,15 +145,6 @@ class RunAntchainSaasMarketServiceRequest extends Model
                 $n             = 0;
                 foreach ($map['params'] as $item) {
                     $model->params[$n++] = null !== $item ? KeyValuePair::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['result_data'])) {
-            if (!empty($map['result_data'])) {
-                $model->resultData = [];
-                $n                 = 0;
-                foreach ($map['result_data'] as $item) {
-                    $model->resultData[$n++] = null !== $item ? KeyValuePair::fromMap($item) : $item;
                 }
             }
         }

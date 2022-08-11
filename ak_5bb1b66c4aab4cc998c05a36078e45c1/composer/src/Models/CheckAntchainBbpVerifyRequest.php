@@ -48,12 +48,6 @@ class CheckAntchainBbpVerifyRequest extends Model
      * @var string
      */
     public $productCode;
-
-    // 核身结果枚举：PASS-核身成功，INITIAL-初始化，PROCESS-处理中，FAIL-失败
-    /**
-     * @var string
-     */
-    public $status;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -62,7 +56,6 @@ class CheckAntchainBbpVerifyRequest extends Model
         'productAction'     => 'product_action',
         'bizId'             => 'biz_id',
         'productCode'       => 'product_code',
-        'status'            => 'status',
     ];
 
     public function validate()
@@ -98,9 +91,6 @@ class CheckAntchainBbpVerifyRequest extends Model
         if (null !== $this->productCode) {
             $res['product_code'] = $this->productCode;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
 
         return $res;
     }
@@ -133,9 +123,6 @@ class CheckAntchainBbpVerifyRequest extends Model
         }
         if (isset($map['product_code'])) {
             $model->productCode = $map['product_code'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
         }
 
         return $model;

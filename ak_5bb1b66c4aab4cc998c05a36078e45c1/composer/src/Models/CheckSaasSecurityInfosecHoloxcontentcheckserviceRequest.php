@@ -30,18 +30,11 @@ class CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest extends Model
      * @var string
      */
     public $serviceVersion;
-
-    // 大安全风控接口返回结果
-    /**
-     * @var HoloxCheckResult
-     */
-    public $data;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'holoxCheckEvent'   => 'holox_check_event',
         'serviceVersion'    => 'service_version',
-        'data'              => 'data',
     ];
 
     public function validate()
@@ -63,9 +56,6 @@ class CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest extends Model
         }
         if (null !== $this->serviceVersion) {
             $res['service_version'] = $this->serviceVersion;
-        }
-        if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -90,9 +80,6 @@ class CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest extends Model
         }
         if (isset($map['service_version'])) {
             $model->serviceVersion = $map['service_version'];
-        }
-        if (isset($map['data'])) {
-            $model->data = HoloxCheckResult::fromMap($map['data']);
         }
 
         return $model;

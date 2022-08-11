@@ -24,17 +24,10 @@ class QueryAntchainSaasMarketSolutionRequest extends Model
      * @var string
      */
     public $solutionCode;
-
-    // 查询结果
-    /**
-     * @var KeyValuePair[]
-     */
-    public $resultData;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'solutionCode'      => 'solution_code',
-        'resultData'        => 'result_data',
     ];
 
     public function validate()
@@ -53,15 +46,6 @@ class QueryAntchainSaasMarketSolutionRequest extends Model
         }
         if (null !== $this->solutionCode) {
             $res['solution_code'] = $this->solutionCode;
-        }
-        if (null !== $this->resultData) {
-            $res['result_data'] = [];
-            if (null !== $this->resultData && \is_array($this->resultData)) {
-                $n = 0;
-                foreach ($this->resultData as $item) {
-                    $res['result_data'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
         }
 
         return $res;
@@ -83,15 +67,6 @@ class QueryAntchainSaasMarketSolutionRequest extends Model
         }
         if (isset($map['solution_code'])) {
             $model->solutionCode = $map['solution_code'];
-        }
-        if (isset($map['result_data'])) {
-            if (!empty($map['result_data'])) {
-                $model->resultData = [];
-                $n                 = 0;
-                foreach ($map['result_data'] as $item) {
-                    $model->resultData[$n++] = null !== $item ? KeyValuePair::fromMap($item) : $item;
-                }
-            }
         }
 
         return $model;

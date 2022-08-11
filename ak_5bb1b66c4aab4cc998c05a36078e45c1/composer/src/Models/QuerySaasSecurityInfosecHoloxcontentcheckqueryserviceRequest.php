@@ -30,18 +30,11 @@ class QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest extends Model
      * @var string
      */
     public $serviceVersion;
-
-    // 返回回调结果
-    /**
-     * @var InfoSecContentQueryResult
-     */
-    public $data;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
         'infosecContentQuery' => 'infosec_content_query',
         'serviceVersion'      => 'service_version',
-        'data'                => 'data',
     ];
 
     public function validate()
@@ -64,9 +57,6 @@ class QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest extends Model
         }
         if (null !== $this->serviceVersion) {
             $res['service_version'] = $this->serviceVersion;
-        }
-        if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -91,9 +81,6 @@ class QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest extends Model
         }
         if (isset($map['service_version'])) {
             $model->serviceVersion = $map['service_version'];
-        }
-        if (isset($map['data'])) {
-            $model->data = InfoSecContentQueryResult::fromMap($map['data']);
         }
 
         return $model;

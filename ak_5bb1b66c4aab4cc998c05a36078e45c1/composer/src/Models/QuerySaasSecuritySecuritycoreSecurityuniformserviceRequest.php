@@ -30,18 +30,11 @@ class QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest extends Model
      * @var string
      */
     public $serviceVersion;
-
-    // 返回结果
-    /**
-     * @var SecurityUniformResponse
-     */
-    public $data;
     protected $_name = [
         'authToken'              => 'auth_token',
         'productInstanceId'      => 'product_instance_id',
         'securityUniformRequest' => 'security_uniform_request',
         'serviceVersion'         => 'service_version',
-        'data'                   => 'data',
     ];
 
     public function validate()
@@ -64,9 +57,6 @@ class QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest extends Model
         }
         if (null !== $this->serviceVersion) {
             $res['service_version'] = $this->serviceVersion;
-        }
-        if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -91,9 +81,6 @@ class QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest extends Model
         }
         if (isset($map['service_version'])) {
             $model->serviceVersion = $map['service_version'];
-        }
-        if (isset($map['data'])) {
-            $model->data = SecurityUniformResponse::fromMap($map['data']);
         }
 
         return $model;

@@ -30,18 +30,11 @@ class QuerySaasSecurityInfosecOpencheckservicequeryRequest extends Model
      * @var string
      */
     public $serviceVersion;
-
-    // 大安全内容检测接口返回结果
-    /**
-     * @var ContentQueryResultModel
-     */
-    public $data;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'event'             => 'event',
         'serviceVersion'    => 'service_version',
-        'data'              => 'data',
     ];
 
     public function validate()
@@ -64,9 +57,6 @@ class QuerySaasSecurityInfosecOpencheckservicequeryRequest extends Model
         }
         if (null !== $this->serviceVersion) {
             $res['service_version'] = $this->serviceVersion;
-        }
-        if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -91,9 +81,6 @@ class QuerySaasSecurityInfosecOpencheckservicequeryRequest extends Model
         }
         if (isset($map['service_version'])) {
             $model->serviceVersion = $map['service_version'];
-        }
-        if (isset($map['data'])) {
-            $model->data = ContentQueryResultModel::fromMap($map['data']);
         }
 
         return $model;

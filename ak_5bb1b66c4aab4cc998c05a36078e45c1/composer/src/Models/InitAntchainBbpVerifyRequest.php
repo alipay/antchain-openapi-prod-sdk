@@ -48,30 +48,6 @@ class InitAntchainBbpVerifyRequest extends Model
      * @var GwValidateProduct[]
      */
     public $validateFlows;
-
-    // 核身id
-    /**
-     * @var string
-     */
-    public $verifyId;
-
-    // 核身请求地址url
-    /**
-     * @var string
-     */
-    public $verifyUrl;
-
-    // 核身处理状态:INITIAL、PROCESSING、SUCCESS、EXPIRED、FAIL
-    /**
-     * @var string
-     */
-    public $verifyStatus;
-
-    // 可用产品集合
-    /**
-     * @var GwValidateProduct[]
-     */
-    public $validProd;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -80,10 +56,6 @@ class InitAntchainBbpVerifyRequest extends Model
         'externParams'      => 'extern_params',
         'callbackEnum'      => 'callback_enum',
         'validateFlows'     => 'validate_flows',
-        'verifyId'          => 'verify_id',
-        'verifyUrl'         => 'verify_url',
-        'verifyStatus'      => 'verify_status',
-        'validProd'         => 'valid_prod',
     ];
 
     public function validate()
@@ -129,24 +101,6 @@ class InitAntchainBbpVerifyRequest extends Model
                 }
             }
         }
-        if (null !== $this->verifyId) {
-            $res['verify_id'] = $this->verifyId;
-        }
-        if (null !== $this->verifyUrl) {
-            $res['verify_url'] = $this->verifyUrl;
-        }
-        if (null !== $this->verifyStatus) {
-            $res['verify_status'] = $this->verifyStatus;
-        }
-        if (null !== $this->validProd) {
-            $res['valid_prod'] = [];
-            if (null !== $this->validProd && \is_array($this->validProd)) {
-                $n = 0;
-                foreach ($this->validProd as $item) {
-                    $res['valid_prod'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
 
         return $res;
     }
@@ -189,24 +143,6 @@ class InitAntchainBbpVerifyRequest extends Model
                 $n                    = 0;
                 foreach ($map['validate_flows'] as $item) {
                     $model->validateFlows[$n++] = null !== $item ? GwValidateProduct::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['verify_id'])) {
-            $model->verifyId = $map['verify_id'];
-        }
-        if (isset($map['verify_url'])) {
-            $model->verifyUrl = $map['verify_url'];
-        }
-        if (isset($map['verify_status'])) {
-            $model->verifyStatus = $map['verify_status'];
-        }
-        if (isset($map['valid_prod'])) {
-            if (!empty($map['valid_prod'])) {
-                $model->validProd = [];
-                $n                = 0;
-                foreach ($map['valid_prod'] as $item) {
-                    $model->validProd[$n++] = null !== $item ? GwValidateProduct::fromMap($item) : $item;
                 }
             }
         }
