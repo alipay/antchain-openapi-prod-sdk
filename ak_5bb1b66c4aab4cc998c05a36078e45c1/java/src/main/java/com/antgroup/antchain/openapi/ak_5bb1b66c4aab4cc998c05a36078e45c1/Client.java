@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0")
+                    new TeaPair("sdk_version", "1.0.3")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -214,6 +214,44 @@ public class Client {
     public CheckAntchainBbpVerifyResponse checkAntchainBbpVerifyEx(CheckAntchainBbpVerifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.verify.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAntchainBbpVerifyResponse());
+    }
+
+    /**
+     * Description: SaaS服务调用
+     * Summary: SaaS服务调用
+     */
+    public RunAntchainSaasMarketServiceResponse runAntchainSaasMarketService(RunAntchainSaasMarketServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.runAntchainSaasMarketServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: SaaS服务调用
+     * Summary: SaaS服务调用
+     */
+    public RunAntchainSaasMarketServiceResponse runAntchainSaasMarketServiceEx(RunAntchainSaasMarketServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.market.service.run", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RunAntchainSaasMarketServiceResponse());
+    }
+
+    /**
+     * Description: 查询解决方案，包括能力列表
+     * Summary: 查询解决方案，包括能力列表
+     */
+    public QueryAntchainSaasMarketSolutionResponse queryAntchainSaasMarketSolution(QueryAntchainSaasMarketSolutionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainSaasMarketSolutionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询解决方案，包括能力列表
+     * Summary: 查询解决方案，包括能力列表
+     */
+    public QueryAntchainSaasMarketSolutionResponse queryAntchainSaasMarketSolutionEx(QueryAntchainSaasMarketSolutionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.saas.market.solution.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainSaasMarketSolutionResponse());
     }
 
     /**
