@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.0.3',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -171,6 +171,30 @@ model DidDocServicesInfo {
   serviceEndpoint: string(name='service_endpoint', example='http://example.com'),
   // 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
   type: string(name='type', example='KYBServiceType'),
+}
+
+// identity parameter
+model IdentityParam {
+  // 经办人姓名
+  agent?: string(name='agent', example='张某某'),
+  // 经办人身份证号
+  agentId?: string(name='agent_id', example='130406200101012832'),
+  // 用户的姓名
+  certName: string(name='cert_name', example='李明'),
+  // 用户的身份证号
+  certNo: string(name='cert_no', example='410204200101013716'),
+  // 用户证件类型，目前只支持IDENTITY_CARD
+  certType: string(name='cert_type', example='IDENTITY_CARD'),
+  // 法人姓名，企业认证必选
+  legalPerson?: string(name='legal_person', example='张某某'),
+  // 法人身份证，企业认证必选
+  legalPersonId?: string(name='legal_person_id', example='130406200101010634'),
+  // 手机号码
+  mobileNo?: string(name='mobile_no', example='18322331111'),
+  // 扩展属性字段
+  properties?: string(name='properties', example='{"key":"value"}'),
+  // 用户类型，默认为PERSON
+  userType?: string(name='user_type', example='PERSON,ENTERPRISE'),
 }
 
 // 证书详情
@@ -467,6 +491,100 @@ async function queryBaasDidVcEx(request: QueryBaasDidVcRequest, headers: map[str
   return doRequest('1.0' ,'baas.did.vc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model StartBaasDidIdentificationFaceauthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 认证类型,枚举值 PC_AUTH、APP_AUTH
+  authType: string(name='auth_type'),
+  // 颁发证书的subject did
+  did: string(name='did'),
+  // 用户身份信息
+  identityParam: IdentityParam(name='identity_param'),
+  // 认证接口回调路径，POST接口 请求示例： { "certifyId":"0242de204e1a2c3ed6ee5e21d8a57a4c", "did":"xxxxx","vcId":"xxxxx" }
+  returnUrl?: string(name='return_url'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 认证ID
+  certifyId?: string(name='certify_id'),
+  // 二维码URL，用户支付宝扫一扫实人认证
+  certifyUrl?: string(name='certify_url'),
+}
+
+model StartBaasDidIdentificationFaceauthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证ID
+  certifyId?: string(name='certify_id'),
+  // 二维码URL，用户支付宝扫一扫实人认证
+  certifyUrl?: string(name='certify_url'),
+}
+
+/**
+ * Description: 开始实人认证
+ * Summary: 开始实人认证
+ */
+async function startBaasDidIdentificationFaceauth(request: StartBaasDidIdentificationFaceauthRequest): StartBaasDidIdentificationFaceauthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasDidIdentificationFaceauthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 开始实人认证
+ * Summary: 开始实人认证
+ */
+async function startBaasDidIdentificationFaceauthEx(request: StartBaasDidIdentificationFaceauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasDidIdentificationFaceauthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.identification.faceauth.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasDidIdentificationFaceauthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 认证ID，用于查询认证结果
+  certifyId: string(name='certify_id'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // vc id，可通过该字符串来查询vc具体内容
+  vcId?: string(name='vc_id'),
+}
+
+model QueryBaasDidIdentificationFaceauthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // vc id，可通过该字符串来查询vc具体内容
+  vcId?: string(name='vc_id'),
+}
+
+/**
+ * Description: 查询实人认证结果
+ * Summary: 查询实人认证结果
+ */
+async function queryBaasDidIdentificationFaceauth(request: QueryBaasDidIdentificationFaceauthRequest): QueryBaasDidIdentificationFaceauthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasDidIdentificationFaceauthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询实人认证结果
+ * Summary: 查询实人认证结果
+ */
+async function queryBaasDidIdentificationFaceauthEx(request: QueryBaasDidIdentificationFaceauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasDidIdentificationFaceauthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.identification.faceauth.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateBaasDidPersonWiththreemetaRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -521,6 +639,62 @@ async function createBaasDidPersonWiththreemeta(request: CreateBaasDidPersonWith
 async function createBaasDidPersonWiththreemetaEx(request: CreateBaasDidPersonWiththreemetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaasDidPersonWiththreemetaResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.did.person.withthreemeta.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBaasDidCorporateWiththreemetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  epCertNo: string(name='ep_cert_no'),
+  // { "nation": "CN", //企业注册地址 "type": "LimitedCompany", //企业类型 "name": "演示用户名", //必选字段，企业名 "licenceNo": "1111", //营业执照 "address": "1111", //企业地址 "parentName": "", //<-必选字段 业务方名 需要提前协商 "linkType": "indirect", //<- 连接类型，direct直链企业， indirect间链企业 "certifyDate": "2019-1-1", //证书颁发时间 "licenceExpireDate": "2020-1-1", //证书到期时间 "businessScope": "1111", //企业经营范围 "businessAddress": "1111", //企业经营地址 "corporateBusinessType": 0, //<- 企业类型：0 一般企业， 1 个人商户 "channelName": "" //<- 必选字段 业务渠道 需要提前沟通 }
+  extensionInfo?: string(name='extension_info'),
+  // 法人姓名
+  legalPersonCertName: string(name='legal_person_cert_name'),
+  // 名称
+  ownerName?: string(name='owner_name'),
+  // 自定义企业唯一id，企业在自有模式下的唯一号，调用者需要保证其唯一性
+  ownerUid: string(name='owner_uid'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 生成的did
+  did?: string(name='did'),
+  // 颁发的vcId
+  vcId?: string(name='vc_id'),
+}
+
+model CreateBaasDidCorporateWiththreemetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成的did
+  did?: string(name='did'),
+  // 颁发的vcId
+  vcId?: string(name='vc_id'),
+}
+
+/**
+ * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+ * Summary: 通过企业三要素验证后创建企业did
+ */
+async function createBaasDidCorporateWiththreemeta(request: CreateBaasDidCorporateWiththreemetaRequest): CreateBaasDidCorporateWiththreemetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBaasDidCorporateWiththreemetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+ * Summary: 通过企业三要素验证后创建企业did
+ */
+async function createBaasDidCorporateWiththreemetaEx(request: CreateBaasDidCorporateWiththreemetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaasDidCorporateWiththreemetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.corporate.withthreemeta.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartBaasDidVcrepositoryIssueRequest = {
@@ -590,6 +764,116 @@ async function startBaasDidVcrepositoryIssue(request: StartBaasDidVcrepositoryIs
 async function startBaasDidVcrepositoryIssueEx(request: StartBaasDidVcrepositoryIssueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasDidVcrepositoryIssueResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.did.vcrepository.issue.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartBaasDidAgentServicetypeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 枚举类型，描述访问服务的方式
+  accessMode?: string(name='access_mode'),
+  // 对服务的文字描述，<1000个字符
+  description?: string(name='description'),
+  // 服务类型创建者did
+  did: string(name='did'),
+  // {
+  //   "item1":"",
+  //   "item2":"",
+  //   ...
+  // }
+  serviceInput?: string(name='service_input'),
+  // {
+  //    "item1":""
+  //    "item2":""
+  //    ...
+  // }
+  serviceOutput?: string(name='service_output'),
+  // 自定义服务类型，字符数16～32个
+  serviceType: string(name='service_type'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+}
+
+model StartBaasDidAgentServicetypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建成功之后，返回服务类型名
+  serviceType?: string(name='service_type'),
+}
+
+/**
+ * Description: 注册自定义的服务类型，目前只有租户did可以调用
+ * Summary: 注册自定义服务类型
+ */
+async function startBaasDidAgentServicetype(request: StartBaasDidAgentServicetypeRequest): StartBaasDidAgentServicetypeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasDidAgentServicetypeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 注册自定义的服务类型，目前只有租户did可以调用
+ * Summary: 注册自定义服务类型
+ */
+async function startBaasDidAgentServicetypeEx(request: StartBaasDidAgentServicetypeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasDidAgentServicetypeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.agent.servicetype.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasDidAgentServicetypeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询者did
+  did: string(name='did'),
+  // 指定查询的服务类型名
+  serviceType: string(name='service_type'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 服务类型定义列表
+  serviceTypes?: [ string ](name='service_types'),
+  // 总共有几项
+  totalNumber?: long(name='total_number'),
+  // 总共有几页
+  totalPage?: long(name='total_page'),
+}
+
+model QueryBaasDidAgentServicetypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 服务类型定义列表
+  serviceTypes?: [ string ](name='service_types'),
+  // 总共有几项
+  totalNumber?: long(name='total_number'),
+  // 总共有几页
+  totalPage?: long(name='total_page'),
+}
+
+/**
+ * Description: 查询指定服务类型的定义，不支持全量查询
+ * Summary: 查询指定服务类型的定义
+ */
+async function queryBaasDidAgentServicetype(request: QueryBaasDidAgentServicetypeRequest): QueryBaasDidAgentServicetypeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasDidAgentServicetypeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询指定服务类型的定义，不支持全量查询
+ * Summary: 查询指定服务类型的定义
+ */
+async function queryBaasDidAgentServicetypeEx(request: QueryBaasDidAgentServicetypeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasDidAgentServicetypeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.agent.servicetype.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model UpdateBaasDidServicesRequest = {
@@ -694,6 +978,144 @@ async function createBaasDidPersonWithtwometaEx(request: CreateBaasDidPersonWith
   return doRequest('1.0' ,'baas.did.person.withtwometa.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model CreateBaasDidCorporateWithtwometaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  epCertNo: string(name='ep_cert_no'),
+  // {
+  //   "nation": "CN", //企业注册地址
+  //   "type": "LimitedCompany", //企业类型
+  //   "name": "演示用户名", //必选字段，企业名
+  //   "licenceNo": "1111", //营业执照
+  //   "address": "1111", //企业地址
+  //   "parentName": "", //<-必选字段 业务方名 需要提前协商
+  //   "linkType": "indirect", //<- 连接类型，direct直链企业， indirect间链企业
+  //   "certifyDate": "2019-1-1", //证书颁发时间
+  //   "licenceExpireDate": "2020-1-1", //证书到期时间
+  //   "businessScope": "1111", //企业经营范围
+  //   "businessAddress": "1111", //企业经营地址
+  //   "corporateBusinessType": 0, //<- 企业类型：0 一般企业， 1 个人商户
+  //   "channelName": "" //<- 必选字段 业务渠道 需要提前沟通
+  // }
+  extensionInfo?: string(name='extension_info'),
+  // 名称
+  // 
+  ownerName?: string(name='owner_name'),
+  // 自定义企业唯一id，企业在自有模式下的唯一号，调用者需要保证其唯一性
+  ownerUid: string(name='owner_uid'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 生成的did
+  // 
+  did?: string(name='did'),
+  // 颁发的vcId
+  vcId?: string(name='vc_id'),
+}
+
+model CreateBaasDidCorporateWithtwometaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成的did
+  // 
+  did?: string(name='did'),
+  // 颁发的vcId
+  vcId?: string(name='vc_id'),
+}
+
+/**
+ * Description: 通过企业二要素验证后创建企业did
+ * Summary: 通过企业二要素验证后创建企业did
+ */
+async function createBaasDidCorporateWithtwometa(request: CreateBaasDidCorporateWithtwometaRequest): CreateBaasDidCorporateWithtwometaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBaasDidCorporateWithtwometaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过企业二要素验证后创建企业did
+ * Summary: 通过企业二要素验证后创建企业did
+ */
+async function createBaasDidCorporateWithtwometaEx(request: CreateBaasDidCorporateWithtwometaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaasDidCorporateWithtwometaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.corporate.withtwometa.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBaasDidCorporateWithfourmetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业名称
+  // 
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  // 
+  epCertNo: string(name='ep_cert_no'),
+  // { "nation": "CN", //企业注册地址 "type": "LimitedCompany", //企业类型 "name": "演示用户名", //必选字段，企业名 "licenceNo": "1111", //营业执照 "address": "1111", //企业地址 "parentName": "", //<-必选字段 业务方名 需要提前协商 "linkType": "indirect", //<- 连接类型，direct直链企业， indirect间链企业 "certifyDate": "2019-1-1", //证书颁发时间 "licenceExpireDate": "2020-1-1", //证书到期时间 "businessScope": "1111", //企业经营范围 "businessAddress": "1111", //企业经营地址 "corporateBusinessType": 0, //<- 企业类型：0 一般企业， 1 个人商户 "channelName": "" //<- 必选字段 业务渠道 需要提前沟通 }
+  // 
+  extensionInfo?: string(name='extension_info'),
+  // 法人姓名
+  // 
+  legalPersonCertName: string(name='legal_person_cert_name'),
+  // 法人身份证件号
+  legalPersonCertNo: string(name='legal_person_cert_no'),
+  // 名称
+  // 
+  ownerName?: string(name='owner_name'),
+  // 自定义企业唯一id，企业在自有模式下的唯一号，调用者需要保证其唯一性
+  ownerUid: string(name='owner_uid'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 生成的did
+  // 
+  did?: string(name='did'),
+  // 颁发的vcId
+  // 
+  vcId?: string(name='vc_id'),
+}
+
+model CreateBaasDidCorporateWithfourmetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成的did
+  // 
+  did?: string(name='did'),
+  // 颁发的vcId
+  // 
+  vcId?: string(name='vc_id'),
+}
+
+/**
+ * Description: 通过企业四要素验证后创建企业did
+ * Summary: 通过企业四要素验证后创建企业did
+ */
+async function createBaasDidCorporateWithfourmeta(request: CreateBaasDidCorporateWithfourmetaRequest): CreateBaasDidCorporateWithfourmetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBaasDidCorporateWithfourmetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过企业四要素验证后创建企业did
+ * Summary: 通过企业四要素验证后创建企业did
+ */
+async function createBaasDidCorporateWithfourmetaEx(request: CreateBaasDidCorporateWithfourmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaasDidCorporateWithfourmetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.corporate.withfourmeta.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateBaasDidPersonWithfourmetaRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -759,5 +1181,120 @@ async function createBaasDidPersonWithfourmeta(request: CreateBaasDidPersonWithf
 async function createBaasDidPersonWithfourmetaEx(request: CreateBaasDidPersonWithfourmetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaasDidPersonWithfourmetaResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.did.person.withfourmeta.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartBaasDidCorporateFaceauthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回调通知地址
+  callBackUrl?: string(name='call_back_url'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号
+  epCertNo: string(name='ep_cert_no'),
+  // 企业证件类型（NATIONAL_LEGAL（工商注册号）或 NATIONAL_LEGAL_MERGE （ 社会统一信用代码））
+  epCertType: string(name='ep_cert_type'),
+  // { "nation": "CN", //企业注册地址 "type": "LimitedCompany", //企业类型 "name": "演示用户名", //必选字段，企业名 "licenceNo": "1111", //营业执照 "address": "1111", //企业地址 "parentName": "", //<-必选字段 业务方名 需要提前协商 "linkType": "indirect", //<- 连接类型，direct直链企业， indirect间链企业 "certifyDate": "2019-1-1", //证书颁发时间 "licenceExpireDate": "2020-1-1", //证书到期时间 "businessScope": "1111", //企业经营范围 "businessAddress": "1111", //企业经营地址 "corporateBusinessType": 0, //<- 企业类型：0 一般企业， 1 个人商户 "channelName": "" //<- 必选字段 业务渠道 需要提前沟通 }
+  extensionInfo?: string(name='extension_info'),
+  // 企业法人
+  legalPersonCertName: string(name='legal_person_cert_name'),
+  // 法人身份证号
+  legalPersonCertNo: string(name='legal_person_cert_no'),
+  // 认证完成后回跳地址
+  merchantUrl?: string(name='merchant_url'),
+  // 名称
+  ownerName?: string(name='owner_name'),
+  // 自定义企业唯一id，企业在自有模式下的唯一号，调用者需要保证其唯一性
+  ownerUid?: string(name='owner_uid'),
+  // 场景码，找dis工作人员进行分配	
+  bizCode?: string(name='biz_code'),
+  // 产品渲染方式：H5、NATIVE 或 PC, 默认为H5
+  group?: string(name='group'),
+  // 认证ID
+  certifyId?: string(name='certify_id'),
+  // 二维码URL，用户支付宝扫一扫实人认证
+  certifyUrl?: string(name='certify_url'),
+}
+
+model StartBaasDidCorporateFaceauthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证ID
+  certifyId?: string(name='certify_id'),
+  // 二维码URL，用户支付宝扫一扫实人认证
+  certifyUrl?: string(name='certify_url'),
+}
+
+/**
+ * Description: 企业法人刷脸认证
+ * Summary: 企业法人刷脸认证
+ */
+async function startBaasDidCorporateFaceauth(request: StartBaasDidCorporateFaceauthRequest): StartBaasDidCorporateFaceauthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasDidCorporateFaceauthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业法人刷脸认证
+ * Summary: 企业法人刷脸认证
+ */
+async function startBaasDidCorporateFaceauthEx(request: StartBaasDidCorporateFaceauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasDidCorporateFaceauthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.corporate.faceauth.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasDidCorporateFaceauthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 认证ID，用于查询认证结果
+  // 
+  certifyId: string(name='certify_id'),
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string(name='biz_code'),
+  // 产品渲染方式：H5、NATIVE 或 PC
+  group?: string(name='group'),
+  // 生成的did
+  did?: string(name='did'),
+  // vc id，可通过该字符串来查询vc具体内容
+  vcId?: string(name='vc_id'),
+}
+
+model QueryBaasDidCorporateFaceauthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 生成的did
+  did?: string(name='did'),
+  // vc id，可通过该字符串来查询vc具体内容
+  vcId?: string(name='vc_id'),
+}
+
+/**
+ * Description: 查询企业法人实人结果
+ * Summary: 查询企业法人实人结果
+ */
+async function queryBaasDidCorporateFaceauth(request: QueryBaasDidCorporateFaceauthRequest): QueryBaasDidCorporateFaceauthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasDidCorporateFaceauthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询企业法人实人结果
+ * Summary: 查询企业法人实人结果
+ */
+async function queryBaasDidCorporateFaceauthEx(request: QueryBaasDidCorporateFaceauthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasDidCorporateFaceauthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.did.corporate.faceauth.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
