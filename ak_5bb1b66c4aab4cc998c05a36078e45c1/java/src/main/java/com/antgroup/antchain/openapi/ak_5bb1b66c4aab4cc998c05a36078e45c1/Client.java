@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.3")
+                    new TeaPair("sdk_version", "1.0.5")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -271,5 +271,138 @@ public class Client {
     public VerifyAntchainBbpMetaResponse verifyAntchainBbpMetaEx(VerifyAntchainBbpMetaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.meta.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyAntchainBbpMetaResponse());
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口
+     */
+    public CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse checkSaasSecurityInfosecHoloxcontentcheckservice(CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkSaasSecurityInfosecHoloxcontentcheckserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口
+     */
+    public CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse checkSaasSecurityInfosecHoloxcontentcheckserviceEx(CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "saas.security.infosec.holoxcontentcheckservice.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse());
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口
+     */
+    public QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse querySaasSecuritySecuritycoreSecurityuniformservice(QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySaasSecuritySecuritycoreSecurityuniformserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口
+     */
+    public QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse querySaasSecuritySecuritycoreSecurityuniformserviceEx(QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "saas.security.securitycore.securityuniformservice.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse());
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口
+     */
+    public CheckSaasSecurityRdsRdsserviceResponse checkSaasSecurityRdsRdsservice(CheckSaasSecurityRdsRdsserviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkSaasSecurityRdsRdsserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口
+     */
+    public CheckSaasSecurityRdsRdsserviceResponse checkSaasSecurityRdsRdsserviceEx(CheckSaasSecurityRdsRdsserviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "saas.security.rds.rdsservice.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckSaasSecurityRdsRdsserviceResponse());
+    }
+
+    /**
+     * Description: 123
+     * Summary: 大安全接口
+     */
+    public QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse querySaasSecurityInfosecHoloxcontentcheckqueryservice(QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySaasSecurityInfosecHoloxcontentcheckqueryserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 123
+     * Summary: 大安全接口
+     */
+    public QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse querySaasSecurityInfosecHoloxcontentcheckqueryserviceEx(QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "saas.security.infosec.holoxcontentcheckqueryservice.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse());
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口
+     */
+    public VerifySaasSecurityRdslibAntcaptchaserviceResponse verifySaasSecurityRdslibAntcaptchaservice(VerifySaasSecurityRdslibAntcaptchaserviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifySaasSecurityRdslibAntcaptchaserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口
+     */
+    public VerifySaasSecurityRdslibAntcaptchaserviceResponse verifySaasSecurityRdslibAntcaptchaserviceEx(VerifySaasSecurityRdslibAntcaptchaserviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "saas.security.rdslib.antcaptchaservice.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifySaasSecurityRdslibAntcaptchaserviceResponse());
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口
+     */
+    public QuerySaasSecurityTscenterUmidqueryserviceResponse querySaasSecurityTscenterUmidqueryservice(QuerySaasSecurityTscenterUmidqueryserviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySaasSecurityTscenterUmidqueryserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口
+     */
+    public QuerySaasSecurityTscenterUmidqueryserviceResponse querySaasSecurityTscenterUmidqueryserviceEx(QuerySaasSecurityTscenterUmidqueryserviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "saas.security.tscenter.umidqueryservice.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySaasSecurityTscenterUmidqueryserviceResponse());
+    }
+
+    /**
+     * Description: 大安全内容检测结果查询接口
+     * Summary: 大安全内容检测结果查询接口
+     */
+    public QuerySaasSecurityInfosecOpencheckservicequeryResponse querySaasSecurityInfosecOpencheckservicequery(QuerySaasSecurityInfosecOpencheckservicequeryRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySaasSecurityInfosecOpencheckservicequeryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 大安全内容检测结果查询接口
+     * Summary: 大安全内容检测结果查询接口
+     */
+    public QuerySaasSecurityInfosecOpencheckservicequeryResponse querySaasSecurityInfosecOpencheckservicequeryEx(QuerySaasSecurityInfosecOpencheckservicequeryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "saas.security.infosec.opencheckservicequery.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySaasSecurityInfosecOpencheckservicequeryResponse());
     }
 }
