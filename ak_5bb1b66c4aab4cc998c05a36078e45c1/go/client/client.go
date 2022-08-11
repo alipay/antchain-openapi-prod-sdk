@@ -276,6 +276,32 @@ func (s *CustomerAuthResult) SetDisReqMsgId(v string) *CustomerAuthResult {
 	return s
 }
 
+// 键值对，兼容map用
+type KeyValuePair struct {
+	// key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s KeyValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s KeyValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *KeyValuePair) SetKey(v string) *KeyValuePair {
+	s.Key = &v
+	return s
+}
+
+func (s *KeyValuePair) SetValue(v string) *KeyValuePair {
+	s.Value = &v
+	return s
+}
+
 // 核身渲染结果
 type GwVerifyViewResult struct {
 	// 核身上下文id
@@ -734,6 +760,195 @@ func (s *CheckAntchainBbpVerifyResponse) SetStatus(v string) *CheckAntchainBbpVe
 	return s
 }
 
+type RunAntchainSaasMarketServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务方传入，幂等用。
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// saas产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 服务code
+	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty" require:"true"`
+	// 子服务code
+	SubServiceCode *string `json:"sub_service_code,omitempty" xml:"sub_service_code,omitempty"`
+	// 服务版本
+	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
+	// 业务参数，map格式
+	Params []*KeyValuePair `json:"params,omitempty" xml:"params,omitempty" type:"Repeated"`
+	// 服务调用结果
+	ResultData []*KeyValuePair `json:"result_data,omitempty" xml:"result_data,omitempty" type:"Repeated"`
+}
+
+func (s RunAntchainSaasMarketServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RunAntchainSaasMarketServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RunAntchainSaasMarketServiceRequest) SetAuthToken(v string) *RunAntchainSaasMarketServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RunAntchainSaasMarketServiceRequest) SetProductInstanceId(v string) *RunAntchainSaasMarketServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RunAntchainSaasMarketServiceRequest) SetBizId(v string) *RunAntchainSaasMarketServiceRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *RunAntchainSaasMarketServiceRequest) SetProductCode(v string) *RunAntchainSaasMarketServiceRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *RunAntchainSaasMarketServiceRequest) SetServiceCode(v string) *RunAntchainSaasMarketServiceRequest {
+	s.ServiceCode = &v
+	return s
+}
+
+func (s *RunAntchainSaasMarketServiceRequest) SetSubServiceCode(v string) *RunAntchainSaasMarketServiceRequest {
+	s.SubServiceCode = &v
+	return s
+}
+
+func (s *RunAntchainSaasMarketServiceRequest) SetServiceVersion(v string) *RunAntchainSaasMarketServiceRequest {
+	s.ServiceVersion = &v
+	return s
+}
+
+func (s *RunAntchainSaasMarketServiceRequest) SetParams(v []*KeyValuePair) *RunAntchainSaasMarketServiceRequest {
+	s.Params = v
+	return s
+}
+
+func (s *RunAntchainSaasMarketServiceRequest) SetResultData(v []*KeyValuePair) *RunAntchainSaasMarketServiceRequest {
+	s.ResultData = v
+	return s
+}
+
+type RunAntchainSaasMarketServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 服务调用结果
+	ResultData []*KeyValuePair `json:"result_data,omitempty" xml:"result_data,omitempty" type:"Repeated"`
+}
+
+func (s RunAntchainSaasMarketServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RunAntchainSaasMarketServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RunAntchainSaasMarketServiceResponse) SetReqMsgId(v string) *RunAntchainSaasMarketServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RunAntchainSaasMarketServiceResponse) SetResultCode(v string) *RunAntchainSaasMarketServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RunAntchainSaasMarketServiceResponse) SetResultMsg(v string) *RunAntchainSaasMarketServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RunAntchainSaasMarketServiceResponse) SetResultData(v []*KeyValuePair) *RunAntchainSaasMarketServiceResponse {
+	s.ResultData = v
+	return s
+}
+
+type QueryAntchainSaasMarketSolutionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 解决方案code
+	SolutionCode *string `json:"solution_code,omitempty" xml:"solution_code,omitempty" require:"true"`
+	// 查询结果
+	ResultData []*KeyValuePair `json:"result_data,omitempty" xml:"result_data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAntchainSaasMarketSolutionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainSaasMarketSolutionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainSaasMarketSolutionRequest) SetAuthToken(v string) *QueryAntchainSaasMarketSolutionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainSaasMarketSolutionRequest) SetProductInstanceId(v string) *QueryAntchainSaasMarketSolutionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainSaasMarketSolutionRequest) SetSolutionCode(v string) *QueryAntchainSaasMarketSolutionRequest {
+	s.SolutionCode = &v
+	return s
+}
+
+func (s *QueryAntchainSaasMarketSolutionRequest) SetResultData(v []*KeyValuePair) *QueryAntchainSaasMarketSolutionRequest {
+	s.ResultData = v
+	return s
+}
+
+type QueryAntchainSaasMarketSolutionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询结果
+	ResultData []*KeyValuePair `json:"result_data,omitempty" xml:"result_data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAntchainSaasMarketSolutionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainSaasMarketSolutionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainSaasMarketSolutionResponse) SetReqMsgId(v string) *QueryAntchainSaasMarketSolutionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainSaasMarketSolutionResponse) SetResultCode(v string) *QueryAntchainSaasMarketSolutionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainSaasMarketSolutionResponse) SetResultMsg(v string) *QueryAntchainSaasMarketSolutionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntchainSaasMarketSolutionResponse) SetResultData(v []*KeyValuePair) *QueryAntchainSaasMarketSolutionResponse {
+	s.ResultData = v
+	return s
+}
+
 type VerifyAntchainBbpMetaRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1045,7 +1260,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1188,6 +1403,74 @@ func (client *Client) CheckAntchainBbpVerifyEx(request *CheckAntchainBbpVerifyRe
 	}
 	_result = &CheckAntchainBbpVerifyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.verify.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: SaaS服务调用
+ * Summary: SaaS服务调用
+ */
+func (client *Client) RunAntchainSaasMarketService(request *RunAntchainSaasMarketServiceRequest) (_result *RunAntchainSaasMarketServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RunAntchainSaasMarketServiceResponse{}
+	_body, _err := client.RunAntchainSaasMarketServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: SaaS服务调用
+ * Summary: SaaS服务调用
+ */
+func (client *Client) RunAntchainSaasMarketServiceEx(request *RunAntchainSaasMarketServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RunAntchainSaasMarketServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RunAntchainSaasMarketServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.market.service.run"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询解决方案，包括能力列表
+ * Summary: 查询解决方案，包括能力列表
+ */
+func (client *Client) QueryAntchainSaasMarketSolution(request *QueryAntchainSaasMarketSolutionRequest) (_result *QueryAntchainSaasMarketSolutionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainSaasMarketSolutionResponse{}
+	_body, _err := client.QueryAntchainSaasMarketSolutionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询解决方案，包括能力列表
+ * Summary: 查询解决方案，包括能力列表
+ */
+func (client *Client) QueryAntchainSaasMarketSolutionEx(request *QueryAntchainSaasMarketSolutionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainSaasMarketSolutionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainSaasMarketSolutionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.saas.market.solution.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
