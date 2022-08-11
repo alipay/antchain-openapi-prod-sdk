@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5'
+                    'sdk_version': '1.0.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.5'
+                    'sdk_version': '1.0.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -605,6 +605,62 @@ class Client:
         return TeaCore.from_map(
             ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.VerifyAntchainBbpMetaResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.meta.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_demo_demo_check_eee(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoDemoCheckEeeRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoDemoCheckEeeResponse:
+        """
+        Description: s
+        Summary: ss
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_demo_demo_check_eee_ex(request, headers, runtime)
+
+    async def bind_demo_demo_check_eee_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoDemoCheckEeeRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoDemoCheckEeeResponse:
+        """
+        Description: s
+        Summary: ss
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_demo_demo_check_eee_ex_async(request, headers, runtime)
+
+    def bind_demo_demo_check_eee_ex(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoDemoCheckEeeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoDemoCheckEeeResponse:
+        """
+        Description: s
+        Summary: ss
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoDemoCheckEeeResponse(),
+            self.do_request('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_demo_demo_check_eee_ex_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoDemoCheckEeeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoDemoCheckEeeResponse:
+        """
+        Description: s
+        Summary: ss
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.BindDemoDemoCheckEeeResponse(),
+            await self.do_request_async('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def check_saas_security_infosec_holoxcontentcheckservice(
