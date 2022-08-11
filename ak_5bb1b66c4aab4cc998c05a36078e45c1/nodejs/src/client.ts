@@ -181,6 +181,31 @@ export class CustomerAuthResult extends $tea.Model {
   }
 }
 
+// 键值对，兼容map用
+export class KeyValuePair extends $tea.Model {
+  // key
+  key: string;
+  // value
+  value?: string;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 核身渲染结果
 export class GwVerifyViewResult extends $tea.Model {
   // 核身上下文id
@@ -520,6 +545,152 @@ export class CheckAntchainBbpVerifyResponse extends $tea.Model {
   }
 }
 
+export class RunAntchainSaasMarketServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务方传入，幂等用。
+  bizId: string;
+  // saas产品code
+  productCode: string;
+  // 服务code
+  serviceCode: string;
+  // 子服务code
+  subServiceCode?: string;
+  // 服务版本
+  serviceVersion: string;
+  // 业务参数，map格式
+  params?: KeyValuePair[];
+  // 服务调用结果
+  resultData?: KeyValuePair[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      productCode: 'product_code',
+      serviceCode: 'service_code',
+      subServiceCode: 'sub_service_code',
+      serviceVersion: 'service_version',
+      params: 'params',
+      resultData: 'result_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      productCode: 'string',
+      serviceCode: 'string',
+      subServiceCode: 'string',
+      serviceVersion: 'string',
+      params: { 'type': 'array', 'itemType': KeyValuePair },
+      resultData: { 'type': 'array', 'itemType': KeyValuePair },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RunAntchainSaasMarketServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 服务调用结果
+  resultData?: KeyValuePair[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultData: 'result_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultData: { 'type': 'array', 'itemType': KeyValuePair },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainSaasMarketSolutionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 解决方案code
+  solutionCode: string;
+  // 查询结果
+  resultData?: KeyValuePair[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      solutionCode: 'solution_code',
+      resultData: 'result_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      solutionCode: 'string',
+      resultData: { 'type': 'array', 'itemType': KeyValuePair },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainSaasMarketSolutionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询结果
+  resultData?: KeyValuePair[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultData: 'result_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultData: { 'type': 'array', 'itemType': KeyValuePair },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class VerifyAntchainBbpMetaRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -760,7 +931,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.3",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -861,6 +1032,44 @@ export default class Client {
   async checkAntchainBbpVerifyEx(request: CheckAntchainBbpVerifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckAntchainBbpVerifyResponse> {
     Util.validateModel(request);
     return $tea.cast<CheckAntchainBbpVerifyResponse>(await this.doRequest("1.0", "antchain.bbp.verify.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckAntchainBbpVerifyResponse({}));
+  }
+
+  /**
+   * Description: SaaS服务调用
+   * Summary: SaaS服务调用
+   */
+  async runAntchainSaasMarketService(request: RunAntchainSaasMarketServiceRequest): Promise<RunAntchainSaasMarketServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.runAntchainSaasMarketServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: SaaS服务调用
+   * Summary: SaaS服务调用
+   */
+  async runAntchainSaasMarketServiceEx(request: RunAntchainSaasMarketServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RunAntchainSaasMarketServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RunAntchainSaasMarketServiceResponse>(await this.doRequest("1.0", "antchain.saas.market.service.run", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RunAntchainSaasMarketServiceResponse({}));
+  }
+
+  /**
+   * Description: 查询解决方案，包括能力列表
+   * Summary: 查询解决方案，包括能力列表
+   */
+  async queryAntchainSaasMarketSolution(request: QueryAntchainSaasMarketSolutionRequest): Promise<QueryAntchainSaasMarketSolutionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntchainSaasMarketSolutionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询解决方案，包括能力列表
+   * Summary: 查询解决方案，包括能力列表
+   */
+  async queryAntchainSaasMarketSolutionEx(request: QueryAntchainSaasMarketSolutionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainSaasMarketSolutionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntchainSaasMarketSolutionResponse>(await this.doRequest("1.0", "antchain.saas.market.solution.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainSaasMarketSolutionResponse({}));
   }
 
   /**
