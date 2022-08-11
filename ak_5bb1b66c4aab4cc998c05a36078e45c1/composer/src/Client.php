@@ -15,6 +15,10 @@ use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckAntchainBbpVerifyRe
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckAntchainBbpVerifyResponse;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\InitAntchainBbpVerifyRequest;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\InitAntchainBbpVerifyResponse;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\QueryAntchainSaasMarketSolutionRequest;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\QueryAntchainSaasMarketSolutionResponse;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\RunAntchainSaasMarketServiceRequest;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\RunAntchainSaasMarketServiceResponse;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\StartAntchainBbpVerifyRequest;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\StartAntchainBbpVerifyResponse;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\VerifyAntchainBbpMetaRequest;
@@ -166,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.3',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -309,6 +313,72 @@ class Client
         Utils::validateModel($request);
 
         return CheckAntchainBbpVerifyResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.verify.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: SaaS服务调用
+     * Summary: SaaS服务调用.
+     *
+     * @param RunAntchainSaasMarketServiceRequest $request
+     *
+     * @return RunAntchainSaasMarketServiceResponse
+     */
+    public function runAntchainSaasMarketService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->runAntchainSaasMarketServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: SaaS服务调用
+     * Summary: SaaS服务调用.
+     *
+     * @param RunAntchainSaasMarketServiceRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return RunAntchainSaasMarketServiceResponse
+     */
+    public function runAntchainSaasMarketServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RunAntchainSaasMarketServiceResponse::fromMap($this->doRequest('1.0', 'antchain.saas.market.service.run', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询解决方案，包括能力列表
+     * Summary: 查询解决方案，包括能力列表.
+     *
+     * @param QueryAntchainSaasMarketSolutionRequest $request
+     *
+     * @return QueryAntchainSaasMarketSolutionResponse
+     */
+    public function queryAntchainSaasMarketSolution($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainSaasMarketSolutionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询解决方案，包括能力列表
+     * Summary: 查询解决方案，包括能力列表.
+     *
+     * @param QueryAntchainSaasMarketSolutionRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryAntchainSaasMarketSolutionResponse
+     */
+    public function queryAntchainSaasMarketSolutionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainSaasMarketSolutionResponse::fromMap($this->doRequest('1.0', 'antchain.saas.market.solution.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
