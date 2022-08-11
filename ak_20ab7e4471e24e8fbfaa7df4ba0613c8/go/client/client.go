@@ -190,6 +190,88 @@ func (s *DidDocServicesInfo) SetType(v string) *DidDocServicesInfo {
 	return s
 }
 
+// identity parameter
+type IdentityParam struct {
+	// 经办人姓名
+	Agent *string `json:"agent,omitempty" xml:"agent,omitempty"`
+	// 经办人身份证号
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 用户的姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 用户的身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 用户证件类型，目前只支持IDENTITY_CARD
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	// 法人姓名，企业认证必选
+	LegalPerson *string `json:"legal_person,omitempty" xml:"legal_person,omitempty"`
+	// 法人身份证，企业认证必选
+	LegalPersonId *string `json:"legal_person_id,omitempty" xml:"legal_person_id,omitempty"`
+	// 手机号码
+	MobileNo *string `json:"mobile_no,omitempty" xml:"mobile_no,omitempty"`
+	// 扩展属性字段
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 用户类型，默认为PERSON
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
+}
+
+func (s IdentityParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IdentityParam) GoString() string {
+	return s.String()
+}
+
+func (s *IdentityParam) SetAgent(v string) *IdentityParam {
+	s.Agent = &v
+	return s
+}
+
+func (s *IdentityParam) SetAgentId(v string) *IdentityParam {
+	s.AgentId = &v
+	return s
+}
+
+func (s *IdentityParam) SetCertName(v string) *IdentityParam {
+	s.CertName = &v
+	return s
+}
+
+func (s *IdentityParam) SetCertNo(v string) *IdentityParam {
+	s.CertNo = &v
+	return s
+}
+
+func (s *IdentityParam) SetCertType(v string) *IdentityParam {
+	s.CertType = &v
+	return s
+}
+
+func (s *IdentityParam) SetLegalPerson(v string) *IdentityParam {
+	s.LegalPerson = &v
+	return s
+}
+
+func (s *IdentityParam) SetLegalPersonId(v string) *IdentityParam {
+	s.LegalPersonId = &v
+	return s
+}
+
+func (s *IdentityParam) SetMobileNo(v string) *IdentityParam {
+	s.MobileNo = &v
+	return s
+}
+
+func (s *IdentityParam) SetProperties(v string) *IdentityParam {
+	s.Properties = &v
+	return s
+}
+
+func (s *IdentityParam) SetUserType(v string) *IdentityParam {
+	s.UserType = &v
+	return s
+}
+
 // 证书详情
 type BareClaim struct {
 	// 下面的内容由调用者自己定义，建议只存放必要的声明信息，不要放置敏感数据
@@ -839,6 +921,209 @@ func (s *QueryBaasDidVcResponse) SetVcContent(v string) *QueryBaasDidVcResponse 
 	return s
 }
 
+type StartBaasDidIdentificationFaceauthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 认证类型,枚举值 PC_AUTH、APP_AUTH
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 颁发证书的subject did
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 用户身份信息
+	IdentityParam *IdentityParam `json:"identity_param,omitempty" xml:"identity_param,omitempty" require:"true"`
+	// 认证接口回调路径，POST接口 请求示例： { "certifyId":"0242de204e1a2c3ed6ee5e21d8a57a4c", "did":"xxxxx","vcId":"xxxxx" }
+	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty"`
+	// 场景码，找dis工作人员进行分配
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// 认证ID
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 二维码URL，用户支付宝扫一扫实人认证
+	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
+}
+
+func (s StartBaasDidIdentificationFaceauthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartBaasDidIdentificationFaceauthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartBaasDidIdentificationFaceauthRequest) SetAuthToken(v string) *StartBaasDidIdentificationFaceauthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartBaasDidIdentificationFaceauthRequest) SetProductInstanceId(v string) *StartBaasDidIdentificationFaceauthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartBaasDidIdentificationFaceauthRequest) SetAuthType(v string) *StartBaasDidIdentificationFaceauthRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *StartBaasDidIdentificationFaceauthRequest) SetDid(v string) *StartBaasDidIdentificationFaceauthRequest {
+	s.Did = &v
+	return s
+}
+
+func (s *StartBaasDidIdentificationFaceauthRequest) SetIdentityParam(v *IdentityParam) *StartBaasDidIdentificationFaceauthRequest {
+	s.IdentityParam = v
+	return s
+}
+
+func (s *StartBaasDidIdentificationFaceauthRequest) SetReturnUrl(v string) *StartBaasDidIdentificationFaceauthRequest {
+	s.ReturnUrl = &v
+	return s
+}
+
+func (s *StartBaasDidIdentificationFaceauthRequest) SetBizCode(v string) *StartBaasDidIdentificationFaceauthRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *StartBaasDidIdentificationFaceauthRequest) SetCertifyId(v string) *StartBaasDidIdentificationFaceauthRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *StartBaasDidIdentificationFaceauthRequest) SetCertifyUrl(v string) *StartBaasDidIdentificationFaceauthRequest {
+	s.CertifyUrl = &v
+	return s
+}
+
+type StartBaasDidIdentificationFaceauthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证ID
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 二维码URL，用户支付宝扫一扫实人认证
+	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
+}
+
+func (s StartBaasDidIdentificationFaceauthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartBaasDidIdentificationFaceauthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartBaasDidIdentificationFaceauthResponse) SetReqMsgId(v string) *StartBaasDidIdentificationFaceauthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartBaasDidIdentificationFaceauthResponse) SetResultCode(v string) *StartBaasDidIdentificationFaceauthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartBaasDidIdentificationFaceauthResponse) SetResultMsg(v string) *StartBaasDidIdentificationFaceauthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StartBaasDidIdentificationFaceauthResponse) SetCertifyId(v string) *StartBaasDidIdentificationFaceauthResponse {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *StartBaasDidIdentificationFaceauthResponse) SetCertifyUrl(v string) *StartBaasDidIdentificationFaceauthResponse {
+	s.CertifyUrl = &v
+	return s
+}
+
+type QueryBaasDidIdentificationFaceauthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 认证ID，用于查询认证结果
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 场景码，找dis工作人员进行分配
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// vc id，可通过该字符串来查询vc具体内容
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty"`
+}
+
+func (s QueryBaasDidIdentificationFaceauthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBaasDidIdentificationFaceauthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBaasDidIdentificationFaceauthRequest) SetAuthToken(v string) *QueryBaasDidIdentificationFaceauthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBaasDidIdentificationFaceauthRequest) SetProductInstanceId(v string) *QueryBaasDidIdentificationFaceauthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBaasDidIdentificationFaceauthRequest) SetCertifyId(v string) *QueryBaasDidIdentificationFaceauthRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryBaasDidIdentificationFaceauthRequest) SetBizCode(v string) *QueryBaasDidIdentificationFaceauthRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *QueryBaasDidIdentificationFaceauthRequest) SetVcId(v string) *QueryBaasDidIdentificationFaceauthRequest {
+	s.VcId = &v
+	return s
+}
+
+type QueryBaasDidIdentificationFaceauthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// vc id，可通过该字符串来查询vc具体内容
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty"`
+}
+
+func (s QueryBaasDidIdentificationFaceauthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBaasDidIdentificationFaceauthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBaasDidIdentificationFaceauthResponse) SetReqMsgId(v string) *QueryBaasDidIdentificationFaceauthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBaasDidIdentificationFaceauthResponse) SetResultCode(v string) *QueryBaasDidIdentificationFaceauthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBaasDidIdentificationFaceauthResponse) SetResultMsg(v string) *QueryBaasDidIdentificationFaceauthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBaasDidIdentificationFaceauthResponse) SetVcId(v string) *QueryBaasDidIdentificationFaceauthResponse {
+	s.VcId = &v
+	return s
+}
+
 type CreateBaasDidPersonWiththreemetaRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -968,6 +1253,139 @@ func (s *CreateBaasDidPersonWiththreemetaResponse) SetDid(v string) *CreateBaasD
 }
 
 func (s *CreateBaasDidPersonWiththreemetaResponse) SetVcId(v string) *CreateBaasDidPersonWiththreemetaResponse {
+	s.VcId = &v
+	return s
+}
+
+type CreateBaasDidCorporateWiththreemetaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业名称
+	EpCertName *string `json:"ep_cert_name,omitempty" xml:"ep_cert_name,omitempty" require:"true"`
+	// 企业证件号
+	EpCertNo *string `json:"ep_cert_no,omitempty" xml:"ep_cert_no,omitempty" require:"true"`
+	// { "nation": "CN", //企业注册地址 "type": "LimitedCompany", //企业类型 "name": "演示用户名", //必选字段，企业名 "licenceNo": "1111", //营业执照 "address": "1111", //企业地址 "parentName": "", //<-必选字段 业务方名 需要提前协商 "linkType": "indirect", //<- 连接类型，direct直链企业， indirect间链企业 "certifyDate": "2019-1-1", //证书颁发时间 "licenceExpireDate": "2020-1-1", //证书到期时间 "businessScope": "1111", //企业经营范围 "businessAddress": "1111", //企业经营地址 "corporateBusinessType": 0, //<- 企业类型：0 一般企业， 1 个人商户 "channelName": "" //<- 必选字段 业务渠道 需要提前沟通 }
+	ExtensionInfo *string `json:"extension_info,omitempty" xml:"extension_info,omitempty"`
+	// 法人姓名
+	LegalPersonCertName *string `json:"legal_person_cert_name,omitempty" xml:"legal_person_cert_name,omitempty" require:"true"`
+	// 名称
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
+	// 自定义企业唯一id，企业在自有模式下的唯一号，调用者需要保证其唯一性
+	OwnerUid *string `json:"owner_uid,omitempty" xml:"owner_uid,omitempty" require:"true"`
+	// 场景码，找dis工作人员进行分配
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// 生成的did
+	Did *string `json:"did,omitempty" xml:"did,omitempty"`
+	// 颁发的vcId
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty"`
+}
+
+func (s CreateBaasDidCorporateWiththreemetaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBaasDidCorporateWiththreemetaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaRequest) SetAuthToken(v string) *CreateBaasDidCorporateWiththreemetaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaRequest) SetProductInstanceId(v string) *CreateBaasDidCorporateWiththreemetaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaRequest) SetEpCertName(v string) *CreateBaasDidCorporateWiththreemetaRequest {
+	s.EpCertName = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaRequest) SetEpCertNo(v string) *CreateBaasDidCorporateWiththreemetaRequest {
+	s.EpCertNo = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaRequest) SetExtensionInfo(v string) *CreateBaasDidCorporateWiththreemetaRequest {
+	s.ExtensionInfo = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaRequest) SetLegalPersonCertName(v string) *CreateBaasDidCorporateWiththreemetaRequest {
+	s.LegalPersonCertName = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaRequest) SetOwnerName(v string) *CreateBaasDidCorporateWiththreemetaRequest {
+	s.OwnerName = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaRequest) SetOwnerUid(v string) *CreateBaasDidCorporateWiththreemetaRequest {
+	s.OwnerUid = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaRequest) SetBizCode(v string) *CreateBaasDidCorporateWiththreemetaRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaRequest) SetDid(v string) *CreateBaasDidCorporateWiththreemetaRequest {
+	s.Did = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaRequest) SetVcId(v string) *CreateBaasDidCorporateWiththreemetaRequest {
+	s.VcId = &v
+	return s
+}
+
+type CreateBaasDidCorporateWiththreemetaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 生成的did
+	Did *string `json:"did,omitempty" xml:"did,omitempty"`
+	// 颁发的vcId
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty"`
+}
+
+func (s CreateBaasDidCorporateWiththreemetaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBaasDidCorporateWiththreemetaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaResponse) SetReqMsgId(v string) *CreateBaasDidCorporateWiththreemetaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaResponse) SetResultCode(v string) *CreateBaasDidCorporateWiththreemetaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaResponse) SetResultMsg(v string) *CreateBaasDidCorporateWiththreemetaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaResponse) SetDid(v string) *CreateBaasDidCorporateWiththreemetaResponse {
+	s.Did = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWiththreemetaResponse) SetVcId(v string) *CreateBaasDidCorporateWiththreemetaResponse {
 	s.VcId = &v
 	return s
 }
@@ -1123,6 +1541,245 @@ func (s *StartBaasDidVcrepositoryIssueResponse) SetVerifiableClaimContent(v stri
 
 func (s *StartBaasDidVcrepositoryIssueResponse) SetVerifiableClaimId(v string) *StartBaasDidVcrepositoryIssueResponse {
 	s.VerifiableClaimId = &v
+	return s
+}
+
+type StartBaasDidAgentServicetypeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 枚举类型，描述访问服务的方式
+	AccessMode *string `json:"access_mode,omitempty" xml:"access_mode,omitempty"`
+	// 对服务的文字描述，<1000个字符
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 服务类型创建者did
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// {
+	//   "item1":"",
+	//   "item2":"",
+	//   ...
+	// }
+	ServiceInput *string `json:"service_input,omitempty" xml:"service_input,omitempty"`
+	// {
+	//    "item1":""
+	//    "item2":""
+	//    ...
+	// }
+	ServiceOutput *string `json:"service_output,omitempty" xml:"service_output,omitempty"`
+	// 自定义服务类型，字符数16～32个
+	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
+	// 场景码，找dis工作人员进行分配
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+}
+
+func (s StartBaasDidAgentServicetypeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartBaasDidAgentServicetypeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartBaasDidAgentServicetypeRequest) SetAuthToken(v string) *StartBaasDidAgentServicetypeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartBaasDidAgentServicetypeRequest) SetProductInstanceId(v string) *StartBaasDidAgentServicetypeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartBaasDidAgentServicetypeRequest) SetAccessMode(v string) *StartBaasDidAgentServicetypeRequest {
+	s.AccessMode = &v
+	return s
+}
+
+func (s *StartBaasDidAgentServicetypeRequest) SetDescription(v string) *StartBaasDidAgentServicetypeRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *StartBaasDidAgentServicetypeRequest) SetDid(v string) *StartBaasDidAgentServicetypeRequest {
+	s.Did = &v
+	return s
+}
+
+func (s *StartBaasDidAgentServicetypeRequest) SetServiceInput(v string) *StartBaasDidAgentServicetypeRequest {
+	s.ServiceInput = &v
+	return s
+}
+
+func (s *StartBaasDidAgentServicetypeRequest) SetServiceOutput(v string) *StartBaasDidAgentServicetypeRequest {
+	s.ServiceOutput = &v
+	return s
+}
+
+func (s *StartBaasDidAgentServicetypeRequest) SetServiceType(v string) *StartBaasDidAgentServicetypeRequest {
+	s.ServiceType = &v
+	return s
+}
+
+func (s *StartBaasDidAgentServicetypeRequest) SetBizCode(v string) *StartBaasDidAgentServicetypeRequest {
+	s.BizCode = &v
+	return s
+}
+
+type StartBaasDidAgentServicetypeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 创建成功之后，返回服务类型名
+	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty"`
+}
+
+func (s StartBaasDidAgentServicetypeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartBaasDidAgentServicetypeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartBaasDidAgentServicetypeResponse) SetReqMsgId(v string) *StartBaasDidAgentServicetypeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartBaasDidAgentServicetypeResponse) SetResultCode(v string) *StartBaasDidAgentServicetypeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartBaasDidAgentServicetypeResponse) SetResultMsg(v string) *StartBaasDidAgentServicetypeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StartBaasDidAgentServicetypeResponse) SetServiceType(v string) *StartBaasDidAgentServicetypeResponse {
+	s.ServiceType = &v
+	return s
+}
+
+type QueryBaasDidAgentServicetypeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询者did
+	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
+	// 指定查询的服务类型名
+	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
+	// 场景码，找dis工作人员进行分配
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// 服务类型定义列表
+	ServiceTypes []*string `json:"service_types,omitempty" xml:"service_types,omitempty" type:"Repeated"`
+	// 总共有几项
+	TotalNumber *int64 `json:"total_number,omitempty" xml:"total_number,omitempty"`
+	// 总共有几页
+	TotalPage *int64 `json:"total_page,omitempty" xml:"total_page,omitempty"`
+}
+
+func (s QueryBaasDidAgentServicetypeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBaasDidAgentServicetypeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBaasDidAgentServicetypeRequest) SetAuthToken(v string) *QueryBaasDidAgentServicetypeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBaasDidAgentServicetypeRequest) SetProductInstanceId(v string) *QueryBaasDidAgentServicetypeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBaasDidAgentServicetypeRequest) SetDid(v string) *QueryBaasDidAgentServicetypeRequest {
+	s.Did = &v
+	return s
+}
+
+func (s *QueryBaasDidAgentServicetypeRequest) SetServiceType(v string) *QueryBaasDidAgentServicetypeRequest {
+	s.ServiceType = &v
+	return s
+}
+
+func (s *QueryBaasDidAgentServicetypeRequest) SetBizCode(v string) *QueryBaasDidAgentServicetypeRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *QueryBaasDidAgentServicetypeRequest) SetServiceTypes(v []*string) *QueryBaasDidAgentServicetypeRequest {
+	s.ServiceTypes = v
+	return s
+}
+
+func (s *QueryBaasDidAgentServicetypeRequest) SetTotalNumber(v int64) *QueryBaasDidAgentServicetypeRequest {
+	s.TotalNumber = &v
+	return s
+}
+
+func (s *QueryBaasDidAgentServicetypeRequest) SetTotalPage(v int64) *QueryBaasDidAgentServicetypeRequest {
+	s.TotalPage = &v
+	return s
+}
+
+type QueryBaasDidAgentServicetypeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 服务类型定义列表
+	ServiceTypes []*string `json:"service_types,omitempty" xml:"service_types,omitempty" type:"Repeated"`
+	// 总共有几项
+	TotalNumber *int64 `json:"total_number,omitempty" xml:"total_number,omitempty"`
+	// 总共有几页
+	TotalPage *int64 `json:"total_page,omitempty" xml:"total_page,omitempty"`
+}
+
+func (s QueryBaasDidAgentServicetypeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBaasDidAgentServicetypeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBaasDidAgentServicetypeResponse) SetReqMsgId(v string) *QueryBaasDidAgentServicetypeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBaasDidAgentServicetypeResponse) SetResultCode(v string) *QueryBaasDidAgentServicetypeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBaasDidAgentServicetypeResponse) SetResultMsg(v string) *QueryBaasDidAgentServicetypeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBaasDidAgentServicetypeResponse) SetServiceTypes(v []*string) *QueryBaasDidAgentServicetypeResponse {
+	s.ServiceTypes = v
+	return s
+}
+
+func (s *QueryBaasDidAgentServicetypeResponse) SetTotalNumber(v int64) *QueryBaasDidAgentServicetypeResponse {
+	s.TotalNumber = &v
+	return s
+}
+
+func (s *QueryBaasDidAgentServicetypeResponse) SetTotalPage(v int64) *QueryBaasDidAgentServicetypeResponse {
+	s.TotalPage = &v
 	return s
 }
 
@@ -1357,6 +2014,298 @@ func (s *CreateBaasDidPersonWithtwometaResponse) SetVcId(v string) *CreateBaasDi
 	return s
 }
 
+type CreateBaasDidCorporateWithtwometaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业名称
+	EpCertName *string `json:"ep_cert_name,omitempty" xml:"ep_cert_name,omitempty" require:"true"`
+	// 企业证件号
+	EpCertNo *string `json:"ep_cert_no,omitempty" xml:"ep_cert_no,omitempty" require:"true"`
+	// {
+	//   "nation": "CN", //企业注册地址
+	//   "type": "LimitedCompany", //企业类型
+	//   "name": "演示用户名", //必选字段，企业名
+	//   "licenceNo": "1111", //营业执照
+	//   "address": "1111", //企业地址
+	//   "parentName": "", //<-必选字段 业务方名 需要提前协商
+	//   "linkType": "indirect", //<- 连接类型，direct直链企业， indirect间链企业
+	//   "certifyDate": "2019-1-1", //证书颁发时间
+	//   "licenceExpireDate": "2020-1-1", //证书到期时间
+	//   "businessScope": "1111", //企业经营范围
+	//   "businessAddress": "1111", //企业经营地址
+	//   "corporateBusinessType": 0, //<- 企业类型：0 一般企业， 1 个人商户
+	//   "channelName": "" //<- 必选字段 业务渠道 需要提前沟通
+	// }
+	ExtensionInfo *string `json:"extension_info,omitempty" xml:"extension_info,omitempty"`
+	// 名称
+	//
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
+	// 自定义企业唯一id，企业在自有模式下的唯一号，调用者需要保证其唯一性
+	OwnerUid *string `json:"owner_uid,omitempty" xml:"owner_uid,omitempty" require:"true"`
+	// 场景码，找dis工作人员进行分配
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// 生成的did
+	//
+	Did *string `json:"did,omitempty" xml:"did,omitempty"`
+	// 颁发的vcId
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty"`
+}
+
+func (s CreateBaasDidCorporateWithtwometaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBaasDidCorporateWithtwometaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBaasDidCorporateWithtwometaRequest) SetAuthToken(v string) *CreateBaasDidCorporateWithtwometaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithtwometaRequest) SetProductInstanceId(v string) *CreateBaasDidCorporateWithtwometaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithtwometaRequest) SetEpCertName(v string) *CreateBaasDidCorporateWithtwometaRequest {
+	s.EpCertName = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithtwometaRequest) SetEpCertNo(v string) *CreateBaasDidCorporateWithtwometaRequest {
+	s.EpCertNo = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithtwometaRequest) SetExtensionInfo(v string) *CreateBaasDidCorporateWithtwometaRequest {
+	s.ExtensionInfo = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithtwometaRequest) SetOwnerName(v string) *CreateBaasDidCorporateWithtwometaRequest {
+	s.OwnerName = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithtwometaRequest) SetOwnerUid(v string) *CreateBaasDidCorporateWithtwometaRequest {
+	s.OwnerUid = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithtwometaRequest) SetBizCode(v string) *CreateBaasDidCorporateWithtwometaRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithtwometaRequest) SetDid(v string) *CreateBaasDidCorporateWithtwometaRequest {
+	s.Did = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithtwometaRequest) SetVcId(v string) *CreateBaasDidCorporateWithtwometaRequest {
+	s.VcId = &v
+	return s
+}
+
+type CreateBaasDidCorporateWithtwometaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 生成的did
+	//
+	Did *string `json:"did,omitempty" xml:"did,omitempty"`
+	// 颁发的vcId
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty"`
+}
+
+func (s CreateBaasDidCorporateWithtwometaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBaasDidCorporateWithtwometaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBaasDidCorporateWithtwometaResponse) SetReqMsgId(v string) *CreateBaasDidCorporateWithtwometaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithtwometaResponse) SetResultCode(v string) *CreateBaasDidCorporateWithtwometaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithtwometaResponse) SetResultMsg(v string) *CreateBaasDidCorporateWithtwometaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithtwometaResponse) SetDid(v string) *CreateBaasDidCorporateWithtwometaResponse {
+	s.Did = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithtwometaResponse) SetVcId(v string) *CreateBaasDidCorporateWithtwometaResponse {
+	s.VcId = &v
+	return s
+}
+
+type CreateBaasDidCorporateWithfourmetaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业名称
+	//
+	EpCertName *string `json:"ep_cert_name,omitempty" xml:"ep_cert_name,omitempty" require:"true"`
+	// 企业证件号
+	//
+	EpCertNo *string `json:"ep_cert_no,omitempty" xml:"ep_cert_no,omitempty" require:"true"`
+	// { "nation": "CN", //企业注册地址 "type": "LimitedCompany", //企业类型 "name": "演示用户名", //必选字段，企业名 "licenceNo": "1111", //营业执照 "address": "1111", //企业地址 "parentName": "", //<-必选字段 业务方名 需要提前协商 "linkType": "indirect", //<- 连接类型，direct直链企业， indirect间链企业 "certifyDate": "2019-1-1", //证书颁发时间 "licenceExpireDate": "2020-1-1", //证书到期时间 "businessScope": "1111", //企业经营范围 "businessAddress": "1111", //企业经营地址 "corporateBusinessType": 0, //<- 企业类型：0 一般企业， 1 个人商户 "channelName": "" //<- 必选字段 业务渠道 需要提前沟通 }
+	//
+	ExtensionInfo *string `json:"extension_info,omitempty" xml:"extension_info,omitempty"`
+	// 法人姓名
+	//
+	LegalPersonCertName *string `json:"legal_person_cert_name,omitempty" xml:"legal_person_cert_name,omitempty" require:"true"`
+	// 法人身份证件号
+	LegalPersonCertNo *string `json:"legal_person_cert_no,omitempty" xml:"legal_person_cert_no,omitempty" require:"true"`
+	// 名称
+	//
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
+	// 自定义企业唯一id，企业在自有模式下的唯一号，调用者需要保证其唯一性
+	OwnerUid *string `json:"owner_uid,omitempty" xml:"owner_uid,omitempty" require:"true"`
+	// 场景码，找dis工作人员进行分配
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// 生成的did
+	//
+	Did *string `json:"did,omitempty" xml:"did,omitempty"`
+	// 颁发的vcId
+	//
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty"`
+}
+
+func (s CreateBaasDidCorporateWithfourmetaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBaasDidCorporateWithfourmetaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaRequest) SetAuthToken(v string) *CreateBaasDidCorporateWithfourmetaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaRequest) SetProductInstanceId(v string) *CreateBaasDidCorporateWithfourmetaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaRequest) SetEpCertName(v string) *CreateBaasDidCorporateWithfourmetaRequest {
+	s.EpCertName = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaRequest) SetEpCertNo(v string) *CreateBaasDidCorporateWithfourmetaRequest {
+	s.EpCertNo = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaRequest) SetExtensionInfo(v string) *CreateBaasDidCorporateWithfourmetaRequest {
+	s.ExtensionInfo = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaRequest) SetLegalPersonCertName(v string) *CreateBaasDidCorporateWithfourmetaRequest {
+	s.LegalPersonCertName = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaRequest) SetLegalPersonCertNo(v string) *CreateBaasDidCorporateWithfourmetaRequest {
+	s.LegalPersonCertNo = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaRequest) SetOwnerName(v string) *CreateBaasDidCorporateWithfourmetaRequest {
+	s.OwnerName = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaRequest) SetOwnerUid(v string) *CreateBaasDidCorporateWithfourmetaRequest {
+	s.OwnerUid = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaRequest) SetBizCode(v string) *CreateBaasDidCorporateWithfourmetaRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaRequest) SetDid(v string) *CreateBaasDidCorporateWithfourmetaRequest {
+	s.Did = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaRequest) SetVcId(v string) *CreateBaasDidCorporateWithfourmetaRequest {
+	s.VcId = &v
+	return s
+}
+
+type CreateBaasDidCorporateWithfourmetaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 生成的did
+	//
+	Did *string `json:"did,omitempty" xml:"did,omitempty"`
+	// 颁发的vcId
+	//
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty"`
+}
+
+func (s CreateBaasDidCorporateWithfourmetaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateBaasDidCorporateWithfourmetaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaResponse) SetReqMsgId(v string) *CreateBaasDidCorporateWithfourmetaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaResponse) SetResultCode(v string) *CreateBaasDidCorporateWithfourmetaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaResponse) SetResultMsg(v string) *CreateBaasDidCorporateWithfourmetaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaResponse) SetDid(v string) *CreateBaasDidCorporateWithfourmetaResponse {
+	s.Did = &v
+	return s
+}
+
+func (s *CreateBaasDidCorporateWithfourmetaResponse) SetVcId(v string) *CreateBaasDidCorporateWithfourmetaResponse {
+	s.VcId = &v
+	return s
+}
+
 type CreateBaasDidPersonWithfourmetaRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1506,6 +2455,280 @@ func (s *CreateBaasDidPersonWithfourmetaResponse) SetVcId(v string) *CreateBaasD
 	return s
 }
 
+type StartBaasDidCorporateFaceauthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 回调通知地址
+	CallBackUrl *string `json:"call_back_url,omitempty" xml:"call_back_url,omitempty"`
+	// 企业名称
+	EpCertName *string `json:"ep_cert_name,omitempty" xml:"ep_cert_name,omitempty" require:"true"`
+	// 企业证件号
+	EpCertNo *string `json:"ep_cert_no,omitempty" xml:"ep_cert_no,omitempty" require:"true"`
+	// 企业证件类型（NATIONAL_LEGAL（工商注册号）或 NATIONAL_LEGAL_MERGE （ 社会统一信用代码））
+	EpCertType *string `json:"ep_cert_type,omitempty" xml:"ep_cert_type,omitempty" require:"true"`
+	// { "nation": "CN", //企业注册地址 "type": "LimitedCompany", //企业类型 "name": "演示用户名", //必选字段，企业名 "licenceNo": "1111", //营业执照 "address": "1111", //企业地址 "parentName": "", //<-必选字段 业务方名 需要提前协商 "linkType": "indirect", //<- 连接类型，direct直链企业， indirect间链企业 "certifyDate": "2019-1-1", //证书颁发时间 "licenceExpireDate": "2020-1-1", //证书到期时间 "businessScope": "1111", //企业经营范围 "businessAddress": "1111", //企业经营地址 "corporateBusinessType": 0, //<- 企业类型：0 一般企业， 1 个人商户 "channelName": "" //<- 必选字段 业务渠道 需要提前沟通 }
+	ExtensionInfo *string `json:"extension_info,omitempty" xml:"extension_info,omitempty"`
+	// 企业法人
+	LegalPersonCertName *string `json:"legal_person_cert_name,omitempty" xml:"legal_person_cert_name,omitempty" require:"true"`
+	// 法人身份证号
+	LegalPersonCertNo *string `json:"legal_person_cert_no,omitempty" xml:"legal_person_cert_no,omitempty" require:"true"`
+	// 认证完成后回跳地址
+	MerchantUrl *string `json:"merchant_url,omitempty" xml:"merchant_url,omitempty"`
+	// 名称
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
+	// 自定义企业唯一id，企业在自有模式下的唯一号，调用者需要保证其唯一性
+	OwnerUid *string `json:"owner_uid,omitempty" xml:"owner_uid,omitempty"`
+	// 场景码，找dis工作人员进行分配
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// 产品渲染方式：H5、NATIVE 或 PC, 默认为H5
+	Group *string `json:"group,omitempty" xml:"group,omitempty"`
+	// 认证ID
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 二维码URL，用户支付宝扫一扫实人认证
+	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
+}
+
+func (s StartBaasDidCorporateFaceauthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartBaasDidCorporateFaceauthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetAuthToken(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetProductInstanceId(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetCallBackUrl(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.CallBackUrl = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetEpCertName(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.EpCertName = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetEpCertNo(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.EpCertNo = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetEpCertType(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.EpCertType = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetExtensionInfo(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.ExtensionInfo = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetLegalPersonCertName(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.LegalPersonCertName = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetLegalPersonCertNo(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.LegalPersonCertNo = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetMerchantUrl(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.MerchantUrl = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetOwnerName(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.OwnerName = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetOwnerUid(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.OwnerUid = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetBizCode(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetGroup(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.Group = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetCertifyId(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthRequest) SetCertifyUrl(v string) *StartBaasDidCorporateFaceauthRequest {
+	s.CertifyUrl = &v
+	return s
+}
+
+type StartBaasDidCorporateFaceauthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证ID
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 二维码URL，用户支付宝扫一扫实人认证
+	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty"`
+}
+
+func (s StartBaasDidCorporateFaceauthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartBaasDidCorporateFaceauthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartBaasDidCorporateFaceauthResponse) SetReqMsgId(v string) *StartBaasDidCorporateFaceauthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthResponse) SetResultCode(v string) *StartBaasDidCorporateFaceauthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthResponse) SetResultMsg(v string) *StartBaasDidCorporateFaceauthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthResponse) SetCertifyId(v string) *StartBaasDidCorporateFaceauthResponse {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *StartBaasDidCorporateFaceauthResponse) SetCertifyUrl(v string) *StartBaasDidCorporateFaceauthResponse {
+	s.CertifyUrl = &v
+	return s
+}
+
+type QueryBaasDidCorporateFaceauthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 认证ID，用于查询认证结果
+	//
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 场景码，找dis工作人员进行分配
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// 产品渲染方式：H5、NATIVE 或 PC
+	Group *string `json:"group,omitempty" xml:"group,omitempty"`
+	// 生成的did
+	Did *string `json:"did,omitempty" xml:"did,omitempty"`
+	// vc id，可通过该字符串来查询vc具体内容
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty"`
+}
+
+func (s QueryBaasDidCorporateFaceauthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBaasDidCorporateFaceauthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBaasDidCorporateFaceauthRequest) SetAuthToken(v string) *QueryBaasDidCorporateFaceauthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBaasDidCorporateFaceauthRequest) SetProductInstanceId(v string) *QueryBaasDidCorporateFaceauthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBaasDidCorporateFaceauthRequest) SetCertifyId(v string) *QueryBaasDidCorporateFaceauthRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryBaasDidCorporateFaceauthRequest) SetBizCode(v string) *QueryBaasDidCorporateFaceauthRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *QueryBaasDidCorporateFaceauthRequest) SetGroup(v string) *QueryBaasDidCorporateFaceauthRequest {
+	s.Group = &v
+	return s
+}
+
+func (s *QueryBaasDidCorporateFaceauthRequest) SetDid(v string) *QueryBaasDidCorporateFaceauthRequest {
+	s.Did = &v
+	return s
+}
+
+func (s *QueryBaasDidCorporateFaceauthRequest) SetVcId(v string) *QueryBaasDidCorporateFaceauthRequest {
+	s.VcId = &v
+	return s
+}
+
+type QueryBaasDidCorporateFaceauthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 生成的did
+	Did *string `json:"did,omitempty" xml:"did,omitempty"`
+	// vc id，可通过该字符串来查询vc具体内容
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty"`
+}
+
+func (s QueryBaasDidCorporateFaceauthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBaasDidCorporateFaceauthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBaasDidCorporateFaceauthResponse) SetReqMsgId(v string) *QueryBaasDidCorporateFaceauthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBaasDidCorporateFaceauthResponse) SetResultCode(v string) *QueryBaasDidCorporateFaceauthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBaasDidCorporateFaceauthResponse) SetResultMsg(v string) *QueryBaasDidCorporateFaceauthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBaasDidCorporateFaceauthResponse) SetDid(v string) *QueryBaasDidCorporateFaceauthResponse {
+	s.Did = &v
+	return s
+}
+
+func (s *QueryBaasDidCorporateFaceauthResponse) SetVcId(v string) *QueryBaasDidCorporateFaceauthResponse {
+	s.VcId = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1628,7 +2851,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.3"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1881,6 +3104,74 @@ func (client *Client) QueryBaasDidVcEx(request *QueryBaasDidVcRequest, headers m
 }
 
 /**
+ * Description: 开始实人认证
+ * Summary: 开始实人认证
+ */
+func (client *Client) StartBaasDidIdentificationFaceauth(request *StartBaasDidIdentificationFaceauthRequest) (_result *StartBaasDidIdentificationFaceauthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartBaasDidIdentificationFaceauthResponse{}
+	_body, _err := client.StartBaasDidIdentificationFaceauthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 开始实人认证
+ * Summary: 开始实人认证
+ */
+func (client *Client) StartBaasDidIdentificationFaceauthEx(request *StartBaasDidIdentificationFaceauthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartBaasDidIdentificationFaceauthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartBaasDidIdentificationFaceauthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.did.identification.faceauth.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询实人认证结果
+ * Summary: 查询实人认证结果
+ */
+func (client *Client) QueryBaasDidIdentificationFaceauth(request *QueryBaasDidIdentificationFaceauthRequest) (_result *QueryBaasDidIdentificationFaceauthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBaasDidIdentificationFaceauthResponse{}
+	_body, _err := client.QueryBaasDidIdentificationFaceauthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询实人认证结果
+ * Summary: 查询实人认证结果
+ */
+func (client *Client) QueryBaasDidIdentificationFaceauthEx(request *QueryBaasDidIdentificationFaceauthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBaasDidIdentificationFaceauthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBaasDidIdentificationFaceauthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.did.identification.faceauth.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
  * Summary: 通过个人三要素验证后创建个人did
  */
@@ -1907,6 +3198,40 @@ func (client *Client) CreateBaasDidPersonWiththreemetaEx(request *CreateBaasDidP
 	}
 	_result = &CreateBaasDidPersonWiththreemetaResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.did.person.withthreemeta.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+ * Summary: 通过企业三要素验证后创建企业did
+ */
+func (client *Client) CreateBaasDidCorporateWiththreemeta(request *CreateBaasDidCorporateWiththreemetaRequest) (_result *CreateBaasDidCorporateWiththreemetaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateBaasDidCorporateWiththreemetaResponse{}
+	_body, _err := client.CreateBaasDidCorporateWiththreemetaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+ * Summary: 通过企业三要素验证后创建企业did
+ */
+func (client *Client) CreateBaasDidCorporateWiththreemetaEx(request *CreateBaasDidCorporateWiththreemetaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBaasDidCorporateWiththreemetaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBaasDidCorporateWiththreemetaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.did.corporate.withthreemeta.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -1943,6 +3268,74 @@ func (client *Client) StartBaasDidVcrepositoryIssueEx(request *StartBaasDidVcrep
 	}
 	_result = &StartBaasDidVcrepositoryIssueResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.did.vcrepository.issue.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 注册自定义的服务类型，目前只有租户did可以调用
+ * Summary: 注册自定义服务类型
+ */
+func (client *Client) StartBaasDidAgentServicetype(request *StartBaasDidAgentServicetypeRequest) (_result *StartBaasDidAgentServicetypeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartBaasDidAgentServicetypeResponse{}
+	_body, _err := client.StartBaasDidAgentServicetypeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 注册自定义的服务类型，目前只有租户did可以调用
+ * Summary: 注册自定义服务类型
+ */
+func (client *Client) StartBaasDidAgentServicetypeEx(request *StartBaasDidAgentServicetypeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartBaasDidAgentServicetypeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartBaasDidAgentServicetypeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.did.agent.servicetype.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询指定服务类型的定义，不支持全量查询
+ * Summary: 查询指定服务类型的定义
+ */
+func (client *Client) QueryBaasDidAgentServicetype(request *QueryBaasDidAgentServicetypeRequest) (_result *QueryBaasDidAgentServicetypeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBaasDidAgentServicetypeResponse{}
+	_body, _err := client.QueryBaasDidAgentServicetypeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询指定服务类型的定义，不支持全量查询
+ * Summary: 查询指定服务类型的定义
+ */
+func (client *Client) QueryBaasDidAgentServicetypeEx(request *QueryBaasDidAgentServicetypeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBaasDidAgentServicetypeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBaasDidAgentServicetypeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.did.agent.servicetype.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -2019,6 +3412,74 @@ func (client *Client) CreateBaasDidPersonWithtwometaEx(request *CreateBaasDidPer
 }
 
 /**
+ * Description: 通过企业二要素验证后创建企业did
+ * Summary: 通过企业二要素验证后创建企业did
+ */
+func (client *Client) CreateBaasDidCorporateWithtwometa(request *CreateBaasDidCorporateWithtwometaRequest) (_result *CreateBaasDidCorporateWithtwometaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateBaasDidCorporateWithtwometaResponse{}
+	_body, _err := client.CreateBaasDidCorporateWithtwometaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过企业二要素验证后创建企业did
+ * Summary: 通过企业二要素验证后创建企业did
+ */
+func (client *Client) CreateBaasDidCorporateWithtwometaEx(request *CreateBaasDidCorporateWithtwometaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBaasDidCorporateWithtwometaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBaasDidCorporateWithtwometaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.did.corporate.withtwometa.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过企业四要素验证后创建企业did
+ * Summary: 通过企业四要素验证后创建企业did
+ */
+func (client *Client) CreateBaasDidCorporateWithfourmeta(request *CreateBaasDidCorporateWithfourmetaRequest) (_result *CreateBaasDidCorporateWithfourmetaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateBaasDidCorporateWithfourmetaResponse{}
+	_body, _err := client.CreateBaasDidCorporateWithfourmetaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过企业四要素验证后创建企业did
+ * Summary: 通过企业四要素验证后创建企业did
+ */
+func (client *Client) CreateBaasDidCorporateWithfourmetaEx(request *CreateBaasDidCorporateWithfourmetaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBaasDidCorporateWithfourmetaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateBaasDidCorporateWithfourmetaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.did.corporate.withfourmeta.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 通过个人四要素验证后创建个人did
  * Summary: 通过个人四要素验证后创建个人did
  */
@@ -2045,6 +3506,74 @@ func (client *Client) CreateBaasDidPersonWithfourmetaEx(request *CreateBaasDidPe
 	}
 	_result = &CreateBaasDidPersonWithfourmetaResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.did.person.withfourmeta.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业法人刷脸认证
+ * Summary: 企业法人刷脸认证
+ */
+func (client *Client) StartBaasDidCorporateFaceauth(request *StartBaasDidCorporateFaceauthRequest) (_result *StartBaasDidCorporateFaceauthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartBaasDidCorporateFaceauthResponse{}
+	_body, _err := client.StartBaasDidCorporateFaceauthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业法人刷脸认证
+ * Summary: 企业法人刷脸认证
+ */
+func (client *Client) StartBaasDidCorporateFaceauthEx(request *StartBaasDidCorporateFaceauthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartBaasDidCorporateFaceauthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartBaasDidCorporateFaceauthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.did.corporate.faceauth.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询企业法人实人结果
+ * Summary: 查询企业法人实人结果
+ */
+func (client *Client) QueryBaasDidCorporateFaceauth(request *QueryBaasDidCorporateFaceauthRequest) (_result *QueryBaasDidCorporateFaceauthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBaasDidCorporateFaceauthResponse{}
+	_body, _err := client.QueryBaasDidCorporateFaceauthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询企业法人实人结果
+ * Summary: 查询企业法人实人结果
+ */
+func (client *Client) QueryBaasDidCorporateFaceauthEx(request *QueryBaasDidCorporateFaceauthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBaasDidCorporateFaceauthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBaasDidCorporateFaceauthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.did.corporate.faceauth.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
