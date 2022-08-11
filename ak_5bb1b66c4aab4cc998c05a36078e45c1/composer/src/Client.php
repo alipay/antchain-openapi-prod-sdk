@@ -13,16 +13,30 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckAntchainBbpVerifyRequest;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckAntchainBbpVerifyResponse;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckSaasSecurityRdsRdsserviceRequest;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckSaasSecurityRdsRdsserviceResponse;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\InitAntchainBbpVerifyRequest;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\InitAntchainBbpVerifyResponse;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\QueryAntchainSaasMarketSolutionRequest;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\QueryAntchainSaasMarketSolutionResponse;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\QuerySaasSecurityInfosecOpencheckservicequeryRequest;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\QuerySaasSecurityInfosecOpencheckservicequeryResponse;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\QuerySaasSecurityTscenterUmidqueryserviceRequest;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\QuerySaasSecurityTscenterUmidqueryserviceResponse;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\RunAntchainSaasMarketServiceRequest;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\RunAntchainSaasMarketServiceResponse;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\StartAntchainBbpVerifyRequest;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\StartAntchainBbpVerifyResponse;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\VerifyAntchainBbpMetaRequest;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\VerifyAntchainBbpMetaResponse;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\VerifySaasSecurityRdslibAntcaptchaserviceRequest;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\VerifySaasSecurityRdslibAntcaptchaserviceResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -142,7 +156,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 键值对，兼容map用
+            // 123
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -170,7 +184,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.3',
+                    'sdk_version'      => '1.0.5',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -412,5 +426,236 @@ class Client
         Utils::validateModel($request);
 
         return VerifyAntchainBbpMetaResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.meta.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest $request
+     *
+     * @return CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse
+     */
+    public function checkSaasSecurityInfosecHoloxcontentcheckservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkSaasSecurityInfosecHoloxcontentcheckserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest $request
+     * @param string[]                                                $headers
+     * @param RuntimeOptions                                          $runtime
+     *
+     * @return CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse
+     */
+    public function checkSaasSecurityInfosecHoloxcontentcheckserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse::fromMap($this->doRequest('1.0', 'saas.security.infosec.holoxcontentcheckservice.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest $request
+     *
+     * @return QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse
+     */
+    public function querySaasSecuritySecuritycoreSecurityuniformservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySaasSecuritySecuritycoreSecurityuniformserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest $request
+     * @param string[]                                                   $headers
+     * @param RuntimeOptions                                             $runtime
+     *
+     * @return QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse
+     */
+    public function querySaasSecuritySecuritycoreSecurityuniformserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse::fromMap($this->doRequest('1.0', 'saas.security.securitycore.securityuniformservice.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param CheckSaasSecurityRdsRdsserviceRequest $request
+     *
+     * @return CheckSaasSecurityRdsRdsserviceResponse
+     */
+    public function checkSaasSecurityRdsRdsservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkSaasSecurityRdsRdsserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param CheckSaasSecurityRdsRdsserviceRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return CheckSaasSecurityRdsRdsserviceResponse
+     */
+    public function checkSaasSecurityRdsRdsserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckSaasSecurityRdsRdsserviceResponse::fromMap($this->doRequest('1.0', 'saas.security.rds.rdsservice.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 123
+     * Summary: 大安全接口.
+     *
+     * @param QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest $request
+     *
+     * @return QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse
+     */
+    public function querySaasSecurityInfosecHoloxcontentcheckqueryservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySaasSecurityInfosecHoloxcontentcheckqueryserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 123
+     * Summary: 大安全接口.
+     *
+     * @param QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest $request
+     * @param string[]                                                     $headers
+     * @param RuntimeOptions                                               $runtime
+     *
+     * @return QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse
+     */
+    public function querySaasSecurityInfosecHoloxcontentcheckqueryserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse::fromMap($this->doRequest('1.0', 'saas.security.infosec.holoxcontentcheckqueryservice.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param VerifySaasSecurityRdslibAntcaptchaserviceRequest $request
+     *
+     * @return VerifySaasSecurityRdslibAntcaptchaserviceResponse
+     */
+    public function verifySaasSecurityRdslibAntcaptchaservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifySaasSecurityRdslibAntcaptchaserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param VerifySaasSecurityRdslibAntcaptchaserviceRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return VerifySaasSecurityRdslibAntcaptchaserviceResponse
+     */
+    public function verifySaasSecurityRdslibAntcaptchaserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifySaasSecurityRdslibAntcaptchaserviceResponse::fromMap($this->doRequest('1.0', 'saas.security.rdslib.antcaptchaservice.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param QuerySaasSecurityTscenterUmidqueryserviceRequest $request
+     *
+     * @return QuerySaasSecurityTscenterUmidqueryserviceResponse
+     */
+    public function querySaasSecurityTscenterUmidqueryservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySaasSecurityTscenterUmidqueryserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param QuerySaasSecurityTscenterUmidqueryserviceRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return QuerySaasSecurityTscenterUmidqueryserviceResponse
+     */
+    public function querySaasSecurityTscenterUmidqueryserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySaasSecurityTscenterUmidqueryserviceResponse::fromMap($this->doRequest('1.0', 'saas.security.tscenter.umidqueryservice.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大安全内容检测结果查询接口
+     * Summary: 大安全内容检测结果查询接口.
+     *
+     * @param QuerySaasSecurityInfosecOpencheckservicequeryRequest $request
+     *
+     * @return QuerySaasSecurityInfosecOpencheckservicequeryResponse
+     */
+    public function querySaasSecurityInfosecOpencheckservicequery($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySaasSecurityInfosecOpencheckservicequeryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大安全内容检测结果查询接口
+     * Summary: 大安全内容检测结果查询接口.
+     *
+     * @param QuerySaasSecurityInfosecOpencheckservicequeryRequest $request
+     * @param string[]                                             $headers
+     * @param RuntimeOptions                                       $runtime
+     *
+     * @return QuerySaasSecurityInfosecOpencheckservicequeryResponse
+     */
+    public function querySaasSecurityInfosecOpencheckservicequeryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySaasSecurityInfosecOpencheckservicequeryResponse::fromMap($this->doRequest('1.0', 'saas.security.infosec.opencheckservicequery.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
