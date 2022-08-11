@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.3"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -441,6 +441,90 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckAntchainBbpVerifyResponse>(await DoRequestAsync("1.0", "antchain.bbp.verify.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: SaaS服务调用
+         * Summary: SaaS服务调用
+         */
+        public RunAntchainSaasMarketServiceResponse RunAntchainSaasMarketService(RunAntchainSaasMarketServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RunAntchainSaasMarketServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: SaaS服务调用
+         * Summary: SaaS服务调用
+         */
+        public async Task<RunAntchainSaasMarketServiceResponse> RunAntchainSaasMarketServiceAsync(RunAntchainSaasMarketServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RunAntchainSaasMarketServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: SaaS服务调用
+         * Summary: SaaS服务调用
+         */
+        public RunAntchainSaasMarketServiceResponse RunAntchainSaasMarketServiceEx(RunAntchainSaasMarketServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RunAntchainSaasMarketServiceResponse>(DoRequest("1.0", "antchain.saas.market.service.run", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: SaaS服务调用
+         * Summary: SaaS服务调用
+         */
+        public async Task<RunAntchainSaasMarketServiceResponse> RunAntchainSaasMarketServiceExAsync(RunAntchainSaasMarketServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RunAntchainSaasMarketServiceResponse>(await DoRequestAsync("1.0", "antchain.saas.market.service.run", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询解决方案，包括能力列表
+         * Summary: 查询解决方案，包括能力列表
+         */
+        public QueryAntchainSaasMarketSolutionResponse QueryAntchainSaasMarketSolution(QueryAntchainSaasMarketSolutionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntchainSaasMarketSolutionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询解决方案，包括能力列表
+         * Summary: 查询解决方案，包括能力列表
+         */
+        public async Task<QueryAntchainSaasMarketSolutionResponse> QueryAntchainSaasMarketSolutionAsync(QueryAntchainSaasMarketSolutionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntchainSaasMarketSolutionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询解决方案，包括能力列表
+         * Summary: 查询解决方案，包括能力列表
+         */
+        public QueryAntchainSaasMarketSolutionResponse QueryAntchainSaasMarketSolutionEx(QueryAntchainSaasMarketSolutionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainSaasMarketSolutionResponse>(DoRequest("1.0", "antchain.saas.market.solution.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询解决方案，包括能力列表
+         * Summary: 查询解决方案，包括能力列表
+         */
+        public async Task<QueryAntchainSaasMarketSolutionResponse> QueryAntchainSaasMarketSolutionExAsync(QueryAntchainSaasMarketSolutionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainSaasMarketSolutionResponse>(await DoRequestAsync("1.0", "antchain.saas.market.solution.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
