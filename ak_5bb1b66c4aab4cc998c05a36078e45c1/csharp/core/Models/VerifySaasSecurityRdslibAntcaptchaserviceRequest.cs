@@ -28,11 +28,6 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1.Models
         [Validation(Required=true)]
         public string ServiceVersion { get; set; }
 
-        // 是否是机器人
-        [NameInMap("data")]
-        [Validation(Required=false)]
-        public RdslibAntcaptchaservice Data { get; set; }
-
     }
 
 }

@@ -38,11 +38,6 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1.Models
         [Validation(Required=true)]
         public string BizId { get; set; }
 
-        // 核身渲染结果
-        [NameInMap("result")]
-        [Validation(Required=false)]
-        public List<GwVerifyViewResult> Result { get; set; }
-
     }
 
 }

@@ -103,11 +103,6 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1.Models
         [Validation(Required=false)]
         public NameValuePair ExtensionInfo { get; set; }
 
-        // 要素认证结果
-        [NameInMap("result")]
-        [Validation(Required=false)]
-        public CustomerAuthResult Result { get; set; }
-
     }
 
 }

@@ -43,11 +43,6 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1.Models
         [Validation(Required=true)]
         public string ProductCode { get; set; }
 
-        // 核身结果枚举：PASS-核身成功，INITIAL-初始化，PROCESS-处理中，FAIL-失败
-        [NameInMap("status")]
-        [Validation(Required=false)]
-        public string Status { get; set; }
-
     }
 
 }

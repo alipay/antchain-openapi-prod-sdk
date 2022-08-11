@@ -43,26 +43,6 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1.Models
         [Validation(Required=true)]
         public List<GwValidateProduct> ValidateFlows { get; set; }
 
-        // 核身id
-        [NameInMap("verify_id")]
-        [Validation(Required=false)]
-        public string VerifyId { get; set; }
-
-        // 核身请求地址url
-        [NameInMap("verify_url")]
-        [Validation(Required=false)]
-        public string VerifyUrl { get; set; }
-
-        // 核身处理状态:INITIAL、PROCESSING、SUCCESS、EXPIRED、FAIL
-        [NameInMap("verify_status")]
-        [Validation(Required=false)]
-        public string VerifyStatus { get; set; }
-
-        // 可用产品集合
-        [NameInMap("valid_prod")]
-        [Validation(Required=false)]
-        public List<GwValidateProduct> ValidProd { get; set; }
-
     }
 
 }

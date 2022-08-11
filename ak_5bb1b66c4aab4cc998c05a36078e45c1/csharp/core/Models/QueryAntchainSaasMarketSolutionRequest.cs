@@ -23,11 +23,6 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1.Models
         [Validation(Required=true)]
         public string SolutionCode { get; set; }
 
-        // 查询结果
-        [NameInMap("result_data")]
-        [Validation(Required=false)]
-        public List<KeyValuePair> ResultData { get; set; }
-
     }
 
 }
