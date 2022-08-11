@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -437,6 +437,118 @@ class Client:
         return TeaCore.from_map(
             ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.CheckAntchainBbpVerifyResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.verify.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def run_antchain_saas_market_service(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.RunAntchainSaasMarketServiceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.RunAntchainSaasMarketServiceResponse:
+        """
+        Description: SaaS服务调用
+        Summary: SaaS服务调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.run_antchain_saas_market_service_ex(request, headers, runtime)
+
+    async def run_antchain_saas_market_service_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.RunAntchainSaasMarketServiceRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.RunAntchainSaasMarketServiceResponse:
+        """
+        Description: SaaS服务调用
+        Summary: SaaS服务调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.run_antchain_saas_market_service_ex_async(request, headers, runtime)
+
+    def run_antchain_saas_market_service_ex(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.RunAntchainSaasMarketServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.RunAntchainSaasMarketServiceResponse:
+        """
+        Description: SaaS服务调用
+        Summary: SaaS服务调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.RunAntchainSaasMarketServiceResponse(),
+            self.do_request('1.0', 'antchain.saas.market.service.run', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def run_antchain_saas_market_service_ex_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.RunAntchainSaasMarketServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.RunAntchainSaasMarketServiceResponse:
+        """
+        Description: SaaS服务调用
+        Summary: SaaS服务调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.RunAntchainSaasMarketServiceResponse(),
+            await self.do_request_async('1.0', 'antchain.saas.market.service.run', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_saas_market_solution(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QueryAntchainSaasMarketSolutionRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QueryAntchainSaasMarketSolutionResponse:
+        """
+        Description: 查询解决方案，包括能力列表
+        Summary: 查询解决方案，包括能力列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_saas_market_solution_ex(request, headers, runtime)
+
+    async def query_antchain_saas_market_solution_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QueryAntchainSaasMarketSolutionRequest,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QueryAntchainSaasMarketSolutionResponse:
+        """
+        Description: 查询解决方案，包括能力列表
+        Summary: 查询解决方案，包括能力列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_saas_market_solution_ex_async(request, headers, runtime)
+
+    def query_antchain_saas_market_solution_ex(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QueryAntchainSaasMarketSolutionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QueryAntchainSaasMarketSolutionResponse:
+        """
+        Description: 查询解决方案，包括能力列表
+        Summary: 查询解决方案，包括能力列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QueryAntchainSaasMarketSolutionResponse(),
+            self.do_request('1.0', 'antchain.saas.market.solution.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_saas_market_solution_ex_async(
+        self,
+        request: ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QueryAntchainSaasMarketSolutionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QueryAntchainSaasMarketSolutionResponse:
+        """
+        Description: 查询解决方案，包括能力列表
+        Summary: 查询解决方案，包括能力列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__5bb_1b_66c_4aab_4cc_998c_05a_36078e_45c_1_models.QueryAntchainSaasMarketSolutionResponse(),
+            await self.do_request_async('1.0', 'antchain.saas.market.solution.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_antchain_bbp_meta(
