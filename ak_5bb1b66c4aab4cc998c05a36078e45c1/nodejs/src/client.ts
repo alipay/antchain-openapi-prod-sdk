@@ -729,14 +729,6 @@ export class InitAntchainBbpVerifyRequest extends $tea.Model {
   callbackEnum?: string;
   // 核身产品列表
   validateFlows: GwValidateProduct[];
-  // 核身id
-  verifyId?: string;
-  // 核身请求地址url
-  verifyUrl?: string;
-  // 核身处理状态:INITIAL、PROCESSING、SUCCESS、EXPIRED、FAIL
-  verifyStatus?: string;
-  // 可用产品集合
-  validProd?: GwValidateProduct[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -746,10 +738,6 @@ export class InitAntchainBbpVerifyRequest extends $tea.Model {
       externParams: 'extern_params',
       callbackEnum: 'callback_enum',
       validateFlows: 'validate_flows',
-      verifyId: 'verify_id',
-      verifyUrl: 'verify_url',
-      verifyStatus: 'verify_status',
-      validProd: 'valid_prod',
     };
   }
 
@@ -762,10 +750,6 @@ export class InitAntchainBbpVerifyRequest extends $tea.Model {
       externParams: { 'type': 'array', 'itemType': NameValuePair },
       callbackEnum: 'string',
       validateFlows: { 'type': 'array', 'itemType': GwValidateProduct },
-      verifyId: 'string',
-      verifyUrl: 'string',
-      verifyStatus: 'string',
-      validProd: { 'type': 'array', 'itemType': GwValidateProduct },
     };
   }
 
@@ -830,8 +814,6 @@ export class StartAntchainBbpVerifyRequest extends $tea.Model {
   productAction: string;
   // 业务id
   bizId: string;
-  // 核身渲染结果
-  result?: GwVerifyViewResult[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -840,7 +822,6 @@ export class StartAntchainBbpVerifyRequest extends $tea.Model {
       group: 'group',
       productAction: 'product_action',
       bizId: 'biz_id',
-      result: 'result',
     };
   }
 
@@ -852,7 +833,6 @@ export class StartAntchainBbpVerifyRequest extends $tea.Model {
       group: 'string',
       productAction: 'string',
       bizId: 'string',
-      result: { 'type': 'array', 'itemType': GwVerifyViewResult },
     };
   }
 
@@ -907,8 +887,6 @@ export class CheckAntchainBbpVerifyRequest extends $tea.Model {
   bizId: string;
   // 核身产品码
   productCode: string;
-  // 核身结果枚举：PASS-核身成功，INITIAL-初始化，PROCESS-处理中，FAIL-失败
-  status?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -918,7 +896,6 @@ export class CheckAntchainBbpVerifyRequest extends $tea.Model {
       productAction: 'product_action',
       bizId: 'biz_id',
       productCode: 'product_code',
-      status: 'status',
     };
   }
 
@@ -931,7 +908,6 @@ export class CheckAntchainBbpVerifyRequest extends $tea.Model {
       productAction: 'string',
       bizId: 'string',
       productCode: 'string',
-      status: 'string',
     };
   }
 
@@ -988,8 +964,6 @@ export class RunAntchainSaasMarketServiceRequest extends $tea.Model {
   serviceVersion: string;
   // 业务参数，map格式
   params?: KeyValuePair[];
-  // 服务调用结果
-  resultData?: KeyValuePair[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1000,7 +974,6 @@ export class RunAntchainSaasMarketServiceRequest extends $tea.Model {
       subServiceCode: 'sub_service_code',
       serviceVersion: 'service_version',
       params: 'params',
-      resultData: 'result_data',
     };
   }
 
@@ -1014,7 +987,6 @@ export class RunAntchainSaasMarketServiceRequest extends $tea.Model {
       subServiceCode: 'string',
       serviceVersion: 'string',
       params: { 'type': 'array', 'itemType': KeyValuePair },
-      resultData: { 'type': 'array', 'itemType': KeyValuePair },
     };
   }
 
@@ -1061,14 +1033,11 @@ export class QueryAntchainSaasMarketSolutionRequest extends $tea.Model {
   productInstanceId?: string;
   // 解决方案code
   solutionCode: string;
-  // 查询结果
-  resultData?: KeyValuePair[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       solutionCode: 'solution_code',
-      resultData: 'result_data',
     };
   }
 
@@ -1077,7 +1046,6 @@ export class QueryAntchainSaasMarketSolutionRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       solutionCode: 'string',
-      resultData: { 'type': 'array', 'itemType': KeyValuePair },
     };
   }
 
@@ -1156,8 +1124,6 @@ export class VerifyAntchainBbpMetaRequest extends $tea.Model {
   personCertType?: string;
   // 扩展信息
   extensionInfo?: NameValuePair;
-  // 要素认证结果
-  result?: CustomerAuthResult;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1179,7 +1145,6 @@ export class VerifyAntchainBbpMetaRequest extends $tea.Model {
       personCertNo: 'person_cert_no',
       personCertType: 'person_cert_type',
       extensionInfo: 'extension_info',
-      result: 'result',
     };
   }
 
@@ -1204,7 +1169,6 @@ export class VerifyAntchainBbpMetaRequest extends $tea.Model {
       personCertNo: 'string',
       personCertType: 'string',
       extensionInfo: NameValuePair,
-      result: CustomerAuthResult,
     };
   }
 
@@ -1304,15 +1268,12 @@ export class CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest extends $te
   holoxCheckEvent?: HoloxCheckEvent;
   // 123
   serviceVersion: string;
-  // 大安全风控接口返回结果
-  data?: HoloxCheckResult;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       holoxCheckEvent: 'holox_check_event',
       serviceVersion: 'service_version',
-      data: 'data',
     };
   }
 
@@ -1322,7 +1283,6 @@ export class CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest extends $te
       productInstanceId: 'string',
       holoxCheckEvent: HoloxCheckEvent,
       serviceVersion: 'string',
-      data: HoloxCheckResult,
     };
   }
 
@@ -1371,15 +1331,12 @@ export class QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest extends 
   securityUniformRequest: SecurityUniformRequest;
   // 123
   serviceVersion: string;
-  // 返回结果
-  data?: SecurityUniformResponse;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       securityUniformRequest: 'security_uniform_request',
       serviceVersion: 'service_version',
-      data: 'data',
     };
   }
 
@@ -1389,7 +1346,6 @@ export class QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest extends 
       productInstanceId: 'string',
       securityUniformRequest: SecurityUniformRequest,
       serviceVersion: 'string',
-      data: SecurityUniformResponse,
     };
   }
 
@@ -1438,15 +1394,12 @@ export class CheckSaasSecurityRdsRdsserviceRequest extends $tea.Model {
   rdsServiceCheckRequest: string;
   // 服务版本
   serviceVersion: string;
-  // 是否是机器
-  data?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       rdsServiceCheckRequest: 'rds_service_check_request',
       serviceVersion: 'service_version',
-      data: 'data',
     };
   }
 
@@ -1456,7 +1409,6 @@ export class CheckSaasSecurityRdsRdsserviceRequest extends $tea.Model {
       productInstanceId: 'string',
       rdsServiceCheckRequest: 'string',
       serviceVersion: 'string',
-      data: 'number',
     };
   }
 
@@ -1505,15 +1457,12 @@ export class QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest extend
   infosecContentQuery: InfoSecContentQuery;
   // 123
   serviceVersion: string;
-  // 返回回调结果
-  data?: InfoSecContentQueryResult;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       infosecContentQuery: 'infosec_content_query',
       serviceVersion: 'service_version',
-      data: 'data',
     };
   }
 
@@ -1523,7 +1472,6 @@ export class QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest extend
       productInstanceId: 'string',
       infosecContentQuery: InfoSecContentQuery,
       serviceVersion: 'string',
-      data: InfoSecContentQueryResult,
     };
   }
 
@@ -1572,15 +1520,12 @@ export class VerifySaasSecurityRdslibAntcaptchaserviceRequest extends $tea.Model
   rdsAnalyzeRequest: RdsAnalyzeRequest;
   // 服务版本
   serviceVersion: string;
-  // 是否是机器人
-  data?: RdslibAntcaptchaservice;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       rdsAnalyzeRequest: 'rds_analyze_request',
       serviceVersion: 'service_version',
-      data: 'data',
     };
   }
 
@@ -1590,7 +1535,6 @@ export class VerifySaasSecurityRdslibAntcaptchaserviceRequest extends $tea.Model
       productInstanceId: 'string',
       rdsAnalyzeRequest: RdsAnalyzeRequest,
       serviceVersion: 'string',
-      data: RdslibAntcaptchaservice,
     };
   }
 
@@ -1639,15 +1583,12 @@ export class QuerySaasSecurityTscenterUmidqueryserviceRequest extends $tea.Model
   tokenId: string;
   // 服务版本
   serviceVersion: string;
-  // 返回的umid
-  data?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       tokenId: 'token_id',
       serviceVersion: 'service_version',
-      data: 'data',
     };
   }
 
@@ -1657,7 +1598,6 @@ export class QuerySaasSecurityTscenterUmidqueryserviceRequest extends $tea.Model
       productInstanceId: 'string',
       tokenId: 'string',
       serviceVersion: 'string',
-      data: 'string',
     };
   }
 
@@ -1706,15 +1646,12 @@ export class QuerySaasSecurityInfosecOpencheckservicequeryRequest extends $tea.M
   event: string;
   // 服务版本
   serviceVersion: string;
-  // 大安全内容检测接口返回结果
-  data?: ContentQueryResultModel;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       event: 'event',
       serviceVersion: 'service_version',
-      data: 'data',
     };
   }
 
@@ -1724,7 +1661,6 @@ export class QuerySaasSecurityInfosecOpencheckservicequeryRequest extends $tea.M
       productInstanceId: 'string',
       event: 'string',
       serviceVersion: 'string',
-      data: ContentQueryResultModel,
     };
   }
 
@@ -1878,7 +1814,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.2",
+          sdk_version: "1.0.6",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
