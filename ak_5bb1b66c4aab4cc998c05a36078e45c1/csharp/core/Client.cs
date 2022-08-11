@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.5"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -567,6 +567,300 @@ namespace AntChain.SDK.Ak_5bb1b66c4aab4cc998c05a36078e45c1
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<VerifyAntchainBbpMetaResponse>(await DoRequestAsync("1.0", "antchain.bbp.meta.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse CheckSaasSecurityInfosecHoloxcontentcheckservice(CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckSaasSecurityInfosecHoloxcontentcheckserviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public async Task<CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse> CheckSaasSecurityInfosecHoloxcontentcheckserviceAsync(CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckSaasSecurityInfosecHoloxcontentcheckserviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse CheckSaasSecurityInfosecHoloxcontentcheckserviceEx(CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse>(DoRequest("1.0", "saas.security.infosec.holoxcontentcheckservice.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public async Task<CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse> CheckSaasSecurityInfosecHoloxcontentcheckserviceExAsync(CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse>(await DoRequestAsync("1.0", "saas.security.infosec.holoxcontentcheckservice.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse QuerySaasSecuritySecuritycoreSecurityuniformservice(QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QuerySaasSecuritySecuritycoreSecurityuniformserviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public async Task<QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse> QuerySaasSecuritySecuritycoreSecurityuniformserviceAsync(QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QuerySaasSecuritySecuritycoreSecurityuniformserviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse QuerySaasSecuritySecuritycoreSecurityuniformserviceEx(QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse>(DoRequest("1.0", "saas.security.securitycore.securityuniformservice.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public async Task<QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse> QuerySaasSecuritySecuritycoreSecurityuniformserviceExAsync(QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse>(await DoRequestAsync("1.0", "saas.security.securitycore.securityuniformservice.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public CheckSaasSecurityRdsRdsserviceResponse CheckSaasSecurityRdsRdsservice(CheckSaasSecurityRdsRdsserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckSaasSecurityRdsRdsserviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public async Task<CheckSaasSecurityRdsRdsserviceResponse> CheckSaasSecurityRdsRdsserviceAsync(CheckSaasSecurityRdsRdsserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckSaasSecurityRdsRdsserviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public CheckSaasSecurityRdsRdsserviceResponse CheckSaasSecurityRdsRdsserviceEx(CheckSaasSecurityRdsRdsserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckSaasSecurityRdsRdsserviceResponse>(DoRequest("1.0", "saas.security.rds.rdsservice.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public async Task<CheckSaasSecurityRdsRdsserviceResponse> CheckSaasSecurityRdsRdsserviceExAsync(CheckSaasSecurityRdsRdsserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckSaasSecurityRdsRdsserviceResponse>(await DoRequestAsync("1.0", "saas.security.rds.rdsservice.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 123
+         * Summary: 大安全接口
+         */
+        public QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse QuerySaasSecurityInfosecHoloxcontentcheckqueryservice(QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 123
+         * Summary: 大安全接口
+         */
+        public async Task<QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse> QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceAsync(QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 123
+         * Summary: 大安全接口
+         */
+        public QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceEx(QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse>(DoRequest("1.0", "saas.security.infosec.holoxcontentcheckqueryservice.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 123
+         * Summary: 大安全接口
+         */
+        public async Task<QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse> QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceExAsync(QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse>(await DoRequestAsync("1.0", "saas.security.infosec.holoxcontentcheckqueryservice.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public VerifySaasSecurityRdslibAntcaptchaserviceResponse VerifySaasSecurityRdslibAntcaptchaservice(VerifySaasSecurityRdslibAntcaptchaserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return VerifySaasSecurityRdslibAntcaptchaserviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public async Task<VerifySaasSecurityRdslibAntcaptchaserviceResponse> VerifySaasSecurityRdslibAntcaptchaserviceAsync(VerifySaasSecurityRdslibAntcaptchaserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await VerifySaasSecurityRdslibAntcaptchaserviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public VerifySaasSecurityRdslibAntcaptchaserviceResponse VerifySaasSecurityRdslibAntcaptchaserviceEx(VerifySaasSecurityRdslibAntcaptchaserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifySaasSecurityRdslibAntcaptchaserviceResponse>(DoRequest("1.0", "saas.security.rdslib.antcaptchaservice.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public async Task<VerifySaasSecurityRdslibAntcaptchaserviceResponse> VerifySaasSecurityRdslibAntcaptchaserviceExAsync(VerifySaasSecurityRdslibAntcaptchaserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifySaasSecurityRdslibAntcaptchaserviceResponse>(await DoRequestAsync("1.0", "saas.security.rdslib.antcaptchaservice.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public QuerySaasSecurityTscenterUmidqueryserviceResponse QuerySaasSecurityTscenterUmidqueryservice(QuerySaasSecurityTscenterUmidqueryserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QuerySaasSecurityTscenterUmidqueryserviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public async Task<QuerySaasSecurityTscenterUmidqueryserviceResponse> QuerySaasSecurityTscenterUmidqueryserviceAsync(QuerySaasSecurityTscenterUmidqueryserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QuerySaasSecurityTscenterUmidqueryserviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public QuerySaasSecurityTscenterUmidqueryserviceResponse QuerySaasSecurityTscenterUmidqueryserviceEx(QuerySaasSecurityTscenterUmidqueryserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySaasSecurityTscenterUmidqueryserviceResponse>(DoRequest("1.0", "saas.security.tscenter.umidqueryservice.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大安全接口
+         * Summary: 大安全接口
+         */
+        public async Task<QuerySaasSecurityTscenterUmidqueryserviceResponse> QuerySaasSecurityTscenterUmidqueryserviceExAsync(QuerySaasSecurityTscenterUmidqueryserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySaasSecurityTscenterUmidqueryserviceResponse>(await DoRequestAsync("1.0", "saas.security.tscenter.umidqueryservice.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大安全内容检测结果查询接口
+         * Summary: 大安全内容检测结果查询接口
+         */
+        public QuerySaasSecurityInfosecOpencheckservicequeryResponse QuerySaasSecurityInfosecOpencheckservicequery(QuerySaasSecurityInfosecOpencheckservicequeryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QuerySaasSecurityInfosecOpencheckservicequeryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大安全内容检测结果查询接口
+         * Summary: 大安全内容检测结果查询接口
+         */
+        public async Task<QuerySaasSecurityInfosecOpencheckservicequeryResponse> QuerySaasSecurityInfosecOpencheckservicequeryAsync(QuerySaasSecurityInfosecOpencheckservicequeryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QuerySaasSecurityInfosecOpencheckservicequeryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大安全内容检测结果查询接口
+         * Summary: 大安全内容检测结果查询接口
+         */
+        public QuerySaasSecurityInfosecOpencheckservicequeryResponse QuerySaasSecurityInfosecOpencheckservicequeryEx(QuerySaasSecurityInfosecOpencheckservicequeryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySaasSecurityInfosecOpencheckservicequeryResponse>(DoRequest("1.0", "saas.security.infosec.opencheckservicequery.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大安全内容检测结果查询接口
+         * Summary: 大安全内容检测结果查询接口
+         */
+        public async Task<QuerySaasSecurityInfosecOpencheckservicequeryResponse> QuerySaasSecurityInfosecOpencheckservicequeryExAsync(QuerySaasSecurityInfosecOpencheckservicequeryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySaasSecurityInfosecOpencheckservicequeryResponse>(await DoRequestAsync("1.0", "saas.security.infosec.opencheckservicequery.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
