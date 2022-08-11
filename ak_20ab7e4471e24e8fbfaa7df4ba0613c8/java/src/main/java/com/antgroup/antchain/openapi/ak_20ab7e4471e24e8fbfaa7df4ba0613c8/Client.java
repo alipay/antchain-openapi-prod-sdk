@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.2")
+                    new TeaPair("sdk_version", "1.0.3")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -274,6 +274,44 @@ public class Client {
     }
 
     /**
+     * Description: 开始实人认证
+     * Summary: 开始实人认证
+     */
+    public StartBaasDidIdentificationFaceauthResponse startBaasDidIdentificationFaceauth(StartBaasDidIdentificationFaceauthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startBaasDidIdentificationFaceauthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 开始实人认证
+     * Summary: 开始实人认证
+     */
+    public StartBaasDidIdentificationFaceauthResponse startBaasDidIdentificationFaceauthEx(StartBaasDidIdentificationFaceauthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.identification.faceauth.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartBaasDidIdentificationFaceauthResponse());
+    }
+
+    /**
+     * Description: 查询实人认证结果
+     * Summary: 查询实人认证结果
+     */
+    public QueryBaasDidIdentificationFaceauthResponse queryBaasDidIdentificationFaceauth(QueryBaasDidIdentificationFaceauthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBaasDidIdentificationFaceauthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询实人认证结果
+     * Summary: 查询实人认证结果
+     */
+    public QueryBaasDidIdentificationFaceauthResponse queryBaasDidIdentificationFaceauthEx(QueryBaasDidIdentificationFaceauthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.identification.faceauth.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBaasDidIdentificationFaceauthResponse());
+    }
+
+    /**
      * Description: 通过个人三要素验证后创建个人did，若未通过个人三要素验证，则不创建did并报错
      * Summary: 通过个人三要素验证后创建个人did
      */
@@ -290,6 +328,25 @@ public class Client {
     public CreateBaasDidPersonWiththreemetaResponse createBaasDidPersonWiththreemetaEx(CreateBaasDidPersonWiththreemetaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.did.person.withthreemeta.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBaasDidPersonWiththreemetaResponse());
+    }
+
+    /**
+     * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+     * Summary: 通过企业三要素验证后创建企业did
+     */
+    public CreateBaasDidCorporateWiththreemetaResponse createBaasDidCorporateWiththreemeta(CreateBaasDidCorporateWiththreemetaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBaasDidCorporateWiththreemetaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+     * Summary: 通过企业三要素验证后创建企业did
+     */
+    public CreateBaasDidCorporateWiththreemetaResponse createBaasDidCorporateWiththreemetaEx(CreateBaasDidCorporateWiththreemetaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.corporate.withthreemeta.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBaasDidCorporateWiththreemetaResponse());
     }
 
     /**
@@ -311,6 +368,44 @@ public class Client {
     public StartBaasDidVcrepositoryIssueResponse startBaasDidVcrepositoryIssueEx(StartBaasDidVcrepositoryIssueRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.did.vcrepository.issue.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartBaasDidVcrepositoryIssueResponse());
+    }
+
+    /**
+     * Description: 注册自定义的服务类型，目前只有租户did可以调用
+     * Summary: 注册自定义服务类型
+     */
+    public StartBaasDidAgentServicetypeResponse startBaasDidAgentServicetype(StartBaasDidAgentServicetypeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startBaasDidAgentServicetypeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 注册自定义的服务类型，目前只有租户did可以调用
+     * Summary: 注册自定义服务类型
+     */
+    public StartBaasDidAgentServicetypeResponse startBaasDidAgentServicetypeEx(StartBaasDidAgentServicetypeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.agent.servicetype.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartBaasDidAgentServicetypeResponse());
+    }
+
+    /**
+     * Description: 查询指定服务类型的定义，不支持全量查询
+     * Summary: 查询指定服务类型的定义
+     */
+    public QueryBaasDidAgentServicetypeResponse queryBaasDidAgentServicetype(QueryBaasDidAgentServicetypeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBaasDidAgentServicetypeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询指定服务类型的定义，不支持全量查询
+     * Summary: 查询指定服务类型的定义
+     */
+    public QueryBaasDidAgentServicetypeResponse queryBaasDidAgentServicetypeEx(QueryBaasDidAgentServicetypeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.agent.servicetype.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBaasDidAgentServicetypeResponse());
     }
 
     /**
@@ -352,6 +447,44 @@ public class Client {
     }
 
     /**
+     * Description: 通过企业二要素验证后创建企业did
+     * Summary: 通过企业二要素验证后创建企业did
+     */
+    public CreateBaasDidCorporateWithtwometaResponse createBaasDidCorporateWithtwometa(CreateBaasDidCorporateWithtwometaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBaasDidCorporateWithtwometaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过企业二要素验证后创建企业did
+     * Summary: 通过企业二要素验证后创建企业did
+     */
+    public CreateBaasDidCorporateWithtwometaResponse createBaasDidCorporateWithtwometaEx(CreateBaasDidCorporateWithtwometaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.corporate.withtwometa.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBaasDidCorporateWithtwometaResponse());
+    }
+
+    /**
+     * Description: 通过企业四要素验证后创建企业did
+     * Summary: 通过企业四要素验证后创建企业did
+     */
+    public CreateBaasDidCorporateWithfourmetaResponse createBaasDidCorporateWithfourmeta(CreateBaasDidCorporateWithfourmetaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBaasDidCorporateWithfourmetaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过企业四要素验证后创建企业did
+     * Summary: 通过企业四要素验证后创建企业did
+     */
+    public CreateBaasDidCorporateWithfourmetaResponse createBaasDidCorporateWithfourmetaEx(CreateBaasDidCorporateWithfourmetaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.corporate.withfourmeta.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBaasDidCorporateWithfourmetaResponse());
+    }
+
+    /**
      * Description: 通过个人四要素验证后创建个人did
      * Summary: 通过个人四要素验证后创建个人did
      */
@@ -368,5 +501,43 @@ public class Client {
     public CreateBaasDidPersonWithfourmetaResponse createBaasDidPersonWithfourmetaEx(CreateBaasDidPersonWithfourmetaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.did.person.withfourmeta.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBaasDidPersonWithfourmetaResponse());
+    }
+
+    /**
+     * Description: 企业法人刷脸认证
+     * Summary: 企业法人刷脸认证
+     */
+    public StartBaasDidCorporateFaceauthResponse startBaasDidCorporateFaceauth(StartBaasDidCorporateFaceauthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startBaasDidCorporateFaceauthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企业法人刷脸认证
+     * Summary: 企业法人刷脸认证
+     */
+    public StartBaasDidCorporateFaceauthResponse startBaasDidCorporateFaceauthEx(StartBaasDidCorporateFaceauthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.corporate.faceauth.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartBaasDidCorporateFaceauthResponse());
+    }
+
+    /**
+     * Description: 查询企业法人实人结果
+     * Summary: 查询企业法人实人结果
+     */
+    public QueryBaasDidCorporateFaceauthResponse queryBaasDidCorporateFaceauth(QueryBaasDidCorporateFaceauthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBaasDidCorporateFaceauthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询企业法人实人结果
+     * Summary: 查询企业法人实人结果
+     */
+    public QueryBaasDidCorporateFaceauthResponse queryBaasDidCorporateFaceauthEx(QueryBaasDidCorporateFaceauthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.did.corporate.faceauth.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBaasDidCorporateFaceauthResponse());
     }
 }
