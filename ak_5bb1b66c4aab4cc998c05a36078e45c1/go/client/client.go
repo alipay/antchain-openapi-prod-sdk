@@ -148,6 +148,72 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 123
+type InfoSecHitDetectItem struct {
+	// 123
+	DetectTypeCode *string `json:"detect_type_code,omitempty" xml:"detect_type_code,omitempty"`
+	// 123
+	HitDetectResource *string `json:"hit_detect_resource,omitempty" xml:"hit_detect_resource,omitempty"`
+	// 123
+	HitContent *string `json:"hit_content,omitempty" xml:"hit_content,omitempty"`
+	// 123
+	DetectResourceLevel *string `json:"detect_resource_level,omitempty" xml:"detect_resource_level,omitempty"`
+}
+
+func (s InfoSecHitDetectItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InfoSecHitDetectItem) GoString() string {
+	return s.String()
+}
+
+func (s *InfoSecHitDetectItem) SetDetectTypeCode(v string) *InfoSecHitDetectItem {
+	s.DetectTypeCode = &v
+	return s
+}
+
+func (s *InfoSecHitDetectItem) SetHitDetectResource(v string) *InfoSecHitDetectItem {
+	s.HitDetectResource = &v
+	return s
+}
+
+func (s *InfoSecHitDetectItem) SetHitContent(v string) *InfoSecHitDetectItem {
+	s.HitContent = &v
+	return s
+}
+
+func (s *InfoSecHitDetectItem) SetDetectResourceLevel(v string) *InfoSecHitDetectItem {
+	s.DetectResourceLevel = &v
+	return s
+}
+
+// 内容检测接口查询返回结构
+type SecurityRiskContentResultGetResponse struct {
+	// 命中次数
+	HitDetectItems []*InfoSecHitDetectItem `json:"hit_detect_items,omitempty" xml:"hit_detect_items,omitempty" type:"Repeated"`
+	// 返回结果
+	ResultAction *string `json:"result_action,omitempty" xml:"result_action,omitempty"`
+}
+
+func (s SecurityRiskContentResultGetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SecurityRiskContentResultGetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SecurityRiskContentResultGetResponse) SetHitDetectItems(v []*InfoSecHitDetectItem) *SecurityRiskContentResultGetResponse {
+	s.HitDetectItems = v
+	return s
+}
+
+func (s *SecurityRiskContentResultGetResponse) SetResultAction(v string) *SecurityRiskContentResultGetResponse {
+	s.ResultAction = &v
+	return s
+}
+
 // 键值对，兼容map用
 type NameValuePair struct {
 	// 键名
@@ -205,6 +271,79 @@ func (s *GwValidateProduct) SetGroup(v string) *GwValidateProduct {
 
 func (s *GwValidateProduct) SetProductParams(v []*NameValuePair) *GwValidateProduct {
 	s.ProductParams = v
+	return s
+}
+
+// 大安全接口返回
+type InfoSecContentQueryResult struct {
+	// 检测来源等级
+	DetectResourceLevel *string `json:"detect_resource_level,omitempty" xml:"detect_resource_level,omitempty"`
+	// 检测结果类型
+	DetectTypeCode *string `json:"detect_type_code,omitempty" xml:"detect_type_code,omitempty"`
+	// 命中内容
+	HitContent *string `json:"hit_content,omitempty" xml:"hit_content,omitempty"`
+	// 检测命中来源
+	HitDetectResource *string `json:"hit_detect_resource,omitempty" xml:"hit_detect_resource,omitempty"`
+}
+
+func (s InfoSecContentQueryResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InfoSecContentQueryResult) GoString() string {
+	return s.String()
+}
+
+func (s *InfoSecContentQueryResult) SetDetectResourceLevel(v string) *InfoSecContentQueryResult {
+	s.DetectResourceLevel = &v
+	return s
+}
+
+func (s *InfoSecContentQueryResult) SetDetectTypeCode(v string) *InfoSecContentQueryResult {
+	s.DetectTypeCode = &v
+	return s
+}
+
+func (s *InfoSecContentQueryResult) SetHitContent(v string) *InfoSecContentQueryResult {
+	s.HitContent = &v
+	return s
+}
+
+func (s *InfoSecContentQueryResult) SetHitDetectResource(v string) *InfoSecContentQueryResult {
+	s.HitDetectResource = &v
+	return s
+}
+
+// 内容安全查询接口返回结构
+type ContentQueryResultModel struct {
+	// 返回结果码
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 返回错误码
+	ErrMsg *string `json:"err_msg,omitempty" xml:"err_msg,omitempty"`
+	// 返回结果
+	Model *SecurityRiskContentResultGetResponse `json:"model,omitempty" xml:"model,omitempty"`
+}
+
+func (s ContentQueryResultModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContentQueryResultModel) GoString() string {
+	return s.String()
+}
+
+func (s *ContentQueryResultModel) SetCode(v int64) *ContentQueryResultModel {
+	s.Code = &v
+	return s
+}
+
+func (s *ContentQueryResultModel) SetErrMsg(v string) *ContentQueryResultModel {
+	s.ErrMsg = &v
+	return s
+}
+
+func (s *ContentQueryResultModel) SetModel(v *SecurityRiskContentResultGetResponse) *ContentQueryResultModel {
+	s.Model = v
 	return s
 }
 
@@ -276,6 +415,201 @@ func (s *CustomerAuthResult) SetDisReqMsgId(v string) *CustomerAuthResult {
 	return s
 }
 
+// 大安全内容安全接口返回值
+type HoloxCheckResult struct {
+	// 是否成功
+	Sucess *bool `json:"sucess,omitempty" xml:"sucess,omitempty"`
+	// 本次调用id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 结果码
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 结果信息
+	ResultMessage *string `json:"result_message,omitempty" xml:"result_message,omitempty"`
+	// 213
+	WarnAction *string `json:"warn_action,omitempty" xml:"warn_action,omitempty"`
+	// 123
+	ContentPropertyOutputResultMap *string `json:"content_property_output_result_map,omitempty" xml:"content_property_output_result_map,omitempty" require:"true"`
+	// 213
+	HitResultItems *string `json:"hit_result_items,omitempty" xml:"hit_result_items,omitempty"`
+}
+
+func (s HoloxCheckResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HoloxCheckResult) GoString() string {
+	return s.String()
+}
+
+func (s *HoloxCheckResult) SetSucess(v bool) *HoloxCheckResult {
+	s.Sucess = &v
+	return s
+}
+
+func (s *HoloxCheckResult) SetId(v string) *HoloxCheckResult {
+	s.Id = &v
+	return s
+}
+
+func (s *HoloxCheckResult) SetSceneCode(v string) *HoloxCheckResult {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *HoloxCheckResult) SetResultCode(v string) *HoloxCheckResult {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *HoloxCheckResult) SetErrorCode(v string) *HoloxCheckResult {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *HoloxCheckResult) SetResultMessage(v string) *HoloxCheckResult {
+	s.ResultMessage = &v
+	return s
+}
+
+func (s *HoloxCheckResult) SetWarnAction(v string) *HoloxCheckResult {
+	s.WarnAction = &v
+	return s
+}
+
+func (s *HoloxCheckResult) SetContentPropertyOutputResultMap(v string) *HoloxCheckResult {
+	s.ContentPropertyOutputResultMap = &v
+	return s
+}
+
+func (s *HoloxCheckResult) SetHitResultItems(v string) *HoloxCheckResult {
+	s.HitResultItems = &v
+	return s
+}
+
+// 大安全接口参数
+type InfoSecContentQuery struct {
+	// 123
+	AppScene *string `json:"app_scene,omitempty" xml:"app_scene,omitempty"`
+	// 123
+	AppSceneDataId *string `json:"app_scene_data_id,omitempty" xml:"app_scene_data_id,omitempty"`
+	// 123
+	EventId *string `json:"event_id,omitempty" xml:"event_id,omitempty"`
+}
+
+func (s InfoSecContentQuery) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InfoSecContentQuery) GoString() string {
+	return s.String()
+}
+
+func (s *InfoSecContentQuery) SetAppScene(v string) *InfoSecContentQuery {
+	s.AppScene = &v
+	return s
+}
+
+func (s *InfoSecContentQuery) SetAppSceneDataId(v string) *InfoSecContentQuery {
+	s.AppSceneDataId = &v
+	return s
+}
+
+func (s *InfoSecContentQuery) SetEventId(v string) *InfoSecContentQuery {
+	s.EventId = &v
+	return s
+}
+
+// 大安全接口入参
+type RdsAnalyzeRequest struct {
+	// 123
+	Appid *string `json:"appid,omitempty" xml:"appid,omitempty" require:"true"`
+	// 123
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty"`
+	// 213
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 123
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+	// 123
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 123
+	Extra *string `json:"extra,omitempty" xml:"extra,omitempty"`
+}
+
+func (s RdsAnalyzeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RdsAnalyzeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RdsAnalyzeRequest) SetAppid(v string) *RdsAnalyzeRequest {
+	s.Appid = &v
+	return s
+}
+
+func (s *RdsAnalyzeRequest) SetBizNo(v string) *RdsAnalyzeRequest {
+	s.BizNo = &v
+	return s
+}
+
+func (s *RdsAnalyzeRequest) SetScene(v string) *RdsAnalyzeRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *RdsAnalyzeRequest) SetToken(v string) *RdsAnalyzeRequest {
+	s.Token = &v
+	return s
+}
+
+func (s *RdsAnalyzeRequest) SetData(v string) *RdsAnalyzeRequest {
+	s.Data = &v
+	return s
+}
+
+func (s *RdsAnalyzeRequest) SetExtra(v string) *RdsAnalyzeRequest {
+	s.Extra = &v
+	return s
+}
+
+// 大安全接口入参
+type SecurityUniformRequest struct {
+	// 123
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+	// 123
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 132
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
+}
+
+func (s SecurityUniformRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SecurityUniformRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SecurityUniformRequest) SetToken(v string) *SecurityUniformRequest {
+	s.Token = &v
+	return s
+}
+
+func (s *SecurityUniformRequest) SetBizId(v string) *SecurityUniformRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *SecurityUniformRequest) SetParams(v string) *SecurityUniformRequest {
+	s.Params = &v
+	return s
+}
+
 // 键值对，兼容map用
 type KeyValuePair struct {
 	// key
@@ -299,6 +633,224 @@ func (s *KeyValuePair) SetKey(v string) *KeyValuePair {
 
 func (s *KeyValuePair) SetValue(v string) *KeyValuePair {
 	s.Value = &v
+	return s
+}
+
+// 大安全人机识别相应
+type RdslibAntcaptchaservice struct {
+	// 是否请求成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 相应信息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 返回数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s RdslibAntcaptchaservice) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RdslibAntcaptchaservice) GoString() string {
+	return s.String()
+}
+
+func (s *RdslibAntcaptchaservice) SetSuccess(v bool) *RdslibAntcaptchaservice {
+	s.Success = &v
+	return s
+}
+
+func (s *RdslibAntcaptchaservice) SetMessage(v string) *RdslibAntcaptchaservice {
+	s.Message = &v
+	return s
+}
+
+func (s *RdslibAntcaptchaservice) SetData(v string) *RdslibAntcaptchaservice {
+	s.Data = &v
+	return s
+}
+
+// 大安全接口返回
+type SecurityUniformResponse struct {
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 123
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 123
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 123
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+	// 123
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 123
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s SecurityUniformResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SecurityUniformResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SecurityUniformResponse) SetSuccess(v bool) *SecurityUniformResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *SecurityUniformResponse) SetCode(v string) *SecurityUniformResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *SecurityUniformResponse) SetMessage(v string) *SecurityUniformResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *SecurityUniformResponse) SetToken(v string) *SecurityUniformResponse {
+	s.Token = &v
+	return s
+}
+
+func (s *SecurityUniformResponse) SetBizId(v string) *SecurityUniformResponse {
+	s.BizId = &v
+	return s
+}
+
+func (s *SecurityUniformResponse) SetData(v string) *SecurityUniformResponse {
+	s.Data = &v
+	return s
+}
+
+// 大安全接口结构体
+type HoloxCheckEvent struct {
+	// 是否成功
+	Sucess *bool `json:"sucess,omitempty" xml:"sucess,omitempty" require:"true"`
+	// 123
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 12
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty" require:"true"`
+	// 123
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 12
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 123
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+	// 123
+	AppSceneDataId *string `json:"app_scene_data_id,omitempty" xml:"app_scene_data_id,omitempty"`
+	// 123
+	AccountType *string `json:"account_type,omitempty" xml:"account_type,omitempty"`
+	// 123
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 123
+	RecieverId *string `json:"reciever_id,omitempty" xml:"reciever_id,omitempty" require:"true"`
+	// 123
+	PublishDate *string `json:"publish_date,omitempty" xml:"publish_date,omitempty" require:"true"`
+	// 123
+	IsTest *bool `json:"is_test,omitempty" xml:"is_test,omitempty" require:"true"`
+	// 123
+	IsLoadTest *bool `json:"is_load_test,omitempty" xml:"is_load_test,omitempty" require:"true"`
+	// 123
+	IsFusing *bool `json:"is_fusing,omitempty" xml:"is_fusing,omitempty" require:"true"`
+	// 123
+	SceneType *string `json:"scene_type,omitempty" xml:"scene_type,omitempty" require:"true"`
+	// 123
+	ContentData *string `json:"content_data,omitempty" xml:"content_data,omitempty" require:"true"`
+	// 123
+	EventData *string `json:"event_data,omitempty" xml:"event_data,omitempty" require:"true"`
+}
+
+func (s HoloxCheckEvent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HoloxCheckEvent) GoString() string {
+	return s.String()
+}
+
+func (s *HoloxCheckEvent) SetSucess(v bool) *HoloxCheckEvent {
+	s.Sucess = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetId(v string) *HoloxCheckEvent {
+	s.Id = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetAppCode(v string) *HoloxCheckEvent {
+	s.AppCode = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetSceneCode(v string) *HoloxCheckEvent {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetProductCode(v string) *HoloxCheckEvent {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetChannel(v string) *HoloxCheckEvent {
+	s.Channel = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetAppSceneDataId(v string) *HoloxCheckEvent {
+	s.AppSceneDataId = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetAccountType(v string) *HoloxCheckEvent {
+	s.AccountType = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetUserId(v string) *HoloxCheckEvent {
+	s.UserId = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetRecieverId(v string) *HoloxCheckEvent {
+	s.RecieverId = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetPublishDate(v string) *HoloxCheckEvent {
+	s.PublishDate = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetIsTest(v bool) *HoloxCheckEvent {
+	s.IsTest = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetIsLoadTest(v bool) *HoloxCheckEvent {
+	s.IsLoadTest = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetIsFusing(v bool) *HoloxCheckEvent {
+	s.IsFusing = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetSceneType(v string) *HoloxCheckEvent {
+	s.SceneType = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetContentData(v string) *HoloxCheckEvent {
+	s.ContentData = &v
+	return s
+}
+
+func (s *HoloxCheckEvent) SetEventData(v string) *HoloxCheckEvent {
+	s.EventData = &v
 	return s
 }
 
@@ -1138,6 +1690,594 @@ func (s *VerifyAntchainBbpMetaResponse) SetResult(v *CustomerAuthResult) *Verify
 	return s
 }
 
+type CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 123
+	HoloxCheckEvent *HoloxCheckEvent `json:"holox_check_event,omitempty" xml:"holox_check_event,omitempty"`
+	// 123
+	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
+	// 大安全风控接口返回结果
+	Data *HoloxCheckResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest) SetAuthToken(v string) *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest) SetProductInstanceId(v string) *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest) SetHoloxCheckEvent(v *HoloxCheckEvent) *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest {
+	s.HoloxCheckEvent = v
+	return s
+}
+
+func (s *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest) SetServiceVersion(v string) *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest {
+	s.ServiceVersion = &v
+	return s
+}
+
+func (s *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest) SetData(v *HoloxCheckResult) *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest {
+	s.Data = v
+	return s
+}
+
+type CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 大安全风控接口返回结果
+	Data *HoloxCheckResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse) SetReqMsgId(v string) *CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse) SetResultCode(v string) *CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse) SetResultMsg(v string) *CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse) SetData(v *HoloxCheckResult) *CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse {
+	s.Data = v
+	return s
+}
+
+type QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 123
+	SecurityUniformRequest *SecurityUniformRequest `json:"security_uniform_request,omitempty" xml:"security_uniform_request,omitempty" require:"true"`
+	// 123
+	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
+	// 返回结果
+	Data *SecurityUniformResponse `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest) SetAuthToken(v string) *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest) SetProductInstanceId(v string) *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest) SetSecurityUniformRequest(v *SecurityUniformRequest) *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest {
+	s.SecurityUniformRequest = v
+	return s
+}
+
+func (s *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest) SetServiceVersion(v string) *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest {
+	s.ServiceVersion = &v
+	return s
+}
+
+func (s *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest) SetData(v *SecurityUniformResponse) *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest {
+	s.Data = v
+	return s
+}
+
+type QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Data *SecurityUniformResponse `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse) SetReqMsgId(v string) *QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse) SetResultCode(v string) *QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse) SetResultMsg(v string) *QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse) SetData(v *SecurityUniformResponse) *QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse {
+	s.Data = v
+	return s
+}
+
+type CheckSaasSecurityRdsRdsserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 123
+	RdsServiceCheckRequest *string `json:"rds_service_check_request,omitempty" xml:"rds_service_check_request,omitempty" require:"true"`
+	// 服务版本
+	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
+	// 是否是机器
+	Data *int64 `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CheckSaasSecurityRdsRdsserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckSaasSecurityRdsRdsserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckSaasSecurityRdsRdsserviceRequest) SetAuthToken(v string) *CheckSaasSecurityRdsRdsserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckSaasSecurityRdsRdsserviceRequest) SetProductInstanceId(v string) *CheckSaasSecurityRdsRdsserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckSaasSecurityRdsRdsserviceRequest) SetRdsServiceCheckRequest(v string) *CheckSaasSecurityRdsRdsserviceRequest {
+	s.RdsServiceCheckRequest = &v
+	return s
+}
+
+func (s *CheckSaasSecurityRdsRdsserviceRequest) SetServiceVersion(v string) *CheckSaasSecurityRdsRdsserviceRequest {
+	s.ServiceVersion = &v
+	return s
+}
+
+func (s *CheckSaasSecurityRdsRdsserviceRequest) SetData(v int64) *CheckSaasSecurityRdsRdsserviceRequest {
+	s.Data = &v
+	return s
+}
+
+type CheckSaasSecurityRdsRdsserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否是机器
+	Data *int64 `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CheckSaasSecurityRdsRdsserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckSaasSecurityRdsRdsserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckSaasSecurityRdsRdsserviceResponse) SetReqMsgId(v string) *CheckSaasSecurityRdsRdsserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckSaasSecurityRdsRdsserviceResponse) SetResultCode(v string) *CheckSaasSecurityRdsRdsserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckSaasSecurityRdsRdsserviceResponse) SetResultMsg(v string) *CheckSaasSecurityRdsRdsserviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckSaasSecurityRdsRdsserviceResponse) SetData(v int64) *CheckSaasSecurityRdsRdsserviceResponse {
+	s.Data = &v
+	return s
+}
+
+type QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 123
+	InfosecContentQuery *InfoSecContentQuery `json:"infosec_content_query,omitempty" xml:"infosec_content_query,omitempty" require:"true"`
+	// 123
+	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
+	// 返回回调结果
+	Data *InfoSecContentQueryResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest) SetAuthToken(v string) *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest) SetProductInstanceId(v string) *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest) SetInfosecContentQuery(v *InfoSecContentQuery) *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest {
+	s.InfosecContentQuery = v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest) SetServiceVersion(v string) *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest {
+	s.ServiceVersion = &v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest) SetData(v *InfoSecContentQueryResult) *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest {
+	s.Data = v
+	return s
+}
+
+type QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回回调结果
+	Data *InfoSecContentQueryResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse) SetReqMsgId(v string) *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse) SetResultCode(v string) *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse) SetResultMsg(v string) *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse) SetData(v *InfoSecContentQueryResult) *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse {
+	s.Data = v
+	return s
+}
+
+type VerifySaasSecurityRdslibAntcaptchaserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 123
+	RdsAnalyzeRequest *RdsAnalyzeRequest `json:"rds_analyze_request,omitempty" xml:"rds_analyze_request,omitempty" require:"true"`
+	// 服务版本
+	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
+	// 是否是机器人
+	Data *RdslibAntcaptchaservice `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s VerifySaasSecurityRdslibAntcaptchaserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifySaasSecurityRdslibAntcaptchaserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifySaasSecurityRdslibAntcaptchaserviceRequest) SetAuthToken(v string) *VerifySaasSecurityRdslibAntcaptchaserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifySaasSecurityRdslibAntcaptchaserviceRequest) SetProductInstanceId(v string) *VerifySaasSecurityRdslibAntcaptchaserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifySaasSecurityRdslibAntcaptchaserviceRequest) SetRdsAnalyzeRequest(v *RdsAnalyzeRequest) *VerifySaasSecurityRdslibAntcaptchaserviceRequest {
+	s.RdsAnalyzeRequest = v
+	return s
+}
+
+func (s *VerifySaasSecurityRdslibAntcaptchaserviceRequest) SetServiceVersion(v string) *VerifySaasSecurityRdslibAntcaptchaserviceRequest {
+	s.ServiceVersion = &v
+	return s
+}
+
+func (s *VerifySaasSecurityRdslibAntcaptchaserviceRequest) SetData(v *RdslibAntcaptchaservice) *VerifySaasSecurityRdslibAntcaptchaserviceRequest {
+	s.Data = v
+	return s
+}
+
+type VerifySaasSecurityRdslibAntcaptchaserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否是机器人
+	Data *RdslibAntcaptchaservice `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s VerifySaasSecurityRdslibAntcaptchaserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifySaasSecurityRdslibAntcaptchaserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifySaasSecurityRdslibAntcaptchaserviceResponse) SetReqMsgId(v string) *VerifySaasSecurityRdslibAntcaptchaserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifySaasSecurityRdslibAntcaptchaserviceResponse) SetResultCode(v string) *VerifySaasSecurityRdslibAntcaptchaserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifySaasSecurityRdslibAntcaptchaserviceResponse) SetResultMsg(v string) *VerifySaasSecurityRdslibAntcaptchaserviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifySaasSecurityRdslibAntcaptchaserviceResponse) SetData(v *RdslibAntcaptchaservice) *VerifySaasSecurityRdslibAntcaptchaserviceResponse {
+	s.Data = v
+	return s
+}
+
+type QuerySaasSecurityTscenterUmidqueryserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户token id
+	TokenId *string `json:"token_id,omitempty" xml:"token_id,omitempty" require:"true"`
+	// 服务版本
+	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
+	// 返回的umid
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QuerySaasSecurityTscenterUmidqueryserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySaasSecurityTscenterUmidqueryserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySaasSecurityTscenterUmidqueryserviceRequest) SetAuthToken(v string) *QuerySaasSecurityTscenterUmidqueryserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySaasSecurityTscenterUmidqueryserviceRequest) SetProductInstanceId(v string) *QuerySaasSecurityTscenterUmidqueryserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySaasSecurityTscenterUmidqueryserviceRequest) SetTokenId(v string) *QuerySaasSecurityTscenterUmidqueryserviceRequest {
+	s.TokenId = &v
+	return s
+}
+
+func (s *QuerySaasSecurityTscenterUmidqueryserviceRequest) SetServiceVersion(v string) *QuerySaasSecurityTscenterUmidqueryserviceRequest {
+	s.ServiceVersion = &v
+	return s
+}
+
+func (s *QuerySaasSecurityTscenterUmidqueryserviceRequest) SetData(v string) *QuerySaasSecurityTscenterUmidqueryserviceRequest {
+	s.Data = &v
+	return s
+}
+
+type QuerySaasSecurityTscenterUmidqueryserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回的umid
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QuerySaasSecurityTscenterUmidqueryserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySaasSecurityTscenterUmidqueryserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySaasSecurityTscenterUmidqueryserviceResponse) SetReqMsgId(v string) *QuerySaasSecurityTscenterUmidqueryserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySaasSecurityTscenterUmidqueryserviceResponse) SetResultCode(v string) *QuerySaasSecurityTscenterUmidqueryserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySaasSecurityTscenterUmidqueryserviceResponse) SetResultMsg(v string) *QuerySaasSecurityTscenterUmidqueryserviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySaasSecurityTscenterUmidqueryserviceResponse) SetData(v string) *QuerySaasSecurityTscenterUmidqueryserviceResponse {
+	s.Data = &v
+	return s
+}
+
+type QuerySaasSecurityInfosecOpencheckservicequeryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询参数
+	Event *string `json:"event,omitempty" xml:"event,omitempty" require:"true"`
+	// 服务版本
+	ServiceVersion *string `json:"service_version,omitempty" xml:"service_version,omitempty" require:"true"`
+	// 大安全内容检测接口返回结果
+	Data *ContentQueryResultModel `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QuerySaasSecurityInfosecOpencheckservicequeryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySaasSecurityInfosecOpencheckservicequeryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySaasSecurityInfosecOpencheckservicequeryRequest) SetAuthToken(v string) *QuerySaasSecurityInfosecOpencheckservicequeryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecOpencheckservicequeryRequest) SetProductInstanceId(v string) *QuerySaasSecurityInfosecOpencheckservicequeryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecOpencheckservicequeryRequest) SetEvent(v string) *QuerySaasSecurityInfosecOpencheckservicequeryRequest {
+	s.Event = &v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecOpencheckservicequeryRequest) SetServiceVersion(v string) *QuerySaasSecurityInfosecOpencheckservicequeryRequest {
+	s.ServiceVersion = &v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecOpencheckservicequeryRequest) SetData(v *ContentQueryResultModel) *QuerySaasSecurityInfosecOpencheckservicequeryRequest {
+	s.Data = v
+	return s
+}
+
+type QuerySaasSecurityInfosecOpencheckservicequeryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 大安全内容检测接口返回结果
+	Data *ContentQueryResultModel `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QuerySaasSecurityInfosecOpencheckservicequeryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySaasSecurityInfosecOpencheckservicequeryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySaasSecurityInfosecOpencheckservicequeryResponse) SetReqMsgId(v string) *QuerySaasSecurityInfosecOpencheckservicequeryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecOpencheckservicequeryResponse) SetResultCode(v string) *QuerySaasSecurityInfosecOpencheckservicequeryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecOpencheckservicequeryResponse) SetResultMsg(v string) *QuerySaasSecurityInfosecOpencheckservicequeryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySaasSecurityInfosecOpencheckservicequeryResponse) SetData(v *ContentQueryResultModel) *QuerySaasSecurityInfosecOpencheckservicequeryResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1260,7 +2400,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.0.5"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1505,6 +2645,244 @@ func (client *Client) VerifyAntchainBbpMetaEx(request *VerifyAntchainBbpMetaRequ
 	}
 	_result = &VerifyAntchainBbpMetaResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.meta.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+func (client *Client) CheckSaasSecurityInfosecHoloxcontentcheckservice(request *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest) (_result *CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse{}
+	_body, _err := client.CheckSaasSecurityInfosecHoloxcontentcheckserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+func (client *Client) CheckSaasSecurityInfosecHoloxcontentcheckserviceEx(request *CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("saas.security.infosec.holoxcontentcheckservice.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+func (client *Client) QuerySaasSecuritySecuritycoreSecurityuniformservice(request *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest) (_result *QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse{}
+	_body, _err := client.QuerySaasSecuritySecuritycoreSecurityuniformserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+func (client *Client) QuerySaasSecuritySecuritycoreSecurityuniformserviceEx(request *QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("saas.security.securitycore.securityuniformservice.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+func (client *Client) CheckSaasSecurityRdsRdsservice(request *CheckSaasSecurityRdsRdsserviceRequest) (_result *CheckSaasSecurityRdsRdsserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckSaasSecurityRdsRdsserviceResponse{}
+	_body, _err := client.CheckSaasSecurityRdsRdsserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+func (client *Client) CheckSaasSecurityRdsRdsserviceEx(request *CheckSaasSecurityRdsRdsserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckSaasSecurityRdsRdsserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckSaasSecurityRdsRdsserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("saas.security.rds.rdsservice.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 123
+ * Summary: 大安全接口
+ */
+func (client *Client) QuerySaasSecurityInfosecHoloxcontentcheckqueryservice(request *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest) (_result *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse{}
+	_body, _err := client.QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 123
+ * Summary: 大安全接口
+ */
+func (client *Client) QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceEx(request *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("saas.security.infosec.holoxcontentcheckqueryservice.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+func (client *Client) VerifySaasSecurityRdslibAntcaptchaservice(request *VerifySaasSecurityRdslibAntcaptchaserviceRequest) (_result *VerifySaasSecurityRdslibAntcaptchaserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifySaasSecurityRdslibAntcaptchaserviceResponse{}
+	_body, _err := client.VerifySaasSecurityRdslibAntcaptchaserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+func (client *Client) VerifySaasSecurityRdslibAntcaptchaserviceEx(request *VerifySaasSecurityRdslibAntcaptchaserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifySaasSecurityRdslibAntcaptchaserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifySaasSecurityRdslibAntcaptchaserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("saas.security.rdslib.antcaptchaservice.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+func (client *Client) QuerySaasSecurityTscenterUmidqueryservice(request *QuerySaasSecurityTscenterUmidqueryserviceRequest) (_result *QuerySaasSecurityTscenterUmidqueryserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySaasSecurityTscenterUmidqueryserviceResponse{}
+	_body, _err := client.QuerySaasSecurityTscenterUmidqueryserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+func (client *Client) QuerySaasSecurityTscenterUmidqueryserviceEx(request *QuerySaasSecurityTscenterUmidqueryserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySaasSecurityTscenterUmidqueryserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySaasSecurityTscenterUmidqueryserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("saas.security.tscenter.umidqueryservice.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 大安全内容检测结果查询接口
+ * Summary: 大安全内容检测结果查询接口
+ */
+func (client *Client) QuerySaasSecurityInfosecOpencheckservicequery(request *QuerySaasSecurityInfosecOpencheckservicequeryRequest) (_result *QuerySaasSecurityInfosecOpencheckservicequeryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySaasSecurityInfosecOpencheckservicequeryResponse{}
+	_body, _err := client.QuerySaasSecurityInfosecOpencheckservicequeryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 大安全内容检测结果查询接口
+ * Summary: 大安全内容检测结果查询接口
+ */
+func (client *Client) QuerySaasSecurityInfosecOpencheckservicequeryEx(request *QuerySaasSecurityInfosecOpencheckservicequeryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySaasSecurityInfosecOpencheckservicequeryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySaasSecurityInfosecOpencheckservicequeryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("saas.security.infosec.opencheckservicequery.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
