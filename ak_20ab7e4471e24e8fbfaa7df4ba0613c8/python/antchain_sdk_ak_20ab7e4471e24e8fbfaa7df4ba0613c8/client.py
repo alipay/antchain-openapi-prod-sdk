@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2'
+                    'sdk_version': '1.0.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2'
+                    'sdk_version': '1.0.3'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -607,6 +607,118 @@ class Client:
             await self.do_request_async('1.0', 'baas.did.vc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def start_baas_did_identification_faceauth(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidIdentificationFaceauthRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidIdentificationFaceauthResponse:
+        """
+        Description: 开始实人认证
+        Summary: 开始实人认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_baas_did_identification_faceauth_ex(request, headers, runtime)
+
+    async def start_baas_did_identification_faceauth_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidIdentificationFaceauthRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidIdentificationFaceauthResponse:
+        """
+        Description: 开始实人认证
+        Summary: 开始实人认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_baas_did_identification_faceauth_ex_async(request, headers, runtime)
+
+    def start_baas_did_identification_faceauth_ex(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidIdentificationFaceauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidIdentificationFaceauthResponse:
+        """
+        Description: 开始实人认证
+        Summary: 开始实人认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidIdentificationFaceauthResponse(),
+            self.do_request('1.0', 'baas.did.identification.faceauth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_baas_did_identification_faceauth_ex_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidIdentificationFaceauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidIdentificationFaceauthResponse:
+        """
+        Description: 开始实人认证
+        Summary: 开始实人认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidIdentificationFaceauthResponse(),
+            await self.do_request_async('1.0', 'baas.did.identification.faceauth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_baas_did_identification_faceauth(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidIdentificationFaceauthRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidIdentificationFaceauthResponse:
+        """
+        Description: 查询实人认证结果
+        Summary: 查询实人认证结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_baas_did_identification_faceauth_ex(request, headers, runtime)
+
+    async def query_baas_did_identification_faceauth_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidIdentificationFaceauthRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidIdentificationFaceauthResponse:
+        """
+        Description: 查询实人认证结果
+        Summary: 查询实人认证结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_baas_did_identification_faceauth_ex_async(request, headers, runtime)
+
+    def query_baas_did_identification_faceauth_ex(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidIdentificationFaceauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidIdentificationFaceauthResponse:
+        """
+        Description: 查询实人认证结果
+        Summary: 查询实人认证结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidIdentificationFaceauthResponse(),
+            self.do_request('1.0', 'baas.did.identification.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_baas_did_identification_faceauth_ex_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidIdentificationFaceauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidIdentificationFaceauthResponse:
+        """
+        Description: 查询实人认证结果
+        Summary: 查询实人认证结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidIdentificationFaceauthResponse(),
+            await self.do_request_async('1.0', 'baas.did.identification.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_baas_did_person_withthreemeta(
         self,
         request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidPersonWiththreemetaRequest,
@@ -661,6 +773,62 @@ class Client:
         return TeaCore.from_map(
             ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidPersonWiththreemetaResponse(),
             await self.do_request_async('1.0', 'baas.did.person.withthreemeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_baas_did_corporate_withthreemeta(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWiththreemetaRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWiththreemetaResponse:
+        """
+        Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+        Summary: 通过企业三要素验证后创建企业did
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_baas_did_corporate_withthreemeta_ex(request, headers, runtime)
+
+    async def create_baas_did_corporate_withthreemeta_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWiththreemetaRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWiththreemetaResponse:
+        """
+        Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+        Summary: 通过企业三要素验证后创建企业did
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_baas_did_corporate_withthreemeta_ex_async(request, headers, runtime)
+
+    def create_baas_did_corporate_withthreemeta_ex(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWiththreemetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWiththreemetaResponse:
+        """
+        Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+        Summary: 通过企业三要素验证后创建企业did
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWiththreemetaResponse(),
+            self.do_request('1.0', 'baas.did.corporate.withthreemeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_baas_did_corporate_withthreemeta_ex_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWiththreemetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWiththreemetaResponse:
+        """
+        Description: 通过企业三要素验证后创建企业did，若未通过企业三要素验证，则不创建did并报错
+        Summary: 通过企业三要素验证后创建企业did
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWiththreemetaResponse(),
+            await self.do_request_async('1.0', 'baas.did.corporate.withthreemeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_baas_did_vcrepository_issue(
@@ -721,6 +889,118 @@ class Client:
         return TeaCore.from_map(
             ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidVcrepositoryIssueResponse(),
             await self.do_request_async('1.0', 'baas.did.vcrepository.issue.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_baas_did_agent_servicetype(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidAgentServicetypeRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidAgentServicetypeResponse:
+        """
+        Description: 注册自定义的服务类型，目前只有租户did可以调用
+        Summary: 注册自定义服务类型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_baas_did_agent_servicetype_ex(request, headers, runtime)
+
+    async def start_baas_did_agent_servicetype_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidAgentServicetypeRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidAgentServicetypeResponse:
+        """
+        Description: 注册自定义的服务类型，目前只有租户did可以调用
+        Summary: 注册自定义服务类型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_baas_did_agent_servicetype_ex_async(request, headers, runtime)
+
+    def start_baas_did_agent_servicetype_ex(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidAgentServicetypeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidAgentServicetypeResponse:
+        """
+        Description: 注册自定义的服务类型，目前只有租户did可以调用
+        Summary: 注册自定义服务类型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidAgentServicetypeResponse(),
+            self.do_request('1.0', 'baas.did.agent.servicetype.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_baas_did_agent_servicetype_ex_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidAgentServicetypeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidAgentServicetypeResponse:
+        """
+        Description: 注册自定义的服务类型，目前只有租户did可以调用
+        Summary: 注册自定义服务类型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidAgentServicetypeResponse(),
+            await self.do_request_async('1.0', 'baas.did.agent.servicetype.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_baas_did_agent_servicetype(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidAgentServicetypeRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidAgentServicetypeResponse:
+        """
+        Description: 查询指定服务类型的定义，不支持全量查询
+        Summary: 查询指定服务类型的定义
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_baas_did_agent_servicetype_ex(request, headers, runtime)
+
+    async def query_baas_did_agent_servicetype_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidAgentServicetypeRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidAgentServicetypeResponse:
+        """
+        Description: 查询指定服务类型的定义，不支持全量查询
+        Summary: 查询指定服务类型的定义
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_baas_did_agent_servicetype_ex_async(request, headers, runtime)
+
+    def query_baas_did_agent_servicetype_ex(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidAgentServicetypeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidAgentServicetypeResponse:
+        """
+        Description: 查询指定服务类型的定义，不支持全量查询
+        Summary: 查询指定服务类型的定义
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidAgentServicetypeResponse(),
+            self.do_request('1.0', 'baas.did.agent.servicetype.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_baas_did_agent_servicetype_ex_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidAgentServicetypeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidAgentServicetypeResponse:
+        """
+        Description: 查询指定服务类型的定义，不支持全量查询
+        Summary: 查询指定服务类型的定义
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidAgentServicetypeResponse(),
+            await self.do_request_async('1.0', 'baas.did.agent.servicetype.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def update_baas_did_services(
@@ -835,6 +1115,118 @@ class Client:
             await self.do_request_async('1.0', 'baas.did.person.withtwometa.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def create_baas_did_corporate_withtwometa(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithtwometaRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithtwometaResponse:
+        """
+        Description: 通过企业二要素验证后创建企业did
+        Summary: 通过企业二要素验证后创建企业did
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_baas_did_corporate_withtwometa_ex(request, headers, runtime)
+
+    async def create_baas_did_corporate_withtwometa_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithtwometaRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithtwometaResponse:
+        """
+        Description: 通过企业二要素验证后创建企业did
+        Summary: 通过企业二要素验证后创建企业did
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_baas_did_corporate_withtwometa_ex_async(request, headers, runtime)
+
+    def create_baas_did_corporate_withtwometa_ex(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithtwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithtwometaResponse:
+        """
+        Description: 通过企业二要素验证后创建企业did
+        Summary: 通过企业二要素验证后创建企业did
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithtwometaResponse(),
+            self.do_request('1.0', 'baas.did.corporate.withtwometa.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_baas_did_corporate_withtwometa_ex_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithtwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithtwometaResponse:
+        """
+        Description: 通过企业二要素验证后创建企业did
+        Summary: 通过企业二要素验证后创建企业did
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithtwometaResponse(),
+            await self.do_request_async('1.0', 'baas.did.corporate.withtwometa.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_baas_did_corporate_withfourmeta(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithfourmetaRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithfourmetaResponse:
+        """
+        Description: 通过企业四要素验证后创建企业did
+        Summary: 通过企业四要素验证后创建企业did
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_baas_did_corporate_withfourmeta_ex(request, headers, runtime)
+
+    async def create_baas_did_corporate_withfourmeta_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithfourmetaRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithfourmetaResponse:
+        """
+        Description: 通过企业四要素验证后创建企业did
+        Summary: 通过企业四要素验证后创建企业did
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_baas_did_corporate_withfourmeta_ex_async(request, headers, runtime)
+
+    def create_baas_did_corporate_withfourmeta_ex(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithfourmetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithfourmetaResponse:
+        """
+        Description: 通过企业四要素验证后创建企业did
+        Summary: 通过企业四要素验证后创建企业did
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithfourmetaResponse(),
+            self.do_request('1.0', 'baas.did.corporate.withfourmeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_baas_did_corporate_withfourmeta_ex_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithfourmetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithfourmetaResponse:
+        """
+        Description: 通过企业四要素验证后创建企业did
+        Summary: 通过企业四要素验证后创建企业did
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidCorporateWithfourmetaResponse(),
+            await self.do_request_async('1.0', 'baas.did.corporate.withfourmeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_baas_did_person_withfourmeta(
         self,
         request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidPersonWithfourmetaRequest,
@@ -889,4 +1281,116 @@ class Client:
         return TeaCore.from_map(
             ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.CreateBaasDidPersonWithfourmetaResponse(),
             await self.do_request_async('1.0', 'baas.did.person.withfourmeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_baas_did_corporate_faceauth(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidCorporateFaceauthRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidCorporateFaceauthResponse:
+        """
+        Description: 企业法人刷脸认证
+        Summary: 企业法人刷脸认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_baas_did_corporate_faceauth_ex(request, headers, runtime)
+
+    async def start_baas_did_corporate_faceauth_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidCorporateFaceauthRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidCorporateFaceauthResponse:
+        """
+        Description: 企业法人刷脸认证
+        Summary: 企业法人刷脸认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_baas_did_corporate_faceauth_ex_async(request, headers, runtime)
+
+    def start_baas_did_corporate_faceauth_ex(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidCorporateFaceauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidCorporateFaceauthResponse:
+        """
+        Description: 企业法人刷脸认证
+        Summary: 企业法人刷脸认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidCorporateFaceauthResponse(),
+            self.do_request('1.0', 'baas.did.corporate.faceauth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_baas_did_corporate_faceauth_ex_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidCorporateFaceauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidCorporateFaceauthResponse:
+        """
+        Description: 企业法人刷脸认证
+        Summary: 企业法人刷脸认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.StartBaasDidCorporateFaceauthResponse(),
+            await self.do_request_async('1.0', 'baas.did.corporate.faceauth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_baas_did_corporate_faceauth(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidCorporateFaceauthRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidCorporateFaceauthResponse:
+        """
+        Description: 查询企业法人实人结果
+        Summary: 查询企业法人实人结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_baas_did_corporate_faceauth_ex(request, headers, runtime)
+
+    async def query_baas_did_corporate_faceauth_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidCorporateFaceauthRequest,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidCorporateFaceauthResponse:
+        """
+        Description: 查询企业法人实人结果
+        Summary: 查询企业法人实人结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_baas_did_corporate_faceauth_ex_async(request, headers, runtime)
+
+    def query_baas_did_corporate_faceauth_ex(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidCorporateFaceauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidCorporateFaceauthResponse:
+        """
+        Description: 查询企业法人实人结果
+        Summary: 查询企业法人实人结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidCorporateFaceauthResponse(),
+            self.do_request('1.0', 'baas.did.corporate.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_baas_did_corporate_faceauth_ex_async(
+        self,
+        request: ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidCorporateFaceauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidCorporateFaceauthResponse:
+        """
+        Description: 查询企业法人实人结果
+        Summary: 查询企业法人实人结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__20ab_7e_4471e_24e_8fbfaa_7df_4ba_0613c_8_models.QueryBaasDidCorporateFaceauthResponse(),
+            await self.do_request_async('1.0', 'baas.did.corporate.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
