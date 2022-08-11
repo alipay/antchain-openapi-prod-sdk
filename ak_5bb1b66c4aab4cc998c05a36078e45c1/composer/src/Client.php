@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\BindDemoDemoCheckEeeRequest;
+use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\BindDemoDemoCheckEeeResponse;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckAntchainBbpVerifyRequest;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckAntchainBbpVerifyResponse;
 use AntChain\Ak_5bb1b66c4aab4cc998c05a36078e45c1\Models\CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest;
@@ -184,7 +186,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.5',
+                    'sdk_version'      => '1.0.1',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -426,6 +428,39 @@ class Client
         Utils::validateModel($request);
 
         return VerifyAntchainBbpMetaResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.meta.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: s
+     * Summary: ss.
+     *
+     * @param BindDemoDemoCheckEeeRequest $request
+     *
+     * @return BindDemoDemoCheckEeeResponse
+     */
+    public function bindDemoDemoCheckEee($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoDemoCheckEeeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: s
+     * Summary: ss.
+     *
+     * @param BindDemoDemoCheckEeeRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return BindDemoDemoCheckEeeResponse
+     */
+    public function bindDemoDemoCheckEeeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoDemoCheckEeeResponse::fromMap($this->doRequest('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
