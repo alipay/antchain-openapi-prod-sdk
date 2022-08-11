@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.3',
+    sdk_version = '1.0.5',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,6 +159,26 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 123
+model InfoSecHitDetectItem {
+  // 123
+  detectTypeCode?: string(name='detect_type_code', example='123'),
+  // 123
+  hitDetectResource?: string(name='hit_detect_resource', example='123'),
+  // 123
+  hitContent?: string(name='hit_content', example='123'),
+  // 123
+  detectResourceLevel?: string(name='detect_resource_level', example='123'),
+}
+
+// 内容检测接口查询返回结构
+model SecurityRiskContentResultGetResponse {
+  // 命中次数
+  hitDetectItems?: [ InfoSecHitDetectItem ](name='hit_detect_items', example=''),
+  // 返回结果
+  resultAction?: string(name='result_action', example='PASSED'),
+}
+
 // 键值对，兼容map用
 model NameValuePair {
   // 键名
@@ -176,6 +196,28 @@ model GwValidateProduct {
   group: string(name='group', example='H5、NATIVE 或 PC'),
   // 核身产品参数，因网关限制，暂只支持Map<String,String>
   productParams?: [ NameValuePair ](name='product_params', example=''),
+}
+
+// 大安全接口返回
+model InfoSecContentQueryResult {
+  // 检测来源等级
+  detectResourceLevel?: string(name='detect_resource_level', example='123'),
+  // 检测结果类型
+  detectTypeCode?: string(name='detect_type_code', example='123'),
+  // 命中内容
+  hitContent?: string(name='hit_content', example='123'),
+  // 检测命中来源
+  hitDetectResource?: string(name='hit_detect_resource', example='123'),
+}
+
+// 内容安全查询接口返回结构
+model ContentQueryResultModel {
+  // 返回结果码
+  code?: long(name='code', example=''),
+  // 返回错误码
+  errMsg?: string(name='err_msg', example='123'),
+  // 返回结果
+  model?: SecurityRiskContentResultGetResponse(name='model', example='13'),
 }
 
 // 客户认证结果
@@ -198,12 +240,134 @@ model CustomerAuthResult {
   disReqMsgId?: string(name='dis_req_msg_id', example='xxx'),
 }
 
+// 大安全内容安全接口返回值
+model HoloxCheckResult {
+  // 是否成功
+  sucess?: boolean(name='sucess', example='true, false'),
+  // 本次调用id
+  id: string(name='id', example='234234'),
+  // 场景码
+  sceneCode: string(name='scene_code', example='23'),
+  // 结果码
+  resultCode?: string(name='result_code', example='Success'),
+  // 错误码
+  errorCode?: string(name='error_code', example='error'),
+  // 结果信息
+  resultMessage?: string(name='result_message', example='error'),
+  // 213
+  warnAction?: string(name='warn_action', example='123'),
+  // 123
+  contentPropertyOutputResultMap: string(name='content_property_output_result_map', example='123'),
+  // 213
+  hitResultItems?: string(name='hit_result_items', example='123'),
+}
+
+// 大安全接口参数
+model InfoSecContentQuery {
+  // 123
+  appScene?: string(name='app_scene', example='123'),
+  // 123
+  appSceneDataId?: string(name='app_scene_data_id', example='123'),
+  // 123
+  eventId?: string(name='event_id', example='123'),
+}
+
+// 大安全接口入参
+model RdsAnalyzeRequest {
+  // 123
+  appid: string(name='appid', example='123'),
+  // 123
+  bizNo?: string(name='biz_no', example='123'),
+  // 213
+  scene?: string(name='scene', example='123'),
+  // 123
+  token?: string(name='token', example='1231'),
+  // 123
+  data?: string(name='data', example='123'),
+  // 123
+  extra?: string(name='extra', example='123'),
+}
+
+// 大安全接口入参
+model SecurityUniformRequest {
+  // 123
+  token: string(name='token', example='123'),
+  // 123
+  bizId: string(name='biz_id', example='123'),
+  // 132
+  params: string(name='params', example='123'),
+}
+
 // 键值对，兼容map用
 model KeyValuePair {
   // key
   key: string(name='key', example='key'),
   // value
   value?: string(name='value', example='value'),
+}
+
+// 大安全人机识别相应
+model RdslibAntcaptchaservice {
+  // 是否请求成功
+  success: boolean(name='success', example='true, false'),
+  // 相应信息
+  message?: string(name='message', example='123'),
+  // 返回数据
+  data?: string(name='data', example='test'),
+}
+
+// 大安全接口返回
+model SecurityUniformResponse {
+  // 是否成功
+  success: boolean(name='success', example='true, false'),
+  // 123
+  code?: string(name='code', example='12'),
+  // 123
+  message?: string(name='message', example='123'),
+  // 123
+  token?: string(name='token', example='123'),
+  // 123
+  bizId?: string(name='biz_id', example='123'),
+  // 123
+  data?: string(name='data', example='123'),
+}
+
+// 大安全接口结构体
+model HoloxCheckEvent {
+  // 是否成功
+  sucess: boolean(name='sucess', example='true, false'),
+  // 123
+  id: string(name='id', example='123'),
+  // 12
+  appCode: string(name='app_code', example='12'),
+  // 123
+  sceneCode: string(name='scene_code', example='123'),
+  // 12
+  productCode?: string(name='product_code', example='12'),
+  // 123
+  channel: string(name='channel', example='123'),
+  // 123
+  appSceneDataId?: string(name='app_scene_data_id', example='123'),
+  // 123
+  accountType?: string(name='account_type', example='123'),
+  // 123
+  userId: string(name='user_id', example='123'),
+  // 123
+  recieverId: string(name='reciever_id', example='123'),
+  // 123
+  publishDate: string(name='publish_date', example='123'),
+  // 123
+  isTest: boolean(name='is_test', example='true, false'),
+  // 123
+  isLoadTest: boolean(name='is_load_test', example='123'),
+  // 123
+  isFusing: boolean(name='is_fusing', example='true, false'),
+  // 123
+  sceneType: string(name='scene_type', example='123'),
+  // 123
+  contentData: string(name='content_data', example='123'),
+  // 123
+  eventData: string(name='event_data', example='123'),
 }
 
 // 核身渲染结果
@@ -552,5 +716,299 @@ async function verifyAntchainBbpMeta(request: VerifyAntchainBbpMetaRequest): Ver
 async function verifyAntchainBbpMetaEx(request: VerifyAntchainBbpMetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyAntchainBbpMetaResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.bbp.meta.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 123
+  holoxCheckEvent?: HoloxCheckEvent(name='holox_check_event'),
+  // 123
+  serviceVersion: string(name='service_version'),
+  // 大安全风控接口返回结果
+  data?: HoloxCheckResult(name='data'),
+}
+
+model CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 大安全风控接口返回结果
+  data?: HoloxCheckResult(name='data'),
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function checkSaasSecurityInfosecHoloxcontentcheckservice(request: CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest): CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkSaasSecurityInfosecHoloxcontentcheckserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function checkSaasSecurityInfosecHoloxcontentcheckserviceEx(request: CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'saas.security.infosec.holoxcontentcheckservice.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 123
+  securityUniformRequest: SecurityUniformRequest(name='security_uniform_request'),
+  // 123
+  serviceVersion: string(name='service_version'),
+  // 返回结果
+  data?: SecurityUniformResponse(name='data'),
+}
+
+model QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  data?: SecurityUniformResponse(name='data'),
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function querySaasSecuritySecuritycoreSecurityuniformservice(request: QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest): QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySaasSecuritySecuritycoreSecurityuniformserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function querySaasSecuritySecuritycoreSecurityuniformserviceEx(request: QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'saas.security.securitycore.securityuniformservice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckSaasSecurityRdsRdsserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 123
+  rdsServiceCheckRequest: string(name='rds_service_check_request'),
+  // 服务版本
+  serviceVersion: string(name='service_version'),
+  // 是否是机器
+  data?: long(name='data'),
+}
+
+model CheckSaasSecurityRdsRdsserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否是机器
+  data?: long(name='data'),
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function checkSaasSecurityRdsRdsservice(request: CheckSaasSecurityRdsRdsserviceRequest): CheckSaasSecurityRdsRdsserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkSaasSecurityRdsRdsserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function checkSaasSecurityRdsRdsserviceEx(request: CheckSaasSecurityRdsRdsserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckSaasSecurityRdsRdsserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'saas.security.rds.rdsservice.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 123
+  infosecContentQuery: InfoSecContentQuery(name='infosec_content_query'),
+  // 123
+  serviceVersion: string(name='service_version'),
+  // 返回回调结果
+  data?: InfoSecContentQueryResult(name='data'),
+}
+
+model QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回回调结果
+  data?: InfoSecContentQueryResult(name='data'),
+}
+
+/**
+ * Description: 123
+ * Summary: 大安全接口
+ */
+async function querySaasSecurityInfosecHoloxcontentcheckqueryservice(request: QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest): QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySaasSecurityInfosecHoloxcontentcheckqueryserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 123
+ * Summary: 大安全接口
+ */
+async function querySaasSecurityInfosecHoloxcontentcheckqueryserviceEx(request: QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'saas.security.infosec.holoxcontentcheckqueryservice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifySaasSecurityRdslibAntcaptchaserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 123
+  rdsAnalyzeRequest: RdsAnalyzeRequest(name='rds_analyze_request'),
+  // 服务版本
+  serviceVersion: string(name='service_version'),
+  // 是否是机器人
+  data?: RdslibAntcaptchaservice(name='data'),
+}
+
+model VerifySaasSecurityRdslibAntcaptchaserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否是机器人
+  data?: RdslibAntcaptchaservice(name='data'),
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function verifySaasSecurityRdslibAntcaptchaservice(request: VerifySaasSecurityRdslibAntcaptchaserviceRequest): VerifySaasSecurityRdslibAntcaptchaserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifySaasSecurityRdslibAntcaptchaserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function verifySaasSecurityRdslibAntcaptchaserviceEx(request: VerifySaasSecurityRdslibAntcaptchaserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifySaasSecurityRdslibAntcaptchaserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'saas.security.rdslib.antcaptchaservice.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySaasSecurityTscenterUmidqueryserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户token id
+  tokenId: string(name='token_id'),
+  // 服务版本
+  serviceVersion: string(name='service_version'),
+  // 返回的umid
+  data?: string(name='data'),
+}
+
+model QuerySaasSecurityTscenterUmidqueryserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回的umid
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function querySaasSecurityTscenterUmidqueryservice(request: QuerySaasSecurityTscenterUmidqueryserviceRequest): QuerySaasSecurityTscenterUmidqueryserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySaasSecurityTscenterUmidqueryserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function querySaasSecurityTscenterUmidqueryserviceEx(request: QuerySaasSecurityTscenterUmidqueryserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasSecurityTscenterUmidqueryserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'saas.security.tscenter.umidqueryservice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySaasSecurityInfosecOpencheckservicequeryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询参数
+  event: string(name='event'),
+  // 服务版本
+  serviceVersion: string(name='service_version'),
+  // 大安全内容检测接口返回结果
+  data?: ContentQueryResultModel(name='data'),
+}
+
+model QuerySaasSecurityInfosecOpencheckservicequeryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 大安全内容检测接口返回结果
+  data?: ContentQueryResultModel(name='data'),
+}
+
+/**
+ * Description: 大安全内容检测结果查询接口
+ * Summary: 大安全内容检测结果查询接口
+ */
+async function querySaasSecurityInfosecOpencheckservicequery(request: QuerySaasSecurityInfosecOpencheckservicequeryRequest): QuerySaasSecurityInfosecOpencheckservicequeryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySaasSecurityInfosecOpencheckservicequeryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大安全内容检测结果查询接口
+ * Summary: 大安全内容检测结果查询接口
+ */
+async function querySaasSecurityInfosecOpencheckservicequeryEx(request: QuerySaasSecurityInfosecOpencheckservicequeryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasSecurityInfosecOpencheckservicequeryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'saas.security.infosec.opencheckservicequery.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
