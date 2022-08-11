@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.0.6',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -416,14 +416,6 @@ model InitAntchainBbpVerifyRequest = {
   callbackEnum?: string(name='callback_enum'),
   // 核身产品列表
   validateFlows: [ GwValidateProduct ](name='validate_flows'),
-  // 核身id
-  verifyId?: string(name='verify_id'),
-  // 核身请求地址url
-  verifyUrl?: string(name='verify_url'),
-  // 核身处理状态:INITIAL、PROCESSING、SUCCESS、EXPIRED、FAIL
-  verifyStatus?: string(name='verify_status'),
-  // 可用产品集合
-  validProd?: [ GwValidateProduct ](name='valid_prod'),
 }
 
 model InitAntchainBbpVerifyResponse = {
@@ -474,8 +466,6 @@ model StartAntchainBbpVerifyRequest = {
   productAction: string(name='product_action'),
   // 业务id
   bizId: string(name='biz_id'),
-  // 核身渲染结果
-  result?: [ GwVerifyViewResult ](name='result'),
 }
 
 model StartAntchainBbpVerifyResponse = {
@@ -522,8 +512,6 @@ model CheckAntchainBbpVerifyRequest = {
   bizId: string(name='biz_id'),
   // 核身产品码
   productCode: string(name='product_code'),
-  // 核身结果枚举：PASS-核身成功，INITIAL-初始化，PROCESS-处理中，FAIL-失败
-  status?: string(name='status'),
 }
 
 model CheckAntchainBbpVerifyResponse = {
@@ -572,8 +560,6 @@ model RunAntchainSaasMarketServiceRequest = {
   serviceVersion: string(name='service_version'),
   // 业务参数，map格式
   params?: [ KeyValuePair ](name='params'),
-  // 服务调用结果
-  resultData?: [ KeyValuePair ](name='result_data'),
 }
 
 model RunAntchainSaasMarketServiceResponse = {
@@ -612,8 +598,6 @@ model QueryAntchainSaasMarketSolutionRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 解决方案code
   solutionCode: string(name='solution_code'),
-  // 查询结果
-  resultData?: [ KeyValuePair ](name='result_data'),
 }
 
 model QueryAntchainSaasMarketSolutionResponse = {
@@ -684,8 +668,6 @@ model VerifyAntchainBbpMetaRequest = {
   personCertType?: string(name='person_cert_type'),
   // 扩展信息
   extensionInfo?: NameValuePair(name='extension_info'),
-  // 要素认证结果
-  result?: CustomerAuthResult(name='result'),
 }
 
 model VerifyAntchainBbpMetaResponse = {
@@ -760,8 +742,6 @@ model CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest = {
   holoxCheckEvent?: HoloxCheckEvent(name='holox_check_event'),
   // 123
   serviceVersion: string(name='service_version'),
-  // 大安全风控接口返回结果
-  data?: HoloxCheckResult(name='data'),
 }
 
 model CheckSaasSecurityInfosecHoloxcontentcheckserviceResponse = {
@@ -802,8 +782,6 @@ model QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest = {
   securityUniformRequest: SecurityUniformRequest(name='security_uniform_request'),
   // 123
   serviceVersion: string(name='service_version'),
-  // 返回结果
-  data?: SecurityUniformResponse(name='data'),
 }
 
 model QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse = {
@@ -844,8 +822,6 @@ model CheckSaasSecurityRdsRdsserviceRequest = {
   rdsServiceCheckRequest: string(name='rds_service_check_request'),
   // 服务版本
   serviceVersion: string(name='service_version'),
-  // 是否是机器
-  data?: long(name='data'),
 }
 
 model CheckSaasSecurityRdsRdsserviceResponse = {
@@ -886,8 +862,6 @@ model QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceRequest = {
   infosecContentQuery: InfoSecContentQuery(name='infosec_content_query'),
   // 123
   serviceVersion: string(name='service_version'),
-  // 返回回调结果
-  data?: InfoSecContentQueryResult(name='data'),
 }
 
 model QuerySaasSecurityInfosecHoloxcontentcheckqueryserviceResponse = {
@@ -928,8 +902,6 @@ model VerifySaasSecurityRdslibAntcaptchaserviceRequest = {
   rdsAnalyzeRequest: RdsAnalyzeRequest(name='rds_analyze_request'),
   // 服务版本
   serviceVersion: string(name='service_version'),
-  // 是否是机器人
-  data?: RdslibAntcaptchaservice(name='data'),
 }
 
 model VerifySaasSecurityRdslibAntcaptchaserviceResponse = {
@@ -970,8 +942,6 @@ model QuerySaasSecurityTscenterUmidqueryserviceRequest = {
   tokenId: string(name='token_id'),
   // 服务版本
   serviceVersion: string(name='service_version'),
-  // 返回的umid
-  data?: string(name='data'),
 }
 
 model QuerySaasSecurityTscenterUmidqueryserviceResponse = {
@@ -1012,8 +982,6 @@ model QuerySaasSecurityInfosecOpencheckservicequeryRequest = {
   event: string(name='event'),
   // 服务版本
   serviceVersion: string(name='service_version'),
-  // 大安全内容检测接口返回结果
-  data?: ContentQueryResultModel(name='data'),
 }
 
 model QuerySaasSecurityInfosecOpencheckservicequeryResponse = {
