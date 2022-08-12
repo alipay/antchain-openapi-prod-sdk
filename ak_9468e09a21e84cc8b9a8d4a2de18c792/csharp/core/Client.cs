@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_9468e09a21e84cc8b9a8d4a2de18c792
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.Ak_9468e09a21e84cc8b9a8d4a2de18c792
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -318,48 +318,6 @@ namespace AntChain.SDK.Ak_9468e09a21e84cc8b9a8d4a2de18c792
         }
 
         /**
-         * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-         * Summary: 单据加密异步上链
-         */
-        public CreateBlockchainAppexAsynformFormResponse CreateBlockchainAppexAsynformForm(CreateBlockchainAppexAsynformFormRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return CreateBlockchainAppexAsynformFormEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-         * Summary: 单据加密异步上链
-         */
-        public async Task<CreateBlockchainAppexAsynformFormResponse> CreateBlockchainAppexAsynformFormAsync(CreateBlockchainAppexAsynformFormRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await CreateBlockchainAppexAsynformFormExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-         * Summary: 单据加密异步上链
-         */
-        public CreateBlockchainAppexAsynformFormResponse CreateBlockchainAppexAsynformFormEx(CreateBlockchainAppexAsynformFormRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateBlockchainAppexAsynformFormResponse>(DoRequest("1.0", "blockchain.appex.asynform.form.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-         * Summary: 单据加密异步上链
-         */
-        public async Task<CreateBlockchainAppexAsynformFormResponse> CreateBlockchainAppexAsynformFormExAsync(CreateBlockchainAppexAsynformFormRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<CreateBlockchainAppexAsynformFormResponse>(await DoRequestAsync("1.0", "blockchain.appex.asynform.form.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
          * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
          * Summary: 单据上链状态查询
          */
@@ -399,6 +357,90 @@ namespace AntChain.SDK.Ak_9468e09a21e84cc8b9a8d4a2de18c792
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryBlockchainAppexAsynformStatusResponse>(await DoRequestAsync("1.0", "blockchain.appex.asynform.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: s
+         * Summary: ss
+         */
+        public BindDemoDemoCheckEeeResponse BindDemoDemoCheckEee(BindDemoDemoCheckEeeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindDemoDemoCheckEeeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: s
+         * Summary: ss
+         */
+        public async Task<BindDemoDemoCheckEeeResponse> BindDemoDemoCheckEeeAsync(BindDemoDemoCheckEeeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindDemoDemoCheckEeeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: s
+         * Summary: ss
+         */
+        public BindDemoDemoCheckEeeResponse BindDemoDemoCheckEeeEx(BindDemoDemoCheckEeeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindDemoDemoCheckEeeResponse>(DoRequest("1.0", "demo.demo.check.eee.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: s
+         * Summary: ss
+         */
+        public async Task<BindDemoDemoCheckEeeResponse> BindDemoDemoCheckEeeExAsync(BindDemoDemoCheckEeeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindDemoDemoCheckEeeResponse>(await DoRequestAsync("1.0", "demo.demo.check.eee.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public BindDemoGatewayAbcTestResponse BindDemoGatewayAbcTest(BindDemoGatewayAbcTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindDemoGatewayAbcTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public async Task<BindDemoGatewayAbcTestResponse> BindDemoGatewayAbcTestAsync(BindDemoGatewayAbcTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindDemoGatewayAbcTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public BindDemoGatewayAbcTestResponse BindDemoGatewayAbcTestEx(BindDemoGatewayAbcTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindDemoGatewayAbcTestResponse>(DoRequest("1.0", "demo.gateway.abc.test.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public async Task<BindDemoGatewayAbcTestResponse> BindDemoGatewayAbcTestExAsync(BindDemoGatewayAbcTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindDemoGatewayAbcTestResponse>(await DoRequestAsync("1.0", "demo.gateway.abc.test.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

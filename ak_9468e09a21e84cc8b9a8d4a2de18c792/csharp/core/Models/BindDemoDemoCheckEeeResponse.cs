@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_9468e09a21e84cc8b9a8d4a2de18c792.Models
 {
-    public class CreateBlockchainAppexAsynformFormResponse : TeaModel {
+    public class BindDemoDemoCheckEeeResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,12 +23,6 @@ namespace AntChain.SDK.Ak_9468e09a21e84cc8b9a8d4a2de18c792.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
-
-        // 交易Hash
-        // 
-        [NameInMap("tx_hash")]
-        [Validation(Required=false)]
-        public string TxHash { get; set; }
 
     }
 
