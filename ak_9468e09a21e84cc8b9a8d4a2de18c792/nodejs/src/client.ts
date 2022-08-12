@@ -77,114 +77,6 @@ export class Config extends $tea.Model {
   }
 }
 
-export class CreateBlockchainAppexAsynformFormRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 上链账户
-  userDid: string;
-  // 联盟ID
-  // 
-  unionId: number;
-  // Channel名称
-  // 
-  channelName: string;
-  // 业务单据号
-  // 
-  formId: string;
-  // 业务单据类型
-  // 
-  formType: string;
-  // 原生单据json字符串
-  formBody: string;
-  // 用户自定义的图ID，开启图功能时传入
-  // 
-  graphId?: string;
-  // 用户自定义的LineNode名称
-  // 
-  lineNode?: string;
-  // 业务数据关联键，一个业务流产生的表单用相同的traceId进行关联
-  traceId?: string;
-  // 表单的直接上游节点formId
-  // 
-  parentFormIdList?: string[];
-  // 表单的直接下游节点formId
-  // 
-  childFormIdList?: string[];
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      userDid: 'user_did',
-      unionId: 'union_id',
-      channelName: 'channel_name',
-      formId: 'form_id',
-      formType: 'form_type',
-      formBody: 'form_body',
-      graphId: 'graph_id',
-      lineNode: 'line_node',
-      traceId: 'trace_id',
-      parentFormIdList: 'parent_form_id_list',
-      childFormIdList: 'child_form_id_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      userDid: 'string',
-      unionId: 'number',
-      channelName: 'string',
-      formId: 'string',
-      formType: 'string',
-      formBody: 'string',
-      graphId: 'string',
-      lineNode: 'string',
-      traceId: 'string',
-      parentFormIdList: { 'type': 'array', 'itemType': 'string' },
-      childFormIdList: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class CreateBlockchainAppexAsynformFormResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 交易Hash
-  // 
-  txHash?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      txHash: 'tx_hash',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      txHash: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class QueryBlockchainAppexAsynformStatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -272,6 +164,108 @@ export class QueryBlockchainAppexAsynformStatusResponse extends $tea.Model {
       createTime: 'string',
       status: 'string',
       txTimestamp: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindDemoDemoCheckEeeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindDemoDemoCheckEeeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindDemoGatewayAbcTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindDemoGatewayAbcTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -393,7 +387,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -440,25 +434,6 @@ export default class Client {
   }
 
   /**
-   * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-   * Summary: 单据加密异步上链
-   */
-  async createBlockchainAppexAsynformForm(request: CreateBlockchainAppexAsynformFormRequest): Promise<CreateBlockchainAppexAsynformFormResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.createBlockchainAppexAsynformFormEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-   * Summary: 单据加密异步上链
-   */
-  async createBlockchainAppexAsynformFormEx(request: CreateBlockchainAppexAsynformFormRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateBlockchainAppexAsynformFormResponse> {
-    Util.validateModel(request);
-    return $tea.cast<CreateBlockchainAppexAsynformFormResponse>(await this.doRequest("1.0", "blockchain.appex.asynform.form.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateBlockchainAppexAsynformFormResponse({}));
-  }
-
-  /**
    * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
    * Summary: 单据上链状态查询
    */
@@ -475,6 +450,44 @@ export default class Client {
   async queryBlockchainAppexAsynformStatusEx(request: QueryBlockchainAppexAsynformStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBlockchainAppexAsynformStatusResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryBlockchainAppexAsynformStatusResponse>(await this.doRequest("1.0", "blockchain.appex.asynform.status.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBlockchainAppexAsynformStatusResponse({}));
+  }
+
+  /**
+   * Description: s
+   * Summary: ss
+   */
+  async bindDemoDemoCheckEee(request: BindDemoDemoCheckEeeRequest): Promise<BindDemoDemoCheckEeeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindDemoDemoCheckEeeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: s
+   * Summary: ss
+   */
+  async bindDemoDemoCheckEeeEx(request: BindDemoDemoCheckEeeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoDemoCheckEeeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindDemoDemoCheckEeeResponse>(await this.doRequest("1.0", "demo.demo.check.eee.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoDemoCheckEeeResponse({}));
+  }
+
+  /**
+   * Description: test
+   * Summary: test
+   */
+  async bindDemoGatewayAbcTest(request: BindDemoGatewayAbcTestRequest): Promise<BindDemoGatewayAbcTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindDemoGatewayAbcTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: test
+   * Summary: test
+   */
+  async bindDemoGatewayAbcTestEx(request: BindDemoGatewayAbcTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoGatewayAbcTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindDemoGatewayAbcTestResponse>(await this.doRequest("1.0", "demo.gateway.abc.test.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoGatewayAbcTestResponse({}));
   }
 
 }
