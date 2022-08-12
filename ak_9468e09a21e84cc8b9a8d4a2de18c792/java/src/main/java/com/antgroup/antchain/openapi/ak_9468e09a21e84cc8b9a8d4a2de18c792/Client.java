@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0")
+                    new TeaPair("sdk_version", "1.0.1")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -160,25 +160,6 @@ public class Client {
     }
 
     /**
-     * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-     * Summary: 单据加密异步上链
-     */
-    public CreateBlockchainAppexAsynformFormResponse createBlockchainAppexAsynformForm(CreateBlockchainAppexAsynformFormRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.createBlockchainAppexAsynformFormEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-     * Summary: 单据加密异步上链
-     */
-    public CreateBlockchainAppexAsynformFormResponse createBlockchainAppexAsynformFormEx(CreateBlockchainAppexAsynformFormRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.asynform.form.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBlockchainAppexAsynformFormResponse());
-    }
-
-    /**
      * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
      * Summary: 单据上链状态查询
      */
@@ -195,5 +176,43 @@ public class Client {
     public QueryBlockchainAppexAsynformStatusResponse queryBlockchainAppexAsynformStatusEx(QueryBlockchainAppexAsynformStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.asynform.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBlockchainAppexAsynformStatusResponse());
+    }
+
+    /**
+     * Description: s
+     * Summary: ss
+     */
+    public BindDemoDemoCheckEeeResponse bindDemoDemoCheckEee(BindDemoDemoCheckEeeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDemoDemoCheckEeeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: s
+     * Summary: ss
+     */
+    public BindDemoDemoCheckEeeResponse bindDemoDemoCheckEeeEx(BindDemoDemoCheckEeeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.demo.check.eee.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoDemoCheckEeeResponse());
+    }
+
+    /**
+     * Description: test
+     * Summary: test
+     */
+    public BindDemoGatewayAbcTestResponse bindDemoGatewayAbcTest(BindDemoGatewayAbcTestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDemoGatewayAbcTestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test
+     */
+    public BindDemoGatewayAbcTestResponse bindDemoGatewayAbcTestEx(BindDemoGatewayAbcTestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.gateway.abc.test.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoGatewayAbcTestResponse());
     }
 }
