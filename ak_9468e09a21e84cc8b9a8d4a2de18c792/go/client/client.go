@@ -148,155 +148,6 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-type CreateBlockchainAppexAsynformFormRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 上链账户
-	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty" require:"true"`
-	// 联盟ID
-	//
-	UnionId *int64 `json:"union_id,omitempty" xml:"union_id,omitempty" require:"true"`
-	// Channel名称
-	//
-	ChannelName *string `json:"channel_name,omitempty" xml:"channel_name,omitempty" require:"true"`
-	// 业务单据号
-	//
-	FormId *string `json:"form_id,omitempty" xml:"form_id,omitempty" require:"true"`
-	// 业务单据类型
-	//
-	FormType *string `json:"form_type,omitempty" xml:"form_type,omitempty" require:"true"`
-	// 原生单据json字符串
-	FormBody *string `json:"form_body,omitempty" xml:"form_body,omitempty" require:"true"`
-	// 用户自定义的图ID，开启图功能时传入
-	//
-	GraphId *string `json:"graph_id,omitempty" xml:"graph_id,omitempty"`
-	// 用户自定义的LineNode名称
-	//
-	LineNode *string `json:"line_node,omitempty" xml:"line_node,omitempty"`
-	// 业务数据关联键，一个业务流产生的表单用相同的traceId进行关联
-	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
-	// 表单的直接上游节点formId
-	//
-	ParentFormIdList []*string `json:"parent_form_id_list,omitempty" xml:"parent_form_id_list,omitempty" type:"Repeated"`
-	// 表单的直接下游节点formId
-	//
-	ChildFormIdList []*string `json:"child_form_id_list,omitempty" xml:"child_form_id_list,omitempty" type:"Repeated"`
-}
-
-func (s CreateBlockchainAppexAsynformFormRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreateBlockchainAppexAsynformFormRequest) GoString() string {
-	return s.String()
-}
-
-func (s *CreateBlockchainAppexAsynformFormRequest) SetAuthToken(v string) *CreateBlockchainAppexAsynformFormRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormRequest) SetProductInstanceId(v string) *CreateBlockchainAppexAsynformFormRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormRequest) SetUserDid(v string) *CreateBlockchainAppexAsynformFormRequest {
-	s.UserDid = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormRequest) SetUnionId(v int64) *CreateBlockchainAppexAsynformFormRequest {
-	s.UnionId = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormRequest) SetChannelName(v string) *CreateBlockchainAppexAsynformFormRequest {
-	s.ChannelName = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormRequest) SetFormId(v string) *CreateBlockchainAppexAsynformFormRequest {
-	s.FormId = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormRequest) SetFormType(v string) *CreateBlockchainAppexAsynformFormRequest {
-	s.FormType = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormRequest) SetFormBody(v string) *CreateBlockchainAppexAsynformFormRequest {
-	s.FormBody = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormRequest) SetGraphId(v string) *CreateBlockchainAppexAsynformFormRequest {
-	s.GraphId = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormRequest) SetLineNode(v string) *CreateBlockchainAppexAsynformFormRequest {
-	s.LineNode = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormRequest) SetTraceId(v string) *CreateBlockchainAppexAsynformFormRequest {
-	s.TraceId = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormRequest) SetParentFormIdList(v []*string) *CreateBlockchainAppexAsynformFormRequest {
-	s.ParentFormIdList = v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormRequest) SetChildFormIdList(v []*string) *CreateBlockchainAppexAsynformFormRequest {
-	s.ChildFormIdList = v
-	return s
-}
-
-type CreateBlockchainAppexAsynformFormResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 交易Hash
-	//
-	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
-}
-
-func (s CreateBlockchainAppexAsynformFormResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreateBlockchainAppexAsynformFormResponse) GoString() string {
-	return s.String()
-}
-
-func (s *CreateBlockchainAppexAsynformFormResponse) SetReqMsgId(v string) *CreateBlockchainAppexAsynformFormResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormResponse) SetResultCode(v string) *CreateBlockchainAppexAsynformFormResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormResponse) SetResultMsg(v string) *CreateBlockchainAppexAsynformFormResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *CreateBlockchainAppexAsynformFormResponse) SetTxHash(v string) *CreateBlockchainAppexAsynformFormResponse {
-	s.TxHash = &v
-	return s
-}
-
 type QueryBlockchainAppexAsynformStatusRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -424,6 +275,118 @@ func (s *QueryBlockchainAppexAsynformStatusResponse) SetTxTimestamp(v string) *Q
 	return s
 }
 
+type BindDemoDemoCheckEeeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s BindDemoDemoCheckEeeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoDemoCheckEeeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoDemoCheckEeeRequest) SetAuthToken(v string) *BindDemoDemoCheckEeeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindDemoDemoCheckEeeRequest) SetProductInstanceId(v string) *BindDemoDemoCheckEeeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type BindDemoDemoCheckEeeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindDemoDemoCheckEeeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoDemoCheckEeeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoDemoCheckEeeResponse) SetReqMsgId(v string) *BindDemoDemoCheckEeeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindDemoDemoCheckEeeResponse) SetResultCode(v string) *BindDemoDemoCheckEeeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindDemoDemoCheckEeeResponse) SetResultMsg(v string) *BindDemoDemoCheckEeeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type BindDemoGatewayAbcTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s BindDemoGatewayAbcTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoGatewayAbcTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoGatewayAbcTestRequest) SetAuthToken(v string) *BindDemoGatewayAbcTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindDemoGatewayAbcTestRequest) SetProductInstanceId(v string) *BindDemoGatewayAbcTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type BindDemoGatewayAbcTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindDemoGatewayAbcTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoGatewayAbcTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoGatewayAbcTestResponse) SetReqMsgId(v string) *BindDemoGatewayAbcTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindDemoGatewayAbcTestResponse) SetResultCode(v string) *BindDemoGatewayAbcTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindDemoGatewayAbcTestResponse) SetResultMsg(v string) *BindDemoGatewayAbcTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -546,7 +509,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -595,40 +558,6 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
- * Summary: 单据加密异步上链
- */
-func (client *Client) CreateBlockchainAppexAsynformForm(request *CreateBlockchainAppexAsynformFormRequest) (_result *CreateBlockchainAppexAsynformFormResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &CreateBlockchainAppexAsynformFormResponse{}
-	_body, _err := client.CreateBlockchainAppexAsynformFormEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
- * Summary: 单据加密异步上链
- */
-func (client *Client) CreateBlockchainAppexAsynformFormEx(request *CreateBlockchainAppexAsynformFormRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateBlockchainAppexAsynformFormResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &CreateBlockchainAppexAsynformFormResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.asynform.form.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
  * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
  * Summary: 单据上链状态查询
  */
@@ -655,6 +584,74 @@ func (client *Client) QueryBlockchainAppexAsynformStatusEx(request *QueryBlockch
 	}
 	_result = &QueryBlockchainAppexAsynformStatusResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.asynform.status.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: s
+ * Summary: ss
+ */
+func (client *Client) BindDemoDemoCheckEee(request *BindDemoDemoCheckEeeRequest) (_result *BindDemoDemoCheckEeeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindDemoDemoCheckEeeResponse{}
+	_body, _err := client.BindDemoDemoCheckEeeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: s
+ * Summary: ss
+ */
+func (client *Client) BindDemoDemoCheckEeeEx(request *BindDemoDemoCheckEeeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoDemoCheckEeeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindDemoDemoCheckEeeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.demo.check.eee.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+func (client *Client) BindDemoGatewayAbcTest(request *BindDemoGatewayAbcTestRequest) (_result *BindDemoGatewayAbcTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindDemoGatewayAbcTestResponse{}
+	_body, _err := client.BindDemoGatewayAbcTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+func (client *Client) BindDemoGatewayAbcTestEx(request *BindDemoGatewayAbcTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoGatewayAbcTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindDemoGatewayAbcTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.gateway.abc.test.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
