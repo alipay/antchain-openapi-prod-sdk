@@ -11,8 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_9468e09a21e84cc8b9a8d4a2de18c792\Models\CreateBlockchainAppexAsynformFormRequest;
-use AntChain\Ak_9468e09a21e84cc8b9a8d4a2de18c792\Models\CreateBlockchainAppexAsynformFormResponse;
+use AntChain\Ak_9468e09a21e84cc8b9a8d4a2de18c792\Models\BindDemoDemoCheckEeeRequest;
+use AntChain\Ak_9468e09a21e84cc8b9a8d4a2de18c792\Models\BindDemoDemoCheckEeeResponse;
+use AntChain\Ak_9468e09a21e84cc8b9a8d4a2de18c792\Models\BindDemoGatewayAbcTestRequest;
+use AntChain\Ak_9468e09a21e84cc8b9a8d4a2de18c792\Models\BindDemoGatewayAbcTestResponse;
 use AntChain\Ak_9468e09a21e84cc8b9a8d4a2de18c792\Models\QueryBlockchainAppexAsynformStatusRequest;
 use AntChain\Ak_9468e09a21e84cc8b9a8d4a2de18c792\Models\QueryBlockchainAppexAsynformStatusResponse;
 use AntChain\Util\UtilClient;
@@ -161,7 +163,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -208,39 +210,6 @@ class Client
     }
 
     /**
-     * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-     * Summary: 单据加密异步上链.
-     *
-     * @param CreateBlockchainAppexAsynformFormRequest $request
-     *
-     * @return CreateBlockchainAppexAsynformFormResponse
-     */
-    public function createBlockchainAppexAsynformForm($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->createBlockchainAppexAsynformFormEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-     * Summary: 单据加密异步上链.
-     *
-     * @param CreateBlockchainAppexAsynformFormRequest $request
-     * @param string[]                                 $headers
-     * @param RuntimeOptions                           $runtime
-     *
-     * @return CreateBlockchainAppexAsynformFormResponse
-     */
-    public function createBlockchainAppexAsynformFormEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return CreateBlockchainAppexAsynformFormResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.asynform.form.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 单据上链状态查询，异步上链后查询交易是否成功上链
      * Summary: 单据上链状态查询.
      *
@@ -271,5 +240,71 @@ class Client
         Utils::validateModel($request);
 
         return QueryBlockchainAppexAsynformStatusResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.asynform.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: s
+     * Summary: ss.
+     *
+     * @param BindDemoDemoCheckEeeRequest $request
+     *
+     * @return BindDemoDemoCheckEeeResponse
+     */
+    public function bindDemoDemoCheckEee($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoDemoCheckEeeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: s
+     * Summary: ss.
+     *
+     * @param BindDemoDemoCheckEeeRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return BindDemoDemoCheckEeeResponse
+     */
+    public function bindDemoDemoCheckEeeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoDemoCheckEeeResponse::fromMap($this->doRequest('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param BindDemoGatewayAbcTestRequest $request
+     *
+     * @return BindDemoGatewayAbcTestResponse
+     */
+    public function bindDemoGatewayAbcTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoGatewayAbcTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param BindDemoGatewayAbcTestRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return BindDemoGatewayAbcTestResponse
+     */
+    public function bindDemoGatewayAbcTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoGatewayAbcTestResponse::fromMap($this->doRequest('1.0', 'demo.gateway.abc.test.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -6,7 +6,7 @@ namespace AntChain\Ak_9468e09a21e84cc8b9a8d4a2de18c792\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateBlockchainAppexAsynformFormResponse extends Model
+class BindDemoGatewayAbcTestResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,18 +25,10 @@ class CreateBlockchainAppexAsynformFormResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 交易Hash
-    //
-    /**
-     * @var string
-     */
-    public $txHash;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'txHash'     => 'tx_hash',
     ];
 
     public function validate()
@@ -55,9 +47,6 @@ class CreateBlockchainAppexAsynformFormResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->txHash) {
-            $res['tx_hash'] = $this->txHash;
-        }
 
         return $res;
     }
@@ -65,7 +54,7 @@ class CreateBlockchainAppexAsynformFormResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateBlockchainAppexAsynformFormResponse
+     * @return BindDemoGatewayAbcTestResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,9 +67,6 @@ class CreateBlockchainAppexAsynformFormResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['tx_hash'])) {
-            $model->txHash = $map['tx_hash'];
         }
 
         return $model;
