@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -235,7 +235,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.1'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -268,62 +268,6 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
-
-    def create_blockchain_appex_asynform_form(
-        self,
-        request: ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.CreateBlockchainAppexAsynformFormRequest,
-    ) -> ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.CreateBlockchainAppexAsynformFormResponse:
-        """
-        Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-        Summary: 单据加密异步上链
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_blockchain_appex_asynform_form_ex(request, headers, runtime)
-
-    async def create_blockchain_appex_asynform_form_async(
-        self,
-        request: ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.CreateBlockchainAppexAsynformFormRequest,
-    ) -> ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.CreateBlockchainAppexAsynformFormResponse:
-        """
-        Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-        Summary: 单据加密异步上链
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.create_blockchain_appex_asynform_form_ex_async(request, headers, runtime)
-
-    def create_blockchain_appex_asynform_form_ex(
-        self,
-        request: ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.CreateBlockchainAppexAsynformFormRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.CreateBlockchainAppexAsynformFormResponse:
-        """
-        Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-        Summary: 单据加密异步上链
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.CreateBlockchainAppexAsynformFormResponse(),
-            self.do_request('1.0', 'blockchain.appex.asynform.form.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def create_blockchain_appex_asynform_form_ex_async(
-        self,
-        request: ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.CreateBlockchainAppexAsynformFormRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.CreateBlockchainAppexAsynformFormResponse:
-        """
-        Description: 单据加密异步上链，返回哈希，后续需要查询上链状态以确定是否成功上链
-        Summary: 单据加密异步上链
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.CreateBlockchainAppexAsynformFormResponse(),
-            await self.do_request_async('1.0', 'blockchain.appex.asynform.form.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
 
     def query_blockchain_appex_asynform_status(
         self,
@@ -379,4 +323,116 @@ class Client:
         return TeaCore.from_map(
             ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.QueryBlockchainAppexAsynformStatusResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.asynform.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_demo_demo_check_eee(
+        self,
+        request: ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoDemoCheckEeeRequest,
+    ) -> ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoDemoCheckEeeResponse:
+        """
+        Description: s
+        Summary: ss
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_demo_demo_check_eee_ex(request, headers, runtime)
+
+    async def bind_demo_demo_check_eee_async(
+        self,
+        request: ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoDemoCheckEeeRequest,
+    ) -> ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoDemoCheckEeeResponse:
+        """
+        Description: s
+        Summary: ss
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_demo_demo_check_eee_ex_async(request, headers, runtime)
+
+    def bind_demo_demo_check_eee_ex(
+        self,
+        request: ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoDemoCheckEeeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoDemoCheckEeeResponse:
+        """
+        Description: s
+        Summary: ss
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoDemoCheckEeeResponse(),
+            self.do_request('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_demo_demo_check_eee_ex_async(
+        self,
+        request: ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoDemoCheckEeeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoDemoCheckEeeResponse:
+        """
+        Description: s
+        Summary: ss
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoDemoCheckEeeResponse(),
+            await self.do_request_async('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_demo_gateway_abc_test(
+        self,
+        request: ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoGatewayAbcTestRequest,
+    ) -> ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoGatewayAbcTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_demo_gateway_abc_test_ex(request, headers, runtime)
+
+    async def bind_demo_gateway_abc_test_async(
+        self,
+        request: ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoGatewayAbcTestRequest,
+    ) -> ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoGatewayAbcTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_demo_gateway_abc_test_ex_async(request, headers, runtime)
+
+    def bind_demo_gateway_abc_test_ex(
+        self,
+        request: ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoGatewayAbcTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoGatewayAbcTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoGatewayAbcTestResponse(),
+            self.do_request('1.0', 'demo.gateway.abc.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_demo_gateway_abc_test_ex_async(
+        self,
+        request: ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoGatewayAbcTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoGatewayAbcTestResponse:
+        """
+        Description: test
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__9468e_09a_21e_84cc_8b_9a_8d_4a_2de_18c_792_models.BindDemoGatewayAbcTestResponse(),
+            await self.do_request_async('1.0', 'demo.gateway.abc.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

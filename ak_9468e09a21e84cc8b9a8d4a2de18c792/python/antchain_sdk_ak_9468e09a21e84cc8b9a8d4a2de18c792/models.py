@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from typing import List
 
 
 class Config(TeaModel):
@@ -154,180 +153,6 @@ class Config(TeaModel):
         return self
 
 
-class CreateBlockchainAppexAsynformFormRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        user_did: str = None,
-        union_id: int = None,
-        channel_name: str = None,
-        form_id: str = None,
-        form_type: str = None,
-        form_body: str = None,
-        graph_id: str = None,
-        line_node: str = None,
-        trace_id: str = None,
-        parent_form_id_list: List[str] = None,
-        child_form_id_list: List[str] = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 上链账户
-        self.user_did = user_did
-        # 联盟ID
-        # 
-        self.union_id = union_id
-        # Channel名称
-        # 
-        self.channel_name = channel_name
-        # 业务单据号
-        # 
-        self.form_id = form_id
-        # 业务单据类型
-        # 
-        self.form_type = form_type
-        # 原生单据json字符串
-        self.form_body = form_body
-        # 用户自定义的图ID，开启图功能时传入
-        # 
-        self.graph_id = graph_id
-        # 用户自定义的LineNode名称
-        # 
-        self.line_node = line_node
-        # 业务数据关联键，一个业务流产生的表单用相同的traceId进行关联
-        self.trace_id = trace_id
-        # 表单的直接上游节点formId
-        # 
-        self.parent_form_id_list = parent_form_id_list
-        # 表单的直接下游节点formId
-        # 
-        self.child_form_id_list = child_form_id_list
-
-    def validate(self):
-        self.validate_required(self.user_did, 'user_did')
-        self.validate_required(self.union_id, 'union_id')
-        self.validate_required(self.channel_name, 'channel_name')
-        self.validate_required(self.form_id, 'form_id')
-        self.validate_required(self.form_type, 'form_type')
-        self.validate_required(self.form_body, 'form_body')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.user_did is not None:
-            result['user_did'] = self.user_did
-        if self.union_id is not None:
-            result['union_id'] = self.union_id
-        if self.channel_name is not None:
-            result['channel_name'] = self.channel_name
-        if self.form_id is not None:
-            result['form_id'] = self.form_id
-        if self.form_type is not None:
-            result['form_type'] = self.form_type
-        if self.form_body is not None:
-            result['form_body'] = self.form_body
-        if self.graph_id is not None:
-            result['graph_id'] = self.graph_id
-        if self.line_node is not None:
-            result['line_node'] = self.line_node
-        if self.trace_id is not None:
-            result['trace_id'] = self.trace_id
-        if self.parent_form_id_list is not None:
-            result['parent_form_id_list'] = self.parent_form_id_list
-        if self.child_form_id_list is not None:
-            result['child_form_id_list'] = self.child_form_id_list
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('user_did') is not None:
-            self.user_did = m.get('user_did')
-        if m.get('union_id') is not None:
-            self.union_id = m.get('union_id')
-        if m.get('channel_name') is not None:
-            self.channel_name = m.get('channel_name')
-        if m.get('form_id') is not None:
-            self.form_id = m.get('form_id')
-        if m.get('form_type') is not None:
-            self.form_type = m.get('form_type')
-        if m.get('form_body') is not None:
-            self.form_body = m.get('form_body')
-        if m.get('graph_id') is not None:
-            self.graph_id = m.get('graph_id')
-        if m.get('line_node') is not None:
-            self.line_node = m.get('line_node')
-        if m.get('trace_id') is not None:
-            self.trace_id = m.get('trace_id')
-        if m.get('parent_form_id_list') is not None:
-            self.parent_form_id_list = m.get('parent_form_id_list')
-        if m.get('child_form_id_list') is not None:
-            self.child_form_id_list = m.get('child_form_id_list')
-        return self
-
-
-class CreateBlockchainAppexAsynformFormResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        tx_hash: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 交易Hash
-        # 
-        self.tx_hash = tx_hash
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.tx_hash is not None:
-            result['tx_hash'] = self.tx_hash
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('tx_hash') is not None:
-            self.tx_hash = m.get('tx_hash')
-        return self
-
-
 class QueryBlockchainAppexAsynformStatusRequest(TeaModel):
     def __init__(
         self,
@@ -475,6 +300,158 @@ class QueryBlockchainAppexAsynformStatusResponse(TeaModel):
             self.status = m.get('status')
         if m.get('tx_timestamp') is not None:
             self.tx_timestamp = m.get('tx_timestamp')
+        return self
+
+
+class BindDemoDemoCheckEeeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        return self
+
+
+class BindDemoDemoCheckEeeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class BindDemoGatewayAbcTestRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        return self
+
+
+class BindDemoGatewayAbcTestResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
