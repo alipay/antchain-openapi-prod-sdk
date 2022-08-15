@@ -703,6 +703,8 @@ type CertifyServermodeRequest struct {
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty" require:"true"`
 	// 用户身份信息
 	IdentityParam *string `json:"identity_param,omitempty" xml:"identity_param,omitempty" require:"true"`
+	// 计费规则码
+	ChargeCode *string `json:"charge_code,omitempty" xml:"charge_code,omitempty" require:"true"`
 	// 待认证图片，默认base64格式
 	AuthImg *string `json:"auth_img,omitempty" xml:"auth_img,omitempty" require:"true"`
 	// 待认证图片类型，不传默认为base64后的图片，可以扩展Blob/video等类型
@@ -743,6 +745,11 @@ func (s *CertifyServermodeRequest) SetExternParam(v string) *CertifyServermodeRe
 
 func (s *CertifyServermodeRequest) SetIdentityParam(v string) *CertifyServermodeRequest {
 	s.IdentityParam = &v
+	return s
+}
+
+func (s *CertifyServermodeRequest) SetChargeCode(v string) *CertifyServermodeRequest {
+	s.ChargeCode = &v
 	return s
 }
 
@@ -1432,7 +1439,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.14"),
+				"sdk_version":      tea.String("1.1.15"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
