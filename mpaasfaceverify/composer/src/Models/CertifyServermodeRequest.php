@@ -37,6 +37,12 @@ class CertifyServermodeRequest extends Model
      */
     public $identityParam;
 
+    // 计费规则码
+    /**
+     * @var string
+     */
+    public $chargeCode;
+
     // 待认证图片，默认base64格式
     /**
      * @var string
@@ -66,6 +72,7 @@ class CertifyServermodeRequest extends Model
         'bizId'             => 'biz_id',
         'externParam'       => 'extern_param',
         'identityParam'     => 'identity_param',
+        'chargeCode'        => 'charge_code',
         'authImg'           => 'auth_img',
         'authImgType'       => 'auth_img_type',
         'operationType'     => 'operation_type',
@@ -77,6 +84,7 @@ class CertifyServermodeRequest extends Model
         Model::validateRequired('bizId', $this->bizId, true);
         Model::validateRequired('externParam', $this->externParam, true);
         Model::validateRequired('identityParam', $this->identityParam, true);
+        Model::validateRequired('chargeCode', $this->chargeCode, true);
         Model::validateRequired('authImg', $this->authImg, true);
     }
 
@@ -97,6 +105,9 @@ class CertifyServermodeRequest extends Model
         }
         if (null !== $this->identityParam) {
             $res['identity_param'] = $this->identityParam;
+        }
+        if (null !== $this->chargeCode) {
+            $res['charge_code'] = $this->chargeCode;
         }
         if (null !== $this->authImg) {
             $res['auth_img'] = $this->authImg;
@@ -136,6 +147,9 @@ class CertifyServermodeRequest extends Model
         }
         if (isset($map['identity_param'])) {
             $model->identityParam = $map['identity_param'];
+        }
+        if (isset($map['charge_code'])) {
+            $model->chargeCode = $map['charge_code'];
         }
         if (isset($map['auth_img'])) {
             $model->authImg = $map['auth_img'];
