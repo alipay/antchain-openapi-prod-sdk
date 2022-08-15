@@ -496,6 +496,8 @@ export class CertifyServermodeRequest extends $tea.Model {
   externParam: string;
   // 用户身份信息
   identityParam: string;
+  // 计费规则码
+  chargeCode: string;
   // 待认证图片，默认base64格式
   authImg: string;
   // 待认证图片类型，不传默认为base64后的图片，可以扩展Blob/video等类型
@@ -511,6 +513,7 @@ export class CertifyServermodeRequest extends $tea.Model {
       bizId: 'biz_id',
       externParam: 'extern_param',
       identityParam: 'identity_param',
+      chargeCode: 'charge_code',
       authImg: 'auth_img',
       authImgType: 'auth_img_type',
       operationType: 'operation_type',
@@ -525,6 +528,7 @@ export class CertifyServermodeRequest extends $tea.Model {
       bizId: 'string',
       externParam: 'string',
       identityParam: 'string',
+      chargeCode: 'string',
       authImg: 'string',
       authImgType: 'string',
       operationType: 'string',
@@ -1047,7 +1051,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.14",
+          sdk_version: "1.1.15",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
