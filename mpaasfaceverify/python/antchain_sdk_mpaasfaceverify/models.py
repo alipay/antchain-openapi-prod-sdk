@@ -811,6 +811,7 @@ class CertifyServermodeRequest(TeaModel):
         biz_id: str = None,
         extern_param: str = None,
         identity_param: str = None,
+        charge_code: str = None,
         auth_img: str = None,
         auth_img_type: str = None,
         operation_type: str = None,
@@ -825,6 +826,8 @@ class CertifyServermodeRequest(TeaModel):
         self.extern_param = extern_param
         # 用户身份信息
         self.identity_param = identity_param
+        # 计费规则码
+        self.charge_code = charge_code
         # 待认证图片，默认base64格式
         self.auth_img = auth_img
         # 待认证图片类型，不传默认为base64后的图片，可以扩展Blob/video等类型
@@ -838,6 +841,7 @@ class CertifyServermodeRequest(TeaModel):
         self.validate_required(self.biz_id, 'biz_id')
         self.validate_required(self.extern_param, 'extern_param')
         self.validate_required(self.identity_param, 'identity_param')
+        self.validate_required(self.charge_code, 'charge_code')
         self.validate_required(self.auth_img, 'auth_img')
 
     def to_map(self):
@@ -856,6 +860,8 @@ class CertifyServermodeRequest(TeaModel):
             result['extern_param'] = self.extern_param
         if self.identity_param is not None:
             result['identity_param'] = self.identity_param
+        if self.charge_code is not None:
+            result['charge_code'] = self.charge_code
         if self.auth_img is not None:
             result['auth_img'] = self.auth_img
         if self.auth_img_type is not None:
@@ -878,6 +884,8 @@ class CertifyServermodeRequest(TeaModel):
             self.extern_param = m.get('extern_param')
         if m.get('identity_param') is not None:
             self.identity_param = m.get('identity_param')
+        if m.get('charge_code') is not None:
+            self.charge_code = m.get('charge_code')
         if m.get('auth_img') is not None:
             self.auth_img = m.get('auth_img')
         if m.get('auth_img_type') is not None:
