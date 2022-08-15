@@ -33,6 +33,11 @@ namespace AntChain.SDK.MPAASFACEVERIFY.Models
         [Validation(Required=true)]
         public string IdentityParam { get; set; }
 
+        // 计费规则码
+        [NameInMap("charge_code")]
+        [Validation(Required=true)]
+        public string ChargeCode { get; set; }
+
         // 待认证图片，默认base64格式
         [NameInMap("auth_img")]
         [Validation(Required=true)]
