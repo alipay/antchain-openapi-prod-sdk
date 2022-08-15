@@ -1627,62 +1627,6 @@ func (s *VerifyAntchainBbpMetaResponse) SetResult(v *CustomerAuthResult) *Verify
 	return s
 }
 
-type BindDemoDemoCheckEeeRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s BindDemoDemoCheckEeeRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoDemoCheckEeeRequest) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoDemoCheckEeeRequest) SetAuthToken(v string) *BindDemoDemoCheckEeeRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *BindDemoDemoCheckEeeRequest) SetProductInstanceId(v string) *BindDemoDemoCheckEeeRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type BindDemoDemoCheckEeeResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s BindDemoDemoCheckEeeResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoDemoCheckEeeResponse) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoDemoCheckEeeResponse) SetReqMsgId(v string) *BindDemoDemoCheckEeeResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *BindDemoDemoCheckEeeResponse) SetResultCode(v string) *BindDemoDemoCheckEeeResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *BindDemoDemoCheckEeeResponse) SetResultMsg(v string) *BindDemoDemoCheckEeeResponse {
-	s.ResultMsg = &v
-	return s
-}
-
 type CheckSaasSecurityInfosecHoloxcontentcheckserviceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2344,7 +2288,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.6"),
+				"sdk_version":      tea.String("1.0.7"),
+				"_prod_code":       tea.String("ak_5bb1b66c4aab4cc998c05a36078e45c1"),
+				"_prod_channel":    tea.String("saas"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2589,40 +2535,6 @@ func (client *Client) VerifyAntchainBbpMetaEx(request *VerifyAntchainBbpMetaRequ
 	}
 	_result = &VerifyAntchainBbpMetaResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.meta.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: s
- * Summary: ss
- */
-func (client *Client) BindDemoDemoCheckEee(request *BindDemoDemoCheckEeeRequest) (_result *BindDemoDemoCheckEeeResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &BindDemoDemoCheckEeeResponse{}
-	_body, _err := client.BindDemoDemoCheckEeeEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: s
- * Summary: ss
- */
-func (client *Client) BindDemoDemoCheckEeeEx(request *BindDemoDemoCheckEeeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoDemoCheckEeeResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &BindDemoDemoCheckEeeResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.demo.check.eee.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
