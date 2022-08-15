@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "MPAASFACEVERIFY",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-mpaasfaceverify:1.1.14",
-    "go": "github.com/antchain-openapi-sdk-go/mpaasfaceverify/client:v1.1.14",
-    "csharp": "AntChain.SDK.MPAASFACEVERIFY:1.1.14",
-    "ts": "@antchain/mpaasfaceverify:1.1.14",
-    "php": "antchain/mpaasfaceverify:1.1.14",
-    "python": "antchain_sdk_mpaasfaceverify:1.1.14"
+    "java": "com.antgroup.antchain.openapi:openapi-mpaasfaceverify:1.1.15",
+    "go": "github.com/antchain-openapi-sdk-go/mpaasfaceverify/client:v1.1.15",
+    "csharp": "AntChain.SDK.MPAASFACEVERIFY:1.1.15",
+    "ts": "@antchain/mpaasfaceverify:1.1.15",
+    "php": "antchain/mpaasfaceverify:1.1.15",
+    "python": "antchain_sdk_mpaasfaceverify:1.1.15"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
