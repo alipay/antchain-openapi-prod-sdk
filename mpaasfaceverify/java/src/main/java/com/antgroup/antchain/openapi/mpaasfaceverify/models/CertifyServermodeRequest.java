@@ -26,6 +26,11 @@ public class CertifyServermodeRequest extends TeaModel {
     @Validation(required = true)
     public String identityParam;
 
+    // 计费规则码
+    @NameInMap("charge_code")
+    @Validation(required = true)
+    public String chargeCode;
+
     // 待认证图片，默认base64格式
     @NameInMap("auth_img")
     @Validation(required = true)
@@ -86,6 +91,14 @@ public class CertifyServermodeRequest extends TeaModel {
     }
     public String getIdentityParam() {
         return this.identityParam;
+    }
+
+    public CertifyServermodeRequest setChargeCode(String chargeCode) {
+        this.chargeCode = chargeCode;
+        return this;
+    }
+    public String getChargeCode() {
+        return this.chargeCode;
     }
 
     public CertifyServermodeRequest setAuthImg(String authImg) {
