@@ -38,6 +38,11 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=true)]
         public string Subject { get; set; }
 
+        // 订单超时时间，秒级
+        [NameInMap("timeout_expire_second")]
+        [Validation(Required=true)]
+        public long? TimeoutExpireSecond { get; set; }
+
     }
 
 }
