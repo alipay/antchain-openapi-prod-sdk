@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.5")
+                    new TeaPair("sdk_version", "1.5.0"),
+                    new TeaPair("_prod_code", "NFTX"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -385,5 +387,62 @@ public class Client {
     public ApplyNftTransferbyprojectwithchanneltenantResponse applyNftTransferbyprojectwithchanneltenantEx(ApplyNftTransferbyprojectwithchanneltenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.nft.transferbyprojectwithchanneltenant.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyNftTransferbyprojectwithchanneltenantResponse());
+    }
+
+    /**
+     * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+     * Summary: 校验藏品归属及查询相应藏品信息
+     */
+    public QueryNftAssetResponse queryNftAsset(QueryNftAssetRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryNftAssetEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+     * Summary: 校验藏品归属及查询相应藏品信息
+     */
+    public QueryNftAssetResponse queryNftAssetEx(QueryNftAssetRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.nft.asset.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNftAssetResponse());
+    }
+
+    /**
+     * Description: 基于直付通模式的开放订单支付接口
+     * Summary: 开放订单支付接口
+     */
+    public PayOrderDataResponse payOrderData(PayOrderDataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.payOrderDataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 基于直付通模式的开放订单支付接口
+     * Summary: 开放订单支付接口
+     */
+    public PayOrderDataResponse payOrderDataEx(PayOrderDataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.order.data.pay", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PayOrderDataResponse());
+    }
+
+    /**
+     * Description: 拿authcode换token
+     * Summary: 拿authcode换token
+     */
+    public ApplyOauthTokenResponse applyOauthToken(ApplyOauthTokenRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyOauthTokenEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 拿authcode换token
+     * Summary: 拿authcode换token
+     */
+    public ApplyOauthTokenResponse applyOauthTokenEx(ApplyOauthTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftx.oauth.token.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyOauthTokenResponse());
     }
 }
