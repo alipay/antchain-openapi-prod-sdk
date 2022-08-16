@@ -31,6 +31,11 @@ public class PayOrderDataRequest extends TeaModel {
     @Validation(required = true)
     public String subject;
 
+    // 订单超时时间，秒级
+    @NameInMap("timeout_expire_second")
+    @Validation(required = true)
+    public Long timeoutExpireSecond;
+
     public static PayOrderDataRequest build(java.util.Map<String, ?> map) throws Exception {
         PayOrderDataRequest self = new PayOrderDataRequest();
         return TeaModel.build(map, self);
@@ -82,6 +87,14 @@ public class PayOrderDataRequest extends TeaModel {
     }
     public String getSubject() {
         return this.subject;
+    }
+
+    public PayOrderDataRequest setTimeoutExpireSecond(Long timeoutExpireSecond) {
+        this.timeoutExpireSecond = timeoutExpireSecond;
+        return this;
+    }
+    public Long getTimeoutExpireSecond() {
+        return this.timeoutExpireSecond;
     }
 
 }
