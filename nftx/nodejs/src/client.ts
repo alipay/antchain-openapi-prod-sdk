@@ -1314,6 +1314,8 @@ export class PayOrderDataRequest extends $tea.Model {
   payChannel: string;
   // 订单标题，支付宝账单会展示
   subject: string;
+  // 订单超时时间，秒级
+  timeoutExpireSecond: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1322,6 +1324,7 @@ export class PayOrderDataRequest extends $tea.Model {
       amountCent: 'amount_cent',
       payChannel: 'pay_channel',
       subject: 'subject',
+      timeoutExpireSecond: 'timeout_expire_second',
     };
   }
 
@@ -1333,6 +1336,7 @@ export class PayOrderDataRequest extends $tea.Model {
       amountCent: 'number',
       payChannel: 'string',
       subject: 'string',
+      timeoutExpireSecond: 'number',
     };
   }
 
@@ -1576,7 +1580,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.5.0",
+          sdk_version: "1.6.1",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
