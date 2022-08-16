@@ -1223,6 +1223,246 @@ export class ApplyNftTransferbyprojectwithchanneltenantResponse extends $tea.Mod
   }
 }
 
+export class QueryNftAssetRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 基于租户Id生成的对应访问服务端的accessToken
+  accessToken: string;
+  // 对应此藏品的nftId
+  nftId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      accessToken: 'access_token',
+      nftId: 'nft_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      accessToken: 'string',
+      nftId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNftAssetResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 藏品ID
+  nftId?: string;
+  // 藏品名称
+  skuName?: string;
+  // 藏品SKU ID
+  skuId?: number;
+  // 此藏品对应的uniHash值
+  uniHash?: string;
+  // 藏品铸造时间
+  creationTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      nftId: 'nft_id',
+      skuName: 'sku_name',
+      skuId: 'sku_id',
+      uniHash: 'uni_hash',
+      creationTime: 'creation_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      nftId: 'string',
+      skuName: 'string',
+      skuId: 'number',
+      uniHash: 'string',
+      creationTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PayOrderDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 接入方测订单号，保证全局唯一
+  externalOrderNo: string;
+  // 订单金额，单位为分
+  amountCent: number;
+  // ALIPAY 表示小程序支付，ALIPAY_APP表示App支付
+  payChannel: string;
+  // 订单标题，支付宝账单会展示
+  subject: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      externalOrderNo: 'external_order_no',
+      amountCent: 'amount_cent',
+      payChannel: 'pay_channel',
+      subject: 'subject',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      externalOrderNo: 'string',
+      amountCent: 'number',
+      payChannel: 'string',
+      subject: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PayOrderDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 鲸探开放平台内部订单号
+  openOrderNo?: string;
+  // json字符串
+  payParams?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      openOrderNo: 'open_order_no',
+      payParams: 'pay_params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      openOrderNo: 'string',
+      payParams: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyOauthTokenRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 1.authorization_code，表示换取使用用户授权码code换取授权令牌access_token。
+  // 2.refresh_token，表示使用refresh_token刷新获取新授权令牌。
+  // 本期只支持authorization_code
+  grantType: string;
+  // 授权码，用户对应用授权后得到。
+  // 本参数在 grant_type 为 authorization_code 时必填；为 refresh_token 时不填。
+  authCode?: string;
+  // 刷新令牌，上次换取访问令牌时得到。本参数在 grant_type 为 authorization_code 时不填；为 refresh_token 时必填
+  refreshToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      grantType: 'grant_type',
+      authCode: 'auth_code',
+      refreshToken: 'refresh_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      grantType: 'string',
+      authCode: 'string',
+      refreshToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyOauthTokenResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 后续调用接口鉴权的token
+  accessToken?: string;
+  // 到期时间
+  expireTime?: string;
+  // openuid
+  openUserId?: string;
+  // 预留字段，本期不使用
+  refreshToken?: string;
+  // 预留字段，本期不使用
+  refreshExpireTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accessToken: 'access_token',
+      expireTime: 'expire_time',
+      openUserId: 'open_user_id',
+      refreshToken: 'refresh_token',
+      refreshExpireTime: 'refresh_expire_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accessToken: 'string',
+      expireTime: 'string',
+      openUserId: 'string',
+      refreshToken: 'string',
+      refreshExpireTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1336,7 +1576,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.5",
+          sdk_version: "1.5.0",
+          _prod_code: "NFTX",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1608,6 +1850,63 @@ export default class Client {
   async applyNftTransferbyprojectwithchanneltenantEx(request: ApplyNftTransferbyprojectwithchanneltenantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyNftTransferbyprojectwithchanneltenantResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyNftTransferbyprojectwithchanneltenantResponse>(await this.doRequest("1.0", "antchain.nftx.nft.transferbyprojectwithchanneltenant.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyNftTransferbyprojectwithchanneltenantResponse({}));
+  }
+
+  /**
+   * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+   * Summary: 校验藏品归属及查询相应藏品信息
+   */
+  async queryNftAsset(request: QueryNftAssetRequest): Promise<QueryNftAssetResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryNftAssetEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+   * Summary: 校验藏品归属及查询相应藏品信息
+   */
+  async queryNftAssetEx(request: QueryNftAssetRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNftAssetResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryNftAssetResponse>(await this.doRequest("1.0", "antchain.nftx.nft.asset.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNftAssetResponse({}));
+  }
+
+  /**
+   * Description: 基于直付通模式的开放订单支付接口
+   * Summary: 开放订单支付接口
+   */
+  async payOrderData(request: PayOrderDataRequest): Promise<PayOrderDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.payOrderDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 基于直付通模式的开放订单支付接口
+   * Summary: 开放订单支付接口
+   */
+  async payOrderDataEx(request: PayOrderDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PayOrderDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PayOrderDataResponse>(await this.doRequest("1.0", "antchain.nftx.order.data.pay", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PayOrderDataResponse({}));
+  }
+
+  /**
+   * Description: 拿authcode换token
+   * Summary: 拿authcode换token
+   */
+  async applyOauthToken(request: ApplyOauthTokenRequest): Promise<ApplyOauthTokenResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyOauthTokenEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 拿authcode换token
+   * Summary: 拿authcode换token
+   */
+  async applyOauthTokenEx(request: ApplyOauthTokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyOauthTokenResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyOauthTokenResponse>(await this.doRequest("1.0", "antchain.nftx.oauth.token.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyOauthTokenResponse({}));
   }
 
 }
