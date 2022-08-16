@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.5',
+    sdk_version = '1.5.0',
+    _prod_code = 'NFTX',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -827,5 +829,152 @@ async function applyNftTransferbyprojectwithchanneltenant(request: ApplyNftTrans
 async function applyNftTransferbyprojectwithchanneltenantEx(request: ApplyNftTransferbyprojectwithchanneltenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyNftTransferbyprojectwithchanneltenantResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftx.nft.transferbyprojectwithchanneltenant.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryNftAssetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 基于租户Id生成的对应访问服务端的accessToken
+  accessToken: string(name='access_token'),
+  // 对应此藏品的nftId
+  nftId: string(name='nft_id'),
+}
+
+model QueryNftAssetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 藏品ID
+  nftId?: string(name='nft_id'),
+  // 藏品名称
+  skuName?: string(name='sku_name'),
+  // 藏品SKU ID
+  skuId?: long(name='sku_id'),
+  // 此藏品对应的uniHash值
+  uniHash?: string(name='uni_hash'),
+  // 藏品铸造时间
+  creationTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='creation_time'),
+}
+
+/**
+ * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+ * Summary: 校验藏品归属及查询相应藏品信息
+ */
+async function queryNftAsset(request: QueryNftAssetRequest): QueryNftAssetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryNftAssetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+ * Summary: 校验藏品归属及查询相应藏品信息
+ */
+async function queryNftAssetEx(request: QueryNftAssetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryNftAssetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftx.nft.asset.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PayOrderDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 接入方测订单号，保证全局唯一
+  externalOrderNo: string(name='external_order_no'),
+  // 订单金额，单位为分
+  amountCent: long(name='amount_cent'),
+  // ALIPAY 表示小程序支付，ALIPAY_APP表示App支付
+  payChannel: string(name='pay_channel'),
+  // 订单标题，支付宝账单会展示
+  subject: string(name='subject'),
+}
+
+model PayOrderDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 鲸探开放平台内部订单号
+  openOrderNo?: string(name='open_order_no'),
+  // json字符串
+  payParams?: string(name='pay_params'),
+}
+
+/**
+ * Description: 基于直付通模式的开放订单支付接口
+ * Summary: 开放订单支付接口
+ */
+async function payOrderData(request: PayOrderDataRequest): PayOrderDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return payOrderDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 基于直付通模式的开放订单支付接口
+ * Summary: 开放订单支付接口
+ */
+async function payOrderDataEx(request: PayOrderDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PayOrderDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftx.order.data.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyOauthTokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1.authorization_code，表示换取使用用户授权码code换取授权令牌access_token。
+  // 2.refresh_token，表示使用refresh_token刷新获取新授权令牌。
+  // 本期只支持authorization_code
+  grantType: string(name='grant_type'),
+  // 授权码，用户对应用授权后得到。
+  // 本参数在 grant_type 为 authorization_code 时必填；为 refresh_token 时不填。
+  authCode?: string(name='auth_code'),
+  // 刷新令牌，上次换取访问令牌时得到。本参数在 grant_type 为 authorization_code 时不填；为 refresh_token 时必填
+  refreshToken?: string(name='refresh_token'),
+}
+
+model ApplyOauthTokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 后续调用接口鉴权的token
+  accessToken?: string(name='access_token'),
+  // 到期时间
+  expireTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expire_time'),
+  // openuid
+  openUserId?: string(name='open_user_id'),
+  // 预留字段，本期不使用
+  refreshToken?: string(name='refresh_token'),
+  // 预留字段，本期不使用
+  refreshExpireTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='refresh_expire_time'),
+}
+
+/**
+ * Description: 拿authcode换token
+ * Summary: 拿authcode换token
+ */
+async function applyOauthToken(request: ApplyOauthTokenRequest): ApplyOauthTokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyOauthTokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 拿authcode换token
+ * Summary: 拿authcode换token
+ */
+async function applyOauthTokenEx(request: ApplyOauthTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyOauthTokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftx.oauth.token.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
