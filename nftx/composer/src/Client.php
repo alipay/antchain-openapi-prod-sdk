@@ -15,6 +15,8 @@ use AntChain\NFTX\Models\ApplyNftTransferbyprojectwithchanneltenantRequest;
 use AntChain\NFTX\Models\ApplyNftTransferbyprojectwithchanneltenantResponse;
 use AntChain\NFTX\Models\ApplyNftTransferRequest;
 use AntChain\NFTX\Models\ApplyNftTransferResponse;
+use AntChain\NFTX\Models\ApplyOauthTokenRequest;
+use AntChain\NFTX\Models\ApplyOauthTokenResponse;
 use AntChain\NFTX\Models\CreateNftIssuerRequest;
 use AntChain\NFTX\Models\CreateNftIssuerResponse;
 use AntChain\NFTX\Models\CreateNftPublishRequest;
@@ -25,6 +27,10 @@ use AntChain\NFTX\Models\ImportNftCreateRequest;
 use AntChain\NFTX\Models\ImportNftCreateResponse;
 use AntChain\NFTX\Models\PagequeryNftCustomerRequest;
 use AntChain\NFTX\Models\PagequeryNftCustomerResponse;
+use AntChain\NFTX\Models\PayOrderDataRequest;
+use AntChain\NFTX\Models\PayOrderDataResponse;
+use AntChain\NFTX\Models\QueryNftAssetRequest;
+use AntChain\NFTX\Models\QueryNftAssetResponse;
 use AntChain\NFTX\Models\QueryNftCreateRequest;
 use AntChain\NFTX\Models\QueryNftCreateResponse;
 use AntChain\NFTX\Models\QueryNftCustomerRequest;
@@ -182,7 +188,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.5',
+                    'sdk_version'      => '1.5.0',
+                    '_prod_code'       => 'NFTX',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -622,5 +630,104 @@ class Client
         Utils::validateModel($request);
 
         return ApplyNftTransferbyprojectwithchanneltenantResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.transferbyprojectwithchanneltenant.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+     * Summary: 校验藏品归属及查询相应藏品信息.
+     *
+     * @param QueryNftAssetRequest $request
+     *
+     * @return QueryNftAssetResponse
+     */
+    public function queryNftAsset($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryNftAssetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+     * Summary: 校验藏品归属及查询相应藏品信息.
+     *
+     * @param QueryNftAssetRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryNftAssetResponse
+     */
+    public function queryNftAssetEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryNftAssetResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.nft.asset.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 基于直付通模式的开放订单支付接口
+     * Summary: 开放订单支付接口.
+     *
+     * @param PayOrderDataRequest $request
+     *
+     * @return PayOrderDataResponse
+     */
+    public function payOrderData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->payOrderDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 基于直付通模式的开放订单支付接口
+     * Summary: 开放订单支付接口.
+     *
+     * @param PayOrderDataRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return PayOrderDataResponse
+     */
+    public function payOrderDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PayOrderDataResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.order.data.pay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 拿authcode换token
+     * Summary: 拿authcode换token.
+     *
+     * @param ApplyOauthTokenRequest $request
+     *
+     * @return ApplyOauthTokenResponse
+     */
+    public function applyOauthToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyOauthTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 拿authcode换token
+     * Summary: 拿authcode换token.
+     *
+     * @param ApplyOauthTokenRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ApplyOauthTokenResponse
+     */
+    public function applyOauthTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyOauthTokenResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.oauth.token.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
