@@ -42,13 +42,20 @@ class PayOrderDataRequest extends Model
      * @var string
      */
     public $subject;
+
+    // 订单超时时间，秒级
+    /**
+     * @var int
+     */
+    public $timeoutExpireSecond;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'externalOrderNo'   => 'external_order_no',
-        'amountCent'        => 'amount_cent',
-        'payChannel'        => 'pay_channel',
-        'subject'           => 'subject',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'externalOrderNo'     => 'external_order_no',
+        'amountCent'          => 'amount_cent',
+        'payChannel'          => 'pay_channel',
+        'subject'             => 'subject',
+        'timeoutExpireSecond' => 'timeout_expire_second',
     ];
 
     public function validate()
@@ -57,6 +64,7 @@ class PayOrderDataRequest extends Model
         Model::validateRequired('amountCent', $this->amountCent, true);
         Model::validateRequired('payChannel', $this->payChannel, true);
         Model::validateRequired('subject', $this->subject, true);
+        Model::validateRequired('timeoutExpireSecond', $this->timeoutExpireSecond, true);
     }
 
     public function toMap()
@@ -79,6 +87,9 @@ class PayOrderDataRequest extends Model
         }
         if (null !== $this->subject) {
             $res['subject'] = $this->subject;
+        }
+        if (null !== $this->timeoutExpireSecond) {
+            $res['timeout_expire_second'] = $this->timeoutExpireSecond;
         }
 
         return $res;
@@ -109,6 +120,9 @@ class PayOrderDataRequest extends Model
         }
         if (isset($map['subject'])) {
             $model->subject = $map['subject'];
+        }
+        if (isset($map['timeout_expire_second'])) {
+            $model->timeoutExpireSecond = $map['timeout_expire_second'];
         }
 
         return $model;
