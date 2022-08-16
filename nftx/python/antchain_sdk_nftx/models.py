@@ -2079,3 +2079,389 @@ class ApplyNftTransferbyprojectwithchanneltenantResponse(TeaModel):
         return self
 
 
+class QueryNftAssetRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        access_token: str = None,
+        nft_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 基于租户Id生成的对应访问服务端的accessToken
+        self.access_token = access_token
+        # 对应此藏品的nftId
+        self.nft_id = nft_id
+
+    def validate(self):
+        self.validate_required(self.access_token, 'access_token')
+        self.validate_required(self.nft_id, 'nft_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.access_token is not None:
+            result['access_token'] = self.access_token
+        if self.nft_id is not None:
+            result['nft_id'] = self.nft_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('access_token') is not None:
+            self.access_token = m.get('access_token')
+        if m.get('nft_id') is not None:
+            self.nft_id = m.get('nft_id')
+        return self
+
+
+class QueryNftAssetResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        nft_id: str = None,
+        sku_name: str = None,
+        sku_id: int = None,
+        uni_hash: str = None,
+        creation_time: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 藏品ID
+        self.nft_id = nft_id
+        # 藏品名称
+        self.sku_name = sku_name
+        # 藏品SKU ID
+        self.sku_id = sku_id
+        # 此藏品对应的uniHash值
+        self.uni_hash = uni_hash
+        # 藏品铸造时间
+        self.creation_time = creation_time
+
+    def validate(self):
+        if self.creation_time is not None:
+            self.validate_pattern(self.creation_time, 'creation_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.nft_id is not None:
+            result['nft_id'] = self.nft_id
+        if self.sku_name is not None:
+            result['sku_name'] = self.sku_name
+        if self.sku_id is not None:
+            result['sku_id'] = self.sku_id
+        if self.uni_hash is not None:
+            result['uni_hash'] = self.uni_hash
+        if self.creation_time is not None:
+            result['creation_time'] = self.creation_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('nft_id') is not None:
+            self.nft_id = m.get('nft_id')
+        if m.get('sku_name') is not None:
+            self.sku_name = m.get('sku_name')
+        if m.get('sku_id') is not None:
+            self.sku_id = m.get('sku_id')
+        if m.get('uni_hash') is not None:
+            self.uni_hash = m.get('uni_hash')
+        if m.get('creation_time') is not None:
+            self.creation_time = m.get('creation_time')
+        return self
+
+
+class PayOrderDataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        external_order_no: str = None,
+        amount_cent: int = None,
+        pay_channel: str = None,
+        subject: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 接入方测订单号，保证全局唯一
+        self.external_order_no = external_order_no
+        # 订单金额，单位为分
+        self.amount_cent = amount_cent
+        # ALIPAY 表示小程序支付，ALIPAY_APP表示App支付
+        self.pay_channel = pay_channel
+        # 订单标题，支付宝账单会展示
+        self.subject = subject
+
+    def validate(self):
+        self.validate_required(self.external_order_no, 'external_order_no')
+        self.validate_required(self.amount_cent, 'amount_cent')
+        self.validate_required(self.pay_channel, 'pay_channel')
+        self.validate_required(self.subject, 'subject')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.external_order_no is not None:
+            result['external_order_no'] = self.external_order_no
+        if self.amount_cent is not None:
+            result['amount_cent'] = self.amount_cent
+        if self.pay_channel is not None:
+            result['pay_channel'] = self.pay_channel
+        if self.subject is not None:
+            result['subject'] = self.subject
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('external_order_no') is not None:
+            self.external_order_no = m.get('external_order_no')
+        if m.get('amount_cent') is not None:
+            self.amount_cent = m.get('amount_cent')
+        if m.get('pay_channel') is not None:
+            self.pay_channel = m.get('pay_channel')
+        if m.get('subject') is not None:
+            self.subject = m.get('subject')
+        return self
+
+
+class PayOrderDataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        open_order_no: str = None,
+        pay_params: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 鲸探开放平台内部订单号
+        self.open_order_no = open_order_no
+        # json字符串
+        self.pay_params = pay_params
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.open_order_no is not None:
+            result['open_order_no'] = self.open_order_no
+        if self.pay_params is not None:
+            result['pay_params'] = self.pay_params
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('open_order_no') is not None:
+            self.open_order_no = m.get('open_order_no')
+        if m.get('pay_params') is not None:
+            self.pay_params = m.get('pay_params')
+        return self
+
+
+class ApplyOauthTokenRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        grant_type: str = None,
+        auth_code: str = None,
+        refresh_token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 1.authorization_code，表示换取使用用户授权码code换取授权令牌access_token。
+        # 2.refresh_token，表示使用refresh_token刷新获取新授权令牌。
+        # 本期只支持authorization_code
+        self.grant_type = grant_type
+        # 授权码，用户对应用授权后得到。
+        # 本参数在 grant_type 为 authorization_code 时必填；为 refresh_token 时不填。
+        self.auth_code = auth_code
+        # 刷新令牌，上次换取访问令牌时得到。本参数在 grant_type 为 authorization_code 时不填；为 refresh_token 时必填
+        self.refresh_token = refresh_token
+
+    def validate(self):
+        self.validate_required(self.grant_type, 'grant_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.grant_type is not None:
+            result['grant_type'] = self.grant_type
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        if self.refresh_token is not None:
+            result['refresh_token'] = self.refresh_token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('grant_type') is not None:
+            self.grant_type = m.get('grant_type')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        if m.get('refresh_token') is not None:
+            self.refresh_token = m.get('refresh_token')
+        return self
+
+
+class ApplyOauthTokenResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        access_token: str = None,
+        expire_time: str = None,
+        open_user_id: str = None,
+        refresh_token: str = None,
+        refresh_expire_time: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 后续调用接口鉴权的token
+        self.access_token = access_token
+        # 到期时间
+        self.expire_time = expire_time
+        # openuid
+        self.open_user_id = open_user_id
+        # 预留字段，本期不使用
+        self.refresh_token = refresh_token
+        # 预留字段，本期不使用
+        self.refresh_expire_time = refresh_expire_time
+
+    def validate(self):
+        if self.expire_time is not None:
+            self.validate_pattern(self.expire_time, 'expire_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.refresh_expire_time is not None:
+            self.validate_pattern(self.refresh_expire_time, 'refresh_expire_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.access_token is not None:
+            result['access_token'] = self.access_token
+        if self.expire_time is not None:
+            result['expire_time'] = self.expire_time
+        if self.open_user_id is not None:
+            result['open_user_id'] = self.open_user_id
+        if self.refresh_token is not None:
+            result['refresh_token'] = self.refresh_token
+        if self.refresh_expire_time is not None:
+            result['refresh_expire_time'] = self.refresh_expire_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('access_token') is not None:
+            self.access_token = m.get('access_token')
+        if m.get('expire_time') is not None:
+            self.expire_time = m.get('expire_time')
+        if m.get('open_user_id') is not None:
+            self.open_user_id = m.get('open_user_id')
+        if m.get('refresh_token') is not None:
+            self.refresh_token = m.get('refresh_token')
+        if m.get('refresh_expire_time') is not None:
+            self.refresh_expire_time = m.get('refresh_expire_time')
+        return self
+
+

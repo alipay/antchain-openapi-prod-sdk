@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.5'
+                    'sdk_version': '1.5.0',
+                    '_prod_code': 'NFTX',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.5'
+                    'sdk_version': '1.5.0',
+                    '_prod_code': 'NFTX',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -941,4 +945,172 @@ class Client:
         return TeaCore.from_map(
             nftx_models.ApplyNftTransferbyprojectwithchanneltenantResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.nft.transferbyprojectwithchanneltenant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_nft_asset(
+        self,
+        request: nftx_models.QueryNftAssetRequest,
+    ) -> nftx_models.QueryNftAssetResponse:
+        """
+        Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+        Summary: 校验藏品归属及查询相应藏品信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_nft_asset_ex(request, headers, runtime)
+
+    async def query_nft_asset_async(
+        self,
+        request: nftx_models.QueryNftAssetRequest,
+    ) -> nftx_models.QueryNftAssetResponse:
+        """
+        Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+        Summary: 校验藏品归属及查询相应藏品信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_nft_asset_ex_async(request, headers, runtime)
+
+    def query_nft_asset_ex(
+        self,
+        request: nftx_models.QueryNftAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.QueryNftAssetResponse:
+        """
+        Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+        Summary: 校验藏品归属及查询相应藏品信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.QueryNftAssetResponse(),
+            self.do_request('1.0', 'antchain.nftx.nft.asset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_nft_asset_ex_async(
+        self,
+        request: nftx_models.QueryNftAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.QueryNftAssetResponse:
+        """
+        Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+        Summary: 校验藏品归属及查询相应藏品信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.QueryNftAssetResponse(),
+            await self.do_request_async('1.0', 'antchain.nftx.nft.asset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pay_order_data(
+        self,
+        request: nftx_models.PayOrderDataRequest,
+    ) -> nftx_models.PayOrderDataResponse:
+        """
+        Description: 基于直付通模式的开放订单支付接口
+        Summary: 开放订单支付接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pay_order_data_ex(request, headers, runtime)
+
+    async def pay_order_data_async(
+        self,
+        request: nftx_models.PayOrderDataRequest,
+    ) -> nftx_models.PayOrderDataResponse:
+        """
+        Description: 基于直付通模式的开放订单支付接口
+        Summary: 开放订单支付接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pay_order_data_ex_async(request, headers, runtime)
+
+    def pay_order_data_ex(
+        self,
+        request: nftx_models.PayOrderDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.PayOrderDataResponse:
+        """
+        Description: 基于直付通模式的开放订单支付接口
+        Summary: 开放订单支付接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.PayOrderDataResponse(),
+            self.do_request('1.0', 'antchain.nftx.order.data.pay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pay_order_data_ex_async(
+        self,
+        request: nftx_models.PayOrderDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.PayOrderDataResponse:
+        """
+        Description: 基于直付通模式的开放订单支付接口
+        Summary: 开放订单支付接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.PayOrderDataResponse(),
+            await self.do_request_async('1.0', 'antchain.nftx.order.data.pay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_oauth_token(
+        self,
+        request: nftx_models.ApplyOauthTokenRequest,
+    ) -> nftx_models.ApplyOauthTokenResponse:
+        """
+        Description: 拿authcode换token
+        Summary: 拿authcode换token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_oauth_token_ex(request, headers, runtime)
+
+    async def apply_oauth_token_async(
+        self,
+        request: nftx_models.ApplyOauthTokenRequest,
+    ) -> nftx_models.ApplyOauthTokenResponse:
+        """
+        Description: 拿authcode换token
+        Summary: 拿authcode换token
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_oauth_token_ex_async(request, headers, runtime)
+
+    def apply_oauth_token_ex(
+        self,
+        request: nftx_models.ApplyOauthTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.ApplyOauthTokenResponse:
+        """
+        Description: 拿authcode换token
+        Summary: 拿authcode换token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.ApplyOauthTokenResponse(),
+            self.do_request('1.0', 'antchain.nftx.oauth.token.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_oauth_token_ex_async(
+        self,
+        request: nftx_models.ApplyOauthTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.ApplyOauthTokenResponse:
+        """
+        Description: 拿authcode换token
+        Summary: 拿authcode换token
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.ApplyOauthTokenResponse(),
+            await self.do_request_async('1.0', 'antchain.nftx.oauth.token.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
