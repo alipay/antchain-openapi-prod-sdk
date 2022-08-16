@@ -137,7 +137,9 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.5"},
+                        {"sdk_version", "1.5.0"},
+                        {"_prod_code", "NFTX"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.5"},
+                        {"sdk_version", "1.5.0"},
+                        {"_prod_code", "NFTX"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -819,6 +823,132 @@ namespace AntChain.SDK.NFTX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyNftTransferbyprojectwithchanneltenantResponse>(await DoRequestAsync("1.0", "antchain.nftx.nft.transferbyprojectwithchanneltenant.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+         * Summary: 校验藏品归属及查询相应藏品信息
+         */
+        public QueryNftAssetResponse QueryNftAsset(QueryNftAssetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryNftAssetEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+         * Summary: 校验藏品归属及查询相应藏品信息
+         */
+        public async Task<QueryNftAssetResponse> QueryNftAssetAsync(QueryNftAssetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryNftAssetExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+         * Summary: 校验藏品归属及查询相应藏品信息
+         */
+        public QueryNftAssetResponse QueryNftAssetEx(QueryNftAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNftAssetResponse>(DoRequest("1.0", "antchain.nftx.nft.asset.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+         * Summary: 校验藏品归属及查询相应藏品信息
+         */
+        public async Task<QueryNftAssetResponse> QueryNftAssetExAsync(QueryNftAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryNftAssetResponse>(await DoRequestAsync("1.0", "antchain.nftx.nft.asset.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 基于直付通模式的开放订单支付接口
+         * Summary: 开放订单支付接口
+         */
+        public PayOrderDataResponse PayOrderData(PayOrderDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PayOrderDataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 基于直付通模式的开放订单支付接口
+         * Summary: 开放订单支付接口
+         */
+        public async Task<PayOrderDataResponse> PayOrderDataAsync(PayOrderDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PayOrderDataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 基于直付通模式的开放订单支付接口
+         * Summary: 开放订单支付接口
+         */
+        public PayOrderDataResponse PayOrderDataEx(PayOrderDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PayOrderDataResponse>(DoRequest("1.0", "antchain.nftx.order.data.pay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 基于直付通模式的开放订单支付接口
+         * Summary: 开放订单支付接口
+         */
+        public async Task<PayOrderDataResponse> PayOrderDataExAsync(PayOrderDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PayOrderDataResponse>(await DoRequestAsync("1.0", "antchain.nftx.order.data.pay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 拿authcode换token
+         * Summary: 拿authcode换token
+         */
+        public ApplyOauthTokenResponse ApplyOauthToken(ApplyOauthTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyOauthTokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 拿authcode换token
+         * Summary: 拿authcode换token
+         */
+        public async Task<ApplyOauthTokenResponse> ApplyOauthTokenAsync(ApplyOauthTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyOauthTokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 拿authcode换token
+         * Summary: 拿authcode换token
+         */
+        public ApplyOauthTokenResponse ApplyOauthTokenEx(ApplyOauthTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyOauthTokenResponse>(DoRequest("1.0", "antchain.nftx.oauth.token.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 拿authcode换token
+         * Summary: 拿authcode换token
+         */
+        public async Task<ApplyOauthTokenResponse> ApplyOauthTokenExAsync(ApplyOauthTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyOauthTokenResponse>(await DoRequestAsync("1.0", "antchain.nftx.oauth.token.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
