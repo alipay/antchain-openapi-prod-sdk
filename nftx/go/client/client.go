@@ -1713,6 +1713,324 @@ func (s *ApplyNftTransferbyprojectwithchanneltenantResponse) SetNftId(v string) 
 	return s
 }
 
+type QueryNftAssetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基于租户Id生成的对应访问服务端的accessToken
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+	// 对应此藏品的nftId
+	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty" require:"true"`
+}
+
+func (s QueryNftAssetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNftAssetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNftAssetRequest) SetAuthToken(v string) *QueryNftAssetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryNftAssetRequest) SetProductInstanceId(v string) *QueryNftAssetRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryNftAssetRequest) SetAccessToken(v string) *QueryNftAssetRequest {
+	s.AccessToken = &v
+	return s
+}
+
+func (s *QueryNftAssetRequest) SetNftId(v string) *QueryNftAssetRequest {
+	s.NftId = &v
+	return s
+}
+
+type QueryNftAssetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 藏品ID
+	NftId *string `json:"nft_id,omitempty" xml:"nft_id,omitempty"`
+	// 藏品名称
+	SkuName *string `json:"sku_name,omitempty" xml:"sku_name,omitempty"`
+	// 藏品SKU ID
+	SkuId *int64 `json:"sku_id,omitempty" xml:"sku_id,omitempty"`
+	// 此藏品对应的uniHash值
+	UniHash *string `json:"uni_hash,omitempty" xml:"uni_hash,omitempty"`
+	// 藏品铸造时间
+	CreationTime *string `json:"creation_time,omitempty" xml:"creation_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s QueryNftAssetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryNftAssetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryNftAssetResponse) SetReqMsgId(v string) *QueryNftAssetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryNftAssetResponse) SetResultCode(v string) *QueryNftAssetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryNftAssetResponse) SetResultMsg(v string) *QueryNftAssetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryNftAssetResponse) SetNftId(v string) *QueryNftAssetResponse {
+	s.NftId = &v
+	return s
+}
+
+func (s *QueryNftAssetResponse) SetSkuName(v string) *QueryNftAssetResponse {
+	s.SkuName = &v
+	return s
+}
+
+func (s *QueryNftAssetResponse) SetSkuId(v int64) *QueryNftAssetResponse {
+	s.SkuId = &v
+	return s
+}
+
+func (s *QueryNftAssetResponse) SetUniHash(v string) *QueryNftAssetResponse {
+	s.UniHash = &v
+	return s
+}
+
+func (s *QueryNftAssetResponse) SetCreationTime(v string) *QueryNftAssetResponse {
+	s.CreationTime = &v
+	return s
+}
+
+type PayOrderDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 接入方测订单号，保证全局唯一
+	ExternalOrderNo *string `json:"external_order_no,omitempty" xml:"external_order_no,omitempty" require:"true"`
+	// 订单金额，单位为分
+	AmountCent *int64 `json:"amount_cent,omitempty" xml:"amount_cent,omitempty" require:"true"`
+	// ALIPAY 表示小程序支付，ALIPAY_APP表示App支付
+	PayChannel *string `json:"pay_channel,omitempty" xml:"pay_channel,omitempty" require:"true"`
+	// 订单标题，支付宝账单会展示
+	Subject *string `json:"subject,omitempty" xml:"subject,omitempty" require:"true"`
+}
+
+func (s PayOrderDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PayOrderDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PayOrderDataRequest) SetAuthToken(v string) *PayOrderDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PayOrderDataRequest) SetProductInstanceId(v string) *PayOrderDataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PayOrderDataRequest) SetExternalOrderNo(v string) *PayOrderDataRequest {
+	s.ExternalOrderNo = &v
+	return s
+}
+
+func (s *PayOrderDataRequest) SetAmountCent(v int64) *PayOrderDataRequest {
+	s.AmountCent = &v
+	return s
+}
+
+func (s *PayOrderDataRequest) SetPayChannel(v string) *PayOrderDataRequest {
+	s.PayChannel = &v
+	return s
+}
+
+func (s *PayOrderDataRequest) SetSubject(v string) *PayOrderDataRequest {
+	s.Subject = &v
+	return s
+}
+
+type PayOrderDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 鲸探开放平台内部订单号
+	OpenOrderNo *string `json:"open_order_no,omitempty" xml:"open_order_no,omitempty"`
+	// json字符串
+	PayParams *string `json:"pay_params,omitempty" xml:"pay_params,omitempty"`
+}
+
+func (s PayOrderDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PayOrderDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PayOrderDataResponse) SetReqMsgId(v string) *PayOrderDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PayOrderDataResponse) SetResultCode(v string) *PayOrderDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PayOrderDataResponse) SetResultMsg(v string) *PayOrderDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PayOrderDataResponse) SetOpenOrderNo(v string) *PayOrderDataResponse {
+	s.OpenOrderNo = &v
+	return s
+}
+
+func (s *PayOrderDataResponse) SetPayParams(v string) *PayOrderDataResponse {
+	s.PayParams = &v
+	return s
+}
+
+type ApplyOauthTokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 1.authorization_code，表示换取使用用户授权码code换取授权令牌access_token。
+	// 2.refresh_token，表示使用refresh_token刷新获取新授权令牌。
+	// 本期只支持authorization_code
+	GrantType *string `json:"grant_type,omitempty" xml:"grant_type,omitempty" require:"true"`
+	// 授权码，用户对应用授权后得到。
+	// 本参数在 grant_type 为 authorization_code 时必填；为 refresh_token 时不填。
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
+	// 刷新令牌，上次换取访问令牌时得到。本参数在 grant_type 为 authorization_code 时不填；为 refresh_token 时必填
+	RefreshToken *string `json:"refresh_token,omitempty" xml:"refresh_token,omitempty"`
+}
+
+func (s ApplyOauthTokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyOauthTokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyOauthTokenRequest) SetAuthToken(v string) *ApplyOauthTokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyOauthTokenRequest) SetProductInstanceId(v string) *ApplyOauthTokenRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyOauthTokenRequest) SetGrantType(v string) *ApplyOauthTokenRequest {
+	s.GrantType = &v
+	return s
+}
+
+func (s *ApplyOauthTokenRequest) SetAuthCode(v string) *ApplyOauthTokenRequest {
+	s.AuthCode = &v
+	return s
+}
+
+func (s *ApplyOauthTokenRequest) SetRefreshToken(v string) *ApplyOauthTokenRequest {
+	s.RefreshToken = &v
+	return s
+}
+
+type ApplyOauthTokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 后续调用接口鉴权的token
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty"`
+	// 到期时间
+	ExpireTime *string `json:"expire_time,omitempty" xml:"expire_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// openuid
+	OpenUserId *string `json:"open_user_id,omitempty" xml:"open_user_id,omitempty"`
+	// 预留字段，本期不使用
+	RefreshToken *string `json:"refresh_token,omitempty" xml:"refresh_token,omitempty"`
+	// 预留字段，本期不使用
+	RefreshExpireTime *string `json:"refresh_expire_time,omitempty" xml:"refresh_expire_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s ApplyOauthTokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyOauthTokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyOauthTokenResponse) SetReqMsgId(v string) *ApplyOauthTokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyOauthTokenResponse) SetResultCode(v string) *ApplyOauthTokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyOauthTokenResponse) SetResultMsg(v string) *ApplyOauthTokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyOauthTokenResponse) SetAccessToken(v string) *ApplyOauthTokenResponse {
+	s.AccessToken = &v
+	return s
+}
+
+func (s *ApplyOauthTokenResponse) SetExpireTime(v string) *ApplyOauthTokenResponse {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *ApplyOauthTokenResponse) SetOpenUserId(v string) *ApplyOauthTokenResponse {
+	s.OpenUserId = &v
+	return s
+}
+
+func (s *ApplyOauthTokenResponse) SetRefreshToken(v string) *ApplyOauthTokenResponse {
+	s.RefreshToken = &v
+	return s
+}
+
+func (s *ApplyOauthTokenResponse) SetRefreshExpireTime(v string) *ApplyOauthTokenResponse {
+	s.RefreshExpireTime = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1835,7 +2153,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.5"),
+				"sdk_version":      tea.String("1.5.0"),
+				"_prod_code":       tea.String("NFTX"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -2284,6 +2604,108 @@ func (client *Client) ApplyNftTransferbyprojectwithchanneltenantEx(request *Appl
 	}
 	_result = &ApplyNftTransferbyprojectwithchanneltenantResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.nft.transferbyprojectwithchanneltenant.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+ * Summary: 校验藏品归属及查询相应藏品信息
+ */
+func (client *Client) QueryNftAsset(request *QueryNftAssetRequest) (_result *QueryNftAssetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryNftAssetResponse{}
+	_body, _err := client.QueryNftAssetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 第三方通过accessToken和nftId校验藏品归属及查询相应藏品信息
+ * Summary: 校验藏品归属及查询相应藏品信息
+ */
+func (client *Client) QueryNftAssetEx(request *QueryNftAssetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryNftAssetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryNftAssetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.nft.asset.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 基于直付通模式的开放订单支付接口
+ * Summary: 开放订单支付接口
+ */
+func (client *Client) PayOrderData(request *PayOrderDataRequest) (_result *PayOrderDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PayOrderDataResponse{}
+	_body, _err := client.PayOrderDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 基于直付通模式的开放订单支付接口
+ * Summary: 开放订单支付接口
+ */
+func (client *Client) PayOrderDataEx(request *PayOrderDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PayOrderDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PayOrderDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.order.data.pay"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 拿authcode换token
+ * Summary: 拿authcode换token
+ */
+func (client *Client) ApplyOauthToken(request *ApplyOauthTokenRequest) (_result *ApplyOauthTokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyOauthTokenResponse{}
+	_body, _err := client.ApplyOauthTokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 拿authcode换token
+ * Summary: 拿authcode换token
+ */
+func (client *Client) ApplyOauthTokenEx(request *ApplyOauthTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyOauthTokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyOauthTokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.oauth.token.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
