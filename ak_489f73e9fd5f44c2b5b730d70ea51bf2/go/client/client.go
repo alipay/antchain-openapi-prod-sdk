@@ -148,178 +148,109 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-type BindDemoGatewayAbcTestRequest struct {
+type ExecBlockchainAppexContractServiceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用did
+	AppDid *string `json:"app_did,omitempty" xml:"app_did,omitempty" require:"true" maxLength:"128"`
+	// 合约方法名
+	ContractMethod *string `json:"contract_method,omitempty" xml:"contract_method,omitempty" require:"true" maxLength:"128"`
+	// 合约名称，当一个应用有多个合约时需要传入
+	ContractName *string `json:"contract_name,omitempty" xml:"contract_name,omitempty" maxLength:"128"`
+	// 1.同步交易，2.异步交易，3.Local
+	// 如果不理解以上交易方式之间的区别请不要传入该参数，默认为同步交易
+	ExecType *int64 `json:"exec_type,omitempty" xml:"exec_type,omitempty"`
+	// 合约入参（格式为json）
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty" require:"true" maxLength:"1024"`
 }
 
-func (s BindDemoGatewayAbcTestRequest) String() string {
+func (s ExecBlockchainAppexContractServiceRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s BindDemoGatewayAbcTestRequest) GoString() string {
+func (s ExecBlockchainAppexContractServiceRequest) GoString() string {
 	return s.String()
 }
 
-func (s *BindDemoGatewayAbcTestRequest) SetAuthToken(v string) *BindDemoGatewayAbcTestRequest {
+func (s *ExecBlockchainAppexContractServiceRequest) SetAuthToken(v string) *ExecBlockchainAppexContractServiceRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *BindDemoGatewayAbcTestRequest) SetProductInstanceId(v string) *BindDemoGatewayAbcTestRequest {
+func (s *ExecBlockchainAppexContractServiceRequest) SetProductInstanceId(v string) *ExecBlockchainAppexContractServiceRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-type BindDemoGatewayAbcTestResponse struct {
+func (s *ExecBlockchainAppexContractServiceRequest) SetAppDid(v string) *ExecBlockchainAppexContractServiceRequest {
+	s.AppDid = &v
+	return s
+}
+
+func (s *ExecBlockchainAppexContractServiceRequest) SetContractMethod(v string) *ExecBlockchainAppexContractServiceRequest {
+	s.ContractMethod = &v
+	return s
+}
+
+func (s *ExecBlockchainAppexContractServiceRequest) SetContractName(v string) *ExecBlockchainAppexContractServiceRequest {
+	s.ContractName = &v
+	return s
+}
+
+func (s *ExecBlockchainAppexContractServiceRequest) SetExecType(v int64) *ExecBlockchainAppexContractServiceRequest {
+	s.ExecType = &v
+	return s
+}
+
+func (s *ExecBlockchainAppexContractServiceRequest) SetRequestBody(v string) *ExecBlockchainAppexContractServiceRequest {
+	s.RequestBody = &v
+	return s
+}
+
+type ExecBlockchainAppexContractServiceResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 合约执行结果
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+	// 交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
 }
 
-func (s BindDemoGatewayAbcTestResponse) String() string {
+func (s ExecBlockchainAppexContractServiceResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s BindDemoGatewayAbcTestResponse) GoString() string {
+func (s ExecBlockchainAppexContractServiceResponse) GoString() string {
 	return s.String()
 }
 
-func (s *BindDemoGatewayAbcTestResponse) SetReqMsgId(v string) *BindDemoGatewayAbcTestResponse {
+func (s *ExecBlockchainAppexContractServiceResponse) SetReqMsgId(v string) *ExecBlockchainAppexContractServiceResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *BindDemoGatewayAbcTestResponse) SetResultCode(v string) *BindDemoGatewayAbcTestResponse {
+func (s *ExecBlockchainAppexContractServiceResponse) SetResultCode(v string) *ExecBlockchainAppexContractServiceResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *BindDemoGatewayAbcTestResponse) SetResultMsg(v string) *BindDemoGatewayAbcTestResponse {
+func (s *ExecBlockchainAppexContractServiceResponse) SetResultMsg(v string) *ExecBlockchainAppexContractServiceResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-type BindDemoAaaBbbCccRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 123
-	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
-}
-
-func (s BindDemoAaaBbbCccRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoAaaBbbCccRequest) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoAaaBbbCccRequest) SetAuthToken(v string) *BindDemoAaaBbbCccRequest {
-	s.AuthToken = &v
+func (s *ExecBlockchainAppexContractServiceResponse) SetResponseBody(v string) *ExecBlockchainAppexContractServiceResponse {
+	s.ResponseBody = &v
 	return s
 }
 
-func (s *BindDemoAaaBbbCccRequest) SetProductInstanceId(v string) *BindDemoAaaBbbCccRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *BindDemoAaaBbbCccRequest) SetData(v string) *BindDemoAaaBbbCccRequest {
-	s.Data = &v
-	return s
-}
-
-type BindDemoAaaBbbCccResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s BindDemoAaaBbbCccResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoAaaBbbCccResponse) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoAaaBbbCccResponse) SetReqMsgId(v string) *BindDemoAaaBbbCccResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *BindDemoAaaBbbCccResponse) SetResultCode(v string) *BindDemoAaaBbbCccResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *BindDemoAaaBbbCccResponse) SetResultMsg(v string) *BindDemoAaaBbbCccResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-type QueryDemoAaaBbbCccRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s QueryDemoAaaBbbCccRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDemoAaaBbbCccRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDemoAaaBbbCccRequest) SetAuthToken(v string) *QueryDemoAaaBbbCccRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryDemoAaaBbbCccRequest) SetProductInstanceId(v string) *QueryDemoAaaBbbCccRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type QueryDemoAaaBbbCccResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s QueryDemoAaaBbbCccResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDemoAaaBbbCccResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDemoAaaBbbCccResponse) SetReqMsgId(v string) *QueryDemoAaaBbbCccResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryDemoAaaBbbCccResponse) SetResultCode(v string) *QueryDemoAaaBbbCccResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryDemoAaaBbbCccResponse) SetResultMsg(v string) *QueryDemoAaaBbbCccResponse {
-	s.ResultMsg = &v
+func (s *ExecBlockchainAppexContractServiceResponse) SetTxHash(v string) *ExecBlockchainAppexContractServiceResponse {
+	s.TxHash = &v
 	return s
 }
 
@@ -445,7 +376,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.5"),
 				"_prod_code":       tea.String("ak_489f73e9fd5f44c2b5b730d70ea51bf2"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -496,14 +427,14 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: test
- * Summary: test
+ * Description: 合约服务调用
+ * Summary: 合约服务调用
  */
-func (client *Client) BindDemoGatewayAbcTest(request *BindDemoGatewayAbcTestRequest) (_result *BindDemoGatewayAbcTestResponse, _err error) {
+func (client *Client) ExecBlockchainAppexContractService(request *ExecBlockchainAppexContractServiceRequest) (_result *ExecBlockchainAppexContractServiceResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &BindDemoGatewayAbcTestResponse{}
-	_body, _err := client.BindDemoGatewayAbcTestEx(request, headers, runtime)
+	_result = &ExecBlockchainAppexContractServiceResponse{}
+	_body, _err := client.ExecBlockchainAppexContractServiceEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -512,84 +443,16 @@ func (client *Client) BindDemoGatewayAbcTest(request *BindDemoGatewayAbcTestRequ
 }
 
 /**
- * Description: test
- * Summary: test
+ * Description: 合约服务调用
+ * Summary: 合约服务调用
  */
-func (client *Client) BindDemoGatewayAbcTestEx(request *BindDemoGatewayAbcTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoGatewayAbcTestResponse, _err error) {
+func (client *Client) ExecBlockchainAppexContractServiceEx(request *ExecBlockchainAppexContractServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecBlockchainAppexContractServiceResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &BindDemoGatewayAbcTestResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.gateway.abc.test.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 自动化测试创建，用于测试新建&修改功能
- * Summary: 自动化测试创建，用于测试新建&修改功能
- */
-func (client *Client) BindDemoAaaBbbCcc(request *BindDemoAaaBbbCccRequest) (_result *BindDemoAaaBbbCccResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &BindDemoAaaBbbCccResponse{}
-	_body, _err := client.BindDemoAaaBbbCccEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 自动化测试创建，用于测试新建&修改功能
- * Summary: 自动化测试创建，用于测试新建&修改功能
- */
-func (client *Client) BindDemoAaaBbbCccEx(request *BindDemoAaaBbbCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoAaaBbbCccResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &BindDemoAaaBbbCccResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.aaa.bbb.ccc.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 自动化测试创建1
- * Summary: 自动化测试创建（勿动）
- */
-func (client *Client) QueryDemoAaaBbbCcc(request *QueryDemoAaaBbbCccRequest) (_result *QueryDemoAaaBbbCccResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryDemoAaaBbbCccResponse{}
-	_body, _err := client.QueryDemoAaaBbbCccEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 自动化测试创建1
- * Summary: 自动化测试创建（勿动）
- */
-func (client *Client) QueryDemoAaaBbbCccEx(request *QueryDemoAaaBbbCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoAaaBbbCccResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryDemoAaaBbbCccResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.aaa.bbb.ccc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &ExecBlockchainAppexContractServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.contract.service.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
