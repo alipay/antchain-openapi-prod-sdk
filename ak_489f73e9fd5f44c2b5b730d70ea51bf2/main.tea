@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.0.5',
     _prod_code = 'ak_489f73e9fd5f44c2b5b730d70ea51bf2',
     _prod_channel = 'saas'
   };
@@ -161,107 +161,52 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-model BindDemoGatewayAbcTestRequest = {
+model ExecBlockchainAppexContractServiceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 应用did
+  appDid: string(maxLength=128, name='app_did'),
+  // 合约方法名
+  contractMethod: string(maxLength=128, name='contract_method'),
+  // 合约名称，当一个应用有多个合约时需要传入
+  contractName?: string(maxLength=128, name='contract_name'),
+  // 1.同步交易，2.异步交易，3.Local
+  // 如果不理解以上交易方式之间的区别请不要传入该参数，默认为同步交易
+  execType?: long(name='exec_type'),
+  // 合约入参（格式为json）
+  requestBody: string(maxLength=1024, name='request_body'),
 }
 
-model BindDemoGatewayAbcTestResponse = {
+model ExecBlockchainAppexContractServiceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 合约执行结果
+  responseBody?: string(name='response_body'),
+  // 交易hash
+  txHash?: string(name='tx_hash'),
 }
 
 /**
- * Description: test
- * Summary: test
+ * Description: 合约服务调用
+ * Summary: 合约服务调用
  */
-async function bindDemoGatewayAbcTest(request: BindDemoGatewayAbcTestRequest): BindDemoGatewayAbcTestResponse {
+async function execBlockchainAppexContractService(request: ExecBlockchainAppexContractServiceRequest): ExecBlockchainAppexContractServiceResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return bindDemoGatewayAbcTestEx(request, headers, runtime);
+  return execBlockchainAppexContractServiceEx(request, headers, runtime);
 }
 
 /**
- * Description: test
- * Summary: test
+ * Description: 合约服务调用
+ * Summary: 合约服务调用
  */
-async function bindDemoGatewayAbcTestEx(request: BindDemoGatewayAbcTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoGatewayAbcTestResponse {
+async function execBlockchainAppexContractServiceEx(request: ExecBlockchainAppexContractServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecBlockchainAppexContractServiceResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'demo.gateway.abc.test.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model BindDemoAaaBbbCccRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 123
-  data: string(name='data'),
-}
-
-model BindDemoAaaBbbCccResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: 自动化测试创建，用于测试新建&修改功能
- * Summary: 自动化测试创建，用于测试新建&修改功能
- */
-async function bindDemoAaaBbbCcc(request: BindDemoAaaBbbCccRequest): BindDemoAaaBbbCccResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return bindDemoAaaBbbCccEx(request, headers, runtime);
-}
-
-/**
- * Description: 自动化测试创建，用于测试新建&修改功能
- * Summary: 自动化测试创建，用于测试新建&修改功能
- */
-async function bindDemoAaaBbbCccEx(request: BindDemoAaaBbbCccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoAaaBbbCccResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryDemoAaaBbbCccRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-}
-
-model QueryDemoAaaBbbCccResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: 自动化测试创建1
- * Summary: 自动化测试创建（勿动）
- */
-async function queryDemoAaaBbbCcc(request: QueryDemoAaaBbbCccRequest): QueryDemoAaaBbbCccResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryDemoAaaBbbCccEx(request, headers, runtime);
-}
-
-/**
- * Description: 自动化测试创建1
- * Summary: 自动化测试创建（勿动）
- */
-async function queryDemoAaaBbbCccEx(request: QueryDemoAaaBbbCccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoAaaBbbCccResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.appex.contract.service.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
