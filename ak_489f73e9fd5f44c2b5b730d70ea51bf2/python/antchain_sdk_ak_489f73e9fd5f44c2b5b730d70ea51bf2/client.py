@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'ak_489f73e9fd5f44c2b5b730d70ea51bf2',
                     '_prod_channel': 'saas'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'ak_489f73e9fd5f44c2b5b730d70ea51bf2',
                     '_prod_channel': 'saas'
                 }
@@ -273,170 +273,58 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def bind_demo_gateway_abc_test(
+    def exec_blockchain_appex_contract_service(
         self,
-        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoGatewayAbcTestRequest,
-    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoGatewayAbcTestResponse:
+        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.ExecBlockchainAppexContractServiceRequest,
+    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.ExecBlockchainAppexContractServiceResponse:
         """
-        Description: test
-        Summary: test
+        Description: 合约服务调用
+        Summary: 合约服务调用
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.bind_demo_gateway_abc_test_ex(request, headers, runtime)
+        return self.exec_blockchain_appex_contract_service_ex(request, headers, runtime)
 
-    async def bind_demo_gateway_abc_test_async(
+    async def exec_blockchain_appex_contract_service_async(
         self,
-        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoGatewayAbcTestRequest,
-    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoGatewayAbcTestResponse:
+        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.ExecBlockchainAppexContractServiceRequest,
+    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.ExecBlockchainAppexContractServiceResponse:
         """
-        Description: test
-        Summary: test
+        Description: 合约服务调用
+        Summary: 合约服务调用
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.bind_demo_gateway_abc_test_ex_async(request, headers, runtime)
+        return await self.exec_blockchain_appex_contract_service_ex_async(request, headers, runtime)
 
-    def bind_demo_gateway_abc_test_ex(
+    def exec_blockchain_appex_contract_service_ex(
         self,
-        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoGatewayAbcTestRequest,
+        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.ExecBlockchainAppexContractServiceRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoGatewayAbcTestResponse:
+    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.ExecBlockchainAppexContractServiceResponse:
         """
-        Description: test
-        Summary: test
+        Description: 合约服务调用
+        Summary: 合约服务调用
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoGatewayAbcTestResponse(),
-            self.do_request('1.0', 'demo.gateway.abc.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.ExecBlockchainAppexContractServiceResponse(),
+            self.do_request('1.0', 'blockchain.appex.contract.service.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def bind_demo_gateway_abc_test_ex_async(
+    async def exec_blockchain_appex_contract_service_ex_async(
         self,
-        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoGatewayAbcTestRequest,
+        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.ExecBlockchainAppexContractServiceRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoGatewayAbcTestResponse:
+    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.ExecBlockchainAppexContractServiceResponse:
         """
-        Description: test
-        Summary: test
+        Description: 合约服务调用
+        Summary: 合约服务调用
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoGatewayAbcTestResponse(),
-            await self.do_request_async('1.0', 'demo.gateway.abc.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def bind_demo_aaa_bbb_ccc(
-        self,
-        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoAaaBbbCccRequest,
-    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建，用于测试新建&修改功能
-        Summary: 自动化测试创建，用于测试新建&修改功能
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.bind_demo_aaa_bbb_ccc_ex(request, headers, runtime)
-
-    async def bind_demo_aaa_bbb_ccc_async(
-        self,
-        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoAaaBbbCccRequest,
-    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建，用于测试新建&修改功能
-        Summary: 自动化测试创建，用于测试新建&修改功能
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.bind_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
-
-    def bind_demo_aaa_bbb_ccc_ex(
-        self,
-        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoAaaBbbCccRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建，用于测试新建&修改功能
-        Summary: 自动化测试创建，用于测试新建&修改功能
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoAaaBbbCccResponse(),
-            self.do_request('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def bind_demo_aaa_bbb_ccc_ex_async(
-        self,
-        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoAaaBbbCccRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建，用于测试新建&修改功能
-        Summary: 自动化测试创建，用于测试新建&修改功能
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.BindDemoAaaBbbCccResponse(),
-            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_demo_aaa_bbb_ccc(
-        self,
-        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.QueryDemoAaaBbbCccRequest,
-    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.QueryDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建1
-        Summary: 自动化测试创建（勿动）
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_demo_aaa_bbb_ccc_ex(request, headers, runtime)
-
-    async def query_demo_aaa_bbb_ccc_async(
-        self,
-        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.QueryDemoAaaBbbCccRequest,
-    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.QueryDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建1
-        Summary: 自动化测试创建（勿动）
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
-
-    def query_demo_aaa_bbb_ccc_ex(
-        self,
-        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.QueryDemoAaaBbbCccRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.QueryDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建1
-        Summary: 自动化测试创建（勿动）
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.QueryDemoAaaBbbCccResponse(),
-            self.do_request('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_demo_aaa_bbb_ccc_ex_async(
-        self,
-        request: ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.QueryDemoAaaBbbCccRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.QueryDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建1
-        Summary: 自动化测试创建（勿动）
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.QueryDemoAaaBbbCccResponse(),
-            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__489f_73e_9fd_5f_44c_2b_5b_730d_70ea_51bf_2_models.ExecBlockchainAppexContractServiceResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.contract.service.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
