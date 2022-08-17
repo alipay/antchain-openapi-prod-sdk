@@ -11,12 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\BindDemoAaaBbbCccRequest;
-use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\BindDemoAaaBbbCccResponse;
-use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\BindDemoGatewayAbcTestRequest;
-use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\BindDemoGatewayAbcTestResponse;
-use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\QueryDemoAaaBbbCccRequest;
-use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\QueryDemoAaaBbbCccResponse;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\ExecBlockchainAppexContractServiceRequest;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\ExecBlockchainAppexContractServiceResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -163,7 +159,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.0.5',
                     '_prod_code'       => 'ak_489f73e9fd5f44c2b5b730d70ea51bf2',
                     '_prod_channel'    => 'saas',
                 ];
@@ -212,101 +208,35 @@ class Client
     }
 
     /**
-     * Description: test
-     * Summary: test.
+     * Description: 合约服务调用
+     * Summary: 合约服务调用.
      *
-     * @param BindDemoGatewayAbcTestRequest $request
+     * @param ExecBlockchainAppexContractServiceRequest $request
      *
-     * @return BindDemoGatewayAbcTestResponse
+     * @return ExecBlockchainAppexContractServiceResponse
      */
-    public function bindDemoGatewayAbcTest($request)
+    public function execBlockchainAppexContractService($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->bindDemoGatewayAbcTestEx($request, $headers, $runtime);
+        return $this->execBlockchainAppexContractServiceEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: test
-     * Summary: test.
+     * Description: 合约服务调用
+     * Summary: 合约服务调用.
      *
-     * @param BindDemoGatewayAbcTestRequest $request
-     * @param string[]                      $headers
-     * @param RuntimeOptions                $runtime
+     * @param ExecBlockchainAppexContractServiceRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
      *
-     * @return BindDemoGatewayAbcTestResponse
+     * @return ExecBlockchainAppexContractServiceResponse
      */
-    public function bindDemoGatewayAbcTestEx($request, $headers, $runtime)
+    public function execBlockchainAppexContractServiceEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return BindDemoGatewayAbcTestResponse::fromMap($this->doRequest('1.0', 'demo.gateway.abc.test.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 自动化测试创建，用于测试新建&修改功能
-     * Summary: 自动化测试创建，用于测试新建&修改功能.
-     *
-     * @param BindDemoAaaBbbCccRequest $request
-     *
-     * @return BindDemoAaaBbbCccResponse
-     */
-    public function bindDemoAaaBbbCcc($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->bindDemoAaaBbbCccEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 自动化测试创建，用于测试新建&修改功能
-     * Summary: 自动化测试创建，用于测试新建&修改功能.
-     *
-     * @param BindDemoAaaBbbCccRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
-     *
-     * @return BindDemoAaaBbbCccResponse
-     */
-    public function bindDemoAaaBbbCccEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BindDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 自动化测试创建1
-     * Summary: 自动化测试创建（勿动）.
-     *
-     * @param QueryDemoAaaBbbCccRequest $request
-     *
-     * @return QueryDemoAaaBbbCccResponse
-     */
-    public function queryDemoAaaBbbCcc($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoAaaBbbCccEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 自动化测试创建1
-     * Summary: 自动化测试创建（勿动）.
-     *
-     * @param QueryDemoAaaBbbCccRequest $request
-     * @param string[]                  $headers
-     * @param RuntimeOptions            $runtime
-     *
-     * @return QueryDemoAaaBbbCccResponse
-     */
-    public function queryDemoAaaBbbCccEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return ExecBlockchainAppexContractServiceResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.contract.service.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
