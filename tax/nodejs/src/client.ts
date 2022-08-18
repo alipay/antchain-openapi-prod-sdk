@@ -325,6 +325,31 @@ export class Pair extends $tea.Model {
   }
 }
 
+// 授权文件信息
+export class AgreementFile extends $tea.Model {
+  // 授权文件名称
+  fileName: string;
+  // 授权文件内容
+  fileContentBase64String: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileName: 'file_name',
+      fileContentBase64String: 'file_content_base64_string',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileName: 'string',
+      fileContentBase64String: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 地区请求
 export class DistrictExtRequest extends $tea.Model {
   // 地区编码
@@ -392,11 +417,14 @@ export class AgreementExtRequest extends $tea.Model {
   isSeal: string;
   // 地址
   address: string;
+  // 授权文件信息
+  agreementFileList?: AgreementFile;
   static names(): { [key: string]: string } {
     return {
       type: 'type',
       isSeal: 'is_seal',
       address: 'address',
+      agreementFileList: 'agreement_file_list',
     };
   }
 
@@ -405,6 +433,7 @@ export class AgreementExtRequest extends $tea.Model {
       type: 'string',
       isSeal: 'string',
       address: 'string',
+      agreementFileList: AgreementFile,
     };
   }
 
@@ -1618,6 +1647,8 @@ export class ExecIcmSyncgatheringResponse extends $tea.Model {
   returnMode?: string;
   // 返回结果
   returnResult?: ReturnDetail[];
+  // 是否查得
+  nullDataFlag?: boolean;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1627,6 +1658,7 @@ export class ExecIcmSyncgatheringResponse extends $tea.Model {
       queryTime: 'query_time',
       returnMode: 'return_mode',
       returnResult: 'return_result',
+      nullDataFlag: 'null_data_flag',
     };
   }
 
@@ -1639,6 +1671,7 @@ export class ExecIcmSyncgatheringResponse extends $tea.Model {
       queryTime: 'string',
       returnMode: 'string',
       returnResult: { 'type': 'array', 'itemType': ReturnDetail },
+      nullDataFlag: 'boolean',
     };
   }
 
@@ -1971,6 +2004,194 @@ export class QueryApiAuthtemplateresultResponse extends $tea.Model {
   }
 }
 
+export class AuthIcmEnterpriseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 身份id，统一社会信用编码or其他
+  identityId: string;
+  // 企业名称
+  identityName?: string;
+  // 授权类型，不动产100，电力200
+  authType: string;
+  // 授权订单号
+  orderNo: string;
+  // 扩展信息	
+  extendInfo: StandardAuthExtendInfoRequest;
+  // 法人姓名
+  cognizantName?: string;
+  // 法人手机号
+  cognizantMobile?: string;
+  // 法人身份证号
+  cognizantId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      identityId: 'identity_id',
+      identityName: 'identity_name',
+      authType: 'auth_type',
+      orderNo: 'order_no',
+      extendInfo: 'extend_info',
+      cognizantName: 'cognizant_name',
+      cognizantMobile: 'cognizant_mobile',
+      cognizantId: 'cognizant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      identityId: 'string',
+      identityName: 'string',
+      authType: 'string',
+      orderNo: 'string',
+      extendInfo: StandardAuthExtendInfoRequest,
+      cognizantName: 'string',
+      cognizantMobile: 'string',
+      cognizantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthIcmEnterpriseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否授权成功true是，false否
+  // 
+  authSuccess?: boolean;
+  // 授权订单订单号
+  // 
+  orderNo?: string;
+  // 过期时间，unix时间戳 毫秒
+  expireTime?: number;
+  // unix时间戳 毫秒
+  authTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      authSuccess: 'auth_success',
+      orderNo: 'order_no',
+      expireTime: 'expire_time',
+      authTime: 'auth_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      authSuccess: 'boolean',
+      orderNo: 'string',
+      expireTime: 'number',
+      authTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateApiAuthurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 01发票归集授权 02记账 03报销 11发票贷授权（0X发票相关授权，1X金融类授权）
+  authType: string;
+  // 纳税人识别号
+  nsrsbh: string;
+  // 企业名称
+  corpName: string;
+  // 授权回调地址，授权成功后，会跳转该地址，该地址填接入方自己的接收授权结果的地址
+  callBackUrl: string;
+  // 已认证的法人手机号
+  cognizantMobile?: string;
+  // 已认证的法人姓名
+  cognizantName?: string;
+  // 已认证的法人身份证号
+  identityNumber?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      authType: 'auth_type',
+      nsrsbh: 'nsrsbh',
+      corpName: 'corp_name',
+      callBackUrl: 'call_back_url',
+      cognizantMobile: 'cognizant_mobile',
+      cognizantName: 'cognizant_name',
+      identityNumber: 'identity_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      authType: 'string',
+      nsrsbh: 'string',
+      corpName: 'string',
+      callBackUrl: 'string',
+      cognizantMobile: 'string',
+      cognizantName: 'string',
+      identityNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateApiAuthurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 短链接地址
+  loginUrl?: string;
+  // 蚂蚁生成的订单号，此次授权的唯一标识
+  orderNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      loginUrl: 'login_url',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      loginUrl: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2084,7 +2305,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.0",
+          sdk_version: "1.6.0",
+          _prod_code: "TAX",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2394,6 +2617,44 @@ export default class Client {
   async queryApiAuthtemplateresultEx(request: QueryApiAuthtemplateresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApiAuthtemplateresultResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryApiAuthtemplateresultResponse>(await this.doRequest("1.0", "blockchain.tax.api.authtemplateresult.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApiAuthtemplateresultResponse({}));
+  }
+
+  /**
+   * Description: 企业的授权接口
+   * Summary: 企业授权
+   */
+  async authIcmEnterprise(request: AuthIcmEnterpriseRequest): Promise<AuthIcmEnterpriseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.authIcmEnterpriseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企业的授权接口
+   * Summary: 企业授权
+   */
+  async authIcmEnterpriseEx(request: AuthIcmEnterpriseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthIcmEnterpriseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AuthIcmEnterpriseResponse>(await this.doRequest("1.0", "blockchain.tax.icm.enterprise.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthIcmEnterpriseResponse({}));
+  }
+
+  /**
+   * Description: 该接口为支持授权链接的生成
+   * Summary: 可信授权链接获取接口
+   */
+  async createApiAuthurl(request: CreateApiAuthurlRequest): Promise<CreateApiAuthurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createApiAuthurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 该接口为支持授权链接的生成
+   * Summary: 可信授权链接获取接口
+   */
+  async createApiAuthurlEx(request: CreateApiAuthurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateApiAuthurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateApiAuthurlResponse>(await this.doRequest("1.0", "blockchain.tax.api.authurl.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateApiAuthurlResponse({}));
   }
 
 }
