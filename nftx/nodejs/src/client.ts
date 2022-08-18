@@ -1316,6 +1316,8 @@ export class PayOrderDataRequest extends $tea.Model {
   subject: string;
   // 订单超时时间，秒级
   timeoutExpireSecond: number;
+  // 接入方存储的accessToken
+  accessToken: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1325,6 +1327,7 @@ export class PayOrderDataRequest extends $tea.Model {
       payChannel: 'pay_channel',
       subject: 'subject',
       timeoutExpireSecond: 'timeout_expire_second',
+      accessToken: 'access_token',
     };
   }
 
@@ -1337,6 +1340,7 @@ export class PayOrderDataRequest extends $tea.Model {
       payChannel: 'string',
       subject: 'string',
       timeoutExpireSecond: 'number',
+      accessToken: 'string',
     };
   }
 
@@ -1580,7 +1584,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.1",
+          sdk_version: "1.6.2",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
