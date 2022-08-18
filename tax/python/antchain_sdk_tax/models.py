@@ -711,7 +711,7 @@ class AgreementExtRequest(TeaModel):
         type: str = None,
         is_seal: str = None,
         address: str = None,
-        agreement_file_list: AgreementFile = None,
+        agreement_file: AgreementFile = None,
     ):
         # 证书类型
         self.type = type
@@ -720,14 +720,14 @@ class AgreementExtRequest(TeaModel):
         # 地址
         self.address = address
         # 授权文件信息
-        self.agreement_file_list = agreement_file_list
+        self.agreement_file = agreement_file
 
     def validate(self):
         self.validate_required(self.type, 'type')
         self.validate_required(self.is_seal, 'is_seal')
         self.validate_required(self.address, 'address')
-        if self.agreement_file_list:
-            self.agreement_file_list.validate()
+        if self.agreement_file:
+            self.agreement_file.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -741,8 +741,8 @@ class AgreementExtRequest(TeaModel):
             result['is_seal'] = self.is_seal
         if self.address is not None:
             result['address'] = self.address
-        if self.agreement_file_list is not None:
-            result['agreement_file_list'] = self.agreement_file_list.to_map()
+        if self.agreement_file is not None:
+            result['agreement_file'] = self.agreement_file.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -753,9 +753,9 @@ class AgreementExtRequest(TeaModel):
             self.is_seal = m.get('is_seal')
         if m.get('address') is not None:
             self.address = m.get('address')
-        if m.get('agreement_file_list') is not None:
+        if m.get('agreement_file') is not None:
             temp_model = AgreementFile()
-            self.agreement_file_list = temp_model.from_map(m['agreement_file_list'])
+            self.agreement_file = temp_model.from_map(m['agreement_file'])
         return self
 
 
