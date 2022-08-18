@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.0',
+    sdk_version = '1.6.0',
+    _prod_code = 'TAX',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -267,6 +269,14 @@ model Pair {
   right: Key(name='right', example='right'),
 }
 
+// 授权文件信息
+model AgreementFile {
+  // 授权文件名称
+  fileName: string(name='file_name', example='1.pdf'),
+  // 授权文件内容
+  fileContentBase64String: string(name='file_content_base64_string', example='JVBERi0xLjUKJYCBgoMKMSAwIG9iago8PC9GaWx0ZXIvRmxhdGVEZWNvZGUvRmlyc3QgMTQxL04gMjAvTGVuZ3=='),
+}
+
 // 地区请求
 model DistrictExtRequest {
   // 地区编码
@@ -296,6 +306,8 @@ model AgreementExtRequest {
   isSeal: string(name='is_seal', example='true'),
   // 地址
   address: string(name='address', example='http://sdsdfsd.com'),
+  // 授权文件信息
+  agreementFileList?: AgreementFile(name='agreement_file_list', example=''),
 }
 
 // 树节点
@@ -952,6 +964,8 @@ model ExecIcmSyncgatheringResponse = {
   returnMode?: string(name='return_mode'),
   // 返回结果
   returnResult?: [ ReturnDetail ](name='return_result'),
+  // 是否查得
+  nullDataFlag?: boolean(name='null_data_flag'),
 }
 
 /**
@@ -1173,5 +1187,117 @@ async function queryApiAuthtemplateresult(request: QueryApiAuthtemplateresultReq
 async function queryApiAuthtemplateresultEx(request: QueryApiAuthtemplateresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiAuthtemplateresultResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.tax.api.authtemplateresult.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthIcmEnterpriseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 身份id，统一社会信用编码or其他
+  identityId: string(name='identity_id'),
+  // 企业名称
+  identityName?: string(name='identity_name'),
+  // 授权类型，不动产100，电力200
+  authType: string(name='auth_type'),
+  // 授权订单号
+  orderNo: string(name='order_no'),
+  // 扩展信息	
+  extendInfo: StandardAuthExtendInfoRequest(name='extend_info'),
+  // 法人姓名
+  cognizantName?: string(name='cognizant_name'),
+  // 法人手机号
+  cognizantMobile?: string(name='cognizant_mobile'),
+  // 法人身份证号
+  cognizantId?: string(name='cognizant_id'),
+}
+
+model AuthIcmEnterpriseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否授权成功true是，false否
+  // 
+  authSuccess?: boolean(name='auth_success'),
+  // 授权订单订单号
+  // 
+  orderNo?: string(name='order_no'),
+  // 过期时间，unix时间戳 毫秒
+  expireTime?: long(name='expire_time'),
+  // unix时间戳 毫秒
+  authTime?: long(name='auth_time'),
+}
+
+/**
+ * Description: 企业的授权接口
+ * Summary: 企业授权
+ */
+async function authIcmEnterprise(request: AuthIcmEnterpriseRequest): AuthIcmEnterpriseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authIcmEnterpriseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业的授权接口
+ * Summary: 企业授权
+ */
+async function authIcmEnterpriseEx(request: AuthIcmEnterpriseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthIcmEnterpriseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.icm.enterprise.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateApiAuthurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 01发票归集授权 02记账 03报销 11发票贷授权（0X发票相关授权，1X金融类授权）
+  authType: string(name='auth_type'),
+  // 纳税人识别号
+  nsrsbh: string(name='nsrsbh'),
+  // 企业名称
+  corpName: string(name='corp_name'),
+  // 授权回调地址，授权成功后，会跳转该地址，该地址填接入方自己的接收授权结果的地址
+  callBackUrl: string(name='call_back_url'),
+  // 已认证的法人手机号
+  cognizantMobile?: string(name='cognizant_mobile'),
+  // 已认证的法人姓名
+  cognizantName?: string(name='cognizant_name'),
+  // 已认证的法人身份证号
+  identityNumber?: string(name='identity_number'),
+}
+
+model CreateApiAuthurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 短链接地址
+  loginUrl?: string(name='login_url'),
+  // 蚂蚁生成的订单号，此次授权的唯一标识
+  orderNo?: string(name='order_no'),
+}
+
+/**
+ * Description: 该接口为支持授权链接的生成
+ * Summary: 可信授权链接获取接口
+ */
+async function createApiAuthurl(request: CreateApiAuthurlRequest): CreateApiAuthurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createApiAuthurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 该接口为支持授权链接的生成
+ * Summary: 可信授权链接获取接口
+ */
+async function createApiAuthurlEx(request: CreateApiAuthurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateApiAuthurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.authurl.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
