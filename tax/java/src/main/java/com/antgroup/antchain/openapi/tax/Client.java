@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.0")
+                    new TeaPair("sdk_version", "1.6.0"),
+                    new TeaPair("_prod_code", "TAX"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -423,5 +425,43 @@ public class Client {
     public QueryApiAuthtemplateresultResponse queryApiAuthtemplateresultEx(QueryApiAuthtemplateresultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.authtemplateresult.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApiAuthtemplateresultResponse());
+    }
+
+    /**
+     * Description: 企业的授权接口
+     * Summary: 企业授权
+     */
+    public AuthIcmEnterpriseResponse authIcmEnterprise(AuthIcmEnterpriseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.authIcmEnterpriseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企业的授权接口
+     * Summary: 企业授权
+     */
+    public AuthIcmEnterpriseResponse authIcmEnterpriseEx(AuthIcmEnterpriseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.icm.enterprise.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthIcmEnterpriseResponse());
+    }
+
+    /**
+     * Description: 该接口为支持授权链接的生成
+     * Summary: 可信授权链接获取接口
+     */
+    public CreateApiAuthurlResponse createApiAuthurl(CreateApiAuthurlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createApiAuthurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 该接口为支持授权链接的生成
+     * Summary: 可信授权链接获取接口
+     */
+    public CreateApiAuthurlResponse createApiAuthurlEx(CreateApiAuthurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.authurl.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateApiAuthurlResponse());
     }
 }

@@ -19,6 +19,10 @@ public class AgreementExtRequest extends TeaModel {
     @Validation(required = true)
     public String address;
 
+    // 授权文件信息
+    @NameInMap("agreement_file_list")
+    public AgreementFile agreementFileList;
+
     public static AgreementExtRequest build(java.util.Map<String, ?> map) throws Exception {
         AgreementExtRequest self = new AgreementExtRequest();
         return TeaModel.build(map, self);
@@ -46,6 +50,14 @@ public class AgreementExtRequest extends TeaModel {
     }
     public String getAddress() {
         return this.address;
+    }
+
+    public AgreementExtRequest setAgreementFileList(AgreementFile agreementFileList) {
+        this.agreementFileList = agreementFileList;
+        return this;
+    }
+    public AgreementFile getAgreementFileList() {
+        return this.agreementFileList;
     }
 
 }

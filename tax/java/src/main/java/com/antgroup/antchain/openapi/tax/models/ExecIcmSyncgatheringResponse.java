@@ -32,6 +32,10 @@ public class ExecIcmSyncgatheringResponse extends TeaModel {
     @NameInMap("return_result")
     public java.util.List<ReturnDetail> returnResult;
 
+    // 是否查得
+    @NameInMap("null_data_flag")
+    public Boolean nullDataFlag;
+
     public static ExecIcmSyncgatheringResponse build(java.util.Map<String, ?> map) throws Exception {
         ExecIcmSyncgatheringResponse self = new ExecIcmSyncgatheringResponse();
         return TeaModel.build(map, self);
@@ -91,6 +95,14 @@ public class ExecIcmSyncgatheringResponse extends TeaModel {
     }
     public java.util.List<ReturnDetail> getReturnResult() {
         return this.returnResult;
+    }
+
+    public ExecIcmSyncgatheringResponse setNullDataFlag(Boolean nullDataFlag) {
+        this.nullDataFlag = nullDataFlag;
+        return this;
+    }
+    public Boolean getNullDataFlag() {
+        return this.nullDataFlag;
     }
 
 }
