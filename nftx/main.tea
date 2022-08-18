@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.1',
+    sdk_version = '1.6.2',
     _prod_code = 'NFTX',
     _prod_channel = 'undefined'
   };
@@ -893,6 +893,8 @@ model PayOrderDataRequest = {
   subject: string(name='subject'),
   // 订单超时时间，秒级
   timeoutExpireSecond: long(name='timeout_expire_second'),
+  // 接入方存储的accessToken
+  accessToken: string(name='access_token'),
 }
 
 model PayOrderDataResponse = {
