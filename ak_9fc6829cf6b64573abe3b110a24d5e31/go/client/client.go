@@ -148,62 +148,6 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-type QueryDemoAdAsdAsdRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s QueryDemoAdAsdAsdRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDemoAdAsdAsdRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDemoAdAsdAsdRequest) SetAuthToken(v string) *QueryDemoAdAsdAsdRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryDemoAdAsdAsdRequest) SetProductInstanceId(v string) *QueryDemoAdAsdAsdRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type QueryDemoAdAsdAsdResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s QueryDemoAdAsdAsdResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDemoAdAsdAsdResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDemoAdAsdAsdResponse) SetReqMsgId(v string) *QueryDemoAdAsdAsdResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryDemoAdAsdAsdResponse) SetResultCode(v string) *QueryDemoAdAsdAsdResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryDemoAdAsdAsdResponse) SetResultMsg(v string) *QueryDemoAdAsdAsdResponse {
-	s.ResultMsg = &v
-	return s
-}
-
 type BindDemoAsdAsdAsdRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -256,62 +200,6 @@ func (s *BindDemoAsdAsdAsdResponse) SetResultCode(v string) *BindDemoAsdAsdAsdRe
 }
 
 func (s *BindDemoAsdAsdAsdResponse) SetResultMsg(v string) *BindDemoAsdAsdAsdResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-type BindDemoAsdAsdRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s BindDemoAsdAsdRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoAsdAsdRequest) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoAsdAsdRequest) SetAuthToken(v string) *BindDemoAsdAsdRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *BindDemoAsdAsdRequest) SetProductInstanceId(v string) *BindDemoAsdAsdRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type BindDemoAsdAsdResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s BindDemoAsdAsdResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoAsdAsdResponse) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoAsdAsdResponse) SetReqMsgId(v string) *BindDemoAsdAsdResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *BindDemoAsdAsdResponse) SetResultCode(v string) *BindDemoAsdAsdResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *BindDemoAsdAsdResponse) SetResultMsg(v string) *BindDemoAsdAsdResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -494,7 +382,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.2"),
+				"_prod_code":       tea.String("ak_9fc6829cf6b64573abe3b110a24d5e31"),
+				"_prod_channel":    tea.String("saas"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -546,40 +436,6 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
  * Description: asd
  * Summary: asd
  */
-func (client *Client) QueryDemoAdAsdAsd(request *QueryDemoAdAsdAsdRequest) (_result *QueryDemoAdAsdAsdResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryDemoAdAsdAsdResponse{}
-	_body, _err := client.QueryDemoAdAsdAsdEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: asd
- * Summary: asd
- */
-func (client *Client) QueryDemoAdAsdAsdEx(request *QueryDemoAdAsdAsdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoAdAsdAsdResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryDemoAdAsdAsdResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.ad.asd.asd.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: asd
- * Summary: asd
- */
 func (client *Client) BindDemoAsdAsdAsd(request *BindDemoAsdAsdAsdRequest) (_result *BindDemoAsdAsdAsdResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -603,40 +459,6 @@ func (client *Client) BindDemoAsdAsdAsdEx(request *BindDemoAsdAsdAsdRequest, hea
 	}
 	_result = &BindDemoAsdAsdAsdResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.asd.asd.asd.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 1·2
- * Summary: 测试
- */
-func (client *Client) BindDemoAsdAsd(request *BindDemoAsdAsdRequest) (_result *BindDemoAsdAsdResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &BindDemoAsdAsdResponse{}
-	_body, _err := client.BindDemoAsdAsdEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 1·2
- * Summary: 测试
- */
-func (client *Client) BindDemoAsdAsdEx(request *BindDemoAsdAsdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoAsdAsdResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &BindDemoAsdAsdResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.asd.asd.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
