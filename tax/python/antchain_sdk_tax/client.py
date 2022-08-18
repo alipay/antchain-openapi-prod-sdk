@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.0'
+                    'sdk_version': '1.6.0',
+                    '_prod_code': 'TAX',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.0'
+                    'sdk_version': '1.6.0',
+                    '_prod_code': 'TAX',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +310,8 @@ class Client:
         Summary: 区块链发票开通企业信息推送
         """
         UtilClient.validate_model(request)
-        return tax_models.AuthCorpResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.AuthCorpResponse(),
             self.do_request('1.0', 'blockchain.tax.corp.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +326,8 @@ class Client:
         Summary: 区块链发票开通企业信息推送
         """
         UtilClient.validate_model(request)
-        return tax_models.AuthCorpResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.AuthCorpResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.corp.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +366,8 @@ class Client:
         Summary: 计费推送
         """
         UtilClient.validate_model(request)
-        return tax_models.PushChargeResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.PushChargeResponse(),
             self.do_request('1.0', 'blockchain.tax.charge.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +382,8 @@ class Client:
         Summary: 计费推送
         """
         UtilClient.validate_model(request)
-        return tax_models.PushChargeResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.PushChargeResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.charge.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +422,8 @@ class Client:
         Summary: 查询计收费授权情况
         """
         UtilClient.validate_model(request)
-        return tax_models.QueryChargeAuthResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.QueryChargeAuthResponse(),
             self.do_request('1.0', 'blockchain.tax.charge.auth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +438,8 @@ class Client:
         Summary: 查询计收费授权情况
         """
         UtilClient.validate_model(request)
-        return tax_models.QueryChargeAuthResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.QueryChargeAuthResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.charge.auth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +478,8 @@ class Client:
         Summary:  区块链发票信息推送
         """
         UtilClient.validate_model(request)
-        return tax_models.PushIcmInvoiceResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.PushIcmInvoiceResponse(),
             self.do_request('1.0', 'blockchain.tax.icm.invoice.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +494,8 @@ class Client:
         Summary:  区块链发票信息推送
         """
         UtilClient.validate_model(request)
-        return tax_models.PushIcmInvoiceResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.PushIcmInvoiceResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.icm.invoice.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +534,8 @@ class Client:
         Summary:  区块链发票信息查询
         """
         UtilClient.validate_model(request)
-        return tax_models.QueryIcmInvoiceResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.QueryIcmInvoiceResponse(),
             self.do_request('1.0', 'blockchain.tax.icm.invoice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +550,8 @@ class Client:
         Summary:  区块链发票信息查询
         """
         UtilClient.validate_model(request)
-        return tax_models.QueryIcmInvoiceResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.QueryIcmInvoiceResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.icm.invoice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +590,8 @@ class Client:
         Summary: 标准发票推送
         """
         UtilClient.validate_model(request)
-        return tax_models.PushIcmInvoiceinfoResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.PushIcmInvoiceinfoResponse(),
             self.do_request('1.0', 'blockchain.tax.icm.invoiceinfo.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +606,8 @@ class Client:
         Summary: 标准发票推送
         """
         UtilClient.validate_model(request)
-        return tax_models.PushIcmInvoiceinfoResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.PushIcmInvoiceinfoResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.icm.invoiceinfo.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +646,8 @@ class Client:
         Summary: 获取数据的上链信息描述
         """
         UtilClient.validate_model(request)
-        return tax_models.DescribeIcmInvoiceResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.DescribeIcmInvoiceResponse(),
             self.do_request('1.0', 'blockchain.tax.icm.invoice.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +662,8 @@ class Client:
         Summary: 获取数据的上链信息描述
         """
         UtilClient.validate_model(request)
-        return tax_models.DescribeIcmInvoiceResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.DescribeIcmInvoiceResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.icm.invoice.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +702,8 @@ class Client:
         Summary: 区块链银行授权接口
         """
         UtilClient.validate_model(request)
-        return tax_models.AuthIcmInvoiceResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.AuthIcmInvoiceResponse(),
             self.do_request('1.0', 'blockchain.tax.icm.invoice.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +718,8 @@ class Client:
         Summary: 区块链银行授权接口
         """
         UtilClient.validate_model(request)
-        return tax_models.AuthIcmInvoiceResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.AuthIcmInvoiceResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.icm.invoice.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +758,8 @@ class Client:
         Summary: 个人数据使用授权
         """
         UtilClient.validate_model(request)
-        return tax_models.AuthIcmRealpersonResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.AuthIcmRealpersonResponse(),
             self.do_request('1.0', 'blockchain.tax.icm.realperson.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +774,8 @@ class Client:
         Summary: 个人数据使用授权
         """
         UtilClient.validate_model(request)
-        return tax_models.AuthIcmRealpersonResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.AuthIcmRealpersonResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.icm.realperson.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +814,8 @@ class Client:
         Summary: 采集
         """
         UtilClient.validate_model(request)
-        return tax_models.ExecIcmSyncgatheringResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.ExecIcmSyncgatheringResponse(),
             self.do_request('1.0', 'blockchain.tax.icm.syncgathering.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +830,8 @@ class Client:
         Summary: 采集
         """
         UtilClient.validate_model(request)
-        return tax_models.ExecIcmSyncgatheringResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.ExecIcmSyncgatheringResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.icm.syncgathering.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +870,8 @@ class Client:
         Summary: 获取授权模版和token
         """
         UtilClient.validate_model(request)
-        return tax_models.QueryApiAuthteplateResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.QueryApiAuthteplateResponse(),
             self.do_request('1.0', 'blockchain.tax.api.authteplate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +886,8 @@ class Client:
         Summary: 获取授权模版和token
         """
         UtilClient.validate_model(request)
-        return tax_models.QueryApiAuthteplateResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.QueryApiAuthteplateResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.api.authteplate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +926,8 @@ class Client:
         Summary: 提交
         """
         UtilClient.validate_model(request)
-        return tax_models.ExecApiAuthtemplateResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.ExecApiAuthtemplateResponse(),
             self.do_request('1.0', 'blockchain.tax.api.authtemplate.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,7 +942,8 @@ class Client:
         Summary: 提交
         """
         UtilClient.validate_model(request)
-        return tax_models.ExecApiAuthtemplateResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.ExecApiAuthtemplateResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.api.authtemplate.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -954,7 +982,8 @@ class Client:
         Summary: 获取要素信息
         """
         UtilClient.validate_model(request)
-        return tax_models.QueryApiAuthtemplatedefineResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.QueryApiAuthtemplatedefineResponse(),
             self.do_request('1.0', 'blockchain.tax.api.authtemplatedefine.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -969,7 +998,8 @@ class Client:
         Summary: 获取要素信息
         """
         UtilClient.validate_model(request)
-        return tax_models.QueryApiAuthtemplatedefineResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.QueryApiAuthtemplatedefineResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.api.authtemplatedefine.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1008,7 +1038,8 @@ class Client:
         Summary: 获取授权结果
         """
         UtilClient.validate_model(request)
-        return tax_models.QueryApiAuthtemplateresultResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.QueryApiAuthtemplateresultResponse(),
             self.do_request('1.0', 'blockchain.tax.api.authtemplateresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1023,6 +1054,119 @@ class Client:
         Summary: 获取授权结果
         """
         UtilClient.validate_model(request)
-        return tax_models.QueryApiAuthtemplateresultResponse().from_map(
+        return TeaCore.from_map(
+            tax_models.QueryApiAuthtemplateresultResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.api.authtemplateresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def auth_icm_enterprise(
+        self,
+        request: tax_models.AuthIcmEnterpriseRequest,
+    ) -> tax_models.AuthIcmEnterpriseResponse:
+        """
+        Description: 企业的授权接口
+        Summary: 企业授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.auth_icm_enterprise_ex(request, headers, runtime)
+
+    async def auth_icm_enterprise_async(
+        self,
+        request: tax_models.AuthIcmEnterpriseRequest,
+    ) -> tax_models.AuthIcmEnterpriseResponse:
+        """
+        Description: 企业的授权接口
+        Summary: 企业授权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.auth_icm_enterprise_ex_async(request, headers, runtime)
+
+    def auth_icm_enterprise_ex(
+        self,
+        request: tax_models.AuthIcmEnterpriseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.AuthIcmEnterpriseResponse:
+        """
+        Description: 企业的授权接口
+        Summary: 企业授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.AuthIcmEnterpriseResponse(),
+            self.do_request('1.0', 'blockchain.tax.icm.enterprise.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def auth_icm_enterprise_ex_async(
+        self,
+        request: tax_models.AuthIcmEnterpriseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.AuthIcmEnterpriseResponse:
+        """
+        Description: 企业的授权接口
+        Summary: 企业授权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.AuthIcmEnterpriseResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.icm.enterprise.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_api_authurl(
+        self,
+        request: tax_models.CreateApiAuthurlRequest,
+    ) -> tax_models.CreateApiAuthurlResponse:
+        """
+        Description: 该接口为支持授权链接的生成
+        Summary: 可信授权链接获取接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_api_authurl_ex(request, headers, runtime)
+
+    async def create_api_authurl_async(
+        self,
+        request: tax_models.CreateApiAuthurlRequest,
+    ) -> tax_models.CreateApiAuthurlResponse:
+        """
+        Description: 该接口为支持授权链接的生成
+        Summary: 可信授权链接获取接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_api_authurl_ex_async(request, headers, runtime)
+
+    def create_api_authurl_ex(
+        self,
+        request: tax_models.CreateApiAuthurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.CreateApiAuthurlResponse:
+        """
+        Description: 该接口为支持授权链接的生成
+        Summary: 可信授权链接获取接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.CreateApiAuthurlResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.authurl.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_api_authurl_ex_async(
+        self,
+        request: tax_models.CreateApiAuthurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.CreateApiAuthurlResponse:
+        """
+        Description: 该接口为支持授权链接的生成
+        Summary: 可信授权链接获取接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.CreateApiAuthurlResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.authurl.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
