@@ -1832,6 +1832,8 @@ type PayOrderDataRequest struct {
 	Subject *string `json:"subject,omitempty" xml:"subject,omitempty" require:"true"`
 	// 订单超时时间，秒级
 	TimeoutExpireSecond *int64 `json:"timeout_expire_second,omitempty" xml:"timeout_expire_second,omitempty" require:"true"`
+	// 接入方存储的accessToken
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
 }
 
 func (s PayOrderDataRequest) String() string {
@@ -1874,6 +1876,11 @@ func (s *PayOrderDataRequest) SetSubject(v string) *PayOrderDataRequest {
 
 func (s *PayOrderDataRequest) SetTimeoutExpireSecond(v int64) *PayOrderDataRequest {
 	s.TimeoutExpireSecond = &v
+	return s
+}
+
+func (s *PayOrderDataRequest) SetAccessToken(v string) *PayOrderDataRequest {
+	s.AccessToken = &v
 	return s
 }
 
@@ -2160,7 +2167,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.1"),
+				"sdk_version":      tea.String("1.6.2"),
 				"_prod_code":       tea.String("NFTX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
