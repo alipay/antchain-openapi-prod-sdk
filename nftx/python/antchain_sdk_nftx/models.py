@@ -2216,6 +2216,7 @@ class PayOrderDataRequest(TeaModel):
         pay_channel: str = None,
         subject: str = None,
         timeout_expire_second: int = None,
+        access_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2230,6 +2231,8 @@ class PayOrderDataRequest(TeaModel):
         self.subject = subject
         # 订单超时时间，秒级
         self.timeout_expire_second = timeout_expire_second
+        # 接入方存储的accessToken
+        self.access_token = access_token
 
     def validate(self):
         self.validate_required(self.external_order_no, 'external_order_no')
@@ -2237,6 +2240,7 @@ class PayOrderDataRequest(TeaModel):
         self.validate_required(self.pay_channel, 'pay_channel')
         self.validate_required(self.subject, 'subject')
         self.validate_required(self.timeout_expire_second, 'timeout_expire_second')
+        self.validate_required(self.access_token, 'access_token')
 
     def to_map(self):
         _map = super().to_map()
@@ -2258,6 +2262,8 @@ class PayOrderDataRequest(TeaModel):
             result['subject'] = self.subject
         if self.timeout_expire_second is not None:
             result['timeout_expire_second'] = self.timeout_expire_second
+        if self.access_token is not None:
+            result['access_token'] = self.access_token
         return result
 
     def from_map(self, m: dict = None):
@@ -2276,6 +2282,8 @@ class PayOrderDataRequest(TeaModel):
             self.subject = m.get('subject')
         if m.get('timeout_expire_second') is not None:
             self.timeout_expire_second = m.get('timeout_expire_second')
+        if m.get('access_token') is not None:
+            self.access_token = m.get('access_token')
         return self
 
 
