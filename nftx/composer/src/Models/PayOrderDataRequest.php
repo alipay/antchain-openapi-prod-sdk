@@ -48,6 +48,12 @@ class PayOrderDataRequest extends Model
      * @var int
      */
     public $timeoutExpireSecond;
+
+    // 接入方存储的accessToken
+    /**
+     * @var string
+     */
+    public $accessToken;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -56,6 +62,7 @@ class PayOrderDataRequest extends Model
         'payChannel'          => 'pay_channel',
         'subject'             => 'subject',
         'timeoutExpireSecond' => 'timeout_expire_second',
+        'accessToken'         => 'access_token',
     ];
 
     public function validate()
@@ -65,6 +72,7 @@ class PayOrderDataRequest extends Model
         Model::validateRequired('payChannel', $this->payChannel, true);
         Model::validateRequired('subject', $this->subject, true);
         Model::validateRequired('timeoutExpireSecond', $this->timeoutExpireSecond, true);
+        Model::validateRequired('accessToken', $this->accessToken, true);
     }
 
     public function toMap()
@@ -90,6 +98,9 @@ class PayOrderDataRequest extends Model
         }
         if (null !== $this->timeoutExpireSecond) {
             $res['timeout_expire_second'] = $this->timeoutExpireSecond;
+        }
+        if (null !== $this->accessToken) {
+            $res['access_token'] = $this->accessToken;
         }
 
         return $res;
@@ -123,6 +134,9 @@ class PayOrderDataRequest extends Model
         }
         if (isset($map['timeout_expire_second'])) {
             $model->timeoutExpireSecond = $map['timeout_expire_second'];
+        }
+        if (isset($map['access_token'])) {
+            $model->accessToken = $map['access_token'];
         }
 
         return $model;
