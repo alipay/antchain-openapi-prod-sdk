@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.0',
+    sdk_version = '1.6.1',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -307,7 +307,7 @@ model AgreementExtRequest {
   // 地址
   address: string(name='address', example='http://sdsdfsd.com'),
   // 授权文件信息
-  agreementFileList?: AgreementFile(name='agreement_file_list', example=''),
+  agreementFile?: AgreementFile(name='agreement_file', example=''),
 }
 
 // 树节点
