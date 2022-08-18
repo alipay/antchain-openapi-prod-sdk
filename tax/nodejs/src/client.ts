@@ -418,13 +418,13 @@ export class AgreementExtRequest extends $tea.Model {
   // 地址
   address: string;
   // 授权文件信息
-  agreementFileList?: AgreementFile;
+  agreementFile?: AgreementFile;
   static names(): { [key: string]: string } {
     return {
       type: 'type',
       isSeal: 'is_seal',
       address: 'address',
-      agreementFileList: 'agreement_file_list',
+      agreementFile: 'agreement_file',
     };
   }
 
@@ -433,7 +433,7 @@ export class AgreementExtRequest extends $tea.Model {
       type: 'string',
       isSeal: 'string',
       address: 'string',
-      agreementFileList: AgreementFile,
+      agreementFile: AgreementFile,
     };
   }
 
@@ -2305,7 +2305,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.0",
+          sdk_version: "1.6.1",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
