@@ -44,6 +44,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public List<ReturnDetail> ReturnResult { get; set; }
 
+        // 是否查得
+        [NameInMap("null_data_flag")]
+        [Validation(Required=false)]
+        public bool? NullDataFlag { get; set; }
+
     }
 
 }

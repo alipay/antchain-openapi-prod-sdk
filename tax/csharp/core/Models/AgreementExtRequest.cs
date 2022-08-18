@@ -25,6 +25,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=true)]
         public string Address { get; set; }
 
+        // 授权文件信息
+        [NameInMap("agreement_file_list")]
+        [Validation(Required=false)]
+        public AgreementFile AgreementFileList { get; set; }
+
     }
 
 }

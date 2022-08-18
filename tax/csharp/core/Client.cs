@@ -137,7 +137,9 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.0"},
+                        {"sdk_version", "1.6.0"},
+                        {"_prod_code", "TAX"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.0"},
+                        {"sdk_version", "1.6.0"},
+                        {"_prod_code", "TAX"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -903,6 +907,90 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryApiAuthtemplateresultResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.authtemplateresult.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业的授权接口
+         * Summary: 企业授权
+         */
+        public AuthIcmEnterpriseResponse AuthIcmEnterprise(AuthIcmEnterpriseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AuthIcmEnterpriseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业的授权接口
+         * Summary: 企业授权
+         */
+        public async Task<AuthIcmEnterpriseResponse> AuthIcmEnterpriseAsync(AuthIcmEnterpriseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AuthIcmEnterpriseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业的授权接口
+         * Summary: 企业授权
+         */
+        public AuthIcmEnterpriseResponse AuthIcmEnterpriseEx(AuthIcmEnterpriseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthIcmEnterpriseResponse>(DoRequest("1.0", "blockchain.tax.icm.enterprise.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业的授权接口
+         * Summary: 企业授权
+         */
+        public async Task<AuthIcmEnterpriseResponse> AuthIcmEnterpriseExAsync(AuthIcmEnterpriseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthIcmEnterpriseResponse>(await DoRequestAsync("1.0", "blockchain.tax.icm.enterprise.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 该接口为支持授权链接的生成
+         * Summary: 可信授权链接获取接口
+         */
+        public CreateApiAuthurlResponse CreateApiAuthurl(CreateApiAuthurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateApiAuthurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 该接口为支持授权链接的生成
+         * Summary: 可信授权链接获取接口
+         */
+        public async Task<CreateApiAuthurlResponse> CreateApiAuthurlAsync(CreateApiAuthurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateApiAuthurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 该接口为支持授权链接的生成
+         * Summary: 可信授权链接获取接口
+         */
+        public CreateApiAuthurlResponse CreateApiAuthurlEx(CreateApiAuthurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateApiAuthurlResponse>(DoRequest("1.0", "blockchain.tax.api.authurl.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 该接口为支持授权链接的生成
+         * Summary: 可信授权链接获取接口
+         */
+        public async Task<CreateApiAuthurlResponse> CreateApiAuthurlExAsync(CreateApiAuthurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateApiAuthurlResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.authurl.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
