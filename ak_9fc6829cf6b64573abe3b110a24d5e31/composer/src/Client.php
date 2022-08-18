@@ -13,12 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_9fc6829cf6b64573abe3b110a24d5e31\Models\BindDemoAsdAsdAsdRequest;
 use AntChain\Ak_9fc6829cf6b64573abe3b110a24d5e31\Models\BindDemoAsdAsdAsdResponse;
-use AntChain\Ak_9fc6829cf6b64573abe3b110a24d5e31\Models\BindDemoAsdAsdRequest;
-use AntChain\Ak_9fc6829cf6b64573abe3b110a24d5e31\Models\BindDemoAsdAsdResponse;
 use AntChain\Ak_9fc6829cf6b64573abe3b110a24d5e31\Models\QueryDemoAbcAbcAbcRequest;
 use AntChain\Ak_9fc6829cf6b64573abe3b110a24d5e31\Models\QueryDemoAbcAbcAbcResponse;
-use AntChain\Ak_9fc6829cf6b64573abe3b110a24d5e31\Models\QueryDemoAdAsdAsdRequest;
-use AntChain\Ak_9fc6829cf6b64573abe3b110a24d5e31\Models\QueryDemoAdAsdAsdResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -165,7 +161,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
+                    '_prod_code'       => 'ak_9fc6829cf6b64573abe3b110a24d5e31',
+                    '_prod_channel'    => 'saas',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -215,39 +213,6 @@ class Client
      * Description: asd
      * Summary: asd.
      *
-     * @param QueryDemoAdAsdAsdRequest $request
-     *
-     * @return QueryDemoAdAsdAsdResponse
-     */
-    public function queryDemoAdAsdAsd($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoAdAsdAsdEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd.
-     *
-     * @param QueryDemoAdAsdAsdRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
-     *
-     * @return QueryDemoAdAsdAsdResponse
-     */
-    public function queryDemoAdAsdAsdEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoAdAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd.
-     *
      * @param BindDemoAsdAsdAsdRequest $request
      *
      * @return BindDemoAsdAsdAsdResponse
@@ -275,39 +240,6 @@ class Client
         Utils::validateModel($request);
 
         return BindDemoAsdAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 1·2
-     * Summary: 测试.
-     *
-     * @param BindDemoAsdAsdRequest $request
-     *
-     * @return BindDemoAsdAsdResponse
-     */
-    public function bindDemoAsdAsd($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->bindDemoAsdAsdEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 1·2
-     * Summary: 测试.
-     *
-     * @param BindDemoAsdAsdRequest $request
-     * @param string[]              $headers
-     * @param RuntimeOptions        $runtime
-     *
-     * @return BindDemoAsdAsdResponse
-     */
-    public function bindDemoAsdAsdEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BindDemoAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.asd.asd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
