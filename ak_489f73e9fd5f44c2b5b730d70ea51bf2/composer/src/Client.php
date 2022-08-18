@@ -11,8 +11,18 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\ExecBlockchainAppexContractServiceRequest;
-use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\ExecBlockchainAppexContractServiceResponse;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\BindDemoAaaBbbCccRequest;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\BindDemoAaaBbbCccResponse;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\BindDemoAsdAsdAsdRequest;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\BindDemoAsdAsdAsdResponse;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\BindDemoAsdAsdRequest;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\BindDemoAsdAsdResponse;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\QueryDemoAaaBbbCccRequest;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\QueryDemoAaaBbbCccResponse;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\QueryDemoAbcAbcAbcRequest;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\QueryDemoAbcAbcAbcResponse;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\QueryDemoAdAsdAsdRequest;
+use AntChain\Ak_489f73e9fd5f44c2b5b730d70ea51bf2\Models\QueryDemoAdAsdAsdResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -159,7 +169,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.5',
+                    'sdk_version'      => '1.0.7',
                     '_prod_code'       => 'ak_489f73e9fd5f44c2b5b730d70ea51bf2',
                     '_prod_channel'    => 'saas',
                 ];
@@ -208,35 +218,200 @@ class Client
     }
 
     /**
-     * Description: 合约服务调用
-     * Summary: 合约服务调用.
+     * Description: 自动化测试创建，用于测试新建&修改功能
+     * Summary: 自动化测试创建，用于测试新建&修改功能.
      *
-     * @param ExecBlockchainAppexContractServiceRequest $request
+     * @param BindDemoAaaBbbCccRequest $request
      *
-     * @return ExecBlockchainAppexContractServiceResponse
+     * @return BindDemoAaaBbbCccResponse
      */
-    public function execBlockchainAppexContractService($request)
+    public function bindDemoAaaBbbCcc($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->execBlockchainAppexContractServiceEx($request, $headers, $runtime);
+        return $this->bindDemoAaaBbbCccEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 合约服务调用
-     * Summary: 合约服务调用.
+     * Description: 自动化测试创建，用于测试新建&修改功能
+     * Summary: 自动化测试创建，用于测试新建&修改功能.
      *
-     * @param ExecBlockchainAppexContractServiceRequest $request
-     * @param string[]                                  $headers
-     * @param RuntimeOptions                            $runtime
+     * @param BindDemoAaaBbbCccRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
      *
-     * @return ExecBlockchainAppexContractServiceResponse
+     * @return BindDemoAaaBbbCccResponse
      */
-    public function execBlockchainAppexContractServiceEx($request, $headers, $runtime)
+    public function bindDemoAaaBbbCccEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return ExecBlockchainAppexContractServiceResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.contract.service.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return BindDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd.
+     *
+     * @param QueryDemoAdAsdAsdRequest $request
+     *
+     * @return QueryDemoAdAsdAsdResponse
+     */
+    public function queryDemoAdAsdAsd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoAdAsdAsdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd.
+     *
+     * @param QueryDemoAdAsdAsdRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryDemoAdAsdAsdResponse
+     */
+    public function queryDemoAdAsdAsdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoAdAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd.
+     *
+     * @param BindDemoAsdAsdAsdRequest $request
+     *
+     * @return BindDemoAsdAsdAsdResponse
+     */
+    public function bindDemoAsdAsdAsd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoAsdAsdAsdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd.
+     *
+     * @param BindDemoAsdAsdAsdRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return BindDemoAsdAsdAsdResponse
+     */
+    public function bindDemoAsdAsdAsdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoAsdAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 1·2
+     * Summary: 测试.
+     *
+     * @param BindDemoAsdAsdRequest $request
+     *
+     * @return BindDemoAsdAsdResponse
+     */
+    public function bindDemoAsdAsd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoAsdAsdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 1·2
+     * Summary: 测试.
+     *
+     * @param BindDemoAsdAsdRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return BindDemoAsdAsdResponse
+     */
+    public function bindDemoAsdAsdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.asd.asd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建1
+     * Summary: 自动化测试创建（勿动）.
+     *
+     * @param QueryDemoAaaBbbCccRequest $request
+     *
+     * @return QueryDemoAaaBbbCccResponse
+     */
+    public function queryDemoAaaBbbCcc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoAaaBbbCccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建1
+     * Summary: 自动化测试创建（勿动）.
+     *
+     * @param QueryDemoAaaBbbCccRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryDemoAaaBbbCccResponse
+     */
+    public function queryDemoAaaBbbCccEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动.
+     *
+     * @param QueryDemoAbcAbcAbcRequest $request
+     *
+     * @return QueryDemoAbcAbcAbcResponse
+     */
+    public function queryDemoAbcAbcAbc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoAbcAbcAbcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动.
+     *
+     * @param QueryDemoAbcAbcAbcRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryDemoAbcAbcAbcResponse
+     */
+    public function queryDemoAbcAbcAbcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoAbcAbcAbcResponse::fromMap($this->doRequest('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
