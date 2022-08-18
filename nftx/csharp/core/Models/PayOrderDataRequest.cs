@@ -43,6 +43,11 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=true)]
         public long? TimeoutExpireSecond { get; set; }
 
+        // 接入方存储的accessToken
+        [NameInMap("access_token")]
+        [Validation(Required=true)]
+        public string AccessToken { get; set; }
+
     }
 
 }
