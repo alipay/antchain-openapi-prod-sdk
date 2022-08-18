@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.5"),
+                    new TeaPair("sdk_version", "1.0.7"),
                     new TeaPair("_prod_code", "ak_489f73e9fd5f44c2b5b730d70ea51bf2"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -162,21 +162,116 @@ public class Client {
     }
 
     /**
-     * Description: 合约服务调用
-     * Summary: 合约服务调用
+     * Description: 自动化测试创建，用于测试新建&修改功能
+     * Summary: 自动化测试创建，用于测试新建&修改功能
      */
-    public ExecBlockchainAppexContractServiceResponse execBlockchainAppexContractService(ExecBlockchainAppexContractServiceRequest request) throws Exception {
+    public BindDemoAaaBbbCccResponse bindDemoAaaBbbCcc(BindDemoAaaBbbCccRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.execBlockchainAppexContractServiceEx(request, headers, runtime);
+        return this.bindDemoAaaBbbCccEx(request, headers, runtime);
     }
 
     /**
-     * Description: 合约服务调用
-     * Summary: 合约服务调用
+     * Description: 自动化测试创建，用于测试新建&修改功能
+     * Summary: 自动化测试创建，用于测试新建&修改功能
      */
-    public ExecBlockchainAppexContractServiceResponse execBlockchainAppexContractServiceEx(ExecBlockchainAppexContractServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public BindDemoAaaBbbCccResponse bindDemoAaaBbbCccEx(BindDemoAaaBbbCccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.contract.service.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecBlockchainAppexContractServiceResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAaaBbbCccResponse());
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public QueryDemoAdAsdAsdResponse queryDemoAdAsdAsd(QueryDemoAdAsdAsdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoAdAsdAsdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public QueryDemoAdAsdAsdResponse queryDemoAdAsdAsdEx(QueryDemoAdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.ad.asd.asd.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAdAsdAsdResponse());
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public BindDemoAsdAsdAsdResponse bindDemoAsdAsdAsd(BindDemoAsdAsdAsdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDemoAsdAsdAsdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public BindDemoAsdAsdAsdResponse bindDemoAsdAsdAsdEx(BindDemoAsdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.asd.asd.asd.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAsdAsdAsdResponse());
+    }
+
+    /**
+     * Description: 1·2
+     * Summary: 测试
+     */
+    public BindDemoAsdAsdResponse bindDemoAsdAsd(BindDemoAsdAsdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDemoAsdAsdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 1·2
+     * Summary: 测试
+     */
+    public BindDemoAsdAsdResponse bindDemoAsdAsdEx(BindDemoAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.asd.asd.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAsdAsdResponse());
+    }
+
+    /**
+     * Description: 自动化测试创建1
+     * Summary: 自动化测试创建（勿动）
+     */
+    public QueryDemoAaaBbbCccResponse queryDemoAaaBbbCcc(QueryDemoAaaBbbCccRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoAaaBbbCccEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建1
+     * Summary: 自动化测试创建（勿动）
+     */
+    public QueryDemoAaaBbbCccResponse queryDemoAaaBbbCccEx(QueryDemoAaaBbbCccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.aaa.bbb.ccc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAaaBbbCccResponse());
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动
+     */
+    public QueryDemoAbcAbcAbcResponse queryDemoAbcAbcAbc(QueryDemoAbcAbcAbcRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoAbcAbcAbcEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动
+     */
+    public QueryDemoAbcAbcAbcResponse queryDemoAbcAbcAbcEx(QueryDemoAbcAbcAbcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAbcAbcAbcResponse());
     }
 }
