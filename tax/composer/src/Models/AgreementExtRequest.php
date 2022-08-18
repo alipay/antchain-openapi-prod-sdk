@@ -31,10 +31,19 @@ class AgreementExtRequest extends Model
      * @var string
      */
     public $address;
+
+    // 授权文件信息
+    /**
+     * @example
+     *
+     * @var AgreementFile
+     */
+    public $agreementFileList;
     protected $_name = [
-        'type'    => 'type',
-        'isSeal'  => 'is_seal',
-        'address' => 'address',
+        'type'              => 'type',
+        'isSeal'            => 'is_seal',
+        'address'           => 'address',
+        'agreementFileList' => 'agreement_file_list',
     ];
 
     public function validate()
@@ -56,6 +65,9 @@ class AgreementExtRequest extends Model
         if (null !== $this->address) {
             $res['address'] = $this->address;
         }
+        if (null !== $this->agreementFileList) {
+            $res['agreement_file_list'] = null !== $this->agreementFileList ? $this->agreementFileList->toMap() : null;
+        }
 
         return $res;
     }
@@ -76,6 +88,9 @@ class AgreementExtRequest extends Model
         }
         if (isset($map['address'])) {
             $model->address = $map['address'];
+        }
+        if (isset($map['agreement_file_list'])) {
+            $model->agreementFileList = AgreementFile::fromMap($map['agreement_file_list']);
         }
 
         return $model;

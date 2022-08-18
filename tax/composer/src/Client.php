@@ -13,10 +13,14 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\TAX\Models\AuthCorpRequest;
 use AntChain\TAX\Models\AuthCorpResponse;
+use AntChain\TAX\Models\AuthIcmEnterpriseRequest;
+use AntChain\TAX\Models\AuthIcmEnterpriseResponse;
 use AntChain\TAX\Models\AuthIcmInvoiceRequest;
 use AntChain\TAX\Models\AuthIcmInvoiceResponse;
 use AntChain\TAX\Models\AuthIcmRealpersonRequest;
 use AntChain\TAX\Models\AuthIcmRealpersonResponse;
+use AntChain\TAX\Models\CreateApiAuthurlRequest;
+use AntChain\TAX\Models\CreateApiAuthurlResponse;
 use AntChain\TAX\Models\DescribeIcmInvoiceRequest;
 use AntChain\TAX\Models\DescribeIcmInvoiceResponse;
 use AntChain\TAX\Models\ExecApiAuthtemplateRequest;
@@ -186,7 +190,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.0',
+                    'sdk_version'      => '1.6.0',
+                    '_prod_code'       => 'TAX',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -692,5 +698,71 @@ class Client
         Utils::validateModel($request);
 
         return QueryApiAuthtemplateresultResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.authtemplateresult.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业的授权接口
+     * Summary: 企业授权.
+     *
+     * @param AuthIcmEnterpriseRequest $request
+     *
+     * @return AuthIcmEnterpriseResponse
+     */
+    public function authIcmEnterprise($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authIcmEnterpriseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业的授权接口
+     * Summary: 企业授权.
+     *
+     * @param AuthIcmEnterpriseRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return AuthIcmEnterpriseResponse
+     */
+    public function authIcmEnterpriseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthIcmEnterpriseResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.icm.enterprise.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 该接口为支持授权链接的生成
+     * Summary: 可信授权链接获取接口.
+     *
+     * @param CreateApiAuthurlRequest $request
+     *
+     * @return CreateApiAuthurlResponse
+     */
+    public function createApiAuthurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createApiAuthurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 该接口为支持授权链接的生成
+     * Summary: 可信授权链接获取接口.
+     *
+     * @param CreateApiAuthurlRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CreateApiAuthurlResponse
+     */
+    public function createApiAuthurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateApiAuthurlResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.authurl.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

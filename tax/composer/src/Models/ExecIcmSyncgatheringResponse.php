@@ -49,6 +49,12 @@ class ExecIcmSyncgatheringResponse extends Model
      * @var ReturnDetail[]
      */
     public $returnResult;
+
+    // 是否查得
+    /**
+     * @var bool
+     */
+    public $nullDataFlag;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
@@ -57,6 +63,7 @@ class ExecIcmSyncgatheringResponse extends Model
         'queryTime'    => 'query_time',
         'returnMode'   => 'return_mode',
         'returnResult' => 'return_result',
+        'nullDataFlag' => 'null_data_flag',
     ];
 
     public function validate()
@@ -92,6 +99,9 @@ class ExecIcmSyncgatheringResponse extends Model
                     $res['return_result'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->nullDataFlag) {
+            $res['null_data_flag'] = $this->nullDataFlag;
         }
 
         return $res;
@@ -131,6 +141,9 @@ class ExecIcmSyncgatheringResponse extends Model
                     $model->returnResult[$n++] = null !== $item ? ReturnDetail::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['null_data_flag'])) {
+            $model->nullDataFlag = $map['null_data_flag'];
         }
 
         return $model;
