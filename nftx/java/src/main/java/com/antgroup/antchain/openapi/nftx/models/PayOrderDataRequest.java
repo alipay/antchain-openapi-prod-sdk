@@ -36,6 +36,11 @@ public class PayOrderDataRequest extends TeaModel {
     @Validation(required = true)
     public Long timeoutExpireSecond;
 
+    // 接入方存储的accessToken
+    @NameInMap("access_token")
+    @Validation(required = true)
+    public String accessToken;
+
     public static PayOrderDataRequest build(java.util.Map<String, ?> map) throws Exception {
         PayOrderDataRequest self = new PayOrderDataRequest();
         return TeaModel.build(map, self);
@@ -95,6 +100,14 @@ public class PayOrderDataRequest extends TeaModel {
     }
     public Long getTimeoutExpireSecond() {
         return this.timeoutExpireSecond;
+    }
+
+    public PayOrderDataRequest setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+        return this;
+    }
+    public String getAccessToken() {
+        return this.accessToken;
     }
 
 }
