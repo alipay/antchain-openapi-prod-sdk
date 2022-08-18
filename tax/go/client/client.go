@@ -561,7 +561,7 @@ type AgreementExtRequest struct {
 	// 地址
 	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
 	// 授权文件信息
-	AgreementFileList *AgreementFile `json:"agreement_file_list,omitempty" xml:"agreement_file_list,omitempty"`
+	AgreementFile *AgreementFile `json:"agreement_file,omitempty" xml:"agreement_file,omitempty"`
 }
 
 func (s AgreementExtRequest) String() string {
@@ -587,8 +587,8 @@ func (s *AgreementExtRequest) SetAddress(v string) *AgreementExtRequest {
 	return s
 }
 
-func (s *AgreementExtRequest) SetAgreementFileList(v *AgreementFile) *AgreementExtRequest {
-	s.AgreementFileList = v
+func (s *AgreementExtRequest) SetAgreementFile(v *AgreementFile) *AgreementExtRequest {
+	s.AgreementFile = v
 	return s
 }
 
@@ -3054,7 +3054,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.0"),
+				"sdk_version":      tea.String("1.6.1"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
