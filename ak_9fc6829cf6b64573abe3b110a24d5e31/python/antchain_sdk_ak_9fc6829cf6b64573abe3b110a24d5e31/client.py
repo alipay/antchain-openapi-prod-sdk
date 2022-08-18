@@ -134,7 +134,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1'
+                    'sdk_version': '1.0.2',
+                    '_prod_code': 'ak_9fc6829cf6b64573abe3b110a24d5e31',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -235,7 +237,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1'
+                    'sdk_version': '1.0.2',
+                    '_prod_code': 'ak_9fc6829cf6b64573abe3b110a24d5e31',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -268,62 +272,6 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
-
-    def query_demo_ad_asd_asd(
-        self,
-        request: ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.QueryDemoAdAsdAsdRequest,
-    ) -> ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.QueryDemoAdAsdAsdResponse:
-        """
-        Description: asd
-        Summary: asd
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_demo_ad_asd_asd_ex(request, headers, runtime)
-
-    async def query_demo_ad_asd_asd_async(
-        self,
-        request: ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.QueryDemoAdAsdAsdRequest,
-    ) -> ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.QueryDemoAdAsdAsdResponse:
-        """
-        Description: asd
-        Summary: asd
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_demo_ad_asd_asd_ex_async(request, headers, runtime)
-
-    def query_demo_ad_asd_asd_ex(
-        self,
-        request: ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.QueryDemoAdAsdAsdRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.QueryDemoAdAsdAsdResponse:
-        """
-        Description: asd
-        Summary: asd
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.QueryDemoAdAsdAsdResponse(),
-            self.do_request('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_demo_ad_asd_asd_ex_async(
-        self,
-        request: ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.QueryDemoAdAsdAsdRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.QueryDemoAdAsdAsdResponse:
-        """
-        Description: asd
-        Summary: asd
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.QueryDemoAdAsdAsdResponse(),
-            await self.do_request_async('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
 
     def bind_demo_asd_asd_asd(
         self,
@@ -379,62 +327,6 @@ class Client:
         return TeaCore.from_map(
             ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.BindDemoAsdAsdAsdResponse(),
             await self.do_request_async('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def bind_demo_asd_asd(
-        self,
-        request: ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.BindDemoAsdAsdRequest,
-    ) -> ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.BindDemoAsdAsdResponse:
-        """
-        Description: 1·2
-        Summary: 测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.bind_demo_asd_asd_ex(request, headers, runtime)
-
-    async def bind_demo_asd_asd_async(
-        self,
-        request: ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.BindDemoAsdAsdRequest,
-    ) -> ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.BindDemoAsdAsdResponse:
-        """
-        Description: 1·2
-        Summary: 测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.bind_demo_asd_asd_ex_async(request, headers, runtime)
-
-    def bind_demo_asd_asd_ex(
-        self,
-        request: ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.BindDemoAsdAsdRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.BindDemoAsdAsdResponse:
-        """
-        Description: 1·2
-        Summary: 测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.BindDemoAsdAsdResponse(),
-            self.do_request('1.0', 'demo.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def bind_demo_asd_asd_ex_async(
-        self,
-        request: ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.BindDemoAsdAsdRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.BindDemoAsdAsdResponse:
-        """
-        Description: 1·2
-        Summary: 测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__9fc_6829cf_6b_64573abe_3b_110a_24d_5e_31_models.BindDemoAsdAsdResponse(),
-            await self.do_request_async('1.0', 'demo.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_demo_abc_abc_abc(
