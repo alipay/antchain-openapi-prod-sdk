@@ -459,6 +459,32 @@ func (s *Pair) SetRight(v *Key) *Pair {
 	return s
 }
 
+// 授权文件信息
+type AgreementFile struct {
+	// 授权文件名称
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 授权文件内容
+	FileContentBase64String *string `json:"file_content_base64_string,omitempty" xml:"file_content_base64_string,omitempty" require:"true"`
+}
+
+func (s AgreementFile) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AgreementFile) GoString() string {
+	return s.String()
+}
+
+func (s *AgreementFile) SetFileName(v string) *AgreementFile {
+	s.FileName = &v
+	return s
+}
+
+func (s *AgreementFile) SetFileContentBase64String(v string) *AgreementFile {
+	s.FileContentBase64String = &v
+	return s
+}
+
 // 地区请求
 type DistrictExtRequest struct {
 	// 地区编码
@@ -534,6 +560,8 @@ type AgreementExtRequest struct {
 	IsSeal *string `json:"is_seal,omitempty" xml:"is_seal,omitempty" require:"true"`
 	// 地址
 	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
+	// 授权文件信息
+	AgreementFileList *AgreementFile `json:"agreement_file_list,omitempty" xml:"agreement_file_list,omitempty"`
 }
 
 func (s AgreementExtRequest) String() string {
@@ -556,6 +584,11 @@ func (s *AgreementExtRequest) SetIsSeal(v string) *AgreementExtRequest {
 
 func (s *AgreementExtRequest) SetAddress(v string) *AgreementExtRequest {
 	s.Address = &v
+	return s
+}
+
+func (s *AgreementExtRequest) SetAgreementFileList(v *AgreementFile) *AgreementExtRequest {
+	s.AgreementFileList = v
 	return s
 }
 
@@ -2161,6 +2194,8 @@ type ExecIcmSyncgatheringResponse struct {
 	ReturnMode *string `json:"return_mode,omitempty" xml:"return_mode,omitempty"`
 	// 返回结果
 	ReturnResult []*ReturnDetail `json:"return_result,omitempty" xml:"return_result,omitempty" type:"Repeated"`
+	// 是否查得
+	NullDataFlag *bool `json:"null_data_flag,omitempty" xml:"null_data_flag,omitempty"`
 }
 
 func (s ExecIcmSyncgatheringResponse) String() string {
@@ -2203,6 +2238,11 @@ func (s *ExecIcmSyncgatheringResponse) SetReturnMode(v string) *ExecIcmSyncgathe
 
 func (s *ExecIcmSyncgatheringResponse) SetReturnResult(v []*ReturnDetail) *ExecIcmSyncgatheringResponse {
 	s.ReturnResult = v
+	return s
+}
+
+func (s *ExecIcmSyncgatheringResponse) SetNullDataFlag(v bool) *ExecIcmSyncgatheringResponse {
+	s.NullDataFlag = &v
 	return s
 }
 
@@ -2631,6 +2671,267 @@ func (s *QueryApiAuthtemplateresultResponse) SetAuthState(v string) *QueryApiAut
 	return s
 }
 
+type AuthIcmEnterpriseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 身份id，统一社会信用编码or其他
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+	// 企业名称
+	IdentityName *string `json:"identity_name,omitempty" xml:"identity_name,omitempty"`
+	// 授权类型，不动产100，电力200
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 授权订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 扩展信息
+	ExtendInfo *StandardAuthExtendInfoRequest `json:"extend_info,omitempty" xml:"extend_info,omitempty" require:"true"`
+	// 法人姓名
+	CognizantName *string `json:"cognizant_name,omitempty" xml:"cognizant_name,omitempty"`
+	// 法人手机号
+	CognizantMobile *string `json:"cognizant_mobile,omitempty" xml:"cognizant_mobile,omitempty"`
+	// 法人身份证号
+	CognizantId *string `json:"cognizant_id,omitempty" xml:"cognizant_id,omitempty"`
+}
+
+func (s AuthIcmEnterpriseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthIcmEnterpriseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AuthIcmEnterpriseRequest) SetAuthToken(v string) *AuthIcmEnterpriseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseRequest) SetProductInstanceId(v string) *AuthIcmEnterpriseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseRequest) SetIdentityId(v string) *AuthIcmEnterpriseRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseRequest) SetIdentityName(v string) *AuthIcmEnterpriseRequest {
+	s.IdentityName = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseRequest) SetAuthType(v string) *AuthIcmEnterpriseRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseRequest) SetOrderNo(v string) *AuthIcmEnterpriseRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseRequest) SetExtendInfo(v *StandardAuthExtendInfoRequest) *AuthIcmEnterpriseRequest {
+	s.ExtendInfo = v
+	return s
+}
+
+func (s *AuthIcmEnterpriseRequest) SetCognizantName(v string) *AuthIcmEnterpriseRequest {
+	s.CognizantName = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseRequest) SetCognizantMobile(v string) *AuthIcmEnterpriseRequest {
+	s.CognizantMobile = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseRequest) SetCognizantId(v string) *AuthIcmEnterpriseRequest {
+	s.CognizantId = &v
+	return s
+}
+
+type AuthIcmEnterpriseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否授权成功true是，false否
+	//
+	AuthSuccess *bool `json:"auth_success,omitempty" xml:"auth_success,omitempty"`
+	// 授权订单订单号
+	//
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 过期时间，unix时间戳 毫秒
+	ExpireTime *int64 `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
+	// unix时间戳 毫秒
+	AuthTime *int64 `json:"auth_time,omitempty" xml:"auth_time,omitempty"`
+}
+
+func (s AuthIcmEnterpriseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthIcmEnterpriseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AuthIcmEnterpriseResponse) SetReqMsgId(v string) *AuthIcmEnterpriseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseResponse) SetResultCode(v string) *AuthIcmEnterpriseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseResponse) SetResultMsg(v string) *AuthIcmEnterpriseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseResponse) SetAuthSuccess(v bool) *AuthIcmEnterpriseResponse {
+	s.AuthSuccess = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseResponse) SetOrderNo(v string) *AuthIcmEnterpriseResponse {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseResponse) SetExpireTime(v int64) *AuthIcmEnterpriseResponse {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *AuthIcmEnterpriseResponse) SetAuthTime(v int64) *AuthIcmEnterpriseResponse {
+	s.AuthTime = &v
+	return s
+}
+
+type CreateApiAuthurlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 01发票归集授权 02记账 03报销 11发票贷授权（0X发票相关授权，1X金融类授权）
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 纳税人识别号
+	Nsrsbh *string `json:"nsrsbh,omitempty" xml:"nsrsbh,omitempty" require:"true"`
+	// 企业名称
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+	// 授权回调地址，授权成功后，会跳转该地址，该地址填接入方自己的接收授权结果的地址
+	CallBackUrl *string `json:"call_back_url,omitempty" xml:"call_back_url,omitempty" require:"true"`
+	// 已认证的法人手机号
+	CognizantMobile *string `json:"cognizant_mobile,omitempty" xml:"cognizant_mobile,omitempty"`
+	// 已认证的法人姓名
+	CognizantName *string `json:"cognizant_name,omitempty" xml:"cognizant_name,omitempty"`
+	// 已认证的法人身份证号
+	IdentityNumber *string `json:"identity_number,omitempty" xml:"identity_number,omitempty"`
+}
+
+func (s CreateApiAuthurlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateApiAuthurlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateApiAuthurlRequest) SetAuthToken(v string) *CreateApiAuthurlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateApiAuthurlRequest) SetProductInstanceId(v string) *CreateApiAuthurlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateApiAuthurlRequest) SetAuthType(v string) *CreateApiAuthurlRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *CreateApiAuthurlRequest) SetNsrsbh(v string) *CreateApiAuthurlRequest {
+	s.Nsrsbh = &v
+	return s
+}
+
+func (s *CreateApiAuthurlRequest) SetCorpName(v string) *CreateApiAuthurlRequest {
+	s.CorpName = &v
+	return s
+}
+
+func (s *CreateApiAuthurlRequest) SetCallBackUrl(v string) *CreateApiAuthurlRequest {
+	s.CallBackUrl = &v
+	return s
+}
+
+func (s *CreateApiAuthurlRequest) SetCognizantMobile(v string) *CreateApiAuthurlRequest {
+	s.CognizantMobile = &v
+	return s
+}
+
+func (s *CreateApiAuthurlRequest) SetCognizantName(v string) *CreateApiAuthurlRequest {
+	s.CognizantName = &v
+	return s
+}
+
+func (s *CreateApiAuthurlRequest) SetIdentityNumber(v string) *CreateApiAuthurlRequest {
+	s.IdentityNumber = &v
+	return s
+}
+
+type CreateApiAuthurlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 短链接地址
+	LoginUrl *string `json:"login_url,omitempty" xml:"login_url,omitempty"`
+	// 蚂蚁生成的订单号，此次授权的唯一标识
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+}
+
+func (s CreateApiAuthurlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateApiAuthurlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateApiAuthurlResponse) SetReqMsgId(v string) *CreateApiAuthurlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateApiAuthurlResponse) SetResultCode(v string) *CreateApiAuthurlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateApiAuthurlResponse) SetResultMsg(v string) *CreateApiAuthurlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateApiAuthurlResponse) SetLoginUrl(v string) *CreateApiAuthurlResponse {
+	s.LoginUrl = &v
+	return s
+}
+
+func (s *CreateApiAuthurlResponse) SetOrderNo(v string) *CreateApiAuthurlResponse {
+	s.OrderNo = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2753,7 +3054,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.0"),
+				"sdk_version":      tea.String("1.6.0"),
+				"_prod_code":       tea.String("TAX"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -3270,6 +3573,74 @@ func (client *Client) QueryApiAuthtemplateresultEx(request *QueryApiAuthtemplate
 	}
 	_result = &QueryApiAuthtemplateresultResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.authtemplateresult.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业的授权接口
+ * Summary: 企业授权
+ */
+func (client *Client) AuthIcmEnterprise(request *AuthIcmEnterpriseRequest) (_result *AuthIcmEnterpriseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AuthIcmEnterpriseResponse{}
+	_body, _err := client.AuthIcmEnterpriseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业的授权接口
+ * Summary: 企业授权
+ */
+func (client *Client) AuthIcmEnterpriseEx(request *AuthIcmEnterpriseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AuthIcmEnterpriseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AuthIcmEnterpriseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.icm.enterprise.auth"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 该接口为支持授权链接的生成
+ * Summary: 可信授权链接获取接口
+ */
+func (client *Client) CreateApiAuthurl(request *CreateApiAuthurlRequest) (_result *CreateApiAuthurlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateApiAuthurlResponse{}
+	_body, _err := client.CreateApiAuthurlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 该接口为支持授权链接的生成
+ * Summary: 可信授权链接获取接口
+ */
+func (client *Client) CreateApiAuthurlEx(request *CreateApiAuthurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateApiAuthurlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateApiAuthurlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.authurl.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
