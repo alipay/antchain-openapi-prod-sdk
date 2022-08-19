@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_05b080ffa82d4d06b1e7a357a34277ba\Models\BindDemoAaaBbbCccRequest;
 use AntChain\Ak_05b080ffa82d4d06b1e7a357a34277ba\Models\BindDemoAaaBbbCccResponse;
+use AntChain\Ak_05b080ffa82d4d06b1e7a357a34277ba\Models\BindDemoAsdAsdRequest;
+use AntChain\Ak_05b080ffa82d4d06b1e7a357a34277ba\Models\BindDemoAsdAsdResponse;
 use AntChain\Ak_05b080ffa82d4d06b1e7a357a34277ba\Models\QueryDemoAaaBbbCccRequest;
 use AntChain\Ak_05b080ffa82d4d06b1e7a357a34277ba\Models\QueryDemoAaaBbbCccResponse;
 use AntChain\Ak_05b080ffa82d4d06b1e7a357a34277ba\Models\QueryDemoAbcAbcAbcRequest;
@@ -163,7 +165,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_05b080ffa82d4d06b1e7a357a34277ba',
                     '_prod_channel'    => 'saas',
                 ];
@@ -242,6 +244,39 @@ class Client
         Utils::validateModel($request);
 
         return BindDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 1·2
+     * Summary: 测试.
+     *
+     * @param BindDemoAsdAsdRequest $request
+     *
+     * @return BindDemoAsdAsdResponse
+     */
+    public function bindDemoAsdAsd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoAsdAsdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 1·2
+     * Summary: 测试.
+     *
+     * @param BindDemoAsdAsdRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return BindDemoAsdAsdResponse
+     */
+    public function bindDemoAsdAsdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.asd.asd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
