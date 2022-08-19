@@ -109,8 +109,7 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl,
-            # 狗
+            'ignoreSSL': runtime.ignore_ssl
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'ak_2d01ff274c3448c2b919937512c80f91',
                     '_prod_channel': 'saas'
                 }
@@ -213,8 +212,7 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl,
-            # 狗
+            'ignoreSSL': runtime.ignore_ssl
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'ak_2d01ff274c3448c2b919937512c80f91',
                     '_prod_channel': 'saas'
                 }
@@ -274,118 +272,6 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
-
-    def get_demo_dog_age(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetDemoDogAgeRequest,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetDemoDogAgeResponse:
-        """
-        Description: 该接口用于获取狗狗的年龄
-        Summary: 获取狗狗的年龄
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_demo_dog_age_ex(request, headers, runtime)
-
-    async def get_demo_dog_age_async(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetDemoDogAgeRequest,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetDemoDogAgeResponse:
-        """
-        Description: 该接口用于获取狗狗的年龄
-        Summary: 获取狗狗的年龄
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.get_demo_dog_age_ex_async(request, headers, runtime)
-
-    def get_demo_dog_age_ex(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetDemoDogAgeRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetDemoDogAgeResponse:
-        """
-        Description: 该接口用于获取狗狗的年龄
-        Summary: 获取狗狗的年龄
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetDemoDogAgeResponse(),
-            self.do_request('1.0', 'demo.dog.age.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def get_demo_dog_age_ex_async(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetDemoDogAgeRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetDemoDogAgeResponse:
-        """
-        Description: 该接口用于获取狗狗的年龄
-        Summary: 获取狗狗的年龄
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetDemoDogAgeResponse(),
-            await self.do_request_async('1.0', 'demo.dog.age.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def get_antcloud_cat_age(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetAntcloudCatAgeRequest,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetAntcloudCatAgeResponse:
-        """
-        Description: 这接口用于获取猫猫的年龄
-        Summary: 获取猫猫的年龄
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_antcloud_cat_age_ex(request, headers, runtime)
-
-    async def get_antcloud_cat_age_async(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetAntcloudCatAgeRequest,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetAntcloudCatAgeResponse:
-        """
-        Description: 这接口用于获取猫猫的年龄
-        Summary: 获取猫猫的年龄
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.get_antcloud_cat_age_ex_async(request, headers, runtime)
-
-    def get_antcloud_cat_age_ex(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetAntcloudCatAgeRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetAntcloudCatAgeResponse:
-        """
-        Description: 这接口用于获取猫猫的年龄
-        Summary: 获取猫猫的年龄
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetAntcloudCatAgeResponse(),
-            self.do_request('1.0', 'antcloud.cat.age.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def get_antcloud_cat_age_ex_async(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetAntcloudCatAgeRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetAntcloudCatAgeResponse:
-        """
-        Description: 这接口用于获取猫猫的年龄
-        Summary: 获取猫猫的年龄
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.GetAntcloudCatAgeResponse(),
-            await self.do_request_async('1.0', 'antcloud.cat.age.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
 
     def bind_demo_aaa_bbb_ccc(
         self,
@@ -497,172 +383,4 @@ class Client:
         return TeaCore.from_map(
             ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAdAsdAsdResponse(),
             await self.do_request_async('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def bind_antcloud_cat_huanyu(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.BindAntcloudCatHuanyuRequest,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.BindAntcloudCatHuanyuResponse:
-        """
-        Description: huanyue
-        Summary: huanyu
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.bind_antcloud_cat_huanyu_ex(request, headers, runtime)
-
-    async def bind_antcloud_cat_huanyu_async(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.BindAntcloudCatHuanyuRequest,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.BindAntcloudCatHuanyuResponse:
-        """
-        Description: huanyue
-        Summary: huanyu
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.bind_antcloud_cat_huanyu_ex_async(request, headers, runtime)
-
-    def bind_antcloud_cat_huanyu_ex(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.BindAntcloudCatHuanyuRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.BindAntcloudCatHuanyuResponse:
-        """
-        Description: huanyue
-        Summary: huanyu
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.BindAntcloudCatHuanyuResponse(),
-            self.do_request('1.0', 'antcloud.cat.huanyu.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def bind_antcloud_cat_huanyu_ex_async(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.BindAntcloudCatHuanyuRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.BindAntcloudCatHuanyuResponse:
-        """
-        Description: huanyue
-        Summary: huanyu
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.BindAntcloudCatHuanyuResponse(),
-            await self.do_request_async('1.0', 'antcloud.cat.huanyu.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_demo_aaa_bbb_ccc(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAaaBbbCccRequest,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建1
-        Summary: 自动化测试创建（勿动）
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_demo_aaa_bbb_ccc_ex(request, headers, runtime)
-
-    async def query_demo_aaa_bbb_ccc_async(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAaaBbbCccRequest,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建1
-        Summary: 自动化测试创建（勿动）
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
-
-    def query_demo_aaa_bbb_ccc_ex(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAaaBbbCccRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建1
-        Summary: 自动化测试创建（勿动）
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAaaBbbCccResponse(),
-            self.do_request('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_demo_aaa_bbb_ccc_ex_async(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAaaBbbCccRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAaaBbbCccResponse:
-        """
-        Description: 自动化测试创建1
-        Summary: 自动化测试创建（勿动）
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAaaBbbCccResponse(),
-            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_demo_abc_abc_abc(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAbcAbcAbcRequest,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAbcAbcAbcResponse:
-        """
-        Description: 自动化测试创建,用于测试API的修改
-        Summary: 自动化测试创建,用于测试API的修改勿动
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_demo_abc_abc_abc_ex(request, headers, runtime)
-
-    async def query_demo_abc_abc_abc_async(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAbcAbcAbcRequest,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAbcAbcAbcResponse:
-        """
-        Description: 自动化测试创建,用于测试API的修改
-        Summary: 自动化测试创建,用于测试API的修改勿动
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_demo_abc_abc_abc_ex_async(request, headers, runtime)
-
-    def query_demo_abc_abc_abc_ex(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAbcAbcAbcRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAbcAbcAbcResponse:
-        """
-        Description: 自动化测试创建,用于测试API的修改
-        Summary: 自动化测试创建,用于测试API的修改勿动
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAbcAbcAbcResponse(),
-            self.do_request('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_demo_abc_abc_abc_ex_async(
-        self,
-        request: ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAbcAbcAbcRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAbcAbcAbcResponse:
-        """
-        Description: 自动化测试创建,用于测试API的修改
-        Summary: 自动化测试创建,用于测试API的修改勿动
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__2d_01ff_274c_3448c_2b_919937512c_80f_91_models.QueryDemoAbcAbcAbcResponse(),
-            await self.do_request_async('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
