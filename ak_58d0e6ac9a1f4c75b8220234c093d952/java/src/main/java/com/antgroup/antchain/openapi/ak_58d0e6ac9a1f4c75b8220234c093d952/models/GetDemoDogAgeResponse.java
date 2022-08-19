@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_58d0e6ac9a1f4c75b8220234c093d952.models
 
 import com.aliyun.tea.*;
 
-public class QueryDemoAaaBbbCccResponse extends TeaModel {
+public class GetDemoDogAgeResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,16 @@ public class QueryDemoAaaBbbCccResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static QueryDemoAaaBbbCccResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryDemoAaaBbbCccResponse self = new QueryDemoAaaBbbCccResponse();
+    // 年龄
+    @NameInMap("age")
+    public Long age;
+
+    public static GetDemoDogAgeResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetDemoDogAgeResponse self = new GetDemoDogAgeResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryDemoAaaBbbCccResponse setReqMsgId(String reqMsgId) {
+    public GetDemoDogAgeResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +33,7 @@ public class QueryDemoAaaBbbCccResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryDemoAaaBbbCccResponse setResultCode(String resultCode) {
+    public GetDemoDogAgeResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,12 +41,20 @@ public class QueryDemoAaaBbbCccResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryDemoAaaBbbCccResponse setResultMsg(String resultMsg) {
+    public GetDemoDogAgeResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public GetDemoDogAgeResponse setAge(Long age) {
+        this.age = age;
+        return this;
+    }
+    public Long getAge() {
+        return this.age;
     }
 
 }
