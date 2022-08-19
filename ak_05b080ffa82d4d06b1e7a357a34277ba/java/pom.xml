@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-ak_05b080ffa82d4d06b1e7a357a34277ba</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
   <name>openapi-ak_05b080ffa82d4d06b1e7a357a34277ba</name>
   <description>Ant Chain ak_05b080ffa82d4d06b1e7a357a34277ba SDK for Java
