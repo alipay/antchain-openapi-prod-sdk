@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.2"),
+                    new TeaPair("sdk_version", "1.0.3"),
                     new TeaPair("_prod_code", "ak_2d01ff274c3448c2b919937512c80f91"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -162,44 +162,6 @@ public class Client {
     }
 
     /**
-     * Description: 该接口用于获取狗狗的年龄
-     * Summary: 获取狗狗的年龄
-     */
-    public GetDemoDogAgeResponse getDemoDogAge(GetDemoDogAgeRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.getDemoDogAgeEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 该接口用于获取狗狗的年龄
-     * Summary: 获取狗狗的年龄
-     */
-    public GetDemoDogAgeResponse getDemoDogAgeEx(GetDemoDogAgeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.dog.age.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetDemoDogAgeResponse());
-    }
-
-    /**
-     * Description: 这接口用于获取猫猫的年龄
-     * Summary: 获取猫猫的年龄
-     */
-    public GetAntcloudCatAgeResponse getAntcloudCatAge(GetAntcloudCatAgeRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.getAntcloudCatAgeEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 这接口用于获取猫猫的年龄
-     * Summary: 获取猫猫的年龄
-     */
-    public GetAntcloudCatAgeResponse getAntcloudCatAgeEx(GetAntcloudCatAgeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cat.age.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAntcloudCatAgeResponse());
-    }
-
-    /**
      * Description: 自动化测试创建，用于测试新建&修改功能
      * Summary: 自动化测试创建，用于测试新建&修改功能
      */
@@ -235,62 +197,5 @@ public class Client {
     public QueryDemoAdAsdAsdResponse queryDemoAdAsdAsdEx(QueryDemoAdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.ad.asd.asd.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAdAsdAsdResponse());
-    }
-
-    /**
-     * Description: huanyue
-     * Summary: huanyu
-     */
-    public BindAntcloudCatHuanyuResponse bindAntcloudCatHuanyu(BindAntcloudCatHuanyuRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.bindAntcloudCatHuanyuEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: huanyue
-     * Summary: huanyu
-     */
-    public BindAntcloudCatHuanyuResponse bindAntcloudCatHuanyuEx(BindAntcloudCatHuanyuRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.cat.huanyu.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindAntcloudCatHuanyuResponse());
-    }
-
-    /**
-     * Description: 自动化测试创建1
-     * Summary: 自动化测试创建（勿动）
-     */
-    public QueryDemoAaaBbbCccResponse queryDemoAaaBbbCcc(QueryDemoAaaBbbCccRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryDemoAaaBbbCccEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 自动化测试创建1
-     * Summary: 自动化测试创建（勿动）
-     */
-    public QueryDemoAaaBbbCccResponse queryDemoAaaBbbCccEx(QueryDemoAaaBbbCccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.aaa.bbb.ccc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAaaBbbCccResponse());
-    }
-
-    /**
-     * Description: 自动化测试创建,用于测试API的修改
-     * Summary: 自动化测试创建,用于测试API的修改勿动
-     */
-    public QueryDemoAbcAbcAbcResponse queryDemoAbcAbcAbc(QueryDemoAbcAbcAbcRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryDemoAbcAbcAbcEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 自动化测试创建,用于测试API的修改
-     * Summary: 自动化测试创建,用于测试API的修改勿动
-     */
-    public QueryDemoAbcAbcAbcResponse queryDemoAbcAbcAbcEx(QueryDemoAbcAbcAbcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAbcAbcAbcResponse());
     }
 }
