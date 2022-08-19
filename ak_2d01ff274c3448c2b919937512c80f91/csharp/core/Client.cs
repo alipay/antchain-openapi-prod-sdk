@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_2d01ff274c3448c2b919937512c80f91
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.3"},
                         {"_prod_code", "ak_2d01ff274c3448c2b919937512c80f91"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_2d01ff274c3448c2b919937512c80f91
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.3"},
                         {"_prod_code", "ak_2d01ff274c3448c2b919937512c80f91"},
                         {"_prod_channel", "saas"},
                     };
@@ -319,90 +319,6 @@ namespace AntChain.SDK.Ak_2d01ff274c3448c2b919937512c80f91
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
-        }
-
-        /**
-         * Description: 该接口用于获取狗狗的年龄
-         * Summary: 获取狗狗的年龄
-         */
-        public GetDemoDogAgeResponse GetDemoDogAge(GetDemoDogAgeRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return GetDemoDogAgeEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 该接口用于获取狗狗的年龄
-         * Summary: 获取狗狗的年龄
-         */
-        public async Task<GetDemoDogAgeResponse> GetDemoDogAgeAsync(GetDemoDogAgeRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await GetDemoDogAgeExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 该接口用于获取狗狗的年龄
-         * Summary: 获取狗狗的年龄
-         */
-        public GetDemoDogAgeResponse GetDemoDogAgeEx(GetDemoDogAgeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetDemoDogAgeResponse>(DoRequest("1.0", "demo.dog.age.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 该接口用于获取狗狗的年龄
-         * Summary: 获取狗狗的年龄
-         */
-        public async Task<GetDemoDogAgeResponse> GetDemoDogAgeExAsync(GetDemoDogAgeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetDemoDogAgeResponse>(await DoRequestAsync("1.0", "demo.dog.age.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 这接口用于获取猫猫的年龄
-         * Summary: 获取猫猫的年龄
-         */
-        public GetAntcloudCatAgeResponse GetAntcloudCatAge(GetAntcloudCatAgeRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return GetAntcloudCatAgeEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 这接口用于获取猫猫的年龄
-         * Summary: 获取猫猫的年龄
-         */
-        public async Task<GetAntcloudCatAgeResponse> GetAntcloudCatAgeAsync(GetAntcloudCatAgeRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await GetAntcloudCatAgeExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 这接口用于获取猫猫的年龄
-         * Summary: 获取猫猫的年龄
-         */
-        public GetAntcloudCatAgeResponse GetAntcloudCatAgeEx(GetAntcloudCatAgeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetAntcloudCatAgeResponse>(DoRequest("1.0", "antcloud.cat.age.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 这接口用于获取猫猫的年龄
-         * Summary: 获取猫猫的年龄
-         */
-        public async Task<GetAntcloudCatAgeResponse> GetAntcloudCatAgeExAsync(GetAntcloudCatAgeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetAntcloudCatAgeResponse>(await DoRequestAsync("1.0", "antcloud.cat.age.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -487,132 +403,6 @@ namespace AntChain.SDK.Ak_2d01ff274c3448c2b919937512c80f91
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDemoAdAsdAsdResponse>(await DoRequestAsync("1.0", "demo.ad.asd.asd.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: huanyue
-         * Summary: huanyu
-         */
-        public BindAntcloudCatHuanyuResponse BindAntcloudCatHuanyu(BindAntcloudCatHuanyuRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return BindAntcloudCatHuanyuEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: huanyue
-         * Summary: huanyu
-         */
-        public async Task<BindAntcloudCatHuanyuResponse> BindAntcloudCatHuanyuAsync(BindAntcloudCatHuanyuRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await BindAntcloudCatHuanyuExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: huanyue
-         * Summary: huanyu
-         */
-        public BindAntcloudCatHuanyuResponse BindAntcloudCatHuanyuEx(BindAntcloudCatHuanyuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<BindAntcloudCatHuanyuResponse>(DoRequest("1.0", "antcloud.cat.huanyu.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: huanyue
-         * Summary: huanyu
-         */
-        public async Task<BindAntcloudCatHuanyuResponse> BindAntcloudCatHuanyuExAsync(BindAntcloudCatHuanyuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<BindAntcloudCatHuanyuResponse>(await DoRequestAsync("1.0", "antcloud.cat.huanyu.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 自动化测试创建1
-         * Summary: 自动化测试创建（勿动）
-         */
-        public QueryDemoAaaBbbCccResponse QueryDemoAaaBbbCcc(QueryDemoAaaBbbCccRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryDemoAaaBbbCccEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 自动化测试创建1
-         * Summary: 自动化测试创建（勿动）
-         */
-        public async Task<QueryDemoAaaBbbCccResponse> QueryDemoAaaBbbCccAsync(QueryDemoAaaBbbCccRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryDemoAaaBbbCccExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 自动化测试创建1
-         * Summary: 自动化测试创建（勿动）
-         */
-        public QueryDemoAaaBbbCccResponse QueryDemoAaaBbbCccEx(QueryDemoAaaBbbCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDemoAaaBbbCccResponse>(DoRequest("1.0", "demo.aaa.bbb.ccc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 自动化测试创建1
-         * Summary: 自动化测试创建（勿动）
-         */
-        public async Task<QueryDemoAaaBbbCccResponse> QueryDemoAaaBbbCccExAsync(QueryDemoAaaBbbCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDemoAaaBbbCccResponse>(await DoRequestAsync("1.0", "demo.aaa.bbb.ccc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 自动化测试创建,用于测试API的修改
-         * Summary: 自动化测试创建,用于测试API的修改勿动
-         */
-        public QueryDemoAbcAbcAbcResponse QueryDemoAbcAbcAbc(QueryDemoAbcAbcAbcRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryDemoAbcAbcAbcEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 自动化测试创建,用于测试API的修改
-         * Summary: 自动化测试创建,用于测试API的修改勿动
-         */
-        public async Task<QueryDemoAbcAbcAbcResponse> QueryDemoAbcAbcAbcAsync(QueryDemoAbcAbcAbcRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryDemoAbcAbcAbcExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 自动化测试创建,用于测试API的修改
-         * Summary: 自动化测试创建,用于测试API的修改勿动
-         */
-        public QueryDemoAbcAbcAbcResponse QueryDemoAbcAbcAbcEx(QueryDemoAbcAbcAbcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDemoAbcAbcAbcResponse>(DoRequest("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 自动化测试创建,用于测试API的修改
-         * Summary: 自动化测试创建,用于测试API的修改勿动
-         */
-        public async Task<QueryDemoAbcAbcAbcResponse> QueryDemoAbcAbcAbcExAsync(QueryDemoAbcAbcAbcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryDemoAbcAbcAbcResponse>(await DoRequestAsync("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
