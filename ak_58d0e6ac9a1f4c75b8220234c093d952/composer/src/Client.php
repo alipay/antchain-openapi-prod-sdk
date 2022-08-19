@@ -13,8 +13,18 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\BindDemoAaaBbbCccRequest;
 use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\BindDemoAaaBbbCccResponse;
+use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\BindDemoAsdAsdAsdRequest;
+use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\BindDemoAsdAsdAsdResponse;
+use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\BindDemoAsdAsdRequest;
+use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\BindDemoAsdAsdResponse;
 use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\GetDemoDogAgeRequest;
 use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\GetDemoDogAgeResponse;
+use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\InitDemoBbpInsuranceUserRequest;
+use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\InitDemoBbpInsuranceUserResponse;
+use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\QueryDemoAaaBbbCccRequest;
+use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\QueryDemoAaaBbbCccResponse;
+use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\QueryDemoAbcAbcAbcRequest;
+use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\QueryDemoAbcAbcAbcResponse;
 use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\QueryDemoAdAsdAsdRequest;
 use AntChain\Ak_58d0e6ac9a1f4c75b8220234c093d952\Models\QueryDemoAdAsdAsdResponse;
 use AntChain\Util\UtilClient;
@@ -164,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
                     '_prod_code'       => 'ak_58d0e6ac9a1f4c75b8220234c093d952',
                     '_prod_channel'    => 'saas',
                 ];
@@ -279,6 +289,39 @@ class Client
     }
 
     /**
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点.
+     *
+     * @param InitDemoBbpInsuranceUserRequest $request
+     *
+     * @return InitDemoBbpInsuranceUserResponse
+     */
+    public function initDemoBbpInsuranceUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initDemoBbpInsuranceUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点.
+     *
+     * @param InitDemoBbpInsuranceUserRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return InitDemoBbpInsuranceUserResponse
+     */
+    public function initDemoBbpInsuranceUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitDemoBbpInsuranceUserResponse::fromMap($this->doRequest('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: asd
      * Summary: asd.
      *
@@ -309,5 +352,137 @@ class Client
         Utils::validateModel($request);
 
         return QueryDemoAdAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd.
+     *
+     * @param BindDemoAsdAsdAsdRequest $request
+     *
+     * @return BindDemoAsdAsdAsdResponse
+     */
+    public function bindDemoAsdAsdAsd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoAsdAsdAsdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd.
+     *
+     * @param BindDemoAsdAsdAsdRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return BindDemoAsdAsdAsdResponse
+     */
+    public function bindDemoAsdAsdAsdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoAsdAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 1·2
+     * Summary: 测试.
+     *
+     * @param BindDemoAsdAsdRequest $request
+     *
+     * @return BindDemoAsdAsdResponse
+     */
+    public function bindDemoAsdAsd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoAsdAsdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 1·2
+     * Summary: 测试.
+     *
+     * @param BindDemoAsdAsdRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return BindDemoAsdAsdResponse
+     */
+    public function bindDemoAsdAsdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.asd.asd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建1
+     * Summary: 自动化测试创建（勿动）.
+     *
+     * @param QueryDemoAaaBbbCccRequest $request
+     *
+     * @return QueryDemoAaaBbbCccResponse
+     */
+    public function queryDemoAaaBbbCcc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoAaaBbbCccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建1
+     * Summary: 自动化测试创建（勿动）.
+     *
+     * @param QueryDemoAaaBbbCccRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryDemoAaaBbbCccResponse
+     */
+    public function queryDemoAaaBbbCccEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动.
+     *
+     * @param QueryDemoAbcAbcAbcRequest $request
+     *
+     * @return QueryDemoAbcAbcAbcResponse
+     */
+    public function queryDemoAbcAbcAbc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoAbcAbcAbcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动.
+     *
+     * @param QueryDemoAbcAbcAbcRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryDemoAbcAbcAbcResponse
+     */
+    public function queryDemoAbcAbcAbcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoAbcAbcAbcResponse::fromMap($this->doRequest('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
