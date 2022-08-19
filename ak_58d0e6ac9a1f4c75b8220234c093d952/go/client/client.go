@@ -148,6 +148,177 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 狗
+type Dog struct {
+	// 名字
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true" maxLength:"32" minLength:"2"`
+	// 年龄
+	Age *int64 `json:"age,omitempty" xml:"age,omitempty" require:"true" maximum:"100" minimum:"0"`
+	// 是否已领养
+	IsAdopted *bool `json:"is_adopted,omitempty" xml:"is_adopted,omitempty" require:"true"`
+	// 领养时间
+	AdoptedDate *string `json:"adopted_date,omitempty" xml:"adopted_date,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 标记
+	Marks []*string `json:"marks,omitempty" xml:"marks,omitempty" type:"Repeated"`
+}
+
+func (s Dog) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Dog) GoString() string {
+	return s.String()
+}
+
+func (s *Dog) SetName(v string) *Dog {
+	s.Name = &v
+	return s
+}
+
+func (s *Dog) SetAge(v int64) *Dog {
+	s.Age = &v
+	return s
+}
+
+func (s *Dog) SetIsAdopted(v bool) *Dog {
+	s.IsAdopted = &v
+	return s
+}
+
+func (s *Dog) SetAdoptedDate(v string) *Dog {
+	s.AdoptedDate = &v
+	return s
+}
+
+func (s *Dog) SetMarks(v []*string) *Dog {
+	s.Marks = v
+	return s
+}
+
+// 狗狗之家
+type DogHome struct {
+	// 狗狗成员
+	DogMembers []*Dog `json:"dog_members,omitempty" xml:"dog_members,omitempty" require:"true" type:"Repeated"`
+	// 狗狗头目
+	Leader *Dog `json:"leader,omitempty" xml:"leader,omitempty" require:"true"`
+}
+
+func (s DogHome) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DogHome) GoString() string {
+	return s.String()
+}
+
+func (s *DogHome) SetDogMembers(v []*Dog) *DogHome {
+	s.DogMembers = v
+	return s
+}
+
+func (s *DogHome) SetLeader(v *Dog) *DogHome {
+	s.Leader = v
+	return s
+}
+
+type GetDemoDogAgeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数组结构体
+	Dog []*Dog `json:"dog,omitempty" xml:"dog,omitempty" type:"Repeated"`
+	// 狗狗的id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 结构体
+	Home *DogHome `json:"home,omitempty" xml:"home,omitempty" require:"true"`
+	// alipay
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// test
+	Test *string `json:"test,omitempty" xml:"test,omitempty" require:"true"`
+}
+
+func (s GetDemoDogAgeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDemoDogAgeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetDemoDogAgeRequest) SetAuthToken(v string) *GetDemoDogAgeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetDemoDogAgeRequest) SetProductInstanceId(v string) *GetDemoDogAgeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetDemoDogAgeRequest) SetDog(v []*Dog) *GetDemoDogAgeRequest {
+	s.Dog = v
+	return s
+}
+
+func (s *GetDemoDogAgeRequest) SetId(v int64) *GetDemoDogAgeRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *GetDemoDogAgeRequest) SetHome(v *DogHome) *GetDemoDogAgeRequest {
+	s.Home = v
+	return s
+}
+
+func (s *GetDemoDogAgeRequest) SetFileId(v string) *GetDemoDogAgeRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *GetDemoDogAgeRequest) SetTest(v string) *GetDemoDogAgeRequest {
+	s.Test = &v
+	return s
+}
+
+type GetDemoDogAgeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 年龄
+	Age *int64 `json:"age,omitempty" xml:"age,omitempty"`
+}
+
+func (s GetDemoDogAgeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDemoDogAgeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetDemoDogAgeResponse) SetReqMsgId(v string) *GetDemoDogAgeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetDemoDogAgeResponse) SetResultCode(v string) *GetDemoDogAgeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetDemoDogAgeResponse) SetResultMsg(v string) *GetDemoDogAgeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetDemoDogAgeResponse) SetAge(v int64) *GetDemoDogAgeResponse {
+	s.Age = &v
+	return s
+}
+
 type BindDemoAaaBbbCccRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -263,174 +434,6 @@ func (s *QueryDemoAdAsdAsdResponse) SetResultCode(v string) *QueryDemoAdAsdAsdRe
 }
 
 func (s *QueryDemoAdAsdAsdResponse) SetResultMsg(v string) *QueryDemoAdAsdAsdResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-type BindDemoAsdAsdAsdRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s BindDemoAsdAsdAsdRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoAsdAsdAsdRequest) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoAsdAsdAsdRequest) SetAuthToken(v string) *BindDemoAsdAsdAsdRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *BindDemoAsdAsdAsdRequest) SetProductInstanceId(v string) *BindDemoAsdAsdAsdRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type BindDemoAsdAsdAsdResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s BindDemoAsdAsdAsdResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindDemoAsdAsdAsdResponse) GoString() string {
-	return s.String()
-}
-
-func (s *BindDemoAsdAsdAsdResponse) SetReqMsgId(v string) *BindDemoAsdAsdAsdResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *BindDemoAsdAsdAsdResponse) SetResultCode(v string) *BindDemoAsdAsdAsdResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *BindDemoAsdAsdAsdResponse) SetResultMsg(v string) *BindDemoAsdAsdAsdResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-type QueryDemoAaaBbbCccRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s QueryDemoAaaBbbCccRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDemoAaaBbbCccRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDemoAaaBbbCccRequest) SetAuthToken(v string) *QueryDemoAaaBbbCccRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryDemoAaaBbbCccRequest) SetProductInstanceId(v string) *QueryDemoAaaBbbCccRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type QueryDemoAaaBbbCccResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s QueryDemoAaaBbbCccResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDemoAaaBbbCccResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDemoAaaBbbCccResponse) SetReqMsgId(v string) *QueryDemoAaaBbbCccResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryDemoAaaBbbCccResponse) SetResultCode(v string) *QueryDemoAaaBbbCccResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryDemoAaaBbbCccResponse) SetResultMsg(v string) *QueryDemoAaaBbbCccResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-type QueryDemoAbcAbcAbcRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-}
-
-func (s QueryDemoAbcAbcAbcRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDemoAbcAbcAbcRequest) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDemoAbcAbcAbcRequest) SetAuthToken(v string) *QueryDemoAbcAbcAbcRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *QueryDemoAbcAbcAbcRequest) SetProductInstanceId(v string) *QueryDemoAbcAbcAbcRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-type QueryDemoAbcAbcAbcResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s QueryDemoAbcAbcAbcResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s QueryDemoAbcAbcAbcResponse) GoString() string {
-	return s.String()
-}
-
-func (s *QueryDemoAbcAbcAbcResponse) SetReqMsgId(v string) *QueryDemoAbcAbcAbcResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *QueryDemoAbcAbcAbcResponse) SetResultCode(v string) *QueryDemoAbcAbcAbcResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *QueryDemoAbcAbcAbcResponse) SetResultMsg(v string) *QueryDemoAbcAbcAbcResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -557,7 +560,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_58d0e6ac9a1f4c75b8220234c093d952"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -605,6 +608,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 该接口用于获取狗狗的年龄
+ * Summary: 获取狗狗的年龄
+ */
+func (client *Client) GetDemoDogAge(request *GetDemoDogAgeRequest) (_result *GetDemoDogAgeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetDemoDogAgeResponse{}
+	_body, _err := client.GetDemoDogAgeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 该接口用于获取狗狗的年龄
+ * Summary: 获取狗狗的年龄
+ */
+func (client *Client) GetDemoDogAgeEx(request *GetDemoDogAgeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetDemoDogAgeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetDemoDogAgeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.dog.age.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
@@ -668,108 +705,6 @@ func (client *Client) QueryDemoAdAsdAsdEx(request *QueryDemoAdAsdAsdRequest, hea
 	}
 	_result = &QueryDemoAdAsdAsdResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.ad.asd.asd.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: asd
- * Summary: asd
- */
-func (client *Client) BindDemoAsdAsdAsd(request *BindDemoAsdAsdAsdRequest) (_result *BindDemoAsdAsdAsdResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &BindDemoAsdAsdAsdResponse{}
-	_body, _err := client.BindDemoAsdAsdAsdEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: asd
- * Summary: asd
- */
-func (client *Client) BindDemoAsdAsdAsdEx(request *BindDemoAsdAsdAsdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoAsdAsdAsdResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &BindDemoAsdAsdAsdResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.asd.asd.asd.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 自动化测试创建1
- * Summary: 自动化测试创建（勿动）
- */
-func (client *Client) QueryDemoAaaBbbCcc(request *QueryDemoAaaBbbCccRequest) (_result *QueryDemoAaaBbbCccResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryDemoAaaBbbCccResponse{}
-	_body, _err := client.QueryDemoAaaBbbCccEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 自动化测试创建1
- * Summary: 自动化测试创建（勿动）
- */
-func (client *Client) QueryDemoAaaBbbCccEx(request *QueryDemoAaaBbbCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoAaaBbbCccResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryDemoAaaBbbCccResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.aaa.bbb.ccc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 自动化测试创建,用于测试API的修改
- * Summary: 自动化测试创建,用于测试API的修改勿动
- */
-func (client *Client) QueryDemoAbcAbcAbc(request *QueryDemoAbcAbcAbcRequest) (_result *QueryDemoAbcAbcAbcResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &QueryDemoAbcAbcAbcResponse{}
-	_body, _err := client.QueryDemoAbcAbcAbcEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 自动化测试创建,用于测试API的修改
- * Summary: 自动化测试创建,用于测试API的修改勿动
- */
-func (client *Client) QueryDemoAbcAbcAbcEx(request *QueryDemoAbcAbcAbcRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoAbcAbcAbcResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &QueryDemoAbcAbcAbcResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.abc.abc.abc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
