@@ -11,18 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\BindAntcloudCatHuanyuRequest;
-use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\BindAntcloudCatHuanyuResponse;
 use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\BindDemoAaaBbbCccRequest;
 use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\BindDemoAaaBbbCccResponse;
-use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\GetAntcloudCatAgeRequest;
-use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\GetAntcloudCatAgeResponse;
-use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\GetDemoDogAgeRequest;
-use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\GetDemoDogAgeResponse;
-use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\QueryDemoAaaBbbCccRequest;
-use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\QueryDemoAaaBbbCccResponse;
-use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\QueryDemoAbcAbcAbcRequest;
-use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\QueryDemoAbcAbcAbcResponse;
 use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\QueryDemoAdAsdAsdRequest;
 use AntChain\Ak_2d01ff274c3448c2b919937512c80f91\Models\QueryDemoAdAsdAsdResponse;
 use AntChain\Util\UtilClient;
@@ -144,7 +134,6 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 狗
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -172,7 +161,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.0.3',
                     '_prod_code'       => 'ak_2d01ff274c3448c2b919937512c80f91',
                     '_prod_channel'    => 'saas',
                 ];
@@ -218,72 +207,6 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
-    }
-
-    /**
-     * Description: 该接口用于获取狗狗的年龄
-     * Summary: 获取狗狗的年龄.
-     *
-     * @param GetDemoDogAgeRequest $request
-     *
-     * @return GetDemoDogAgeResponse
-     */
-    public function getDemoDogAge($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->getDemoDogAgeEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 该接口用于获取狗狗的年龄
-     * Summary: 获取狗狗的年龄.
-     *
-     * @param GetDemoDogAgeRequest $request
-     * @param string[]             $headers
-     * @param RuntimeOptions       $runtime
-     *
-     * @return GetDemoDogAgeResponse
-     */
-    public function getDemoDogAgeEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return GetDemoDogAgeResponse::fromMap($this->doRequest('1.0', 'demo.dog.age.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 这接口用于获取猫猫的年龄
-     * Summary: 获取猫猫的年龄.
-     *
-     * @param GetAntcloudCatAgeRequest $request
-     *
-     * @return GetAntcloudCatAgeResponse
-     */
-    public function getAntcloudCatAge($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->getAntcloudCatAgeEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 这接口用于获取猫猫的年龄
-     * Summary: 获取猫猫的年龄.
-     *
-     * @param GetAntcloudCatAgeRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
-     *
-     * @return GetAntcloudCatAgeResponse
-     */
-    public function getAntcloudCatAgeEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return GetAntcloudCatAgeResponse::fromMap($this->doRequest('1.0', 'antcloud.cat.age.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -350,104 +273,5 @@ class Client
         Utils::validateModel($request);
 
         return QueryDemoAdAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: huanyue
-     * Summary: huanyu.
-     *
-     * @param BindAntcloudCatHuanyuRequest $request
-     *
-     * @return BindAntcloudCatHuanyuResponse
-     */
-    public function bindAntcloudCatHuanyu($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->bindAntcloudCatHuanyuEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: huanyue
-     * Summary: huanyu.
-     *
-     * @param BindAntcloudCatHuanyuRequest $request
-     * @param string[]                     $headers
-     * @param RuntimeOptions               $runtime
-     *
-     * @return BindAntcloudCatHuanyuResponse
-     */
-    public function bindAntcloudCatHuanyuEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BindAntcloudCatHuanyuResponse::fromMap($this->doRequest('1.0', 'antcloud.cat.huanyu.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 自动化测试创建1
-     * Summary: 自动化测试创建（勿动）.
-     *
-     * @param QueryDemoAaaBbbCccRequest $request
-     *
-     * @return QueryDemoAaaBbbCccResponse
-     */
-    public function queryDemoAaaBbbCcc($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoAaaBbbCccEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 自动化测试创建1
-     * Summary: 自动化测试创建（勿动）.
-     *
-     * @param QueryDemoAaaBbbCccRequest $request
-     * @param string[]                  $headers
-     * @param RuntimeOptions            $runtime
-     *
-     * @return QueryDemoAaaBbbCccResponse
-     */
-    public function queryDemoAaaBbbCccEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 自动化测试创建,用于测试API的修改
-     * Summary: 自动化测试创建,用于测试API的修改勿动.
-     *
-     * @param QueryDemoAbcAbcAbcRequest $request
-     *
-     * @return QueryDemoAbcAbcAbcResponse
-     */
-    public function queryDemoAbcAbcAbc($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoAbcAbcAbcEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 自动化测试创建,用于测试API的修改
-     * Summary: 自动化测试创建,用于测试API的修改勿动.
-     *
-     * @param QueryDemoAbcAbcAbcRequest $request
-     * @param string[]                  $headers
-     * @param RuntimeOptions            $runtime
-     *
-     * @return QueryDemoAbcAbcAbcResponse
-     */
-    public function queryDemoAbcAbcAbcEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoAbcAbcAbcResponse::fromMap($this->doRequest('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
