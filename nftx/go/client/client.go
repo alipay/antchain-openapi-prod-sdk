@@ -1826,7 +1826,7 @@ type PayOrderDataRequest struct {
 	ExternalOrderNo *string `json:"external_order_no,omitempty" xml:"external_order_no,omitempty" require:"true"`
 	// 订单金额，单位为分
 	AmountCent *int64 `json:"amount_cent,omitempty" xml:"amount_cent,omitempty" require:"true"`
-	// ALIPAY 表示小程序支付，ALIPAY_APP表示App支付
+	// ALIPAY 表示小程序支付，ALIPAY_APP表示App支付, ALIPAY_WAP表示手机网站支付
 	PayChannel *string `json:"pay_channel,omitempty" xml:"pay_channel,omitempty" require:"true"`
 	// 订单标题，支付宝账单会展示
 	Subject *string `json:"subject,omitempty" xml:"subject,omitempty" require:"true"`
@@ -1927,6 +1927,97 @@ func (s *PayOrderDataResponse) SetOpenOrderNo(v string) *PayOrderDataResponse {
 
 func (s *PayOrderDataResponse) SetPayParams(v string) *PayOrderDataResponse {
 	s.PayParams = &v
+	return s
+}
+
+type SyncOrderDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 接入方的订单号
+	ExternalOrderNo *string `json:"external_order_no,omitempty" xml:"external_order_no,omitempty" require:"true"`
+	// 目前支持两种状态 PAID、PAY_CANCEL
+	ExternalOrderStatus *string `json:"external_order_status,omitempty" xml:"external_order_status,omitempty" require:"true"`
+	// 鲸探开放平台订单号
+	OpenOrderNo *string `json:"open_order_no,omitempty" xml:"open_order_no,omitempty" require:"true"`
+	// 鲸探授权的用户加密的uid
+	OpenUserId *string `json:"open_user_id,omitempty" xml:"open_user_id,omitempty" require:"true"`
+	// 同步改状态时的事件时间
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s SyncOrderDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncOrderDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncOrderDataRequest) SetAuthToken(v string) *SyncOrderDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncOrderDataRequest) SetProductInstanceId(v string) *SyncOrderDataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncOrderDataRequest) SetExternalOrderNo(v string) *SyncOrderDataRequest {
+	s.ExternalOrderNo = &v
+	return s
+}
+
+func (s *SyncOrderDataRequest) SetExternalOrderStatus(v string) *SyncOrderDataRequest {
+	s.ExternalOrderStatus = &v
+	return s
+}
+
+func (s *SyncOrderDataRequest) SetOpenOrderNo(v string) *SyncOrderDataRequest {
+	s.OpenOrderNo = &v
+	return s
+}
+
+func (s *SyncOrderDataRequest) SetOpenUserId(v string) *SyncOrderDataRequest {
+	s.OpenUserId = &v
+	return s
+}
+
+func (s *SyncOrderDataRequest) SetUpdateTime(v string) *SyncOrderDataRequest {
+	s.UpdateTime = &v
+	return s
+}
+
+type SyncOrderDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncOrderDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncOrderDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncOrderDataResponse) SetReqMsgId(v string) *SyncOrderDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncOrderDataResponse) SetResultCode(v string) *SyncOrderDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncOrderDataResponse) SetResultMsg(v string) *SyncOrderDataResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -2167,7 +2258,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.2"),
+				"sdk_version":      tea.String("1.6.3"),
 				"_prod_code":       tea.String("NFTX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -2686,6 +2777,40 @@ func (client *Client) PayOrderDataEx(request *PayOrderDataRequest, headers map[s
 	}
 	_result = &PayOrderDataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.order.data.pay"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+ * Summary: 外部订单数据同步
+ */
+func (client *Client) SyncOrderData(request *SyncOrderDataRequest) (_result *SyncOrderDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncOrderDataResponse{}
+	_body, _err := client.SyncOrderDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+ * Summary: 外部订单数据同步
+ */
+func (client *Client) SyncOrderDataEx(request *SyncOrderDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncOrderDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncOrderDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftx.order.data.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
