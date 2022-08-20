@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.2',
+    sdk_version = '1.6.3',
     _prod_code = 'NFTX',
     _prod_channel = 'undefined'
   };
@@ -887,7 +887,7 @@ model PayOrderDataRequest = {
   externalOrderNo: string(name='external_order_no'),
   // 订单金额，单位为分
   amountCent: long(name='amount_cent'),
-  // ALIPAY 表示小程序支付，ALIPAY_APP表示App支付
+  // ALIPAY 表示小程序支付，ALIPAY_APP表示App支付, ALIPAY_WAP表示手机网站支付
   payChannel: string(name='pay_channel'),
   // 订单标题，支付宝账单会展示
   subject: string(name='subject'),
@@ -927,6 +927,50 @@ async function payOrderData(request: PayOrderDataRequest): PayOrderDataResponse 
 async function payOrderDataEx(request: PayOrderDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PayOrderDataResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftx.order.data.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncOrderDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 接入方的订单号
+  externalOrderNo: string(name='external_order_no'),
+  // 目前支持两种状态 PAID、PAY_CANCEL 
+  externalOrderStatus: string(name='external_order_status'),
+  // 鲸探开放平台订单号
+  openOrderNo: string(name='open_order_no'),
+  // 鲸探授权的用户加密的uid
+  openUserId: string(name='open_user_id'),
+  // 同步改状态时的事件时间
+  updateTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='update_time'),
+}
+
+model SyncOrderDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+ * Summary: 外部订单数据同步
+ */
+async function syncOrderData(request: SyncOrderDataRequest): SyncOrderDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncOrderDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+ * Summary: 外部订单数据同步
+ */
+async function syncOrderDataEx(request: SyncOrderDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncOrderDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftx.order.data.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ApplyOauthTokenRequest = {
