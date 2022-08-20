@@ -41,6 +41,8 @@ use AntChain\NFTX\Models\RunNftTransferRequest;
 use AntChain\NFTX\Models\RunNftTransferResponse;
 use AntChain\NFTX\Models\SendNftTransferRequest;
 use AntChain\NFTX\Models\SendNftTransferResponse;
+use AntChain\NFTX\Models\SyncOrderDataRequest;
+use AntChain\NFTX\Models\SyncOrderDataResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -188,7 +190,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.2',
+                    'sdk_version'      => '1.6.3',
                     '_prod_code'       => 'NFTX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -696,6 +698,39 @@ class Client
         Utils::validateModel($request);
 
         return PayOrderDataResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.order.data.pay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+     * Summary: 外部订单数据同步.
+     *
+     * @param SyncOrderDataRequest $request
+     *
+     * @return SyncOrderDataResponse
+     */
+    public function syncOrderData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncOrderDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+     * Summary: 外部订单数据同步.
+     *
+     * @param SyncOrderDataRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return SyncOrderDataResponse
+     */
+    public function syncOrderDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncOrderDataResponse::fromMap($this->doRequest('1.0', 'antchain.nftx.order.data.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

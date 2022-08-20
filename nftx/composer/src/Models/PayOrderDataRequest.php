@@ -31,7 +31,7 @@ class PayOrderDataRequest extends Model
      */
     public $amountCent;
 
-    // ALIPAY 表示小程序支付，ALIPAY_APP表示App支付
+    // ALIPAY 表示小程序支付，ALIPAY_APP表示App支付, ALIPAY_WAP表示手机网站支付
     /**
      * @var string
      */
