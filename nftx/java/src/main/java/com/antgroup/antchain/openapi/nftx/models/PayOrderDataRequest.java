@@ -21,7 +21,7 @@ public class PayOrderDataRequest extends TeaModel {
     @Validation(required = true)
     public Long amountCent;
 
-    // ALIPAY 表示小程序支付，ALIPAY_APP表示App支付
+    // ALIPAY 表示小程序支付，ALIPAY_APP表示App支付, ALIPAY_WAP表示手机网站支付
     @NameInMap("pay_channel")
     @Validation(required = true)
     public String payChannel;
