@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.2',
+                    'sdk_version': '1.6.3',
                     '_prod_code': 'NFTX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.2',
+                    'sdk_version': '1.6.3',
                     '_prod_code': 'NFTX',
                     '_prod_channel': 'undefined'
                 }
@@ -1057,6 +1057,62 @@ class Client:
         return TeaCore.from_map(
             nftx_models.PayOrderDataResponse(),
             await self.do_request_async('1.0', 'antchain.nftx.order.data.pay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_order_data(
+        self,
+        request: nftx_models.SyncOrderDataRequest,
+    ) -> nftx_models.SyncOrderDataResponse:
+        """
+        Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+        Summary: 外部订单数据同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_order_data_ex(request, headers, runtime)
+
+    async def sync_order_data_async(
+        self,
+        request: nftx_models.SyncOrderDataRequest,
+    ) -> nftx_models.SyncOrderDataResponse:
+        """
+        Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+        Summary: 外部订单数据同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_order_data_ex_async(request, headers, runtime)
+
+    def sync_order_data_ex(
+        self,
+        request: nftx_models.SyncOrderDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.SyncOrderDataResponse:
+        """
+        Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+        Summary: 外部订单数据同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.SyncOrderDataResponse(),
+            self.do_request('1.0', 'antchain.nftx.order.data.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_order_data_ex_async(
+        self,
+        request: nftx_models.SyncOrderDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftx_models.SyncOrderDataResponse:
+        """
+        Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+        Summary: 外部订单数据同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftx_models.SyncOrderDataResponse(),
+            await self.do_request_async('1.0', 'antchain.nftx.order.data.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_oauth_token(

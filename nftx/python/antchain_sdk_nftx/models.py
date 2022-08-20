@@ -2225,7 +2225,7 @@ class PayOrderDataRequest(TeaModel):
         self.external_order_no = external_order_no
         # 订单金额，单位为分
         self.amount_cent = amount_cent
-        # ALIPAY 表示小程序支付，ALIPAY_APP表示App支付
+        # ALIPAY 表示小程序支付，ALIPAY_APP表示App支付, ALIPAY_WAP表示手机网站支付
         self.pay_channel = pay_channel
         # 订单标题，支付宝账单会展示
         self.subject = subject
@@ -2340,6 +2340,123 @@ class PayOrderDataResponse(TeaModel):
             self.open_order_no = m.get('open_order_no')
         if m.get('pay_params') is not None:
             self.pay_params = m.get('pay_params')
+        return self
+
+
+class SyncOrderDataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        external_order_no: str = None,
+        external_order_status: str = None,
+        open_order_no: str = None,
+        open_user_id: str = None,
+        update_time: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 接入方的订单号
+        self.external_order_no = external_order_no
+        # 目前支持两种状态 PAID、PAY_CANCEL
+        self.external_order_status = external_order_status
+        # 鲸探开放平台订单号
+        self.open_order_no = open_order_no
+        # 鲸探授权的用户加密的uid
+        self.open_user_id = open_user_id
+        # 同步改状态时的事件时间
+        self.update_time = update_time
+
+    def validate(self):
+        self.validate_required(self.external_order_no, 'external_order_no')
+        self.validate_required(self.external_order_status, 'external_order_status')
+        self.validate_required(self.open_order_no, 'open_order_no')
+        self.validate_required(self.open_user_id, 'open_user_id')
+        self.validate_required(self.update_time, 'update_time')
+        if self.update_time is not None:
+            self.validate_pattern(self.update_time, 'update_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.external_order_no is not None:
+            result['external_order_no'] = self.external_order_no
+        if self.external_order_status is not None:
+            result['external_order_status'] = self.external_order_status
+        if self.open_order_no is not None:
+            result['open_order_no'] = self.open_order_no
+        if self.open_user_id is not None:
+            result['open_user_id'] = self.open_user_id
+        if self.update_time is not None:
+            result['update_time'] = self.update_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('external_order_no') is not None:
+            self.external_order_no = m.get('external_order_no')
+        if m.get('external_order_status') is not None:
+            self.external_order_status = m.get('external_order_status')
+        if m.get('open_order_no') is not None:
+            self.open_order_no = m.get('open_order_no')
+        if m.get('open_user_id') is not None:
+            self.open_user_id = m.get('open_user_id')
+        if m.get('update_time') is not None:
+            self.update_time = m.get('update_time')
+        return self
+
+
+class SyncOrderDataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
