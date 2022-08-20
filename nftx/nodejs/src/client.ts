@@ -1310,7 +1310,7 @@ export class PayOrderDataRequest extends $tea.Model {
   externalOrderNo: string;
   // 订单金额，单位为分
   amountCent: number;
-  // ALIPAY 表示小程序支付，ALIPAY_APP表示App支付
+  // ALIPAY 表示小程序支付，ALIPAY_APP表示App支付, ALIPAY_WAP表示手机网站支付
   payChannel: string;
   // 订单标题，支付宝账单会展示
   subject: string;
@@ -1377,6 +1377,77 @@ export class PayOrderDataResponse extends $tea.Model {
       resultMsg: 'string',
       openOrderNo: 'string',
       payParams: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncOrderDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 接入方的订单号
+  externalOrderNo: string;
+  // 目前支持两种状态 PAID、PAY_CANCEL 
+  externalOrderStatus: string;
+  // 鲸探开放平台订单号
+  openOrderNo: string;
+  // 鲸探授权的用户加密的uid
+  openUserId: string;
+  // 同步改状态时的事件时间
+  updateTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      externalOrderNo: 'external_order_no',
+      externalOrderStatus: 'external_order_status',
+      openOrderNo: 'open_order_no',
+      openUserId: 'open_user_id',
+      updateTime: 'update_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      externalOrderNo: 'string',
+      externalOrderStatus: 'string',
+      openOrderNo: 'string',
+      openUserId: 'string',
+      updateTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncOrderDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -1584,7 +1655,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.2",
+          sdk_version: "1.6.3",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
@@ -1896,6 +1967,25 @@ export default class Client {
   async payOrderDataEx(request: PayOrderDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PayOrderDataResponse> {
     Util.validateModel(request);
     return $tea.cast<PayOrderDataResponse>(await this.doRequest("1.0", "antchain.nftx.order.data.pay", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PayOrderDataResponse({}));
+  }
+
+  /**
+   * Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+   * Summary: 外部订单数据同步
+   */
+  async syncOrderData(request: SyncOrderDataRequest): Promise<SyncOrderDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncOrderDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+   * Summary: 外部订单数据同步
+   */
+  async syncOrderDataEx(request: SyncOrderDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncOrderDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncOrderDataResponse>(await this.doRequest("1.0", "antchain.nftx.order.data.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncOrderDataResponse({}));
   }
 
   /**
