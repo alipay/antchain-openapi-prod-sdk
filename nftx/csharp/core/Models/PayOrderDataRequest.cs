@@ -28,7 +28,7 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=true)]
         public long? AmountCent { get; set; }
 
-        // ALIPAY 表示小程序支付，ALIPAY_APP表示App支付
+        // ALIPAY 表示小程序支付，ALIPAY_APP表示App支付, ALIPAY_WAP表示手机网站支付
         [NameInMap("pay_channel")]
         [Validation(Required=true)]
         public string PayChannel { get; set; }

@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.2"},
+                        {"sdk_version", "1.6.3"},
                         {"_prod_code", "NFTX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.2"},
+                        {"sdk_version", "1.6.3"},
                         {"_prod_code", "NFTX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -907,6 +907,48 @@ namespace AntChain.SDK.NFTX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PayOrderDataResponse>(await DoRequestAsync("1.0", "antchain.nftx.order.data.pay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+         * Summary: 外部订单数据同步
+         */
+        public SyncOrderDataResponse SyncOrderData(SyncOrderDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncOrderDataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+         * Summary: 外部订单数据同步
+         */
+        public async Task<SyncOrderDataResponse> SyncOrderDataAsync(SyncOrderDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncOrderDataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+         * Summary: 外部订单数据同步
+         */
+        public SyncOrderDataResponse SyncOrderDataEx(SyncOrderDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncOrderDataResponse>(DoRequest("1.0", "antchain.nftx.order.data.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部订单数据同步，包括取消、完成，未来会扩展额外数据
+         * Summary: 外部订单数据同步
+         */
+        public async Task<SyncOrderDataResponse> SyncOrderDataExAsync(SyncOrderDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncOrderDataResponse>(await DoRequestAsync("1.0", "antchain.nftx.order.data.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
