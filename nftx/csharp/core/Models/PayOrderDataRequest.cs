@@ -48,6 +48,11 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=true)]
         public string AccessToken { get; set; }
 
+        // 支付完成后的回跳地址
+        [NameInMap("return_url")]
+        [Validation(Required=false)]
+        public string ReturnUrl { get; set; }
+
     }
 
 }

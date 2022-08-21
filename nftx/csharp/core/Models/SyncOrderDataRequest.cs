@@ -38,10 +38,10 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=true)]
         public string OpenUserId { get; set; }
 
-        // 同步改状态时的事件时间
+        // 同步改状态时的事件毫秒时间戳
         [NameInMap("update_time")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
-        public string UpdateTime { get; set; }
+        [Validation(Required=true)]
+        public long? UpdateTime { get; set; }
 
     }
 
