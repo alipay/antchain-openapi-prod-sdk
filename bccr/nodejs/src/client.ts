@@ -143,6 +143,117 @@ export class ScreenInfo extends $tea.Model {
   }
 }
 
+// 作品相似识别结果
+export class ResembleRiskData extends $tea.Model {
+  // 识别结果
+  code: number;
+  // 重复作品ID
+  workId: string;
+  // 相似值百分比
+  resemble: string;
+  // 相似作品下载链接
+  workDownloadUrl: string;
+  // 风险等级
+  riskLevel: number;
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      workId: 'work_id',
+      resemble: 'resemble',
+      workDownloadUrl: 'work_download_url',
+      riskLevel: 'risk_level',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'number',
+      workId: 'string',
+      resemble: 'string',
+      workDownloadUrl: 'string',
+      riskLevel: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 内容安全识别结果
+export class ContentRiskData extends $tea.Model {
+  // 识别结果
+  code: number;
+  // 内容类型
+  contentType: string;
+  // 风险名称
+  riskName: string;
+  // 风险等级
+  riskLevel: number;
+  // 风险评分
+  riskScore: number;
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      contentType: 'content_type',
+      riskName: 'risk_name',
+      riskLevel: 'risk_level',
+      riskScore: 'risk_score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'number',
+      contentType: 'string',
+      riskName: 'string',
+      riskLevel: 'number',
+      riskScore: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 作品标签识别结果
+export class LabelRiskData extends $tea.Model {
+  // 识别结果
+  code: number;
+  // 识别出的标签名称
+  labelName: string;
+  // 识别出的标签是否与用户选择的标签匹配
+  isRisk: boolean;
+  // 识别出的标签匹配度百分比
+  similarValue: string;
+  // 风险等级
+  riskLevel: number;
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      labelName: 'label_name',
+      isRisk: 'is_risk',
+      similarValue: 'similar_value',
+      riskLevel: 'risk_level',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'number',
+      labelName: 'string',
+      isRisk: 'boolean',
+      similarValue: 'string',
+      riskLevel: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 监测提供商能力
 export class MonitorProviderCapability extends $tea.Model {
   // 供应商id
@@ -775,6 +886,90 @@ export class SecurityData extends $tea.Model {
   }
 }
 
+// 发票信息
+export class InvoiceInfo extends $tea.Model {
+  // 发票类型 InvoiceTypeEnum目前只支持普票
+  // ELC  普票
+  // VAT  专票
+  invoiceType: string;
+  // 发票抬头（著作权人之一）
+  invoiceHeader: string;
+  // 纳税人识别号（机构必填）
+  taxpayerNumber: string;
+  // 注册地址（专票必填）
+  registeredAddress?: string;
+  // 注册电话（专票必填）
+  registeredTel?: string;
+  // 开户电话（专票必填）
+  openAccountTel?: string;
+  // 开户银行（专票必填）
+  openAccountBank?: string;
+  // 银行账号（专票必填）
+  bankAccount?: string;
+  static names(): { [key: string]: string } {
+    return {
+      invoiceType: 'invoice_type',
+      invoiceHeader: 'invoice_header',
+      taxpayerNumber: 'taxpayer_number',
+      registeredAddress: 'registered_address',
+      registeredTel: 'registered_tel',
+      openAccountTel: 'open_account_tel',
+      openAccountBank: 'open_account_bank',
+      bankAccount: 'bank_account',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      invoiceType: 'string',
+      invoiceHeader: 'string',
+      taxpayerNumber: 'string',
+      registeredAddress: 'string',
+      registeredTel: 'string',
+      openAccountTel: 'string',
+      openAccountBank: 'string',
+      bankAccount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 证书信息
+export class CertificateData extends $tea.Model {
+  // 任务ID
+  taskId: string;
+  // 版权用户UID
+  userId: string;
+  // DCI码
+  dciCode: string;
+  // 证书下载的链接地址
+  certificateUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      taskId: 'task_id',
+      userId: 'user_id',
+      dciCode: 'dci_code',
+      certificateUrl: 'certificate_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      taskId: 'string',
+      userId: 'string',
+      dciCode: 'string',
+      certificateUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 账号信息
 export class AccountData extends $tea.Model {
   // 账号id
@@ -1091,6 +1286,35 @@ export class WorksInfo extends $tea.Model {
     return {
       worksName: 'string',
       worksType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 审查结果
+export class ReviewData extends $tea.Model {
+  // 内容安全识别结果
+  contentRiskData: ContentRiskData[];
+  // 作品相似识别结果
+  resembleRiskData: ResembleRiskData[];
+  // 作品标签识别结果
+  labelRiskData: LabelRiskData[];
+  static names(): { [key: string]: string } {
+    return {
+      contentRiskData: 'content_risk_data',
+      resembleRiskData: 'resemble_risk_data',
+      labelRiskData: 'label_risk_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      contentRiskData: { 'type': 'array', 'itemType': ContentRiskData },
+      resembleRiskData: { 'type': 'array', 'itemType': ResembleRiskData },
+      labelRiskData: { 'type': 'array', 'itemType': LabelRiskData },
     };
   }
 
@@ -3434,6 +3658,10 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
   proxyData: ProxyData;
   // 幂等字段
   clientToken: string;
+  // 作品类型相似度
+  categorySimilarRatio?: string;
+  // 作品类型风险等级
+  categoryRiskRank?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3453,6 +3681,8 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
       dciUserId: 'dci_user_id',
       proxyData: 'proxy_data',
       clientToken: 'client_token',
+      categorySimilarRatio: 'category_similar_ratio',
+      categoryRiskRank: 'category_risk_rank',
     };
   }
 
@@ -3475,6 +3705,8 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
       dciUserId: 'string',
       proxyData: ProxyData,
       clientToken: 'string',
+      categorySimilarRatio: 'string',
+      categoryRiskRank: 'string',
     };
   }
 
@@ -3686,6 +3918,12 @@ export class AddDciUserRequest extends $tea.Model {
   certificateFrontFilePath: string;
   // 证件反面OSS filePath
   certificateBackFilePath?: string;
+  // 法人名称
+  legalPersonCertName?: string;
+  // 法人证件类型
+  legalPersonCertType?: string;
+  // 法人证件号
+  legalPersonCertNo?: string;
   // 手机号
   phone: string;
   // 地址
@@ -3710,6 +3948,9 @@ export class AddDciUserRequest extends $tea.Model {
       certificateEndTime: 'certificate_end_time',
       certificateFrontFilePath: 'certificate_front_file_path',
       certificateBackFilePath: 'certificate_back_file_path',
+      legalPersonCertName: 'legal_person_cert_name',
+      legalPersonCertType: 'legal_person_cert_type',
+      legalPersonCertNo: 'legal_person_cert_no',
       phone: 'phone',
       address: 'address',
       identityStartTime: 'identity_start_time',
@@ -3731,6 +3972,9 @@ export class AddDciUserRequest extends $tea.Model {
       certificateEndTime: 'string',
       certificateFrontFilePath: 'string',
       certificateBackFilePath: 'string',
+      legalPersonCertName: 'string',
+      legalPersonCertType: 'string',
+      legalPersonCertNo: 'string',
       phone: 'string',
       address: 'string',
       identityStartTime: 'string',
@@ -3894,6 +4138,20 @@ export class QueryDciUserResponse extends $tea.Model {
   dciUserId?: string;
   // dci用户状态
   dciUserStatus?: string;
+  // 名称
+  name?: string;
+  // 证件类型
+  certificateType?: string;
+  // 证件号
+  certificateNumber?: string;
+  // 地址
+  address?: string;
+  // 证件有效期开始时间
+  certStartTime?: string;
+  // 证件有效期结束时间
+  certEndTime?: string;
+  // 法人名称
+  legalPerson?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -3901,6 +4159,13 @@ export class QueryDciUserResponse extends $tea.Model {
       resultMsg: 'result_msg',
       dciUserId: 'dci_user_id',
       dciUserStatus: 'dci_user_status',
+      name: 'name',
+      certificateType: 'certificate_type',
+      certificateNumber: 'certificate_number',
+      address: 'address',
+      certStartTime: 'cert_start_time',
+      certEndTime: 'cert_end_time',
+      legalPerson: 'legal_person',
     };
   }
 
@@ -3911,6 +4176,13 @@ export class QueryDciUserResponse extends $tea.Model {
       resultMsg: 'string',
       dciUserId: 'string',
       dciUserStatus: 'string',
+      name: 'string',
+      certificateType: 'string',
+      certificateNumber: 'string',
+      address: 'string',
+      certStartTime: 'string',
+      certEndTime: 'string',
+      legalPerson: 'string',
     };
   }
 
@@ -3970,6 +4242,949 @@ export class QueryDciPreregpublicationResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       publicationUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateDciUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // dci用户ID
+  dciUserId: string;
+  // 证件正面oss fileId
+  certFrontFileId: string;
+  // 证件背面oss fileId
+  certBackFileId?: string;
+  // 手机号
+  phone?: string;
+  // 客户端令牌
+  clientToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dciUserId: 'dci_user_id',
+      certFrontFileId: 'cert_front_file_id',
+      certBackFileId: 'cert_back_file_id',
+      phone: 'phone',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dciUserId: 'string',
+      certFrontFileId: 'string',
+      certBackFileId: 'string',
+      phone: 'string',
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateDciUserResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDciRegistrationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // DC456
+  dciContentId: string;
+  // 作品创作申明
+  creationStatement: string;
+  // 补充授权文件
+  ancillaryEvidencePathList?: string[];
+  // 客户端令牌
+  clientToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dciContentId: 'dci_content_id',
+      creationStatement: 'creation_statement',
+      ancillaryEvidencePathList: 'ancillary_evidence_path_list',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dciContentId: 'string',
+      creationStatement: 'string',
+      ancillaryEvidencePathList: { 'type': 'array', 'itemType': 'string' },
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDciRegistrationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDciRegistrationsubmitRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // dci内容id
+  dciContentId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dciContentId: 'dci_content_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dciContentId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDciRegistrationsubmitResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数登提交状态
+  contentStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      contentStatus: 'content_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      contentStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDciRegistrationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // dci内容id
+  dciContentId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dciContentId: 'dci_content_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dciContentId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDciRegistrationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态
+  contentStatus?: string;
+  // 登记证书txHash
+  registerCertTxHash?: string;
+  // 登记证书存证高度
+  registerCertBlockHeight?: string;
+  // 登记证书tsr
+  registerCertTsr?: string;
+  // 登记证书预览fileId
+  registerCertPngFileId?: string;
+  // 数登样本oss fileId
+  registerSampleFileId?: string;
+  // 数登样本预览oss fileId
+  registerSamplePngFileId?: string;
+  // 剩余下载次数
+  registerDownloadTimesLeft?: number;
+  // 错误原因
+  errorReason?: string;
+  // 发票oss fileId List
+  invoiceFileIdList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      contentStatus: 'content_status',
+      registerCertTxHash: 'register_cert_tx_hash',
+      registerCertBlockHeight: 'register_cert_block_height',
+      registerCertTsr: 'register_cert_tsr',
+      registerCertPngFileId: 'register_cert_png_file_id',
+      registerSampleFileId: 'register_sample_file_id',
+      registerSamplePngFileId: 'register_sample_png_file_id',
+      registerDownloadTimesLeft: 'register_download_times_left',
+      errorReason: 'error_reason',
+      invoiceFileIdList: 'invoice_file_id_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      contentStatus: 'string',
+      registerCertTxHash: 'string',
+      registerCertBlockHeight: 'string',
+      registerCertTsr: 'string',
+      registerCertPngFileId: 'string',
+      registerSampleFileId: 'string',
+      registerSamplePngFileId: 'string',
+      registerDownloadTimesLeft: 'number',
+      errorReason: 'string',
+      invoiceFileIdList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDciRegistrationcertRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // dci内容id
+  dciContentId: string;
+  // 幂等字段
+  clientToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dciContentId: 'dci_content_id',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dciContentId: 'string',
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDciRegistrationcertResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 证书状态
+  certStatus?: string;
+  // 证书下载链接
+  certificateUrl?: string;
+  // 剩余下载次数
+  downloadTimesLeft?: number;
+  // 错误原因
+  errorReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certStatus: 'cert_status',
+      certificateUrl: 'certificate_url',
+      downloadTimesLeft: 'download_times_left',
+      errorReason: 'error_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certStatus: 'string',
+      certificateUrl: 'string',
+      downloadTimesLeft: 'number',
+      errorReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDciContentsecurityRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID
+  taskId: string;
+  // 作品名称
+  workName: string;
+  // 作品哈希
+  workHash: string;
+  // 作品类型
+  workCategory: string;
+  // 客户端令牌
+  clientToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+      workName: 'work_name',
+      workHash: 'work_hash',
+      workCategory: 'work_category',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+      workName: 'string',
+      workHash: 'string',
+      workCategory: 'string',
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDciContentsecurityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 审查结果
+  reviewData?: ReviewData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      reviewData: 'review_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      reviewData: ReviewData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDciRegistrationcertRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID
+  taskId: string;
+  // 版权用户ID
+  userId: string;
+  // DCI码
+  dciCode: string;
+  // 登记号
+  regNumber: string;
+  // 二维码
+  qrCodeUrl: string;
+  // 客户端token
+  clientToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+      userId: 'user_id',
+      dciCode: 'dci_code',
+      regNumber: 'reg_number',
+      qrCodeUrl: 'qr_code_url',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+      userId: 'string',
+      dciCode: 'string',
+      regNumber: 'string',
+      qrCodeUrl: 'string',
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDciRegistrationcertResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDciRegistrationcertRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDciRegistrationcertResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 证书信息
+  certificateData?: CertificateData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certificateData: 'certificate_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certificateData: CertificateData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDciPayurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // dci用户id
+  dciUserId: string;
+  // dci内容id
+  dciContentId: string;
+  // 支付方式 0：支付宝
+  payMent?: string;
+  // 发票信息-当前支持普票
+  invoiceInfo?: InvoiceInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dciUserId: 'dci_user_id',
+      dciContentId: 'dci_content_id',
+      payMent: 'pay_ment',
+      invoiceInfo: 'invoice_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dciUserId: 'string',
+      dciContentId: 'string',
+      payMent: 'string',
+      invoiceInfo: InvoiceInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDciPayurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 支付链接
+  payUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      payUrl: 'pay_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      payUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDciPayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // dci用户id
+  dciUserId: string;
+  // dci内容id
+  dciContentId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dciUserId: 'dci_user_id',
+      dciContentId: 'dci_content_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dciUserId: 'string',
+      dciContentId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDciPayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 支付状态
+  // （INIT 用户点击支付，待获取链接；GET_PAY_URL_FAIL 获取支付链接失败；PAY_FAIL 支付失败；TIMEOUT 支付超时；PAY_SUCCESS 支付成功；PAYING 支付中；PAY_EXCEPTION	支付异常，待重试）
+  payState?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      payState: 'pay_state',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      payState: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackDciPayresultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 与中心约定的任务ID，同一个作品可能会发起多次登记
+  taskId: string;
+  // 平台Id
+  appId: string;
+  // 订单ID 
+  orderId: string;
+  // 支付方式 0：支付宝
+  payMent: string;
+  // 订单金额
+  money: string;
+  // 结果描述，如：支付成功
+  resultContent: string;
+  // 状态，2001代表支付成功
+  code: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+      appId: 'app_id',
+      orderId: 'order_id',
+      payMent: 'pay_ment',
+      money: 'money',
+      resultContent: 'result_content',
+      code: 'code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+      appId: 'string',
+      orderId: 'string',
+      payMent: 'string',
+      money: 'string',
+      resultContent: 'string',
+      code: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackDciPayresultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddContentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddContentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContentStatisticsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContentStatisticsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -4391,7 +5606,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.11",
+          sdk_version: "1.16.5",
+          _prod_code: "BCCR",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -4986,6 +6203,272 @@ export default class Client {
   async queryDciPreregpublicationEx(request: QueryDciPreregpublicationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDciPreregpublicationResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDciPreregpublicationResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.preregpublication.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDciPreregpublicationResponse({}));
+  }
+
+  /**
+   * Description: 更新dci账号信息
+   * Summary: 更新dci账号信息
+   */
+  async updateDciUser(request: UpdateDciUserRequest): Promise<UpdateDciUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateDciUserEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 更新dci账号信息
+   * Summary: 更新dci账号信息
+   */
+  async updateDciUserEx(request: UpdateDciUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateDciUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateDciUserResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.user.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateDciUserResponse({}));
+  }
+
+  /**
+   * Description: 发起数登申请
+   * Summary: 发起数登申请
+   */
+  async createDciRegistration(request: CreateDciRegistrationRequest): Promise<CreateDciRegistrationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDciRegistrationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发起数登申请
+   * Summary: 发起数登申请
+   */
+  async createDciRegistrationEx(request: CreateDciRegistrationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDciRegistrationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDciRegistrationResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.registration.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDciRegistrationResponse({}));
+  }
+
+  /**
+   * Description: 查询数登提交状态
+   * Summary: 查询数登提交状态
+   */
+  async queryDciRegistrationsubmit(request: QueryDciRegistrationsubmitRequest): Promise<QueryDciRegistrationsubmitResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDciRegistrationsubmitEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询数登提交状态
+   * Summary: 查询数登提交状态
+   */
+  async queryDciRegistrationsubmitEx(request: QueryDciRegistrationsubmitRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDciRegistrationsubmitResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDciRegistrationsubmitResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.registrationsubmit.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDciRegistrationsubmitResponse({}));
+  }
+
+  /**
+   * Description: 查询数登结果
+   * Summary: 查询数登结果
+   */
+  async queryDciRegistration(request: QueryDciRegistrationRequest): Promise<QueryDciRegistrationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDciRegistrationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询数登结果
+   * Summary: 查询数登结果
+   */
+  async queryDciRegistrationEx(request: QueryDciRegistrationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDciRegistrationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDciRegistrationResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.registration.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDciRegistrationResponse({}));
+  }
+
+  /**
+   * Description: 获取数登证书下载链接
+   * Summary: 获取数登证书下载链接
+   */
+  async getDciRegistrationcert(request: GetDciRegistrationcertRequest): Promise<GetDciRegistrationcertResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getDciRegistrationcertEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取数登证书下载链接
+   * Summary: 获取数登证书下载链接
+   */
+  async getDciRegistrationcertEx(request: GetDciRegistrationcertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetDciRegistrationcertResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetDciRegistrationcertResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.registrationcert.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetDciRegistrationcertResponse({}));
+  }
+
+  /**
+   * Description: 查询内容安全审核详情
+   * Summary: 查询内容安全审核详情
+   */
+  async queryDciContentsecurity(request: QueryDciContentsecurityRequest): Promise<QueryDciContentsecurityResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDciContentsecurityEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询内容安全审核详情
+   * Summary: 查询内容安全审核详情
+   */
+  async queryDciContentsecurityEx(request: QueryDciContentsecurityRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDciContentsecurityResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDciContentsecurityResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.contentsecurity.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDciContentsecurityResponse({}));
+  }
+
+  /**
+   * Description: 创建数字登记证书
+   * Summary: 创建数字登记证书
+   */
+  async createDciRegistrationcert(request: CreateDciRegistrationcertRequest): Promise<CreateDciRegistrationcertResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDciRegistrationcertEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建数字登记证书
+   * Summary: 创建数字登记证书
+   */
+  async createDciRegistrationcertEx(request: CreateDciRegistrationcertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDciRegistrationcertResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDciRegistrationcertResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.registrationcert.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDciRegistrationcertResponse({}));
+  }
+
+  /**
+   * Description: 查询数字登记证书
+   * Summary: 查询数字登记证书
+   */
+  async queryDciRegistrationcert(request: QueryDciRegistrationcertRequest): Promise<QueryDciRegistrationcertResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDciRegistrationcertEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询数字登记证书
+   * Summary: 查询数字登记证书
+   */
+  async queryDciRegistrationcertEx(request: QueryDciRegistrationcertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDciRegistrationcertResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDciRegistrationcertResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.registrationcert.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDciRegistrationcertResponse({}));
+  }
+
+  /**
+   * Description: 发起支付，获取支付链接
+   * Summary: 数登支付-发起支付
+   */
+  async getDciPayurl(request: GetDciPayurlRequest): Promise<GetDciPayurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getDciPayurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发起支付，获取支付链接
+   * Summary: 数登支付-发起支付
+   */
+  async getDciPayurlEx(request: GetDciPayurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetDciPayurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetDciPayurlResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.payurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetDciPayurlResponse({}));
+  }
+
+  /**
+   * Description: 查询支付
+   * Summary: 数登支付-查询支付
+   */
+  async queryDciPay(request: QueryDciPayRequest): Promise<QueryDciPayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDciPayEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询支付
+   * Summary: 数登支付-查询支付
+   */
+  async queryDciPayEx(request: QueryDciPayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDciPayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDciPayResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.pay.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDciPayResponse({}));
+  }
+
+  /**
+   * Description: 支付结果回调
+   * Summary: 数登支付-支付结果回调
+   */
+  async callbackDciPayresult(request: CallbackDciPayresultRequest): Promise<CallbackDciPayresultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackDciPayresultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 支付结果回调
+   * Summary: 数登支付-支付结果回调
+   */
+  async callbackDciPayresultEx(request: CallbackDciPayresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackDciPayresultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackDciPayresultResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.payresult.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackDciPayresultResponse({}));
+  }
+
+  /**
+   * Description: 添加发布视频内容
+   * Summary: 发布视频内容
+   */
+  async addContent(request: AddContentRequest): Promise<AddContentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addContentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 添加发布视频内容
+   * Summary: 发布视频内容
+   */
+  async addContentEx(request: AddContentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddContentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddContentResponse>(await this.doRequest("1.0", "blockchain.bccr.content.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddContentResponse({}));
+  }
+
+  /**
+   * Description: 查询视频内容状态
+   * Summary: 查询视频内容
+   */
+  async queryContent(request: QueryContentRequest): Promise<QueryContentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询视频内容状态
+   * Summary: 查询视频内容
+   */
+  async queryContentEx(request: QueryContentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContentResponse>(await this.doRequest("1.0", "blockchain.bccr.content.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContentResponse({}));
+  }
+
+  /**
+   * Description: 查询视频内容统计数据
+   * Summary: 查询视频内容统计
+   */
+  async queryContentStatistics(request: QueryContentStatisticsRequest): Promise<QueryContentStatisticsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContentStatisticsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询视频内容统计数据
+   * Summary: 查询视频内容统计
+   */
+  async queryContentStatisticsEx(request: QueryContentStatisticsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContentStatisticsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContentStatisticsResponse>(await this.doRequest("1.0", "blockchain.bccr.content.statistics.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContentStatisticsResponse({}));
   }
 
   /**
