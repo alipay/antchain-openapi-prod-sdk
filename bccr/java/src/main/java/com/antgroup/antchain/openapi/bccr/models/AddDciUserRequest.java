@@ -48,6 +48,18 @@ public class AddDciUserRequest extends TeaModel {
     @NameInMap("certificate_back_file_path")
     public String certificateBackFilePath;
 
+    // 法人名称
+    @NameInMap("legal_person_cert_name")
+    public String legalPersonCertName;
+
+    // 法人证件类型
+    @NameInMap("legal_person_cert_type")
+    public String legalPersonCertType;
+
+    // 法人证件号
+    @NameInMap("legal_person_cert_no")
+    public String legalPersonCertNo;
+
     // 手机号
     @NameInMap("phone")
     @Validation(required = true)
@@ -161,6 +173,30 @@ public class AddDciUserRequest extends TeaModel {
     }
     public String getCertificateBackFilePath() {
         return this.certificateBackFilePath;
+    }
+
+    public AddDciUserRequest setLegalPersonCertName(String legalPersonCertName) {
+        this.legalPersonCertName = legalPersonCertName;
+        return this;
+    }
+    public String getLegalPersonCertName() {
+        return this.legalPersonCertName;
+    }
+
+    public AddDciUserRequest setLegalPersonCertType(String legalPersonCertType) {
+        this.legalPersonCertType = legalPersonCertType;
+        return this;
+    }
+    public String getLegalPersonCertType() {
+        return this.legalPersonCertType;
+    }
+
+    public AddDciUserRequest setLegalPersonCertNo(String legalPersonCertNo) {
+        this.legalPersonCertNo = legalPersonCertNo;
+        return this;
+    }
+    public String getLegalPersonCertNo() {
+        return this.legalPersonCertNo;
     }
 
     public AddDciUserRequest setPhone(String phone) {

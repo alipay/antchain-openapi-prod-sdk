@@ -83,6 +83,14 @@ public class CreateDciPreregistrationRequest extends TeaModel {
     @Validation(required = true)
     public String clientToken;
 
+    // 作品类型相似度
+    @NameInMap("category_similar_ratio")
+    public String categorySimilarRatio;
+
+    // 作品类型风险等级
+    @NameInMap("category_risk_rank")
+    public String categoryRiskRank;
+
     public static CreateDciPreregistrationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDciPreregistrationRequest self = new CreateDciPreregistrationRequest();
         return TeaModel.build(map, self);
@@ -222,6 +230,22 @@ public class CreateDciPreregistrationRequest extends TeaModel {
     }
     public String getClientToken() {
         return this.clientToken;
+    }
+
+    public CreateDciPreregistrationRequest setCategorySimilarRatio(String categorySimilarRatio) {
+        this.categorySimilarRatio = categorySimilarRatio;
+        return this;
+    }
+    public String getCategorySimilarRatio() {
+        return this.categorySimilarRatio;
+    }
+
+    public CreateDciPreregistrationRequest setCategoryRiskRank(String categoryRiskRank) {
+        this.categoryRiskRank = categoryRiskRank;
+        return this;
+    }
+    public String getCategoryRiskRank() {
+        return this.categoryRiskRank;
     }
 
 }
