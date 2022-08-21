@@ -58,6 +58,21 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string CertificateBackFilePath { get; set; }
 
+        // 法人名称
+        [NameInMap("legal_person_cert_name")]
+        [Validation(Required=false)]
+        public string LegalPersonCertName { get; set; }
+
+        // 法人证件类型
+        [NameInMap("legal_person_cert_type")]
+        [Validation(Required=false)]
+        public string LegalPersonCertType { get; set; }
+
+        // 法人证件号
+        [NameInMap("legal_person_cert_no")]
+        [Validation(Required=false)]
+        public string LegalPersonCertNo { get; set; }
+
         // 手机号
         [NameInMap("phone")]
         [Validation(Required=true)]

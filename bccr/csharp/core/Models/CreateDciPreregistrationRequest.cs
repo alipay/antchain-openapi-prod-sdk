@@ -93,6 +93,16 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string ClientToken { get; set; }
 
+        // 作品类型相似度
+        [NameInMap("category_similar_ratio")]
+        [Validation(Required=false)]
+        public string CategorySimilarRatio { get; set; }
+
+        // 作品类型风险等级
+        [NameInMap("category_risk_rank")]
+        [Validation(Required=false)]
+        public string CategoryRiskRank { get; set; }
+
     }
 
 }
