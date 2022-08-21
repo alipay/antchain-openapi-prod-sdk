@@ -43,9 +43,9 @@ class SyncOrderDataRequest extends Model
      */
     public $openUserId;
 
-    // 同步改状态时的事件时间
+    // 同步改状态时的事件毫秒时间戳
     /**
-     * @var string
+     * @var int
      */
     public $updateTime;
     protected $_name = [
@@ -65,7 +65,6 @@ class SyncOrderDataRequest extends Model
         Model::validateRequired('openOrderNo', $this->openOrderNo, true);
         Model::validateRequired('openUserId', $this->openUserId, true);
         Model::validateRequired('updateTime', $this->updateTime, true);
-        Model::validatePattern('updateTime', $this->updateTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()

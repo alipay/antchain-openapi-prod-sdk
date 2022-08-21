@@ -54,6 +54,12 @@ class PayOrderDataRequest extends Model
      * @var string
      */
     public $accessToken;
+
+    // 支付完成后的回跳地址
+    /**
+     * @var string
+     */
+    public $returnUrl;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -63,6 +69,7 @@ class PayOrderDataRequest extends Model
         'subject'             => 'subject',
         'timeoutExpireSecond' => 'timeout_expire_second',
         'accessToken'         => 'access_token',
+        'returnUrl'           => 'return_url',
     ];
 
     public function validate()
@@ -102,6 +109,9 @@ class PayOrderDataRequest extends Model
         if (null !== $this->accessToken) {
             $res['access_token'] = $this->accessToken;
         }
+        if (null !== $this->returnUrl) {
+            $res['return_url'] = $this->returnUrl;
+        }
 
         return $res;
     }
@@ -137,6 +147,9 @@ class PayOrderDataRequest extends Model
         }
         if (isset($map['access_token'])) {
             $model->accessToken = $map['access_token'];
+        }
+        if (isset($map['return_url'])) {
+            $model->returnUrl = $map['return_url'];
         }
 
         return $model;
