@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.15.11',
+    sdk_version = '1.16.5',
+    _prod_code = 'BCCR',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -181,6 +183,48 @@ model ScreenInfo {
   webSourceFile?: string(name='web_source_file', example='https://xxxx'),
   // 视频源文件下载链接
   videoFile?: string(name='video_file', example='http://xx'),
+}
+
+// 作品相似识别结果
+model ResembleRiskData {
+  // 识别结果
+  code: long(name='code', example='成功：1，失败：0'),
+  // 重复作品ID
+  workId: string(name='work_id', example='重复作品ID'),
+  // 相似值百分比
+  resemble: string(name='resemble', example='相似值百分比'),
+  // 相似作品下载链接
+  workDownloadUrl: string(name='work_download_url', example='相似作品下载链接'),
+  // 风险等级
+  riskLevel: long(name='risk_level', example='高3，中2，低1'),
+}
+
+// 内容安全识别结果
+model ContentRiskData {
+  // 识别结果
+  code: long(name='code', example='成功：1，失败：0'),
+  // 内容类型
+  contentType: string(name='content_type', example='IMAGE'),
+  // 风险名称
+  riskName: string(name='risk_name', example='风险名称'),
+  // 风险等级
+  riskLevel: long(name='risk_level', example='高3，中2，低1'),
+  // 风险评分
+  riskScore: long(name='risk_score', example='风险评分'),
+}
+
+// 作品标签识别结果
+model LabelRiskData {
+  // 识别结果
+  code: long(name='code', example='成功：1，失败：0'),
+  // 识别出的标签名称
+  labelName: string(name='label_name', example='识别出的标签名称'),
+  // 识别出的标签是否与用户选择的标签匹配
+  isRisk: boolean(name='is_risk', example='true, false'),
+  // 识别出的标签匹配度百分比
+  similarValue: string(name='similar_value', example='识别出的标签匹配度百分比'),
+  // 风险等级
+  riskLevel: long(name='risk_level', example='高3，中2，低1'),
 }
 
 // 监测提供商能力
@@ -427,6 +471,40 @@ model SecurityData {
   riskData?: [ string ](name='risk_data', example=''),
 }
 
+// 发票信息
+model InvoiceInfo {
+  // 发票类型 InvoiceTypeEnum目前只支持普票
+  // ELC  普票
+  // VAT  专票
+  invoiceType: string(name='invoice_type', example='ELC'),
+  // 发票抬头（著作权人之一）
+  invoiceHeader: string(name='invoice_header', example='000'),
+  // 纳税人识别号（机构必填）
+  taxpayerNumber: string(name='taxpayer_number', example='纳税人识别号'),
+  // 注册地址（专票必填）
+  registeredAddress?: string(name='registered_address', example='注册地址'),
+  // 注册电话（专票必填）
+  registeredTel?: string(name='registered_tel', example='注册电话'),
+  // 开户电话（专票必填）
+  openAccountTel?: string(name='open_account_tel', example='开户电话'),
+  // 开户银行（专票必填）
+  openAccountBank?: string(name='open_account_bank', example='开户银行'),
+  // 银行账号（专票必填）
+  bankAccount?: string(name='bank_account', example='银行账号'),
+}
+
+// 证书信息
+model CertificateData {
+  // 任务ID
+  taskId: string(name='task_id', example='任务ID'),
+  // 版权用户UID
+  userId: string(name='user_id', example='版权用户UID'),
+  // DCI码
+  dciCode: string(name='dci_code', example='DCI码'),
+  // 证书下载的链接地址
+  certificateUrl: string(name='certificate_url', example='证书下载的链接地址'),
+}
+
 // 账号信息
 model AccountData {
   // 账号id
@@ -574,6 +652,16 @@ model WorksInfo {
   worksName: string(name='works_name', example='我的作品'),
   // 作品类型
   worksType: string(name='works_type', example='视频'),
+}
+
+// 审查结果
+model ReviewData {
+  // 内容安全识别结果
+  contentRiskData: [ ContentRiskData ](name='content_risk_data', example=''),
+  // 作品相似识别结果
+  resembleRiskData: [ ResembleRiskData ](name='resemble_risk_data', example=''),
+  // 作品标签识别结果
+  labelRiskData: [ LabelRiskData ](name='label_risk_data', example=''),
 }
 
 // dci权利信息
@@ -1958,6 +2046,10 @@ model CreateDciPreregistrationRequest = {
   proxyData: ProxyData(name='proxy_data'),
   // 幂等字段
   clientToken: string(name='client_token'),
+  // 作品类型相似度
+  categorySimilarRatio?: string(name='category_similar_ratio'),
+  // 作品类型风险等级
+  categoryRiskRank?: string(name='category_risk_rank'),
 }
 
 model CreateDciPreregistrationResponse = {
@@ -2094,6 +2186,12 @@ model AddDciUserRequest = {
   certificateFrontFilePath: string(name='certificate_front_file_path'),
   // 证件反面OSS filePath
   certificateBackFilePath?: string(name='certificate_back_file_path'),
+  // 法人名称
+  legalPersonCertName?: string(name='legal_person_cert_name'),
+  // 法人证件类型
+  legalPersonCertType?: string(name='legal_person_cert_type'),
+  // 法人证件号
+  legalPersonCertNo?: string(name='legal_person_cert_no'),
   // 手机号
   phone: string(name='phone'),
   // 地址
@@ -2205,6 +2303,20 @@ model QueryDciUserResponse = {
   dciUserId?: string(name='dci_user_id'),
   // dci用户状态
   dciUserStatus?: string(name='dci_user_status'),
+  // 名称
+  name?: string(name='name'),
+  // 证件类型
+  certificateType?: string(name='certificate_type'),
+  // 证件号
+  certificateNumber?: string(name='certificate_number'),
+  // 地址
+  address?: string(name='address'),
+  // 证件有效期开始时间
+  certStartTime?: string(name='cert_start_time'),
+  // 证件有效期结束时间
+  certEndTime?: string(name='cert_end_time'),
+  // 法人名称
+  legalPerson?: string(name='legal_person'),
 }
 
 /**
@@ -2262,6 +2374,597 @@ async function queryDciPreregpublication(request: QueryDciPreregpublicationReque
 async function queryDciPreregpublicationEx(request: QueryDciPreregpublicationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDciPreregpublicationResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bccr.dci.preregpublication.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateDciUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // dci用户ID
+  dciUserId: string(name='dci_user_id'),
+  // 证件正面oss fileId
+  certFrontFileId: string(name='cert_front_file_id'),
+  // 证件背面oss fileId
+  certBackFileId?: string(name='cert_back_file_id'),
+  // 手机号
+  phone?: string(name='phone'),
+  // 客户端令牌
+  clientToken?: string(name='client_token'),
+}
+
+model UpdateDciUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新dci账号信息
+ * Summary: 更新dci账号信息
+ */
+async function updateDciUser(request: UpdateDciUserRequest): UpdateDciUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateDciUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新dci账号信息
+ * Summary: 更新dci账号信息
+ */
+async function updateDciUserEx(request: UpdateDciUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDciUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.user.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDciRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // DC456
+  dciContentId: string(name='dci_content_id'),
+  // 作品创作申明
+  creationStatement: string(name='creation_statement'),
+  // 补充授权文件
+  ancillaryEvidencePathList?: [ string ](name='ancillary_evidence_path_list'),
+  // 客户端令牌
+  clientToken?: string(name='client_token'),
+}
+
+model CreateDciRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 发起数登申请
+ * Summary: 发起数登申请
+ */
+async function createDciRegistration(request: CreateDciRegistrationRequest): CreateDciRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDciRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起数登申请
+ * Summary: 发起数登申请
+ */
+async function createDciRegistrationEx(request: CreateDciRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDciRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registration.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDciRegistrationsubmitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // dci内容id
+  dciContentId: string(name='dci_content_id'),
+}
+
+model QueryDciRegistrationsubmitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数登提交状态
+  contentStatus?: string(name='content_status'),
+}
+
+/**
+ * Description: 查询数登提交状态
+ * Summary: 查询数登提交状态
+ */
+async function queryDciRegistrationsubmit(request: QueryDciRegistrationsubmitRequest): QueryDciRegistrationsubmitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDciRegistrationsubmitEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数登提交状态
+ * Summary: 查询数登提交状态
+ */
+async function queryDciRegistrationsubmitEx(request: QueryDciRegistrationsubmitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDciRegistrationsubmitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registrationsubmit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDciRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // dci内容id
+  dciContentId: string(name='dci_content_id'),
+}
+
+model QueryDciRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态
+  contentStatus?: string(name='content_status'),
+  // 登记证书txHash
+  registerCertTxHash?: string(name='register_cert_tx_hash'),
+  // 登记证书存证高度
+  registerCertBlockHeight?: string(name='register_cert_block_height'),
+  // 登记证书tsr
+  registerCertTsr?: string(name='register_cert_tsr'),
+  // 登记证书预览fileId
+  registerCertPngFileId?: string(name='register_cert_png_file_id'),
+  // 数登样本oss fileId
+  registerSampleFileId?: string(name='register_sample_file_id'),
+  // 数登样本预览oss fileId
+  registerSamplePngFileId?: string(name='register_sample_png_file_id'),
+  // 剩余下载次数
+  registerDownloadTimesLeft?: long(name='register_download_times_left'),
+  // 错误原因
+  errorReason?: string(name='error_reason'),
+  // 发票oss fileId List
+  invoiceFileIdList?: [ string ](name='invoice_file_id_list'),
+}
+
+/**
+ * Description: 查询数登结果
+ * Summary: 查询数登结果
+ */
+async function queryDciRegistration(request: QueryDciRegistrationRequest): QueryDciRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDciRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数登结果
+ * Summary: 查询数登结果
+ */
+async function queryDciRegistrationEx(request: QueryDciRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDciRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registration.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetDciRegistrationcertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // dci内容id
+  dciContentId: string(name='dci_content_id'),
+  // 幂等字段
+  clientToken?: string(name='client_token'),
+}
+
+model GetDciRegistrationcertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 证书状态
+  certStatus?: string(name='cert_status'),
+  // 证书下载链接
+  certificateUrl?: string(name='certificate_url'),
+  // 剩余下载次数
+  downloadTimesLeft?: long(name='download_times_left'),
+  // 错误原因
+  errorReason?: string(name='error_reason'),
+}
+
+/**
+ * Description: 获取数登证书下载链接
+ * Summary: 获取数登证书下载链接
+ */
+async function getDciRegistrationcert(request: GetDciRegistrationcertRequest): GetDciRegistrationcertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDciRegistrationcertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取数登证书下载链接
+ * Summary: 获取数登证书下载链接
+ */
+async function getDciRegistrationcertEx(request: GetDciRegistrationcertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDciRegistrationcertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registrationcert.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDciContentsecurityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+  // 作品名称
+  workName: string(name='work_name'),
+  // 作品哈希
+  workHash: string(name='work_hash'),
+  // 作品类型
+  workCategory: string(name='work_category'),
+  // 客户端令牌
+  clientToken?: string(name='client_token'),
+}
+
+model QueryDciContentsecurityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 审查结果
+  reviewData?: ReviewData(name='review_data'),
+}
+
+/**
+ * Description: 查询内容安全审核详情
+ * Summary: 查询内容安全审核详情
+ */
+async function queryDciContentsecurity(request: QueryDciContentsecurityRequest): QueryDciContentsecurityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDciContentsecurityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询内容安全审核详情
+ * Summary: 查询内容安全审核详情
+ */
+async function queryDciContentsecurityEx(request: QueryDciContentsecurityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDciContentsecurityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.contentsecurity.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDciRegistrationcertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+  // 版权用户ID
+  userId: string(name='user_id'),
+  // DCI码
+  dciCode: string(name='dci_code'),
+  // 登记号
+  regNumber: string(name='reg_number'),
+  // 二维码
+  qrCodeUrl: string(name='qr_code_url'),
+  // 客户端token
+  clientToken?: string(name='client_token'),
+}
+
+model CreateDciRegistrationcertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建数字登记证书
+ * Summary: 创建数字登记证书
+ */
+async function createDciRegistrationcert(request: CreateDciRegistrationcertRequest): CreateDciRegistrationcertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDciRegistrationcertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建数字登记证书
+ * Summary: 创建数字登记证书
+ */
+async function createDciRegistrationcertEx(request: CreateDciRegistrationcertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDciRegistrationcertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registrationcert.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDciRegistrationcertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryDciRegistrationcertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 证书信息
+  certificateData?: CertificateData(name='certificate_data'),
+}
+
+/**
+ * Description: 查询数字登记证书
+ * Summary: 查询数字登记证书
+ */
+async function queryDciRegistrationcert(request: QueryDciRegistrationcertRequest): QueryDciRegistrationcertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDciRegistrationcertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数字登记证书
+ * Summary: 查询数字登记证书
+ */
+async function queryDciRegistrationcertEx(request: QueryDciRegistrationcertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDciRegistrationcertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registrationcert.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetDciPayurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // dci用户id
+  dciUserId: string(name='dci_user_id'),
+  // dci内容id
+  dciContentId: string(name='dci_content_id'),
+  // 支付方式 0：支付宝
+  payMent?: string(name='pay_ment'),
+  // 发票信息-当前支持普票
+  invoiceInfo?: InvoiceInfo(name='invoice_info'),
+}
+
+model GetDciPayurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付链接
+  payUrl?: string(name='pay_url'),
+}
+
+/**
+ * Description: 发起支付，获取支付链接
+ * Summary: 数登支付-发起支付
+ */
+async function getDciPayurl(request: GetDciPayurlRequest): GetDciPayurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDciPayurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起支付，获取支付链接
+ * Summary: 数登支付-发起支付
+ */
+async function getDciPayurlEx(request: GetDciPayurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDciPayurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.payurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDciPayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // dci用户id
+  dciUserId: string(name='dci_user_id'),
+  // dci内容id
+  dciContentId: string(name='dci_content_id'),
+}
+
+model QueryDciPayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付状态
+  // （INIT 用户点击支付，待获取链接；GET_PAY_URL_FAIL 获取支付链接失败；PAY_FAIL 支付失败；TIMEOUT 支付超时；PAY_SUCCESS 支付成功；PAYING 支付中；PAY_EXCEPTION	支付异常，待重试）
+  payState?: string(name='pay_state'),
+}
+
+/**
+ * Description: 查询支付
+ * Summary: 数登支付-查询支付
+ */
+async function queryDciPay(request: QueryDciPayRequest): QueryDciPayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDciPayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询支付
+ * Summary: 数登支付-查询支付
+ */
+async function queryDciPayEx(request: QueryDciPayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDciPayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.pay.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackDciPayresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 与中心约定的任务ID，同一个作品可能会发起多次登记
+  taskId: string(name='task_id'),
+  // 平台Id
+  appId: string(name='app_id'),
+  // 订单ID 
+  orderId: string(name='order_id'),
+  // 支付方式 0：支付宝
+  payMent: string(name='pay_ment'),
+  // 订单金额
+  money: string(name='money'),
+  // 结果描述，如：支付成功
+  resultContent: string(name='result_content'),
+  // 状态，2001代表支付成功
+  code: string(name='code'),
+}
+
+model CallbackDciPayresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 支付结果回调
+ * Summary: 数登支付-支付结果回调
+ */
+async function callbackDciPayresult(request: CallbackDciPayresultRequest): CallbackDciPayresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackDciPayresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支付结果回调
+ * Summary: 数登支付-支付结果回调
+ */
+async function callbackDciPayresultEx(request: CallbackDciPayresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackDciPayresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.payresult.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddContentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model AddContentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 添加发布视频内容
+ * Summary: 发布视频内容
+ */
+async function addContent(request: AddContentRequest): AddContentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addContentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 添加发布视频内容
+ * Summary: 发布视频内容
+ */
+async function addContentEx(request: AddContentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddContentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.content.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryContentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 查询视频内容状态
+ * Summary: 查询视频内容
+ */
+async function queryContent(request: QueryContentRequest): QueryContentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询视频内容状态
+ * Summary: 查询视频内容
+ */
+async function queryContentEx(request: QueryContentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.content.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContentStatisticsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryContentStatisticsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 查询视频内容统计数据
+ * Summary: 查询视频内容统计
+ */
+async function queryContentStatistics(request: QueryContentStatisticsRequest): QueryContentStatisticsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContentStatisticsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询视频内容统计数据
+ * Summary: 查询视频内容统计
+ */
+async function queryContentStatisticsEx(request: QueryContentStatisticsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContentStatisticsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.content.statistics.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PublishGoodRequest = {
