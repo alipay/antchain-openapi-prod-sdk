@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.3',
+    sdk_version = '1.6.4',
     _prod_code = 'NFTX',
     _prod_channel = 'undefined'
   };
@@ -895,6 +895,8 @@ model PayOrderDataRequest = {
   timeoutExpireSecond: long(name='timeout_expire_second'),
   // 接入方存储的accessToken
   accessToken: string(name='access_token'),
+  // 支付完成后的回跳地址
+  returnUrl?: string(name='return_url'),
 }
 
 model PayOrderDataResponse = {
@@ -941,8 +943,8 @@ model SyncOrderDataRequest = {
   openOrderNo: string(name='open_order_no'),
   // 鲸探授权的用户加密的uid
   openUserId: string(name='open_user_id'),
-  // 同步改状态时的事件时间
-  updateTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='update_time'),
+  // 同步改状态时的事件毫秒时间戳
+  updateTime: long(name='update_time'),
 }
 
 model SyncOrderDataResponse = {
