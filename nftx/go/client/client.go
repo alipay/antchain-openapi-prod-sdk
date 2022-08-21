@@ -1834,6 +1834,8 @@ type PayOrderDataRequest struct {
 	TimeoutExpireSecond *int64 `json:"timeout_expire_second,omitempty" xml:"timeout_expire_second,omitempty" require:"true"`
 	// 接入方存储的accessToken
 	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+	// 支付完成后的回跳地址
+	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty"`
 }
 
 func (s PayOrderDataRequest) String() string {
@@ -1881,6 +1883,11 @@ func (s *PayOrderDataRequest) SetTimeoutExpireSecond(v int64) *PayOrderDataReque
 
 func (s *PayOrderDataRequest) SetAccessToken(v string) *PayOrderDataRequest {
 	s.AccessToken = &v
+	return s
+}
+
+func (s *PayOrderDataRequest) SetReturnUrl(v string) *PayOrderDataRequest {
+	s.ReturnUrl = &v
 	return s
 }
 
@@ -1942,8 +1949,8 @@ type SyncOrderDataRequest struct {
 	OpenOrderNo *string `json:"open_order_no,omitempty" xml:"open_order_no,omitempty" require:"true"`
 	// 鲸探授权的用户加密的uid
 	OpenUserId *string `json:"open_user_id,omitempty" xml:"open_user_id,omitempty" require:"true"`
-	// 同步改状态时的事件时间
-	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 同步改状态时的事件毫秒时间戳
+	UpdateTime *int64 `json:"update_time,omitempty" xml:"update_time,omitempty" require:"true"`
 }
 
 func (s SyncOrderDataRequest) String() string {
@@ -1984,7 +1991,7 @@ func (s *SyncOrderDataRequest) SetOpenUserId(v string) *SyncOrderDataRequest {
 	return s
 }
 
-func (s *SyncOrderDataRequest) SetUpdateTime(v string) *SyncOrderDataRequest {
+func (s *SyncOrderDataRequest) SetUpdateTime(v int64) *SyncOrderDataRequest {
 	s.UpdateTime = &v
 	return s
 }
@@ -2258,7 +2265,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.3"),
+				"sdk_version":      tea.String("1.6.4"),
 				"_prod_code":       tea.String("NFTX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
