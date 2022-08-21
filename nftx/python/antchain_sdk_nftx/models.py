@@ -2217,6 +2217,7 @@ class PayOrderDataRequest(TeaModel):
         subject: str = None,
         timeout_expire_second: int = None,
         access_token: str = None,
+        return_url: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2233,6 +2234,8 @@ class PayOrderDataRequest(TeaModel):
         self.timeout_expire_second = timeout_expire_second
         # 接入方存储的accessToken
         self.access_token = access_token
+        # 支付完成后的回跳地址
+        self.return_url = return_url
 
     def validate(self):
         self.validate_required(self.external_order_no, 'external_order_no')
@@ -2264,6 +2267,8 @@ class PayOrderDataRequest(TeaModel):
             result['timeout_expire_second'] = self.timeout_expire_second
         if self.access_token is not None:
             result['access_token'] = self.access_token
+        if self.return_url is not None:
+            result['return_url'] = self.return_url
         return result
 
     def from_map(self, m: dict = None):
@@ -2284,6 +2289,8 @@ class PayOrderDataRequest(TeaModel):
             self.timeout_expire_second = m.get('timeout_expire_second')
         if m.get('access_token') is not None:
             self.access_token = m.get('access_token')
+        if m.get('return_url') is not None:
+            self.return_url = m.get('return_url')
         return self
 
 
@@ -2352,7 +2359,7 @@ class SyncOrderDataRequest(TeaModel):
         external_order_status: str = None,
         open_order_no: str = None,
         open_user_id: str = None,
-        update_time: str = None,
+        update_time: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2365,7 +2372,7 @@ class SyncOrderDataRequest(TeaModel):
         self.open_order_no = open_order_no
         # 鲸探授权的用户加密的uid
         self.open_user_id = open_user_id
-        # 同步改状态时的事件时间
+        # 同步改状态时的事件毫秒时间戳
         self.update_time = update_time
 
     def validate(self):
@@ -2374,8 +2381,6 @@ class SyncOrderDataRequest(TeaModel):
         self.validate_required(self.open_order_no, 'open_order_no')
         self.validate_required(self.open_user_id, 'open_user_id')
         self.validate_required(self.update_time, 'update_time')
-        if self.update_time is not None:
-            self.validate_pattern(self.update_time, 'update_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         _map = super().to_map()
