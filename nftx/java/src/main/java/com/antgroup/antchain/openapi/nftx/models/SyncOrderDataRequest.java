@@ -31,10 +31,10 @@ public class SyncOrderDataRequest extends TeaModel {
     @Validation(required = true)
     public String openUserId;
 
-    // 同步改状态时的事件时间
+    // 同步改状态时的事件毫秒时间戳
     @NameInMap("update_time")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
-    public String updateTime;
+    @Validation(required = true)
+    public Long updateTime;
 
     public static SyncOrderDataRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncOrderDataRequest self = new SyncOrderDataRequest();
@@ -89,11 +89,11 @@ public class SyncOrderDataRequest extends TeaModel {
         return this.openUserId;
     }
 
-    public SyncOrderDataRequest setUpdateTime(String updateTime) {
+    public SyncOrderDataRequest setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
         return this;
     }
-    public String getUpdateTime() {
+    public Long getUpdateTime() {
         return this.updateTime;
     }
 

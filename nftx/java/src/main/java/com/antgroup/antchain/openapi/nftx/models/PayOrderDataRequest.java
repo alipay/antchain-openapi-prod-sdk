@@ -41,6 +41,10 @@ public class PayOrderDataRequest extends TeaModel {
     @Validation(required = true)
     public String accessToken;
 
+    // 支付完成后的回跳地址
+    @NameInMap("return_url")
+    public String returnUrl;
+
     public static PayOrderDataRequest build(java.util.Map<String, ?> map) throws Exception {
         PayOrderDataRequest self = new PayOrderDataRequest();
         return TeaModel.build(map, self);
@@ -108,6 +112,14 @@ public class PayOrderDataRequest extends TeaModel {
     }
     public String getAccessToken() {
         return this.accessToken;
+    }
+
+    public PayOrderDataRequest setReturnUrl(String returnUrl) {
+        this.returnUrl = returnUrl;
+        return this;
+    }
+    public String getReturnUrl() {
+        return this.returnUrl;
     }
 
 }
