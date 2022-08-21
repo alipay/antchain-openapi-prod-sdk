@@ -37,12 +37,61 @@ class QueryDciUserResponse extends Model
      * @var string
      */
     public $dciUserStatus;
+
+    // 名称
+    /**
+     * @var string
+     */
+    public $name;
+
+    // 证件类型
+    /**
+     * @var string
+     */
+    public $certificateType;
+
+    // 证件号
+    /**
+     * @var string
+     */
+    public $certificateNumber;
+
+    // 地址
+    /**
+     * @var string
+     */
+    public $address;
+
+    // 证件有效期开始时间
+    /**
+     * @var string
+     */
+    public $certStartTime;
+
+    // 证件有效期结束时间
+    /**
+     * @var string
+     */
+    public $certEndTime;
+
+    // 法人名称
+    /**
+     * @var string
+     */
+    public $legalPerson;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'dciUserId'     => 'dci_user_id',
-        'dciUserStatus' => 'dci_user_status',
+        'reqMsgId'          => 'req_msg_id',
+        'resultCode'        => 'result_code',
+        'resultMsg'         => 'result_msg',
+        'dciUserId'         => 'dci_user_id',
+        'dciUserStatus'     => 'dci_user_status',
+        'name'              => 'name',
+        'certificateType'   => 'certificate_type',
+        'certificateNumber' => 'certificate_number',
+        'address'           => 'address',
+        'certStartTime'     => 'cert_start_time',
+        'certEndTime'       => 'cert_end_time',
+        'legalPerson'       => 'legal_person',
     ];
 
     public function validate()
@@ -66,6 +115,27 @@ class QueryDciUserResponse extends Model
         }
         if (null !== $this->dciUserStatus) {
             $res['dci_user_status'] = $this->dciUserStatus;
+        }
+        if (null !== $this->name) {
+            $res['name'] = $this->name;
+        }
+        if (null !== $this->certificateType) {
+            $res['certificate_type'] = $this->certificateType;
+        }
+        if (null !== $this->certificateNumber) {
+            $res['certificate_number'] = $this->certificateNumber;
+        }
+        if (null !== $this->address) {
+            $res['address'] = $this->address;
+        }
+        if (null !== $this->certStartTime) {
+            $res['cert_start_time'] = $this->certStartTime;
+        }
+        if (null !== $this->certEndTime) {
+            $res['cert_end_time'] = $this->certEndTime;
+        }
+        if (null !== $this->legalPerson) {
+            $res['legal_person'] = $this->legalPerson;
         }
 
         return $res;
@@ -93,6 +163,27 @@ class QueryDciUserResponse extends Model
         }
         if (isset($map['dci_user_status'])) {
             $model->dciUserStatus = $map['dci_user_status'];
+        }
+        if (isset($map['name'])) {
+            $model->name = $map['name'];
+        }
+        if (isset($map['certificate_type'])) {
+            $model->certificateType = $map['certificate_type'];
+        }
+        if (isset($map['certificate_number'])) {
+            $model->certificateNumber = $map['certificate_number'];
+        }
+        if (isset($map['address'])) {
+            $model->address = $map['address'];
+        }
+        if (isset($map['cert_start_time'])) {
+            $model->certStartTime = $map['cert_start_time'];
+        }
+        if (isset($map['cert_end_time'])) {
+            $model->certEndTime = $map['cert_end_time'];
+        }
+        if (isset($map['legal_person'])) {
+            $model->legalPerson = $map['legal_person'];
         }
 
         return $model;

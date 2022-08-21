@@ -108,6 +108,18 @@ class CreateDciPreregistrationRequest extends Model
      * @var string
      */
     public $clientToken;
+
+    // 作品类型相似度
+    /**
+     * @var string
+     */
+    public $categorySimilarRatio;
+
+    // 作品类型风险等级
+    /**
+     * @var string
+     */
+    public $categoryRiskRank;
     protected $_name = [
         'authToken'               => 'auth_token',
         'productInstanceId'       => 'product_instance_id',
@@ -126,6 +138,8 @@ class CreateDciPreregistrationRequest extends Model
         'dciUserId'               => 'dci_user_id',
         'proxyData'               => 'proxy_data',
         'clientToken'             => 'client_token',
+        'categorySimilarRatio'    => 'category_similar_ratio',
+        'categoryRiskRank'        => 'category_risk_rank',
     ];
 
     public function validate()
@@ -198,6 +212,12 @@ class CreateDciPreregistrationRequest extends Model
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
         }
+        if (null !== $this->categorySimilarRatio) {
+            $res['category_similar_ratio'] = $this->categorySimilarRatio;
+        }
+        if (null !== $this->categoryRiskRank) {
+            $res['category_risk_rank'] = $this->categoryRiskRank;
+        }
 
         return $res;
     }
@@ -260,6 +280,12 @@ class CreateDciPreregistrationRequest extends Model
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
+        }
+        if (isset($map['category_similar_ratio'])) {
+            $model->categorySimilarRatio = $map['category_similar_ratio'];
+        }
+        if (isset($map['category_risk_rank'])) {
+            $model->categoryRiskRank = $map['category_risk_rank'];
         }
 
         return $model;

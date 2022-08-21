@@ -67,6 +67,24 @@ class AddDciUserRequest extends Model
      */
     public $certificateBackFilePath;
 
+    // 法人名称
+    /**
+     * @var string
+     */
+    public $legalPersonCertName;
+
+    // 法人证件类型
+    /**
+     * @var string
+     */
+    public $legalPersonCertType;
+
+    // 法人证件号
+    /**
+     * @var string
+     */
+    public $legalPersonCertNo;
+
     // 手机号
     /**
      * @var string
@@ -113,6 +131,9 @@ class AddDciUserRequest extends Model
         'certificateEndTime'       => 'certificate_end_time',
         'certificateFrontFilePath' => 'certificate_front_file_path',
         'certificateBackFilePath'  => 'certificate_back_file_path',
+        'legalPersonCertName'      => 'legal_person_cert_name',
+        'legalPersonCertType'      => 'legal_person_cert_type',
+        'legalPersonCertNo'        => 'legal_person_cert_no',
         'phone'                    => 'phone',
         'address'                  => 'address',
         'identityStartTime'        => 'identity_start_time',
@@ -168,6 +189,15 @@ class AddDciUserRequest extends Model
         }
         if (null !== $this->certificateBackFilePath) {
             $res['certificate_back_file_path'] = $this->certificateBackFilePath;
+        }
+        if (null !== $this->legalPersonCertName) {
+            $res['legal_person_cert_name'] = $this->legalPersonCertName;
+        }
+        if (null !== $this->legalPersonCertType) {
+            $res['legal_person_cert_type'] = $this->legalPersonCertType;
+        }
+        if (null !== $this->legalPersonCertNo) {
+            $res['legal_person_cert_no'] = $this->legalPersonCertNo;
         }
         if (null !== $this->phone) {
             $res['phone'] = $this->phone;
@@ -228,6 +258,15 @@ class AddDciUserRequest extends Model
         }
         if (isset($map['certificate_back_file_path'])) {
             $model->certificateBackFilePath = $map['certificate_back_file_path'];
+        }
+        if (isset($map['legal_person_cert_name'])) {
+            $model->legalPersonCertName = $map['legal_person_cert_name'];
+        }
+        if (isset($map['legal_person_cert_type'])) {
+            $model->legalPersonCertType = $map['legal_person_cert_type'];
+        }
+        if (isset($map['legal_person_cert_no'])) {
+            $model->legalPersonCertNo = $map['legal_person_cert_no'];
         }
         if (isset($map['phone'])) {
             $model->phone = $map['phone'];
