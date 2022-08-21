@@ -1318,6 +1318,8 @@ export class PayOrderDataRequest extends $tea.Model {
   timeoutExpireSecond: number;
   // 接入方存储的accessToken
   accessToken: string;
+  // 支付完成后的回跳地址
+  returnUrl?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1328,6 +1330,7 @@ export class PayOrderDataRequest extends $tea.Model {
       subject: 'subject',
       timeoutExpireSecond: 'timeout_expire_second',
       accessToken: 'access_token',
+      returnUrl: 'return_url',
     };
   }
 
@@ -1341,6 +1344,7 @@ export class PayOrderDataRequest extends $tea.Model {
       subject: 'string',
       timeoutExpireSecond: 'number',
       accessToken: 'string',
+      returnUrl: 'string',
     };
   }
 
@@ -1397,8 +1401,8 @@ export class SyncOrderDataRequest extends $tea.Model {
   openOrderNo: string;
   // 鲸探授权的用户加密的uid
   openUserId: string;
-  // 同步改状态时的事件时间
-  updateTime: string;
+  // 同步改状态时的事件毫秒时间戳
+  updateTime: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1419,7 +1423,7 @@ export class SyncOrderDataRequest extends $tea.Model {
       externalOrderStatus: 'string',
       openOrderNo: 'string',
       openUserId: 'string',
-      updateTime: 'string',
+      updateTime: 'number',
     };
   }
 
@@ -1655,7 +1659,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.3",
+          sdk_version: "1.6.4",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
