@@ -388,6 +388,62 @@ func (s *EchoDemoGatewayCheckResponse) SetFileUrl(v string) *EchoDemoGatewayChec
 	return s
 }
 
+type QueryAntchainAbcAbcdaAbcddaaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryAntchainAbcAbcdaAbcddaaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainAbcAbcdaAbcddaaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainAbcAbcdaAbcddaaRequest) SetAuthToken(v string) *QueryAntchainAbcAbcdaAbcddaaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainAbcAbcdaAbcddaaRequest) SetProductInstanceId(v string) *QueryAntchainAbcAbcdaAbcddaaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryAntchainAbcAbcdaAbcddaaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryAntchainAbcAbcdaAbcddaaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainAbcAbcdaAbcddaaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainAbcAbcdaAbcddaaResponse) SetReqMsgId(v string) *QueryAntchainAbcAbcdaAbcddaaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainAbcAbcdaAbcddaaResponse) SetResultCode(v string) *QueryAntchainAbcAbcdaAbcddaaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainAbcAbcdaAbcddaaResponse) SetResultMsg(v string) *QueryAntchainAbcAbcdaAbcddaaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type QueryDemoGatewayCheckEchotimeoutRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -532,6 +588,62 @@ func (s *QueryDemoGatewayCheckEchotenResponse) SetStatus(v string) *QueryDemoGat
 
 func (s *QueryDemoGatewayCheckEchotenResponse) SetMsg(v string) *QueryDemoGatewayCheckEchotenResponse {
 	s.Msg = &v
+	return s
+}
+
+type BindAntchainAbcLoadtestQweRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s BindAntchainAbcLoadtestQweRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindAntchainAbcLoadtestQweRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindAntchainAbcLoadtestQweRequest) SetAuthToken(v string) *BindAntchainAbcLoadtestQweRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindAntchainAbcLoadtestQweRequest) SetProductInstanceId(v string) *BindAntchainAbcLoadtestQweRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type BindAntchainAbcLoadtestQweResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindAntchainAbcLoadtestQweResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindAntchainAbcLoadtestQweResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindAntchainAbcLoadtestQweResponse) SetReqMsgId(v string) *BindAntchainAbcLoadtestQweResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindAntchainAbcLoadtestQweResponse) SetResultCode(v string) *BindAntchainAbcLoadtestQweResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindAntchainAbcLoadtestQweResponse) SetResultMsg(v string) *BindAntchainAbcLoadtestQweResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -777,7 +889,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_7efe8c7cfc5b4e23b792bf4510448a97"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -893,6 +1005,40 @@ func (client *Client) EchoDemoGatewayCheckEx(request *EchoDemoGatewayCheckReques
 }
 
 /**
+ * Description: 调试a s dddd
+ * Summary: 调试
+ */
+func (client *Client) QueryAntchainAbcAbcdaAbcddaa(request *QueryAntchainAbcAbcdaAbcddaaRequest) (_result *QueryAntchainAbcAbcdaAbcddaaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainAbcAbcdaAbcddaaResponse{}
+	_body, _err := client.QueryAntchainAbcAbcdaAbcddaaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 调试a s dddd
+ * Summary: 调试
+ */
+func (client *Client) QueryAntchainAbcAbcdaAbcddaaEx(request *QueryAntchainAbcAbcdaAbcddaaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainAbcAbcdaAbcddaaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainAbcAbcdaAbcddaaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.abc.abcda.abcddaa.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 超时测试
  * Summary: 超时
  */
@@ -953,6 +1099,40 @@ func (client *Client) QueryDemoGatewayCheckEchotenEx(request *QueryDemoGatewayCh
 	}
 	_result = &QueryDemoGatewayCheckEchotenResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.gateway.check.echoten.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: asd
+ * Summary: asd
+ */
+func (client *Client) BindAntchainAbcLoadtestQwe(request *BindAntchainAbcLoadtestQweRequest) (_result *BindAntchainAbcLoadtestQweResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindAntchainAbcLoadtestQweResponse{}
+	_body, _err := client.BindAntchainAbcLoadtestQweEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: asd
+ * Summary: asd
+ */
+func (client *Client) BindAntchainAbcLoadtestQweEx(request *BindAntchainAbcLoadtestQweRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindAntchainAbcLoadtestQweResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindAntchainAbcLoadtestQweResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.abc.loadtest.qwe.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
