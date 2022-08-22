@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.4',
+    sdk_version = '1.7.1',
     _prod_code = 'NFTX',
     _prod_channel = 'undefined'
   };
@@ -940,7 +940,7 @@ model SyncOrderDataRequest = {
   // 目前支持两种状态 PAID、PAY_CANCEL 
   externalOrderStatus: string(name='external_order_status'),
   // 鲸探开放平台订单号
-  openOrderNo: string(name='open_order_no'),
+  openOrderNo?: string(name='open_order_no'),
   // 鲸探授权的用户加密的uid
   openUserId: string(name='open_user_id'),
   // 同步改状态时的事件毫秒时间戳
