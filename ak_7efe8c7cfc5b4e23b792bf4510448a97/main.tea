@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'ak_7efe8c7cfc5b4e23b792bf4510448a97',
     _prod_channel = 'saas'
   };
@@ -268,6 +268,40 @@ async function echoDemoGatewayCheckEx(request: EchoDemoGatewayCheckRequest, head
   return doRequest('1.0' ,'demo.gateway.check.echo', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryAntchainAbcAbcdaAbcddaaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryAntchainAbcAbcdaAbcddaaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 调试a s dddd
+ * Summary: 调试
+ */
+async function queryAntchainAbcAbcdaAbcddaa(request: QueryAntchainAbcAbcdaAbcddaaRequest): QueryAntchainAbcAbcdaAbcddaaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainAbcAbcdaAbcddaaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 调试a s dddd
+ * Summary: 调试
+ */
+async function queryAntchainAbcAbcdaAbcddaaEx(request: QueryAntchainAbcAbcdaAbcddaaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainAbcAbcdaAbcddaaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.abcda.abcddaa.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryDemoGatewayCheckEchotimeoutRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -344,6 +378,40 @@ async function queryDemoGatewayCheckEchoten(request: QueryDemoGatewayCheckEchote
 async function queryDemoGatewayCheckEchotenEx(request: QueryDemoGatewayCheckEchotenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoGatewayCheckEchotenResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.gateway.check.echoten.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindAntchainAbcLoadtestQweRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BindAntchainAbcLoadtestQweResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: asd
+ * Summary: asd
+ */
+async function bindAntchainAbcLoadtestQwe(request: BindAntchainAbcLoadtestQweRequest): BindAntchainAbcLoadtestQweResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindAntchainAbcLoadtestQweEx(request, headers, runtime);
+}
+
+/**
+ * Description: asd
+ * Summary: asd
+ */
+async function bindAntchainAbcLoadtestQweEx(request: BindAntchainAbcLoadtestQweRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindAntchainAbcLoadtestQweResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.loadtest.qwe.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
