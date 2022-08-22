@@ -1946,7 +1946,7 @@ type SyncOrderDataRequest struct {
 	// 目前支持两种状态 PAID、PAY_CANCEL
 	ExternalOrderStatus *string `json:"external_order_status,omitempty" xml:"external_order_status,omitempty" require:"true"`
 	// 鲸探开放平台订单号
-	OpenOrderNo *string `json:"open_order_no,omitempty" xml:"open_order_no,omitempty" require:"true"`
+	OpenOrderNo *string `json:"open_order_no,omitempty" xml:"open_order_no,omitempty"`
 	// 鲸探授权的用户加密的uid
 	OpenUserId *string `json:"open_user_id,omitempty" xml:"open_user_id,omitempty" require:"true"`
 	// 同步改状态时的事件毫秒时间戳
@@ -2265,7 +2265,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.4"),
+				"sdk_version":      tea.String("1.7.1"),
 				"_prod_code":       tea.String("NFTX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
