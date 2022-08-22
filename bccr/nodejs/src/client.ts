@@ -889,8 +889,8 @@ export class SecurityData extends $tea.Model {
 // 发票信息
 export class InvoiceInfo extends $tea.Model {
   // 发票类型 InvoiceTypeEnum目前只支持普票
-  // ELC  普票
-  // VAT  专票
+  // (NORMAL,ELC,普票)
+  // (SPECIAL,VAT,专票)
   invoiceType: string;
   // 发票抬头（著作权人之一）
   invoiceHeader: string;
@@ -3821,10 +3821,10 @@ export class QueryDciPreregistrationResponse extends $tea.Model {
   preRegCertFileId?: string;
   // 预登记证书fileHash
   preRegCertFileHash?: string;
+  // 预登记证书下载链接
+  preRegCertUrl?: string;
   // 预览图oss fileId
   pngFileId?: string;
-  // 公示地址
-  publicationUrl?: string;
   // 申请发码时间
   applyObtainDate?: string;
   // DCI码创建时间
@@ -3854,8 +3854,8 @@ export class QueryDciPreregistrationResponse extends $tea.Model {
       preRegCertTsr: 'pre_reg_cert_tsr',
       preRegCertFileId: 'pre_reg_cert_file_id',
       preRegCertFileHash: 'pre_reg_cert_file_hash',
+      preRegCertUrl: 'pre_reg_cert_url',
       pngFileId: 'png_file_id',
-      publicationUrl: 'publication_url',
       applyObtainDate: 'apply_obtain_date',
       dciCodeObtainDate: 'dci_code_obtain_date',
       errorReason: 'error_reason',
@@ -3885,8 +3885,8 @@ export class QueryDciPreregistrationResponse extends $tea.Model {
       preRegCertTsr: 'string',
       preRegCertFileId: 'string',
       preRegCertFileHash: 'string',
+      preRegCertUrl: 'string',
       pngFileId: 'string',
-      publicationUrl: 'string',
       applyObtainDate: 'string',
       dciCodeObtainDate: 'string',
       errorReason: 'string',
@@ -3903,9 +3903,7 @@ export class AddDciUserRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 用户名称
-  userName: string;
-  // 用户类型
-  userType: string;
+  certName: string;
   // 证件类型
   certificateType: string;
   // 证件号
@@ -3914,10 +3912,10 @@ export class AddDciUserRequest extends $tea.Model {
   certificateStartTime?: string;
   // 证件有效期限终止日期
   certificateEndTime?: string;
-  // 证件正面OSS filePath
-  certificateFrontFilePath: string;
-  // 证件反面OSS filePath
-  certificateBackFilePath?: string;
+  // 证件正面OSS fileId
+  certificateFrontFileId: string;
+  // 证件反面OSS fileId
+  certificateBackFileId?: string;
   // 法人名称
   legalPersonCertName?: string;
   // 法人证件类型
@@ -3940,14 +3938,13 @@ export class AddDciUserRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      userName: 'user_name',
-      userType: 'user_type',
+      certName: 'cert_name',
       certificateType: 'certificate_type',
       certificateNumber: 'certificate_number',
       certificateStartTime: 'certificate_start_time',
       certificateEndTime: 'certificate_end_time',
-      certificateFrontFilePath: 'certificate_front_file_path',
-      certificateBackFilePath: 'certificate_back_file_path',
+      certificateFrontFileId: 'certificate_front_file_id',
+      certificateBackFileId: 'certificate_back_file_id',
       legalPersonCertName: 'legal_person_cert_name',
       legalPersonCertType: 'legal_person_cert_type',
       legalPersonCertNo: 'legal_person_cert_no',
@@ -3964,14 +3961,13 @@ export class AddDciUserRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      userName: 'string',
-      userType: 'string',
+      certName: 'string',
       certificateType: 'string',
       certificateNumber: 'string',
       certificateStartTime: 'string',
       certificateEndTime: 'string',
-      certificateFrontFilePath: 'string',
-      certificateBackFilePath: 'string',
+      certificateFrontFileId: 'string',
+      certificateBackFileId: 'string',
       legalPersonCertName: 'string',
       legalPersonCertType: 'string',
       legalPersonCertNo: 'string',
@@ -4837,7 +4833,7 @@ export class GetDciPayurlRequest extends $tea.Model {
   // 支付方式 0：支付宝
   payMent?: string;
   // 发票信息-当前支持普票
-  invoiceInfo?: InvoiceInfo;
+  invoiceInfo: InvoiceInfo;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4971,7 +4967,7 @@ export class CallbackDciPayresultRequest extends $tea.Model {
   appId: string;
   // 订单ID 
   orderId: string;
-  // 支付方式 0：支付宝
+  // 支付方式 (ALIPAY,0,支付宝)
   payMent: string;
   // 订单金额
   money: string;
@@ -5606,7 +5602,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.5",
+          sdk_version: "1.16.7",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
