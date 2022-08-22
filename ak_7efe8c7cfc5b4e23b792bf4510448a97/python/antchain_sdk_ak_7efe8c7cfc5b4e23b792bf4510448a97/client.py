@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_7efe8c7cfc5b4e23b792bf4510448a97',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_7efe8c7cfc5b4e23b792bf4510448a97',
                     '_prod_channel': 'saas'
                 }
@@ -369,6 +369,62 @@ class Client:
             await self.do_request_async('1.0', 'demo.gateway.check.echo', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_antchain_abc_abcda_abcddaa(
+        self,
+        request: ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.QueryAntchainAbcAbcdaAbcddaaRequest,
+    ) -> ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.QueryAntchainAbcAbcdaAbcddaaResponse:
+        """
+        Description: 调试a s dddd
+        Summary: 调试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_abc_abcda_abcddaa_ex(request, headers, runtime)
+
+    async def query_antchain_abc_abcda_abcddaa_async(
+        self,
+        request: ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.QueryAntchainAbcAbcdaAbcddaaRequest,
+    ) -> ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.QueryAntchainAbcAbcdaAbcddaaResponse:
+        """
+        Description: 调试a s dddd
+        Summary: 调试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_abc_abcda_abcddaa_ex_async(request, headers, runtime)
+
+    def query_antchain_abc_abcda_abcddaa_ex(
+        self,
+        request: ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.QueryAntchainAbcAbcdaAbcddaaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.QueryAntchainAbcAbcdaAbcddaaResponse:
+        """
+        Description: 调试a s dddd
+        Summary: 调试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.QueryAntchainAbcAbcdaAbcddaaResponse(),
+            self.do_request('1.0', 'antchain.abc.abcda.abcddaa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_abc_abcda_abcddaa_ex_async(
+        self,
+        request: ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.QueryAntchainAbcAbcdaAbcddaaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.QueryAntchainAbcAbcdaAbcddaaResponse:
+        """
+        Description: 调试a s dddd
+        Summary: 调试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.QueryAntchainAbcAbcdaAbcddaaResponse(),
+            await self.do_request_async('1.0', 'antchain.abc.abcda.abcddaa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_demo_gateway_check_echotimeout(
         self,
         request: ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.QueryDemoGatewayCheckEchotimeoutRequest,
@@ -479,6 +535,62 @@ class Client:
         return TeaCore.from_map(
             ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.QueryDemoGatewayCheckEchotenResponse(),
             await self.do_request_async('1.0', 'demo.gateway.check.echoten.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_antchain_abc_loadtest_qwe(
+        self,
+        request: ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.BindAntchainAbcLoadtestQweRequest,
+    ) -> ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.BindAntchainAbcLoadtestQweResponse:
+        """
+        Description: asd
+        Summary: asd
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_antchain_abc_loadtest_qwe_ex(request, headers, runtime)
+
+    async def bind_antchain_abc_loadtest_qwe_async(
+        self,
+        request: ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.BindAntchainAbcLoadtestQweRequest,
+    ) -> ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.BindAntchainAbcLoadtestQweResponse:
+        """
+        Description: asd
+        Summary: asd
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_antchain_abc_loadtest_qwe_ex_async(request, headers, runtime)
+
+    def bind_antchain_abc_loadtest_qwe_ex(
+        self,
+        request: ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.BindAntchainAbcLoadtestQweRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.BindAntchainAbcLoadtestQweResponse:
+        """
+        Description: asd
+        Summary: asd
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.BindAntchainAbcLoadtestQweResponse(),
+            self.do_request('1.0', 'antchain.abc.loadtest.qwe.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_antchain_abc_loadtest_qwe_ex_async(
+        self,
+        request: ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.BindAntchainAbcLoadtestQweRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.BindAntchainAbcLoadtestQweResponse:
+        """
+        Description: asd
+        Summary: asd
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__7efe_8c_7cfc_5b_4e_23b_792bf_4510448a_97_models.BindAntchainAbcLoadtestQweResponse(),
+            await self.do_request_async('1.0', 'antchain.abc.loadtest.qwe.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
