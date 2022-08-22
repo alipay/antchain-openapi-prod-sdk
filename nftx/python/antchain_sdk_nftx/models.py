@@ -2378,7 +2378,6 @@ class SyncOrderDataRequest(TeaModel):
     def validate(self):
         self.validate_required(self.external_order_no, 'external_order_no')
         self.validate_required(self.external_order_status, 'external_order_status')
-        self.validate_required(self.open_order_no, 'open_order_no')
         self.validate_required(self.open_user_id, 'open_user_id')
         self.validate_required(self.update_time, 'update_time')
 
