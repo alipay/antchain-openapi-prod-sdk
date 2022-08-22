@@ -19,14 +19,9 @@ namespace AntChain.SDK.BCCR.Models
         public string ProductInstanceId { get; set; }
 
         // 用户名称
-        [NameInMap("user_name")]
+        [NameInMap("cert_name")]
         [Validation(Required=true)]
-        public string UserName { get; set; }
-
-        // 用户类型
-        [NameInMap("user_type")]
-        [Validation(Required=true)]
-        public string UserType { get; set; }
+        public string CertName { get; set; }
 
         // 证件类型
         [NameInMap("certificate_type")]
@@ -48,15 +43,15 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string CertificateEndTime { get; set; }
 
-        // 证件正面OSS filePath
-        [NameInMap("certificate_front_file_path")]
+        // 证件正面OSS fileId
+        [NameInMap("certificate_front_file_id")]
         [Validation(Required=true)]
-        public string CertificateFrontFilePath { get; set; }
+        public string CertificateFrontFileId { get; set; }
 
-        // 证件反面OSS filePath
-        [NameInMap("certificate_back_file_path")]
+        // 证件反面OSS fileId
+        [NameInMap("certificate_back_file_id")]
         [Validation(Required=false)]
-        public string CertificateBackFilePath { get; set; }
+        public string CertificateBackFileId { get; set; }
 
         // 法人名称
         [NameInMap("legal_person_cert_name")]

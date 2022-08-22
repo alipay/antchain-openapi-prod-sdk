@@ -35,7 +35,7 @@ namespace AntChain.SDK.BCCR.Models
 
         // 发票信息-当前支持普票
         [NameInMap("invoice_info")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public InvoiceInfo InvoiceInfo { get; set; }
 
     }

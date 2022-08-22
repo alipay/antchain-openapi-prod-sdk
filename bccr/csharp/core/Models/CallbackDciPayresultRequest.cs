@@ -33,7 +33,7 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string OrderId { get; set; }
 
-        // 支付方式 0：支付宝
+        // 支付方式 (ALIPAY,0,支付宝)
         [NameInMap("pay_ment")]
         [Validation(Required=true)]
         public string PayMent { get; set; }

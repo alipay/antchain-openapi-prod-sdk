@@ -114,15 +114,15 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string PreRegCertFileHash { get; set; }
 
+        // 预登记证书下载链接
+        [NameInMap("pre_reg_cert_url")]
+        [Validation(Required=false)]
+        public string PreRegCertUrl { get; set; }
+
         // 预览图oss fileId
         [NameInMap("png_file_id")]
         [Validation(Required=false)]
         public string PngFileId { get; set; }
-
-        // 公示地址
-        [NameInMap("publication_url")]
-        [Validation(Required=false)]
-        public string PublicationUrl { get; set; }
 
         // 申请发码时间
         [NameInMap("apply_obtain_date")]
