@@ -23,10 +23,10 @@ namespace AntChain.SDK.BBP.Models
         [Validation(Required=true)]
         public string BizCode { get; set; }
 
-        // 支付宝uid
-        [NameInMap("alipay_uid")]
+        // 账户uid
+        [NameInMap("uid")]
         [Validation(Required=true)]
-        public string AlipayUid { get; set; }
+        public string Uid { get; set; }
 
         // 个人名称
         [NameInMap("person_name")]
@@ -47,6 +47,11 @@ namespace AntChain.SDK.BBP.Models
         [NameInMap("person_cert_type")]
         [Validation(Required=false)]
         public string PersonCertType { get; set; }
+
+        // 账户uid类型 0-Alipay 1-Alibaba
+        [NameInMap("account_type")]
+        [Validation(Required=true)]
+        public long? AccountType { get; set; }
 
     }
 

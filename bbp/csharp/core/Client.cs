@@ -137,7 +137,9 @@ namespace AntChain.SDK.BBP
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.26"},
+                        {"sdk_version", "1.7.28"},
+                        {"_prod_code", "BBP"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.BBP
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.26"},
+                        {"sdk_version", "1.7.28"},
+                        {"_prod_code", "BBP"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -651,6 +655,48 @@ namespace AntChain.SDK.BBP
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryEnterpriseBusinessinfoResponse>(await DoRequestAsync("1.0", "antchain.bbp.enterprise.businessinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 网关测试
+         * Summary: 网关测试
+         */
+        public QueryGwtestResponse QueryGwtest(QueryGwtestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGwtestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 网关测试
+         * Summary: 网关测试
+         */
+        public async Task<QueryGwtestResponse> QueryGwtestAsync(QueryGwtestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGwtestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 网关测试
+         * Summary: 网关测试
+         */
+        public QueryGwtestResponse QueryGwtestEx(QueryGwtestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwtestResponse>(DoRequest("1.0", "antchain.bbp.gwtest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 网关测试
+         * Summary: 网关测试
+         */
+        public async Task<QueryGwtestResponse> QueryGwtestExAsync(QueryGwtestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGwtestResponse>(await DoRequestAsync("1.0", "antchain.bbp.gwtest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
