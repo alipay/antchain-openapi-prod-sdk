@@ -49,6 +49,8 @@ use AntChain\BBP\Models\QueryCustomerRequest;
 use AntChain\BBP\Models\QueryCustomerResponse;
 use AntChain\BBP\Models\QueryEnterpriseBusinessinfoRequest;
 use AntChain\BBP\Models\QueryEnterpriseBusinessinfoResponse;
+use AntChain\BBP\Models\QueryGwtestRequest;
+use AntChain\BBP\Models\QueryGwtestResponse;
 use AntChain\BBP\Models\QueryInsuranceChainRequest;
 use AntChain\BBP\Models\QueryInsuranceChainResponse;
 use AntChain\BBP\Models\QueryInsuranceRecordsRequest;
@@ -220,7 +222,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.26',
+                    'sdk_version'      => '1.7.28',
+                    '_prod_code'       => 'BBP',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -528,6 +532,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryEnterpriseBusinessinfoResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.enterprise.businessinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 网关测试
+     * Summary: 网关测试.
+     *
+     * @param QueryGwtestRequest $request
+     *
+     * @return QueryGwtestResponse
+     */
+    public function queryGwtest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGwtestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 网关测试
+     * Summary: 网关测试.
+     *
+     * @param QueryGwtestRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryGwtestResponse
+     */
+    public function queryGwtestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGwtestResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.gwtest.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

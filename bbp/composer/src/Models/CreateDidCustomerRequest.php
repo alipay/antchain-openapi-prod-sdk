@@ -25,11 +25,11 @@ class CreateDidCustomerRequest extends Model
      */
     public $bizCode;
 
-    // 支付宝uid
+    // 账户uid
     /**
      * @var string
      */
-    public $alipayUid;
+    public $uid;
 
     // 个人名称
     /**
@@ -54,21 +54,29 @@ class CreateDidCustomerRequest extends Model
      * @var string
      */
     public $personCertType;
+
+    // 账户uid类型 0-Alipay 1-Alibaba
+    /**
+     * @var int
+     */
+    public $accountType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'bizCode'           => 'biz_code',
-        'alipayUid'         => 'alipay_uid',
+        'uid'               => 'uid',
         'personName'        => 'person_name',
         'personPhone'       => 'person_phone',
         'personCertNo'      => 'person_cert_no',
         'personCertType'    => 'person_cert_type',
+        'accountType'       => 'account_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('bizCode', $this->bizCode, true);
-        Model::validateRequired('alipayUid', $this->alipayUid, true);
+        Model::validateRequired('uid', $this->uid, true);
+        Model::validateRequired('accountType', $this->accountType, true);
     }
 
     public function toMap()
@@ -83,8 +91,8 @@ class CreateDidCustomerRequest extends Model
         if (null !== $this->bizCode) {
             $res['biz_code'] = $this->bizCode;
         }
-        if (null !== $this->alipayUid) {
-            $res['alipay_uid'] = $this->alipayUid;
+        if (null !== $this->uid) {
+            $res['uid'] = $this->uid;
         }
         if (null !== $this->personName) {
             $res['person_name'] = $this->personName;
@@ -97,6 +105,9 @@ class CreateDidCustomerRequest extends Model
         }
         if (null !== $this->personCertType) {
             $res['person_cert_type'] = $this->personCertType;
+        }
+        if (null !== $this->accountType) {
+            $res['account_type'] = $this->accountType;
         }
 
         return $res;
@@ -119,8 +130,8 @@ class CreateDidCustomerRequest extends Model
         if (isset($map['biz_code'])) {
             $model->bizCode = $map['biz_code'];
         }
-        if (isset($map['alipay_uid'])) {
-            $model->alipayUid = $map['alipay_uid'];
+        if (isset($map['uid'])) {
+            $model->uid = $map['uid'];
         }
         if (isset($map['person_name'])) {
             $model->personName = $map['person_name'];
@@ -133,6 +144,9 @@ class CreateDidCustomerRequest extends Model
         }
         if (isset($map['person_cert_type'])) {
             $model->personCertType = $map['person_cert_type'];
+        }
+        if (isset($map['account_type'])) {
+            $model->accountType = $map['account_type'];
         }
 
         return $model;
