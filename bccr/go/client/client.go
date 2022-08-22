@@ -1194,8 +1194,8 @@ func (s *SecurityData) SetRiskData(v []*string) *SecurityData {
 // 发票信息
 type InvoiceInfo struct {
 	// 发票类型 InvoiceTypeEnum目前只支持普票
-	// ELC  普票
-	// VAT  专票
+	// (NORMAL,ELC,普票)
+	// (SPECIAL,VAT,专票)
 	InvoiceType *string `json:"invoice_type,omitempty" xml:"invoice_type,omitempty" require:"true"`
 	// 发票抬头（著作权人之一）
 	InvoiceHeader *string `json:"invoice_header,omitempty" xml:"invoice_header,omitempty" require:"true"`
@@ -5173,10 +5173,10 @@ type QueryDciPreregistrationResponse struct {
 	PreRegCertFileId *string `json:"pre_reg_cert_file_id,omitempty" xml:"pre_reg_cert_file_id,omitempty"`
 	// 预登记证书fileHash
 	PreRegCertFileHash *string `json:"pre_reg_cert_file_hash,omitempty" xml:"pre_reg_cert_file_hash,omitempty"`
+	// 预登记证书下载链接
+	PreRegCertUrl *string `json:"pre_reg_cert_url,omitempty" xml:"pre_reg_cert_url,omitempty"`
 	// 预览图oss fileId
 	PngFileId *string `json:"png_file_id,omitempty" xml:"png_file_id,omitempty"`
-	// 公示地址
-	PublicationUrl *string `json:"publication_url,omitempty" xml:"publication_url,omitempty"`
 	// 申请发码时间
 	ApplyObtainDate *string `json:"apply_obtain_date,omitempty" xml:"apply_obtain_date,omitempty"`
 	// DCI码创建时间
@@ -5298,13 +5298,13 @@ func (s *QueryDciPreregistrationResponse) SetPreRegCertFileHash(v string) *Query
 	return s
 }
 
-func (s *QueryDciPreregistrationResponse) SetPngFileId(v string) *QueryDciPreregistrationResponse {
-	s.PngFileId = &v
+func (s *QueryDciPreregistrationResponse) SetPreRegCertUrl(v string) *QueryDciPreregistrationResponse {
+	s.PreRegCertUrl = &v
 	return s
 }
 
-func (s *QueryDciPreregistrationResponse) SetPublicationUrl(v string) *QueryDciPreregistrationResponse {
-	s.PublicationUrl = &v
+func (s *QueryDciPreregistrationResponse) SetPngFileId(v string) *QueryDciPreregistrationResponse {
+	s.PngFileId = &v
 	return s
 }
 
@@ -5328,9 +5328,7 @@ type AddDciUserRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 用户名称
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
-	// 用户类型
-	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
 	// 证件类型
 	CertificateType *string `json:"certificate_type,omitempty" xml:"certificate_type,omitempty" require:"true"`
 	// 证件号
@@ -5339,10 +5337,10 @@ type AddDciUserRequest struct {
 	CertificateStartTime *string `json:"certificate_start_time,omitempty" xml:"certificate_start_time,omitempty"`
 	// 证件有效期限终止日期
 	CertificateEndTime *string `json:"certificate_end_time,omitempty" xml:"certificate_end_time,omitempty"`
-	// 证件正面OSS filePath
-	CertificateFrontFilePath *string `json:"certificate_front_file_path,omitempty" xml:"certificate_front_file_path,omitempty" require:"true"`
-	// 证件反面OSS filePath
-	CertificateBackFilePath *string `json:"certificate_back_file_path,omitempty" xml:"certificate_back_file_path,omitempty"`
+	// 证件正面OSS fileId
+	CertificateFrontFileId *string `json:"certificate_front_file_id,omitempty" xml:"certificate_front_file_id,omitempty" require:"true"`
+	// 证件反面OSS fileId
+	CertificateBackFileId *string `json:"certificate_back_file_id,omitempty" xml:"certificate_back_file_id,omitempty"`
 	// 法人名称
 	LegalPersonCertName *string `json:"legal_person_cert_name,omitempty" xml:"legal_person_cert_name,omitempty"`
 	// 法人证件类型
@@ -5381,13 +5379,8 @@ func (s *AddDciUserRequest) SetProductInstanceId(v string) *AddDciUserRequest {
 	return s
 }
 
-func (s *AddDciUserRequest) SetUserName(v string) *AddDciUserRequest {
-	s.UserName = &v
-	return s
-}
-
-func (s *AddDciUserRequest) SetUserType(v string) *AddDciUserRequest {
-	s.UserType = &v
+func (s *AddDciUserRequest) SetCertName(v string) *AddDciUserRequest {
+	s.CertName = &v
 	return s
 }
 
@@ -5411,13 +5404,13 @@ func (s *AddDciUserRequest) SetCertificateEndTime(v string) *AddDciUserRequest {
 	return s
 }
 
-func (s *AddDciUserRequest) SetCertificateFrontFilePath(v string) *AddDciUserRequest {
-	s.CertificateFrontFilePath = &v
+func (s *AddDciUserRequest) SetCertificateFrontFileId(v string) *AddDciUserRequest {
+	s.CertificateFrontFileId = &v
 	return s
 }
 
-func (s *AddDciUserRequest) SetCertificateBackFilePath(v string) *AddDciUserRequest {
-	s.CertificateBackFilePath = &v
+func (s *AddDciUserRequest) SetCertificateBackFileId(v string) *AddDciUserRequest {
+	s.CertificateBackFileId = &v
 	return s
 }
 
@@ -6559,7 +6552,7 @@ type GetDciPayurlRequest struct {
 	// 支付方式 0：支付宝
 	PayMent *string `json:"pay_ment,omitempty" xml:"pay_ment,omitempty"`
 	// 发票信息-当前支持普票
-	InvoiceInfo *InvoiceInfo `json:"invoice_info,omitempty" xml:"invoice_info,omitempty"`
+	InvoiceInfo *InvoiceInfo `json:"invoice_info,omitempty" xml:"invoice_info,omitempty" require:"true"`
 }
 
 func (s GetDciPayurlRequest) String() string {
@@ -6727,7 +6720,7 @@ type CallbackDciPayresultRequest struct {
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
 	// 订单ID
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
-	// 支付方式 0：支付宝
+	// 支付方式 (ALIPAY,0,支付宝)
 	PayMent *string `json:"pay_ment,omitempty" xml:"pay_ment,omitempty" require:"true"`
 	// 订单金额
 	Money *string `json:"money,omitempty" xml:"money,omitempty" require:"true"`
@@ -7504,7 +7497,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.5"),
+				"sdk_version":      tea.String("1.16.7"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
