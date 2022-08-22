@@ -262,6 +262,57 @@ export class EchoDemoGatewayCheckResponse extends $tea.Model {
   }
 }
 
+export class QueryAntchainAbcAbcdaAbcddaaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainAbcAbcdaAbcddaaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryDemoGatewayCheckEchotimeoutRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -376,6 +427,57 @@ export class QueryDemoGatewayCheckEchotenResponse extends $tea.Model {
       resultMsg: 'string',
       status: 'string',
       msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindAntchainAbcLoadtestQweRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindAntchainAbcLoadtestQweResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -585,7 +687,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_7efe8c7cfc5b4e23b792bf4510448a97",
           _prod_channel: "saas",
         };
@@ -676,6 +778,25 @@ export default class Client {
   }
 
   /**
+   * Description: 调试a s dddd
+   * Summary: 调试
+   */
+  async queryAntchainAbcAbcdaAbcddaa(request: QueryAntchainAbcAbcdaAbcddaaRequest): Promise<QueryAntchainAbcAbcdaAbcddaaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntchainAbcAbcdaAbcddaaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 调试a s dddd
+   * Summary: 调试
+   */
+  async queryAntchainAbcAbcdaAbcddaaEx(request: QueryAntchainAbcAbcdaAbcddaaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainAbcAbcdaAbcddaaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntchainAbcAbcdaAbcddaaResponse>(await this.doRequest("1.0", "antchain.abc.abcda.abcddaa.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainAbcAbcdaAbcddaaResponse({}));
+  }
+
+  /**
    * Description: 超时测试
    * Summary: 超时
    */
@@ -711,6 +832,25 @@ export default class Client {
   async queryDemoGatewayCheckEchotenEx(request: QueryDemoGatewayCheckEchotenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoGatewayCheckEchotenResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDemoGatewayCheckEchotenResponse>(await this.doRequest("1.0", "demo.gateway.check.echoten.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoGatewayCheckEchotenResponse({}));
+  }
+
+  /**
+   * Description: asd
+   * Summary: asd
+   */
+  async bindAntchainAbcLoadtestQwe(request: BindAntchainAbcLoadtestQweRequest): Promise<BindAntchainAbcLoadtestQweResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindAntchainAbcLoadtestQweEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: asd
+   * Summary: asd
+   */
+  async bindAntchainAbcLoadtestQweEx(request: BindAntchainAbcLoadtestQweRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindAntchainAbcLoadtestQweResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindAntchainAbcLoadtestQweResponse>(await this.doRequest("1.0", "antchain.abc.loadtest.qwe.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindAntchainAbcLoadtestQweResponse({}));
   }
 
   /**
