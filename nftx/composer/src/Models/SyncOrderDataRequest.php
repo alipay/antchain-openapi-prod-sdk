@@ -62,7 +62,6 @@ class SyncOrderDataRequest extends Model
     {
         Model::validateRequired('externalOrderNo', $this->externalOrderNo, true);
         Model::validateRequired('externalOrderStatus', $this->externalOrderStatus, true);
-        Model::validateRequired('openOrderNo', $this->openOrderNo, true);
         Model::validateRequired('openUserId', $this->openUserId, true);
         Model::validateRequired('updateTime', $this->updateTime, true);
     }
