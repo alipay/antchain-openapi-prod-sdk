@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.0.1"),
                     new TeaPair("_prod_code", "ak_7efe8c7cfc5b4e23b792bf4510448a97"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -204,6 +204,25 @@ public class Client {
     }
 
     /**
+     * Description: 调试a s dddd
+     * Summary: 调试
+     */
+    public QueryAntchainAbcAbcdaAbcddaaResponse queryAntchainAbcAbcdaAbcddaa(QueryAntchainAbcAbcdaAbcddaaRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainAbcAbcdaAbcddaaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调试a s dddd
+     * Summary: 调试
+     */
+    public QueryAntchainAbcAbcdaAbcddaaResponse queryAntchainAbcAbcdaAbcddaaEx(QueryAntchainAbcAbcdaAbcddaaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.abc.abcda.abcddaa.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainAbcAbcdaAbcddaaResponse());
+    }
+
+    /**
      * Description: 超时测试
      * Summary: 超时
      */
@@ -239,6 +258,25 @@ public class Client {
     public QueryDemoGatewayCheckEchotenResponse queryDemoGatewayCheckEchotenEx(QueryDemoGatewayCheckEchotenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.gateway.check.echoten.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoGatewayCheckEchotenResponse());
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public BindAntchainAbcLoadtestQweResponse bindAntchainAbcLoadtestQwe(BindAntchainAbcLoadtestQweRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindAntchainAbcLoadtestQweEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public BindAntchainAbcLoadtestQweResponse bindAntchainAbcLoadtestQweEx(BindAntchainAbcLoadtestQweRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.abc.loadtest.qwe.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindAntchainAbcLoadtestQweResponse());
     }
 
     /**
