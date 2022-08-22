@@ -30,7 +30,7 @@ namespace AntChain.SDK.NFTX.Models
 
         // 鲸探开放平台订单号
         [NameInMap("open_order_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string OpenOrderNo { get; set; }
 
         // 鲸探授权的用户加密的uid
