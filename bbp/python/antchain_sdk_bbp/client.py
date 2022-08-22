@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.26'
+                    'sdk_version': '1.7.28',
+                    '_prod_code': 'BBP',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.26'
+                    'sdk_version': '1.7.28',
+                    '_prod_code': 'BBP',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -717,6 +721,62 @@ class Client:
         return TeaCore.from_map(
             bbp_models.QueryEnterpriseBusinessinfoResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.enterprise.businessinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_gwtest(
+        self,
+        request: bbp_models.QueryGwtestRequest,
+    ) -> bbp_models.QueryGwtestResponse:
+        """
+        Description: 网关测试
+        Summary: 网关测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_gwtest_ex(request, headers, runtime)
+
+    async def query_gwtest_async(
+        self,
+        request: bbp_models.QueryGwtestRequest,
+    ) -> bbp_models.QueryGwtestResponse:
+        """
+        Description: 网关测试
+        Summary: 网关测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_gwtest_ex_async(request, headers, runtime)
+
+    def query_gwtest_ex(
+        self,
+        request: bbp_models.QueryGwtestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.QueryGwtestResponse:
+        """
+        Description: 网关测试
+        Summary: 网关测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.QueryGwtestResponse(),
+            self.do_request('1.0', 'antchain.bbp.gwtest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_gwtest_ex_async(
+        self,
+        request: bbp_models.QueryGwtestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bbp_models.QueryGwtestResponse:
+        """
+        Description: 网关测试
+        Summary: 网关测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bbp_models.QueryGwtestResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.gwtest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_contract_rule(

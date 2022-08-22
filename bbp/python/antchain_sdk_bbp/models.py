@@ -2605,6 +2605,96 @@ class QueryEnterpriseBusinessinfoResponse(TeaModel):
         return self
 
 
+class QueryGwtestRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        timeout: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 超时时间 毫秒
+        self.timeout = timeout
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
+        return self
+
+
+class QueryGwtestResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        stauts: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果码
+        self.stauts = stauts
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.stauts is not None:
+            result['stauts'] = self.stauts
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('stauts') is not None:
+            self.stauts = m.get('stauts')
+        return self
+
+
 class ApplyContractRuleRequest(TeaModel):
     def __init__(
         self,
@@ -4051,19 +4141,20 @@ class CreateDidCustomerRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         biz_code: str = None,
-        alipay_uid: str = None,
+        uid: str = None,
         person_name: str = None,
         person_phone: str = None,
         person_cert_no: str = None,
         person_cert_type: str = None,
+        account_type: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 场景码
         self.biz_code = biz_code
-        # 支付宝uid
-        self.alipay_uid = alipay_uid
+        # 账户uid
+        self.uid = uid
         # 个人名称
         self.person_name = person_name
         # 个人联系电话
@@ -4072,10 +4163,13 @@ class CreateDidCustomerRequest(TeaModel):
         self.person_cert_no = person_cert_no
         # 个人身份类型
         self.person_cert_type = person_cert_type
+        # 账户uid类型 0-Alipay 1-Alibaba
+        self.account_type = account_type
 
     def validate(self):
         self.validate_required(self.biz_code, 'biz_code')
-        self.validate_required(self.alipay_uid, 'alipay_uid')
+        self.validate_required(self.uid, 'uid')
+        self.validate_required(self.account_type, 'account_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -4089,8 +4183,8 @@ class CreateDidCustomerRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.biz_code is not None:
             result['biz_code'] = self.biz_code
-        if self.alipay_uid is not None:
-            result['alipay_uid'] = self.alipay_uid
+        if self.uid is not None:
+            result['uid'] = self.uid
         if self.person_name is not None:
             result['person_name'] = self.person_name
         if self.person_phone is not None:
@@ -4099,6 +4193,8 @@ class CreateDidCustomerRequest(TeaModel):
             result['person_cert_no'] = self.person_cert_no
         if self.person_cert_type is not None:
             result['person_cert_type'] = self.person_cert_type
+        if self.account_type is not None:
+            result['account_type'] = self.account_type
         return result
 
     def from_map(self, m: dict = None):
@@ -4109,8 +4205,8 @@ class CreateDidCustomerRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('biz_code') is not None:
             self.biz_code = m.get('biz_code')
-        if m.get('alipay_uid') is not None:
-            self.alipay_uid = m.get('alipay_uid')
+        if m.get('uid') is not None:
+            self.uid = m.get('uid')
         if m.get('person_name') is not None:
             self.person_name = m.get('person_name')
         if m.get('person_phone') is not None:
@@ -4119,6 +4215,8 @@ class CreateDidCustomerRequest(TeaModel):
             self.person_cert_no = m.get('person_cert_no')
         if m.get('person_cert_type') is not None:
             self.person_cert_type = m.get('person_cert_type')
+        if m.get('account_type') is not None:
+            self.account_type = m.get('account_type')
         return self
 
 
