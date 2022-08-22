@@ -11,10 +11,14 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_7efe8c7cfc5b4e23b792bf4510448a97\Models\BindAntchainAbcLoadtestQweRequest;
+use AntChain\Ak_7efe8c7cfc5b4e23b792bf4510448a97\Models\BindAntchainAbcLoadtestQweResponse;
 use AntChain\Ak_7efe8c7cfc5b4e23b792bf4510448a97\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\Ak_7efe8c7cfc5b4e23b792bf4510448a97\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\Ak_7efe8c7cfc5b4e23b792bf4510448a97\Models\EchoDemoGatewayCheckRequest;
 use AntChain\Ak_7efe8c7cfc5b4e23b792bf4510448a97\Models\EchoDemoGatewayCheckResponse;
+use AntChain\Ak_7efe8c7cfc5b4e23b792bf4510448a97\Models\QueryAntchainAbcAbcdaAbcddaaRequest;
+use AntChain\Ak_7efe8c7cfc5b4e23b792bf4510448a97\Models\QueryAntchainAbcAbcdaAbcddaaResponse;
 use AntChain\Ak_7efe8c7cfc5b4e23b792bf4510448a97\Models\QueryDemoGatewayCheckEchotenRequest;
 use AntChain\Ak_7efe8c7cfc5b4e23b792bf4510448a97\Models\QueryDemoGatewayCheckEchotenResponse;
 use AntChain\Ak_7efe8c7cfc5b4e23b792bf4510448a97\Models\QueryDemoGatewayCheckEchotimeoutRequest;
@@ -166,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_7efe8c7cfc5b4e23b792bf4510448a97',
                     '_prod_channel'    => 'saas',
                 ];
@@ -268,6 +272,39 @@ class Client
     }
 
     /**
+     * Description: 调试a s dddd
+     * Summary: 调试.
+     *
+     * @param QueryAntchainAbcAbcdaAbcddaaRequest $request
+     *
+     * @return QueryAntchainAbcAbcdaAbcddaaResponse
+     */
+    public function queryAntchainAbcAbcdaAbcddaa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAbcAbcdaAbcddaaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调试a s dddd
+     * Summary: 调试.
+     *
+     * @param QueryAntchainAbcAbcdaAbcddaaRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryAntchainAbcAbcdaAbcddaaResponse
+     */
+    public function queryAntchainAbcAbcdaAbcddaaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAbcAbcdaAbcddaaResponse::fromMap($this->doRequest('1.0', 'antchain.abc.abcda.abcddaa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 超时测试
      * Summary: 超时.
      *
@@ -331,6 +368,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryDemoGatewayCheckEchotenResponse::fromMap($this->doRequest('1.0', 'demo.gateway.check.echoten.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd.
+     *
+     * @param BindAntchainAbcLoadtestQweRequest $request
+     *
+     * @return BindAntchainAbcLoadtestQweResponse
+     */
+    public function bindAntchainAbcLoadtestQwe($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindAntchainAbcLoadtestQweEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd.
+     *
+     * @param BindAntchainAbcLoadtestQweRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return BindAntchainAbcLoadtestQweResponse
+     */
+    public function bindAntchainAbcLoadtestQweEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindAntchainAbcLoadtestQweResponse::fromMap($this->doRequest('1.0', 'antchain.abc.loadtest.qwe.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
