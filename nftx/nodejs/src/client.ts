@@ -1398,7 +1398,7 @@ export class SyncOrderDataRequest extends $tea.Model {
   // 目前支持两种状态 PAID、PAY_CANCEL 
   externalOrderStatus: string;
   // 鲸探开放平台订单号
-  openOrderNo: string;
+  openOrderNo?: string;
   // 鲸探授权的用户加密的uid
   openUserId: string;
   // 同步改状态时的事件毫秒时间戳
@@ -1659,7 +1659,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.4",
+          sdk_version: "1.7.1",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
