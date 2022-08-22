@@ -23,7 +23,6 @@ public class SyncOrderDataRequest extends TeaModel {
 
     // 鲸探开放平台订单号
     @NameInMap("open_order_no")
-    @Validation(required = true)
     public String openOrderNo;
 
     // 鲸探授权的用户加密的uid
