@@ -1461,8 +1461,8 @@ class InvoiceInfo(TeaModel):
         bank_account: str = None,
     ):
         # 发票类型 InvoiceTypeEnum目前只支持普票
-        # ELC  普票
-        # VAT  专票
+        # (NORMAL,ELC,普票)
+        # (SPECIAL,VAT,专票)
         self.invoice_type = invoice_type
         # 发票抬头（著作权人之一）
         self.invoice_header = invoice_header
@@ -6314,8 +6314,8 @@ class QueryDciPreregistrationResponse(TeaModel):
         pre_reg_cert_tsr: str = None,
         pre_reg_cert_file_id: str = None,
         pre_reg_cert_file_hash: str = None,
+        pre_reg_cert_url: str = None,
         png_file_id: str = None,
-        publication_url: str = None,
         apply_obtain_date: str = None,
         dci_code_obtain_date: str = None,
         error_reason: str = None,
@@ -6362,10 +6362,10 @@ class QueryDciPreregistrationResponse(TeaModel):
         self.pre_reg_cert_file_id = pre_reg_cert_file_id
         # 预登记证书fileHash
         self.pre_reg_cert_file_hash = pre_reg_cert_file_hash
+        # 预登记证书下载链接
+        self.pre_reg_cert_url = pre_reg_cert_url
         # 预览图oss fileId
         self.png_file_id = png_file_id
-        # 公示地址
-        self.publication_url = publication_url
         # 申请发码时间
         self.apply_obtain_date = apply_obtain_date
         # DCI码创建时间
@@ -6424,10 +6424,10 @@ class QueryDciPreregistrationResponse(TeaModel):
             result['pre_reg_cert_file_id'] = self.pre_reg_cert_file_id
         if self.pre_reg_cert_file_hash is not None:
             result['pre_reg_cert_file_hash'] = self.pre_reg_cert_file_hash
+        if self.pre_reg_cert_url is not None:
+            result['pre_reg_cert_url'] = self.pre_reg_cert_url
         if self.png_file_id is not None:
             result['png_file_id'] = self.png_file_id
-        if self.publication_url is not None:
-            result['publication_url'] = self.publication_url
         if self.apply_obtain_date is not None:
             result['apply_obtain_date'] = self.apply_obtain_date
         if self.dci_code_obtain_date is not None:
@@ -6480,10 +6480,10 @@ class QueryDciPreregistrationResponse(TeaModel):
             self.pre_reg_cert_file_id = m.get('pre_reg_cert_file_id')
         if m.get('pre_reg_cert_file_hash') is not None:
             self.pre_reg_cert_file_hash = m.get('pre_reg_cert_file_hash')
+        if m.get('pre_reg_cert_url') is not None:
+            self.pre_reg_cert_url = m.get('pre_reg_cert_url')
         if m.get('png_file_id') is not None:
             self.png_file_id = m.get('png_file_id')
-        if m.get('publication_url') is not None:
-            self.publication_url = m.get('publication_url')
         if m.get('apply_obtain_date') is not None:
             self.apply_obtain_date = m.get('apply_obtain_date')
         if m.get('dci_code_obtain_date') is not None:
@@ -6498,14 +6498,13 @@ class AddDciUserRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        user_name: str = None,
-        user_type: str = None,
+        cert_name: str = None,
         certificate_type: str = None,
         certificate_number: str = None,
         certificate_start_time: str = None,
         certificate_end_time: str = None,
-        certificate_front_file_path: str = None,
-        certificate_back_file_path: str = None,
+        certificate_front_file_id: str = None,
+        certificate_back_file_id: str = None,
         legal_person_cert_name: str = None,
         legal_person_cert_type: str = None,
         legal_person_cert_no: str = None,
@@ -6520,9 +6519,7 @@ class AddDciUserRequest(TeaModel):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 用户名称
-        self.user_name = user_name
-        # 用户类型
-        self.user_type = user_type
+        self.cert_name = cert_name
         # 证件类型
         self.certificate_type = certificate_type
         # 证件号
@@ -6531,10 +6528,10 @@ class AddDciUserRequest(TeaModel):
         self.certificate_start_time = certificate_start_time
         # 证件有效期限终止日期
         self.certificate_end_time = certificate_end_time
-        # 证件正面OSS filePath
-        self.certificate_front_file_path = certificate_front_file_path
-        # 证件反面OSS filePath
-        self.certificate_back_file_path = certificate_back_file_path
+        # 证件正面OSS fileId
+        self.certificate_front_file_id = certificate_front_file_id
+        # 证件反面OSS fileId
+        self.certificate_back_file_id = certificate_back_file_id
         # 法人名称
         self.legal_person_cert_name = legal_person_cert_name
         # 法人证件类型
@@ -6555,11 +6552,10 @@ class AddDciUserRequest(TeaModel):
         self.client_token = client_token
 
     def validate(self):
-        self.validate_required(self.user_name, 'user_name')
-        self.validate_required(self.user_type, 'user_type')
+        self.validate_required(self.cert_name, 'cert_name')
         self.validate_required(self.certificate_type, 'certificate_type')
         self.validate_required(self.certificate_number, 'certificate_number')
-        self.validate_required(self.certificate_front_file_path, 'certificate_front_file_path')
+        self.validate_required(self.certificate_front_file_id, 'certificate_front_file_id')
         self.validate_required(self.phone, 'phone')
         self.validate_required(self.address, 'address')
         self.validate_required(self.identity_start_time, 'identity_start_time')
@@ -6579,10 +6575,8 @@ class AddDciUserRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.user_name is not None:
-            result['user_name'] = self.user_name
-        if self.user_type is not None:
-            result['user_type'] = self.user_type
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
         if self.certificate_type is not None:
             result['certificate_type'] = self.certificate_type
         if self.certificate_number is not None:
@@ -6591,10 +6585,10 @@ class AddDciUserRequest(TeaModel):
             result['certificate_start_time'] = self.certificate_start_time
         if self.certificate_end_time is not None:
             result['certificate_end_time'] = self.certificate_end_time
-        if self.certificate_front_file_path is not None:
-            result['certificate_front_file_path'] = self.certificate_front_file_path
-        if self.certificate_back_file_path is not None:
-            result['certificate_back_file_path'] = self.certificate_back_file_path
+        if self.certificate_front_file_id is not None:
+            result['certificate_front_file_id'] = self.certificate_front_file_id
+        if self.certificate_back_file_id is not None:
+            result['certificate_back_file_id'] = self.certificate_back_file_id
         if self.legal_person_cert_name is not None:
             result['legal_person_cert_name'] = self.legal_person_cert_name
         if self.legal_person_cert_type is not None:
@@ -6621,10 +6615,8 @@ class AddDciUserRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('user_name') is not None:
-            self.user_name = m.get('user_name')
-        if m.get('user_type') is not None:
-            self.user_type = m.get('user_type')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
         if m.get('certificate_type') is not None:
             self.certificate_type = m.get('certificate_type')
         if m.get('certificate_number') is not None:
@@ -6633,10 +6625,10 @@ class AddDciUserRequest(TeaModel):
             self.certificate_start_time = m.get('certificate_start_time')
         if m.get('certificate_end_time') is not None:
             self.certificate_end_time = m.get('certificate_end_time')
-        if m.get('certificate_front_file_path') is not None:
-            self.certificate_front_file_path = m.get('certificate_front_file_path')
-        if m.get('certificate_back_file_path') is not None:
-            self.certificate_back_file_path = m.get('certificate_back_file_path')
+        if m.get('certificate_front_file_id') is not None:
+            self.certificate_front_file_id = m.get('certificate_front_file_id')
+        if m.get('certificate_back_file_id') is not None:
+            self.certificate_back_file_id = m.get('certificate_back_file_id')
         if m.get('legal_person_cert_name') is not None:
             self.legal_person_cert_name = m.get('legal_person_cert_name')
         if m.get('legal_person_cert_type') is not None:
@@ -8017,6 +8009,7 @@ class GetDciPayurlRequest(TeaModel):
     def validate(self):
         self.validate_required(self.dci_user_id, 'dci_user_id')
         self.validate_required(self.dci_content_id, 'dci_content_id')
+        self.validate_required(self.invoice_info, 'invoice_info')
         if self.invoice_info:
             self.invoice_info.validate()
 
@@ -8228,7 +8221,7 @@ class CallbackDciPayresultRequest(TeaModel):
         self.app_id = app_id
         # 订单ID
         self.order_id = order_id
-        # 支付方式 0：支付宝
+        # 支付方式 (ALIPAY,0,支付宝)
         self.pay_ment = pay_ment
         # 订单金额
         self.money = money
