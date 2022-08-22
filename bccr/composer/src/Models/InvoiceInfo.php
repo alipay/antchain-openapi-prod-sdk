@@ -9,10 +9,10 @@ use AlibabaCloud\Tea\Model;
 class InvoiceInfo extends Model
 {
     // 发票类型 InvoiceTypeEnum目前只支持普票
-    // ELC  普票
-    // VAT  专票
+    // (NORMAL,ELC,普票)
+    // (SPECIAL,VAT,专票)
     /**
-     * @example ELC
+     * @example NORMAL
      *
      * @var string
      */

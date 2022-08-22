@@ -55,6 +55,7 @@ class GetDciPayurlRequest extends Model
     {
         Model::validateRequired('dciUserId', $this->dciUserId, true);
         Model::validateRequired('dciContentId', $this->dciContentId, true);
+        Model::validateRequired('invoiceInfo', $this->invoiceInfo, true);
     }
 
     public function toMap()

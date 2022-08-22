@@ -37,7 +37,7 @@ class CallbackDciPayresultRequest extends Model
      */
     public $orderId;
 
-    // 支付方式 0：支付宝
+    // 支付方式 (ALIPAY,0,支付宝)
     /**
      * @var string
      */

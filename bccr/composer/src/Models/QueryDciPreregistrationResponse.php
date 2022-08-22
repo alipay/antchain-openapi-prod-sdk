@@ -134,17 +134,17 @@ class QueryDciPreregistrationResponse extends Model
      */
     public $preRegCertFileHash;
 
+    // 预登记证书下载链接
+    /**
+     * @var string
+     */
+    public $preRegCertUrl;
+
     // 预览图oss fileId
     /**
      * @var string
      */
     public $pngFileId;
-
-    // 公示地址
-    /**
-     * @var string
-     */
-    public $publicationUrl;
 
     // 申请发码时间
     /**
@@ -185,8 +185,8 @@ class QueryDciPreregistrationResponse extends Model
         'preRegCertTsr'          => 'pre_reg_cert_tsr',
         'preRegCertFileId'       => 'pre_reg_cert_file_id',
         'preRegCertFileHash'     => 'pre_reg_cert_file_hash',
+        'preRegCertUrl'          => 'pre_reg_cert_url',
         'pngFileId'              => 'png_file_id',
-        'publicationUrl'         => 'publication_url',
         'applyObtainDate'        => 'apply_obtain_date',
         'dciCodeObtainDate'      => 'dci_code_obtain_date',
         'errorReason'            => 'error_reason',
@@ -262,11 +262,11 @@ class QueryDciPreregistrationResponse extends Model
         if (null !== $this->preRegCertFileHash) {
             $res['pre_reg_cert_file_hash'] = $this->preRegCertFileHash;
         }
+        if (null !== $this->preRegCertUrl) {
+            $res['pre_reg_cert_url'] = $this->preRegCertUrl;
+        }
         if (null !== $this->pngFileId) {
             $res['png_file_id'] = $this->pngFileId;
-        }
-        if (null !== $this->publicationUrl) {
-            $res['publication_url'] = $this->publicationUrl;
         }
         if (null !== $this->applyObtainDate) {
             $res['apply_obtain_date'] = $this->applyObtainDate;
@@ -352,11 +352,11 @@ class QueryDciPreregistrationResponse extends Model
         if (isset($map['pre_reg_cert_file_hash'])) {
             $model->preRegCertFileHash = $map['pre_reg_cert_file_hash'];
         }
+        if (isset($map['pre_reg_cert_url'])) {
+            $model->preRegCertUrl = $map['pre_reg_cert_url'];
+        }
         if (isset($map['png_file_id'])) {
             $model->pngFileId = $map['png_file_id'];
-        }
-        if (isset($map['publication_url'])) {
-            $model->publicationUrl = $map['publication_url'];
         }
         if (isset($map['apply_obtain_date'])) {
             $model->applyObtainDate = $map['apply_obtain_date'];

@@ -23,13 +23,7 @@ class AddDciUserRequest extends Model
     /**
      * @var string
      */
-    public $userName;
-
-    // 用户类型
-    /**
-     * @var string
-     */
-    public $userType;
+    public $certName;
 
     // 证件类型
     /**
@@ -55,17 +49,17 @@ class AddDciUserRequest extends Model
      */
     public $certificateEndTime;
 
-    // 证件正面OSS filePath
+    // 证件正面OSS fileId
     /**
      * @var string
      */
-    public $certificateFrontFilePath;
+    public $certificateFrontFileId;
 
-    // 证件反面OSS filePath
+    // 证件反面OSS fileId
     /**
      * @var string
      */
-    public $certificateBackFilePath;
+    public $certificateBackFileId;
 
     // 法人名称
     /**
@@ -121,34 +115,32 @@ class AddDciUserRequest extends Model
      */
     public $clientToken;
     protected $_name = [
-        'authToken'                => 'auth_token',
-        'productInstanceId'        => 'product_instance_id',
-        'userName'                 => 'user_name',
-        'userType'                 => 'user_type',
-        'certificateType'          => 'certificate_type',
-        'certificateNumber'        => 'certificate_number',
-        'certificateStartTime'     => 'certificate_start_time',
-        'certificateEndTime'       => 'certificate_end_time',
-        'certificateFrontFilePath' => 'certificate_front_file_path',
-        'certificateBackFilePath'  => 'certificate_back_file_path',
-        'legalPersonCertName'      => 'legal_person_cert_name',
-        'legalPersonCertType'      => 'legal_person_cert_type',
-        'legalPersonCertNo'        => 'legal_person_cert_no',
-        'phone'                    => 'phone',
-        'address'                  => 'address',
-        'identityStartTime'        => 'identity_start_time',
-        'areaType'                 => 'area_type',
-        'proxyData'                => 'proxy_data',
-        'clientToken'              => 'client_token',
+        'authToken'              => 'auth_token',
+        'productInstanceId'      => 'product_instance_id',
+        'certName'               => 'cert_name',
+        'certificateType'        => 'certificate_type',
+        'certificateNumber'      => 'certificate_number',
+        'certificateStartTime'   => 'certificate_start_time',
+        'certificateEndTime'     => 'certificate_end_time',
+        'certificateFrontFileId' => 'certificate_front_file_id',
+        'certificateBackFileId'  => 'certificate_back_file_id',
+        'legalPersonCertName'    => 'legal_person_cert_name',
+        'legalPersonCertType'    => 'legal_person_cert_type',
+        'legalPersonCertNo'      => 'legal_person_cert_no',
+        'phone'                  => 'phone',
+        'address'                => 'address',
+        'identityStartTime'      => 'identity_start_time',
+        'areaType'               => 'area_type',
+        'proxyData'              => 'proxy_data',
+        'clientToken'            => 'client_token',
     ];
 
     public function validate()
     {
-        Model::validateRequired('userName', $this->userName, true);
-        Model::validateRequired('userType', $this->userType, true);
+        Model::validateRequired('certName', $this->certName, true);
         Model::validateRequired('certificateType', $this->certificateType, true);
         Model::validateRequired('certificateNumber', $this->certificateNumber, true);
-        Model::validateRequired('certificateFrontFilePath', $this->certificateFrontFilePath, true);
+        Model::validateRequired('certificateFrontFileId', $this->certificateFrontFileId, true);
         Model::validateRequired('phone', $this->phone, true);
         Model::validateRequired('address', $this->address, true);
         Model::validateRequired('identityStartTime', $this->identityStartTime, true);
@@ -166,11 +158,8 @@ class AddDciUserRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->userName) {
-            $res['user_name'] = $this->userName;
-        }
-        if (null !== $this->userType) {
-            $res['user_type'] = $this->userType;
+        if (null !== $this->certName) {
+            $res['cert_name'] = $this->certName;
         }
         if (null !== $this->certificateType) {
             $res['certificate_type'] = $this->certificateType;
@@ -184,11 +173,11 @@ class AddDciUserRequest extends Model
         if (null !== $this->certificateEndTime) {
             $res['certificate_end_time'] = $this->certificateEndTime;
         }
-        if (null !== $this->certificateFrontFilePath) {
-            $res['certificate_front_file_path'] = $this->certificateFrontFilePath;
+        if (null !== $this->certificateFrontFileId) {
+            $res['certificate_front_file_id'] = $this->certificateFrontFileId;
         }
-        if (null !== $this->certificateBackFilePath) {
-            $res['certificate_back_file_path'] = $this->certificateBackFilePath;
+        if (null !== $this->certificateBackFileId) {
+            $res['certificate_back_file_id'] = $this->certificateBackFileId;
         }
         if (null !== $this->legalPersonCertName) {
             $res['legal_person_cert_name'] = $this->legalPersonCertName;
@@ -235,11 +224,8 @@ class AddDciUserRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['user_name'])) {
-            $model->userName = $map['user_name'];
-        }
-        if (isset($map['user_type'])) {
-            $model->userType = $map['user_type'];
+        if (isset($map['cert_name'])) {
+            $model->certName = $map['cert_name'];
         }
         if (isset($map['certificate_type'])) {
             $model->certificateType = $map['certificate_type'];
@@ -253,11 +239,11 @@ class AddDciUserRequest extends Model
         if (isset($map['certificate_end_time'])) {
             $model->certificateEndTime = $map['certificate_end_time'];
         }
-        if (isset($map['certificate_front_file_path'])) {
-            $model->certificateFrontFilePath = $map['certificate_front_file_path'];
+        if (isset($map['certificate_front_file_id'])) {
+            $model->certificateFrontFileId = $map['certificate_front_file_id'];
         }
-        if (isset($map['certificate_back_file_path'])) {
-            $model->certificateBackFilePath = $map['certificate_back_file_path'];
+        if (isset($map['certificate_back_file_id'])) {
+            $model->certificateBackFileId = $map['certificate_back_file_id'];
         }
         if (isset($map['legal_person_cert_name'])) {
             $model->legalPersonCertName = $map['legal_person_cert_name'];
