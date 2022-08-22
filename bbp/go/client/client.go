@@ -2105,6 +2105,76 @@ func (s *QueryEnterpriseBusinessinfoResponse) SetIndustryPhyName(v string) *Quer
 	return s
 }
 
+type QueryGwtestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间 毫秒
+	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty"`
+}
+
+func (s QueryGwtestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGwtestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGwtestRequest) SetAuthToken(v string) *QueryGwtestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGwtestRequest) SetProductInstanceId(v string) *QueryGwtestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGwtestRequest) SetTimeout(v int64) *QueryGwtestRequest {
+	s.Timeout = &v
+	return s
+}
+
+type QueryGwtestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+}
+
+func (s QueryGwtestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGwtestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGwtestResponse) SetReqMsgId(v string) *QueryGwtestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGwtestResponse) SetResultCode(v string) *QueryGwtestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGwtestResponse) SetResultMsg(v string) *QueryGwtestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGwtestResponse) SetStauts(v string) *QueryGwtestResponse {
+	s.Stauts = &v
+	return s
+}
+
 type ApplyContractRuleRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3224,8 +3294,8 @@ type CreateDidCustomerRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 场景码
 	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
-	// 支付宝uid
-	AlipayUid *string `json:"alipay_uid,omitempty" xml:"alipay_uid,omitempty" require:"true"`
+	// 账户uid
+	Uid *string `json:"uid,omitempty" xml:"uid,omitempty" require:"true"`
 	// 个人名称
 	PersonName *string `json:"person_name,omitempty" xml:"person_name,omitempty"`
 	// 个人联系电话
@@ -3234,6 +3304,8 @@ type CreateDidCustomerRequest struct {
 	PersonCertNo *string `json:"person_cert_no,omitempty" xml:"person_cert_no,omitempty"`
 	// 个人身份类型
 	PersonCertType *string `json:"person_cert_type,omitempty" xml:"person_cert_type,omitempty"`
+	// 账户uid类型 0-Alipay 1-Alibaba
+	AccountType *int64 `json:"account_type,omitempty" xml:"account_type,omitempty" require:"true"`
 }
 
 func (s CreateDidCustomerRequest) String() string {
@@ -3259,8 +3331,8 @@ func (s *CreateDidCustomerRequest) SetBizCode(v string) *CreateDidCustomerReques
 	return s
 }
 
-func (s *CreateDidCustomerRequest) SetAlipayUid(v string) *CreateDidCustomerRequest {
-	s.AlipayUid = &v
+func (s *CreateDidCustomerRequest) SetUid(v string) *CreateDidCustomerRequest {
+	s.Uid = &v
 	return s
 }
 
@@ -3281,6 +3353,11 @@ func (s *CreateDidCustomerRequest) SetPersonCertNo(v string) *CreateDidCustomerR
 
 func (s *CreateDidCustomerRequest) SetPersonCertType(v string) *CreateDidCustomerRequest {
 	s.PersonCertType = &v
+	return s
+}
+
+func (s *CreateDidCustomerRequest) SetAccountType(v int64) *CreateDidCustomerRequest {
+	s.AccountType = &v
 	return s
 }
 
@@ -4583,7 +4660,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.26"),
+				"sdk_version":      tea.String("1.7.28"),
+				"_prod_code":       tea.String("BBP"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -4896,6 +4975,40 @@ func (client *Client) QueryEnterpriseBusinessinfoEx(request *QueryEnterpriseBusi
 	}
 	_result = &QueryEnterpriseBusinessinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.enterprise.businessinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 网关测试
+ * Summary: 网关测试
+ */
+func (client *Client) QueryGwtest(request *QueryGwtestRequest) (_result *QueryGwtestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGwtestResponse{}
+	_body, _err := client.QueryGwtestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 网关测试
+ * Summary: 网关测试
+ */
+func (client *Client) QueryGwtestEx(request *QueryGwtestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGwtestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGwtestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.bbp.gwtest.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
