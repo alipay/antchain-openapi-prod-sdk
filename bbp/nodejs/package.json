@@ -1,6 +1,6 @@
 {
-  "name": "@alicloud/bbp",
-  "version": "1.7.26",
+  "name": "@antchain/bbp",
+  "version": "1.7.28",
   "description": "",
   "main": "dist/client.js",
   "scripts": {

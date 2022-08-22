@@ -1502,6 +1502,65 @@ export class QueryEnterpriseBusinessinfoResponse extends $tea.Model {
   }
 }
 
+export class QueryGwtestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间 毫秒
+  timeout?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGwtestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果码
+  stauts?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      stauts: 'stauts',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      stauts: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ApplyContractRuleRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2372,8 +2431,8 @@ export class CreateDidCustomerRequest extends $tea.Model {
   productInstanceId?: string;
   // 场景码
   bizCode: string;
-  // 支付宝uid
-  alipayUid: string;
+  // 账户uid
+  uid: string;
   // 个人名称
   personName?: string;
   // 个人联系电话
@@ -2382,16 +2441,19 @@ export class CreateDidCustomerRequest extends $tea.Model {
   personCertNo?: string;
   // 个人身份类型
   personCertType?: string;
+  // 账户uid类型 0-Alipay 1-Alibaba
+  accountType: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       bizCode: 'biz_code',
-      alipayUid: 'alipay_uid',
+      uid: 'uid',
       personName: 'person_name',
       personPhone: 'person_phone',
       personCertNo: 'person_cert_no',
       personCertType: 'person_cert_type',
+      accountType: 'account_type',
     };
   }
 
@@ -2400,11 +2462,12 @@ export class CreateDidCustomerRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       bizCode: 'string',
-      alipayUid: 'string',
+      uid: 'string',
       personName: 'string',
       personPhone: 'string',
       personCertNo: 'string',
       personCertType: 'string',
+      accountType: 'number',
     };
   }
 
@@ -3398,7 +3461,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.26",
+          sdk_version: "1.7.28",
+          _prod_code: "BBP",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -3594,6 +3659,25 @@ export default class Client {
   async queryEnterpriseBusinessinfoEx(request: QueryEnterpriseBusinessinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEnterpriseBusinessinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryEnterpriseBusinessinfoResponse>(await this.doRequest("1.0", "antchain.bbp.enterprise.businessinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEnterpriseBusinessinfoResponse({}));
+  }
+
+  /**
+   * Description: 网关测试
+   * Summary: 网关测试
+   */
+  async queryGwtest(request: QueryGwtestRequest): Promise<QueryGwtestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryGwtestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 网关测试
+   * Summary: 网关测试
+   */
+  async queryGwtestEx(request: QueryGwtestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGwtestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryGwtestResponse>(await this.doRequest("1.0", "antchain.bbp.gwtest.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGwtestResponse({}));
   }
 
   /**
