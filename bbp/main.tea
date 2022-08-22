@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.26',
+    sdk_version = '1.7.28',
+    _prod_code = 'BBP',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -874,6 +876,44 @@ async function queryEnterpriseBusinessinfoEx(request: QueryEnterpriseBusinessinf
   return doRequest('1.0' ,'antchain.bbp.enterprise.businessinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryGwtestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间 毫秒
+  timeout?: long(name='timeout'),
+}
+
+model QueryGwtestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  stauts?: string(name='stauts'),
+}
+
+/**
+ * Description: 网关测试
+ * Summary: 网关测试
+ */
+async function queryGwtest(request: QueryGwtestRequest): QueryGwtestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGwtestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 网关测试
+ * Summary: 网关测试
+ */
+async function queryGwtestEx(request: QueryGwtestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGwtestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.bbp.gwtest.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model ApplyContractRuleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1416,8 +1456,8 @@ model CreateDidCustomerRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 场景码
   bizCode: string(name='biz_code'),
-  // 支付宝uid
-  alipayUid: string(name='alipay_uid'),
+  // 账户uid
+  uid: string(name='uid'),
   // 个人名称
   personName?: string(name='person_name'),
   // 个人联系电话
@@ -1426,6 +1466,8 @@ model CreateDidCustomerRequest = {
   personCertNo?: string(name='person_cert_no'),
   // 个人身份类型
   personCertType?: string(name='person_cert_type'),
+  // 账户uid类型 0-Alipay 1-Alibaba
+  accountType: long(name='account_type'),
 }
 
 model CreateDidCustomerResponse = {
