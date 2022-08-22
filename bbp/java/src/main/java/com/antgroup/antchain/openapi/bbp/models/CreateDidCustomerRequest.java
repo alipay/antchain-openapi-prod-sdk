@@ -16,10 +16,10 @@ public class CreateDidCustomerRequest extends TeaModel {
     @Validation(required = true)
     public String bizCode;
 
-    // 支付宝uid
-    @NameInMap("alipay_uid")
+    // 账户uid
+    @NameInMap("uid")
     @Validation(required = true)
-    public String alipayUid;
+    public String uid;
 
     // 个人名称
     @NameInMap("person_name")
@@ -36,6 +36,11 @@ public class CreateDidCustomerRequest extends TeaModel {
     // 个人身份类型
     @NameInMap("person_cert_type")
     public String personCertType;
+
+    // 账户uid类型 0-Alipay 1-Alibaba
+    @NameInMap("account_type")
+    @Validation(required = true)
+    public Long accountType;
 
     public static CreateDidCustomerRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDidCustomerRequest self = new CreateDidCustomerRequest();
@@ -66,12 +71,12 @@ public class CreateDidCustomerRequest extends TeaModel {
         return this.bizCode;
     }
 
-    public CreateDidCustomerRequest setAlipayUid(String alipayUid) {
-        this.alipayUid = alipayUid;
+    public CreateDidCustomerRequest setUid(String uid) {
+        this.uid = uid;
         return this;
     }
-    public String getAlipayUid() {
-        return this.alipayUid;
+    public String getUid() {
+        return this.uid;
     }
 
     public CreateDidCustomerRequest setPersonName(String personName) {
@@ -104,6 +109,14 @@ public class CreateDidCustomerRequest extends TeaModel {
     }
     public String getPersonCertType() {
         return this.personCertType;
+    }
+
+    public CreateDidCustomerRequest setAccountType(Long accountType) {
+        this.accountType = accountType;
+        return this;
+    }
+    public Long getAccountType() {
+        return this.accountType;
     }
 
 }
