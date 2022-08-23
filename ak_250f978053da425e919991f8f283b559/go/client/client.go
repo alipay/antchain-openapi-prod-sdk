@@ -148,245 +148,59 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// 狗
-type Dog struct {
-	// 名字
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true" maxLength:"32" minLength:"2"`
-	// 年龄
-	Age *int64 `json:"age,omitempty" xml:"age,omitempty" require:"true" maximum:"100" minimum:"0"`
-	// 是否已领养
-	IsAdopted *bool `json:"is_adopted,omitempty" xml:"is_adopted,omitempty" require:"true"`
-	// 领养时间
-	AdoptedDate *string `json:"adopted_date,omitempty" xml:"adopted_date,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 标记
-	Marks []*string `json:"marks,omitempty" xml:"marks,omitempty" type:"Repeated"`
-}
-
-func (s Dog) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Dog) GoString() string {
-	return s.String()
-}
-
-func (s *Dog) SetName(v string) *Dog {
-	s.Name = &v
-	return s
-}
-
-func (s *Dog) SetAge(v int64) *Dog {
-	s.Age = &v
-	return s
-}
-
-func (s *Dog) SetIsAdopted(v bool) *Dog {
-	s.IsAdopted = &v
-	return s
-}
-
-func (s *Dog) SetAdoptedDate(v string) *Dog {
-	s.AdoptedDate = &v
-	return s
-}
-
-func (s *Dog) SetMarks(v []*string) *Dog {
-	s.Marks = v
-	return s
-}
-
-// 狗狗之家
-type DogHome struct {
-	// 狗狗成员
-	DogMembers []*Dog `json:"dog_members,omitempty" xml:"dog_members,omitempty" require:"true" type:"Repeated"`
-	// 狗狗头目
-	Leader *Dog `json:"leader,omitempty" xml:"leader,omitempty" require:"true"`
-}
-
-func (s DogHome) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DogHome) GoString() string {
-	return s.String()
-}
-
-func (s *DogHome) SetDogMembers(v []*Dog) *DogHome {
-	s.DogMembers = v
-	return s
-}
-
-func (s *DogHome) SetLeader(v *Dog) *DogHome {
-	s.Leader = v
-	return s
-}
-
-type GetDemoDogAgeRequest struct {
+type BindDemoGatewayAbcTestRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 数组结构体
-	Dog []*Dog `json:"dog,omitempty" xml:"dog,omitempty" type:"Repeated"`
-	// 狗狗的id
-	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 结构体
-	Home *DogHome `json:"home,omitempty" xml:"home,omitempty" require:"true"`
-	// alipay
-	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// test
-	Test *string `json:"test,omitempty" xml:"test,omitempty" require:"true"`
 }
 
-func (s GetDemoDogAgeRequest) String() string {
+func (s BindDemoGatewayAbcTestRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetDemoDogAgeRequest) GoString() string {
+func (s BindDemoGatewayAbcTestRequest) GoString() string {
 	return s.String()
 }
 
-func (s *GetDemoDogAgeRequest) SetAuthToken(v string) *GetDemoDogAgeRequest {
+func (s *BindDemoGatewayAbcTestRequest) SetAuthToken(v string) *BindDemoGatewayAbcTestRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *GetDemoDogAgeRequest) SetProductInstanceId(v string) *GetDemoDogAgeRequest {
+func (s *BindDemoGatewayAbcTestRequest) SetProductInstanceId(v string) *BindDemoGatewayAbcTestRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *GetDemoDogAgeRequest) SetDog(v []*Dog) *GetDemoDogAgeRequest {
-	s.Dog = v
-	return s
-}
-
-func (s *GetDemoDogAgeRequest) SetId(v int64) *GetDemoDogAgeRequest {
-	s.Id = &v
-	return s
-}
-
-func (s *GetDemoDogAgeRequest) SetHome(v *DogHome) *GetDemoDogAgeRequest {
-	s.Home = v
-	return s
-}
-
-func (s *GetDemoDogAgeRequest) SetFileId(v string) *GetDemoDogAgeRequest {
-	s.FileId = &v
-	return s
-}
-
-func (s *GetDemoDogAgeRequest) SetTest(v string) *GetDemoDogAgeRequest {
-	s.Test = &v
-	return s
-}
-
-type GetDemoDogAgeResponse struct {
+type BindDemoGatewayAbcTestResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 年龄
-	Age *int64 `json:"age,omitempty" xml:"age,omitempty"`
 }
 
-func (s GetDemoDogAgeResponse) String() string {
+func (s BindDemoGatewayAbcTestResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetDemoDogAgeResponse) GoString() string {
+func (s BindDemoGatewayAbcTestResponse) GoString() string {
 	return s.String()
 }
 
-func (s *GetDemoDogAgeResponse) SetReqMsgId(v string) *GetDemoDogAgeResponse {
+func (s *BindDemoGatewayAbcTestResponse) SetReqMsgId(v string) *BindDemoGatewayAbcTestResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *GetDemoDogAgeResponse) SetResultCode(v string) *GetDemoDogAgeResponse {
+func (s *BindDemoGatewayAbcTestResponse) SetResultCode(v string) *BindDemoGatewayAbcTestResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *GetDemoDogAgeResponse) SetResultMsg(v string) *GetDemoDogAgeResponse {
+func (s *BindDemoGatewayAbcTestResponse) SetResultMsg(v string) *BindDemoGatewayAbcTestResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *GetDemoDogAgeResponse) SetAge(v int64) *GetDemoDogAgeResponse {
-	s.Age = &v
-	return s
-}
-
-type GetAntcloudCatAgeRequest struct {
-	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 猫猫的id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// a a a
-	Time *string `json:"time,omitempty" xml:"time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s GetAntcloudCatAgeRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GetAntcloudCatAgeRequest) GoString() string {
-	return s.String()
-}
-
-func (s *GetAntcloudCatAgeRequest) SetAuthToken(v string) *GetAntcloudCatAgeRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *GetAntcloudCatAgeRequest) SetId(v string) *GetAntcloudCatAgeRequest {
-	s.Id = &v
-	return s
-}
-
-func (s *GetAntcloudCatAgeRequest) SetTime(v string) *GetAntcloudCatAgeRequest {
-	s.Time = &v
-	return s
-}
-
-type GetAntcloudCatAgeResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 猫的年龄
-	Age *string `json:"age,omitempty" xml:"age,omitempty"`
-}
-
-func (s GetAntcloudCatAgeResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s GetAntcloudCatAgeResponse) GoString() string {
-	return s.String()
-}
-
-func (s *GetAntcloudCatAgeResponse) SetReqMsgId(v string) *GetAntcloudCatAgeResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *GetAntcloudCatAgeResponse) SetResultCode(v string) *GetAntcloudCatAgeResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *GetAntcloudCatAgeResponse) SetResultMsg(v string) *GetAntcloudCatAgeResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *GetAntcloudCatAgeResponse) SetAge(v string) *GetAntcloudCatAgeResponse {
-	s.Age = &v
 	return s
 }
 
@@ -453,25 +267,31 @@ func (s *BindDemoAaaBbbCccResponse) SetResultMsg(v string) *BindDemoAaaBbbCccRes
 	return s
 }
 
-type BindAntcloudCatTestRequest struct {
+type BindDemoAsdAsdRequest struct {
 	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 }
 
-func (s BindAntcloudCatTestRequest) String() string {
+func (s BindDemoAsdAsdRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s BindAntcloudCatTestRequest) GoString() string {
+func (s BindDemoAsdAsdRequest) GoString() string {
 	return s.String()
 }
 
-func (s *BindAntcloudCatTestRequest) SetAuthToken(v string) *BindAntcloudCatTestRequest {
+func (s *BindDemoAsdAsdRequest) SetAuthToken(v string) *BindDemoAsdAsdRequest {
 	s.AuthToken = &v
 	return s
 }
 
-type BindAntcloudCatTestResponse struct {
+func (s *BindDemoAsdAsdRequest) SetProductInstanceId(v string) *BindDemoAsdAsdRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type BindDemoAsdAsdResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -480,25 +300,165 @@ type BindAntcloudCatTestResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
-func (s BindAntcloudCatTestResponse) String() string {
+func (s BindDemoAsdAsdResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s BindAntcloudCatTestResponse) GoString() string {
+func (s BindDemoAsdAsdResponse) GoString() string {
 	return s.String()
 }
 
-func (s *BindAntcloudCatTestResponse) SetReqMsgId(v string) *BindAntcloudCatTestResponse {
+func (s *BindDemoAsdAsdResponse) SetReqMsgId(v string) *BindDemoAsdAsdResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *BindAntcloudCatTestResponse) SetResultCode(v string) *BindAntcloudCatTestResponse {
+func (s *BindDemoAsdAsdResponse) SetResultCode(v string) *BindDemoAsdAsdResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *BindAntcloudCatTestResponse) SetResultMsg(v string) *BindAntcloudCatTestResponse {
+func (s *BindDemoAsdAsdResponse) SetResultMsg(v string) *BindDemoAsdAsdResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdateDemoCjtestCjRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 测试参数
+	Var1 *string `json:"var1,omitempty" xml:"var1,omitempty" require:"true"`
+	// 测试参数2
+	Var2 *string `json:"var2,omitempty" xml:"var2,omitempty" require:"true"`
+	// 被授权机构did
+	Subject *string `json:"subject,omitempty" xml:"subject,omitempty"`
+}
+
+func (s UpdateDemoCjtestCjRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDemoCjtestCjRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDemoCjtestCjRequest) SetAuthToken(v string) *UpdateDemoCjtestCjRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateDemoCjtestCjRequest) SetProductInstanceId(v string) *UpdateDemoCjtestCjRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateDemoCjtestCjRequest) SetVar1(v string) *UpdateDemoCjtestCjRequest {
+	s.Var1 = &v
+	return s
+}
+
+func (s *UpdateDemoCjtestCjRequest) SetVar2(v string) *UpdateDemoCjtestCjRequest {
+	s.Var2 = &v
+	return s
+}
+
+func (s *UpdateDemoCjtestCjRequest) SetSubject(v string) *UpdateDemoCjtestCjRequest {
+	s.Subject = &v
+	return s
+}
+
+type UpdateDemoCjtestCjResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 测试返回参数1
+	Return1 *string `json:"return1,omitempty" xml:"return1,omitempty"`
+}
+
+func (s UpdateDemoCjtestCjResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDemoCjtestCjResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDemoCjtestCjResponse) SetReqMsgId(v string) *UpdateDemoCjtestCjResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateDemoCjtestCjResponse) SetResultCode(v string) *UpdateDemoCjtestCjResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateDemoCjtestCjResponse) SetResultMsg(v string) *UpdateDemoCjtestCjResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateDemoCjtestCjResponse) SetReturn1(v string) *UpdateDemoCjtestCjResponse {
+	s.Return1 = &v
+	return s
+}
+
+type QueryDemoAbcAbcAbcRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryDemoAbcAbcAbcRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoAbcAbcAbcRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoAbcAbcAbcRequest) SetAuthToken(v string) *QueryDemoAbcAbcAbcRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDemoAbcAbcAbcRequest) SetProductInstanceId(v string) *QueryDemoAbcAbcAbcRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryDemoAbcAbcAbcResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryDemoAbcAbcAbcResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoAbcAbcAbcResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoAbcAbcAbcResponse) SetReqMsgId(v string) *QueryDemoAbcAbcAbcResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDemoAbcAbcAbcResponse) SetResultCode(v string) *QueryDemoAbcAbcAbcResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDemoAbcAbcAbcResponse) SetResultMsg(v string) *QueryDemoAbcAbcAbcResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -625,7 +585,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_250f978053da425e919991f8f283b559"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -676,14 +636,14 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: 该接口用于获取狗狗的年龄
- * Summary: 获取狗狗的年龄
+ * Description: test
+ * Summary: test
  */
-func (client *Client) GetDemoDogAge(request *GetDemoDogAgeRequest) (_result *GetDemoDogAgeResponse, _err error) {
+func (client *Client) BindDemoGatewayAbcTest(request *BindDemoGatewayAbcTestRequest) (_result *BindDemoGatewayAbcTestResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &GetDemoDogAgeResponse{}
-	_body, _err := client.GetDemoDogAgeEx(request, headers, runtime)
+	_result = &BindDemoGatewayAbcTestResponse{}
+	_body, _err := client.BindDemoGatewayAbcTestEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -692,50 +652,16 @@ func (client *Client) GetDemoDogAge(request *GetDemoDogAgeRequest) (_result *Get
 }
 
 /**
- * Description: 该接口用于获取狗狗的年龄
- * Summary: 获取狗狗的年龄
+ * Description: test
+ * Summary: test
  */
-func (client *Client) GetDemoDogAgeEx(request *GetDemoDogAgeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetDemoDogAgeResponse, _err error) {
+func (client *Client) BindDemoGatewayAbcTestEx(request *BindDemoGatewayAbcTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoGatewayAbcTestResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &GetDemoDogAgeResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.dog.age.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 这接口用于获取猫猫的年龄
- * Summary: 获取猫猫的年龄
- */
-func (client *Client) GetAntcloudCatAge(request *GetAntcloudCatAgeRequest) (_result *GetAntcloudCatAgeResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &GetAntcloudCatAgeResponse{}
-	_body, _err := client.GetAntcloudCatAgeEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 这接口用于获取猫猫的年龄
- * Summary: 获取猫猫的年龄
- */
-func (client *Client) GetAntcloudCatAgeEx(request *GetAntcloudCatAgeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAntcloudCatAgeResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &GetAntcloudCatAgeResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cat.age.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &BindDemoGatewayAbcTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.gateway.abc.test.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -778,14 +704,14 @@ func (client *Client) BindDemoAaaBbbCccEx(request *BindDemoAaaBbbCccRequest, hea
 }
 
 /**
- * Description: tests
- * Summary: test
+ * Description: 1·2
+ * Summary: 测试
  */
-func (client *Client) BindAntcloudCatTest(request *BindAntcloudCatTestRequest) (_result *BindAntcloudCatTestResponse, _err error) {
+func (client *Client) BindDemoAsdAsd(request *BindDemoAsdAsdRequest) (_result *BindDemoAsdAsdResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &BindAntcloudCatTestResponse{}
-	_body, _err := client.BindAntcloudCatTestEx(request, headers, runtime)
+	_result = &BindDemoAsdAsdResponse{}
+	_body, _err := client.BindDemoAsdAsdEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -794,16 +720,84 @@ func (client *Client) BindAntcloudCatTest(request *BindAntcloudCatTestRequest) (
 }
 
 /**
- * Description: tests
- * Summary: test
+ * Description: 1·2
+ * Summary: 测试
  */
-func (client *Client) BindAntcloudCatTestEx(request *BindAntcloudCatTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindAntcloudCatTestResponse, _err error) {
+func (client *Client) BindDemoAsdAsdEx(request *BindDemoAsdAsdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoAsdAsdResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &BindAntcloudCatTestResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.cat.test.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &BindDemoAsdAsdResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.asd.asd.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试网关评审能力
+ * Summary: 评审测试
+ */
+func (client *Client) UpdateDemoCjtestCj(request *UpdateDemoCjtestCjRequest) (_result *UpdateDemoCjtestCjResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateDemoCjtestCjResponse{}
+	_body, _err := client.UpdateDemoCjtestCjEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试网关评审能力
+ * Summary: 评审测试
+ */
+func (client *Client) UpdateDemoCjtestCjEx(request *UpdateDemoCjtestCjRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateDemoCjtestCjResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateDemoCjtestCjResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.cjtest.cj.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 自动化测试创建,用于测试API的修改
+ * Summary: 自动化测试创建,用于测试API的修改勿动
+ */
+func (client *Client) QueryDemoAbcAbcAbc(request *QueryDemoAbcAbcAbcRequest) (_result *QueryDemoAbcAbcAbcResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDemoAbcAbcAbcResponse{}
+	_body, _err := client.QueryDemoAbcAbcAbcEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 自动化测试创建,用于测试API的修改
+ * Summary: 自动化测试创建,用于测试API的修改勿动
+ */
+func (client *Client) QueryDemoAbcAbcAbcEx(request *QueryDemoAbcAbcAbcRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoAbcAbcAbcResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDemoAbcAbcAbcResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.abc.abc.abc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
