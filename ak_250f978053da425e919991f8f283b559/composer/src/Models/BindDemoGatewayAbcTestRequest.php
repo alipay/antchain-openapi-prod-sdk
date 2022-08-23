@@ -6,7 +6,7 @@ namespace AntChain\Ak_250f978053da425e919991f8f283b559\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetAntcloudCatAgeRequest extends Model
+class BindDemoGatewayAbcTestRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,27 +14,17 @@ class GetAntcloudCatAgeRequest extends Model
      */
     public $authToken;
 
-    // 猫猫的id
     /**
      * @var string
      */
-    public $id;
-
-    // a a a
-    /**
-     * @var string
-     */
-    public $time;
+    public $productInstanceId;
     protected $_name = [
-        'authToken' => 'auth_token',
-        'id'        => 'id',
-        'time'      => 'time',
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('id', $this->id, true);
-        Model::validatePattern('time', $this->time, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -43,11 +33,8 @@ class GetAntcloudCatAgeRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->id) {
-            $res['id'] = $this->id;
-        }
-        if (null !== $this->time) {
-            $res['time'] = $this->time;
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
         }
 
         return $res;
@@ -56,7 +43,7 @@ class GetAntcloudCatAgeRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetAntcloudCatAgeRequest
+     * @return BindDemoGatewayAbcTestRequest
      */
     public static function fromMap($map = [])
     {
@@ -64,11 +51,8 @@ class GetAntcloudCatAgeRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['id'])) {
-            $model->id = $map['id'];
-        }
-        if (isset($map['time'])) {
-            $model->time = $map['time'];
+        if (isset($map['product_instance_id'])) {
+            $model->productInstanceId = $map['product_instance_id'];
         }
 
         return $model;

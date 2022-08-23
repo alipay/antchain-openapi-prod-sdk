@@ -6,7 +6,7 @@ namespace AntChain\Ak_250f978053da425e919991f8f283b559\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetAntcloudCatAgeResponse extends Model
+class QueryDemoAbcAbcAbcResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class GetAntcloudCatAgeResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 猫的年龄
-    /**
-     * @var string
-     */
-    public $age;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'age'        => 'age',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class GetAntcloudCatAgeResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->age) {
-            $res['age'] = $this->age;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class GetAntcloudCatAgeResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetAntcloudCatAgeResponse
+     * @return QueryDemoAbcAbcAbcResponse
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class GetAntcloudCatAgeResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['age'])) {
-            $model->age = $map['age'];
         }
 
         return $model;

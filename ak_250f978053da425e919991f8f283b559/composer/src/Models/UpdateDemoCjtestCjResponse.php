@@ -6,7 +6,7 @@ namespace AntChain\Ak_250f978053da425e919991f8f283b559\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BindAntcloudCatTestResponse extends Model
+class UpdateDemoCjtestCjResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,17 @@ class BindAntcloudCatTestResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 测试返回参数1
+    /**
+     * @var string
+     */
+    public $return1;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'return1'    => 'return1',
     ];
 
     public function validate()
@@ -47,6 +54,9 @@ class BindAntcloudCatTestResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->return1) {
+            $res['return1'] = $this->return1;
+        }
 
         return $res;
     }
@@ -54,7 +64,7 @@ class BindAntcloudCatTestResponse extends Model
     /**
      * @param array $map
      *
-     * @return BindAntcloudCatTestResponse
+     * @return UpdateDemoCjtestCjResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +77,9 @@ class BindAntcloudCatTestResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['return1'])) {
+            $model->return1 = $map['return1'];
         }
 
         return $model;
