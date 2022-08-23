@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_250f978053da425e919991f8f283b559.Models
 {
-    public class GetAntcloudCatAgeResponse : TeaModel {
+    public class UpdateDemoCjtestCjResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.Ak_250f978053da425e919991f8f283b559.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 猫的年龄
-        [NameInMap("age")]
+        // 测试返回参数1
+        [NameInMap("return1")]
         [Validation(Required=false)]
-        public string Age { get; set; }
+        public string Return1 { get; set; }
 
     }
 

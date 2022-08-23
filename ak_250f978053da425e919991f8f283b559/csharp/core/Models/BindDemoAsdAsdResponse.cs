@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_250f978053da425e919991f8f283b559.Models
 {
-    public class BindAntcloudCatTestResponse : TeaModel {
+    public class BindDemoAsdAsdResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]

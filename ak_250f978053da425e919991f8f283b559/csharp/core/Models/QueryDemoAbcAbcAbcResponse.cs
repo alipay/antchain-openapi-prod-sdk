@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_250f978053da425e919991f8f283b559.Models
 {
-    public class GetDemoDogAgeResponse : TeaModel {
+    public class QueryDemoAbcAbcAbcResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,11 +23,6 @@ namespace AntChain.SDK.Ak_250f978053da425e919991f8f283b559.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
-
-        // 年龄
-        [NameInMap("age")]
-        [Validation(Required=false)]
-        public long? Age { get; set; }
 
     }
 
