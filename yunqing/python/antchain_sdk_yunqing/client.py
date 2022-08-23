@@ -135,12 +135,14 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.14.14'
+                    'sdk_version': '3.14.18',
+                    '_prod_code': 'YUNQING',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
                 _request.headers = TeaCore.merge({
-                    'host': UtilClient.default_string(self._endpoint, 'openapi.antchain.antgroup.com'),
+                    'host': UtilClient.default_string(self._endpoint, 'prodapigw-sofastack.cloud.alipay.com'),
                     'user-agent': UtilClient.get_user_agent(self._user_agent)
                 }, headers)
                 tmp = UtilClient.anyify_map_value(RPCUtilClient.query(request))
@@ -237,12 +239,14 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.14.14'
+                    'sdk_version': '3.14.18',
+                    '_prod_code': 'YUNQING',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
                 _request.headers = TeaCore.merge({
-                    'host': UtilClient.default_string(self._endpoint, 'openapi.antchain.antgroup.com'),
+                    'host': UtilClient.default_string(self._endpoint, 'prodapigw-sofastack.cloud.alipay.com'),
                     'user-agent': UtilClient.get_user_agent(self._user_agent)
                 }, headers)
                 tmp = UtilClient.anyify_map_value(RPCUtilClient.query(request))
@@ -306,7 +310,8 @@ class Client:
         Summary: 创建一个运维单。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CreateAppopsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CreateAppopsResponse(),
             self.do_request('1.0', 'yunyou.yunqing.appops.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +326,8 @@ class Client:
         Summary: 创建一个运维单。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CreateAppopsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CreateAppopsResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.appops.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +366,8 @@ class Client:
         Summary: 查询一个运维单详情。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetAppopsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetAppopsResponse(),
             self.do_request('1.0', 'yunyou.yunqing.appops.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +382,8 @@ class Client:
         Summary: 查询一个运维单详情。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetAppopsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetAppopsResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.appops.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +422,8 @@ class Client:
         Summary: 重试一个运维单。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.RetryAppopsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.RetryAppopsResponse(),
             self.do_request('1.0', 'yunyou.yunqing.appops.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +438,8 @@ class Client:
         Summary: 重试一个运维单。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.RetryAppopsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.RetryAppopsResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.appops.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +478,8 @@ class Client:
         Summary: 取消一个发布单。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CancelAppopsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CancelAppopsResponse(),
             self.do_request('1.0', 'yunyou.yunqing.appops.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +494,8 @@ class Client:
         Summary: 取消一个发布单。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CancelAppopsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CancelAppopsResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.appops.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +534,8 @@ class Client:
         Summary: 已废弃，勿用！！！
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ScaleProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ScaleProdinstanceAppserviceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prodinstance.appservice.scale', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +550,8 @@ class Client:
         Summary: 已废弃，勿用！！！
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ScaleProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ScaleProdinstanceAppserviceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.appservice.scale', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +590,8 @@ class Client:
         Summary: 获取环境列表。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ListEnvResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ListEnvResponse(),
             self.do_request('1.0', 'yunyou.yunqing.env.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +606,8 @@ class Client:
         Summary: 获取环境列表。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ListEnvResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ListEnvResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.env.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +646,8 @@ class Client:
         Summary: 获取应用服务实例详情信息。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetProdinstanceAppserviceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prodinstance.appservice.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +662,8 @@ class Client:
         Summary: 获取应用服务实例详情信息。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetProdinstanceAppserviceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.appservice.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +702,8 @@ class Client:
         Summary: 查询产品实例。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryProdinstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryProdinstanceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prodinstance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +718,8 @@ class Client:
         Summary: 查询产品实例。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryProdinstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryProdinstanceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -738,7 +758,8 @@ class Client:
         Summary: 卸载基线产品实例
         """
         UtilClient.validate_model(request)
-        return yunqing_models.UninstallProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.UninstallProdinstanceAppserviceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prodinstance.appservice.uninstall', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -753,7 +774,8 @@ class Client:
         Summary: 卸载基线产品实例
         """
         UtilClient.validate_model(request)
-        return yunqing_models.UninstallProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.UninstallProdinstanceAppserviceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.appservice.uninstall', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -792,7 +814,8 @@ class Client:
         Summary: 创建部署单元实例
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CreateProdinstanceDeployunitResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CreateProdinstanceDeployunitResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prodinstance.deployunit.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -807,7 +830,8 @@ class Client:
         Summary: 创建部署单元实例
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CreateProdinstanceDeployunitResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CreateProdinstanceDeployunitResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.deployunit.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -846,7 +870,8 @@ class Client:
         Summary: 废弃，勿用！！！
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryUnitinstanceCreationResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryUnitinstanceCreationResponse(),
             self.do_request('1.0', 'yunyou.yunqing.unitinstance.creation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -861,7 +886,8 @@ class Client:
         Summary: 废弃，勿用！！！
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryUnitinstanceCreationResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryUnitinstanceCreationResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.unitinstance.creation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -900,7 +926,8 @@ class Client:
         Summary: 废弃，勿用！！！
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetUnitDetailResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetUnitDetailResponse(),
             self.do_request('1.0', 'yunyou.yunqing.unit.detail.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -915,7 +942,8 @@ class Client:
         Summary: 废弃，勿用！！！
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetUnitDetailResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetUnitDetailResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.unit.detail.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -954,7 +982,8 @@ class Client:
         Summary: 查询应用服务实例信息。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryProdinstanceAppserviceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prodinstance.appservice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -969,7 +998,8 @@ class Client:
         Summary: 查询应用服务实例信息。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryProdinstanceAppserviceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.appservice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1008,7 +1038,8 @@ class Client:
         Summary: 获取单元实例信息
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetProdinstanceDeployunitResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetProdinstanceDeployunitResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prodinstance.deployunit.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1023,7 +1054,8 @@ class Client:
         Summary: 获取单元实例信息
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetProdinstanceDeployunitResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetProdinstanceDeployunitResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.deployunit.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1062,7 +1094,8 @@ class Client:
         Summary: 获取产品实例下的部署单元列表
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ListProdinstanceDeployunitResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ListProdinstanceDeployunitResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prodinstance.deployunit.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1077,7 +1110,8 @@ class Client:
         Summary: 获取产品实例下的部署单元列表
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ListProdinstanceDeployunitResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ListProdinstanceDeployunitResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.deployunit.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1116,7 +1150,8 @@ class Client:
         Summary: 指定应用服务扩容。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ScaleoutProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ScaleoutProdinstanceAppserviceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prodinstance.appservice.scaleout', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1131,7 +1166,8 @@ class Client:
         Summary: 指定应用服务扩容。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ScaleoutProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ScaleoutProdinstanceAppserviceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.appservice.scaleout', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1170,7 +1206,8 @@ class Client:
         Summary: 查询用户授权信息
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryAuthResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryAuthResponse(),
             self.do_request('1.0', 'yunyou.yunqing.auth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1185,7 +1222,8 @@ class Client:
         Summary: 查询用户授权信息
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryAuthResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryAuthResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.auth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1224,7 +1262,8 @@ class Client:
         Summary: 导入用户授权
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ImportAuthResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ImportAuthResponse(),
             self.do_request('1.0', 'yunyou.yunqing.auth.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1239,7 +1278,8 @@ class Client:
         Summary: 导入用户授权
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ImportAuthResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ImportAuthResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.auth.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1278,7 +1318,8 @@ class Client:
         Summary: 获取Local系统信息
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetSystemResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetSystemResponse(),
             self.do_request('1.0', 'yunyou.yunqing.system.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1293,7 +1334,8 @@ class Client:
         Summary: 获取Local系统信息
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetSystemResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetSystemResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.system.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1332,7 +1374,8 @@ class Client:
         Summary: 应用服务缩容。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ScaleinProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ScaleinProdinstanceAppserviceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prodinstance.appservice.scalein', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1347,7 +1390,8 @@ class Client:
         Summary: 应用服务缩容。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ScaleinProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ScaleinProdinstanceAppserviceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.appservice.scalein', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1386,7 +1430,8 @@ class Client:
         Summary: 查询一个环境内的全部应用服务实例信息。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.AllProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.AllProdinstanceAppserviceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prodinstance.appservice.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1401,7 +1446,8 @@ class Client:
         Summary: 查询一个环境内的全部应用服务实例信息。
         """
         UtilClient.validate_model(request)
-        return yunqing_models.AllProdinstanceAppserviceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.AllProdinstanceAppserviceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.appservice.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1440,7 +1486,8 @@ class Client:
         Summary: 创建一个自动巡检测试单
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CreateAutotestopsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CreateAutotestopsResponse(),
             self.do_request('1.0', 'yunyou.yunqing.autotestops.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1455,7 +1502,8 @@ class Client:
         Summary: 创建一个自动巡检测试单
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CreateAutotestopsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CreateAutotestopsResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.autotestops.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1494,7 +1542,8 @@ class Client:
         Summary: 获取测试单详情
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetAutotestopsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetAutotestopsResponse(),
             self.do_request('1.0', 'yunyou.yunqing.autotestops.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1509,7 +1558,8 @@ class Client:
         Summary: 获取测试单详情
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetAutotestopsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetAutotestopsResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.autotestops.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1548,7 +1598,8 @@ class Client:
         Summary: 基线数据回流
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ExportBaselineResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ExportBaselineResponse(),
             self.do_request('1.0', 'yunyou.yunqing.baseline.export', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1563,7 +1614,8 @@ class Client:
         Summary: 基线数据回流
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ExportBaselineResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ExportBaselineResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.baseline.export', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1602,7 +1654,8 @@ class Client:
         Summary: 创建一个发布单
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CreateAppdeployResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CreateAppdeployResponse(),
             self.do_request('1.0', 'yunyou.yunqing.appdeploy.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1617,7 +1670,8 @@ class Client:
         Summary: 创建一个发布单
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CreateAppdeployResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CreateAppdeployResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.appdeploy.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1656,7 +1710,8 @@ class Client:
         Summary: 查询环境中的解决方案实例
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QuerySolutioninstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QuerySolutioninstanceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.solutioninstance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1671,7 +1726,8 @@ class Client:
         Summary: 查询环境中的解决方案实例
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QuerySolutioninstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QuerySolutioninstanceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.solutioninstance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1710,7 +1766,8 @@ class Client:
         Summary: 导入解决方案
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ImportSolutioninstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ImportSolutioninstanceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.solutioninstance.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1725,7 +1782,8 @@ class Client:
         Summary: 导入解决方案
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ImportSolutioninstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ImportSolutioninstanceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.solutioninstance.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1764,7 +1822,8 @@ class Client:
         Summary: 检查解决方案是否可以导入
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CheckSolutioninstanceImportResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CheckSolutioninstanceImportResponse(),
             self.do_request('1.0', 'yunyou.yunqing.solutioninstance.import.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1779,7 +1838,8 @@ class Client:
         Summary: 检查解决方案是否可以导入
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CheckSolutioninstanceImportResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CheckSolutioninstanceImportResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.solutioninstance.import.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1818,7 +1878,8 @@ class Client:
         Summary: 返回解决方案支持的操作列表
         """
         UtilClient.validate_model(request)
-        return yunqing_models.DescribeSolutioninstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.DescribeSolutioninstanceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.solutioninstance.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1833,7 +1894,8 @@ class Client:
         Summary: 返回解决方案支持的操作列表
         """
         UtilClient.validate_model(request)
-        return yunqing_models.DescribeSolutioninstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.DescribeSolutioninstanceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.solutioninstance.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1872,7 +1934,8 @@ class Client:
         Summary: 废弃一个解决方案
         """
         UtilClient.validate_model(request)
-        return yunqing_models.DeprecateSolutioninstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.DeprecateSolutioninstanceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.solutioninstance.deprecate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1887,7 +1950,8 @@ class Client:
         Summary: 废弃一个解决方案
         """
         UtilClient.validate_model(request)
-        return yunqing_models.DeprecateSolutioninstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.DeprecateSolutioninstanceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.solutioninstance.deprecate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1926,7 +1990,8 @@ class Client:
         Summary: 完成一个解决方案
         """
         UtilClient.validate_model(request)
-        return yunqing_models.FinishSolutioninstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.FinishSolutioninstanceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.solutioninstance.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1941,7 +2006,8 @@ class Client:
         Summary: 完成一个解决方案
         """
         UtilClient.validate_model(request)
-        return yunqing_models.FinishSolutioninstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.FinishSolutioninstanceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.solutioninstance.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1980,7 +2046,8 @@ class Client:
         Summary: reopen一个解决方案
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ReopenSolutioninstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ReopenSolutioninstanceResponse(),
             self.do_request('1.0', 'yunyou.yunqing.solutioninstance.reopen', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1995,7 +2062,8 @@ class Client:
         Summary: reopen一个解决方案
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ReopenSolutioninstanceResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ReopenSolutioninstanceResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.solutioninstance.reopen', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2034,7 +2102,8 @@ class Client:
         Summary: 导入一个云架构
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ImportEnvMetaResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ImportEnvMetaResponse(),
             self.do_request('1.0', 'yunyou.yunqing.env.meta.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2049,7 +2118,8 @@ class Client:
         Summary: 导入一个云架构
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ImportEnvMetaResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ImportEnvMetaResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.env.meta.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2088,7 +2158,8 @@ class Client:
         Summary: 导入产品元数据
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ImportProdMetaResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ImportProdMetaResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prod.meta.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2103,7 +2174,8 @@ class Client:
         Summary: 导入产品元数据
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ImportProdMetaResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ImportProdMetaResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prod.meta.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2142,7 +2214,8 @@ class Client:
         Summary: 卸载部署单元实例
         """
         UtilClient.validate_model(request)
-        return yunqing_models.UninstallProdinstanceDeployunitResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.UninstallProdinstanceDeployunitResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prodinstance.deployunit.uninstall', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2157,7 +2230,8 @@ class Client:
         Summary: 卸载部署单元实例
         """
         UtilClient.validate_model(request)
-        return yunqing_models.UninstallProdinstanceDeployunitResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.UninstallProdinstanceDeployunitResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.deployunit.uninstall', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2196,7 +2270,8 @@ class Client:
         Summary: 集群内部pod信息查询，巡检使用
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryClusterPodsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryClusterPodsResponse(),
             self.do_request('1.0', 'yunyou.yunqing.cluster.pods.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2211,7 +2286,8 @@ class Client:
         Summary: 集群内部pod信息查询，巡检使用
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryClusterPodsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryClusterPodsResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.cluster.pods.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2250,7 +2326,8 @@ class Client:
         Summary: 集群内部kubeconfig查询巡检使用
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryClusterKubeconfigResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryClusterKubeconfigResponse(),
             self.do_request('1.0', 'yunyou.yunqing.cluster.kubeconfig.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2265,7 +2342,8 @@ class Client:
         Summary: 集群内部kubeconfig查询巡检使用
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryClusterKubeconfigResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryClusterKubeconfigResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.cluster.kubeconfig.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2307,7 +2385,8 @@ class Client:
         Summary: 生成公网访问的slb
         """
         UtilClient.validate_model(request)
-        return yunqing_models.EnableDynamicslbResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.EnableDynamicslbResponse(),
             self.do_request('1.0', 'yunyou.yunqing.dynamicslb.enable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2323,7 +2402,8 @@ class Client:
         Summary: 生成公网访问的slb
         """
         UtilClient.validate_model(request)
-        return yunqing_models.EnableDynamicslbResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.EnableDynamicslbResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.dynamicslb.enable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2365,7 +2445,8 @@ class Client:
         Summary: 移除公网访问的slb
         """
         UtilClient.validate_model(request)
-        return yunqing_models.DisableDynamicslbResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.DisableDynamicslbResponse(),
             self.do_request('1.0', 'yunyou.yunqing.dynamicslb.disable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2381,7 +2462,8 @@ class Client:
         Summary: 移除公网访问的slb
         """
         UtilClient.validate_model(request)
-        return yunqing_models.DisableDynamicslbResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.DisableDynamicslbResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.dynamicslb.disable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2420,7 +2502,8 @@ class Client:
         Summary: 云游环境下应用dns的上下线
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ExecClusterDnsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ExecClusterDnsResponse(),
             self.do_request('1.0', 'yunyou.yunqing.cluster.dns.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2435,7 +2518,8 @@ class Client:
         Summary: 云游环境下应用dns的上下线
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ExecClusterDnsResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ExecClusterDnsResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.cluster.dns.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2474,7 +2558,8 @@ class Client:
         Summary: 云游环境下应用容器的下线
         """
         UtilClient.validate_model(request)
-        return yunqing_models.OfflineClusterContainerResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.OfflineClusterContainerResponse(),
             self.do_request('1.0', 'yunyou.yunqing.cluster.container.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2489,7 +2574,8 @@ class Client:
         Summary: 云游环境下应用容器的下线
         """
         UtilClient.validate_model(request)
-        return yunqing_models.OfflineClusterContainerResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.OfflineClusterContainerResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.cluster.container.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2528,7 +2614,8 @@ class Client:
         Summary: 云游环境下应用容器的上线
         """
         UtilClient.validate_model(request)
-        return yunqing_models.OnlineClusterContainerResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.OnlineClusterContainerResponse(),
             self.do_request('1.0', 'yunyou.yunqing.cluster.container.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2543,7 +2630,8 @@ class Client:
         Summary: 云游环境下应用容器的上线
         """
         UtilClient.validate_model(request)
-        return yunqing_models.OnlineClusterContainerResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.OnlineClusterContainerResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.cluster.container.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2582,7 +2670,8 @@ class Client:
         Summary: 查询应用启动参数
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryAppparamResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryAppparamResponse(),
             self.do_request('1.0', 'yunyou.yunqing.appparam.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2597,7 +2686,8 @@ class Client:
         Summary: 查询应用启动参数
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryAppparamResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryAppparamResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.appparam.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2636,7 +2726,8 @@ class Client:
         Summary: 查询产品解决方案的所有发布单
         """
         UtilClient.validate_model(request)
-        return yunqing_models.PagequerySolutionOpsplanResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.PagequerySolutionOpsplanResponse(),
             self.do_request('1.0', 'yunyou.yunqing.solution.opsplan.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2651,7 +2742,8 @@ class Client:
         Summary: 查询产品解决方案的所有发布单
         """
         UtilClient.validate_model(request)
-        return yunqing_models.PagequerySolutionOpsplanResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.PagequerySolutionOpsplanResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.solution.opsplan.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2690,7 +2782,8 @@ class Client:
         Summary: 确认解决方案规划
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ConfirmSolutionPlanResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ConfirmSolutionPlanResponse(),
             self.do_request('1.0', 'yunyou.yunqing.solution.plan.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2705,7 +2798,8 @@ class Client:
         Summary: 确认解决方案规划
         """
         UtilClient.validate_model(request)
-        return yunqing_models.ConfirmSolutionPlanResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.ConfirmSolutionPlanResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.solution.plan.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2744,7 +2838,8 @@ class Client:
         Summary: 解决方案是否完成规划
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetSolutionPlanstatusResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetSolutionPlanstatusResponse(),
             self.do_request('1.0', 'yunyou.yunqing.solution.planstatus.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2759,7 +2854,8 @@ class Client:
         Summary: 解决方案是否完成规划
         """
         UtilClient.validate_model(request)
-        return yunqing_models.GetSolutionPlanstatusResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.GetSolutionPlanstatusResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.solution.planstatus.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2798,7 +2894,8 @@ class Client:
         Summary: 分页查询迭代详情
         """
         UtilClient.validate_model(request)
-        return yunqing_models.PagequeryProditerationResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.PagequeryProditerationResponse(),
             self.do_request('1.0', 'yunyou.yunqing.proditeration.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2813,7 +2910,8 @@ class Client:
         Summary: 分页查询迭代详情
         """
         UtilClient.validate_model(request)
-        return yunqing_models.PagequeryProditerationResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.PagequeryProditerationResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.proditeration.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2852,7 +2950,8 @@ class Client:
         Summary: 部署单元批量创建
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CreateProdinstanceDeployunitbatchResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CreateProdinstanceDeployunitbatchResponse(),
             self.do_request('1.0', 'yunyou.yunqing.prodinstance.deployunitbatch.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2867,7 +2966,8 @@ class Client:
         Summary: 部署单元批量创建
         """
         UtilClient.validate_model(request)
-        return yunqing_models.CreateProdinstanceDeployunitbatchResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.CreateProdinstanceDeployunitbatchResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.prodinstance.deployunitbatch.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2906,7 +3006,8 @@ class Client:
         Summary: 发布单应用回滚
         """
         UtilClient.validate_model(request)
-        return yunqing_models.RollbackOpsAppResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.RollbackOpsAppResponse(),
             self.do_request('1.0', 'yunyou.yunqing.ops.app.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2921,7 +3022,8 @@ class Client:
         Summary: 发布单应用回滚
         """
         UtilClient.validate_model(request)
-        return yunqing_models.RollbackOpsAppResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.RollbackOpsAppResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.ops.app.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2960,7 +3062,8 @@ class Client:
         Summary: 发布单产品回滚
         """
         UtilClient.validate_model(request)
-        return yunqing_models.RollbackOpsProductResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.RollbackOpsProductResponse(),
             self.do_request('1.0', 'yunyou.yunqing.ops.product.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2975,7 +3078,8 @@ class Client:
         Summary: 发布单产品回滚
         """
         UtilClient.validate_model(request)
-        return yunqing_models.RollbackOpsProductResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.RollbackOpsProductResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.ops.product.rollback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3014,7 +3118,8 @@ class Client:
         Summary: 查询集群pod信息
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryClusterNativepodResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryClusterNativepodResponse(),
             self.do_request('1.0', 'yunyou.yunqing.cluster.nativepod.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3029,7 +3134,8 @@ class Client:
         Summary: 查询集群pod信息
         """
         UtilClient.validate_model(request)
-        return yunqing_models.QueryClusterNativepodResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.QueryClusterNativepodResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.cluster.nativepod.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3068,7 +3174,8 @@ class Client:
         Summary: 查询基线应用容器
         """
         UtilClient.validate_model(request)
-        return yunqing_models.PagequeryBaselineAppcontainersResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.PagequeryBaselineAppcontainersResponse(),
             self.do_request('1.0', 'yunyou.yunqing.baseline.appcontainers.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3083,7 +3190,8 @@ class Client:
         Summary: 查询基线应用容器
         """
         UtilClient.validate_model(request)
-        return yunqing_models.PagequeryBaselineAppcontainersResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.PagequeryBaselineAppcontainersResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.baseline.appcontainers.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3122,7 +3230,8 @@ class Client:
         Summary: 回滚快照查询
         """
         UtilClient.validate_model(request)
-        return yunqing_models.PagequeryRollbackSnapshotversionResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.PagequeryRollbackSnapshotversionResponse(),
             self.do_request('1.0', 'yunyou.yunqing.rollback.snapshotversion.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3137,6 +3246,679 @@ class Client:
         Summary: 回滚快照查询
         """
         UtilClient.validate_model(request)
-        return yunqing_models.PagequeryRollbackSnapshotversionResponse().from_map(
+        return TeaCore.from_map(
+            yunqing_models.PagequeryRollbackSnapshotversionResponse(),
             await self.do_request_async('1.0', 'yunyou.yunqing.rollback.snapshotversion.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def all_envs(
+        self,
+        request: yunqing_models.AllEnvsRequest,
+    ) -> yunqing_models.AllEnvsResponse:
+        """
+        Description: 云游纳管的所有环境基本信息查询
+        Summary: 云游纳管的所有环境基本信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.all_envs_ex(request, headers, runtime)
+
+    async def all_envs_async(
+        self,
+        request: yunqing_models.AllEnvsRequest,
+    ) -> yunqing_models.AllEnvsResponse:
+        """
+        Description: 云游纳管的所有环境基本信息查询
+        Summary: 云游纳管的所有环境基本信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.all_envs_ex_async(request, headers, runtime)
+
+    def all_envs_ex(
+        self,
+        request: yunqing_models.AllEnvsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.AllEnvsResponse:
+        """
+        Description: 云游纳管的所有环境基本信息查询
+        Summary: 云游纳管的所有环境基本信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.AllEnvsResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.envs.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def all_envs_ex_async(
+        self,
+        request: yunqing_models.AllEnvsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.AllEnvsResponse:
+        """
+        Description: 云游纳管的所有环境基本信息查询
+        Summary: 云游纳管的所有环境基本信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.AllEnvsResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.envs.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_prods(
+        self,
+        request: yunqing_models.PagequeryProdsRequest,
+    ) -> yunqing_models.PagequeryProdsResponse:
+        """
+        Description: 产品基线基本信息分页查询
+        Summary: 产品基线基本信息分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_prods_ex(request, headers, runtime)
+
+    async def pagequery_prods_async(
+        self,
+        request: yunqing_models.PagequeryProdsRequest,
+    ) -> yunqing_models.PagequeryProdsResponse:
+        """
+        Description: 产品基线基本信息分页查询
+        Summary: 产品基线基本信息分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_prods_ex_async(request, headers, runtime)
+
+    def pagequery_prods_ex(
+        self,
+        request: yunqing_models.PagequeryProdsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryProdsResponse:
+        """
+        Description: 产品基线基本信息分页查询
+        Summary: 产品基线基本信息分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.PagequeryProdsResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.prods.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_prods_ex_async(
+        self,
+        request: yunqing_models.PagequeryProdsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryProdsResponse:
+        """
+        Description: 产品基线基本信息分页查询
+        Summary: 产品基线基本信息分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.PagequeryProdsResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.prods.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_prods_resources(
+        self,
+        request: yunqing_models.PagequeryProdsResourcesRequest,
+    ) -> yunqing_models.PagequeryProdsResourcesResponse:
+        """
+        Description: 产品基线资源元数据查询
+        Summary: 产品基线资源元数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_prods_resources_ex(request, headers, runtime)
+
+    async def pagequery_prods_resources_async(
+        self,
+        request: yunqing_models.PagequeryProdsResourcesRequest,
+    ) -> yunqing_models.PagequeryProdsResourcesResponse:
+        """
+        Description: 产品基线资源元数据查询
+        Summary: 产品基线资源元数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_prods_resources_ex_async(request, headers, runtime)
+
+    def pagequery_prods_resources_ex(
+        self,
+        request: yunqing_models.PagequeryProdsResourcesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryProdsResourcesResponse:
+        """
+        Description: 产品基线资源元数据查询
+        Summary: 产品基线资源元数据查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.PagequeryProdsResourcesResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.prods.resources.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_prods_resources_ex_async(
+        self,
+        request: yunqing_models.PagequeryProdsResourcesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryProdsResourcesResponse:
+        """
+        Description: 产品基线资源元数据查询
+        Summary: 产品基线资源元数据查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.PagequeryProdsResourcesResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.prods.resources.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_resourceinstances_containers(
+        self,
+        request: yunqing_models.PagequeryResourceinstancesContainersRequest,
+    ) -> yunqing_models.PagequeryResourceinstancesContainersResponse:
+        """
+        Description: 产品基线容器实例详情分页查询
+        Summary: 产品基线容器实例详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_resourceinstances_containers_ex(request, headers, runtime)
+
+    async def pagequery_resourceinstances_containers_async(
+        self,
+        request: yunqing_models.PagequeryResourceinstancesContainersRequest,
+    ) -> yunqing_models.PagequeryResourceinstancesContainersResponse:
+        """
+        Description: 产品基线容器实例详情分页查询
+        Summary: 产品基线容器实例详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_resourceinstances_containers_ex_async(request, headers, runtime)
+
+    def pagequery_resourceinstances_containers_ex(
+        self,
+        request: yunqing_models.PagequeryResourceinstancesContainersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryResourceinstancesContainersResponse:
+        """
+        Description: 产品基线容器实例详情分页查询
+        Summary: 产品基线容器实例详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.PagequeryResourceinstancesContainersResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.resourceinstances.containers.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_resourceinstances_containers_ex_async(
+        self,
+        request: yunqing_models.PagequeryResourceinstancesContainersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryResourceinstancesContainersResponse:
+        """
+        Description: 产品基线容器实例详情分页查询
+        Summary: 产品基线容器实例详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.PagequeryResourceinstancesContainersResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.resourceinstances.containers.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_prods_apps(
+        self,
+        request: yunqing_models.PagequeryProdsAppsRequest,
+    ) -> yunqing_models.PagequeryProdsAppsResponse:
+        """
+        Description: 产品所属应用基线元数据分页查询
+        Summary: 产品所属应用基线元数据分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_prods_apps_ex(request, headers, runtime)
+
+    async def pagequery_prods_apps_async(
+        self,
+        request: yunqing_models.PagequeryProdsAppsRequest,
+    ) -> yunqing_models.PagequeryProdsAppsResponse:
+        """
+        Description: 产品所属应用基线元数据分页查询
+        Summary: 产品所属应用基线元数据分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_prods_apps_ex_async(request, headers, runtime)
+
+    def pagequery_prods_apps_ex(
+        self,
+        request: yunqing_models.PagequeryProdsAppsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryProdsAppsResponse:
+        """
+        Description: 产品所属应用基线元数据分页查询
+        Summary: 产品所属应用基线元数据分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.PagequeryProdsAppsResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.prods.apps.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_prods_apps_ex_async(
+        self,
+        request: yunqing_models.PagequeryProdsAppsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryProdsAppsResponse:
+        """
+        Description: 产品所属应用基线元数据分页查询
+        Summary: 产品所属应用基线元数据分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.PagequeryProdsAppsResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.prods.apps.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_prods_deploymentunits(
+        self,
+        request: yunqing_models.QueryProdsDeploymentunitsRequest,
+    ) -> yunqing_models.QueryProdsDeploymentunitsResponse:
+        """
+        Description: 产品部署单元实例列表查询
+        Summary: 产品部署单元实例列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_prods_deploymentunits_ex(request, headers, runtime)
+
+    async def query_prods_deploymentunits_async(
+        self,
+        request: yunqing_models.QueryProdsDeploymentunitsRequest,
+    ) -> yunqing_models.QueryProdsDeploymentunitsResponse:
+        """
+        Description: 产品部署单元实例列表查询
+        Summary: 产品部署单元实例列表查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_prods_deploymentunits_ex_async(request, headers, runtime)
+
+    def query_prods_deploymentunits_ex(
+        self,
+        request: yunqing_models.QueryProdsDeploymentunitsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.QueryProdsDeploymentunitsResponse:
+        """
+        Description: 产品部署单元实例列表查询
+        Summary: 产品部署单元实例列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.QueryProdsDeploymentunitsResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.prods.deploymentunits.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_prods_deploymentunits_ex_async(
+        self,
+        request: yunqing_models.QueryProdsDeploymentunitsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.QueryProdsDeploymentunitsResponse:
+        """
+        Description: 产品部署单元实例列表查询
+        Summary: 产品部署单元实例列表查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.QueryProdsDeploymentunitsResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.prods.deploymentunits.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_resourceinstances_lbs(
+        self,
+        request: yunqing_models.PagequeryResourceinstancesLbsRequest,
+    ) -> yunqing_models.PagequeryResourceinstancesLbsResponse:
+        """
+        Description: 产品基线应用所属lb资源分页查询
+        Summary: 产品基线应用所属lb资源分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_resourceinstances_lbs_ex(request, headers, runtime)
+
+    async def pagequery_resourceinstances_lbs_async(
+        self,
+        request: yunqing_models.PagequeryResourceinstancesLbsRequest,
+    ) -> yunqing_models.PagequeryResourceinstancesLbsResponse:
+        """
+        Description: 产品基线应用所属lb资源分页查询
+        Summary: 产品基线应用所属lb资源分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_resourceinstances_lbs_ex_async(request, headers, runtime)
+
+    def pagequery_resourceinstances_lbs_ex(
+        self,
+        request: yunqing_models.PagequeryResourceinstancesLbsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryResourceinstancesLbsResponse:
+        """
+        Description: 产品基线应用所属lb资源分页查询
+        Summary: 产品基线应用所属lb资源分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.PagequeryResourceinstancesLbsResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.resourceinstances.lbs.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_resourceinstances_lbs_ex_async(
+        self,
+        request: yunqing_models.PagequeryResourceinstancesLbsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.PagequeryResourceinstancesLbsResponse:
+        """
+        Description: 产品基线应用所属lb资源分页查询
+        Summary: 产品基线应用所属lb资源分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.PagequeryResourceinstancesLbsResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.resourceinstances.lbs.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_prods_appops(
+        self,
+        request: yunqing_models.CreateProdsAppopsRequest,
+    ) -> yunqing_models.CreateProdsAppopsResponse:
+        """
+        Description: 产品所属应用运维发布单创建
+        Summary: 产品所属应用运维发布单创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_prods_appops_ex(request, headers, runtime)
+
+    async def create_prods_appops_async(
+        self,
+        request: yunqing_models.CreateProdsAppopsRequest,
+    ) -> yunqing_models.CreateProdsAppopsResponse:
+        """
+        Description: 产品所属应用运维发布单创建
+        Summary: 产品所属应用运维发布单创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_prods_appops_ex_async(request, headers, runtime)
+
+    def create_prods_appops_ex(
+        self,
+        request: yunqing_models.CreateProdsAppopsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.CreateProdsAppopsResponse:
+        """
+        Description: 产品所属应用运维发布单创建
+        Summary: 产品所属应用运维发布单创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.CreateProdsAppopsResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.prods.appops.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_prods_appops_ex_async(
+        self,
+        request: yunqing_models.CreateProdsAppopsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.CreateProdsAppopsResponse:
+        """
+        Description: 产品所属应用运维发布单创建
+        Summary: 产品所属应用运维发布单创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.CreateProdsAppopsResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.prods.appops.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_prods_appops(
+        self,
+        request: yunqing_models.GetProdsAppopsRequest,
+    ) -> yunqing_models.GetProdsAppopsResponse:
+        """
+        Description: 运维发布单查询
+        Summary: 运维发布单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_prods_appops_ex(request, headers, runtime)
+
+    async def get_prods_appops_async(
+        self,
+        request: yunqing_models.GetProdsAppopsRequest,
+    ) -> yunqing_models.GetProdsAppopsResponse:
+        """
+        Description: 运维发布单查询
+        Summary: 运维发布单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_prods_appops_ex_async(request, headers, runtime)
+
+    def get_prods_appops_ex(
+        self,
+        request: yunqing_models.GetProdsAppopsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.GetProdsAppopsResponse:
+        """
+        Description: 运维发布单查询
+        Summary: 运维发布单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.GetProdsAppopsResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.prods.appops.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_prods_appops_ex_async(
+        self,
+        request: yunqing_models.GetProdsAppopsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.GetProdsAppopsResponse:
+        """
+        Description: 运维发布单查询
+        Summary: 运维发布单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.GetProdsAppopsResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.prods.appops.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_prods_appops(
+        self,
+        request: yunqing_models.CancelProdsAppopsRequest,
+    ) -> yunqing_models.CancelProdsAppopsResponse:
+        """
+        Description: 发布单取消
+        Summary: 发布单取消
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_prods_appops_ex(request, headers, runtime)
+
+    async def cancel_prods_appops_async(
+        self,
+        request: yunqing_models.CancelProdsAppopsRequest,
+    ) -> yunqing_models.CancelProdsAppopsResponse:
+        """
+        Description: 发布单取消
+        Summary: 发布单取消
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_prods_appops_ex_async(request, headers, runtime)
+
+    def cancel_prods_appops_ex(
+        self,
+        request: yunqing_models.CancelProdsAppopsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.CancelProdsAppopsResponse:
+        """
+        Description: 发布单取消
+        Summary: 发布单取消
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.CancelProdsAppopsResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.prods.appops.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_prods_appops_ex_async(
+        self,
+        request: yunqing_models.CancelProdsAppopsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.CancelProdsAppopsResponse:
+        """
+        Description: 发布单取消
+        Summary: 发布单取消
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.CancelProdsAppopsResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.prods.appops.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def retry_prods_appops(
+        self,
+        request: yunqing_models.RetryProdsAppopsRequest,
+    ) -> yunqing_models.RetryProdsAppopsResponse:
+        """
+        Description: 发布单重试
+        Summary: 发布单重试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.retry_prods_appops_ex(request, headers, runtime)
+
+    async def retry_prods_appops_async(
+        self,
+        request: yunqing_models.RetryProdsAppopsRequest,
+    ) -> yunqing_models.RetryProdsAppopsResponse:
+        """
+        Description: 发布单重试
+        Summary: 发布单重试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.retry_prods_appops_ex_async(request, headers, runtime)
+
+    def retry_prods_appops_ex(
+        self,
+        request: yunqing_models.RetryProdsAppopsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.RetryProdsAppopsResponse:
+        """
+        Description: 发布单重试
+        Summary: 发布单重试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.RetryProdsAppopsResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.prods.appops.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def retry_prods_appops_ex_async(
+        self,
+        request: yunqing_models.RetryProdsAppopsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.RetryProdsAppopsResponse:
+        """
+        Description: 发布单重试
+        Summary: 发布单重试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.RetryProdsAppopsResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.prods.appops.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def scalein_prods_appops(
+        self,
+        request: yunqing_models.ScaleinProdsAppopsRequest,
+    ) -> yunqing_models.ScaleinProdsAppopsResponse:
+        """
+        Description: 应用缩容
+        Summary: 应用缩容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.scalein_prods_appops_ex(request, headers, runtime)
+
+    async def scalein_prods_appops_async(
+        self,
+        request: yunqing_models.ScaleinProdsAppopsRequest,
+    ) -> yunqing_models.ScaleinProdsAppopsResponse:
+        """
+        Description: 应用缩容
+        Summary: 应用缩容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.scalein_prods_appops_ex_async(request, headers, runtime)
+
+    def scalein_prods_appops_ex(
+        self,
+        request: yunqing_models.ScaleinProdsAppopsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.ScaleinProdsAppopsResponse:
+        """
+        Description: 应用缩容
+        Summary: 应用缩容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.ScaleinProdsAppopsResponse(),
+            self.do_request('1.0', 'yunyou.yunqing.prods.appops.scalein', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def scalein_prods_appops_ex_async(
+        self,
+        request: yunqing_models.ScaleinProdsAppopsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yunqing_models.ScaleinProdsAppopsResponse:
+        """
+        Description: 应用缩容
+        Summary: 应用缩容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yunqing_models.ScaleinProdsAppopsResponse(),
+            await self.do_request_async('1.0', 'yunyou.yunqing.prods.appops.scalein', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
