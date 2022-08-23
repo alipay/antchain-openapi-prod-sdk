@@ -4146,7 +4146,7 @@ class CreateDidCustomerRequest(TeaModel):
         person_phone: str = None,
         person_cert_no: str = None,
         person_cert_type: str = None,
-        account_type: int = None,
+        account_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4163,7 +4163,7 @@ class CreateDidCustomerRequest(TeaModel):
         self.person_cert_no = person_cert_no
         # 个人身份类型
         self.person_cert_type = person_cert_type
-        # 账户uid类型 0-Alipay 1-Alibaba
+        # 账户uid类型 Alipay/Alibaba
         self.account_type = account_type
 
     def validate(self):
