@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.14.14',
+    sdk_version = '3.14.18',
+    _prod_code = 'YUNQING',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -108,7 +110,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   }
 
   __request.headers = {
-    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    host = Util.defaultString(@endpoint, 'prodapigw-sofastack.cloud.alipay.com'),
     user-agent = Util.getUserAgent(@userAgent),
     ...headers
   };
@@ -293,6 +295,8 @@ model AppInfo {
   appName: string(name='app_name', example='xxx_name'),
   // ap version
   appVersion: string(name='app_version', example='1.2.3'),
+  // 应用类型
+  appType?: string(name='app_type', example='CONTROLLER'),
 }
 
 // LDC下的CellGroup
@@ -907,6 +911,250 @@ model Schema {
   resourcePoolId?: string(name='resource_pool_id', example='rdb-ant58sit'),
 }
 
+// 底座配置
+model CloudStackConfig {
+  // 阿里云accessKey获取
+  accessKey: string(name='access_key', example='xxx'),
+  // 云游加密后的accessKeySecret
+  encryptedAccessKeySecret: string(name='encrypted_access_key_secret', example='xxx'),
+  // 底座所在的region
+  region: string(name='region', example='default'),
+  // 底座可用区
+  zone: string(name='zone', example='default'),
+  // 底座类型
+  type: string(name='type', example='ANT_STACK'),
+}
+
+// 云游站点基本信息
+model EnvInfo {
+  // 站点名称
+  name: string(name='name', example='xx环境'),
+  // 站点展示名称
+  displayName: string(name='display_name', example='xx的站点'),
+  // IAM租户id
+  tenantId: string(name='tenant_id', example='00000001'),
+  // 站点类型：DEV、PROD、SIT
+  type: string(name='type', example='DEV'),
+  // 站点环境id
+  envId: string(name='env_id', example='7304000000000001'),
+  // 云环境站点类型
+  cloudStack: string(name='cloud_stack', example='ANT_STACK'),
+  // 客户名
+  customerName: string(name='customer_name', example='xx银行'),
+  // 站点客户id
+  customerId: string(name='customer_id', example='00001'),
+  // 站点资源前缀，云环境名称
+  cloudName: string(name='cloud_name', example='zjnx'),
+  // global云环境id
+  cloudId: string(name='cloud_id', example='000001'),
+  // global云环境中文名称
+  realCloudName: string(name='real_cloud_name', example='云游自动'),
+  // rdb资源池名称
+  rdbPoolName: string(name='rdb_pool_name', example='zz-db'),
+  // 容器资源池ID
+  containerPoolName: string(name='container_pool_name', example='zz-xxxengine'),
+  // lb资源池名称
+  lbPoolName: string(name='lb_pool_name', example='zz-lb'),
+  // 对象资源池名称
+  storagePoolName?: string(name='storage_pool_name', example='zz-xxx'),
+  // ecs资源池名称
+  ecsPoolName: string(name='ecs_pool_name', example='zz-ecs'),
+  // vpc资源池名称
+  vpcPoolName: string(name='vpc_pool_name', example='zz-vpc'),
+  // dns资源池名称
+  dnsPoolName: string(name='dns_pool_name', example='zz-dns'),
+  // keystone资源池名称
+  keystonePoolName: string(name='keystone_pool_name', example='zz-keystone'),
+  // 底座配置
+  cloudStackConfig: CloudStackConfig(name='cloud_stack_config', example=''),
+}
+
+// lb后端服务器
+model LbBackendServer {
+  // 应用容器名称
+  containerName: string(name='container_name', example='zz-xxx-1'),
+  // lb backendServer权值
+  weight: long(name='weight', example='100'),
+  // lb和backendServer关系
+  relationType: string(name='relation_type', example='ONETOALL'),
+  // 环境id
+  envId: string(name='env_id', example='7304000001'),
+}
+
+// lb实例监听器
+model LbListener {
+  // lb监听器协议：HTTP、TCP
+  protocol: string(name='protocol', example='TCP'),
+  // 监听器端口
+  listenerPort: long(name='listener_port', example='80'),
+  // 监听器后端端口
+  backendServerPort: long(name='backend_server_port', example='80'),
+  // 后端转发端口
+  backendServerForwardPort: long(name='backend_server_forward_port', example='31474'),
+  // 健康检查开关
+  healthMonitor: boolean(name='health_monitor', example='true, false'),
+  // 健康检查端口
+  healthCheckPort: long(name='health_check_port', example='9500'),
+  // 健康检查阈值
+  healthCheckThreadhold: long(name='health_check_threadhold', example='3'),
+  // 健康检查uri
+  healthCheckUri?: string(name='health_check_uri', example='/checkService'),
+  // 健康检查间隔
+  healthCheckInterval: long(name='health_check_interval', example='3'),
+  // 健康检查http方法
+  httpMethod: string(name='http_method', example='GET'),
+  // 健康检查期望返回的http code
+  expectCodes?: string(name='expect_codes', example='["http_2xx"]'),
+}
+
+// 产品部署单元实例信息
+model DeploymentUnitInstance {
+  // 环境id
+  envId: string(name='env_id', example='7304000001'),
+  // 产品码
+  prodCode: string(name='prod_code', example='YUNYOUDEV'),
+  // 产品版本
+  prodVersion: string(name='prod_version', example='1.11.1'),
+  // 部署单元实例id
+  identity: string(name='identity', example='default'),
+  // 部署单元标识id
+  deploymentUnitIdentity: string(name='deployment_unit_identity', example='default'),
+  // 部署单元实例状态：ACTIVE、FAILED、UPGRADING
+  status: string(name='status', example='ACTIVE'),
+  // 部署拓扑标识
+  deployTopologyIdentity: string(name='deploy_topology_identity', example='xx'),
+  // 部署规格标识id
+  deploySpecIdentity: string(name='deploy_spec_identity', example='xxx'),
+  // 部署单元部署在哪个zone
+  zone?: string(name='zone', example='RANDOM'),
+  // 逻辑部署单元实例id
+  logicalInstanceId?: string(name='logical_instance_id', example='default'),
+}
+
+// lb基线实例
+model LbInstance {
+  // lb资源池
+  resourcePoolName: string(name='resource_pool_name', example='zz-lb'),
+  // lb资源id
+  resourceId: string(name='resource_id', example='zz-lb-lb-xxx-xxxxx'),
+  // lb资源实例名称
+  resourceName: string(name='resource_name', example='zz-lb-xxx-xxx'),
+  // lb路由信息：prodCode_appName
+  lbRouterName: string(name='lb_router_name', example='YUNYOUDEV-yunyoudev'),
+  // lb的vip
+  vip: string(name='vip', example='12.12.12.12'),
+  // lb绑定的域名
+  domainName: string(name='domain_name', example='xxx.alipay.net'),
+  // lb地址类型：INTENET公网，INTRANET内网
+  addressType: string(name='address_type', example='INTERNET'),
+  // lb带宽
+  bandwidth: string(name='bandwidth', example='-1'),
+  // 是否是anytunnel lb
+  anyTunnel: boolean(name='any_tunnel', example='true, false'),
+  // 是否是办公网
+  officialOnly: boolean(name='official_only', example='true, false'),
+  // lb类型：SLB、ALB
+  provider: string(name='provider', example='SLB'),
+  // lb状态，ACTIVE，FAILED
+  status: string(name='status', example='ACTIVE'),
+  // 部署单元实例id
+  deploymentUnitInstanceIdentity: string(name='deployment_unit_instance_identity', example='default'),
+  // 部署单元标识id
+  deploymentUnitIdentity: string(name='deployment_unit_identity', example='default'),
+}
+
+// 资源基线实例元信息
+model ResourceInstance {
+  // 环境id
+  envId: string(name='env_id', example='73040000001'),
+  // 产品码
+  prodCode: string(name='prod_code', example='YUNYOUDEV'),
+  // zz-rdb
+  resourcePoolName: string(name='resource_pool_name', example='资源池名称'),
+  // 资源id
+  resourceId: string(name='resource_id', example='zz-lb-xxxx'),
+  // 资源类型：LB、SERVER、RDB
+  resourceType: string(name='resource_type', example='LB'),
+  // 区域id
+  regionId?: string(name='region_id', example='default'),
+  // 可用区id
+  zoneId: string(name='zone_id', example='default'),
+  // 部署单元标识id
+  deploymentUnitIdentity: string(name='deployment_unit_identity', example='default'),
+  // 部署单元实例id
+  deploymentUnitInstanceIdentity: string(name='deployment_unit_instance_identity', example='default'),
+}
+
+//  应用基线数据
+model AppInstance {
+  // 环境id
+  envId: string(name='env_id', example='7304000001'),
+  // 产品码
+  prodCode: string(name='prod_code', example='YUNYOUDEV'),
+  // 应用名称
+  appName: string(name='app_name', example='yunyoudev'),
+  // 应用版本
+  appVersion: string(name='app_version', example='1.11.1'),
+  // 应用镜像名
+  image: string(name='image', example='acs-reg.xxxxx'),
+  // 应用基线状态：ACTIVE、FAILED、UPGRADING
+  status: string(name='status', example='ACTIVE'),
+  // 部署单元标识id
+  deploymentUnitIdentity?: string(name='deployment_unit_identity', example='default'),
+  // 部署单元实例id
+  deploymentUnitInstanceIdentity?: string(name='deployment_unit_instance_identity', example='default'),
+  // 应用期望实例数
+  expectReplica: string(name='expect_replica', example='1'),
+}
+
+// 容器基线实例信息
+model ContainerInstance {
+  // 资源id
+  resourceId: string(name='resource_id', example='zz-xxx'),
+  // 容器名称
+  name: string(name='name', example='zz-xxx-xx-0'),
+  // 容器挂载的阿里云anytunnel的资源id
+  anytunnelResourceId?: string(name='anytunnel_resource_id', example='xx'),
+  // 容器对应的index
+  index: string(name='index', example='0'),
+  // 容器ip
+  ip?: string(name='ip', example='192.168.0.1'),
+  // 集群节点ip
+  hostIp?: string(name='host_ip', example='127.0.0.1'),
+  // 产品码
+  prodCode: string(name='prod_code', example='YUNYOUDEV'),
+  // 应用名称
+  appName: string(name='app_name', example='yunyoudev'),
+  // 应用镜像名
+  image: string(name='image', example='acs.xxxx.com/xxx'),
+  // cpu
+  cpu: string(name='cpu', example='2'),
+  // 内存大小
+  memory: string(name='memory', example='1024'),
+  // 容器挂载的阿里云anytunnelIp
+  anytunnelServiceIp?: string(name='anytunnel_service_ip', example='12.12.12.12'),
+  // 部署单元实例id
+  deploymentUnitInstanceIdentity: string(name='deployment_unit_instance_identity', example='default'),
+  // 部署单元标识id
+  deploymentUnitIdentity: string(name='deployment_unit_identity', example='default'),
+}
+
+// 产品基线元信息
+model ProdMetaInfo {
+  // 环境id
+  envId: string(name='env_id', example='73040000001'),
+  // 产品码
+  prodCode: string(name='prod_code', example='YUNYOUDEV'),
+  // 产品版本
+  prodVersion: string(name='prod_version', example='1.1.0'),
+  // 产品部署拓扑标识id
+  deployTopologyIdentity: string(name='deploy_topology_identity', example='DEPLOY_TOPO_202204131639100996'),
+  // 产品部署规格标识id
+  deploySpecIdentity: string(name='deploy_spec_identity', example='DS_202011271431020756'),
+  // 产品基线状态：AVTIVE、FAILED、UPGRADING
+  status: string(name='status', example='ACTIVE'),
+}
+
 model CreateAppopsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -925,6 +1173,8 @@ model CreateAppopsRequest = {
   cellId: string(name='cell_id'),
   // 操作人ID
   submitterId?: string(name='submitter_id'),
+  // 操作人名称（花名或者真名）
+  submitterName?: string(name='submitter_name'),
   // 应用容器分组策略，默认取SYSTEM_RECOMMENDATION
   groupStrategy?: string(name='group_strategy'),
 }
@@ -1043,6 +1293,11 @@ model CancelAppopsRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 运维单id。
   opsPlanId: string(name='ops_plan_id'),
+  // 操作人id
+  submitterId?: string(name='submitter_id'),
+  // 	
+  // 操作人名称（花名或者真名）
+  submitterName?: string(name='submitter_name'),
 }
 
 model CancelAppopsResponse = {
@@ -1269,6 +1524,8 @@ model UninstallProdinstanceAppserviceRequest = {
   productCode: string(name='product_code'),
   // 操作人Id
   submitterId: string(name='submitter_id'),
+  // 操作人名称（花名或者真名）
+  submitterName?: string(name='submitter_name'),
 }
 
 model UninstallProdinstanceAppserviceResponse = {
@@ -1317,6 +1574,11 @@ model CreateProdinstanceDeployunitRequest = {
   cellId: string(name='cell_id'),
   // 逻辑部署单元实例id
   logicalInstanceId: string(name='logical_instance_id'),
+  // 操作人id
+  submitterId?: string(name='submitter_id'),
+  // 	
+  // 操作人名称（花名或者真名）
+  submitterName?: string(name='submitter_name'),
 }
 
 model CreateProdinstanceDeployunitResponse = {
@@ -1595,6 +1857,8 @@ model ScaleoutProdinstanceAppserviceRequest = {
   targetNum: long(name='target_num'),
   // 操作人
   submitterId?: string(name='submitter_id'),
+  // 操作人名称（花名或者真名）
+  submitterName?: string(name='submitter_name'),
   // 容器分组策略，默认SYSTEM_RECOMMENDATION
   groupStrategy?: string(name='group_strategy'),
 }
@@ -1769,6 +2033,8 @@ model ScaleinProdinstanceAppserviceRequest = {
   containerIds: [ string ](name='container_ids'),
   // 操作人id
   submitterId?: string(name='submitter_id'),
+  // 操作人名称（花名或者真名）
+  submitterName?: string(name='submitter_name'),
 }
 
 model ScaleinProdinstanceAppserviceResponse = {
@@ -2009,6 +2275,9 @@ model CreateAppdeployRequest = {
   groupStrategy?: string(name='group_strategy'),
   // 操作人ID
   submitterId?: string(name='submitter_id'),
+  // 	
+  // 操作人名称（花名或者真名）
+  submitterName?: string(name='submitter_name'),
 }
 
 model CreateAppdeployResponse = {
@@ -2407,6 +2676,9 @@ model UninstallProdinstanceDeployunitRequest = {
   unitInstanceId: string(name='unit_instance_id'),
   // 操作人ID
   submitterId: string(name='submitter_id'),
+  // 	
+  // 操作人名称（花名或者真名）
+  submitterName?: string(name='submitter_name'),
 }
 
 model UninstallProdinstanceDeployunitResponse = {
@@ -2996,6 +3268,11 @@ model CreateProdinstanceDeployunitbatchRequest = {
   logicalInstanceId: string(name='logical_instance_id'),
   // 集群中哪个zone，公有云场景使用，专有云不需要部署
   cellId: string(name='cell_id'),
+  // 操作人id
+  submitterId?: string(name='submitter_id'),
+  // 	
+  // 操作人名称（花名或者真名）
+  submitterName?: string(name='submitter_name'),
 }
 
 model CreateProdinstanceDeployunitbatchResponse = {
@@ -3044,6 +3321,9 @@ model RollbackOpsAppRequest = {
   unitInstanceId: string(name='unit_instance_id'),
   // 操作人Id
   submitterId: string(name='submitter_id'),
+  // 	
+  // 操作人名称（花名或者真名）
+  submitterName?: string(name='submitter_name'),
   // 分组策略，默认使用SYSTEM_RECOMMENDATION
   groupStrategy?: string(name='group_strategy'),
 }
@@ -3094,6 +3374,8 @@ model RollbackOpsProductRequest = {
   unitInstanceId: string(name='unit_instance_id'),
   // 操作人ID
   submitterId: string(name='submitter_id'),
+  // 操作人名称（花名或者真名）
+  submitterName?: string(name='submitter_name'),
 }
 
 model RollbackOpsProductResponse = {
@@ -3271,5 +3553,557 @@ async function pagequeryRollbackSnapshotversion(request: PagequeryRollbackSnapsh
 async function pagequeryRollbackSnapshotversionEx(request: PagequeryRollbackSnapshotversionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryRollbackSnapshotversionResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'yunyou.yunqing.rollback.snapshotversion.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AllEnvsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model AllEnvsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 环境基本信息列表
+  envs?: [ EnvInfo ](name='envs'),
+}
+
+/**
+ * Description: 云游纳管的所有环境基本信息查询
+ * Summary: 云游纳管的所有环境基本信息查询
+ */
+async function allEnvs(request: AllEnvsRequest): AllEnvsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return allEnvsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 云游纳管的所有环境基本信息查询
+ * Summary: 云游纳管的所有环境基本信息查询
+ */
+async function allEnvsEx(request: AllEnvsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllEnvsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.envs.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryProdsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境id
+  envId: string(name='env_id'),
+}
+
+model PagequeryProdsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 产品基线元信息
+  prodMetaInfos?: [ ProdMetaInfo ](name='prod_meta_infos'),
+  // 1
+  currentPage?: long(name='current_page'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总页数 
+  totalPages?: long(name='total_pages'),
+  // 总数
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 产品基线基本信息分页查询
+ * Summary: 产品基线基本信息分页查询
+ */
+async function pagequeryProds(request: PagequeryProdsRequest): PagequeryProdsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryProdsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品基线基本信息分页查询
+ * Summary: 产品基线基本信息分页查询
+ */
+async function pagequeryProdsEx(request: PagequeryProdsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryProdsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.prods.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryProdsResourcesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境id
+  envId: string(name='env_id'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 资源类型：LB、SERVER、RDB
+  resourceType: string(name='resource_type'),
+}
+
+model PagequeryProdsResourcesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页
+  currentPage?: long(name='current_page'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总数
+  totalCount?: long(name='total_count'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 资源基线实例信息列表
+  data?: [ ResourceInstance ](name='data'),
+}
+
+/**
+ * Description: 产品基线资源元数据查询
+ * Summary: 产品基线资源元数据查询
+ */
+async function pagequeryProdsResources(request: PagequeryProdsResourcesRequest): PagequeryProdsResourcesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryProdsResourcesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品基线资源元数据查询
+ * Summary: 产品基线资源元数据查询
+ */
+async function pagequeryProdsResourcesEx(request: PagequeryProdsResourcesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryProdsResourcesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.prods.resources.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryResourceinstancesContainersRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境id
+  envId: string(name='env_id'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 应用名称
+  appName: string(name='app_name'),
+  // 部署单元标识id
+  deploymentUnitIdentity?: string(name='deployment_unit_identity'),
+  // 部署单元实例标识id
+  deploymentUnitInstanceIdentity?: string(name='deployment_unit_instance_identity'),
+}
+
+model PagequeryResourceinstancesContainersResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页
+  currentPage?: long(name='current_page'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 总数
+  totalCount?: long(name='total_count'),
+  // 容器基线信息
+  data?: [ ContainerInstance ](name='data'),
+}
+
+/**
+ * Description: 产品基线容器实例详情分页查询
+ * Summary: 产品基线容器实例详情查询
+ */
+async function pagequeryResourceinstancesContainers(request: PagequeryResourceinstancesContainersRequest): PagequeryResourceinstancesContainersResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryResourceinstancesContainersEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品基线容器实例详情分页查询
+ * Summary: 产品基线容器实例详情查询
+ */
+async function pagequeryResourceinstancesContainersEx(request: PagequeryResourceinstancesContainersRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryResourceinstancesContainersResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.resourceinstances.containers.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryProdsAppsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境id
+  envId: string(name='env_id'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 部署单元标识id
+  deploymentUnitIdentity?: string(name='deployment_unit_identity'),
+  // 部署单元实例id
+  deploymentUnitInstanceIdentity?: string(name='deployment_unit_instance_identity'),
+}
+
+model PagequeryProdsAppsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页面id
+  currentPage?: long(name='current_page'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 应用基线总数
+  totalCount?: long(name='total_count'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 应用基线
+  data?: [ AppInstance ](name='data'),
+}
+
+/**
+ * Description: 产品所属应用基线元数据分页查询
+ * Summary: 产品所属应用基线元数据分页查询
+ */
+async function pagequeryProdsApps(request: PagequeryProdsAppsRequest): PagequeryProdsAppsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryProdsAppsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品所属应用基线元数据分页查询
+ * Summary: 产品所属应用基线元数据分页查询
+ */
+async function pagequeryProdsAppsEx(request: PagequeryProdsAppsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryProdsAppsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.prods.apps.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryProdsDeploymentunitsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境id
+  envId: string(name='env_id'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+}
+
+model QueryProdsDeploymentunitsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 产品部署单元实例信息
+  data?: [ DeploymentUnitInstance ](name='data'),
+}
+
+/**
+ * Description: 产品部署单元实例列表查询
+ * Summary: 产品部署单元实例列表查询
+ */
+async function queryProdsDeploymentunits(request: QueryProdsDeploymentunitsRequest): QueryProdsDeploymentunitsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryProdsDeploymentunitsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品部署单元实例列表查询
+ * Summary: 产品部署单元实例列表查询
+ */
+async function queryProdsDeploymentunitsEx(request: QueryProdsDeploymentunitsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryProdsDeploymentunitsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.prods.deploymentunits.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryResourceinstancesLbsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境id
+  envId: string(name='env_id'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 应用名称
+  appName: string(name='app_name'),
+  // 部署单元标识id
+  deploymentUnitIdentity?: string(name='deployment_unit_identity'),
+  // 部署单元实例id
+  deploymentUnitInstanceIdentity?: string(name='deployment_unit_instance_identity'),
+}
+
+model PagequeryResourceinstancesLbsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页面index
+  currentPage?: long(name='current_page'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+  // 总数
+  totalCount?: long(name='total_count'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 产品应用所属的lb实例
+  lbInstances?: [ LbInstance ](name='lb_instances'),
+}
+
+/**
+ * Description: 产品基线应用所属lb资源分页查询
+ * Summary: 产品基线应用所属lb资源分页查询
+ */
+async function pagequeryResourceinstancesLbs(request: PagequeryResourceinstancesLbsRequest): PagequeryResourceinstancesLbsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryResourceinstancesLbsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品基线应用所属lb资源分页查询
+ * Summary: 产品基线应用所属lb资源分页查询
+ */
+async function pagequeryResourceinstancesLbsEx(request: PagequeryResourceinstancesLbsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryResourceinstancesLbsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.resourceinstances.lbs.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateProdsAppopsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境id	
+  envId: string(name='env_id'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 应用名称
+  appName: string(name='app_name'),
+  // 部署单元标识id
+  deploymentUnitIdentity: string(name='deployment_unit_identity'),
+  // 部署单元实例id
+  deploymentUnitInstanceIdentity: string(name='deployment_unit_instance_identity'),
+  // 应用运维的操作类型，取值列表：ONLINE：上线，OFFLINE：下线，RESTART:重启	
+  // 
+  opsAction: string(name='ops_action'),
+  // 容器名称列表	
+  // 
+  containerNames: [ string ](name='container_names'),
+  // 应用容器分组策略，默认取SYSTEM_RECOMMENDATION
+  groupStrategy: string(name='group_strategy'),
+}
+
+model CreateProdsAppopsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 发布单id
+  opsPlanId?: string(name='ops_plan_id'),
+}
+
+/**
+ * Description: 产品所属应用运维发布单创建
+ * Summary: 产品所属应用运维发布单创建
+ */
+async function createProdsAppops(request: CreateProdsAppopsRequest): CreateProdsAppopsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createProdsAppopsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品所属应用运维发布单创建
+ * Summary: 产品所属应用运维发布单创建
+ */
+async function createProdsAppopsEx(request: CreateProdsAppopsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateProdsAppopsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.prods.appops.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetProdsAppopsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 发布单id
+  opsPlanId: string(name='ops_plan_id'),
+}
+
+model GetProdsAppopsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 运维单状态。取值列表：UNINITIALIZED:待初始化；ININTIALIZING:初始化中；INITIALIZED:初始化完成；EXECUTING:执行中；SUCCEEDED：执行成功；FAILED：执行失败；其他待补充。	
+  // 
+  status?: string(name='status'),
+  // 失败节点详情	
+  // 
+  failedNodes?: [ NodeExecutionLog ](name='failed_nodes'),
+}
+
+/**
+ * Description: 运维发布单查询
+ * Summary: 运维发布单查询
+ */
+async function getProdsAppops(request: GetProdsAppopsRequest): GetProdsAppopsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getProdsAppopsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 运维发布单查询
+ * Summary: 运维发布单查询
+ */
+async function getProdsAppopsEx(request: GetProdsAppopsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetProdsAppopsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.prods.appops.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelProdsAppopsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 发布单id
+  opsPlanId: string(name='ops_plan_id'),
+}
+
+model CancelProdsAppopsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否操作成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 发布单取消
+ * Summary: 发布单取消
+ */
+async function cancelProdsAppops(request: CancelProdsAppopsRequest): CancelProdsAppopsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelProdsAppopsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发布单取消
+ * Summary: 发布单取消
+ */
+async function cancelProdsAppopsEx(request: CancelProdsAppopsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelProdsAppopsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.prods.appops.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RetryProdsAppopsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 发布单id
+  opsPlanId: string(name='ops_plan_id'),
+}
+
+model RetryProdsAppopsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 发布单重试
+ * Summary: 发布单重试
+ */
+async function retryProdsAppops(request: RetryProdsAppopsRequest): RetryProdsAppopsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return retryProdsAppopsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发布单重试
+ * Summary: 发布单重试
+ */
+async function retryProdsAppopsEx(request: RetryProdsAppopsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RetryProdsAppopsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.prods.appops.retry', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ScaleinProdsAppopsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 环境id
+  envId: string(name='env_id'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 应用名称
+  appName: string(name='app_name'),
+  // 部署单元标识id
+  deploymentUnitIdentity: string(name='deployment_unit_identity'),
+  // 部署单元实例id
+  deploymentUnitInstanceIdentity: string(name='deployment_unit_instance_identity'),
+  // 应用期望副本数
+  expectReplica: long(name='expect_replica'),
+}
+
+model ScaleinProdsAppopsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 运维单id
+  opsPlanId?: string(name='ops_plan_id'),
+}
+
+/**
+ * Description: 应用缩容
+ * Summary: 应用缩容
+ */
+async function scaleinProdsAppops(request: ScaleinProdsAppopsRequest): ScaleinProdsAppopsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return scaleinProdsAppopsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用缩容
+ * Summary: 应用缩容
+ */
+async function scaleinProdsAppopsEx(request: ScaleinProdsAppopsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ScaleinProdsAppopsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'yunyou.yunqing.prods.appops.scalein', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
