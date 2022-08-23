@@ -55,9 +55,9 @@ class CreateDidCustomerRequest extends Model
      */
     public $personCertType;
 
-    // 账户uid类型 0-Alipay 1-Alibaba
+    // 账户uid类型 Alipay/Alibaba
     /**
-     * @var int
+     * @var string
      */
     public $accountType;
     protected $_name = [
