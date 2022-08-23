@@ -1,6 +1,6 @@
 {
-  "name": "@alicloud/yunqing",
-  "version": "3.14.14",
+  "name": "@antchain/yunqing",
+  "version": "3.14.18",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "dependencies": {
     "@alicloud/tea-typescript": "latest",
     "@antchain/alipay-util": "^1.0.4",
-    "@alicloud/tea-util": "^1.4.0",
+    "@alicloud/tea-util": "^1.4.4",
     "@alicloud/rpc-util": "^0.1.0"
   },
   "files": [
