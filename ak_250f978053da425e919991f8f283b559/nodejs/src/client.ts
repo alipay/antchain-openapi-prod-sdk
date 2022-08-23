@@ -77,91 +77,14 @@ export class Config extends $tea.Model {
   }
 }
 
-// 狗
-export class Dog extends $tea.Model {
-  // 名字
-  name: string;
-  // 年龄
-  age: number;
-  // 是否已领养
-  isAdopted: boolean;
-  // 领养时间
-  adoptedDate?: string;
-  // 标记
-  marks?: string[];
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      age: 'age',
-      isAdopted: 'is_adopted',
-      adoptedDate: 'adopted_date',
-      marks: 'marks',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      age: 'number',
-      isAdopted: 'boolean',
-      adoptedDate: 'string',
-      marks: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 狗狗之家
-export class DogHome extends $tea.Model {
-  // 狗狗成员
-  dogMembers: Dog[];
-  // 狗狗头目
-  leader: Dog;
-  static names(): { [key: string]: string } {
-    return {
-      dogMembers: 'dog_members',
-      leader: 'leader',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      dogMembers: { 'type': 'array', 'itemType': Dog },
-      leader: Dog,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class GetDemoDogAgeRequest extends $tea.Model {
+export class BindDemoGatewayAbcTestRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 数组结构体
-  dog?: Dog[];
-  // 狗狗的id
-  id: number;
-  // 结构体
-  home: DogHome;
-  // alipay
-  fileId: string;
-  // test
-  test: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      dog: 'dog',
-      id: 'id',
-      home: 'home',
-      fileId: 'file_id',
-      test: 'test',
     };
   }
 
@@ -169,11 +92,6 @@ export class GetDemoDogAgeRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      dog: { 'type': 'array', 'itemType': Dog },
-      id: 'number',
-      home: DogHome,
-      fileId: 'string',
-      test: 'string',
     };
   }
 
@@ -182,21 +100,18 @@ export class GetDemoDogAgeRequest extends $tea.Model {
   }
 }
 
-export class GetDemoDogAgeResponse extends $tea.Model {
+export class BindDemoGatewayAbcTestResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 年龄
-  age?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      age: 'age',
     };
   }
 
@@ -205,67 +120,6 @@ export class GetDemoDogAgeResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      age: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class GetAntcloudCatAgeRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  // 猫猫的id
-  id: string;
-  // a a a
-  time?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      id: 'id',
-      time: 'time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      id: 'string',
-      time: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class GetAntcloudCatAgeResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 猫的年龄
-  age?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      age: 'age',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      age: 'string',
     };
   }
 
@@ -329,18 +183,21 @@ export class BindDemoAaaBbbCccResponse extends $tea.Model {
   }
 }
 
-export class BindAntcloudCatTestRequest extends $tea.Model {
+export class BindDemoAsdAsdRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
+  productInstanceId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       authToken: 'string',
+      productInstanceId: 'string',
     };
   }
 
@@ -349,7 +206,125 @@ export class BindAntcloudCatTestRequest extends $tea.Model {
   }
 }
 
-export class BindAntcloudCatTestResponse extends $tea.Model {
+export class BindDemoAsdAsdResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateDemoCjtestCjRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 测试参数
+  var1: string;
+  // 测试参数2
+  var2: string;
+  // 被授权机构did
+  subject?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      var1: 'var1',
+      var2: 'var2',
+      subject: 'subject',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      var1: 'string',
+      var2: 'string',
+      subject: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateDemoCjtestCjResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 测试返回参数1
+  return1?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      return1: 'return1',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      return1: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoAbcAbcAbcRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoAbcAbcAbcResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -490,7 +465,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_250f978053da425e919991f8f283b559",
           _prod_channel: "saas",
         };
@@ -539,41 +514,22 @@ export default class Client {
   }
 
   /**
-   * Description: 该接口用于获取狗狗的年龄
-   * Summary: 获取狗狗的年龄
+   * Description: test
+   * Summary: test
    */
-  async getDemoDogAge(request: GetDemoDogAgeRequest): Promise<GetDemoDogAgeResponse> {
+  async bindDemoGatewayAbcTest(request: BindDemoGatewayAbcTestRequest): Promise<BindDemoGatewayAbcTestResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.getDemoDogAgeEx(request, headers, runtime);
+    return await this.bindDemoGatewayAbcTestEx(request, headers, runtime);
   }
 
   /**
-   * Description: 该接口用于获取狗狗的年龄
-   * Summary: 获取狗狗的年龄
+   * Description: test
+   * Summary: test
    */
-  async getDemoDogAgeEx(request: GetDemoDogAgeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetDemoDogAgeResponse> {
+  async bindDemoGatewayAbcTestEx(request: BindDemoGatewayAbcTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoGatewayAbcTestResponse> {
     Util.validateModel(request);
-    return $tea.cast<GetDemoDogAgeResponse>(await this.doRequest("1.0", "demo.dog.age.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetDemoDogAgeResponse({}));
-  }
-
-  /**
-   * Description: 这接口用于获取猫猫的年龄
-   * Summary: 获取猫猫的年龄
-   */
-  async getAntcloudCatAge(request: GetAntcloudCatAgeRequest): Promise<GetAntcloudCatAgeResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.getAntcloudCatAgeEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 这接口用于获取猫猫的年龄
-   * Summary: 获取猫猫的年龄
-   */
-  async getAntcloudCatAgeEx(request: GetAntcloudCatAgeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAntcloudCatAgeResponse> {
-    Util.validateModel(request);
-    return $tea.cast<GetAntcloudCatAgeResponse>(await this.doRequest("1.0", "antcloud.cat.age.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAntcloudCatAgeResponse({}));
+    return $tea.cast<BindDemoGatewayAbcTestResponse>(await this.doRequest("1.0", "demo.gateway.abc.test.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoGatewayAbcTestResponse({}));
   }
 
   /**
@@ -596,22 +552,60 @@ export default class Client {
   }
 
   /**
-   * Description: tests
-   * Summary: test
+   * Description: 1·2
+   * Summary: 测试
    */
-  async bindAntcloudCatTest(request: BindAntcloudCatTestRequest): Promise<BindAntcloudCatTestResponse> {
+  async bindDemoAsdAsd(request: BindDemoAsdAsdRequest): Promise<BindDemoAsdAsdResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.bindAntcloudCatTestEx(request, headers, runtime);
+    return await this.bindDemoAsdAsdEx(request, headers, runtime);
   }
 
   /**
-   * Description: tests
-   * Summary: test
+   * Description: 1·2
+   * Summary: 测试
    */
-  async bindAntcloudCatTestEx(request: BindAntcloudCatTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindAntcloudCatTestResponse> {
+  async bindDemoAsdAsdEx(request: BindDemoAsdAsdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindDemoAsdAsdResponse> {
     Util.validateModel(request);
-    return $tea.cast<BindAntcloudCatTestResponse>(await this.doRequest("1.0", "antcloud.cat.test.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindAntcloudCatTestResponse({}));
+    return $tea.cast<BindDemoAsdAsdResponse>(await this.doRequest("1.0", "demo.asd.asd.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindDemoAsdAsdResponse({}));
+  }
+
+  /**
+   * Description: 测试网关评审能力
+   * Summary: 评审测试
+   */
+  async updateDemoCjtestCj(request: UpdateDemoCjtestCjRequest): Promise<UpdateDemoCjtestCjResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateDemoCjtestCjEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试网关评审能力
+   * Summary: 评审测试
+   */
+  async updateDemoCjtestCjEx(request: UpdateDemoCjtestCjRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateDemoCjtestCjResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateDemoCjtestCjResponse>(await this.doRequest("1.0", "demo.cjtest.cj.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateDemoCjtestCjResponse({}));
+  }
+
+  /**
+   * Description: 自动化测试创建,用于测试API的修改
+   * Summary: 自动化测试创建,用于测试API的修改勿动
+   */
+  async queryDemoAbcAbcAbc(request: QueryDemoAbcAbcAbcRequest): Promise<QueryDemoAbcAbcAbcResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDemoAbcAbcAbcEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 自动化测试创建,用于测试API的修改
+   * Summary: 自动化测试创建,用于测试API的修改勿动
+   */
+  async queryDemoAbcAbcAbcEx(request: QueryDemoAbcAbcAbcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoAbcAbcAbcResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDemoAbcAbcAbcResponse>(await this.doRequest("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoAbcAbcAbcResponse({}));
   }
 
 }
