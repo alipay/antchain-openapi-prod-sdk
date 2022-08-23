@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_250f978053da425e919991f8f283b559.models
 
 import com.aliyun.tea.*;
 
-public class GetAntcloudCatAgeResponse extends TeaModel {
+public class QueryDemoAbcAbcAbcResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class GetAntcloudCatAgeResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 猫的年龄
-    @NameInMap("age")
-    public String age;
-
-    public static GetAntcloudCatAgeResponse build(java.util.Map<String, ?> map) throws Exception {
-        GetAntcloudCatAgeResponse self = new GetAntcloudCatAgeResponse();
+    public static QueryDemoAbcAbcAbcResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryDemoAbcAbcAbcResponse self = new QueryDemoAbcAbcAbcResponse();
         return TeaModel.build(map, self);
     }
 
-    public GetAntcloudCatAgeResponse setReqMsgId(String reqMsgId) {
+    public QueryDemoAbcAbcAbcResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class GetAntcloudCatAgeResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public GetAntcloudCatAgeResponse setResultCode(String resultCode) {
+    public QueryDemoAbcAbcAbcResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class GetAntcloudCatAgeResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public GetAntcloudCatAgeResponse setResultMsg(String resultMsg) {
+    public QueryDemoAbcAbcAbcResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public GetAntcloudCatAgeResponse setAge(String age) {
-        this.age = age;
-        return this;
-    }
-    public String getAge() {
-        return this.age;
     }
 
 }
