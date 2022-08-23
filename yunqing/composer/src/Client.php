@@ -12,10 +12,14 @@ use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Util\UtilClient;
+use AntChain\YUNQING\Models\AllEnvsRequest;
+use AntChain\YUNQING\Models\AllEnvsResponse;
 use AntChain\YUNQING\Models\AllProdinstanceAppserviceRequest;
 use AntChain\YUNQING\Models\AllProdinstanceAppserviceResponse;
 use AntChain\YUNQING\Models\CancelAppopsRequest;
 use AntChain\YUNQING\Models\CancelAppopsResponse;
+use AntChain\YUNQING\Models\CancelProdsAppopsRequest;
+use AntChain\YUNQING\Models\CancelProdsAppopsResponse;
 use AntChain\YUNQING\Models\CheckSolutioninstanceImportRequest;
 use AntChain\YUNQING\Models\CheckSolutioninstanceImportResponse;
 use AntChain\YUNQING\Models\ConfirmSolutionPlanRequest;
@@ -30,6 +34,8 @@ use AntChain\YUNQING\Models\CreateProdinstanceDeployunitbatchRequest;
 use AntChain\YUNQING\Models\CreateProdinstanceDeployunitbatchResponse;
 use AntChain\YUNQING\Models\CreateProdinstanceDeployunitRequest;
 use AntChain\YUNQING\Models\CreateProdinstanceDeployunitResponse;
+use AntChain\YUNQING\Models\CreateProdsAppopsRequest;
+use AntChain\YUNQING\Models\CreateProdsAppopsResponse;
 use AntChain\YUNQING\Models\DeprecateSolutioninstanceRequest;
 use AntChain\YUNQING\Models\DeprecateSolutioninstanceResponse;
 use AntChain\YUNQING\Models\DescribeSolutioninstanceRequest;
@@ -52,6 +58,8 @@ use AntChain\YUNQING\Models\GetProdinstanceAppserviceRequest;
 use AntChain\YUNQING\Models\GetProdinstanceAppserviceResponse;
 use AntChain\YUNQING\Models\GetProdinstanceDeployunitRequest;
 use AntChain\YUNQING\Models\GetProdinstanceDeployunitResponse;
+use AntChain\YUNQING\Models\GetProdsAppopsRequest;
+use AntChain\YUNQING\Models\GetProdsAppopsResponse;
 use AntChain\YUNQING\Models\GetSolutionPlanstatusRequest;
 use AntChain\YUNQING\Models\GetSolutionPlanstatusResponse;
 use AntChain\YUNQING\Models\GetSystemRequest;
@@ -78,6 +86,16 @@ use AntChain\YUNQING\Models\PagequeryBaselineAppcontainersRequest;
 use AntChain\YUNQING\Models\PagequeryBaselineAppcontainersResponse;
 use AntChain\YUNQING\Models\PagequeryProditerationRequest;
 use AntChain\YUNQING\Models\PagequeryProditerationResponse;
+use AntChain\YUNQING\Models\PagequeryProdsAppsRequest;
+use AntChain\YUNQING\Models\PagequeryProdsAppsResponse;
+use AntChain\YUNQING\Models\PagequeryProdsRequest;
+use AntChain\YUNQING\Models\PagequeryProdsResourcesRequest;
+use AntChain\YUNQING\Models\PagequeryProdsResourcesResponse;
+use AntChain\YUNQING\Models\PagequeryProdsResponse;
+use AntChain\YUNQING\Models\PagequeryResourceinstancesContainersRequest;
+use AntChain\YUNQING\Models\PagequeryResourceinstancesContainersResponse;
+use AntChain\YUNQING\Models\PagequeryResourceinstancesLbsRequest;
+use AntChain\YUNQING\Models\PagequeryResourceinstancesLbsResponse;
 use AntChain\YUNQING\Models\PagequeryRollbackSnapshotversionRequest;
 use AntChain\YUNQING\Models\PagequeryRollbackSnapshotversionResponse;
 use AntChain\YUNQING\Models\PagequerySolutionOpsplanRequest;
@@ -96,6 +114,8 @@ use AntChain\YUNQING\Models\QueryProdinstanceAppserviceRequest;
 use AntChain\YUNQING\Models\QueryProdinstanceAppserviceResponse;
 use AntChain\YUNQING\Models\QueryProdinstanceRequest;
 use AntChain\YUNQING\Models\QueryProdinstanceResponse;
+use AntChain\YUNQING\Models\QueryProdsDeploymentunitsRequest;
+use AntChain\YUNQING\Models\QueryProdsDeploymentunitsResponse;
 use AntChain\YUNQING\Models\QuerySolutioninstanceRequest;
 use AntChain\YUNQING\Models\QuerySolutioninstanceResponse;
 use AntChain\YUNQING\Models\QueryUnitinstanceCreationRequest;
@@ -104,12 +124,16 @@ use AntChain\YUNQING\Models\ReopenSolutioninstanceRequest;
 use AntChain\YUNQING\Models\ReopenSolutioninstanceResponse;
 use AntChain\YUNQING\Models\RetryAppopsRequest;
 use AntChain\YUNQING\Models\RetryAppopsResponse;
+use AntChain\YUNQING\Models\RetryProdsAppopsRequest;
+use AntChain\YUNQING\Models\RetryProdsAppopsResponse;
 use AntChain\YUNQING\Models\RollbackOpsAppRequest;
 use AntChain\YUNQING\Models\RollbackOpsAppResponse;
 use AntChain\YUNQING\Models\RollbackOpsProductRequest;
 use AntChain\YUNQING\Models\RollbackOpsProductResponse;
 use AntChain\YUNQING\Models\ScaleinProdinstanceAppserviceRequest;
 use AntChain\YUNQING\Models\ScaleinProdinstanceAppserviceResponse;
+use AntChain\YUNQING\Models\ScaleinProdsAppopsRequest;
+use AntChain\YUNQING\Models\ScaleinProdsAppopsResponse;
 use AntChain\YUNQING\Models\ScaleoutProdinstanceAppserviceRequest;
 use AntChain\YUNQING\Models\ScaleoutProdinstanceAppserviceResponse;
 use AntChain\YUNQING\Models\ScaleProdinstanceAppserviceRequest;
@@ -264,13 +288,15 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '3.14.14',
+                    'sdk_version'      => '3.14.18',
+                    '_prod_code'       => 'YUNQING',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
                 }
                 $_request->headers = Tea::merge([
-                    'host'       => Utils::defaultString($this->_endpoint, 'openapi.antchain.antgroup.com'),
+                    'host'       => Utils::defaultString($this->_endpoint, 'prodapigw-sofastack.cloud.alipay.com'),
                     'user-agent' => Utils::getUserAgent($this->_userAgent),
                 ], $headers);
                 $tmp                               = Utils::anyifyMapValue(RpcUtils::query($request));
@@ -2061,5 +2087,401 @@ class Client
         Utils::validateModel($request);
 
         return PagequeryRollbackSnapshotversionResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.rollback.snapshotversion.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 云游纳管的所有环境基本信息查询
+     * Summary: 云游纳管的所有环境基本信息查询.
+     *
+     * @param AllEnvsRequest $request
+     *
+     * @return AllEnvsResponse
+     */
+    public function allEnvs($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->allEnvsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 云游纳管的所有环境基本信息查询
+     * Summary: 云游纳管的所有环境基本信息查询.
+     *
+     * @param AllEnvsRequest $request
+     * @param string[]       $headers
+     * @param RuntimeOptions $runtime
+     *
+     * @return AllEnvsResponse
+     */
+    public function allEnvsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AllEnvsResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.envs.all', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品基线基本信息分页查询
+     * Summary: 产品基线基本信息分页查询.
+     *
+     * @param PagequeryProdsRequest $request
+     *
+     * @return PagequeryProdsResponse
+     */
+    public function pagequeryProds($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryProdsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品基线基本信息分页查询
+     * Summary: 产品基线基本信息分页查询.
+     *
+     * @param PagequeryProdsRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return PagequeryProdsResponse
+     */
+    public function pagequeryProdsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryProdsResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.prods.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品基线资源元数据查询
+     * Summary: 产品基线资源元数据查询.
+     *
+     * @param PagequeryProdsResourcesRequest $request
+     *
+     * @return PagequeryProdsResourcesResponse
+     */
+    public function pagequeryProdsResources($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryProdsResourcesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品基线资源元数据查询
+     * Summary: 产品基线资源元数据查询.
+     *
+     * @param PagequeryProdsResourcesRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return PagequeryProdsResourcesResponse
+     */
+    public function pagequeryProdsResourcesEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryProdsResourcesResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.prods.resources.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品基线容器实例详情分页查询
+     * Summary: 产品基线容器实例详情查询.
+     *
+     * @param PagequeryResourceinstancesContainersRequest $request
+     *
+     * @return PagequeryResourceinstancesContainersResponse
+     */
+    public function pagequeryResourceinstancesContainers($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryResourceinstancesContainersEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品基线容器实例详情分页查询
+     * Summary: 产品基线容器实例详情查询.
+     *
+     * @param PagequeryResourceinstancesContainersRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return PagequeryResourceinstancesContainersResponse
+     */
+    public function pagequeryResourceinstancesContainersEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryResourceinstancesContainersResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.resourceinstances.containers.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品所属应用基线元数据分页查询
+     * Summary: 产品所属应用基线元数据分页查询.
+     *
+     * @param PagequeryProdsAppsRequest $request
+     *
+     * @return PagequeryProdsAppsResponse
+     */
+    public function pagequeryProdsApps($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryProdsAppsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品所属应用基线元数据分页查询
+     * Summary: 产品所属应用基线元数据分页查询.
+     *
+     * @param PagequeryProdsAppsRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return PagequeryProdsAppsResponse
+     */
+    public function pagequeryProdsAppsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryProdsAppsResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.prods.apps.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品部署单元实例列表查询
+     * Summary: 产品部署单元实例列表查询.
+     *
+     * @param QueryProdsDeploymentunitsRequest $request
+     *
+     * @return QueryProdsDeploymentunitsResponse
+     */
+    public function queryProdsDeploymentunits($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryProdsDeploymentunitsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品部署单元实例列表查询
+     * Summary: 产品部署单元实例列表查询.
+     *
+     * @param QueryProdsDeploymentunitsRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryProdsDeploymentunitsResponse
+     */
+    public function queryProdsDeploymentunitsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryProdsDeploymentunitsResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.prods.deploymentunits.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品基线应用所属lb资源分页查询
+     * Summary: 产品基线应用所属lb资源分页查询.
+     *
+     * @param PagequeryResourceinstancesLbsRequest $request
+     *
+     * @return PagequeryResourceinstancesLbsResponse
+     */
+    public function pagequeryResourceinstancesLbs($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryResourceinstancesLbsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品基线应用所属lb资源分页查询
+     * Summary: 产品基线应用所属lb资源分页查询.
+     *
+     * @param PagequeryResourceinstancesLbsRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return PagequeryResourceinstancesLbsResponse
+     */
+    public function pagequeryResourceinstancesLbsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryResourceinstancesLbsResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.resourceinstances.lbs.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品所属应用运维发布单创建
+     * Summary: 产品所属应用运维发布单创建.
+     *
+     * @param CreateProdsAppopsRequest $request
+     *
+     * @return CreateProdsAppopsResponse
+     */
+    public function createProdsAppops($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createProdsAppopsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品所属应用运维发布单创建
+     * Summary: 产品所属应用运维发布单创建.
+     *
+     * @param CreateProdsAppopsRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateProdsAppopsResponse
+     */
+    public function createProdsAppopsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateProdsAppopsResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.prods.appops.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 运维发布单查询
+     * Summary: 运维发布单查询.
+     *
+     * @param GetProdsAppopsRequest $request
+     *
+     * @return GetProdsAppopsResponse
+     */
+    public function getProdsAppops($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getProdsAppopsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 运维发布单查询
+     * Summary: 运维发布单查询.
+     *
+     * @param GetProdsAppopsRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return GetProdsAppopsResponse
+     */
+    public function getProdsAppopsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetProdsAppopsResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.prods.appops.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发布单取消
+     * Summary: 发布单取消.
+     *
+     * @param CancelProdsAppopsRequest $request
+     *
+     * @return CancelProdsAppopsResponse
+     */
+    public function cancelProdsAppops($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelProdsAppopsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发布单取消
+     * Summary: 发布单取消.
+     *
+     * @param CancelProdsAppopsRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CancelProdsAppopsResponse
+     */
+    public function cancelProdsAppopsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelProdsAppopsResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.prods.appops.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发布单重试
+     * Summary: 发布单重试.
+     *
+     * @param RetryProdsAppopsRequest $request
+     *
+     * @return RetryProdsAppopsResponse
+     */
+    public function retryProdsAppops($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->retryProdsAppopsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发布单重试
+     * Summary: 发布单重试.
+     *
+     * @param RetryProdsAppopsRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return RetryProdsAppopsResponse
+     */
+    public function retryProdsAppopsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RetryProdsAppopsResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.prods.appops.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用缩容
+     * Summary: 应用缩容.
+     *
+     * @param ScaleinProdsAppopsRequest $request
+     *
+     * @return ScaleinProdsAppopsResponse
+     */
+    public function scaleinProdsAppops($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->scaleinProdsAppopsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用缩容
+     * Summary: 应用缩容.
+     *
+     * @param ScaleinProdsAppopsRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ScaleinProdsAppopsResponse
+     */
+    public function scaleinProdsAppopsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ScaleinProdsAppopsResponse::fromMap($this->doRequest('1.0', 'yunyou.yunqing.prods.appops.scalein', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelAppopsRequest extends Model
+class QueryProdsDeploymentunitsRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,28 @@ class CancelAppopsRequest extends Model
      */
     public $productInstanceId;
 
-    // 运维单id。
+    // 环境id
     /**
      * @var string
      */
-    public $opsPlanId;
+    public $envId;
 
-    // 操作人id
+    // 产品码
     /**
      * @var string
      */
-    public $submitterId;
-
-    //
-    // 操作人名称（花名或者真名）
-    /**
-     * @var string
-     */
-    public $submitterName;
+    public $prodCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'opsPlanId'         => 'ops_plan_id',
-        'submitterId'       => 'submitter_id',
-        'submitterName'     => 'submitter_name',
+        'envId'             => 'env_id',
+        'prodCode'          => 'prod_code',
     ];
 
     public function validate()
     {
-        Model::validateRequired('opsPlanId', $this->opsPlanId, true);
+        Model::validateRequired('envId', $this->envId, true);
+        Model::validateRequired('prodCode', $this->prodCode, true);
     }
 
     public function toMap()
@@ -59,14 +52,11 @@ class CancelAppopsRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->opsPlanId) {
-            $res['ops_plan_id'] = $this->opsPlanId;
+        if (null !== $this->envId) {
+            $res['env_id'] = $this->envId;
         }
-        if (null !== $this->submitterId) {
-            $res['submitter_id'] = $this->submitterId;
-        }
-        if (null !== $this->submitterName) {
-            $res['submitter_name'] = $this->submitterName;
+        if (null !== $this->prodCode) {
+            $res['prod_code'] = $this->prodCode;
         }
 
         return $res;
@@ -75,7 +65,7 @@ class CancelAppopsRequest extends Model
     /**
      * @param array $map
      *
-     * @return CancelAppopsRequest
+     * @return QueryProdsDeploymentunitsRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,14 +76,11 @@ class CancelAppopsRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['ops_plan_id'])) {
-            $model->opsPlanId = $map['ops_plan_id'];
+        if (isset($map['env_id'])) {
+            $model->envId = $map['env_id'];
         }
-        if (isset($map['submitter_id'])) {
-            $model->submitterId = $map['submitter_id'];
-        }
-        if (isset($map['submitter_name'])) {
-            $model->submitterName = $map['submitter_name'];
+        if (isset($map['prod_code'])) {
+            $model->prodCode = $map['prod_code'];
         }
 
         return $model;

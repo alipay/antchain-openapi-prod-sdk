@@ -39,11 +39,20 @@ class AppInfo extends Model
      * @var string
      */
     public $appVersion;
+
+    // 应用类型
+    /**
+     * @example CONTROLLER
+     *
+     * @var string
+     */
+    public $appType;
     protected $_name = [
         'namespace'  => 'namespace',
         'podList'    => 'pod_list',
         'appName'    => 'app_name',
         'appVersion' => 'app_version',
+        'appType'    => 'app_type',
     ];
 
     public function validate()
@@ -75,6 +84,9 @@ class AppInfo extends Model
         if (null !== $this->appVersion) {
             $res['app_version'] = $this->appVersion;
         }
+        if (null !== $this->appType) {
+            $res['app_type'] = $this->appType;
+        }
 
         return $res;
     }
@@ -104,6 +116,9 @@ class AppInfo extends Model
         }
         if (isset($map['app_version'])) {
             $model->appVersion = $map['app_version'];
+        }
+        if (isset($map['app_type'])) {
+            $model->appType = $map['app_type'];
         }
 
         return $model;

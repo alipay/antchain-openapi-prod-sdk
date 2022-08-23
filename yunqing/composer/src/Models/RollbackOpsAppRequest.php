@@ -55,6 +55,13 @@ class RollbackOpsAppRequest extends Model
      */
     public $submitterId;
 
+    //
+    // 操作人名称（花名或者真名）
+    /**
+     * @var string
+     */
+    public $submitterName;
+
     // 分组策略，默认使用SYSTEM_RECOMMENDATION
     /**
      * @var string
@@ -69,6 +76,7 @@ class RollbackOpsAppRequest extends Model
         'prodSnapshotVersion' => 'prod_snapshot_version',
         'unitInstanceId'      => 'unit_instance_id',
         'submitterId'         => 'submitter_id',
+        'submitterName'       => 'submitter_name',
         'groupStrategy'       => 'group_strategy',
     ];
 
@@ -109,6 +117,9 @@ class RollbackOpsAppRequest extends Model
         if (null !== $this->submitterId) {
             $res['submitter_id'] = $this->submitterId;
         }
+        if (null !== $this->submitterName) {
+            $res['submitter_name'] = $this->submitterName;
+        }
         if (null !== $this->groupStrategy) {
             $res['group_strategy'] = $this->groupStrategy;
         }
@@ -147,6 +158,9 @@ class RollbackOpsAppRequest extends Model
         }
         if (isset($map['submitter_id'])) {
             $model->submitterId = $map['submitter_id'];
+        }
+        if (isset($map['submitter_name'])) {
+            $model->submitterName = $map['submitter_name'];
         }
         if (isset($map['group_strategy'])) {
             $model->groupStrategy = $map['group_strategy'];

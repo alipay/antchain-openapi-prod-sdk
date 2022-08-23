@@ -54,6 +54,19 @@ class CreateProdinstanceDeployunitRequest extends Model
      * @var string
      */
     public $logicalInstanceId;
+
+    // 操作人id
+    /**
+     * @var string
+     */
+    public $submitterId;
+
+    //
+    // 操作人名称（花名或者真名）
+    /**
+     * @var string
+     */
+    public $submitterName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +76,8 @@ class CreateProdinstanceDeployunitRequest extends Model
         'unitName'          => 'unit_name',
         'cellId'            => 'cell_id',
         'logicalInstanceId' => 'logical_instance_id',
+        'submitterId'       => 'submitter_id',
+        'submitterName'     => 'submitter_name',
     ];
 
     public function validate()
@@ -101,6 +116,12 @@ class CreateProdinstanceDeployunitRequest extends Model
         if (null !== $this->logicalInstanceId) {
             $res['logical_instance_id'] = $this->logicalInstanceId;
         }
+        if (null !== $this->submitterId) {
+            $res['submitter_id'] = $this->submitterId;
+        }
+        if (null !== $this->submitterName) {
+            $res['submitter_name'] = $this->submitterName;
+        }
 
         return $res;
     }
@@ -136,6 +157,12 @@ class CreateProdinstanceDeployunitRequest extends Model
         }
         if (isset($map['logical_instance_id'])) {
             $model->logicalInstanceId = $map['logical_instance_id'];
+        }
+        if (isset($map['submitter_id'])) {
+            $model->submitterId = $map['submitter_id'];
+        }
+        if (isset($map['submitter_name'])) {
+            $model->submitterName = $map['submitter_name'];
         }
 
         return $model;

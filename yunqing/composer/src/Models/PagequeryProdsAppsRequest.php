@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UninstallProdinstanceAppserviceRequest extends Model
+class PagequeryProdsAppsRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,7 +19,7 @@ class UninstallProdinstanceAppserviceRequest extends Model
      */
     public $productInstanceId;
 
-    // 环境标识
+    // 环境id
     /**
      * @var string
      */
@@ -29,33 +29,32 @@ class UninstallProdinstanceAppserviceRequest extends Model
     /**
      * @var string
      */
-    public $productCode;
+    public $prodCode;
 
-    // 操作人Id
+    // 部署单元标识id
     /**
      * @var string
      */
-    public $submitterId;
+    public $deploymentUnitIdentity;
 
-    // 操作人名称（花名或者真名）
+    // 部署单元实例id
     /**
      * @var string
      */
-    public $submitterName;
+    public $deploymentUnitInstanceIdentity;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'envId'             => 'env_id',
-        'productCode'       => 'product_code',
-        'submitterId'       => 'submitter_id',
-        'submitterName'     => 'submitter_name',
+        'authToken'                      => 'auth_token',
+        'productInstanceId'              => 'product_instance_id',
+        'envId'                          => 'env_id',
+        'prodCode'                       => 'prod_code',
+        'deploymentUnitIdentity'         => 'deployment_unit_identity',
+        'deploymentUnitInstanceIdentity' => 'deployment_unit_instance_identity',
     ];
 
     public function validate()
     {
         Model::validateRequired('envId', $this->envId, true);
-        Model::validateRequired('productCode', $this->productCode, true);
-        Model::validateRequired('submitterId', $this->submitterId, true);
+        Model::validateRequired('prodCode', $this->prodCode, true);
     }
 
     public function toMap()
@@ -70,14 +69,14 @@ class UninstallProdinstanceAppserviceRequest extends Model
         if (null !== $this->envId) {
             $res['env_id'] = $this->envId;
         }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
+        if (null !== $this->prodCode) {
+            $res['prod_code'] = $this->prodCode;
         }
-        if (null !== $this->submitterId) {
-            $res['submitter_id'] = $this->submitterId;
+        if (null !== $this->deploymentUnitIdentity) {
+            $res['deployment_unit_identity'] = $this->deploymentUnitIdentity;
         }
-        if (null !== $this->submitterName) {
-            $res['submitter_name'] = $this->submitterName;
+        if (null !== $this->deploymentUnitInstanceIdentity) {
+            $res['deployment_unit_instance_identity'] = $this->deploymentUnitInstanceIdentity;
         }
 
         return $res;
@@ -86,7 +85,7 @@ class UninstallProdinstanceAppserviceRequest extends Model
     /**
      * @param array $map
      *
-     * @return UninstallProdinstanceAppserviceRequest
+     * @return PagequeryProdsAppsRequest
      */
     public static function fromMap($map = [])
     {
@@ -100,14 +99,14 @@ class UninstallProdinstanceAppserviceRequest extends Model
         if (isset($map['env_id'])) {
             $model->envId = $map['env_id'];
         }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
+        if (isset($map['prod_code'])) {
+            $model->prodCode = $map['prod_code'];
         }
-        if (isset($map['submitter_id'])) {
-            $model->submitterId = $map['submitter_id'];
+        if (isset($map['deployment_unit_identity'])) {
+            $model->deploymentUnitIdentity = $map['deployment_unit_identity'];
         }
-        if (isset($map['submitter_name'])) {
-            $model->submitterName = $map['submitter_name'];
+        if (isset($map['deployment_unit_instance_identity'])) {
+            $model->deploymentUnitInstanceIdentity = $map['deployment_unit_instance_identity'];
         }
 
         return $model;

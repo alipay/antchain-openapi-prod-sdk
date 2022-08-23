@@ -61,6 +61,12 @@ class CreateAppopsRequest extends Model
      */
     public $submitterId;
 
+    // 操作人名称（花名或者真名）
+    /**
+     * @var string
+     */
+    public $submitterName;
+
     // 应用容器分组策略，默认取SYSTEM_RECOMMENDATION
     /**
      * @var string
@@ -76,6 +82,7 @@ class CreateAppopsRequest extends Model
         'opsDimension'      => 'ops_dimension',
         'cellId'            => 'cell_id',
         'submitterId'       => 'submitter_id',
+        'submitterName'     => 'submitter_name',
         'groupStrategy'     => 'group_strategy',
     ];
 
@@ -116,6 +123,9 @@ class CreateAppopsRequest extends Model
         }
         if (null !== $this->submitterId) {
             $res['submitter_id'] = $this->submitterId;
+        }
+        if (null !== $this->submitterName) {
+            $res['submitter_name'] = $this->submitterName;
         }
         if (null !== $this->groupStrategy) {
             $res['group_strategy'] = $this->groupStrategy;
@@ -162,6 +172,9 @@ class CreateAppopsRequest extends Model
         }
         if (isset($map['submitter_id'])) {
             $model->submitterId = $map['submitter_id'];
+        }
+        if (isset($map['submitter_name'])) {
+            $model->submitterName = $map['submitter_name'];
         }
         if (isset($map['group_strategy'])) {
             $model->groupStrategy = $map['group_strategy'];

@@ -6,7 +6,7 @@ namespace AntChain\YUNQING\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelAppopsRequest extends Model
+class PagequeryProdsRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,20 @@ class CancelAppopsRequest extends Model
      */
     public $productInstanceId;
 
-    // 运维单id。
+    // 环境id
     /**
      * @var string
      */
-    public $opsPlanId;
-
-    // 操作人id
-    /**
-     * @var string
-     */
-    public $submitterId;
-
-    //
-    // 操作人名称（花名或者真名）
-    /**
-     * @var string
-     */
-    public $submitterName;
+    public $envId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'opsPlanId'         => 'ops_plan_id',
-        'submitterId'       => 'submitter_id',
-        'submitterName'     => 'submitter_name',
+        'envId'             => 'env_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('opsPlanId', $this->opsPlanId, true);
+        Model::validateRequired('envId', $this->envId, true);
     }
 
     public function toMap()
@@ -59,14 +44,8 @@ class CancelAppopsRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->opsPlanId) {
-            $res['ops_plan_id'] = $this->opsPlanId;
-        }
-        if (null !== $this->submitterId) {
-            $res['submitter_id'] = $this->submitterId;
-        }
-        if (null !== $this->submitterName) {
-            $res['submitter_name'] = $this->submitterName;
+        if (null !== $this->envId) {
+            $res['env_id'] = $this->envId;
         }
 
         return $res;
@@ -75,7 +54,7 @@ class CancelAppopsRequest extends Model
     /**
      * @param array $map
      *
-     * @return CancelAppopsRequest
+     * @return PagequeryProdsRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,14 +65,8 @@ class CancelAppopsRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['ops_plan_id'])) {
-            $model->opsPlanId = $map['ops_plan_id'];
-        }
-        if (isset($map['submitter_id'])) {
-            $model->submitterId = $map['submitter_id'];
-        }
-        if (isset($map['submitter_name'])) {
-            $model->submitterName = $map['submitter_name'];
+        if (isset($map['env_id'])) {
+            $model->envId = $map['env_id'];
         }
 
         return $model;

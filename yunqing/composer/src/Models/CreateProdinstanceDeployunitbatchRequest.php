@@ -54,6 +54,19 @@ class CreateProdinstanceDeployunitbatchRequest extends Model
      * @var string
      */
     public $cellId;
+
+    // 操作人id
+    /**
+     * @var string
+     */
+    public $submitterId;
+
+    //
+    // 操作人名称（花名或者真名）
+    /**
+     * @var string
+     */
+    public $submitterName;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -63,6 +76,8 @@ class CreateProdinstanceDeployunitbatchRequest extends Model
         'unitInstanceIds'    => 'unit_instance_ids',
         'logicalInstanceId'  => 'logical_instance_id',
         'cellId'             => 'cell_id',
+        'submitterId'        => 'submitter_id',
+        'submitterName'      => 'submitter_name',
     ];
 
     public function validate()
@@ -102,6 +117,12 @@ class CreateProdinstanceDeployunitbatchRequest extends Model
         if (null !== $this->cellId) {
             $res['cell_id'] = $this->cellId;
         }
+        if (null !== $this->submitterId) {
+            $res['submitter_id'] = $this->submitterId;
+        }
+        if (null !== $this->submitterName) {
+            $res['submitter_name'] = $this->submitterName;
+        }
 
         return $res;
     }
@@ -139,6 +160,12 @@ class CreateProdinstanceDeployunitbatchRequest extends Model
         }
         if (isset($map['cell_id'])) {
             $model->cellId = $map['cell_id'];
+        }
+        if (isset($map['submitter_id'])) {
+            $model->submitterId = $map['submitter_id'];
+        }
+        if (isset($map['submitter_name'])) {
+            $model->submitterName = $map['submitter_name'];
         }
 
         return $model;
