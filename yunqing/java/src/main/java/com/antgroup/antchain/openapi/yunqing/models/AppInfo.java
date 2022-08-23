@@ -24,6 +24,10 @@ public class AppInfo extends TeaModel {
     @Validation(required = true)
     public String appVersion;
 
+    // 应用类型
+    @NameInMap("app_type")
+    public String appType;
+
     public static AppInfo build(java.util.Map<String, ?> map) throws Exception {
         AppInfo self = new AppInfo();
         return TeaModel.build(map, self);
@@ -59,6 +63,14 @@ public class AppInfo extends TeaModel {
     }
     public String getAppVersion() {
         return this.appVersion;
+    }
+
+    public AppInfo setAppType(String appType) {
+        this.appType = appType;
+        return this;
+    }
+    public String getAppType() {
+        return this.appType;
     }
 
 }

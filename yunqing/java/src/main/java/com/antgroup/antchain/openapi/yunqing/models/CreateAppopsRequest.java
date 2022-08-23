@@ -43,6 +43,10 @@ public class CreateAppopsRequest extends TeaModel {
     @NameInMap("submitter_id")
     public String submitterId;
 
+    // 操作人名称（花名或者真名）
+    @NameInMap("submitter_name")
+    public String submitterName;
+
     // 应用容器分组策略，默认取SYSTEM_RECOMMENDATION
     @NameInMap("group_strategy")
     public String groupStrategy;
@@ -122,6 +126,14 @@ public class CreateAppopsRequest extends TeaModel {
     }
     public String getSubmitterId() {
         return this.submitterId;
+    }
+
+    public CreateAppopsRequest setSubmitterName(String submitterName) {
+        this.submitterName = submitterName;
+        return this;
+    }
+    public String getSubmitterName() {
+        return this.submitterName;
     }
 
     public CreateAppopsRequest setGroupStrategy(String groupStrategy) {

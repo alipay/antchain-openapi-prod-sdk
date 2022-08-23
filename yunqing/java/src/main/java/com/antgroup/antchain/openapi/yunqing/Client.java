@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "3.14.14")
+                    new TeaPair("sdk_version", "3.14.18"),
+                    new TeaPair("_prod_code", "YUNQING"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -118,7 +120,7 @@ public class Client {
 
                 request_.headers = TeaConverter.merge(String.class,
                     TeaConverter.buildMap(
-                        new TeaPair("host", com.aliyun.teautil.Common.defaultString(_endpoint, "openapi.antchain.antgroup.com")),
+                        new TeaPair("host", com.aliyun.teautil.Common.defaultString(_endpoint, "prodapigw-sofastack.cloud.alipay.com")),
                         new TeaPair("user-agent", com.aliyun.teautil.Common.getUserAgent(_userAgent))
                     ),
                     headers
@@ -1168,5 +1170,233 @@ public class Client {
     public PagequeryRollbackSnapshotversionResponse pagequeryRollbackSnapshotversionEx(PagequeryRollbackSnapshotversionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.rollback.snapshotversion.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryRollbackSnapshotversionResponse());
+    }
+
+    /**
+     * Description: 云游纳管的所有环境基本信息查询
+     * Summary: 云游纳管的所有环境基本信息查询
+     */
+    public AllEnvsResponse allEnvs(AllEnvsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.allEnvsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 云游纳管的所有环境基本信息查询
+     * Summary: 云游纳管的所有环境基本信息查询
+     */
+    public AllEnvsResponse allEnvsEx(AllEnvsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.envs.all", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AllEnvsResponse());
+    }
+
+    /**
+     * Description: 产品基线基本信息分页查询
+     * Summary: 产品基线基本信息分页查询
+     */
+    public PagequeryProdsResponse pagequeryProds(PagequeryProdsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryProdsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品基线基本信息分页查询
+     * Summary: 产品基线基本信息分页查询
+     */
+    public PagequeryProdsResponse pagequeryProdsEx(PagequeryProdsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.prods.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryProdsResponse());
+    }
+
+    /**
+     * Description: 产品基线资源元数据查询
+     * Summary: 产品基线资源元数据查询
+     */
+    public PagequeryProdsResourcesResponse pagequeryProdsResources(PagequeryProdsResourcesRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryProdsResourcesEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品基线资源元数据查询
+     * Summary: 产品基线资源元数据查询
+     */
+    public PagequeryProdsResourcesResponse pagequeryProdsResourcesEx(PagequeryProdsResourcesRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.prods.resources.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryProdsResourcesResponse());
+    }
+
+    /**
+     * Description: 产品基线容器实例详情分页查询
+     * Summary: 产品基线容器实例详情查询
+     */
+    public PagequeryResourceinstancesContainersResponse pagequeryResourceinstancesContainers(PagequeryResourceinstancesContainersRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryResourceinstancesContainersEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品基线容器实例详情分页查询
+     * Summary: 产品基线容器实例详情查询
+     */
+    public PagequeryResourceinstancesContainersResponse pagequeryResourceinstancesContainersEx(PagequeryResourceinstancesContainersRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.resourceinstances.containers.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryResourceinstancesContainersResponse());
+    }
+
+    /**
+     * Description: 产品所属应用基线元数据分页查询
+     * Summary: 产品所属应用基线元数据分页查询
+     */
+    public PagequeryProdsAppsResponse pagequeryProdsApps(PagequeryProdsAppsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryProdsAppsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品所属应用基线元数据分页查询
+     * Summary: 产品所属应用基线元数据分页查询
+     */
+    public PagequeryProdsAppsResponse pagequeryProdsAppsEx(PagequeryProdsAppsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.prods.apps.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryProdsAppsResponse());
+    }
+
+    /**
+     * Description: 产品部署单元实例列表查询
+     * Summary: 产品部署单元实例列表查询
+     */
+    public QueryProdsDeploymentunitsResponse queryProdsDeploymentunits(QueryProdsDeploymentunitsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryProdsDeploymentunitsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品部署单元实例列表查询
+     * Summary: 产品部署单元实例列表查询
+     */
+    public QueryProdsDeploymentunitsResponse queryProdsDeploymentunitsEx(QueryProdsDeploymentunitsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.prods.deploymentunits.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryProdsDeploymentunitsResponse());
+    }
+
+    /**
+     * Description: 产品基线应用所属lb资源分页查询
+     * Summary: 产品基线应用所属lb资源分页查询
+     */
+    public PagequeryResourceinstancesLbsResponse pagequeryResourceinstancesLbs(PagequeryResourceinstancesLbsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryResourceinstancesLbsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品基线应用所属lb资源分页查询
+     * Summary: 产品基线应用所属lb资源分页查询
+     */
+    public PagequeryResourceinstancesLbsResponse pagequeryResourceinstancesLbsEx(PagequeryResourceinstancesLbsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.resourceinstances.lbs.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryResourceinstancesLbsResponse());
+    }
+
+    /**
+     * Description: 产品所属应用运维发布单创建
+     * Summary: 产品所属应用运维发布单创建
+     */
+    public CreateProdsAppopsResponse createProdsAppops(CreateProdsAppopsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createProdsAppopsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品所属应用运维发布单创建
+     * Summary: 产品所属应用运维发布单创建
+     */
+    public CreateProdsAppopsResponse createProdsAppopsEx(CreateProdsAppopsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.prods.appops.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateProdsAppopsResponse());
+    }
+
+    /**
+     * Description: 运维发布单查询
+     * Summary: 运维发布单查询
+     */
+    public GetProdsAppopsResponse getProdsAppops(GetProdsAppopsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getProdsAppopsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 运维发布单查询
+     * Summary: 运维发布单查询
+     */
+    public GetProdsAppopsResponse getProdsAppopsEx(GetProdsAppopsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.prods.appops.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetProdsAppopsResponse());
+    }
+
+    /**
+     * Description: 发布单取消
+     * Summary: 发布单取消
+     */
+    public CancelProdsAppopsResponse cancelProdsAppops(CancelProdsAppopsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelProdsAppopsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 发布单取消
+     * Summary: 发布单取消
+     */
+    public CancelProdsAppopsResponse cancelProdsAppopsEx(CancelProdsAppopsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.prods.appops.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelProdsAppopsResponse());
+    }
+
+    /**
+     * Description: 发布单重试
+     * Summary: 发布单重试
+     */
+    public RetryProdsAppopsResponse retryProdsAppops(RetryProdsAppopsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.retryProdsAppopsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 发布单重试
+     * Summary: 发布单重试
+     */
+    public RetryProdsAppopsResponse retryProdsAppopsEx(RetryProdsAppopsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.prods.appops.retry", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RetryProdsAppopsResponse());
+    }
+
+    /**
+     * Description: 应用缩容
+     * Summary: 应用缩容
+     */
+    public ScaleinProdsAppopsResponse scaleinProdsAppops(ScaleinProdsAppopsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.scaleinProdsAppopsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用缩容
+     * Summary: 应用缩容
+     */
+    public ScaleinProdsAppopsResponse scaleinProdsAppopsEx(ScaleinProdsAppopsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "yunyou.yunqing.prods.appops.scalein", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ScaleinProdsAppopsResponse());
     }
 }

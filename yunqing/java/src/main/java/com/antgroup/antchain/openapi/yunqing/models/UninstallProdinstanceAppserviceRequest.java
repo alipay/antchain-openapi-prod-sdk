@@ -26,6 +26,10 @@ public class UninstallProdinstanceAppserviceRequest extends TeaModel {
     @Validation(required = true)
     public String submitterId;
 
+    // 操作人名称（花名或者真名）
+    @NameInMap("submitter_name")
+    public String submitterName;
+
     public static UninstallProdinstanceAppserviceRequest build(java.util.Map<String, ?> map) throws Exception {
         UninstallProdinstanceAppserviceRequest self = new UninstallProdinstanceAppserviceRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class UninstallProdinstanceAppserviceRequest extends TeaModel {
     }
     public String getSubmitterId() {
         return this.submitterId;
+    }
+
+    public UninstallProdinstanceAppserviceRequest setSubmitterName(String submitterName) {
+        this.submitterName = submitterName;
+        return this;
+    }
+    public String getSubmitterName() {
+        return this.submitterName;
     }
 
 }

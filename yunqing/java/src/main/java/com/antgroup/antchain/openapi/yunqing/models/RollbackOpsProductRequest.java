@@ -40,6 +40,10 @@ public class RollbackOpsProductRequest extends TeaModel {
     @Validation(required = true)
     public String submitterId;
 
+    // 操作人名称（花名或者真名）
+    @NameInMap("submitter_name")
+    public String submitterName;
+
     public static RollbackOpsProductRequest build(java.util.Map<String, ?> map) throws Exception {
         RollbackOpsProductRequest self = new RollbackOpsProductRequest();
         return TeaModel.build(map, self);
@@ -107,6 +111,14 @@ public class RollbackOpsProductRequest extends TeaModel {
     }
     public String getSubmitterId() {
         return this.submitterId;
+    }
+
+    public RollbackOpsProductRequest setSubmitterName(String submitterName) {
+        this.submitterName = submitterName;
+        return this;
+    }
+    public String getSubmitterName() {
+        return this.submitterName;
     }
 
 }

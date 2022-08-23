@@ -40,6 +40,15 @@ public class CreateProdinstanceDeployunitRequest extends TeaModel {
     @Validation(required = true)
     public String logicalInstanceId;
 
+    // 操作人id
+    @NameInMap("submitter_id")
+    public String submitterId;
+
+    // 	
+    // 操作人名称（花名或者真名）
+    @NameInMap("submitter_name")
+    public String submitterName;
+
     public static CreateProdinstanceDeployunitRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateProdinstanceDeployunitRequest self = new CreateProdinstanceDeployunitRequest();
         return TeaModel.build(map, self);
@@ -107,6 +116,22 @@ public class CreateProdinstanceDeployunitRequest extends TeaModel {
     }
     public String getLogicalInstanceId() {
         return this.logicalInstanceId;
+    }
+
+    public CreateProdinstanceDeployunitRequest setSubmitterId(String submitterId) {
+        this.submitterId = submitterId;
+        return this;
+    }
+    public String getSubmitterId() {
+        return this.submitterId;
+    }
+
+    public CreateProdinstanceDeployunitRequest setSubmitterName(String submitterName) {
+        this.submitterName = submitterName;
+        return this;
+    }
+    public String getSubmitterName() {
+        return this.submitterName;
     }
 
 }

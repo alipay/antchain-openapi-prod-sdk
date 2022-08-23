@@ -16,6 +16,15 @@ public class CancelAppopsRequest extends TeaModel {
     @Validation(required = true)
     public String opsPlanId;
 
+    // 操作人id
+    @NameInMap("submitter_id")
+    public String submitterId;
+
+    // 	
+    // 操作人名称（花名或者真名）
+    @NameInMap("submitter_name")
+    public String submitterName;
+
     public static CancelAppopsRequest build(java.util.Map<String, ?> map) throws Exception {
         CancelAppopsRequest self = new CancelAppopsRequest();
         return TeaModel.build(map, self);
@@ -43,6 +52,22 @@ public class CancelAppopsRequest extends TeaModel {
     }
     public String getOpsPlanId() {
         return this.opsPlanId;
+    }
+
+    public CancelAppopsRequest setSubmitterId(String submitterId) {
+        this.submitterId = submitterId;
+        return this;
+    }
+    public String getSubmitterId() {
+        return this.submitterId;
+    }
+
+    public CancelAppopsRequest setSubmitterName(String submitterName) {
+        this.submitterName = submitterName;
+        return this;
+    }
+    public String getSubmitterName() {
+        return this.submitterName;
     }
 
 }

@@ -41,6 +41,15 @@ public class CreateProdinstanceDeployunitbatchRequest extends TeaModel {
     @Validation(required = true)
     public String cellId;
 
+    // 操作人id
+    @NameInMap("submitter_id")
+    public String submitterId;
+
+    // 	
+    // 操作人名称（花名或者真名）
+    @NameInMap("submitter_name")
+    public String submitterName;
+
     public static CreateProdinstanceDeployunitbatchRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateProdinstanceDeployunitbatchRequest self = new CreateProdinstanceDeployunitbatchRequest();
         return TeaModel.build(map, self);
@@ -108,6 +117,22 @@ public class CreateProdinstanceDeployunitbatchRequest extends TeaModel {
     }
     public String getCellId() {
         return this.cellId;
+    }
+
+    public CreateProdinstanceDeployunitbatchRequest setSubmitterId(String submitterId) {
+        this.submitterId = submitterId;
+        return this;
+    }
+    public String getSubmitterId() {
+        return this.submitterId;
+    }
+
+    public CreateProdinstanceDeployunitbatchRequest setSubmitterName(String submitterName) {
+        this.submitterName = submitterName;
+        return this;
+    }
+    public String getSubmitterName() {
+        return this.submitterName;
     }
 
 }

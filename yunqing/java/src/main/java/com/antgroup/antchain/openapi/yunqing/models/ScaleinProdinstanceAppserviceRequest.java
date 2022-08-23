@@ -25,6 +25,10 @@ public class ScaleinProdinstanceAppserviceRequest extends TeaModel {
     @NameInMap("submitter_id")
     public String submitterId;
 
+    // 操作人名称（花名或者真名）
+    @NameInMap("submitter_name")
+    public String submitterName;
+
     public static ScaleinProdinstanceAppserviceRequest build(java.util.Map<String, ?> map) throws Exception {
         ScaleinProdinstanceAppserviceRequest self = new ScaleinProdinstanceAppserviceRequest();
         return TeaModel.build(map, self);
@@ -68,6 +72,14 @@ public class ScaleinProdinstanceAppserviceRequest extends TeaModel {
     }
     public String getSubmitterId() {
         return this.submitterId;
+    }
+
+    public ScaleinProdinstanceAppserviceRequest setSubmitterName(String submitterName) {
+        this.submitterName = submitterName;
+        return this;
+    }
+    public String getSubmitterName() {
+        return this.submitterName;
     }
 
 }

@@ -41,6 +41,11 @@ public class RollbackOpsAppRequest extends TeaModel {
     @Validation(required = true)
     public String submitterId;
 
+    // 	
+    // 操作人名称（花名或者真名）
+    @NameInMap("submitter_name")
+    public String submitterName;
+
     // 分组策略，默认使用SYSTEM_RECOMMENDATION
     @NameInMap("group_strategy")
     public String groupStrategy;
@@ -112,6 +117,14 @@ public class RollbackOpsAppRequest extends TeaModel {
     }
     public String getSubmitterId() {
         return this.submitterId;
+    }
+
+    public RollbackOpsAppRequest setSubmitterName(String submitterName) {
+        this.submitterName = submitterName;
+        return this;
+    }
+    public String getSubmitterName() {
+        return this.submitterName;
     }
 
     public RollbackOpsAppRequest setGroupStrategy(String groupStrategy) {

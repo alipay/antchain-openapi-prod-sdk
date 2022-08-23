@@ -25,6 +25,10 @@ public class ScaleoutProdinstanceAppserviceRequest extends TeaModel {
     @NameInMap("submitter_id")
     public String submitterId;
 
+    // 操作人名称（花名或者真名）
+    @NameInMap("submitter_name")
+    public String submitterName;
+
     // 容器分组策略，默认SYSTEM_RECOMMENDATION
     @NameInMap("group_strategy")
     public String groupStrategy;
@@ -72,6 +76,14 @@ public class ScaleoutProdinstanceAppserviceRequest extends TeaModel {
     }
     public String getSubmitterId() {
         return this.submitterId;
+    }
+
+    public ScaleoutProdinstanceAppserviceRequest setSubmitterName(String submitterName) {
+        this.submitterName = submitterName;
+        return this;
+    }
+    public String getSubmitterName() {
+        return this.submitterName;
     }
 
     public ScaleoutProdinstanceAppserviceRequest setGroupStrategy(String groupStrategy) {

@@ -48,6 +48,11 @@ public class CreateAppdeployRequest extends TeaModel {
     @NameInMap("submitter_id")
     public String submitterId;
 
+    // 	
+    // 操作人名称（花名或者真名）
+    @NameInMap("submitter_name")
+    public String submitterName;
+
     public static CreateAppdeployRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAppdeployRequest self = new CreateAppdeployRequest();
         return TeaModel.build(map, self);
@@ -131,6 +136,14 @@ public class CreateAppdeployRequest extends TeaModel {
     }
     public String getSubmitterId() {
         return this.submitterId;
+    }
+
+    public CreateAppdeployRequest setSubmitterName(String submitterName) {
+        this.submitterName = submitterName;
+        return this;
+    }
+    public String getSubmitterName() {
+        return this.submitterName;
     }
 
 }
