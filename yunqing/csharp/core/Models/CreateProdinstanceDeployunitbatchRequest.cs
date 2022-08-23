@@ -48,6 +48,17 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=true)]
         public string CellId { get; set; }
 
+        // 操作人id
+        [NameInMap("submitter_id")]
+        [Validation(Required=false)]
+        public string SubmitterId { get; set; }
+
+        // 	
+        // 操作人名称（花名或者真名）
+        [NameInMap("submitter_name")]
+        [Validation(Required=false)]
+        public string SubmitterName { get; set; }
+
     }
 
 }

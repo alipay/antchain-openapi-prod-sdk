@@ -33,6 +33,11 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=false)]
         public string SubmitterId { get; set; }
 
+        // 操作人名称（花名或者真名）
+        [NameInMap("submitter_name")]
+        [Validation(Required=false)]
+        public string SubmitterName { get; set; }
+
         // 容器分组策略，默认SYSTEM_RECOMMENDATION
         [NameInMap("group_strategy")]
         [Validation(Required=false)]

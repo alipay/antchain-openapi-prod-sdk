@@ -30,6 +30,11 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=true)]
         public string AppVersion { get; set; }
 
+        // 应用类型
+        [NameInMap("app_type")]
+        [Validation(Required=false)]
+        public string AppType { get; set; }
+
     }
 
 }

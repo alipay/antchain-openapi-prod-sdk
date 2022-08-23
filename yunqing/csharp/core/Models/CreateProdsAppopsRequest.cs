@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.YUNQING.Models
 {
-    public class RollbackOpsAppRequest : TeaModel {
+    public class CreateProdsAppopsRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,45 +18,46 @@ namespace AntChain.SDK.YUNQING.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 发布单id
-        [NameInMap("ops_plan_id")]
+        // 环境id	
+        [NameInMap("env_id")]
         [Validation(Required=true)]
-        public string OpsPlanId { get; set; }
+        public string EnvId { get; set; }
 
         // 产品码
         [NameInMap("prod_code")]
         [Validation(Required=true)]
         public string ProdCode { get; set; }
 
-        // 应用名
+        // 应用名称
         [NameInMap("app_name")]
         [Validation(Required=true)]
         public string AppName { get; set; }
 
-        // 需要回滚的快照版本
-        [NameInMap("prod_snapshot_version")]
+        // 部署单元标识id
+        [NameInMap("deployment_unit_identity")]
         [Validation(Required=true)]
-        public string ProdSnapshotVersion { get; set; }
+        public string DeploymentUnitIdentity { get; set; }
 
-        // 部署单元ID
-        [NameInMap("unit_instance_id")]
+        // 部署单元实例id
+        [NameInMap("deployment_unit_instance_identity")]
         [Validation(Required=true)]
-        public string UnitInstanceId { get; set; }
+        public string DeploymentUnitInstanceIdentity { get; set; }
 
-        // 操作人Id
-        [NameInMap("submitter_id")]
+        // 应用运维的操作类型，取值列表：ONLINE：上线，OFFLINE：下线，RESTART:重启	
+        // 
+        [NameInMap("ops_action")]
         [Validation(Required=true)]
-        public string SubmitterId { get; set; }
+        public string OpsAction { get; set; }
 
-        // 	
-        // 操作人名称（花名或者真名）
-        [NameInMap("submitter_name")]
-        [Validation(Required=false)]
-        public string SubmitterName { get; set; }
+        // 容器名称列表	
+        // 
+        [NameInMap("container_names")]
+        [Validation(Required=true)]
+        public List<string> ContainerNames { get; set; }
 
-        // 分组策略，默认使用SYSTEM_RECOMMENDATION
+        // 应用容器分组策略，默认取SYSTEM_RECOMMENDATION
         [NameInMap("group_strategy")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string GroupStrategy { get; set; }
 
     }
