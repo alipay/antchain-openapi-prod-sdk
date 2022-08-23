@@ -3304,8 +3304,8 @@ type CreateDidCustomerRequest struct {
 	PersonCertNo *string `json:"person_cert_no,omitempty" xml:"person_cert_no,omitempty"`
 	// 个人身份类型
 	PersonCertType *string `json:"person_cert_type,omitempty" xml:"person_cert_type,omitempty"`
-	// 账户uid类型 0-Alipay 1-Alibaba
-	AccountType *int64 `json:"account_type,omitempty" xml:"account_type,omitempty" require:"true"`
+	// 账户uid类型 Alipay/Alibaba
+	AccountType *string `json:"account_type,omitempty" xml:"account_type,omitempty" require:"true"`
 }
 
 func (s CreateDidCustomerRequest) String() string {
@@ -3356,7 +3356,7 @@ func (s *CreateDidCustomerRequest) SetPersonCertType(v string) *CreateDidCustome
 	return s
 }
 
-func (s *CreateDidCustomerRequest) SetAccountType(v int64) *CreateDidCustomerRequest {
+func (s *CreateDidCustomerRequest) SetAccountType(v string) *CreateDidCustomerRequest {
 	s.AccountType = &v
 	return s
 }
@@ -4660,7 +4660,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.28"),
+				"sdk_version":      tea.String("1.7.29"),
 				"_prod_code":       tea.String("BBP"),
 				"_prod_channel":    tea.String("undefined"),
 			}
