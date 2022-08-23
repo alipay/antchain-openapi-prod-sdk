@@ -48,10 +48,10 @@ namespace AntChain.SDK.BBP.Models
         [Validation(Required=false)]
         public string PersonCertType { get; set; }
 
-        // 账户uid类型 0-Alipay 1-Alibaba
+        // 账户uid类型 Alipay/Alibaba
         [NameInMap("account_type")]
         [Validation(Required=true)]
-        public long? AccountType { get; set; }
+        public string AccountType { get; set; }
 
     }
 
