@@ -2441,8 +2441,8 @@ export class CreateDidCustomerRequest extends $tea.Model {
   personCertNo?: string;
   // 个人身份类型
   personCertType?: string;
-  // 账户uid类型 0-Alipay 1-Alibaba
-  accountType: number;
+  // 账户uid类型 Alipay/Alibaba
+  accountType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2467,7 +2467,7 @@ export class CreateDidCustomerRequest extends $tea.Model {
       personPhone: 'string',
       personCertNo: 'string',
       personCertType: 'string',
-      accountType: 'number',
+      accountType: 'string',
     };
   }
 
@@ -3461,7 +3461,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.28",
+          sdk_version: "1.7.29",
           _prod_code: "BBP",
           _prod_channel: "undefined",
         };
