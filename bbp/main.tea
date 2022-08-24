@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.28',
+    sdk_version = '1.7.29',
     _prod_code = 'BBP',
     _prod_channel = 'undefined'
   };
@@ -1466,8 +1466,8 @@ model CreateDidCustomerRequest = {
   personCertNo?: string(name='person_cert_no'),
   // 个人身份类型
   personCertType?: string(name='person_cert_type'),
-  // 账户uid类型 0-Alipay 1-Alibaba
-  accountType: long(name='account_type'),
+  // 账户uid类型 Alipay/Alibaba
+  accountType: string(name='account_type'),
 }
 
 model CreateDidCustomerResponse = {
