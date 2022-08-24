@@ -148,6 +148,58 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 键值对，兼容map用
+type NameValuePair struct {
+	// 键名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s NameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *NameValuePair) SetName(v string) *NameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *NameValuePair) SetValue(v string) *NameValuePair {
+	s.Value = &v
+	return s
+}
+
+// Map<String,Object> 集合
+type QueryMap struct {
+	// 键值
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 额外用户信息
+	Value []*NameValuePair `json:"value,omitempty" xml:"value,omitempty" type:"Repeated"`
+}
+
+func (s QueryMap) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMap) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMap) SetName(v string) *QueryMap {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryMap) SetValue(v []*NameValuePair) *QueryMap {
+	s.Value = v
+	return s
+}
+
 type BindDemoAaaBbbCccRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -207,6 +259,202 @@ func (s *BindDemoAaaBbbCccResponse) SetResultCode(v string) *BindDemoAaaBbbCccRe
 }
 
 func (s *BindDemoAaaBbbCccResponse) SetResultMsg(v string) *BindDemoAaaBbbCccResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type InitDemoBbpInsuranceUserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 保司编码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
+	// 第三方id，此处为天猫uid
+	ThirdPartId *string `json:"third_part_id,omitempty" xml:"third_part_id,omitempty" require:"true"`
+	// 来源渠道
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+	// 埋点信息
+	Burieds *QueryMap `json:"burieds,omitempty" xml:"burieds,omitempty"`
+}
+
+func (s InitDemoBbpInsuranceUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitDemoBbpInsuranceUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitDemoBbpInsuranceUserRequest) SetAuthToken(v string) *InitDemoBbpInsuranceUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitDemoBbpInsuranceUserRequest) SetProductInstanceId(v string) *InitDemoBbpInsuranceUserRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitDemoBbpInsuranceUserRequest) SetBusinessCode(v string) *InitDemoBbpInsuranceUserRequest {
+	s.BusinessCode = &v
+	return s
+}
+
+func (s *InitDemoBbpInsuranceUserRequest) SetThirdPartId(v string) *InitDemoBbpInsuranceUserRequest {
+	s.ThirdPartId = &v
+	return s
+}
+
+func (s *InitDemoBbpInsuranceUserRequest) SetChannel(v string) *InitDemoBbpInsuranceUserRequest {
+	s.Channel = &v
+	return s
+}
+
+func (s *InitDemoBbpInsuranceUserRequest) SetBurieds(v *QueryMap) *InitDemoBbpInsuranceUserRequest {
+	s.Burieds = v
+	return s
+}
+
+type InitDemoBbpInsuranceUserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s InitDemoBbpInsuranceUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitDemoBbpInsuranceUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitDemoBbpInsuranceUserResponse) SetReqMsgId(v string) *InitDemoBbpInsuranceUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitDemoBbpInsuranceUserResponse) SetResultCode(v string) *InitDemoBbpInsuranceUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitDemoBbpInsuranceUserResponse) SetResultMsg(v string) *InitDemoBbpInsuranceUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryDemoAdAsdAsdRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryDemoAdAsdAsdRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoAdAsdAsdRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoAdAsdAsdRequest) SetAuthToken(v string) *QueryDemoAdAsdAsdRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDemoAdAsdAsdRequest) SetProductInstanceId(v string) *QueryDemoAdAsdAsdRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryDemoAdAsdAsdResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryDemoAdAsdAsdResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoAdAsdAsdResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoAdAsdAsdResponse) SetReqMsgId(v string) *QueryDemoAdAsdAsdResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDemoAdAsdAsdResponse) SetResultCode(v string) *QueryDemoAdAsdAsdResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDemoAdAsdAsdResponse) SetResultMsg(v string) *QueryDemoAdAsdAsdResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type BindDemoAsdAsdAsdRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s BindDemoAsdAsdAsdRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoAsdAsdAsdRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoAsdAsdAsdRequest) SetAuthToken(v string) *BindDemoAsdAsdAsdRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindDemoAsdAsdAsdRequest) SetProductInstanceId(v string) *BindDemoAsdAsdAsdRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type BindDemoAsdAsdAsdResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindDemoAsdAsdAsdResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindDemoAsdAsdAsdResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindDemoAsdAsdAsdResponse) SetReqMsgId(v string) *BindDemoAsdAsdAsdResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindDemoAsdAsdAsdResponse) SetResultCode(v string) *BindDemoAsdAsdAsdResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindDemoAsdAsdAsdResponse) SetResultMsg(v string) *BindDemoAsdAsdAsdResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -522,6 +770,108 @@ func (client *Client) BindDemoAaaBbbCccEx(request *BindDemoAaaBbbCccRequest, hea
 	}
 	_result = &BindDemoAaaBbbCccResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.aaa.bbb.ccc.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 保司用户埋点信息
+ * Summary: 用户登陆页面埋点
+ */
+func (client *Client) InitDemoBbpInsuranceUser(request *InitDemoBbpInsuranceUserRequest) (_result *InitDemoBbpInsuranceUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitDemoBbpInsuranceUserResponse{}
+	_body, _err := client.InitDemoBbpInsuranceUserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 保司用户埋点信息
+ * Summary: 用户登陆页面埋点
+ */
+func (client *Client) InitDemoBbpInsuranceUserEx(request *InitDemoBbpInsuranceUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitDemoBbpInsuranceUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitDemoBbpInsuranceUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.bbp.insurance.user.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: asd
+ * Summary: asd
+ */
+func (client *Client) QueryDemoAdAsdAsd(request *QueryDemoAdAsdAsdRequest) (_result *QueryDemoAdAsdAsdResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDemoAdAsdAsdResponse{}
+	_body, _err := client.QueryDemoAdAsdAsdEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: asd
+ * Summary: asd
+ */
+func (client *Client) QueryDemoAdAsdAsdEx(request *QueryDemoAdAsdAsdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoAdAsdAsdResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDemoAdAsdAsdResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.ad.asd.asd.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: asd
+ * Summary: asd
+ */
+func (client *Client) BindDemoAsdAsdAsd(request *BindDemoAsdAsdAsdRequest) (_result *BindDemoAsdAsdAsdResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindDemoAsdAsdAsdResponse{}
+	_body, _err := client.BindDemoAsdAsdAsdEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: asd
+ * Summary: asd
+ */
+func (client *Client) BindDemoAsdAsdAsdEx(request *BindDemoAsdAsdAsdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindDemoAsdAsdAsdResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindDemoAsdAsdAsdResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.asd.asd.asd.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
