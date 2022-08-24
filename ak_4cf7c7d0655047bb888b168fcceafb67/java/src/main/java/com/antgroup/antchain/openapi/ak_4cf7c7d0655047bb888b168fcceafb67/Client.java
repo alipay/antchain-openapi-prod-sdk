@@ -181,6 +181,63 @@ public class Client {
     }
 
     /**
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点
+     */
+    public InitDemoBbpInsuranceUserResponse initDemoBbpInsuranceUser(InitDemoBbpInsuranceUserRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initDemoBbpInsuranceUserEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点
+     */
+    public InitDemoBbpInsuranceUserResponse initDemoBbpInsuranceUserEx(InitDemoBbpInsuranceUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitDemoBbpInsuranceUserResponse());
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public QueryDemoAdAsdAsdResponse queryDemoAdAsdAsd(QueryDemoAdAsdAsdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoAdAsdAsdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public QueryDemoAdAsdAsdResponse queryDemoAdAsdAsdEx(QueryDemoAdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.ad.asd.asd.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAdAsdAsdResponse());
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public BindDemoAsdAsdAsdResponse bindDemoAsdAsdAsd(BindDemoAsdAsdAsdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDemoAsdAsdAsdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public BindDemoAsdAsdAsdResponse bindDemoAsdAsdAsdEx(BindDemoAsdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.asd.asd.asd.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAsdAsdAsdResponse());
+    }
+
+    /**
      * Description: 自动化测试创建1
      * Summary: 自动化测试创建（勿动）
      */
