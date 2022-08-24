@@ -37,10 +37,10 @@ public class CreateDidCustomerRequest extends TeaModel {
     @NameInMap("person_cert_type")
     public String personCertType;
 
-    // 账户uid类型 0-Alipay 1-Alibaba
+    // 账户uid类型 Alipay/Alibaba
     @NameInMap("account_type")
     @Validation(required = true)
-    public Long accountType;
+    public String accountType;
 
     public static CreateDidCustomerRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDidCustomerRequest self = new CreateDidCustomerRequest();
@@ -111,11 +111,11 @@ public class CreateDidCustomerRequest extends TeaModel {
         return this.personCertType;
     }
 
-    public CreateDidCustomerRequest setAccountType(Long accountType) {
+    public CreateDidCustomerRequest setAccountType(String accountType) {
         this.accountType = accountType;
         return this;
     }
-    public Long getAccountType() {
+    public String getAccountType() {
         return this.accountType;
     }
 
