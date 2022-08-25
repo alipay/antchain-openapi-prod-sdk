@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "BBP",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-bbp:1.7.29",
+    "java": "com.antgroup.antchain.openapi:openapi-bbp:1.7.30",
     "go": "github.com/antchain-openapi-sdk-go/bbp/client:v1.7.29",
-    "csharp": "AntChain.SDK.BBP:1.7.28",
-    "ts": "@antchain/bbp:1.7.28",
-    "php": "antchain/bbp:1.7.29",
-    "python": "antchain_sdk_bbp:1.7.28"
+    "csharp": "AntChain.SDK.BBP:1.7.30",
+    "ts": "@antchain/bbp:1.7.30",
+    "php": "antchain/bbp:1.7.30",
+    "python": "antchain_sdk_bbp:1.7.30"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
