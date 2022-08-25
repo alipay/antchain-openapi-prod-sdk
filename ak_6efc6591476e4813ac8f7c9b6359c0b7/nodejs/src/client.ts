@@ -77,6 +77,105 @@ export class Config extends $tea.Model {
   }
 }
 
+// 大安全接口入参
+export class RdsAnalyzeRequest extends $tea.Model {
+  // 123
+  appid: string;
+  // 123
+  bizNo?: string;
+  // 213
+  scene?: string;
+  // 123
+  token?: string;
+  // 123
+  data: string;
+  // 123
+  extra: string;
+  static names(): { [key: string]: string } {
+    return {
+      appid: 'appid',
+      bizNo: 'biz_no',
+      scene: 'scene',
+      token: 'token',
+      data: 'data',
+      extra: 'extra',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      appid: 'string',
+      bizNo: 'string',
+      scene: 'string',
+      token: 'string',
+      data: 'string',
+      extra: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 大安全内容检测接口返回参数
+export class ResultModel extends $tea.Model {
+  // 返回结果
+  code?: number;
+  // 返回错误信息
+  errMsg?: string;
+  // 返回具体结果
+  model?: string;
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      errMsg: 'err_msg',
+      model: 'model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'number',
+      errMsg: 'string',
+      model: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 大安全接口入参
+export class SecurityUniformRequest extends $tea.Model {
+  // 123
+  token: string;
+  // 123
+  bizId: string;
+  // 132
+  params: string;
+  static names(): { [key: string]: string } {
+    return {
+      token: 'token',
+      bizId: 'biz_id',
+      params: 'params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      token: 'string',
+      bizId: 'string',
+      params: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 键值对，兼容map用
 export class KeyValuePair extends $tea.Model {
   // key
@@ -94,6 +193,76 @@ export class KeyValuePair extends $tea.Model {
     return {
       key: 'string',
       value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 大安全接口返回
+export class SecurityUniformResponse extends $tea.Model {
+  // 是否成功
+  success: boolean;
+  // 123
+  code?: string;
+  // 123
+  message?: string;
+  // 123
+  token?: string;
+  // 123
+  bizId?: string;
+  // 123
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      token: 'token',
+      bizId: 'biz_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+      token: 'string',
+      bizId: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 大安全人机识别相应
+export class RdslibAntcaptchaservice extends $tea.Model {
+  // 是否请求成功
+  success: boolean;
+  // 相应信息
+  message?: string;
+  // 返回数据
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      success: 'success',
+      message: 'message',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      success: 'boolean',
+      message: 'string',
+      data: 'string',
     };
   }
 
@@ -173,6 +342,384 @@ export class RunAntchainSaasMarketServiceResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       resultData: { 'type': 'array', 'itemType': KeyValuePair },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckSaasSecurityInfosecOpencheckservicecheckRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 以json格式输入想要检测的内容
+  content: string;
+  // 服务版本
+  serviceVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      content: 'content',
+      serviceVersion: 'service_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      content: 'string',
+      serviceVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckSaasSecurityInfosecOpencheckservicecheckResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 大安全内容检测接口返回参数
+  data?: ResultModel;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: ResultModel,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySaasSecurityInfosecOpencheckservicequeryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询参数
+  event: string;
+  // 服务版本
+  serviceVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      event: 'event',
+      serviceVersion: 'service_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      event: 'string',
+      serviceVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySaasSecurityInfosecOpencheckservicequeryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 大安全内容检测接口返回结果
+  data?: ResultModel;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: ResultModel,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckSaasSecurityRdsRdsserviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 123
+  rdsServiceCheckRequest: string;
+  // 服务版本
+  serviceVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      rdsServiceCheckRequest: 'rds_service_check_request',
+      serviceVersion: 'service_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      rdsServiceCheckRequest: 'string',
+      serviceVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckSaasSecurityRdsRdsserviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否是机器
+  data?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifySaasSecurityRdslibAntcaptchaserviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 123
+  rdsAnalyzeRequest: RdsAnalyzeRequest;
+  // 服务版本
+  serviceVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      rdsAnalyzeRequest: 'rds_analyze_request',
+      serviceVersion: 'service_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      rdsAnalyzeRequest: RdsAnalyzeRequest,
+      serviceVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifySaasSecurityRdslibAntcaptchaserviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否是机器人
+  data?: RdslibAntcaptchaservice;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: RdslibAntcaptchaservice,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 123
+  securityUniformRequest: SecurityUniformRequest;
+  // 123
+  serviceVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      securityUniformRequest: 'security_uniform_request',
+      serviceVersion: 'service_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      securityUniformRequest: SecurityUniformRequest,
+      serviceVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回结果
+  data?: SecurityUniformResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: SecurityUniformResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySaasSecurityTscenterUmidqueryserviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户token id
+  tokenId: string;
+  // 服务版本
+  serviceVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tokenId: 'token_id',
+      serviceVersion: 'service_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tokenId: 'string',
+      serviceVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySaasSecurityTscenterUmidqueryserviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回的umid
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
     };
   }
 
@@ -294,7 +841,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_6efc6591476e4813ac8f7c9b6359c0b7",
           _prod_channel: "saas",
         };
@@ -359,6 +906,120 @@ export default class Client {
   async runAntchainSaasMarketServiceEx(request: RunAntchainSaasMarketServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RunAntchainSaasMarketServiceResponse> {
     Util.validateModel(request);
     return $tea.cast<RunAntchainSaasMarketServiceResponse>(await this.doRequest("1.0", "antchain.saas.market.service.run", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RunAntchainSaasMarketServiceResponse({}));
+  }
+
+  /**
+   * Description: 大安全检验内容安全接口
+   * Summary: 大安全检验内容安全接口
+   */
+  async checkSaasSecurityInfosecOpencheckservicecheck(request: CheckSaasSecurityInfosecOpencheckservicecheckRequest): Promise<CheckSaasSecurityInfosecOpencheckservicecheckResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkSaasSecurityInfosecOpencheckservicecheckEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 大安全检验内容安全接口
+   * Summary: 大安全检验内容安全接口
+   */
+  async checkSaasSecurityInfosecOpencheckservicecheckEx(request: CheckSaasSecurityInfosecOpencheckservicecheckRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckSaasSecurityInfosecOpencheckservicecheckResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckSaasSecurityInfosecOpencheckservicecheckResponse>(await this.doRequest("1.0", "saas.security.infosec.opencheckservicecheck.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckSaasSecurityInfosecOpencheckservicecheckResponse({}));
+  }
+
+  /**
+   * Description: 大安全内容检测结果查询接口
+   * Summary: 大安全内容检测结果查询接口
+   */
+  async querySaasSecurityInfosecOpencheckservicequery(request: QuerySaasSecurityInfosecOpencheckservicequeryRequest): Promise<QuerySaasSecurityInfosecOpencheckservicequeryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySaasSecurityInfosecOpencheckservicequeryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 大安全内容检测结果查询接口
+   * Summary: 大安全内容检测结果查询接口
+   */
+  async querySaasSecurityInfosecOpencheckservicequeryEx(request: QuerySaasSecurityInfosecOpencheckservicequeryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySaasSecurityInfosecOpencheckservicequeryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySaasSecurityInfosecOpencheckservicequeryResponse>(await this.doRequest("1.0", "saas.security.infosec.opencheckservicequery.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySaasSecurityInfosecOpencheckservicequeryResponse({}));
+  }
+
+  /**
+   * Description: 大安全接口
+   * Summary: 大安全接口
+   */
+  async checkSaasSecurityRdsRdsservice(request: CheckSaasSecurityRdsRdsserviceRequest): Promise<CheckSaasSecurityRdsRdsserviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkSaasSecurityRdsRdsserviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 大安全接口
+   * Summary: 大安全接口
+   */
+  async checkSaasSecurityRdsRdsserviceEx(request: CheckSaasSecurityRdsRdsserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckSaasSecurityRdsRdsserviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckSaasSecurityRdsRdsserviceResponse>(await this.doRequest("1.0", "saas.security.rds.rdsservice.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckSaasSecurityRdsRdsserviceResponse({}));
+  }
+
+  /**
+   * Description: 大安全接口
+   * Summary: 大安全接口
+   */
+  async verifySaasSecurityRdslibAntcaptchaservice(request: VerifySaasSecurityRdslibAntcaptchaserviceRequest): Promise<VerifySaasSecurityRdslibAntcaptchaserviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.verifySaasSecurityRdslibAntcaptchaserviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 大安全接口
+   * Summary: 大安全接口
+   */
+  async verifySaasSecurityRdslibAntcaptchaserviceEx(request: VerifySaasSecurityRdslibAntcaptchaserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifySaasSecurityRdslibAntcaptchaserviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<VerifySaasSecurityRdslibAntcaptchaserviceResponse>(await this.doRequest("1.0", "saas.security.rdslib.antcaptchaservice.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifySaasSecurityRdslibAntcaptchaserviceResponse({}));
+  }
+
+  /**
+   * Description: 大安全接口
+   * Summary: 大安全接口
+   */
+  async querySaasSecuritySecuritycoreSecurityuniformservice(request: QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest): Promise<QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySaasSecuritySecuritycoreSecurityuniformserviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 大安全接口
+   * Summary: 大安全接口
+   */
+  async querySaasSecuritySecuritycoreSecurityuniformserviceEx(request: QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse>(await this.doRequest("1.0", "saas.security.securitycore.securityuniformservice.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse({}));
+  }
+
+  /**
+   * Description: 大安全接口
+   * Summary: 大安全接口
+   */
+  async querySaasSecurityTscenterUmidqueryservice(request: QuerySaasSecurityTscenterUmidqueryserviceRequest): Promise<QuerySaasSecurityTscenterUmidqueryserviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySaasSecurityTscenterUmidqueryserviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 大安全接口
+   * Summary: 大安全接口
+   */
+  async querySaasSecurityTscenterUmidqueryserviceEx(request: QuerySaasSecurityTscenterUmidqueryserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySaasSecurityTscenterUmidqueryserviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySaasSecurityTscenterUmidqueryserviceResponse>(await this.doRequest("1.0", "saas.security.tscenter.umidqueryservice.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySaasSecurityTscenterUmidqueryserviceResponse({}));
   }
 
 }
