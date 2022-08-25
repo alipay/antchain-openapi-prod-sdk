@@ -841,7 +841,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.3",
+          sdk_version: "1.0.5",
           _prod_code: "ak_6efc6591476e4813ac8f7c9b6359c0b7",
           _prod_channel: "saas",
         };
