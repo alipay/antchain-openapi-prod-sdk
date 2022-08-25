@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'ak_6efc6591476e4813ac8f7c9b6359c0b7',
     _prod_channel = 'saas'
   };
@@ -161,12 +161,74 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 大安全接口入参
+model RdsAnalyzeRequest {
+  // 123
+  appid: string(name='appid', example='123'),
+  // 123
+  bizNo?: string(name='biz_no', example='123'),
+  // 213
+  scene?: string(name='scene', example='123'),
+  // 123
+  token?: string(name='token', example='1231'),
+  // 123
+  data: string(name='data', example='123'),
+  // 123
+  extra: string(name='extra', example='123'),
+}
+
+// 大安全内容检测接口返回参数
+model ResultModel {
+  // 返回结果
+  code?: long(name='code', example='1'),
+  // 返回错误信息
+  errMsg?: string(name='err_msg', example='123'),
+  // 返回具体结果
+  model?: string(name='model', example='123'),
+}
+
+// 大安全接口入参
+model SecurityUniformRequest {
+  // 123
+  token: string(name='token', example='123'),
+  // 123
+  bizId: string(name='biz_id', example='123'),
+  // 132
+  params: string(name='params', example='123'),
+}
+
 // 键值对，兼容map用
 model KeyValuePair {
   // key
   key: string(name='key', example='key'),
   // value
   value?: string(name='value', example='value'),
+}
+
+// 大安全接口返回
+model SecurityUniformResponse {
+  // 是否成功
+  success: boolean(name='success', example='true, false'),
+  // 123
+  code?: string(name='code', example='12'),
+  // 123
+  message?: string(name='message', example='123'),
+  // 123
+  token?: string(name='token', example='123'),
+  // 123
+  bizId?: string(name='biz_id', example='123'),
+  // 123
+  data?: string(name='data', example='123'),
+}
+
+// 大安全人机识别相应
+model RdslibAntcaptchaservice {
+  // 是否请求成功
+  success: boolean(name='success', example='true, false'),
+  // 相应信息
+  message?: string(name='message', example='123'),
+  // 返回数据
+  data?: string(name='data', example='test'),
 }
 
 model RunAntchainSaasMarketServiceRequest = {
@@ -215,5 +277,245 @@ async function runAntchainSaasMarketService(request: RunAntchainSaasMarketServic
 async function runAntchainSaasMarketServiceEx(request: RunAntchainSaasMarketServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RunAntchainSaasMarketServiceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.saas.market.service.run', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckSaasSecurityInfosecOpencheckservicecheckRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 以json格式输入想要检测的内容
+  content: string(name='content'),
+  // 服务版本
+  serviceVersion: string(name='service_version'),
+}
+
+model CheckSaasSecurityInfosecOpencheckservicecheckResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 大安全内容检测接口返回参数
+  data?: ResultModel(name='data'),
+}
+
+/**
+ * Description: 大安全检验内容安全接口
+ * Summary: 大安全检验内容安全接口
+ */
+async function checkSaasSecurityInfosecOpencheckservicecheck(request: CheckSaasSecurityInfosecOpencheckservicecheckRequest): CheckSaasSecurityInfosecOpencheckservicecheckResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkSaasSecurityInfosecOpencheckservicecheckEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大安全检验内容安全接口
+ * Summary: 大安全检验内容安全接口
+ */
+async function checkSaasSecurityInfosecOpencheckservicecheckEx(request: CheckSaasSecurityInfosecOpencheckservicecheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckSaasSecurityInfosecOpencheckservicecheckResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'saas.security.infosec.opencheckservicecheck.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySaasSecurityInfosecOpencheckservicequeryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询参数
+  event: string(name='event'),
+  // 服务版本
+  serviceVersion: string(name='service_version'),
+}
+
+model QuerySaasSecurityInfosecOpencheckservicequeryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 大安全内容检测接口返回结果
+  data?: ResultModel(name='data'),
+}
+
+/**
+ * Description: 大安全内容检测结果查询接口
+ * Summary: 大安全内容检测结果查询接口
+ */
+async function querySaasSecurityInfosecOpencheckservicequery(request: QuerySaasSecurityInfosecOpencheckservicequeryRequest): QuerySaasSecurityInfosecOpencheckservicequeryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySaasSecurityInfosecOpencheckservicequeryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大安全内容检测结果查询接口
+ * Summary: 大安全内容检测结果查询接口
+ */
+async function querySaasSecurityInfosecOpencheckservicequeryEx(request: QuerySaasSecurityInfosecOpencheckservicequeryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasSecurityInfosecOpencheckservicequeryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'saas.security.infosec.opencheckservicequery.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckSaasSecurityRdsRdsserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 123
+  rdsServiceCheckRequest: string(name='rds_service_check_request'),
+  // 服务版本
+  serviceVersion: string(name='service_version'),
+}
+
+model CheckSaasSecurityRdsRdsserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否是机器
+  data?: long(name='data'),
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function checkSaasSecurityRdsRdsservice(request: CheckSaasSecurityRdsRdsserviceRequest): CheckSaasSecurityRdsRdsserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkSaasSecurityRdsRdsserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function checkSaasSecurityRdsRdsserviceEx(request: CheckSaasSecurityRdsRdsserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckSaasSecurityRdsRdsserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'saas.security.rds.rdsservice.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifySaasSecurityRdslibAntcaptchaserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 123
+  rdsAnalyzeRequest: RdsAnalyzeRequest(name='rds_analyze_request'),
+  // 服务版本
+  serviceVersion: string(name='service_version'),
+}
+
+model VerifySaasSecurityRdslibAntcaptchaserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否是机器人
+  data?: RdslibAntcaptchaservice(name='data'),
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function verifySaasSecurityRdslibAntcaptchaservice(request: VerifySaasSecurityRdslibAntcaptchaserviceRequest): VerifySaasSecurityRdslibAntcaptchaserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifySaasSecurityRdslibAntcaptchaserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function verifySaasSecurityRdslibAntcaptchaserviceEx(request: VerifySaasSecurityRdslibAntcaptchaserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifySaasSecurityRdslibAntcaptchaserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'saas.security.rdslib.antcaptchaservice.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 123
+  securityUniformRequest: SecurityUniformRequest(name='security_uniform_request'),
+  // 123
+  serviceVersion: string(name='service_version'),
+}
+
+model QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  data?: SecurityUniformResponse(name='data'),
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function querySaasSecuritySecuritycoreSecurityuniformservice(request: QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest): QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySaasSecuritySecuritycoreSecurityuniformserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function querySaasSecuritySecuritycoreSecurityuniformserviceEx(request: QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'saas.security.securitycore.securityuniformservice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySaasSecurityTscenterUmidqueryserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户token id
+  tokenId: string(name='token_id'),
+  // 服务版本
+  serviceVersion: string(name='service_version'),
+}
+
+model QuerySaasSecurityTscenterUmidqueryserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回的umid
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function querySaasSecurityTscenterUmidqueryservice(request: QuerySaasSecurityTscenterUmidqueryserviceRequest): QuerySaasSecurityTscenterUmidqueryserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySaasSecurityTscenterUmidqueryserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大安全接口
+ * Summary: 大安全接口
+ */
+async function querySaasSecurityTscenterUmidqueryserviceEx(request: QuerySaasSecurityTscenterUmidqueryserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasSecurityTscenterUmidqueryserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'saas.security.tscenter.umidqueryservice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
