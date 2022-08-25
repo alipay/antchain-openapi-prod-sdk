@@ -11,8 +11,20 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\CheckSaasSecurityInfosecOpencheckservicecheckRequest;
+use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\CheckSaasSecurityInfosecOpencheckservicecheckResponse;
+use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\CheckSaasSecurityRdsRdsserviceRequest;
+use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\CheckSaasSecurityRdsRdsserviceResponse;
+use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\QuerySaasSecurityInfosecOpencheckservicequeryRequest;
+use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\QuerySaasSecurityInfosecOpencheckservicequeryResponse;
+use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest;
+use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse;
+use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\QuerySaasSecurityTscenterUmidqueryserviceRequest;
+use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\QuerySaasSecurityTscenterUmidqueryserviceResponse;
 use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\RunAntchainSaasMarketServiceRequest;
 use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\RunAntchainSaasMarketServiceResponse;
+use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\VerifySaasSecurityRdslibAntcaptchaserviceRequest;
+use AntChain\Ak_6efc6591476e4813ac8f7c9b6359c0b7\Models\VerifySaasSecurityRdslibAntcaptchaserviceResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -132,7 +144,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 键值对，兼容map用
+            // 大安全接口入参
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -160,7 +172,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_6efc6591476e4813ac8f7c9b6359c0b7',
                     '_prod_channel'    => 'saas',
                 ];
@@ -239,5 +251,203 @@ class Client
         Utils::validateModel($request);
 
         return RunAntchainSaasMarketServiceResponse::fromMap($this->doRequest('1.0', 'antchain.saas.market.service.run', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大安全检验内容安全接口
+     * Summary: 大安全检验内容安全接口.
+     *
+     * @param CheckSaasSecurityInfosecOpencheckservicecheckRequest $request
+     *
+     * @return CheckSaasSecurityInfosecOpencheckservicecheckResponse
+     */
+    public function checkSaasSecurityInfosecOpencheckservicecheck($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkSaasSecurityInfosecOpencheckservicecheckEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大安全检验内容安全接口
+     * Summary: 大安全检验内容安全接口.
+     *
+     * @param CheckSaasSecurityInfosecOpencheckservicecheckRequest $request
+     * @param string[]                                             $headers
+     * @param RuntimeOptions                                       $runtime
+     *
+     * @return CheckSaasSecurityInfosecOpencheckservicecheckResponse
+     */
+    public function checkSaasSecurityInfosecOpencheckservicecheckEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckSaasSecurityInfosecOpencheckservicecheckResponse::fromMap($this->doRequest('1.0', 'saas.security.infosec.opencheckservicecheck.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大安全内容检测结果查询接口
+     * Summary: 大安全内容检测结果查询接口.
+     *
+     * @param QuerySaasSecurityInfosecOpencheckservicequeryRequest $request
+     *
+     * @return QuerySaasSecurityInfosecOpencheckservicequeryResponse
+     */
+    public function querySaasSecurityInfosecOpencheckservicequery($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySaasSecurityInfosecOpencheckservicequeryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大安全内容检测结果查询接口
+     * Summary: 大安全内容检测结果查询接口.
+     *
+     * @param QuerySaasSecurityInfosecOpencheckservicequeryRequest $request
+     * @param string[]                                             $headers
+     * @param RuntimeOptions                                       $runtime
+     *
+     * @return QuerySaasSecurityInfosecOpencheckservicequeryResponse
+     */
+    public function querySaasSecurityInfosecOpencheckservicequeryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySaasSecurityInfosecOpencheckservicequeryResponse::fromMap($this->doRequest('1.0', 'saas.security.infosec.opencheckservicequery.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param CheckSaasSecurityRdsRdsserviceRequest $request
+     *
+     * @return CheckSaasSecurityRdsRdsserviceResponse
+     */
+    public function checkSaasSecurityRdsRdsservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkSaasSecurityRdsRdsserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param CheckSaasSecurityRdsRdsserviceRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return CheckSaasSecurityRdsRdsserviceResponse
+     */
+    public function checkSaasSecurityRdsRdsserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckSaasSecurityRdsRdsserviceResponse::fromMap($this->doRequest('1.0', 'saas.security.rds.rdsservice.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param VerifySaasSecurityRdslibAntcaptchaserviceRequest $request
+     *
+     * @return VerifySaasSecurityRdslibAntcaptchaserviceResponse
+     */
+    public function verifySaasSecurityRdslibAntcaptchaservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifySaasSecurityRdslibAntcaptchaserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param VerifySaasSecurityRdslibAntcaptchaserviceRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return VerifySaasSecurityRdslibAntcaptchaserviceResponse
+     */
+    public function verifySaasSecurityRdslibAntcaptchaserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifySaasSecurityRdslibAntcaptchaserviceResponse::fromMap($this->doRequest('1.0', 'saas.security.rdslib.antcaptchaservice.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest $request
+     *
+     * @return QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse
+     */
+    public function querySaasSecuritySecuritycoreSecurityuniformservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySaasSecuritySecuritycoreSecurityuniformserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest $request
+     * @param string[]                                                   $headers
+     * @param RuntimeOptions                                             $runtime
+     *
+     * @return QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse
+     */
+    public function querySaasSecuritySecuritycoreSecurityuniformserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySaasSecuritySecuritycoreSecurityuniformserviceResponse::fromMap($this->doRequest('1.0', 'saas.security.securitycore.securityuniformservice.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param QuerySaasSecurityTscenterUmidqueryserviceRequest $request
+     *
+     * @return QuerySaasSecurityTscenterUmidqueryserviceResponse
+     */
+    public function querySaasSecurityTscenterUmidqueryservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySaasSecurityTscenterUmidqueryserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大安全接口
+     * Summary: 大安全接口.
+     *
+     * @param QuerySaasSecurityTscenterUmidqueryserviceRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return QuerySaasSecurityTscenterUmidqueryserviceResponse
+     */
+    public function querySaasSecurityTscenterUmidqueryserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySaasSecurityTscenterUmidqueryserviceResponse::fromMap($this->doRequest('1.0', 'saas.security.tscenter.umidqueryservice.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
