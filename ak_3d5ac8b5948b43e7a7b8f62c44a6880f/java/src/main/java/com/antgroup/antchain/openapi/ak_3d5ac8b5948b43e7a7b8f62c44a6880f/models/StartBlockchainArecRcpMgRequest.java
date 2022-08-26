@@ -77,10 +77,6 @@ public class StartBlockchainArecRcpMgRequest extends TeaModel {
     @NameInMap("spouse")
     public Person spouse;
 
-    // 抵押单号
-    @NameInMap("mg_order_no")
-    public String mgOrderNo;
-
     public static StartBlockchainArecRcpMgRequest build(java.util.Map<String, ?> map) throws Exception {
         StartBlockchainArecRcpMgRequest self = new StartBlockchainArecRcpMgRequest();
         return TeaModel.build(map, self);
@@ -212,14 +208,6 @@ public class StartBlockchainArecRcpMgRequest extends TeaModel {
     }
     public Person getSpouse() {
         return this.spouse;
-    }
-
-    public StartBlockchainArecRcpMgRequest setMgOrderNo(String mgOrderNo) {
-        this.mgOrderNo = mgOrderNo;
-        return this;
-    }
-    public String getMgOrderNo() {
-        return this.mgOrderNo;
     }
 
 }
