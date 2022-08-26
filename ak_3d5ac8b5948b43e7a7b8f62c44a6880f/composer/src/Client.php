@@ -163,6 +163,8 @@ class Client
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
                     'sdk_version'      => '1.0.0',
+                    '_prod_code'       => 'ak_3d5ac8b5948b43e7a7b8f62c44a6880f',
+                    '_prod_channel'    => 'saas',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -209,39 +211,6 @@ class Client
     }
 
     /**
-     * Description: 房屋抵押贷款业务，发起抵押登记服务
-     * Summary: 发起抵押登记.
-     *
-     * @param StartBlockchainArecRcpMgRequest $request
-     *
-     * @return StartBlockchainArecRcpMgResponse
-     */
-    public function startBlockchainArecRcpMg($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->startBlockchainArecRcpMgEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 房屋抵押贷款业务，发起抵押登记服务
-     * Summary: 发起抵押登记.
-     *
-     * @param StartBlockchainArecRcpMgRequest $request
-     * @param string[]                        $headers
-     * @param RuntimeOptions                  $runtime
-     *
-     * @return StartBlockchainArecRcpMgResponse
-     */
-    public function startBlockchainArecRcpMgEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return StartBlockchainArecRcpMgResponse::fromMap($this->doRequest('1.0', 'blockchain.arec.rcp.mg.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 房屋抵押登记业务，银行确认抵押登记服务
      * Summary: 确认抵押登记.
      *
@@ -272,5 +241,38 @@ class Client
         Utils::validateModel($request);
 
         return ConfirmBlockchainArecRcpMgResponse::fromMap($this->doRequest('1.0', 'blockchain.arec.rcp.mg.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 房屋抵押贷款业务，发起抵押登记服务
+     * Summary: 发起抵押登记.
+     *
+     * @param StartBlockchainArecRcpMgRequest $request
+     *
+     * @return StartBlockchainArecRcpMgResponse
+     */
+    public function startBlockchainArecRcpMg($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startBlockchainArecRcpMgEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 房屋抵押贷款业务，发起抵押登记服务
+     * Summary: 发起抵押登记.
+     *
+     * @param StartBlockchainArecRcpMgRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return StartBlockchainArecRcpMgResponse
+     */
+    public function startBlockchainArecRcpMgEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartBlockchainArecRcpMgResponse::fromMap($this->doRequest('1.0', 'blockchain.arec.rcp.mg.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -102,12 +102,6 @@ class StartBlockchainArecRcpMgRequest extends Model
      * @var Person
      */
     public $spouse;
-
-    // 抵押单号
-    /**
-     * @var string
-     */
-    public $mgOrderNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -125,7 +119,6 @@ class StartBlockchainArecRcpMgRequest extends Model
         'regRights'         => 'reg_rights',
         'regType'           => 'reg_type',
         'spouse'            => 'spouse',
-        'mgOrderNo'         => 'mg_order_no',
     ];
 
     public function validate()
@@ -205,9 +198,6 @@ class StartBlockchainArecRcpMgRequest extends Model
         if (null !== $this->spouse) {
             $res['spouse'] = null !== $this->spouse ? $this->spouse->toMap() : null;
         }
-        if (null !== $this->mgOrderNo) {
-            $res['mg_order_no'] = $this->mgOrderNo;
-        }
 
         return $res;
     }
@@ -279,9 +269,6 @@ class StartBlockchainArecRcpMgRequest extends Model
         }
         if (isset($map['spouse'])) {
             $model->spouse = Person::fromMap($map['spouse']);
-        }
-        if (isset($map['mg_order_no'])) {
-            $model->mgOrderNo = $map['mg_order_no'];
         }
 
         return $model;
