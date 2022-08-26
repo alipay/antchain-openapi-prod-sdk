@@ -1,0 +1,524 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'ak_7365e031a87c467bbe817bec28a2a1dc',
+    _prod_channel = 'saas'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 阿里云数据导出任务checkpoint类
+model CheckPointStructBody {
+  // 高度
+  height?: string(name='height', example='100'),
+  // 序号
+  index?: string(name='index', example='0'),
+  // 类型
+  type?: string(name='type', example='"Block"'),
+  // last_error
+  lastError?: string(name='last_error', example='“”'),
+  // 错误统计
+  errorCount?: string(name='error_count', example='0'),
+  // 统计
+  totalCount?: string(name='total_count', example='0'),
+}
+
+// 区块信息
+model BlockInfo {
+  // 业务数据
+  bizData: string(name='biz_data', example=' '),
+  // 区块链唯一性标识
+  bizId: string(name='biz_id', example='83c6e3ed'),
+  // 区块哈希
+  blockHash: string(name='block_hash', example='e01fe4f5ad4c7cdeec11c95036d8505600c941a2a10cf432438a2873342b4693'),
+  // 块高
+  height: long(name='height', example='100'),
+  // 上一个区块的hash
+  parentHash: string(name='parent_hash', example='e01fe4f5ad4c7cdeec11c95036d8505600c941a2a10cf432438a2873342b4693'),
+  // size
+  size: long(name='size', example=''),
+  // 出块时间
+  timestamp: long(name='timestamp', example=''),
+  // 包含交易数
+  transactionSize: long(name='transaction_size', example='5'),
+  // 版本
+  version: string(name='version', example='1'),
+}
+
+// 阿里云数据导出服务TriggerDTO结构体
+model TriggerDTOStructBody {
+  // 名称
+  name?: string(name='name', example='9481b612d6ca4cfdbecc5c5d395eda4237c749fa-97fc-4156-9c23-e21cd6060669'),
+  // 类型
+  type?: string(name='type', example='"BLOCK"'),
+  // 源
+  source?: string(name='source', example='“”'),
+  // 创建时间
+  createTime?: string(name='create_time', example='103422'),
+  // 错误信息
+  errorMessage?: string(name='error_message', example='"error"'),
+  // 状态
+  status?: string(name='status', example='“success”'),
+  // option（map结构，由于金融云无map接口所以通过string类型传输json格式）
+  option?: string(name='option', example='{a:"123",  b:"123"}'),
+  // checkpoint类
+  checkpoint?: CheckPointStructBody(name='checkpoint', example='{}'),
+  // 待处理的错误事件总数
+  pendingErrorLogs?: string(name='pending_error_logs', example='待处理的错误事件总数'),
+}
+
+model UpdateBaasChainDataexportStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // "9481b612d6ca4cfdbecc5c5d395eda423f007745-233d-4860-8fd4-a107233ace6c"
+  triggerName: string(name='trigger_name'),
+  //  "Enabled/Disabled/DELETE"
+  statusAction: string(name='status_action'),
+}
+
+model UpdateBaasChainDataexportStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // {}
+  result?: TriggerDTOStructBody(name='result'),
+}
+
+/**
+ * Description: 修改导出任务状态（启动、暂停、删除）
+ * Summary: 修改导出任务状态（启动、暂停、删除）
+ */
+async function updateBaasChainDataexportStatus(request: UpdateBaasChainDataexportStatusRequest): UpdateBaasChainDataexportStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBaasChainDataexportStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 修改导出任务状态（启动、暂停、删除）
+ * Summary: 修改导出任务状态（启动、暂停、删除）
+ */
+async function updateBaasChainDataexportStatusEx(request: UpdateBaasChainDataexportStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBaasChainDataexportStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.dataexport.status.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBaasChainDataexportTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // {}
+  trigger: TriggerDTOStructBody(name='trigger'),
+}
+
+model CreateBaasChainDataexportTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // ""
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 阿里云数据导出需求创建数据导出任务
+ * Summary: 创建数据导出任务
+ */
+async function createBaasChainDataexportTask(request: CreateBaasChainDataexportTaskRequest): CreateBaasChainDataexportTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBaasChainDataexportTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云数据导出需求创建数据导出任务
+ * Summary: 创建数据导出任务
+ */
+async function createBaasChainDataexportTaskEx(request: CreateBaasChainDataexportTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaasChainDataexportTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.dataexport.task.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateBaasChainDataexportTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 任务名称
+  triggerName: string(name='trigger_name'),
+  // 导出任务接口体
+  trigger: TriggerDTOStructBody(name='trigger'),
+}
+
+model UpdateBaasChainDataexportTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  修改导出任务（名称、描述、告警地址）信息结构体
+  //   
+  result?: TriggerDTOStructBody(name='result'),
+}
+
+/**
+ * Description: 修改导出任务（名称、描述、告警地址）
+ * Summary: 修改导出任务（名称、描述、告警地址）
+ */
+async function updateBaasChainDataexportTask(request: UpdateBaasChainDataexportTaskRequest): UpdateBaasChainDataexportTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBaasChainDataexportTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 修改导出任务（名称、描述、告警地址）
+ * Summary: 修改导出任务（名称、描述、告警地址）
+ */
+async function updateBaasChainDataexportTaskEx(request: UpdateBaasChainDataexportTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBaasChainDataexportTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.dataexport.task.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetBaasPlusDataserviceBlockchainheightRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链的唯一性标示
+  bizid: string(name='bizid'),
+}
+
+model GetBaasPlusDataserviceBlockchainheightResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链块高
+  data?: long(name='data'),
+}
+
+/**
+ * Description: 获取区块链当前块高
+ * Summary: 区块链数据服务-获取区块链当前块高
+ */
+async function getBaasPlusDataserviceBlockchainheight(request: GetBaasPlusDataserviceBlockchainheightRequest): GetBaasPlusDataserviceBlockchainheightResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getBaasPlusDataserviceBlockchainheightEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取区块链当前块高
+ * Summary: 区块链数据服务-获取区块链当前块高
+ */
+async function getBaasPlusDataserviceBlockchainheightEx(request: GetBaasPlusDataserviceBlockchainheightRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetBaasPlusDataserviceBlockchainheightResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.dataservice.blockchainheight.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListBaasPlusDataserviceLastblocksRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链唯一性标识
+  bizid: string(name='bizid'),
+  // 区块个数
+  size: long(name='size'),
+}
+
+model ListBaasPlusDataserviceLastblocksResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块信息
+  lastBlockList?: [ BlockInfo ](name='last_block_list'),
+}
+
+/**
+ * Description: 获取链最近n条块信息
+ * Summary: 区块链数据服务-获取链最近n条块信息
+ */
+async function listBaasPlusDataserviceLastblocks(request: ListBaasPlusDataserviceLastblocksRequest): ListBaasPlusDataserviceLastblocksResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listBaasPlusDataserviceLastblocksEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取链最近n条块信息
+ * Summary: 区块链数据服务-获取链最近n条块信息
+ */
+async function listBaasPlusDataserviceLastblocksEx(request: ListBaasPlusDataserviceLastblocksRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListBaasPlusDataserviceLastblocksResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.dataservice.lastblocks.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetBaasPlusDataserviceTransactioncountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链唯一性标示
+  bizid: string(name='bizid'),
+}
+
+model GetBaasPlusDataserviceTransactioncountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易总数
+  data?: long(name='data'),
+}
+
+/**
+ * Description: 获取链交易总数
+ * Summary: 区块链数据服务-获取链交易总数
+ */
+async function getBaasPlusDataserviceTransactioncount(request: GetBaasPlusDataserviceTransactioncountRequest): GetBaasPlusDataserviceTransactioncountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getBaasPlusDataserviceTransactioncountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取链交易总数
+ * Summary: 区块链数据服务-获取链交易总数
+ */
+async function getBaasPlusDataserviceTransactioncountEx(request: GetBaasPlusDataserviceTransactioncountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetBaasPlusDataserviceTransactioncountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.dataservice.transactioncount.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetBaasPlusDataserviceTransactioninfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链唯一性标识
+  bizid: string(name='bizid'),
+  // 交易hash
+  hash: string(name='hash'),
+}
+
+model GetBaasPlusDataserviceTransactioninfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链唯一性标识
+  bizid?: string(name='bizid'),
+  // category
+  category?: long(name='category'),
+  // 交易发起时间
+  createTime?: long(name='create_time'),
+  // 交易发起方哈希
+  fromHash?: string(name='from_hash'),
+  // 交易哈希
+  hash?: string(name='hash'),
+  // 块高
+  height?: long(name='height'),
+  // 交易接收方哈希
+  toHash?: string(name='to_hash'),
+  // 交易类型
+  type?: long(name='type'),
+}
+
+/**
+ * Description: 根据交易hash获取交易详情
+ * Summary: 区块链数据服务-获取交易详情
+ */
+async function getBaasPlusDataserviceTransactioninfo(request: GetBaasPlusDataserviceTransactioninfoRequest): GetBaasPlusDataserviceTransactioninfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getBaasPlusDataserviceTransactioninfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据交易hash获取交易详情
+ * Summary: 区块链数据服务-获取交易详情
+ */
+async function getBaasPlusDataserviceTransactioninfoEx(request: GetBaasPlusDataserviceTransactioninfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetBaasPlusDataserviceTransactioninfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.plus.dataservice.transactioninfo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
