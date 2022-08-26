@@ -88,11 +88,6 @@ namespace AntChain.SDK.Ak_3d5ac8b5948b43e7a7b8f62c44a6880f.Models
         [Validation(Required=false)]
         public Person Spouse { get; set; }
 
-        // 抵押单号
-        [NameInMap("mg_order_no")]
-        [Validation(Required=false)]
-        public string MgOrderNo { get; set; }
-
     }
 
 }

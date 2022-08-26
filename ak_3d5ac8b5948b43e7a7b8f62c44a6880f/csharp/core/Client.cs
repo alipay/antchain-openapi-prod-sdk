@@ -138,6 +138,8 @@ namespace AntChain.SDK.Ak_3d5ac8b5948b43e7a7b8f62c44a6880f
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
                         {"sdk_version", "1.0.0"},
+                        {"_prod_code", "ak_3d5ac8b5948b43e7a7b8f62c44a6880f"},
+                        {"_prod_channel", "saas"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -262,6 +264,8 @@ namespace AntChain.SDK.Ak_3d5ac8b5948b43e7a7b8f62c44a6880f
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
                         {"sdk_version", "1.0.0"},
+                        {"_prod_code", "ak_3d5ac8b5948b43e7a7b8f62c44a6880f"},
+                        {"_prod_channel", "saas"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -318,48 +322,6 @@ namespace AntChain.SDK.Ak_3d5ac8b5948b43e7a7b8f62c44a6880f
         }
 
         /**
-         * Description: 房屋抵押贷款业务，发起抵押登记服务
-         * Summary: 发起抵押登记
-         */
-        public StartBlockchainArecRcpMgResponse StartBlockchainArecRcpMg(StartBlockchainArecRcpMgRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return StartBlockchainArecRcpMgEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 房屋抵押贷款业务，发起抵押登记服务
-         * Summary: 发起抵押登记
-         */
-        public async Task<StartBlockchainArecRcpMgResponse> StartBlockchainArecRcpMgAsync(StartBlockchainArecRcpMgRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await StartBlockchainArecRcpMgExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 房屋抵押贷款业务，发起抵押登记服务
-         * Summary: 发起抵押登记
-         */
-        public StartBlockchainArecRcpMgResponse StartBlockchainArecRcpMgEx(StartBlockchainArecRcpMgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<StartBlockchainArecRcpMgResponse>(DoRequest("1.0", "blockchain.arec.rcp.mg.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 房屋抵押贷款业务，发起抵押登记服务
-         * Summary: 发起抵押登记
-         */
-        public async Task<StartBlockchainArecRcpMgResponse> StartBlockchainArecRcpMgExAsync(StartBlockchainArecRcpMgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<StartBlockchainArecRcpMgResponse>(await DoRequestAsync("1.0", "blockchain.arec.rcp.mg.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
          * Description: 房屋抵押登记业务，银行确认抵押登记服务
          * Summary: 确认抵押登记
          */
@@ -399,6 +361,48 @@ namespace AntChain.SDK.Ak_3d5ac8b5948b43e7a7b8f62c44a6880f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ConfirmBlockchainArecRcpMgResponse>(await DoRequestAsync("1.0", "blockchain.arec.rcp.mg.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 房屋抵押贷款业务，发起抵押登记服务
+         * Summary: 发起抵押登记
+         */
+        public StartBlockchainArecRcpMgResponse StartBlockchainArecRcpMg(StartBlockchainArecRcpMgRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartBlockchainArecRcpMgEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 房屋抵押贷款业务，发起抵押登记服务
+         * Summary: 发起抵押登记
+         */
+        public async Task<StartBlockchainArecRcpMgResponse> StartBlockchainArecRcpMgAsync(StartBlockchainArecRcpMgRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartBlockchainArecRcpMgExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 房屋抵押贷款业务，发起抵押登记服务
+         * Summary: 发起抵押登记
+         */
+        public StartBlockchainArecRcpMgResponse StartBlockchainArecRcpMgEx(StartBlockchainArecRcpMgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartBlockchainArecRcpMgResponse>(DoRequest("1.0", "blockchain.arec.rcp.mg.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 房屋抵押贷款业务，发起抵押登记服务
+         * Summary: 发起抵押登记
+         */
+        public async Task<StartBlockchainArecRcpMgResponse> StartBlockchainArecRcpMgExAsync(StartBlockchainArecRcpMgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartBlockchainArecRcpMgResponse>(await DoRequestAsync("1.0", "blockchain.arec.rcp.mg.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
