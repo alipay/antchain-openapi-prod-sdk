@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_4b3196fa612148cd8407b20f4e5ed132.models
 
 import com.aliyun.tea.*;
 
-public class ConfirmBlockchainArecRcpMgrResponse extends TeaModel {
+public class ConfirmBlockchainArecRcpMgResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class ConfirmBlockchainArecRcpMgrResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static ConfirmBlockchainArecRcpMgrResponse build(java.util.Map<String, ?> map) throws Exception {
-        ConfirmBlockchainArecRcpMgrResponse self = new ConfirmBlockchainArecRcpMgrResponse();
+    public static ConfirmBlockchainArecRcpMgResponse build(java.util.Map<String, ?> map) throws Exception {
+        ConfirmBlockchainArecRcpMgResponse self = new ConfirmBlockchainArecRcpMgResponse();
         return TeaModel.build(map, self);
     }
 
-    public ConfirmBlockchainArecRcpMgrResponse setReqMsgId(String reqMsgId) {
+    public ConfirmBlockchainArecRcpMgResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class ConfirmBlockchainArecRcpMgrResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ConfirmBlockchainArecRcpMgrResponse setResultCode(String resultCode) {
+    public ConfirmBlockchainArecRcpMgResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class ConfirmBlockchainArecRcpMgrResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ConfirmBlockchainArecRcpMgrResponse setResultMsg(String resultMsg) {
+    public ConfirmBlockchainArecRcpMgResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }

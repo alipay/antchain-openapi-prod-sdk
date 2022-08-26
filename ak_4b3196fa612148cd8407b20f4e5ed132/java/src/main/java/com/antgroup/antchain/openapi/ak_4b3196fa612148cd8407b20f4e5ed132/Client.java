@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0")
+                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("_prod_code", "ak_4b3196fa612148cd8407b20f4e5ed132"),
+                    new TeaPair("_prod_channel", "saas")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -160,40 +162,40 @@ public class Client {
     }
 
     /**
-     * Description: 发起解抵押(宁波模式)
-     * Summary: 发起解抵押(宁波模式)
+     * Description: 房屋抵押登记业务，银行确认抵押登记服务
+     * Summary: 确认抵押登记
      */
-    public StartBlockchainArecRcpMgrResponse startBlockchainArecRcpMgr(StartBlockchainArecRcpMgrRequest request) throws Exception {
+    public ConfirmBlockchainArecRcpMgResponse confirmBlockchainArecRcpMg(ConfirmBlockchainArecRcpMgRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.startBlockchainArecRcpMgrEx(request, headers, runtime);
+        return this.confirmBlockchainArecRcpMgEx(request, headers, runtime);
     }
 
     /**
-     * Description: 发起解抵押(宁波模式)
-     * Summary: 发起解抵押(宁波模式)
+     * Description: 房屋抵押登记业务，银行确认抵押登记服务
+     * Summary: 确认抵押登记
      */
-    public StartBlockchainArecRcpMgrResponse startBlockchainArecRcpMgrEx(StartBlockchainArecRcpMgrRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ConfirmBlockchainArecRcpMgResponse confirmBlockchainArecRcpMgEx(ConfirmBlockchainArecRcpMgRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.arec.rcp.mgr.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartBlockchainArecRcpMgrResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.arec.rcp.mg.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmBlockchainArecRcpMgResponse());
     }
 
     /**
-     * Description: 确认解抵押(宁波模式)
-     * Summary: 确认解抵押(宁波模式)
+     * Description: 房屋抵押贷款业务，发起抵押登记服务
+     * Summary: 发起抵押登记
      */
-    public ConfirmBlockchainArecRcpMgrResponse confirmBlockchainArecRcpMgr(ConfirmBlockchainArecRcpMgrRequest request) throws Exception {
+    public StartBlockchainArecRcpMgResponse startBlockchainArecRcpMg(StartBlockchainArecRcpMgRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.confirmBlockchainArecRcpMgrEx(request, headers, runtime);
+        return this.startBlockchainArecRcpMgEx(request, headers, runtime);
     }
 
     /**
-     * Description: 确认解抵押(宁波模式)
-     * Summary: 确认解抵押(宁波模式)
+     * Description: 房屋抵押贷款业务，发起抵押登记服务
+     * Summary: 发起抵押登记
      */
-    public ConfirmBlockchainArecRcpMgrResponse confirmBlockchainArecRcpMgrEx(ConfirmBlockchainArecRcpMgrRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public StartBlockchainArecRcpMgResponse startBlockchainArecRcpMgEx(StartBlockchainArecRcpMgRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.arec.rcp.mgr.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmBlockchainArecRcpMgrResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.arec.rcp.mg.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartBlockchainArecRcpMgResponse());
     }
 }

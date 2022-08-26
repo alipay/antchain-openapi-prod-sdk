@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_4b3196fa612148cd8407b20f4e5ed132.models
 
 import com.aliyun.tea.*;
 
-public class StartBlockchainArecRcpMgrResponse extends TeaModel {
+public class StartBlockchainArecRcpMgResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class StartBlockchainArecRcpMgrResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 解抵押单号
-    @NameInMap("mg_release_order_no")
-    public String mgReleaseOrderNo;
+    // 抵押单号
+    @NameInMap("mg_order_no")
+    public String mgOrderNo;
 
-    public static StartBlockchainArecRcpMgrResponse build(java.util.Map<String, ?> map) throws Exception {
-        StartBlockchainArecRcpMgrResponse self = new StartBlockchainArecRcpMgrResponse();
+    public static StartBlockchainArecRcpMgResponse build(java.util.Map<String, ?> map) throws Exception {
+        StartBlockchainArecRcpMgResponse self = new StartBlockchainArecRcpMgResponse();
         return TeaModel.build(map, self);
     }
 
-    public StartBlockchainArecRcpMgrResponse setReqMsgId(String reqMsgId) {
+    public StartBlockchainArecRcpMgResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class StartBlockchainArecRcpMgrResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public StartBlockchainArecRcpMgrResponse setResultCode(String resultCode) {
+    public StartBlockchainArecRcpMgResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class StartBlockchainArecRcpMgrResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public StartBlockchainArecRcpMgrResponse setResultMsg(String resultMsg) {
+    public StartBlockchainArecRcpMgResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class StartBlockchainArecRcpMgrResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public StartBlockchainArecRcpMgrResponse setMgReleaseOrderNo(String mgReleaseOrderNo) {
-        this.mgReleaseOrderNo = mgReleaseOrderNo;
+    public StartBlockchainArecRcpMgResponse setMgOrderNo(String mgOrderNo) {
+        this.mgOrderNo = mgOrderNo;
         return this;
     }
-    public String getMgReleaseOrderNo() {
-        return this.mgReleaseOrderNo;
+    public String getMgOrderNo() {
+        return this.mgOrderNo;
     }
 
 }
