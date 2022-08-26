@@ -101,6 +101,8 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
     sdk_version = '1.0.0',
+    _prod_code = 'ak_4b3196fa612148cd8407b20f4e5ed132',
+    _prod_channel = 'saas'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -390,46 +392,30 @@ model House {
   certStatus?: string(name='cert_status', example='一般抵押（2次），查封限制（1次）'),
 }
 
-// 银行
-model Bank {
-  // 地址
-  address?: string(name='address', example='xx省xx市xx区xx街道xx路xx号'),
-  // 银行编号
-  bankNo?: string(name='bank_no', example='20200810001220030000000000000001'),
-  // 法人证件号
-  legalPersonCertNo?: string(name='legal_person_cert_no', example='330108******1234'),
-  // 法人手机号
-  legalPersonMobile?: string(name='legal_person_mobile', example='135****2323'),
-  // 法人姓名
-  legalPersonName?: string(name='legal_person_name', example='成吉思汗'),
-  // 行内级别，比如：SUB_BRANCH=支行
-  level?: string(name='level', example='SUB_BRANCH'),
-  // 蚂蚁智能合同的机构id
-  mycOrgId?: string(name='myc_org_id', example='23343431'),
-  // 银行名称
-  name?: string(name='name', example='XX银行股份有限公司'),
-  // OSS存储跟路径
-  ossBaseFold?: string(name='oss_base_fold', example='bk-ningbo'),
-  // 银行证件号
-  certNo?: string(name='cert_no', example='1943331213'),
-  // 上级行号，比如支行对应的分行
-  parentBankNo?: string(name='parent_bank_no', example='20200810001220030000000000000002'),
-  // 蚂蚁链隐私数据网络的身份id
-  pdnDid?: string(name='pdn_did', example='668fa851746fdf358c5f96efe87d07178b49b17c143e06a659c368e83de2027e'),
-  // 公钥
-  pubKey?: string(name='pub_key', example='668fa851746fdf358c5f96efe87d07178b49b17c143e06a659c368e83de2027e'),
-  // 租户ID
-  tenantId?: string(name='tenant_id', example='TNBNKQCN'),
-  // 法人证件类型，比如：ID_CARD=身份证
-  legalPersonCertType?: string(name='legal_person_cert_type', example='ID_CARD'),
-  // 授权合同签署后小程序端的回跳地址
-  authCallbackUrl?: string(name='auth_callback_url', example='http://x.x.x.x/x'),
-  // 抵押登记相关合同签署后小程序端的回跳地址
-  mgCallbackUrl?: string(name='mg_callback_url', example='https://x.x.x.x/x'),
-  // 银行接收房产链通知接口地址
-  bkCallbackUrl?: string(name='bk_callback_url', example='http://x.x.x.x/x'),
-  // 银行证件类型
-  certType?: string(name='cert_type', example='UNIFIED_SOCIAL_CODE'),
+// 附件材料
+model Archive {
+  // 附件内容的Hash值
+  archiveHash?: string(name='archive_hash', example='668fa851746fdf358c5f96efe87d07178b49b17c143e06a659c368e83de2027e'),
+  // 附件材料类型，比如：AT_SUOYOUQUANZHENG=房屋所有权证
+  archiveType?: string(name='archive_type', example='AT_SUOYOUQUANZHENG'),
+  // 移动后到银行目录下的oss存储路径
+  bankOssKey?: string(name='bank_oss_key', example='bk-ningbo/rcp/1434343413132/a.pdf'),
+  // 附件KEY，也是oss的存储路径，原始保存路径
+  ossKey?: string(name='oss_key', example='bk-ningbo/2334545423232/abc.jpg'),
+  // 附件来源外部业务单号
+  outBizNo?: string(name='out_biz_no', example='20200810001220080000000000000001'),
+  // 机构编号
+  ownerNo?: string(name='owner_no', example='20200810001220030000000000000001'),
+  // 附件材料归属机构类型，比如：BANK=银行
+  ownerType?: string(name='owner_type', example='BANK'),
+  // 移动到不动产中心目录下的oss存储路径
+  rtcOssKey?: string(name='rtc_oss_key', example='rtc-zhuhai/rcp/1434343413132/a.pdf'),
+  // 材料附件来源场景，比如：ASS_BK_APPLY=银行申请抵押提交
+  scene?: string(name='scene', example='ASS_BK_APPLY'),
+  // 房产链平台的存储路径
+  rcpOssKey?: string(name='rcp_oss_key', example='rcp/3323232/a.pdf'),
+  // 助贷平台的访问路径
+  loanAssistPlatformOssKey?: string(name='loan_assist_platform_oss_key', example='jiebei/23434343/a.pdf'),
 }
 
 // 合同
@@ -474,79 +460,23 @@ model Agreement {
   finalArArchiveOssPath?: string(name='final_ar_archive_oss_path', example='bk_ningbo/20200810001221010000000000000001/23332323.pdf'),
 }
 
-model StartBlockchainArecRcpMgrRequest = {
+model ConfirmBlockchainArecRcpMgRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 助贷平台
-  loanAssistPlatform: string(name='loan_assist_platform'),
-  // 房产链内部银行编号
+  // 银行编号
   bankNo: string(name='bank_no'),
-  // 外部业务单号
-  outBizNo: string(name='out_biz_no'),
-  // 不动产颁发的他项权证号
-  otherRightCertNo: string(name='other_right_cert_no'),
-  // 抵押权消灭原因,OAN_FINISHED=借款已结清或主债权已灭失
-  wipeMortgageReason: string(name='wipe_mortgage_reason'),
-  // 解抵押的房产信息
-  house: House(name='house'),
-  // 办理业务分支行
-  branchBank: Bank(name='branch_bank'),
-  // 解抵押单号
-  mgReleaseOrderNo?: string(name='mg_release_order_no'),
-}
-
-model StartBlockchainArecRcpMgrResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 解抵押单号
-  mgReleaseOrderNo?: string(name='mg_release_order_no'),
-}
-
-/**
- * Description: 发起解抵押(宁波模式)
- * Summary: 发起解抵押(宁波模式)
- */
-async function startBlockchainArecRcpMgr(request: StartBlockchainArecRcpMgrRequest): StartBlockchainArecRcpMgrResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return startBlockchainArecRcpMgrEx(request, headers, runtime);
-}
-
-/**
- * Description: 发起解抵押(宁波模式)
- * Summary: 发起解抵押(宁波模式)
- */
-async function startBlockchainArecRcpMgrEx(request: StartBlockchainArecRcpMgrRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBlockchainArecRcpMgrResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.arec.rcp.mgr.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model ConfirmBlockchainArecRcpMgrRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 助贷平台
-  loanAssistPlatform: string(name='loan_assist_platform'),
-  // 房产链内部银行编号
-  bankNo: string(name='bank_no'),
-  // 解抵押单号
-  mgReleaseOrderNo: string(name='mg_release_order_no'),
-  // Y=继续解抵押,N=终止解抵押
+  // 抵押单号
+  mgOrderNo: string(name='mg_order_no'),
+  // 确认抵押登记结果，Y:继续,N:中止抵押
   result: string(name='result'),
-  // 终止解抵押原因码
+  // 银行返回的中止抵押原因code
   failCode?: string(name='fail_code'),
-  // 终止解抵押原因描述
+  // 银行反馈的中止抵押原因描述
   failDesc?: string(name='fail_desc'),
-  // 银行签署完成的解抵押合同列表
-  agreements: [ Agreement ](name='agreements'),
 }
 
-model ConfirmBlockchainArecRcpMgrResponse = {
+model ConfirmBlockchainArecRcpMgResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -556,21 +486,85 @@ model ConfirmBlockchainArecRcpMgrResponse = {
 }
 
 /**
- * Description: 确认解抵押(宁波模式)
- * Summary: 确认解抵押(宁波模式)
+ * Description: 房屋抵押登记业务，银行确认抵押登记服务
+ * Summary: 确认抵押登记
  */
-async function confirmBlockchainArecRcpMgr(request: ConfirmBlockchainArecRcpMgrRequest): ConfirmBlockchainArecRcpMgrResponse {
+async function confirmBlockchainArecRcpMg(request: ConfirmBlockchainArecRcpMgRequest): ConfirmBlockchainArecRcpMgResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return confirmBlockchainArecRcpMgrEx(request, headers, runtime);
+  return confirmBlockchainArecRcpMgEx(request, headers, runtime);
 }
 
 /**
- * Description: 确认解抵押(宁波模式)
- * Summary: 确认解抵押(宁波模式)
+ * Description: 房屋抵押登记业务，银行确认抵押登记服务
+ * Summary: 确认抵押登记
  */
-async function confirmBlockchainArecRcpMgrEx(request: ConfirmBlockchainArecRcpMgrRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmBlockchainArecRcpMgrResponse {
+async function confirmBlockchainArecRcpMgEx(request: ConfirmBlockchainArecRcpMgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmBlockchainArecRcpMgResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.arec.rcp.mgr.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.arec.rcp.mg.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartBlockchainArecRcpMgRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待签署的合同列表
+  agreements: [ Agreement ](name='agreements'),
+  // 材料清单列表
+  archives?: [ Archive ](name='archives'),
+  // 合同变量和值的全集，Map<String,String>的json格式
+  arVarValueJson: string(name='ar_var_value_json'),
+  // 银行编号
+  bankNo: string(name='bank_no'),
+  // 借款人
+  borrower: Person(name='borrower'),
+  // 扩展字段
+  extendJson?: string(name='extend_json'),
+  // 抵押房产
+  house: House(name='house'),
+  // 婚姻状况,比如：MARRIED=已婚
+  maritalStatus: string(name='marital_status'),
+  // 外部业务单号，银行提供
+  outBizNo: string(name='out_biz_no'),
+  // 登记设立原因，比如：LOAN=借贷
+  regReason: string(name='reg_reason'),
+  // 登记设立原因备注
+  regReasonRemark?: string(name='reg_reason_remark'),
+  // 登记权利,比如：MORTGAGE_RIGHTS=抵押权
+  regRights: string(name='reg_rights'),
+  // 登记类型，比如：FIRST_REG=首次登记
+  regType: string(name='reg_type'),
+  // 配偶
+  spouse?: Person(name='spouse'),
+}
+
+model StartBlockchainArecRcpMgResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 抵押单号
+  mgOrderNo?: string(name='mg_order_no'),
+}
+
+/**
+ * Description: 房屋抵押贷款业务，发起抵押登记服务
+ * Summary: 发起抵押登记
+ */
+async function startBlockchainArecRcpMg(request: StartBlockchainArecRcpMgRequest): StartBlockchainArecRcpMgResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBlockchainArecRcpMgEx(request, headers, runtime);
+}
+
+/**
+ * Description: 房屋抵押贷款业务，发起抵押登记服务
+ * Summary: 发起抵押登记
+ */
+async function startBlockchainArecRcpMgEx(request: StartBlockchainArecRcpMgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBlockchainArecRcpMgResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.arec.rcp.mg.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
