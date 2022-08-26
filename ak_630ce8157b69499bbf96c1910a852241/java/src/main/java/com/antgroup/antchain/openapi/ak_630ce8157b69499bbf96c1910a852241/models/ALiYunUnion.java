@@ -1,0 +1,84 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.ak_630ce8157b69499bbf96c1910a852241.models;
+
+import com.aliyun.tea.*;
+
+public class ALiYunUnion extends TeaModel {
+    // 联盟内链的集合
+    @NameInMap("ant_chains")
+    public java.util.List<ALiYunAntChain> antChains;
+
+    // 联盟信息
+    @NameInMap("ant_consortiums")
+    public java.util.List<ALiYunAntConsortium> antConsortiums;
+
+    // 联盟Id
+    @NameInMap("consortium_id")
+    public String consortiumId;
+
+    // is_exist
+    @NameInMap("is_exist")
+    public Boolean isExist;
+
+    // 联盟成员信息
+    @NameInMap("members")
+    public java.util.List<ALiYunMember> members;
+
+    // 阿里云分页属性
+    @NameInMap("pagination")
+    public ALiYunPagination pagination;
+
+    public static ALiYunUnion build(java.util.Map<String, ?> map) throws Exception {
+        ALiYunUnion self = new ALiYunUnion();
+        return TeaModel.build(map, self);
+    }
+
+    public ALiYunUnion setAntChains(java.util.List<ALiYunAntChain> antChains) {
+        this.antChains = antChains;
+        return this;
+    }
+    public java.util.List<ALiYunAntChain> getAntChains() {
+        return this.antChains;
+    }
+
+    public ALiYunUnion setAntConsortiums(java.util.List<ALiYunAntConsortium> antConsortiums) {
+        this.antConsortiums = antConsortiums;
+        return this;
+    }
+    public java.util.List<ALiYunAntConsortium> getAntConsortiums() {
+        return this.antConsortiums;
+    }
+
+    public ALiYunUnion setConsortiumId(String consortiumId) {
+        this.consortiumId = consortiumId;
+        return this;
+    }
+    public String getConsortiumId() {
+        return this.consortiumId;
+    }
+
+    public ALiYunUnion setIsExist(Boolean isExist) {
+        this.isExist = isExist;
+        return this;
+    }
+    public Boolean getIsExist() {
+        return this.isExist;
+    }
+
+    public ALiYunUnion setMembers(java.util.List<ALiYunMember> members) {
+        this.members = members;
+        return this;
+    }
+    public java.util.List<ALiYunMember> getMembers() {
+        return this.members;
+    }
+
+    public ALiYunUnion setPagination(ALiYunPagination pagination) {
+        this.pagination = pagination;
+        return this;
+    }
+    public ALiYunPagination getPagination() {
+        return this.pagination;
+    }
+
+}
