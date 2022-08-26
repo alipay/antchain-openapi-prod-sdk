@@ -1,0 +1,1301 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'ak_122342269ba34053ab6e5304d82e7358',
+    _prod_channel = 'saas'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 可访问数据关系信息
+model AccessChainInfo {
+  // 授权访问链关系ID
+  aclId: string(name='acl_id', example='授权访问链关系ID'),
+  // 详细描述
+  description?: string(name='description', example='详细描述'),
+  // 关系创建时间
+  gmtCreate: string(name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 被授权的链的链域名
+  grantDomain: string(name='grant_domain', example='xxxx.oracle.chain'),
+  // 授权链链域名
+  ownerDomain: string(name='owner_domain', example='xxxx.oracle.chain'),
+  // 授权可以访问的数据类型
+  resourceType: string(name='resource_type', example='MYCHAIN_TX, MYCHAIN_BLOCK_HEADER, MYCHAIN_BLOCK,     FABRIC_TX'),
+}
+
+// 作为返回值的MyChain信息
+model MyChainInfo {
+  // 区块链id
+  blockchainId?: string(name='blockchain_id', example='区块链id'),
+  // 详细描述
+  description?: string(name='description', example='详细描述'),
+  // 链域名
+  domain?: string(name='domain', example='链域名'),
+  // 创建日期
+  gmtCreate?: string(name='gmt_create', example='1565006057000'),
+  // 注册状态INIT, INIT_FAILED, REGISTRING, REGISTERED, REGISTRATION_FAILED
+  regStatus?: string(name='reg_status', example='INIT, INIT_FAILED, REGISTRING, REGISTERED, REGISTRATION_FAILED'),
+  // 链类型：MYCHAIN_010, FABRIC_14
+  // 
+  type?: string(name='type', example='MYCHAIN_010, FABRIC_14'),
+}
+
+// 域名证书信息
+model DomainCert {
+  // 链域名
+  // 
+  domain?: string(name='domain', example='xxxx.orcale.chain '),
+  // 签发者公钥
+  issuerPublicKey?: string(name='issuer_public_key', example='签发者公钥'),
+  // 签发者签名
+  issuerSignature?: string(name='issuer_signature', example='签发者签名'),
+  // 接受者公钥
+  subjectPublicKey?: string(name='subject_public_key', example='接受者公钥'),
+}
+
+// 跨链信息结构体
+model CrossChainInfo {
+  // 授权映射关系id
+  aclId: string(name='acl_id', example='授权映射关系id'),
+  // 详细描述
+  description?: string(name='description', example='详细描述'),
+  // 授权关系创建时间
+  gmtCreate: string(name='gmt_create', example='1565006057000'),
+  // 授权链的链域名
+  grantDomain: string(name='grant_domain', example='xxxx.oracle.chain'),
+  // 授权合约在授权链上地址
+  grantIdentity: string(name='grant_identity', example='授权合约在授权链上地址'),
+  // 自有链链域名
+  ownerDomain: string(name='owner_domain', example='xxxx.oracle.chain'),
+  // 自有合约在链上地址
+  ownerIdentity: string(name='owner_identity', example='自有合约在链上地址'),
+}
+
+// Odats中注册的区块链信息
+model OdatsRegisteredBlockChainInfo {
+  // 区块链id
+  blockchainId: string(name='blockchain_id', example='区块链id'),
+  // 详细描述
+  description?: string(name='description', example='详细描述'),
+  // 链域名
+  domain: string(name='domain', example='xxxx.orcale.chaim'),
+  // 注册时间
+  gmtCreate: string(name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 链注册状态
+  // INIT, INIT_FAILED, REGISTRING, REGISTERED, REGISTRATION_FAILED
+  regStatus: string(name='reg_status', example='init'),
+  // 链类型
+  type: string(name='type', example='MYCHAIN_010, FABRIC_14'),
+}
+
+// 区块链基本信息
+model BlockchainBasicInfo {
+  // 链id
+  blockchainId?: string(name='blockchain_id', example='链id'),
+  // 描述
+  description?: string(name='description', example='描述'),
+  // 链域名
+  domain?: string(name='domain', example='xxxx.orcale.chain '),
+  // 创建时间，13位时间戳
+  gmtCreate?: string(name='gmt_create', example='1565006057000'),
+  // 根据type会返回不通的json格式，表示不同类型的链配置； mychain: { "bizid": "", "tlsCert": "", "tlsCaCert": "", "account": "", "anchoredBlockHeight": 19876, "anchoredBlockHash": "" } fabric: { "channel": "", "userMspId": "", "userCert": "" }
+  info?: string(name='info', example='详细信息的json字符串'),
+  // 注册状态
+  // 
+  regStatus?: string(name='reg_status', example='INIT, INIT_FAILED, REGISTRING, REGISTERED, REGISTRATION_FAILED'),
+  // 链类型
+  // 
+  type?: string(name='type', example='MYCHAIN_010, FABRIC_14 '),
+}
+
+// 返回的解析后的yaml信息
+model ConfigYamlInfo {
+  // 通道列表
+  channelNameList?: [ string ](name='channel_name_list', example='通道列表'),
+  // 验证节点名称列表
+  validatorPeerNameList?: [ string ](name='validator_peer_name_list', example='验证节点名称列表'),
+}
+
+// udns cert 相关属性信息
+model UdnsCert {
+  // 锚定块hash
+  anchoredBlockHash?: string(name='anchored_block_hash', example='锚定块hash'),
+  // 锚定块高度。
+  anchoredBlockHeight?: long(name='anchored_block_height', example='123321'),
+  // 区块链id
+  blockchainId?: string(name='blockchain_id', example='区块链id'),
+  // fabric 链码
+  chaincode?: string(name='chaincode', example='fabric 链码'),
+  // 通道名。
+  channel?: string(name='channel', example='通道名。'),
+  // {"anchoredBlockcHeight": 12345, "anchoredBlockHash": "abcefgh", "poaCertPublicKeyHashList": ["abcdefg","abcdefg"]}
+  detailInfo?: string(name='detail_info', example='{"anchoredBlockcHeight": 12345, "anchoredBlockHash": "abcefgh", "poaCertPublicKeyHashList": ["abcdefg","abcdefg"]}'),
+  // 链域名
+  domain?: string(name='domain', example='xxxx.orcale.chain'),
+  // 证书公钥列表	
+  // 
+  poaCertPublicKeyHashList?: [ string ](name='poa_cert_public_key_hash_list', example=''),
+  // 目标公钥
+  subjectPublicKey?: string(name='subject_public_key', example='目标公钥'),
+  // 目标svn
+  svn?: long(name='svn', example=''),
+  // 区块链类型：MYCHAIN_010, FABRIC_14	
+  // 
+  type?: string(name='type', example='MYCHAIN_010, FABRIC_14 '),
+  // base64编码后的udns
+  udnsBase64?: string(name='udns_base64', example='base64编码后的udns'),
+  // 验证者证书列表
+  validatorCertList?: long(name='validator_cert_list', example=''),
+  // 版本号
+  version?: string(name='version', example='版本号'),
+}
+
+// 返回fabric chain info的信息
+model FabricChainInfo {
+  // 区块链id	
+  // 
+  blockchainId?: string(name='blockchain_id', example='区块链id '),
+  // 描述
+  description?: string(name='description', example='描述'),
+  // 链域名
+  domain?: string(name='domain', example='链域名'),
+  // 创建时间
+  gmtCreate?: string(name='gmt_create', example='1565006057000'),
+  // 链注册状态INIT, INIT_FAILED, REGISTRING, REGISTERED, REGISTRATION_FAILED
+  regStatus?: string(name='reg_status', example='INIT, INIT_FAILED, REGISTRING, REGISTERED, REGISTRATION_FAILED'),
+  // 区块链类型：MYCHAIN_010, FABRIC_14
+  type?: string(name='type', example='MYCHAIN_010, FABRIC_14'),
+}
+
+// 区块链合约信息
+model BlockchainContractInfo {
+  // mychain上系统合约“am合约”的地址
+  amContractAddress?: string(name='am_contract_address', example='mychain上系统合约“am合约”的地址 '),
+  // 区块链id
+  blockchainId?: string(name='blockchain_id', example='asdf3er'),
+  // fabric合约
+  chainCode?: string(name='chain_code', example='fabric合约'),
+  // mychain系统合约“oracle合约”地址
+  // 
+  oracleContractAddress?: string(name='oracle_contract_address', example='mychain上跨链合约地址'),
+  // mychain链上系统合约“p2p合约”地址
+  // 
+  p2pContractAddress?: string(name='p2p_contract_address', example='mychain链上系统合约“p2p合约”地址 '),
+  // mychain上wasm版系统合约“am合约”的链上地址
+  wasmAmContractAddress?: string(name='wasm_am_contract_address', example='mychain上wasm版系统合约“am合约”的链上地址 '),
+  // mychain wasm版系统合约“orcale合约”地址
+  wasmOracleContractAddress?: string(name='wasm_oracle_contract_address', example='wasm版系统合约“orcale合约”地址'),
+  // mychain上wasm版系统合约“p2p合约”链上地址
+  wasmP2pContractAddress?: string(name='wasm_p2p_contract_address', example='mychain上wasm版系统合约“p2p合约”链上地址'),
+}
+
+model StartBaasOdatsAccesschainAuthorizeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 详细描述
+  description?: string(name='description'),
+  // 被授权链domain
+  grantDomain: string(name='grant_domain'),
+  // 授权链域名
+  ownerDomain: string(name='owner_domain'),
+  // 资源类型
+  resourceType: string(name='resource_type'),
+}
+
+model StartBaasOdatsAccesschainAuthorizeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 跨链数据访问授权信息
+  data?: AccessChainInfo(name='data'),
+}
+
+/**
+ * Description: 授权跨链数据访问
+ * Summary: 授权跨链数据访问
+ */
+async function startBaasOdatsAccesschainAuthorize(request: StartBaasOdatsAccesschainAuthorizeRequest): StartBaasOdatsAccesschainAuthorizeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasOdatsAccesschainAuthorizeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权跨链数据访问
+ * Summary: 授权跨链数据访问
+ */
+async function startBaasOdatsAccesschainAuthorizeEx(request: StartBaasOdatsAccesschainAuthorizeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasOdatsAccesschainAuthorizeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.accesschain.authorize.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateBaasOdatsAccesschainAuthorizeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权关系id
+  aclId: string(name='acl_id'),
+  // 详细描述
+  description?: string(name='description'),
+  // 授权资源类型
+  resourceType: string(name='resource_type'),
+}
+
+model UpdateBaasOdatsAccesschainAuthorizeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 跨链访问数据授权信息
+  data?: AccessChainInfo(name='data'),
+}
+
+/**
+ * Description: 更新跨链数据访问权限
+ * Summary: 更新跨链数据访问权限
+ */
+async function updateBaasOdatsAccesschainAuthorize(request: UpdateBaasOdatsAccesschainAuthorizeRequest): UpdateBaasOdatsAccesschainAuthorizeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBaasOdatsAccesschainAuthorizeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新跨链数据访问权限
+ * Summary: 更新跨链数据访问权限
+ */
+async function updateBaasOdatsAccesschainAuthorizeEx(request: UpdateBaasOdatsAccesschainAuthorizeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBaasOdatsAccesschainAuthorizeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.accesschain.authorize.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListBaasOdatsAccesschainAuthorizedRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 自有链链域名
+  ownerDomain: string(name='owner_domain'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 分页大小
+  pageSize: long(name='page_size'),
+}
+
+model ListBaasOdatsAccesschainAuthorizedResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 访问链权限信息列表
+  data?: [ AccessChainInfo ](name='data'),
+  // 分页页码。
+  pageNum?: long(name='page_num'),
+  // 当前页大小
+  pageSize?: long(name='page_size'),
+  // 总行数
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 获取链授权访问的链列表
+ * Summary: 获取链授权访问的链列表
+ */
+async function listBaasOdatsAccesschainAuthorized(request: ListBaasOdatsAccesschainAuthorizedRequest): ListBaasOdatsAccesschainAuthorizedResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listBaasOdatsAccesschainAuthorizedEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取链授权访问的链列表
+ * Summary: 获取链授权访问的链列表
+ */
+async function listBaasOdatsAccesschainAuthorizedEx(request: ListBaasOdatsAccesschainAuthorizedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListBaasOdatsAccesschainAuthorizedResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.accesschain.authorized.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListBaasOdatsAccesschainGrantedRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被授权链的链域名
+  grantDomain: string(name='grant_domain'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 分页大小
+  pageSize: long(name='page_size'),
+}
+
+model ListBaasOdatsAccesschainGrantedResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权访问链列表
+  data?: [ AccessChainInfo ](name='data'),
+  // 当前页码
+  pageNum?: long(name='page_num'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总行数
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 查询被授权访问数据的映射关系列表
+ * Summary: 查询被授权访问数据的映射关系列表
+ */
+async function listBaasOdatsAccesschainGranted(request: ListBaasOdatsAccesschainGrantedRequest): ListBaasOdatsAccesschainGrantedResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listBaasOdatsAccesschainGrantedEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询被授权访问数据的映射关系列表
+ * Summary: 查询被授权访问数据的映射关系列表
+ */
+async function listBaasOdatsAccesschainGrantedEx(request: ListBaasOdatsAccesschainGrantedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListBaasOdatsAccesschainGrantedResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.accesschain.granted.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListBaasOdatsAccesschainResourcetypeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链域名
+  domain: string(name='domain'),
+}
+
+model ListBaasOdatsAccesschainResourcetypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 可以访问的数据类型
+  data?: [ string ](name='data'),
+}
+
+/**
+ * Description: 获取指定链提供的可访问的资源类型
+ * Summary: 获取指定链提供的可访问的资源类型
+ */
+async function listBaasOdatsAccesschainResourcetype(request: ListBaasOdatsAccesschainResourcetypeRequest): ListBaasOdatsAccesschainResourcetypeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listBaasOdatsAccesschainResourcetypeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取指定链提供的可访问的资源类型
+ * Summary: 获取指定链提供的可访问的资源类型
+ */
+async function listBaasOdatsAccesschainResourcetypeEx(request: ListBaasOdatsAccesschainResourcetypeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListBaasOdatsAccesschainResourcetypeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.accesschain.resourcetype.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DisableBaasOdatsAclRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权关系id
+  aclId: string(name='acl_id'),
+}
+
+model DisableBaasOdatsAclResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 撤销跨链访问数据/调用权限
+ * Summary: 撤销跨链访问数据/调用权限
+ */
+async function disableBaasOdatsAcl(request: DisableBaasOdatsAclRequest): DisableBaasOdatsAclResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return disableBaasOdatsAclEx(request, headers, runtime);
+}
+
+/**
+ * Description: 撤销跨链访问数据/调用权限
+ * Summary: 撤销跨链访问数据/调用权限
+ */
+async function disableBaasOdatsAclEx(request: DisableBaasOdatsAclRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DisableBaasOdatsAclResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.acl.disable', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasOdatsActivestatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryBaasOdatsActivestatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回开通状态， NOT_ACTIVATED： 未开通；PENDING_APPROVAL：待审批；  ACTIVATED：开通
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 查询用户是否已经开通odats服务
+ * Summary: 查询用户是否已经开通odats服务
+ */
+async function queryBaasOdatsActivestatus(request: QueryBaasOdatsActivestatusRequest): QueryBaasOdatsActivestatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasOdatsActivestatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询用户是否已经开通odats服务
+ * Summary: 查询用户是否已经开通odats服务
+ */
+async function queryBaasOdatsActivestatusEx(request: QueryBaasOdatsActivestatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasOdatsActivestatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.activestatus.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasOdatsAgreementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryBaasOdatsAgreementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户同意授权状态
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 查询用户是否已经同意odats服务协议
+ * Summary: 查询用户是否已经同意odats服务协议
+ */
+async function queryBaasOdatsAgreement(request: QueryBaasOdatsAgreementRequest): QueryBaasOdatsAgreementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasOdatsAgreementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询用户是否已经同意odats服务协议
+ * Summary: 查询用户是否已经同意odats服务协议
+ */
+async function queryBaasOdatsAgreementEx(request: QueryBaasOdatsAgreementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasOdatsAgreementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.agreement.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveBaasOdatsAgreementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户是否同意服务协议
+  status?: string(name='status'),
+}
+
+model SaveBaasOdatsAgreementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用户同意授权之后保持状态
+ * Summary: 用户同意授权之后保持状态
+ */
+async function saveBaasOdatsAgreement(request: SaveBaasOdatsAgreementRequest): SaveBaasOdatsAgreementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveBaasOdatsAgreementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户同意授权之后保持状态
+ * Summary: 用户同意授权之后保持状态
+ */
+async function saveBaasOdatsAgreementEx(request: SaveBaasOdatsAgreementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveBaasOdatsAgreementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.agreement.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasOdatsBlockchainBaseinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链id
+  blockchainId: string(name='blockchain_id'),
+}
+
+model QueryBaasOdatsBlockchainBaseinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回的区块链基本信息
+  data?: BlockchainBasicInfo(name='data'),
+}
+
+/**
+ * Description: 查询注册的链的基本信息
+ * Summary: 查询注册的链的基本信息
+ */
+async function queryBaasOdatsBlockchainBaseinfo(request: QueryBaasOdatsBlockchainBaseinfoRequest): QueryBaasOdatsBlockchainBaseinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasOdatsBlockchainBaseinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询注册的链的基本信息
+ * Summary: 查询注册的链的基本信息
+ */
+async function queryBaasOdatsBlockchainBaseinfoEx(request: QueryBaasOdatsBlockchainBaseinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasOdatsBlockchainBaseinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.blockchain.baseinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasOdatsBlockchainContractinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链id
+  blockchainId: string(name='blockchain_id'),
+}
+
+model QueryBaasOdatsBlockchainContractinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回的区块链合约信息
+  data?: BlockchainContractInfo(name='data'),
+}
+
+/**
+ * Description: 获取跨链合约信息
+ * Summary: 获取跨链合约信息
+ */
+async function queryBaasOdatsBlockchainContractinfo(request: QueryBaasOdatsBlockchainContractinfoRequest): QueryBaasOdatsBlockchainContractinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasOdatsBlockchainContractinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取跨链合约信息
+ * Summary: 获取跨链合约信息
+ */
+async function queryBaasOdatsBlockchainContractinfoEx(request: QueryBaasOdatsBlockchainContractinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasOdatsBlockchainContractinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.blockchain.contractinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateBaasOdatsCrosschaimAuthorizeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待更新授权关系ID
+  aclId: string(name='acl_id'),
+  // 详细描述
+  description?: string(name='description'),
+  // 被授权合约链上地址
+  grantIdentity: string(name='grant_identity'),
+}
+
+model UpdateBaasOdatsCrosschaimAuthorizeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 跨链调用授权信息
+  data?: CrossChainInfo(name='data'),
+}
+
+/**
+ * Description: 更新跨链访问权限
+ * Summary: 更新跨链访问权限
+ */
+async function updateBaasOdatsCrosschaimAuthorize(request: UpdateBaasOdatsCrosschaimAuthorizeRequest): UpdateBaasOdatsCrosschaimAuthorizeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBaasOdatsCrosschaimAuthorizeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新跨链访问权限
+ * Summary: 更新跨链访问权限
+ */
+async function updateBaasOdatsCrosschaimAuthorizeEx(request: UpdateBaasOdatsCrosschaimAuthorizeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBaasOdatsCrosschaimAuthorizeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.crosschaim.authorize.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartBaasOdatsCrosschainAuthorizeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 详细描述
+  description?: string(name='description'),
+  // 被授权链域名
+  grantDomain: string(name='grant_domain'),
+  // 被授权合约链上地址
+  grantIdentity: string(name='grant_identity'),
+  // 授权链的链域名
+  ownerDomain: string(name='owner_domain'),
+  // 授权合约链上地址
+  ownerIdentity: string(name='owner_identity'),
+}
+
+model StartBaasOdatsCrosschainAuthorizeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 跨链调用信息结构体
+  data?: CrossChainInfo(name='data'),
+}
+
+/**
+ * Description: 授权跨链合约调用权限
+ * Summary: 授权跨链合约调用权限
+ */
+async function startBaasOdatsCrosschainAuthorize(request: StartBaasOdatsCrosschainAuthorizeRequest): StartBaasOdatsCrosschainAuthorizeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasOdatsCrosschainAuthorizeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权跨链合约调用权限
+ * Summary: 授权跨链合约调用权限
+ */
+async function startBaasOdatsCrosschainAuthorizeEx(request: StartBaasOdatsCrosschainAuthorizeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasOdatsCrosschainAuthorizeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.crosschain.authorize.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListBaasOdatsCrosschainAuthorizedRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 自有链的链域名
+  ownerDomain: string(name='owner_domain'),
+  // 分页页码
+  pageNum: long(name='page_num'),
+  // 分页大小
+  pageSize: long(name='page_size'),
+}
+
+model ListBaasOdatsCrosschainAuthorizedResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 跨链信息列表
+  data?: [ CrossChainInfo ](name='data'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总行数
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 获取指定自有链已授权的信息列表
+ * Summary: 获取指定自有链已授权的信息列表
+ */
+async function listBaasOdatsCrosschainAuthorized(request: ListBaasOdatsCrosschainAuthorizedRequest): ListBaasOdatsCrosschainAuthorizedResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listBaasOdatsCrosschainAuthorizedEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取指定自有链已授权的信息列表
+ * Summary: 获取指定自有链已授权的信息列表
+ */
+async function listBaasOdatsCrosschainAuthorizedEx(request: ListBaasOdatsCrosschainAuthorizedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListBaasOdatsCrosschainAuthorizedResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.crosschain.authorized.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListBaasOdatsCrosschainGrantedRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被授权链的链域名
+  grantDomain: string(name='grant_domain'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 分页大小
+  pageSize: long(name='page_size'),
+}
+
+model ListBaasOdatsCrosschainGrantedResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 跨链调用授权列表
+  data?: [ CrossChainInfo ](name='data'),
+  // 当前页码
+  pageNum?: long(name='page_num'),
+  // 页大小
+  pageSize?: long(name='page_size'),
+  // 总行数
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 获取目标链被授权的映射关系列表
+ * Summary: 获取目标链被授权的映射关系列表
+ */
+async function listBaasOdatsCrosschainGranted(request: ListBaasOdatsCrosschainGrantedRequest): ListBaasOdatsCrosschainGrantedResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listBaasOdatsCrosschainGrantedEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取目标链被授权的映射关系列表
+ * Summary: 获取目标链被授权的映射关系列表
+ */
+async function listBaasOdatsCrosschainGrantedEx(request: ListBaasOdatsCrosschainGrantedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListBaasOdatsCrosschainGrantedResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.crosschain.granted.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasOdatsDomaincertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链域名
+  domain: string(name='domain'),
+}
+
+model QueryBaasOdatsDomaincertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 域名证书信息
+  data?: DomainCert(name='data'),
+}
+
+/**
+ * Description: 获取域名证书
+ * Summary: 获取域名证书
+ */
+async function queryBaasOdatsDomaincert(request: QueryBaasOdatsDomaincertRequest): QueryBaasOdatsDomaincertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasOdatsDomaincertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取域名证书
+ * Summary: 获取域名证书
+ */
+async function queryBaasOdatsDomaincertEx(request: QueryBaasOdatsDomaincertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasOdatsDomaincertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.domaincert.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasOdatsFabricCcRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryBaasOdatsFabricCcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 合约内容
+  chaincode?: string(name='chaincode'),
+}
+
+/**
+ * Description: 查询跨链合约
+ * Summary: 查询跨链CC
+ */
+async function queryBaasOdatsFabricCc(request: QueryBaasOdatsFabricCcRequest): QueryBaasOdatsFabricCcResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasOdatsFabricCcEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询跨链合约
+ * Summary: 查询跨链CC
+ */
+async function queryBaasOdatsFabricCcEx(request: QueryBaasOdatsFabricCcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasOdatsFabricCcResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.fabric.cc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasOdatsFabricChaincodepathRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryBaasOdatsFabricChaincodepathResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上次cc的oss临时路径
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 查询fabric CC的oss路径
+ * Summary: 查询fabric CC的oss路径
+ */
+async function queryBaasOdatsFabricChaincodepath(request: QueryBaasOdatsFabricChaincodepathRequest): QueryBaasOdatsFabricChaincodepathResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasOdatsFabricChaincodepathEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询fabric CC的oss路径
+ * Summary: 查询fabric CC的oss路径
+ */
+async function queryBaasOdatsFabricChaincodepathEx(request: QueryBaasOdatsFabricChaincodepathRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasOdatsFabricChaincodepathResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.fabric.chaincodepath.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartBaasOdatsFabricConfigyamlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // fabir yaml配置文件
+  configYaml: string(name='config_yaml'),
+}
+
+model StartBaasOdatsFabricConfigyamlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 解析后的fabric 信息
+  data?: ConfigYamlInfo(name='data'),
+}
+
+/**
+ * Description: 处理fabric配置文件
+ * Summary: 处理fabric配置文件
+ */
+async function startBaasOdatsFabricConfigyaml(request: StartBaasOdatsFabricConfigyamlRequest): StartBaasOdatsFabricConfigyamlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasOdatsFabricConfigyamlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 处理fabric配置文件
+ * Summary: 处理fabric配置文件
+ */
+async function startBaasOdatsFabricConfigyamlEx(request: StartBaasOdatsFabricConfigyamlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasOdatsFabricConfigyamlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.fabric.configyaml.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartBaasOdatsFabricRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 通道名
+  channelName: string(name='channel_name'),
+  // fabric yaml 配置文件
+  configYaml: string(name='config_yaml'),
+  // 详细描述
+  description: string(name='description'),
+  // 链域名
+  domain: string(name='domain'),
+  // fabric 密码
+  secret?: string(name='secret'),
+  // fabir链接用户名
+  username?: string(name='username'),
+  // fabric用户证书
+  userCert?: string(name='user_cert'),
+  // fabric用户密钥
+  userKey?: string(name='user_key'),
+  // 验证节点列表
+  validatorPeerNameList: [ string ](name='validator_peer_name_list'),
+}
+
+model StartBaasOdatsFabricResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // fabric chain info的信息
+  data?: FabricChainInfo(name='data'),
+}
+
+/**
+ * Description: 注册fabric链
+ * Summary: 注册fabric链
+ */
+async function startBaasOdatsFabric(request: StartBaasOdatsFabricRequest): StartBaasOdatsFabricResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasOdatsFabricEx(request, headers, runtime);
+}
+
+/**
+ * Description: 注册fabric链
+ * Summary: 注册fabric链
+ */
+async function startBaasOdatsFabricEx(request: StartBaasOdatsFabricRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasOdatsFabricResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.fabric.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartBaasOdatsMychainRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 锚定块高
+  anchoredBlockHeight?: long(name='anchored_block_height'),
+  // 链id
+  bizid?: string(name='bizid'),
+  // 详细描述
+  description: string(name='description'),
+  // 链域名
+  domain: string(name='domain'),
+  // {"mychainInfo":{"caCert":" mychain对应的cacert ","consensusNodeInfo":[{"ip":"","port":""},{"ip":"","port":""}]},"mychainAccount":{"account":"使用的链上账户","privateKey":"","privateKeyPwd":"","publicKey":"","recoveryPrivateKey":"","recoveryPrivateKeyPwd":"","recoveryPublicKey":""},"mychainTlsCert":{"cert":"链接链的证书","privateKey":"","privateKeyPwd":""}}
+  mychainInfo: string(name='mychain_info'),
+}
+
+model StartBaasOdatsMychainResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回注册的mychain的信息
+  data?: MyChainInfo(name='data'),
+}
+
+/**
+ * Description: 向odats注册mychain链
+ * Summary: 向odats注册mychain链
+ */
+async function startBaasOdatsMychain(request: StartBaasOdatsMychainRequest): StartBaasOdatsMychainResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBaasOdatsMychainEx(request, headers, runtime);
+}
+
+/**
+ * Description: 向odats注册mychain链
+ * Summary: 向odats注册mychain链
+ */
+async function startBaasOdatsMychainEx(request: StartBaasOdatsMychainRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBaasOdatsMychainResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.mychain.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListBaasOdatsRegisteredblockchainRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前页码
+  pageNum: long(name='page_num'),
+  // 页大小
+  pageSize: long(name='page_size'),
+}
+
+model ListBaasOdatsRegisteredblockchainResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 注册list列表
+  data?: [ OdatsRegisteredBlockChainInfo ](name='data'),
+  // 当前页码。
+  pageNum?: long(name='page_num'),
+  // 当前页大小
+  pageSize?: long(name='page_size'),
+  // 总行数
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 查询注册的blockchain列表
+ * Summary: 查询注册的blockchain列表
+ */
+async function listBaasOdatsRegisteredblockchain(request: ListBaasOdatsRegisteredblockchainRequest): ListBaasOdatsRegisteredblockchainResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listBaasOdatsRegisteredblockchainEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询注册的blockchain列表
+ * Summary: 查询注册的blockchain列表
+ */
+async function listBaasOdatsRegisteredblockchainEx(request: ListBaasOdatsRegisteredblockchainRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListBaasOdatsRegisteredblockchainResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.registeredblockchain.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasOdatsUdnscertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链域名
+  domain: string(name='domain'),
+}
+
+model QueryBaasOdatsUdnscertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // udns cert 信息
+  data?: UdnsCert(name='data'),
+}
+
+/**
+ * Description: 获取udns证书
+ * Summary: 获取udns证书
+ */
+async function queryBaasOdatsUdnscert(request: QueryBaasOdatsUdnscertRequest): QueryBaasOdatsUdnscertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasOdatsUdnscertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取udns证书
+ * Summary: 获取udns证书
+ */
+async function queryBaasOdatsUdnscertEx(request: QueryBaasOdatsUdnscertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasOdatsUdnscertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.odats.udnscert.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
