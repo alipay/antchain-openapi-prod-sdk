@@ -764,121 +764,6 @@ export class Agreement extends $tea.Model {
   }
 }
 
-export class StartBlockchainArecRcpMgRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 待签署的合同列表
-  agreements: Agreement[];
-  // 材料清单列表
-  archives?: Archive[];
-  // 合同变量和值的全集，Map<String,String>的json格式
-  arVarValueJson: string;
-  // 银行编号
-  bankNo: string;
-  // 借款人
-  borrower: Person;
-  // 扩展字段
-  extendJson?: string;
-  // 抵押房产
-  house: House;
-  // 婚姻状况,比如：MARRIED=已婚
-  maritalStatus: string;
-  // 外部业务单号，银行提供
-  outBizNo: string;
-  // 登记设立原因，比如：LOAN=借贷
-  regReason: string;
-  // 登记设立原因备注
-  regReasonRemark?: string;
-  // 登记权利,比如：MORTGAGE_RIGHTS=抵押权
-  regRights: string;
-  // 登记类型，比如：FIRST_REG=首次登记
-  regType: string;
-  // 配偶
-  spouse?: Person;
-  // 抵押单号
-  mgOrderNo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      agreements: 'agreements',
-      archives: 'archives',
-      arVarValueJson: 'ar_var_value_json',
-      bankNo: 'bank_no',
-      borrower: 'borrower',
-      extendJson: 'extend_json',
-      house: 'house',
-      maritalStatus: 'marital_status',
-      outBizNo: 'out_biz_no',
-      regReason: 'reg_reason',
-      regReasonRemark: 'reg_reason_remark',
-      regRights: 'reg_rights',
-      regType: 'reg_type',
-      spouse: 'spouse',
-      mgOrderNo: 'mg_order_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      agreements: { 'type': 'array', 'itemType': Agreement },
-      archives: { 'type': 'array', 'itemType': Archive },
-      arVarValueJson: 'string',
-      bankNo: 'string',
-      borrower: Person,
-      extendJson: 'string',
-      house: House,
-      maritalStatus: 'string',
-      outBizNo: 'string',
-      regReason: 'string',
-      regReasonRemark: 'string',
-      regRights: 'string',
-      regType: 'string',
-      spouse: Person,
-      mgOrderNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class StartBlockchainArecRcpMgResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 抵押单号
-  mgOrderNo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      mgOrderNo: 'mg_order_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      mgOrderNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class ConfirmBlockchainArecRcpMgRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -942,6 +827,117 @@ export class ConfirmBlockchainArecRcpMgResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartBlockchainArecRcpMgRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 待签署的合同列表
+  agreements: Agreement[];
+  // 材料清单列表
+  archives?: Archive[];
+  // 合同变量和值的全集，Map<String,String>的json格式
+  arVarValueJson: string;
+  // 银行编号
+  bankNo: string;
+  // 借款人
+  borrower: Person;
+  // 扩展字段
+  extendJson?: string;
+  // 抵押房产
+  house: House;
+  // 婚姻状况,比如：MARRIED=已婚
+  maritalStatus: string;
+  // 外部业务单号，银行提供
+  outBizNo: string;
+  // 登记设立原因，比如：LOAN=借贷
+  regReason: string;
+  // 登记设立原因备注
+  regReasonRemark?: string;
+  // 登记权利,比如：MORTGAGE_RIGHTS=抵押权
+  regRights: string;
+  // 登记类型，比如：FIRST_REG=首次登记
+  regType: string;
+  // 配偶
+  spouse?: Person;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      agreements: 'agreements',
+      archives: 'archives',
+      arVarValueJson: 'ar_var_value_json',
+      bankNo: 'bank_no',
+      borrower: 'borrower',
+      extendJson: 'extend_json',
+      house: 'house',
+      maritalStatus: 'marital_status',
+      outBizNo: 'out_biz_no',
+      regReason: 'reg_reason',
+      regReasonRemark: 'reg_reason_remark',
+      regRights: 'reg_rights',
+      regType: 'reg_type',
+      spouse: 'spouse',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      agreements: { 'type': 'array', 'itemType': Agreement },
+      archives: { 'type': 'array', 'itemType': Archive },
+      arVarValueJson: 'string',
+      bankNo: 'string',
+      borrower: Person,
+      extendJson: 'string',
+      house: House,
+      maritalStatus: 'string',
+      outBizNo: 'string',
+      regReason: 'string',
+      regReasonRemark: 'string',
+      regRights: 'string',
+      regType: 'string',
+      spouse: Person,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartBlockchainArecRcpMgResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 抵押单号
+  mgOrderNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      mgOrderNo: 'mg_order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      mgOrderNo: 'string',
     };
   }
 
@@ -1064,6 +1060,8 @@ export default class Client {
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
           sdk_version: "1.0.0",
+          _prod_code: "ak_3d5ac8b5948b43e7a7b8f62c44a6880f",
+          _prod_channel: "saas",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1110,25 +1108,6 @@ export default class Client {
   }
 
   /**
-   * Description: 房屋抵押贷款业务，发起抵押登记服务
-   * Summary: 发起抵押登记
-   */
-  async startBlockchainArecRcpMg(request: StartBlockchainArecRcpMgRequest): Promise<StartBlockchainArecRcpMgResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.startBlockchainArecRcpMgEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 房屋抵押贷款业务，发起抵押登记服务
-   * Summary: 发起抵押登记
-   */
-  async startBlockchainArecRcpMgEx(request: StartBlockchainArecRcpMgRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartBlockchainArecRcpMgResponse> {
-    Util.validateModel(request);
-    return $tea.cast<StartBlockchainArecRcpMgResponse>(await this.doRequest("1.0", "blockchain.arec.rcp.mg.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartBlockchainArecRcpMgResponse({}));
-  }
-
-  /**
    * Description: 房屋抵押登记业务，银行确认抵押登记服务
    * Summary: 确认抵押登记
    */
@@ -1145,6 +1124,25 @@ export default class Client {
   async confirmBlockchainArecRcpMgEx(request: ConfirmBlockchainArecRcpMgRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmBlockchainArecRcpMgResponse> {
     Util.validateModel(request);
     return $tea.cast<ConfirmBlockchainArecRcpMgResponse>(await this.doRequest("1.0", "blockchain.arec.rcp.mg.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmBlockchainArecRcpMgResponse({}));
+  }
+
+  /**
+   * Description: 房屋抵押贷款业务，发起抵押登记服务
+   * Summary: 发起抵押登记
+   */
+  async startBlockchainArecRcpMg(request: StartBlockchainArecRcpMgRequest): Promise<StartBlockchainArecRcpMgResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startBlockchainArecRcpMgEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 房屋抵押贷款业务，发起抵押登记服务
+   * Summary: 发起抵押登记
+   */
+  async startBlockchainArecRcpMgEx(request: StartBlockchainArecRcpMgRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartBlockchainArecRcpMgResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartBlockchainArecRcpMgResponse>(await this.doRequest("1.0", "blockchain.arec.rcp.mg.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartBlockchainArecRcpMgResponse({}));
   }
 
 }
