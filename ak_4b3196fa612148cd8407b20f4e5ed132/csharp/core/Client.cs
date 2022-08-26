@@ -138,6 +138,8 @@ namespace AntChain.SDK.Ak_4b3196fa612148cd8407b20f4e5ed132
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
                         {"sdk_version", "1.0.0"},
+                        {"_prod_code", "ak_4b3196fa612148cd8407b20f4e5ed132"},
+                        {"_prod_channel", "saas"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -262,6 +264,8 @@ namespace AntChain.SDK.Ak_4b3196fa612148cd8407b20f4e5ed132
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
                         {"sdk_version", "1.0.0"},
+                        {"_prod_code", "ak_4b3196fa612148cd8407b20f4e5ed132"},
+                        {"_prod_channel", "saas"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -318,87 +322,87 @@ namespace AntChain.SDK.Ak_4b3196fa612148cd8407b20f4e5ed132
         }
 
         /**
-         * Description: 发起解抵押(宁波模式)
-         * Summary: 发起解抵押(宁波模式)
+         * Description: 房屋抵押登记业务，银行确认抵押登记服务
+         * Summary: 确认抵押登记
          */
-        public StartBlockchainArecRcpMgrResponse StartBlockchainArecRcpMgr(StartBlockchainArecRcpMgrRequest request)
+        public ConfirmBlockchainArecRcpMgResponse ConfirmBlockchainArecRcpMg(ConfirmBlockchainArecRcpMgRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return StartBlockchainArecRcpMgrEx(request, headers, runtime);
+            return ConfirmBlockchainArecRcpMgEx(request, headers, runtime);
         }
 
         /**
-         * Description: 发起解抵押(宁波模式)
-         * Summary: 发起解抵押(宁波模式)
+         * Description: 房屋抵押登记业务，银行确认抵押登记服务
+         * Summary: 确认抵押登记
          */
-        public async Task<StartBlockchainArecRcpMgrResponse> StartBlockchainArecRcpMgrAsync(StartBlockchainArecRcpMgrRequest request)
+        public async Task<ConfirmBlockchainArecRcpMgResponse> ConfirmBlockchainArecRcpMgAsync(ConfirmBlockchainArecRcpMgRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await StartBlockchainArecRcpMgrExAsync(request, headers, runtime);
+            return await ConfirmBlockchainArecRcpMgExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 发起解抵押(宁波模式)
-         * Summary: 发起解抵押(宁波模式)
+         * Description: 房屋抵押登记业务，银行确认抵押登记服务
+         * Summary: 确认抵押登记
          */
-        public StartBlockchainArecRcpMgrResponse StartBlockchainArecRcpMgrEx(StartBlockchainArecRcpMgrRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public ConfirmBlockchainArecRcpMgResponse ConfirmBlockchainArecRcpMgEx(ConfirmBlockchainArecRcpMgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<StartBlockchainArecRcpMgrResponse>(DoRequest("1.0", "blockchain.arec.rcp.mgr.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ConfirmBlockchainArecRcpMgResponse>(DoRequest("1.0", "blockchain.arec.rcp.mg.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 发起解抵押(宁波模式)
-         * Summary: 发起解抵押(宁波模式)
+         * Description: 房屋抵押登记业务，银行确认抵押登记服务
+         * Summary: 确认抵押登记
          */
-        public async Task<StartBlockchainArecRcpMgrResponse> StartBlockchainArecRcpMgrExAsync(StartBlockchainArecRcpMgrRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<ConfirmBlockchainArecRcpMgResponse> ConfirmBlockchainArecRcpMgExAsync(ConfirmBlockchainArecRcpMgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<StartBlockchainArecRcpMgrResponse>(await DoRequestAsync("1.0", "blockchain.arec.rcp.mgr.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ConfirmBlockchainArecRcpMgResponse>(await DoRequestAsync("1.0", "blockchain.arec.rcp.mg.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 确认解抵押(宁波模式)
-         * Summary: 确认解抵押(宁波模式)
+         * Description: 房屋抵押贷款业务，发起抵押登记服务
+         * Summary: 发起抵押登记
          */
-        public ConfirmBlockchainArecRcpMgrResponse ConfirmBlockchainArecRcpMgr(ConfirmBlockchainArecRcpMgrRequest request)
+        public StartBlockchainArecRcpMgResponse StartBlockchainArecRcpMg(StartBlockchainArecRcpMgRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return ConfirmBlockchainArecRcpMgrEx(request, headers, runtime);
+            return StartBlockchainArecRcpMgEx(request, headers, runtime);
         }
 
         /**
-         * Description: 确认解抵押(宁波模式)
-         * Summary: 确认解抵押(宁波模式)
+         * Description: 房屋抵押贷款业务，发起抵押登记服务
+         * Summary: 发起抵押登记
          */
-        public async Task<ConfirmBlockchainArecRcpMgrResponse> ConfirmBlockchainArecRcpMgrAsync(ConfirmBlockchainArecRcpMgrRequest request)
+        public async Task<StartBlockchainArecRcpMgResponse> StartBlockchainArecRcpMgAsync(StartBlockchainArecRcpMgRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await ConfirmBlockchainArecRcpMgrExAsync(request, headers, runtime);
+            return await StartBlockchainArecRcpMgExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 确认解抵押(宁波模式)
-         * Summary: 确认解抵押(宁波模式)
+         * Description: 房屋抵押贷款业务，发起抵押登记服务
+         * Summary: 发起抵押登记
          */
-        public ConfirmBlockchainArecRcpMgrResponse ConfirmBlockchainArecRcpMgrEx(ConfirmBlockchainArecRcpMgrRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public StartBlockchainArecRcpMgResponse StartBlockchainArecRcpMgEx(StartBlockchainArecRcpMgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ConfirmBlockchainArecRcpMgrResponse>(DoRequest("1.0", "blockchain.arec.rcp.mgr.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<StartBlockchainArecRcpMgResponse>(DoRequest("1.0", "blockchain.arec.rcp.mg.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 确认解抵押(宁波模式)
-         * Summary: 确认解抵押(宁波模式)
+         * Description: 房屋抵押贷款业务，发起抵押登记服务
+         * Summary: 发起抵押登记
          */
-        public async Task<ConfirmBlockchainArecRcpMgrResponse> ConfirmBlockchainArecRcpMgrExAsync(ConfirmBlockchainArecRcpMgrRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<StartBlockchainArecRcpMgResponse> StartBlockchainArecRcpMgExAsync(StartBlockchainArecRcpMgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<ConfirmBlockchainArecRcpMgrResponse>(await DoRequestAsync("1.0", "blockchain.arec.rcp.mgr.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<StartBlockchainArecRcpMgResponse>(await DoRequestAsync("1.0", "blockchain.arec.rcp.mg.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

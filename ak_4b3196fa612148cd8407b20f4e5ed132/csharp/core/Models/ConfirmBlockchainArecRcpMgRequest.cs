@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_4b3196fa612148cd8407b20f4e5ed132.Models
 {
-    public class ConfirmBlockchainArecRcpMgrRequest : TeaModel {
+    public class ConfirmBlockchainArecRcpMgRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,40 +18,30 @@ namespace AntChain.SDK.Ak_4b3196fa612148cd8407b20f4e5ed132.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 助贷平台
-        [NameInMap("loan_assist_platform")]
-        [Validation(Required=true)]
-        public string LoanAssistPlatform { get; set; }
-
-        // 房产链内部银行编号
+        // 银行编号
         [NameInMap("bank_no")]
         [Validation(Required=true)]
         public string BankNo { get; set; }
 
-        // 解抵押单号
-        [NameInMap("mg_release_order_no")]
+        // 抵押单号
+        [NameInMap("mg_order_no")]
         [Validation(Required=true)]
-        public string MgReleaseOrderNo { get; set; }
+        public string MgOrderNo { get; set; }
 
-        // Y=继续解抵押,N=终止解抵押
+        // 确认抵押登记结果，Y:继续,N:中止抵押
         [NameInMap("result")]
         [Validation(Required=true)]
         public string Result { get; set; }
 
-        // 终止解抵押原因码
+        // 银行返回的中止抵押原因code
         [NameInMap("fail_code")]
         [Validation(Required=false)]
         public string FailCode { get; set; }
 
-        // 终止解抵押原因描述
+        // 银行反馈的中止抵押原因描述
         [NameInMap("fail_desc")]
         [Validation(Required=false)]
         public string FailDesc { get; set; }
-
-        // 银行签署完成的解抵押合同列表
-        [NameInMap("agreements")]
-        [Validation(Required=true)]
-        public List<Agreement> Agreements { get; set; }
 
     }
 

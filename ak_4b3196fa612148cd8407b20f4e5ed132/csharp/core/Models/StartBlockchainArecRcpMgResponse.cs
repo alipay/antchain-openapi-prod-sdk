@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_4b3196fa612148cd8407b20f4e5ed132.Models
 {
-    public class StartBlockchainArecRcpMgrResponse : TeaModel {
+    public class StartBlockchainArecRcpMgResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.Ak_4b3196fa612148cd8407b20f4e5ed132.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 解抵押单号
-        [NameInMap("mg_release_order_no")]
+        // 抵押单号
+        [NameInMap("mg_order_no")]
         [Validation(Required=false)]
-        public string MgReleaseOrderNo { get; set; }
+        public string MgOrderNo { get; set; }
 
     }
 

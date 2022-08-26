@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_4b3196fa612148cd8407b20f4e5ed132.Models
 {
-    public class ConfirmBlockchainArecRcpMgrResponse : TeaModel {
+    public class ConfirmBlockchainArecRcpMgResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
