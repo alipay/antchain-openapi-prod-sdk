@@ -1080,67 +1080,43 @@ class House(TeaModel):
         return self
 
 
-class Bank(TeaModel):
+class Archive(TeaModel):
     def __init__(
         self,
-        address: str = None,
-        bank_no: str = None,
-        legal_person_cert_no: str = None,
-        legal_person_mobile: str = None,
-        legal_person_name: str = None,
-        level: str = None,
-        myc_org_id: str = None,
-        name: str = None,
-        oss_base_fold: str = None,
-        cert_no: str = None,
-        parent_bank_no: str = None,
-        pdn_did: str = None,
-        pub_key: str = None,
-        tenant_id: str = None,
-        legal_person_cert_type: str = None,
-        auth_callback_url: str = None,
-        mg_callback_url: str = None,
-        bk_callback_url: str = None,
-        cert_type: str = None,
+        archive_hash: str = None,
+        archive_type: str = None,
+        bank_oss_key: str = None,
+        oss_key: str = None,
+        out_biz_no: str = None,
+        owner_no: str = None,
+        owner_type: str = None,
+        rtc_oss_key: str = None,
+        scene: str = None,
+        rcp_oss_key: str = None,
+        loan_assist_platform_oss_key: str = None,
     ):
-        # 地址
-        self.address = address
-        # 银行编号
-        self.bank_no = bank_no
-        # 法人证件号
-        self.legal_person_cert_no = legal_person_cert_no
-        # 法人手机号
-        self.legal_person_mobile = legal_person_mobile
-        # 法人姓名
-        self.legal_person_name = legal_person_name
-        # 行内级别，比如：SUB_BRANCH=支行
-        self.level = level
-        # 蚂蚁智能合同的机构id
-        self.myc_org_id = myc_org_id
-        # 银行名称
-        self.name = name
-        # OSS存储跟路径
-        self.oss_base_fold = oss_base_fold
-        # 银行证件号
-        self.cert_no = cert_no
-        # 上级行号，比如支行对应的分行
-        self.parent_bank_no = parent_bank_no
-        # 蚂蚁链隐私数据网络的身份id
-        self.pdn_did = pdn_did
-        # 公钥
-        self.pub_key = pub_key
-        # 租户ID
-        self.tenant_id = tenant_id
-        # 法人证件类型，比如：ID_CARD=身份证
-        self.legal_person_cert_type = legal_person_cert_type
-        # 授权合同签署后小程序端的回跳地址
-        self.auth_callback_url = auth_callback_url
-        # 抵押登记相关合同签署后小程序端的回跳地址
-        self.mg_callback_url = mg_callback_url
-        # 银行接收房产链通知接口地址
-        self.bk_callback_url = bk_callback_url
-        # 银行证件类型
-        self.cert_type = cert_type
+        # 附件内容的Hash值
+        self.archive_hash = archive_hash
+        # 附件材料类型，比如：AT_SUOYOUQUANZHENG=房屋所有权证
+        self.archive_type = archive_type
+        # 移动后到银行目录下的oss存储路径
+        self.bank_oss_key = bank_oss_key
+        # 附件KEY，也是oss的存储路径，原始保存路径
+        self.oss_key = oss_key
+        # 附件来源外部业务单号
+        self.out_biz_no = out_biz_no
+        # 机构编号
+        self.owner_no = owner_no
+        # 附件材料归属机构类型，比如：BANK=银行
+        self.owner_type = owner_type
+        # 移动到不动产中心目录下的oss存储路径
+        self.rtc_oss_key = rtc_oss_key
+        # 材料附件来源场景，比如：ASS_BK_APPLY=银行申请抵押提交
+        self.scene = scene
+        # 房产链平台的存储路径
+        self.rcp_oss_key = rcp_oss_key
+        # 助贷平台的访问路径
+        self.loan_assist_platform_oss_key = loan_assist_platform_oss_key
 
     def validate(self):
         pass
@@ -1151,86 +1127,54 @@ class Bank(TeaModel):
             return _map
 
         result = dict()
-        if self.address is not None:
-            result['address'] = self.address
-        if self.bank_no is not None:
-            result['bank_no'] = self.bank_no
-        if self.legal_person_cert_no is not None:
-            result['legal_person_cert_no'] = self.legal_person_cert_no
-        if self.legal_person_mobile is not None:
-            result['legal_person_mobile'] = self.legal_person_mobile
-        if self.legal_person_name is not None:
-            result['legal_person_name'] = self.legal_person_name
-        if self.level is not None:
-            result['level'] = self.level
-        if self.myc_org_id is not None:
-            result['myc_org_id'] = self.myc_org_id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.oss_base_fold is not None:
-            result['oss_base_fold'] = self.oss_base_fold
-        if self.cert_no is not None:
-            result['cert_no'] = self.cert_no
-        if self.parent_bank_no is not None:
-            result['parent_bank_no'] = self.parent_bank_no
-        if self.pdn_did is not None:
-            result['pdn_did'] = self.pdn_did
-        if self.pub_key is not None:
-            result['pub_key'] = self.pub_key
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        if self.legal_person_cert_type is not None:
-            result['legal_person_cert_type'] = self.legal_person_cert_type
-        if self.auth_callback_url is not None:
-            result['auth_callback_url'] = self.auth_callback_url
-        if self.mg_callback_url is not None:
-            result['mg_callback_url'] = self.mg_callback_url
-        if self.bk_callback_url is not None:
-            result['bk_callback_url'] = self.bk_callback_url
-        if self.cert_type is not None:
-            result['cert_type'] = self.cert_type
+        if self.archive_hash is not None:
+            result['archive_hash'] = self.archive_hash
+        if self.archive_type is not None:
+            result['archive_type'] = self.archive_type
+        if self.bank_oss_key is not None:
+            result['bank_oss_key'] = self.bank_oss_key
+        if self.oss_key is not None:
+            result['oss_key'] = self.oss_key
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        if self.owner_no is not None:
+            result['owner_no'] = self.owner_no
+        if self.owner_type is not None:
+            result['owner_type'] = self.owner_type
+        if self.rtc_oss_key is not None:
+            result['rtc_oss_key'] = self.rtc_oss_key
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.rcp_oss_key is not None:
+            result['rcp_oss_key'] = self.rcp_oss_key
+        if self.loan_assist_platform_oss_key is not None:
+            result['loan_assist_platform_oss_key'] = self.loan_assist_platform_oss_key
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('address') is not None:
-            self.address = m.get('address')
-        if m.get('bank_no') is not None:
-            self.bank_no = m.get('bank_no')
-        if m.get('legal_person_cert_no') is not None:
-            self.legal_person_cert_no = m.get('legal_person_cert_no')
-        if m.get('legal_person_mobile') is not None:
-            self.legal_person_mobile = m.get('legal_person_mobile')
-        if m.get('legal_person_name') is not None:
-            self.legal_person_name = m.get('legal_person_name')
-        if m.get('level') is not None:
-            self.level = m.get('level')
-        if m.get('myc_org_id') is not None:
-            self.myc_org_id = m.get('myc_org_id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('oss_base_fold') is not None:
-            self.oss_base_fold = m.get('oss_base_fold')
-        if m.get('cert_no') is not None:
-            self.cert_no = m.get('cert_no')
-        if m.get('parent_bank_no') is not None:
-            self.parent_bank_no = m.get('parent_bank_no')
-        if m.get('pdn_did') is not None:
-            self.pdn_did = m.get('pdn_did')
-        if m.get('pub_key') is not None:
-            self.pub_key = m.get('pub_key')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
-        if m.get('legal_person_cert_type') is not None:
-            self.legal_person_cert_type = m.get('legal_person_cert_type')
-        if m.get('auth_callback_url') is not None:
-            self.auth_callback_url = m.get('auth_callback_url')
-        if m.get('mg_callback_url') is not None:
-            self.mg_callback_url = m.get('mg_callback_url')
-        if m.get('bk_callback_url') is not None:
-            self.bk_callback_url = m.get('bk_callback_url')
-        if m.get('cert_type') is not None:
-            self.cert_type = m.get('cert_type')
+        if m.get('archive_hash') is not None:
+            self.archive_hash = m.get('archive_hash')
+        if m.get('archive_type') is not None:
+            self.archive_type = m.get('archive_type')
+        if m.get('bank_oss_key') is not None:
+            self.bank_oss_key = m.get('bank_oss_key')
+        if m.get('oss_key') is not None:
+            self.oss_key = m.get('oss_key')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        if m.get('owner_no') is not None:
+            self.owner_no = m.get('owner_no')
+        if m.get('owner_type') is not None:
+            self.owner_type = m.get('owner_type')
+        if m.get('rtc_oss_key') is not None:
+            self.rtc_oss_key = m.get('rtc_oss_key')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('rcp_oss_key') is not None:
+            self.rcp_oss_key = m.get('rcp_oss_key')
+        if m.get('loan_assist_platform_oss_key') is not None:
+            self.loan_assist_platform_oss_key = m.get('loan_assist_platform_oss_key')
         return self
 
 
@@ -1412,198 +1356,35 @@ class Agreement(TeaModel):
         return self
 
 
-class StartBlockchainArecRcpMgrRequest(TeaModel):
+class ConfirmBlockchainArecRcpMgRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        loan_assist_platform: str = None,
         bank_no: str = None,
-        out_biz_no: str = None,
-        other_right_cert_no: str = None,
-        wipe_mortgage_reason: str = None,
-        house: House = None,
-        branch_bank: Bank = None,
-        mg_release_order_no: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 助贷平台
-        self.loan_assist_platform = loan_assist_platform
-        # 房产链内部银行编号
-        self.bank_no = bank_no
-        # 外部业务单号
-        self.out_biz_no = out_biz_no
-        # 不动产颁发的他项权证号
-        self.other_right_cert_no = other_right_cert_no
-        # 抵押权消灭原因,OAN_FINISHED=借款已结清或主债权已灭失
-        self.wipe_mortgage_reason = wipe_mortgage_reason
-        # 解抵押的房产信息
-        self.house = house
-        # 办理业务分支行
-        self.branch_bank = branch_bank
-        # 解抵押单号
-        self.mg_release_order_no = mg_release_order_no
-
-    def validate(self):
-        self.validate_required(self.loan_assist_platform, 'loan_assist_platform')
-        self.validate_required(self.bank_no, 'bank_no')
-        self.validate_required(self.out_biz_no, 'out_biz_no')
-        self.validate_required(self.other_right_cert_no, 'other_right_cert_no')
-        self.validate_required(self.wipe_mortgage_reason, 'wipe_mortgage_reason')
-        self.validate_required(self.house, 'house')
-        if self.house:
-            self.house.validate()
-        self.validate_required(self.branch_bank, 'branch_bank')
-        if self.branch_bank:
-            self.branch_bank.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.loan_assist_platform is not None:
-            result['loan_assist_platform'] = self.loan_assist_platform
-        if self.bank_no is not None:
-            result['bank_no'] = self.bank_no
-        if self.out_biz_no is not None:
-            result['out_biz_no'] = self.out_biz_no
-        if self.other_right_cert_no is not None:
-            result['other_right_cert_no'] = self.other_right_cert_no
-        if self.wipe_mortgage_reason is not None:
-            result['wipe_mortgage_reason'] = self.wipe_mortgage_reason
-        if self.house is not None:
-            result['house'] = self.house.to_map()
-        if self.branch_bank is not None:
-            result['branch_bank'] = self.branch_bank.to_map()
-        if self.mg_release_order_no is not None:
-            result['mg_release_order_no'] = self.mg_release_order_no
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('loan_assist_platform') is not None:
-            self.loan_assist_platform = m.get('loan_assist_platform')
-        if m.get('bank_no') is not None:
-            self.bank_no = m.get('bank_no')
-        if m.get('out_biz_no') is not None:
-            self.out_biz_no = m.get('out_biz_no')
-        if m.get('other_right_cert_no') is not None:
-            self.other_right_cert_no = m.get('other_right_cert_no')
-        if m.get('wipe_mortgage_reason') is not None:
-            self.wipe_mortgage_reason = m.get('wipe_mortgage_reason')
-        if m.get('house') is not None:
-            temp_model = House()
-            self.house = temp_model.from_map(m['house'])
-        if m.get('branch_bank') is not None:
-            temp_model = Bank()
-            self.branch_bank = temp_model.from_map(m['branch_bank'])
-        if m.get('mg_release_order_no') is not None:
-            self.mg_release_order_no = m.get('mg_release_order_no')
-        return self
-
-
-class StartBlockchainArecRcpMgrResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        mg_release_order_no: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 解抵押单号
-        self.mg_release_order_no = mg_release_order_no
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.mg_release_order_no is not None:
-            result['mg_release_order_no'] = self.mg_release_order_no
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('mg_release_order_no') is not None:
-            self.mg_release_order_no = m.get('mg_release_order_no')
-        return self
-
-
-class ConfirmBlockchainArecRcpMgrRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        loan_assist_platform: str = None,
-        bank_no: str = None,
-        mg_release_order_no: str = None,
+        mg_order_no: str = None,
         result: str = None,
         fail_code: str = None,
         fail_desc: str = None,
-        agreements: List[Agreement] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 助贷平台
-        self.loan_assist_platform = loan_assist_platform
-        # 房产链内部银行编号
+        # 银行编号
         self.bank_no = bank_no
-        # 解抵押单号
-        self.mg_release_order_no = mg_release_order_no
-        # Y=继续解抵押,N=终止解抵押
+        # 抵押单号
+        self.mg_order_no = mg_order_no
+        # 确认抵押登记结果，Y:继续,N:中止抵押
         self.result = result
-        # 终止解抵押原因码
+        # 银行返回的中止抵押原因code
         self.fail_code = fail_code
-        # 终止解抵押原因描述
+        # 银行反馈的中止抵押原因描述
         self.fail_desc = fail_desc
-        # 银行签署完成的解抵押合同列表
-        self.agreements = agreements
 
     def validate(self):
-        self.validate_required(self.loan_assist_platform, 'loan_assist_platform')
         self.validate_required(self.bank_no, 'bank_no')
-        self.validate_required(self.mg_release_order_no, 'mg_release_order_no')
+        self.validate_required(self.mg_order_no, 'mg_order_no')
         self.validate_required(self.result, 'result')
-        self.validate_required(self.agreements, 'agreements')
-        if self.agreements:
-            for k in self.agreements:
-                if k:
-                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1615,22 +1396,16 @@ class ConfirmBlockchainArecRcpMgrRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.loan_assist_platform is not None:
-            result['loan_assist_platform'] = self.loan_assist_platform
         if self.bank_no is not None:
             result['bank_no'] = self.bank_no
-        if self.mg_release_order_no is not None:
-            result['mg_release_order_no'] = self.mg_release_order_no
+        if self.mg_order_no is not None:
+            result['mg_order_no'] = self.mg_order_no
         if self.result is not None:
             result['result'] = self.result
         if self.fail_code is not None:
             result['fail_code'] = self.fail_code
         if self.fail_desc is not None:
             result['fail_desc'] = self.fail_desc
-        result['agreements'] = []
-        if self.agreements is not None:
-            for k in self.agreements:
-                result['agreements'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1639,27 +1414,20 @@ class ConfirmBlockchainArecRcpMgrRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('loan_assist_platform') is not None:
-            self.loan_assist_platform = m.get('loan_assist_platform')
         if m.get('bank_no') is not None:
             self.bank_no = m.get('bank_no')
-        if m.get('mg_release_order_no') is not None:
-            self.mg_release_order_no = m.get('mg_release_order_no')
+        if m.get('mg_order_no') is not None:
+            self.mg_order_no = m.get('mg_order_no')
         if m.get('result') is not None:
             self.result = m.get('result')
         if m.get('fail_code') is not None:
             self.fail_code = m.get('fail_code')
         if m.get('fail_desc') is not None:
             self.fail_desc = m.get('fail_desc')
-        self.agreements = []
-        if m.get('agreements') is not None:
-            for k in m.get('agreements'):
-                temp_model = Agreement()
-                self.agreements.append(temp_model.from_map(k))
         return self
 
 
-class ConfirmBlockchainArecRcpMgrResponse(TeaModel):
+class ConfirmBlockchainArecRcpMgResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -1698,6 +1466,223 @@ class ConfirmBlockchainArecRcpMgrResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class StartBlockchainArecRcpMgRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agreements: List[Agreement] = None,
+        archives: List[Archive] = None,
+        ar_var_value_json: str = None,
+        bank_no: str = None,
+        borrower: Person = None,
+        extend_json: str = None,
+        house: House = None,
+        marital_status: str = None,
+        out_biz_no: str = None,
+        reg_reason: str = None,
+        reg_reason_remark: str = None,
+        reg_rights: str = None,
+        reg_type: str = None,
+        spouse: Person = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 待签署的合同列表
+        self.agreements = agreements
+        # 材料清单列表
+        self.archives = archives
+        # 合同变量和值的全集，Map<String,String>的json格式
+        self.ar_var_value_json = ar_var_value_json
+        # 银行编号
+        self.bank_no = bank_no
+        # 借款人
+        self.borrower = borrower
+        # 扩展字段
+        self.extend_json = extend_json
+        # 抵押房产
+        self.house = house
+        # 婚姻状况,比如：MARRIED=已婚
+        self.marital_status = marital_status
+        # 外部业务单号，银行提供
+        self.out_biz_no = out_biz_no
+        # 登记设立原因，比如：LOAN=借贷
+        self.reg_reason = reg_reason
+        # 登记设立原因备注
+        self.reg_reason_remark = reg_reason_remark
+        # 登记权利,比如：MORTGAGE_RIGHTS=抵押权
+        self.reg_rights = reg_rights
+        # 登记类型，比如：FIRST_REG=首次登记
+        self.reg_type = reg_type
+        # 配偶
+        self.spouse = spouse
+
+    def validate(self):
+        self.validate_required(self.agreements, 'agreements')
+        if self.agreements:
+            for k in self.agreements:
+                if k:
+                    k.validate()
+        if self.archives:
+            for k in self.archives:
+                if k:
+                    k.validate()
+        self.validate_required(self.ar_var_value_json, 'ar_var_value_json')
+        self.validate_required(self.bank_no, 'bank_no')
+        self.validate_required(self.borrower, 'borrower')
+        if self.borrower:
+            self.borrower.validate()
+        self.validate_required(self.house, 'house')
+        if self.house:
+            self.house.validate()
+        self.validate_required(self.marital_status, 'marital_status')
+        self.validate_required(self.out_biz_no, 'out_biz_no')
+        self.validate_required(self.reg_reason, 'reg_reason')
+        self.validate_required(self.reg_rights, 'reg_rights')
+        self.validate_required(self.reg_type, 'reg_type')
+        if self.spouse:
+            self.spouse.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        result['agreements'] = []
+        if self.agreements is not None:
+            for k in self.agreements:
+                result['agreements'].append(k.to_map() if k else None)
+        result['archives'] = []
+        if self.archives is not None:
+            for k in self.archives:
+                result['archives'].append(k.to_map() if k else None)
+        if self.ar_var_value_json is not None:
+            result['ar_var_value_json'] = self.ar_var_value_json
+        if self.bank_no is not None:
+            result['bank_no'] = self.bank_no
+        if self.borrower is not None:
+            result['borrower'] = self.borrower.to_map()
+        if self.extend_json is not None:
+            result['extend_json'] = self.extend_json
+        if self.house is not None:
+            result['house'] = self.house.to_map()
+        if self.marital_status is not None:
+            result['marital_status'] = self.marital_status
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        if self.reg_reason is not None:
+            result['reg_reason'] = self.reg_reason
+        if self.reg_reason_remark is not None:
+            result['reg_reason_remark'] = self.reg_reason_remark
+        if self.reg_rights is not None:
+            result['reg_rights'] = self.reg_rights
+        if self.reg_type is not None:
+            result['reg_type'] = self.reg_type
+        if self.spouse is not None:
+            result['spouse'] = self.spouse.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        self.agreements = []
+        if m.get('agreements') is not None:
+            for k in m.get('agreements'):
+                temp_model = Agreement()
+                self.agreements.append(temp_model.from_map(k))
+        self.archives = []
+        if m.get('archives') is not None:
+            for k in m.get('archives'):
+                temp_model = Archive()
+                self.archives.append(temp_model.from_map(k))
+        if m.get('ar_var_value_json') is not None:
+            self.ar_var_value_json = m.get('ar_var_value_json')
+        if m.get('bank_no') is not None:
+            self.bank_no = m.get('bank_no')
+        if m.get('borrower') is not None:
+            temp_model = Person()
+            self.borrower = temp_model.from_map(m['borrower'])
+        if m.get('extend_json') is not None:
+            self.extend_json = m.get('extend_json')
+        if m.get('house') is not None:
+            temp_model = House()
+            self.house = temp_model.from_map(m['house'])
+        if m.get('marital_status') is not None:
+            self.marital_status = m.get('marital_status')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        if m.get('reg_reason') is not None:
+            self.reg_reason = m.get('reg_reason')
+        if m.get('reg_reason_remark') is not None:
+            self.reg_reason_remark = m.get('reg_reason_remark')
+        if m.get('reg_rights') is not None:
+            self.reg_rights = m.get('reg_rights')
+        if m.get('reg_type') is not None:
+            self.reg_type = m.get('reg_type')
+        if m.get('spouse') is not None:
+            temp_model = Person()
+            self.spouse = temp_model.from_map(m['spouse'])
+        return self
+
+
+class StartBlockchainArecRcpMgResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        mg_order_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 抵押单号
+        self.mg_order_no = mg_order_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.mg_order_no is not None:
+            result['mg_order_no'] = self.mg_order_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('mg_order_no') is not None:
+            self.mg_order_no = m.get('mg_order_no')
         return self
 
 
