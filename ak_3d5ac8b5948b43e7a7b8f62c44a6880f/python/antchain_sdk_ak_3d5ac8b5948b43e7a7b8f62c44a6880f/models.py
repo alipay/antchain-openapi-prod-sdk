@@ -1356,230 +1356,6 @@ class Agreement(TeaModel):
         return self
 
 
-class StartBlockchainArecRcpMgRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        agreements: List[Agreement] = None,
-        archives: List[Archive] = None,
-        ar_var_value_json: str = None,
-        bank_no: str = None,
-        borrower: Person = None,
-        extend_json: str = None,
-        house: House = None,
-        marital_status: str = None,
-        out_biz_no: str = None,
-        reg_reason: str = None,
-        reg_reason_remark: str = None,
-        reg_rights: str = None,
-        reg_type: str = None,
-        spouse: Person = None,
-        mg_order_no: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 待签署的合同列表
-        self.agreements = agreements
-        # 材料清单列表
-        self.archives = archives
-        # 合同变量和值的全集，Map<String,String>的json格式
-        self.ar_var_value_json = ar_var_value_json
-        # 银行编号
-        self.bank_no = bank_no
-        # 借款人
-        self.borrower = borrower
-        # 扩展字段
-        self.extend_json = extend_json
-        # 抵押房产
-        self.house = house
-        # 婚姻状况,比如：MARRIED=已婚
-        self.marital_status = marital_status
-        # 外部业务单号，银行提供
-        self.out_biz_no = out_biz_no
-        # 登记设立原因，比如：LOAN=借贷
-        self.reg_reason = reg_reason
-        # 登记设立原因备注
-        self.reg_reason_remark = reg_reason_remark
-        # 登记权利,比如：MORTGAGE_RIGHTS=抵押权
-        self.reg_rights = reg_rights
-        # 登记类型，比如：FIRST_REG=首次登记
-        self.reg_type = reg_type
-        # 配偶
-        self.spouse = spouse
-        # 抵押单号
-        self.mg_order_no = mg_order_no
-
-    def validate(self):
-        self.validate_required(self.agreements, 'agreements')
-        if self.agreements:
-            for k in self.agreements:
-                if k:
-                    k.validate()
-        if self.archives:
-            for k in self.archives:
-                if k:
-                    k.validate()
-        self.validate_required(self.ar_var_value_json, 'ar_var_value_json')
-        self.validate_required(self.bank_no, 'bank_no')
-        self.validate_required(self.borrower, 'borrower')
-        if self.borrower:
-            self.borrower.validate()
-        self.validate_required(self.house, 'house')
-        if self.house:
-            self.house.validate()
-        self.validate_required(self.marital_status, 'marital_status')
-        self.validate_required(self.out_biz_no, 'out_biz_no')
-        self.validate_required(self.reg_reason, 'reg_reason')
-        self.validate_required(self.reg_rights, 'reg_rights')
-        self.validate_required(self.reg_type, 'reg_type')
-        if self.spouse:
-            self.spouse.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        result['agreements'] = []
-        if self.agreements is not None:
-            for k in self.agreements:
-                result['agreements'].append(k.to_map() if k else None)
-        result['archives'] = []
-        if self.archives is not None:
-            for k in self.archives:
-                result['archives'].append(k.to_map() if k else None)
-        if self.ar_var_value_json is not None:
-            result['ar_var_value_json'] = self.ar_var_value_json
-        if self.bank_no is not None:
-            result['bank_no'] = self.bank_no
-        if self.borrower is not None:
-            result['borrower'] = self.borrower.to_map()
-        if self.extend_json is not None:
-            result['extend_json'] = self.extend_json
-        if self.house is not None:
-            result['house'] = self.house.to_map()
-        if self.marital_status is not None:
-            result['marital_status'] = self.marital_status
-        if self.out_biz_no is not None:
-            result['out_biz_no'] = self.out_biz_no
-        if self.reg_reason is not None:
-            result['reg_reason'] = self.reg_reason
-        if self.reg_reason_remark is not None:
-            result['reg_reason_remark'] = self.reg_reason_remark
-        if self.reg_rights is not None:
-            result['reg_rights'] = self.reg_rights
-        if self.reg_type is not None:
-            result['reg_type'] = self.reg_type
-        if self.spouse is not None:
-            result['spouse'] = self.spouse.to_map()
-        if self.mg_order_no is not None:
-            result['mg_order_no'] = self.mg_order_no
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        self.agreements = []
-        if m.get('agreements') is not None:
-            for k in m.get('agreements'):
-                temp_model = Agreement()
-                self.agreements.append(temp_model.from_map(k))
-        self.archives = []
-        if m.get('archives') is not None:
-            for k in m.get('archives'):
-                temp_model = Archive()
-                self.archives.append(temp_model.from_map(k))
-        if m.get('ar_var_value_json') is not None:
-            self.ar_var_value_json = m.get('ar_var_value_json')
-        if m.get('bank_no') is not None:
-            self.bank_no = m.get('bank_no')
-        if m.get('borrower') is not None:
-            temp_model = Person()
-            self.borrower = temp_model.from_map(m['borrower'])
-        if m.get('extend_json') is not None:
-            self.extend_json = m.get('extend_json')
-        if m.get('house') is not None:
-            temp_model = House()
-            self.house = temp_model.from_map(m['house'])
-        if m.get('marital_status') is not None:
-            self.marital_status = m.get('marital_status')
-        if m.get('out_biz_no') is not None:
-            self.out_biz_no = m.get('out_biz_no')
-        if m.get('reg_reason') is not None:
-            self.reg_reason = m.get('reg_reason')
-        if m.get('reg_reason_remark') is not None:
-            self.reg_reason_remark = m.get('reg_reason_remark')
-        if m.get('reg_rights') is not None:
-            self.reg_rights = m.get('reg_rights')
-        if m.get('reg_type') is not None:
-            self.reg_type = m.get('reg_type')
-        if m.get('spouse') is not None:
-            temp_model = Person()
-            self.spouse = temp_model.from_map(m['spouse'])
-        if m.get('mg_order_no') is not None:
-            self.mg_order_no = m.get('mg_order_no')
-        return self
-
-
-class StartBlockchainArecRcpMgResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        mg_order_no: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 抵押单号
-        self.mg_order_no = mg_order_no
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.mg_order_no is not None:
-            result['mg_order_no'] = self.mg_order_no
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('mg_order_no') is not None:
-            self.mg_order_no = m.get('mg_order_no')
-        return self
-
-
 class ConfirmBlockchainArecRcpMgRequest(TeaModel):
     def __init__(
         self,
@@ -1690,6 +1466,223 @@ class ConfirmBlockchainArecRcpMgResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class StartBlockchainArecRcpMgRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agreements: List[Agreement] = None,
+        archives: List[Archive] = None,
+        ar_var_value_json: str = None,
+        bank_no: str = None,
+        borrower: Person = None,
+        extend_json: str = None,
+        house: House = None,
+        marital_status: str = None,
+        out_biz_no: str = None,
+        reg_reason: str = None,
+        reg_reason_remark: str = None,
+        reg_rights: str = None,
+        reg_type: str = None,
+        spouse: Person = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 待签署的合同列表
+        self.agreements = agreements
+        # 材料清单列表
+        self.archives = archives
+        # 合同变量和值的全集，Map<String,String>的json格式
+        self.ar_var_value_json = ar_var_value_json
+        # 银行编号
+        self.bank_no = bank_no
+        # 借款人
+        self.borrower = borrower
+        # 扩展字段
+        self.extend_json = extend_json
+        # 抵押房产
+        self.house = house
+        # 婚姻状况,比如：MARRIED=已婚
+        self.marital_status = marital_status
+        # 外部业务单号，银行提供
+        self.out_biz_no = out_biz_no
+        # 登记设立原因，比如：LOAN=借贷
+        self.reg_reason = reg_reason
+        # 登记设立原因备注
+        self.reg_reason_remark = reg_reason_remark
+        # 登记权利,比如：MORTGAGE_RIGHTS=抵押权
+        self.reg_rights = reg_rights
+        # 登记类型，比如：FIRST_REG=首次登记
+        self.reg_type = reg_type
+        # 配偶
+        self.spouse = spouse
+
+    def validate(self):
+        self.validate_required(self.agreements, 'agreements')
+        if self.agreements:
+            for k in self.agreements:
+                if k:
+                    k.validate()
+        if self.archives:
+            for k in self.archives:
+                if k:
+                    k.validate()
+        self.validate_required(self.ar_var_value_json, 'ar_var_value_json')
+        self.validate_required(self.bank_no, 'bank_no')
+        self.validate_required(self.borrower, 'borrower')
+        if self.borrower:
+            self.borrower.validate()
+        self.validate_required(self.house, 'house')
+        if self.house:
+            self.house.validate()
+        self.validate_required(self.marital_status, 'marital_status')
+        self.validate_required(self.out_biz_no, 'out_biz_no')
+        self.validate_required(self.reg_reason, 'reg_reason')
+        self.validate_required(self.reg_rights, 'reg_rights')
+        self.validate_required(self.reg_type, 'reg_type')
+        if self.spouse:
+            self.spouse.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        result['agreements'] = []
+        if self.agreements is not None:
+            for k in self.agreements:
+                result['agreements'].append(k.to_map() if k else None)
+        result['archives'] = []
+        if self.archives is not None:
+            for k in self.archives:
+                result['archives'].append(k.to_map() if k else None)
+        if self.ar_var_value_json is not None:
+            result['ar_var_value_json'] = self.ar_var_value_json
+        if self.bank_no is not None:
+            result['bank_no'] = self.bank_no
+        if self.borrower is not None:
+            result['borrower'] = self.borrower.to_map()
+        if self.extend_json is not None:
+            result['extend_json'] = self.extend_json
+        if self.house is not None:
+            result['house'] = self.house.to_map()
+        if self.marital_status is not None:
+            result['marital_status'] = self.marital_status
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        if self.reg_reason is not None:
+            result['reg_reason'] = self.reg_reason
+        if self.reg_reason_remark is not None:
+            result['reg_reason_remark'] = self.reg_reason_remark
+        if self.reg_rights is not None:
+            result['reg_rights'] = self.reg_rights
+        if self.reg_type is not None:
+            result['reg_type'] = self.reg_type
+        if self.spouse is not None:
+            result['spouse'] = self.spouse.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        self.agreements = []
+        if m.get('agreements') is not None:
+            for k in m.get('agreements'):
+                temp_model = Agreement()
+                self.agreements.append(temp_model.from_map(k))
+        self.archives = []
+        if m.get('archives') is not None:
+            for k in m.get('archives'):
+                temp_model = Archive()
+                self.archives.append(temp_model.from_map(k))
+        if m.get('ar_var_value_json') is not None:
+            self.ar_var_value_json = m.get('ar_var_value_json')
+        if m.get('bank_no') is not None:
+            self.bank_no = m.get('bank_no')
+        if m.get('borrower') is not None:
+            temp_model = Person()
+            self.borrower = temp_model.from_map(m['borrower'])
+        if m.get('extend_json') is not None:
+            self.extend_json = m.get('extend_json')
+        if m.get('house') is not None:
+            temp_model = House()
+            self.house = temp_model.from_map(m['house'])
+        if m.get('marital_status') is not None:
+            self.marital_status = m.get('marital_status')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        if m.get('reg_reason') is not None:
+            self.reg_reason = m.get('reg_reason')
+        if m.get('reg_reason_remark') is not None:
+            self.reg_reason_remark = m.get('reg_reason_remark')
+        if m.get('reg_rights') is not None:
+            self.reg_rights = m.get('reg_rights')
+        if m.get('reg_type') is not None:
+            self.reg_type = m.get('reg_type')
+        if m.get('spouse') is not None:
+            temp_model = Person()
+            self.spouse = temp_model.from_map(m['spouse'])
+        return self
+
+
+class StartBlockchainArecRcpMgResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        mg_order_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 抵押单号
+        self.mg_order_no = mg_order_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.mg_order_no is not None:
+            result['mg_order_no'] = self.mg_order_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('mg_order_no') is not None:
+            self.mg_order_no = m.get('mg_order_no')
         return self
 
 

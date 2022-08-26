@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.0',
+                    '_prod_code': 'ak_3d5ac8b5948b43e7a7b8f62c44a6880f',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0'
+                    'sdk_version': '1.0.0',
+                    '_prod_code': 'ak_3d5ac8b5948b43e7a7b8f62c44a6880f',
+                    '_prod_channel': 'saas'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -270,62 +274,6 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
-
-    def start_blockchain_arec_rcp_mg(
-        self,
-        request: ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgRequest,
-    ) -> ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgResponse:
-        """
-        Description: 房屋抵押贷款业务，发起抵押登记服务
-        Summary: 发起抵押登记
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.start_blockchain_arec_rcp_mg_ex(request, headers, runtime)
-
-    async def start_blockchain_arec_rcp_mg_async(
-        self,
-        request: ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgRequest,
-    ) -> ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgResponse:
-        """
-        Description: 房屋抵押贷款业务，发起抵押登记服务
-        Summary: 发起抵押登记
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.start_blockchain_arec_rcp_mg_ex_async(request, headers, runtime)
-
-    def start_blockchain_arec_rcp_mg_ex(
-        self,
-        request: ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgResponse:
-        """
-        Description: 房屋抵押贷款业务，发起抵押登记服务
-        Summary: 发起抵押登记
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgResponse(),
-            self.do_request('1.0', 'blockchain.arec.rcp.mg.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def start_blockchain_arec_rcp_mg_ex_async(
-        self,
-        request: ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgResponse:
-        """
-        Description: 房屋抵押贷款业务，发起抵押登记服务
-        Summary: 发起抵押登记
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgResponse(),
-            await self.do_request_async('1.0', 'blockchain.arec.rcp.mg.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
 
     def confirm_blockchain_arec_rcp_mg(
         self,
@@ -381,4 +329,60 @@ class Client:
         return TeaCore.from_map(
             ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.ConfirmBlockchainArecRcpMgResponse(),
             await self.do_request_async('1.0', 'blockchain.arec.rcp.mg.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_blockchain_arec_rcp_mg(
+        self,
+        request: ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgRequest,
+    ) -> ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgResponse:
+        """
+        Description: 房屋抵押贷款业务，发起抵押登记服务
+        Summary: 发起抵押登记
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_blockchain_arec_rcp_mg_ex(request, headers, runtime)
+
+    async def start_blockchain_arec_rcp_mg_async(
+        self,
+        request: ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgRequest,
+    ) -> ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgResponse:
+        """
+        Description: 房屋抵押贷款业务，发起抵押登记服务
+        Summary: 发起抵押登记
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_blockchain_arec_rcp_mg_ex_async(request, headers, runtime)
+
+    def start_blockchain_arec_rcp_mg_ex(
+        self,
+        request: ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgResponse:
+        """
+        Description: 房屋抵押贷款业务，发起抵押登记服务
+        Summary: 发起抵押登记
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgResponse(),
+            self.do_request('1.0', 'blockchain.arec.rcp.mg.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_blockchain_arec_rcp_mg_ex_async(
+        self,
+        request: ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgResponse:
+        """
+        Description: 房屋抵押贷款业务，发起抵押登记服务
+        Summary: 发起抵押登记
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__3d_5ac_8b_5948b_43e_7a_7b_8f_62c_44a_6880f_models.StartBlockchainArecRcpMgResponse(),
+            await self.do_request_async('1.0', 'blockchain.arec.rcp.mg.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
