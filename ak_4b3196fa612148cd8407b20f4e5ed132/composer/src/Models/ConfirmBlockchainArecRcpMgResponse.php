@@ -6,7 +6,7 @@ namespace AntChain\Ak_4b3196fa612148cd8407b20f4e5ed132\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class StartBlockchainArecRcpMgrResponse extends Model
+class ConfirmBlockchainArecRcpMgResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class StartBlockchainArecRcpMgrResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 解抵押单号
-    /**
-     * @var string
-     */
-    public $mgReleaseOrderNo;
     protected $_name = [
-        'reqMsgId'         => 'req_msg_id',
-        'resultCode'       => 'result_code',
-        'resultMsg'        => 'result_msg',
-        'mgReleaseOrderNo' => 'mg_release_order_no',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class StartBlockchainArecRcpMgrResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->mgReleaseOrderNo) {
-            $res['mg_release_order_no'] = $this->mgReleaseOrderNo;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class StartBlockchainArecRcpMgrResponse extends Model
     /**
      * @param array $map
      *
-     * @return StartBlockchainArecRcpMgrResponse
+     * @return ConfirmBlockchainArecRcpMgResponse
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class StartBlockchainArecRcpMgrResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['mg_release_order_no'])) {
-            $model->mgReleaseOrderNo = $map['mg_release_order_no'];
         }
 
         return $model;

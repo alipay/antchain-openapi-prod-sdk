@@ -11,10 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_4b3196fa612148cd8407b20f4e5ed132\Models\ConfirmBlockchainArecRcpMgrRequest;
-use AntChain\Ak_4b3196fa612148cd8407b20f4e5ed132\Models\ConfirmBlockchainArecRcpMgrResponse;
-use AntChain\Ak_4b3196fa612148cd8407b20f4e5ed132\Models\StartBlockchainArecRcpMgrRequest;
-use AntChain\Ak_4b3196fa612148cd8407b20f4e5ed132\Models\StartBlockchainArecRcpMgrResponse;
+use AntChain\Ak_4b3196fa612148cd8407b20f4e5ed132\Models\ConfirmBlockchainArecRcpMgRequest;
+use AntChain\Ak_4b3196fa612148cd8407b20f4e5ed132\Models\ConfirmBlockchainArecRcpMgResponse;
+use AntChain\Ak_4b3196fa612148cd8407b20f4e5ed132\Models\StartBlockchainArecRcpMgRequest;
+use AntChain\Ak_4b3196fa612148cd8407b20f4e5ed132\Models\StartBlockchainArecRcpMgResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -163,6 +163,8 @@ class Client
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
                     'sdk_version'      => '1.0.0',
+                    '_prod_code'       => 'ak_4b3196fa612148cd8407b20f4e5ed132',
+                    '_prod_channel'    => 'saas',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -209,68 +211,68 @@ class Client
     }
 
     /**
-     * Description: 发起解抵押(宁波模式)
-     * Summary: 发起解抵押(宁波模式).
+     * Description: 房屋抵押登记业务，银行确认抵押登记服务
+     * Summary: 确认抵押登记.
      *
-     * @param StartBlockchainArecRcpMgrRequest $request
+     * @param ConfirmBlockchainArecRcpMgRequest $request
      *
-     * @return StartBlockchainArecRcpMgrResponse
+     * @return ConfirmBlockchainArecRcpMgResponse
      */
-    public function startBlockchainArecRcpMgr($request)
+    public function confirmBlockchainArecRcpMg($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->startBlockchainArecRcpMgrEx($request, $headers, $runtime);
+        return $this->confirmBlockchainArecRcpMgEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 发起解抵押(宁波模式)
-     * Summary: 发起解抵押(宁波模式).
+     * Description: 房屋抵押登记业务，银行确认抵押登记服务
+     * Summary: 确认抵押登记.
      *
-     * @param StartBlockchainArecRcpMgrRequest $request
-     * @param string[]                         $headers
-     * @param RuntimeOptions                   $runtime
+     * @param ConfirmBlockchainArecRcpMgRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
      *
-     * @return StartBlockchainArecRcpMgrResponse
+     * @return ConfirmBlockchainArecRcpMgResponse
      */
-    public function startBlockchainArecRcpMgrEx($request, $headers, $runtime)
+    public function confirmBlockchainArecRcpMgEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return StartBlockchainArecRcpMgrResponse::fromMap($this->doRequest('1.0', 'blockchain.arec.rcp.mgr.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return ConfirmBlockchainArecRcpMgResponse::fromMap($this->doRequest('1.0', 'blockchain.arec.rcp.mg.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
-     * Description: 确认解抵押(宁波模式)
-     * Summary: 确认解抵押(宁波模式).
+     * Description: 房屋抵押贷款业务，发起抵押登记服务
+     * Summary: 发起抵押登记.
      *
-     * @param ConfirmBlockchainArecRcpMgrRequest $request
+     * @param StartBlockchainArecRcpMgRequest $request
      *
-     * @return ConfirmBlockchainArecRcpMgrResponse
+     * @return StartBlockchainArecRcpMgResponse
      */
-    public function confirmBlockchainArecRcpMgr($request)
+    public function startBlockchainArecRcpMg($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->confirmBlockchainArecRcpMgrEx($request, $headers, $runtime);
+        return $this->startBlockchainArecRcpMgEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 确认解抵押(宁波模式)
-     * Summary: 确认解抵押(宁波模式).
+     * Description: 房屋抵押贷款业务，发起抵押登记服务
+     * Summary: 发起抵押登记.
      *
-     * @param ConfirmBlockchainArecRcpMgrRequest $request
-     * @param string[]                           $headers
-     * @param RuntimeOptions                     $runtime
+     * @param StartBlockchainArecRcpMgRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
      *
-     * @return ConfirmBlockchainArecRcpMgrResponse
+     * @return StartBlockchainArecRcpMgResponse
      */
-    public function confirmBlockchainArecRcpMgrEx($request, $headers, $runtime)
+    public function startBlockchainArecRcpMgEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return ConfirmBlockchainArecRcpMgrResponse::fromMap($this->doRequest('1.0', 'blockchain.arec.rcp.mgr.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return StartBlockchainArecRcpMgResponse::fromMap($this->doRequest('1.0', 'blockchain.arec.rcp.mg.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -6,7 +6,7 @@ namespace AntChain\Ak_4b3196fa612148cd8407b20f4e5ed132\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ConfirmBlockchainArecRcpMgrResponse extends Model
+class StartBlockchainArecRcpMgResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,17 @@ class ConfirmBlockchainArecRcpMgrResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 抵押单号
+    /**
+     * @var string
+     */
+    public $mgOrderNo;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'mgOrderNo'  => 'mg_order_no',
     ];
 
     public function validate()
@@ -47,6 +54,9 @@ class ConfirmBlockchainArecRcpMgrResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->mgOrderNo) {
+            $res['mg_order_no'] = $this->mgOrderNo;
+        }
 
         return $res;
     }
@@ -54,7 +64,7 @@ class ConfirmBlockchainArecRcpMgrResponse extends Model
     /**
      * @param array $map
      *
-     * @return ConfirmBlockchainArecRcpMgrResponse
+     * @return StartBlockchainArecRcpMgResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +77,9 @@ class ConfirmBlockchainArecRcpMgrResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['mg_order_no'])) {
+            $model->mgOrderNo = $map['mg_order_no'];
         }
 
         return $model;
