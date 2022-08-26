@@ -1,0 +1,1359 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'ak_630ce8157b69499bbf96c1910a852241',
+    _prod_channel = 'saas'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 分页属性
+model ALiYunPagination {
+  // 分页大小
+  pageSize?: long(name='page_size', example='20'),
+  // 分页编号
+  pageNumber?: long(name='page_number', example='1'),
+  // 总数大小
+  totalCount?: long(name='total_count', example='100'),
+}
+
+// 阿里云蚂蚁链对象
+model ALiYunAntChain {
+  // ant_chain_id
+  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
+  // 链名称
+  antChainName?: string(name='ant_chain_name', example='name'),
+  // 链的类型
+  chainType?: string(name='chain_type', example='链的类型'),
+  // cipher_suit
+  cipherSuit?: string(name='cipher_suit', example='cipher_suit'),
+  // 创建时间
+  createTime?: long(name='create_time', example='创建时间'),
+  // expire_time
+  expireTime?: long(name='expire_time', example='1123123123123'),
+  // instance_id
+  instanceId?: string(name='instance_id', example='instance_id'),
+  // is_admin
+  isAdmin?: boolean(name='is_admin', example='true、false'),
+  // 成员状态
+  memberStatus?: string(name='member_status', example='成员状态'),
+  // merkle_tree_suit
+  merkleTreeSuit?: string(name='merkle_tree_suit', example='merkle_tree_suit'),
+  // Network
+  network?: string(name='network', example='Network'),
+  // 节点数
+  nodeNum?: long(name='node_num', example='节点数'),
+  // 区域信息
+  regionId?: string(name='region_id', example='区域信息'),
+  // 链的资源大小
+  resourceSize?: string(name='resource_size', example='链的资源大小'),
+  // 算法参数
+  tlsAlgo?: string(name='tls_algo', example='算法参数'),
+  // 版本信息
+  version?: string(name='version', example='0.10.2.12.5'),
+}
+
+// 阿里云账户信息
+model ALiYunAccount {
+  // ant_chain_id
+  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
+  // account
+  account?: string(name='account', example='account'),
+  // account_public_key
+  accountPublicKey?: string(name='account_public_key', example='account_public_key'),
+  // account_recovery_key
+  accountRecoveryKey?: string(name='account_recovery_key', example='account_recovery_key'),
+  // account_status
+  accountStatus?: string(name='account_status', example='account_status'),
+  // 机构信息
+  memberName?: string(name='member_name', example='uid-11321313131'),
+  // 创建时间
+  createTime?: long(name='create_time', example='112313123'),
+}
+
+// 阿里云链节点信息
+model ALiYunChainNodeInfo {
+  // block_height
+  blockHeight?: long(name='block_height', example='3123123'),
+  // node_name
+  nodeName?: string(name='node_name', example='node_name'),
+  // status
+  status?: boolean(name='status', example='true, false'),
+  // version
+  version?: string(name='version', example='version'),
+  // 节点id
+  nodeId?: string(name='node_id', example='0x0AC5C397C076E394B3D32C1A9488AAF32BABD410A2FFAF97C87646F5BD04CD42'),
+  // 节点ip
+  nodeIp?: string(name='node_ip', example='10.1.0.12'),
+  // 节点的端口
+  nodePort?: string(name='node_port', example='18130'),
+  // 节点类型
+  nodeType?: string(name='node_type', example='共识或非共识'),
+  // 节点状态
+  nodeState?: string(name='node_state', example='正常/异常'),
+  // 节点来源
+  nodeSource?: string(name='node_source', example='BaaS'),
+  // 节点存储空间使用量
+  diskUse?: string(name='disk_use', example='10'),
+  // 节点存储总空间大小
+  diskTotal?: string(name='disk_total', example='1024'),
+  // 节点公钥
+  publicKey?: string(name='public_key', example='121231bcd'),
+}
+
+// 阿里云联盟信息
+model ALiYunAntConsortium {
+  // 链的数量
+  chainNum?: long(name='chain_num', example='2'),
+  // 联盟描述
+  consortiumDescription?: string(name='consortium_description', example='联盟描述'),
+  // 联盟id
+  consortiumId?: string(name='consortium_id', example='联盟id'),
+  // 联盟名称
+  consortiumName?: string(name='consortium_name', example='联盟名称'),
+  // 时间戳
+  createTime?: long(name='create_time', example='时间戳'),
+  // 是否为空联盟
+  isEmptyConsortium?: boolean(name='is_empty_consortium', example='true, false'),
+  // 成员数量
+  memberNum?: long(name='member_num', example='5'),
+  // 角色
+  role?: string(name='role', example='角色'),
+  // 状态值
+  status?: string(name='status', example='状态值'),
+}
+
+// 阿里云联盟成员信息
+model ALiYunMember {
+  // 加入时间
+  joinTime?: long(name='join_time', example='11231231231'),
+  // 成员id
+  memberId?: string(name='member_id', example='成员id'),
+  // 成员名称
+  memberName?: string(name='member_name', example='成员名称'),
+  // 角色
+  role?: string(name='role', example='角色'),
+  // 状态
+  status?: string(name='status', example='状态'),
+}
+
+// 阿里云子链结构体
+model ALiYunChainSubnet {
+  // 子链id
+  antChainId?: string(name='ant_chain_id', example='S210304150059'),
+  // 子链名称
+  name?: string(name='name', example='name'),
+  // 子链节点数
+  nodeSum?: long(name='node_sum', example='1'),
+  // 子链监控状态
+  monitor?: boolean(name='monitor', example='true, false'),
+  // 子链的块高
+  blockHeight?: string(name='block_height', example='100'),
+  // 子链的业务总数
+  transactionSum?: long(name='transaction_sum', example='1000'),
+  // 子链的创建时间
+  createTime?: long(name='create_time', example='1000821213123'),
+  // 子链的状态
+  status?: string(name='status', example='STOP/CREATE'),
+  // 子链的权限
+  consortiumMember?: boolean(name='consortium_member', example='true, false'),
+  // 主链id
+  mainChainId?: string(name='main_chain_id', example='2e7e22c42bb8419bbf99b7f56aa2f17f'),
+  // rest申请状态
+  rest?: string(name='rest', example='OK'),
+  // 子链序号
+  groupId?: string(name='group_id', example='0000000000000002000000000000000000000000'),
+}
+
+// 阿里云子链检查结果
+model ALiYunChainSubnetCheck {
+  // 检查结果
+  checkResult?: string(name='check_result', example='OK'),
+  // 子链成员列表
+  consortiumMemberList?: [ string ](name='consortium_member_list', example=''),
+  // 节点信息列表
+  chainNodeInfoList?: [ ALiYunChainNodeInfo ](name='chain_node_info_list', example=''),
+  // 联盟管理员
+  consortiumAdmin?: boolean(name='consortium_admin', example='true, false'),
+  // 子链成员列表
+  consortiumMemberInfoList?: [ ALiYunMember ](name='consortium_member_info_list', example=''),
+  // 分页信息
+  pagination?: ALiYunPagination(name='pagination', example=''),
+}
+
+// 阿里云子链列表信息
+model ALiYunChainSubnetList {
+  // ant_chain_id
+  antChainId?: string(name='ant_chain_id', example='S210304150059'),
+  // 子链名称
+  blockchainName?: string(name='blockchain_name', example='子链名称'),
+  // 联盟管理员
+  consortiumAdmin?: boolean(name='consortium_admin', example='true, false'),
+  // 子链列表信息
+  blockchainSubnetList?: [ ALiYunChainSubnet ](name='blockchain_subnet_list', example=''),
+}
+
+// 阿里云蚂蚁区块链账户创建信息
+model ALiYunChainAccount {
+  // account
+  account?: string(name='account', example='account'),
+  // account_private_key
+  accountPrivateKey?: string(name='account_private_key', example='account_private_key'),
+  // account_public_key
+  accountPublicKey?: string(name='account_public_key', example='account_public_key'),
+  // account_recover_private_key
+  accountRecoverPrivateKey?: string(name='account_recover_private_key', example='account_recover_private_key'),
+  // account_recover_public_key
+  accountRecoverPublicKey?: string(name='account_recover_public_key', example='account_recover_public_key'),
+  // ant_chain_id
+  antChainId?: string(name='ant_chain_id', example='ant_chain_id'),
+}
+
+// 阿里云联盟返回结果
+model ALiYunUnion {
+  // 联盟内链的集合
+  antChains?: [ ALiYunAntChain ](name='ant_chains', example='联盟内链的集合'),
+  // 联盟信息
+  antConsortiums?: [ ALiYunAntConsortium ](name='ant_consortiums', example='联盟信息'),
+  // 联盟Id
+  consortiumId?: string(name='consortium_id', example='联盟Id'),
+  // is_exist
+  isExist?: boolean(name='is_exist', example='true, false'),
+  // 联盟成员信息
+  members?: [ ALiYunMember ](name='members', example='联盟成员信息'),
+  // 阿里云分页属性
+  pagination?: ALiYunPagination(name='pagination', example='阿里云分页属性'),
+}
+
+// 阿里云账户列表信息
+model ALiYunAccountList {
+  // pagination
+  pagination?: ALiYunPagination(name='pagination', example='pagination'),
+  // accounts
+  accounts?: [ ALiYunAccount ](name='accounts', example='accounts'),
+  // 联盟管理员
+  consortiumAdmin?: boolean(name='consortium_admin', example='true, false'),
+}
+
+// BaaS平台联盟信息
+model BaasUnionInfo {
+  // 联盟名称
+  unionName: string(name='union_name', example='name'),
+  // 描述
+  unionDescription: string(name='union_description', example='描述'),
+  // 联系人
+  unionUser: string(name='union_user', example='联系人'),
+  // 联盟联系人手机号码
+  unionUserCell: string(name='union_user_cell', example='联盟联系人手机号码'),
+  // 联盟联系人邮箱
+  unionUserMail: string(name='union_user_mail', example='联盟联系人邮箱'),
+}
+
+// 阿里云区块链Rest信息
+model ALiYunChainRest {
+  // access_id
+  accessId?: string(name='access_id', example='access_id'),
+  // create_time
+  createTime?: long(name='create_time', example='123123123'),
+  // rest
+  rest?: string(name='rest', example='rest'),
+  // update_time
+  updateTime?: long(name='update_time', example='123123123'),
+  // REST开通结果
+  result?: string(name='result', example='OK'),
+}
+
+model CreateBaasBlockchainInstanceInnerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区块链名称
+  blockchainName: string(name='blockchain_name'),
+  // 链打标内容
+  blockchainTag?: string(name='blockchain_tag'),
+  // Tee链/企业版/企业版  enterprise
+  blockchainType: string(name='blockchain_type'),
+  // 待创建联盟的信息
+  createUnionInfo?: BaasUnionInfo(name='create_union_info'),
+  // 节点数
+  nodeNumber: long(name='node_number'),
+  // 联盟id
+  unionId?: long(name='union_id'),
+  // 业务线code
+  groupCode: string(name='group_code'),
+  // 业务线子码
+  groupSubCode: string(name='group_sub_code'),
+  // 是否需要创建测试链
+  testChain: boolean(name='test_chain'),
+}
+
+model CreateBaasBlockchainInstanceInnerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // instanceId
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 区块链实例创建（内部）
+ * Summary: 区块链创建（内部）
+ */
+async function createBaasBlockchainInstanceInner(request: CreateBaasBlockchainInstanceInnerRequest): CreateBaasBlockchainInstanceInnerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBaasBlockchainInstanceInnerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 区块链实例创建（内部）
+ * Summary: 区块链创建（内部）
+ */
+async function createBaasBlockchainInstanceInnerEx(request: CreateBaasBlockchainInstanceInnerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaasBlockchainInstanceInnerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.blockchain.instance.inner.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyBaasChainAccountAntRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // account
+  account?: string(name='account'),
+  // ant_chain_id
+  antChainId?: string(name='ant_chain_id'),
+  // password
+  password?: string(name='password'),
+  // recover_password
+  recoverPassword?: string(name='recover_password'),
+}
+
+model ApplyBaasChainAccountAntResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // result
+  result?: ALiYunChainAccount(name='result'),
+}
+
+/**
+ * Description: 自动创建账户
+ * Summary: 自动创建账户
+ */
+async function applyBaasChainAccountAnt(request: ApplyBaasChainAccountAntRequest): ApplyBaasChainAccountAntResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyBaasChainAccountAntEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自动创建账户
+ * Summary: 自动创建账户
+ */
+async function applyBaasChainAccountAntEx(request: ApplyBaasChainAccountAntRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyBaasChainAccountAntResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.account.ant.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBaasChainAccountAntRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // account
+  account?: string(name='account'),
+  // account_pub_key
+  accountPubKey?: string(name='account_pub_key'),
+  // account_recover_pub_key
+  accountRecoverPubKey?: string(name='account_recover_pub_key'),
+  // ant_chain_id
+  antChainId?: string(name='ant_chain_id'),
+}
+
+model CreateBaasChainAccountAntResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // result
+  result?: ALiYunChainAccount(name='result'),
+}
+
+/**
+ * Description: 手工创建账户
+ * Summary: 手工创建账户
+ */
+async function createBaasChainAccountAnt(request: CreateBaasChainAccountAntRequest): CreateBaasChainAccountAntResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBaasChainAccountAntEx(request, headers, runtime);
+}
+
+/**
+ * Description: 手工创建账户
+ * Summary: 手工创建账户
+ */
+async function createBaasChainAccountAntEx(request: CreateBaasChainAccountAntRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaasChainAccountAntResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.account.ant.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FreezeBaasChainAccountAntRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // account
+  account: string(name='account'),
+  // ant_chain_id
+  antChainId: string(name='ant_chain_id'),
+  // region_id
+  regionId?: string(name='region_id'),
+}
+
+model FreezeBaasChainAccountAntResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // result
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 区块链链上账户冻结
+ * Summary: 区块链链上账户冻结
+ */
+async function freezeBaasChainAccountAnt(request: FreezeBaasChainAccountAntRequest): FreezeBaasChainAccountAntResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return freezeBaasChainAccountAntEx(request, headers, runtime);
+}
+
+/**
+ * Description: 区块链链上账户冻结
+ * Summary: 区块链链上账户冻结
+ */
+async function freezeBaasChainAccountAntEx(request: FreezeBaasChainAccountAntRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FreezeBaasChainAccountAntResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.account.ant.freeze', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasChainAccountAntRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // ant_chain_id
+  antChainId: string(name='ant_chain_id'),
+  // page_number
+  pageNumber?: long(name='page_number'),
+  // page_size
+  pageSize: long(name='page_size'),
+}
+
+model QueryBaasChainAccountAntResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // result
+  result?: ALiYunAccountList(name='result'),
+}
+
+/**
+ * Description: 查询链上账户列表
+ * Summary: 查询链上账户列表
+ */
+async function queryBaasChainAccountAnt(request: QueryBaasChainAccountAntRequest): QueryBaasChainAccountAntResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasChainAccountAntEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询链上账户列表
+ * Summary: 查询链上账户列表
+ */
+async function queryBaasChainAccountAntEx(request: QueryBaasChainAccountAntRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasChainAccountAntResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.account.ant.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnfreezeBaasChainAccountAntRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // account
+  account?: string(name='account'),
+  // ant_chain_id
+  antChainId: string(name='ant_chain_id'),
+  // region_id
+  regionId: string(name='region_id'),
+}
+
+model UnfreezeBaasChainAccountAntResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // result
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 蚂蚁区块链账户解冻
+ * Summary: 蚂蚁区块链账户解冻
+ */
+async function unfreezeBaasChainAccountAnt(request: UnfreezeBaasChainAccountAntRequest): UnfreezeBaasChainAccountAntResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unfreezeBaasChainAccountAntEx(request, headers, runtime);
+}
+
+/**
+ * Description: 蚂蚁区块链账户解冻
+ * Summary: 蚂蚁区块链账户解冻
+ */
+async function unfreezeBaasChainAccountAntEx(request: UnfreezeBaasChainAccountAntRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnfreezeBaasChainAccountAntResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.account.ant.unfreeze', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateBaasChainNameAntRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // ant_chain_id
+  antChainId: string(name='ant_chain_id'),
+  // ant_chain_name
+  antChainName: string(name='ant_chain_name'),
+  // region_id
+  regionId?: string(name='region_id'),
+}
+
+model UpdateBaasChainNameAntResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // result
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 更新区块链的名称
+ * Summary: 更新区块链的名称
+ */
+async function updateBaasChainNameAnt(request: UpdateBaasChainNameAntRequest): UpdateBaasChainNameAntResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBaasChainNameAntEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新区块链的名称
+ * Summary: 更新区块链的名称
+ */
+async function updateBaasChainNameAntEx(request: UpdateBaasChainNameAntRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBaasChainNameAntResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.name.ant.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBaasChainSubnetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 主链id
+  antChainId?: string(name='ant_chain_id'),
+  // 子链名称
+  subnetName?: string(name='subnet_name'),
+  // 节点的id
+  nodeId?: string(name='node_id'),
+  // 联盟成员
+  consortiumMember?: string(name='consortium_member'),
+  // 联盟id
+  consortiumId?: string(name='consortium_id'),
+}
+
+model CreateBaasChainSubnetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 建链结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 阿里云子链创建
+ * Summary: 阿里云子链创建
+ */
+async function createBaasChainSubnet(request: CreateBaasChainSubnetRequest): CreateBaasChainSubnetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBaasChainSubnetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云子链创建
+ * Summary: 阿里云子链创建
+ */
+async function createBaasChainSubnetEx(request: CreateBaasChainSubnetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaasChainSubnetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.subnet.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckBaasChainSubnetCreateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+}
+
+model CheckBaasChainSubnetCreateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 检查结果
+  result?: ALiYunChainSubnetCheck(name='result'),
+}
+
+/**
+ * Description: 阿里云子链创建的前置检查
+ * Summary: 阿里云子链创建的前置检查
+ */
+async function checkBaasChainSubnetCreate(request: CheckBaasChainSubnetCreateRequest): CheckBaasChainSubnetCreateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkBaasChainSubnetCreateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云子链创建的前置检查
+ * Summary: 阿里云子链创建的前置检查
+ */
+async function checkBaasChainSubnetCreateEx(request: CheckBaasChainSubnetCreateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckBaasChainSubnetCreateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.subnet.create.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecBaasChainSubnetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 子链id
+  antChainId?: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId?: string(name='consortium_id'),
+  // 子链操作的枚举类型
+  operateType?: string(name='operate_type'),
+}
+
+model ExecBaasChainSubnetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 子链启停的结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 阿里云子链的启动
+ * Summary: 阿里云子链的启动
+ */
+async function execBaasChainSubnet(request: ExecBaasChainSubnetRequest): ExecBaasChainSubnetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execBaasChainSubnetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云子链的启动
+ * Summary: 阿里云子链的启动
+ */
+async function execBaasChainSubnetEx(request: ExecBaasChainSubnetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecBaasChainSubnetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.subnet.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddBaasChainSubnetMemberRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 子链id
+  antChainId?: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId?: string(name='consortium_id'),
+  // 联盟成员id
+  consortiumMemberId?: string(name='consortium_member_id'),
+}
+
+model AddBaasChainSubnetMemberResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 子链添加成员的结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 阿里云子链成员添加
+ * Summary: 阿里云子链成员添加
+ */
+async function addBaasChainSubnetMember(request: AddBaasChainSubnetMemberRequest): AddBaasChainSubnetMemberResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addBaasChainSubnetMemberEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云子链成员添加
+ * Summary: 阿里云子链成员添加
+ */
+async function addBaasChainSubnetMemberEx(request: AddBaasChainSubnetMemberRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddBaasChainSubnetMemberResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.subnet.member.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckBaasChainSubnetMemberRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 子链id
+  antChainId?: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId?: string(name='consortium_id'),
+}
+
+model CheckBaasChainSubnetMemberResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 子链的机构列表
+  result?: ALiYunChainSubnetCheck(name='result'),
+}
+
+/**
+ * Description: 阿里云子链成员添加前校验
+ * Summary: 阿里云子链成员添加前校验
+ */
+async function checkBaasChainSubnetMember(request: CheckBaasChainSubnetMemberRequest): CheckBaasChainSubnetMemberResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkBaasChainSubnetMemberEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云子链成员添加前校验
+ * Summary: 阿里云子链成员添加前校验
+ */
+async function checkBaasChainSubnetMemberEx(request: CheckBaasChainSubnetMemberRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckBaasChainSubnetMemberResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.subnet.member.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteBaasChainSubnetMemberRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 子链id
+  antChainId?: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId?: string(name='consortium_id'),
+  // 子链成员id
+  memberId?: string(name='member_id'),
+}
+
+model DeleteBaasChainSubnetMemberResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 子链成员删除结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 阿里云子链成员删除
+ * Summary: 阿里云子链成员删除
+ */
+async function deleteBaasChainSubnetMember(request: DeleteBaasChainSubnetMemberRequest): DeleteBaasChainSubnetMemberResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteBaasChainSubnetMemberEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云子链成员删除
+ * Summary: 阿里云子链成员删除
+ */
+async function deleteBaasChainSubnetMemberEx(request: DeleteBaasChainSubnetMemberRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteBaasChainSubnetMemberResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.subnet.member.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasChainSubnetMemberRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 子链id
+  antChainId?: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId?: string(name='consortium_id'),
+  // 分页编号
+  pageNumber?: string(name='page_number'),
+  // 分页大小
+  pageSize?: string(name='page_size'),
+}
+
+model QueryBaasChainSubnetMemberResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 子链机构信息
+  result?: ALiYunChainSubnetCheck(name='result'),
+}
+
+/**
+ * Description: 阿里云子链机构列表查询
+ * Summary: 阿里云子链机构列表查询
+ */
+async function queryBaasChainSubnetMember(request: QueryBaasChainSubnetMemberRequest): QueryBaasChainSubnetMemberResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasChainSubnetMemberEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云子链机构列表查询
+ * Summary: 阿里云子链机构列表查询
+ */
+async function queryBaasChainSubnetMemberEx(request: QueryBaasChainSubnetMemberRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasChainSubnetMemberResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.subnet.member.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateBaasChainSubnetNameRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 子链id
+  antChainId?: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId?: string(name='consortium_id'),
+  // 子链名称
+  subnetName?: string(name='subnet_name'),
+}
+
+model UpdateBaasChainSubnetNameResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 修改子链的结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 阿里云子链名称修改
+ * Summary: 阿里云子链名称修改
+ */
+async function updateBaasChainSubnetName(request: UpdateBaasChainSubnetNameRequest): UpdateBaasChainSubnetNameResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBaasChainSubnetNameEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云子链名称修改
+ * Summary: 阿里云子链名称修改
+ */
+async function updateBaasChainSubnetNameEx(request: UpdateBaasChainSubnetNameRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBaasChainSubnetNameResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.subnet.name.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasChainSubnetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链id
+  antChainId: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+}
+
+model QueryBaasChainSubnetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 子链列表信息
+  result?: ALiYunChainSubnetList(name='result'),
+}
+
+/**
+ * Description: 阿里云子链列表查询
+ * Summary: 阿里云子链列表查询
+ */
+async function queryBaasChainSubnet(request: QueryBaasChainSubnetRequest): QueryBaasChainSubnetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasChainSubnetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云子链列表查询
+ * Summary: 阿里云子链列表查询
+ */
+async function queryBaasChainSubnetEx(request: QueryBaasChainSubnetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasChainSubnetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.subnet.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyBaasChainSubnetRestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 子链id
+  antChainId?: string(name='ant_chain_id'),
+  // 联盟id
+  consortiumId?: string(name='consortium_id'),
+}
+
+model ApplyBaasChainSubnetRestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 阿里云REST开通结果
+  result?: ALiYunChainRest(name='result'),
+}
+
+/**
+ * Description: 阿里云子链REST开通
+ * Summary: 阿里云子链REST开通
+ */
+async function applyBaasChainSubnetRest(request: ApplyBaasChainSubnetRestRequest): ApplyBaasChainSubnetRestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyBaasChainSubnetRestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云子链REST开通
+ * Summary: 阿里云子链REST开通
+ */
+async function applyBaasChainSubnetRestEx(request: ApplyBaasChainSubnetRestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyBaasChainSubnetRestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.chain.subnet.rest.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasUnionChainRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // 分页编号
+  pageNumber?: long(name='page_number'),
+  // 分页大小
+  pageSize: long(name='page_size'),
+  // region_id
+  regionId?: string(name='region_id'),
+}
+
+model QueryBaasUnionChainResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 联盟内链数据
+  result?: ALiYunUnion(name='result'),
+}
+
+/**
+ * Description: 获取联盟内的蚂蚁区块链列表
+ * Summary: 获取联盟内的蚂蚁区块链列表
+ */
+async function queryBaasUnionChain(request: QueryBaasUnionChainRequest): QueryBaasUnionChainResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasUnionChainEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取联盟内的蚂蚁区块链列表
+ * Summary: 获取联盟内的蚂蚁区块链列表
+ */
+async function queryBaasUnionChainEx(request: QueryBaasUnionChainRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasUnionChainResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.union.chain.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBaasUnionUnionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟描述
+  consortiumDescription?: string(name='consortium_description'),
+  // 联盟名称
+  consortiumName: string(name='consortium_name'),
+  // 区域信息
+  regionId?: string(name='region_id'),
+}
+
+model CreateBaasUnionUnionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 联盟信息
+  result?: ALiYunUnion(name='result'),
+}
+
+/**
+ * Description: 创建联盟
+ * Summary: 创建联盟
+ */
+async function createBaasUnionUnion(request: CreateBaasUnionUnionRequest): CreateBaasUnionUnionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBaasUnionUnionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建联盟
+ * Summary: 创建联盟
+ */
+async function createBaasUnionUnionEx(request: CreateBaasUnionUnionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBaasUnionUnionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.union.union.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteBaasUnionUnionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟ID
+  consortiumId: string(name='consortium_id'),
+  // 区域id
+  regionId?: string(name='region_id'),
+}
+
+model DeleteBaasUnionUnionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果信息
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 删除联盟
+ * Summary: 删除联盟
+ */
+async function deleteBaasUnionUnion(request: DeleteBaasUnionUnionRequest): DeleteBaasUnionUnionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteBaasUnionUnionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除联盟
+ * Summary: 删除联盟
+ */
+async function deleteBaasUnionUnionEx(request: DeleteBaasUnionUnionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteBaasUnionUnionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.union.union.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBaasUnionUnionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分页编号
+  pageNumber?: string(name='page_number'),
+  // 分页大小
+  pageSize: string(name='page_size'),
+  // 区域信息
+  regionId?: string(name='region_id'),
+}
+
+model QueryBaasUnionUnionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 阿里云联盟查询结果
+  result?: ALiYunUnion(name='result'),
+}
+
+/**
+ * Description: 联盟查询
+ * Summary: 联盟查询
+ */
+async function queryBaasUnionUnion(request: QueryBaasUnionUnionRequest): QueryBaasUnionUnionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBaasUnionUnionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 联盟查询
+ * Summary: 联盟查询
+ */
+async function queryBaasUnionUnionEx(request: QueryBaasUnionUnionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBaasUnionUnionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.union.union.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateBaasUnionUnionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 联盟描述
+  consortiumDescription?: string(name='consortium_description'),
+  // 联盟id
+  consortiumId: string(name='consortium_id'),
+  // 联盟名称
+  consortiumName: string(name='consortium_name'),
+  // 区域信息
+  regionId?: string(name='region_id'),
+}
+
+model UpdateBaasUnionUnionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果信息
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 联盟更新
+ * Summary: 联盟更新
+ */
+async function updateBaasUnionUnion(request: UpdateBaasUnionUnionRequest): UpdateBaasUnionUnionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBaasUnionUnionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 联盟更新
+ * Summary: 联盟更新
+ */
+async function updateBaasUnionUnionEx(request: UpdateBaasUnionUnionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBaasUnionUnionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.union.union.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
