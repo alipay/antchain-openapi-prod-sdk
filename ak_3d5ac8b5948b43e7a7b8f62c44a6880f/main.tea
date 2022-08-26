@@ -101,6 +101,8 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
     sdk_version = '1.0.0',
+    _prod_code = 'ak_3d5ac8b5948b43e7a7b8f62c44a6880f',
+    _prod_channel = 'saas'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -458,72 +460,6 @@ model Agreement {
   finalArArchiveOssPath?: string(name='final_ar_archive_oss_path', example='bk_ningbo/20200810001221010000000000000001/23332323.pdf'),
 }
 
-model StartBlockchainArecRcpMgRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 待签署的合同列表
-  agreements: [ Agreement ](name='agreements'),
-  // 材料清单列表
-  archives?: [ Archive ](name='archives'),
-  // 合同变量和值的全集，Map<String,String>的json格式
-  arVarValueJson: string(name='ar_var_value_json'),
-  // 银行编号
-  bankNo: string(name='bank_no'),
-  // 借款人
-  borrower: Person(name='borrower'),
-  // 扩展字段
-  extendJson?: string(name='extend_json'),
-  // 抵押房产
-  house: House(name='house'),
-  // 婚姻状况,比如：MARRIED=已婚
-  maritalStatus: string(name='marital_status'),
-  // 外部业务单号，银行提供
-  outBizNo: string(name='out_biz_no'),
-  // 登记设立原因，比如：LOAN=借贷
-  regReason: string(name='reg_reason'),
-  // 登记设立原因备注
-  regReasonRemark?: string(name='reg_reason_remark'),
-  // 登记权利,比如：MORTGAGE_RIGHTS=抵押权
-  regRights: string(name='reg_rights'),
-  // 登记类型，比如：FIRST_REG=首次登记
-  regType: string(name='reg_type'),
-  // 配偶
-  spouse?: Person(name='spouse'),
-  // 抵押单号
-  mgOrderNo?: string(name='mg_order_no'),
-}
-
-model StartBlockchainArecRcpMgResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 抵押单号
-  mgOrderNo?: string(name='mg_order_no'),
-}
-
-/**
- * Description: 房屋抵押贷款业务，发起抵押登记服务
- * Summary: 发起抵押登记
- */
-async function startBlockchainArecRcpMg(request: StartBlockchainArecRcpMgRequest): StartBlockchainArecRcpMgResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return startBlockchainArecRcpMgEx(request, headers, runtime);
-}
-
-/**
- * Description: 房屋抵押贷款业务，发起抵押登记服务
- * Summary: 发起抵押登记
- */
-async function startBlockchainArecRcpMgEx(request: StartBlockchainArecRcpMgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBlockchainArecRcpMgResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.arec.rcp.mg.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model ConfirmBlockchainArecRcpMgRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -566,5 +502,69 @@ async function confirmBlockchainArecRcpMg(request: ConfirmBlockchainArecRcpMgReq
 async function confirmBlockchainArecRcpMgEx(request: ConfirmBlockchainArecRcpMgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmBlockchainArecRcpMgResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.arec.rcp.mg.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartBlockchainArecRcpMgRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待签署的合同列表
+  agreements: [ Agreement ](name='agreements'),
+  // 材料清单列表
+  archives?: [ Archive ](name='archives'),
+  // 合同变量和值的全集，Map<String,String>的json格式
+  arVarValueJson: string(name='ar_var_value_json'),
+  // 银行编号
+  bankNo: string(name='bank_no'),
+  // 借款人
+  borrower: Person(name='borrower'),
+  // 扩展字段
+  extendJson?: string(name='extend_json'),
+  // 抵押房产
+  house: House(name='house'),
+  // 婚姻状况,比如：MARRIED=已婚
+  maritalStatus: string(name='marital_status'),
+  // 外部业务单号，银行提供
+  outBizNo: string(name='out_biz_no'),
+  // 登记设立原因，比如：LOAN=借贷
+  regReason: string(name='reg_reason'),
+  // 登记设立原因备注
+  regReasonRemark?: string(name='reg_reason_remark'),
+  // 登记权利,比如：MORTGAGE_RIGHTS=抵押权
+  regRights: string(name='reg_rights'),
+  // 登记类型，比如：FIRST_REG=首次登记
+  regType: string(name='reg_type'),
+  // 配偶
+  spouse?: Person(name='spouse'),
+}
+
+model StartBlockchainArecRcpMgResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 抵押单号
+  mgOrderNo?: string(name='mg_order_no'),
+}
+
+/**
+ * Description: 房屋抵押贷款业务，发起抵押登记服务
+ * Summary: 发起抵押登记
+ */
+async function startBlockchainArecRcpMg(request: StartBlockchainArecRcpMgRequest): StartBlockchainArecRcpMgResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startBlockchainArecRcpMgEx(request, headers, runtime);
+}
+
+/**
+ * Description: 房屋抵押贷款业务，发起抵押登记服务
+ * Summary: 发起抵押登记
+ */
+async function startBlockchainArecRcpMgEx(request: StartBlockchainArecRcpMgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartBlockchainArecRcpMgResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.arec.rcp.mg.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
