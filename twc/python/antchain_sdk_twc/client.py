@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 文件key和文件名称
+            # 司法纠纷平台通用文件信息结构体
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.53'
+                    'sdk_version': '1.7.71',
+                    '_prod_code': 'TWC',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 文件key和文件名称
+            # 司法纠纷平台通用文件信息结构体
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.53'
+                    'sdk_version': '1.7.71',
+                    '_prod_code': 'TWC',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -5599,6 +5603,174 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.contract.courtdeduct.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def get_contract_textsign(
+        self,
+        request: twc_models.GetContractTextsignRequest,
+    ) -> twc_models.GetContractTextsignResponse:
+        """
+        Description: 文本签名
+        Summary: 文本签接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_contract_textsign_ex(request, headers, runtime)
+
+    async def get_contract_textsign_async(
+        self,
+        request: twc_models.GetContractTextsignRequest,
+    ) -> twc_models.GetContractTextsignResponse:
+        """
+        Description: 文本签名
+        Summary: 文本签接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_contract_textsign_ex_async(request, headers, runtime)
+
+    def get_contract_textsign_ex(
+        self,
+        request: twc_models.GetContractTextsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetContractTextsignResponse:
+        """
+        Description: 文本签名
+        Summary: 文本签接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.GetContractTextsignResponse(),
+            self.do_request('1.0', 'twc.notary.contract.textsign.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_contract_textsign_ex_async(
+        self,
+        request: twc_models.GetContractTextsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetContractTextsignResponse:
+        """
+        Description: 文本签名
+        Summary: 文本签接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.GetContractTextsignResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.textsign.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_contract_textsign(
+        self,
+        request: twc_models.VerifyContractTextsignRequest,
+    ) -> twc_models.VerifyContractTextsignResponse:
+        """
+        Description: 文本验签
+        Summary: 文本验签接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_contract_textsign_ex(request, headers, runtime)
+
+    async def verify_contract_textsign_async(
+        self,
+        request: twc_models.VerifyContractTextsignRequest,
+    ) -> twc_models.VerifyContractTextsignResponse:
+        """
+        Description: 文本验签
+        Summary: 文本验签接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_contract_textsign_ex_async(request, headers, runtime)
+
+    def verify_contract_textsign_ex(
+        self,
+        request: twc_models.VerifyContractTextsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyContractTextsignResponse:
+        """
+        Description: 文本验签
+        Summary: 文本验签接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.VerifyContractTextsignResponse(),
+            self.do_request('1.0', 'twc.notary.contract.textsign.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_contract_textsign_ex_async(
+        self,
+        request: twc_models.VerifyContractTextsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyContractTextsignResponse:
+        """
+        Description: 文本验签
+        Summary: 文本验签接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.VerifyContractTextsignResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.textsign.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_contract_docsign(
+        self,
+        request: twc_models.VerifyContractDocsignRequest,
+    ) -> twc_models.VerifyContractDocsignResponse:
+        """
+        Description: 文件签验签
+        Summary: 文件签验签
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_contract_docsign_ex(request, headers, runtime)
+
+    async def verify_contract_docsign_async(
+        self,
+        request: twc_models.VerifyContractDocsignRequest,
+    ) -> twc_models.VerifyContractDocsignResponse:
+        """
+        Description: 文件签验签
+        Summary: 文件签验签
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_contract_docsign_ex_async(request, headers, runtime)
+
+    def verify_contract_docsign_ex(
+        self,
+        request: twc_models.VerifyContractDocsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyContractDocsignResponse:
+        """
+        Description: 文件签验签
+        Summary: 文件签验签
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.VerifyContractDocsignResponse(),
+            self.do_request('1.0', 'twc.notary.contract.docsign.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_contract_docsign_ex_async(
+        self,
+        request: twc_models.VerifyContractDocsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyContractDocsignResponse:
+        """
+        Description: 文件签验签
+        Summary: 文件签验签
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.VerifyContractDocsignResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.docsign.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def sync_inner_trans(
         self,
         request: twc_models.SyncInnerTransRequest,
@@ -6831,6 +7003,118 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.tsr.certificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def create_identification_realperson(
+        self,
+        request: twc_models.CreateIdentificationRealpersonRequest,
+    ) -> twc_models.CreateIdentificationRealpersonResponse:
+        """
+        Description: 发起实人认证，这是改造后的接口
+        Summary: 实人认证创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_identification_realperson_ex(request, headers, runtime)
+
+    async def create_identification_realperson_async(
+        self,
+        request: twc_models.CreateIdentificationRealpersonRequest,
+    ) -> twc_models.CreateIdentificationRealpersonResponse:
+        """
+        Description: 发起实人认证，这是改造后的接口
+        Summary: 实人认证创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_identification_realperson_ex_async(request, headers, runtime)
+
+    def create_identification_realperson_ex(
+        self,
+        request: twc_models.CreateIdentificationRealpersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateIdentificationRealpersonResponse:
+        """
+        Description: 发起实人认证，这是改造后的接口
+        Summary: 实人认证创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateIdentificationRealpersonResponse(),
+            self.do_request('1.0', 'twc.notary.identification.realperson.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_identification_realperson_ex_async(
+        self,
+        request: twc_models.CreateIdentificationRealpersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateIdentificationRealpersonResponse:
+        """
+        Description: 发起实人认证，这是改造后的接口
+        Summary: 实人认证创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateIdentificationRealpersonResponse(),
+            await self.do_request_async('1.0', 'twc.notary.identification.realperson.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_identification_realperson(
+        self,
+        request: twc_models.QueryIdentificationRealpersonRequest,
+    ) -> twc_models.QueryIdentificationRealpersonResponse:
+        """
+        Description: 查询实人认证结果
+        Summary: 查询实人认证结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_identification_realperson_ex(request, headers, runtime)
+
+    async def query_identification_realperson_async(
+        self,
+        request: twc_models.QueryIdentificationRealpersonRequest,
+    ) -> twc_models.QueryIdentificationRealpersonResponse:
+        """
+        Description: 查询实人认证结果
+        Summary: 查询实人认证结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_identification_realperson_ex_async(request, headers, runtime)
+
+    def query_identification_realperson_ex(
+        self,
+        request: twc_models.QueryIdentificationRealpersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryIdentificationRealpersonResponse:
+        """
+        Description: 查询实人认证结果
+        Summary: 查询实人认证结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryIdentificationRealpersonResponse(),
+            self.do_request('1.0', 'twc.notary.identification.realperson.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_identification_realperson_ex_async(
+        self,
+        request: twc_models.QueryIdentificationRealpersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryIdentificationRealpersonResponse:
+        """
+        Description: 查询实人认证结果
+        Summary: 查询实人认证结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryIdentificationRealpersonResponse(),
+            await self.do_request_async('1.0', 'twc.notary.identification.realperson.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def save_jointconstraint_record(
         self,
         request: twc_models.SaveJointconstraintRecordRequest,
@@ -7389,6 +7673,566 @@ class Client:
         return TeaCore.from_map(
             twc_models.DownloadJusticeCasefileResponse(),
             await self.do_request_async('1.0', 'twc.notary.justice.casefile.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def open_internal_judicial(
+        self,
+        request: twc_models.OpenInternalJudicialRequest,
+    ) -> twc_models.OpenInternalJudicialResponse:
+        """
+        Description: 开通纠纷平台使用权限
+        Summary: 开通纠纷平台使用权限
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.open_internal_judicial_ex(request, headers, runtime)
+
+    async def open_internal_judicial_async(
+        self,
+        request: twc_models.OpenInternalJudicialRequest,
+    ) -> twc_models.OpenInternalJudicialResponse:
+        """
+        Description: 开通纠纷平台使用权限
+        Summary: 开通纠纷平台使用权限
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.open_internal_judicial_ex_async(request, headers, runtime)
+
+    def open_internal_judicial_ex(
+        self,
+        request: twc_models.OpenInternalJudicialRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.OpenInternalJudicialResponse:
+        """
+        Description: 开通纠纷平台使用权限
+        Summary: 开通纠纷平台使用权限
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.OpenInternalJudicialResponse(),
+            self.do_request('1.0', 'twc.notary.internal.judicial.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def open_internal_judicial_ex_async(
+        self,
+        request: twc_models.OpenInternalJudicialRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.OpenInternalJudicialResponse:
+        """
+        Description: 开通纠纷平台使用权限
+        Summary: 开通纠纷平台使用权限
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.OpenInternalJudicialResponse(),
+            await self.do_request_async('1.0', 'twc.notary.internal.judicial.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_justice_party(
+        self,
+        request: twc_models.SaveJusticePartyRequest,
+    ) -> twc_models.SaveJusticePartyResponse:
+        """
+        Description: 案件当事人信息保存
+        Summary: 案件当事人信息保存
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_justice_party_ex(request, headers, runtime)
+
+    async def save_justice_party_async(
+        self,
+        request: twc_models.SaveJusticePartyRequest,
+    ) -> twc_models.SaveJusticePartyResponse:
+        """
+        Description: 案件当事人信息保存
+        Summary: 案件当事人信息保存
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_justice_party_ex_async(request, headers, runtime)
+
+    def save_justice_party_ex(
+        self,
+        request: twc_models.SaveJusticePartyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SaveJusticePartyResponse:
+        """
+        Description: 案件当事人信息保存
+        Summary: 案件当事人信息保存
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SaveJusticePartyResponse(),
+            self.do_request('1.0', 'twc.notary.justice.party.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_justice_party_ex_async(
+        self,
+        request: twc_models.SaveJusticePartyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SaveJusticePartyResponse:
+        """
+        Description: 案件当事人信息保存
+        Summary: 案件当事人信息保存
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SaveJusticePartyResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.party.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_justice_normalcase(
+        self,
+        request: twc_models.CreateJusticeNormalcaseRequest,
+    ) -> twc_models.CreateJusticeNormalcaseResponse:
+        """
+        Description: 普通案件创建
+        Summary: 普通案件创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_justice_normalcase_ex(request, headers, runtime)
+
+    async def create_justice_normalcase_async(
+        self,
+        request: twc_models.CreateJusticeNormalcaseRequest,
+    ) -> twc_models.CreateJusticeNormalcaseResponse:
+        """
+        Description: 普通案件创建
+        Summary: 普通案件创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_justice_normalcase_ex_async(request, headers, runtime)
+
+    def create_justice_normalcase_ex(
+        self,
+        request: twc_models.CreateJusticeNormalcaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateJusticeNormalcaseResponse:
+        """
+        Description: 普通案件创建
+        Summary: 普通案件创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateJusticeNormalcaseResponse(),
+            self.do_request('1.0', 'twc.notary.justice.normalcase.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_justice_normalcase_ex_async(
+        self,
+        request: twc_models.CreateJusticeNormalcaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateJusticeNormalcaseResponse:
+        """
+        Description: 普通案件创建
+        Summary: 普通案件创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateJusticeNormalcaseResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.normalcase.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_justice_chaincase(
+        self,
+        request: twc_models.CreateJusticeChaincaseRequest,
+    ) -> twc_models.CreateJusticeChaincaseResponse:
+        """
+        Description: 链上案件创建
+        Summary: 链上案件创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_justice_chaincase_ex(request, headers, runtime)
+
+    async def create_justice_chaincase_async(
+        self,
+        request: twc_models.CreateJusticeChaincaseRequest,
+    ) -> twc_models.CreateJusticeChaincaseResponse:
+        """
+        Description: 链上案件创建
+        Summary: 链上案件创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_justice_chaincase_ex_async(request, headers, runtime)
+
+    def create_justice_chaincase_ex(
+        self,
+        request: twc_models.CreateJusticeChaincaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateJusticeChaincaseResponse:
+        """
+        Description: 链上案件创建
+        Summary: 链上案件创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateJusticeChaincaseResponse(),
+            self.do_request('1.0', 'twc.notary.justice.chaincase.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_justice_chaincase_ex_async(
+        self,
+        request: twc_models.CreateJusticeChaincaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateJusticeChaincaseResponse:
+        """
+        Description: 链上案件创建
+        Summary: 链上案件创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateJusticeChaincaseResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.chaincase.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_justice_case(
+        self,
+        request: twc_models.StartJusticeCaseRequest,
+    ) -> twc_models.StartJusticeCaseResponse:
+        """
+        Description: 案件维权发起
+        Summary: 案件维权发起
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_justice_case_ex(request, headers, runtime)
+
+    async def start_justice_case_async(
+        self,
+        request: twc_models.StartJusticeCaseRequest,
+    ) -> twc_models.StartJusticeCaseResponse:
+        """
+        Description: 案件维权发起
+        Summary: 案件维权发起
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_justice_case_ex_async(request, headers, runtime)
+
+    def start_justice_case_ex(
+        self,
+        request: twc_models.StartJusticeCaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.StartJusticeCaseResponse:
+        """
+        Description: 案件维权发起
+        Summary: 案件维权发起
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.StartJusticeCaseResponse(),
+            self.do_request('1.0', 'twc.notary.justice.case.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_justice_case_ex_async(
+        self,
+        request: twc_models.StartJusticeCaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.StartJusticeCaseResponse:
+        """
+        Description: 案件维权发起
+        Summary: 案件维权发起
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.StartJusticeCaseResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.case.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_justice_case(
+        self,
+        request: twc_models.QueryJusticeCaseRequest,
+    ) -> twc_models.QueryJusticeCaseResponse:
+        """
+        Description: 案件查询
+        Summary: 案件查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_justice_case_ex(request, headers, runtime)
+
+    async def query_justice_case_async(
+        self,
+        request: twc_models.QueryJusticeCaseRequest,
+    ) -> twc_models.QueryJusticeCaseResponse:
+        """
+        Description: 案件查询
+        Summary: 案件查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_justice_case_ex_async(request, headers, runtime)
+
+    def query_justice_case_ex(
+        self,
+        request: twc_models.QueryJusticeCaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryJusticeCaseResponse:
+        """
+        Description: 案件查询
+        Summary: 案件查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryJusticeCaseResponse(),
+            self.do_request('1.0', 'twc.notary.justice.case.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_justice_case_ex_async(
+        self,
+        request: twc_models.QueryJusticeCaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryJusticeCaseResponse:
+        """
+        Description: 案件查询
+        Summary: 案件查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryJusticeCaseResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.case.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_justice_event(
+        self,
+        request: twc_models.OperateJusticeEventRequest,
+    ) -> twc_models.OperateJusticeEventResponse:
+        """
+        Description: 案件事件响应
+        Summary: 案件事件响应
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_justice_event_ex(request, headers, runtime)
+
+    async def operate_justice_event_async(
+        self,
+        request: twc_models.OperateJusticeEventRequest,
+    ) -> twc_models.OperateJusticeEventResponse:
+        """
+        Description: 案件事件响应
+        Summary: 案件事件响应
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_justice_event_ex_async(request, headers, runtime)
+
+    def operate_justice_event_ex(
+        self,
+        request: twc_models.OperateJusticeEventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.OperateJusticeEventResponse:
+        """
+        Description: 案件事件响应
+        Summary: 案件事件响应
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.OperateJusticeEventResponse(),
+            self.do_request('1.0', 'twc.notary.justice.event.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_justice_event_ex_async(
+        self,
+        request: twc_models.OperateJusticeEventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.OperateJusticeEventResponse:
+        """
+        Description: 案件事件响应
+        Summary: 案件事件响应
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.OperateJusticeEventResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.event.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_justice_casetemplate(
+        self,
+        request: twc_models.CreateJusticeCasetemplateRequest,
+    ) -> twc_models.CreateJusticeCasetemplateResponse:
+        """
+        Description: 司法解纷平台API服务，创建案件要素模板接口
+        Summary: 创建案件要素模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_justice_casetemplate_ex(request, headers, runtime)
+
+    async def create_justice_casetemplate_async(
+        self,
+        request: twc_models.CreateJusticeCasetemplateRequest,
+    ) -> twc_models.CreateJusticeCasetemplateResponse:
+        """
+        Description: 司法解纷平台API服务，创建案件要素模板接口
+        Summary: 创建案件要素模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_justice_casetemplate_ex_async(request, headers, runtime)
+
+    def create_justice_casetemplate_ex(
+        self,
+        request: twc_models.CreateJusticeCasetemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateJusticeCasetemplateResponse:
+        """
+        Description: 司法解纷平台API服务，创建案件要素模板接口
+        Summary: 创建案件要素模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateJusticeCasetemplateResponse(),
+            self.do_request('1.0', 'twc.notary.justice.casetemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_justice_casetemplate_ex_async(
+        self,
+        request: twc_models.CreateJusticeCasetemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateJusticeCasetemplateResponse:
+        """
+        Description: 司法解纷平台API服务，创建案件要素模板接口
+        Summary: 创建案件要素模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateJusticeCasetemplateResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.casetemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_justice_rightprotecttemplate(
+        self,
+        request: twc_models.CreateJusticeRightprotecttemplateRequest,
+    ) -> twc_models.CreateJusticeRightprotecttemplateResponse:
+        """
+        Description: 司法解纷平台API服务，创建维权要素模板接口
+        Summary: 创建维权要素模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_justice_rightprotecttemplate_ex(request, headers, runtime)
+
+    async def create_justice_rightprotecttemplate_async(
+        self,
+        request: twc_models.CreateJusticeRightprotecttemplateRequest,
+    ) -> twc_models.CreateJusticeRightprotecttemplateResponse:
+        """
+        Description: 司法解纷平台API服务，创建维权要素模板接口
+        Summary: 创建维权要素模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_justice_rightprotecttemplate_ex_async(request, headers, runtime)
+
+    def create_justice_rightprotecttemplate_ex(
+        self,
+        request: twc_models.CreateJusticeRightprotecttemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateJusticeRightprotecttemplateResponse:
+        """
+        Description: 司法解纷平台API服务，创建维权要素模板接口
+        Summary: 创建维权要素模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateJusticeRightprotecttemplateResponse(),
+            self.do_request('1.0', 'twc.notary.justice.rightprotecttemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_justice_rightprotecttemplate_ex_async(
+        self,
+        request: twc_models.CreateJusticeRightprotecttemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateJusticeRightprotecttemplateResponse:
+        """
+        Description: 司法解纷平台API服务，创建维权要素模板接口
+        Summary: 创建维权要素模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateJusticeRightprotecttemplateResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.rightprotecttemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_justice_fileuploadurl(
+        self,
+        request: twc_models.GetJusticeFileuploadurlRequest,
+    ) -> twc_models.GetJusticeFileuploadurlResponse:
+        """
+        Description: 获取司法文件上传链接
+        Summary: 获取司法文件上传链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_justice_fileuploadurl_ex(request, headers, runtime)
+
+    async def get_justice_fileuploadurl_async(
+        self,
+        request: twc_models.GetJusticeFileuploadurlRequest,
+    ) -> twc_models.GetJusticeFileuploadurlResponse:
+        """
+        Description: 获取司法文件上传链接
+        Summary: 获取司法文件上传链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_justice_fileuploadurl_ex_async(request, headers, runtime)
+
+    def get_justice_fileuploadurl_ex(
+        self,
+        request: twc_models.GetJusticeFileuploadurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetJusticeFileuploadurlResponse:
+        """
+        Description: 获取司法文件上传链接
+        Summary: 获取司法文件上传链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.GetJusticeFileuploadurlResponse(),
+            self.do_request('1.0', 'twc.notary.justice.fileuploadurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_justice_fileuploadurl_ex_async(
+        self,
+        request: twc_models.GetJusticeFileuploadurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.GetJusticeFileuploadurlResponse:
+        """
+        Description: 获取司法文件上传链接
+        Summary: 获取司法文件上传链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.GetJusticeFileuploadurlResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.fileuploadurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_lease_productinfo(
@@ -9013,6 +9857,62 @@ class Client:
         return TeaCore.from_map(
             twc_models.QueryLeaseRentalverifyResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.rentalverify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_lease_installment(
+        self,
+        request: twc_models.QueryLeaseInstallmentRequest,
+    ) -> twc_models.QueryLeaseInstallmentResponse:
+        """
+        Description: 分期查询用户归还记录 资方还款 清分信息
+        Summary: 分期查询用户归还记录 资方还款 清分信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_lease_installment_ex(request, headers, runtime)
+
+    async def query_lease_installment_async(
+        self,
+        request: twc_models.QueryLeaseInstallmentRequest,
+    ) -> twc_models.QueryLeaseInstallmentResponse:
+        """
+        Description: 分期查询用户归还记录 资方还款 清分信息
+        Summary: 分期查询用户归还记录 资方还款 清分信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_lease_installment_ex_async(request, headers, runtime)
+
+    def query_lease_installment_ex(
+        self,
+        request: twc_models.QueryLeaseInstallmentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseInstallmentResponse:
+        """
+        Description: 分期查询用户归还记录 资方还款 清分信息
+        Summary: 分期查询用户归还记录 资方还款 清分信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryLeaseInstallmentResponse(),
+            self.do_request('1.0', 'twc.notary.lease.installment.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_lease_installment_ex_async(
+        self,
+        request: twc_models.QueryLeaseInstallmentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryLeaseInstallmentResponse:
+        """
+        Description: 分期查询用户归还记录 资方还款 清分信息
+        Summary: 分期查询用户归还记录 资方还款 清分信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryLeaseInstallmentResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.installment.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_witness_flow(
@@ -14109,4 +15009,340 @@ class Client:
         return TeaCore.from_map(
             twc_models.CreateStubClearingResponse(),
             await self.do_request_async('1.0', 'twc.notary.stub.clearing.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_flow_evidence(
+        self,
+        request: twc_models.ApplyFlowEvidenceRequest,
+    ) -> twc_models.ApplyFlowEvidenceResponse:
+        """
+        Description: 申请全流程证据包，包括链上证据包和链下证据包
+        Summary: 申请全流程证据包
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_flow_evidence_ex(request, headers, runtime)
+
+    async def apply_flow_evidence_async(
+        self,
+        request: twc_models.ApplyFlowEvidenceRequest,
+    ) -> twc_models.ApplyFlowEvidenceResponse:
+        """
+        Description: 申请全流程证据包，包括链上证据包和链下证据包
+        Summary: 申请全流程证据包
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_flow_evidence_ex_async(request, headers, runtime)
+
+    def apply_flow_evidence_ex(
+        self,
+        request: twc_models.ApplyFlowEvidenceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyFlowEvidenceResponse:
+        """
+        Description: 申请全流程证据包，包括链上证据包和链下证据包
+        Summary: 申请全流程证据包
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ApplyFlowEvidenceResponse(),
+            self.do_request('1.0', 'twc.notary.flow.evidence.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_flow_evidence_ex_async(
+        self,
+        request: twc_models.ApplyFlowEvidenceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyFlowEvidenceResponse:
+        """
+        Description: 申请全流程证据包，包括链上证据包和链下证据包
+        Summary: 申请全流程证据包
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ApplyFlowEvidenceResponse(),
+            await self.do_request_async('1.0', 'twc.notary.flow.evidence.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_flow_evidence(
+        self,
+        request: twc_models.QueryFlowEvidenceRequest,
+    ) -> twc_models.QueryFlowEvidenceResponse:
+        """
+        Description: 全流程证据包生成进度查询
+        Summary: 全流程证据包生成进度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_flow_evidence_ex(request, headers, runtime)
+
+    async def query_flow_evidence_async(
+        self,
+        request: twc_models.QueryFlowEvidenceRequest,
+    ) -> twc_models.QueryFlowEvidenceResponse:
+        """
+        Description: 全流程证据包生成进度查询
+        Summary: 全流程证据包生成进度查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_flow_evidence_ex_async(request, headers, runtime)
+
+    def query_flow_evidence_ex(
+        self,
+        request: twc_models.QueryFlowEvidenceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryFlowEvidenceResponse:
+        """
+        Description: 全流程证据包生成进度查询
+        Summary: 全流程证据包生成进度查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryFlowEvidenceResponse(),
+            self.do_request('1.0', 'twc.notary.flow.evidence.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_flow_evidence_ex_async(
+        self,
+        request: twc_models.QueryFlowEvidenceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryFlowEvidenceResponse:
+        """
+        Description: 全流程证据包生成进度查询
+        Summary: 全流程证据包生成进度查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryFlowEvidenceResponse(),
+            await self.do_request_async('1.0', 'twc.notary.flow.evidence.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_flow_auth(
+        self,
+        request: twc_models.ApplyFlowAuthRequest,
+    ) -> twc_models.ApplyFlowAuthResponse:
+        """
+        Description: 全流程证据授权码申请
+        Summary: 全流程证据授权码申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_flow_auth_ex(request, headers, runtime)
+
+    async def apply_flow_auth_async(
+        self,
+        request: twc_models.ApplyFlowAuthRequest,
+    ) -> twc_models.ApplyFlowAuthResponse:
+        """
+        Description: 全流程证据授权码申请
+        Summary: 全流程证据授权码申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_flow_auth_ex_async(request, headers, runtime)
+
+    def apply_flow_auth_ex(
+        self,
+        request: twc_models.ApplyFlowAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyFlowAuthResponse:
+        """
+        Description: 全流程证据授权码申请
+        Summary: 全流程证据授权码申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ApplyFlowAuthResponse(),
+            self.do_request('1.0', 'twc.notary.flow.auth.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_flow_auth_ex_async(
+        self,
+        request: twc_models.ApplyFlowAuthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ApplyFlowAuthResponse:
+        """
+        Description: 全流程证据授权码申请
+        Summary: 全流程证据授权码申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ApplyFlowAuthResponse(),
+            await self.do_request_async('1.0', 'twc.notary.flow.auth.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_flow_instance(
+        self,
+        request: twc_models.DetailFlowInstanceRequest,
+    ) -> twc_models.DetailFlowInstanceResponse:
+        """
+        Description: 全流程详情查询
+        Summary: 全流程详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_flow_instance_ex(request, headers, runtime)
+
+    async def detail_flow_instance_async(
+        self,
+        request: twc_models.DetailFlowInstanceRequest,
+    ) -> twc_models.DetailFlowInstanceResponse:
+        """
+        Description: 全流程详情查询
+        Summary: 全流程详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_flow_instance_ex_async(request, headers, runtime)
+
+    def detail_flow_instance_ex(
+        self,
+        request: twc_models.DetailFlowInstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.DetailFlowInstanceResponse:
+        """
+        Description: 全流程详情查询
+        Summary: 全流程详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.DetailFlowInstanceResponse(),
+            self.do_request('1.0', 'twc.notary.flow.instance.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_flow_instance_ex_async(
+        self,
+        request: twc_models.DetailFlowInstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.DetailFlowInstanceResponse:
+        """
+        Description: 全流程详情查询
+        Summary: 全流程详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.DetailFlowInstanceResponse(),
+            await self.do_request_async('1.0', 'twc.notary.flow.instance.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_contract(
+        self,
+        request: twc_models.CheckContractRequest,
+    ) -> twc_models.CheckContractResponse:
+        """
+        Description: 合约校验接口
+        Summary: 合约校验接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_contract_ex(request, headers, runtime)
+
+    async def check_contract_async(
+        self,
+        request: twc_models.CheckContractRequest,
+    ) -> twc_models.CheckContractResponse:
+        """
+        Description: 合约校验接口
+        Summary: 合约校验接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_contract_ex_async(request, headers, runtime)
+
+    def check_contract_ex(
+        self,
+        request: twc_models.CheckContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CheckContractResponse:
+        """
+        Description: 合约校验接口
+        Summary: 合约校验接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CheckContractResponse(),
+            self.do_request('1.0', 'twc.notary.contract.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_contract_ex_async(
+        self,
+        request: twc_models.CheckContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CheckContractResponse:
+        """
+        Description: 合约校验接口
+        Summary: 合约校验接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CheckContractResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_status(
+        self,
+        request: twc_models.QueryContractStatusRequest,
+    ) -> twc_models.QueryContractStatusResponse:
+        """
+        Description: 查询合约核验结果
+        Summary: 查询合约核验结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_status_ex(request, headers, runtime)
+
+    async def query_contract_status_async(
+        self,
+        request: twc_models.QueryContractStatusRequest,
+    ) -> twc_models.QueryContractStatusResponse:
+        """
+        Description: 查询合约核验结果
+        Summary: 查询合约核验结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_status_ex_async(request, headers, runtime)
+
+    def query_contract_status_ex(
+        self,
+        request: twc_models.QueryContractStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractStatusResponse:
+        """
+        Description: 查询合约核验结果
+        Summary: 查询合约核验结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractStatusResponse(),
+            self.do_request('1.0', 'twc.notary.contract.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_status_ex_async(
+        self,
+        request: twc_models.QueryContractStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractStatusResponse:
+        """
+        Description: 查询合约核验结果
+        Summary: 查询合约核验结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractStatusResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
