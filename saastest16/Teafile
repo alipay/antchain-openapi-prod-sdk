@@ -1,0 +1,71 @@
+{
+  "scope": "antchain",
+  "name": "SaasTest16",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.antgroup.antchain.openapi:openapi-saastest16:1.0.0",
+    "go": "github.com/antchain-openapi-sdk-go/saastest16/client:v0.0.1",
+    "csharp": "AntChain.SDK.SaasTest16:1.0.0",
+    "ts": "@antchain/saastest16:1.0.0",
+    "php": "antchain/saastest16:1.0.0",
+    "python": "antchain_sdk_saastest16:1.0.0"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AntchainUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.antgroup.antchain.openapi.saastest16",
+    "packageInfo": {
+      "description": "Ant Chain SaasTest16 SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "groupId": "com.antgroup.antchain.openapi",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.SaasTest16",
+    "packageInfo": {
+      "name": "saastest16",
+      "title": "antchain-saastest16",
+      "description": "Ant Chain SaasTest16 SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.SaasTest16",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/saastest16",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_saastest16",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_saastest16",
+      "desc": "Ant Chain SaasTest16 SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
