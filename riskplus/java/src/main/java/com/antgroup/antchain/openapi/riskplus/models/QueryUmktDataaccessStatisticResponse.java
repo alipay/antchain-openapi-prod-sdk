@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class ReceiveMdipParamsFileResponse extends TeaModel {
+public class QueryUmktDataaccessStatisticResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class ReceiveMdipParamsFileResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 文件上传结果
-    @NameInMap("content")
-    public RuntimeResult content;
+    // 回执统计结果
+    @NameInMap("statistic_result")
+    public StatisticResult statisticResult;
 
-    public static ReceiveMdipParamsFileResponse build(java.util.Map<String, ?> map) throws Exception {
-        ReceiveMdipParamsFileResponse self = new ReceiveMdipParamsFileResponse();
+    public static QueryUmktDataaccessStatisticResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryUmktDataaccessStatisticResponse self = new QueryUmktDataaccessStatisticResponse();
         return TeaModel.build(map, self);
     }
 
-    public ReceiveMdipParamsFileResponse setReqMsgId(String reqMsgId) {
+    public QueryUmktDataaccessStatisticResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class ReceiveMdipParamsFileResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ReceiveMdipParamsFileResponse setResultCode(String resultCode) {
+    public QueryUmktDataaccessStatisticResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class ReceiveMdipParamsFileResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ReceiveMdipParamsFileResponse setResultMsg(String resultMsg) {
+    public QueryUmktDataaccessStatisticResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class ReceiveMdipParamsFileResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ReceiveMdipParamsFileResponse setContent(RuntimeResult content) {
-        this.content = content;
+    public QueryUmktDataaccessStatisticResponse setStatisticResult(StatisticResult statisticResult) {
+        this.statisticResult = statisticResult;
         return this;
     }
-    public RuntimeResult getContent() {
-        return this.content;
+    public StatisticResult getStatisticResult() {
+        return this.statisticResult;
     }
 
 }

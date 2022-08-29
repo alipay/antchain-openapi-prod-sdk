@@ -16,6 +16,14 @@ public class VerifyDubbridgeCustomerBankcardResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 绑卡流水
+    @NameInMap("bind_serial_no")
+    public String bindSerialNo;
+
+    // 签约结果
+    @NameInMap("sign_result")
+    public String signResult;
+
     public static VerifyDubbridgeCustomerBankcardResponse build(java.util.Map<String, ?> map) throws Exception {
         VerifyDubbridgeCustomerBankcardResponse self = new VerifyDubbridgeCustomerBankcardResponse();
         return TeaModel.build(map, self);
@@ -43,6 +51,22 @@ public class VerifyDubbridgeCustomerBankcardResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public VerifyDubbridgeCustomerBankcardResponse setBindSerialNo(String bindSerialNo) {
+        this.bindSerialNo = bindSerialNo;
+        return this;
+    }
+    public String getBindSerialNo() {
+        return this.bindSerialNo;
+    }
+
+    public VerifyDubbridgeCustomerBankcardResponse setSignResult(String signResult) {
+        this.signResult = signResult;
+        return this;
+    }
+    public String getSignResult() {
+        return this.signResult;
     }
 
 }

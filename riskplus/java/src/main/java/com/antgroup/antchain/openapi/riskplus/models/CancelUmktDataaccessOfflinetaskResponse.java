@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class ReceiveMdipParamsFileResponse extends TeaModel {
+public class CancelUmktDataaccessOfflinetaskResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class ReceiveMdipParamsFileResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 文件上传结果
-    @NameInMap("content")
-    public RuntimeResult content;
-
-    public static ReceiveMdipParamsFileResponse build(java.util.Map<String, ?> map) throws Exception {
-        ReceiveMdipParamsFileResponse self = new ReceiveMdipParamsFileResponse();
+    public static CancelUmktDataaccessOfflinetaskResponse build(java.util.Map<String, ?> map) throws Exception {
+        CancelUmktDataaccessOfflinetaskResponse self = new CancelUmktDataaccessOfflinetaskResponse();
         return TeaModel.build(map, self);
     }
 
-    public ReceiveMdipParamsFileResponse setReqMsgId(String reqMsgId) {
+    public CancelUmktDataaccessOfflinetaskResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class ReceiveMdipParamsFileResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ReceiveMdipParamsFileResponse setResultCode(String resultCode) {
+    public CancelUmktDataaccessOfflinetaskResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class ReceiveMdipParamsFileResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ReceiveMdipParamsFileResponse setResultMsg(String resultMsg) {
+    public CancelUmktDataaccessOfflinetaskResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public ReceiveMdipParamsFileResponse setContent(RuntimeResult content) {
-        this.content = content;
-        return this;
-    }
-    public RuntimeResult getContent() {
-        return this.content;
     }
 
 }

@@ -32,7 +32,6 @@ public class BatchqueryUmktRtMarketingRequest extends TeaModel {
 
     // 访问类型，PROD/TEST，正式流量/测试流量
     @NameInMap("visit_type")
-    @Validation(required = true)
     public String visitType;
 
     public static BatchqueryUmktRtMarketingRequest build(java.util.Map<String, ?> map) throws Exception {

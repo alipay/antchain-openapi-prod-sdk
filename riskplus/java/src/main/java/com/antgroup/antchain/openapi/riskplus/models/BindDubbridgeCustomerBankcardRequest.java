@@ -17,9 +17,9 @@ public class BindDubbridgeCustomerBankcardRequest extends TeaModel {
     public String orderNo;
 
     // 客户编号
-    @NameInMap("custom_no")
+    @NameInMap("customer_no")
     @Validation(required = true)
-    public String customNo;
+    public String customerNo;
 
     // 银行卡号
     @NameInMap("bank_card_no")
@@ -60,12 +60,12 @@ public class BindDubbridgeCustomerBankcardRequest extends TeaModel {
         return this.orderNo;
     }
 
-    public BindDubbridgeCustomerBankcardRequest setCustomNo(String customNo) {
-        this.customNo = customNo;
+    public BindDubbridgeCustomerBankcardRequest setCustomerNo(String customerNo) {
+        this.customerNo = customerNo;
         return this;
     }
-    public String getCustomNo() {
-        return this.customNo;
+    public String getCustomerNo() {
+        return this.customerNo;
     }
 
     public BindDubbridgeCustomerBankcardRequest setBankCardNo(String bankCardNo) {

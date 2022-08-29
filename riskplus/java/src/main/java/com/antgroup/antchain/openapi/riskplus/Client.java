@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.11")
+                    new TeaPair("sdk_version", "1.12.14"),
+                    new TeaPair("_prod_code", "RISKPLUS"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -2407,6 +2409,44 @@ public class Client {
     public ApplyUmktRobotcallResponse applyUmktRobotcallEx(ApplyUmktRobotcallRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.robotcall.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyUmktRobotcallResponse());
+    }
+
+    /**
+     * Description: 营销盾查询回执统计数据接口
+     * Summary: 营销盾回执统计查询
+     */
+    public QueryUmktDataaccessStatisticResponse queryUmktDataaccessStatistic(QueryUmktDataaccessStatisticRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUmktDataaccessStatisticEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾查询回执统计数据接口
+     * Summary: 营销盾回执统计查询
+     */
+    public QueryUmktDataaccessStatisticResponse queryUmktDataaccessStatisticEx(QueryUmktDataaccessStatisticRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.dataaccess.statistic.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktDataaccessStatisticResponse());
+    }
+
+    /**
+     * Description: 营销盾离线批量任务取消接口
+     * Summary: 营销盾取消离线批量任务
+     */
+    public CancelUmktDataaccessOfflinetaskResponse cancelUmktDataaccessOfflinetask(CancelUmktDataaccessOfflinetaskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelUmktDataaccessOfflinetaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾离线批量任务取消接口
+     * Summary: 营销盾取消离线批量任务
+     */
+    public CancelUmktDataaccessOfflinetaskResponse cancelUmktDataaccessOfflinetaskEx(CancelUmktDataaccessOfflinetaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.dataaccess.offlinetask.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelUmktDataaccessOfflinetaskResponse());
     }
 
     /**

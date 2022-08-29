@@ -16,6 +16,10 @@ public class UploadUmktParamsFileResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 上传后返回的任务id
+    @NameInMap("task_id")
+    public Long taskId;
+
     public static UploadUmktParamsFileResponse build(java.util.Map<String, ?> map) throws Exception {
         UploadUmktParamsFileResponse self = new UploadUmktParamsFileResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class UploadUmktParamsFileResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public UploadUmktParamsFileResponse setTaskId(Long taskId) {
+        this.taskId = taskId;
+        return this;
+    }
+    public Long getTaskId() {
+        return this.taskId;
     }
 
 }

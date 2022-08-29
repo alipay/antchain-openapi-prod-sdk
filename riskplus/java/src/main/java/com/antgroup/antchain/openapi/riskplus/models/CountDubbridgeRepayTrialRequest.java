@@ -26,6 +26,11 @@ public class CountDubbridgeRepayTrialRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
+    // 借据号
+    @NameInMap("receipt_no")
+    @Validation(required = true)
+    public String receiptNo;
+
     public static CountDubbridgeRepayTrialRequest build(java.util.Map<String, ?> map) throws Exception {
         CountDubbridgeRepayTrialRequest self = new CountDubbridgeRepayTrialRequest();
         return TeaModel.build(map, self);
@@ -69,6 +74,14 @@ public class CountDubbridgeRepayTrialRequest extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
+    }
+
+    public CountDubbridgeRepayTrialRequest setReceiptNo(String receiptNo) {
+        this.receiptNo = receiptNo;
+        return this;
+    }
+    public String getReceiptNo() {
+        return this.receiptNo;
     }
 
 }
