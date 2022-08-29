@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'SaasTest16',
     _prod_channel = 'saas'
   };
@@ -195,7 +195,7 @@ model ServiceAntcloudOpenapiGatewayCheckResponse = {
 
 /**
  * Description: 检测金融云网关目前的健康状态
- * Summary: 网关健康检查
+ * Summary: 网关健康检查1
  */
 async function serviceAntcloudOpenapiGatewayCheck(request: ServiceAntcloudOpenapiGatewayCheckRequest): ServiceAntcloudOpenapiGatewayCheckResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -205,11 +205,45 @@ async function serviceAntcloudOpenapiGatewayCheck(request: ServiceAntcloudOpenap
 
 /**
  * Description: 检测金融云网关目前的健康状态
- * Summary: 网关健康检查
+ * Summary: 网关健康检查1
  */
 async function serviceAntcloudOpenapiGatewayCheckEx(request: ServiceAntcloudOpenapiGatewayCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ServiceAntcloudOpenapiGatewayCheckResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.openapi.gateway.check.service', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoGatewayCheckRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryDemoGatewayCheckResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: ceshi
+ * Summary: ss
+ */
+async function queryDemoGatewayCheck(request: QueryDemoGatewayCheckRequest): QueryDemoGatewayCheckResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoGatewayCheckEx(request, headers, runtime);
+}
+
+/**
+ * Description: ceshi
+ * Summary: ss
+ */
+async function queryDemoGatewayCheckEx(request: QueryDemoGatewayCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoGatewayCheckResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.check.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model InitDemoBbpInsuranceUserRequest = {
@@ -252,39 +286,5 @@ async function initDemoBbpInsuranceUser(request: InitDemoBbpInsuranceUserRequest
 async function initDemoBbpInsuranceUserEx(request: InitDemoBbpInsuranceUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitDemoBbpInsuranceUserResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.bbp.insurance.user.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryDemoGatewayCheckRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-}
-
-model QueryDemoGatewayCheckResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: ceshi
- * Summary: ss
- */
-async function queryDemoGatewayCheck(request: QueryDemoGatewayCheckRequest): QueryDemoGatewayCheckResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryDemoGatewayCheckEx(request, headers, runtime);
-}
-
-/**
- * Description: ceshi
- * Summary: ss
- */
-async function queryDemoGatewayCheckEx(request: QueryDemoGatewayCheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoGatewayCheckResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.gateway.check.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
