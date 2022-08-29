@@ -371,6 +371,39 @@ export class RtopRiskTag extends $tea.Model {
   }
 }
 
+// 回执统计数据详情
+export class StatisticInfoDetail extends $tea.Model {
+  // actionDriverCode类型
+  actionDriverCode: number;
+  // 调用总数
+  invokeCount: number;
+  // 成功数
+  successCount: number;
+  // 失败数
+  failCount: number;
+  static names(): { [key: string]: string } {
+    return {
+      actionDriverCode: 'action_driver_code',
+      invokeCount: 'invoke_count',
+      successCount: 'success_count',
+      failCount: 'fail_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      actionDriverCode: 'number',
+      invokeCount: 'number',
+      successCount: 'number',
+      failCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 天枢系统专用ReceiptInfo结构体
 export class ReceiptInfo extends $tea.Model {
   // 客户名
@@ -1275,6 +1308,39 @@ export class RtopCompanyFeedback extends $tea.Model {
   }
 }
 
+// 上传文件运行结果
+export class RuntimeResult extends $tea.Model {
+  // 上传成功
+  code: number;
+  // true代表上传成功，false代表上传失败
+  success: boolean;
+  // 上文件传成功
+  resultmsg: string;
+  // 文件上传结果
+  data: string;
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      success: 'success',
+      resultmsg: 'resultmsg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'number',
+      success: 'boolean',
+      resultmsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 监测企业的特征信息
 export class RtopMonitorCompanyFeature extends $tea.Model {
   // 特征的描述
@@ -1772,6 +1838,31 @@ export class RtopCrowdRiskSummaryResp extends $tea.Model {
       registeredCity: 'string',
       registeredCounty: 'string',
       registeredProvince: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 回执统计结果
+export class StatisticResult extends $tea.Model {
+  // 有效任务总数量
+  validCount: number;
+  // 各类actionDriverCode的统计结果集合
+  statisticInfoDetailList: StatisticInfoDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      validCount: 'valid_count',
+      statisticInfoDetailList: 'statistic_info_detail_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      validCount: 'number',
+      statisticInfoDetailList: { 'type': 'array', 'itemType': StatisticInfoDetail },
     };
   }
 
@@ -5551,7 +5642,7 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
   // 订单号
   orderNo: string;
   // 客户编号
-  customNo: string;
+  customerNo: string;
   // 银行卡号
   bankCardNo: string;
   // 渠道描述，具体请见分配
@@ -5561,7 +5652,7 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderNo: 'order_no',
-      customNo: 'custom_no',
+      customerNo: 'customer_no',
       bankCardNo: 'bank_card_no',
       channelCode: 'channel_code',
     };
@@ -5572,7 +5663,7 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       orderNo: 'string',
-      customNo: 'string',
+      customerNo: 'string',
       bankCardNo: 'string',
       channelCode: 'string',
     };
@@ -5619,10 +5710,22 @@ export class VerifyDubbridgeCustomerBankcardRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 订单号
+  orderNo?: string;
+  // 客户号
+  customNo?: string;
+  // 绑卡流水
+  bindSerialNo: string;
+  // 绑卡验证码
+  bindValidCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      customNo: 'custom_no',
+      bindSerialNo: 'bind_serial_no',
+      bindValidCode: 'bind_valid_code',
     };
   }
 
@@ -5630,6 +5733,10 @@ export class VerifyDubbridgeCustomerBankcardRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      orderNo: 'string',
+      customNo: 'string',
+      bindSerialNo: 'string',
+      bindValidCode: 'string',
     };
   }
 
@@ -5645,11 +5752,17 @@ export class VerifyDubbridgeCustomerBankcardResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 绑卡流水
+  bindSerialNo?: string;
+  // 签约结果
+  signResult?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      bindSerialNo: 'bind_serial_no',
+      signResult: 'sign_result',
     };
   }
 
@@ -5658,6 +5771,8 @@ export class VerifyDubbridgeCustomerBankcardResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      bindSerialNo: 'string',
+      signResult: 'string',
     };
   }
 
@@ -7023,6 +7138,8 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
   repayType: string;
   // 订单号
   orderNo: string;
+  // 借据号
+  receiptNo: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7030,6 +7147,7 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
       originalOrderNo: 'original_order_no',
       repayType: 'repay_type',
       orderNo: 'order_no',
+      receiptNo: 'receipt_no',
     };
   }
 
@@ -7040,6 +7158,7 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
       originalOrderNo: 'string',
       repayType: 'string',
       orderNo: 'string',
+      receiptNo: 'string',
     };
   }
 
@@ -7684,11 +7803,14 @@ export class ReceiveMdipParamsFileResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 文件上传结果
+  content?: RuntimeResult;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      content: 'content',
     };
   }
 
@@ -7697,6 +7819,7 @@ export class ReceiveMdipParamsFileResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      content: RuntimeResult,
     };
   }
 
@@ -11676,11 +11799,14 @@ export class UploadUmktParamsFileResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 上传后返回的任务id
+  taskId?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      taskId: 'task_id',
     };
   }
 
@@ -11689,6 +11815,7 @@ export class UploadUmktParamsFileResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      taskId: 'number',
     };
   }
 
@@ -11710,7 +11837,7 @@ export class BatchqueryUmktRtMarketingRequest extends $tea.Model {
   // 业务方流水号
   bizSerialNo: string;
   // 访问类型，PROD/TEST，正式流量/测试流量
-  visitType: string;
+  visitType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -12131,6 +12258,120 @@ export class ApplyUmktRobotcallResponse extends $tea.Model {
   }
 }
 
+export class QueryUmktDataaccessStatisticRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询回执统计的任务id
+  taskId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktDataaccessStatisticResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 回执统计结果
+  statisticResult?: StatisticResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      statisticResult: 'statistic_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      statisticResult: StatisticResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelUmktDataaccessOfflinetaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 离线批量任务id
+  taskId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelUmktDataaccessOfflinetaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -12332,7 +12573,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.11",
+          sdk_version: "1.12.14",
+          _prod_code: "RISKPLUS",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -14626,6 +14869,44 @@ export default class Client {
   async applyUmktRobotcallEx(request: ApplyUmktRobotcallRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyUmktRobotcallResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyUmktRobotcallResponse>(await this.doRequest("1.0", "riskplus.umkt.robotcall.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyUmktRobotcallResponse({}));
+  }
+
+  /**
+   * Description: 营销盾查询回执统计数据接口
+   * Summary: 营销盾回执统计查询
+   */
+  async queryUmktDataaccessStatistic(request: QueryUmktDataaccessStatisticRequest): Promise<QueryUmktDataaccessStatisticResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUmktDataaccessStatisticEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾查询回执统计数据接口
+   * Summary: 营销盾回执统计查询
+   */
+  async queryUmktDataaccessStatisticEx(request: QueryUmktDataaccessStatisticRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktDataaccessStatisticResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUmktDataaccessStatisticResponse>(await this.doRequest("1.0", "riskplus.umkt.dataaccess.statistic.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktDataaccessStatisticResponse({}));
+  }
+
+  /**
+   * Description: 营销盾离线批量任务取消接口
+   * Summary: 营销盾取消离线批量任务
+   */
+  async cancelUmktDataaccessOfflinetask(request: CancelUmktDataaccessOfflinetaskRequest): Promise<CancelUmktDataaccessOfflinetaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelUmktDataaccessOfflinetaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾离线批量任务取消接口
+   * Summary: 营销盾取消离线批量任务
+   */
+  async cancelUmktDataaccessOfflinetaskEx(request: CancelUmktDataaccessOfflinetaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelUmktDataaccessOfflinetaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelUmktDataaccessOfflinetaskResponse>(await this.doRequest("1.0", "riskplus.umkt.dataaccess.offlinetask.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelUmktDataaccessOfflinetaskResponse({}));
   }
 
   /**
