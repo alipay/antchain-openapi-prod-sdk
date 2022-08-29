@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.53")
+                    new TeaPair("sdk_version", "1.7.71"),
+                    new TeaPair("_prod_code", "TWC"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -1969,6 +1971,63 @@ public class Client {
     }
 
     /**
+     * Description: 文本签名
+     * Summary: 文本签接口
+     */
+    public GetContractTextsignResponse getContractTextsign(GetContractTextsignRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getContractTextsignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 文本签名
+     * Summary: 文本签接口
+     */
+    public GetContractTextsignResponse getContractTextsignEx(GetContractTextsignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.textsign.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetContractTextsignResponse());
+    }
+
+    /**
+     * Description: 文本验签
+     * Summary: 文本验签接口
+     */
+    public VerifyContractTextsignResponse verifyContractTextsign(VerifyContractTextsignRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyContractTextsignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 文本验签
+     * Summary: 文本验签接口
+     */
+    public VerifyContractTextsignResponse verifyContractTextsignEx(VerifyContractTextsignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.textsign.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyContractTextsignResponse());
+    }
+
+    /**
+     * Description: 文件签验签
+     * Summary: 文件签验签
+     */
+    public VerifyContractDocsignResponse verifyContractDocsign(VerifyContractDocsignRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyContractDocsignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 文件签验签
+     * Summary: 文件签验签
+     */
+    public VerifyContractDocsignResponse verifyContractDocsignEx(VerifyContractDocsignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.docsign.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyContractDocsignResponse());
+    }
+
+    /**
      * Description: baas-notary向notarycore同步生成的事务数据，仅做数据同步使用
      * Summary: 向notarycore同步事务数据
      */
@@ -2387,6 +2446,44 @@ public class Client {
     }
 
     /**
+     * Description: 发起实人认证，这是改造后的接口
+     * Summary: 实人认证创建
+     */
+    public CreateIdentificationRealpersonResponse createIdentificationRealperson(CreateIdentificationRealpersonRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createIdentificationRealpersonEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 发起实人认证，这是改造后的接口
+     * Summary: 实人认证创建
+     */
+    public CreateIdentificationRealpersonResponse createIdentificationRealpersonEx(CreateIdentificationRealpersonRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.identification.realperson.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateIdentificationRealpersonResponse());
+    }
+
+    /**
+     * Description: 查询实人认证结果
+     * Summary: 查询实人认证结果
+     */
+    public QueryIdentificationRealpersonResponse queryIdentificationRealperson(QueryIdentificationRealpersonRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIdentificationRealpersonEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询实人认证结果
+     * Summary: 查询实人认证结果
+     */
+    public QueryIdentificationRealpersonResponse queryIdentificationRealpersonEx(QueryIdentificationRealpersonRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.identification.realperson.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIdentificationRealpersonResponse());
+    }
+
+    /**
      * Description: 新增/修改履行记录，依据contractCode与contractFulfillmentCode判断唯一性
      * Summary: 联合执行履行记录新增/修改接口
      */
@@ -2574,6 +2671,196 @@ public class Client {
     public DownloadJusticeCasefileResponse downloadJusticeCasefileEx(DownloadJusticeCasefileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.casefile.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadJusticeCasefileResponse());
+    }
+
+    /**
+     * Description: 开通纠纷平台使用权限
+     * Summary: 开通纠纷平台使用权限
+     */
+    public OpenInternalJudicialResponse openInternalJudicial(OpenInternalJudicialRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.openInternalJudicialEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 开通纠纷平台使用权限
+     * Summary: 开通纠纷平台使用权限
+     */
+    public OpenInternalJudicialResponse openInternalJudicialEx(OpenInternalJudicialRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.internal.judicial.open", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OpenInternalJudicialResponse());
+    }
+
+    /**
+     * Description: 案件当事人信息保存
+     * Summary: 案件当事人信息保存
+     */
+    public SaveJusticePartyResponse saveJusticeParty(SaveJusticePartyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveJusticePartyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 案件当事人信息保存
+     * Summary: 案件当事人信息保存
+     */
+    public SaveJusticePartyResponse saveJusticePartyEx(SaveJusticePartyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.party.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveJusticePartyResponse());
+    }
+
+    /**
+     * Description: 普通案件创建
+     * Summary: 普通案件创建
+     */
+    public CreateJusticeNormalcaseResponse createJusticeNormalcase(CreateJusticeNormalcaseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createJusticeNormalcaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 普通案件创建
+     * Summary: 普通案件创建
+     */
+    public CreateJusticeNormalcaseResponse createJusticeNormalcaseEx(CreateJusticeNormalcaseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.normalcase.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateJusticeNormalcaseResponse());
+    }
+
+    /**
+     * Description: 链上案件创建
+     * Summary: 链上案件创建
+     */
+    public CreateJusticeChaincaseResponse createJusticeChaincase(CreateJusticeChaincaseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createJusticeChaincaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 链上案件创建
+     * Summary: 链上案件创建
+     */
+    public CreateJusticeChaincaseResponse createJusticeChaincaseEx(CreateJusticeChaincaseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.chaincase.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateJusticeChaincaseResponse());
+    }
+
+    /**
+     * Description: 案件维权发起
+     * Summary: 案件维权发起
+     */
+    public StartJusticeCaseResponse startJusticeCase(StartJusticeCaseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startJusticeCaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 案件维权发起
+     * Summary: 案件维权发起
+     */
+    public StartJusticeCaseResponse startJusticeCaseEx(StartJusticeCaseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.case.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartJusticeCaseResponse());
+    }
+
+    /**
+     * Description: 案件查询
+     * Summary: 案件查询
+     */
+    public QueryJusticeCaseResponse queryJusticeCase(QueryJusticeCaseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryJusticeCaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 案件查询
+     * Summary: 案件查询
+     */
+    public QueryJusticeCaseResponse queryJusticeCaseEx(QueryJusticeCaseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.case.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryJusticeCaseResponse());
+    }
+
+    /**
+     * Description: 案件事件响应
+     * Summary: 案件事件响应
+     */
+    public OperateJusticeEventResponse operateJusticeEvent(OperateJusticeEventRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateJusticeEventEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 案件事件响应
+     * Summary: 案件事件响应
+     */
+    public OperateJusticeEventResponse operateJusticeEventEx(OperateJusticeEventRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.event.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateJusticeEventResponse());
+    }
+
+    /**
+     * Description: 司法解纷平台API服务，创建案件要素模板接口
+     * Summary: 创建案件要素模板
+     */
+    public CreateJusticeCasetemplateResponse createJusticeCasetemplate(CreateJusticeCasetemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createJusticeCasetemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 司法解纷平台API服务，创建案件要素模板接口
+     * Summary: 创建案件要素模板
+     */
+    public CreateJusticeCasetemplateResponse createJusticeCasetemplateEx(CreateJusticeCasetemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.casetemplate.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateJusticeCasetemplateResponse());
+    }
+
+    /**
+     * Description: 司法解纷平台API服务，创建维权要素模板接口
+     * Summary: 创建维权要素模板
+     */
+    public CreateJusticeRightprotecttemplateResponse createJusticeRightprotecttemplate(CreateJusticeRightprotecttemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createJusticeRightprotecttemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 司法解纷平台API服务，创建维权要素模板接口
+     * Summary: 创建维权要素模板
+     */
+    public CreateJusticeRightprotecttemplateResponse createJusticeRightprotecttemplateEx(CreateJusticeRightprotecttemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.rightprotecttemplate.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateJusticeRightprotecttemplateResponse());
+    }
+
+    /**
+     * Description: 获取司法文件上传链接
+     * Summary: 获取司法文件上传链接
+     */
+    public GetJusticeFileuploadurlResponse getJusticeFileuploadurl(GetJusticeFileuploadurlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getJusticeFileuploadurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取司法文件上传链接
+     * Summary: 获取司法文件上传链接
+     */
+    public GetJusticeFileuploadurlResponse getJusticeFileuploadurlEx(GetJusticeFileuploadurlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.fileuploadurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetJusticeFileuploadurlResponse());
     }
 
     /**
@@ -3125,6 +3412,25 @@ public class Client {
     public QueryLeaseRentalverifyResponse queryLeaseRentalverifyEx(QueryLeaseRentalverifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.rentalverify.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseRentalverifyResponse());
+    }
+
+    /**
+     * Description: 分期查询用户归还记录 资方还款 清分信息
+     * Summary: 分期查询用户归还记录 资方还款 清分信息
+     */
+    public QueryLeaseInstallmentResponse queryLeaseInstallment(QueryLeaseInstallmentRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLeaseInstallmentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分期查询用户归还记录 资方还款 清分信息
+     * Summary: 分期查询用户归还记录 资方还款 清分信息
+     */
+    public QueryLeaseInstallmentResponse queryLeaseInstallmentEx(QueryLeaseInstallmentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.installment.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseInstallmentResponse());
     }
 
     /**
@@ -4854,5 +5160,119 @@ public class Client {
     public CreateStubClearingResponse createStubClearingEx(CreateStubClearingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.stub.clearing.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateStubClearingResponse());
+    }
+
+    /**
+     * Description: 申请全流程证据包，包括链上证据包和链下证据包
+     * Summary: 申请全流程证据包
+     */
+    public ApplyFlowEvidenceResponse applyFlowEvidence(ApplyFlowEvidenceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyFlowEvidenceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 申请全流程证据包，包括链上证据包和链下证据包
+     * Summary: 申请全流程证据包
+     */
+    public ApplyFlowEvidenceResponse applyFlowEvidenceEx(ApplyFlowEvidenceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.evidence.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyFlowEvidenceResponse());
+    }
+
+    /**
+     * Description: 全流程证据包生成进度查询
+     * Summary: 全流程证据包生成进度查询
+     */
+    public QueryFlowEvidenceResponse queryFlowEvidence(QueryFlowEvidenceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFlowEvidenceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 全流程证据包生成进度查询
+     * Summary: 全流程证据包生成进度查询
+     */
+    public QueryFlowEvidenceResponse queryFlowEvidenceEx(QueryFlowEvidenceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.evidence.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFlowEvidenceResponse());
+    }
+
+    /**
+     * Description: 全流程证据授权码申请
+     * Summary: 全流程证据授权码申请
+     */
+    public ApplyFlowAuthResponse applyFlowAuth(ApplyFlowAuthRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyFlowAuthEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 全流程证据授权码申请
+     * Summary: 全流程证据授权码申请
+     */
+    public ApplyFlowAuthResponse applyFlowAuthEx(ApplyFlowAuthRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.auth.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyFlowAuthResponse());
+    }
+
+    /**
+     * Description: 全流程详情查询
+     * Summary: 全流程详情查询
+     */
+    public DetailFlowInstanceResponse detailFlowInstance(DetailFlowInstanceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailFlowInstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 全流程详情查询
+     * Summary: 全流程详情查询
+     */
+    public DetailFlowInstanceResponse detailFlowInstanceEx(DetailFlowInstanceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.flow.instance.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailFlowInstanceResponse());
+    }
+
+    /**
+     * Description: 合约校验接口
+     * Summary: 合约校验接口
+     */
+    public CheckContractResponse checkContract(CheckContractRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkContractEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 合约校验接口
+     * Summary: 合约校验接口
+     */
+    public CheckContractResponse checkContractEx(CheckContractRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckContractResponse());
+    }
+
+    /**
+     * Description: 查询合约核验结果
+     * Summary: 查询合约核验结果
+     */
+    public QueryContractStatusResponse queryContractStatus(QueryContractStatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContractStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询合约核验结果
+     * Summary: 查询合约核验结果
+     */
+    public QueryContractStatusResponse queryContractStatusEx(QueryContractStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractStatusResponse());
     }
 }

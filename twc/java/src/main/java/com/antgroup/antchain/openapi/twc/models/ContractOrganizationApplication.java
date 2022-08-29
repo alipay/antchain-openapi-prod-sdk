@@ -9,7 +9,7 @@ public class ContractOrganizationApplication extends TeaModel {
     @Validation(required = true)
     public String idNumber;
 
-    // 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://tech.antfin.com/docs/2/155166）
+    // 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://antchain.antgroup.com/docs/2/424437#）
     @NameInMap("id_type")
     @Validation(required = true)
     public String idType;
