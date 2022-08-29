@@ -137,7 +137,7 @@ namespace AntChain.SDK.SaasTest16
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "SaasTest16"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SaasTest16
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "SaasTest16"},
                         {"_prod_channel", "saas"},
                     };
@@ -323,7 +323,7 @@ namespace AntChain.SDK.SaasTest16
 
         /**
          * Description: 检测金融云网关目前的健康状态
-         * Summary: 网关健康检查
+         * Summary: 网关健康检查1
          */
         public ServiceAntcloudOpenapiGatewayCheckResponse ServiceAntcloudOpenapiGatewayCheck(ServiceAntcloudOpenapiGatewayCheckRequest request)
         {
@@ -334,7 +334,7 @@ namespace AntChain.SDK.SaasTest16
 
         /**
          * Description: 检测金融云网关目前的健康状态
-         * Summary: 网关健康检查
+         * Summary: 网关健康检查1
          */
         public async Task<ServiceAntcloudOpenapiGatewayCheckResponse> ServiceAntcloudOpenapiGatewayCheckAsync(ServiceAntcloudOpenapiGatewayCheckRequest request)
         {
@@ -345,7 +345,7 @@ namespace AntChain.SDK.SaasTest16
 
         /**
          * Description: 检测金融云网关目前的健康状态
-         * Summary: 网关健康检查
+         * Summary: 网关健康检查1
          */
         public ServiceAntcloudOpenapiGatewayCheckResponse ServiceAntcloudOpenapiGatewayCheckEx(ServiceAntcloudOpenapiGatewayCheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -355,54 +355,12 @@ namespace AntChain.SDK.SaasTest16
 
         /**
          * Description: 检测金融云网关目前的健康状态
-         * Summary: 网关健康检查
+         * Summary: 网关健康检查1
          */
         public async Task<ServiceAntcloudOpenapiGatewayCheckResponse> ServiceAntcloudOpenapiGatewayCheckExAsync(ServiceAntcloudOpenapiGatewayCheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ServiceAntcloudOpenapiGatewayCheckResponse>(await DoRequestAsync("1.0", "antcloud.openapi.gateway.check.service", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 保司用户埋点信息
-         * Summary: 用户登陆页面埋点
-         */
-        public InitDemoBbpInsuranceUserResponse InitDemoBbpInsuranceUser(InitDemoBbpInsuranceUserRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return InitDemoBbpInsuranceUserEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 保司用户埋点信息
-         * Summary: 用户登陆页面埋点
-         */
-        public async Task<InitDemoBbpInsuranceUserResponse> InitDemoBbpInsuranceUserAsync(InitDemoBbpInsuranceUserRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await InitDemoBbpInsuranceUserExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 保司用户埋点信息
-         * Summary: 用户登陆页面埋点
-         */
-        public InitDemoBbpInsuranceUserResponse InitDemoBbpInsuranceUserEx(InitDemoBbpInsuranceUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<InitDemoBbpInsuranceUserResponse>(DoRequest("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 保司用户埋点信息
-         * Summary: 用户登陆页面埋点
-         */
-        public async Task<InitDemoBbpInsuranceUserResponse> InitDemoBbpInsuranceUserExAsync(InitDemoBbpInsuranceUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<InitDemoBbpInsuranceUserResponse>(await DoRequestAsync("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -445,6 +403,48 @@ namespace AntChain.SDK.SaasTest16
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDemoGatewayCheckResponse>(await DoRequestAsync("1.0", "demo.gateway.check.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 保司用户埋点信息
+         * Summary: 用户登陆页面埋点
+         */
+        public InitDemoBbpInsuranceUserResponse InitDemoBbpInsuranceUser(InitDemoBbpInsuranceUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitDemoBbpInsuranceUserEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 保司用户埋点信息
+         * Summary: 用户登陆页面埋点
+         */
+        public async Task<InitDemoBbpInsuranceUserResponse> InitDemoBbpInsuranceUserAsync(InitDemoBbpInsuranceUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitDemoBbpInsuranceUserExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 保司用户埋点信息
+         * Summary: 用户登陆页面埋点
+         */
+        public InitDemoBbpInsuranceUserResponse InitDemoBbpInsuranceUserEx(InitDemoBbpInsuranceUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitDemoBbpInsuranceUserResponse>(DoRequest("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 保司用户埋点信息
+         * Summary: 用户登陆页面埋点
+         */
+        public async Task<InitDemoBbpInsuranceUserResponse> InitDemoBbpInsuranceUserExAsync(InitDemoBbpInsuranceUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitDemoBbpInsuranceUserResponse>(await DoRequestAsync("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
