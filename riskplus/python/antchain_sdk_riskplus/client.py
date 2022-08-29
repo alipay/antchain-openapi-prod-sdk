@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.11'
+                    'sdk_version': '1.12.14',
+                    '_prod_code': 'RISKPLUS',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.11'
+                    'sdk_version': '1.12.14',
+                    '_prod_code': 'RISKPLUS',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -6815,6 +6819,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.ApplyUmktRobotcallResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.robotcall.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_umkt_dataaccess_statistic(
+        self,
+        request: riskplus_models.QueryUmktDataaccessStatisticRequest,
+    ) -> riskplus_models.QueryUmktDataaccessStatisticResponse:
+        """
+        Description: 营销盾查询回执统计数据接口
+        Summary: 营销盾回执统计查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_umkt_dataaccess_statistic_ex(request, headers, runtime)
+
+    async def query_umkt_dataaccess_statistic_async(
+        self,
+        request: riskplus_models.QueryUmktDataaccessStatisticRequest,
+    ) -> riskplus_models.QueryUmktDataaccessStatisticResponse:
+        """
+        Description: 营销盾查询回执统计数据接口
+        Summary: 营销盾回执统计查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_umkt_dataaccess_statistic_ex_async(request, headers, runtime)
+
+    def query_umkt_dataaccess_statistic_ex(
+        self,
+        request: riskplus_models.QueryUmktDataaccessStatisticRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktDataaccessStatisticResponse:
+        """
+        Description: 营销盾查询回执统计数据接口
+        Summary: 营销盾回执统计查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktDataaccessStatisticResponse(),
+            self.do_request('1.0', 'riskplus.umkt.dataaccess.statistic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_umkt_dataaccess_statistic_ex_async(
+        self,
+        request: riskplus_models.QueryUmktDataaccessStatisticRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktDataaccessStatisticResponse:
+        """
+        Description: 营销盾查询回执统计数据接口
+        Summary: 营销盾回执统计查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktDataaccessStatisticResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.dataaccess.statistic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_umkt_dataaccess_offlinetask(
+        self,
+        request: riskplus_models.CancelUmktDataaccessOfflinetaskRequest,
+    ) -> riskplus_models.CancelUmktDataaccessOfflinetaskResponse:
+        """
+        Description: 营销盾离线批量任务取消接口
+        Summary: 营销盾取消离线批量任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_umkt_dataaccess_offlinetask_ex(request, headers, runtime)
+
+    async def cancel_umkt_dataaccess_offlinetask_async(
+        self,
+        request: riskplus_models.CancelUmktDataaccessOfflinetaskRequest,
+    ) -> riskplus_models.CancelUmktDataaccessOfflinetaskResponse:
+        """
+        Description: 营销盾离线批量任务取消接口
+        Summary: 营销盾取消离线批量任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_umkt_dataaccess_offlinetask_ex_async(request, headers, runtime)
+
+    def cancel_umkt_dataaccess_offlinetask_ex(
+        self,
+        request: riskplus_models.CancelUmktDataaccessOfflinetaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CancelUmktDataaccessOfflinetaskResponse:
+        """
+        Description: 营销盾离线批量任务取消接口
+        Summary: 营销盾取消离线批量任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CancelUmktDataaccessOfflinetaskResponse(),
+            self.do_request('1.0', 'riskplus.umkt.dataaccess.offlinetask.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_umkt_dataaccess_offlinetask_ex_async(
+        self,
+        request: riskplus_models.CancelUmktDataaccessOfflinetaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CancelUmktDataaccessOfflinetaskResponse:
+        """
+        Description: 营销盾离线批量任务取消接口
+        Summary: 营销盾取消离线批量任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CancelUmktDataaccessOfflinetaskResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.dataaccess.offlinetask.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
