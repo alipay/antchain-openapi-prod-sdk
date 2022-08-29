@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.7',
+                    'sdk_version': '1.16.18',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.7',
+                    'sdk_version': '1.16.18',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -2515,6 +2515,62 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bccr.dci.payresult.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def refuse_dci_registration(
+        self,
+        request: bccr_models.RefuseDciRegistrationRequest,
+    ) -> bccr_models.RefuseDciRegistrationResponse:
+        """
+        Description: dci数登审核失败结果回调
+        Summary: dci数登审核失败结果回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.refuse_dci_registration_ex(request, headers, runtime)
+
+    async def refuse_dci_registration_async(
+        self,
+        request: bccr_models.RefuseDciRegistrationRequest,
+    ) -> bccr_models.RefuseDciRegistrationResponse:
+        """
+        Description: dci数登审核失败结果回调
+        Summary: dci数登审核失败结果回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.refuse_dci_registration_ex_async(request, headers, runtime)
+
+    def refuse_dci_registration_ex(
+        self,
+        request: bccr_models.RefuseDciRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.RefuseDciRegistrationResponse:
+        """
+        Description: dci数登审核失败结果回调
+        Summary: dci数登审核失败结果回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.RefuseDciRegistrationResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.registration.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def refuse_dci_registration_ex_async(
+        self,
+        request: bccr_models.RefuseDciRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.RefuseDciRegistrationResponse:
+        """
+        Description: dci数登审核失败结果回调
+        Summary: dci数登审核失败结果回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.RefuseDciRegistrationResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.registration.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def add_content(
         self,
         request: bccr_models.AddContentRequest,
@@ -2571,60 +2627,60 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bccr.content.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_content(
+    def query_content_status(
         self,
-        request: bccr_models.QueryContentRequest,
-    ) -> bccr_models.QueryContentResponse:
+        request: bccr_models.QueryContentStatusRequest,
+    ) -> bccr_models.QueryContentStatusResponse:
         """
         Description: 查询视频内容状态
-        Summary: 查询视频内容
+        Summary: 查询视频内容状态
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_content_ex(request, headers, runtime)
+        return self.query_content_status_ex(request, headers, runtime)
 
-    async def query_content_async(
+    async def query_content_status_async(
         self,
-        request: bccr_models.QueryContentRequest,
-    ) -> bccr_models.QueryContentResponse:
+        request: bccr_models.QueryContentStatusRequest,
+    ) -> bccr_models.QueryContentStatusResponse:
         """
         Description: 查询视频内容状态
-        Summary: 查询视频内容
+        Summary: 查询视频内容状态
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_content_ex_async(request, headers, runtime)
+        return await self.query_content_status_ex_async(request, headers, runtime)
 
-    def query_content_ex(
+    def query_content_status_ex(
         self,
-        request: bccr_models.QueryContentRequest,
+        request: bccr_models.QueryContentStatusRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.QueryContentResponse:
+    ) -> bccr_models.QueryContentStatusResponse:
         """
         Description: 查询视频内容状态
-        Summary: 查询视频内容
+        Summary: 查询视频内容状态
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bccr_models.QueryContentResponse(),
-            self.do_request('1.0', 'blockchain.bccr.content.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bccr_models.QueryContentStatusResponse(),
+            self.do_request('1.0', 'blockchain.bccr.content.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_content_ex_async(
+    async def query_content_status_ex_async(
         self,
-        request: bccr_models.QueryContentRequest,
+        request: bccr_models.QueryContentStatusRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bccr_models.QueryContentResponse:
+    ) -> bccr_models.QueryContentStatusResponse:
         """
         Description: 查询视频内容状态
-        Summary: 查询视频内容
+        Summary: 查询视频内容状态
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bccr_models.QueryContentResponse(),
-            await self.do_request_async('1.0', 'blockchain.bccr.content.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bccr_models.QueryContentStatusResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.content.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_content_statistics(

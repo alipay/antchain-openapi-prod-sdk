@@ -158,15 +158,24 @@ class ScreenshotInfo(TeaModel):
     def __init__(
         self,
         process_log_file: str = None,
+        process_log_file_hash: str = None,
         check_log_file: str = None,
+        check_log_file_hash: str = None,
         screenshot_file: str = None,
+        screenshot_file_hash: str = None,
     ):
         # 全链路取证日志文件下载链接
         self.process_log_file = process_log_file
+        # 全链路取证日志文件哈希
+        self.process_log_file_hash = process_log_file_hash
         # 自清洁文件下载链接
         self.check_log_file = check_log_file
+        # 自清洁文件哈希
+        self.check_log_file_hash = check_log_file_hash
         # 网页截图文件下载链接
         self.screenshot_file = screenshot_file
+        # 网页截图文件哈希
+        self.screenshot_file_hash = screenshot_file_hash
 
     def validate(self):
         self.validate_required(self.screenshot_file, 'screenshot_file')
@@ -179,20 +188,32 @@ class ScreenshotInfo(TeaModel):
         result = dict()
         if self.process_log_file is not None:
             result['process_log_file'] = self.process_log_file
+        if self.process_log_file_hash is not None:
+            result['process_log_file_hash'] = self.process_log_file_hash
         if self.check_log_file is not None:
             result['check_log_file'] = self.check_log_file
+        if self.check_log_file_hash is not None:
+            result['check_log_file_hash'] = self.check_log_file_hash
         if self.screenshot_file is not None:
             result['screenshot_file'] = self.screenshot_file
+        if self.screenshot_file_hash is not None:
+            result['screenshot_file_hash'] = self.screenshot_file_hash
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('process_log_file') is not None:
             self.process_log_file = m.get('process_log_file')
+        if m.get('process_log_file_hash') is not None:
+            self.process_log_file_hash = m.get('process_log_file_hash')
         if m.get('check_log_file') is not None:
             self.check_log_file = m.get('check_log_file')
+        if m.get('check_log_file_hash') is not None:
+            self.check_log_file_hash = m.get('check_log_file_hash')
         if m.get('screenshot_file') is not None:
             self.screenshot_file = m.get('screenshot_file')
+        if m.get('screenshot_file_hash') is not None:
+            self.screenshot_file_hash = m.get('screenshot_file_hash')
         return self
 
 
@@ -200,21 +221,48 @@ class ScreenInfo(TeaModel):
     def __init__(
         self,
         process_log_file: str = None,
+        process_log_file_hash: str = None,
         check_log_file: str = None,
+        check_log_file_hash: str = None,
         web_screenshot_file: str = None,
+        web_screenshot_file_hash: str = None,
         web_source_file: str = None,
+        web_source_file_hash: str = None,
         video_file: str = None,
+        video_file_hash: str = None,
+        extend_device_check_file: str = None,
+        extend_device_check_file_hash: str = None,
+        extend_device_process_file: str = None,
+        extend_device_process_file_hash: str = None,
     ):
         # 全链路取证日志文件下载链接
         self.process_log_file = process_log_file
+        # 全链路取证日志文件哈希
+        self.process_log_file_hash = process_log_file_hash
         # 自清洁文件下载地址
         self.check_log_file = check_log_file
+        # 自清洁文件哈希
+        self.check_log_file_hash = check_log_file_hash
         # 网页截图文件下载链接
         self.web_screenshot_file = web_screenshot_file
+        # 网页截图文件哈希
+        self.web_screenshot_file_hash = web_screenshot_file_hash
         # 网页源码文件下载链接
         self.web_source_file = web_source_file
+        # 网页源码文件哈希
+        self.web_source_file_hash = web_source_file_hash
         # 视频源文件下载链接
         self.video_file = video_file
+        # 视频源文件哈希
+        self.video_file_hash = video_file_hash
+        # 手机自清洁文件下载链接
+        self.extend_device_check_file = extend_device_check_file
+        # 手机自清洁文件哈希
+        self.extend_device_check_file_hash = extend_device_check_file_hash
+        # 手机操作日志下载链接
+        self.extend_device_process_file = extend_device_process_file
+        # 手机操作日志哈希
+        self.extend_device_process_file_hash = extend_device_process_file_hash
 
     def validate(self):
         pass
@@ -227,28 +275,64 @@ class ScreenInfo(TeaModel):
         result = dict()
         if self.process_log_file is not None:
             result['process_log_file'] = self.process_log_file
+        if self.process_log_file_hash is not None:
+            result['process_log_file_hash'] = self.process_log_file_hash
         if self.check_log_file is not None:
             result['check_log_file'] = self.check_log_file
+        if self.check_log_file_hash is not None:
+            result['check_log_file_hash'] = self.check_log_file_hash
         if self.web_screenshot_file is not None:
             result['web_screenshot_file'] = self.web_screenshot_file
+        if self.web_screenshot_file_hash is not None:
+            result['web_screenshot_file_hash'] = self.web_screenshot_file_hash
         if self.web_source_file is not None:
             result['web_source_file'] = self.web_source_file
+        if self.web_source_file_hash is not None:
+            result['web_source_file_hash'] = self.web_source_file_hash
         if self.video_file is not None:
             result['video_file'] = self.video_file
+        if self.video_file_hash is not None:
+            result['video_file_hash'] = self.video_file_hash
+        if self.extend_device_check_file is not None:
+            result['extend_device_check_file'] = self.extend_device_check_file
+        if self.extend_device_check_file_hash is not None:
+            result['extend_device_check_file_hash'] = self.extend_device_check_file_hash
+        if self.extend_device_process_file is not None:
+            result['extend_device_process_file'] = self.extend_device_process_file
+        if self.extend_device_process_file_hash is not None:
+            result['extend_device_process_file_hash'] = self.extend_device_process_file_hash
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('process_log_file') is not None:
             self.process_log_file = m.get('process_log_file')
+        if m.get('process_log_file_hash') is not None:
+            self.process_log_file_hash = m.get('process_log_file_hash')
         if m.get('check_log_file') is not None:
             self.check_log_file = m.get('check_log_file')
+        if m.get('check_log_file_hash') is not None:
+            self.check_log_file_hash = m.get('check_log_file_hash')
         if m.get('web_screenshot_file') is not None:
             self.web_screenshot_file = m.get('web_screenshot_file')
+        if m.get('web_screenshot_file_hash') is not None:
+            self.web_screenshot_file_hash = m.get('web_screenshot_file_hash')
         if m.get('web_source_file') is not None:
             self.web_source_file = m.get('web_source_file')
+        if m.get('web_source_file_hash') is not None:
+            self.web_source_file_hash = m.get('web_source_file_hash')
         if m.get('video_file') is not None:
             self.video_file = m.get('video_file')
+        if m.get('video_file_hash') is not None:
+            self.video_file_hash = m.get('video_file_hash')
+        if m.get('extend_device_check_file') is not None:
+            self.extend_device_check_file = m.get('extend_device_check_file')
+        if m.get('extend_device_check_file_hash') is not None:
+            self.extend_device_check_file_hash = m.get('extend_device_check_file_hash')
+        if m.get('extend_device_process_file') is not None:
+            self.extend_device_process_file = m.get('extend_device_process_file')
+        if m.get('extend_device_process_file_hash') is not None:
+            self.extend_device_process_file_hash = m.get('extend_device_process_file_hash')
         return self
 
 
@@ -1482,7 +1566,6 @@ class InvoiceInfo(TeaModel):
     def validate(self):
         self.validate_required(self.invoice_type, 'invoice_type')
         self.validate_required(self.invoice_header, 'invoice_header')
-        self.validate_required(self.taxpayer_number, 'taxpayer_number')
 
     def to_map(self):
         _map = super().to_map()
@@ -2463,6 +2546,66 @@ class MonitorType(TeaModel):
             self.file_type = m.get('file_type')
         if m.get('submit_type') is not None:
             self.submit_type = m.get('submit_type')
+        return self
+
+
+class DayStatisticsInfo(TeaModel):
+    def __init__(
+        self,
+        date: int = None,
+        day_views: str = None,
+        day_view_duration: str = None,
+        day_average_view_duration: str = None,
+        revenue: str = None,
+    ):
+        # 日期时间戳
+        self.date = date
+        # 日观看次数
+        self.day_views = day_views
+        # 日观看时长
+        self.day_view_duration = day_view_duration
+        # 日平均观看时长
+        self.day_average_view_duration = day_average_view_duration
+        # 日预计收入
+        self.revenue = revenue
+
+    def validate(self):
+        self.validate_required(self.date, 'date')
+        self.validate_required(self.day_views, 'day_views')
+        self.validate_required(self.day_view_duration, 'day_view_duration')
+        self.validate_required(self.day_average_view_duration, 'day_average_view_duration')
+        self.validate_required(self.revenue, 'revenue')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.date is not None:
+            result['date'] = self.date
+        if self.day_views is not None:
+            result['day_views'] = self.day_views
+        if self.day_view_duration is not None:
+            result['day_view_duration'] = self.day_view_duration
+        if self.day_average_view_duration is not None:
+            result['day_average_view_duration'] = self.day_average_view_duration
+        if self.revenue is not None:
+            result['revenue'] = self.revenue
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        if m.get('day_views') is not None:
+            self.day_views = m.get('day_views')
+        if m.get('day_view_duration') is not None:
+            self.day_view_duration = m.get('day_view_duration')
+        if m.get('day_average_view_duration') is not None:
+            self.day_average_view_duration = m.get('day_average_view_duration')
+        if m.get('revenue') is not None:
+            self.revenue = m.get('revenue')
         return self
 
 
@@ -6038,6 +6181,7 @@ class CreateDciPreregistrationRequest(TeaModel):
         client_token: str = None,
         category_similar_ratio: str = None,
         category_risk_rank: str = None,
+        copyright_owner_ids: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6076,6 +6220,8 @@ class CreateDciPreregistrationRequest(TeaModel):
         self.category_similar_ratio = category_similar_ratio
         # 作品类型风险等级
         self.category_risk_rank = category_risk_rank
+        # 著作权人用户id List
+        self.copyright_owner_ids = copyright_owner_ids
 
     def validate(self):
         self.validate_required(self.work_name, 'work_name')
@@ -6098,6 +6244,7 @@ class CreateDciPreregistrationRequest(TeaModel):
         if self.proxy_data:
             self.proxy_data.validate()
         self.validate_required(self.client_token, 'client_token')
+        self.validate_required(self.copyright_owner_ids, 'copyright_owner_ids')
 
     def to_map(self):
         _map = super().to_map()
@@ -6143,6 +6290,8 @@ class CreateDciPreregistrationRequest(TeaModel):
             result['category_similar_ratio'] = self.category_similar_ratio
         if self.category_risk_rank is not None:
             result['category_risk_rank'] = self.category_risk_rank
+        if self.copyright_owner_ids is not None:
+            result['copyright_owner_ids'] = self.copyright_owner_ids
         return result
 
     def from_map(self, m: dict = None):
@@ -6189,6 +6338,8 @@ class CreateDciPreregistrationRequest(TeaModel):
             self.category_similar_ratio = m.get('category_similar_ratio')
         if m.get('category_risk_rank') is not None:
             self.category_risk_rank = m.get('category_risk_rank')
+        if m.get('copyright_owner_ids') is not None:
+            self.copyright_owner_ids = m.get('copyright_owner_ids')
         return self
 
 
@@ -6319,6 +6470,7 @@ class QueryDciPreregistrationResponse(TeaModel):
         apply_obtain_date: str = None,
         dci_code_obtain_date: str = None,
         error_reason: str = None,
+        publication_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -6372,6 +6524,8 @@ class QueryDciPreregistrationResponse(TeaModel):
         self.dci_code_obtain_date = dci_code_obtain_date
         # 错误原因
         self.error_reason = error_reason
+        # 公式地址
+        self.publication_url = publication_url
 
     def validate(self):
         pass
@@ -6434,6 +6588,8 @@ class QueryDciPreregistrationResponse(TeaModel):
             result['dci_code_obtain_date'] = self.dci_code_obtain_date
         if self.error_reason is not None:
             result['error_reason'] = self.error_reason
+        if self.publication_url is not None:
+            result['publication_url'] = self.publication_url
         return result
 
     def from_map(self, m: dict = None):
@@ -6490,6 +6646,8 @@ class QueryDciPreregistrationResponse(TeaModel):
             self.dci_code_obtain_date = m.get('dci_code_obtain_date')
         if m.get('error_reason') is not None:
             self.error_reason = m.get('error_reason')
+        if m.get('publication_url') is not None:
+            self.publication_url = m.get('publication_url')
         return self
 
 
@@ -6514,6 +6672,10 @@ class AddDciUserRequest(TeaModel):
         area_type: str = None,
         proxy_data: ProxyData = None,
         client_token: str = None,
+        user_name: str = None,
+        certificate_front_file_path: str = None,
+        certificate_back_file_path: str = None,
+        user_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6550,6 +6712,14 @@ class AddDciUserRequest(TeaModel):
         self.proxy_data = proxy_data
         # 幂等字段
         self.client_token = client_token
+        # 用户名称废弃
+        self.user_name = user_name
+        # 证件正面OSS fileId废弃
+        self.certificate_front_file_path = certificate_front_file_path
+        # 证件反面OSS filePath废弃
+        self.certificate_back_file_path = certificate_back_file_path
+        # 用户类型废弃
+        self.user_type = user_type
 
     def validate(self):
         self.validate_required(self.cert_name, 'cert_name')
@@ -6607,6 +6777,14 @@ class AddDciUserRequest(TeaModel):
             result['proxy_data'] = self.proxy_data.to_map()
         if self.client_token is not None:
             result['client_token'] = self.client_token
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.certificate_front_file_path is not None:
+            result['certificate_front_file_path'] = self.certificate_front_file_path
+        if self.certificate_back_file_path is not None:
+            result['certificate_back_file_path'] = self.certificate_back_file_path
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
         return result
 
     def from_map(self, m: dict = None):
@@ -6648,6 +6826,14 @@ class AddDciUserRequest(TeaModel):
             self.proxy_data = temp_model.from_map(m['proxy_data'])
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('certificate_front_file_path') is not None:
+            self.certificate_front_file_path = m.get('certificate_front_file_path')
+        if m.get('certificate_back_file_path') is not None:
+            self.certificate_back_file_path = m.get('certificate_back_file_path')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
         return self
 
 
@@ -7433,6 +7619,7 @@ class QueryDciRegistrationResponse(TeaModel):
         register_download_times_left: int = None,
         error_reason: str = None,
         invoice_file_id_list: List[str] = None,
+        apply_register_time: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -7460,9 +7647,12 @@ class QueryDciRegistrationResponse(TeaModel):
         self.error_reason = error_reason
         # 发票oss fileId List
         self.invoice_file_id_list = invoice_file_id_list
+        # 数登申请时间
+        self.apply_register_time = apply_register_time
 
     def validate(self):
-        pass
+        if self.apply_register_time is not None:
+            self.validate_pattern(self.apply_register_time, 'apply_register_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         _map = super().to_map()
@@ -7496,6 +7686,8 @@ class QueryDciRegistrationResponse(TeaModel):
             result['error_reason'] = self.error_reason
         if self.invoice_file_id_list is not None:
             result['invoice_file_id_list'] = self.invoice_file_id_list
+        if self.apply_register_time is not None:
+            result['apply_register_time'] = self.apply_register_time
         return result
 
     def from_map(self, m: dict = None):
@@ -7526,6 +7718,8 @@ class QueryDciRegistrationResponse(TeaModel):
             self.error_reason = m.get('error_reason')
         if m.get('invoice_file_id_list') is not None:
             self.invoice_file_id_list = m.get('invoice_file_id_list')
+        if m.get('apply_register_time') is not None:
+            self.apply_register_time = m.get('apply_register_time')
         return self
 
 
@@ -7993,6 +8187,7 @@ class GetDciPayurlRequest(TeaModel):
         dci_content_id: str = None,
         pay_ment: str = None,
         invoice_info: InvoiceInfo = None,
+        client_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8005,6 +8200,8 @@ class GetDciPayurlRequest(TeaModel):
         self.pay_ment = pay_ment
         # 发票信息-当前支持普票
         self.invoice_info = invoice_info
+        # 客户端token，幂等号，用来保证并发请求幂等性
+        self.client_token = client_token
 
     def validate(self):
         self.validate_required(self.dci_user_id, 'dci_user_id')
@@ -8012,6 +8209,7 @@ class GetDciPayurlRequest(TeaModel):
         self.validate_required(self.invoice_info, 'invoice_info')
         if self.invoice_info:
             self.invoice_info.validate()
+        self.validate_required(self.client_token, 'client_token')
 
     def to_map(self):
         _map = super().to_map()
@@ -8031,6 +8229,8 @@ class GetDciPayurlRequest(TeaModel):
             result['pay_ment'] = self.pay_ment
         if self.invoice_info is not None:
             result['invoice_info'] = self.invoice_info.to_map()
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
         return result
 
     def from_map(self, m: dict = None):
@@ -8048,6 +8248,8 @@ class GetDciPayurlRequest(TeaModel):
         if m.get('invoice_info') is not None:
             temp_model = InvoiceInfo()
             self.invoice_info = temp_model.from_map(m['invoice_info'])
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
         return self
 
 
@@ -8330,18 +8532,25 @@ class CallbackDciPayresultResponse(TeaModel):
         return self
 
 
-class AddContentRequest(TeaModel):
+class RefuseDciRegistrationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        task_id: str = None,
+        client_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 任务ID
+        self.task_id = task_id
+        # 幂等
+        self.client_token = client_token
 
     def validate(self):
-        pass
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.client_token, 'client_token')
 
     def to_map(self):
         _map = super().to_map()
@@ -8353,6 +8562,10 @@ class AddContentRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
         return result
 
     def from_map(self, m: dict = None):
@@ -8361,6 +8574,196 @@ class AddContentRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
+        return self
+
+
+class RefuseDciRegistrationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class AddContentRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_id: str = None,
+        title: str = None,
+        type: str = None,
+        keywords: List[str] = None,
+        description: str = None,
+        cover_file_id: str = None,
+        play_list_name: str = None,
+        authorize_type: str = None,
+        authorize_scope_type: str = None,
+        protect_rights_type: str = None,
+        protect_rights_scope_type: str = None,
+        authorization_start_date: str = None,
+        authorization_time_length: int = None,
+        auth_platform: List[str] = None,
+        client_token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 文件id
+        self.file_id = file_id
+        # 内容标题
+        self.title = title
+        # 文件类型
+        self.type = type
+        # 内容标签列表
+        self.keywords = keywords
+        # 内容描述
+        self.description = description
+        # 内容封面文件id
+        self.cover_file_id = cover_file_id
+        # 播放列表名称
+        self.play_list_name = play_list_name
+        # 授权类型
+        self.authorize_type = authorize_type
+        # 授权范围类型
+        self.authorize_scope_type = authorize_scope_type
+        # 维权类型
+        self.protect_rights_type = protect_rights_type
+        # 维权范围类型
+        self.protect_rights_scope_type = protect_rights_scope_type
+        # 内容授权开始日期
+        self.authorization_start_date = authorization_start_date
+        # 内容授权时长
+        self.authorization_time_length = authorization_time_length
+        # 内容授权平台列表
+        self.auth_platform = auth_platform
+        # 客户端token，幂等号，用来保证并发请求幂等性
+        self.client_token = client_token
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.title, 'title')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.play_list_name, 'play_list_name')
+        self.validate_required(self.authorization_start_date, 'authorization_start_date')
+        self.validate_required(self.authorization_time_length, 'authorization_time_length')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.title is not None:
+            result['title'] = self.title
+        if self.type is not None:
+            result['type'] = self.type
+        if self.keywords is not None:
+            result['keywords'] = self.keywords
+        if self.description is not None:
+            result['description'] = self.description
+        if self.cover_file_id is not None:
+            result['cover_file_id'] = self.cover_file_id
+        if self.play_list_name is not None:
+            result['play_list_name'] = self.play_list_name
+        if self.authorize_type is not None:
+            result['authorize_type'] = self.authorize_type
+        if self.authorize_scope_type is not None:
+            result['authorize_scope_type'] = self.authorize_scope_type
+        if self.protect_rights_type is not None:
+            result['protect_rights_type'] = self.protect_rights_type
+        if self.protect_rights_scope_type is not None:
+            result['protect_rights_scope_type'] = self.protect_rights_scope_type
+        if self.authorization_start_date is not None:
+            result['authorization_start_date'] = self.authorization_start_date
+        if self.authorization_time_length is not None:
+            result['authorization_time_length'] = self.authorization_time_length
+        if self.auth_platform is not None:
+            result['auth_platform'] = self.auth_platform
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('keywords') is not None:
+            self.keywords = m.get('keywords')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('cover_file_id') is not None:
+            self.cover_file_id = m.get('cover_file_id')
+        if m.get('play_list_name') is not None:
+            self.play_list_name = m.get('play_list_name')
+        if m.get('authorize_type') is not None:
+            self.authorize_type = m.get('authorize_type')
+        if m.get('authorize_scope_type') is not None:
+            self.authorize_scope_type = m.get('authorize_scope_type')
+        if m.get('protect_rights_type') is not None:
+            self.protect_rights_type = m.get('protect_rights_type')
+        if m.get('protect_rights_scope_type') is not None:
+            self.protect_rights_scope_type = m.get('protect_rights_scope_type')
+        if m.get('authorization_start_date') is not None:
+            self.authorization_start_date = m.get('authorization_start_date')
+        if m.get('authorization_time_length') is not None:
+            self.authorization_time_length = m.get('authorization_time_length')
+        if m.get('auth_platform') is not None:
+            self.auth_platform = m.get('auth_platform')
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
         return self
 
 
@@ -8370,6 +8773,7 @@ class AddContentResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        content_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -8377,6 +8781,8 @@ class AddContentResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 视频内容id
+        self.content_id = content_id
 
     def validate(self):
         pass
@@ -8393,6 +8799,8 @@ class AddContentResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.content_id is not None:
+            result['content_id'] = self.content_id
         return result
 
     def from_map(self, m: dict = None):
@@ -8403,21 +8811,26 @@ class AddContentResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('content_id') is not None:
+            self.content_id = m.get('content_id')
         return self
 
 
-class QueryContentRequest(TeaModel):
+class QueryContentStatusRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        content_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 视频内容id
+        self.content_id = content_id
 
     def validate(self):
-        pass
+        self.validate_required(self.content_id, 'content_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -8429,6 +8842,8 @@ class QueryContentRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.content_id is not None:
+            result['content_id'] = self.content_id
         return result
 
     def from_map(self, m: dict = None):
@@ -8437,15 +8852,27 @@ class QueryContentRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('content_id') is not None:
+            self.content_id = m.get('content_id')
         return self
 
 
-class QueryContentResponse(TeaModel):
+class QueryContentStatusResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        content_id: str = None,
+        status: str = None,
+        title: str = None,
+        type: str = None,
+        keywords: List[str] = None,
+        description: str = None,
+        cover_url: str = None,
+        register_id: str = None,
+        auth_pdf_url: str = None,
+        play_list_name: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -8453,6 +8880,26 @@ class QueryContentResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 视频内容id
+        self.content_id = content_id
+        # 视频状态
+        self.status = status
+        # 内容标题
+        self.title = title
+        # 内容类型
+        self.type = type
+        # 标签列表
+        self.keywords = keywords
+        # 内容描述
+        self.description = description
+        # 内容封面文件地址
+        self.cover_url = cover_url
+        # 存证id
+        self.register_id = register_id
+        # 内容授权合同文件地址
+        self.auth_pdf_url = auth_pdf_url
+        # 播放列表名称
+        self.play_list_name = play_list_name
 
     def validate(self):
         pass
@@ -8469,6 +8916,26 @@ class QueryContentResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.content_id is not None:
+            result['content_id'] = self.content_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.title is not None:
+            result['title'] = self.title
+        if self.type is not None:
+            result['type'] = self.type
+        if self.keywords is not None:
+            result['keywords'] = self.keywords
+        if self.description is not None:
+            result['description'] = self.description
+        if self.cover_url is not None:
+            result['cover_url'] = self.cover_url
+        if self.register_id is not None:
+            result['register_id'] = self.register_id
+        if self.auth_pdf_url is not None:
+            result['auth_pdf_url'] = self.auth_pdf_url
+        if self.play_list_name is not None:
+            result['play_list_name'] = self.play_list_name
         return result
 
     def from_map(self, m: dict = None):
@@ -8479,6 +8946,26 @@ class QueryContentResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('content_id') is not None:
+            self.content_id = m.get('content_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('keywords') is not None:
+            self.keywords = m.get('keywords')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('cover_url') is not None:
+            self.cover_url = m.get('cover_url')
+        if m.get('register_id') is not None:
+            self.register_id = m.get('register_id')
+        if m.get('auth_pdf_url') is not None:
+            self.auth_pdf_url = m.get('auth_pdf_url')
+        if m.get('play_list_name') is not None:
+            self.play_list_name = m.get('play_list_name')
         return self
 
 
@@ -8487,13 +8974,24 @@ class QueryContentStatisticsRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        content_id: str = None,
+        start_time: int = None,
+        end_time: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 内容id
+        self.content_id = content_id
+        # 起始日期时间戳
+        self.start_time = start_time
+        # 截止日期时间戳
+        self.end_time = end_time
 
     def validate(self):
-        pass
+        self.validate_required(self.content_id, 'content_id')
+        self.validate_required(self.start_time, 'start_time')
+        self.validate_required(self.end_time, 'end_time')
 
     def to_map(self):
         _map = super().to_map()
@@ -8505,6 +9003,12 @@ class QueryContentStatisticsRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.content_id is not None:
+            result['content_id'] = self.content_id
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
         return result
 
     def from_map(self, m: dict = None):
@@ -8513,6 +9017,12 @@ class QueryContentStatisticsRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('content_id') is not None:
+            self.content_id = m.get('content_id')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
         return self
 
 
@@ -8522,6 +9032,11 @@ class QueryContentStatisticsResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        total_views: str = None,
+        total_view_duration: str = None,
+        total_average_view_duration: List[str] = None,
+        total_revenue: str = None,
+        day_statistics_list: List[DayStatisticsInfo] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -8529,9 +9044,22 @@ class QueryContentStatisticsResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 总观看次数
+        self.total_views = total_views
+        # 总观看时长
+        self.total_view_duration = total_view_duration
+        # 总平均观看时长
+        self.total_average_view_duration = total_average_view_duration
+        # 总预计收入
+        self.total_revenue = total_revenue
+        # 每日详细统计列表
+        self.day_statistics_list = day_statistics_list
 
     def validate(self):
-        pass
+        if self.day_statistics_list:
+            for k in self.day_statistics_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -8545,6 +9073,18 @@ class QueryContentStatisticsResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.total_views is not None:
+            result['total_views'] = self.total_views
+        if self.total_view_duration is not None:
+            result['total_view_duration'] = self.total_view_duration
+        if self.total_average_view_duration is not None:
+            result['total_average_view_duration'] = self.total_average_view_duration
+        if self.total_revenue is not None:
+            result['total_revenue'] = self.total_revenue
+        result['day_statistics_list'] = []
+        if self.day_statistics_list is not None:
+            for k in self.day_statistics_list:
+                result['day_statistics_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -8555,6 +9095,19 @@ class QueryContentStatisticsResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('total_views') is not None:
+            self.total_views = m.get('total_views')
+        if m.get('total_view_duration') is not None:
+            self.total_view_duration = m.get('total_view_duration')
+        if m.get('total_average_view_duration') is not None:
+            self.total_average_view_duration = m.get('total_average_view_duration')
+        if m.get('total_revenue') is not None:
+            self.total_revenue = m.get('total_revenue')
+        self.day_statistics_list = []
+        if m.get('day_statistics_list') is not None:
+            for k in m.get('day_statistics_list'):
+                temp_model = DayStatisticsInfo()
+                self.day_statistics_list.append(temp_model.from_map(k))
         return self
 
 
