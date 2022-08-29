@@ -179,6 +179,57 @@ export class ServiceAntcloudOpenapiGatewayCheckResponse extends $tea.Model {
   }
 }
 
+export class QueryDemoGatewayCheckRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDemoGatewayCheckResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class InitDemoBbpInsuranceUserRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -219,57 +270,6 @@ export class InitDemoBbpInsuranceUserRequest extends $tea.Model {
 }
 
 export class InitDemoBbpInsuranceUserResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDemoGatewayCheckRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDemoGatewayCheckResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -410,7 +410,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "SaasTest16",
           _prod_channel: "saas",
         };
@@ -460,7 +460,7 @@ export default class Client {
 
   /**
    * Description: 检测金融云网关目前的健康状态
-   * Summary: 网关健康检查
+   * Summary: 网关健康检查1
    */
   async serviceAntcloudOpenapiGatewayCheck(request: ServiceAntcloudOpenapiGatewayCheckRequest): Promise<ServiceAntcloudOpenapiGatewayCheckResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -470,30 +470,11 @@ export default class Client {
 
   /**
    * Description: 检测金融云网关目前的健康状态
-   * Summary: 网关健康检查
+   * Summary: 网关健康检查1
    */
   async serviceAntcloudOpenapiGatewayCheckEx(request: ServiceAntcloudOpenapiGatewayCheckRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ServiceAntcloudOpenapiGatewayCheckResponse> {
     Util.validateModel(request);
     return $tea.cast<ServiceAntcloudOpenapiGatewayCheckResponse>(await this.doRequest("1.0", "antcloud.openapi.gateway.check.service", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ServiceAntcloudOpenapiGatewayCheckResponse({}));
-  }
-
-  /**
-   * Description: 保司用户埋点信息
-   * Summary: 用户登陆页面埋点
-   */
-  async initDemoBbpInsuranceUser(request: InitDemoBbpInsuranceUserRequest): Promise<InitDemoBbpInsuranceUserResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.initDemoBbpInsuranceUserEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 保司用户埋点信息
-   * Summary: 用户登陆页面埋点
-   */
-  async initDemoBbpInsuranceUserEx(request: InitDemoBbpInsuranceUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitDemoBbpInsuranceUserResponse> {
-    Util.validateModel(request);
-    return $tea.cast<InitDemoBbpInsuranceUserResponse>(await this.doRequest("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitDemoBbpInsuranceUserResponse({}));
   }
 
   /**
@@ -513,6 +494,25 @@ export default class Client {
   async queryDemoGatewayCheckEx(request: QueryDemoGatewayCheckRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoGatewayCheckResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDemoGatewayCheckResponse>(await this.doRequest("1.0", "demo.gateway.check.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoGatewayCheckResponse({}));
+  }
+
+  /**
+   * Description: 保司用户埋点信息
+   * Summary: 用户登陆页面埋点
+   */
+  async initDemoBbpInsuranceUser(request: InitDemoBbpInsuranceUserRequest): Promise<InitDemoBbpInsuranceUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initDemoBbpInsuranceUserEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 保司用户埋点信息
+   * Summary: 用户登陆页面埋点
+   */
+  async initDemoBbpInsuranceUserEx(request: InitDemoBbpInsuranceUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitDemoBbpInsuranceUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitDemoBbpInsuranceUserResponse>(await this.doRequest("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitDemoBbpInsuranceUserResponse({}));
   }
 
 }
