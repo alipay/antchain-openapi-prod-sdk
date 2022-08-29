@@ -1,6 +1,6 @@
 {
-  "name": "@alicloud/twc",
-  "version": "1.7.53",
+  "name": "@antchain/twc",
+  "version": "1.7.71",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
