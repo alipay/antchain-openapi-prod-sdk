@@ -25,10 +25,17 @@ class UploadUmktParamsFileResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 上传后返回的任务id
+    /**
+     * @var int
+     */
+    public $taskId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'taskId'     => 'task_id',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class UploadUmktParamsFileResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->taskId) {
+            $res['task_id'] = $this->taskId;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class UploadUmktParamsFileResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['task_id'])) {
+            $model->taskId = $map['task_id'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ReceiveMdipParamsFileResponse extends Model
+class CancelUmktDataaccessOfflinetaskResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class ReceiveMdipParamsFileResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 文件上传结果
-    /**
-     * @var RuntimeResult
-     */
-    public $content;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'content'    => 'content',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class ReceiveMdipParamsFileResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->content) {
-            $res['content'] = null !== $this->content ? $this->content->toMap() : null;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class ReceiveMdipParamsFileResponse extends Model
     /**
      * @param array $map
      *
-     * @return ReceiveMdipParamsFileResponse
+     * @return CancelUmktDataaccessOfflinetaskResponse
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class ReceiveMdipParamsFileResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['content'])) {
-            $model->content = RuntimeResult::fromMap($map['content']);
         }
 
         return $model;

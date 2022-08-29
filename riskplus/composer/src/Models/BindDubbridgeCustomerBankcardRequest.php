@@ -29,7 +29,7 @@ class BindDubbridgeCustomerBankcardRequest extends Model
     /**
      * @var string
      */
-    public $customNo;
+    public $customerNo;
 
     // 银行卡号
     /**
@@ -46,7 +46,7 @@ class BindDubbridgeCustomerBankcardRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderNo'           => 'order_no',
-        'customNo'          => 'custom_no',
+        'customerNo'        => 'customer_no',
         'bankCardNo'        => 'bank_card_no',
         'channelCode'       => 'channel_code',
     ];
@@ -54,7 +54,7 @@ class BindDubbridgeCustomerBankcardRequest extends Model
     public function validate()
     {
         Model::validateRequired('orderNo', $this->orderNo, true);
-        Model::validateRequired('customNo', $this->customNo, true);
+        Model::validateRequired('customerNo', $this->customerNo, true);
         Model::validateRequired('bankCardNo', $this->bankCardNo, true);
         Model::validateRequired('channelCode', $this->channelCode, true);
     }
@@ -71,8 +71,8 @@ class BindDubbridgeCustomerBankcardRequest extends Model
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
         }
-        if (null !== $this->customNo) {
-            $res['custom_no'] = $this->customNo;
+        if (null !== $this->customerNo) {
+            $res['customer_no'] = $this->customerNo;
         }
         if (null !== $this->bankCardNo) {
             $res['bank_card_no'] = $this->bankCardNo;
@@ -101,8 +101,8 @@ class BindDubbridgeCustomerBankcardRequest extends Model
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
         }
-        if (isset($map['custom_no'])) {
-            $model->customNo = $map['custom_no'];
+        if (isset($map['customer_no'])) {
+            $model->customerNo = $map['customer_no'];
         }
         if (isset($map['bank_card_no'])) {
             $model->bankCardNo = $map['bank_card_no'];

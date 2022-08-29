@@ -18,13 +18,43 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 订单号
+    /**
+     * @var string
+     */
+    public $orderNo;
+
+    // 客户号
+    /**
+     * @var string
+     */
+    public $customNo;
+
+    // 绑卡流水
+    /**
+     * @var string
+     */
+    public $bindSerialNo;
+
+    // 绑卡验证码
+    /**
+     * @var string
+     */
+    public $bindValidCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'orderNo'           => 'order_no',
+        'customNo'          => 'custom_no',
+        'bindSerialNo'      => 'bind_serial_no',
+        'bindValidCode'     => 'bind_valid_code',
     ];
 
     public function validate()
     {
+        Model::validateRequired('bindSerialNo', $this->bindSerialNo, true);
+        Model::validateRequired('bindValidCode', $this->bindValidCode, true);
     }
 
     public function toMap()
@@ -35,6 +65,18 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->orderNo) {
+            $res['order_no'] = $this->orderNo;
+        }
+        if (null !== $this->customNo) {
+            $res['custom_no'] = $this->customNo;
+        }
+        if (null !== $this->bindSerialNo) {
+            $res['bind_serial_no'] = $this->bindSerialNo;
+        }
+        if (null !== $this->bindValidCode) {
+            $res['bind_valid_code'] = $this->bindValidCode;
         }
 
         return $res;
@@ -53,6 +95,18 @@ class VerifyDubbridgeCustomerBankcardRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['order_no'])) {
+            $model->orderNo = $map['order_no'];
+        }
+        if (isset($map['custom_no'])) {
+            $model->customNo = $map['custom_no'];
+        }
+        if (isset($map['bind_serial_no'])) {
+            $model->bindSerialNo = $map['bind_serial_no'];
+        }
+        if (isset($map['bind_valid_code'])) {
+            $model->bindValidCode = $map['bind_valid_code'];
         }
 
         return $model;

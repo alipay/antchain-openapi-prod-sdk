@@ -35,6 +35,8 @@ use AntChain\RISKPLUS\Models\BatchqueryUmktRtTailmarketingRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktRtTailmarketingResponse;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardRequest;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardResponse;
+use AntChain\RISKPLUS\Models\CancelUmktDataaccessOfflinetaskRequest;
+use AntChain\RISKPLUS\Models\CancelUmktDataaccessOfflinetaskResponse;
 use AntChain\RISKPLUS\Models\CheckSecurityDataRequest;
 use AntChain\RISKPLUS\Models\CheckSecurityDataResponse;
 use AntChain\RISKPLUS\Models\CheckSecurityRdsRequest;
@@ -199,6 +201,8 @@ use AntChain\RISKPLUS\Models\QuerySecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QuerySecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventRequest;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventResponse;
+use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticRequest;
+use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticResponse;
 use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestRequest;
 use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestResponse;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileRequest;
@@ -390,7 +394,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.11',
+                    'sdk_version'      => '1.12.14',
+                    '_prod_code'       => 'RISKPLUS',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -4285,6 +4291,72 @@ class Client
         Utils::validateModel($request);
 
         return ApplyUmktRobotcallResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.robotcall.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾查询回执统计数据接口
+     * Summary: 营销盾回执统计查询.
+     *
+     * @param QueryUmktDataaccessStatisticRequest $request
+     *
+     * @return QueryUmktDataaccessStatisticResponse
+     */
+    public function queryUmktDataaccessStatistic($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUmktDataaccessStatisticEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾查询回执统计数据接口
+     * Summary: 营销盾回执统计查询.
+     *
+     * @param QueryUmktDataaccessStatisticRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryUmktDataaccessStatisticResponse
+     */
+    public function queryUmktDataaccessStatisticEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUmktDataaccessStatisticResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.dataaccess.statistic.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾离线批量任务取消接口
+     * Summary: 营销盾取消离线批量任务
+     *
+     * @param CancelUmktDataaccessOfflinetaskRequest $request
+     *
+     * @return CancelUmktDataaccessOfflinetaskResponse
+     */
+    public function cancelUmktDataaccessOfflinetask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelUmktDataaccessOfflinetaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾离线批量任务取消接口
+     * Summary: 营销盾取消离线批量任务
+     *
+     * @param CancelUmktDataaccessOfflinetaskRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return CancelUmktDataaccessOfflinetaskResponse
+     */
+    public function cancelUmktDataaccessOfflinetaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelUmktDataaccessOfflinetaskResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.dataaccess.offlinetask.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -25,10 +25,24 @@ class VerifyDubbridgeCustomerBankcardResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 绑卡流水
+    /**
+     * @var string
+     */
+    public $bindSerialNo;
+
+    // 签约结果
+    /**
+     * @var string
+     */
+    public $signResult;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'bindSerialNo' => 'bind_serial_no',
+        'signResult'   => 'sign_result',
     ];
 
     public function validate()
@@ -46,6 +60,12 @@ class VerifyDubbridgeCustomerBankcardResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->bindSerialNo) {
+            $res['bind_serial_no'] = $this->bindSerialNo;
+        }
+        if (null !== $this->signResult) {
+            $res['sign_result'] = $this->signResult;
         }
 
         return $res;
@@ -67,6 +87,12 @@ class VerifyDubbridgeCustomerBankcardResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['bind_serial_no'])) {
+            $model->bindSerialNo = $map['bind_serial_no'];
+        }
+        if (isset($map['sign_result'])) {
+            $model->signResult = $map['sign_result'];
         }
 
         return $model;

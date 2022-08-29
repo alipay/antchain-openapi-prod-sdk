@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ReceiveMdipParamsFileResponse extends Model
+class QueryUmktDataaccessStatisticResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class ReceiveMdipParamsFileResponse extends Model
      */
     public $resultMsg;
 
-    // 文件上传结果
+    // 回执统计结果
     /**
-     * @var RuntimeResult
+     * @var StatisticResult
      */
-    public $content;
+    public $statisticResult;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'content'    => 'content',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'statisticResult' => 'statistic_result',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class ReceiveMdipParamsFileResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->content) {
-            $res['content'] = null !== $this->content ? $this->content->toMap() : null;
+        if (null !== $this->statisticResult) {
+            $res['statistic_result'] = null !== $this->statisticResult ? $this->statisticResult->toMap() : null;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class ReceiveMdipParamsFileResponse extends Model
     /**
      * @param array $map
      *
-     * @return ReceiveMdipParamsFileResponse
+     * @return QueryUmktDataaccessStatisticResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class ReceiveMdipParamsFileResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['content'])) {
-            $model->content = RuntimeResult::fromMap($map['content']);
+        if (isset($map['statistic_result'])) {
+            $model->statisticResult = StatisticResult::fromMap($map['statistic_result']);
         }
 
         return $model;

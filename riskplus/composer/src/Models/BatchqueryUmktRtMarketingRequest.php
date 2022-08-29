@@ -63,7 +63,6 @@ class BatchqueryUmktRtMarketingRequest extends Model
         Model::validateRequired('sceneStrategyId', $this->sceneStrategyId, true);
         Model::validateRequired('customerKeys', $this->customerKeys, true);
         Model::validateRequired('bizSerialNo', $this->bizSerialNo, true);
-        Model::validateRequired('visitType', $this->visitType, true);
     }
 
     public function toMap()
