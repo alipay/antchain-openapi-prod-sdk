@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.5',
+    sdk_version = '1.16.18',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -165,24 +165,48 @@ api doRequest(version: string, action: string, protocol: string, method: string,
 model ScreenshotInfo {
   // 全链路取证日志文件下载链接
   processLogFile?: string(name='process_log_file', example='https://xxxx'),
+  // 全链路取证日志文件哈希
+  processLogFileHash?: string(name='process_log_file_hash', example='xxxx'),
   // 自清洁文件下载链接
   checkLogFile?: string(name='check_log_file', example='https://xxxx'),
+  // 自清洁文件哈希
+  checkLogFileHash?: string(name='check_log_file_hash', example='xxxx'),
   // 网页截图文件下载链接
   screenshotFile: string(name='screenshot_file', example='https://xxxx'),
+  // 网页截图文件哈希
+  screenshotFileHash?: string(name='screenshot_file_hash', example='xxxx'),
 }
 
 // 取证文件信息
 model ScreenInfo {
   // 全链路取证日志文件下载链接
   processLogFile?: string(name='process_log_file', example='https://xxxx'),
+  // 全链路取证日志文件哈希
+  processLogFileHash?: string(name='process_log_file_hash', example='xxxx'),
   // 自清洁文件下载地址
   checkLogFile?: string(name='check_log_file', example='https://xxxx'),
+  // 自清洁文件哈希
+  checkLogFileHash?: string(name='check_log_file_hash', example='xxxx'),
   // 网页截图文件下载链接
   webScreenshotFile?: string(name='web_screenshot_file', example='https://xxxx'),
+  // 网页截图文件哈希
+  webScreenshotFileHash?: string(name='web_screenshot_file_hash', example='xxxx'),
   // 网页源码文件下载链接
   webSourceFile?: string(name='web_source_file', example='https://xxxx'),
+  // 网页源码文件哈希
+  webSourceFileHash?: string(name='web_source_file_hash', example='xxxx'),
   // 视频源文件下载链接
   videoFile?: string(name='video_file', example='http://xx'),
+  // 视频源文件哈希
+  videoFileHash?: string(name='video_file_hash', example='xxxx'),
+  // 手机自清洁文件下载链接
+  extendDeviceCheckFile?: string(name='extend_device_check_file', example='https://xxxx'),
+  // 手机自清洁文件哈希
+  extendDeviceCheckFileHash?: string(name='extend_device_check_file_hash', example='xxxx'),
+  // 手机操作日志下载链接
+  extendDeviceProcessFile?: string(name='extend_device_process_file', example='https://xxxx'),
+  // 手机操作日志哈希
+  extendDeviceProcessFileHash?: string(name='extend_device_process_file_hash', example='xxxx'),
 }
 
 // 作品相似识别结果
@@ -474,13 +498,13 @@ model SecurityData {
 // 发票信息
 model InvoiceInfo {
   // 发票类型 InvoiceTypeEnum目前只支持普票
-  // ELC  普票
-  // VAT  专票
-  invoiceType: string(name='invoice_type', example='ELC'),
+  // (NORMAL,ELC,普票)
+  // (SPECIAL,VAT,专票)
+  invoiceType: string(name='invoice_type', example='NORMAL'),
   // 发票抬头（著作权人之一）
   invoiceHeader: string(name='invoice_header', example='000'),
   // 纳税人识别号（机构必填）
-  taxpayerNumber: string(name='taxpayer_number', example='纳税人识别号'),
+  taxpayerNumber?: string(name='taxpayer_number', example='纳税人识别号'),
   // 注册地址（专票必填）
   registeredAddress?: string(name='registered_address', example='注册地址'),
   // 注册电话（专票必填）
@@ -751,6 +775,20 @@ model MonitorType {
   fileType: string(name='file_type', example='jpg'),
   // 提交类型
   submitType: string(name='submit_type', example='FILE'),
+}
+
+// 日统计数据模型
+model DayStatisticsInfo {
+  // 日期时间戳
+  date: long(name='date', example='1661788800000'),
+  // 日观看次数
+  dayViews: string(name='day_views', example='100'),
+  // 日观看时长
+  dayViewDuration: string(name='day_view_duration', example='10'),
+  // 日平均观看时长
+  dayAverageViewDuration: string(name='day_average_view_duration', example='100'),
+  // 日预计收入
+  revenue: string(name='revenue', example='100'),
 }
 
 model GetUploadurlRequest = {
@@ -2050,6 +2088,8 @@ model CreateDciPreregistrationRequest = {
   categorySimilarRatio?: string(name='category_similar_ratio'),
   // 作品类型风险等级
   categoryRiskRank?: string(name='category_risk_rank'),
+  // 著作权人用户id List
+  copyrightOwnerIds: [ string ](name='copyright_owner_ids'),
 }
 
 model CreateDciPreregistrationResponse = {
@@ -2135,16 +2175,18 @@ model QueryDciPreregistrationResponse = {
   preRegCertFileId?: string(name='pre_reg_cert_file_id'),
   // 预登记证书fileHash
   preRegCertFileHash?: string(name='pre_reg_cert_file_hash'),
+  // 预登记证书下载链接
+  preRegCertUrl?: string(name='pre_reg_cert_url'),
   // 预览图oss fileId
   pngFileId?: string(name='png_file_id'),
-  // 公示地址
-  publicationUrl?: string(name='publication_url'),
   // 申请发码时间
   applyObtainDate?: string(name='apply_obtain_date'),
   // DCI码创建时间
   dciCodeObtainDate?: string(name='dci_code_obtain_date'),
   // 错误原因
   errorReason?: string(name='error_reason'),
+  // 公式地址
+  publicationUrl?: string(name='publication_url'),
 }
 
 /**
@@ -2171,9 +2213,7 @@ model AddDciUserRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 用户名称
-  userName: string(name='user_name'),
-  // 用户类型
-  userType: string(name='user_type'),
+  certName: string(name='cert_name'),
   // 证件类型
   certificateType: string(name='certificate_type'),
   // 证件号
@@ -2182,10 +2222,10 @@ model AddDciUserRequest = {
   certificateStartTime?: string(name='certificate_start_time'),
   // 证件有效期限终止日期
   certificateEndTime?: string(name='certificate_end_time'),
-  // 证件正面OSS filePath
-  certificateFrontFilePath: string(name='certificate_front_file_path'),
-  // 证件反面OSS filePath
-  certificateBackFilePath?: string(name='certificate_back_file_path'),
+  // 证件正面OSS fileId
+  certificateFrontFileId: string(name='certificate_front_file_id'),
+  // 证件反面OSS fileId
+  certificateBackFileId?: string(name='certificate_back_file_id'),
   // 法人名称
   legalPersonCertName?: string(name='legal_person_cert_name'),
   // 法人证件类型
@@ -2204,6 +2244,14 @@ model AddDciUserRequest = {
   proxyData: ProxyData(name='proxy_data'),
   // 幂等字段
   clientToken: string(name='client_token'),
+  // 用户名称废弃
+  userName?: string(name='user_name'),
+  // 证件正面OSS fileId废弃
+  certificateFrontFilePath?: string(name='certificate_front_file_path'),
+  // 证件反面OSS filePath废弃
+  certificateBackFilePath?: string(name='certificate_back_file_path'),
+  // 用户类型废弃
+  userType?: string(name='user_type'),
 }
 
 model AddDciUserResponse = {
@@ -2535,6 +2583,8 @@ model QueryDciRegistrationResponse = {
   errorReason?: string(name='error_reason'),
   // 发票oss fileId List
   invoiceFileIdList?: [ string ](name='invoice_file_id_list'),
+  // 数登申请时间
+  applyRegisterTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='apply_register_time'),
 }
 
 /**
@@ -2743,7 +2793,9 @@ model GetDciPayurlRequest = {
   // 支付方式 0：支付宝
   payMent?: string(name='pay_ment'),
   // 发票信息-当前支持普票
-  invoiceInfo?: InvoiceInfo(name='invoice_info'),
+  invoiceInfo: InvoiceInfo(name='invoice_info'),
+  // 客户端token，幂等号，用来保证并发请求幂等性
+  clientToken: string(name='client_token'),
 }
 
 model GetDciPayurlResponse = {
@@ -2827,7 +2879,7 @@ model CallbackDciPayresultRequest = {
   appId: string(name='app_id'),
   // 订单ID 
   orderId: string(name='order_id'),
-  // 支付方式 0：支付宝
+  // 支付方式 (ALIPAY,0,支付宝)
   payMent: string(name='pay_ment'),
   // 订单金额
   money: string(name='money'),
@@ -2865,10 +2917,78 @@ async function callbackDciPayresultEx(request: CallbackDciPayresultRequest, head
   return doRequest('1.0' ,'blockchain.bccr.dci.payresult.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model RefuseDciRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+  // 幂等
+  clientToken: string(name='client_token'),
+}
+
+model RefuseDciRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: dci数登审核失败结果回调
+ * Summary: dci数登审核失败结果回调
+ */
+async function refuseDciRegistration(request: RefuseDciRegistrationRequest): RefuseDciRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return refuseDciRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: dci数登审核失败结果回调
+ * Summary: dci数登审核失败结果回调
+ */
+async function refuseDciRegistrationEx(request: RefuseDciRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RefuseDciRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registration.refuse', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model AddContentRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 文件id
+  fileId: string(name='file_id'),
+  // 内容标题
+  title: string(name='title'),
+  // 文件类型
+  type: string(name='type'),
+  // 内容标签列表
+  keywords?: [ string ](name='keywords'),
+  // 内容描述
+  description?: string(name='description'),
+  // 内容封面文件id
+  coverFileId?: string(name='cover_file_id'),
+  // 播放列表名称
+  playListName: string(name='play_list_name'),
+  // 授权类型
+  authorizeType?: string(name='authorize_type'),
+  // 授权范围类型
+  authorizeScopeType?: string(name='authorize_scope_type'),
+  // 维权类型
+  protectRightsType?: string(name='protect_rights_type'),
+  // 维权范围类型
+  protectRightsScopeType?: string(name='protect_rights_scope_type'),
+  // 内容授权开始日期
+  authorizationStartDate: string(name='authorization_start_date'),
+  // 内容授权时长
+  authorizationTimeLength: long(name='authorization_time_length'),
+  // 内容授权平台列表
+  authPlatform?: [ string ](name='auth_platform'),
+  // 客户端token，幂等号，用来保证并发请求幂等性
+  clientToken?: string(name='client_token'),
 }
 
 model AddContentResponse = {
@@ -2878,6 +2998,8 @@ model AddContentResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 视频内容id
+  contentId?: string(name='content_id'),
 }
 
 /**
@@ -2899,44 +3021,72 @@ async function addContentEx(request: AddContentRequest, headers: map[string]stri
   return doRequest('1.0' ,'blockchain.bccr.content.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryContentRequest = {
+model QueryContentStatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 视频内容id
+  contentId: string(name='content_id'),
 }
 
-model QueryContentResponse = {
+model QueryContentStatusResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 视频内容id
+  contentId?: string(name='content_id'),
+  // 视频状态
+  status?: string(name='status'),
+  // 内容标题
+  title?: string(name='title'),
+  // 内容类型
+  type?: string(name='type'),
+  // 标签列表
+  keywords?: [ string ](name='keywords'),
+  // 内容描述
+  description?: string(name='description'),
+  // 内容封面文件地址
+  coverUrl?: string(name='cover_url'),
+  // 存证id
+  registerId?: string(name='register_id'),
+  // 内容授权合同文件地址
+  authPdfUrl?: string(name='auth_pdf_url'),
+  // 播放列表名称
+  playListName?: string(name='play_list_name'),
 }
 
 /**
  * Description: 查询视频内容状态
- * Summary: 查询视频内容
+ * Summary: 查询视频内容状态
  */
-async function queryContent(request: QueryContentRequest): QueryContentResponse {
+async function queryContentStatus(request: QueryContentStatusRequest): QueryContentStatusResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryContentEx(request, headers, runtime);
+  return queryContentStatusEx(request, headers, runtime);
 }
 
 /**
  * Description: 查询视频内容状态
- * Summary: 查询视频内容
+ * Summary: 查询视频内容状态
  */
-async function queryContentEx(request: QueryContentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContentResponse {
+async function queryContentStatusEx(request: QueryContentStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContentStatusResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bccr.content.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bccr.content.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryContentStatisticsRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 内容id
+  contentId: string(name='content_id'),
+  // 起始日期时间戳
+  startTime: long(name='start_time'),
+  // 截止日期时间戳
+  endTime: long(name='end_time'),
 }
 
 model QueryContentStatisticsResponse = {
@@ -2946,6 +3096,16 @@ model QueryContentStatisticsResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 总观看次数
+  totalViews?: string(name='total_views'),
+  // 总观看时长
+  totalViewDuration?: string(name='total_view_duration'),
+  // 总平均观看时长
+  totalAverageViewDuration?: [ string ](name='total_average_view_duration'),
+  //  总预计收入
+  totalRevenue?: string(name='total_revenue'),
+  // 每日详细统计列表
+  dayStatisticsList?: [ DayStatisticsInfo ](name='day_statistics_list'),
 }
 
 /**
