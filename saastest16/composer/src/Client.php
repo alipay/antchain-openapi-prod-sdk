@@ -164,7 +164,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'SaasTest16',
                     '_prod_channel'    => 'saas',
                 ];
@@ -214,7 +214,7 @@ class Client
 
     /**
      * Description: 检测金融云网关目前的健康状态
-     * Summary: 网关健康检查.
+     * Summary: 网关健康检查1.
      *
      * @param ServiceAntcloudOpenapiGatewayCheckRequest $request
      *
@@ -230,7 +230,7 @@ class Client
 
     /**
      * Description: 检测金融云网关目前的健康状态
-     * Summary: 网关健康检查.
+     * Summary: 网关健康检查1.
      *
      * @param ServiceAntcloudOpenapiGatewayCheckRequest $request
      * @param string[]                                  $headers
@@ -243,39 +243,6 @@ class Client
         Utils::validateModel($request);
 
         return ServiceAntcloudOpenapiGatewayCheckResponse::fromMap($this->doRequest('1.0', 'antcloud.openapi.gateway.check.service', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 保司用户埋点信息
-     * Summary: 用户登陆页面埋点.
-     *
-     * @param InitDemoBbpInsuranceUserRequest $request
-     *
-     * @return InitDemoBbpInsuranceUserResponse
-     */
-    public function initDemoBbpInsuranceUser($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->initDemoBbpInsuranceUserEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 保司用户埋点信息
-     * Summary: 用户登陆页面埋点.
-     *
-     * @param InitDemoBbpInsuranceUserRequest $request
-     * @param string[]                        $headers
-     * @param RuntimeOptions                  $runtime
-     *
-     * @return InitDemoBbpInsuranceUserResponse
-     */
-    public function initDemoBbpInsuranceUserEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return InitDemoBbpInsuranceUserResponse::fromMap($this->doRequest('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -309,5 +276,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryDemoGatewayCheckResponse::fromMap($this->doRequest('1.0', 'demo.gateway.check.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点.
+     *
+     * @param InitDemoBbpInsuranceUserRequest $request
+     *
+     * @return InitDemoBbpInsuranceUserResponse
+     */
+    public function initDemoBbpInsuranceUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initDemoBbpInsuranceUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点.
+     *
+     * @param InitDemoBbpInsuranceUserRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return InitDemoBbpInsuranceUserResponse
+     */
+    public function initDemoBbpInsuranceUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitDemoBbpInsuranceUserResponse::fromMap($this->doRequest('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
