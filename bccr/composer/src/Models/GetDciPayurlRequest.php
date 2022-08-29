@@ -42,6 +42,12 @@ class GetDciPayurlRequest extends Model
      * @var InvoiceInfo
      */
     public $invoiceInfo;
+
+    // 客户端token，幂等号，用来保证并发请求幂等性
+    /**
+     * @var string
+     */
+    public $clientToken;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class GetDciPayurlRequest extends Model
         'dciContentId'      => 'dci_content_id',
         'payMent'           => 'pay_ment',
         'invoiceInfo'       => 'invoice_info',
+        'clientToken'       => 'client_token',
     ];
 
     public function validate()
@@ -56,6 +63,7 @@ class GetDciPayurlRequest extends Model
         Model::validateRequired('dciUserId', $this->dciUserId, true);
         Model::validateRequired('dciContentId', $this->dciContentId, true);
         Model::validateRequired('invoiceInfo', $this->invoiceInfo, true);
+        Model::validateRequired('clientToken', $this->clientToken, true);
     }
 
     public function toMap()
@@ -78,6 +86,9 @@ class GetDciPayurlRequest extends Model
         }
         if (null !== $this->invoiceInfo) {
             $res['invoice_info'] = null !== $this->invoiceInfo ? $this->invoiceInfo->toMap() : null;
+        }
+        if (null !== $this->clientToken) {
+            $res['client_token'] = $this->clientToken;
         }
 
         return $res;
@@ -108,6 +119,9 @@ class GetDciPayurlRequest extends Model
         }
         if (isset($map['invoice_info'])) {
             $model->invoiceInfo = InvoiceInfo::fromMap($map['invoice_info']);
+        }
+        if (isset($map['client_token'])) {
+            $model->clientToken = $map['client_token'];
         }
 
         return $model;

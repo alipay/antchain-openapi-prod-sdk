@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryContentRequest extends Model
+class QueryContentStatusRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,13 +18,21 @@ class QueryContentRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 视频内容id
+    /**
+     * @var string
+     */
+    public $contentId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'contentId'         => 'content_id',
     ];
 
     public function validate()
     {
+        Model::validateRequired('contentId', $this->contentId, true);
     }
 
     public function toMap()
@@ -36,6 +44,9 @@ class QueryContentRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->contentId) {
+            $res['content_id'] = $this->contentId;
+        }
 
         return $res;
     }
@@ -43,7 +54,7 @@ class QueryContentRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryContentRequest
+     * @return QueryContentStatusRequest
      */
     public static function fromMap($map = [])
     {
@@ -53,6 +64,9 @@ class QueryContentRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['content_id'])) {
+            $model->contentId = $map['content_id'];
         }
 
         return $model;

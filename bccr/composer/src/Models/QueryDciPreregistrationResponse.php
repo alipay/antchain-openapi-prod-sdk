@@ -163,6 +163,12 @@ class QueryDciPreregistrationResponse extends Model
      * @var string
      */
     public $errorReason;
+
+    // 公式地址
+    /**
+     * @var string
+     */
+    public $publicationUrl;
     protected $_name = [
         'reqMsgId'               => 'req_msg_id',
         'resultCode'             => 'result_code',
@@ -190,6 +196,7 @@ class QueryDciPreregistrationResponse extends Model
         'applyObtainDate'        => 'apply_obtain_date',
         'dciCodeObtainDate'      => 'dci_code_obtain_date',
         'errorReason'            => 'error_reason',
+        'publicationUrl'         => 'publication_url',
     ];
 
     public function validate()
@@ -276,6 +283,9 @@ class QueryDciPreregistrationResponse extends Model
         }
         if (null !== $this->errorReason) {
             $res['error_reason'] = $this->errorReason;
+        }
+        if (null !== $this->publicationUrl) {
+            $res['publication_url'] = $this->publicationUrl;
         }
 
         return $res;
@@ -366,6 +376,9 @@ class QueryDciPreregistrationResponse extends Model
         }
         if (isset($map['error_reason'])) {
             $model->errorReason = $map['error_reason'];
+        }
+        if (isset($map['publication_url'])) {
+            $model->publicationUrl = $map['publication_url'];
         }
 
         return $model;

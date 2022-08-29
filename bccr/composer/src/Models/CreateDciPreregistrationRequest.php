@@ -120,6 +120,12 @@ class CreateDciPreregistrationRequest extends Model
      * @var string
      */
     public $categoryRiskRank;
+
+    // 著作权人用户id List
+    /**
+     * @var string[]
+     */
+    public $copyrightOwnerIds;
     protected $_name = [
         'authToken'               => 'auth_token',
         'productInstanceId'       => 'product_instance_id',
@@ -140,6 +146,7 @@ class CreateDciPreregistrationRequest extends Model
         'clientToken'             => 'client_token',
         'categorySimilarRatio'    => 'category_similar_ratio',
         'categoryRiskRank'        => 'category_risk_rank',
+        'copyrightOwnerIds'       => 'copyright_owner_ids',
     ];
 
     public function validate()
@@ -156,6 +163,7 @@ class CreateDciPreregistrationRequest extends Model
         Model::validateRequired('dciUserId', $this->dciUserId, true);
         Model::validateRequired('proxyData', $this->proxyData, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
+        Model::validateRequired('copyrightOwnerIds', $this->copyrightOwnerIds, true);
     }
 
     public function toMap()
@@ -217,6 +225,9 @@ class CreateDciPreregistrationRequest extends Model
         }
         if (null !== $this->categoryRiskRank) {
             $res['category_risk_rank'] = $this->categoryRiskRank;
+        }
+        if (null !== $this->copyrightOwnerIds) {
+            $res['copyright_owner_ids'] = $this->copyrightOwnerIds;
         }
 
         return $res;
@@ -286,6 +297,11 @@ class CreateDciPreregistrationRequest extends Model
         }
         if (isset($map['category_risk_rank'])) {
             $model->categoryRiskRank = $map['category_risk_rank'];
+        }
+        if (isset($map['copyright_owner_ids'])) {
+            if (!empty($map['copyright_owner_ids'])) {
+                $model->copyrightOwnerIds = $map['copyright_owner_ids'];
+            }
         }
 
         return $model;

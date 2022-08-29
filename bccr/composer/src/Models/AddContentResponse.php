@@ -25,10 +25,17 @@ class AddContentResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 视频内容id
+    /**
+     * @var string
+     */
+    public $contentId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'contentId'  => 'content_id',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class AddContentResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->contentId) {
+            $res['content_id'] = $this->contentId;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class AddContentResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['content_id'])) {
+            $model->contentId = $map['content_id'];
         }
 
         return $model;

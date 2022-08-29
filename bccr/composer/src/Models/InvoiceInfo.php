@@ -88,7 +88,6 @@ class InvoiceInfo extends Model
     {
         Model::validateRequired('invoiceType', $this->invoiceType, true);
         Model::validateRequired('invoiceHeader', $this->invoiceHeader, true);
-        Model::validateRequired('taxpayerNumber', $this->taxpayerNumber, true);
     }
 
     public function toMap()

@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryContentStatisticsRequest extends Model
+class RefuseDciRegistrationRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,36 +19,28 @@ class QueryContentStatisticsRequest extends Model
      */
     public $productInstanceId;
 
-    // 内容id
+    // 任务ID
     /**
      * @var string
      */
-    public $contentId;
+    public $taskId;
 
-    // 起始日期时间戳
+    // 幂等
     /**
-     * @var int
+     * @var string
      */
-    public $startTime;
-
-    // 截止日期时间戳
-    /**
-     * @var int
-     */
-    public $endTime;
+    public $clientToken;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'contentId'         => 'content_id',
-        'startTime'         => 'start_time',
-        'endTime'           => 'end_time',
+        'taskId'            => 'task_id',
+        'clientToken'       => 'client_token',
     ];
 
     public function validate()
     {
-        Model::validateRequired('contentId', $this->contentId, true);
-        Model::validateRequired('startTime', $this->startTime, true);
-        Model::validateRequired('endTime', $this->endTime, true);
+        Model::validateRequired('taskId', $this->taskId, true);
+        Model::validateRequired('clientToken', $this->clientToken, true);
     }
 
     public function toMap()
@@ -60,14 +52,11 @@ class QueryContentStatisticsRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->contentId) {
-            $res['content_id'] = $this->contentId;
+        if (null !== $this->taskId) {
+            $res['task_id'] = $this->taskId;
         }
-        if (null !== $this->startTime) {
-            $res['start_time'] = $this->startTime;
-        }
-        if (null !== $this->endTime) {
-            $res['end_time'] = $this->endTime;
+        if (null !== $this->clientToken) {
+            $res['client_token'] = $this->clientToken;
         }
 
         return $res;
@@ -76,7 +65,7 @@ class QueryContentStatisticsRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryContentStatisticsRequest
+     * @return RefuseDciRegistrationRequest
      */
     public static function fromMap($map = [])
     {
@@ -87,14 +76,11 @@ class QueryContentStatisticsRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['content_id'])) {
-            $model->contentId = $map['content_id'];
+        if (isset($map['task_id'])) {
+            $model->taskId = $map['task_id'];
         }
-        if (isset($map['start_time'])) {
-            $model->startTime = $map['start_time'];
-        }
-        if (isset($map['end_time'])) {
-            $model->endTime = $map['end_time'];
+        if (isset($map['client_token'])) {
+            $model->clientToken = $map['client_token'];
         }
 
         return $model;

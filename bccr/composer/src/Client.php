@@ -53,10 +53,10 @@ use AntChain\BCCR\Models\ListNotaryRequest;
 use AntChain\BCCR\Models\ListNotaryResponse;
 use AntChain\BCCR\Models\PublishGoodRequest;
 use AntChain\BCCR\Models\PublishGoodResponse;
-use AntChain\BCCR\Models\QueryContentRequest;
-use AntChain\BCCR\Models\QueryContentResponse;
 use AntChain\BCCR\Models\QueryContentStatisticsRequest;
 use AntChain\BCCR\Models\QueryContentStatisticsResponse;
+use AntChain\BCCR\Models\QueryContentStatusRequest;
+use AntChain\BCCR\Models\QueryContentStatusResponse;
 use AntChain\BCCR\Models\QueryDciContentsecurityRequest;
 use AntChain\BCCR\Models\QueryDciContentsecurityResponse;
 use AntChain\BCCR\Models\QueryDciPayRequest;
@@ -95,6 +95,8 @@ use AntChain\BCCR\Models\QueryUserListRequest;
 use AntChain\BCCR\Models\QueryUserListResponse;
 use AntChain\BCCR\Models\QueryUserRequest;
 use AntChain\BCCR\Models\QueryUserResponse;
+use AntChain\BCCR\Models\RefuseDciRegistrationRequest;
+use AntChain\BCCR\Models\RefuseDciRegistrationResponse;
 use AntChain\BCCR\Models\RetryDciPreregistrationRequest;
 use AntChain\BCCR\Models\RetryDciPreregistrationResponse;
 use AntChain\BCCR\Models\StopMonitorTaskRequest;
@@ -252,7 +254,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.7',
+                    'sdk_version'      => '1.16.18',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1621,6 +1623,39 @@ class Client
     }
 
     /**
+     * Description: dci数登审核失败结果回调
+     * Summary: dci数登审核失败结果回调.
+     *
+     * @param RefuseDciRegistrationRequest $request
+     *
+     * @return RefuseDciRegistrationResponse
+     */
+    public function refuseDciRegistration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->refuseDciRegistrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: dci数登审核失败结果回调
+     * Summary: dci数登审核失败结果回调.
+     *
+     * @param RefuseDciRegistrationRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return RefuseDciRegistrationResponse
+     */
+    public function refuseDciRegistrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RefuseDciRegistrationResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.registration.refuse', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 添加发布视频内容
      * Summary: 发布视频内容.
      *
@@ -1655,35 +1690,35 @@ class Client
 
     /**
      * Description: 查询视频内容状态
-     * Summary: 查询视频内容.
+     * Summary: 查询视频内容状态
      *
-     * @param QueryContentRequest $request
+     * @param QueryContentStatusRequest $request
      *
-     * @return QueryContentResponse
+     * @return QueryContentStatusResponse
      */
-    public function queryContent($request)
+    public function queryContentStatus($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryContentEx($request, $headers, $runtime);
+        return $this->queryContentStatusEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询视频内容状态
-     * Summary: 查询视频内容.
+     * Summary: 查询视频内容状态
      *
-     * @param QueryContentRequest $request
-     * @param string[]            $headers
-     * @param RuntimeOptions      $runtime
+     * @param QueryContentStatusRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
      *
-     * @return QueryContentResponse
+     * @return QueryContentStatusResponse
      */
-    public function queryContentEx($request, $headers, $runtime)
+    public function queryContentStatusEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryContentResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.content.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryContentStatusResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.content.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

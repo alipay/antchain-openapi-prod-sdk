@@ -85,6 +85,12 @@ class QueryDciRegistrationResponse extends Model
      * @var string[]
      */
     public $invoiceFileIdList;
+
+    // 数登申请时间
+    /**
+     * @var string
+     */
+    public $applyRegisterTime;
     protected $_name = [
         'reqMsgId'                  => 'req_msg_id',
         'resultCode'                => 'result_code',
@@ -99,10 +105,12 @@ class QueryDciRegistrationResponse extends Model
         'registerDownloadTimesLeft' => 'register_download_times_left',
         'errorReason'               => 'error_reason',
         'invoiceFileIdList'         => 'invoice_file_id_list',
+        'applyRegisterTime'         => 'apply_register_time',
     ];
 
     public function validate()
     {
+        Model::validatePattern('applyRegisterTime', $this->applyRegisterTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -146,6 +154,9 @@ class QueryDciRegistrationResponse extends Model
         }
         if (null !== $this->invoiceFileIdList) {
             $res['invoice_file_id_list'] = $this->invoiceFileIdList;
+        }
+        if (null !== $this->applyRegisterTime) {
+            $res['apply_register_time'] = $this->applyRegisterTime;
         }
 
         return $res;
@@ -199,6 +210,9 @@ class QueryDciRegistrationResponse extends Model
             if (!empty($map['invoice_file_id_list'])) {
                 $model->invoiceFileIdList = $map['invoice_file_id_list'];
             }
+        }
+        if (isset($map['apply_register_time'])) {
+            $model->applyRegisterTime = $map['apply_register_time'];
         }
 
         return $model;

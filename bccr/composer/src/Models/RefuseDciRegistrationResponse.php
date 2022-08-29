@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryContentResponse extends Model
+class RefuseDciRegistrationResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -54,7 +54,7 @@ class QueryContentResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryContentResponse
+     * @return RefuseDciRegistrationResponse
      */
     public static function fromMap($map = [])
     {
