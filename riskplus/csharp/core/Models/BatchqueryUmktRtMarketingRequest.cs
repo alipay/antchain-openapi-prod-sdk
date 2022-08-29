@@ -40,7 +40,7 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 访问类型，PROD/TEST，正式流量/测试流量
         [NameInMap("visit_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string VisitType { get; set; }
 
     }

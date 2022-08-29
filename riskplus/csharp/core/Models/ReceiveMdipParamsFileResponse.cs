@@ -24,6 +24,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 文件上传结果
+        [NameInMap("content")]
+        [Validation(Required=false)]
+        public RuntimeResult Content { get; set; }
+
     }
 
 }

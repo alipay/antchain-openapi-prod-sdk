@@ -24,6 +24,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 绑卡流水
+        [NameInMap("bind_serial_no")]
+        [Validation(Required=false)]
+        public string BindSerialNo { get; set; }
+
+        // 签约结果
+        [NameInMap("sign_result")]
+        [Validation(Required=false)]
+        public string SignResult { get; set; }
+
     }
 
 }

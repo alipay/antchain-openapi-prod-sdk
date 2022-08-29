@@ -24,9 +24,9 @@ namespace AntChain.SDK.RISKPLUS.Models
         public string OrderNo { get; set; }
 
         // 客户编号
-        [NameInMap("custom_no")]
+        [NameInMap("customer_no")]
         [Validation(Required=true)]
-        public string CustomNo { get; set; }
+        public string CustomerNo { get; set; }
 
         // 银行卡号
         [NameInMap("bank_card_no")]

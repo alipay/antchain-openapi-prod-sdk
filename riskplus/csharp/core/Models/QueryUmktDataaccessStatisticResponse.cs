@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class UploadUmktParamsFileResponse : TeaModel {
+    public class QueryUmktDataaccessStatisticResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 上传后返回的任务id
-        [NameInMap("task_id")]
+        // 回执统计结果
+        [NameInMap("statistic_result")]
         [Validation(Required=false)]
-        public long? TaskId { get; set; }
+        public StatisticResult StatisticResult { get; set; }
 
     }
 

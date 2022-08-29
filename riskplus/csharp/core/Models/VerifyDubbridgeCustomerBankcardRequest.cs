@@ -18,6 +18,26 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 订单号
+        [NameInMap("order_no")]
+        [Validation(Required=false)]
+        public string OrderNo { get; set; }
+
+        // 客户号
+        [NameInMap("custom_no")]
+        [Validation(Required=false)]
+        public string CustomNo { get; set; }
+
+        // 绑卡流水
+        [NameInMap("bind_serial_no")]
+        [Validation(Required=true)]
+        public string BindSerialNo { get; set; }
+
+        // 绑卡验证码
+        [NameInMap("bind_valid_code")]
+        [Validation(Required=true)]
+        public string BindValidCode { get; set; }
+
     }
 
 }

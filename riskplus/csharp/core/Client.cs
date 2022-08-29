@@ -137,7 +137,9 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.11"},
+                        {"sdk_version", "1.12.14"},
+                        {"_prod_code", "RISKPLUS"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.11"},
+                        {"sdk_version", "1.12.14"},
+                        {"_prod_code", "RISKPLUS"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -5287,6 +5291,90 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyUmktRobotcallResponse>(await DoRequestAsync("1.0", "riskplus.umkt.robotcall.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾查询回执统计数据接口
+         * Summary: 营销盾回执统计查询
+         */
+        public QueryUmktDataaccessStatisticResponse QueryUmktDataaccessStatistic(QueryUmktDataaccessStatisticRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUmktDataaccessStatisticEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾查询回执统计数据接口
+         * Summary: 营销盾回执统计查询
+         */
+        public async Task<QueryUmktDataaccessStatisticResponse> QueryUmktDataaccessStatisticAsync(QueryUmktDataaccessStatisticRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUmktDataaccessStatisticExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾查询回执统计数据接口
+         * Summary: 营销盾回执统计查询
+         */
+        public QueryUmktDataaccessStatisticResponse QueryUmktDataaccessStatisticEx(QueryUmktDataaccessStatisticRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUmktDataaccessStatisticResponse>(DoRequest("1.0", "riskplus.umkt.dataaccess.statistic.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾查询回执统计数据接口
+         * Summary: 营销盾回执统计查询
+         */
+        public async Task<QueryUmktDataaccessStatisticResponse> QueryUmktDataaccessStatisticExAsync(QueryUmktDataaccessStatisticRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUmktDataaccessStatisticResponse>(await DoRequestAsync("1.0", "riskplus.umkt.dataaccess.statistic.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾离线批量任务取消接口
+         * Summary: 营销盾取消离线批量任务
+         */
+        public CancelUmktDataaccessOfflinetaskResponse CancelUmktDataaccessOfflinetask(CancelUmktDataaccessOfflinetaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelUmktDataaccessOfflinetaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾离线批量任务取消接口
+         * Summary: 营销盾取消离线批量任务
+         */
+        public async Task<CancelUmktDataaccessOfflinetaskResponse> CancelUmktDataaccessOfflinetaskAsync(CancelUmktDataaccessOfflinetaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelUmktDataaccessOfflinetaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾离线批量任务取消接口
+         * Summary: 营销盾取消离线批量任务
+         */
+        public CancelUmktDataaccessOfflinetaskResponse CancelUmktDataaccessOfflinetaskEx(CancelUmktDataaccessOfflinetaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelUmktDataaccessOfflinetaskResponse>(DoRequest("1.0", "riskplus.umkt.dataaccess.offlinetask.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾离线批量任务取消接口
+         * Summary: 营销盾取消离线批量任务
+         */
+        public async Task<CancelUmktDataaccessOfflinetaskResponse> CancelUmktDataaccessOfflinetaskExAsync(CancelUmktDataaccessOfflinetaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelUmktDataaccessOfflinetaskResponse>(await DoRequestAsync("1.0", "riskplus.umkt.dataaccess.offlinetask.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
