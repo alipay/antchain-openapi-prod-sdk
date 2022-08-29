@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.2"),
+                    new TeaPair("sdk_version", "1.0.3"),
                     new TeaPair("_prod_code", "ak_bb3e5638866e4c77aa9ae8ac5c14e933"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -159,6 +159,25 @@ public class Client {
         }
 
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    /**
+     * Description: 自动化测试创建，用于测试新建&修改功能
+     * Summary: 自动化测试创建，用于测试新建&修改功能
+     */
+    public BindDemoAaaBbbCccResponse bindDemoAaaBbbCcc(BindDemoAaaBbbCccRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDemoAaaBbbCccEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建，用于测试新建&修改功能
+     * Summary: 自动化测试创建，用于测试新建&修改功能
+     */
+    public BindDemoAaaBbbCccResponse bindDemoAaaBbbCccEx(BindDemoAaaBbbCccRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.aaa.bbb.ccc.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAaaBbbCccResponse());
     }
 
     /**
@@ -222,6 +241,25 @@ public class Client {
      * Description: asd
      * Summary: asd
      */
+    public QueryDemoAdAsdAsdResponse queryDemoAdAsdAsd(QueryDemoAdAsdAsdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoAdAsdAsdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
+    public QueryDemoAdAsdAsdResponse queryDemoAdAsdAsdEx(QueryDemoAdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.ad.asd.asd.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoAdAsdAsdResponse());
+    }
+
+    /**
+     * Description: asd
+     * Summary: asd
+     */
     public BindDemoAsdAsdAsdResponse bindDemoAsdAsdAsd(BindDemoAsdAsdAsdRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
@@ -235,5 +273,24 @@ public class Client {
     public BindDemoAsdAsdAsdResponse bindDemoAsdAsdAsdEx(BindDemoAsdAsdAsdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.asd.asd.asd.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoAsdAsdAsdResponse());
+    }
+
+    /**
+     * Description: 共享能力六期回归验证
+     * Summary: 共享能力六期回归验证
+     */
+    public BindDemoGongxaingTestResponse bindDemoGongxaingTest(BindDemoGongxaingTestRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindDemoGongxaingTestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 共享能力六期回归验证
+     * Summary: 共享能力六期回归验证
+     */
+    public BindDemoGongxaingTestResponse bindDemoGongxaingTestEx(BindDemoGongxaingTestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.gongxaing.test.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoGongxaingTestResponse());
     }
 }
