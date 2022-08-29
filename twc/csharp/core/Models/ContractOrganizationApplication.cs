@@ -15,7 +15,7 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string IdNumber { get; set; }
 
-        // 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://tech.antfin.com/docs/2/155166）
+        // 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://antchain.antgroup.com/docs/2/424437#）
         [NameInMap("id_type")]
         [Validation(Required=true)]
         public string IdType { get; set; }
