@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'ak_bb3e5638866e4c77aa9ae8ac5c14e933',
                     '_prod_channel': 'saas'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'ak_bb3e5638866e4c77aa9ae8ac5c14e933',
                     '_prod_channel': 'saas'
                 }
@@ -272,6 +272,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def bind_demo_aaa_bbb_ccc(
+        self,
+        request: ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoAaaBbbCccRequest,
+    ) -> ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建，用于测试新建&修改功能
+        Summary: 自动化测试创建，用于测试新建&修改功能
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_demo_aaa_bbb_ccc_ex(request, headers, runtime)
+
+    async def bind_demo_aaa_bbb_ccc_async(
+        self,
+        request: ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoAaaBbbCccRequest,
+    ) -> ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建，用于测试新建&修改功能
+        Summary: 自动化测试创建，用于测试新建&修改功能
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
+
+    def bind_demo_aaa_bbb_ccc_ex(
+        self,
+        request: ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoAaaBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建，用于测试新建&修改功能
+        Summary: 自动化测试创建，用于测试新建&修改功能
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoAaaBbbCccResponse(),
+            self.do_request('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_demo_aaa_bbb_ccc_ex_async(
+        self,
+        request: ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoAaaBbbCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoAaaBbbCccResponse:
+        """
+        Description: 自动化测试创建，用于测试新建&修改功能
+        Summary: 自动化测试创建，用于测试新建&修改功能
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoAaaBbbCccResponse(),
+            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def query_demo_aaa_bbb_ccc(
         self,
@@ -441,6 +497,62 @@ class Client:
             await self.do_request_async('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_demo_ad_asd_asd(
+        self,
+        request: ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.QueryDemoAdAsdAsdRequest,
+    ) -> ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.QueryDemoAdAsdAsdResponse:
+        """
+        Description: asd
+        Summary: asd
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_ad_asd_asd_ex(request, headers, runtime)
+
+    async def query_demo_ad_asd_asd_async(
+        self,
+        request: ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.QueryDemoAdAsdAsdRequest,
+    ) -> ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.QueryDemoAdAsdAsdResponse:
+        """
+        Description: asd
+        Summary: asd
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_ad_asd_asd_ex_async(request, headers, runtime)
+
+    def query_demo_ad_asd_asd_ex(
+        self,
+        request: ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.QueryDemoAdAsdAsdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.QueryDemoAdAsdAsdResponse:
+        """
+        Description: asd
+        Summary: asd
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.QueryDemoAdAsdAsdResponse(),
+            self.do_request('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_ad_asd_asd_ex_async(
+        self,
+        request: ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.QueryDemoAdAsdAsdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.QueryDemoAdAsdAsdResponse:
+        """
+        Description: asd
+        Summary: asd
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.QueryDemoAdAsdAsdResponse(),
+            await self.do_request_async('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def bind_demo_asd_asd_asd(
         self,
         request: ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoAsdAsdAsdRequest,
@@ -495,4 +607,60 @@ class Client:
         return TeaCore.from_map(
             ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoAsdAsdAsdResponse(),
             await self.do_request_async('1.0', 'demo.asd.asd.asd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_demo_gongxaing_test(
+        self,
+        request: ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoGongxaingTestRequest,
+    ) -> ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoGongxaingTestResponse:
+        """
+        Description: 共享能力六期回归验证
+        Summary: 共享能力六期回归验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_demo_gongxaing_test_ex(request, headers, runtime)
+
+    async def bind_demo_gongxaing_test_async(
+        self,
+        request: ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoGongxaingTestRequest,
+    ) -> ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoGongxaingTestResponse:
+        """
+        Description: 共享能力六期回归验证
+        Summary: 共享能力六期回归验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_demo_gongxaing_test_ex_async(request, headers, runtime)
+
+    def bind_demo_gongxaing_test_ex(
+        self,
+        request: ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoGongxaingTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoGongxaingTestResponse:
+        """
+        Description: 共享能力六期回归验证
+        Summary: 共享能力六期回归验证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoGongxaingTestResponse(),
+            self.do_request('1.0', 'demo.gongxaing.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_demo_gongxaing_test_ex_async(
+        self,
+        request: ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoGongxaingTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoGongxaingTestResponse:
+        """
+        Description: 共享能力六期回归验证
+        Summary: 共享能力六期回归验证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_bb_3e_5638866e_4c_77aa_9ae_8ac_5c_14e_933_models.BindDemoGongxaingTestResponse(),
+            await self.do_request_async('1.0', 'demo.gongxaing.test.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
