@@ -24,6 +24,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 视频内容id
+        [NameInMap("content_id")]
+        [Validation(Required=false)]
+        public string ContentId { get; set; }
+
     }
 
 }

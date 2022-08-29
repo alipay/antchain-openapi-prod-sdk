@@ -38,6 +38,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public InvoiceInfo InvoiceInfo { get; set; }
 
+        // 客户端token，幂等号，用来保证并发请求幂等性
+        [NameInMap("client_token")]
+        [Validation(Required=true)]
+        public string ClientToken { get; set; }
+
     }
 
 }

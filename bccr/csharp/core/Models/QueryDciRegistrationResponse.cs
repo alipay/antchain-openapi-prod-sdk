@@ -74,6 +74,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public List<string> InvoiceFileIdList { get; set; }
 
+        // 数登申请时间
+        [NameInMap("apply_register_time")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string ApplyRegisterTime { get; set; }
+
     }
 
 }

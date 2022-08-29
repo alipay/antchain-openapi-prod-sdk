@@ -103,6 +103,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string CategoryRiskRank { get; set; }
 
+        // 著作权人用户id List
+        [NameInMap("copyright_owner_ids")]
+        [Validation(Required=true)]
+        public List<string> CopyrightOwnerIds { get; set; }
+
     }
 
 }

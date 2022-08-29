@@ -137,7 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.7"},
+                        {"sdk_version", "1.16.18"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.7"},
+                        {"sdk_version", "1.16.18"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2002,6 +2002,48 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
+         * Description: dci数登审核失败结果回调
+         * Summary: dci数登审核失败结果回调
+         */
+        public RefuseDciRegistrationResponse RefuseDciRegistration(RefuseDciRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RefuseDciRegistrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: dci数登审核失败结果回调
+         * Summary: dci数登审核失败结果回调
+         */
+        public async Task<RefuseDciRegistrationResponse> RefuseDciRegistrationAsync(RefuseDciRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RefuseDciRegistrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: dci数登审核失败结果回调
+         * Summary: dci数登审核失败结果回调
+         */
+        public RefuseDciRegistrationResponse RefuseDciRegistrationEx(RefuseDciRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefuseDciRegistrationResponse>(DoRequest("1.0", "blockchain.bccr.dci.registration.refuse", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: dci数登审核失败结果回调
+         * Summary: dci数登审核失败结果回调
+         */
+        public async Task<RefuseDciRegistrationResponse> RefuseDciRegistrationExAsync(RefuseDciRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefuseDciRegistrationResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.registration.refuse", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 添加发布视频内容
          * Summary: 发布视频内容
          */
@@ -2045,44 +2087,44 @@ namespace AntChain.SDK.BCCR
 
         /**
          * Description: 查询视频内容状态
-         * Summary: 查询视频内容
+         * Summary: 查询视频内容状态
          */
-        public QueryContentResponse QueryContent(QueryContentRequest request)
+        public QueryContentStatusResponse QueryContentStatus(QueryContentStatusRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryContentEx(request, headers, runtime);
+            return QueryContentStatusEx(request, headers, runtime);
         }
 
         /**
          * Description: 查询视频内容状态
-         * Summary: 查询视频内容
+         * Summary: 查询视频内容状态
          */
-        public async Task<QueryContentResponse> QueryContentAsync(QueryContentRequest request)
+        public async Task<QueryContentStatusResponse> QueryContentStatusAsync(QueryContentStatusRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryContentExAsync(request, headers, runtime);
+            return await QueryContentStatusExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 查询视频内容状态
-         * Summary: 查询视频内容
+         * Summary: 查询视频内容状态
          */
-        public QueryContentResponse QueryContentEx(QueryContentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryContentStatusResponse QueryContentStatusEx(QueryContentStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryContentResponse>(DoRequest("1.0", "blockchain.bccr.content.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryContentStatusResponse>(DoRequest("1.0", "blockchain.bccr.content.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 查询视频内容状态
-         * Summary: 查询视频内容
+         * Summary: 查询视频内容状态
          */
-        public async Task<QueryContentResponse> QueryContentExAsync(QueryContentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryContentStatusResponse> QueryContentStatusExAsync(QueryContentStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryContentResponse>(await DoRequestAsync("1.0", "blockchain.bccr.content.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryContentStatusResponse>(await DoRequestAsync("1.0", "blockchain.bccr.content.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BCCR.Models
 {
-    public class QueryContentRequest : TeaModel {
+    public class QueryContentStatusRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -17,6 +17,11 @@ namespace AntChain.SDK.BCCR.Models
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
+
+        // 视频内容id
+        [NameInMap("content_id")]
+        [Validation(Required=true)]
+        public string ContentId { get; set; }
 
     }
 

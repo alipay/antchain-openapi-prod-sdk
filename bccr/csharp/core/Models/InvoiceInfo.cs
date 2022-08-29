@@ -24,7 +24,7 @@ namespace AntChain.SDK.BCCR.Models
 
         // 纳税人识别号（机构必填）
         [NameInMap("taxpayer_number")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TaxpayerNumber { get; set; }
 
         // 注册地址（专票必填）

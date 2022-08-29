@@ -98,6 +98,26 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string ClientToken { get; set; }
 
+        // 用户名称废弃
+        [NameInMap("user_name")]
+        [Validation(Required=false)]
+        public string UserName { get; set; }
+
+        // 证件正面OSS fileId废弃
+        [NameInMap("certificate_front_file_path")]
+        [Validation(Required=false)]
+        public string CertificateFrontFilePath { get; set; }
+
+        // 证件反面OSS filePath废弃
+        [NameInMap("certificate_back_file_path")]
+        [Validation(Required=false)]
+        public string CertificateBackFilePath { get; set; }
+
+        // 用户类型废弃
+        [NameInMap("user_type")]
+        [Validation(Required=false)]
+        public string UserType { get; set; }
+
     }
 
 }
