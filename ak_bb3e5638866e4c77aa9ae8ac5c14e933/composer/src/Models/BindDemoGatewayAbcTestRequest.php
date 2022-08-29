@@ -6,7 +6,7 @@ namespace AntChain\Ak_bb3e5638866e4c77aa9ae8ac5c14e933\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDemoAaaBbbCccRequest extends Model
+class BindDemoGatewayAbcTestRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -43,7 +43,7 @@ class QueryDemoAaaBbbCccRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryDemoAaaBbbCccRequest
+     * @return BindDemoGatewayAbcTestRequest
      */
     public static function fromMap($map = [])
     {

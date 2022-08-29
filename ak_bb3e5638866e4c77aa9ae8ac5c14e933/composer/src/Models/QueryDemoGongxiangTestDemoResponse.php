@@ -6,7 +6,7 @@ namespace AntChain\Ak_bb3e5638866e4c77aa9ae8ac5c14e933\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDemoAbcAbcAbcResponse extends Model
+class QueryDemoGongxiangTestDemoResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,17 @@ class QueryDemoAbcAbcAbcResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // aaaaaa
+    /**
+     * @var string
+     */
+    public $character1;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'character1' => 'character1',
     ];
 
     public function validate()
@@ -47,6 +54,9 @@ class QueryDemoAbcAbcAbcResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->character1) {
+            $res['character1'] = $this->character1;
+        }
 
         return $res;
     }
@@ -54,7 +64,7 @@ class QueryDemoAbcAbcAbcResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryDemoAbcAbcAbcResponse
+     * @return QueryDemoGongxiangTestDemoResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +77,9 @@ class QueryDemoAbcAbcAbcResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['character1'])) {
+            $model->character1 = $map['character1'];
         }
 
         return $model;

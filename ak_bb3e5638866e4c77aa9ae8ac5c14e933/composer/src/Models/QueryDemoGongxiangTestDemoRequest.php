@@ -6,7 +6,7 @@ namespace AntChain\Ak_bb3e5638866e4c77aa9ae8ac5c14e933\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDemoAdAsdAsdRequest extends Model
+class QueryDemoGongxiangTestDemoRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,13 +18,21 @@ class QueryDemoAdAsdAsdRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 验证字符
+    /**
+     * @var string
+     */
+    public $character1;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'character1'        => 'character1',
     ];
 
     public function validate()
     {
+        Model::validateRequired('character1', $this->character1, true);
     }
 
     public function toMap()
@@ -36,6 +44,9 @@ class QueryDemoAdAsdAsdRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->character1) {
+            $res['character1'] = $this->character1;
+        }
 
         return $res;
     }
@@ -43,7 +54,7 @@ class QueryDemoAdAsdAsdRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryDemoAdAsdAsdRequest
+     * @return QueryDemoGongxiangTestDemoRequest
      */
     public static function fromMap($map = [])
     {
@@ -53,6 +64,9 @@ class QueryDemoAdAsdAsdRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['character1'])) {
+            $model->character1 = $map['character1'];
         }
 
         return $model;
