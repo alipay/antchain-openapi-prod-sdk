@@ -26,7 +26,7 @@ public class CallbackDciPayresultRequest extends TeaModel {
     @Validation(required = true)
     public String orderId;
 
-    // 支付方式 0：支付宝
+    // 支付方式 (ALIPAY,0,支付宝)
     @NameInMap("pay_ment")
     @Validation(required = true)
     public String payMent;

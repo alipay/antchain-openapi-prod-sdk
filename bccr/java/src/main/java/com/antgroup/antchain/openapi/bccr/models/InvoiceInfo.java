@@ -5,8 +5,8 @@ import com.aliyun.tea.*;
 
 public class InvoiceInfo extends TeaModel {
     // 发票类型 InvoiceTypeEnum目前只支持普票
-    // ELC  普票
-    // VAT  专票
+    // (NORMAL,ELC,普票)
+    // (SPECIAL,VAT,专票)
     @NameInMap("invoice_type")
     @Validation(required = true)
     public String invoiceType;
@@ -18,7 +18,6 @@ public class InvoiceInfo extends TeaModel {
 
     // 纳税人识别号（机构必填）
     @NameInMap("taxpayer_number")
-    @Validation(required = true)
     public String taxpayerNumber;
 
     // 注册地址（专票必填）

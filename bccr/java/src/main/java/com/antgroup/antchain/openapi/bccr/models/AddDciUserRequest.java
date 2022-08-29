@@ -12,14 +12,9 @@ public class AddDciUserRequest extends TeaModel {
     public String productInstanceId;
 
     // 用户名称
-    @NameInMap("user_name")
+    @NameInMap("cert_name")
     @Validation(required = true)
-    public String userName;
-
-    // 用户类型
-    @NameInMap("user_type")
-    @Validation(required = true)
-    public String userType;
+    public String certName;
 
     // 证件类型
     @NameInMap("certificate_type")
@@ -39,14 +34,14 @@ public class AddDciUserRequest extends TeaModel {
     @NameInMap("certificate_end_time")
     public String certificateEndTime;
 
-    // 证件正面OSS filePath
-    @NameInMap("certificate_front_file_path")
+    // 证件正面OSS fileId
+    @NameInMap("certificate_front_file_id")
     @Validation(required = true)
-    public String certificateFrontFilePath;
+    public String certificateFrontFileId;
 
-    // 证件反面OSS filePath
-    @NameInMap("certificate_back_file_path")
-    public String certificateBackFilePath;
+    // 证件反面OSS fileId
+    @NameInMap("certificate_back_file_id")
+    public String certificateBackFileId;
 
     // 法人名称
     @NameInMap("legal_person_cert_name")
@@ -90,6 +85,22 @@ public class AddDciUserRequest extends TeaModel {
     @Validation(required = true)
     public String clientToken;
 
+    // 用户名称废弃
+    @NameInMap("user_name")
+    public String userName;
+
+    // 证件正面OSS fileId废弃
+    @NameInMap("certificate_front_file_path")
+    public String certificateFrontFilePath;
+
+    // 证件反面OSS filePath废弃
+    @NameInMap("certificate_back_file_path")
+    public String certificateBackFilePath;
+
+    // 用户类型废弃
+    @NameInMap("user_type")
+    public String userType;
+
     public static AddDciUserRequest build(java.util.Map<String, ?> map) throws Exception {
         AddDciUserRequest self = new AddDciUserRequest();
         return TeaModel.build(map, self);
@@ -111,20 +122,12 @@ public class AddDciUserRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public AddDciUserRequest setUserName(String userName) {
-        this.userName = userName;
+    public AddDciUserRequest setCertName(String certName) {
+        this.certName = certName;
         return this;
     }
-    public String getUserName() {
-        return this.userName;
-    }
-
-    public AddDciUserRequest setUserType(String userType) {
-        this.userType = userType;
-        return this;
-    }
-    public String getUserType() {
-        return this.userType;
+    public String getCertName() {
+        return this.certName;
     }
 
     public AddDciUserRequest setCertificateType(String certificateType) {
@@ -159,20 +162,20 @@ public class AddDciUserRequest extends TeaModel {
         return this.certificateEndTime;
     }
 
-    public AddDciUserRequest setCertificateFrontFilePath(String certificateFrontFilePath) {
-        this.certificateFrontFilePath = certificateFrontFilePath;
+    public AddDciUserRequest setCertificateFrontFileId(String certificateFrontFileId) {
+        this.certificateFrontFileId = certificateFrontFileId;
         return this;
     }
-    public String getCertificateFrontFilePath() {
-        return this.certificateFrontFilePath;
+    public String getCertificateFrontFileId() {
+        return this.certificateFrontFileId;
     }
 
-    public AddDciUserRequest setCertificateBackFilePath(String certificateBackFilePath) {
-        this.certificateBackFilePath = certificateBackFilePath;
+    public AddDciUserRequest setCertificateBackFileId(String certificateBackFileId) {
+        this.certificateBackFileId = certificateBackFileId;
         return this;
     }
-    public String getCertificateBackFilePath() {
-        return this.certificateBackFilePath;
+    public String getCertificateBackFileId() {
+        return this.certificateBackFileId;
     }
 
     public AddDciUserRequest setLegalPersonCertName(String legalPersonCertName) {
@@ -245,6 +248,38 @@ public class AddDciUserRequest extends TeaModel {
     }
     public String getClientToken() {
         return this.clientToken;
+    }
+
+    public AddDciUserRequest setUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public AddDciUserRequest setCertificateFrontFilePath(String certificateFrontFilePath) {
+        this.certificateFrontFilePath = certificateFrontFilePath;
+        return this;
+    }
+    public String getCertificateFrontFilePath() {
+        return this.certificateFrontFilePath;
+    }
+
+    public AddDciUserRequest setCertificateBackFilePath(String certificateBackFilePath) {
+        this.certificateBackFilePath = certificateBackFilePath;
+        return this;
+    }
+    public String getCertificateBackFilePath() {
+        return this.certificateBackFilePath;
+    }
+
+    public AddDciUserRequest setUserType(String userType) {
+        this.userType = userType;
+        return this;
+    }
+    public String getUserType() {
+        return this.userType;
     }
 
 }

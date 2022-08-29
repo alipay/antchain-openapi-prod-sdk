@@ -91,6 +91,11 @@ public class CreateDciPreregistrationRequest extends TeaModel {
     @NameInMap("category_risk_rank")
     public String categoryRiskRank;
 
+    // 著作权人用户id List
+    @NameInMap("copyright_owner_ids")
+    @Validation(required = true)
+    public java.util.List<String> copyrightOwnerIds;
+
     public static CreateDciPreregistrationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDciPreregistrationRequest self = new CreateDciPreregistrationRequest();
         return TeaModel.build(map, self);
@@ -246,6 +251,14 @@ public class CreateDciPreregistrationRequest extends TeaModel {
     }
     public String getCategoryRiskRank() {
         return this.categoryRiskRank;
+    }
+
+    public CreateDciPreregistrationRequest setCopyrightOwnerIds(java.util.List<String> copyrightOwnerIds) {
+        this.copyrightOwnerIds = copyrightOwnerIds;
+        return this;
+    }
+    public java.util.List<String> getCopyrightOwnerIds() {
+        return this.copyrightOwnerIds;
     }
 
 }

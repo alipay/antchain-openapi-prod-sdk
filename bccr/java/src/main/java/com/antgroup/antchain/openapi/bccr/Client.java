@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.5"),
+                    new TeaPair("sdk_version", "1.16.18"),
                     new TeaPair("_prod_code", "BCCR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -922,6 +922,25 @@ public class Client {
     }
 
     /**
+     * Description: dci数登审核失败结果回调
+     * Summary: dci数登审核失败结果回调
+     */
+    public RefuseDciRegistrationResponse refuseDciRegistration(RefuseDciRegistrationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.refuseDciRegistrationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: dci数登审核失败结果回调
+     * Summary: dci数登审核失败结果回调
+     */
+    public RefuseDciRegistrationResponse refuseDciRegistrationEx(RefuseDciRegistrationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.registration.refuse", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RefuseDciRegistrationResponse());
+    }
+
+    /**
      * Description: 添加发布视频内容
      * Summary: 发布视频内容
      */
@@ -942,21 +961,21 @@ public class Client {
 
     /**
      * Description: 查询视频内容状态
-     * Summary: 查询视频内容
+     * Summary: 查询视频内容状态
      */
-    public QueryContentResponse queryContent(QueryContentRequest request) throws Exception {
+    public QueryContentStatusResponse queryContentStatus(QueryContentStatusRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryContentEx(request, headers, runtime);
+        return this.queryContentStatusEx(request, headers, runtime);
     }
 
     /**
      * Description: 查询视频内容状态
-     * Summary: 查询视频内容
+     * Summary: 查询视频内容状态
      */
-    public QueryContentResponse queryContentEx(QueryContentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryContentStatusResponse queryContentStatusEx(QueryContentStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.content.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContentResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.content.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContentStatusResponse());
     }
 
     /**

@@ -88,13 +88,13 @@ public class QueryDciPreregistrationResponse extends TeaModel {
     @NameInMap("pre_reg_cert_file_hash")
     public String preRegCertFileHash;
 
+    // 预登记证书下载链接
+    @NameInMap("pre_reg_cert_url")
+    public String preRegCertUrl;
+
     // 预览图oss fileId
     @NameInMap("png_file_id")
     public String pngFileId;
-
-    // 公示地址
-    @NameInMap("publication_url")
-    public String publicationUrl;
 
     // 申请发码时间
     @NameInMap("apply_obtain_date")
@@ -107,6 +107,10 @@ public class QueryDciPreregistrationResponse extends TeaModel {
     // 错误原因
     @NameInMap("error_reason")
     public String errorReason;
+
+    // 公式地址
+    @NameInMap("publication_url")
+    public String publicationUrl;
 
     public static QueryDciPreregistrationResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDciPreregistrationResponse self = new QueryDciPreregistrationResponse();
@@ -281,20 +285,20 @@ public class QueryDciPreregistrationResponse extends TeaModel {
         return this.preRegCertFileHash;
     }
 
+    public QueryDciPreregistrationResponse setPreRegCertUrl(String preRegCertUrl) {
+        this.preRegCertUrl = preRegCertUrl;
+        return this;
+    }
+    public String getPreRegCertUrl() {
+        return this.preRegCertUrl;
+    }
+
     public QueryDciPreregistrationResponse setPngFileId(String pngFileId) {
         this.pngFileId = pngFileId;
         return this;
     }
     public String getPngFileId() {
         return this.pngFileId;
-    }
-
-    public QueryDciPreregistrationResponse setPublicationUrl(String publicationUrl) {
-        this.publicationUrl = publicationUrl;
-        return this;
-    }
-    public String getPublicationUrl() {
-        return this.publicationUrl;
     }
 
     public QueryDciPreregistrationResponse setApplyObtainDate(String applyObtainDate) {
@@ -319,6 +323,14 @@ public class QueryDciPreregistrationResponse extends TeaModel {
     }
     public String getErrorReason() {
         return this.errorReason;
+    }
+
+    public QueryDciPreregistrationResponse setPublicationUrl(String publicationUrl) {
+        this.publicationUrl = publicationUrl;
+        return this;
+    }
+    public String getPublicationUrl() {
+        return this.publicationUrl;
     }
 
 }

@@ -16,6 +16,10 @@ public class AddContentResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 视频内容id
+    @NameInMap("content_id")
+    public String contentId;
+
     public static AddContentResponse build(java.util.Map<String, ?> map) throws Exception {
         AddContentResponse self = new AddContentResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class AddContentResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public AddContentResponse setContentId(String contentId) {
+        this.contentId = contentId;
+        return this;
+    }
+    public String getContentId() {
+        return this.contentId;
     }
 
 }

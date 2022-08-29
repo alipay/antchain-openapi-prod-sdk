@@ -56,6 +56,11 @@ public class QueryDciRegistrationResponse extends TeaModel {
     @NameInMap("invoice_file_id_list")
     public java.util.List<String> invoiceFileIdList;
 
+    // 数登申请时间
+    @NameInMap("apply_register_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String applyRegisterTime;
+
     public static QueryDciRegistrationResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDciRegistrationResponse self = new QueryDciRegistrationResponse();
         return TeaModel.build(map, self);
@@ -163,6 +168,14 @@ public class QueryDciRegistrationResponse extends TeaModel {
     }
     public java.util.List<String> getInvoiceFileIdList() {
         return this.invoiceFileIdList;
+    }
+
+    public QueryDciRegistrationResponse setApplyRegisterTime(String applyRegisterTime) {
+        this.applyRegisterTime = applyRegisterTime;
+        return this;
+    }
+    public String getApplyRegisterTime() {
+        return this.applyRegisterTime;
     }
 
 }

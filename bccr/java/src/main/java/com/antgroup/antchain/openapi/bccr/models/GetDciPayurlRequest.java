@@ -27,7 +27,13 @@ public class GetDciPayurlRequest extends TeaModel {
 
     // 发票信息-当前支持普票
     @NameInMap("invoice_info")
+    @Validation(required = true)
     public InvoiceInfo invoiceInfo;
+
+    // 客户端token，幂等号，用来保证并发请求幂等性
+    @NameInMap("client_token")
+    @Validation(required = true)
+    public String clientToken;
 
     public static GetDciPayurlRequest build(java.util.Map<String, ?> map) throws Exception {
         GetDciPayurlRequest self = new GetDciPayurlRequest();
@@ -80,6 +86,14 @@ public class GetDciPayurlRequest extends TeaModel {
     }
     public InvoiceInfo getInvoiceInfo() {
         return this.invoiceInfo;
+    }
+
+    public GetDciPayurlRequest setClientToken(String clientToken) {
+        this.clientToken = clientToken;
+        return this;
+    }
+    public String getClientToken() {
+        return this.clientToken;
     }
 
 }

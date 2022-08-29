@@ -8,14 +8,26 @@ public class ScreenshotInfo extends TeaModel {
     @NameInMap("process_log_file")
     public String processLogFile;
 
+    // 全链路取证日志文件哈希
+    @NameInMap("process_log_file_hash")
+    public String processLogFileHash;
+
     // 自清洁文件下载链接
     @NameInMap("check_log_file")
     public String checkLogFile;
+
+    // 自清洁文件哈希
+    @NameInMap("check_log_file_hash")
+    public String checkLogFileHash;
 
     // 网页截图文件下载链接
     @NameInMap("screenshot_file")
     @Validation(required = true)
     public String screenshotFile;
+
+    // 网页截图文件哈希
+    @NameInMap("screenshot_file_hash")
+    public String screenshotFileHash;
 
     public static ScreenshotInfo build(java.util.Map<String, ?> map) throws Exception {
         ScreenshotInfo self = new ScreenshotInfo();
@@ -30,6 +42,14 @@ public class ScreenshotInfo extends TeaModel {
         return this.processLogFile;
     }
 
+    public ScreenshotInfo setProcessLogFileHash(String processLogFileHash) {
+        this.processLogFileHash = processLogFileHash;
+        return this;
+    }
+    public String getProcessLogFileHash() {
+        return this.processLogFileHash;
+    }
+
     public ScreenshotInfo setCheckLogFile(String checkLogFile) {
         this.checkLogFile = checkLogFile;
         return this;
@@ -38,12 +58,28 @@ public class ScreenshotInfo extends TeaModel {
         return this.checkLogFile;
     }
 
+    public ScreenshotInfo setCheckLogFileHash(String checkLogFileHash) {
+        this.checkLogFileHash = checkLogFileHash;
+        return this;
+    }
+    public String getCheckLogFileHash() {
+        return this.checkLogFileHash;
+    }
+
     public ScreenshotInfo setScreenshotFile(String screenshotFile) {
         this.screenshotFile = screenshotFile;
         return this;
     }
     public String getScreenshotFile() {
         return this.screenshotFile;
+    }
+
+    public ScreenshotInfo setScreenshotFileHash(String screenshotFileHash) {
+        this.screenshotFileHash = screenshotFileHash;
+        return this;
+    }
+    public String getScreenshotFileHash() {
+        return this.screenshotFileHash;
     }
 
 }
