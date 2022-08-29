@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_bb3e5638866e4c77aa9ae8ac5c14e933.models
 
 import com.aliyun.tea.*;
 
-public class QueryDemoAbcAbcAbcResponse extends TeaModel {
+public class BindDemoGatewayAbcTestResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class QueryDemoAbcAbcAbcResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static QueryDemoAbcAbcAbcResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryDemoAbcAbcAbcResponse self = new QueryDemoAbcAbcAbcResponse();
+    public static BindDemoGatewayAbcTestResponse build(java.util.Map<String, ?> map) throws Exception {
+        BindDemoGatewayAbcTestResponse self = new BindDemoGatewayAbcTestResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryDemoAbcAbcAbcResponse setReqMsgId(String reqMsgId) {
+    public BindDemoGatewayAbcTestResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryDemoAbcAbcAbcResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryDemoAbcAbcAbcResponse setResultCode(String resultCode) {
+    public BindDemoGatewayAbcTestResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryDemoAbcAbcAbcResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryDemoAbcAbcAbcResponse setResultMsg(String resultMsg) {
+    public BindDemoGatewayAbcTestResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_bb3e5638866e4c77aa9ae8ac5c14e933.models
 
 import com.aliyun.tea.*;
 
-public class QueryDemoAaaBbbCccResponse extends TeaModel {
+public class QueryDemoGongxiangTestDemoResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,16 @@ public class QueryDemoAaaBbbCccResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static QueryDemoAaaBbbCccResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryDemoAaaBbbCccResponse self = new QueryDemoAaaBbbCccResponse();
+    // aaaaaa
+    @NameInMap("character1")
+    public String character1;
+
+    public static QueryDemoGongxiangTestDemoResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryDemoGongxiangTestDemoResponse self = new QueryDemoGongxiangTestDemoResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryDemoAaaBbbCccResponse setReqMsgId(String reqMsgId) {
+    public QueryDemoGongxiangTestDemoResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +33,7 @@ public class QueryDemoAaaBbbCccResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryDemoAaaBbbCccResponse setResultCode(String resultCode) {
+    public QueryDemoGongxiangTestDemoResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,12 +41,20 @@ public class QueryDemoAaaBbbCccResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryDemoAaaBbbCccResponse setResultMsg(String resultMsg) {
+    public QueryDemoGongxiangTestDemoResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public QueryDemoGongxiangTestDemoResponse setCharacter1(String character1) {
+        this.character1 = character1;
+        return this;
+    }
+    public String getCharacter1() {
+        return this.character1;
     }
 
 }
