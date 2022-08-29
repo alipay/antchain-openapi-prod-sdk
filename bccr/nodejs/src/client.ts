@@ -81,23 +81,35 @@ export class Config extends $tea.Model {
 export class ScreenshotInfo extends $tea.Model {
   // 全链路取证日志文件下载链接
   processLogFile?: string;
+  // 全链路取证日志文件哈希
+  processLogFileHash?: string;
   // 自清洁文件下载链接
   checkLogFile?: string;
+  // 自清洁文件哈希
+  checkLogFileHash?: string;
   // 网页截图文件下载链接
   screenshotFile: string;
+  // 网页截图文件哈希
+  screenshotFileHash?: string;
   static names(): { [key: string]: string } {
     return {
       processLogFile: 'process_log_file',
+      processLogFileHash: 'process_log_file_hash',
       checkLogFile: 'check_log_file',
+      checkLogFileHash: 'check_log_file_hash',
       screenshotFile: 'screenshot_file',
+      screenshotFileHash: 'screenshot_file_hash',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       processLogFile: 'string',
+      processLogFileHash: 'string',
       checkLogFile: 'string',
+      checkLogFileHash: 'string',
       screenshotFile: 'string',
+      screenshotFileHash: 'string',
     };
   }
 
@@ -110,31 +122,67 @@ export class ScreenshotInfo extends $tea.Model {
 export class ScreenInfo extends $tea.Model {
   // 全链路取证日志文件下载链接
   processLogFile?: string;
+  // 全链路取证日志文件哈希
+  processLogFileHash?: string;
   // 自清洁文件下载地址
   checkLogFile?: string;
+  // 自清洁文件哈希
+  checkLogFileHash?: string;
   // 网页截图文件下载链接
   webScreenshotFile?: string;
+  // 网页截图文件哈希
+  webScreenshotFileHash?: string;
   // 网页源码文件下载链接
   webSourceFile?: string;
+  // 网页源码文件哈希
+  webSourceFileHash?: string;
   // 视频源文件下载链接
   videoFile?: string;
+  // 视频源文件哈希
+  videoFileHash?: string;
+  // 手机自清洁文件下载链接
+  extendDeviceCheckFile?: string;
+  // 手机自清洁文件哈希
+  extendDeviceCheckFileHash?: string;
+  // 手机操作日志下载链接
+  extendDeviceProcessFile?: string;
+  // 手机操作日志哈希
+  extendDeviceProcessFileHash?: string;
   static names(): { [key: string]: string } {
     return {
       processLogFile: 'process_log_file',
+      processLogFileHash: 'process_log_file_hash',
       checkLogFile: 'check_log_file',
+      checkLogFileHash: 'check_log_file_hash',
       webScreenshotFile: 'web_screenshot_file',
+      webScreenshotFileHash: 'web_screenshot_file_hash',
       webSourceFile: 'web_source_file',
+      webSourceFileHash: 'web_source_file_hash',
       videoFile: 'video_file',
+      videoFileHash: 'video_file_hash',
+      extendDeviceCheckFile: 'extend_device_check_file',
+      extendDeviceCheckFileHash: 'extend_device_check_file_hash',
+      extendDeviceProcessFile: 'extend_device_process_file',
+      extendDeviceProcessFileHash: 'extend_device_process_file_hash',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       processLogFile: 'string',
+      processLogFileHash: 'string',
       checkLogFile: 'string',
+      checkLogFileHash: 'string',
       webScreenshotFile: 'string',
+      webScreenshotFileHash: 'string',
       webSourceFile: 'string',
+      webSourceFileHash: 'string',
       videoFile: 'string',
+      videoFileHash: 'string',
+      extendDeviceCheckFile: 'string',
+      extendDeviceCheckFileHash: 'string',
+      extendDeviceProcessFile: 'string',
+      extendDeviceProcessFileHash: 'string',
     };
   }
 
@@ -895,7 +943,7 @@ export class InvoiceInfo extends $tea.Model {
   // 发票抬头（著作权人之一）
   invoiceHeader: string;
   // 纳税人识别号（机构必填）
-  taxpayerNumber: string;
+  taxpayerNumber?: string;
   // 注册地址（专票必填）
   registeredAddress?: string;
   // 注册电话（专票必填）
@@ -1518,6 +1566,43 @@ export class MonitorType extends $tea.Model {
     return {
       fileType: 'string',
       submitType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 日统计数据模型
+export class DayStatisticsInfo extends $tea.Model {
+  // 日期时间戳
+  date: number;
+  // 日观看次数
+  dayViews: string;
+  // 日观看时长
+  dayViewDuration: string;
+  // 日平均观看时长
+  dayAverageViewDuration: string;
+  // 日预计收入
+  revenue: string;
+  static names(): { [key: string]: string } {
+    return {
+      date: 'date',
+      dayViews: 'day_views',
+      dayViewDuration: 'day_view_duration',
+      dayAverageViewDuration: 'day_average_view_duration',
+      revenue: 'revenue',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      date: 'number',
+      dayViews: 'string',
+      dayViewDuration: 'string',
+      dayAverageViewDuration: 'string',
+      revenue: 'string',
     };
   }
 
@@ -3662,6 +3747,8 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
   categorySimilarRatio?: string;
   // 作品类型风险等级
   categoryRiskRank?: string;
+  // 著作权人用户id List
+  copyrightOwnerIds: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3683,6 +3770,7 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
       clientToken: 'client_token',
       categorySimilarRatio: 'category_similar_ratio',
       categoryRiskRank: 'category_risk_rank',
+      copyrightOwnerIds: 'copyright_owner_ids',
     };
   }
 
@@ -3707,6 +3795,7 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
       clientToken: 'string',
       categorySimilarRatio: 'string',
       categoryRiskRank: 'string',
+      copyrightOwnerIds: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -3831,6 +3920,8 @@ export class QueryDciPreregistrationResponse extends $tea.Model {
   dciCodeObtainDate?: string;
   // 错误原因
   errorReason?: string;
+  // 公式地址
+  publicationUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -3859,6 +3950,7 @@ export class QueryDciPreregistrationResponse extends $tea.Model {
       applyObtainDate: 'apply_obtain_date',
       dciCodeObtainDate: 'dci_code_obtain_date',
       errorReason: 'error_reason',
+      publicationUrl: 'publication_url',
     };
   }
 
@@ -3890,6 +3982,7 @@ export class QueryDciPreregistrationResponse extends $tea.Model {
       applyObtainDate: 'string',
       dciCodeObtainDate: 'string',
       errorReason: 'string',
+      publicationUrl: 'string',
     };
   }
 
@@ -3934,6 +4027,14 @@ export class AddDciUserRequest extends $tea.Model {
   proxyData: ProxyData;
   // 幂等字段
   clientToken: string;
+  // 用户名称废弃
+  userName?: string;
+  // 证件正面OSS fileId废弃
+  certificateFrontFilePath?: string;
+  // 证件反面OSS filePath废弃
+  certificateBackFilePath?: string;
+  // 用户类型废弃
+  userType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3954,6 +4055,10 @@ export class AddDciUserRequest extends $tea.Model {
       areaType: 'area_type',
       proxyData: 'proxy_data',
       clientToken: 'client_token',
+      userName: 'user_name',
+      certificateFrontFilePath: 'certificate_front_file_path',
+      certificateBackFilePath: 'certificate_back_file_path',
+      userType: 'user_type',
     };
   }
 
@@ -3977,6 +4082,10 @@ export class AddDciUserRequest extends $tea.Model {
       areaType: 'string',
       proxyData: ProxyData,
       clientToken: 'string',
+      userName: 'string',
+      certificateFrontFilePath: 'string',
+      certificateBackFilePath: 'string',
+      userType: 'string',
     };
   }
 
@@ -4497,6 +4606,8 @@ export class QueryDciRegistrationResponse extends $tea.Model {
   errorReason?: string;
   // 发票oss fileId List
   invoiceFileIdList?: string[];
+  // 数登申请时间
+  applyRegisterTime?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -4512,6 +4623,7 @@ export class QueryDciRegistrationResponse extends $tea.Model {
       registerDownloadTimesLeft: 'register_download_times_left',
       errorReason: 'error_reason',
       invoiceFileIdList: 'invoice_file_id_list',
+      applyRegisterTime: 'apply_register_time',
     };
   }
 
@@ -4530,6 +4642,7 @@ export class QueryDciRegistrationResponse extends $tea.Model {
       registerDownloadTimesLeft: 'number',
       errorReason: 'string',
       invoiceFileIdList: { 'type': 'array', 'itemType': 'string' },
+      applyRegisterTime: 'string',
     };
   }
 
@@ -4834,6 +4947,8 @@ export class GetDciPayurlRequest extends $tea.Model {
   payMent?: string;
   // 发票信息-当前支持普票
   invoiceInfo: InvoiceInfo;
+  // 客户端token，幂等号，用来保证并发请求幂等性
+  clientToken: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4842,6 +4957,7 @@ export class GetDciPayurlRequest extends $tea.Model {
       dciContentId: 'dci_content_id',
       payMent: 'pay_ment',
       invoiceInfo: 'invoice_info',
+      clientToken: 'client_token',
     };
   }
 
@@ -4853,6 +4969,7 @@ export class GetDciPayurlRequest extends $tea.Model {
       dciContentId: 'string',
       payMent: 'string',
       invoiceInfo: InvoiceInfo,
+      clientToken: 'string',
     };
   }
 
@@ -5036,14 +5153,20 @@ export class CallbackDciPayresultResponse extends $tea.Model {
   }
 }
 
-export class AddContentRequest extends $tea.Model {
+export class RefuseDciRegistrationRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 任务ID
+  taskId: string;
+  // 幂等
+  clientToken: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+      clientToken: 'client_token',
     };
   }
 
@@ -5051,6 +5174,119 @@ export class AddContentRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      taskId: 'string',
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RefuseDciRegistrationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddContentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件id
+  fileId: string;
+  // 内容标题
+  title: string;
+  // 文件类型
+  type: string;
+  // 内容标签列表
+  keywords?: string[];
+  // 内容描述
+  description?: string;
+  // 内容封面文件id
+  coverFileId?: string;
+  // 播放列表名称
+  playListName: string;
+  // 授权类型
+  authorizeType?: string;
+  // 授权范围类型
+  authorizeScopeType?: string;
+  // 维权类型
+  protectRightsType?: string;
+  // 维权范围类型
+  protectRightsScopeType?: string;
+  // 内容授权开始日期
+  authorizationStartDate: string;
+  // 内容授权时长
+  authorizationTimeLength: number;
+  // 内容授权平台列表
+  authPlatform?: string[];
+  // 客户端token，幂等号，用来保证并发请求幂等性
+  clientToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileId: 'file_id',
+      title: 'title',
+      type: 'type',
+      keywords: 'keywords',
+      description: 'description',
+      coverFileId: 'cover_file_id',
+      playListName: 'play_list_name',
+      authorizeType: 'authorize_type',
+      authorizeScopeType: 'authorize_scope_type',
+      protectRightsType: 'protect_rights_type',
+      protectRightsScopeType: 'protect_rights_scope_type',
+      authorizationStartDate: 'authorization_start_date',
+      authorizationTimeLength: 'authorization_time_length',
+      authPlatform: 'auth_platform',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileId: 'string',
+      title: 'string',
+      type: 'string',
+      keywords: { 'type': 'array', 'itemType': 'string' },
+      description: 'string',
+      coverFileId: 'string',
+      playListName: 'string',
+      authorizeType: 'string',
+      authorizeScopeType: 'string',
+      protectRightsType: 'string',
+      protectRightsScopeType: 'string',
+      authorizationStartDate: 'string',
+      authorizationTimeLength: 'number',
+      authPlatform: { 'type': 'array', 'itemType': 'string' },
+      clientToken: 'string',
     };
   }
 
@@ -5066,11 +5302,14 @@ export class AddContentResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 视频内容id
+  contentId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      contentId: 'content_id',
     };
   }
 
@@ -5079,6 +5318,7 @@ export class AddContentResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      contentId: 'string',
     };
   }
 
@@ -5087,14 +5327,17 @@ export class AddContentResponse extends $tea.Model {
   }
 }
 
-export class QueryContentRequest extends $tea.Model {
+export class QueryContentStatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 视频内容id
+  contentId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      contentId: 'content_id',
     };
   }
 
@@ -5102,6 +5345,7 @@ export class QueryContentRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      contentId: 'string',
     };
   }
 
@@ -5110,18 +5354,48 @@ export class QueryContentRequest extends $tea.Model {
   }
 }
 
-export class QueryContentResponse extends $tea.Model {
+export class QueryContentStatusResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 视频内容id
+  contentId?: string;
+  // 视频状态
+  status?: string;
+  // 内容标题
+  title?: string;
+  // 内容类型
+  type?: string;
+  // 标签列表
+  keywords?: string[];
+  // 内容描述
+  description?: string;
+  // 内容封面文件地址
+  coverUrl?: string;
+  // 存证id
+  registerId?: string;
+  // 内容授权合同文件地址
+  authPdfUrl?: string;
+  // 播放列表名称
+  playListName?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      contentId: 'content_id',
+      status: 'status',
+      title: 'title',
+      type: 'type',
+      keywords: 'keywords',
+      description: 'description',
+      coverUrl: 'cover_url',
+      registerId: 'register_id',
+      authPdfUrl: 'auth_pdf_url',
+      playListName: 'play_list_name',
     };
   }
 
@@ -5130,6 +5404,16 @@ export class QueryContentResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      contentId: 'string',
+      status: 'string',
+      title: 'string',
+      type: 'string',
+      keywords: { 'type': 'array', 'itemType': 'string' },
+      description: 'string',
+      coverUrl: 'string',
+      registerId: 'string',
+      authPdfUrl: 'string',
+      playListName: 'string',
     };
   }
 
@@ -5142,10 +5426,19 @@ export class QueryContentStatisticsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 内容id
+  contentId: string;
+  // 起始日期时间戳
+  startTime: number;
+  // 截止日期时间戳
+  endTime: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      contentId: 'content_id',
+      startTime: 'start_time',
+      endTime: 'end_time',
     };
   }
 
@@ -5153,6 +5446,9 @@ export class QueryContentStatisticsRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      contentId: 'string',
+      startTime: 'number',
+      endTime: 'number',
     };
   }
 
@@ -5168,11 +5464,26 @@ export class QueryContentStatisticsResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 总观看次数
+  totalViews?: string;
+  // 总观看时长
+  totalViewDuration?: string;
+  // 总平均观看时长
+  totalAverageViewDuration?: string[];
+  //  总预计收入
+  totalRevenue?: string;
+  // 每日详细统计列表
+  dayStatisticsList?: DayStatisticsInfo[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      totalViews: 'total_views',
+      totalViewDuration: 'total_view_duration',
+      totalAverageViewDuration: 'total_average_view_duration',
+      totalRevenue: 'total_revenue',
+      dayStatisticsList: 'day_statistics_list',
     };
   }
 
@@ -5181,6 +5492,11 @@ export class QueryContentStatisticsResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      totalViews: 'string',
+      totalViewDuration: 'string',
+      totalAverageViewDuration: { 'type': 'array', 'itemType': 'string' },
+      totalRevenue: 'string',
+      dayStatisticsList: { 'type': 'array', 'itemType': DayStatisticsInfo },
     };
   }
 
@@ -5602,7 +5918,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.7",
+          sdk_version: "1.16.18",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
@@ -6411,6 +6727,25 @@ export default class Client {
   }
 
   /**
+   * Description: dci数登审核失败结果回调
+   * Summary: dci数登审核失败结果回调
+   */
+  async refuseDciRegistration(request: RefuseDciRegistrationRequest): Promise<RefuseDciRegistrationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.refuseDciRegistrationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: dci数登审核失败结果回调
+   * Summary: dci数登审核失败结果回调
+   */
+  async refuseDciRegistrationEx(request: RefuseDciRegistrationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RefuseDciRegistrationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RefuseDciRegistrationResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.registration.refuse", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RefuseDciRegistrationResponse({}));
+  }
+
+  /**
    * Description: 添加发布视频内容
    * Summary: 发布视频内容
    */
@@ -6431,21 +6766,21 @@ export default class Client {
 
   /**
    * Description: 查询视频内容状态
-   * Summary: 查询视频内容
+   * Summary: 查询视频内容状态
    */
-  async queryContent(request: QueryContentRequest): Promise<QueryContentResponse> {
+  async queryContentStatus(request: QueryContentStatusRequest): Promise<QueryContentStatusResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryContentEx(request, headers, runtime);
+    return await this.queryContentStatusEx(request, headers, runtime);
   }
 
   /**
    * Description: 查询视频内容状态
-   * Summary: 查询视频内容
+   * Summary: 查询视频内容状态
    */
-  async queryContentEx(request: QueryContentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContentResponse> {
+  async queryContentStatusEx(request: QueryContentStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContentStatusResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryContentResponse>(await this.doRequest("1.0", "blockchain.bccr.content.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContentResponse({}));
+    return $tea.cast<QueryContentStatusResponse>(await this.doRequest("1.0", "blockchain.bccr.content.status.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContentStatusResponse({}));
   }
 
   /**
