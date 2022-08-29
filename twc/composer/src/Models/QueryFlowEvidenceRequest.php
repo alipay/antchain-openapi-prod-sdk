@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class FinishFlowInstanceRequest extends Model
+class QueryFlowEvidenceRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,21 +19,13 @@ class FinishFlowInstanceRequest extends Model
      */
     public $productInstanceId;
 
-    // 流程id，通过twc.notary.instance.create(创建存证流程实例)获取
+    // 流程id
     /**
      * @var string
      */
     public $flowId;
 
-    // 是否需要legal标，默认为false，如果需要则填true
-    /**
-     * @var bool
-     */
-    public $needLegalLogo;
-
-    // 证据包类型，默认为空，不需要证据包，如果需要则按需填写，目前支持ChainEvidencePack(链上证据包)，其他包括LocalEvidencePack(链下证据包)，链下证据包前置依赖链上证据包，因此填写链下证据包会先生成链上证据包。
-    // 链上证据包，即全流程所有阶段存证关系链上固化，生成全流程链上证据统一txHash；
-    // 链下证据包，即全流程所有内容生成链下压缩包文件。
+    // 证据包类型，默认为ChainEvidencePack(链上证据包)，其他包括LocalEvidencePack(链下证据包)，链下证据包前置依赖链上证据包，因此链下证据包会返回链上证据包，但如果查询链下证据包，则只有等链下证据包完整生成才会返回，否则返回都是生成中。
     /**
      * @var string
      */
@@ -42,13 +34,13 @@ class FinishFlowInstanceRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'flowId'            => 'flow_id',
-        'needLegalLogo'     => 'need_legal_logo',
         'evidencePackType'  => 'evidence_pack_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('flowId', $this->flowId, true);
+        Model::validateRequired('evidencePackType', $this->evidencePackType, true);
     }
 
     public function toMap()
@@ -63,9 +55,6 @@ class FinishFlowInstanceRequest extends Model
         if (null !== $this->flowId) {
             $res['flow_id'] = $this->flowId;
         }
-        if (null !== $this->needLegalLogo) {
-            $res['need_legal_logo'] = $this->needLegalLogo;
-        }
         if (null !== $this->evidencePackType) {
             $res['evidence_pack_type'] = $this->evidencePackType;
         }
@@ -76,7 +65,7 @@ class FinishFlowInstanceRequest extends Model
     /**
      * @param array $map
      *
-     * @return FinishFlowInstanceRequest
+     * @return QueryFlowEvidenceRequest
      */
     public static function fromMap($map = [])
     {
@@ -89,9 +78,6 @@ class FinishFlowInstanceRequest extends Model
         }
         if (isset($map['flow_id'])) {
             $model->flowId = $map['flow_id'];
-        }
-        if (isset($map['need_legal_logo'])) {
-            $model->needLegalLogo = $map['need_legal_logo'];
         }
         if (isset($map['evidence_pack_type'])) {
             $model->evidencePackType = $map['evidence_pack_type'];

@@ -16,7 +16,7 @@ class ContractOrganizationApplication extends Model
      */
     public $idNumber;
 
-    // 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://tech.antfin.com/docs/2/155166）
+    // 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://antchain.antgroup.com/docs/2/424437#）
     /**
      * @example CRED_ORG_USCC
      *
