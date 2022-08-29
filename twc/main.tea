@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.53',
+    sdk_version = '1.7.71',
+    _prod_code = 'TWC',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -157,6 +159,18 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 司法纠纷平台通用文件信息结构体
+model JudicialFileInfo {
+  // 文件全名, 包含后缀
+  fileName?: string(name='file_name', example='文件全名.pdf'),
+  // 文件key
+  fileKey?: string(name='file_key', example='c3h2g1f3jf12g3123lhfs'),
+  // 文件下载地址
+  downloadUrl?: string(name='download_url', example='http://www.testfile.net/products/TWC/file/downloadurl'),
+  // 司法纠纷平台文件类型
+  judicialFileType?: string(name='judicial_file_type', example='文件类型'),
 }
 
 // 文件key和文件名称
@@ -281,6 +295,16 @@ model LogisticsInfo {
   signTime: string(name='sign_time', example='2021-06-01'),
 }
 
+// 文件验签签名数据
+model ContractDocSignVerifySignatureInfo {
+  // 是否篡改
+  isModify?: boolean(name='is_modify', example='true, false'),
+  // 签署时间来源
+  timeFrom?: string(name='time_from', example='tsr'),
+  // 签署时间
+  signDate?: string(name='sign_date', example='2020-11-18 20:30:41'),
+}
+
 // 履约信息
 model PerformanceInfo {
   // 支付租金总额
@@ -289,6 +313,20 @@ model PerformanceInfo {
   buyoutAmount: string(name='buyout_amount', example='10000.00'),
   // 租赁分期履约信息
   rentalInstallmentPerformance?: [ RentalInstallmentPerformance ](name='rental_installment_performance', example=''),
+}
+
+// 文本签证书信息
+model ContractTextSignVerifyCertInfo {
+  // 证书所有者
+  owner?: string(name='owner', example='杭州**有限公司'),
+  // 证书序列号
+  serial?: string(name='serial', example='6bdea579b491bxxxxxxx'),
+  // 证书有效期开始时间
+  startDate?: string(name='start_date', example='2020-04-13 11:46:18'),
+  // 证书有效期结束时间
+  endDate?: string(name='end_date', example='2021-04-13 11:46:18'),
+  // 证书发布者名称
+  issuerCn?: string(name='issuer_cn', example='智慧CA_测试CA'),
 }
 
 // 自动进件订单信息
@@ -325,6 +363,26 @@ model LeaseOrderInfo {
   buyOutPrice?: string(name='buy_out_price', example='23.33'),
 }
 
+// 司法纠纷平台自然人通用结构体
+model JudicialPersonInfo {
+  // 姓名
+  name: string(name='name', example='张三'),
+  // 身份证号码
+  certNumber?: string(name='cert_number', example='310101199901010011'),
+  // 联系电话
+  phone?: string(name='phone', example='1350000000'),
+  // 民族
+  nationality?: string(name='nationality', example='汉'),
+  // 通讯地址
+  address?: string(name='address', example='通讯地址'),
+  // 身份证明
+  identityCertification?: JudicialFileInfo(name='identity_certification', example=''),
+  // 职务
+  jobTitle?: string(name='job_title', example='法人代表'),
+  // 任职证明
+  jobCertification?: JudicialFileInfo(name='job_certification', example=''),
+}
+
 // 承诺信息
 model CommitmentInfo {
   // 租金总额
@@ -350,6 +408,24 @@ model LegalPerson {
   // 营业执照照片
   // 文件信息列表（先调用接口获取上传url和fileKey）
   legalIdNumberFile?: [ FileInfo ](name='legal_id_number_file', example=''),
+}
+
+// 司法纠纷平台银行信息结构体
+model JudicialBankInfo {
+  // 开户行
+  accountBank: string(name='account_bank', example='开户银行'),
+  // 开户账号
+  accountNumber: string(name='account_number', example='f3232sdj32fl312ksdj'),
+  // 开户名称
+  accountName: string(name='account_name', example='示例开户名称'),
+  // 开户联系电话
+  accountContactPhone: string(name='account_contact_phone', example='15000000000'),
+}
+
+// 文本签签名信息
+model ContractTextSignVerifySignatureInfo {
+  // 是否被篡改
+  isModify?: boolean(name='is_modify', example='true, false'),
 }
 
 // 阶段存证内容类表，根据模板定义传入
@@ -390,6 +466,20 @@ model NaturalPerson {
   // 自然人身份证正反面照片
   // 文件信息 列表（先调用接口获取上传url和fileKey）
   idNumberFile?: [ FileInfo ](name='id_number_file', example=''),
+}
+
+// 文件签验签证书结构体
+model ContractDocSignVerifyCertInfo {
+  // 证书所有者
+  owner?: string(name='owner', example='杭州**有限公司'),
+  // 证书序列号
+  serial?: string(name='serial', example='536deb6bfce98a9143f143ca'),
+  // 证书开始日期
+  startDate?: string(name='start_date', example='2020-04-13 11:46:18'),
+  // 证书结束日期
+  endDate?: string(name='end_date', example='2021-04-13 11:46:18'),
+  // 证书颁发机构
+  issuerCn?: string(name='issuer_cn', example='智慧CA_测试'),
 }
 
 // 可信存证存证地点信息
@@ -724,6 +814,16 @@ model ContractPlatformSignField {
   width?: string(name='width', example='1'),
 }
 
+// 文件签署签署信息,包含证书与签名
+model ContractDocSignVerifyInfo {
+  // 证书信息
+  cert?: ContractDocSignVerifyCertInfo(name='cert', example=''),
+  // 签名信息
+  signature?: ContractDocSignVerifySignatureInfo(name='signature', example=''),
+  // 印章数据
+  sealData?: string(name='seal_data', example='35058319XXxxxxxx33'),
+}
+
 // 见证流程签署数据
 model WitnessSignData {
   // 印章图片fileKey列表
@@ -939,7 +1039,7 @@ model ApplySupplierOrderProductInput {
 model ContractOrganizationApplication {
   // 证件号
   idNumber: string(name='id_number', example='12330100470104939U'),
-  // 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://tech.antfin.com/docs/2/155166）
+  // 证件类型，默认CRED_ORG_USCC，详见机构证件类型说明 （https://antchain.antgroup.com/docs/2/424437#）
   idType: string(name='id_type', example='CRED_ORG_USCC'),
   // 企业法人名称
   legalPerson?: string(name='legal_person', example='测试法人'),
@@ -1031,6 +1131,28 @@ model SupplierLogisticInfo {
   logisticOrderId: string(name='logistic_order_id', example='SF1234567890'),
 }
 
+// 司法纠纷平台案件维权事件响应信息
+model JudicialEventOperateInfo {
+  // 响应类型:
+  // 司法调解
+  //   延期确认: DELAY_CONFIRM
+  //   回款确认: CASH_CONFIRM
+  // 
+  operateType: string(name='operate_type', example='DELAY_CONFIRM'),
+  // 响应内容
+  // 延期确认
+  //   确认-CONFIRM
+  //   否认-DENY
+  // 回款确认:
+  //   确认-CONFIRM
+  //   有异议-DISSENT
+  operateOpinion: string(name='operate_opinion', example='CONFIRM'),
+  // 当延期申请不同意,回款确认有异议时填写原因
+  operateReason?: string(name='operate_reason', example='请求延期,请批准'),
+  // 回款记录编号,回款确认时必填
+  reqBizNo?: string(name='req_biz_no', example='202243243234a'),
+}
+
 // 电子合同签署流程的配置信息
 model ContractSignFlowConfig {
   // 回调通知地址 ,默认取项目配置通知地址
@@ -1079,6 +1201,26 @@ model LeaseClearingInfo {
   clearingAccount: string(name='clearing_account', example='88234234234xxxx'),
   // 清分额外说明
   memo: string(name='memo', example='""'),
+}
+
+// 阶段详情信息
+model PhaseDetail {
+  // 阶段id
+  phaseId: string(name='phase_id', example='877c4383-9c83-477b-b7ec-03828a946***'),
+  // 阶段编号
+  phaseNo: long(name='phase_no', example='1'),
+  // 阶段存证时间
+  registerTime: long(name='register_time', example='1661262742335'),
+  // 阶段存证凭据
+  txHash: string(name='tx_hash', example='04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269'),
+  // 模板字段类型，Hash/Structure，(Hash->哈希,Structure->结构化)
+  dataType: string(name='data_type', example='Hash/Structure'),
+  // 阶段存证内容
+  // 如果模板数据类型定义是Hash(哈希)则返回存证时Hash
+  // 如果定义是Structure(结构化)，则返回所有字段json对象的字符串Base64后的值
+  notaryContent: string(name='notary_content', example='111111'),
+  // 模板字段类型为Structure时才有值，结构化数据里面英文key对应的中文名称关系，json格式，key为字段英文名，value为字段中文名称
+  dataTypeKey: string(name='data_type_key', example='{ "name":"名称" }'),
 }
 
 // 企业四要素校验
@@ -1181,6 +1323,28 @@ model NotaryInfo {
   txHash: string(name='tx_hash', example='a89495ddd334870a58686afe48a8eb83efe2dd51e4c06da7220eb1cde0f995e2'),
   // 存证事务ID
   transactionId: string(name='transaction_id', example='7bc888d8-1384-425c-9355-630cef0f4120'),
+}
+
+// 司法纠纷平台企业信息通用结构体
+model JudicialOrgInfo {
+  // 企业名称
+  orgName: string(name='org_name', example='某知名有限公司'),
+  // 企业或机构社会统一信用代码
+  orgCertNum: string(name='org_cert_num', example='92XXX'),
+  // 企业联系电话
+  orgPhone: string(name='org_phone', example='15000000000'),
+  // 企业联系邮箱
+  orgEmail?: string(name='org_email', example='email@org.com'),
+  // 企业通讯地址
+  orgAddress?: string(name='org_address', example='上海市黄浦区外马路618号'),
+  // 企业或机构营业执照信息
+  orgBizLicenseInfo?: JudicialFileInfo(name='org_biz_license_info', example=''),
+  // 企业法人信息
+  orgLegalPersonInfo?: JudicialPersonInfo(name='org_legal_person_info', example=''),
+  // 企业或机构签章管理员信息
+  orgSignatureManagerPersonInfo?: JudicialPersonInfo(name='org_signature_manager_person_info', example=''),
+  // 企业或机构收款银行账户信息
+  orgBankInfo?: JudicialBankInfo(name='org_bank_info', example=''),
 }
 
 // 合同存证信息
@@ -1583,6 +1747,14 @@ model StubExtraInfo {
   ticketVision?: string(name='ticket_vision', example='https://www.xx.com'),
 }
 
+// 文本签信息, 包含证书与签名
+model ContractTextSignVerifySignInfo {
+  // 签名信息
+  signature?: ContractTextSignVerifySignatureInfo(name='signature', example=''),
+  // 证书信息
+  cert?: ContractTextSignVerifyCertInfo(name='cert', example=''),
+}
+
 // 用户端承诺信息
 model LeasePromiseInfo {
   // 租期index
@@ -1607,6 +1779,22 @@ model ContractUserAccountApplication {
   name?: string(name='name', example='张三'),
   // 用户/经办人账号id
   userId: string(name='user_id', example='ORGJC1CN1591674666666'),
+}
+
+// 合约核验结果
+model ContractCheckResult {
+  // 交易hash
+  txHash: string(name='tx_hash', example='12345678'),
+  // 订单id
+  orderId: string(name='order_id', example='12345678'),
+  // 合约执行结果，Base64编码后的
+  contentBase64?: string(name='content_base64', example='afafafdfa'),
+  // 块高
+  blockNumber?: long(name='block_number', example='12345678'),
+  // 消耗gas量
+  gasUsed?: long(name='gas_used', example='12345678'),
+  // log信息
+  logBase64?: string(name='log_base64', example='adafada'),
 }
 
 // 企业信息
@@ -1871,6 +2059,16 @@ model WitnessConfirmData {
 
 // 智能合同个人账号信息
 model ContractAccount {
+}
+
+// 司法调解基础参数
+model JudicialMediationBaseParamInfo {
+  // 委托调解时长(天), 仅支持:30,60,90
+  mediationDayLimit: long(name='mediation_day_limit', example='30'),
+  // 调解总标的金额
+  mediationTotalAmount: string(name='mediation_total_amount', example='100.00'),
+  // 可接受最低调解回款金额
+  minAmount: string(name='min_amount', example='100.00'),
 }
 
 model CallbackArbitrationStatusRequest = {
@@ -6622,6 +6820,142 @@ async function execContractCourtdeductEx(request: ExecContractCourtdeductRequest
   return doRequest('1.0' ,'twc.notary.contract.courtdeduct.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model GetContractTextsignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 平台方注册的用户ID
+  accountId: string(name='account_id'),
+  // 待签名的原文本
+  originText: string(name='origin_text'),
+}
+
+model GetContractTextsignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务结果码, 成功: 0
+  code?: long(name='code'),
+  // 业务结果信息
+  message?: string(name='message'),
+  // 签名结果值
+  signResult?: string(name='sign_result'),
+  // 签名流程id
+  flowId?: string(name='flow_id'),
+}
+
+/**
+ * Description: 文本签名
+ * Summary: 文本签接口
+ */
+async function getContractTextsign(request: GetContractTextsignRequest): GetContractTextsignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getContractTextsignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文本签名
+ * Summary: 文本签接口
+ */
+async function getContractTextsignEx(request: GetContractTextsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetContractTextsignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.textsign.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyContractTextsignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 注册的平台方用户id
+  accountId: string(name='account_id'),
+  // 签名原文本
+  originText: string(name='origin_text'),
+  // 文本签名值
+  signResult: string(name='sign_result'),
+}
+
+model VerifyContractTextsignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务结果码, 成功0
+  code?: long(name='code'),
+  // 结果信息
+  message?: string(name='message'),
+  // 签署信息, 包含签名与证书
+  signInfo?: ContractTextSignVerifySignInfo(name='sign_info'),
+}
+
+/**
+ * Description: 文本验签
+ * Summary: 文本验签接口
+ */
+async function verifyContractTextsign(request: VerifyContractTextsignRequest): VerifyContractTextsignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyContractTextsignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文本验签
+ * Summary: 文本验签接口
+ */
+async function verifyContractTextsignEx(request: VerifyContractTextsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyContractTextsignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.textsign.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyContractDocsignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件id
+  fileId: string(name='file_id'),
+  // 平台方用户注册id
+  accountId: string(name='account_id'),
+}
+
+model VerifyContractDocsignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  code?: long(name='code'),
+  // 结果信息
+  message?: string(name='message'),
+  // 文件签署信息
+  signInfos?: [ ContractDocSignVerifyInfo ](name='sign_infos'),
+}
+
+/**
+ * Description: 文件签验签
+ * Summary: 文件签验签
+ */
+async function verifyContractDocsign(request: VerifyContractDocsignRequest): VerifyContractDocsignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyContractDocsignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文件签验签
+ * Summary: 文件签验签
+ */
+async function verifyContractDocsignEx(request: VerifyContractDocsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyContractDocsignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.docsign.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model SyncInnerTransRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -7702,6 +8036,96 @@ async function getTsrCertificateEx(request: GetTsrCertificateRequest, headers: m
   return doRequest('1.0' ,'twc.notary.tsr.certificate.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model CreateIdentificationRealpersonRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 认证人的姓名
+  certName: string(name='cert_name'),
+  // 被验证者的身份证号码
+  certNo: string(name='cert_no'),
+  // 授权码，针对某些特定场景使用，非必填
+  authCode?: string(name='auth_code'),
+  // 认证流程结束回调通知地址，非必传
+  callbackUrl?: string(name='callback_url'),
+  // 认证结束后跳转地址，非必填
+  returnUrl?: string(name='return_url'),
+}
+
+model CreateIdentificationRealpersonResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 实人认证流程ID
+  certifyId?: string(name='certify_id'),
+  // 发起实人认证的地址
+  certifyUrl?: string(name='certify_url'),
+}
+
+/**
+ * Description: 发起实人认证，这是改造后的接口
+ * Summary: 实人认证创建
+ */
+async function createIdentificationRealperson(request: CreateIdentificationRealpersonRequest): CreateIdentificationRealpersonResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createIdentificationRealpersonEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起实人认证，这是改造后的接口
+ * Summary: 实人认证创建
+ */
+async function createIdentificationRealpersonEx(request: CreateIdentificationRealpersonRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateIdentificationRealpersonResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.identification.realperson.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIdentificationRealpersonRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 实人认证流程ID
+  certifyId: string(name='certify_id'),
+  // 授权码，针对某些特定场景使用，非必填
+  authCode?: string(name='auth_code'),
+}
+
+model QueryIdentificationRealpersonResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 实人认证流程ID
+  certifyId?: string(name='certify_id'),
+  // 是否通过实人认证
+  passed?: boolean(name='passed'),
+}
+
+/**
+ * Description: 查询实人认证结果
+ * Summary: 查询实人认证结果
+ */
+async function queryIdentificationRealperson(request: QueryIdentificationRealpersonRequest): QueryIdentificationRealpersonResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIdentificationRealpersonEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询实人认证结果
+ * Summary: 查询实人认证结果
+ */
+async function queryIdentificationRealpersonEx(request: QueryIdentificationRealpersonRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIdentificationRealpersonResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.identification.realperson.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model SaveJointconstraintRecordRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -8272,6 +8696,501 @@ async function downloadJusticeCasefile(request: DownloadJusticeCasefileRequest):
 async function downloadJusticeCasefileEx(request: DownloadJusticeCasefileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadJusticeCasefileResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.justice.casefile.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OpenInternalJudicialRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权开通纠纷行业的真实租户ID
+  tenantId: string(name='tenant_id'),
+  // 调用接口的授权码
+  authCode: string(name='auth_code'),
+}
+
+model OpenInternalJudicialResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务响应码 0成功 其余都是失败
+  code?: string(name='code'),
+  // 状态码描述
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 开通纠纷平台使用权限
+ * Summary: 开通纠纷平台使用权限
+ */
+async function openInternalJudicial(request: OpenInternalJudicialRequest): OpenInternalJudicialResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return openInternalJudicialEx(request, headers, runtime);
+}
+
+/**
+ * Description: 开通纠纷平台使用权限
+ * Summary: 开通纠纷平台使用权限
+ */
+async function openInternalJudicialEx(request: OpenInternalJudicialRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OpenInternalJudicialResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.internal.judicial.open', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveJusticePartyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 委托申请方配置ID
+  partyId?: long(name='party_id'),
+  // 委托申请方类型,目前仅支持企业.
+  // 个人: PERSON
+  // 企业:ORG
+  partyType: string(name='party_type'),
+  // 企业信息实体;
+  // 当申请方类型为企业时,该字段必填;
+  partyOrganizationInfo: JudicialOrgInfo(name='party_organization_info'),
+  // 案件协同工作联系人信息实体
+  coordinatorPersonInfo: JudicialPersonInfo(name='coordinator_person_info'),
+}
+
+model SaveJusticePartyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否保存成功,true,false
+  success?: boolean(name='success'),
+  // 委托申请方配置ID
+  partyId?: long(name='party_id'),
+}
+
+/**
+ * Description: 案件当事人信息保存
+ * Summary: 案件当事人信息保存
+ */
+async function saveJusticeParty(request: SaveJusticePartyRequest): SaveJusticePartyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveJusticePartyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 案件当事人信息保存
+ * Summary: 案件当事人信息保存
+ */
+async function saveJusticePartyEx(request: SaveJusticePartyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveJusticePartyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.justice.party.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateJusticeNormalcaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 案由
+  caseReason: string(name='case_reason'),
+  // 业务类型
+  // 1- 租赁
+  // 2 - 金融
+  caseType: long(name='case_type'),
+  // 外部业务ID
+  externalBizId: string(name='external_biz_id'),
+  // 业务描述,用于案件的补充描述; 没有则不填
+  caseDesc?: string(name='case_desc'),
+  // 针对对应业务类型的证据要素补充.
+  caseBizElementInfo: string(name='case_biz_element_info'),
+  // 当事人(申请人)ID, 案件填充信息返回
+  partyId: long(name='party_id'),
+  // 答辩人类型, 目前仅支持个人.
+  // PERSON , 个人
+  // ORG , 机构
+  pleaderType: string(name='pleader_type'),
+  // 答辩人(自然人)信息, 类型为个人时必填
+  pleaderPersonInfo?: JudicialPersonInfo(name='pleader_person_info'),
+}
+
+model CreateJusticeNormalcaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 案件创建是否成功
+  success?: boolean(name='success'),
+  // 案件ID, 创建成功后, 返回的案件ID
+  caseId?: long(name='case_id'),
+}
+
+/**
+ * Description: 普通案件创建
+ * Summary: 普通案件创建
+ */
+async function createJusticeNormalcase(request: CreateJusticeNormalcaseRequest): CreateJusticeNormalcaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createJusticeNormalcaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 普通案件创建
+ * Summary: 普通案件创建
+ */
+async function createJusticeNormalcaseEx(request: CreateJusticeNormalcaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateJusticeNormalcaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.justice.normalcase.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateJusticeChaincaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 案由
+  caseReason: string(name='case_reason'),
+  // 业务类型
+  // 1- 租赁
+  // 2 - 金融
+  caseType: long(name='case_type'),
+  // 外部业务ID
+  externalBizId: string(name='external_biz_id'),
+  // 业务描述,用于案件的补充描述; 没有则不填
+  caseDesc?: string(name='case_desc'),
+  // 当事人(申请人)ID, 案件填充信息返回
+  partyId: long(name='party_id'),
+  // 全流程存证信息, 内容为字符串;
+  // 格式: "全流程存证模板id:全流程存证id"
+  notaryFlowInfos: [ string ](name='notary_flow_infos'),
+}
+
+model CreateJusticeChaincaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 案件创建是否成功
+  success?: boolean(name='success'),
+  // 案件ID, 创建成功后, 返回的案件ID
+  caseId?: long(name='case_id'),
+}
+
+/**
+ * Description: 链上案件创建
+ * Summary: 链上案件创建
+ */
+async function createJusticeChaincase(request: CreateJusticeChaincaseRequest): CreateJusticeChaincaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createJusticeChaincaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 链上案件创建
+ * Summary: 链上案件创建
+ */
+async function createJusticeChaincaseEx(request: CreateJusticeChaincaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateJusticeChaincaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.justice.chaincase.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartJusticeCaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 案件Id,创建案件返回的id
+  caseId: long(name='case_id'),
+  // 处置端租户ID
+  isvTenantId: string(name='isv_tenant_id'),
+  // 处置方式, 5-司法调解
+  judicialBizType: long(name='judicial_biz_type'),
+  // 司法调解基础参数, 当处置方式为5, 必填.
+  judiciallMediationParam?: JudicialMediationBaseParamInfo(name='judiciall_mediation_param'),
+}
+
+model StartJusticeCaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 维权记录ID, 维权成功后,返回的对应的维权记录ID
+  recordId?: long(name='record_id'),
+  // 案件发起是否成功,true,false
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 案件维权发起
+ * Summary: 案件维权发起
+ */
+async function startJusticeCase(request: StartJusticeCaseRequest): StartJusticeCaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startJusticeCaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 案件维权发起
+ * Summary: 案件维权发起
+ */
+async function startJusticeCaseEx(request: StartJusticeCaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartJusticeCaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.justice.case.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryJusticeCaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 案件Id,创建案件返回的id
+  caseId: long(name='case_id'),
+  // 维权记录ID, 维权成功后,返回的对应的维权记录ID
+  recordId?: long(name='record_id'),
+}
+
+model QueryJusticeCaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 案件ID
+  caseId?: long(name='case_id'),
+  // 维权记录ID
+  recordId?: long(name='record_id'),
+  // 外部业务id
+  externalBizId?: string(name='external_biz_id'),
+  // 案件阶段
+  // 待发起维权
+  // 待提交
+  // 收案处理中
+  // 结果待确认
+  // 已关闭
+  casePhaseDesc?: string(name='case_phase_desc'),
+  // 维权方式, (目前仅支持司法调解)
+  // 诉讼-2
+  // 仲裁-3
+  // 仲裁执行-4
+  // 司法调解-5
+  judicialRecordTypeDesc?: string(name='judicial_record_type_desc'),
+  // 维权状态字段描述.
+  // 
+  judicialRecordStatusDesc?: string(name='judicial_record_status_desc'),
+  // "yyyy-MM-dd" , 当前的状态更新时间
+  judicialRecordStatusTime?: string(name='judicial_record_status_time'),
+  // 维权过程中的文件列表
+  judicialFiles?: [ JudicialFileInfo ](name='judicial_files'),
+}
+
+/**
+ * Description: 案件查询
+ * Summary: 案件查询
+ */
+async function queryJusticeCase(request: QueryJusticeCaseRequest): QueryJusticeCaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryJusticeCaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 案件查询
+ * Summary: 案件查询
+ */
+async function queryJusticeCaseEx(request: QueryJusticeCaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryJusticeCaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.justice.case.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateJusticeEventRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 案件Id,创建案件返回的id
+  caseId: long(name='case_id'),
+  // 维权记录id,发起维权返回的Id
+  recordId: long(name='record_id'),
+  // 事件类型(目前仅支持司法调解类):
+  // 司法调解-JUDICIAL_MEDIATION
+  // 仲裁-ARBITRATION
+  // 执行-CARRIED_OUT
+  // 补证-SUPPLEMENT
+  eventType: string(name='event_type'),
+  // 针对事件响应的信息
+  operateInfo: JudicialEventOperateInfo(name='operate_info'),
+}
+
+model OperateJusticeEventResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 触发响应是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 案件事件响应
+ * Summary: 案件事件响应
+ */
+async function operateJusticeEvent(request: OperateJusticeEventRequest): OperateJusticeEventResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateJusticeEventEx(request, headers, runtime);
+}
+
+/**
+ * Description: 案件事件响应
+ * Summary: 案件事件响应
+ */
+async function operateJusticeEventEx(request: OperateJusticeEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateJusticeEventResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.justice.event.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateJusticeCasetemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 案件要素模板名称
+  name: string(name='name'),
+  // 模板业务类型名称
+  bizType: string(name='biz_type'),
+  // 全流程存证模板ID列表，多个用“,”隔开
+  flowTemplates: string(name='flow_templates'),
+  // 模板文件下载地址
+  templateFileUrl: string(name='template_file_url'),
+}
+
+model CreateJusticeCasetemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 案件要素模板ID，创建成功时返回
+  templateId?: string(name='template_id'),
+}
+
+/**
+ * Description: 司法解纷平台API服务，创建案件要素模板接口
+ * Summary: 创建案件要素模板
+ */
+async function createJusticeCasetemplate(request: CreateJusticeCasetemplateRequest): CreateJusticeCasetemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createJusticeCasetemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 司法解纷平台API服务，创建案件要素模板接口
+ * Summary: 创建案件要素模板
+ */
+async function createJusticeCasetemplateEx(request: CreateJusticeCasetemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateJusticeCasetemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.justice.casetemplate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateJusticeRightprotecttemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 维权要素模板名称
+  name: string(name='name'),
+  // 维权要素模板业务类型
+  bizType: string(name='biz_type'),
+  // 维权措施，枚举值，包括：
+  // ARBITRATION，仲裁
+  // ARBITRATION_EXECUTION，仲裁执行
+  // MEDIATION，调解
+  rightProtectType: string(name='right_protect_type'),
+  // 要素模板关联的案件要素模板ID，要素模板和案件模板必须属于同一个业务类型才可以关联
+  caseTemplateId: string(name='case_template_id'),
+  // 维权要素模板文件下载地址，文件为excel格式，包含维权要素的所有算法信息、字段信息和文件附件信息
+  templateFileUrl: string(name='template_file_url'),
+}
+
+model CreateJusticeRightprotecttemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 维权要素模板ID，创建成功时返回
+  templateId?: string(name='template_id'),
+}
+
+/**
+ * Description: 司法解纷平台API服务，创建维权要素模板接口
+ * Summary: 创建维权要素模板
+ */
+async function createJusticeRightprotecttemplate(request: CreateJusticeRightprotecttemplateRequest): CreateJusticeRightprotecttemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createJusticeRightprotecttemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 司法解纷平台API服务，创建维权要素模板接口
+ * Summary: 创建维权要素模板
+ */
+async function createJusticeRightprotecttemplateEx(request: CreateJusticeRightprotecttemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateJusticeRightprotecttemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.justice.rightprotecttemplate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetJusticeFileuploadurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 上传文件全名
+  fileName: string(name='file_name'),
+}
+
+model GetJusticeFileuploadurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 获取的文件key, 请妥善保存, 用于后续接口调用.
+  fileKey?: string(name='file_key'),
+  // 文件上传链接url
+  uploadUrl?: string(name='upload_url'),
+  // 链接失效日期: "yyyy-MM-dd HH:mm:ss"
+  expiredTime?: string(name='expired_time'),
+}
+
+/**
+ * Description: 获取司法文件上传链接
+ * Summary: 获取司法文件上传链接
+ */
+async function getJusticeFileuploadurl(request: GetJusticeFileuploadurlRequest): GetJusticeFileuploadurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getJusticeFileuploadurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取司法文件上传链接
+ * Summary: 获取司法文件上传链接
+ */
+async function getJusticeFileuploadurlEx(request: GetJusticeFileuploadurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetJusticeFileuploadurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.justice.fileuploadurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateLeaseProductinfoRequest = {
@@ -9741,6 +10660,50 @@ async function queryLeaseRentalverify(request: QueryLeaseRentalverifyRequest): Q
 async function queryLeaseRentalverifyEx(request: QueryLeaseRentalverifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseRentalverifyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.lease.rentalverify.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLeaseInstallmentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约id
+  applicationId?: string(name='application_id'),
+  // 订单id
+  orderId: string(name='order_id'),
+  // 归还的第几期
+  term: string(name='term'),
+  // 商家租户id
+  leaseId: string(name='lease_id'),
+}
+
+model QueryLeaseInstallmentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回对应的
+  responseData?: string(name='response_data'),
+}
+
+/**
+ * Description: 分期查询用户归还记录 资方还款 清分信息
+ * Summary: 分期查询用户归还记录 资方还款 清分信息
+ */
+async function queryLeaseInstallment(request: QueryLeaseInstallmentRequest): QueryLeaseInstallmentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLeaseInstallmentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分期查询用户归还记录 资方还款 清分信息
+ * Summary: 分期查询用户归还记录 资方还款 清分信息
+ */
+async function queryLeaseInstallmentEx(request: QueryLeaseInstallmentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseInstallmentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.installment.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateWitnessFlowRequest = {
@@ -14048,6 +15011,10 @@ model FinishFlowInstanceRequest = {
   flowId: string(name='flow_id'),
   // 是否需要legal标，默认为false，如果需要则填true
   needLegalLogo?: boolean(name='need_legal_logo'),
+  // 证据包类型，默认为空，不需要证据包，如果需要则按需填写，目前支持ChainEvidencePack(链上证据包)，其他包括LocalEvidencePack(链下证据包)，链下证据包前置依赖链上证据包，因此填写链下证据包会先生成链上证据包。
+  // 链上证据包，即全流程所有阶段存证关系链上固化，生成全流程链上证据统一txHash；
+  // 链下证据包，即全流程所有内容生成链下压缩包文件。
+  evidencePackType?: string(name='evidence_pack_type'),
 }
 
 model FinishFlowInstanceResponse = {
@@ -14281,6 +15248,10 @@ model QueryFlowOnestepnotaryRequest = {
   flowId: string(name='flow_id'),
   // 是否需要legal标，默认为false，如果需要则填true
   needLegalLogo?: boolean(name='need_legal_logo'),
+  // 证据包类型，默认为空，不需要证据包，如果需要则按需填写，目前支持ChainEvidencePack(链上证据包)，其他包括LocalEvidencePack(链下证据包)，链下证据包前置依赖链上证据包，因此填写链下证据包会先生成链上证据包。
+  // 链上证据包，即全流程所有阶段存证关系链上固化，生成全流程链上证据统一txHash；
+  // 链下证据包，即全流程所有内容生成链下压缩包文件。
+  evidencePackType?: string(name='evidence_pack_type'),
 }
 
 model QueryFlowOnestepnotaryResponse = {
@@ -14669,5 +15640,279 @@ async function createStubClearing(request: CreateStubClearingRequest): CreateStu
 async function createStubClearingEx(request: CreateStubClearingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateStubClearingResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.stub.clearing.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyFlowEvidenceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 证据包类型，默认为ChainEvidencePack(链上证据包)，按需填写，目前支持ChainEvidencePack(链上证据包)，其他包括LocalEvidencePack(链下证据包)，链下证据包前置依赖链上证据包，因此填写链下证据包会先生成链上证据包。
+  // 链上证据包，即全流程所有阶段存证关系链上固化，生成全流程链上证据统一txHash；
+  // 链下证据包，即全流程所有内容生成链下压缩包文件。
+  evidencePackType: string(name='evidence_pack_type'),
+}
+
+model ApplyFlowEvidenceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 申请全流程证据包，包括链上证据包和链下证据包
+ * Summary: 申请全流程证据包
+ */
+async function applyFlowEvidence(request: ApplyFlowEvidenceRequest): ApplyFlowEvidenceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyFlowEvidenceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 申请全流程证据包，包括链上证据包和链下证据包
+ * Summary: 申请全流程证据包
+ */
+async function applyFlowEvidenceEx(request: ApplyFlowEvidenceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyFlowEvidenceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.flow.evidence.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFlowEvidenceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 证据包类型，默认为ChainEvidencePack(链上证据包)，其他包括LocalEvidencePack(链下证据包)，链下证据包前置依赖链上证据包，因此链下证据包会返回链上证据包，但如果查询链下证据包，则只有等链下证据包完整生成才会返回，否则返回都是生成中。
+  evidencePackType: string(name='evidence_pack_type'),
+}
+
+model QueryFlowEvidenceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 链上证据包对应的链上交易Hash，只有resultMsg为success时才返回
+  chainPackTxHash?: string(name='chain_pack_tx_hash'),
+  // 暂不支持，预留字段，链下证据包对应的可下载链接，有效期3小时，只有申请时选择了链下证据包、查询入参evidencePackType选择LocalEvidencePack及resultMsg为success时才返回
+  localPackUrl?: string(name='local_pack_url'),
+}
+
+/**
+ * Description: 全流程证据包生成进度查询
+ * Summary: 全流程证据包生成进度查询
+ */
+async function queryFlowEvidence(request: QueryFlowEvidenceRequest): QueryFlowEvidenceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFlowEvidenceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 全流程证据包生成进度查询
+ * Summary: 全流程证据包生成进度查询
+ */
+async function queryFlowEvidenceEx(request: QueryFlowEvidenceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFlowEvidenceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.flow.evidence.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyFlowAuthRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 链上证据包对应的链上交易Hash，通过twc.notary.flow.evidence.query(全流程证据包生成进度查询)获取
+  chainPackTxHash: string(name='chain_pack_tx_hash'),
+  // 授权时间长度，单位为s，默认72小时，即259200s，有效期为接口调用时间开始，接口调用时间+授权时间长度的时间为结束时间，例如当前时间为2022-08-18 00:00:00，授权时间长度为86400s(即一天)，则授权截止时间为2022-08-19 00:00:00
+  authTimePeriod?: long(name='auth_time_period'),
+}
+
+model ApplyFlowAuthResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 链上证据包授权码，只有resultMsg为success时才返回
+  authCode?: string(name='auth_code'),
+  // 链上证据包授权码过期时间
+  expireTime?: long(name='expire_time'),
+}
+
+/**
+ * Description: 全流程证据授权码申请
+ * Summary: 全流程证据授权码申请
+ */
+async function applyFlowAuth(request: ApplyFlowAuthRequest): ApplyFlowAuthResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyFlowAuthEx(request, headers, runtime);
+}
+
+/**
+ * Description: 全流程证据授权码申请
+ * Summary: 全流程证据授权码申请
+ */
+async function applyFlowAuthEx(request: ApplyFlowAuthRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyFlowAuthResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.flow.auth.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailFlowInstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 链上证据包对应的链上交易Hash，通过twc.notary.flow.evidence.query(全流程证据包生成进度查询)获取
+  chainPackTxHash: string(name='chain_pack_tx_hash'),
+  // 链上证据包授权码，不传默认按照当前租户校验，填写则按照授权租户检查
+  authCode?: string(name='auth_code'),
+}
+
+model DetailFlowInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次存证的存证主体信息
+  notaryUser?: NotaryUser(name='notary_user'),
+  // 本次全流程的阶段存证详情列表
+  phaseDetailList?: [ PhaseDetail ](name='phase_detail_list'),
+}
+
+/**
+ * Description: 全流程详情查询
+ * Summary: 全流程详情查询
+ */
+async function detailFlowInstance(request: DetailFlowInstanceRequest): DetailFlowInstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailFlowInstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 全流程详情查询
+ * Summary: 全流程详情查询
+ */
+async function detailFlowInstanceEx(request: DetailFlowInstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailFlowInstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.flow.instance.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckContractRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链路由字段，如：copyright、judicatory、contract
+  chain: string(name='chain'),
+  // 是否跨链，目前仅支持跨链：true
+  crossChain: boolean(name='cross_chain'),
+  // 业务合约id，当crossChain为false时，该字段必填
+  contractId?: string(name='contract_id'),
+  // 业务合约方法名称，当crossChain为false时，该字段必填
+  contractMethod?: string(name='contract_method'),
+  // 业务合约方法入参，当crossChain为false时，该字段必填
+  contractParam?: string(name='contract_param'),
+  // 业务合约方法的返回值类型
+  contractOutTypes?: string(name='contract_out_types'),
+  // 跨链的业务合约的contractId，contractMethod，contractParam，contractOutTypes的JSON组合。当crossChain为true时，该字段必填。
+  crossParam?: string(name='cross_param'),
+  // 是否本地执行
+  local?: boolean(name='local'),
+  // 链上账户名称
+  contractAccount?: string(name='contract_account'),
+  // 业务订单id
+  bizOrderId: string(name='biz_order_id'),
+}
+
+model CheckContractResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单id
+  orderId?: string(name='order_id'),
+}
+
+/**
+ * Description: 合约校验接口
+ * Summary: 合约校验接口
+ */
+async function checkContract(request: CheckContractRequest): CheckContractResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkContractEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合约校验接口
+ * Summary: 合约校验接口
+ */
+async function checkContractEx(request: CheckContractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckContractResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(name='order_id'),
+}
+
+model QueryContractStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易hash
+  txHash?: string(name='tx_hash'),
+  // 订单id
+  orderId?: string(name='order_id'),
+  // 合约执行结果，Base64编码后的
+  contentBase64?: string(name='content_base64'),
+  // 块高
+  blockNumber?: long(name='block_number'),
+  // 消耗gas量
+  gasUsed?: long(name='gas_used'),
+  // log信息
+  logBase64?: string(name='log_base64'),
+}
+
+/**
+ * Description: 查询合约核验结果
+ * Summary: 查询合约核验结果
+ */
+async function queryContractStatus(request: QueryContractStatusRequest): QueryContractStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询合约核验结果
+ * Summary: 查询合约核验结果
+ */
+async function queryContractStatusEx(request: QueryContractStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
