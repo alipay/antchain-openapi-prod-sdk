@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'SaasTest16',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'SaasTest16',
                     '_prod_channel': 'saas'
                 }
@@ -281,7 +281,7 @@ class Client:
     ) -> saas_test_16_models.ServiceAntcloudOpenapiGatewayCheckResponse:
         """
         Description: 检测金融云网关目前的健康状态
-        Summary: 网关健康检查
+        Summary: 网关健康检查1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -293,7 +293,7 @@ class Client:
     ) -> saas_test_16_models.ServiceAntcloudOpenapiGatewayCheckResponse:
         """
         Description: 检测金融云网关目前的健康状态
-        Summary: 网关健康检查
+        Summary: 网关健康检查1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -307,7 +307,7 @@ class Client:
     ) -> saas_test_16_models.ServiceAntcloudOpenapiGatewayCheckResponse:
         """
         Description: 检测金融云网关目前的健康状态
-        Summary: 网关健康检查
+        Summary: 网关健康检查1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -323,68 +323,12 @@ class Client:
     ) -> saas_test_16_models.ServiceAntcloudOpenapiGatewayCheckResponse:
         """
         Description: 检测金融云网关目前的健康状态
-        Summary: 网关健康检查
+        Summary: 网关健康检查1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             saas_test_16_models.ServiceAntcloudOpenapiGatewayCheckResponse(),
             await self.do_request_async('1.0', 'antcloud.openapi.gateway.check.service', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def init_demo_bbp_insurance_user(
-        self,
-        request: saas_test_16_models.InitDemoBbpInsuranceUserRequest,
-    ) -> saas_test_16_models.InitDemoBbpInsuranceUserResponse:
-        """
-        Description: 保司用户埋点信息
-        Summary: 用户登陆页面埋点
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.init_demo_bbp_insurance_user_ex(request, headers, runtime)
-
-    async def init_demo_bbp_insurance_user_async(
-        self,
-        request: saas_test_16_models.InitDemoBbpInsuranceUserRequest,
-    ) -> saas_test_16_models.InitDemoBbpInsuranceUserResponse:
-        """
-        Description: 保司用户埋点信息
-        Summary: 用户登陆页面埋点
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.init_demo_bbp_insurance_user_ex_async(request, headers, runtime)
-
-    def init_demo_bbp_insurance_user_ex(
-        self,
-        request: saas_test_16_models.InitDemoBbpInsuranceUserRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> saas_test_16_models.InitDemoBbpInsuranceUserResponse:
-        """
-        Description: 保司用户埋点信息
-        Summary: 用户登陆页面埋点
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            saas_test_16_models.InitDemoBbpInsuranceUserResponse(),
-            self.do_request('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def init_demo_bbp_insurance_user_ex_async(
-        self,
-        request: saas_test_16_models.InitDemoBbpInsuranceUserRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> saas_test_16_models.InitDemoBbpInsuranceUserResponse:
-        """
-        Description: 保司用户埋点信息
-        Summary: 用户登陆页面埋点
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            saas_test_16_models.InitDemoBbpInsuranceUserResponse(),
-            await self.do_request_async('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_demo_gateway_check(
@@ -441,4 +385,60 @@ class Client:
         return TeaCore.from_map(
             saas_test_16_models.QueryDemoGatewayCheckResponse(),
             await self.do_request_async('1.0', 'demo.gateway.check.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_demo_bbp_insurance_user(
+        self,
+        request: saas_test_16_models.InitDemoBbpInsuranceUserRequest,
+    ) -> saas_test_16_models.InitDemoBbpInsuranceUserResponse:
+        """
+        Description: 保司用户埋点信息
+        Summary: 用户登陆页面埋点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_demo_bbp_insurance_user_ex(request, headers, runtime)
+
+    async def init_demo_bbp_insurance_user_async(
+        self,
+        request: saas_test_16_models.InitDemoBbpInsuranceUserRequest,
+    ) -> saas_test_16_models.InitDemoBbpInsuranceUserResponse:
+        """
+        Description: 保司用户埋点信息
+        Summary: 用户登陆页面埋点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_demo_bbp_insurance_user_ex_async(request, headers, runtime)
+
+    def init_demo_bbp_insurance_user_ex(
+        self,
+        request: saas_test_16_models.InitDemoBbpInsuranceUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_test_16_models.InitDemoBbpInsuranceUserResponse:
+        """
+        Description: 保司用户埋点信息
+        Summary: 用户登陆页面埋点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_test_16_models.InitDemoBbpInsuranceUserResponse(),
+            self.do_request('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_demo_bbp_insurance_user_ex_async(
+        self,
+        request: saas_test_16_models.InitDemoBbpInsuranceUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> saas_test_16_models.InitDemoBbpInsuranceUserResponse:
+        """
+        Description: 保司用户埋点信息
+        Summary: 用户登陆页面埋点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            saas_test_16_models.InitDemoBbpInsuranceUserResponse(),
+            await self.do_request_async('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
