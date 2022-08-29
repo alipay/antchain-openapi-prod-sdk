@@ -1,0 +1,32 @@
+{
+  "name": "antchain/saastest16",
+  "description": "Ant Chain SDK Library for PHP",
+  "type": "library",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "require": {
+    "php": ">5.5",
+    "antchain/antchain-util": "^0.2.0",
+    "alibabacloud/tea-utils": "^0.2.16",
+    "alibabacloud/tea-rpc-utils": "^0.2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "AntChain\\SaasTest16\\": "src"
+    }
+  },
+  "scripts": {
+    "fixer": "php-cs-fixer fix ./"
+  },
+  "config": {
+    "sort-packages": true,
+    "preferred-install": "dist",
+    "optimize-autoloader": true
+  },
+  "prefer-stable": true
+}
