@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_bb3e5638866e4c77aa9ae8ac5c14e933.Models
 {
-    public class QueryDemoAbcAbcAbcRequest : TeaModel {
+    public class BindDemoGatewayAbcTestRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
