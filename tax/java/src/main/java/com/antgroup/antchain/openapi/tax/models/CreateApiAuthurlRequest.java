@@ -31,6 +31,11 @@ public class CreateApiAuthurlRequest extends TeaModel {
     @Validation(required = true)
     public String callBackUrl;
 
+    // 机构代码
+    @NameInMap("inst_code")
+    @Validation(required = true)
+    public String instCode;
+
     // 已认证的法人手机号
     @NameInMap("cognizant_mobile")
     public String cognizantMobile;
@@ -94,6 +99,14 @@ public class CreateApiAuthurlRequest extends TeaModel {
     }
     public String getCallBackUrl() {
         return this.callBackUrl;
+    }
+
+    public CreateApiAuthurlRequest setInstCode(String instCode) {
+        this.instCode = instCode;
+        return this;
+    }
+    public String getInstCode() {
+        return this.instCode;
     }
 
     public CreateApiAuthurlRequest setCognizantMobile(String cognizantMobile) {
