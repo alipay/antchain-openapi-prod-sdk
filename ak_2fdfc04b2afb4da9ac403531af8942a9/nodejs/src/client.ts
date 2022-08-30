@@ -398,73 +398,6 @@ export class QueryDemoAaaBbbCccResponse extends $tea.Model {
   }
 }
 
-export class QueryDemoAaaaFffDdRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // xxx
-  xxx: string;
-  // yyy
-  yyy: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      xxx: 'xxx',
-      yyy: 'yyy',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      xxx: 'string',
-      yyy: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDemoAaaaFffDdResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // aaa
-  aaa?: string;
-  // bbb
-  bbb?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      aaa: 'aaa',
-      bbb: 'bbb',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      aaa: 'string',
-      bbb: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class QueryDemoAbcAbcAbcRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -489,57 +422,6 @@ export class QueryDemoAbcAbcAbcRequest extends $tea.Model {
 }
 
 export class QueryDemoAbcAbcAbcResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDemoAdAsdAsdRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryDemoAdAsdAsdResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1263,25 +1145,6 @@ export default class Client {
   }
 
   /**
-   * Description: 测试使用
-   * Summary: 测试使用
-   */
-  async queryDemoAaaaFffDd(request: QueryDemoAaaaFffDdRequest): Promise<QueryDemoAaaaFffDdResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryDemoAaaaFffDdEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 测试使用
-   * Summary: 测试使用
-   */
-  async queryDemoAaaaFffDdEx(request: QueryDemoAaaaFffDdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoAaaaFffDdResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryDemoAaaaFffDdResponse>(await this.doRequest("1.0", "demo.aaaa.fff.dd.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoAaaaFffDdResponse({}));
-  }
-
-  /**
    * Description: 自动化测试创建,用于测试API的修改
    * Summary: 自动化测试创建,用于测试API的修改勿动
    */
@@ -1298,25 +1161,6 @@ export default class Client {
   async queryDemoAbcAbcAbcEx(request: QueryDemoAbcAbcAbcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoAbcAbcAbcResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDemoAbcAbcAbcResponse>(await this.doRequest("1.0", "demo.abc.abc.abc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoAbcAbcAbcResponse({}));
-  }
-
-  /**
-   * Description: asd
-   * Summary: asd
-   */
-  async queryDemoAdAsdAsd(request: QueryDemoAdAsdAsdRequest): Promise<QueryDemoAdAsdAsdResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryDemoAdAsdAsdEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: asd
-   * Summary: asd
-   */
-  async queryDemoAdAsdAsdEx(request: QueryDemoAdAsdAsdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDemoAdAsdAsdResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryDemoAdAsdAsdResponse>(await this.doRequest("1.0", "demo.ad.asd.asd.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDemoAdAsdAsdResponse({}));
   }
 
   /**
