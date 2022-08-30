@@ -43,6 +43,12 @@ class CreateApiAuthurlRequest extends Model
      */
     public $callBackUrl;
 
+    // 机构代码
+    /**
+     * @var string
+     */
+    public $instCode;
+
     // 已认证的法人手机号
     /**
      * @var string
@@ -67,6 +73,7 @@ class CreateApiAuthurlRequest extends Model
         'nsrsbh'            => 'nsrsbh',
         'corpName'          => 'corp_name',
         'callBackUrl'       => 'call_back_url',
+        'instCode'          => 'inst_code',
         'cognizantMobile'   => 'cognizant_mobile',
         'cognizantName'     => 'cognizant_name',
         'identityNumber'    => 'identity_number',
@@ -78,6 +85,7 @@ class CreateApiAuthurlRequest extends Model
         Model::validateRequired('nsrsbh', $this->nsrsbh, true);
         Model::validateRequired('corpName', $this->corpName, true);
         Model::validateRequired('callBackUrl', $this->callBackUrl, true);
+        Model::validateRequired('instCode', $this->instCode, true);
     }
 
     public function toMap()
@@ -100,6 +108,9 @@ class CreateApiAuthurlRequest extends Model
         }
         if (null !== $this->callBackUrl) {
             $res['call_back_url'] = $this->callBackUrl;
+        }
+        if (null !== $this->instCode) {
+            $res['inst_code'] = $this->instCode;
         }
         if (null !== $this->cognizantMobile) {
             $res['cognizant_mobile'] = $this->cognizantMobile;
@@ -139,6 +150,9 @@ class CreateApiAuthurlRequest extends Model
         }
         if (isset($map['call_back_url'])) {
             $model->callBackUrl = $map['call_back_url'];
+        }
+        if (isset($map['inst_code'])) {
+            $model->instCode = $map['inst_code'];
         }
         if (isset($map['cognizant_mobile'])) {
             $model->cognizantMobile = $map['cognizant_mobile'];
