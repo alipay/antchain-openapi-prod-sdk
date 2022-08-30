@@ -21,14 +21,10 @@ use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\CheckSaasSecurityRdsRdss
 use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\CheckSaasSecurityRdsRdsserviceResponse;
 use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\InitDemoBbpInsuranceUserRequest;
 use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\InitDemoBbpInsuranceUserResponse;
-use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\QueryDemoAaaaFffDdRequest;
-use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\QueryDemoAaaaFffDdResponse;
 use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\QueryDemoAaaBbbCccRequest;
 use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\QueryDemoAaaBbbCccResponse;
 use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\QueryDemoAbcAbcAbcRequest;
 use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\QueryDemoAbcAbcAbcResponse;
-use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\QueryDemoAdAsdAsdRequest;
-use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\QueryDemoAdAsdAsdResponse;
 use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\QuerySaasSecurityInfosecOpencheckservicequeryRequest;
 use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\QuerySaasSecurityInfosecOpencheckservicequeryResponse;
 use AntChain\Ak_2fdfc04b2afb4da9ac403531af8942a9\Models\QuerySaasSecuritySecuritycoreSecurityuniformserviceRequest;
@@ -299,39 +295,6 @@ class Client
     }
 
     /**
-     * Description: 测试使用
-     * Summary: 测试使用.
-     *
-     * @param QueryDemoAaaaFffDdRequest $request
-     *
-     * @return QueryDemoAaaaFffDdResponse
-     */
-    public function queryDemoAaaaFffDd($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoAaaaFffDdEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 测试使用
-     * Summary: 测试使用.
-     *
-     * @param QueryDemoAaaaFffDdRequest $request
-     * @param string[]                  $headers
-     * @param RuntimeOptions            $runtime
-     *
-     * @return QueryDemoAaaaFffDdResponse
-     */
-    public function queryDemoAaaaFffDdEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoAaaaFffDdResponse::fromMap($this->doRequest('1.0', 'demo.aaaa.fff.dd.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 自动化测试创建,用于测试API的修改
      * Summary: 自动化测试创建,用于测试API的修改勿动.
      *
@@ -362,39 +325,6 @@ class Client
         Utils::validateModel($request);
 
         return QueryDemoAbcAbcAbcResponse::fromMap($this->doRequest('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd.
-     *
-     * @param QueryDemoAdAsdAsdRequest $request
-     *
-     * @return QueryDemoAdAsdAsdResponse
-     */
-    public function queryDemoAdAsdAsd($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoAdAsdAsdEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: asd
-     * Summary: asd.
-     *
-     * @param QueryDemoAdAsdAsdRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
-     *
-     * @return QueryDemoAdAsdAsdResponse
-     */
-    public function queryDemoAdAsdAsdEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoAdAsdAsdResponse::fromMap($this->doRequest('1.0', 'demo.ad.asd.asd.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
