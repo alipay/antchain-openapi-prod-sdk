@@ -2117,6 +2117,8 @@ export class CreateApiAuthurlRequest extends $tea.Model {
   corpName: string;
   // 授权回调地址，授权成功后，会跳转该地址，该地址填接入方自己的接收授权结果的地址
   callBackUrl: string;
+  // 机构代码
+  instCode: string;
   // 已认证的法人手机号
   cognizantMobile?: string;
   // 已认证的法人姓名
@@ -2131,6 +2133,7 @@ export class CreateApiAuthurlRequest extends $tea.Model {
       nsrsbh: 'nsrsbh',
       corpName: 'corp_name',
       callBackUrl: 'call_back_url',
+      instCode: 'inst_code',
       cognizantMobile: 'cognizant_mobile',
       cognizantName: 'cognizant_name',
       identityNumber: 'identity_number',
@@ -2145,6 +2148,7 @@ export class CreateApiAuthurlRequest extends $tea.Model {
       nsrsbh: 'string',
       corpName: 'string',
       callBackUrl: 'string',
+      instCode: 'string',
       cognizantMobile: 'string',
       cognizantName: 'string',
       identityNumber: 'string',
@@ -2305,7 +2309,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.1",
+          sdk_version: "1.6.2",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
