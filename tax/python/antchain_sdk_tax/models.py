@@ -3531,6 +3531,7 @@ class CreateApiAuthurlRequest(TeaModel):
         nsrsbh: str = None,
         corp_name: str = None,
         call_back_url: str = None,
+        inst_code: str = None,
         cognizant_mobile: str = None,
         cognizant_name: str = None,
         identity_number: str = None,
@@ -3546,6 +3547,8 @@ class CreateApiAuthurlRequest(TeaModel):
         self.corp_name = corp_name
         # 授权回调地址，授权成功后，会跳转该地址，该地址填接入方自己的接收授权结果的地址
         self.call_back_url = call_back_url
+        # 机构代码
+        self.inst_code = inst_code
         # 已认证的法人手机号
         self.cognizant_mobile = cognizant_mobile
         # 已认证的法人姓名
@@ -3558,6 +3561,7 @@ class CreateApiAuthurlRequest(TeaModel):
         self.validate_required(self.nsrsbh, 'nsrsbh')
         self.validate_required(self.corp_name, 'corp_name')
         self.validate_required(self.call_back_url, 'call_back_url')
+        self.validate_required(self.inst_code, 'inst_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -3577,6 +3581,8 @@ class CreateApiAuthurlRequest(TeaModel):
             result['corp_name'] = self.corp_name
         if self.call_back_url is not None:
             result['call_back_url'] = self.call_back_url
+        if self.inst_code is not None:
+            result['inst_code'] = self.inst_code
         if self.cognizant_mobile is not None:
             result['cognizant_mobile'] = self.cognizant_mobile
         if self.cognizant_name is not None:
@@ -3599,6 +3605,8 @@ class CreateApiAuthurlRequest(TeaModel):
             self.corp_name = m.get('corp_name')
         if m.get('call_back_url') is not None:
             self.call_back_url = m.get('call_back_url')
+        if m.get('inst_code') is not None:
+            self.inst_code = m.get('inst_code')
         if m.get('cognizant_mobile') is not None:
             self.cognizant_mobile = m.get('cognizant_mobile')
         if m.get('cognizant_name') is not None:
