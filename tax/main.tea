@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.1',
+    sdk_version = '1.6.2',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -1261,6 +1261,8 @@ model CreateApiAuthurlRequest = {
   corpName: string(name='corp_name'),
   // 授权回调地址，授权成功后，会跳转该地址，该地址填接入方自己的接收授权结果的地址
   callBackUrl: string(name='call_back_url'),
+  // 机构代码
+  instCode: string(name='inst_code'),
   // 已认证的法人手机号
   cognizantMobile?: string(name='cognizant_mobile'),
   // 已认证的法人姓名

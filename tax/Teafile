@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "TAX",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-tax:1.6.1",
+    "java": "com.antgroup.antchain.openapi:openapi-tax:1.6.2",
     "go": "github.com/antchain-openapi-sdk-go/tax/client:v1.6.1",
-    "csharp": "AntChain.SDK.TAX:1.6.1",
-    "ts": "@antchain/tax:1.6.1",
-    "php": "antchain/tax:1.6.1",
-    "python": "antchain_sdk_tax:1.6.1"
+    "csharp": "AntChain.SDK.TAX:1.6.2",
+    "ts": "@antchain/tax:1.6.2",
+    "php": "antchain/tax:1.6.2",
+    "python": "antchain_sdk_tax:1.6.2"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
