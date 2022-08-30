@@ -38,6 +38,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=true)]
         public string CallBackUrl { get; set; }
 
+        // 机构代码
+        [NameInMap("inst_code")]
+        [Validation(Required=true)]
+        public string InstCode { get; set; }
+
         // 已认证的法人手机号
         [NameInMap("cognizant_mobile")]
         [Validation(Required=false)]
