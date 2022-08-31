@@ -251,6 +251,8 @@ use AntChain\TWC\Models\CreateWitnessFlowRequest;
 use AntChain\TWC\Models\CreateWitnessFlowResponse;
 use AntChain\TWC\Models\DeleteContractSignerRequest;
 use AntChain\TWC\Models\DeleteContractSignerResponse;
+use AntChain\TWC\Models\DeleteContractSignfieldRequest;
+use AntChain\TWC\Models\DeleteContractSignfieldResponse;
 use AntChain\TWC\Models\DeleteJointconstraintRecordRequest;
 use AntChain\TWC\Models\DeleteJointconstraintRecordResponse;
 use AntChain\TWC\Models\DeleteSueBreakpromiseinfoRequest;
@@ -696,7 +698,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.72',
+                    'sdk_version'      => '1.7.73',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3980,6 +3982,39 @@ class Client
         Utils::validateModel($request);
 
         return VerifyContractDocsignResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.docsign.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除签署区
+     * Summary: 删除签署区.
+     *
+     * @param DeleteContractSignfieldRequest $request
+     *
+     * @return DeleteContractSignfieldResponse
+     */
+    public function deleteContractSignfield($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteContractSignfieldEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除签署区
+     * Summary: 删除签署区.
+     *
+     * @param DeleteContractSignfieldRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return DeleteContractSignfieldResponse
+     */
+    public function deleteContractSignfieldEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteContractSignfieldResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.signfield.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
