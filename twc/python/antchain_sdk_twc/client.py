@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.72',
+                    'sdk_version': '1.7.73',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.72',
+                    'sdk_version': '1.7.73',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -5769,6 +5769,62 @@ class Client:
         return TeaCore.from_map(
             twc_models.VerifyContractDocsignResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.docsign.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_contract_signfield(
+        self,
+        request: twc_models.DeleteContractSignfieldRequest,
+    ) -> twc_models.DeleteContractSignfieldResponse:
+        """
+        Description: 删除签署区
+        Summary: 删除签署区
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_contract_signfield_ex(request, headers, runtime)
+
+    async def delete_contract_signfield_async(
+        self,
+        request: twc_models.DeleteContractSignfieldRequest,
+    ) -> twc_models.DeleteContractSignfieldResponse:
+        """
+        Description: 删除签署区
+        Summary: 删除签署区
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_contract_signfield_ex_async(request, headers, runtime)
+
+    def delete_contract_signfield_ex(
+        self,
+        request: twc_models.DeleteContractSignfieldRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.DeleteContractSignfieldResponse:
+        """
+        Description: 删除签署区
+        Summary: 删除签署区
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.DeleteContractSignfieldResponse(),
+            self.do_request('1.0', 'twc.notary.contract.signfield.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_contract_signfield_ex_async(
+        self,
+        request: twc_models.DeleteContractSignfieldRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.DeleteContractSignfieldResponse:
+        """
+        Description: 删除签署区
+        Summary: 删除签署区
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.DeleteContractSignfieldResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.signfield.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_inner_trans(
