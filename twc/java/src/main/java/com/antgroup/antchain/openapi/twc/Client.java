@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.72"),
+                    new TeaPair("sdk_version", "1.7.73"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2025,6 +2025,25 @@ public class Client {
     public VerifyContractDocsignResponse verifyContractDocsignEx(VerifyContractDocsignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.docsign.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyContractDocsignResponse());
+    }
+
+    /**
+     * Description: 删除签署区
+     * Summary: 删除签署区
+     */
+    public DeleteContractSignfieldResponse deleteContractSignfield(DeleteContractSignfieldRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteContractSignfieldEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除签署区
+     * Summary: 删除签署区
+     */
+    public DeleteContractSignfieldResponse deleteContractSignfieldEx(DeleteContractSignfieldRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.signfield.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteContractSignfieldResponse());
     }
 
     /**
