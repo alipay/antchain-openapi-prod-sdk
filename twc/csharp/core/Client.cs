@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.72"},
+                        {"sdk_version", "1.7.73"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.72"},
+                        {"sdk_version", "1.7.73"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4443,6 +4443,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<VerifyContractDocsignResponse>(await DoRequestAsync("1.0", "twc.notary.contract.docsign.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除签署区
+         * Summary: 删除签署区
+         */
+        public DeleteContractSignfieldResponse DeleteContractSignfield(DeleteContractSignfieldRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteContractSignfieldEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除签署区
+         * Summary: 删除签署区
+         */
+        public async Task<DeleteContractSignfieldResponse> DeleteContractSignfieldAsync(DeleteContractSignfieldRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteContractSignfieldExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除签署区
+         * Summary: 删除签署区
+         */
+        public DeleteContractSignfieldResponse DeleteContractSignfieldEx(DeleteContractSignfieldRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteContractSignfieldResponse>(DoRequest("1.0", "twc.notary.contract.signfield.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除签署区
+         * Summary: 删除签署区
+         */
+        public async Task<DeleteContractSignfieldResponse> DeleteContractSignfieldExAsync(DeleteContractSignfieldRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteContractSignfieldResponse>(await DoRequestAsync("1.0", "twc.notary.contract.signfield.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
