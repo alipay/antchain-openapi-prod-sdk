@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.72',
+    sdk_version = '1.7.73',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -6954,6 +6954,50 @@ async function verifyContractDocsign(request: VerifyContractDocsignRequest): Ver
 async function verifyContractDocsignEx(request: VerifyContractDocsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyContractDocsignResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.contract.docsign.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteContractSignfieldRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 签署流程id
+  flowId: string(name='flow_id'),
+  // 删除签署区id列表
+  deleteSignfields: [ string ](name='delete_signfields'),
+}
+
+model DeleteContractSignfieldResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否操作成功
+  success?: boolean(name='success'),
+  // 结果码(数字), 成功0
+  code?: long(name='code'),
+  // 结果备注（具体错误解释）
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 删除签署区
+ * Summary: 删除签署区
+ */
+async function deleteContractSignfield(request: DeleteContractSignfieldRequest): DeleteContractSignfieldResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteContractSignfieldEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除签署区
+ * Summary: 删除签署区
+ */
+async function deleteContractSignfieldEx(request: DeleteContractSignfieldRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteContractSignfieldResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.signfield.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SyncInnerTransRequest = {
