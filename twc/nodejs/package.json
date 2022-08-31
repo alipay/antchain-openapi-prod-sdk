@@ -1,6 +1,6 @@
 {
   "name": "@antchain/twc",
-  "version": "1.7.72",
+  "version": "1.7.73",
   "description": "",
   "main": "dist/client.js",
   "scripts": {

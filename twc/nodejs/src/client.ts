@@ -12907,6 +12907,77 @@ export class VerifyContractDocsignResponse extends $tea.Model {
   }
 }
 
+export class DeleteContractSignfieldRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 签署流程id
+  flowId: string;
+  // 删除签署区id列表
+  deleteSignfields: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      deleteSignfields: 'delete_signfields',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      deleteSignfields: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteContractSignfieldResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否操作成功
+  success?: boolean;
+  // 结果码(数字), 成功0
+  code?: number;
+  // 结果备注（具体错误解释）
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'number',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class SyncInnerTransRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -27883,7 +27954,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.72",
+          sdk_version: "1.7.73",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -29795,6 +29866,25 @@ export default class Client {
   async verifyContractDocsignEx(request: VerifyContractDocsignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyContractDocsignResponse> {
     Util.validateModel(request);
     return $tea.cast<VerifyContractDocsignResponse>(await this.doRequest("1.0", "twc.notary.contract.docsign.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyContractDocsignResponse({}));
+  }
+
+  /**
+   * Description: 删除签署区
+   * Summary: 删除签署区
+   */
+  async deleteContractSignfield(request: DeleteContractSignfieldRequest): Promise<DeleteContractSignfieldResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteContractSignfieldEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 删除签署区
+   * Summary: 删除签署区
+   */
+  async deleteContractSignfieldEx(request: DeleteContractSignfieldRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteContractSignfieldResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteContractSignfieldResponse>(await this.doRequest("1.0", "twc.notary.contract.signfield.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteContractSignfieldResponse({}));
   }
 
   /**
