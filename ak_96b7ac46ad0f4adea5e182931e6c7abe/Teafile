@@ -1,0 +1,71 @@
+{
+  "scope": "antchain",
+  "name": "ak_96b7ac46ad0f4adea5e182931e6c7abe",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.antgroup.antchain.openapi:openapi-ak_96b7ac46ad0f4adea5e182931e6c7abe:1.0.0",
+    "go": "github.com/antchain-openapi-sdk-go/ak_96b7ac46ad0f4adea5e182931e6c7abe/client:v0.0.1",
+    "csharp": "AntChain.SDK.Ak_96b7ac46ad0f4adea5e182931e6c7abe:1.0.0",
+    "ts": "@antchain/ak_96b7ac46ad0f4adea5e182931e6c7abe:1.0.0",
+    "php": "antchain/ak_96b7ac46ad0f4adea5e182931e6c7abe:1.0.0",
+    "python": "antchain_sdk_ak_96b7ac46ad0f4adea5e182931e6c7abe:1.0.0"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AntchainUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.antgroup.antchain.openapi.ak_96b7ac46ad0f4adea5e182931e6c7abe",
+    "packageInfo": {
+      "description": "Ant Chain ak_96b7ac46ad0f4adea5e182931e6c7abe SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "groupId": "com.antgroup.antchain.openapi",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.Ak_96b7ac46ad0f4adea5e182931e6c7abe",
+    "packageInfo": {
+      "name": "ak_96b7ac46ad0f4adea5e182931e6c7abe",
+      "title": "antchain-ak_96b7ac46ad0f4adea5e182931e6c7abe",
+      "description": "Ant Chain ak_96b7ac46ad0f4adea5e182931e6c7abe SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.Ak_96b7ac46ad0f4adea5e182931e6c7abe",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/ak_96b7ac46ad0f4adea5e182931e6c7abe",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_ak_96b7ac46ad0f4adea5e182931e6c7abe",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_ak_96b7ac46ad0f4adea5e182931e6c7abe",
+      "desc": "Ant Chain Ak_96b7ac46ad0f4adea5e182931e6c7abe SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
