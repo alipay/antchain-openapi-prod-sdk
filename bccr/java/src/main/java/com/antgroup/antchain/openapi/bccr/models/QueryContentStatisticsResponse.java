@@ -26,7 +26,7 @@ public class QueryContentStatisticsResponse extends TeaModel {
 
     // 总平均观看时长
     @NameInMap("total_average_view_duration")
-    public java.util.List<String> totalAverageViewDuration;
+    public String totalAverageViewDuration;
 
     //  总预计收入
     @NameInMap("total_revenue")
@@ -81,11 +81,11 @@ public class QueryContentStatisticsResponse extends TeaModel {
         return this.totalViewDuration;
     }
 
-    public QueryContentStatisticsResponse setTotalAverageViewDuration(java.util.List<String> totalAverageViewDuration) {
+    public QueryContentStatisticsResponse setTotalAverageViewDuration(String totalAverageViewDuration) {
         this.totalAverageViewDuration = totalAverageViewDuration;
         return this;
     }
-    public java.util.List<String> getTotalAverageViewDuration() {
+    public String getTotalAverageViewDuration() {
         return this.totalAverageViewDuration;
     }
 

@@ -16,9 +16,8 @@ public class RefuseDciRegistrationRequest extends TeaModel {
     @Validation(required = true)
     public String taskId;
 
-    // 幂等
+    // 客户端token，幂等号，用来保证并发请求幂等性
     @NameInMap("client_token")
-    @Validation(required = true)
     public String clientToken;
 
     public static RefuseDciRegistrationRequest build(java.util.Map<String, ?> map) throws Exception {

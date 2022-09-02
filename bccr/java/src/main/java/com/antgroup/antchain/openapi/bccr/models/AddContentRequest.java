@@ -38,40 +38,10 @@ public class AddContentRequest extends TeaModel {
     @NameInMap("cover_file_id")
     public String coverFileId;
 
-    // 播放列表名称
-    @NameInMap("play_list_name")
+    // 播放列表实体：包括名称和各种授权维权信息
+    @NameInMap("play_list_entity")
     @Validation(required = true)
-    public String playListName;
-
-    // 授权类型
-    @NameInMap("authorize_type")
-    public String authorizeType;
-
-    // 授权范围类型
-    @NameInMap("authorize_scope_type")
-    public String authorizeScopeType;
-
-    // 维权类型
-    @NameInMap("protect_rights_type")
-    public String protectRightsType;
-
-    // 维权范围类型
-    @NameInMap("protect_rights_scope_type")
-    public String protectRightsScopeType;
-
-    // 内容授权开始日期
-    @NameInMap("authorization_start_date")
-    @Validation(required = true)
-    public String authorizationStartDate;
-
-    // 内容授权时长
-    @NameInMap("authorization_time_length")
-    @Validation(required = true)
-    public Long authorizationTimeLength;
-
-    // 内容授权平台列表
-    @NameInMap("auth_platform")
-    public java.util.List<String> authPlatform;
+    public PlayListEntity playListEntity;
 
     // 客户端token，幂等号，用来保证并发请求幂等性
     @NameInMap("client_token")
@@ -146,68 +116,12 @@ public class AddContentRequest extends TeaModel {
         return this.coverFileId;
     }
 
-    public AddContentRequest setPlayListName(String playListName) {
-        this.playListName = playListName;
+    public AddContentRequest setPlayListEntity(PlayListEntity playListEntity) {
+        this.playListEntity = playListEntity;
         return this;
     }
-    public String getPlayListName() {
-        return this.playListName;
-    }
-
-    public AddContentRequest setAuthorizeType(String authorizeType) {
-        this.authorizeType = authorizeType;
-        return this;
-    }
-    public String getAuthorizeType() {
-        return this.authorizeType;
-    }
-
-    public AddContentRequest setAuthorizeScopeType(String authorizeScopeType) {
-        this.authorizeScopeType = authorizeScopeType;
-        return this;
-    }
-    public String getAuthorizeScopeType() {
-        return this.authorizeScopeType;
-    }
-
-    public AddContentRequest setProtectRightsType(String protectRightsType) {
-        this.protectRightsType = protectRightsType;
-        return this;
-    }
-    public String getProtectRightsType() {
-        return this.protectRightsType;
-    }
-
-    public AddContentRequest setProtectRightsScopeType(String protectRightsScopeType) {
-        this.protectRightsScopeType = protectRightsScopeType;
-        return this;
-    }
-    public String getProtectRightsScopeType() {
-        return this.protectRightsScopeType;
-    }
-
-    public AddContentRequest setAuthorizationStartDate(String authorizationStartDate) {
-        this.authorizationStartDate = authorizationStartDate;
-        return this;
-    }
-    public String getAuthorizationStartDate() {
-        return this.authorizationStartDate;
-    }
-
-    public AddContentRequest setAuthorizationTimeLength(Long authorizationTimeLength) {
-        this.authorizationTimeLength = authorizationTimeLength;
-        return this;
-    }
-    public Long getAuthorizationTimeLength() {
-        return this.authorizationTimeLength;
-    }
-
-    public AddContentRequest setAuthPlatform(java.util.List<String> authPlatform) {
-        this.authPlatform = authPlatform;
-        return this;
-    }
-    public java.util.List<String> getAuthPlatform() {
-        return this.authPlatform;
+    public PlayListEntity getPlayListEntity() {
+        return this.playListEntity;
     }
 
     public AddContentRequest setClientToken(String clientToken) {
