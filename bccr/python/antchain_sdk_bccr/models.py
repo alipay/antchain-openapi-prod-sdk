@@ -1993,6 +1993,91 @@ class MonitorTask(TeaModel):
         return self
 
 
+class PlayListEntity(TeaModel):
+    def __init__(
+        self,
+        play_list_name: str = None,
+        authorize_type: str = None,
+        authorize_scope_type: str = None,
+        protect_rights_type: str = None,
+        protect_rights_scope_type: str = None,
+        authorization_start_date: str = None,
+        authorization_time_length: int = None,
+        auth_platform: List[str] = None,
+    ):
+        # 播放列表名称，可包含多个视频
+        self.play_list_name = play_list_name
+        # 表示授权类型，仅支持EXCLUSIVE，表示独家
+        # 默认EXCLUSIVE
+        self.authorize_type = authorize_type
+        # 授权类型范围，仅支持OVERSEA，表示全海外
+        # 默认OVERSEA
+        self.authorize_scope_type = authorize_scope_type
+        # 维权类型，仅支持CONTAIN_PROTECT，表示包含维权
+        # 默认CONTAIN_PROTECT
+        self.protect_rights_type = protect_rights_type
+        # 维权类型范围，仅支持OVERSEA，表示全海外
+        # 默认OVERSEA
+        self.protect_rights_scope_type = protect_rights_scope_type
+        # 内容授权开始日期yyyy-MM-dd
+        self.authorization_start_date = authorization_start_date
+        # 内容授权时长,单位：年，目前支持1~3年，
+        # 注意结束时间即开始时间 + 授权时长 不能早于当前时间
+        self.authorization_time_length = authorization_time_length
+        # 内容授权平台列表：
+        # 默认授权平台都会进行运营，当前仅支持YOUTUBE
+        self.auth_platform = auth_platform
+
+    def validate(self):
+        self.validate_required(self.play_list_name, 'play_list_name')
+        self.validate_required(self.authorization_start_date, 'authorization_start_date')
+        self.validate_required(self.authorization_time_length, 'authorization_time_length')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.play_list_name is not None:
+            result['play_list_name'] = self.play_list_name
+        if self.authorize_type is not None:
+            result['authorize_type'] = self.authorize_type
+        if self.authorize_scope_type is not None:
+            result['authorize_scope_type'] = self.authorize_scope_type
+        if self.protect_rights_type is not None:
+            result['protect_rights_type'] = self.protect_rights_type
+        if self.protect_rights_scope_type is not None:
+            result['protect_rights_scope_type'] = self.protect_rights_scope_type
+        if self.authorization_start_date is not None:
+            result['authorization_start_date'] = self.authorization_start_date
+        if self.authorization_time_length is not None:
+            result['authorization_time_length'] = self.authorization_time_length
+        if self.auth_platform is not None:
+            result['auth_platform'] = self.auth_platform
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('play_list_name') is not None:
+            self.play_list_name = m.get('play_list_name')
+        if m.get('authorize_type') is not None:
+            self.authorize_type = m.get('authorize_type')
+        if m.get('authorize_scope_type') is not None:
+            self.authorize_scope_type = m.get('authorize_scope_type')
+        if m.get('protect_rights_type') is not None:
+            self.protect_rights_type = m.get('protect_rights_type')
+        if m.get('protect_rights_scope_type') is not None:
+            self.protect_rights_scope_type = m.get('protect_rights_scope_type')
+        if m.get('authorization_start_date') is not None:
+            self.authorization_start_date = m.get('authorization_start_date')
+        if m.get('authorization_time_length') is not None:
+            self.authorization_time_length = m.get('authorization_time_length')
+        if m.get('auth_platform') is not None:
+            self.auth_platform = m.get('auth_platform')
+        return self
+
+
 class VerifyEvidenceData(TeaModel):
     def __init__(
         self,
@@ -8545,12 +8630,11 @@ class RefuseDciRegistrationRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 任务ID
         self.task_id = task_id
-        # 幂等
+        # 客户端token，幂等号，用来保证并发请求幂等性
         self.client_token = client_token
 
     def validate(self):
         self.validate_required(self.task_id, 'task_id')
-        self.validate_required(self.client_token, 'client_token')
 
     def to_map(self):
         _map = super().to_map()
@@ -8634,14 +8718,7 @@ class AddContentRequest(TeaModel):
         keywords: List[str] = None,
         description: str = None,
         cover_file_id: str = None,
-        play_list_name: str = None,
-        authorize_type: str = None,
-        authorize_scope_type: str = None,
-        protect_rights_type: str = None,
-        protect_rights_scope_type: str = None,
-        authorization_start_date: str = None,
-        authorization_time_length: int = None,
-        auth_platform: List[str] = None,
+        play_list_entity: PlayListEntity = None,
         client_token: str = None,
     ):
         # OAuth模式下的授权token
@@ -8659,22 +8736,8 @@ class AddContentRequest(TeaModel):
         self.description = description
         # 内容封面文件id
         self.cover_file_id = cover_file_id
-        # 播放列表名称
-        self.play_list_name = play_list_name
-        # 授权类型
-        self.authorize_type = authorize_type
-        # 授权范围类型
-        self.authorize_scope_type = authorize_scope_type
-        # 维权类型
-        self.protect_rights_type = protect_rights_type
-        # 维权范围类型
-        self.protect_rights_scope_type = protect_rights_scope_type
-        # 内容授权开始日期
-        self.authorization_start_date = authorization_start_date
-        # 内容授权时长
-        self.authorization_time_length = authorization_time_length
-        # 内容授权平台列表
-        self.auth_platform = auth_platform
+        # 播放列表实体：包括名称和各种授权维权信息
+        self.play_list_entity = play_list_entity
         # 客户端token，幂等号，用来保证并发请求幂等性
         self.client_token = client_token
 
@@ -8682,9 +8745,9 @@ class AddContentRequest(TeaModel):
         self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.title, 'title')
         self.validate_required(self.type, 'type')
-        self.validate_required(self.play_list_name, 'play_list_name')
-        self.validate_required(self.authorization_start_date, 'authorization_start_date')
-        self.validate_required(self.authorization_time_length, 'authorization_time_length')
+        self.validate_required(self.play_list_entity, 'play_list_entity')
+        if self.play_list_entity:
+            self.play_list_entity.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -8708,22 +8771,8 @@ class AddContentRequest(TeaModel):
             result['description'] = self.description
         if self.cover_file_id is not None:
             result['cover_file_id'] = self.cover_file_id
-        if self.play_list_name is not None:
-            result['play_list_name'] = self.play_list_name
-        if self.authorize_type is not None:
-            result['authorize_type'] = self.authorize_type
-        if self.authorize_scope_type is not None:
-            result['authorize_scope_type'] = self.authorize_scope_type
-        if self.protect_rights_type is not None:
-            result['protect_rights_type'] = self.protect_rights_type
-        if self.protect_rights_scope_type is not None:
-            result['protect_rights_scope_type'] = self.protect_rights_scope_type
-        if self.authorization_start_date is not None:
-            result['authorization_start_date'] = self.authorization_start_date
-        if self.authorization_time_length is not None:
-            result['authorization_time_length'] = self.authorization_time_length
-        if self.auth_platform is not None:
-            result['auth_platform'] = self.auth_platform
+        if self.play_list_entity is not None:
+            result['play_list_entity'] = self.play_list_entity.to_map()
         if self.client_token is not None:
             result['client_token'] = self.client_token
         return result
@@ -8746,22 +8795,9 @@ class AddContentRequest(TeaModel):
             self.description = m.get('description')
         if m.get('cover_file_id') is not None:
             self.cover_file_id = m.get('cover_file_id')
-        if m.get('play_list_name') is not None:
-            self.play_list_name = m.get('play_list_name')
-        if m.get('authorize_type') is not None:
-            self.authorize_type = m.get('authorize_type')
-        if m.get('authorize_scope_type') is not None:
-            self.authorize_scope_type = m.get('authorize_scope_type')
-        if m.get('protect_rights_type') is not None:
-            self.protect_rights_type = m.get('protect_rights_type')
-        if m.get('protect_rights_scope_type') is not None:
-            self.protect_rights_scope_type = m.get('protect_rights_scope_type')
-        if m.get('authorization_start_date') is not None:
-            self.authorization_start_date = m.get('authorization_start_date')
-        if m.get('authorization_time_length') is not None:
-            self.authorization_time_length = m.get('authorization_time_length')
-        if m.get('auth_platform') is not None:
-            self.auth_platform = m.get('auth_platform')
+        if m.get('play_list_entity') is not None:
+            temp_model = PlayListEntity()
+            self.play_list_entity = temp_model.from_map(m['play_list_entity'])
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
         return self
@@ -9034,7 +9070,7 @@ class QueryContentStatisticsResponse(TeaModel):
         result_msg: str = None,
         total_views: str = None,
         total_view_duration: str = None,
-        total_average_view_duration: List[str] = None,
+        total_average_view_duration: str = None,
         total_revenue: str = None,
         day_statistics_list: List[DayStatisticsInfo] = None,
     ):
