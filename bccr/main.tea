@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.18',
+    sdk_version = '1.16.20',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -636,6 +636,32 @@ model MonitorTask {
   failureMsg?: string(name='failure_msg', example='error'),
   // 当status为failure时的具体错误信息（错误枚举）
   failureCode?: string(name='failure_code', example='SERVER_ERROR'),
+}
+
+// 播放列表实体类
+model PlayListEntity {
+  // 播放列表名称，可包含多个视频
+  playListName: string(name='play_list_name', example='播放列表1'),
+  // 表示授权类型，仅支持EXCLUSIVE，表示独家
+  // 默认EXCLUSIVE
+  authorizeType?: string(name='authorize_type', example='EXCLUSIVE'),
+  // 授权类型范围，仅支持OVERSEA，表示全海外
+  // 默认OVERSEA
+  authorizeScopeType?: string(name='authorize_scope_type', example='OVERSEA'),
+  // 维权类型，仅支持CONTAIN_PROTECT，表示包含维权
+  // 默认CONTAIN_PROTECT
+  protectRightsType?: string(name='protect_rights_type', example='CONTAIN_PROTECT'),
+  // 维权类型范围，仅支持OVERSEA，表示全海外
+  // 默认OVERSEA
+  protectRightsScopeType?: string(name='protect_rights_scope_type', example='OVERSEA'),
+  // 内容授权开始日期yyyy-MM-dd
+  authorizationStartDate: string(name='authorization_start_date', example='2022-09-01'),
+  // 内容授权时长,单位：年，目前支持1~3年，
+  // 注意结束时间即开始时间 + 授权时长 不能早于当前时间
+  authorizationTimeLength: long(name='authorization_time_length', example='1'),
+  // 内容授权平台列表：
+  //        默认授权平台都会进行运营，当前仅支持YOUTUBE
+  authPlatform?: [ string ](name='auth_platform', example='YOUTUBE'),
 }
 
 // 核验取证信息
@@ -2923,8 +2949,8 @@ model RefuseDciRegistrationRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 任务ID
   taskId: string(name='task_id'),
-  // 幂等
-  clientToken: string(name='client_token'),
+  // 客户端token，幂等号，用来保证并发请求幂等性
+  clientToken?: string(name='client_token'),
 }
 
 model RefuseDciRegistrationResponse = {
@@ -2971,22 +2997,8 @@ model AddContentRequest = {
   description?: string(name='description'),
   // 内容封面文件id
   coverFileId?: string(name='cover_file_id'),
-  // 播放列表名称
-  playListName: string(name='play_list_name'),
-  // 授权类型
-  authorizeType?: string(name='authorize_type'),
-  // 授权范围类型
-  authorizeScopeType?: string(name='authorize_scope_type'),
-  // 维权类型
-  protectRightsType?: string(name='protect_rights_type'),
-  // 维权范围类型
-  protectRightsScopeType?: string(name='protect_rights_scope_type'),
-  // 内容授权开始日期
-  authorizationStartDate: string(name='authorization_start_date'),
-  // 内容授权时长
-  authorizationTimeLength: long(name='authorization_time_length'),
-  // 内容授权平台列表
-  authPlatform?: [ string ](name='auth_platform'),
+  // 播放列表实体：包括名称和各种授权维权信息
+  playListEntity: PlayListEntity(name='play_list_entity'),
   // 客户端token，幂等号，用来保证并发请求幂等性
   clientToken?: string(name='client_token'),
 }
@@ -3101,7 +3113,7 @@ model QueryContentStatisticsResponse = {
   // 总观看时长
   totalViewDuration?: string(name='total_view_duration'),
   // 总平均观看时长
-  totalAverageViewDuration?: [ string ](name='total_average_view_duration'),
+  totalAverageViewDuration?: string(name='total_average_view_duration'),
   //  总预计收入
   totalRevenue?: string(name='total_revenue'),
   // 每日详细统计列表
