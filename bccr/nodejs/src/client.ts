@@ -1235,6 +1235,61 @@ export class MonitorTask extends $tea.Model {
   }
 }
 
+// 播放列表实体类
+export class PlayListEntity extends $tea.Model {
+  // 播放列表名称，可包含多个视频
+  playListName: string;
+  // 表示授权类型，仅支持EXCLUSIVE，表示独家
+  // 默认EXCLUSIVE
+  authorizeType?: string;
+  // 授权类型范围，仅支持OVERSEA，表示全海外
+  // 默认OVERSEA
+  authorizeScopeType?: string;
+  // 维权类型，仅支持CONTAIN_PROTECT，表示包含维权
+  // 默认CONTAIN_PROTECT
+  protectRightsType?: string;
+  // 维权类型范围，仅支持OVERSEA，表示全海外
+  // 默认OVERSEA
+  protectRightsScopeType?: string;
+  // 内容授权开始日期yyyy-MM-dd
+  authorizationStartDate: string;
+  // 内容授权时长,单位：年，目前支持1~3年，
+  // 注意结束时间即开始时间 + 授权时长 不能早于当前时间
+  authorizationTimeLength: number;
+  // 内容授权平台列表：
+  //        默认授权平台都会进行运营，当前仅支持YOUTUBE
+  authPlatform?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      playListName: 'play_list_name',
+      authorizeType: 'authorize_type',
+      authorizeScopeType: 'authorize_scope_type',
+      protectRightsType: 'protect_rights_type',
+      protectRightsScopeType: 'protect_rights_scope_type',
+      authorizationStartDate: 'authorization_start_date',
+      authorizationTimeLength: 'authorization_time_length',
+      authPlatform: 'auth_platform',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      playListName: 'string',
+      authorizeType: 'string',
+      authorizeScopeType: 'string',
+      protectRightsType: 'string',
+      protectRightsScopeType: 'string',
+      authorizationStartDate: 'string',
+      authorizationTimeLength: 'number',
+      authPlatform: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 核验取证信息
 export class VerifyEvidenceData extends $tea.Model {
   // 操作日志交易HASH
@@ -5159,8 +5214,8 @@ export class RefuseDciRegistrationRequest extends $tea.Model {
   productInstanceId?: string;
   // 任务ID
   taskId: string;
-  // 幂等
-  clientToken: string;
+  // 客户端token，幂等号，用来保证并发请求幂等性
+  clientToken?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5228,22 +5283,8 @@ export class AddContentRequest extends $tea.Model {
   description?: string;
   // 内容封面文件id
   coverFileId?: string;
-  // 播放列表名称
-  playListName: string;
-  // 授权类型
-  authorizeType?: string;
-  // 授权范围类型
-  authorizeScopeType?: string;
-  // 维权类型
-  protectRightsType?: string;
-  // 维权范围类型
-  protectRightsScopeType?: string;
-  // 内容授权开始日期
-  authorizationStartDate: string;
-  // 内容授权时长
-  authorizationTimeLength: number;
-  // 内容授权平台列表
-  authPlatform?: string[];
+  // 播放列表实体：包括名称和各种授权维权信息
+  playListEntity: PlayListEntity;
   // 客户端token，幂等号，用来保证并发请求幂等性
   clientToken?: string;
   static names(): { [key: string]: string } {
@@ -5256,14 +5297,7 @@ export class AddContentRequest extends $tea.Model {
       keywords: 'keywords',
       description: 'description',
       coverFileId: 'cover_file_id',
-      playListName: 'play_list_name',
-      authorizeType: 'authorize_type',
-      authorizeScopeType: 'authorize_scope_type',
-      protectRightsType: 'protect_rights_type',
-      protectRightsScopeType: 'protect_rights_scope_type',
-      authorizationStartDate: 'authorization_start_date',
-      authorizationTimeLength: 'authorization_time_length',
-      authPlatform: 'auth_platform',
+      playListEntity: 'play_list_entity',
       clientToken: 'client_token',
     };
   }
@@ -5278,14 +5312,7 @@ export class AddContentRequest extends $tea.Model {
       keywords: { 'type': 'array', 'itemType': 'string' },
       description: 'string',
       coverFileId: 'string',
-      playListName: 'string',
-      authorizeType: 'string',
-      authorizeScopeType: 'string',
-      protectRightsType: 'string',
-      protectRightsScopeType: 'string',
-      authorizationStartDate: 'string',
-      authorizationTimeLength: 'number',
-      authPlatform: { 'type': 'array', 'itemType': 'string' },
+      playListEntity: PlayListEntity,
       clientToken: 'string',
     };
   }
@@ -5469,7 +5496,7 @@ export class QueryContentStatisticsResponse extends $tea.Model {
   // 总观看时长
   totalViewDuration?: string;
   // 总平均观看时长
-  totalAverageViewDuration?: string[];
+  totalAverageViewDuration?: string;
   //  总预计收入
   totalRevenue?: string;
   // 每日详细统计列表
@@ -5494,7 +5521,7 @@ export class QueryContentStatisticsResponse extends $tea.Model {
       resultMsg: 'string',
       totalViews: 'string',
       totalViewDuration: 'string',
-      totalAverageViewDuration: { 'type': 'array', 'itemType': 'string' },
+      totalAverageViewDuration: 'string',
       totalRevenue: 'string',
       dayStatisticsList: { 'type': 'array', 'itemType': DayStatisticsInfo },
     };
@@ -5918,7 +5945,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.18",
+          sdk_version: "1.16.20",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
