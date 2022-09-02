@@ -48,45 +48,10 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string CoverFileId { get; set; }
 
-        // 播放列表名称
-        [NameInMap("play_list_name")]
+        // 播放列表实体：包括名称和各种授权维权信息
+        [NameInMap("play_list_entity")]
         [Validation(Required=true)]
-        public string PlayListName { get; set; }
-
-        // 授权类型
-        [NameInMap("authorize_type")]
-        [Validation(Required=false)]
-        public string AuthorizeType { get; set; }
-
-        // 授权范围类型
-        [NameInMap("authorize_scope_type")]
-        [Validation(Required=false)]
-        public string AuthorizeScopeType { get; set; }
-
-        // 维权类型
-        [NameInMap("protect_rights_type")]
-        [Validation(Required=false)]
-        public string ProtectRightsType { get; set; }
-
-        // 维权范围类型
-        [NameInMap("protect_rights_scope_type")]
-        [Validation(Required=false)]
-        public string ProtectRightsScopeType { get; set; }
-
-        // 内容授权开始日期
-        [NameInMap("authorization_start_date")]
-        [Validation(Required=true)]
-        public string AuthorizationStartDate { get; set; }
-
-        // 内容授权时长
-        [NameInMap("authorization_time_length")]
-        [Validation(Required=true)]
-        public long? AuthorizationTimeLength { get; set; }
-
-        // 内容授权平台列表
-        [NameInMap("auth_platform")]
-        [Validation(Required=false)]
-        public List<string> AuthPlatform { get; set; }
+        public PlayListEntity PlayListEntity { get; set; }
 
         // 客户端token，幂等号，用来保证并发请求幂等性
         [NameInMap("client_token")]

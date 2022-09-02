@@ -37,7 +37,7 @@ namespace AntChain.SDK.BCCR.Models
         // 总平均观看时长
         [NameInMap("total_average_view_duration")]
         [Validation(Required=false)]
-        public List<string> TotalAverageViewDuration { get; set; }
+        public string TotalAverageViewDuration { get; set; }
 
         //  总预计收入
         [NameInMap("total_revenue")]
