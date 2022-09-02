@@ -40,7 +40,7 @@ class QueryContentStatisticsResponse extends Model
 
     // 总平均观看时长
     /**
-     * @var string[]
+     * @var string
      */
     public $totalAverageViewDuration;
 
@@ -131,9 +131,7 @@ class QueryContentStatisticsResponse extends Model
             $model->totalViewDuration = $map['total_view_duration'];
         }
         if (isset($map['total_average_view_duration'])) {
-            if (!empty($map['total_average_view_duration'])) {
-                $model->totalAverageViewDuration = $map['total_average_view_duration'];
-            }
+            $model->totalAverageViewDuration = $map['total_average_view_duration'];
         }
         if (isset($map['total_revenue'])) {
             $model->totalRevenue = $map['total_revenue'];

@@ -25,7 +25,7 @@ class RefuseDciRegistrationRequest extends Model
      */
     public $taskId;
 
-    // 幂等
+    // 客户端token，幂等号，用来保证并发请求幂等性
     /**
      * @var string
      */
@@ -40,7 +40,6 @@ class RefuseDciRegistrationRequest extends Model
     public function validate()
     {
         Model::validateRequired('taskId', $this->taskId, true);
-        Model::validateRequired('clientToken', $this->clientToken, true);
     }
 
     public function toMap()

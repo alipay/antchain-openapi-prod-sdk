@@ -55,53 +55,11 @@ class AddContentRequest extends Model
      */
     public $coverFileId;
 
-    // 播放列表名称
+    // 播放列表实体：包括名称和各种授权维权信息
     /**
-     * @var string
+     * @var PlayListEntity
      */
-    public $playListName;
-
-    // 授权类型
-    /**
-     * @var string
-     */
-    public $authorizeType;
-
-    // 授权范围类型
-    /**
-     * @var string
-     */
-    public $authorizeScopeType;
-
-    // 维权类型
-    /**
-     * @var string
-     */
-    public $protectRightsType;
-
-    // 维权范围类型
-    /**
-     * @var string
-     */
-    public $protectRightsScopeType;
-
-    // 内容授权开始日期
-    /**
-     * @var string
-     */
-    public $authorizationStartDate;
-
-    // 内容授权时长
-    /**
-     * @var int
-     */
-    public $authorizationTimeLength;
-
-    // 内容授权平台列表
-    /**
-     * @var string[]
-     */
-    public $authPlatform;
+    public $playListEntity;
 
     // 客户端token，幂等号，用来保证并发请求幂等性
     /**
@@ -109,23 +67,16 @@ class AddContentRequest extends Model
      */
     public $clientToken;
     protected $_name = [
-        'authToken'               => 'auth_token',
-        'productInstanceId'       => 'product_instance_id',
-        'fileId'                  => 'file_id',
-        'title'                   => 'title',
-        'type'                    => 'type',
-        'keywords'                => 'keywords',
-        'description'             => 'description',
-        'coverFileId'             => 'cover_file_id',
-        'playListName'            => 'play_list_name',
-        'authorizeType'           => 'authorize_type',
-        'authorizeScopeType'      => 'authorize_scope_type',
-        'protectRightsType'       => 'protect_rights_type',
-        'protectRightsScopeType'  => 'protect_rights_scope_type',
-        'authorizationStartDate'  => 'authorization_start_date',
-        'authorizationTimeLength' => 'authorization_time_length',
-        'authPlatform'            => 'auth_platform',
-        'clientToken'             => 'client_token',
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'fileId'            => 'file_id',
+        'title'             => 'title',
+        'type'              => 'type',
+        'keywords'          => 'keywords',
+        'description'       => 'description',
+        'coverFileId'       => 'cover_file_id',
+        'playListEntity'    => 'play_list_entity',
+        'clientToken'       => 'client_token',
     ];
 
     public function validate()
@@ -133,9 +84,7 @@ class AddContentRequest extends Model
         Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('title', $this->title, true);
         Model::validateRequired('type', $this->type, true);
-        Model::validateRequired('playListName', $this->playListName, true);
-        Model::validateRequired('authorizationStartDate', $this->authorizationStartDate, true);
-        Model::validateRequired('authorizationTimeLength', $this->authorizationTimeLength, true);
+        Model::validateRequired('playListEntity', $this->playListEntity, true);
     }
 
     public function toMap()
@@ -165,29 +114,8 @@ class AddContentRequest extends Model
         if (null !== $this->coverFileId) {
             $res['cover_file_id'] = $this->coverFileId;
         }
-        if (null !== $this->playListName) {
-            $res['play_list_name'] = $this->playListName;
-        }
-        if (null !== $this->authorizeType) {
-            $res['authorize_type'] = $this->authorizeType;
-        }
-        if (null !== $this->authorizeScopeType) {
-            $res['authorize_scope_type'] = $this->authorizeScopeType;
-        }
-        if (null !== $this->protectRightsType) {
-            $res['protect_rights_type'] = $this->protectRightsType;
-        }
-        if (null !== $this->protectRightsScopeType) {
-            $res['protect_rights_scope_type'] = $this->protectRightsScopeType;
-        }
-        if (null !== $this->authorizationStartDate) {
-            $res['authorization_start_date'] = $this->authorizationStartDate;
-        }
-        if (null !== $this->authorizationTimeLength) {
-            $res['authorization_time_length'] = $this->authorizationTimeLength;
-        }
-        if (null !== $this->authPlatform) {
-            $res['auth_platform'] = $this->authPlatform;
+        if (null !== $this->playListEntity) {
+            $res['play_list_entity'] = null !== $this->playListEntity ? $this->playListEntity->toMap() : null;
         }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
@@ -230,31 +158,8 @@ class AddContentRequest extends Model
         if (isset($map['cover_file_id'])) {
             $model->coverFileId = $map['cover_file_id'];
         }
-        if (isset($map['play_list_name'])) {
-            $model->playListName = $map['play_list_name'];
-        }
-        if (isset($map['authorize_type'])) {
-            $model->authorizeType = $map['authorize_type'];
-        }
-        if (isset($map['authorize_scope_type'])) {
-            $model->authorizeScopeType = $map['authorize_scope_type'];
-        }
-        if (isset($map['protect_rights_type'])) {
-            $model->protectRightsType = $map['protect_rights_type'];
-        }
-        if (isset($map['protect_rights_scope_type'])) {
-            $model->protectRightsScopeType = $map['protect_rights_scope_type'];
-        }
-        if (isset($map['authorization_start_date'])) {
-            $model->authorizationStartDate = $map['authorization_start_date'];
-        }
-        if (isset($map['authorization_time_length'])) {
-            $model->authorizationTimeLength = $map['authorization_time_length'];
-        }
-        if (isset($map['auth_platform'])) {
-            if (!empty($map['auth_platform'])) {
-                $model->authPlatform = $map['auth_platform'];
-            }
+        if (isset($map['play_list_entity'])) {
+            $model->playListEntity = PlayListEntity::fromMap($map['play_list_entity']);
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
