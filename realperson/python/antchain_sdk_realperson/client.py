@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.0'
+                    'sdk_version': '1.8.0',
+                    '_prod_code': 'REALPERSON',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.0'
+                    'sdk_version': '1.8.0',
+                    '_prod_code': 'REALPERSON',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1143,6 +1147,62 @@ class Client:
         return TeaCore.from_map(
             realperson_models.CheckTwometaHashResponse(),
             await self.do_request_async('1.0', 'di.realperson.twometa.hash.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_threemeta_onlinetime(
+        self,
+        request: realperson_models.QueryThreemetaOnlinetimeRequest,
+    ) -> realperson_models.QueryThreemetaOnlinetimeResponse:
+        """
+        Description: 对接运营商等数据源查询手机号码的在网时长
+        Summary: 三要素在网时长查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_threemeta_onlinetime_ex(request, headers, runtime)
+
+    async def query_threemeta_onlinetime_async(
+        self,
+        request: realperson_models.QueryThreemetaOnlinetimeRequest,
+    ) -> realperson_models.QueryThreemetaOnlinetimeResponse:
+        """
+        Description: 对接运营商等数据源查询手机号码的在网时长
+        Summary: 三要素在网时长查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_threemeta_onlinetime_ex_async(request, headers, runtime)
+
+    def query_threemeta_onlinetime_ex(
+        self,
+        request: realperson_models.QueryThreemetaOnlinetimeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryThreemetaOnlinetimeResponse:
+        """
+        Description: 对接运营商等数据源查询手机号码的在网时长
+        Summary: 三要素在网时长查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryThreemetaOnlinetimeResponse(),
+            self.do_request('1.0', 'di.realperson.threemeta.onlinetime.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_threemeta_onlinetime_ex_async(
+        self,
+        request: realperson_models.QueryThreemetaOnlinetimeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryThreemetaOnlinetimeResponse:
+        """
+        Description: 对接运营商等数据源查询手机号码的在网时长
+        Summary: 三要素在网时长查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryThreemetaOnlinetimeResponse(),
+            await self.do_request_async('1.0', 'di.realperson.threemeta.onlinetime.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
