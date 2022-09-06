@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.16"},
+                        {"sdk_version", "1.12.17"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.16"},
+                        {"sdk_version", "1.12.17"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2633,6 +2633,132 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDubbridgeReceiptStatusResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.receipt.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统协议签约查询(通用)
+         * Summary: 天枢系统协议签约查询(通用)
+         */
+        public QueryDubbridgeCustomerCommonagreementsignResponse QueryDubbridgeCustomerCommonagreementsign(QueryDubbridgeCustomerCommonagreementsignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeCustomerCommonagreementsignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统协议签约查询(通用)
+         * Summary: 天枢系统协议签约查询(通用)
+         */
+        public async Task<QueryDubbridgeCustomerCommonagreementsignResponse> QueryDubbridgeCustomerCommonagreementsignAsync(QueryDubbridgeCustomerCommonagreementsignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeCustomerCommonagreementsignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统协议签约查询(通用)
+         * Summary: 天枢系统协议签约查询(通用)
+         */
+        public QueryDubbridgeCustomerCommonagreementsignResponse QueryDubbridgeCustomerCommonagreementsignEx(QueryDubbridgeCustomerCommonagreementsignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeCustomerCommonagreementsignResponse>(DoRequest("1.0", "riskplus.dubbridge.customer.commonagreementsign.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统协议签约查询(通用)
+         * Summary: 天枢系统协议签约查询(通用)
+         */
+        public async Task<QueryDubbridgeCustomerCommonagreementsignResponse> QueryDubbridgeCustomerCommonagreementsignExAsync(QueryDubbridgeCustomerCommonagreementsignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeCustomerCommonagreementsignResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.customer.commonagreementsign.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据关键字从第三方查询企业信息
+         * Summary: 天枢系统企业搜索
+         */
+        public QueryDubbridgeCompanyItemsResponse QueryDubbridgeCompanyItems(QueryDubbridgeCompanyItemsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeCompanyItemsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据关键字从第三方查询企业信息
+         * Summary: 天枢系统企业搜索
+         */
+        public async Task<QueryDubbridgeCompanyItemsResponse> QueryDubbridgeCompanyItemsAsync(QueryDubbridgeCompanyItemsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeCompanyItemsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据关键字从第三方查询企业信息
+         * Summary: 天枢系统企业搜索
+         */
+        public QueryDubbridgeCompanyItemsResponse QueryDubbridgeCompanyItemsEx(QueryDubbridgeCompanyItemsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeCompanyItemsResponse>(DoRequest("1.0", "riskplus.dubbridge.company.items.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据关键字从第三方查询企业信息
+         * Summary: 天枢系统企业搜索
+         */
+        public async Task<QueryDubbridgeCompanyItemsResponse> QueryDubbridgeCompanyItemsExAsync(QueryDubbridgeCompanyItemsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeCompanyItemsResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.company.items.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 客户影像信息更新
+         * Summary: 客户影像信息更新
+         */
+        public UpdateDubbridgeFileResponse UpdateDubbridgeFile(UpdateDubbridgeFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateDubbridgeFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 客户影像信息更新
+         * Summary: 客户影像信息更新
+         */
+        public async Task<UpdateDubbridgeFileResponse> UpdateDubbridgeFileAsync(UpdateDubbridgeFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateDubbridgeFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 客户影像信息更新
+         * Summary: 客户影像信息更新
+         */
+        public UpdateDubbridgeFileResponse UpdateDubbridgeFileEx(UpdateDubbridgeFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateDubbridgeFileResponse>(DoRequest("1.0", "riskplus.dubbridge.file.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 客户影像信息更新
+         * Summary: 客户影像信息更新
+         */
+        public async Task<UpdateDubbridgeFileResponse> UpdateDubbridgeFileExAsync(UpdateDubbridgeFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateDubbridgeFileResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.file.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
