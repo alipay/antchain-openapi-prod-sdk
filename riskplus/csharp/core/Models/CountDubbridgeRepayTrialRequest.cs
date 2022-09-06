@@ -33,11 +33,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string OrderNo { get; set; }
 
-        // 借据号
-        [NameInMap("receipt_no")]
-        [Validation(Required=true)]
-        public string ReceiptNo { get; set; }
-
     }
 
 }
