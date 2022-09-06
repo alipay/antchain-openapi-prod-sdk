@@ -99,10 +99,14 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCompanyItemsRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCompanyItemsResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerAgreementsignRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerAgreementsignResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptOverdueRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptOverdueResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptStatusRequest;
@@ -233,6 +237,8 @@ use AntChain\RISKPLUS\Models\UpdateDubbridgeAccountCustomRequest;
 use AntChain\RISKPLUS\Models\UpdateDubbridgeAccountCustomResponse;
 use AntChain\RISKPLUS\Models\UpdateDubbridgeCustomerInfoRequest;
 use AntChain\RISKPLUS\Models\UpdateDubbridgeCustomerInfoResponse;
+use AntChain\RISKPLUS\Models\UpdateDubbridgeFileRequest;
+use AntChain\RISKPLUS\Models\UpdateDubbridgeFileResponse;
 use AntChain\RISKPLUS\Models\UpdateDubbridgeInstitutionCreditRequest;
 use AntChain\RISKPLUS\Models\UpdateDubbridgeInstitutionCreditResponse;
 use AntChain\RISKPLUS\Models\UpdateDubheCustomerInfoRequest;
@@ -394,7 +400,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.16',
+                    'sdk_version'      => '1.12.17',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2240,6 +2246,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryDubbridgeReceiptStatusResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统协议签约查询(通用)
+     * Summary: 天枢系统协议签约查询(通用).
+     *
+     * @param QueryDubbridgeCustomerCommonagreementsignRequest $request
+     *
+     * @return QueryDubbridgeCustomerCommonagreementsignResponse
+     */
+    public function queryDubbridgeCustomerCommonagreementsign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeCustomerCommonagreementsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统协议签约查询(通用)
+     * Summary: 天枢系统协议签约查询(通用).
+     *
+     * @param QueryDubbridgeCustomerCommonagreementsignRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return QueryDubbridgeCustomerCommonagreementsignResponse
+     */
+    public function queryDubbridgeCustomerCommonagreementsignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeCustomerCommonagreementsignResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.customer.commonagreementsign.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据关键字从第三方查询企业信息
+     * Summary: 天枢系统企业搜索.
+     *
+     * @param QueryDubbridgeCompanyItemsRequest $request
+     *
+     * @return QueryDubbridgeCompanyItemsResponse
+     */
+    public function queryDubbridgeCompanyItems($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeCompanyItemsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据关键字从第三方查询企业信息
+     * Summary: 天枢系统企业搜索.
+     *
+     * @param QueryDubbridgeCompanyItemsRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryDubbridgeCompanyItemsResponse
+     */
+    public function queryDubbridgeCompanyItemsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeCompanyItemsResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.company.items.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 客户影像信息更新
+     * Summary: 客户影像信息更新.
+     *
+     * @param UpdateDubbridgeFileRequest $request
+     *
+     * @return UpdateDubbridgeFileResponse
+     */
+    public function updateDubbridgeFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDubbridgeFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 客户影像信息更新
+     * Summary: 客户影像信息更新.
+     *
+     * @param UpdateDubbridgeFileRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UpdateDubbridgeFileResponse
+     */
+    public function updateDubbridgeFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDubbridgeFileResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.file.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
