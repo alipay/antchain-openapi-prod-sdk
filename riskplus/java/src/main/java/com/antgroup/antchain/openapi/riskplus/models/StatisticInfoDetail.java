@@ -6,23 +6,23 @@ import com.aliyun.tea.*;
 public class StatisticInfoDetail extends TeaModel {
     // actionDriverCode类型
     @NameInMap("action_driver_code")
-    @Validation(required = true)
     public Long actionDriverCode;
 
     // 调用总数
     @NameInMap("invoke_count")
-    @Validation(required = true)
     public Long invokeCount;
 
     // 成功数
     @NameInMap("success_count")
-    @Validation(required = true)
     public Long successCount;
 
     // 失败数
     @NameInMap("fail_count")
-    @Validation(required = true)
     public Long failCount;
+
+    // 已处理完成任务数
+    @NameInMap("finish_count")
+    public Long finishCount;
 
     public static StatisticInfoDetail build(java.util.Map<String, ?> map) throws Exception {
         StatisticInfoDetail self = new StatisticInfoDetail();
@@ -59,6 +59,14 @@ public class StatisticInfoDetail extends TeaModel {
     }
     public Long getFailCount() {
         return this.failCount;
+    }
+
+    public StatisticInfoDetail setFinishCount(Long finishCount) {
+        this.finishCount = finishCount;
+        return this;
+    }
+    public Long getFinishCount() {
+        return this.finishCount;
     }
 
 }

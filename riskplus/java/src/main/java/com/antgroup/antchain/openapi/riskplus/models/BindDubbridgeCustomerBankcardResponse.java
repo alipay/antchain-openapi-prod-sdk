@@ -20,6 +20,10 @@ public class BindDubbridgeCustomerBankcardResponse extends TeaModel {
     @NameInMap("bind_serial_no")
     public String bindSerialNo;
 
+    // 客户号
+    @NameInMap("customer_no")
+    public String customerNo;
+
     public static BindDubbridgeCustomerBankcardResponse build(java.util.Map<String, ?> map) throws Exception {
         BindDubbridgeCustomerBankcardResponse self = new BindDubbridgeCustomerBankcardResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class BindDubbridgeCustomerBankcardResponse extends TeaModel {
     }
     public String getBindSerialNo() {
         return this.bindSerialNo;
+    }
+
+    public BindDubbridgeCustomerBankcardResponse setCustomerNo(String customerNo) {
+        this.customerNo = customerNo;
+        return this;
+    }
+    public String getCustomerNo() {
+        return this.customerNo;
     }
 
 }
