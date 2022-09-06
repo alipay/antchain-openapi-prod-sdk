@@ -39,19 +39,24 @@ class StatisticInfoDetail extends Model
      * @var int
      */
     public $failCount;
+
+    // 已处理完成任务数
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $finishCount;
     protected $_name = [
         'actionDriverCode' => 'action_driver_code',
         'invokeCount'      => 'invoke_count',
         'successCount'     => 'success_count',
         'failCount'        => 'fail_count',
+        'finishCount'      => 'finish_count',
     ];
 
     public function validate()
     {
-        Model::validateRequired('actionDriverCode', $this->actionDriverCode, true);
-        Model::validateRequired('invokeCount', $this->invokeCount, true);
-        Model::validateRequired('successCount', $this->successCount, true);
-        Model::validateRequired('failCount', $this->failCount, true);
     }
 
     public function toMap()
@@ -68,6 +73,9 @@ class StatisticInfoDetail extends Model
         }
         if (null !== $this->failCount) {
             $res['fail_count'] = $this->failCount;
+        }
+        if (null !== $this->finishCount) {
+            $res['finish_count'] = $this->finishCount;
         }
 
         return $res;
@@ -92,6 +100,9 @@ class StatisticInfoDetail extends Model
         }
         if (isset($map['fail_count'])) {
             $model->failCount = $map['fail_count'];
+        }
+        if (isset($map['finish_count'])) {
+            $model->finishCount = $map['finish_count'];
         }
 
         return $model;

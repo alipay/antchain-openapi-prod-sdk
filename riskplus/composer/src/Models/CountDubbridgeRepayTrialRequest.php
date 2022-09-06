@@ -36,19 +36,12 @@ class CountDubbridgeRepayTrialRequest extends Model
      * @var string
      */
     public $orderNo;
-
-    // 借据号
-    /**
-     * @var string
-     */
-    public $receiptNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'originalOrderNo'   => 'original_order_no',
         'repayType'         => 'repay_type',
         'orderNo'           => 'order_no',
-        'receiptNo'         => 'receipt_no',
     ];
 
     public function validate()
@@ -56,7 +49,6 @@ class CountDubbridgeRepayTrialRequest extends Model
         Model::validateRequired('originalOrderNo', $this->originalOrderNo, true);
         Model::validateRequired('repayType', $this->repayType, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
-        Model::validateRequired('receiptNo', $this->receiptNo, true);
     }
 
     public function toMap()
@@ -76,9 +68,6 @@ class CountDubbridgeRepayTrialRequest extends Model
         }
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
-        }
-        if (null !== $this->receiptNo) {
-            $res['receipt_no'] = $this->receiptNo;
         }
 
         return $res;
@@ -106,9 +95,6 @@ class CountDubbridgeRepayTrialRequest extends Model
         }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
-        }
-        if (isset($map['receipt_no'])) {
-            $model->receiptNo = $map['receipt_no'];
         }
 
         return $model;

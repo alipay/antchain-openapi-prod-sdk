@@ -24,15 +24,23 @@ class QueryDubbridgeSearchContractRequest extends Model
      * @var string
      */
     public $originalOrderNo;
+
+    // 客户号
+    /**
+     * @var string
+     */
+    public $customerNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'originalOrderNo'   => 'original_order_no',
+        'customerNo'        => 'customer_no',
     ];
 
     public function validate()
     {
         Model::validateRequired('originalOrderNo', $this->originalOrderNo, true);
+        Model::validateRequired('customerNo', $this->customerNo, true);
     }
 
     public function toMap()
@@ -46,6 +54,9 @@ class QueryDubbridgeSearchContractRequest extends Model
         }
         if (null !== $this->originalOrderNo) {
             $res['original_order_no'] = $this->originalOrderNo;
+        }
+        if (null !== $this->customerNo) {
+            $res['customer_no'] = $this->customerNo;
         }
 
         return $res;
@@ -67,6 +78,9 @@ class QueryDubbridgeSearchContractRequest extends Model
         }
         if (isset($map['original_order_no'])) {
             $model->originalOrderNo = $map['original_order_no'];
+        }
+        if (isset($map['customer_no'])) {
+            $model->customerNo = $map['customer_no'];
         }
 
         return $model;

@@ -31,11 +31,18 @@ class BindDubbridgeCustomerBankcardResponse extends Model
      * @var string
      */
     public $bindSerialNo;
+
+    // 客户号
+    /**
+     * @var string
+     */
+    public $customerNo;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
         'resultMsg'    => 'result_msg',
         'bindSerialNo' => 'bind_serial_no',
+        'customerNo'   => 'customer_no',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class BindDubbridgeCustomerBankcardResponse extends Model
         }
         if (null !== $this->bindSerialNo) {
             $res['bind_serial_no'] = $this->bindSerialNo;
+        }
+        if (null !== $this->customerNo) {
+            $res['customer_no'] = $this->customerNo;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class BindDubbridgeCustomerBankcardResponse extends Model
         }
         if (isset($map['bind_serial_no'])) {
             $model->bindSerialNo = $map['bind_serial_no'];
+        }
+        if (isset($map['customer_no'])) {
+            $model->customerNo = $map['customer_no'];
         }
 
         return $model;
