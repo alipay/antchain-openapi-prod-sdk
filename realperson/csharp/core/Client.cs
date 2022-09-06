@@ -137,7 +137,9 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.0"},
+                        {"sdk_version", "1.8.0"},
+                        {"_prod_code", "REALPERSON"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.0"},
+                        {"sdk_version", "1.8.0"},
+                        {"_prod_code", "REALPERSON"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -991,6 +995,48 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckTwometaHashResponse>(await DoRequestAsync("1.0", "di.realperson.twometa.hash.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 对接运营商等数据源查询手机号码的在网时长
+         * Summary: 三要素在网时长查询接口
+         */
+        public QueryThreemetaOnlinetimeResponse QueryThreemetaOnlinetime(QueryThreemetaOnlinetimeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryThreemetaOnlinetimeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对接运营商等数据源查询手机号码的在网时长
+         * Summary: 三要素在网时长查询接口
+         */
+        public async Task<QueryThreemetaOnlinetimeResponse> QueryThreemetaOnlinetimeAsync(QueryThreemetaOnlinetimeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryThreemetaOnlinetimeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对接运营商等数据源查询手机号码的在网时长
+         * Summary: 三要素在网时长查询接口
+         */
+        public QueryThreemetaOnlinetimeResponse QueryThreemetaOnlinetimeEx(QueryThreemetaOnlinetimeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryThreemetaOnlinetimeResponse>(DoRequest("1.0", "di.realperson.threemeta.onlinetime.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 对接运营商等数据源查询手机号码的在网时长
+         * Summary: 三要素在网时长查询接口
+         */
+        public async Task<QueryThreemetaOnlinetimeResponse> QueryThreemetaOnlinetimeExAsync(QueryThreemetaOnlinetimeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryThreemetaOnlinetimeResponse>(await DoRequestAsync("1.0", "di.realperson.threemeta.onlinetime.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
