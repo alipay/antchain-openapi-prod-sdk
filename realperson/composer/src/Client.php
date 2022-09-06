@@ -41,6 +41,8 @@ use AntChain\REALPERSON\Models\QueryFacevrfServerRequest;
 use AntChain\REALPERSON\Models\QueryFacevrfServerResponse;
 use AntChain\REALPERSON\Models\QueryMobileRiskRequest;
 use AntChain\REALPERSON\Models\QueryMobileRiskResponse;
+use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeRequest;
+use AntChain\REALPERSON\Models\QueryThreemetaOnlinetimeResponse;
 use AntChain\REALPERSON\Models\VerifyVoiceprintServermodeRequest;
 use AntChain\REALPERSON\Models\VerifyVoiceprintServermodeResponse;
 use AntChain\Util\UtilClient;
@@ -190,7 +192,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.0',
+                    'sdk_version'      => '1.8.0',
+                    '_prod_code'       => 'REALPERSON',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -747,6 +751,39 @@ class Client
         Utils::validateModel($request);
 
         return CheckTwometaHashResponse::fromMap($this->doRequest('1.0', 'di.realperson.twometa.hash.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对接运营商等数据源查询手机号码的在网时长
+     * Summary: 三要素在网时长查询接口.
+     *
+     * @param QueryThreemetaOnlinetimeRequest $request
+     *
+     * @return QueryThreemetaOnlinetimeResponse
+     */
+    public function queryThreemetaOnlinetime($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryThreemetaOnlinetimeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对接运营商等数据源查询手机号码的在网时长
+     * Summary: 三要素在网时长查询接口.
+     *
+     * @param QueryThreemetaOnlinetimeRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryThreemetaOnlinetimeResponse
+     */
+    public function queryThreemetaOnlinetimeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryThreemetaOnlinetimeResponse::fromMap($this->doRequest('1.0', 'di.realperson.threemeta.onlinetime.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
