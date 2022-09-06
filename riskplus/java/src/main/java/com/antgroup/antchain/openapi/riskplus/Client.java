@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.16"),
+                    new TeaPair("sdk_version", "1.12.17"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1206,6 +1206,63 @@ public class Client {
     public QueryDubbridgeReceiptStatusResponse queryDubbridgeReceiptStatusEx(QueryDubbridgeReceiptStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.receipt.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeReceiptStatusResponse());
+    }
+
+    /**
+     * Description: 天枢系统协议签约查询(通用)
+     * Summary: 天枢系统协议签约查询(通用)
+     */
+    public QueryDubbridgeCustomerCommonagreementsignResponse queryDubbridgeCustomerCommonagreementsign(QueryDubbridgeCustomerCommonagreementsignRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeCustomerCommonagreementsignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 天枢系统协议签约查询(通用)
+     * Summary: 天枢系统协议签约查询(通用)
+     */
+    public QueryDubbridgeCustomerCommonagreementsignResponse queryDubbridgeCustomerCommonagreementsignEx(QueryDubbridgeCustomerCommonagreementsignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.customer.commonagreementsign.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeCustomerCommonagreementsignResponse());
+    }
+
+    /**
+     * Description: 根据关键字从第三方查询企业信息
+     * Summary: 天枢系统企业搜索
+     */
+    public QueryDubbridgeCompanyItemsResponse queryDubbridgeCompanyItems(QueryDubbridgeCompanyItemsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeCompanyItemsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据关键字从第三方查询企业信息
+     * Summary: 天枢系统企业搜索
+     */
+    public QueryDubbridgeCompanyItemsResponse queryDubbridgeCompanyItemsEx(QueryDubbridgeCompanyItemsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.company.items.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeCompanyItemsResponse());
+    }
+
+    /**
+     * Description: 客户影像信息更新
+     * Summary: 客户影像信息更新
+     */
+    public UpdateDubbridgeFileResponse updateDubbridgeFile(UpdateDubbridgeFileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateDubbridgeFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 客户影像信息更新
+     * Summary: 客户影像信息更新
+     */
+    public UpdateDubbridgeFileResponse updateDubbridgeFileEx(UpdateDubbridgeFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.file.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateDubbridgeFileResponse());
     }
 
     /**
