@@ -1484,6 +1484,90 @@ export class CheckTwometaHashResponse extends $tea.Model {
   }
 }
 
+export class QueryThreemetaOnlinetimeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部请求id
+  outerOrderNo: string;
+  // 姓名
+  certName: string;
+  // 身份证号
+  certNo: string;
+  // 手机号码
+  phoneNo: string;
+  // 扩展参数
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      phoneNo: 'phone_no',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      certName: 'string',
+      certNo: 'string',
+      phoneNo: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryThreemetaOnlinetimeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 在网时长标准码，规则：
+  // 1: [0,3)表示在⽹时⻓是 0~3 个⽉
+  // 2: [3,6)表示在⽹时⻓是 3~6 个⽉
+  // 3: [6,12)表示在⽹时⻓是 6~12 个⽉
+  // 4: [12,24)表示在⽹时⻓是 12~24 ⽉
+  // 5: [24,+)表示在⽹时⻓是 24个⽉及以上
+  lengthCode?: string;
+  // 扩展信息，json格式
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      lengthCode: 'length_code',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      lengthCode: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1685,7 +1769,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.0",
+          sdk_version: "1.8.0",
+          _prod_code: "REALPERSON",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -2035,6 +2121,25 @@ export default class Client {
   async checkTwometaHashEx(request: CheckTwometaHashRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckTwometaHashResponse> {
     Util.validateModel(request);
     return $tea.cast<CheckTwometaHashResponse>(await this.doRequest("1.0", "di.realperson.twometa.hash.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckTwometaHashResponse({}));
+  }
+
+  /**
+   * Description: 对接运营商等数据源查询手机号码的在网时长
+   * Summary: 三要素在网时长查询接口
+   */
+  async queryThreemetaOnlinetime(request: QueryThreemetaOnlinetimeRequest): Promise<QueryThreemetaOnlinetimeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryThreemetaOnlinetimeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 对接运营商等数据源查询手机号码的在网时长
+   * Summary: 三要素在网时长查询接口
+   */
+  async queryThreemetaOnlinetimeEx(request: QueryThreemetaOnlinetimeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryThreemetaOnlinetimeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryThreemetaOnlinetimeResponse>(await this.doRequest("1.0", "di.realperson.threemeta.onlinetime.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryThreemetaOnlinetimeResponse({}));
   }
 
   /**
