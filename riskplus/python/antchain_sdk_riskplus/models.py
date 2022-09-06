@@ -606,6 +606,7 @@ class StatisticInfoDetail(TeaModel):
         invoke_count: int = None,
         success_count: int = None,
         fail_count: int = None,
+        finish_count: int = None,
     ):
         # actionDriverCode类型
         self.action_driver_code = action_driver_code
@@ -615,12 +616,11 @@ class StatisticInfoDetail(TeaModel):
         self.success_count = success_count
         # 失败数
         self.fail_count = fail_count
+        # 已处理完成任务数
+        self.finish_count = finish_count
 
     def validate(self):
-        self.validate_required(self.action_driver_code, 'action_driver_code')
-        self.validate_required(self.invoke_count, 'invoke_count')
-        self.validate_required(self.success_count, 'success_count')
-        self.validate_required(self.fail_count, 'fail_count')
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -636,6 +636,8 @@ class StatisticInfoDetail(TeaModel):
             result['success_count'] = self.success_count
         if self.fail_count is not None:
             result['fail_count'] = self.fail_count
+        if self.finish_count is not None:
+            result['finish_count'] = self.finish_count
         return result
 
     def from_map(self, m: dict = None):
@@ -648,6 +650,8 @@ class StatisticInfoDetail(TeaModel):
             self.success_count = m.get('success_count')
         if m.get('fail_count') is not None:
             self.fail_count = m.get('fail_count')
+        if m.get('finish_count') is not None:
+            self.finish_count = m.get('finish_count')
         return self
 
 
@@ -9488,6 +9492,7 @@ class BindDubbridgeCustomerBankcardResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         bind_serial_no: str = None,
+        customer_no: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -9497,6 +9502,8 @@ class BindDubbridgeCustomerBankcardResponse(TeaModel):
         self.result_msg = result_msg
         # 绑卡流水
         self.bind_serial_no = bind_serial_no
+        # 客户号
+        self.customer_no = customer_no
 
     def validate(self):
         pass
@@ -9515,6 +9522,8 @@ class BindDubbridgeCustomerBankcardResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.bind_serial_no is not None:
             result['bind_serial_no'] = self.bind_serial_no
+        if self.customer_no is not None:
+            result['customer_no'] = self.customer_no
         return result
 
     def from_map(self, m: dict = None):
@@ -9527,6 +9536,8 @@ class BindDubbridgeCustomerBankcardResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('bind_serial_no') is not None:
             self.bind_serial_no = m.get('bind_serial_no')
+        if m.get('customer_no') is not None:
+            self.customer_no = m.get('customer_no')
         return self
 
 
@@ -11855,7 +11866,6 @@ class CountDubbridgeRepayTrialRequest(TeaModel):
         original_order_no: str = None,
         repay_type: str = None,
         order_no: str = None,
-        receipt_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11866,14 +11876,11 @@ class CountDubbridgeRepayTrialRequest(TeaModel):
         self.repay_type = repay_type
         # 订单号
         self.order_no = order_no
-        # 借据号
-        self.receipt_no = receipt_no
 
     def validate(self):
         self.validate_required(self.original_order_no, 'original_order_no')
         self.validate_required(self.repay_type, 'repay_type')
         self.validate_required(self.order_no, 'order_no')
-        self.validate_required(self.receipt_no, 'receipt_no')
 
     def to_map(self):
         _map = super().to_map()
@@ -11891,8 +11898,6 @@ class CountDubbridgeRepayTrialRequest(TeaModel):
             result['repay_type'] = self.repay_type
         if self.order_no is not None:
             result['order_no'] = self.order_no
-        if self.receipt_no is not None:
-            result['receipt_no'] = self.receipt_no
         return result
 
     def from_map(self, m: dict = None):
@@ -11907,8 +11912,6 @@ class CountDubbridgeRepayTrialRequest(TeaModel):
             self.repay_type = m.get('repay_type')
         if m.get('order_no') is not None:
             self.order_no = m.get('order_no')
-        if m.get('receipt_no') is not None:
-            self.receipt_no = m.get('receipt_no')
         return self
 
 
@@ -12087,15 +12090,19 @@ class QueryDubbridgeSearchContractRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         original_order_no: str = None,
+        customer_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 原用信订单号
         self.original_order_no = original_order_no
+        # 客户号
+        self.customer_no = customer_no
 
     def validate(self):
         self.validate_required(self.original_order_no, 'original_order_no')
+        self.validate_required(self.customer_no, 'customer_no')
 
     def to_map(self):
         _map = super().to_map()
@@ -12109,6 +12116,8 @@ class QueryDubbridgeSearchContractRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.original_order_no is not None:
             result['original_order_no'] = self.original_order_no
+        if self.customer_no is not None:
+            result['customer_no'] = self.customer_no
         return result
 
     def from_map(self, m: dict = None):
@@ -12119,6 +12128,8 @@ class QueryDubbridgeSearchContractRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('original_order_no') is not None:
             self.original_order_no = m.get('original_order_no')
+        if m.get('customer_no') is not None:
+            self.customer_no = m.get('customer_no')
         return self
 
 
