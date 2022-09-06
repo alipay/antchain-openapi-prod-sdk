@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.16',
+                    'sdk_version': '1.12.17',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.16',
+                    'sdk_version': '1.12.17',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -3331,6 +3331,174 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryDubbridgeReceiptStatusResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_customer_commonagreementsign(
+        self,
+        request: riskplus_models.QueryDubbridgeCustomerCommonagreementsignRequest,
+    ) -> riskplus_models.QueryDubbridgeCustomerCommonagreementsignResponse:
+        """
+        Description: 天枢系统协议签约查询(通用)
+        Summary: 天枢系统协议签约查询(通用)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_customer_commonagreementsign_ex(request, headers, runtime)
+
+    async def query_dubbridge_customer_commonagreementsign_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCustomerCommonagreementsignRequest,
+    ) -> riskplus_models.QueryDubbridgeCustomerCommonagreementsignResponse:
+        """
+        Description: 天枢系统协议签约查询(通用)
+        Summary: 天枢系统协议签约查询(通用)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_customer_commonagreementsign_ex_async(request, headers, runtime)
+
+    def query_dubbridge_customer_commonagreementsign_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeCustomerCommonagreementsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCustomerCommonagreementsignResponse:
+        """
+        Description: 天枢系统协议签约查询(通用)
+        Summary: 天枢系统协议签约查询(通用)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCustomerCommonagreementsignResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.customer.commonagreementsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_customer_commonagreementsign_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCustomerCommonagreementsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCustomerCommonagreementsignResponse:
+        """
+        Description: 天枢系统协议签约查询(通用)
+        Summary: 天枢系统协议签约查询(通用)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCustomerCommonagreementsignResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.customer.commonagreementsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_company_items(
+        self,
+        request: riskplus_models.QueryDubbridgeCompanyItemsRequest,
+    ) -> riskplus_models.QueryDubbridgeCompanyItemsResponse:
+        """
+        Description: 根据关键字从第三方查询企业信息
+        Summary: 天枢系统企业搜索
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_company_items_ex(request, headers, runtime)
+
+    async def query_dubbridge_company_items_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCompanyItemsRequest,
+    ) -> riskplus_models.QueryDubbridgeCompanyItemsResponse:
+        """
+        Description: 根据关键字从第三方查询企业信息
+        Summary: 天枢系统企业搜索
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_company_items_ex_async(request, headers, runtime)
+
+    def query_dubbridge_company_items_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeCompanyItemsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCompanyItemsResponse:
+        """
+        Description: 根据关键字从第三方查询企业信息
+        Summary: 天枢系统企业搜索
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCompanyItemsResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.company.items.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_company_items_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeCompanyItemsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeCompanyItemsResponse:
+        """
+        Description: 根据关键字从第三方查询企业信息
+        Summary: 天枢系统企业搜索
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeCompanyItemsResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.company.items.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_dubbridge_file(
+        self,
+        request: riskplus_models.UpdateDubbridgeFileRequest,
+    ) -> riskplus_models.UpdateDubbridgeFileResponse:
+        """
+        Description: 客户影像信息更新
+        Summary: 客户影像信息更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_dubbridge_file_ex(request, headers, runtime)
+
+    async def update_dubbridge_file_async(
+        self,
+        request: riskplus_models.UpdateDubbridgeFileRequest,
+    ) -> riskplus_models.UpdateDubbridgeFileResponse:
+        """
+        Description: 客户影像信息更新
+        Summary: 客户影像信息更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_dubbridge_file_ex_async(request, headers, runtime)
+
+    def update_dubbridge_file_ex(
+        self,
+        request: riskplus_models.UpdateDubbridgeFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UpdateDubbridgeFileResponse:
+        """
+        Description: 客户影像信息更新
+        Summary: 客户影像信息更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UpdateDubbridgeFileResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.file.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_dubbridge_file_ex_async(
+        self,
+        request: riskplus_models.UpdateDubbridgeFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UpdateDubbridgeFileResponse:
+        """
+        Description: 客户影像信息更新
+        Summary: 客户影像信息更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UpdateDubbridgeFileResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.file.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(
