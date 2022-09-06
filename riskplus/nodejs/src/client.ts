@@ -374,19 +374,22 @@ export class RtopRiskTag extends $tea.Model {
 // 回执统计数据详情
 export class StatisticInfoDetail extends $tea.Model {
   // actionDriverCode类型
-  actionDriverCode: number;
+  actionDriverCode?: number;
   // 调用总数
-  invokeCount: number;
+  invokeCount?: number;
   // 成功数
-  successCount: number;
+  successCount?: number;
   // 失败数
-  failCount: number;
+  failCount?: number;
+  // 已处理完成任务数
+  finishCount?: number;
   static names(): { [key: string]: string } {
     return {
       actionDriverCode: 'action_driver_code',
       invokeCount: 'invoke_count',
       successCount: 'success_count',
       failCount: 'fail_count',
+      finishCount: 'finish_count',
     };
   }
 
@@ -396,6 +399,7 @@ export class StatisticInfoDetail extends $tea.Model {
       invokeCount: 'number',
       successCount: 'number',
       failCount: 'number',
+      finishCount: 'number',
     };
   }
 
@@ -5683,12 +5687,15 @@ export class BindDubbridgeCustomerBankcardResponse extends $tea.Model {
   resultMsg?: string;
   // 绑卡流水
   bindSerialNo?: string;
+  // 客户号
+  customerNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       bindSerialNo: 'bind_serial_no',
+      customerNo: 'customer_no',
     };
   }
 
@@ -5698,6 +5705,7 @@ export class BindDubbridgeCustomerBankcardResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       bindSerialNo: 'string',
+      customerNo: 'string',
     };
   }
 
@@ -7138,8 +7146,6 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
   repayType: string;
   // 订单号
   orderNo: string;
-  // 借据号
-  receiptNo: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7147,7 +7153,6 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
       originalOrderNo: 'original_order_no',
       repayType: 'repay_type',
       orderNo: 'order_no',
-      receiptNo: 'receipt_no',
     };
   }
 
@@ -7158,7 +7163,6 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
       originalOrderNo: 'string',
       repayType: 'string',
       orderNo: 'string',
-      receiptNo: 'string',
     };
   }
 
@@ -7280,11 +7284,14 @@ export class QueryDubbridgeSearchContractRequest extends $tea.Model {
   productInstanceId?: string;
   // 原用信订单号
   originalOrderNo: string;
+  // 客户号
+  customerNo: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       originalOrderNo: 'original_order_no',
+      customerNo: 'customer_no',
     };
   }
 
@@ -7293,6 +7300,7 @@ export class QueryDubbridgeSearchContractRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       originalOrderNo: 'string',
+      customerNo: 'string',
     };
   }
 
@@ -12573,7 +12581,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.15",
+          sdk_version: "1.12.16",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
