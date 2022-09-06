@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.16',
+    sdk_version = '1.12.17',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -838,6 +838,18 @@ model ZhimaQueryResp {
   subMsg?: string(name='sub_msg', example='无效的AppID参数'),
 }
 
+// 企业信息详情
+model BusinessDetail {
+  // 经营地址
+  operatingAddrJson: string(name='operating_addr_json', example='xxx'),
+  // 社会统一信用代码
+  ucCode: string(name='uc_code', example='xxx'),
+  // 注册日期
+  registerDate: string(name='register_date', example='2001-06-01'),
+  // 详细地址
+  addressDetail: string(name='address_detail', example='xxx'),
+}
+
 // 机构平台通知响应结果
 model DefinInnerChannelNotifyResult {
   // 请求编号
@@ -1119,6 +1131,22 @@ model RpcommonResp {
   responseCode: string(name='response_code', example='0'),
   // 具体返回值.jsonString形式
   data: string(name='data', example='{"a":1}'),
+}
+
+// 公司列表
+model CompanyItems {
+  // 公司id
+  companyId: string(name='company_id', example='20111b9afa08b3a53580e20513933966'),
+  // 蚂蚁科技集团股份有限公司
+  companyName: string(name='company_name', example='公司名称'),
+  // 匹配名称
+  matchingName: string(name='matching_name', example='平台名'),
+  // 匹配类型
+  matchingType: string(name='matching_type', example='平台名匹配'),
+  // 匹配值
+  matchingValue: string(name='matching_value', example='蚂蚁金服'),
+  // 返回标识
+  ucCode: string(name='uc_code', example='S'),
 }
 
 // 标签图片
@@ -4078,6 +4106,148 @@ async function queryDubbridgeReceiptStatus(request: QueryDubbridgeReceiptStatusR
 async function queryDubbridgeReceiptStatusEx(request: QueryDubbridgeReceiptStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeReceiptStatusResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.receipt.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeCustomerCommonagreementsignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 客户编号
+  customNo: string(name='custom_no'),
+  // 资金方编号
+  fundNo: string(name='fund_no'),
+}
+
+model QueryDubbridgeCustomerCommonagreementsignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户编号
+  customNo?: string(name='custom_no'),
+  // 客户名称
+  customName?: string(name='custom_name'),
+  // 流水号
+  transSerials?: string(name='trans_serials'),
+  // 签约状态
+  status?: string(name='status'),
+  // 签约用户唯一标识
+  accountUserId?: string(name='account_user_id'),
+  // 脱敏的签约账号
+  accountNo?: string(name='account_no'),
+  // 协议号
+  protocolNo?: string(name='protocol_no'),
+  // 协议签约时间
+  signTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='sign_time'),
+  // 协议生效时间
+  validTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='valid_time'),
+  // 协议失效时间
+  invalidTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='invalid_time'),
+}
+
+/**
+ * Description: 天枢系统协议签约查询(通用)
+ * Summary: 天枢系统协议签约查询(通用)
+ */
+async function queryDubbridgeCustomerCommonagreementsign(request: QueryDubbridgeCustomerCommonagreementsignRequest): QueryDubbridgeCustomerCommonagreementsignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeCustomerCommonagreementsignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统协议签约查询(通用)
+ * Summary: 天枢系统协议签约查询(通用)
+ */
+async function queryDubbridgeCustomerCommonagreementsignEx(request: QueryDubbridgeCustomerCommonagreementsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeCustomerCommonagreementsignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.customer.commonagreementsign.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeCompanyItemsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询字段（公司名、产品名、平台名等不能为空）
+  keyword: string(name='keyword'),
+}
+
+model QueryDubbridgeCompanyItemsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回公司列表
+  businessItems?: [ CompanyItems ](name='business_items'),
+  // 企业信息个数
+  total?: long(name='total'),
+}
+
+/**
+ * Description: 根据关键字从第三方查询企业信息
+ * Summary: 天枢系统企业搜索
+ */
+async function queryDubbridgeCompanyItems(request: QueryDubbridgeCompanyItemsRequest): QueryDubbridgeCompanyItemsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeCompanyItemsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据关键字从第三方查询企业信息
+ * Summary: 天枢系统企业搜索
+ */
+async function queryDubbridgeCompanyItemsEx(request: QueryDubbridgeCompanyItemsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeCompanyItemsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.company.items.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateDubbridgeFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 授信申请订单号(资产方)
+  originalOrderNo: string(name='original_order_no'),
+  // 客户编号
+  customNo: string(name='custom_no'),
+  // 资料文件
+  materials: [ Material ](name='materials'),
+}
+
+model UpdateDubbridgeFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 客户影像信息更新
+ * Summary: 客户影像信息更新
+ */
+async function updateDubbridgeFile(request: UpdateDubbridgeFileRequest): UpdateDubbridgeFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateDubbridgeFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 客户影像信息更新
+ * Summary: 客户影像信息更新
+ */
+async function updateDubbridgeFileEx(request: UpdateDubbridgeFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDubbridgeFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.file.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
