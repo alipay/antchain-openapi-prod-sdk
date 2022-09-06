@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.15',
+    sdk_version = '1.12.16',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -269,13 +269,15 @@ model RtopRiskTag {
 // 回执统计数据详情
 model StatisticInfoDetail {
   // actionDriverCode类型
-  actionDriverCode: long(name='action_driver_code', example='1'),
+  actionDriverCode?: long(name='action_driver_code', example='1'),
   // 调用总数
-  invokeCount: long(name='invoke_count', example='123'),
+  invokeCount?: long(name='invoke_count', example='123'),
   // 成功数
-  successCount: long(name='success_count', example='123'),
+  successCount?: long(name='success_count', example='123'),
   // 失败数
-  failCount: long(name='fail_count', example='123'),
+  failCount?: long(name='fail_count', example='123'),
+  // 已处理完成任务数
+  finishCount?: long(name='finish_count', example=''),
 }
 
 // 天枢系统专用ReceiptInfo结构体
@@ -2917,6 +2919,8 @@ model BindDubbridgeCustomerBankcardResponse = {
   resultMsg?: string(name='result_msg'),
   // 绑卡流水
   bindSerialNo?: string(name='bind_serial_no'),
+  // 客户号
+  customerNo?: string(name='customer_no'),
 }
 
 /**
@@ -3812,8 +3816,6 @@ model CountDubbridgeRepayTrialRequest = {
   repayType: string(name='repay_type'),
   // 订单号
   orderNo: string(name='order_no'),
-  // 借据号
-  receiptNo: string(name='receipt_no'),
 }
 
 model CountDubbridgeRepayTrialResponse = {
@@ -3898,6 +3900,8 @@ model QueryDubbridgeSearchContractRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 原用信订单号
   originalOrderNo: string(name='original_order_no'),
+  // 客户号
+  customerNo: string(name='customer_no'),
 }
 
 model QueryDubbridgeSearchContractResponse = {
