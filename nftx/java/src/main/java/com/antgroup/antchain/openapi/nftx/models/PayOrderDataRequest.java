@@ -45,6 +45,14 @@ public class PayOrderDataRequest extends TeaModel {
     @NameInMap("return_url")
     public String returnUrl;
 
+    // AC编码
+    @NameInMap("nft_id")
+    public String nftId;
+
+    // 鲸探测分配的实物规格编码
+    @NameInMap("item_code")
+    public String itemCode;
+
     public static PayOrderDataRequest build(java.util.Map<String, ?> map) throws Exception {
         PayOrderDataRequest self = new PayOrderDataRequest();
         return TeaModel.build(map, self);
@@ -120,6 +128,22 @@ public class PayOrderDataRequest extends TeaModel {
     }
     public String getReturnUrl() {
         return this.returnUrl;
+    }
+
+    public PayOrderDataRequest setNftId(String nftId) {
+        this.nftId = nftId;
+        return this;
+    }
+    public String getNftId() {
+        return this.nftId;
+    }
+
+    public PayOrderDataRequest setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+        return this;
+    }
+    public String getItemCode() {
+        return this.itemCode;
     }
 
 }
