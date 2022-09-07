@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.0',
+    sdk_version = '1.8.0',
+    _prod_code = 'REALPERSON',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1000,6 +1002,59 @@ async function checkTwometaHash(request: CheckTwometaHashRequest): CheckTwometaH
 async function checkTwometaHashEx(request: CheckTwometaHashRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckTwometaHashResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'di.realperson.twometa.hash.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryThreemetaOnlinetimeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部请求id
+  outerOrderNo: string(name='outer_order_no'),
+  // 姓名
+  certName: string(name='cert_name'),
+  // 身份证号
+  certNo: string(name='cert_no'),
+  // 手机号码
+  phoneNo: string(name='phone_no'),
+  // 扩展参数
+  externParam?: string(name='extern_param'),
+}
+
+model QueryThreemetaOnlinetimeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 在网时长标准码，规则：
+  // 1: [0,3)表示在⽹时⻓是 0~3 个⽉
+  // 2: [3,6)表示在⽹时⻓是 3~6 个⽉
+  // 3: [6,12)表示在⽹时⻓是 6~12 个⽉
+  // 4: [12,24)表示在⽹时⻓是 12~24 ⽉
+  // 5: [24,+)表示在⽹时⻓是 24个⽉及以上
+  lengthCode?: string(name='length_code'),
+  // 扩展信息，json格式
+  externInfo?: string(name='extern_info'),
+}
+
+/**
+ * Description: 对接运营商等数据源查询手机号码的在网时长
+ * Summary: 三要素在网时长查询接口
+ */
+async function queryThreemetaOnlinetime(request: QueryThreemetaOnlinetimeRequest): QueryThreemetaOnlinetimeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryThreemetaOnlinetimeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 对接运营商等数据源查询手机号码的在网时长
+ * Summary: 三要素在网时长查询接口
+ */
+async function queryThreemetaOnlinetimeEx(request: QueryThreemetaOnlinetimeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryThreemetaOnlinetimeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'di.realperson.threemeta.onlinetime.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
