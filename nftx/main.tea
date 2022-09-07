@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.1',
+    sdk_version = '1.7.2',
     _prod_code = 'NFTX',
     _prod_channel = 'undefined'
   };
@@ -897,6 +897,10 @@ model PayOrderDataRequest = {
   accessToken: string(name='access_token'),
   // 支付完成后的回跳地址
   returnUrl?: string(name='return_url'),
+  // AC编码
+  nftId?: string(name='nft_id'),
+  // 鲸探测分配的实物规格编码
+  itemCode?: string(name='item_code'),
 }
 
 model PayOrderDataResponse = {
