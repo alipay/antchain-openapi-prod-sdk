@@ -60,6 +60,18 @@ class PayOrderDataRequest extends Model
      * @var string
      */
     public $returnUrl;
+
+    // AC编码
+    /**
+     * @var string
+     */
+    public $nftId;
+
+    // 鲸探测分配的实物规格编码
+    /**
+     * @var string
+     */
+    public $itemCode;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -70,6 +82,8 @@ class PayOrderDataRequest extends Model
         'timeoutExpireSecond' => 'timeout_expire_second',
         'accessToken'         => 'access_token',
         'returnUrl'           => 'return_url',
+        'nftId'               => 'nft_id',
+        'itemCode'            => 'item_code',
     ];
 
     public function validate()
@@ -112,6 +126,12 @@ class PayOrderDataRequest extends Model
         if (null !== $this->returnUrl) {
             $res['return_url'] = $this->returnUrl;
         }
+        if (null !== $this->nftId) {
+            $res['nft_id'] = $this->nftId;
+        }
+        if (null !== $this->itemCode) {
+            $res['item_code'] = $this->itemCode;
+        }
 
         return $res;
     }
@@ -150,6 +170,12 @@ class PayOrderDataRequest extends Model
         }
         if (isset($map['return_url'])) {
             $model->returnUrl = $map['return_url'];
+        }
+        if (isset($map['nft_id'])) {
+            $model->nftId = $map['nft_id'];
+        }
+        if (isset($map['item_code'])) {
+            $model->itemCode = $map['item_code'];
         }
 
         return $model;
