@@ -53,6 +53,16 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=false)]
         public string ReturnUrl { get; set; }
 
+        // AC编码
+        [NameInMap("nft_id")]
+        [Validation(Required=false)]
+        public string NftId { get; set; }
+
+        // 鲸探测分配的实物规格编码
+        [NameInMap("item_code")]
+        [Validation(Required=false)]
+        public string ItemCode { get; set; }
+
     }
 
 }
