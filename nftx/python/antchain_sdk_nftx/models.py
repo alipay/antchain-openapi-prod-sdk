@@ -2218,6 +2218,8 @@ class PayOrderDataRequest(TeaModel):
         timeout_expire_second: int = None,
         access_token: str = None,
         return_url: str = None,
+        nft_id: str = None,
+        item_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2236,6 +2238,10 @@ class PayOrderDataRequest(TeaModel):
         self.access_token = access_token
         # 支付完成后的回跳地址
         self.return_url = return_url
+        # AC编码
+        self.nft_id = nft_id
+        # 鲸探测分配的实物规格编码
+        self.item_code = item_code
 
     def validate(self):
         self.validate_required(self.external_order_no, 'external_order_no')
@@ -2269,6 +2275,10 @@ class PayOrderDataRequest(TeaModel):
             result['access_token'] = self.access_token
         if self.return_url is not None:
             result['return_url'] = self.return_url
+        if self.nft_id is not None:
+            result['nft_id'] = self.nft_id
+        if self.item_code is not None:
+            result['item_code'] = self.item_code
         return result
 
     def from_map(self, m: dict = None):
@@ -2291,6 +2301,10 @@ class PayOrderDataRequest(TeaModel):
             self.access_token = m.get('access_token')
         if m.get('return_url') is not None:
             self.return_url = m.get('return_url')
+        if m.get('nft_id') is not None:
+            self.nft_id = m.get('nft_id')
+        if m.get('item_code') is not None:
+            self.item_code = m.get('item_code')
         return self
 
 
