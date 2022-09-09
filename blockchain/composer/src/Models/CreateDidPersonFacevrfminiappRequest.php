@@ -66,6 +66,12 @@ class CreateDidPersonFacevrfminiappRequest extends Model
      * @var string
      */
     public $uid;
+
+    // 刷脸类型，目前只支持FACE_SDK、FACE
+    /**
+     * @var string
+     */
+    public $faceType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +83,7 @@ class CreateDidPersonFacevrfminiappRequest extends Model
         'certType'          => 'cert_type',
         'returnUrl'         => 'return_url',
         'uid'               => 'uid',
+        'faceType'          => 'face_type',
     ];
 
     public function validate()
@@ -122,6 +129,9 @@ class CreateDidPersonFacevrfminiappRequest extends Model
         if (null !== $this->uid) {
             $res['uid'] = $this->uid;
         }
+        if (null !== $this->faceType) {
+            $res['face_type'] = $this->faceType;
+        }
 
         return $res;
     }
@@ -163,6 +173,9 @@ class CreateDidPersonFacevrfminiappRequest extends Model
         }
         if (isset($map['uid'])) {
             $model->uid = $map['uid'];
+        }
+        if (isset($map['face_type'])) {
+            $model->faceType = $map['face_type'];
         }
 
         return $model;

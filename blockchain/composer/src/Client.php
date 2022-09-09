@@ -17,6 +17,8 @@ use AntChain\BLOCKCHAIN\Models\AddChainSubnetMemberRequest;
 use AntChain\BLOCKCHAIN\Models\AddChainSubnetMemberResponse;
 use AntChain\BLOCKCHAIN\Models\AddChainSubnetNodeRequest;
 use AntChain\BLOCKCHAIN\Models\AddChainSubnetNodeResponse;
+use AntChain\BLOCKCHAIN\Models\AddDidDtxPkRequest;
+use AntChain\BLOCKCHAIN\Models\AddDidDtxPkResponse;
 use AntChain\BLOCKCHAIN\Models\AddDidUpdatedidServicelistRequest;
 use AntChain\BLOCKCHAIN\Models\AddDidUpdatedidServicelistResponse;
 use AntChain\BLOCKCHAIN\Models\AddDidUpdatedidServiceRequest;
@@ -43,6 +45,8 @@ use AntChain\BLOCKCHAIN\Models\ApplyChainRestAntRequest;
 use AntChain\BLOCKCHAIN\Models\ApplyChainRestAntResponse;
 use AntChain\BLOCKCHAIN\Models\ApplyChainSubnetRestRequest;
 use AntChain\BLOCKCHAIN\Models\ApplyChainSubnetRestResponse;
+use AntChain\BLOCKCHAIN\Models\ApplyChainUseDeclarationRequest;
+use AntChain\BLOCKCHAIN\Models\ApplyChainUseDeclarationResponse;
 use AntChain\BLOCKCHAIN\Models\ApplyDataauthorizationAuthorizationRequest;
 use AntChain\BLOCKCHAIN\Models\ApplyDataauthorizationAuthorizationResponse;
 use AntChain\BLOCKCHAIN\Models\ApplyDataauthorizationAuthorizationWithsignatureRequest;
@@ -75,6 +79,8 @@ use AntChain\BLOCKCHAIN\Models\BatchqueryChainBrowserTransactionRequest;
 use AntChain\BLOCKCHAIN\Models\BatchqueryChainBrowserTransactionResponse;
 use AntChain\BLOCKCHAIN\Models\BatchqueryChainMiniappUserRequest;
 use AntChain\BLOCKCHAIN\Models\BatchqueryChainMiniappUserResponse;
+use AntChain\BLOCKCHAIN\Models\BindAuthPoapRequest;
+use AntChain\BLOCKCHAIN\Models\BindAuthPoapResponse;
 use AntChain\BLOCKCHAIN\Models\CallbackCreditTransferRequest;
 use AntChain\BLOCKCHAIN\Models\CallbackCreditTransferResponse;
 use AntChain\BLOCKCHAIN\Models\CallbackOcpProductRequest;
@@ -93,6 +99,8 @@ use AntChain\BLOCKCHAIN\Models\CheckBlockchainOrderRequest;
 use AntChain\BLOCKCHAIN\Models\CheckBlockchainOrderResponse;
 use AntChain\BLOCKCHAIN\Models\CheckBlockchainResourceRequest;
 use AntChain\BLOCKCHAIN\Models\CheckBlockchainResourceResponse;
+use AntChain\BLOCKCHAIN\Models\CheckChainSensitiveWordsRequest;
+use AntChain\BLOCKCHAIN\Models\CheckChainSensitiveWordsResponse;
 use AntChain\BLOCKCHAIN\Models\CheckChainSubnetCreateRequest;
 use AntChain\BLOCKCHAIN\Models\CheckChainSubnetCreateResponse;
 use AntChain\BLOCKCHAIN\Models\CheckChainSubnetMemberRequest;
@@ -133,6 +141,8 @@ use AntChain\BLOCKCHAIN\Models\CreateAuthCertClaimRequest;
 use AntChain\BLOCKCHAIN\Models\CreateAuthCertClaimResponse;
 use AntChain\BLOCKCHAIN\Models\CreateAuthCertClaimurlRequest;
 use AntChain\BLOCKCHAIN\Models\CreateAuthCertClaimurlResponse;
+use AntChain\BLOCKCHAIN\Models\CreateAuthCertDetailpageurlRequest;
+use AntChain\BLOCKCHAIN\Models\CreateAuthCertDetailpageurlResponse;
 use AntChain\BLOCKCHAIN\Models\CreateAuthCertRequest;
 use AntChain\BLOCKCHAIN\Models\CreateAuthCertResponse;
 use AntChain\BLOCKCHAIN\Models\CreateAuthClaimUrlRequest;
@@ -167,6 +177,8 @@ use AntChain\BLOCKCHAIN\Models\CreateBusinessContractnormalcallRequest;
 use AntChain\BLOCKCHAIN\Models\CreateBusinessContractnormalcallResponse;
 use AntChain\BLOCKCHAIN\Models\CreateBusinessDidRequest;
 use AntChain\BLOCKCHAIN\Models\CreateBusinessDidResponse;
+use AntChain\BLOCKCHAIN\Models\CreateChainAccountAntkmsRequest;
+use AntChain\BLOCKCHAIN\Models\CreateChainAccountAntkmsResponse;
 use AntChain\BLOCKCHAIN\Models\CreateChainAccountAntRequest;
 use AntChain\BLOCKCHAIN\Models\CreateChainAccountAntResponse;
 use AntChain\BLOCKCHAIN\Models\CreateChainCertAntRequest;
@@ -213,6 +225,8 @@ use AntChain\BLOCKCHAIN\Models\CreateDidCorporateWiththreemetaRequest;
 use AntChain\BLOCKCHAIN\Models\CreateDidCorporateWiththreemetaResponse;
 use AntChain\BLOCKCHAIN\Models\CreateDidCorporateWithtwometaRequest;
 use AntChain\BLOCKCHAIN\Models\CreateDidCorporateWithtwometaResponse;
+use AntChain\BLOCKCHAIN\Models\CreateDidDtxPersonRequest;
+use AntChain\BLOCKCHAIN\Models\CreateDidDtxPersonResponse;
 use AntChain\BLOCKCHAIN\Models\CreateDidIdentityCommonRequest;
 use AntChain\BLOCKCHAIN\Models\CreateDidIdentityCommonResponse;
 use AntChain\BLOCKCHAIN\Models\CreateDidIdentityCorporateRequest;
@@ -347,6 +361,10 @@ use AntChain\BLOCKCHAIN\Models\DownloadChainPublicCertRequest;
 use AntChain\BLOCKCHAIN\Models\DownloadChainPublicCertResponse;
 use AntChain\BLOCKCHAIN\Models\EnableOcpProductRequest;
 use AntChain\BLOCKCHAIN\Models\EnableOcpProductResponse;
+use AntChain\BLOCKCHAIN\Models\ExecAuthContractClaimRequest;
+use AntChain\BLOCKCHAIN\Models\ExecAuthContractClaimResponse;
+use AntChain\BLOCKCHAIN\Models\ExecAuthContractRequest;
+use AntChain\BLOCKCHAIN\Models\ExecAuthContractResponse;
 use AntChain\BLOCKCHAIN\Models\ExecBlockchainOrderRequest;
 use AntChain\BLOCKCHAIN\Models\ExecBlockchainOrderResponse;
 use AntChain\BLOCKCHAIN\Models\ExecChainContractRequest;
@@ -385,6 +403,8 @@ use AntChain\BLOCKCHAIN\Models\GetAkdfUserbizkeyRequest;
 use AntChain\BLOCKCHAIN\Models\GetAkdfUserbizkeyResponse;
 use AntChain\BLOCKCHAIN\Models\GetAuthCertInstancedataurlRequest;
 use AntChain\BLOCKCHAIN\Models\GetAuthCertInstancedataurlResponse;
+use AntChain\BLOCKCHAIN\Models\GetAuthClaimRecentRequest;
+use AntChain\BLOCKCHAIN\Models\GetAuthClaimRecentResponse;
 use AntChain\BLOCKCHAIN\Models\GetAuthClaimTemplateRequest;
 use AntChain\BLOCKCHAIN\Models\GetAuthClaimTemplateResponse;
 use AntChain\BLOCKCHAIN\Models\GetAuthFrontendAccesstokenRequest;
@@ -421,10 +441,14 @@ use AntChain\BLOCKCHAIN\Models\GetNotaryTransactionTextRequest;
 use AntChain\BLOCKCHAIN\Models\GetNotaryTransactionTextResponse;
 use AntChain\BLOCKCHAIN\Models\GetNotaryTransRequest;
 use AntChain\BLOCKCHAIN\Models\GetNotaryTransResponse;
+use AntChain\BLOCKCHAIN\Models\ImportDidAldabaRequest;
+use AntChain\BLOCKCHAIN\Models\ImportDidAldabaResponse;
 use AntChain\BLOCKCHAIN\Models\ImportLogisticFinanceLocationRequest;
 use AntChain\BLOCKCHAIN\Models\ImportLogisticFinanceLocationResponse;
 use AntChain\BLOCKCHAIN\Models\ImportPlatformTestregionTestfuncRequest;
 use AntChain\BLOCKCHAIN\Models\ImportPlatformTestregionTestfuncResponse;
+use AntChain\BLOCKCHAIN\Models\InitChainManagedMqRequest;
+use AntChain\BLOCKCHAIN\Models\InitChainManagedMqResponse;
 use AntChain\BLOCKCHAIN\Models\InitDidAdddidHashRequest;
 use AntChain\BLOCKCHAIN\Models\InitDidAdddidHashResponse;
 use AntChain\BLOCKCHAIN\Models\InitDidAddvcHashRequest;
@@ -479,6 +503,10 @@ use AntChain\BLOCKCHAIN\Models\ListLogisticFinanceDisRequest;
 use AntChain\BLOCKCHAIN\Models\ListLogisticFinanceDisResponse;
 use AntChain\BLOCKCHAIN\Models\ListMydidcommunWorkergroupPodversionRequest;
 use AntChain\BLOCKCHAIN\Models\ListMydidcommunWorkergroupPodversionResponse;
+use AntChain\BLOCKCHAIN\Models\ListWaasDidValidpublickeysRequest;
+use AntChain\BLOCKCHAIN\Models\ListWaasDidValidpublickeysResponse;
+use AntChain\BLOCKCHAIN\Models\NotifyWaasBusinessOrderRequest;
+use AntChain\BLOCKCHAIN\Models\NotifyWaasBusinessOrderResponse;
 use AntChain\BLOCKCHAIN\Models\OfflineContractRecordRequest;
 use AntChain\BLOCKCHAIN\Models\OfflineContractRecordResponse;
 use AntChain\BLOCKCHAIN\Models\OnlineContractRecordRequest;
@@ -529,6 +557,10 @@ use AntChain\BLOCKCHAIN\Models\QueryAuthClaimVcRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthClaimVcResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthOrgStatusRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthOrgStatusResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthPoapRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthPoapResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthSceneAuthstatusRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthSceneAuthstatusResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVcContentRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVcContentResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVcRealtimeRequest;
@@ -603,6 +635,8 @@ use AntChain\BLOCKCHAIN\Models\QueryChainFailureLogRequest;
 use AntChain\BLOCKCHAIN\Models\QueryChainFailureLogResponse;
 use AntChain\BLOCKCHAIN\Models\QueryChainIdeRequest;
 use AntChain\BLOCKCHAIN\Models\QueryChainIdeResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainManagedMqRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainManagedMqResponse;
 use AntChain\BLOCKCHAIN\Models\QueryChainMappingRelationshipRequest;
 use AntChain\BLOCKCHAIN\Models\QueryChainMappingRelationshipResponse;
 use AntChain\BLOCKCHAIN\Models\QueryChainMiniappAuthorizationRequest;
@@ -637,6 +671,10 @@ use AntChain\BLOCKCHAIN\Models\QueryChainSubnetNodeRequest;
 use AntChain\BLOCKCHAIN\Models\QueryChainSubnetNodeResponse;
 use AntChain\BLOCKCHAIN\Models\QueryChainSubnetRequest;
 use AntChain\BLOCKCHAIN\Models\QueryChainSubnetResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainUseDeclarationRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainUseDeclarationResponse;
+use AntChain\BLOCKCHAIN\Models\QueryChainUseListRequest;
+use AntChain\BLOCKCHAIN\Models\QueryChainUseListResponse;
 use AntChain\BLOCKCHAIN\Models\QueryContractRecordRequest;
 use AntChain\BLOCKCHAIN\Models\QueryContractRecordResponse;
 use AntChain\BLOCKCHAIN\Models\QueryCreditTransferApplyRequest;
@@ -659,6 +697,8 @@ use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationParticipantRequest;
 use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationParticipantResponse;
 use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationProcessRequest;
 use AntChain\BLOCKCHAIN\Models\QueryDataauthorizationProcessResponse;
+use AntChain\BLOCKCHAIN\Models\QueryDataResultBatchqueryRequest;
+use AntChain\BLOCKCHAIN\Models\QueryDataResultBatchqueryResponse;
 use AntChain\BLOCKCHAIN\Models\QueryDidAgentServicediscoveryRequest;
 use AntChain\BLOCKCHAIN\Models\QueryDidAgentServicediscoveryResponse;
 use AntChain\BLOCKCHAIN\Models\QueryDidAgentServicetypeRequest;
@@ -769,8 +809,14 @@ use AntChain\BLOCKCHAIN\Models\QueryUnionMemberRequest;
 use AntChain\BLOCKCHAIN\Models\QueryUnionMemberResponse;
 use AntChain\BLOCKCHAIN\Models\QueryUnionUnionRequest;
 use AntChain\BLOCKCHAIN\Models\QueryUnionUnionResponse;
+use AntChain\BLOCKCHAIN\Models\QueryWaasBusinessTransferbodyRequest;
+use AntChain\BLOCKCHAIN\Models\QueryWaasBusinessTransferbodyResponse;
+use AntChain\BLOCKCHAIN\Models\QueryWaasDidPublickeyRequest;
+use AntChain\BLOCKCHAIN\Models\QueryWaasDidPublickeyResponse;
 use AntChain\BLOCKCHAIN\Models\RebootDidNotificationConsumerRequest;
 use AntChain\BLOCKCHAIN\Models\RebootDidNotificationConsumerResponse;
+use AntChain\BLOCKCHAIN\Models\RegisterWaasBusinessRequest;
+use AntChain\BLOCKCHAIN\Models\RegisterWaasBusinessResponse;
 use AntChain\BLOCKCHAIN\Models\ReinitChainCertAntRequest;
 use AntChain\BLOCKCHAIN\Models\ReinitChainCertAntResponse;
 use AntChain\BLOCKCHAIN\Models\ReinitChainPublicCertRequest;
@@ -801,6 +847,8 @@ use AntChain\BLOCKCHAIN\Models\SaveBusinessDepositMetadataRequest;
 use AntChain\BLOCKCHAIN\Models\SaveBusinessDepositMetadataResponse;
 use AntChain\BLOCKCHAIN\Models\SaveBusinessDepositRequest;
 use AntChain\BLOCKCHAIN\Models\SaveBusinessDepositResponse;
+use AntChain\BLOCKCHAIN\Models\SaveDataauthorizationDepositDataRequest;
+use AntChain\BLOCKCHAIN\Models\SaveDataauthorizationDepositDataResponse;
 use AntChain\BLOCKCHAIN\Models\SaveMydidIdaasDidserviceRequest;
 use AntChain\BLOCKCHAIN\Models\SaveMydidIdaasDidserviceResponse;
 use AntChain\BLOCKCHAIN\Models\SavePlatformDepositDepositRequest;
@@ -823,6 +871,8 @@ use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtTradeRequest;
 use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtTradeResponse;
 use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtUnissuetoexchangeRequest;
 use AntChain\BLOCKCHAIN\Models\SetDigitalassetartArtUnissuetoexchangeResponse;
+use AntChain\BLOCKCHAIN\Models\SignAuthAgreementUserRequest;
+use AntChain\BLOCKCHAIN\Models\SignAuthAgreementUserResponse;
 use AntChain\BLOCKCHAIN\Models\StartAccountMappingRequest;
 use AntChain\BLOCKCHAIN\Models\StartAccountMappingResponse;
 use AntChain\BLOCKCHAIN\Models\StartAccountSignatureRequest;
@@ -857,6 +907,8 @@ use AntChain\BLOCKCHAIN\Models\StartAuthVerifyCarinspectRequest;
 use AntChain\BLOCKCHAIN\Models\StartAuthVerifyCarinspectResponse;
 use AntChain\BLOCKCHAIN\Models\StartAuthVerifyDriverinfoRequest;
 use AntChain\BLOCKCHAIN\Models\StartAuthVerifyDriverinfoResponse;
+use AntChain\BLOCKCHAIN\Models\StartDataauthorizationSyncDataRequest;
+use AntChain\BLOCKCHAIN\Models\StartDataauthorizationSyncDataResponse;
 use AntChain\BLOCKCHAIN\Models\StartDidAdddidExecuteRequest;
 use AntChain\BLOCKCHAIN\Models\StartDidAdddidExecuteResponse;
 use AntChain\BLOCKCHAIN\Models\StartDidAddvcExecuteRequest;
@@ -873,6 +925,8 @@ use AntChain\BLOCKCHAIN\Models\StartDidCertificationFourmetaRequest;
 use AntChain\BLOCKCHAIN\Models\StartDidCertificationFourmetaResponse;
 use AntChain\BLOCKCHAIN\Models\StartDidCertificationMaskRequest;
 use AntChain\BLOCKCHAIN\Models\StartDidCertificationMaskResponse;
+use AntChain\BLOCKCHAIN\Models\StartDidCertificationThreemetanewocpRequest;
+use AntChain\BLOCKCHAIN\Models\StartDidCertificationThreemetanewocpResponse;
 use AntChain\BLOCKCHAIN\Models\StartDidCertificationThreemetaRequest;
 use AntChain\BLOCKCHAIN\Models\StartDidCertificationThreemetaResponse;
 use AntChain\BLOCKCHAIN\Models\StartDidCertificationTwometaRequest;
@@ -1085,6 +1139,8 @@ use AntChain\BLOCKCHAIN\Models\UpdateVcVcrepoUserRequest;
 use AntChain\BLOCKCHAIN\Models\UpdateVcVcrepoUserResponse;
 use AntChain\BLOCKCHAIN\Models\UploadAuthCertInstanceRequest;
 use AntChain\BLOCKCHAIN\Models\UploadAuthCertInstanceResponse;
+use AntChain\BLOCKCHAIN\Models\UploadDataFileBatchqueryRequest;
+use AntChain\BLOCKCHAIN\Models\UploadDataFileBatchqueryResponse;
 use AntChain\BLOCKCHAIN\Models\VerifyBlockchainOrderRequest;
 use AntChain\BLOCKCHAIN\Models\VerifyBlockchainOrderResponse;
 use AntChain\BLOCKCHAIN\Models\VerifyDidZkpverifiableclaimProofRequest;
@@ -1208,7 +1264,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // TriggerLogDTO类成员
+            // 蚂蚁链浏览器合约链交易内容
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -1236,7 +1292,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.25.70',
+                    'sdk_version'      => '1.26.24',
+                    '_prod_code'       => 'BLOCKCHAIN',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -3630,7 +3688,7 @@ class Client
     }
 
     /**
-     * Description: 阿里云区块链合约执行
+     * Description: 阿里云区块链合约执行接口
      * Summary: 阿里云区块链合约执行.
      *
      * @param ExecChainContractRequest $request
@@ -3646,7 +3704,7 @@ class Client
     }
 
     /**
-     * Description: 阿里云区块链合约执行
+     * Description: 阿里云区块链合约执行接口
      * Summary: 阿里云区块链合约执行.
      *
      * @param ExecChainContractRequest $request
@@ -5112,6 +5170,237 @@ class Client
         Utils::validateModel($request);
 
         return UpdateChainFailureLogResponse::fromMap($this->doRequest('1.0', 'baas.chain.failure.log.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 列出当前用户的托管MQ实例
+     * Summary: 列出当前用户的托管MQ实例.
+     *
+     * @param QueryChainManagedMqRequest $request
+     *
+     * @return QueryChainManagedMqResponse
+     */
+    public function queryChainManagedMq($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainManagedMqEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 列出当前用户的托管MQ实例
+     * Summary: 列出当前用户的托管MQ实例.
+     *
+     * @param QueryChainManagedMqRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryChainManagedMqResponse
+     */
+    public function queryChainManagedMqEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainManagedMqResponse::fromMap($this->doRequest('1.0', 'baas.chain.managed.mq.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 初始化托管 MQ 实例
+     * Summary: 初始化托管 MQ 实例.
+     *
+     * @param InitChainManagedMqRequest $request
+     *
+     * @return InitChainManagedMqResponse
+     */
+    public function initChainManagedMq($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initChainManagedMqEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 初始化托管 MQ 实例
+     * Summary: 初始化托管 MQ 实例.
+     *
+     * @param InitChainManagedMqRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return InitChainManagedMqResponse
+     */
+    public function initChainManagedMqEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitChainManagedMqResponse::fromMap($this->doRequest('1.0', 'baas.chain.managed.mq.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询蚂蚁链用途列表接口
+     * Summary: 查询蚂蚁链用途列表.
+     *
+     * @param QueryChainUseDeclarationRequest $request
+     *
+     * @return QueryChainUseDeclarationResponse
+     */
+    public function queryChainUseDeclaration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainUseDeclarationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询蚂蚁链用途列表接口
+     * Summary: 查询蚂蚁链用途列表.
+     *
+     * @param QueryChainUseDeclarationRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryChainUseDeclarationResponse
+     */
+    public function queryChainUseDeclarationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainUseDeclarationResponse::fromMap($this->doRequest('1.0', 'baas.chain.use.declaration.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 选择蚂蚁链用途列表中的某项，进行提交申报接口
+     * Summary: 选择蚂蚁链用途列表中的某项，进行提交申报.
+     *
+     * @param ApplyChainUseDeclarationRequest $request
+     *
+     * @return ApplyChainUseDeclarationResponse
+     */
+    public function applyChainUseDeclaration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyChainUseDeclarationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 选择蚂蚁链用途列表中的某项，进行提交申报接口
+     * Summary: 选择蚂蚁链用途列表中的某项，进行提交申报.
+     *
+     * @param ApplyChainUseDeclarationRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ApplyChainUseDeclarationResponse
+     */
+    public function applyChainUseDeclarationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyChainUseDeclarationResponse::fromMap($this->doRequest('1.0', 'baas.chain.use.declaration.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 展示用户添加申报的记录接口
+     * Summary: 展示用户添加申报的记录.
+     *
+     * @param QueryChainUseListRequest $request
+     *
+     * @return QueryChainUseListResponse
+     */
+    public function queryChainUseList($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChainUseListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 展示用户添加申报的记录接口
+     * Summary: 展示用户添加申报的记录.
+     *
+     * @param QueryChainUseListRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryChainUseListResponse
+     */
+    public function queryChainUseListEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChainUseListResponse::fromMap($this->doRequest('1.0', 'baas.chain.use.list.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: BaaS用途申报敏感词检查接口
+     * Summary: BaaS用途申报敏感词检查.
+     *
+     * @param CheckChainSensitiveWordsRequest $request
+     *
+     * @return CheckChainSensitiveWordsResponse
+     */
+    public function checkChainSensitiveWords($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkChainSensitiveWordsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: BaaS用途申报敏感词检查接口
+     * Summary: BaaS用途申报敏感词检查.
+     *
+     * @param CheckChainSensitiveWordsRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CheckChainSensitiveWordsResponse
+     */
+    public function checkChainSensitiveWordsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckChainSensitiveWordsResponse::fromMap($this->doRequest('1.0', 'baas.chain.sensitive.words.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云MyChain创建托管账户
+     * Summary: 阿里云MyChain创建托管账户.
+     *
+     * @param CreateChainAccountAntkmsRequest $request
+     *
+     * @return CreateChainAccountAntkmsResponse
+     */
+    public function createChainAccountAntkms($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createChainAccountAntkmsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云MyChain创建托管账户
+     * Summary: 阿里云MyChain创建托管账户.
+     *
+     * @param CreateChainAccountAntkmsRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CreateChainAccountAntkmsResponse
+     */
+    public function createChainAccountAntkmsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateChainAccountAntkmsResponse::fromMap($this->doRequest('1.0', 'baas.chain.account.antkms.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -9320,6 +9609,90 @@ class Client
     }
 
     /**
+     * Description: 上传批量查询数据文件
+     * Summary: 上传批量查询数据文件.
+     *
+     * @param UploadDataFileBatchqueryRequest $request
+     *
+     * @return UploadDataFileBatchqueryResponse
+     */
+    public function uploadDataFileBatchquery($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadDataFileBatchqueryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 上传批量查询数据文件
+     * Summary: 上传批量查询数据文件.
+     *
+     * @param UploadDataFileBatchqueryRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return UploadDataFileBatchqueryResponse
+     */
+    public function uploadDataFileBatchqueryEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'baas.data.file.batchquery.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadDataFileBatchqueryResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadDataFileBatchqueryResponse::fromMap($this->doRequest('1.0', 'baas.data.file.batchquery.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取查询数据集任务结果
+     * Summary: 获取查询数据集任务结果.
+     *
+     * @param QueryDataResultBatchqueryRequest $request
+     *
+     * @return QueryDataResultBatchqueryResponse
+     */
+    public function queryDataResultBatchquery($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDataResultBatchqueryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取查询数据集任务结果
+     * Summary: 获取查询数据集任务结果.
+     *
+     * @param QueryDataResultBatchqueryRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryDataResultBatchqueryResponse
+     */
+    public function queryDataResultBatchqueryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDataResultBatchqueryResponse::fromMap($this->doRequest('1.0', 'baas.data.result.batchquery.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 数据授权服务创建参与方
      * Summary: 数据授权服务创建参与方.
      *
@@ -10670,6 +11043,72 @@ class Client
         Utils::validateModel($request);
 
         return ListDataauthorizationAuthorityCertResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.authority.cert.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 同步存证上链接口
+     * Summary: 同步存证上链.
+     *
+     * @param SaveDataauthorizationDepositDataRequest $request
+     *
+     * @return SaveDataauthorizationDepositDataResponse
+     */
+    public function saveDataauthorizationDepositData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveDataauthorizationDepositDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 同步存证上链接口
+     * Summary: 同步存证上链.
+     *
+     * @param SaveDataauthorizationDepositDataRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return SaveDataauthorizationDepositDataResponse
+     */
+    public function saveDataauthorizationDepositDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveDataauthorizationDepositDataResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.deposit.data.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 启动全量同步
+     * Summary: 启动全量同步.
+     *
+     * @param StartDataauthorizationSyncDataRequest $request
+     *
+     * @return StartDataauthorizationSyncDataResponse
+     */
+    public function startDataauthorizationSyncData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDataauthorizationSyncDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 启动全量同步
+     * Summary: 启动全量同步.
+     *
+     * @param StartDataauthorizationSyncDataRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return StartDataauthorizationSyncDataResponse
+     */
+    public function startDataauthorizationSyncDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDataauthorizationSyncDataResponse::fromMap($this->doRequest('1.0', 'baas.dataauthorization.sync.data.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -12934,6 +13373,270 @@ class Client
         Utils::validateModel($request);
 
         return CreateAuthCertClaimurlResponse::fromMap($this->doRequest('1.0', 'baas.auth.cert.claimurl.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取用户已授权的最近存证信息，在理财风测卡场景获取最近的题目答案
+     * Summary: 获取用户已授权的最近存证信息.
+     *
+     * @param GetAuthClaimRecentRequest $request
+     *
+     * @return GetAuthClaimRecentResponse
+     */
+    public function getAuthClaimRecent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAuthClaimRecentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取用户已授权的最近存证信息，在理财风测卡场景获取最近的题目答案
+     * Summary: 获取用户已授权的最近存证信息.
+     *
+     * @param GetAuthClaimRecentRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return GetAuthClaimRecentResponse
+     */
+    public function getAuthClaimRecentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAuthClaimRecentResponse::fromMap($this->doRequest('1.0', 'baas.auth.claim.recent.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新的：baas.auth.contract.claim.exec
+     * Summary: 合约调用_废弃.
+     *
+     * @param ExecAuthContractRequest $request
+     *
+     * @return ExecAuthContractResponse
+     */
+    public function execAuthContract($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execAuthContractEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新的：baas.auth.contract.claim.exec
+     * Summary: 合约调用_废弃.
+     *
+     * @param ExecAuthContractRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ExecAuthContractResponse
+     */
+    public function execAuthContractEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecAuthContractResponse::fromMap($this->doRequest('1.0', 'baas.auth.contract.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查看用户对于某一场景的授权状态
+     * Summary: 查看用户授权状态
+     *
+     * @param QueryAuthSceneAuthstatusRequest $request
+     *
+     * @return QueryAuthSceneAuthstatusResponse
+     */
+    public function queryAuthSceneAuthstatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthSceneAuthstatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查看用户对于某一场景的授权状态
+     * Summary: 查看用户授权状态
+     *
+     * @param QueryAuthSceneAuthstatusRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryAuthSceneAuthstatusResponse
+     */
+    public function queryAuthSceneAuthstatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthSceneAuthstatusResponse::fromMap($this->doRequest('1.0', 'baas.auth.scene.authstatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 使用调用方did注册的vc channel链上账户调用指定合约
+     * Summary: 合约调用.
+     *
+     * @param ExecAuthContractClaimRequest $request
+     *
+     * @return ExecAuthContractClaimResponse
+     */
+    public function execAuthContractClaim($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execAuthContractClaimEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 使用调用方did注册的vc channel链上账户调用指定合约
+     * Summary: 合约调用.
+     *
+     * @param ExecAuthContractClaimRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ExecAuthContractClaimResponse
+     */
+    public function execAuthContractClaimEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecAuthContractClaimResponse::fromMap($this->doRequest('1.0', 'baas.auth.contract.claim.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: B类用户获取证书查验页面二维码的url
+     * Summary: 获取证书查验页面二维码的url.
+     *
+     * @param CreateAuthCertDetailpageurlRequest $request
+     *
+     * @return CreateAuthCertDetailpageurlResponse
+     */
+    public function createAuthCertDetailpageurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAuthCertDetailpageurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: B类用户获取证书查验页面二维码的url
+     * Summary: 获取证书查验页面二维码的url.
+     *
+     * @param CreateAuthCertDetailpageurlRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return CreateAuthCertDetailpageurlResponse
+     */
+    public function createAuthCertDetailpageurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAuthCertDetailpageurlResponse::fromMap($this->doRequest('1.0', 'baas.auth.cert.detailpageurl.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户合约签约接口
+     * Summary: 用户合约签约.
+     *
+     * @param SignAuthAgreementUserRequest $request
+     *
+     * @return SignAuthAgreementUserResponse
+     */
+    public function signAuthAgreementUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->signAuthAgreementUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户合约签约接口
+     * Summary: 用户合约签约.
+     *
+     * @param SignAuthAgreementUserRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SignAuthAgreementUserResponse
+     */
+    public function signAuthAgreementUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SignAuthAgreementUserResponse::fromMap($this->doRequest('1.0', 'baas.auth.agreement.user.sign', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 给指定用户发放POAP徽章
+     * Summary: 给指定用户发放POAP徽章.
+     *
+     * @param BindAuthPoapRequest $request
+     *
+     * @return BindAuthPoapResponse
+     */
+    public function bindAuthPoap($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindAuthPoapEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 给指定用户发放POAP徽章
+     * Summary: 给指定用户发放POAP徽章.
+     *
+     * @param BindAuthPoapRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return BindAuthPoapResponse
+     */
+    public function bindAuthPoapEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindAuthPoapResponse::fromMap($this->doRequest('1.0', 'baas.auth.poap.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据ID查询POAP徽章详情
+     * Summary: 查询POAP徽章详情.
+     *
+     * @param QueryAuthPoapRequest $request
+     *
+     * @return QueryAuthPoapResponse
+     */
+    public function queryAuthPoap($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthPoapEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据ID查询POAP徽章详情
+     * Summary: 查询POAP徽章详情.
+     *
+     * @param QueryAuthPoapRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryAuthPoapResponse
+     */
+    public function queryAuthPoapEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthPoapResponse::fromMap($this->doRequest('1.0', 'baas.auth.poap.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -15586,6 +16289,138 @@ class Client
         Utils::validateModel($request);
 
         return CreateDidPersonFacevrfminiappnewocpResponse::fromMap($this->doRequest('1.0', 'baas.did.person.facevrfminiappnewocp.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三要素实名认证（新商品）
+     * Summary: 三要素实名认证
+     *
+     * @param StartDidCertificationThreemetanewocpRequest $request
+     *
+     * @return StartDidCertificationThreemetanewocpResponse
+     */
+    public function startDidCertificationThreemetanewocp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDidCertificationThreemetanewocpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三要素实名认证（新商品）
+     * Summary: 三要素实名认证
+     *
+     * @param StartDidCertificationThreemetanewocpRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return StartDidCertificationThreemetanewocpResponse
+     */
+    public function startDidCertificationThreemetanewocpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDidCertificationThreemetanewocpResponse::fromMap($this->doRequest('1.0', 'baas.did.certification.threemetanewocp.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 迁移did至aldaba链
+     * Summary: 迁移did至aldaba链.
+     *
+     * @param ImportDidAldabaRequest $request
+     *
+     * @return ImportDidAldabaResponse
+     */
+    public function importDidAldaba($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importDidAldabaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 迁移did至aldaba链
+     * Summary: 迁移did至aldaba链.
+     *
+     * @param ImportDidAldabaRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ImportDidAldabaResponse
+     */
+    public function importDidAldabaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportDidAldabaResponse::fromMap($this->doRequest('1.0', 'baas.did.aldaba.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 端上密钥生成did，但不doc上链
+     * Summary: 端上密钥生成did.
+     *
+     * @param CreateDidDtxPersonRequest $request
+     *
+     * @return CreateDidDtxPersonResponse
+     */
+    public function createDidDtxPerson($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDidDtxPersonEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 端上密钥生成did，但不doc上链
+     * Summary: 端上密钥生成did.
+     *
+     * @param CreateDidDtxPersonRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CreateDidDtxPersonResponse
+     */
+    public function createDidDtxPersonEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDidDtxPersonResponse::fromMap($this->doRequest('1.0', 'baas.did.dtx.person.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 添加端上密钥，并上链
+     * Summary: 添加端上密钥.
+     *
+     * @param AddDidDtxPkRequest $request
+     *
+     * @return AddDidDtxPkResponse
+     */
+    public function addDidDtxPk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addDidDtxPkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 添加端上密钥，并上链
+     * Summary: 添加端上密钥.
+     *
+     * @param AddDidDtxPkRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return AddDidDtxPkResponse
+     */
+    public function addDidDtxPkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddDidDtxPkResponse::fromMap($this->doRequest('1.0', 'baas.did.dtx.pk.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -19090,6 +19925,171 @@ class Client
         Utils::validateModel($request);
 
         return StartMydidDidThreeelementResponse::fromMap($this->doRequest('1.0', 'baas.mydid.did.threeelement.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询用户可用的公钥列表
+     * Summary: 查询用户可用的公钥列表.
+     *
+     * @param ListWaasDidValidpublickeysRequest $request
+     *
+     * @return ListWaasDidValidpublickeysResponse
+     */
+    public function listWaasDidValidpublickeys($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listWaasDidValidpublickeysEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询用户可用的公钥列表
+     * Summary: 查询用户可用的公钥列表.
+     *
+     * @param ListWaasDidValidpublickeysRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ListWaasDidValidpublickeysResponse
+     */
+    public function listWaasDidValidpublickeysEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListWaasDidValidpublickeysResponse::fromMap($this->doRequest('1.0', 'baas.waas.did.validpublickeys.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询指定公钥信息
+     * Summary: 查询指定公钥信息.
+     *
+     * @param QueryWaasDidPublickeyRequest $request
+     *
+     * @return QueryWaasDidPublickeyResponse
+     */
+    public function queryWaasDidPublickey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryWaasDidPublickeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询指定公钥信息
+     * Summary: 查询指定公钥信息.
+     *
+     * @param QueryWaasDidPublickeyRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryWaasDidPublickeyResponse
+     */
+    public function queryWaasDidPublickeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryWaasDidPublickeyResponse::fromMap($this->doRequest('1.0', 'baas.waas.did.publickey.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 业务注册waas服务
+     * Summary: 业务注册waas服务
+     *
+     * @param RegisterWaasBusinessRequest $request
+     *
+     * @return RegisterWaasBusinessResponse
+     */
+    public function registerWaasBusiness($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerWaasBusinessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 业务注册waas服务
+     * Summary: 业务注册waas服务
+     *
+     * @param RegisterWaasBusinessRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return RegisterWaasBusinessResponse
+     */
+    public function registerWaasBusinessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterWaasBusinessResponse::fromMap($this->doRequest('1.0', 'baas.waas.business.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为业务合作方提供查询转账时上链信息，里面包含dcep合约传参
+     * Summary: 查询转账上链信息.
+     *
+     * @param QueryWaasBusinessTransferbodyRequest $request
+     *
+     * @return QueryWaasBusinessTransferbodyResponse
+     */
+    public function queryWaasBusinessTransferbody($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryWaasBusinessTransferbodyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为业务合作方提供查询转账时上链信息，里面包含dcep合约传参
+     * Summary: 查询转账上链信息.
+     *
+     * @param QueryWaasBusinessTransferbodyRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryWaasBusinessTransferbodyResponse
+     */
+    public function queryWaasBusinessTransferbodyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryWaasBusinessTransferbodyResponse::fromMap($this->doRequest('1.0', 'baas.waas.business.transferbody.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 业务合作方通知订单上链情况
+     * Summary: 业务合作方通知订单上链情况.
+     *
+     * @param NotifyWaasBusinessOrderRequest $request
+     *
+     * @return NotifyWaasBusinessOrderResponse
+     */
+    public function notifyWaasBusinessOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyWaasBusinessOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 业务合作方通知订单上链情况
+     * Summary: 业务合作方通知订单上链情况.
+     *
+     * @param NotifyWaasBusinessOrderRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return NotifyWaasBusinessOrderResponse
+     */
+    public function notifyWaasBusinessOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyWaasBusinessOrderResponse::fromMap($this->doRequest('1.0', 'baas.waas.business.order.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

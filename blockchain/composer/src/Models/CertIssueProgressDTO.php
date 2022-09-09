@@ -16,6 +16,14 @@ class CertIssueProgressDTO extends Model
      */
     public $bizId;
 
+    // 存证ID，如果颁发失败，此值为null
+    /**
+     * @example vc:mychain:xxxxxx
+     *
+     * @var string
+     */
+    public $vcId;
+
     // 因校验异常停止任务（不会继续校验文件内容和颁发证书） -3
     // 因校验内容不正确停止颁发任务(会校验完所有的行但不执行颁发) -2
     // 已手动取消（可重试状态下手动取消任务，取消状态下可以启动新的颁发任务） -1
@@ -94,6 +102,7 @@ class CertIssueProgressDTO extends Model
     public $errorDetails;
     protected $_name = [
         'bizId'           => 'biz_id',
+        'vcId'            => 'vc_id',
         'status'          => 'status',
         'errorMessage'    => 'error_message',
         'titles'          => 'titles',
@@ -108,6 +117,7 @@ class CertIssueProgressDTO extends Model
     public function validate()
     {
         Model::validateRequired('bizId', $this->bizId, true);
+        Model::validateRequired('vcId', $this->vcId, true);
         Model::validateRequired('status', $this->status, true);
         Model::validateRequired('errorMessage', $this->errorMessage, true);
         Model::validateRequired('titles', $this->titles, true);
@@ -124,6 +134,9 @@ class CertIssueProgressDTO extends Model
         $res = [];
         if (null !== $this->bizId) {
             $res['biz_id'] = $this->bizId;
+        }
+        if (null !== $this->vcId) {
+            $res['vc_id'] = $this->vcId;
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
@@ -172,6 +185,9 @@ class CertIssueProgressDTO extends Model
         $model = new self();
         if (isset($map['biz_id'])) {
             $model->bizId = $map['biz_id'];
+        }
+        if (isset($map['vc_id'])) {
+            $model->vcId = $map['vc_id'];
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];

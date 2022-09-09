@@ -111,6 +111,14 @@ class DataEntity extends Model
      * @var int
      */
     public $updateTime;
+
+    // DID doc里的公开信息
+    /**
+     * @example {}
+     *
+     * @var string
+     */
+    public $publicInfo;
     protected $_name = [
         'authStatus'      => 'auth_status',
         'bizUid'          => 'biz_uid',
@@ -125,6 +133,7 @@ class DataEntity extends Model
         'status'          => 'status',
         'createTime'      => 'create_time',
         'updateTime'      => 'update_time',
+        'publicInfo'      => 'public_info',
     ];
 
     public function validate()
@@ -190,6 +199,9 @@ class DataEntity extends Model
         if (null !== $this->updateTime) {
             $res['update_time'] = $this->updateTime;
         }
+        if (null !== $this->publicInfo) {
+            $res['public_info'] = $this->publicInfo;
+        }
 
         return $res;
     }
@@ -246,6 +258,9 @@ class DataEntity extends Model
         }
         if (isset($map['update_time'])) {
             $model->updateTime = $map['update_time'];
+        }
+        if (isset($map['public_info'])) {
+            $model->publicInfo = $map['public_info'];
         }
 
         return $model;

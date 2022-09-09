@@ -66,6 +66,12 @@ class CreateDataauthorizationDataEntityRequest extends Model
      * @var ProcessNode[]
      */
     public $processTemplate;
+
+    // DID doc里的公开信息
+    /**
+     * @var string
+     */
+    public $publicInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +83,7 @@ class CreateDataauthorizationDataEntityRequest extends Model
         'name'              => 'name',
         'ownerId'           => 'owner_id',
         'processTemplate'   => 'process_template',
+        'publicInfo'        => 'public_info',
     ];
 
     public function validate()
@@ -130,6 +137,9 @@ class CreateDataauthorizationDataEntityRequest extends Model
                 }
             }
         }
+        if (null !== $this->publicInfo) {
+            $res['public_info'] = $this->publicInfo;
+        }
 
         return $res;
     }
@@ -177,6 +187,9 @@ class CreateDataauthorizationDataEntityRequest extends Model
                     $model->processTemplate[$n++] = null !== $item ? ProcessNode::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['public_info'])) {
+            $model->publicInfo = $map['public_info'];
         }
 
         return $model;

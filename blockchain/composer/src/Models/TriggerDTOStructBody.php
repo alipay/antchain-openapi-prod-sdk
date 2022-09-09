@@ -71,15 +71,24 @@ class TriggerDTOStructBody extends Model
      * @var CheckPointStructBody
      */
     public $checkpoint;
+
+    // 待处理的错误事件总数
+    /**
+     * @example 待处理的错误事件总数
+     *
+     * @var string
+     */
+    public $pendingErrorLogs;
     protected $_name = [
-        'name'         => 'name',
-        'type'         => 'type',
-        'source'       => 'source',
-        'createTime'   => 'create_time',
-        'errorMessage' => 'error_message',
-        'status'       => 'status',
-        'option'       => 'option',
-        'checkpoint'   => 'checkpoint',
+        'name'             => 'name',
+        'type'             => 'type',
+        'source'           => 'source',
+        'createTime'       => 'create_time',
+        'errorMessage'     => 'error_message',
+        'status'           => 'status',
+        'option'           => 'option',
+        'checkpoint'       => 'checkpoint',
+        'pendingErrorLogs' => 'pending_error_logs',
     ];
 
     public function validate()
@@ -112,6 +121,9 @@ class TriggerDTOStructBody extends Model
         }
         if (null !== $this->checkpoint) {
             $res['checkpoint'] = null !== $this->checkpoint ? $this->checkpoint->toMap() : null;
+        }
+        if (null !== $this->pendingErrorLogs) {
+            $res['pending_error_logs'] = $this->pendingErrorLogs;
         }
 
         return $res;
@@ -148,6 +160,9 @@ class TriggerDTOStructBody extends Model
         }
         if (isset($map['checkpoint'])) {
             $model->checkpoint = CheckPointStructBody::fromMap($map['checkpoint']);
+        }
+        if (isset($map['pending_error_logs'])) {
+            $model->pendingErrorLogs = $map['pending_error_logs'];
         }
 
         return $model;
