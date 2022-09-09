@@ -75,6 +75,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public long? UpdateTime { get; set; }
 
+        // DID doc里的公开信息
+        [NameInMap("public_info")]
+        [Validation(Required=false)]
+        public string PublicInfo { get; set; }
+
     }
 
 }

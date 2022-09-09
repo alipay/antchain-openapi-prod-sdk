@@ -58,6 +58,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string Uid { get; set; }
 
+        // 刷脸类型，目前只支持FACE_SDK、FACE，默认FACE_SDK
+        [NameInMap("face_type")]
+        [Validation(Required=false)]
+        public string FaceType { get; set; }
+
     }
 
 }

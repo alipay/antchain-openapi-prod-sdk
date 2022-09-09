@@ -40,6 +40,21 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public string DataId { get; set; }
 
+        // 交易HASH
+        [NameInMap("tx_hash")]
+        [Validation(Required=false)]
+        public string TxHash { get; set; }
+
+        // 区块高度
+        [NameInMap("block_number")]
+        [Validation(Required=false)]
+        public long? BlockNumber { get; set; }
+
+        // 授权凭证
+        [NameInMap("authority_cert")]
+        [Validation(Required=false)]
+        public string AuthorityCert { get; set; }
+
     }
 
 }

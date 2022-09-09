@@ -50,6 +50,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public CheckPointStructBody Checkpoint { get; set; }
 
+        // 待处理的错误事件总数
+        [NameInMap("pending_error_logs")]
+        [Validation(Required=false)]
+        public string PendingErrorLogs { get; set; }
+
     }
 
 }
