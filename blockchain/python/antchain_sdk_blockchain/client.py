@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # TriggerLogDTO类成员
+            # 蚂蚁链浏览器合约链交易内容
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.25.70'
+                    'sdk_version': '1.26.24',
+                    '_prod_code': 'BLOCKCHAIN',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -212,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # TriggerLogDTO类成员
+            # 蚂蚁链浏览器合约链交易内容
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.25.70'
+                    'sdk_version': '1.26.24',
+                    '_prod_code': 'BLOCKCHAIN',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +310,8 @@ class Client:
         Summary: 自有账户映射到链上
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAccountMappingResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAccountMappingResponse(),
             self.do_request('1.0', 'baas.account.mapping.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +326,8 @@ class Client:
         Summary: 自有账户映射到链上
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAccountMappingResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAccountMappingResponse(),
             await self.do_request_async('1.0', 'baas.account.mapping.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +366,8 @@ class Client:
         Summary: 自有账户到链上账户的批量映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateAccountMappingResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateAccountMappingResponse(),
             self.do_request('1.0', 'baas.account.mapping.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +382,8 @@ class Client:
         Summary: 自有账户到链上账户的批量映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateAccountMappingResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateAccountMappingResponse(),
             await self.do_request_async('1.0', 'baas.account.mapping.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -414,7 +422,8 @@ class Client:
         Summary: 为用户生成签名
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAccountSignatureResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAccountSignatureResponse(),
             self.do_request('1.0', 'baas.account.signature.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -429,7 +438,8 @@ class Client:
         Summary: 为用户生成签名
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAccountSignatureResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAccountSignatureResponse(),
             await self.do_request_async('1.0', 'baas.account.signature.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -468,7 +478,8 @@ class Client:
         Summary: 查询批量映射的结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAccountMappingresultResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAccountMappingresultResponse(),
             self.do_request('1.0', 'baas.account.mappingresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -483,7 +494,8 @@ class Client:
         Summary: 查询批量映射的结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAccountMappingresultResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAccountMappingresultResponse(),
             await self.do_request_async('1.0', 'baas.account.mappingresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -522,7 +534,8 @@ class Client:
         Summary: 单个查询用户映射情况信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAccountMappingResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAccountMappingResponse(),
             self.do_request('1.0', 'baas.account.mapping.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -537,7 +550,8 @@ class Client:
         Summary: 单个查询用户映射情况信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAccountMappingResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAccountMappingResponse(),
             await self.do_request_async('1.0', 'baas.account.mapping.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -576,7 +590,8 @@ class Client:
         Summary: 批量查询商户下已映射的账户信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchqueryAccountMappingResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchqueryAccountMappingResponse(),
             self.do_request('1.0', 'baas.account.mapping.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -591,7 +606,8 @@ class Client:
         Summary: 批量查询商户下已映射的账户信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchqueryAccountMappingResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchqueryAccountMappingResponse(),
             await self.do_request_async('1.0', 'baas.account.mapping.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -630,7 +646,8 @@ class Client:
         Summary: 用户信息存储
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAccountMappingInfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAccountMappingInfoResponse(),
             self.do_request('1.0', 'baas.account.mapping.info.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -645,7 +662,8 @@ class Client:
         Summary: 用户信息存储
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAccountMappingInfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAccountMappingInfoResponse(),
             await self.do_request_async('1.0', 'baas.account.mapping.info.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -684,7 +702,8 @@ class Client:
         Summary: 批量创建用户信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateAccountMappingInfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateAccountMappingInfoResponse(),
             self.do_request('1.0', 'baas.account.mapping.info.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -699,7 +718,8 @@ class Client:
         Summary: 批量创建用户信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateAccountMappingInfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateAccountMappingInfoResponse(),
             await self.do_request_async('1.0', 'baas.account.mapping.info.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -744,7 +764,8 @@ class Client:
         Summary: 获取用户biz key
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetAkdfUserbizkeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetAkdfUserbizkeyResponse(),
             self.do_request('1.0', 'baas.akdf.userbizkey.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -761,7 +782,8 @@ class Client:
         Summary: 获取用户biz key
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetAkdfUserbizkeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetAkdfUserbizkeyResponse(),
             await self.do_request_async('1.0', 'baas.akdf.userbizkey.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -800,7 +822,8 @@ class Client:
         Summary: 列出密钥
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListAkdfUserbizkeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListAkdfUserbizkeyResponse(),
             self.do_request('1.0', 'baas.akdf.userbizkey.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -815,7 +838,8 @@ class Client:
         Summary: 列出密钥
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListAkdfUserbizkeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListAkdfUserbizkeyResponse(),
             await self.do_request_async('1.0', 'baas.akdf.userbizkey.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -854,7 +878,8 @@ class Client:
         Summary: 下单
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckBlockchainOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckBlockchainOrderResponse(),
             self.do_request('1.0', 'baas.blockchain.order.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -869,7 +894,8 @@ class Client:
         Summary: 下单
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckBlockchainOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckBlockchainOrderResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.order.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -908,7 +934,8 @@ class Client:
         Summary: 下单前校验
         """
         UtilClient.validate_model(request)
-        return blockchain_models.VerifyBlockchainOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.VerifyBlockchainOrderResponse(),
             self.do_request('1.0', 'baas.blockchain.order.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -923,7 +950,8 @@ class Client:
         Summary: 下单前校验
         """
         UtilClient.validate_model(request)
-        return blockchain_models.VerifyBlockchainOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.VerifyBlockchainOrderResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.order.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -962,7 +990,8 @@ class Client:
         Summary: 退款
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InvalidateBlockchainOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InvalidateBlockchainOrderResponse(),
             self.do_request('1.0', 'baas.blockchain.order.invalidate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -977,7 +1006,8 @@ class Client:
         Summary: 退款
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InvalidateBlockchainOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InvalidateBlockchainOrderResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.order.invalidate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1016,7 +1046,8 @@ class Client:
         Summary: 删除物理资源
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ReleaseBlockchainOrderPhysicalResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ReleaseBlockchainOrderPhysicalResponse(),
             self.do_request('1.0', 'baas.blockchain.order.physical.release', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1031,7 +1062,8 @@ class Client:
         Summary: 删除物理资源
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ReleaseBlockchainOrderPhysicalResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ReleaseBlockchainOrderPhysicalResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.order.physical.release', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1070,7 +1102,8 @@ class Client:
         Summary: 逻辑资源删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ReleaseBlockchainOrderLogicalResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ReleaseBlockchainOrderLogicalResponse(),
             self.do_request('1.0', 'baas.blockchain.order.logical.release', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1085,7 +1118,8 @@ class Client:
         Summary: 逻辑资源删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ReleaseBlockchainOrderLogicalResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ReleaseBlockchainOrderLogicalResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.order.logical.release', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1124,7 +1158,8 @@ class Client:
         Summary: 资源检查
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckBlockchainResourceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckBlockchainResourceResponse(),
             self.do_request('1.0', 'baas.blockchain.resource.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1139,7 +1174,8 @@ class Client:
         Summary: 资源检查
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckBlockchainResourceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckBlockchainResourceResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.resource.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1178,7 +1214,8 @@ class Client:
         Summary: 补齐商品信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ConfirmBlockchainOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ConfirmBlockchainOrderResponse(),
             self.do_request('1.0', 'baas.blockchain.order.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1193,7 +1230,8 @@ class Client:
         Summary: 补齐商品信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ConfirmBlockchainOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ConfirmBlockchainOrderResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.order.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1232,7 +1270,8 @@ class Client:
         Summary: 检查
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ConnectBlockchainOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ConnectBlockchainOrderResponse(),
             self.do_request('1.0', 'baas.blockchain.order.connect', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1247,7 +1286,8 @@ class Client:
         Summary: 检查
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ConnectBlockchainOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ConnectBlockchainOrderResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.order.connect', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1286,7 +1326,8 @@ class Client:
         Summary: 阿里云区块链订单创建接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecBlockchainOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecBlockchainOrderResponse(),
             self.do_request('1.0', 'baas.blockchain.order.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1301,7 +1342,8 @@ class Client:
         Summary: 阿里云区块链订单创建接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecBlockchainOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecBlockchainOrderResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.order.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1340,7 +1382,8 @@ class Client:
         Summary: 创建联盟
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateUnionUnionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateUnionUnionResponse(),
             self.do_request('1.0', 'baas.union.union.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1355,7 +1398,8 @@ class Client:
         Summary: 创建联盟
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateUnionUnionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateUnionUnionResponse(),
             await self.do_request_async('1.0', 'baas.union.union.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1394,7 +1438,8 @@ class Client:
         Summary: 删除联盟
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteUnionUnionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteUnionUnionResponse(),
             self.do_request('1.0', 'baas.union.union.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1409,7 +1454,8 @@ class Client:
         Summary: 删除联盟
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteUnionUnionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteUnionUnionResponse(),
             await self.do_request_async('1.0', 'baas.union.union.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1448,7 +1494,8 @@ class Client:
         Summary: 联盟更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateUnionUnionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateUnionUnionResponse(),
             self.do_request('1.0', 'baas.union.union.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1463,7 +1510,8 @@ class Client:
         Summary: 联盟更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateUnionUnionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateUnionUnionResponse(),
             await self.do_request_async('1.0', 'baas.union.union.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1502,7 +1550,8 @@ class Client:
         Summary: 联盟查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryUnionUnionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryUnionUnionResponse(),
             self.do_request('1.0', 'baas.union.union.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1517,7 +1566,8 @@ class Client:
         Summary: 联盟查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryUnionUnionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryUnionUnionResponse(),
             await self.do_request_async('1.0', 'baas.union.union.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1556,7 +1606,8 @@ class Client:
         Summary: 联盟邀请用户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyUnionMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyUnionMemberResponse(),
             self.do_request('1.0', 'baas.union.member.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1571,7 +1622,8 @@ class Client:
         Summary: 联盟邀请用户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyUnionMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyUnionMemberResponse(),
             await self.do_request_async('1.0', 'baas.union.member.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1610,7 +1662,8 @@ class Client:
         Summary: 阿里云联盟成员加入
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ConfirmUnionMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ConfirmUnionMemberResponse(),
             self.do_request('1.0', 'baas.union.member.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1625,7 +1678,8 @@ class Client:
         Summary: 阿里云联盟成员加入
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ConfirmUnionMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ConfirmUnionMemberResponse(),
             await self.do_request_async('1.0', 'baas.union.member.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1664,7 +1718,8 @@ class Client:
         Summary: 获取联盟内的蚂蚁区块链列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryUnionChainResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryUnionChainResponse(),
             self.do_request('1.0', 'baas.union.chain.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1679,7 +1734,8 @@ class Client:
         Summary: 获取联盟内的蚂蚁区块链列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryUnionChainResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryUnionChainResponse(),
             await self.do_request_async('1.0', 'baas.union.chain.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1718,7 +1774,8 @@ class Client:
         Summary: 获取联盟成员列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryUnionMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryUnionMemberResponse(),
             self.do_request('1.0', 'baas.union.member.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1733,7 +1790,8 @@ class Client:
         Summary: 获取联盟成员列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryUnionMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryUnionMemberResponse(),
             await self.do_request_async('1.0', 'baas.union.member.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1772,7 +1830,8 @@ class Client:
         Summary: 更新联盟成员属性
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateUnionMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateUnionMemberResponse(),
             self.do_request('1.0', 'baas.union.member.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1787,7 +1846,8 @@ class Client:
         Summary: 更新联盟成员属性
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateUnionMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateUnionMemberResponse(),
             await self.do_request_async('1.0', 'baas.union.member.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1826,7 +1886,8 @@ class Client:
         Summary: 更新区块链的名称
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainNameAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainNameAntResponse(),
             self.do_request('1.0', 'baas.chain.name.ant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1841,7 +1902,8 @@ class Client:
         Summary: 更新区块链的名称
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainNameAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainNameAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.name.ant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1880,7 +1942,8 @@ class Client:
         Summary: 手工创建区块链证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainCertAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainCertAntResponse(),
             self.do_request('1.0', 'baas.chain.cert.ant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1895,7 +1958,8 @@ class Client:
         Summary: 手工创建区块链证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainCertAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainCertAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.cert.ant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1934,7 +1998,8 @@ class Client:
         Summary: 自动申请区块链证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainCertAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainCertAntResponse(),
             self.do_request('1.0', 'baas.chain.cert.ant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1949,7 +2014,8 @@ class Client:
         Summary: 自动申请区块链证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainCertAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainCertAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.cert.ant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -1988,7 +2054,8 @@ class Client:
         Summary: 人工申请区块链证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainPublicCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainPublicCertResponse(),
             self.do_request('1.0', 'baas.chain.public.cert.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2003,7 +2070,8 @@ class Client:
         Summary: 人工申请区块链证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainPublicCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainPublicCertResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.cert.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2042,7 +2110,8 @@ class Client:
         Summary: 自动创建区块链证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainPublicCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainPublicCertResponse(),
             self.do_request('1.0', 'baas.chain.public.cert.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2057,7 +2126,8 @@ class Client:
         Summary: 自动创建区块链证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainPublicCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainPublicCertResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.cert.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2096,7 +2166,8 @@ class Client:
         Summary: 免费体验链重置证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ReinitChainPublicCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ReinitChainPublicCertResponse(),
             self.do_request('1.0', 'baas.chain.public.cert.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2111,7 +2182,8 @@ class Client:
         Summary: 免费体验链重置证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ReinitChainPublicCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ReinitChainPublicCertResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.cert.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2150,7 +2222,8 @@ class Client:
         Summary: 免费体验链创建账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainPublicAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainPublicAccountResponse(),
             self.do_request('1.0', 'baas.chain.public.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2165,7 +2238,8 @@ class Client:
         Summary: 免费体验链创建账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainPublicAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainPublicAccountResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2204,7 +2278,8 @@ class Client:
         Summary: 自动创建链上账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainPublicAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainPublicAccountResponse(),
             self.do_request('1.0', 'baas.chain.public.account.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2219,7 +2294,8 @@ class Client:
         Summary: 自动创建链上账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainPublicAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainPublicAccountResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.account.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2258,7 +2334,8 @@ class Client:
         Summary: 免费体验链查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainPublicResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainPublicResponse(),
             self.do_request('1.0', 'baas.chain.public.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2273,7 +2350,8 @@ class Client:
         Summary: 免费体验链查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainPublicResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainPublicResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2312,7 +2390,8 @@ class Client:
         Summary: 免费体验链证书下载
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DownloadChainPublicCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DownloadChainPublicCertResponse(),
             self.do_request('1.0', 'baas.chain.public.cert.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2327,7 +2406,8 @@ class Client:
         Summary: 免费体验链证书下载
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DownloadChainPublicCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DownloadChainPublicCertResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.cert.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2366,7 +2446,8 @@ class Client:
         Summary: 手工创建账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainAccountAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainAccountAntResponse(),
             self.do_request('1.0', 'baas.chain.account.ant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2381,7 +2462,8 @@ class Client:
         Summary: 手工创建账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainAccountAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainAccountAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.account.ant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2420,7 +2502,8 @@ class Client:
         Summary: 自动创建账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainAccountAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainAccountAntResponse(),
             self.do_request('1.0', 'baas.chain.account.ant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2435,7 +2518,8 @@ class Client:
         Summary: 自动创建账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainAccountAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainAccountAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.account.ant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2474,7 +2558,8 @@ class Client:
         Summary: 查询链上账户列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainAccountAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainAccountAntResponse(),
             self.do_request('1.0', 'baas.chain.account.ant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2489,7 +2574,8 @@ class Client:
         Summary: 查询链上账户列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainAccountAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainAccountAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.account.ant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2528,7 +2614,8 @@ class Client:
         Summary: 区块链证书下载
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DownloadChainCertAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DownloadChainCertAntResponse(),
             self.do_request('1.0', 'baas.chain.cert.ant.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2543,7 +2630,8 @@ class Client:
         Summary: 区块链证书下载
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DownloadChainCertAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DownloadChainCertAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.cert.ant.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2582,7 +2670,8 @@ class Client:
         Summary: 阿里云链节点查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainNodeAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainNodeAntResponse(),
             self.do_request('1.0', 'baas.chain.node.ant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2597,7 +2686,8 @@ class Client:
         Summary: 阿里云链节点查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainNodeAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainNodeAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.node.ant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2636,7 +2726,8 @@ class Client:
         Summary: 区块链链上账户冻结
         """
         UtilClient.validate_model(request)
-        return blockchain_models.FreezeChainAccountAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.FreezeChainAccountAntResponse(),
             self.do_request('1.0', 'baas.chain.account.ant.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2651,7 +2742,8 @@ class Client:
         Summary: 区块链链上账户冻结
         """
         UtilClient.validate_model(request)
-        return blockchain_models.FreezeChainAccountAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.FreezeChainAccountAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.account.ant.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2690,7 +2782,8 @@ class Client:
         Summary: 蚂蚁区块链账户解冻
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UnfreezeChainAccountAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UnfreezeChainAccountAntResponse(),
             self.do_request('1.0', 'baas.chain.account.ant.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2705,7 +2798,8 @@ class Client:
         Summary: 蚂蚁区块链账户解冻
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UnfreezeChainAccountAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UnfreezeChainAccountAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.account.ant.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2744,7 +2838,8 @@ class Client:
         Summary: 区块链证书重置
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ReinitChainCertAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ReinitChainCertAntResponse(),
             self.do_request('1.0', 'baas.chain.cert.ant.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2759,7 +2854,8 @@ class Client:
         Summary: 区块链证书重置
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ReinitChainCertAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ReinitChainCertAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.cert.ant.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2798,7 +2894,8 @@ class Client:
         Summary: 区块链证书查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainCertAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainCertAntResponse(),
             self.do_request('1.0', 'baas.chain.cert.ant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2813,7 +2910,8 @@ class Client:
         Summary: 区块链证书查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainCertAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainCertAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.cert.ant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2852,7 +2950,8 @@ class Client:
         Summary: 阿里云浏览器信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserInfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserInfoResponse(),
             self.do_request('1.0', 'baas.chain.browser.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2867,7 +2966,8 @@ class Client:
         Summary: 阿里云浏览器信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserInfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserInfoResponse(),
             await self.do_request_async('1.0', 'baas.chain.browser.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2906,7 +3006,8 @@ class Client:
         Summary: 阿里云最新区块链信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserBlocksResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserBlocksResponse(),
             self.do_request('1.0', 'baas.chain.browser.blocks.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2921,7 +3022,8 @@ class Client:
         Summary: 阿里云最新区块链信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserBlocksResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserBlocksResponse(),
             await self.do_request_async('1.0', 'baas.chain.browser.blocks.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2960,7 +3062,8 @@ class Client:
         Summary: 阿里云最新交易查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserTransactionsResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserTransactionsResponse(),
             self.do_request('1.0', 'baas.chain.browser.transactions.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -2975,7 +3078,8 @@ class Client:
         Summary: 阿里云最新交易查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserTransactionsResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserTransactionsResponse(),
             await self.do_request_async('1.0', 'baas.chain.browser.transactions.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3014,7 +3118,8 @@ class Client:
         Summary: 阿里云最新区块交易信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchqueryChainBrowserTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchqueryChainBrowserTransactionResponse(),
             self.do_request('1.0', 'baas.chain.browser.transaction.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3029,7 +3134,8 @@ class Client:
         Summary: 阿里云最新区块交易信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchqueryChainBrowserTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchqueryChainBrowserTransactionResponse(),
             await self.do_request_async('1.0', 'baas.chain.browser.transaction.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3068,7 +3174,8 @@ class Client:
         Summary: 阿里云区块链交易收据查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserReceiptResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserReceiptResponse(),
             self.do_request('1.0', 'baas.chain.browser.receipt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3083,7 +3190,8 @@ class Client:
         Summary: 阿里云区块链交易收据查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserReceiptResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserReceiptResponse(),
             await self.do_request_async('1.0', 'baas.chain.browser.receipt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3122,7 +3230,8 @@ class Client:
         Summary: 阿里云区块链交易查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserTransactionResponse(),
             self.do_request('1.0', 'baas.chain.browser.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3137,7 +3246,8 @@ class Client:
         Summary: 阿里云区块链交易查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserTransactionResponse(),
             await self.do_request_async('1.0', 'baas.chain.browser.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3176,7 +3286,8 @@ class Client:
         Summary: 阿里云区块链的区块信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserBlockResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserBlockResponse(),
             self.do_request('1.0', 'baas.chain.browser.block.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3191,7 +3302,8 @@ class Client:
         Summary: 阿里云区块链的区块信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserBlockResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserBlockResponse(),
             await self.do_request_async('1.0', 'baas.chain.browser.block.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3230,7 +3342,8 @@ class Client:
         Summary: 阿里云售卖区信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainResouceRegionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainResouceRegionResponse(),
             self.do_request('1.0', 'baas.chain.resouce.region.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3245,7 +3358,8 @@ class Client:
         Summary: 阿里云售卖区信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainResouceRegionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainResouceRegionResponse(),
             await self.do_request_async('1.0', 'baas.chain.resouce.region.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3284,7 +3398,8 @@ class Client:
         Summary: 阿里云资源类型查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainResourceTypeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainResourceTypeResponse(),
             self.do_request('1.0', 'baas.chain.resource.type.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3299,7 +3414,8 @@ class Client:
         Summary: 阿里云资源类型查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainResourceTypeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainResourceTypeResponse(),
             await self.do_request_async('1.0', 'baas.chain.resource.type.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3338,7 +3454,8 @@ class Client:
         Summary: 阿里云区块链售卖资源查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainResouceSaleResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainResouceSaleResponse(),
             self.do_request('1.0', 'baas.chain.resouce.sale.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3353,7 +3470,8 @@ class Client:
         Summary: 阿里云区块链售卖资源查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainResouceSaleResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainResouceSaleResponse(),
             await self.do_request_async('1.0', 'baas.chain.resouce.sale.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3392,7 +3510,8 @@ class Client:
         Summary: 阿里云区块链配置信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainResourceConfigResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainResourceConfigResponse(),
             self.do_request('1.0', 'baas.chain.resource.config.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3407,7 +3526,8 @@ class Client:
         Summary: 阿里云区块链配置信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainResourceConfigResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainResourceConfigResponse(),
             await self.do_request_async('1.0', 'baas.chain.resource.config.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3446,7 +3566,8 @@ class Client:
         Summary: 阿里云区块链交易统计信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserStatisticsResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserStatisticsResponse(),
             self.do_request('1.0', 'baas.chain.browser.statistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3461,7 +3582,8 @@ class Client:
         Summary: 阿里云区块链交易统计信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainBrowserStatisticsResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainBrowserStatisticsResponse(),
             await self.do_request_async('1.0', 'baas.chain.browser.statistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3500,7 +3622,8 @@ class Client:
         Summary: 阿里云区块链交易执行交易
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecChainPublicContractResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecChainPublicContractResponse(),
             self.do_request('1.0', 'baas.chain.public.contract.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3515,7 +3638,8 @@ class Client:
         Summary: 阿里云区块链交易执行交易
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecChainPublicContractResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecChainPublicContractResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.contract.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3554,7 +3678,8 @@ class Client:
         Summary: 阿里云免费体验链的cloudIde查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainPublicIdeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainPublicIdeResponse(),
             self.do_request('1.0', 'baas.chain.public.ide.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3569,7 +3694,8 @@ class Client:
         Summary: 阿里云免费体验链的cloudIde查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainPublicIdeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainPublicIdeResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.ide.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3608,7 +3734,8 @@ class Client:
         Summary: 阿里云免费体验链合约文件和内容查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainPublicContentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainPublicContentResponse(),
             self.do_request('1.0', 'baas.chain.public.content.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3623,7 +3750,8 @@ class Client:
         Summary: 阿里云免费体验链合约文件和内容查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainPublicContentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainPublicContentResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.content.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3662,7 +3790,8 @@ class Client:
         Summary: 阿里云合约工程创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainContractProjectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainContractProjectResponse(),
             self.do_request('1.0', 'baas.chain.contract.project.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3677,7 +3806,8 @@ class Client:
         Summary: 阿里云合约工程创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainContractProjectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainContractProjectResponse(),
             await self.do_request_async('1.0', 'baas.chain.contract.project.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3716,7 +3846,8 @@ class Client:
         Summary: 阿里云合约工程删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteChainContractProjectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteChainContractProjectResponse(),
             self.do_request('1.0', 'baas.chain.contract.project.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3731,7 +3862,8 @@ class Client:
         Summary: 阿里云合约工程删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteChainContractProjectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteChainContractProjectResponse(),
             await self.do_request_async('1.0', 'baas.chain.contract.project.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3770,7 +3902,8 @@ class Client:
         Summary: 复制阿里云合约工程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CloneChainContractProjectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CloneChainContractProjectResponse(),
             self.do_request('1.0', 'baas.chain.contract.project.clone', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3785,7 +3918,8 @@ class Client:
         Summary: 复制阿里云合约工程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CloneChainContractProjectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CloneChainContractProjectResponse(),
             await self.do_request_async('1.0', 'baas.chain.contract.project.clone', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3824,7 +3958,8 @@ class Client:
         Summary: 阿里云合约工程信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainContractProjectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainContractProjectResponse(),
             self.do_request('1.0', 'baas.chain.contract.project.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3839,7 +3974,8 @@ class Client:
         Summary: 阿里云合约工程信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainContractProjectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainContractProjectResponse(),
             await self.do_request_async('1.0', 'baas.chain.contract.project.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3878,7 +4014,8 @@ class Client:
         Summary: 复制阿里云合约工程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.RetryChainContractProjectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.RetryChainContractProjectResponse(),
             self.do_request('1.0', 'baas.chain.contract.project.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3893,7 +4030,8 @@ class Client:
         Summary: 复制阿里云合约工程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.RetryChainContractProjectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.RetryChainContractProjectResponse(),
             await self.do_request_async('1.0', 'baas.chain.contract.project.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3932,7 +4070,8 @@ class Client:
         Summary: 更新阿里云区块链的合约工程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainContractProjectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainContractProjectResponse(),
             self.do_request('1.0', 'baas.chain.contract.project.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3947,7 +4086,8 @@ class Client:
         Summary: 更新阿里云区块链的合约工程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainContractProjectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainContractProjectResponse(),
             await self.do_request_async('1.0', 'baas.chain.contract.project.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -3986,7 +4126,8 @@ class Client:
         Summary: 创建合约文件内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainContractContentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainContractContentResponse(),
             self.do_request('1.0', 'baas.chain.contract.content.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4001,7 +4142,8 @@ class Client:
         Summary: 创建合约文件内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainContractContentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainContractContentResponse(),
             await self.do_request_async('1.0', 'baas.chain.contract.content.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4040,7 +4182,8 @@ class Client:
         Summary: 更新阿里云合约文件内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainContractContentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainContractContentResponse(),
             self.do_request('1.0', 'baas.chain.contract.content.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4055,7 +4198,8 @@ class Client:
         Summary: 更新阿里云合约文件内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainContractContentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainContractContentResponse(),
             await self.do_request_async('1.0', 'baas.chain.contract.content.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4094,7 +4238,8 @@ class Client:
         Summary: 阿里云合约文件信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainContractContentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainContractContentResponse(),
             self.do_request('1.0', 'baas.chain.contract.content.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4109,7 +4254,8 @@ class Client:
         Summary: 阿里云合约文件信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainContractContentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainContractContentResponse(),
             await self.do_request_async('1.0', 'baas.chain.contract.content.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4118,7 +4264,7 @@ class Client:
         request: blockchain_models.ExecChainContractRequest,
     ) -> blockchain_models.ExecChainContractResponse:
         """
-        Description: 阿里云区块链合约执行
+        Description: 阿里云区块链合约执行接口
         Summary: 阿里云区块链合约执行
         """
         runtime = util_models.RuntimeOptions()
@@ -4130,7 +4276,7 @@ class Client:
         request: blockchain_models.ExecChainContractRequest,
     ) -> blockchain_models.ExecChainContractResponse:
         """
-        Description: 阿里云区块链合约执行
+        Description: 阿里云区块链合约执行接口
         Summary: 阿里云区块链合约执行
         """
         runtime = util_models.RuntimeOptions()
@@ -4144,11 +4290,12 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> blockchain_models.ExecChainContractResponse:
         """
-        Description: 阿里云区块链合约执行
+        Description: 阿里云区块链合约执行接口
         Summary: 阿里云区块链合约执行
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecChainContractResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecChainContractResponse(),
             self.do_request('1.0', 'baas.chain.contract.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4159,11 +4306,12 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> blockchain_models.ExecChainContractResponse:
         """
-        Description: 阿里云区块链合约执行
+        Description: 阿里云区块链合约执行接口
         Summary: 阿里云区块链合约执行
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecChainContractResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecChainContractResponse(),
             await self.do_request_async('1.0', 'baas.chain.contract.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4202,7 +4350,8 @@ class Client:
         Summary: 阿里云区块链CloudIde配置查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainIdeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainIdeResponse(),
             self.do_request('1.0', 'baas.chain.ide.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4217,7 +4366,8 @@ class Client:
         Summary: 阿里云区块链CloudIde配置查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainIdeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainIdeResponse(),
             await self.do_request_async('1.0', 'baas.chain.ide.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4256,7 +4406,8 @@ class Client:
         Summary: 阿里云区块链合约文件删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteChainContractContentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteChainContractContentResponse(),
             self.do_request('1.0', 'baas.chain.contract.content.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4271,7 +4422,8 @@ class Client:
         Summary: 阿里云区块链合约文件删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteChainContractContentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteChainContractContentResponse(),
             await self.do_request_async('1.0', 'baas.chain.contract.content.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4310,7 +4462,8 @@ class Client:
         Summary: 阿里云区块链小程序用户权限添加
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateChainMiniappUserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateChainMiniappUserResponse(),
             self.do_request('1.0', 'baas.chain.miniapp.user.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4325,7 +4478,8 @@ class Client:
         Summary: 阿里云区块链小程序用户权限添加
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateChainMiniappUserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateChainMiniappUserResponse(),
             await self.do_request_async('1.0', 'baas.chain.miniapp.user.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4364,7 +4518,8 @@ class Client:
         Summary: 阿里云区块链小程序用户权限删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteChainMiniappUserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteChainMiniappUserResponse(),
             self.do_request('1.0', 'baas.chain.miniapp.user.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4379,7 +4534,8 @@ class Client:
         Summary: 阿里云区块链小程序用户权限删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteChainMiniappUserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteChainMiniappUserResponse(),
             await self.do_request_async('1.0', 'baas.chain.miniapp.user.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4418,7 +4574,8 @@ class Client:
         Summary: 阿里云区块链所有用户权限查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchqueryChainMiniappUserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchqueryChainMiniappUserResponse(),
             self.do_request('1.0', 'baas.chain.miniapp.user.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4433,7 +4590,8 @@ class Client:
         Summary: 阿里云区块链所有用户权限查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchqueryChainMiniappUserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchqueryChainMiniappUserResponse(),
             await self.do_request_async('1.0', 'baas.chain.miniapp.user.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4472,7 +4630,8 @@ class Client:
         Summary: 阿里云区块链小程序权限控制查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainMiniappAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainMiniappAuthorizationResponse(),
             self.do_request('1.0', 'baas.chain.miniapp.authorization.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4487,7 +4646,8 @@ class Client:
         Summary: 阿里云区块链小程序权限控制查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainMiniappAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainMiniappAuthorizationResponse(),
             await self.do_request_async('1.0', 'baas.chain.miniapp.authorization.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4526,7 +4686,8 @@ class Client:
         Summary: 阿里云区块链小程序权限控制变更
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainMiniappAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainMiniappAuthorizationResponse(),
             self.do_request('1.0', 'baas.chain.miniapp.authorization.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4541,7 +4702,8 @@ class Client:
         Summary: 阿里云区块链小程序权限控制变更
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainMiniappAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainMiniappAuthorizationResponse(),
             await self.do_request_async('1.0', 'baas.chain.miniapp.authorization.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4580,7 +4742,8 @@ class Client:
         Summary: 阿里云区块链小程序交易查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainMiniappTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainMiniappTransactionResponse(),
             self.do_request('1.0', 'baas.chain.miniapp.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4595,7 +4758,8 @@ class Client:
         Summary: 阿里云区块链小程序交易查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainMiniappTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainMiniappTransactionResponse(),
             await self.do_request_async('1.0', 'baas.chain.miniapp.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4634,7 +4798,8 @@ class Client:
         Summary: 阿里云区块链小程序交易查询的记录
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainMiniappLogResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainMiniappLogResponse(),
             self.do_request('1.0', 'baas.chain.miniapp.log.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4649,7 +4814,8 @@ class Client:
         Summary: 阿里云区块链小程序交易查询的记录
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainMiniappLogResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainMiniappLogResponse(),
             await self.do_request_async('1.0', 'baas.chain.miniapp.log.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4688,7 +4854,8 @@ class Client:
         Summary: 阿里云区块链小程序二维码生成
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainMiniappCodeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainMiniappCodeResponse(),
             self.do_request('1.0', 'baas.chain.miniapp.code.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4703,7 +4870,8 @@ class Client:
         Summary: 阿里云区块链小程序二维码生成
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainMiniappCodeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainMiniappCodeResponse(),
             await self.do_request_async('1.0', 'baas.chain.miniapp.code.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4742,7 +4910,8 @@ class Client:
         Summary: 阿里云售卖页联盟信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryUnionBuyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryUnionBuyResponse(),
             self.do_request('1.0', 'baas.union.buy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4757,7 +4926,8 @@ class Client:
         Summary: 阿里云售卖页联盟信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryUnionBuyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryUnionBuyResponse(),
             await self.do_request_async('1.0', 'baas.union.buy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4796,7 +4966,8 @@ class Client:
         Summary: 阿里云国内站免费体验链Rest查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainPublicRestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainPublicRestResponse(),
             self.do_request('1.0', 'baas.chain.public.rest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4811,7 +4982,8 @@ class Client:
         Summary: 阿里云国内站免费体验链Rest查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainPublicRestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainPublicRestResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.rest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4850,7 +5022,8 @@ class Client:
         Summary: 阿里云国内站免费体验链申请Rest
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainPublicRestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainPublicRestResponse(),
             self.do_request('1.0', 'baas.chain.public.rest.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4865,7 +5038,8 @@ class Client:
         Summary: 阿里云国内站免费体验链申请Rest
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainPublicRestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainPublicRestResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.rest.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4904,7 +5078,8 @@ class Client:
         Summary: 阿里云国内站重置Rest
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ReinitChainPublicRestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ReinitChainPublicRestResponse(),
             self.do_request('1.0', 'baas.chain.public.rest.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4919,7 +5094,8 @@ class Client:
         Summary: 阿里云国内站重置Rest
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ReinitChainPublicRestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ReinitChainPublicRestResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.rest.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4958,7 +5134,8 @@ class Client:
         Summary: 阿里云国内站区块链rest查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainRestAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainRestAntResponse(),
             self.do_request('1.0', 'baas.chain.rest.ant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -4973,7 +5150,8 @@ class Client:
         Summary: 阿里云国内站区块链rest查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainRestAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainRestAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.rest.ant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5012,7 +5190,8 @@ class Client:
         Summary: 阿里云国内站区块链rest申请
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainRestAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainRestAntResponse(),
             self.do_request('1.0', 'baas.chain.rest.ant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5027,7 +5206,8 @@ class Client:
         Summary: 阿里云国内站区块链rest申请
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainRestAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainRestAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.rest.ant.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5066,7 +5246,8 @@ class Client:
         Summary: 阿里云国内站区块链重置Rest
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ReinitChainRestAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ReinitChainRestAntResponse(),
             self.do_request('1.0', 'baas.chain.rest.ant.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5081,7 +5262,8 @@ class Client:
         Summary: 阿里云国内站区块链重置Rest
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ReinitChainRestAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ReinitChainRestAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.rest.ant.reinit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5120,7 +5302,8 @@ class Client:
         Summary: 阿里云国内站公共链重置rest发送验证码
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SendChainPublicRestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SendChainPublicRestResponse(),
             self.do_request('1.0', 'baas.chain.public.rest.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5135,7 +5318,8 @@ class Client:
         Summary: 阿里云国内站公共链重置rest发送验证码
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SendChainPublicRestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SendChainPublicRestResponse(),
             await self.do_request_async('1.0', 'baas.chain.public.rest.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5174,7 +5358,8 @@ class Client:
         Summary: 阿里云国内站区块链重置rest发送验证码
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SendChainRestAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SendChainRestAntResponse(),
             self.do_request('1.0', 'baas.chain.rest.ant.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5189,7 +5374,8 @@ class Client:
         Summary: 阿里云国内站区块链重置rest发送验证码
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SendChainRestAntResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SendChainRestAntResponse(),
             await self.do_request_async('1.0', 'baas.chain.rest.ant.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5228,7 +5414,8 @@ class Client:
         Summary: 阿里云子链列表查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainSubnetResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainSubnetResponse(),
             self.do_request('1.0', 'baas.chain.subnet.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5243,7 +5430,8 @@ class Client:
         Summary: 阿里云子链列表查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainSubnetResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainSubnetResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5282,7 +5470,8 @@ class Client:
         Summary: 阿里云子链创建的前置检查
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckChainSubnetCreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckChainSubnetCreateResponse(),
             self.do_request('1.0', 'baas.chain.subnet.create.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5297,7 +5486,8 @@ class Client:
         Summary: 阿里云子链创建的前置检查
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckChainSubnetCreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckChainSubnetCreateResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.create.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5336,7 +5526,8 @@ class Client:
         Summary: 阿里云子链创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainSubnetResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainSubnetResponse(),
             self.do_request('1.0', 'baas.chain.subnet.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5351,7 +5542,8 @@ class Client:
         Summary: 阿里云子链创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainSubnetResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainSubnetResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5390,7 +5582,8 @@ class Client:
         Summary: 阿里云子链的启动
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecChainSubnetResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecChainSubnetResponse(),
             self.do_request('1.0', 'baas.chain.subnet.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5405,7 +5598,8 @@ class Client:
         Summary: 阿里云子链的启动
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecChainSubnetResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecChainSubnetResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5444,7 +5638,8 @@ class Client:
         Summary: 阿里云子链名称修改
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainSubnetNameResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainSubnetNameResponse(),
             self.do_request('1.0', 'baas.chain.subnet.name.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5459,7 +5654,8 @@ class Client:
         Summary: 阿里云子链名称修改
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainSubnetNameResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainSubnetNameResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.name.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5498,7 +5694,8 @@ class Client:
         Summary: 阿里云子链节点信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainSubnetNodeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainSubnetNodeResponse(),
             self.do_request('1.0', 'baas.chain.subnet.node.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5513,7 +5710,8 @@ class Client:
         Summary: 阿里云子链节点信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainSubnetNodeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainSubnetNodeResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.node.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5552,7 +5750,8 @@ class Client:
         Summary: 阿里云子链的节点删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteChainSubnetNodeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteChainSubnetNodeResponse(),
             self.do_request('1.0', 'baas.chain.subnet.node.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5567,7 +5766,8 @@ class Client:
         Summary: 阿里云子链的节点删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteChainSubnetNodeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteChainSubnetNodeResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.node.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5606,7 +5806,8 @@ class Client:
         Summary: 阿里云子链节点添加的前置检查
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckChainSubnetNodeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckChainSubnetNodeResponse(),
             self.do_request('1.0', 'baas.chain.subnet.node.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5621,7 +5822,8 @@ class Client:
         Summary: 阿里云子链节点添加的前置检查
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckChainSubnetNodeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckChainSubnetNodeResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.node.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5660,7 +5862,8 @@ class Client:
         Summary: 阿里云子链节点添加
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddChainSubnetNodeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddChainSubnetNodeResponse(),
             self.do_request('1.0', 'baas.chain.subnet.node.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5675,7 +5878,8 @@ class Client:
         Summary: 阿里云子链节点添加
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddChainSubnetNodeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddChainSubnetNodeResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.node.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5714,7 +5918,8 @@ class Client:
         Summary: 阿里云子链机构列表查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainSubnetMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainSubnetMemberResponse(),
             self.do_request('1.0', 'baas.chain.subnet.member.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5729,7 +5934,8 @@ class Client:
         Summary: 阿里云子链机构列表查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainSubnetMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainSubnetMemberResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.member.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5768,7 +5974,8 @@ class Client:
         Summary: 阿里云子链成员删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteChainSubnetMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteChainSubnetMemberResponse(),
             self.do_request('1.0', 'baas.chain.subnet.member.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5783,7 +5990,8 @@ class Client:
         Summary: 阿里云子链成员删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteChainSubnetMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteChainSubnetMemberResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.member.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5822,7 +6030,8 @@ class Client:
         Summary: 阿里云子链成员添加前校验
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckChainSubnetMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckChainSubnetMemberResponse(),
             self.do_request('1.0', 'baas.chain.subnet.member.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5837,7 +6046,8 @@ class Client:
         Summary: 阿里云子链成员添加前校验
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckChainSubnetMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckChainSubnetMemberResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.member.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5876,7 +6086,8 @@ class Client:
         Summary: 阿里云子链成员添加
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddChainSubnetMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddChainSubnetMemberResponse(),
             self.do_request('1.0', 'baas.chain.subnet.member.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5891,7 +6102,8 @@ class Client:
         Summary: 阿里云子链成员添加
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddChainSubnetMemberResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddChainSubnetMemberResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.member.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5930,7 +6142,8 @@ class Client:
         Summary: 阿里云子链REST开通
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainSubnetRestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainSubnetRestResponse(),
             self.do_request('1.0', 'baas.chain.subnet.rest.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5945,7 +6158,8 @@ class Client:
         Summary: 阿里云子链REST开通
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyChainSubnetRestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainSubnetRestResponse(),
             await self.do_request_async('1.0', 'baas.chain.subnet.rest.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5984,7 +6198,8 @@ class Client:
         Summary: 阿里云数据导出任务查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainDataexportTaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainDataexportTaskResponse(),
             self.do_request('1.0', 'baas.chain.dataexport.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -5999,7 +6214,8 @@ class Client:
         Summary: 阿里云数据导出任务查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainDataexportTaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainDataexportTaskResponse(),
             await self.do_request_async('1.0', 'baas.chain.dataexport.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6038,7 +6254,8 @@ class Client:
         Summary: 列出所有导出任务接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainDataExportResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainDataExportResponse(),
             self.do_request('1.0', 'baas.chain.data.export.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6053,7 +6270,8 @@ class Client:
         Summary: 列出所有导出任务接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainDataExportResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainDataExportResponse(),
             await self.do_request_async('1.0', 'baas.chain.data.export.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6092,7 +6310,8 @@ class Client:
         Summary: 创建数据导出任务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainDataexportTaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainDataexportTaskResponse(),
             self.do_request('1.0', 'baas.chain.dataexport.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6107,7 +6326,8 @@ class Client:
         Summary: 创建数据导出任务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainDataexportTaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainDataexportTaskResponse(),
             await self.do_request_async('1.0', 'baas.chain.dataexport.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6146,7 +6366,8 @@ class Client:
         Summary: 获取预览数据（第一步：生成任务ID）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainTaskIdResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainTaskIdResponse(),
             self.do_request('1.0', 'baas.chain.task.id.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6161,7 +6382,8 @@ class Client:
         Summary: 获取预览数据（第一步：生成任务ID）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainTaskIdResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainTaskIdResponse(),
             await self.do_request_async('1.0', 'baas.chain.task.id.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6200,7 +6422,8 @@ class Client:
         Summary: 根据任务ID获取预览数据结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainDataPreviewResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainDataPreviewResponse(),
             self.do_request('1.0', 'baas.chain.data.preview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6215,7 +6438,8 @@ class Client:
         Summary: 根据任务ID获取预览数据结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainDataPreviewResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainDataPreviewResponse(),
             await self.do_request_async('1.0', 'baas.chain.data.preview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6254,7 +6478,8 @@ class Client:
         Summary: 根据预览数据获取默认映射关系
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainMappingRelationshipResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainMappingRelationshipResponse(),
             self.do_request('1.0', 'baas.chain.mapping.relationship.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6269,7 +6494,8 @@ class Client:
         Summary: 根据预览数据获取默认映射关系
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainMappingRelationshipResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainMappingRelationshipResponse(),
             await self.do_request_async('1.0', 'baas.chain.mapping.relationship.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6308,7 +6534,8 @@ class Client:
         Summary: 获取 Create Table 语句
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainTableSqlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainTableSqlResponse(),
             self.do_request('1.0', 'baas.chain.table.sql.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6323,7 +6550,8 @@ class Client:
         Summary: 获取 Create Table 语句
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateChainTableSqlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateChainTableSqlResponse(),
             await self.do_request_async('1.0', 'baas.chain.table.sql.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6362,7 +6590,8 @@ class Client:
         Summary: 修改导出任务状态（启动、暂停、删除）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainDataexportStatusResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainDataexportStatusResponse(),
             self.do_request('1.0', 'baas.chain.dataexport.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6377,7 +6606,8 @@ class Client:
         Summary: 修改导出任务状态（启动、暂停、删除）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainDataexportStatusResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainDataexportStatusResponse(),
             await self.do_request_async('1.0', 'baas.chain.dataexport.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6416,7 +6646,8 @@ class Client:
         Summary: 修改导出任务（名称、描述、告警地址）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainDataexportTaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainDataexportTaskResponse(),
             self.do_request('1.0', 'baas.chain.dataexport.task.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6431,7 +6662,8 @@ class Client:
         Summary: 修改导出任务（名称、描述、告警地址）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainDataexportTaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainDataexportTaskResponse(),
             await self.do_request_async('1.0', 'baas.chain.dataexport.task.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6470,7 +6702,8 @@ class Client:
         Summary: 分页失败的展示日志
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainFailureLogResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainFailureLogResponse(),
             self.do_request('1.0', 'baas.chain.failure.log.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6485,7 +6718,8 @@ class Client:
         Summary: 分页失败的展示日志
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryChainFailureLogResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryChainFailureLogResponse(),
             await self.do_request_async('1.0', 'baas.chain.failure.log.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6524,7 +6758,8 @@ class Client:
         Summary: 批量处理失败日志（重试/忽略）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainFailureLogResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainFailureLogResponse(),
             self.do_request('1.0', 'baas.chain.failure.log.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6539,8 +6774,401 @@ class Client:
         Summary: 批量处理失败日志（重试/忽略）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateChainFailureLogResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateChainFailureLogResponse(),
             await self.do_request_async('1.0', 'baas.chain.failure.log.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chain_managed_mq(
+        self,
+        request: blockchain_models.QueryChainManagedMqRequest,
+    ) -> blockchain_models.QueryChainManagedMqResponse:
+        """
+        Description: 列出当前用户的托管MQ实例
+        Summary: 列出当前用户的托管MQ实例
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chain_managed_mq_ex(request, headers, runtime)
+
+    async def query_chain_managed_mq_async(
+        self,
+        request: blockchain_models.QueryChainManagedMqRequest,
+    ) -> blockchain_models.QueryChainManagedMqResponse:
+        """
+        Description: 列出当前用户的托管MQ实例
+        Summary: 列出当前用户的托管MQ实例
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chain_managed_mq_ex_async(request, headers, runtime)
+
+    def query_chain_managed_mq_ex(
+        self,
+        request: blockchain_models.QueryChainManagedMqRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainManagedMqResponse:
+        """
+        Description: 列出当前用户的托管MQ实例
+        Summary: 列出当前用户的托管MQ实例
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryChainManagedMqResponse(),
+            self.do_request('1.0', 'baas.chain.managed.mq.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chain_managed_mq_ex_async(
+        self,
+        request: blockchain_models.QueryChainManagedMqRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainManagedMqResponse:
+        """
+        Description: 列出当前用户的托管MQ实例
+        Summary: 列出当前用户的托管MQ实例
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryChainManagedMqResponse(),
+            await self.do_request_async('1.0', 'baas.chain.managed.mq.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_chain_managed_mq(
+        self,
+        request: blockchain_models.InitChainManagedMqRequest,
+    ) -> blockchain_models.InitChainManagedMqResponse:
+        """
+        Description: 初始化托管 MQ 实例
+        Summary: 初始化托管 MQ 实例
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_chain_managed_mq_ex(request, headers, runtime)
+
+    async def init_chain_managed_mq_async(
+        self,
+        request: blockchain_models.InitChainManagedMqRequest,
+    ) -> blockchain_models.InitChainManagedMqResponse:
+        """
+        Description: 初始化托管 MQ 实例
+        Summary: 初始化托管 MQ 实例
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_chain_managed_mq_ex_async(request, headers, runtime)
+
+    def init_chain_managed_mq_ex(
+        self,
+        request: blockchain_models.InitChainManagedMqRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.InitChainManagedMqResponse:
+        """
+        Description: 初始化托管 MQ 实例
+        Summary: 初始化托管 MQ 实例
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.InitChainManagedMqResponse(),
+            self.do_request('1.0', 'baas.chain.managed.mq.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_chain_managed_mq_ex_async(
+        self,
+        request: blockchain_models.InitChainManagedMqRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.InitChainManagedMqResponse:
+        """
+        Description: 初始化托管 MQ 实例
+        Summary: 初始化托管 MQ 实例
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.InitChainManagedMqResponse(),
+            await self.do_request_async('1.0', 'baas.chain.managed.mq.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chain_use_declaration(
+        self,
+        request: blockchain_models.QueryChainUseDeclarationRequest,
+    ) -> blockchain_models.QueryChainUseDeclarationResponse:
+        """
+        Description: 查询蚂蚁链用途列表接口
+        Summary: 查询蚂蚁链用途列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chain_use_declaration_ex(request, headers, runtime)
+
+    async def query_chain_use_declaration_async(
+        self,
+        request: blockchain_models.QueryChainUseDeclarationRequest,
+    ) -> blockchain_models.QueryChainUseDeclarationResponse:
+        """
+        Description: 查询蚂蚁链用途列表接口
+        Summary: 查询蚂蚁链用途列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chain_use_declaration_ex_async(request, headers, runtime)
+
+    def query_chain_use_declaration_ex(
+        self,
+        request: blockchain_models.QueryChainUseDeclarationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainUseDeclarationResponse:
+        """
+        Description: 查询蚂蚁链用途列表接口
+        Summary: 查询蚂蚁链用途列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryChainUseDeclarationResponse(),
+            self.do_request('1.0', 'baas.chain.use.declaration.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chain_use_declaration_ex_async(
+        self,
+        request: blockchain_models.QueryChainUseDeclarationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainUseDeclarationResponse:
+        """
+        Description: 查询蚂蚁链用途列表接口
+        Summary: 查询蚂蚁链用途列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryChainUseDeclarationResponse(),
+            await self.do_request_async('1.0', 'baas.chain.use.declaration.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_chain_use_declaration(
+        self,
+        request: blockchain_models.ApplyChainUseDeclarationRequest,
+    ) -> blockchain_models.ApplyChainUseDeclarationResponse:
+        """
+        Description: 选择蚂蚁链用途列表中的某项，进行提交申报接口
+        Summary: 选择蚂蚁链用途列表中的某项，进行提交申报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_chain_use_declaration_ex(request, headers, runtime)
+
+    async def apply_chain_use_declaration_async(
+        self,
+        request: blockchain_models.ApplyChainUseDeclarationRequest,
+    ) -> blockchain_models.ApplyChainUseDeclarationResponse:
+        """
+        Description: 选择蚂蚁链用途列表中的某项，进行提交申报接口
+        Summary: 选择蚂蚁链用途列表中的某项，进行提交申报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_chain_use_declaration_ex_async(request, headers, runtime)
+
+    def apply_chain_use_declaration_ex(
+        self,
+        request: blockchain_models.ApplyChainUseDeclarationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ApplyChainUseDeclarationResponse:
+        """
+        Description: 选择蚂蚁链用途列表中的某项，进行提交申报接口
+        Summary: 选择蚂蚁链用途列表中的某项，进行提交申报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainUseDeclarationResponse(),
+            self.do_request('1.0', 'baas.chain.use.declaration.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_chain_use_declaration_ex_async(
+        self,
+        request: blockchain_models.ApplyChainUseDeclarationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ApplyChainUseDeclarationResponse:
+        """
+        Description: 选择蚂蚁链用途列表中的某项，进行提交申报接口
+        Summary: 选择蚂蚁链用途列表中的某项，进行提交申报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ApplyChainUseDeclarationResponse(),
+            await self.do_request_async('1.0', 'baas.chain.use.declaration.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_chain_use_list(
+        self,
+        request: blockchain_models.QueryChainUseListRequest,
+    ) -> blockchain_models.QueryChainUseListResponse:
+        """
+        Description: 展示用户添加申报的记录接口
+        Summary: 展示用户添加申报的记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_chain_use_list_ex(request, headers, runtime)
+
+    async def query_chain_use_list_async(
+        self,
+        request: blockchain_models.QueryChainUseListRequest,
+    ) -> blockchain_models.QueryChainUseListResponse:
+        """
+        Description: 展示用户添加申报的记录接口
+        Summary: 展示用户添加申报的记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_chain_use_list_ex_async(request, headers, runtime)
+
+    def query_chain_use_list_ex(
+        self,
+        request: blockchain_models.QueryChainUseListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainUseListResponse:
+        """
+        Description: 展示用户添加申报的记录接口
+        Summary: 展示用户添加申报的记录
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryChainUseListResponse(),
+            self.do_request('1.0', 'baas.chain.use.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_chain_use_list_ex_async(
+        self,
+        request: blockchain_models.QueryChainUseListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryChainUseListResponse:
+        """
+        Description: 展示用户添加申报的记录接口
+        Summary: 展示用户添加申报的记录
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryChainUseListResponse(),
+            await self.do_request_async('1.0', 'baas.chain.use.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_chain_sensitive_words(
+        self,
+        request: blockchain_models.CheckChainSensitiveWordsRequest,
+    ) -> blockchain_models.CheckChainSensitiveWordsResponse:
+        """
+        Description: BaaS用途申报敏感词检查接口
+        Summary: BaaS用途申报敏感词检查
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_chain_sensitive_words_ex(request, headers, runtime)
+
+    async def check_chain_sensitive_words_async(
+        self,
+        request: blockchain_models.CheckChainSensitiveWordsRequest,
+    ) -> blockchain_models.CheckChainSensitiveWordsResponse:
+        """
+        Description: BaaS用途申报敏感词检查接口
+        Summary: BaaS用途申报敏感词检查
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_chain_sensitive_words_ex_async(request, headers, runtime)
+
+    def check_chain_sensitive_words_ex(
+        self,
+        request: blockchain_models.CheckChainSensitiveWordsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CheckChainSensitiveWordsResponse:
+        """
+        Description: BaaS用途申报敏感词检查接口
+        Summary: BaaS用途申报敏感词检查
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CheckChainSensitiveWordsResponse(),
+            self.do_request('1.0', 'baas.chain.sensitive.words.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_chain_sensitive_words_ex_async(
+        self,
+        request: blockchain_models.CheckChainSensitiveWordsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CheckChainSensitiveWordsResponse:
+        """
+        Description: BaaS用途申报敏感词检查接口
+        Summary: BaaS用途申报敏感词检查
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CheckChainSensitiveWordsResponse(),
+            await self.do_request_async('1.0', 'baas.chain.sensitive.words.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_chain_account_antkms(
+        self,
+        request: blockchain_models.CreateChainAccountAntkmsRequest,
+    ) -> blockchain_models.CreateChainAccountAntkmsResponse:
+        """
+        Description: 阿里云MyChain创建托管账户
+        Summary: 阿里云MyChain创建托管账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_chain_account_antkms_ex(request, headers, runtime)
+
+    async def create_chain_account_antkms_async(
+        self,
+        request: blockchain_models.CreateChainAccountAntkmsRequest,
+    ) -> blockchain_models.CreateChainAccountAntkmsResponse:
+        """
+        Description: 阿里云MyChain创建托管账户
+        Summary: 阿里云MyChain创建托管账户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_chain_account_antkms_ex_async(request, headers, runtime)
+
+    def create_chain_account_antkms_ex(
+        self,
+        request: blockchain_models.CreateChainAccountAntkmsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateChainAccountAntkmsResponse:
+        """
+        Description: 阿里云MyChain创建托管账户
+        Summary: 阿里云MyChain创建托管账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CreateChainAccountAntkmsResponse(),
+            self.do_request('1.0', 'baas.chain.account.antkms.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_chain_account_antkms_ex_async(
+        self,
+        request: blockchain_models.CreateChainAccountAntkmsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateChainAccountAntkmsResponse:
+        """
+        Description: 阿里云MyChain创建托管账户
+        Summary: 阿里云MyChain创建托管账户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CreateChainAccountAntkmsResponse(),
+            await self.do_request_async('1.0', 'baas.chain.account.antkms.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_aml_corporation_joinprepare(
@@ -6578,7 +7206,8 @@ class Client:
         Summary: 反洗钱信息共享平台入驻接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAmlCorporationJoinprepareResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAmlCorporationJoinprepareResponse(),
             self.do_request('1.0', 'baas.aml.corporation.joinprepare.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6593,7 +7222,8 @@ class Client:
         Summary: 反洗钱信息共享平台入驻接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAmlCorporationJoinprepareResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAmlCorporationJoinprepareResponse(),
             await self.do_request_async('1.0', 'baas.aml.corporation.joinprepare.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6632,7 +7262,8 @@ class Client:
         Summary: 反洗钱信息共享平台确认加盟接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAmlCorporationJoincommitResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAmlCorporationJoincommitResponse(),
             self.do_request('1.0', 'baas.aml.corporation.joincommit.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6647,7 +7278,8 @@ class Client:
         Summary: 反洗钱信息共享平台确认加盟接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAmlCorporationJoincommitResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAmlCorporationJoincommitResponse(),
             await self.do_request_async('1.0', 'baas.aml.corporation.joincommit.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6686,7 +7318,8 @@ class Client:
         Summary: 反洗钱系统二要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAmlPersonTwofactorResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAmlPersonTwofactorResponse(),
             self.do_request('1.0', 'baas.aml.person.twofactor.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6701,7 +7334,8 @@ class Client:
         Summary: 反洗钱系统二要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAmlPersonTwofactorResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAmlPersonTwofactorResponse(),
             await self.do_request_async('1.0', 'baas.aml.person.twofactor.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6740,7 +7374,8 @@ class Client:
         Summary: 简单存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveBusinessDepositResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveBusinessDepositResponse(),
             self.do_request('1.0', 'baas.business.deposit.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6755,7 +7390,8 @@ class Client:
         Summary: 简单存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveBusinessDepositResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveBusinessDepositResponse(),
             await self.do_request_async('1.0', 'baas.business.deposit.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6794,7 +7430,8 @@ class Client:
         Summary: 存储带有描述性的数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveBusinessDepositMetadataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveBusinessDepositMetadataResponse(),
             self.do_request('1.0', 'baas.business.deposit.metadata.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6809,7 +7446,8 @@ class Client:
         Summary: 存储带有描述性的数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveBusinessDepositMetadataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveBusinessDepositMetadataResponse(),
             await self.do_request_async('1.0', 'baas.business.deposit.metadata.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6848,7 +7486,8 @@ class Client:
         Summary: 将存证的数据在链上加密
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveBusinessDepositEncryptResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveBusinessDepositEncryptResponse(),
             self.do_request('1.0', 'baas.business.deposit.encrypt.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6863,7 +7502,8 @@ class Client:
         Summary: 将存证的数据在链上加密
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveBusinessDepositEncryptResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveBusinessDepositEncryptResponse(),
             await self.do_request_async('1.0', 'baas.business.deposit.encrypt.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6902,7 +7542,8 @@ class Client:
         Summary: 存证带有描述性的数据并加密
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveBusinessDepositEncryptmetadataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveBusinessDepositEncryptmetadataResponse(),
             self.do_request('1.0', 'baas.business.deposit.encryptmetadata.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6917,7 +7558,8 @@ class Client:
         Summary: 存证带有描述性的数据并加密
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveBusinessDepositEncryptmetadataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveBusinessDepositEncryptmetadataResponse(),
             await self.do_request_async('1.0', 'baas.business.deposit.encryptmetadata.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6956,7 +7598,8 @@ class Client:
         Summary: 创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessDidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessDidResponse(),
             self.do_request('1.0', 'baas.business.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -6971,7 +7614,8 @@ class Client:
         Summary: 创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessDidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessDidResponse(),
             await self.do_request_async('1.0', 'baas.business.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7010,7 +7654,8 @@ class Client:
         Summary: 根据did创建链上账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessBizaccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessBizaccountResponse(),
             self.do_request('1.0', 'baas.business.bizaccount.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7025,7 +7670,8 @@ class Client:
         Summary: 根据did创建链上账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessBizaccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessBizaccountResponse(),
             await self.do_request_async('1.0', 'baas.business.bizaccount.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7064,7 +7710,8 @@ class Client:
         Summary: 查询存证数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBusinessDepositResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBusinessDepositResponse(),
             self.do_request('1.0', 'baas.business.deposit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7079,7 +7726,8 @@ class Client:
         Summary: 查询存证数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBusinessDepositResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBusinessDepositResponse(),
             await self.do_request_async('1.0', 'baas.business.deposit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7118,7 +7766,8 @@ class Client:
         Summary: 授权存证数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AuthBusinessDepositdataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AuthBusinessDepositdataResponse(),
             self.do_request('1.0', 'baas.business.depositdata.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7133,7 +7782,8 @@ class Client:
         Summary: 授权存证数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AuthBusinessDepositdataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AuthBusinessDepositdataResponse(),
             await self.do_request_async('1.0', 'baas.business.depositdata.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7172,7 +7822,8 @@ class Client:
         Summary: 创建部署合约
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessContractDeployResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessContractDeployResponse(),
             self.do_request('1.0', 'baas.business.contract.deploy.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7187,7 +7838,8 @@ class Client:
         Summary: 创建部署合约
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessContractDeployResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessContractDeployResponse(),
             await self.do_request_async('1.0', 'baas.business.contract.deploy.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7226,7 +7878,8 @@ class Client:
         Summary: 普通合约接口调用
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessContractnormalcallResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessContractnormalcallResponse(),
             self.do_request('1.0', 'baas.business.contractnormalcall.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7241,7 +7894,8 @@ class Client:
         Summary: 普通合约接口调用
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessContractnormalcallResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessContractnormalcallResponse(),
             await self.do_request_async('1.0', 'baas.business.contractnormalcall.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7280,7 +7934,8 @@ class Client:
         Summary: 调用加密合约接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessContractencryptcallResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessContractencryptcallResponse(),
             self.do_request('1.0', 'baas.business.contractencryptcall.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7295,7 +7950,8 @@ class Client:
         Summary: 调用加密合约接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessContractencryptcallResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessContractencryptcallResponse(),
             await self.do_request_async('1.0', 'baas.business.contractencryptcall.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7334,7 +7990,8 @@ class Client:
         Summary: 查询交易receipt
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBusinessContractreceiptResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBusinessContractreceiptResponse(),
             self.do_request('1.0', 'baas.business.contractreceipt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7349,7 +8006,8 @@ class Client:
         Summary: 查询交易receipt
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBusinessContractreceiptResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBusinessContractreceiptResponse(),
             await self.do_request_async('1.0', 'baas.business.contractreceipt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7388,7 +8046,8 @@ class Client:
         Summary: 查询加密的receipt
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBusinessContractencryptreceiptResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBusinessContractencryptreceiptResponse(),
             self.do_request('1.0', 'baas.business.contractencryptreceipt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7403,7 +8062,8 @@ class Client:
         Summary: 查询加密的receipt
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBusinessContractencryptreceiptResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBusinessContractencryptreceiptResponse(),
             await self.do_request_async('1.0', 'baas.business.contractencryptreceipt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7442,7 +8102,8 @@ class Client:
         Summary: 查询合约加密内容的方法
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBusinessContractencryptmethodResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBusinessContractencryptmethodResponse(),
             self.do_request('1.0', 'baas.business.contractencryptmethod.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7457,7 +8118,8 @@ class Client:
         Summary: 查询合约加密内容的方法
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBusinessContractencryptmethodResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBusinessContractencryptmethodResponse(),
             await self.do_request_async('1.0', 'baas.business.contractencryptmethod.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7496,7 +8158,8 @@ class Client:
         Summary: 部署业务共识合约
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeployBusinessAgreementResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeployBusinessAgreementResponse(),
             self.do_request('1.0', 'baas.business.agreement.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7511,7 +8174,8 @@ class Client:
         Summary: 部署业务共识合约
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeployBusinessAgreementResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeployBusinessAgreementResponse(),
             await self.do_request_async('1.0', 'baas.business.agreement.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7550,7 +8214,8 @@ class Client:
         Summary: 创建业务共识模板
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessAgreementRegistertemplateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessAgreementRegistertemplateResponse(),
             self.do_request('1.0', 'baas.business.agreement.registertemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7565,7 +8230,8 @@ class Client:
         Summary: 创建业务共识模板
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessAgreementRegistertemplateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessAgreementRegistertemplateResponse(),
             await self.do_request_async('1.0', 'baas.business.agreement.registertemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7604,7 +8270,8 @@ class Client:
         Summary: 注册业务共识实例
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessAgreementRegisterResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessAgreementRegisterResponse(),
             self.do_request('1.0', 'baas.business.agreement.register.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7619,7 +8286,8 @@ class Client:
         Summary: 注册业务共识实例
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessAgreementRegisterResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessAgreementRegisterResponse(),
             await self.do_request_async('1.0', 'baas.business.agreement.register.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7658,7 +8326,8 @@ class Client:
         Summary: 对业务共识key进行签名认可
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessAgreementSignResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessAgreementSignResponse(),
             self.do_request('1.0', 'baas.business.agreement.sign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7673,7 +8342,8 @@ class Client:
         Summary: 对业务共识key进行签名认可
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessAgreementSignResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessAgreementSignResponse(),
             await self.do_request_async('1.0', 'baas.business.agreement.sign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7712,7 +8382,8 @@ class Client:
         Summary: 查询业务共识当前状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBusinessAgreementResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBusinessAgreementResponse(),
             self.do_request('1.0', 'baas.business.agreement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7727,7 +8398,8 @@ class Client:
         Summary: 查询业务共识当前状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBusinessAgreementResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBusinessAgreementResponse(),
             await self.do_request_async('1.0', 'baas.business.agreement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7766,7 +8438,8 @@ class Client:
         Summary: 对合约隐私key授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessContractGrantdidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessContractGrantdidResponse(),
             self.do_request('1.0', 'baas.business.contract.grantdid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7781,7 +8454,8 @@ class Client:
         Summary: 对合约隐私key授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessContractGrantdidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessContractGrantdidResponse(),
             await self.do_request_async('1.0', 'baas.business.contract.grantdid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7820,7 +8494,8 @@ class Client:
         Summary: 查询被加密的存证数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBusinessDepositEncryptedmetadataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBusinessDepositEncryptedmetadataResponse(),
             self.do_request('1.0', 'baas.business.deposit.encryptedmetadata.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7835,7 +8510,8 @@ class Client:
         Summary: 查询被加密的存证数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBusinessDepositEncryptedmetadataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBusinessDepositEncryptedmetadataResponse(),
             await self.do_request_async('1.0', 'baas.business.deposit.encryptedmetadata.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7874,7 +8550,8 @@ class Client:
         Summary: 授权存证数据给对应的组织机构
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AuthBusinessDepositdataCorpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AuthBusinessDepositdataCorpResponse(),
             self.do_request('1.0', 'baas.business.depositdata.corp.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7889,7 +8566,8 @@ class Client:
         Summary: 授权存证数据给对应的组织机构
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AuthBusinessDepositdataCorpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AuthBusinessDepositdataCorpResponse(),
             await self.do_request_async('1.0', 'baas.business.depositdata.corp.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7928,7 +8606,8 @@ class Client:
         Summary: 取消存证数据授权给账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CancelBusinessDepositGrantdidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CancelBusinessDepositGrantdidResponse(),
             self.do_request('1.0', 'baas.business.deposit.grantdid.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7943,7 +8622,8 @@ class Client:
         Summary: 取消存证数据授权给账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CancelBusinessDepositGrantdidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CancelBusinessDepositGrantdidResponse(),
             await self.do_request_async('1.0', 'baas.business.deposit.grantdid.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7982,7 +8662,8 @@ class Client:
         Summary: 取消存证授权给组织机构
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CancelBusinessDepositGrantcorpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CancelBusinessDepositGrantcorpResponse(),
             self.do_request('1.0', 'baas.business.deposit.grantcorp.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -7997,7 +8678,8 @@ class Client:
         Summary: 取消存证授权给组织机构
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CancelBusinessDepositGrantcorpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CancelBusinessDepositGrantcorpResponse(),
             await self.do_request_async('1.0', 'baas.business.deposit.grantcorp.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8036,7 +8718,8 @@ class Client:
         Summary: 授权合约内加密字段给机构
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessContractGrantcorpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessContractGrantcorpResponse(),
             self.do_request('1.0', 'baas.business.contract.grantcorp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8051,7 +8734,8 @@ class Client:
         Summary: 授权合约内加密字段给机构
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBusinessContractGrantcorpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBusinessContractGrantcorpResponse(),
             await self.do_request_async('1.0', 'baas.business.contract.grantcorp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8090,7 +8774,8 @@ class Client:
         Summary: 取消授权did查询加密数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CancelBusinessContractGrantdidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CancelBusinessContractGrantdidResponse(),
             self.do_request('1.0', 'baas.business.contract.grantdid.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8105,7 +8790,8 @@ class Client:
         Summary: 取消授权did查询加密数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CancelBusinessContractGrantdidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CancelBusinessContractGrantdidResponse(),
             await self.do_request_async('1.0', 'baas.business.contract.grantdid.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8144,7 +8830,8 @@ class Client:
         Summary: 取消授权给组织机构
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CancelBusinessContractGrantcorpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CancelBusinessContractGrantcorpResponse(),
             self.do_request('1.0', 'baas.business.contract.grantcorp.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8159,7 +8846,8 @@ class Client:
         Summary: 取消授权给组织机构
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CancelBusinessContractGrantcorpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CancelBusinessContractGrantcorpResponse(),
             await self.do_request_async('1.0', 'baas.business.contract.grantcorp.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8198,7 +8886,8 @@ class Client:
         Summary: 业务中台测试接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ImportPlatformTestregionTestfuncResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ImportPlatformTestregionTestfuncResponse(),
             self.do_request('1.0', 'baas.platform.testregion.testfunc.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8213,7 +8902,8 @@ class Client:
         Summary: 业务中台测试接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ImportPlatformTestregionTestfuncResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ImportPlatformTestregionTestfuncResponse(),
             await self.do_request_async('1.0', 'baas.platform.testregion.testfunc.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8252,7 +8942,8 @@ class Client:
         Summary: 存证创建账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreatePlatformDepositAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreatePlatformDepositAccountResponse(),
             self.do_request('1.0', 'baas.platform.deposit.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8267,7 +8958,8 @@ class Client:
         Summary: 存证创建账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreatePlatformDepositAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreatePlatformDepositAccountResponse(),
             await self.do_request_async('1.0', 'baas.platform.deposit.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8306,7 +8998,8 @@ class Client:
         Summary: 存证创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreatePlatformDepositDidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreatePlatformDepositDidResponse(),
             self.do_request('1.0', 'baas.platform.deposit.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8321,7 +9014,8 @@ class Client:
         Summary: 存证创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreatePlatformDepositDidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreatePlatformDepositDidResponse(),
             await self.do_request_async('1.0', 'baas.platform.deposit.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8360,7 +9054,8 @@ class Client:
         Summary: 普通数据存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SavePlatformDepositDepositResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SavePlatformDepositDepositResponse(),
             self.do_request('1.0', 'baas.platform.deposit.deposit.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8375,7 +9070,8 @@ class Client:
         Summary: 普通数据存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SavePlatformDepositDepositResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SavePlatformDepositDepositResponse(),
             await self.do_request_async('1.0', 'baas.platform.deposit.deposit.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8414,7 +9110,8 @@ class Client:
         Summary: 为企业创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreatePlatformDepositCorpdidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreatePlatformDepositCorpdidResponse(),
             self.do_request('1.0', 'baas.platform.deposit.corpdid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8429,7 +9126,8 @@ class Client:
         Summary: 为企业创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreatePlatformDepositCorpdidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreatePlatformDepositCorpdidResponse(),
             await self.do_request_async('1.0', 'baas.platform.deposit.corpdid.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8468,7 +9166,8 @@ class Client:
         Summary: 用户账号映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDigitalassetartAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDigitalassetartAccountResponse(),
             self.do_request('1.0', 'baas.digitalassetart.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8483,7 +9182,8 @@ class Client:
         Summary: 用户账号映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDigitalassetartAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDigitalassetartAccountResponse(),
             await self.do_request_async('1.0', 'baas.digitalassetart.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8522,7 +9222,8 @@ class Client:
         Summary: 批量账户映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateDigitalassetartAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateDigitalassetartAccountResponse(),
             self.do_request('1.0', 'baas.digitalassetart.account.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8537,7 +9238,8 @@ class Client:
         Summary: 批量账户映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateDigitalassetartAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateDigitalassetartAccountResponse(),
             await self.do_request_async('1.0', 'baas.digitalassetart.account.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8576,7 +9278,8 @@ class Client:
         Summary: 创建艺术品
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDigitalassetartArtCreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDigitalassetartArtCreateResponse(),
             self.do_request('1.0', 'baas.digitalassetart.art.create.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8591,7 +9294,8 @@ class Client:
         Summary: 创建艺术品
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDigitalassetartArtCreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDigitalassetartArtCreateResponse(),
             await self.do_request_async('1.0', 'baas.digitalassetart.art.create.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8630,7 +9334,8 @@ class Client:
         Summary: 发行艺术品
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SetDigitalassetartArtIssueResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SetDigitalassetartArtIssueResponse(),
             self.do_request('1.0', 'baas.digitalassetart.art.issue.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8645,7 +9350,8 @@ class Client:
         Summary: 发行艺术品
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SetDigitalassetartArtIssueResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SetDigitalassetartArtIssueResponse(),
             await self.do_request_async('1.0', 'baas.digitalassetart.art.issue.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8684,7 +9390,8 @@ class Client:
         Summary: 将该艺术品发布到交易所
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SetDigitalassetartArtIssuetoexchangeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SetDigitalassetartArtIssuetoexchangeResponse(),
             self.do_request('1.0', 'baas.digitalassetart.art.issuetoexchange.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8699,7 +9406,8 @@ class Client:
         Summary: 将该艺术品发布到交易所
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SetDigitalassetartArtIssuetoexchangeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SetDigitalassetartArtIssuetoexchangeResponse(),
             await self.do_request_async('1.0', 'baas.digitalassetart.art.issuetoexchange.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8738,7 +9446,8 @@ class Client:
         Summary: 艺术品本链交易
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SetDigitalassetartArtTradeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SetDigitalassetartArtTradeResponse(),
             self.do_request('1.0', 'baas.digitalassetart.art.trade.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8753,7 +9462,8 @@ class Client:
         Summary: 艺术品本链交易
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SetDigitalassetartArtTradeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SetDigitalassetartArtTradeResponse(),
             await self.do_request_async('1.0', 'baas.digitalassetart.art.trade.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8792,7 +9502,8 @@ class Client:
         Summary: 在交易所交易艺术品
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SetDigitalassetartArtTradeonexchangeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SetDigitalassetartArtTradeonexchangeResponse(),
             self.do_request('1.0', 'baas.digitalassetart.art.tradeonexchange.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8807,7 +9518,8 @@ class Client:
         Summary: 在交易所交易艺术品
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SetDigitalassetartArtTradeonexchangeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SetDigitalassetartArtTradeonexchangeResponse(),
             await self.do_request_async('1.0', 'baas.digitalassetart.art.tradeonexchange.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8846,7 +9558,8 @@ class Client:
         Summary: 冻结艺术品
         """
         UtilClient.validate_model(request)
-        return blockchain_models.FreezeDigitalassetartArtAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.FreezeDigitalassetartArtAccountResponse(),
             self.do_request('1.0', 'baas.digitalassetart.art.account.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8861,7 +9574,8 @@ class Client:
         Summary: 冻结艺术品
         """
         UtilClient.validate_model(request)
-        return blockchain_models.FreezeDigitalassetartArtAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.FreezeDigitalassetartArtAccountResponse(),
             await self.do_request_async('1.0', 'baas.digitalassetart.art.account.freeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8900,7 +9614,8 @@ class Client:
         Summary: 艺术品解冻
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UnfreezeDigitalassetartArtAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UnfreezeDigitalassetartArtAccountResponse(),
             self.do_request('1.0', 'baas.digitalassetart.art.account.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8915,7 +9630,8 @@ class Client:
         Summary: 艺术品解冻
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UnfreezeDigitalassetartArtAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UnfreezeDigitalassetartArtAccountResponse(),
             await self.do_request_async('1.0', 'baas.digitalassetart.art.account.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8954,7 +9670,8 @@ class Client:
         Summary: 取消在交易所发布艺术品
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SetDigitalassetartArtUnissuetoexchangeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SetDigitalassetartArtUnissuetoexchangeResponse(),
             self.do_request('1.0', 'baas.digitalassetart.art.unissuetoexchange.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -8969,7 +9686,8 @@ class Client:
         Summary: 取消在交易所发布艺术品
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SetDigitalassetartArtUnissuetoexchangeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SetDigitalassetartArtUnissuetoexchangeResponse(),
             await self.do_request_async('1.0', 'baas.digitalassetart.art.unissuetoexchange.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9008,7 +9726,8 @@ class Client:
         Summary: 查询艺术品信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDigitalassetartArtResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDigitalassetartArtResponse(),
             self.do_request('1.0', 'baas.digitalassetart.art.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9023,7 +9742,8 @@ class Client:
         Summary: 查询艺术品信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDigitalassetartArtResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDigitalassetartArtResponse(),
             await self.do_request_async('1.0', 'baas.digitalassetart.art.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9062,7 +9782,8 @@ class Client:
         Summary: 数字资产管理平台业务方账户映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDigitalassetExchangeAccountmapResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDigitalassetExchangeAccountmapResponse(),
             self.do_request('1.0', 'baas.digitalasset.exchange.accountmap.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9077,7 +9798,8 @@ class Client:
         Summary: 数字资产管理平台业务方账户映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDigitalassetExchangeAccountmapResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDigitalassetExchangeAccountmapResponse(),
             await self.do_request_async('1.0', 'baas.digitalasset.exchange.accountmap.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9116,7 +9838,8 @@ class Client:
         Summary: 数字资产管理平台用户账户批量映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateDigitalassetExchangeAccountmapResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateDigitalassetExchangeAccountmapResponse(),
             self.do_request('1.0', 'baas.digitalasset.exchange.accountmap.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9131,7 +9854,8 @@ class Client:
         Summary: 数字资产管理平台用户账户批量映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateDigitalassetExchangeAccountmapResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateDigitalassetExchangeAccountmapResponse(),
             await self.do_request_async('1.0', 'baas.digitalasset.exchange.accountmap.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9170,7 +9894,8 @@ class Client:
         Summary: 数字资产管理平台版通解限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDigitalassetExchangeUnfreezeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDigitalassetExchangeUnfreezeResponse(),
             self.do_request('1.0', 'baas.digitalasset.exchange.unfreeze.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9185,7 +9910,8 @@ class Client:
         Summary: 数字资产管理平台版通解限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDigitalassetExchangeUnfreezeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDigitalassetExchangeUnfreezeResponse(),
             await self.do_request_async('1.0', 'baas.digitalasset.exchange.unfreeze.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9236,7 +9962,8 @@ class Client:
         Summary: 数字资产管理平台资源管理
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDigitalassetExchangeLockpositionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDigitalassetExchangeLockpositionResponse(),
             self.do_request('1.0', 'baas.digitalasset.exchange.lockposition.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9255,7 +9982,8 @@ class Client:
         Summary: 数字资产管理平台资源管理
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDigitalassetExchangeLockpositionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDigitalassetExchangeLockpositionResponse(),
             await self.do_request_async('1.0', 'baas.digitalasset.exchange.lockposition.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9294,7 +10022,8 @@ class Client:
         Summary: 数字资产管理平台版通发行
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDigitalassetExchangeEpissueResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDigitalassetExchangeEpissueResponse(),
             self.do_request('1.0', 'baas.digitalasset.exchange.epissue.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9309,7 +10038,8 @@ class Client:
         Summary: 数字资产管理平台版通发行
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDigitalassetExchangeEpissueResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDigitalassetExchangeEpissueResponse(),
             await self.do_request_async('1.0', 'baas.digitalasset.exchange.epissue.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9348,7 +10078,8 @@ class Client:
         Summary: 数字资产管理平台版通存量发行
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDigitalassetExchangeEpstockissueResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDigitalassetExchangeEpstockissueResponse(),
             self.do_request('1.0', 'baas.digitalasset.exchange.epstockissue.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9363,7 +10094,8 @@ class Client:
         Summary: 数字资产管理平台版通存量发行
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDigitalassetExchangeEpstockissueResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDigitalassetExchangeEpstockissueResponse(),
             await self.do_request_async('1.0', 'baas.digitalasset.exchange.epstockissue.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9402,7 +10134,8 @@ class Client:
         Summary: 数字资产管理平台版通批发
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDigitalassetExchangeEpwholesaleResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDigitalassetExchangeEpwholesaleResponse(),
             self.do_request('1.0', 'baas.digitalasset.exchange.epwholesale.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9417,7 +10150,8 @@ class Client:
         Summary: 数字资产管理平台版通批发
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDigitalassetExchangeEpwholesaleResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDigitalassetExchangeEpwholesaleResponse(),
             await self.do_request_async('1.0', 'baas.digitalasset.exchange.epwholesale.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9456,7 +10190,8 @@ class Client:
         Summary: 数字资产管理平台版通信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDigitalassetExchangeEpinfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDigitalassetExchangeEpinfoResponse(),
             self.do_request('1.0', 'baas.digitalasset.exchange.epinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9471,7 +10206,8 @@ class Client:
         Summary: 数字资产管理平台版通信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDigitalassetExchangeEpinfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDigitalassetExchangeEpinfoResponse(),
             await self.do_request_async('1.0', 'baas.digitalasset.exchange.epinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9519,7 +10255,8 @@ class Client:
         Summary: 数字资产管理平台交易查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDigitalassetExchangeEptradeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDigitalassetExchangeEptradeResponse(),
             self.do_request('1.0', 'baas.digitalasset.exchange.eptrade.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9537,7 +10274,8 @@ class Client:
         Summary: 数字资产管理平台交易查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDigitalassetExchangeEptradeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDigitalassetExchangeEptradeResponse(),
             await self.do_request_async('1.0', 'baas.digitalasset.exchange.eptrade.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9576,7 +10314,8 @@ class Client:
         Summary: 数字资产管理平台账户信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDigitalassetExchangeEpaccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDigitalassetExchangeEpaccountResponse(),
             self.do_request('1.0', 'baas.digitalasset.exchange.epaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9591,7 +10330,8 @@ class Client:
         Summary: 数字资产管理平台账户信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDigitalassetExchangeEpaccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDigitalassetExchangeEpaccountResponse(),
             await self.do_request_async('1.0', 'baas.digitalasset.exchange.epaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9630,7 +10370,8 @@ class Client:
         Summary: 数字资产管理平台交易
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDigitalassetExchangeEptradeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDigitalassetExchangeEptradeResponse(),
             self.do_request('1.0', 'baas.digitalasset.exchange.eptrade.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9645,7 +10386,8 @@ class Client:
         Summary: 数字资产管理平台交易
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDigitalassetExchangeEptradeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDigitalassetExchangeEptradeResponse(),
             await self.do_request_async('1.0', 'baas.digitalasset.exchange.eptrade.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9684,7 +10426,8 @@ class Client:
         Summary: 数字资产管理平台版通回购
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDigitalassetExchangeEpbuybackResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDigitalassetExchangeEpbuybackResponse(),
             self.do_request('1.0', 'baas.digitalasset.exchange.epbuyback.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9699,7 +10442,8 @@ class Client:
         Summary: 数字资产管理平台版通回购
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDigitalassetExchangeEpbuybackResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDigitalassetExchangeEpbuybackResponse(),
             await self.do_request_async('1.0', 'baas.digitalasset.exchange.epbuyback.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9738,7 +10482,8 @@ class Client:
         Summary: 创建用户接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDistributionUserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDistributionUserResponse(),
             self.do_request('1.0', 'baas.distribution.user.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9753,7 +10498,8 @@ class Client:
         Summary: 创建用户接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDistributionUserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDistributionUserResponse(),
             await self.do_request_async('1.0', 'baas.distribution.user.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9792,7 +10538,8 @@ class Client:
         Summary: 用户下级分销关系查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionUserTeamResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionUserTeamResponse(),
             self.do_request('1.0', 'baas.distribution.user.team.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9807,7 +10554,8 @@ class Client:
         Summary: 用户下级分销关系查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionUserTeamResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionUserTeamResponse(),
             await self.do_request_async('1.0', 'baas.distribution.user.team.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9846,7 +10594,8 @@ class Client:
         Summary: 创建商户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDistributionShopResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDistributionShopResponse(),
             self.do_request('1.0', 'baas.distribution.shop.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9861,7 +10610,8 @@ class Client:
         Summary: 创建商户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDistributionShopResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDistributionShopResponse(),
             await self.do_request_async('1.0', 'baas.distribution.shop.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9900,7 +10650,8 @@ class Client:
         Summary: 用户之间分销关系建立
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDistributionUserRelationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDistributionUserRelationResponse(),
             self.do_request('1.0', 'baas.distribution.user.relation.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9915,7 +10666,8 @@ class Client:
         Summary: 用户之间分销关系建立
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDistributionUserRelationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDistributionUserRelationResponse(),
             await self.do_request_async('1.0', 'baas.distribution.user.relation.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9954,7 +10706,8 @@ class Client:
         Summary: 营销分销合约初始化
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDistributionContractResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDistributionContractResponse(),
             self.do_request('1.0', 'baas.distribution.contract.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -9969,7 +10722,8 @@ class Client:
         Summary: 营销分销合约初始化
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDistributionContractResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDistributionContractResponse(),
             await self.do_request_async('1.0', 'baas.distribution.contract.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10008,7 +10762,8 @@ class Client:
         Summary: 营销分销平台商品创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDistributionProductItemResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDistributionProductItemResponse(),
             self.do_request('1.0', 'baas.distribution.product.item.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10023,7 +10778,8 @@ class Client:
         Summary: 营销分销平台商品创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDistributionProductItemResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDistributionProductItemResponse(),
             await self.do_request_async('1.0', 'baas.distribution.product.item.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10062,7 +10818,8 @@ class Client:
         Summary: 营销分销平台商品查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionProductItemResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionProductItemResponse(),
             self.do_request('1.0', 'baas.distribution.product.item.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10077,7 +10834,8 @@ class Client:
         Summary: 营销分销平台商品查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionProductItemResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionProductItemResponse(),
             await self.do_request_async('1.0', 'baas.distribution.product.item.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10116,7 +10874,8 @@ class Client:
         Summary: 营销分销平台推广人钱包更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDistributionFundPromoterResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDistributionFundPromoterResponse(),
             self.do_request('1.0', 'baas.distribution.fund.promoter.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10131,7 +10890,8 @@ class Client:
         Summary: 营销分销平台推广人钱包更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDistributionFundPromoterResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDistributionFundPromoterResponse(),
             await self.do_request_async('1.0', 'baas.distribution.fund.promoter.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10170,7 +10930,8 @@ class Client:
         Summary: 营销分销平台商户账户更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDistributionFundShopResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDistributionFundShopResponse(),
             self.do_request('1.0', 'baas.distribution.fund.shop.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10185,7 +10946,8 @@ class Client:
         Summary: 营销分销平台商户账户更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDistributionFundShopResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDistributionFundShopResponse(),
             await self.do_request_async('1.0', 'baas.distribution.fund.shop.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10224,7 +10986,8 @@ class Client:
         Summary: 营销分销平台推广人账户查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionFundPromoterResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionFundPromoterResponse(),
             self.do_request('1.0', 'baas.distribution.fund.promoter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10239,7 +11002,8 @@ class Client:
         Summary: 营销分销平台推广人账户查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionFundPromoterResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionFundPromoterResponse(),
             await self.do_request_async('1.0', 'baas.distribution.fund.promoter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10278,7 +11042,8 @@ class Client:
         Summary: 营销分销平台商户账户查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionFundShopResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionFundShopResponse(),
             self.do_request('1.0', 'baas.distribution.fund.shop.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10293,7 +11058,8 @@ class Client:
         Summary: 营销分销平台商户账户查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionFundShopResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionFundShopResponse(),
             await self.do_request_async('1.0', 'baas.distribution.fund.shop.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10332,7 +11098,8 @@ class Client:
         Summary: 营销分销平台推广人账户流水查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionFundPromoterflowResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionFundPromoterflowResponse(),
             self.do_request('1.0', 'baas.distribution.fund.promoterflow.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10347,7 +11114,8 @@ class Client:
         Summary: 营销分销平台推广人账户流水查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionFundPromoterflowResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionFundPromoterflowResponse(),
             await self.do_request_async('1.0', 'baas.distribution.fund.promoterflow.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10386,7 +11154,8 @@ class Client:
         Summary: 营销分销平台推广订单创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDistributionOrderPromoterResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDistributionOrderPromoterResponse(),
             self.do_request('1.0', 'baas.distribution.order.promoter.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10401,7 +11170,8 @@ class Client:
         Summary: 营销分销平台推广订单创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDistributionOrderPromoterResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDistributionOrderPromoterResponse(),
             await self.do_request_async('1.0', 'baas.distribution.order.promoter.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10440,7 +11210,8 @@ class Client:
         Summary: 营销分销平台购买订单创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDistributionOrderTradeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDistributionOrderTradeResponse(),
             self.do_request('1.0', 'baas.distribution.order.trade.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10455,7 +11226,8 @@ class Client:
         Summary: 营销分销平台购买订单创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDistributionOrderTradeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDistributionOrderTradeResponse(),
             await self.do_request_async('1.0', 'baas.distribution.order.trade.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10494,7 +11266,8 @@ class Client:
         Summary: 营销分销平台推广订单查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionOrderPromoterResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionOrderPromoterResponse(),
             self.do_request('1.0', 'baas.distribution.order.promoter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10509,7 +11282,8 @@ class Client:
         Summary: 营销分销平台推广订单查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionOrderPromoterResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionOrderPromoterResponse(),
             await self.do_request_async('1.0', 'baas.distribution.order.promoter.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10548,7 +11322,8 @@ class Client:
         Summary: 营销分销平台订单返佣信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionOrderRakebackResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionOrderRakebackResponse(),
             self.do_request('1.0', 'baas.distribution.order.rakeback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10563,7 +11338,8 @@ class Client:
         Summary: 营销分销平台订单返佣信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionOrderRakebackResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionOrderRakebackResponse(),
             await self.do_request_async('1.0', 'baas.distribution.order.rakeback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10602,7 +11378,8 @@ class Client:
         Summary: 营销分销平台购买订单查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionOrderTradeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionOrderTradeResponse(),
             self.do_request('1.0', 'baas.distribution.order.trade.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10617,7 +11394,8 @@ class Client:
         Summary: 营销分销平台购买订单查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDistributionOrderTradeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDistributionOrderTradeResponse(),
             await self.do_request_async('1.0', 'baas.distribution.order.trade.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10656,7 +11434,8 @@ class Client:
         Summary: DIS 分布式数字身份申请
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceDisResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceDisResponse(),
             self.do_request('1.0', 'baas.logistic.finance.dis.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10671,7 +11450,8 @@ class Client:
         Summary: DIS 分布式数字身份申请
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceDisResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceDisResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.dis.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10710,7 +11490,8 @@ class Client:
         Summary: 查询 DIS 分布式数字身份列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListLogisticFinanceDisResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListLogisticFinanceDisResponse(),
             self.do_request('1.0', 'baas.logistic.finance.dis.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10725,7 +11506,8 @@ class Client:
         Summary: 查询 DIS 分布式数字身份列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListLogisticFinanceDisResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListLogisticFinanceDisResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.dis.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10764,7 +11546,8 @@ class Client:
         Summary: 颁发可验证声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceDisvcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceDisvcResponse(),
             self.do_request('1.0', 'baas.logistic.finance.disvc.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10779,7 +11562,8 @@ class Client:
         Summary: 颁发可验证声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceDisvcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceDisvcResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.disvc.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10818,7 +11602,8 @@ class Client:
         Summary: 查询颁发的可验证声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryLogisticFinanceDisvcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryLogisticFinanceDisvcResponse(),
             self.do_request('1.0', 'baas.logistic.finance.disvc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10833,7 +11618,8 @@ class Client:
         Summary: 查询颁发的可验证声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryLogisticFinanceDisvcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryLogisticFinanceDisvcResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.disvc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10872,7 +11658,8 @@ class Client:
         Summary: 物流金融平台用户账户映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceAccountResponse(),
             self.do_request('1.0', 'baas.logistic.finance.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10887,7 +11674,8 @@ class Client:
         Summary: 物流金融平台用户账户映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceAccountResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.account.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10926,7 +11714,8 @@ class Client:
         Summary: 物流金融平台账户批量映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateLogisticFinanceAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateLogisticFinanceAccountResponse(),
             self.do_request('1.0', 'baas.logistic.finance.account.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10941,7 +11730,8 @@ class Client:
         Summary: 物流金融平台账户批量映射
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateLogisticFinanceAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateLogisticFinanceAccountResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.account.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10980,7 +11770,8 @@ class Client:
         Summary: 物流金融平台物流运单创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceOrderResponse(),
             self.do_request('1.0', 'baas.logistic.finance.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -10995,7 +11786,8 @@ class Client:
         Summary: 物流金融平台物流运单创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceOrderResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11034,7 +11826,8 @@ class Client:
         Summary: 物流金融平台运单完成
         """
         UtilClient.validate_model(request)
-        return blockchain_models.FinishLogisticFinanceOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.FinishLogisticFinanceOrderResponse(),
             self.do_request('1.0', 'baas.logistic.finance.order.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11049,7 +11842,8 @@ class Client:
         Summary: 物流金融平台运单完成
         """
         UtilClient.validate_model(request)
-        return blockchain_models.FinishLogisticFinanceOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.FinishLogisticFinanceOrderResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.order.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11088,7 +11882,8 @@ class Client:
         Summary: 物流金融平台支付订单创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinancePayorderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinancePayorderResponse(),
             self.do_request('1.0', 'baas.logistic.finance.payorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11103,7 +11898,8 @@ class Client:
         Summary: 物流金融平台支付订单创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinancePayorderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinancePayorderResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.payorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11142,7 +11938,8 @@ class Client:
         Summary: 物流金融平台订单状态查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryLogisticFinanceOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryLogisticFinanceOrderResponse(),
             self.do_request('1.0', 'baas.logistic.finance.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11157,7 +11954,8 @@ class Client:
         Summary: 物流金融平台订单状态查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryLogisticFinanceOrderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryLogisticFinanceOrderResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11196,7 +11994,8 @@ class Client:
         Summary: 物流金融平台发票订单创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceBillorderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceBillorderResponse(),
             self.do_request('1.0', 'baas.logistic.finance.billorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11211,7 +12010,8 @@ class Client:
         Summary: 物流金融平台发票订单创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceBillorderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceBillorderResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.billorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11250,7 +12050,8 @@ class Client:
         Summary: 物流金融平台运单轨迹信息导入
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ImportLogisticFinanceLocationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ImportLogisticFinanceLocationResponse(),
             self.do_request('1.0', 'baas.logistic.finance.location.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11265,7 +12066,8 @@ class Client:
         Summary: 物流金融平台运单轨迹信息导入
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ImportLogisticFinanceLocationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ImportLogisticFinanceLocationResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.location.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11304,7 +12106,8 @@ class Client:
         Summary: 物流金融平台创建货主DIS
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceConsignorResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceConsignorResponse(),
             self.do_request('1.0', 'baas.logistic.finance.consignor.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11319,7 +12122,8 @@ class Client:
         Summary: 物流金融平台创建货主DIS
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceConsignorResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceConsignorResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.consignor.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11358,7 +12162,8 @@ class Client:
         Summary: 物流金融平台创建无车承运平台DIS
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinancePlatformResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinancePlatformResponse(),
             self.do_request('1.0', 'baas.logistic.finance.platform.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11373,7 +12178,8 @@ class Client:
         Summary: 物流金融平台创建无车承运平台DIS
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinancePlatformResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinancePlatformResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.platform.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11412,7 +12218,8 @@ class Client:
         Summary: 物流金融平台代理创建无车承运平台DIS
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogistFinanceAgentplatformResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogistFinanceAgentplatformResponse(),
             self.do_request('1.0', 'baas.logist.finance.agentplatform.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11427,7 +12234,8 @@ class Client:
         Summary: 物流金融平台代理创建无车承运平台DIS
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogistFinanceAgentplatformResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogistFinanceAgentplatformResponse(),
             await self.do_request_async('1.0', 'baas.logist.finance.agentplatform.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11466,7 +12274,8 @@ class Client:
         Summary: 物流金融平台创建司机DIS
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceDriverResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceDriverResponse(),
             self.do_request('1.0', 'baas.logistic.finance.driver.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11481,7 +12290,8 @@ class Client:
         Summary: 物流金融平台创建司机DIS
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceDriverResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceDriverResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.driver.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11520,7 +12330,8 @@ class Client:
         Summary: 物流金融平台创建货源订单
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceCargoorderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceCargoorderResponse(),
             self.do_request('1.0', 'baas.logistic.finance.cargoorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11535,7 +12346,8 @@ class Client:
         Summary: 物流金融平台创建货源订单
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceCargoorderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceCargoorderResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.cargoorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11574,7 +12386,8 @@ class Client:
         Summary: 物流金融平台货源支付订单创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceCargopayorderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceCargopayorderResponse(),
             self.do_request('1.0', 'baas.logistic.finance.cargopayorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11589,7 +12402,8 @@ class Client:
         Summary: 物流金融平台货源支付订单创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateLogisticFinanceCargopayorderResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateLogisticFinanceCargopayorderResponse(),
             await self.do_request_async('1.0', 'baas.logistic.finance.cargopayorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11628,7 +12442,8 @@ class Client:
         Summary: 创建蚂蚁区块链实例
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateOcpProductResponse(),
             self.do_request('1.0', 'baas.ocp.product.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11643,7 +12458,8 @@ class Client:
         Summary: 创建蚂蚁区块链实例
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateOcpProductResponse(),
             await self.do_request_async('1.0', 'baas.ocp.product.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11682,7 +12498,8 @@ class Client:
         Summary: 对已有的实例进行规格变更操作
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateOcpProductResponse(),
             self.do_request('1.0', 'baas.ocp.product.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11697,7 +12514,8 @@ class Client:
         Summary: 对已有的实例进行规格变更操作
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateOcpProductResponse(),
             await self.do_request_async('1.0', 'baas.ocp.product.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11736,7 +12554,8 @@ class Client:
         Summary: 释放资源
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CloseOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CloseOcpProductResponse(),
             self.do_request('1.0', 'baas.ocp.product.close', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11751,7 +12570,8 @@ class Client:
         Summary: 释放资源
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CloseOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CloseOcpProductResponse(),
             await self.do_request_async('1.0', 'baas.ocp.product.close', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11790,7 +12610,8 @@ class Client:
         Summary: 恢复资源
         """
         UtilClient.validate_model(request)
-        return blockchain_models.EnableOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.EnableOcpProductResponse(),
             self.do_request('1.0', 'baas.ocp.product.enable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11805,7 +12626,8 @@ class Client:
         Summary: 恢复资源
         """
         UtilClient.validate_model(request)
-        return blockchain_models.EnableOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.EnableOcpProductResponse(),
             await self.do_request_async('1.0', 'baas.ocp.product.enable', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11844,7 +12666,8 @@ class Client:
         Summary: 停止服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StopOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StopOcpProductResponse(),
             self.do_request('1.0', 'baas.ocp.product.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11859,7 +12682,8 @@ class Client:
         Summary: 停止服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StopOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StopOcpProductResponse(),
             await self.do_request_async('1.0', 'baas.ocp.product.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11898,7 +12722,8 @@ class Client:
         Summary: 加载售卖页自定义参数
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitOcpProductResponse(),
             self.do_request('1.0', 'baas.ocp.product.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11913,7 +12738,8 @@ class Client:
         Summary: 加载售卖页自定义参数
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitOcpProductResponse(),
             await self.do_request_async('1.0', 'baas.ocp.product.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11952,7 +12778,8 @@ class Client:
         Summary: 查询商业化产品的状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryOcpProductResponse(),
             self.do_request('1.0', 'baas.ocp.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -11967,7 +12794,8 @@ class Client:
         Summary: 查询商业化产品的状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryOcpProductResponse(),
             await self.do_request_async('1.0', 'baas.ocp.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12006,7 +12834,8 @@ class Client:
         Summary: 开通商业化服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.OpenOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.OpenOcpProductResponse(),
             self.do_request('1.0', 'baas.ocp.product.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12021,7 +12850,8 @@ class Client:
         Summary: 开通商业化服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.OpenOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.OpenOcpProductResponse(),
             await self.do_request_async('1.0', 'baas.ocp.product.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12060,7 +12890,8 @@ class Client:
         Summary: 创建商业化产品实例
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateOcpProductsResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateOcpProductsResponse(),
             self.do_request('1.0', 'baas.ocp.products.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12075,7 +12906,8 @@ class Client:
         Summary: 创建商业化产品实例
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateOcpProductsResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateOcpProductsResponse(),
             await self.do_request_async('1.0', 'baas.ocp.products.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12114,7 +12946,8 @@ class Client:
         Summary: 主动通知ocp，产品状态变更
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CallbackOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CallbackOcpProductResponse(),
             self.do_request('1.0', 'baas.ocp.product.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12129,7 +12962,8 @@ class Client:
         Summary: 主动通知ocp，产品状态变更
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CallbackOcpProductResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CallbackOcpProductResponse(),
             await self.do_request_async('1.0', 'baas.ocp.product.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12168,7 +13002,8 @@ class Client:
         Summary: 检查任务状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckOcpTaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckOcpTaskResponse(),
             self.do_request('1.0', 'baas.ocp.task.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12183,7 +13018,8 @@ class Client:
         Summary: 检查任务状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckOcpTaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckOcpTaskResponse(),
             await self.do_request_async('1.0', 'baas.ocp.task.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12222,7 +13058,8 @@ class Client:
         Summary: 任务下发
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecOcpTaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecOcpTaskResponse(),
             self.do_request('1.0', 'baas.ocp.task.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12237,7 +13074,8 @@ class Client:
         Summary: 任务下发
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecOcpTaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecOcpTaskResponse(),
             await self.do_request_async('1.0', 'baas.ocp.task.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12276,7 +13114,8 @@ class Client:
         Summary: 区块链创建（内部）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBlockchainInstanceInnerResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBlockchainInstanceInnerResponse(),
             self.do_request('1.0', 'baas.blockchain.instance.inner.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12291,7 +13130,8 @@ class Client:
         Summary: 区块链创建（内部）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateBlockchainInstanceInnerResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateBlockchainInstanceInnerResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.instance.inner.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12330,7 +13170,8 @@ class Client:
         Summary: 蚂蚁区块链通过实例查询链id
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBlockchainInstanceBizidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBlockchainInstanceBizidResponse(),
             self.do_request('1.0', 'baas.blockchain.instance.bizid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12345,7 +13186,8 @@ class Client:
         Summary: 蚂蚁区块链通过实例查询链id
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBlockchainInstanceBizidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBlockchainInstanceBizidResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.instance.bizid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12384,7 +13226,8 @@ class Client:
         Summary: 创建联盟接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateApiConsortiumResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateApiConsortiumResponse(),
             self.do_request('1.0', 'baas.api.consortium.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12399,7 +13242,8 @@ class Client:
         Summary: 创建联盟接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateApiConsortiumResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateApiConsortiumResponse(),
             await self.do_request_async('1.0', 'baas.api.consortium.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12438,7 +13282,8 @@ class Client:
         Summary: 查询链的小程序浏览器授权状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryApiMiniappbrowserAuthtypeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryApiMiniappbrowserAuthtypeResponse(),
             self.do_request('1.0', 'baas.api.miniappbrowser.authtype.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12453,7 +13298,8 @@ class Client:
         Summary: 查询链的小程序浏览器授权状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryApiMiniappbrowserAuthtypeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryApiMiniappbrowserAuthtypeResponse(),
             await self.do_request_async('1.0', 'baas.api.miniappbrowser.authtype.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12492,7 +13338,8 @@ class Client:
         Summary: 查询某链当前块高
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryStatisticsPortHeightResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryStatisticsPortHeightResponse(),
             self.do_request('1.0', 'baas.statistics.port.height.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12507,7 +13354,8 @@ class Client:
         Summary: 查询某链当前块高
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryStatisticsPortHeightResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryStatisticsPortHeightResponse(),
             await self.do_request_async('1.0', 'baas.statistics.port.height.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12546,7 +13394,8 @@ class Client:
         Summary: 查询授权的链id列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryStatisticPortBizidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryStatisticPortBizidResponse(),
             self.do_request('1.0', 'baas.statistic.port.bizid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12561,7 +13410,8 @@ class Client:
         Summary: 查询授权的链id列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryStatisticPortBizidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryStatisticPortBizidResponse(),
             await self.do_request_async('1.0', 'baas.statistic.port.bizid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12600,7 +13450,8 @@ class Client:
         Summary: 添加存量采集任务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddStatisticsPortTaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddStatisticsPortTaskResponse(),
             self.do_request('1.0', 'baas.statistics.port.task.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12615,7 +13466,8 @@ class Client:
         Summary: 添加存量采集任务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddStatisticsPortTaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddStatisticsPortTaskResponse(),
             await self.do_request_async('1.0', 'baas.statistics.port.task.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12654,7 +13506,8 @@ class Client:
         Summary: 查询交易列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryApiDwhTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryApiDwhTransactionResponse(),
             self.do_request('1.0', 'baas.api.dwh.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12669,7 +13522,8 @@ class Client:
         Summary: 查询交易列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryApiDwhTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryApiDwhTransactionResponse(),
             await self.do_request_async('1.0', 'baas.api.dwh.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12708,7 +13562,8 @@ class Client:
         Summary: 查询账户列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryApiDwhAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryApiDwhAccountResponse(),
             self.do_request('1.0', 'baas.api.dwh.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12723,7 +13578,8 @@ class Client:
         Summary: 查询账户列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryApiDwhAccountResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryApiDwhAccountResponse(),
             await self.do_request_async('1.0', 'baas.api.dwh.account.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12762,7 +13618,8 @@ class Client:
         Summary: 查询合约
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryApiDwhContractResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryApiDwhContractResponse(),
             self.do_request('1.0', 'baas.api.dwh.contract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12777,7 +13634,8 @@ class Client:
         Summary: 查询合约
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryApiDwhContractResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryApiDwhContractResponse(),
             await self.do_request_async('1.0', 'baas.api.dwh.contract.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12816,7 +13674,8 @@ class Client:
         Summary: 查询链上交易
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryApiDwhbTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryApiDwhbTransactionResponse(),
             self.do_request('1.0', 'baas.api.dwhb.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12831,7 +13690,8 @@ class Client:
         Summary: 查询链上交易
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryApiDwhbTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryApiDwhbTransactionResponse(),
             await self.do_request_async('1.0', 'baas.api.dwhb.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12870,7 +13730,8 @@ class Client:
         Summary: 合约部署记录
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateContractRecordResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateContractRecordResponse(),
             self.do_request('1.0', 'baas.contract.record.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12885,7 +13746,8 @@ class Client:
         Summary: 合约部署记录
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateContractRecordResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateContractRecordResponse(),
             await self.do_request_async('1.0', 'baas.contract.record.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12924,7 +13786,8 @@ class Client:
         Summary: 部署记录详情
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetContractRecordResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetContractRecordResponse(),
             self.do_request('1.0', 'baas.contract.record.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12939,7 +13802,8 @@ class Client:
         Summary: 部署记录详情
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetContractRecordResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetContractRecordResponse(),
             await self.do_request_async('1.0', 'baas.contract.record.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12978,7 +13842,8 @@ class Client:
         Summary: 合约升级更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateContractRecordResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateContractRecordResponse(),
             self.do_request('1.0', 'baas.contract.record.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -12993,7 +13858,8 @@ class Client:
         Summary: 合约升级更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateContractRecordResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateContractRecordResponse(),
             await self.do_request_async('1.0', 'baas.contract.record.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13032,7 +13898,8 @@ class Client:
         Summary: 发布合约服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.OnlineContractRecordResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.OnlineContractRecordResponse(),
             self.do_request('1.0', 'baas.contract.record.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13047,7 +13914,8 @@ class Client:
         Summary: 发布合约服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.OnlineContractRecordResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.OnlineContractRecordResponse(),
             await self.do_request_async('1.0', 'baas.contract.record.online', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13086,7 +13954,8 @@ class Client:
         Summary: 合约服务下线
         """
         UtilClient.validate_model(request)
-        return blockchain_models.OfflineContractRecordResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.OfflineContractRecordResponse(),
             self.do_request('1.0', 'baas.contract.record.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13101,7 +13970,8 @@ class Client:
         Summary: 合约服务下线
         """
         UtilClient.validate_model(request)
-        return blockchain_models.OfflineContractRecordResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.OfflineContractRecordResponse(),
             await self.do_request_async('1.0', 'baas.contract.record.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13140,7 +14010,8 @@ class Client:
         Summary: 查询合约部署记录
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryContractRecordResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryContractRecordResponse(),
             self.do_request('1.0', 'baas.contract.record.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13155,7 +14026,8 @@ class Client:
         Summary: 查询合约部署记录
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryContractRecordResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryContractRecordResponse(),
             await self.do_request_async('1.0', 'baas.contract.record.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13194,7 +14066,8 @@ class Client:
         Summary: 合约代理调用
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecContractDelegateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecContractDelegateResponse(),
             self.do_request('1.0', 'baas.contract.delegate.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13209,7 +14082,8 @@ class Client:
         Summary: 合约代理调用
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecContractDelegateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecContractDelegateResponse(),
             await self.do_request_async('1.0', 'baas.contract.delegate.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13248,7 +14122,8 @@ class Client:
         Summary: 调用合约服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecContractServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecContractServiceResponse(),
             self.do_request('1.0', 'baas.contract.service.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13263,7 +14138,8 @@ class Client:
         Summary: 调用合约服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecContractServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecContractServiceResponse(),
             await self.do_request_async('1.0', 'baas.contract.service.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13302,7 +14178,8 @@ class Client:
         Summary: 获取合约链配置
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetContractConfigChainResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetContractConfigChainResponse(),
             self.do_request('1.0', 'baas.contract.config.chain.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13317,7 +14194,8 @@ class Client:
         Summary: 获取合约链配置
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetContractConfigChainResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetContractConfigChainResponse(),
             await self.do_request_async('1.0', 'baas.contract.config.chain.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13356,7 +14234,8 @@ class Client:
         Summary: 获取oss的可用url上传文件
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetContractAbiUrlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetContractAbiUrlResponse(),
             self.do_request('1.0', 'baas.contract.abi.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13371,7 +14250,8 @@ class Client:
         Summary: 获取oss的可用url上传文件
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetContractAbiUrlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetContractAbiUrlResponse(),
             await self.do_request_async('1.0', 'baas.contract.abi.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13410,7 +14290,8 @@ class Client:
         Summary: 获取oss的可用url上传文件
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetContractBytecodeUrlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetContractBytecodeUrlResponse(),
             self.do_request('1.0', 'baas.contract.bytecode.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13425,8 +14306,155 @@ class Client:
         Summary: 获取oss的可用url上传文件
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetContractBytecodeUrlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetContractBytecodeUrlResponse(),
             await self.do_request_async('1.0', 'baas.contract.bytecode.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_data_file_batchquery(
+        self,
+        request: blockchain_models.UploadDataFileBatchqueryRequest,
+    ) -> blockchain_models.UploadDataFileBatchqueryResponse:
+        """
+        Description: 上传批量查询数据文件
+        Summary: 上传批量查询数据文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_data_file_batchquery_ex(request, headers, runtime)
+
+    async def upload_data_file_batchquery_async(
+        self,
+        request: blockchain_models.UploadDataFileBatchqueryRequest,
+    ) -> blockchain_models.UploadDataFileBatchqueryResponse:
+        """
+        Description: 上传批量查询数据文件
+        Summary: 上传批量查询数据文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_data_file_batchquery_ex_async(request, headers, runtime)
+
+    def upload_data_file_batchquery_ex(
+        self,
+        request: blockchain_models.UploadDataFileBatchqueryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UploadDataFileBatchqueryResponse:
+        """
+        Description: 上传批量查询数据文件
+        Summary: 上传批量查询数据文件
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = blockchain_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='baas.data.file.batchquery.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_data_file_batchquery_response = blockchain_models.UploadDataFileBatchqueryResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_data_file_batchquery_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.UploadDataFileBatchqueryResponse(),
+            self.do_request('1.0', 'baas.data.file.batchquery.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_data_file_batchquery_ex_async(
+        self,
+        request: blockchain_models.UploadDataFileBatchqueryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UploadDataFileBatchqueryResponse:
+        """
+        Description: 上传批量查询数据文件
+        Summary: 上传批量查询数据文件
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = blockchain_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='baas.data.file.batchquery.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_data_file_batchquery_response = blockchain_models.UploadDataFileBatchqueryResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_data_file_batchquery_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.UploadDataFileBatchqueryResponse(),
+            await self.do_request_async('1.0', 'baas.data.file.batchquery.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_data_result_batchquery(
+        self,
+        request: blockchain_models.QueryDataResultBatchqueryRequest,
+    ) -> blockchain_models.QueryDataResultBatchqueryResponse:
+        """
+        Description: 获取查询数据集任务结果
+        Summary: 获取查询数据集任务结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_data_result_batchquery_ex(request, headers, runtime)
+
+    async def query_data_result_batchquery_async(
+        self,
+        request: blockchain_models.QueryDataResultBatchqueryRequest,
+    ) -> blockchain_models.QueryDataResultBatchqueryResponse:
+        """
+        Description: 获取查询数据集任务结果
+        Summary: 获取查询数据集任务结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_data_result_batchquery_ex_async(request, headers, runtime)
+
+    def query_data_result_batchquery_ex(
+        self,
+        request: blockchain_models.QueryDataResultBatchqueryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryDataResultBatchqueryResponse:
+        """
+        Description: 获取查询数据集任务结果
+        Summary: 获取查询数据集任务结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryDataResultBatchqueryResponse(),
+            self.do_request('1.0', 'baas.data.result.batchquery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_data_result_batchquery_ex_async(
+        self,
+        request: blockchain_models.QueryDataResultBatchqueryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryDataResultBatchqueryResponse:
+        """
+        Description: 获取查询数据集任务结果
+        Summary: 获取查询数据集任务结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryDataResultBatchqueryResponse(),
+            await self.do_request_async('1.0', 'baas.data.result.batchquery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_dataauthorization_participant(
@@ -13464,7 +14492,8 @@ class Client:
         Summary: 数据授权服务创建参与方
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationParticipantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationParticipantResponse(),
             self.do_request('1.0', 'baas.dataauthorization.participant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13479,7 +14508,8 @@ class Client:
         Summary: 数据授权服务创建参与方
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationParticipantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationParticipantResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.participant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13518,7 +14548,8 @@ class Client:
         Summary: 数据授权服务删除参与方
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteDataauthorizationParticipantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteDataauthorizationParticipantResponse(),
             self.do_request('1.0', 'baas.dataauthorization.participant.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13533,7 +14564,8 @@ class Client:
         Summary: 数据授权服务删除参与方
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteDataauthorizationParticipantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteDataauthorizationParticipantResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.participant.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13572,7 +14604,8 @@ class Client:
         Summary: 数据授权服务修改用户信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDataauthorizationParticipantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDataauthorizationParticipantResponse(),
             self.do_request('1.0', 'baas.dataauthorization.participant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13587,7 +14620,8 @@ class Client:
         Summary: 数据授权服务修改用户信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDataauthorizationParticipantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDataauthorizationParticipantResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.participant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13626,7 +14660,8 @@ class Client:
         Summary: 数据授权服务查询参与方信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDataauthorizationParticipantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDataauthorizationParticipantResponse(),
             self.do_request('1.0', 'baas.dataauthorization.participant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13641,7 +14676,8 @@ class Client:
         Summary: 数据授权服务查询参与方信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDataauthorizationParticipantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDataauthorizationParticipantResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.participant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13680,7 +14716,8 @@ class Client:
         Summary: 数据授权服务根据角色获取用户列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationParticipantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationParticipantResponse(),
             self.do_request('1.0', 'baas.dataauthorization.participant.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13695,7 +14732,8 @@ class Client:
         Summary: 数据授权服务根据角色获取用户列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationParticipantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationParticipantResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.participant.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13734,7 +14772,8 @@ class Client:
         Summary: 数据授权服务创建数据目录
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationDataEntityResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationDataEntityResponse(),
             self.do_request('1.0', 'baas.dataauthorization.data.entity.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13749,7 +14788,8 @@ class Client:
         Summary: 数据授权服务创建数据目录
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationDataEntityResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationDataEntityResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.data.entity.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13788,7 +14828,8 @@ class Client:
         Summary: 数据授权服务查询数据目录
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDataauthorizationDataEntityResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDataauthorizationDataEntityResponse(),
             self.do_request('1.0', 'baas.dataauthorization.data.entity.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13803,7 +14844,8 @@ class Client:
         Summary: 数据授权服务查询数据目录
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDataauthorizationDataEntityResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDataauthorizationDataEntityResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.data.entity.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13842,7 +14884,8 @@ class Client:
         Summary: 数据授权服务公钥矩阵更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDataauthorizationPublicKeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDataauthorizationPublicKeyResponse(),
             self.do_request('1.0', 'baas.dataauthorization.public.key.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13857,7 +14900,8 @@ class Client:
         Summary: 数据授权服务公钥矩阵更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDataauthorizationPublicKeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDataauthorizationPublicKeyResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.public.key.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13896,7 +14940,8 @@ class Client:
         Summary: 数据授权服务公钥矩阵查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationPublicKeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationPublicKeyResponse(),
             self.do_request('1.0', 'baas.dataauthorization.public.key.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13911,7 +14956,8 @@ class Client:
         Summary: 数据授权服务公钥矩阵查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationPublicKeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationPublicKeyResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.public.key.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13950,7 +14996,8 @@ class Client:
         Summary: 数据授权服务开通服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.OpenDataauthorizationAuthorizationServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.OpenDataauthorizationAuthorizationServiceResponse(),
             self.do_request('1.0', 'baas.dataauthorization.authorization.service.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -13965,7 +15012,8 @@ class Client:
         Summary: 数据授权服务开通服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.OpenDataauthorizationAuthorizationServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.OpenDataauthorizationAuthorizationServiceResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.authorization.service.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14004,7 +15052,8 @@ class Client:
         Summary: 数据授权服务关闭租户服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CloseDataauthorizationAuthorizationServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CloseDataauthorizationAuthorizationServiceResponse(),
             self.do_request('1.0', 'baas.dataauthorization.authorization.service.close', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14019,7 +15068,8 @@ class Client:
         Summary: 数据授权服务关闭租户服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CloseDataauthorizationAuthorizationServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CloseDataauthorizationAuthorizationServiceResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.authorization.service.close', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14058,7 +15108,8 @@ class Client:
         Summary: 数据授权服务申请权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyDataauthorizationAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyDataauthorizationAuthorizationResponse(),
             self.do_request('1.0', 'baas.dataauthorization.authorization.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14073,7 +15124,8 @@ class Client:
         Summary: 数据授权服务申请权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyDataauthorizationAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyDataauthorizationAuthorizationResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.authorization.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14112,7 +15164,8 @@ class Client:
         Summary: 数据授权服务流程步骤处理
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecDataauthorizationProcessResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecDataauthorizationProcessResponse(),
             self.do_request('1.0', 'baas.dataauthorization.process.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14127,7 +15180,8 @@ class Client:
         Summary: 数据授权服务流程步骤处理
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecDataauthorizationProcessResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecDataauthorizationProcessResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.process.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14166,7 +15220,8 @@ class Client:
         Summary: 数据授权服务取消授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CancelDataauthorizationAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CancelDataauthorizationAuthorizationResponse(),
             self.do_request('1.0', 'baas.dataauthorization.authorization.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14181,7 +15236,8 @@ class Client:
         Summary: 数据授权服务取消授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CancelDataauthorizationAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CancelDataauthorizationAuthorizationResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.authorization.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14220,7 +15276,8 @@ class Client:
         Summary: 数据授权服务权限校验
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckDataauthorizationAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckDataauthorizationAuthorizationResponse(),
             self.do_request('1.0', 'baas.dataauthorization.authorization.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14235,7 +15292,8 @@ class Client:
         Summary: 数据授权服务权限校验
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckDataauthorizationAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckDataauthorizationAuthorizationResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.authorization.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14274,7 +15332,8 @@ class Client:
         Summary: 数据授权服务流程信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDataauthorizationProcessResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDataauthorizationProcessResponse(),
             self.do_request('1.0', 'baas.dataauthorization.process.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14289,7 +15348,8 @@ class Client:
         Summary: 数据授权服务流程信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDataauthorizationProcessResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDataauthorizationProcessResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.process.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14328,7 +15388,8 @@ class Client:
         Summary: 数据授权服务存证数据上链
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SendDataauthorizationDepositDataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SendDataauthorizationDepositDataResponse(),
             self.do_request('1.0', 'baas.dataauthorization.deposit.data.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14343,7 +15404,8 @@ class Client:
         Summary: 数据授权服务存证数据上链
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SendDataauthorizationDepositDataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SendDataauthorizationDepositDataResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.deposit.data.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14382,7 +15444,8 @@ class Client:
         Summary: 数据授权服务查询存证数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDataauthorizationDepositDataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDataauthorizationDepositDataResponse(),
             self.do_request('1.0', 'baas.dataauthorization.deposit.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14397,7 +15460,8 @@ class Client:
         Summary: 数据授权服务查询存证数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDataauthorizationDepositDataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDataauthorizationDepositDataResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.deposit.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14436,7 +15500,8 @@ class Client:
         Summary: 数据授权服务恢复权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ResumeDataauthorizationAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ResumeDataauthorizationAuthorizationResponse(),
             self.do_request('1.0', 'baas.dataauthorization.authorization.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14451,7 +15516,8 @@ class Client:
         Summary: 数据授权服务恢复权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ResumeDataauthorizationAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ResumeDataauthorizationAuthorizationResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.authorization.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14490,7 +15556,8 @@ class Client:
         Summary: 数据授权服务更新数据信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDataauthorizationDataEntityResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDataauthorizationDataEntityResponse(),
             self.do_request('1.0', 'baas.dataauthorization.data.entity.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14505,7 +15572,8 @@ class Client:
         Summary: 数据授权服务更新数据信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDataauthorizationDataEntityResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDataauthorizationDataEntityResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.data.entity.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14544,7 +15612,8 @@ class Client:
         Summary: 数据授权服务删除数据对象
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteDataauthorizationDataEntityResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteDataauthorizationDataEntityResponse(),
             self.do_request('1.0', 'baas.dataauthorization.data.entity.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14559,7 +15628,8 @@ class Client:
         Summary: 数据授权服务删除数据对象
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteDataauthorizationDataEntityResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteDataauthorizationDataEntityResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.data.entity.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14598,7 +15668,8 @@ class Client:
         Summary: 数据授权服务创建自定义ID用户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationCustomParticipantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationCustomParticipantResponse(),
             self.do_request('1.0', 'baas.dataauthorization.custom.participant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14613,7 +15684,8 @@ class Client:
         Summary: 数据授权服务创建自定义ID用户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationCustomParticipantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationCustomParticipantResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.custom.participant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14652,7 +15724,8 @@ class Client:
         Summary: 数据授权服务创建自定义ID数据对象
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationCustomDataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationCustomDataResponse(),
             self.do_request('1.0', 'baas.dataauthorization.custom.data.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14667,7 +15740,8 @@ class Client:
         Summary: 数据授权服务创建自定义ID数据对象
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationCustomDataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationCustomDataResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.custom.data.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14706,7 +15780,8 @@ class Client:
         Summary: 数据授权服务申请权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyDataauthorizationAuthorizationWithsignatureResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyDataauthorizationAuthorizationWithsignatureResponse(),
             self.do_request('1.0', 'baas.dataauthorization.authorization.withsignature.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14721,7 +15796,8 @@ class Client:
         Summary: 数据授权服务申请权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyDataauthorizationAuthorizationWithsignatureResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyDataauthorizationAuthorizationWithsignatureResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.authorization.withsignature.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14760,7 +15836,8 @@ class Client:
         Summary: 数据授权服务流程步骤处理
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecDataauthorizationProcessWithsignatureResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecDataauthorizationProcessWithsignatureResponse(),
             self.do_request('1.0', 'baas.dataauthorization.process.withsignature.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14775,7 +15852,8 @@ class Client:
         Summary: 数据授权服务流程步骤处理
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecDataauthorizationProcessWithsignatureResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecDataauthorizationProcessWithsignatureResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.process.withsignature.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14814,7 +15892,8 @@ class Client:
         Summary: 创建数据模型
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationDataModelResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationDataModelResponse(),
             self.do_request('1.0', 'baas.dataauthorization.data.model.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14829,7 +15908,8 @@ class Client:
         Summary: 创建数据模型
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationDataModelResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationDataModelResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.data.model.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14868,7 +15948,8 @@ class Client:
         Summary: 数据模型修改
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDataauthorizationDataModelResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDataauthorizationDataModelResponse(),
             self.do_request('1.0', 'baas.dataauthorization.data.model.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14883,7 +15964,8 @@ class Client:
         Summary: 数据模型修改
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDataauthorizationDataModelResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDataauthorizationDataModelResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.data.model.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14922,7 +16004,8 @@ class Client:
         Summary: 删除数据模型
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteDataauthorizationDataModelResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteDataauthorizationDataModelResponse(),
             self.do_request('1.0', 'baas.dataauthorization.data.model.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14937,7 +16020,8 @@ class Client:
         Summary: 删除数据模型
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteDataauthorizationDataModelResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteDataauthorizationDataModelResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.data.model.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14976,7 +16060,8 @@ class Client:
         Summary: 分页查询参与方列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationParticipantPageResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationParticipantPageResponse(),
             self.do_request('1.0', 'baas.dataauthorization.participant.page.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -14991,7 +16076,8 @@ class Client:
         Summary: 分页查询参与方列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationParticipantPageResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationParticipantPageResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.participant.page.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15030,7 +16116,8 @@ class Client:
         Summary: 查询数据模型
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDataauthorizationDataModelResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDataauthorizationDataModelResponse(),
             self.do_request('1.0', 'baas.dataauthorization.data.model.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15045,7 +16132,8 @@ class Client:
         Summary: 查询数据模型
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDataauthorizationDataModelResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDataauthorizationDataModelResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.data.model.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15084,7 +16172,8 @@ class Client:
         Summary: 数据模型分页查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationDatamodelPageResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationDatamodelPageResponse(),
             self.do_request('1.0', 'baas.dataauthorization.datamodel.page.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15099,7 +16188,8 @@ class Client:
         Summary: 数据模型分页查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationDatamodelPageResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationDatamodelPageResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.datamodel.page.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15138,7 +16228,8 @@ class Client:
         Summary: 查询可注册的数据模型列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationAvailableDatamodelResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationAvailableDatamodelResponse(),
             self.do_request('1.0', 'baas.dataauthorization.available.datamodel.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15153,7 +16244,8 @@ class Client:
         Summary: 查询可注册的数据模型列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationAvailableDatamodelResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationAvailableDatamodelResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.available.datamodel.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15192,7 +16284,8 @@ class Client:
         Summary: 数据注册情况查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationDataentityPageResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationDataentityPageResponse(),
             self.do_request('1.0', 'baas.dataauthorization.dataentity.page.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15207,7 +16300,8 @@ class Client:
         Summary: 数据注册情况查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationDataentityPageResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationDataentityPageResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.dataentity.page.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15246,7 +16340,8 @@ class Client:
         Summary: 直接授权接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationDirectAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationDirectAuthorizationResponse(),
             self.do_request('1.0', 'baas.dataauthorization.direct.authorization.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15261,7 +16356,8 @@ class Client:
         Summary: 直接授权接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationDirectAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationDirectAuthorizationResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.direct.authorization.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15300,7 +16396,8 @@ class Client:
         Summary: 授权列表分页查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationAuthorizationPageResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationAuthorizationPageResponse(),
             self.do_request('1.0', 'baas.dataauthorization.authorization.page.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15315,7 +16412,8 @@ class Client:
         Summary: 授权列表分页查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationAuthorizationPageResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationAuthorizationPageResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.authorization.page.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15354,7 +16452,8 @@ class Client:
         Summary: 查询已授权的参与方列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationAuthparticipantPageResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationAuthparticipantPageResponse(),
             self.do_request('1.0', 'baas.dataauthorization.authparticipant.page.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15369,7 +16468,8 @@ class Client:
         Summary: 查询已授权的参与方列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationAuthparticipantPageResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationAuthparticipantPageResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.authparticipant.page.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15408,7 +16508,8 @@ class Client:
         Summary: 创建数据资产
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationDataAssertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationDataAssertResponse(),
             self.do_request('1.0', 'baas.dataauthorization.data.assert.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15423,7 +16524,8 @@ class Client:
         Summary: 创建数据资产
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationDataAssertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationDataAssertResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.data.assert.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15462,7 +16564,8 @@ class Client:
         Summary: 数据资产更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDataauthorizationDataAssertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDataauthorizationDataAssertResponse(),
             self.do_request('1.0', 'baas.dataauthorization.data.assert.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15477,7 +16580,8 @@ class Client:
         Summary: 数据资产更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDataauthorizationDataAssertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDataauthorizationDataAssertResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.data.assert.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15516,7 +16620,8 @@ class Client:
         Summary: 数据资产删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteDataauthorizationDataAssertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteDataauthorizationDataAssertResponse(),
             self.do_request('1.0', 'baas.dataauthorization.data.assert.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15531,7 +16636,8 @@ class Client:
         Summary: 数据资产删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteDataauthorizationDataAssertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteDataauthorizationDataAssertResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.data.assert.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15570,7 +16676,8 @@ class Client:
         Summary: 代理授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationAgentAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationAgentAuthorizationResponse(),
             self.do_request('1.0', 'baas.dataauthorization.agent.authorization.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15585,7 +16692,8 @@ class Client:
         Summary: 代理授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDataauthorizationAgentAuthorizationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDataauthorizationAgentAuthorizationResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.agent.authorization.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15624,7 +16732,8 @@ class Client:
         Summary:  授权列表相信信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationAuthorityCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationAuthorityCertResponse(),
             self.do_request('1.0', 'baas.dataauthorization.authority.cert.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15639,8 +16748,121 @@ class Client:
         Summary:  授权列表相信信息查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListDataauthorizationAuthorityCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListDataauthorizationAuthorityCertResponse(),
             await self.do_request_async('1.0', 'baas.dataauthorization.authority.cert.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_dataauthorization_deposit_data(
+        self,
+        request: blockchain_models.SaveDataauthorizationDepositDataRequest,
+    ) -> blockchain_models.SaveDataauthorizationDepositDataResponse:
+        """
+        Description: 同步存证上链接口
+        Summary: 同步存证上链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_dataauthorization_deposit_data_ex(request, headers, runtime)
+
+    async def save_dataauthorization_deposit_data_async(
+        self,
+        request: blockchain_models.SaveDataauthorizationDepositDataRequest,
+    ) -> blockchain_models.SaveDataauthorizationDepositDataResponse:
+        """
+        Description: 同步存证上链接口
+        Summary: 同步存证上链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_dataauthorization_deposit_data_ex_async(request, headers, runtime)
+
+    def save_dataauthorization_deposit_data_ex(
+        self,
+        request: blockchain_models.SaveDataauthorizationDepositDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SaveDataauthorizationDepositDataResponse:
+        """
+        Description: 同步存证上链接口
+        Summary: 同步存证上链
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.SaveDataauthorizationDepositDataResponse(),
+            self.do_request('1.0', 'baas.dataauthorization.deposit.data.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_dataauthorization_deposit_data_ex_async(
+        self,
+        request: blockchain_models.SaveDataauthorizationDepositDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SaveDataauthorizationDepositDataResponse:
+        """
+        Description: 同步存证上链接口
+        Summary: 同步存证上链
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.SaveDataauthorizationDepositDataResponse(),
+            await self.do_request_async('1.0', 'baas.dataauthorization.deposit.data.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_dataauthorization_sync_data(
+        self,
+        request: blockchain_models.StartDataauthorizationSyncDataRequest,
+    ) -> blockchain_models.StartDataauthorizationSyncDataResponse:
+        """
+        Description: 启动全量同步
+        Summary: 启动全量同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_dataauthorization_sync_data_ex(request, headers, runtime)
+
+    async def start_dataauthorization_sync_data_async(
+        self,
+        request: blockchain_models.StartDataauthorizationSyncDataRequest,
+    ) -> blockchain_models.StartDataauthorizationSyncDataResponse:
+        """
+        Description: 启动全量同步
+        Summary: 启动全量同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_dataauthorization_sync_data_ex_async(request, headers, runtime)
+
+    def start_dataauthorization_sync_data_ex(
+        self,
+        request: blockchain_models.StartDataauthorizationSyncDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.StartDataauthorizationSyncDataResponse:
+        """
+        Description: 启动全量同步
+        Summary: 启动全量同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.StartDataauthorizationSyncDataResponse(),
+            self.do_request('1.0', 'baas.dataauthorization.sync.data.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_dataauthorization_sync_data_ex_async(
+        self,
+        request: blockchain_models.StartDataauthorizationSyncDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.StartDataauthorizationSyncDataResponse:
+        """
+        Description: 启动全量同步
+        Summary: 启动全量同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.StartDataauthorizationSyncDataResponse(),
+            await self.do_request_async('1.0', 'baas.dataauthorization.sync.data.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_traceability_tx_check(
@@ -15678,7 +16900,8 @@ class Client:
         Summary: 溯源区块查证接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryTraceabilityTxCheckResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryTraceabilityTxCheckResponse(),
             self.do_request('1.0', 'baas.traceability.tx.check.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15693,7 +16916,8 @@ class Client:
         Summary: 溯源区块查证接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryTraceabilityTxCheckResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryTraceabilityTxCheckResponse(),
             await self.do_request_async('1.0', 'baas.traceability.tx.check.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15732,7 +16956,8 @@ class Client:
         Summary: 获取链信息接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryTraceabilityBlockchainInfosResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryTraceabilityBlockchainInfosResponse(),
             self.do_request('1.0', 'baas.traceability.blockchain.infos.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15747,7 +16972,8 @@ class Client:
         Summary: 获取链信息接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryTraceabilityBlockchainInfosResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryTraceabilityBlockchainInfosResponse(),
             await self.do_request_async('1.0', 'baas.traceability.blockchain.infos.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15786,7 +17012,8 @@ class Client:
         Summary: BaaS区块链浏览器添加权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveBlockchainBrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveBlockchainBrowserPrivilegeResponse(),
             self.do_request('1.0', 'baas.blockchain.browser.privilege.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15801,7 +17028,8 @@ class Client:
         Summary: BaaS区块链浏览器添加权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveBlockchainBrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveBlockchainBrowserPrivilegeResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.browser.privilege.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15840,7 +17068,8 @@ class Client:
         Summary: 查询租户查看某链的权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBlockchainBrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBlockchainBrowserPrivilegeResponse(),
             self.do_request('1.0', 'baas.blockchain.browser.privilege.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15855,7 +17084,8 @@ class Client:
         Summary: 查询租户查看某链的权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBlockchainBrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBlockchainBrowserPrivilegeResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.browser.privilege.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15894,7 +17124,8 @@ class Client:
         Summary: BaaS区块链浏览器添加权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteBlockchainBrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteBlockchainBrowserPrivilegeResponse(),
             self.do_request('1.0', 'baas.blockchain.browser.privilege.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15909,7 +17140,8 @@ class Client:
         Summary: BaaS区块链浏览器添加权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteBlockchainBrowserPrivilegeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteBlockchainBrowserPrivilegeResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.browser.privilege.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15948,7 +17180,8 @@ class Client:
         Summary: 生成蚂蚁区块链的交易二维码
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetBlockchainMiniprogramResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetBlockchainMiniprogramResponse(),
             self.do_request('1.0', 'baas.blockchain.miniprogram.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -15963,7 +17196,8 @@ class Client:
         Summary: 生成蚂蚁区块链的交易二维码
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetBlockchainMiniprogramResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetBlockchainMiniprogramResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.miniprogram.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16002,7 +17236,8 @@ class Client:
         Summary: 蚂蚁区块链的链上交易数据查看权限批量添加
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddBlockchainMiniprogramResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddBlockchainMiniprogramResponse(),
             self.do_request('1.0', 'baas.blockchain.miniprogram.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16017,7 +17252,8 @@ class Client:
         Summary: 蚂蚁区块链的链上交易数据查看权限批量添加
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddBlockchainMiniprogramResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddBlockchainMiniprogramResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.miniprogram.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16056,7 +17292,8 @@ class Client:
         Summary: 获取金融科技BaaS浏览器交易统计信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserTransactionStatisticResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserTransactionStatisticResponse(),
             self.do_request('1.0', 'baas.browser.transaction.statistic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16071,7 +17308,8 @@ class Client:
         Summary: 获取金融科技BaaS浏览器交易统计信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserTransactionStatisticResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserTransactionStatisticResponse(),
             await self.do_request_async('1.0', 'baas.browser.transaction.statistic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16110,7 +17348,8 @@ class Client:
         Summary: 获取金融科技BaaS最新区块信息列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserBlockLatestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserBlockLatestResponse(),
             self.do_request('1.0', 'baas.browser.block.latest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16125,7 +17364,8 @@ class Client:
         Summary: 获取金融科技BaaS最新区块信息列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserBlockLatestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserBlockLatestResponse(),
             await self.do_request_async('1.0', 'baas.browser.block.latest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16164,7 +17404,8 @@ class Client:
         Summary: 获取金融科技BaaS最新交易列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserTransactionLatestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserTransactionLatestResponse(),
             self.do_request('1.0', 'baas.browser.transaction.latest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16179,7 +17420,8 @@ class Client:
         Summary: 获取金融科技BaaS最新交易列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserTransactionLatestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserTransactionLatestResponse(),
             await self.do_request_async('1.0', 'baas.browser.transaction.latest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16218,7 +17460,8 @@ class Client:
         Summary: 获取金融科技BaaS区块信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserBlockResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserBlockResponse(),
             self.do_request('1.0', 'baas.browser.block.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16233,7 +17476,8 @@ class Client:
         Summary: 获取金融科技BaaS区块信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserBlockResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserBlockResponse(),
             await self.do_request_async('1.0', 'baas.browser.block.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16272,7 +17516,8 @@ class Client:
         Summary: 获取金融科技BaaS交易信息内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserTransactionResponse(),
             self.do_request('1.0', 'baas.browser.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16287,7 +17532,8 @@ class Client:
         Summary: 获取金融科技BaaS交易信息内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserTransactionResponse(),
             await self.do_request_async('1.0', 'baas.browser.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16326,7 +17572,8 @@ class Client:
         Summary: 获取金融科技BaaS交易回执信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserTransactionReceiptResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserTransactionReceiptResponse(),
             self.do_request('1.0', 'baas.browser.transaction.receipt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16341,7 +17588,8 @@ class Client:
         Summary: 获取金融科技BaaS交易回执信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserTransactionReceiptResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserTransactionReceiptResponse(),
             await self.do_request_async('1.0', 'baas.browser.transaction.receipt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16380,7 +17628,8 @@ class Client:
         Summary: 蚂蚁链节点所有者查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserNodeOwnerResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserNodeOwnerResponse(),
             self.do_request('1.0', 'baas.browser.node.owner.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16395,7 +17644,8 @@ class Client:
         Summary: 蚂蚁链节点所有者查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBrowserNodeOwnerResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBrowserNodeOwnerResponse(),
             await self.do_request_async('1.0', 'baas.browser.node.owner.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16434,7 +17684,8 @@ class Client:
         Summary: 小程序权限删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteBlockchainMiniprogramResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteBlockchainMiniprogramResponse(),
             self.do_request('1.0', 'baas.blockchain.miniprogram.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16449,7 +17700,8 @@ class Client:
         Summary: 小程序权限删除
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteBlockchainMiniprogramResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteBlockchainMiniprogramResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.miniprogram.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16488,7 +17740,8 @@ class Client:
         Summary: 查询用户链上交易移动端查看权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBlockchainMiniprogramResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBlockchainMiniprogramResponse(),
             self.do_request('1.0', 'baas.blockchain.miniprogram.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16503,7 +17756,8 @@ class Client:
         Summary: 查询用户链上交易移动端查看权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryBlockchainMiniprogramResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryBlockchainMiniprogramResponse(),
             await self.do_request_async('1.0', 'baas.blockchain.miniprogram.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16542,7 +17796,8 @@ class Client:
         Summary: 物流金融信用流转能力注册开通结果查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryCreditTransferApplyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryCreditTransferApplyResponse(),
             self.do_request('1.0', 'baas.credit.transfer.apply.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16557,7 +17812,8 @@ class Client:
         Summary: 物流金融信用流转能力注册开通结果查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryCreditTransferApplyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryCreditTransferApplyResponse(),
             await self.do_request_async('1.0', 'baas.credit.transfer.apply.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16596,7 +17852,8 @@ class Client:
         Summary: 物流金融信用流转额度查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryCreditTransferBalanceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryCreditTransferBalanceResponse(),
             self.do_request('1.0', 'baas.credit.transfer.balance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16611,7 +17868,8 @@ class Client:
         Summary: 物流金融信用流转额度查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryCreditTransferBalanceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryCreditTransferBalanceResponse(),
             await self.do_request_async('1.0', 'baas.credit.transfer.balance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16650,7 +17908,8 @@ class Client:
         Summary: 物流金融信用流转通过id查询发行结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryCreditTransferIssuebyidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryCreditTransferIssuebyidResponse(),
             self.do_request('1.0', 'baas.credit.transfer.issuebyid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16665,7 +17924,8 @@ class Client:
         Summary: 物流金融信用流转通过id查询发行结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryCreditTransferIssuebyidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryCreditTransferIssuebyidResponse(),
             await self.do_request_async('1.0', 'baas.credit.transfer.issuebyid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16704,7 +17964,8 @@ class Client:
         Summary: 物流金融根据时间查询信用流转信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryCreditTransferIssuebytimeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryCreditTransferIssuebytimeResponse(),
             self.do_request('1.0', 'baas.credit.transfer.issuebytime.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16719,7 +17980,8 @@ class Client:
         Summary: 物流金融根据时间查询信用流转信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryCreditTransferIssuebytimeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryCreditTransferIssuebytimeResponse(),
             await self.do_request_async('1.0', 'baas.credit.transfer.issuebytime.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16758,7 +18020,8 @@ class Client:
         Summary: 物流金融信用流转流水查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryCreditTransferStatementResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryCreditTransferStatementResponse(),
             self.do_request('1.0', 'baas.credit.transfer.statement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16773,7 +18036,8 @@ class Client:
         Summary: 物流金融信用流转流水查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryCreditTransferStatementResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryCreditTransferStatementResponse(),
             await self.do_request_async('1.0', 'baas.credit.transfer.statement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16812,7 +18076,8 @@ class Client:
         Summary: 物流金融信用流转主站系统回调
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CallbackCreditTransferResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CallbackCreditTransferResponse(),
             self.do_request('1.0', 'baas.credit.transfer.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16827,7 +18092,8 @@ class Client:
         Summary: 物流金融信用流转主站系统回调
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CallbackCreditTransferResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CallbackCreditTransferResponse(),
             await self.do_request_async('1.0', 'baas.credit.transfer.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16866,7 +18132,8 @@ class Client:
         Summary: 推送业务方给用户颁发的声明内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PushAuthUserVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PushAuthUserVcResponse(),
             self.do_request('1.0', 'baas.auth.user.vc.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16881,7 +18148,8 @@ class Client:
         Summary: 推送业务方给用户颁发的声明内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PushAuthUserVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PushAuthUserVcResponse(),
             await self.do_request_async('1.0', 'baas.auth.user.vc.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16920,7 +18188,8 @@ class Client:
         Summary: 推送需要用户端授权的业务声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PushAuthClaimVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PushAuthClaimVcResponse(),
             self.do_request('1.0', 'baas.auth.claim.vc.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16935,7 +18204,8 @@ class Client:
         Summary: 推送需要用户端授权的业务声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PushAuthClaimVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PushAuthClaimVcResponse(),
             await self.do_request_async('1.0', 'baas.auth.claim.vc.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16974,7 +18244,8 @@ class Client:
         Summary: 通过biz_id获取用户的did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PullAuthUserDidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PullAuthUserDidResponse(),
             self.do_request('1.0', 'baas.auth.user.did.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -16989,7 +18260,8 @@ class Client:
         Summary: 通过biz_id获取用户的did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PullAuthUserDidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PullAuthUserDidResponse(),
             await self.do_request_async('1.0', 'baas.auth.user.did.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17028,7 +18300,8 @@ class Client:
         Summary: 获取申请用户声明的授权结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PullAuthClaimVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PullAuthClaimVcResponse(),
             self.do_request('1.0', 'baas.auth.claim.vc.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17043,7 +18316,8 @@ class Client:
         Summary: 获取申请用户声明的授权结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PullAuthClaimVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PullAuthClaimVcResponse(),
             await self.do_request_async('1.0', 'baas.auth.claim.vc.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17082,7 +18356,8 @@ class Client:
         Summary: 给用户创建did，需要指定userId
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthUserDidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthUserDidResponse(),
             self.do_request('1.0', 'baas.auth.user.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17097,7 +18372,8 @@ class Client:
         Summary: 给用户创建did，需要指定userId
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthUserDidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthUserDidResponse(),
             await self.do_request_async('1.0', 'baas.auth.user.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17136,7 +18412,8 @@ class Client:
         Summary: 创建企业DID，开通授权宝服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthCorporateDidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthCorporateDidResponse(),
             self.do_request('1.0', 'baas.auth.corporate.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17151,7 +18428,8 @@ class Client:
         Summary: 创建企业DID，开通授权宝服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthCorporateDidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthCorporateDidResponse(),
             await self.do_request_async('1.0', 'baas.auth.corporate.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17190,7 +18468,8 @@ class Client:
         Summary: 查询目标可验证声明结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PullAuthWebpageVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PullAuthWebpageVcResponse(),
             self.do_request('1.0', 'baas.auth.webpage.vc.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17205,7 +18484,8 @@ class Client:
         Summary: 查询目标可验证声明结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PullAuthWebpageVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PullAuthWebpageVcResponse(),
             await self.do_request_async('1.0', 'baas.auth.webpage.vc.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17244,7 +18524,8 @@ class Client:
         Summary: 获取授权宝侧的H5授权Url
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PullAuthWebpageUrlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PullAuthWebpageUrlResponse(),
             self.do_request('1.0', 'baas.auth.webpage.url.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17259,7 +18540,8 @@ class Client:
         Summary: 获取授权宝侧的H5授权Url
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PullAuthWebpageUrlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PullAuthWebpageUrlResponse(),
             await self.do_request_async('1.0', 'baas.auth.webpage.url.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17298,7 +18580,8 @@ class Client:
         Summary: 给定声明内容并颁发声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcAuthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcAuthResponse(),
             self.do_request('1.0', 'baas.auth.vc.auth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17313,7 +18596,8 @@ class Client:
         Summary: 给定声明内容并颁发声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcAuthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcAuthResponse(),
             await self.do_request_async('1.0', 'baas.auth.vc.auth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17352,7 +18636,8 @@ class Client:
         Summary: 将目标的声明内容，分享权限给目标的DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcShareResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcShareResponse(),
             self.do_request('1.0', 'baas.auth.vc.share.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17367,7 +18652,8 @@ class Client:
         Summary: 将目标的声明内容，分享权限给目标的DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcShareResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcShareResponse(),
             await self.do_request_async('1.0', 'baas.auth.vc.share.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17406,7 +18692,8 @@ class Client:
         Summary: 获取目标可验证声明内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthVcContentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthVcContentResponse(),
             self.do_request('1.0', 'baas.auth.vc.content.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17421,7 +18708,8 @@ class Client:
         Summary: 获取目标可验证声明内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthVcContentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthVcContentResponse(),
             await self.do_request_async('1.0', 'baas.auth.vc.content.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17460,7 +18748,8 @@ class Client:
         Summary: 给C类用户建did，需要指定user信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthUserinfoDidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthUserinfoDidResponse(),
             self.do_request('1.0', 'baas.auth.userinfo.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17475,7 +18764,8 @@ class Client:
         Summary: 给C类用户建did，需要指定user信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthUserinfoDidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthUserinfoDidResponse(),
             await self.do_request_async('1.0', 'baas.auth.userinfo.did.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17514,7 +18804,8 @@ class Client:
         Summary: 吊销已颁发声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcRevokeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcRevokeResponse(),
             self.do_request('1.0', 'baas.auth.vc.revoke.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17529,7 +18820,8 @@ class Client:
         Summary: 吊销已颁发声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcRevokeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcRevokeResponse(),
             await self.do_request_async('1.0', 'baas.auth.vc.revoke.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17568,7 +18860,8 @@ class Client:
         Summary: 将vc赠送给一个目标did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcGiveResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcGiveResponse(),
             self.do_request('1.0', 'baas.auth.vc.give.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17583,7 +18876,8 @@ class Client:
         Summary: 将vc赠送给一个目标did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcGiveResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcGiveResponse(),
             await self.do_request_async('1.0', 'baas.auth.vc.give.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17622,7 +18916,8 @@ class Client:
         Summary: 批量分享VC内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcSharebatchResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcSharebatchResponse(),
             self.do_request('1.0', 'baas.auth.vc.sharebatch.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17637,7 +18932,8 @@ class Client:
         Summary: 批量分享VC内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcSharebatchResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcSharebatchResponse(),
             await self.do_request_async('1.0', 'baas.auth.vc.sharebatch.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17679,7 +18975,8 @@ class Client:
         Summary: 代理签名
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthCorporateSignResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthCorporateSignResponse(),
             self.do_request('1.0', 'baas.auth.corporate.sign.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17695,7 +18992,8 @@ class Client:
         Summary: 代理签名
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthCorporateSignResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthCorporateSignResponse(),
             await self.do_request_async('1.0', 'baas.auth.corporate.sign.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17734,7 +19032,8 @@ class Client:
         Summary: 批量给定声明内容颁发声明，并上链存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcBatchauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcBatchauthResponse(),
             self.do_request('1.0', 'baas.auth.vc.batchauth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17749,7 +19048,8 @@ class Client:
         Summary: 批量给定声明内容颁发声明，并上链存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcBatchauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcBatchauthResponse(),
             await self.do_request_async('1.0', 'baas.auth.vc.batchauth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17788,7 +19088,8 @@ class Client:
         Summary: 将已颁发的可验证声明进行重置替换
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcReplaceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcReplaceResponse(),
             self.do_request('1.0', 'baas.auth.vc.replace.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17803,7 +19104,8 @@ class Client:
         Summary: 将已颁发的可验证声明进行重置替换
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVcReplaceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVcReplaceResponse(),
             await self.do_request_async('1.0', 'baas.auth.vc.replace.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17842,7 +19144,8 @@ class Client:
         Summary: 推送保单信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PushAuthInsurancePolicyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PushAuthInsurancePolicyResponse(),
             self.do_request('1.0', 'baas.auth.insurance.policy.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17857,7 +19160,8 @@ class Client:
         Summary: 推送保单信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PushAuthInsurancePolicyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PushAuthInsurancePolicyResponse(),
             await self.do_request_async('1.0', 'baas.auth.insurance.policy.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17896,7 +19200,8 @@ class Client:
         Summary: 获取前端sdk使用的token
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetAuthFrontendAccesstokenResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetAuthFrontendAccesstokenResponse(),
             self.do_request('1.0', 'baas.auth.frontend.accesstoken.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17911,7 +19216,8 @@ class Client:
         Summary: 获取前端sdk使用的token
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetAuthFrontendAccesstokenResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetAuthFrontendAccesstokenResponse(),
             await self.do_request_async('1.0', 'baas.auth.frontend.accesstoken.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17950,7 +19256,8 @@ class Client:
         Summary: 获取声明授权链接
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthClaimUrlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthClaimUrlResponse(),
             self.do_request('1.0', 'baas.auth.claim.url.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -17965,7 +19272,8 @@ class Client:
         Summary: 获取声明授权链接
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthClaimUrlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthClaimUrlResponse(),
             await self.do_request_async('1.0', 'baas.auth.claim.url.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18004,7 +19312,8 @@ class Client:
         Summary: 授权宝个人信息授权，行驶证核身授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVerifyCarinfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVerifyCarinfoResponse(),
             self.do_request('1.0', 'baas.auth.verify.carinfo.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18019,7 +19328,8 @@ class Client:
         Summary: 授权宝个人信息授权，行驶证核身授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVerifyCarinfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVerifyCarinfoResponse(),
             await self.do_request_async('1.0', 'baas.auth.verify.carinfo.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18058,7 +19368,8 @@ class Client:
         Summary: 授权宝个人信息授权，驾驶证核身授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVerifyDriverinfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVerifyDriverinfoResponse(),
             self.do_request('1.0', 'baas.auth.verify.driverinfo.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18073,7 +19384,8 @@ class Client:
         Summary: 授权宝个人信息授权，驾驶证核身授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVerifyDriverinfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVerifyDriverinfoResponse(),
             await self.do_request_async('1.0', 'baas.auth.verify.driverinfo.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18112,7 +19424,8 @@ class Client:
         Summary: 车检查询核验，目标车牌年检状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVerifyCarinspectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVerifyCarinspectResponse(),
             self.do_request('1.0', 'baas.auth.verify.carinspect.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18127,7 +19440,8 @@ class Client:
         Summary: 车检查询核验，目标车牌年检状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthVerifyCarinspectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthVerifyCarinspectResponse(),
             await self.do_request_async('1.0', 'baas.auth.verify.carinspect.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18166,7 +19480,8 @@ class Client:
         Summary: 获取授权声明模版
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetAuthClaimTemplateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetAuthClaimTemplateResponse(),
             self.do_request('1.0', 'baas.auth.claim.template.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18181,7 +19496,8 @@ class Client:
         Summary: 获取授权声明模版
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetAuthClaimTemplateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetAuthClaimTemplateResponse(),
             await self.do_request_async('1.0', 'baas.auth.claim.template.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18220,7 +19536,8 @@ class Client:
         Summary: 通过claim创建vc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthClaimVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthClaimVcResponse(),
             self.do_request('1.0', 'baas.auth.claim.vc.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18235,7 +19552,8 @@ class Client:
         Summary: 通过claim创建vc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthClaimVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthClaimVcResponse(),
             await self.do_request_async('1.0', 'baas.auth.claim.vc.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18274,7 +19592,8 @@ class Client:
         Summary: 查询vc详情
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthClaimVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthClaimVcResponse(),
             self.do_request('1.0', 'baas.auth.claim.vc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18289,7 +19608,8 @@ class Client:
         Summary: 查询vc详情
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthClaimVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthClaimVcResponse(),
             await self.do_request_async('1.0', 'baas.auth.claim.vc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18328,7 +19648,8 @@ class Client:
         Summary: 车辆投保日期查询(存量)
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthVehicleinsuranceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthVehicleinsuranceResponse(),
             self.do_request('1.0', 'baas.auth.vehicleinsurance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18343,7 +19664,8 @@ class Client:
         Summary: 车辆投保日期查询(存量)
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthVehicleinsuranceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthVehicleinsuranceResponse(),
             await self.do_request_async('1.0', 'baas.auth.vehicleinsurance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18382,7 +19704,8 @@ class Client:
         Summary: 车辆投保日期查询(增量)
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthVehicleinsuranceVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthVehicleinsuranceVcResponse(),
             self.do_request('1.0', 'baas.auth.vehicleinsurance.vc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18397,7 +19720,8 @@ class Client:
         Summary: 车辆投保日期查询(增量)
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthVehicleinsuranceVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthVehicleinsuranceVcResponse(),
             await self.do_request_async('1.0', 'baas.auth.vehicleinsurance.vc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18436,7 +19760,8 @@ class Client:
         Summary: 查询目标场景的凭证颁发的统计数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthVcStatisticsResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthVcStatisticsResponse(),
             self.do_request('1.0', 'baas.auth.vc.statistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18451,7 +19776,8 @@ class Client:
         Summary: 查询目标场景的凭证颁发的统计数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthVcStatisticsResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthVcStatisticsResponse(),
             await self.do_request_async('1.0', 'baas.auth.vc.statistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18490,7 +19816,8 @@ class Client:
         Summary: 查询目标业务凭证颁发的实时列表情况
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthVcRealtimeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthVcRealtimeResponse(),
             self.do_request('1.0', 'baas.auth.vc.realtime.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18505,7 +19832,8 @@ class Client:
         Summary: 查询目标业务凭证颁发的实时列表情况
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthVcRealtimeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthVcRealtimeResponse(),
             await self.do_request_async('1.0', 'baas.auth.vc.realtime.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18544,7 +19872,8 @@ class Client:
         Summary: 特定场景下使用，查询机构状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthOrgStatusResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthOrgStatusResponse(),
             self.do_request('1.0', 'baas.auth.org.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18559,7 +19888,8 @@ class Client:
         Summary: 特定场景下使用，查询机构状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthOrgStatusResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthOrgStatusResponse(),
             await self.do_request_async('1.0', 'baas.auth.org.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18598,7 +19928,8 @@ class Client:
         Summary: 交易资产的归属
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthAssetIssueResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthAssetIssueResponse(),
             self.do_request('1.0', 'baas.auth.asset.issue.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18613,7 +19944,8 @@ class Client:
         Summary: 交易资产的归属
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartAuthAssetIssueResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartAuthAssetIssueResponse(),
             await self.do_request_async('1.0', 'baas.auth.asset.issue.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18652,7 +19984,8 @@ class Client:
         Summary: 查询模板列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AllAuthCertTemplateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AllAuthCertTemplateResponse(),
             self.do_request('1.0', 'baas.auth.cert.template.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18667,7 +20000,8 @@ class Client:
         Summary: 查询模板列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AllAuthCertTemplateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AllAuthCertTemplateResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.template.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18706,7 +20040,8 @@ class Client:
         Summary: 编辑或新增证书实例
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveAuthCertInstanceforcustomResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveAuthCertInstanceforcustomResponse(),
             self.do_request('1.0', 'baas.auth.cert.instanceforcustom.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18721,7 +20056,8 @@ class Client:
         Summary: 编辑或新增证书实例
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveAuthCertInstanceforcustomResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveAuthCertInstanceforcustomResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.instanceforcustom.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18760,7 +20096,8 @@ class Client:
         Summary: 批量颁发证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateAuthCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateAuthCertResponse(),
             self.do_request('1.0', 'baas.auth.cert.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18775,7 +20112,8 @@ class Client:
         Summary: 批量颁发证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.BatchcreateAuthCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.BatchcreateAuthCertResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18814,7 +20152,8 @@ class Client:
         Summary: 颁发证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthCertResponse(),
             self.do_request('1.0', 'baas.auth.cert.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18829,7 +20168,8 @@ class Client:
         Summary: 颁发证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthCertResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18868,7 +20208,8 @@ class Client:
         Summary: 吊销证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InvalidateAuthCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InvalidateAuthCertResponse(),
             self.do_request('1.0', 'baas.auth.cert.invalidate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18883,7 +20224,8 @@ class Client:
         Summary: 吊销证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InvalidateAuthCertResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InvalidateAuthCertResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.invalidate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18922,7 +20264,8 @@ class Client:
         Summary: 查询批量颁发证书的进度
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthCertProgressResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthCertProgressResponse(),
             self.do_request('1.0', 'baas.auth.cert.progress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18937,7 +20280,8 @@ class Client:
         Summary: 查询批量颁发证书的进度
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthCertProgressResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthCertProgressResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.progress.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -18993,7 +20337,8 @@ class Client:
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return blockchain_models.UploadAuthCertInstanceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UploadAuthCertInstanceResponse(),
             self.do_request('1.0', 'baas.auth.cert.instance.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19025,7 +20370,8 @@ class Client:
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
-        return blockchain_models.UploadAuthCertInstanceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UploadAuthCertInstanceResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.instance.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19064,7 +20410,8 @@ class Client:
         Summary:  编辑或新增证书实例
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveAuthCertInstanceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveAuthCertInstanceResponse(),
             self.do_request('1.0', 'baas.auth.cert.instance.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19079,7 +20426,8 @@ class Client:
         Summary:  编辑或新增证书实例
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveAuthCertInstanceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveAuthCertInstanceResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.instance.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19118,7 +20466,8 @@ class Client:
         Summary: 证书实例提交审核
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyAuthCertInstanceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyAuthCertInstanceResponse(),
             self.do_request('1.0', 'baas.auth.cert.instance.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19133,7 +20482,8 @@ class Client:
         Summary: 证书实例提交审核
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyAuthCertInstanceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyAuthCertInstanceResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.instance.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19172,7 +20522,8 @@ class Client:
         Summary: 获取证书领取人csv上传url
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetAuthCertInstancedataurlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetAuthCertInstancedataurlResponse(),
             self.do_request('1.0', 'baas.auth.cert.instancedataurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19187,7 +20538,8 @@ class Client:
         Summary: 获取证书领取人csv上传url
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetAuthCertInstancedataurlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetAuthCertInstancedataurlResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.instancedataurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19226,7 +20578,8 @@ class Client:
         Summary: 证书平台创建存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthCertClaimResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthCertClaimResponse(),
             self.do_request('1.0', 'baas.auth.cert.claim.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19241,7 +20594,8 @@ class Client:
         Summary: 证书平台创建存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthCertClaimResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthCertClaimResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.claim.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19280,7 +20634,8 @@ class Client:
         Summary: 证书平台查询用户自定义存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthCertClaimResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthCertClaimResponse(),
             self.do_request('1.0', 'baas.auth.cert.claim.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19295,7 +20650,8 @@ class Client:
         Summary: 证书平台查询用户自定义存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryAuthCertClaimResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthCertClaimResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.claim.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19334,7 +20690,8 @@ class Client:
         Summary: 生成查验证书存证的url
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthCertClaimurlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthCertClaimurlResponse(),
             self.do_request('1.0', 'baas.auth.cert.claimurl.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19349,8 +20706,457 @@ class Client:
         Summary: 生成查验证书存证的url
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAuthCertClaimurlResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthCertClaimurlResponse(),
             await self.do_request_async('1.0', 'baas.auth.cert.claimurl.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_auth_claim_recent(
+        self,
+        request: blockchain_models.GetAuthClaimRecentRequest,
+    ) -> blockchain_models.GetAuthClaimRecentResponse:
+        """
+        Description: 获取用户已授权的最近存证信息，在理财风测卡场景获取最近的题目答案
+        Summary: 获取用户已授权的最近存证信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_auth_claim_recent_ex(request, headers, runtime)
+
+    async def get_auth_claim_recent_async(
+        self,
+        request: blockchain_models.GetAuthClaimRecentRequest,
+    ) -> blockchain_models.GetAuthClaimRecentResponse:
+        """
+        Description: 获取用户已授权的最近存证信息，在理财风测卡场景获取最近的题目答案
+        Summary: 获取用户已授权的最近存证信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_auth_claim_recent_ex_async(request, headers, runtime)
+
+    def get_auth_claim_recent_ex(
+        self,
+        request: blockchain_models.GetAuthClaimRecentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.GetAuthClaimRecentResponse:
+        """
+        Description: 获取用户已授权的最近存证信息，在理财风测卡场景获取最近的题目答案
+        Summary: 获取用户已授权的最近存证信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.GetAuthClaimRecentResponse(),
+            self.do_request('1.0', 'baas.auth.claim.recent.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_auth_claim_recent_ex_async(
+        self,
+        request: blockchain_models.GetAuthClaimRecentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.GetAuthClaimRecentResponse:
+        """
+        Description: 获取用户已授权的最近存证信息，在理财风测卡场景获取最近的题目答案
+        Summary: 获取用户已授权的最近存证信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.GetAuthClaimRecentResponse(),
+            await self.do_request_async('1.0', 'baas.auth.claim.recent.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_auth_contract(
+        self,
+        request: blockchain_models.ExecAuthContractRequest,
+    ) -> blockchain_models.ExecAuthContractResponse:
+        """
+        Description: 新的：baas.auth.contract.claim.exec
+        Summary: 合约调用_废弃
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_auth_contract_ex(request, headers, runtime)
+
+    async def exec_auth_contract_async(
+        self,
+        request: blockchain_models.ExecAuthContractRequest,
+    ) -> blockchain_models.ExecAuthContractResponse:
+        """
+        Description: 新的：baas.auth.contract.claim.exec
+        Summary: 合约调用_废弃
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_auth_contract_ex_async(request, headers, runtime)
+
+    def exec_auth_contract_ex(
+        self,
+        request: blockchain_models.ExecAuthContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ExecAuthContractResponse:
+        """
+        Description: 新的：baas.auth.contract.claim.exec
+        Summary: 合约调用_废弃
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ExecAuthContractResponse(),
+            self.do_request('1.0', 'baas.auth.contract.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_auth_contract_ex_async(
+        self,
+        request: blockchain_models.ExecAuthContractRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ExecAuthContractResponse:
+        """
+        Description: 新的：baas.auth.contract.claim.exec
+        Summary: 合约调用_废弃
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ExecAuthContractResponse(),
+            await self.do_request_async('1.0', 'baas.auth.contract.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auth_scene_authstatus(
+        self,
+        request: blockchain_models.QueryAuthSceneAuthstatusRequest,
+    ) -> blockchain_models.QueryAuthSceneAuthstatusResponse:
+        """
+        Description: 查看用户对于某一场景的授权状态
+        Summary: 查看用户授权状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auth_scene_authstatus_ex(request, headers, runtime)
+
+    async def query_auth_scene_authstatus_async(
+        self,
+        request: blockchain_models.QueryAuthSceneAuthstatusRequest,
+    ) -> blockchain_models.QueryAuthSceneAuthstatusResponse:
+        """
+        Description: 查看用户对于某一场景的授权状态
+        Summary: 查看用户授权状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auth_scene_authstatus_ex_async(request, headers, runtime)
+
+    def query_auth_scene_authstatus_ex(
+        self,
+        request: blockchain_models.QueryAuthSceneAuthstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthSceneAuthstatusResponse:
+        """
+        Description: 查看用户对于某一场景的授权状态
+        Summary: 查看用户授权状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthSceneAuthstatusResponse(),
+            self.do_request('1.0', 'baas.auth.scene.authstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auth_scene_authstatus_ex_async(
+        self,
+        request: blockchain_models.QueryAuthSceneAuthstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthSceneAuthstatusResponse:
+        """
+        Description: 查看用户对于某一场景的授权状态
+        Summary: 查看用户授权状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthSceneAuthstatusResponse(),
+            await self.do_request_async('1.0', 'baas.auth.scene.authstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_auth_contract_claim(
+        self,
+        request: blockchain_models.ExecAuthContractClaimRequest,
+    ) -> blockchain_models.ExecAuthContractClaimResponse:
+        """
+        Description: 使用调用方did注册的vc channel链上账户调用指定合约
+        Summary: 合约调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_auth_contract_claim_ex(request, headers, runtime)
+
+    async def exec_auth_contract_claim_async(
+        self,
+        request: blockchain_models.ExecAuthContractClaimRequest,
+    ) -> blockchain_models.ExecAuthContractClaimResponse:
+        """
+        Description: 使用调用方did注册的vc channel链上账户调用指定合约
+        Summary: 合约调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_auth_contract_claim_ex_async(request, headers, runtime)
+
+    def exec_auth_contract_claim_ex(
+        self,
+        request: blockchain_models.ExecAuthContractClaimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ExecAuthContractClaimResponse:
+        """
+        Description: 使用调用方did注册的vc channel链上账户调用指定合约
+        Summary: 合约调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ExecAuthContractClaimResponse(),
+            self.do_request('1.0', 'baas.auth.contract.claim.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_auth_contract_claim_ex_async(
+        self,
+        request: blockchain_models.ExecAuthContractClaimRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ExecAuthContractClaimResponse:
+        """
+        Description: 使用调用方did注册的vc channel链上账户调用指定合约
+        Summary: 合约调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ExecAuthContractClaimResponse(),
+            await self.do_request_async('1.0', 'baas.auth.contract.claim.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_auth_cert_detailpageurl(
+        self,
+        request: blockchain_models.CreateAuthCertDetailpageurlRequest,
+    ) -> blockchain_models.CreateAuthCertDetailpageurlResponse:
+        """
+        Description: B类用户获取证书查验页面二维码的url
+        Summary: 获取证书查验页面二维码的url
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_auth_cert_detailpageurl_ex(request, headers, runtime)
+
+    async def create_auth_cert_detailpageurl_async(
+        self,
+        request: blockchain_models.CreateAuthCertDetailpageurlRequest,
+    ) -> blockchain_models.CreateAuthCertDetailpageurlResponse:
+        """
+        Description: B类用户获取证书查验页面二维码的url
+        Summary: 获取证书查验页面二维码的url
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_auth_cert_detailpageurl_ex_async(request, headers, runtime)
+
+    def create_auth_cert_detailpageurl_ex(
+        self,
+        request: blockchain_models.CreateAuthCertDetailpageurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateAuthCertDetailpageurlResponse:
+        """
+        Description: B类用户获取证书查验页面二维码的url
+        Summary: 获取证书查验页面二维码的url
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthCertDetailpageurlResponse(),
+            self.do_request('1.0', 'baas.auth.cert.detailpageurl.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_auth_cert_detailpageurl_ex_async(
+        self,
+        request: blockchain_models.CreateAuthCertDetailpageurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateAuthCertDetailpageurlResponse:
+        """
+        Description: B类用户获取证书查验页面二维码的url
+        Summary: 获取证书查验页面二维码的url
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CreateAuthCertDetailpageurlResponse(),
+            await self.do_request_async('1.0', 'baas.auth.cert.detailpageurl.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sign_auth_agreement_user(
+        self,
+        request: blockchain_models.SignAuthAgreementUserRequest,
+    ) -> blockchain_models.SignAuthAgreementUserResponse:
+        """
+        Description: 用户合约签约接口
+        Summary: 用户合约签约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sign_auth_agreement_user_ex(request, headers, runtime)
+
+    async def sign_auth_agreement_user_async(
+        self,
+        request: blockchain_models.SignAuthAgreementUserRequest,
+    ) -> blockchain_models.SignAuthAgreementUserResponse:
+        """
+        Description: 用户合约签约接口
+        Summary: 用户合约签约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sign_auth_agreement_user_ex_async(request, headers, runtime)
+
+    def sign_auth_agreement_user_ex(
+        self,
+        request: blockchain_models.SignAuthAgreementUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SignAuthAgreementUserResponse:
+        """
+        Description: 用户合约签约接口
+        Summary: 用户合约签约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.SignAuthAgreementUserResponse(),
+            self.do_request('1.0', 'baas.auth.agreement.user.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sign_auth_agreement_user_ex_async(
+        self,
+        request: blockchain_models.SignAuthAgreementUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SignAuthAgreementUserResponse:
+        """
+        Description: 用户合约签约接口
+        Summary: 用户合约签约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.SignAuthAgreementUserResponse(),
+            await self.do_request_async('1.0', 'baas.auth.agreement.user.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_auth_poap(
+        self,
+        request: blockchain_models.BindAuthPoapRequest,
+    ) -> blockchain_models.BindAuthPoapResponse:
+        """
+        Description: 给指定用户发放POAP徽章
+        Summary: 给指定用户发放POAP徽章
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_auth_poap_ex(request, headers, runtime)
+
+    async def bind_auth_poap_async(
+        self,
+        request: blockchain_models.BindAuthPoapRequest,
+    ) -> blockchain_models.BindAuthPoapResponse:
+        """
+        Description: 给指定用户发放POAP徽章
+        Summary: 给指定用户发放POAP徽章
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_auth_poap_ex_async(request, headers, runtime)
+
+    def bind_auth_poap_ex(
+        self,
+        request: blockchain_models.BindAuthPoapRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.BindAuthPoapResponse:
+        """
+        Description: 给指定用户发放POAP徽章
+        Summary: 给指定用户发放POAP徽章
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.BindAuthPoapResponse(),
+            self.do_request('1.0', 'baas.auth.poap.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_auth_poap_ex_async(
+        self,
+        request: blockchain_models.BindAuthPoapRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.BindAuthPoapResponse:
+        """
+        Description: 给指定用户发放POAP徽章
+        Summary: 给指定用户发放POAP徽章
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.BindAuthPoapResponse(),
+            await self.do_request_async('1.0', 'baas.auth.poap.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auth_poap(
+        self,
+        request: blockchain_models.QueryAuthPoapRequest,
+    ) -> blockchain_models.QueryAuthPoapResponse:
+        """
+        Description: 根据ID查询POAP徽章详情
+        Summary: 查询POAP徽章详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auth_poap_ex(request, headers, runtime)
+
+    async def query_auth_poap_async(
+        self,
+        request: blockchain_models.QueryAuthPoapRequest,
+    ) -> blockchain_models.QueryAuthPoapResponse:
+        """
+        Description: 根据ID查询POAP徽章详情
+        Summary: 查询POAP徽章详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auth_poap_ex_async(request, headers, runtime)
+
+    def query_auth_poap_ex(
+        self,
+        request: blockchain_models.QueryAuthPoapRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthPoapResponse:
+        """
+        Description: 根据ID查询POAP徽章详情
+        Summary: 查询POAP徽章详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthPoapResponse(),
+            self.do_request('1.0', 'baas.auth.poap.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auth_poap_ex_async(
+        self,
+        request: blockchain_models.QueryAuthPoapRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthPoapResponse:
+        """
+        Description: 根据ID查询POAP徽章详情
+        Summary: 查询POAP徽章详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthPoapResponse(),
+            await self.do_request_async('1.0', 'baas.auth.poap.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
@@ -19388,7 +21194,8 @@ class Client:
         Summary: 通过代理模式为企业创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateAgentcreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateAgentcreateResponse(),
             self.do_request('1.0', 'baas.did.corporate.agentcreate.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19403,7 +21210,8 @@ class Client:
         Summary: 通过代理模式为企业创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateAgentcreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateAgentcreateResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.agentcreate.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19442,7 +21250,8 @@ class Client:
         Summary: 通过代理模式为个人创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidPersonAgentcreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidPersonAgentcreateResponse(),
             self.do_request('1.0', 'baas.did.person.agentcreate.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19457,7 +21266,8 @@ class Client:
         Summary: 通过代理模式为个人创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidPersonAgentcreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidPersonAgentcreateResponse(),
             await self.do_request_async('1.0', 'baas.did.person.agentcreate.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19496,7 +21306,8 @@ class Client:
         Summary: 直接创建自己的企业did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateSelfcreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateSelfcreateResponse(),
             self.do_request('1.0', 'baas.did.corporate.selfcreate.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19511,7 +21322,8 @@ class Client:
         Summary: 直接创建自己的企业did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateSelfcreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateSelfcreateResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.selfcreate.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19550,7 +21362,8 @@ class Client:
         Summary: 直接创建自己的个人did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidPersonSelfcreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidPersonSelfcreateResponse(),
             self.do_request('1.0', 'baas.did.person.selfcreate.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19565,7 +21378,8 @@ class Client:
         Summary: 直接创建自己的个人did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidPersonSelfcreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidPersonSelfcreateResponse(),
             await self.do_request_async('1.0', 'baas.did.person.selfcreate.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19604,7 +21418,8 @@ class Client:
         Summary: 为指定did颁发证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVerifiableclaimIssureResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVerifiableclaimIssureResponse(),
             self.do_request('1.0', 'baas.did.verifiableclaim.issure.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19619,7 +21434,8 @@ class Client:
         Summary: 为指定did颁发证书
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVerifiableclaimIssureResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVerifiableclaimIssureResponse(),
             await self.do_request_async('1.0', 'baas.did.verifiableclaim.issure.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19658,7 +21474,8 @@ class Client:
         Summary: 验证可验证声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVerifiableclaimVerifierResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVerifiableclaimVerifierResponse(),
             self.do_request('1.0', 'baas.did.verifiableclaim.verifier.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19673,7 +21490,8 @@ class Client:
         Summary: 验证可验证声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVerifiableclaimVerifierResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVerifiableclaimVerifierResponse(),
             await self.do_request_async('1.0', 'baas.did.verifiableclaim.verifier.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19712,7 +21530,8 @@ class Client:
         Summary: 查询did对应的doc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidDocResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidDocResponse(),
             self.do_request('1.0', 'baas.did.doc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19727,7 +21546,8 @@ class Client:
         Summary: 查询did对应的doc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidDocResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidDocResponse(),
             await self.do_request_async('1.0', 'baas.did.doc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19766,7 +21586,8 @@ class Client:
         Summary: 更新可验证声明状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidVerifiableclaimStatusResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidVerifiableclaimStatusResponse(),
             self.do_request('1.0', 'baas.did.verifiableclaim.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19781,7 +21602,8 @@ class Client:
         Summary: 更新可验证声明状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidVerifiableclaimStatusResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidVerifiableclaimStatusResponse(),
             await self.do_request_async('1.0', 'baas.did.verifiableclaim.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19820,7 +21642,8 @@ class Client:
         Summary: 更新doc service中的扩展字段
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidCorporateExtensionserviceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidCorporateExtensionserviceResponse(),
             self.do_request('1.0', 'baas.did.corporate.extensionservice.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19835,7 +21658,8 @@ class Client:
         Summary: 更新doc service中的扩展字段
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidCorporateExtensionserviceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidCorporateExtensionserviceResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.extensionservice.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19874,7 +21698,8 @@ class Client:
         Summary: 设置不通租户在DID中的不同扩展字段
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateCustomerservicetypeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateCustomerservicetypeResponse(),
             self.do_request('1.0', 'baas.did.corporate.customerservicetype.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19889,7 +21714,8 @@ class Client:
         Summary: 设置不通租户在DID中的不同扩展字段
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateCustomerservicetypeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateCustomerservicetypeResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.customerservicetype.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19928,7 +21754,8 @@ class Client:
         Summary: 三要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCertificationThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCertificationThreemetaResponse(),
             self.do_request('1.0', 'baas.did.certification.threemeta.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19943,7 +21770,8 @@ class Client:
         Summary: 三要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCertificationThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCertificationThreemetaResponse(),
             await self.do_request_async('1.0', 'baas.did.certification.threemeta.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19982,7 +21810,8 @@ class Client:
         Summary: 二要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCertificationTwometaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCertificationTwometaResponse(),
             self.do_request('1.0', 'baas.did.certification.twometa.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -19997,7 +21826,8 @@ class Client:
         Summary: 二要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCertificationTwometaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCertificationTwometaResponse(),
             await self.do_request_async('1.0', 'baas.did.certification.twometa.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20036,7 +21866,8 @@ class Client:
         Summary: 通过vcid查询vc内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidVcResponse(),
             self.do_request('1.0', 'baas.did.vc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20051,7 +21882,8 @@ class Client:
         Summary: 通过vcid查询vc内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidVcResponse(),
             await self.do_request_async('1.0', 'baas.did.vc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20090,7 +21922,8 @@ class Client:
         Summary: 开始实人认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidIdentificationFaceauthResponse(),
             self.do_request('1.0', 'baas.did.identification.faceauth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20105,7 +21938,8 @@ class Client:
         Summary: 开始实人认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidIdentificationFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.did.identification.faceauth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20144,7 +21978,8 @@ class Client:
         Summary: 查询实人认证结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidIdentificationFaceauthResponse(),
             self.do_request('1.0', 'baas.did.identification.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20159,7 +21994,8 @@ class Client:
         Summary: 查询实人认证结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidIdentificationFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.did.identification.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20198,7 +22034,8 @@ class Client:
         Summary: 订阅did事件服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidNotificationConsumerResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidNotificationConsumerResponse(),
             self.do_request('1.0', 'baas.did.notification.consumer.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20213,7 +22050,8 @@ class Client:
         Summary: 订阅did事件服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidNotificationConsumerResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidNotificationConsumerResponse(),
             await self.do_request_async('1.0', 'baas.did.notification.consumer.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20252,7 +22090,8 @@ class Client:
         Summary: 消费端重新启动
         """
         UtilClient.validate_model(request)
-        return blockchain_models.RebootDidNotificationConsumerResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.RebootDidNotificationConsumerResponse(),
             self.do_request('1.0', 'baas.did.notification.consumer.reboot', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20267,7 +22106,8 @@ class Client:
         Summary: 消费端重新启动
         """
         UtilClient.validate_model(request)
-        return blockchain_models.RebootDidNotificationConsumerResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.RebootDidNotificationConsumerResponse(),
             await self.do_request_async('1.0', 'baas.did.notification.consumer.reboot', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20306,7 +22146,8 @@ class Client:
         Summary: 非托管模式下创建DID时，申请ID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDidCorporateDirectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDidCorporateDirectResponse(),
             self.do_request('1.0', 'baas.did.corporate.direct.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20321,7 +22162,8 @@ class Client:
         Summary: 非托管模式下创建DID时，申请ID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDidCorporateDirectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDidCorporateDirectResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.direct.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20360,7 +22202,8 @@ class Client:
         Summary: 推送或者更新did doc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PushDidCorporateDirectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PushDidCorporateDirectResponse(),
             self.do_request('1.0', 'baas.did.corporate.direct.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20375,7 +22218,8 @@ class Client:
         Summary: 推送或者更新did doc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.PushDidCorporateDirectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.PushDidCorporateDirectResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.direct.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20414,7 +22258,8 @@ class Client:
         Summary: 申请did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDidCorporateIdentityResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDidCorporateIdentityResponse(),
             self.do_request('1.0', 'baas.did.corporate.identity.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20429,7 +22274,8 @@ class Client:
         Summary: 申请did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDidCorporateIdentityResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDidCorporateIdentityResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.identity.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20468,7 +22314,8 @@ class Client:
         Summary: 对authchallenge进行响应
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidAgentChallengeresponseResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidAgentChallengeresponseResponse(),
             self.do_request('1.0', 'baas.did.agent.challengeresponse.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20483,7 +22330,8 @@ class Client:
         Summary: 对authchallenge进行响应
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidAgentChallengeresponseResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidAgentChallengeresponseResponse(),
             await self.do_request_async('1.0', 'baas.did.agent.challengeresponse.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20522,7 +22370,8 @@ class Client:
         Summary: 验证Auth Response有效性
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidAgentVerifyauthresponseResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidAgentVerifyauthresponseResponse(),
             self.do_request('1.0', 'baas.did.agent.verifyauthresponse.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20537,7 +22386,8 @@ class Client:
         Summary: 验证Auth Response有效性
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidAgentVerifyauthresponseResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidAgentVerifyauthresponseResponse(),
             await self.do_request_async('1.0', 'baas.did.agent.verifyauthresponse.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20576,7 +22426,8 @@ class Client:
         Summary: 脱敏身份验证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCertificationMaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCertificationMaskResponse(),
             self.do_request('1.0', 'baas.did.certification.mask.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20591,7 +22442,8 @@ class Client:
         Summary: 脱敏身份验证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCertificationMaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCertificationMaskResponse(),
             await self.do_request_async('1.0', 'baas.did.certification.mask.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20630,7 +22482,8 @@ class Client:
         Summary: 管理员为租户开通did服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.OpenDidAdminServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.OpenDidAdminServiceResponse(),
             self.do_request('1.0', 'baas.did.admin.service.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20645,7 +22498,8 @@ class Client:
         Summary: 管理员为租户开通did服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.OpenDidAdminServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.OpenDidAdminServiceResponse(),
             await self.do_request_async('1.0', 'baas.did.admin.service.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20684,7 +22538,8 @@ class Client:
         Summary: 针对指定租户关闭dis服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StopDidAdminServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StopDidAdminServiceResponse(),
             self.do_request('1.0', 'baas.did.admin.service.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20699,7 +22554,8 @@ class Client:
         Summary: 针对指定租户关闭dis服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StopDidAdminServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StopDidAdminServiceResponse(),
             await self.do_request_async('1.0', 'baas.did.admin.service.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20738,7 +22594,8 @@ class Client:
         Summary: 为被托管人进行代理签名
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidSignatureAgentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidSignatureAgentResponse(),
             self.do_request('1.0', 'baas.did.signature.agent.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20753,7 +22610,8 @@ class Client:
         Summary: 为被托管人进行代理签名
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidSignatureAgentResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidSignatureAgentResponse(),
             await self.do_request_async('1.0', 'baas.did.signature.agent.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20792,7 +22650,8 @@ class Client:
         Summary: 对字符串进行验签
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckDidSignResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckDidSignResponse(),
             self.do_request('1.0', 'baas.did.sign.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20807,7 +22666,8 @@ class Client:
         Summary: 对字符串进行验签
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckDidSignResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckDidSignResponse(),
             await self.do_request_async('1.0', 'baas.did.sign.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20846,7 +22706,8 @@ class Client:
         Summary: 根据用户指定路径，展示部分可见声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidZkpverifiableclaimVisibilityResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidZkpverifiableclaimVisibilityResponse(),
             self.do_request('1.0', 'baas.did.zkpverifiableclaim.visibility.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20861,7 +22722,8 @@ class Client:
         Summary: 根据用户指定路径，展示部分可见声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidZkpverifiableclaimVisibilityResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidZkpverifiableclaimVisibilityResponse(),
             await self.do_request_async('1.0', 'baas.did.zkpverifiableclaim.visibility.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20900,7 +22762,8 @@ class Client:
         Summary: 为指定did添加外键关联
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidAgentSidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidAgentSidekeyResponse(),
             self.do_request('1.0', 'baas.did.agent.sidekey.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20915,7 +22778,8 @@ class Client:
         Summary: 为指定did添加外键关联
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidAgentSidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidAgentSidekeyResponse(),
             await self.do_request_async('1.0', 'baas.did.agent.sidekey.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20954,7 +22818,8 @@ class Client:
         Summary: 更新指定did的外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidAgentSidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidAgentSidekeyResponse(),
             self.do_request('1.0', 'baas.did.agent.sidekey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -20969,7 +22834,8 @@ class Client:
         Summary: 更新指定did的外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidAgentSidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidAgentSidekeyResponse(),
             await self.do_request_async('1.0', 'baas.did.agent.sidekey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21008,7 +22874,8 @@ class Client:
         Summary: 代理创建did并创建外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateAgentcreatewithsidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateAgentcreatewithsidekeyResponse(),
             self.do_request('1.0', 'baas.did.corporate.agentcreatewithsidekey.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21023,7 +22890,8 @@ class Client:
         Summary: 代理创建did并创建外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateAgentcreatewithsidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateAgentcreatewithsidekeyResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.agentcreatewithsidekey.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21062,7 +22930,8 @@ class Client:
         Summary: 更新doc 中的扩展字段并更新外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidCorporateExtensionservicewithsidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidCorporateExtensionservicewithsidekeyResponse(),
             self.do_request('1.0', 'baas.did.corporate.extensionservicewithsidekey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21077,7 +22946,8 @@ class Client:
         Summary: 更新doc 中的扩展字段并更新外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidCorporateExtensionservicewithsidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidCorporateExtensionservicewithsidekeyResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.extensionservicewithsidekey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21116,7 +22986,8 @@ class Client:
         Summary: 通过sidekey方式查询对应doc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidDocSidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidDocSidekeyResponse(),
             self.do_request('1.0', 'baas.did.doc.sidekey.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21131,7 +23002,8 @@ class Client:
         Summary: 通过sidekey方式查询对应doc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidDocSidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidDocSidekeyResponse(),
             await self.do_request_async('1.0', 'baas.did.doc.sidekey.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21170,7 +23042,8 @@ class Client:
         Summary: 代理创建个人did并创建外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidPersonAgentcreatewithsidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidPersonAgentcreatewithsidekeyResponse(),
             self.do_request('1.0', 'baas.did.person.agentcreatewithsidekey.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21185,7 +23058,8 @@ class Client:
         Summary: 代理创建个人did并创建外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidPersonAgentcreatewithsidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidPersonAgentcreatewithsidekeyResponse(),
             await self.do_request_async('1.0', 'baas.did.person.agentcreatewithsidekey.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21224,7 +23098,8 @@ class Client:
         Summary: 代理创建IOT did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidIotAgentcreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidIotAgentcreateResponse(),
             self.do_request('1.0', 'baas.did.iot.agentcreate.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21239,7 +23114,8 @@ class Client:
         Summary: 代理创建IOT did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidIotAgentcreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidIotAgentcreateResponse(),
             await self.do_request_async('1.0', 'baas.did.iot.agentcreate.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21278,7 +23154,8 @@ class Client:
         Summary: 代理创建IOT did并创建外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidIotAgentcreatewithsidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidIotAgentcreatewithsidekeyResponse(),
             self.do_request('1.0', 'baas.did.iot.agentcreatewithsidekey.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21293,7 +23170,8 @@ class Client:
         Summary: 代理创建IOT did并创建外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidIotAgentcreatewithsidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidIotAgentcreatewithsidekeyResponse(),
             await self.do_request_async('1.0', 'baas.did.iot.agentcreatewithsidekey.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21332,7 +23210,8 @@ class Client:
         Summary: 更新IOT类did的扩展字段并更新外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidIotExtensionservicewithsidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidIotExtensionservicewithsidekeyResponse(),
             self.do_request('1.0', 'baas.did.iot.extensionservicewithsidekey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21347,7 +23226,8 @@ class Client:
         Summary: 更新IOT类did的扩展字段并更新外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidIotExtensionservicewithsidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidIotExtensionservicewithsidekeyResponse(),
             await self.do_request_async('1.0', 'baas.did.iot.extensionservicewithsidekey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21386,7 +23266,8 @@ class Client:
         Summary: 更新个人did中的扩展字段并更新外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidPersonExtensionservicewithsidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidPersonExtensionservicewithsidekeyResponse(),
             self.do_request('1.0', 'baas.did.person.extensionservicewithsidekey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21401,7 +23282,8 @@ class Client:
         Summary: 更新个人did中的扩展字段并更新外键
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidPersonExtensionservicewithsidekeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidPersonExtensionservicewithsidekeyResponse(),
             await self.do_request_async('1.0', 'baas.did.person.extensionservicewithsidekey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21440,7 +23322,8 @@ class Client:
         Summary: 通过个人三要素验证后创建个人did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonWiththreemetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonWiththreemetaResponse(),
             self.do_request('1.0', 'baas.did.person.withthreemeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21455,7 +23338,8 @@ class Client:
         Summary: 通过个人三要素验证后创建个人did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonWiththreemetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonWiththreemetaResponse(),
             await self.do_request_async('1.0', 'baas.did.person.withthreemeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21494,7 +23378,8 @@ class Client:
         Summary: 通过企业三要素验证后创建企业did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidCorporateWiththreemetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidCorporateWiththreemetaResponse(),
             self.do_request('1.0', 'baas.did.corporate.withthreemeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21509,7 +23394,8 @@ class Client:
         Summary: 通过企业三要素验证后创建企业did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidCorporateWiththreemetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidCorporateWiththreemetaResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.withthreemeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21551,7 +23437,8 @@ class Client:
         Summary: 指定did颁发证书，并存储
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryIssueResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryIssueResponse(),
             self.do_request('1.0', 'baas.did.vcrepository.issue.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21567,7 +23454,8 @@ class Client:
         Summary: 指定did颁发证书，并存储
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryIssueResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryIssueResponse(),
             await self.do_request_async('1.0', 'baas.did.vcrepository.issue.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21609,7 +23497,8 @@ class Client:
         Summary: 读取目标证书数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryReadResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryReadResponse(),
             self.do_request('1.0', 'baas.did.vcrepository.read.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21625,7 +23514,8 @@ class Client:
         Summary: 读取目标证书数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryReadResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryReadResponse(),
             await self.do_request_async('1.0', 'baas.did.vcrepository.read.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21667,7 +23557,8 @@ class Client:
         Summary: 对已有vc新增授权did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryAuthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryAuthResponse(),
             self.do_request('1.0', 'baas.did.vcrepository.auth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21683,7 +23574,8 @@ class Client:
         Summary: 对已有vc新增授权did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryAuthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryAuthResponse(),
             await self.do_request_async('1.0', 'baas.did.vcrepository.auth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21725,7 +23617,8 @@ class Client:
         Summary: 查询过滤并读取目标证书数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryFilterandreadResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryFilterandreadResponse(),
             self.do_request('1.0', 'baas.did.vcrepository.filterandread.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21741,7 +23634,8 @@ class Client:
         Summary: 查询过滤并读取目标证书数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryFilterandreadResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryFilterandreadResponse(),
             await self.do_request_async('1.0', 'baas.did.vcrepository.filterandread.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21783,7 +23677,8 @@ class Client:
         Summary: 通过vcid读取目标证书数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryReadwithvcidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryReadwithvcidResponse(),
             self.do_request('1.0', 'baas.did.vcrepository.readwithvcid.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21799,7 +23694,8 @@ class Client:
         Summary: 通过vcid读取目标证书数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryReadwithvcidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryReadwithvcidResponse(),
             await self.do_request_async('1.0', 'baas.did.vcrepository.readwithvcid.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21841,7 +23737,8 @@ class Client:
         Summary: 通过自定义id读取目标证书内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryReadwithdefineidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryReadwithdefineidResponse(),
             self.do_request('1.0', 'baas.did.vcrepository.readwithdefineid.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21857,7 +23754,8 @@ class Client:
         Summary: 通过自定义id读取目标证书内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryReadwithdefineidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryReadwithdefineidResponse(),
             await self.do_request_async('1.0', 'baas.did.vcrepository.readwithdefineid.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21896,7 +23794,8 @@ class Client:
         Summary: 通过vcid对目标证书追加授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryAuthwithvcidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryAuthwithvcidResponse(),
             self.do_request('1.0', 'baas.did.vcrepository.authwithvcid.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21911,7 +23810,8 @@ class Client:
         Summary: 通过vcid对目标证书追加授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryAuthwithvcidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryAuthwithvcidResponse(),
             await self.do_request_async('1.0', 'baas.did.vcrepository.authwithvcid.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21950,7 +23850,8 @@ class Client:
         Summary: 通过自定义id对目标证书追加授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryAuthwithdefineidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryAuthwithdefineidResponse(),
             self.do_request('1.0', 'baas.did.vcrepository.authwithdefineid.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -21965,7 +23866,8 @@ class Client:
         Summary: 通过自定义id对目标证书追加授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryAuthwithdefineidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryAuthwithdefineidResponse(),
             await self.do_request_async('1.0', 'baas.did.vcrepository.authwithdefineid.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22004,7 +23906,8 @@ class Client:
         Summary: 注册自定义服务类型
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidAgentServicetypeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidAgentServicetypeResponse(),
             self.do_request('1.0', 'baas.did.agent.servicetype.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22019,7 +23922,8 @@ class Client:
         Summary: 注册自定义服务类型
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidAgentServicetypeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidAgentServicetypeResponse(),
             await self.do_request_async('1.0', 'baas.did.agent.servicetype.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22058,7 +23962,8 @@ class Client:
         Summary: 查询指定服务类型的定义
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidAgentServicetypeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidAgentServicetypeResponse(),
             self.do_request('1.0', 'baas.did.agent.servicetype.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22073,7 +23978,8 @@ class Client:
         Summary: 查询指定服务类型的定义
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidAgentServicetypeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidAgentServicetypeResponse(),
             await self.do_request_async('1.0', 'baas.did.agent.servicetype.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22112,7 +24018,8 @@ class Client:
         Summary: 代理更新企业did中的services
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidServicesResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidServicesResponse(),
             self.do_request('1.0', 'baas.did.services.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22127,7 +24034,8 @@ class Client:
         Summary: 代理更新企业did中的services
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidServicesResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidServicesResponse(),
             await self.do_request_async('1.0', 'baas.did.services.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22166,7 +24074,8 @@ class Client:
         Summary: 服务发现
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidAgentServicediscoveryResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidAgentServicediscoveryResponse(),
             self.do_request('1.0', 'baas.did.agent.servicediscovery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22181,7 +24090,8 @@ class Client:
         Summary: 服务发现
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidAgentServicediscoveryResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidAgentServicediscoveryResponse(),
             await self.do_request_async('1.0', 'baas.did.agent.servicediscovery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22220,7 +24130,8 @@ class Client:
         Summary: 为指定did颁发证书,并将保存到对应仓库
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVerifiableclaimIssuerandsaveResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVerifiableclaimIssuerandsaveResponse(),
             self.do_request('1.0', 'baas.did.verifiableclaim.issuerandsave.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22235,7 +24146,8 @@ class Client:
         Summary: 为指定did颁发证书,并将保存到对应仓库
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVerifiableclaimIssuerandsaveResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVerifiableclaimIssuerandsaveResponse(),
             await self.do_request_async('1.0', 'baas.did.verifiableclaim.issuerandsave.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22274,7 +24186,8 @@ class Client:
         Summary: 通过agent代理进行VC传输
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryVctransmitResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryVctransmitResponse(),
             self.do_request('1.0', 'baas.did.vcrepository.vctransmit.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22289,7 +24202,8 @@ class Client:
         Summary: 通过agent代理进行VC传输
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryVctransmitResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryVctransmitResponse(),
             await self.do_request_async('1.0', 'baas.did.vcrepository.vctransmit.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22328,7 +24242,8 @@ class Client:
         Summary: 通过个人二要素验证后创建个人did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonWithtwometaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonWithtwometaResponse(),
             self.do_request('1.0', 'baas.did.person.withtwometa.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22343,7 +24258,8 @@ class Client:
         Summary: 通过个人二要素验证后创建个人did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonWithtwometaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonWithtwometaResponse(),
             await self.do_request_async('1.0', 'baas.did.person.withtwometa.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22382,7 +24298,8 @@ class Client:
         Summary: 通过企业二要素验证后创建企业did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidCorporateWithtwometaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidCorporateWithtwometaResponse(),
             self.do_request('1.0', 'baas.did.corporate.withtwometa.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22397,7 +24314,8 @@ class Client:
         Summary: 通过企业二要素验证后创建企业did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidCorporateWithtwometaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidCorporateWithtwometaResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.withtwometa.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22436,7 +24354,8 @@ class Client:
         Summary: 通过企业四要素验证后创建企业did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidCorporateWithfourmetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidCorporateWithfourmetaResponse(),
             self.do_request('1.0', 'baas.did.corporate.withfourmeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22451,7 +24370,8 @@ class Client:
         Summary: 通过企业四要素验证后创建企业did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidCorporateWithfourmetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidCorporateWithfourmetaResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.withfourmeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22490,7 +24410,8 @@ class Client:
         Summary: 通过个人四要素验证后创建个人did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonWithfourmetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonWithfourmetaResponse(),
             self.do_request('1.0', 'baas.did.person.withfourmeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22505,7 +24426,8 @@ class Client:
         Summary: 通过个人四要素验证后创建个人did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonWithfourmetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonWithfourmetaResponse(),
             await self.do_request_async('1.0', 'baas.did.person.withfourmeta.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22544,7 +24466,8 @@ class Client:
         Summary: 对did进行企业二要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateTwometaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateTwometaResponse(),
             self.do_request('1.0', 'baas.did.corporate.twometa.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22559,7 +24482,8 @@ class Client:
         Summary: 对did进行企业二要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateTwometaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateTwometaResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.twometa.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22598,7 +24522,8 @@ class Client:
         Summary: 对did进行企业三要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateThreemetaResponse(),
             self.do_request('1.0', 'baas.did.corporate.threemeta.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22613,7 +24538,8 @@ class Client:
         Summary: 对did进行企业三要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateThreemetaResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.threemeta.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22652,7 +24578,8 @@ class Client:
         Summary: 对did进行企业四要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateFourmetaResponse(),
             self.do_request('1.0', 'baas.did.corporate.fourmeta.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22667,7 +24594,8 @@ class Client:
         Summary: 对did进行企业四要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateFourmetaResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.fourmeta.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22706,7 +24634,8 @@ class Client:
         Summary: 四要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCertificationFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCertificationFourmetaResponse(),
             self.do_request('1.0', 'baas.did.certification.fourmeta.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22721,7 +24650,8 @@ class Client:
         Summary: 四要素实名认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCertificationFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCertificationFourmetaResponse(),
             await self.do_request_async('1.0', 'baas.did.certification.fourmeta.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22760,7 +24690,8 @@ class Client:
         Summary: 模糊查询vc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidVcrepositoryFuzzyquerywithdefinedidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidVcrepositoryFuzzyquerywithdefinedidResponse(),
             self.do_request('1.0', 'baas.did.vcrepository.fuzzyquerywithdefinedid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22775,7 +24706,8 @@ class Client:
         Summary: 模糊查询vc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidVcrepositoryFuzzyquerywithdefinedidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidVcrepositoryFuzzyquerywithdefinedidResponse(),
             await self.do_request_async('1.0', 'baas.did.vcrepository.fuzzyquerywithdefinedid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22814,7 +24746,8 @@ class Client:
         Summary: 通过代理模式为普通账号创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCommonAgentcreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCommonAgentcreateResponse(),
             self.do_request('1.0', 'baas.did.common.agentcreate.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22829,7 +24762,8 @@ class Client:
         Summary: 通过代理模式为普通账号创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCommonAgentcreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCommonAgentcreateResponse(),
             await self.do_request_async('1.0', 'baas.did.common.agentcreate.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22868,7 +24802,8 @@ class Client:
         Summary: 企业法人刷脸认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateFaceauthResponse(),
             self.do_request('1.0', 'baas.did.corporate.faceauth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22883,7 +24818,8 @@ class Client:
         Summary: 企业法人刷脸认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidCorporateFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidCorporateFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.faceauth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22922,7 +24858,8 @@ class Client:
         Summary: 查询企业法人实人结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidCorporateFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidCorporateFaceauthResponse(),
             self.do_request('1.0', 'baas.did.corporate.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22937,7 +24874,8 @@ class Client:
         Summary: 查询企业法人实人结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidCorporateFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidCorporateFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.did.corporate.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22976,7 +24914,8 @@ class Client:
         Summary: 用户删除不需要的vc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteDidVcrepositoryVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteDidVcrepositoryVcResponse(),
             self.do_request('1.0', 'baas.did.vcrepository.vc.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -22991,7 +24930,8 @@ class Client:
         Summary: 用户删除不需要的vc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteDidVcrepositoryVcResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteDidVcrepositoryVcResponse(),
             await self.do_request_async('1.0', 'baas.did.vcrepository.vc.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23030,7 +24970,8 @@ class Client:
         Summary: 构造零知识证明的VC
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidZkpverifiableclaimProofResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidZkpverifiableclaimProofResponse(),
             self.do_request('1.0', 'baas.did.zkpverifiableclaim.proof.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23045,7 +24986,8 @@ class Client:
         Summary: 构造零知识证明的VC
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidZkpverifiableclaimProofResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidZkpverifiableclaimProofResponse(),
             await self.do_request_async('1.0', 'baas.did.zkpverifiableclaim.proof.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23084,7 +25026,8 @@ class Client:
         Summary: 验证包含ZKP Proof的VC
         """
         UtilClient.validate_model(request)
-        return blockchain_models.VerifyDidZkpverifiableclaimProofResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.VerifyDidZkpverifiableclaimProofResponse(),
             self.do_request('1.0', 'baas.did.zkpverifiableclaim.proof.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23099,7 +25042,8 @@ class Client:
         Summary: 验证包含ZKP Proof的VC
         """
         UtilClient.validate_model(request)
-        return blockchain_models.VerifyDidZkpverifiableclaimProofResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.VerifyDidZkpverifiableclaimProofResponse(),
             await self.do_request_async('1.0', 'baas.did.zkpverifiableclaim.proof.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23138,7 +25082,8 @@ class Client:
         Summary: APP移动端刷脸认证成功后创建DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonFacevrfResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonFacevrfResponse(),
             self.do_request('1.0', 'baas.did.person.facevrf.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23153,7 +25098,8 @@ class Client:
         Summary: APP移动端刷脸认证成功后创建DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonFacevrfResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonFacevrfResponse(),
             await self.do_request_async('1.0', 'baas.did.person.facevrf.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23192,7 +25138,8 @@ class Client:
         Summary: 查询可信实人认证的结果并创建DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidPersonFacevrfResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidPersonFacevrfResponse(),
             self.do_request('1.0', 'baas.did.person.facevrf.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23207,7 +25154,8 @@ class Client:
         Summary: 查询可信实人认证的结果并创建DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidPersonFacevrfResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidPersonFacevrfResponse(),
             await self.do_request_async('1.0', 'baas.did.person.facevrf.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23246,7 +25194,8 @@ class Client:
         Summary: h5或者小程序刷脸认证成功后创建DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonFacevrfminiappResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonFacevrfminiappResponse(),
             self.do_request('1.0', 'baas.did.person.facevrfminiapp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23261,7 +25210,8 @@ class Client:
         Summary: h5或者小程序刷脸认证成功后创建DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonFacevrfminiappResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonFacevrfminiappResponse(),
             await self.do_request_async('1.0', 'baas.did.person.facevrfminiapp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23300,7 +25250,8 @@ class Client:
         Summary: 查询小程序刷脸的结果并创建DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidPersonFacevrfminiappResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidPersonFacevrfminiappResponse(),
             self.do_request('1.0', 'baas.did.person.facevrfminiapp.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23315,7 +25266,8 @@ class Client:
         Summary: 查询小程序刷脸的结果并创建DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidPersonFacevrfminiappResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidPersonFacevrfminiappResponse(),
             await self.do_request_async('1.0', 'baas.did.person.facevrfminiapp.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23354,7 +25306,8 @@ class Client:
         Summary: 指定did颁发证书，并存储（新商品）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryIssuenewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryIssuenewocpResponse(),
             self.do_request('1.0', 'baas.did.vcrepository.issuenewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23369,7 +25322,8 @@ class Client:
         Summary: 指定did颁发证书，并存储（新商品）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVcrepositoryIssuenewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVcrepositoryIssuenewocpResponse(),
             await self.do_request_async('1.0', 'baas.did.vcrepository.issuenewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23408,7 +25362,8 @@ class Client:
         Summary: 为指定did颁发证书（新商品）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVerifiableclaimIssurenewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVerifiableclaimIssurenewocpResponse(),
             self.do_request('1.0', 'baas.did.verifiableclaim.issurenewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23423,7 +25378,8 @@ class Client:
         Summary: 为指定did颁发证书（新商品）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidVerifiableclaimIssurenewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidVerifiableclaimIssurenewocpResponse(),
             await self.do_request_async('1.0', 'baas.did.verifiableclaim.issurenewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23462,7 +25418,8 @@ class Client:
         Summary: 通过个人二要素验证后创建个人did（新）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonWithtwometanewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonWithtwometanewocpResponse(),
             self.do_request('1.0', 'baas.did.person.withtwometanewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23477,7 +25434,8 @@ class Client:
         Summary: 通过个人二要素验证后创建个人did（新）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonWithtwometanewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonWithtwometanewocpResponse(),
             await self.do_request_async('1.0', 'baas.did.person.withtwometanewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23516,7 +25474,8 @@ class Client:
         Summary: 通过个人三要素验证后创建个人did（新）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonWiththreemetanewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonWiththreemetanewocpResponse(),
             self.do_request('1.0', 'baas.did.person.withthreemetanewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23531,7 +25490,8 @@ class Client:
         Summary: 通过个人三要素验证后创建个人did（新）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonWiththreemetanewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonWiththreemetanewocpResponse(),
             await self.do_request_async('1.0', 'baas.did.person.withthreemetanewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23570,7 +25530,8 @@ class Client:
         Summary: 开始实人认证（新商品）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidIdentificationFaceauthnewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidIdentificationFaceauthnewocpResponse(),
             self.do_request('1.0', 'baas.did.identification.faceauthnewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23585,7 +25546,8 @@ class Client:
         Summary: 开始实人认证（新商品）
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidIdentificationFaceauthnewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidIdentificationFaceauthnewocpResponse(),
             await self.do_request_async('1.0', 'baas.did.identification.faceauthnewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23624,7 +25586,8 @@ class Client:
         Summary: APP移动端刷脸认证成功后创建DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonFacevrfnewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonFacevrfnewocpResponse(),
             self.do_request('1.0', 'baas.did.person.facevrfnewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23639,7 +25602,8 @@ class Client:
         Summary: APP移动端刷脸认证成功后创建DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonFacevrfnewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonFacevrfnewocpResponse(),
             await self.do_request_async('1.0', 'baas.did.person.facevrfnewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23678,7 +25642,8 @@ class Client:
         Summary: h5或者小程序刷脸认证成功后创建DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonFacevrfminiappnewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonFacevrfminiappnewocpResponse(),
             self.do_request('1.0', 'baas.did.person.facevrfminiappnewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23693,8 +25658,233 @@ class Client:
         Summary: h5或者小程序刷脸认证成功后创建DID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidPersonFacevrfminiappnewocpResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidPersonFacevrfminiappnewocpResponse(),
             await self.do_request_async('1.0', 'baas.did.person.facevrfminiappnewocp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_did_certification_threemetanewocp(
+        self,
+        request: blockchain_models.StartDidCertificationThreemetanewocpRequest,
+    ) -> blockchain_models.StartDidCertificationThreemetanewocpResponse:
+        """
+        Description: 三要素实名认证（新商品）
+        Summary: 三要素实名认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_did_certification_threemetanewocp_ex(request, headers, runtime)
+
+    async def start_did_certification_threemetanewocp_async(
+        self,
+        request: blockchain_models.StartDidCertificationThreemetanewocpRequest,
+    ) -> blockchain_models.StartDidCertificationThreemetanewocpResponse:
+        """
+        Description: 三要素实名认证（新商品）
+        Summary: 三要素实名认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_did_certification_threemetanewocp_ex_async(request, headers, runtime)
+
+    def start_did_certification_threemetanewocp_ex(
+        self,
+        request: blockchain_models.StartDidCertificationThreemetanewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.StartDidCertificationThreemetanewocpResponse:
+        """
+        Description: 三要素实名认证（新商品）
+        Summary: 三要素实名认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.StartDidCertificationThreemetanewocpResponse(),
+            self.do_request('1.0', 'baas.did.certification.threemetanewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_did_certification_threemetanewocp_ex_async(
+        self,
+        request: blockchain_models.StartDidCertificationThreemetanewocpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.StartDidCertificationThreemetanewocpResponse:
+        """
+        Description: 三要素实名认证（新商品）
+        Summary: 三要素实名认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.StartDidCertificationThreemetanewocpResponse(),
+            await self.do_request_async('1.0', 'baas.did.certification.threemetanewocp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_did_aldaba(
+        self,
+        request: blockchain_models.ImportDidAldabaRequest,
+    ) -> blockchain_models.ImportDidAldabaResponse:
+        """
+        Description: 迁移did至aldaba链
+        Summary: 迁移did至aldaba链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_did_aldaba_ex(request, headers, runtime)
+
+    async def import_did_aldaba_async(
+        self,
+        request: blockchain_models.ImportDidAldabaRequest,
+    ) -> blockchain_models.ImportDidAldabaResponse:
+        """
+        Description: 迁移did至aldaba链
+        Summary: 迁移did至aldaba链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_did_aldaba_ex_async(request, headers, runtime)
+
+    def import_did_aldaba_ex(
+        self,
+        request: blockchain_models.ImportDidAldabaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ImportDidAldabaResponse:
+        """
+        Description: 迁移did至aldaba链
+        Summary: 迁移did至aldaba链
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ImportDidAldabaResponse(),
+            self.do_request('1.0', 'baas.did.aldaba.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_did_aldaba_ex_async(
+        self,
+        request: blockchain_models.ImportDidAldabaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ImportDidAldabaResponse:
+        """
+        Description: 迁移did至aldaba链
+        Summary: 迁移did至aldaba链
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ImportDidAldabaResponse(),
+            await self.do_request_async('1.0', 'baas.did.aldaba.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_did_dtx_person(
+        self,
+        request: blockchain_models.CreateDidDtxPersonRequest,
+    ) -> blockchain_models.CreateDidDtxPersonResponse:
+        """
+        Description: 端上密钥生成did，但不doc上链
+        Summary: 端上密钥生成did
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_did_dtx_person_ex(request, headers, runtime)
+
+    async def create_did_dtx_person_async(
+        self,
+        request: blockchain_models.CreateDidDtxPersonRequest,
+    ) -> blockchain_models.CreateDidDtxPersonResponse:
+        """
+        Description: 端上密钥生成did，但不doc上链
+        Summary: 端上密钥生成did
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_did_dtx_person_ex_async(request, headers, runtime)
+
+    def create_did_dtx_person_ex(
+        self,
+        request: blockchain_models.CreateDidDtxPersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidDtxPersonResponse:
+        """
+        Description: 端上密钥生成did，但不doc上链
+        Summary: 端上密钥生成did
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CreateDidDtxPersonResponse(),
+            self.do_request('1.0', 'baas.did.dtx.person.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_did_dtx_person_ex_async(
+        self,
+        request: blockchain_models.CreateDidDtxPersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.CreateDidDtxPersonResponse:
+        """
+        Description: 端上密钥生成did，但不doc上链
+        Summary: 端上密钥生成did
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.CreateDidDtxPersonResponse(),
+            await self.do_request_async('1.0', 'baas.did.dtx.person.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_did_dtx_pk(
+        self,
+        request: blockchain_models.AddDidDtxPkRequest,
+    ) -> blockchain_models.AddDidDtxPkResponse:
+        """
+        Description: 添加端上密钥，并上链
+        Summary: 添加端上密钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_did_dtx_pk_ex(request, headers, runtime)
+
+    async def add_did_dtx_pk_async(
+        self,
+        request: blockchain_models.AddDidDtxPkRequest,
+    ) -> blockchain_models.AddDidDtxPkResponse:
+        """
+        Description: 添加端上密钥，并上链
+        Summary: 添加端上密钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_did_dtx_pk_ex_async(request, headers, runtime)
+
+    def add_did_dtx_pk_ex(
+        self,
+        request: blockchain_models.AddDidDtxPkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.AddDidDtxPkResponse:
+        """
+        Description: 添加端上密钥，并上链
+        Summary: 添加端上密钥
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.AddDidDtxPkResponse(),
+            self.do_request('1.0', 'baas.did.dtx.pk.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_did_dtx_pk_ex_async(
+        self,
+        request: blockchain_models.AddDidDtxPkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.AddDidDtxPkResponse:
+        """
+        Description: 添加端上密钥，并上链
+        Summary: 添加端上密钥
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.AddDidDtxPkResponse(),
+            await self.do_request_async('1.0', 'baas.did.dtx.pk.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_mydidcommun_agency_settlein(
@@ -23732,7 +25922,8 @@ class Client:
         Summary: 数据隐私服务合作方入驻接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencySettleinResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencySettleinResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agency.settlein.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23747,7 +25938,8 @@ class Client:
         Summary: 数据隐私服务合作方入驻接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencySettleinResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencySettleinResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agency.settlein.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23786,7 +25978,8 @@ class Client:
         Summary: 数据隐私服务合作机构选择tapp接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyChoicetappResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyChoicetappResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agency.choicetapp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23801,7 +25994,8 @@ class Client:
         Summary: 数据隐私服务合作机构选择tapp接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyChoicetappResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyChoicetappResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agency.choicetapp.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23840,7 +26034,8 @@ class Client:
         Summary: 数据隐私服务合作机构下个人用户入驻接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyuserPersonjoinResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyuserPersonjoinResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agencyuser.personjoin.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23855,7 +26050,8 @@ class Client:
         Summary: 数据隐私服务合作机构下个人用户入驻接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyuserPersonjoinResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyuserPersonjoinResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agencyuser.personjoin.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23894,7 +26090,8 @@ class Client:
         Summary: 数据隐私服务合作机构下企业用户入驻接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyuserCorporatejoinResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyuserCorporatejoinResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agencyuser.corporatejoin.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23909,7 +26106,8 @@ class Client:
         Summary: 数据隐私服务合作机构下企业用户入驻接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyuserCorporatejoinResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyuserCorporatejoinResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agencyuser.corporatejoin.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23948,7 +26146,8 @@ class Client:
         Summary: 更新doc service接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateMydidcommunAgencyDocResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateMydidcommunAgencyDocResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agency.doc.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -23963,7 +26162,8 @@ class Client:
         Summary: 更新doc service接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateMydidcommunAgencyDocResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateMydidcommunAgencyDocResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agency.doc.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24002,7 +26202,8 @@ class Client:
         Summary: 主动发起数据安全传输流程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyDatatransmitstartResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyDatatransmitstartResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agency.datatransmitstart.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24017,7 +26218,8 @@ class Client:
         Summary: 主动发起数据安全传输流程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyDatatransmitstartResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyDatatransmitstartResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agency.datatransmitstart.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24056,7 +26258,8 @@ class Client:
         Summary: 继续触发主动发起数据安全传输流程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyDatatransmitcontinueResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyDatatransmitcontinueResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agency.datatransmitcontinue.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24071,7 +26274,8 @@ class Client:
         Summary: 继续触发主动发起数据安全传输流程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyDatatransmitcontinueResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyDatatransmitcontinueResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agency.datatransmitcontinue.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24110,7 +26314,8 @@ class Client:
         Summary: 主动发起申请数据资产的流程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyDataapplicationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyDataapplicationResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agency.dataapplication.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24125,7 +26330,8 @@ class Client:
         Summary: 主动发起申请数据资产的流程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyDataapplicationResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyDataapplicationResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agency.dataapplication.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24164,7 +26370,8 @@ class Client:
         Summary: 据隐私服务合作机构选择多个tapp接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyChoicetapplistResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyChoicetapplistResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agency.choicetapplist.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24179,7 +26386,8 @@ class Client:
         Summary: 据隐私服务合作机构选择多个tapp接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyChoicetapplistResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyChoicetapplistResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agency.choicetapplist.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24218,7 +26426,8 @@ class Client:
         Summary: 定义数据资产审批流程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyDataassertregisterResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyDataassertregisterResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agency.dataassertregister.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24233,7 +26442,8 @@ class Client:
         Summary: 定义数据资产审批流程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyDataassertregisterResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyDataassertregisterResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agency.dataassertregister.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24272,7 +26482,8 @@ class Client:
         Summary: 发起数据授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyAuthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyAuthResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agency.auth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24287,7 +26498,8 @@ class Client:
         Summary: 发起数据授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyAuthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyAuthResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agency.auth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24326,7 +26538,8 @@ class Client:
         Summary: 处理授权流程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyProcessauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyProcessauthResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agency.processauth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24341,7 +26554,8 @@ class Client:
         Summary: 处理授权流程
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunAgencyProcessauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunAgencyProcessauthResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agency.processauth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24380,7 +26594,8 @@ class Client:
         Summary: 查询授权当前状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryMydidcommunAgencyProcessauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryMydidcommunAgencyProcessauthResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agency.processauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24395,7 +26610,8 @@ class Client:
         Summary: 查询授权当前状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryMydidcommunAgencyProcessauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryMydidcommunAgencyProcessauthResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agency.processauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24434,7 +26650,8 @@ class Client:
         Summary: 通过serviceType查找其对应信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryMydidcommunAgencyServicetypeinfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryMydidcommunAgencyServicetypeinfoResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agency.servicetypeinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24449,7 +26666,8 @@ class Client:
         Summary: 通过serviceType查找其对应信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryMydidcommunAgencyServicetypeinfoResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryMydidcommunAgencyServicetypeinfoResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agency.servicetypeinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24488,7 +26706,8 @@ class Client:
         Summary: 查询任务执行结果文件
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryMydidcommunAgencyTaskresultfileResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryMydidcommunAgencyTaskresultfileResponse(),
             self.do_request('1.0', 'baas.mydidcommun.agency.taskresultfile.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24503,7 +26722,8 @@ class Client:
         Summary: 查询任务执行结果文件
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryMydidcommunAgencyTaskresultfileResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryMydidcommunAgencyTaskresultfileResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.agency.taskresultfile.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24542,7 +26762,8 @@ class Client:
         Summary: 服务类型权限申请
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyMydidcommunTaskServicetypeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyMydidcommunTaskServicetypeResponse(),
             self.do_request('1.0', 'baas.mydidcommun.task.servicetype.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24557,7 +26778,8 @@ class Client:
         Summary: 服务类型权限申请
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ApplyMydidcommunTaskServicetypeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ApplyMydidcommunTaskServicetypeResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.task.servicetype.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24596,7 +26818,8 @@ class Client:
         Summary: 获取任务执行结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetMydidcommunTaskTaskresultResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetMydidcommunTaskTaskresultResponse(),
             self.do_request('1.0', 'baas.mydidcommun.task.taskresult.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24611,7 +26834,8 @@ class Client:
         Summary: 获取任务执行结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetMydidcommunTaskTaskresultResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetMydidcommunTaskTaskresultResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.task.taskresult.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24650,7 +26874,8 @@ class Client:
         Summary: 添加数据资产
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddMydidcommunAssetDataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddMydidcommunAssetDataResponse(),
             self.do_request('1.0', 'baas.mydidcommun.asset.data.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24665,7 +26890,8 @@ class Client:
         Summary: 添加数据资产
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddMydidcommunAssetDataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddMydidcommunAssetDataResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.asset.data.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24704,7 +26930,8 @@ class Client:
         Summary: 执行获取数据接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunTaskGetdataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunTaskGetdataResponse(),
             self.do_request('1.0', 'baas.mydidcommun.task.getdata.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24719,7 +26946,8 @@ class Client:
         Summary: 执行获取数据接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunTaskGetdataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunTaskGetdataResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.task.getdata.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24758,7 +26986,8 @@ class Client:
         Summary: 机构入驻数据隐私服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunInstitutionSettleinResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunInstitutionSettleinResponse(),
             self.do_request('1.0', 'baas.mydidcommun.institution.settlein.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24773,7 +27002,8 @@ class Client:
         Summary: 机构入驻数据隐私服务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidcommunInstitutionSettleinResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidcommunInstitutionSettleinResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.institution.settlein.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24812,7 +27042,8 @@ class Client:
         Summary: 计算集群-部署同步-获取一个需要同步任务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetMydidcommunWorkergroupSyncResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetMydidcommunWorkergroupSyncResponse(),
             self.do_request('1.0', 'baas.mydidcommun.workergroup.sync.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24827,7 +27058,8 @@ class Client:
         Summary: 计算集群-部署同步-获取一个需要同步任务
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetMydidcommunWorkergroupSyncResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetMydidcommunWorkergroupSyncResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.workergroup.sync.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24866,7 +27098,8 @@ class Client:
         Summary: 计算集群-部署-获取部署详情
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetMydidcommunWorkergroupPodResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetMydidcommunWorkergroupPodResponse(),
             self.do_request('1.0', 'baas.mydidcommun.workergroup.pod.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24881,7 +27114,8 @@ class Client:
         Summary: 计算集群-部署-获取部署详情
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetMydidcommunWorkergroupPodResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetMydidcommunWorkergroupPodResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.workergroup.pod.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24920,7 +27154,8 @@ class Client:
         Summary: 计算集群-部署同步-设置同步任务完成
         """
         UtilClient.validate_model(request)
-        return blockchain_models.FinishMydidcommunWorkergroupSyncResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.FinishMydidcommunWorkergroupSyncResponse(),
             self.do_request('1.0', 'baas.mydidcommun.workergroup.sync.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24935,7 +27170,8 @@ class Client:
         Summary: 计算集群-部署同步-设置同步任务完成
         """
         UtilClient.validate_model(request)
-        return blockchain_models.FinishMydidcommunWorkergroupSyncResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.FinishMydidcommunWorkergroupSyncResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.workergroup.sync.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24974,7 +27210,8 @@ class Client:
         Summary: 计算集群-TAPP-获取TAPP部署
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetMydidcommunWorkergroupTappResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetMydidcommunWorkergroupTappResponse(),
             self.do_request('1.0', 'baas.mydidcommun.workergroup.tapp.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -24989,7 +27226,8 @@ class Client:
         Summary: 计算集群-TAPP-获取TAPP部署
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetMydidcommunWorkergroupTappResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetMydidcommunWorkergroupTappResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.workergroup.tapp.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25028,7 +27266,8 @@ class Client:
         Summary: 计算集群-TAPP-更新TAPP信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateMydidcommunWorkergroupTappResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateMydidcommunWorkergroupTappResponse(),
             self.do_request('1.0', 'baas.mydidcommun.workergroup.tapp.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25043,7 +27282,8 @@ class Client:
         Summary: 计算集群-TAPP-更新TAPP信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateMydidcommunWorkergroupTappResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateMydidcommunWorkergroupTappResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.workergroup.tapp.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25082,7 +27322,8 @@ class Client:
         Summary: 计算集群-工作流-获取工作流配置
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryMydidcommunWorkergroupWorkflowResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryMydidcommunWorkergroupWorkflowResponse(),
             self.do_request('1.0', 'baas.mydidcommun.workergroup.workflow.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25097,7 +27338,8 @@ class Client:
         Summary: 计算集群-工作流-获取工作流配置
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryMydidcommunWorkergroupWorkflowResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryMydidcommunWorkergroupWorkflowResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.workergroup.workflow.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25136,7 +27378,8 @@ class Client:
         Summary: 计算集群-集群-同步集群状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SyncMydidcommunWorkergroupGroupResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SyncMydidcommunWorkergroupGroupResponse(),
             self.do_request('1.0', 'baas.mydidcommun.workergroup.group.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25151,7 +27394,8 @@ class Client:
         Summary: 计算集群-集群-同步集群状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SyncMydidcommunWorkergroupGroupResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SyncMydidcommunWorkergroupGroupResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.workergroup.group.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25190,7 +27434,8 @@ class Client:
         Summary: 计算集群-部署版本-获取版本列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListMydidcommunWorkergroupPodversionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListMydidcommunWorkergroupPodversionResponse(),
             self.do_request('1.0', 'baas.mydidcommun.workergroup.podversion.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25205,7 +27450,8 @@ class Client:
         Summary: 计算集群-部署版本-获取版本列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ListMydidcommunWorkergroupPodversionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ListMydidcommunWorkergroupPodversionResponse(),
             await self.do_request_async('1.0', 'baas.mydidcommun.workergroup.podversion.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25244,7 +27490,8 @@ class Client:
         Summary: did创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveMydidIdaasDidserviceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveMydidIdaasDidserviceResponse(),
             self.do_request('1.0', 'baas.mydid.idaas.didservice.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25259,7 +27506,8 @@ class Client:
         Summary: did创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SaveMydidIdaasDidserviceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SaveMydidIdaasDidserviceResponse(),
             await self.do_request_async('1.0', 'baas.mydid.idaas.didservice.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25298,7 +27546,8 @@ class Client:
         Summary: 消息端主动拉取did event
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidNotificationDideventResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidNotificationDideventResponse(),
             self.do_request('1.0', 'baas.did.notification.didevent.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25313,7 +27562,8 @@ class Client:
         Summary: 消息端主动拉取did event
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidNotificationDideventResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidNotificationDideventResponse(),
             await self.do_request_async('1.0', 'baas.did.notification.didevent.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25352,7 +27602,8 @@ class Client:
         Summary: 主动拉取vc事件
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidNotificationVceventResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidNotificationVceventResponse(),
             self.do_request('1.0', 'baas.did.notification.vcevent.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25367,7 +27618,8 @@ class Client:
         Summary: 主动拉取vc事件
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidNotificationVceventResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidNotificationVceventResponse(),
             await self.do_request_async('1.0', 'baas.did.notification.vcevent.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25406,7 +27658,8 @@ class Client:
         Summary: 获取did全量数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidNotificationFulldidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidNotificationFulldidResponse(),
             self.do_request('1.0', 'baas.did.notification.fulldid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25421,7 +27674,8 @@ class Client:
         Summary: 获取did全量数据
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidNotificationFulldidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidNotificationFulldidResponse(),
             await self.do_request_async('1.0', 'baas.did.notification.fulldid.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25460,7 +27714,8 @@ class Client:
         Summary: 非托管模式下创建企业did账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidIdentityCorporateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidIdentityCorporateResponse(),
             self.do_request('1.0', 'baas.did.identity.corporate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25475,7 +27730,8 @@ class Client:
         Summary: 非托管模式下创建企业did账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidIdentityCorporateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidIdentityCorporateResponse(),
             await self.do_request_async('1.0', 'baas.did.identity.corporate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25514,7 +27770,8 @@ class Client:
         Summary: add did doc上链交易hash
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDidAdddidHashResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDidAdddidHashResponse(),
             self.do_request('1.0', 'baas.did.adddid.hash.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25529,7 +27786,8 @@ class Client:
         Summary: add did doc上链交易hash
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDidAdddidHashResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDidAdddidHashResponse(),
             await self.do_request_async('1.0', 'baas.did.adddid.hash.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25568,7 +27826,8 @@ class Client:
         Summary: 将diddoc写入DIS链
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidAdddidExecuteResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidAdddidExecuteResponse(),
             self.do_request('1.0', 'baas.did.adddid.execute.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25583,7 +27842,8 @@ class Client:
         Summary: 将diddoc写入DIS链
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidAdddidExecuteResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidAdddidExecuteResponse(),
             await self.do_request_async('1.0', 'baas.did.adddid.execute.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25622,7 +27882,8 @@ class Client:
         Summary: 可验证声明上链之前计算其hash
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDidAddvcHashResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDidAddvcHashResponse(),
             self.do_request('1.0', 'baas.did.addvc.hash.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25637,7 +27898,8 @@ class Client:
         Summary: 可验证声明上链之前计算其hash
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDidAddvcHashResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDidAddvcHashResponse(),
             await self.do_request_async('1.0', 'baas.did.addvc.hash.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25676,7 +27938,8 @@ class Client:
         Summary: 实际执行可验证声明上链
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidAddvcExecuteResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidAddvcExecuteResponse(),
             self.do_request('1.0', 'baas.did.addvc.execute.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25691,7 +27954,8 @@ class Client:
         Summary: 实际执行可验证声明上链
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidAddvcExecuteResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidAddvcExecuteResponse(),
             await self.do_request_async('1.0', 'baas.did.addvc.execute.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25730,7 +27994,8 @@ class Client:
         Summary: 计算更新VC状态交易hash
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDidUpdatevcstatusHashResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDidUpdatevcstatusHashResponse(),
             self.do_request('1.0', 'baas.did.updatevcstatus.hash.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25745,7 +28010,8 @@ class Client:
         Summary: 计算更新VC状态交易hash
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDidUpdatevcstatusHashResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDidUpdatevcstatusHashResponse(),
             await self.do_request_async('1.0', 'baas.did.updatevcstatus.hash.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25784,7 +28050,8 @@ class Client:
         Summary: 更新VC状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidUpdatevcstatusExecuteResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidUpdatevcstatusExecuteResponse(),
             self.do_request('1.0', 'baas.did.updatevcstatus.execute.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25799,7 +28066,8 @@ class Client:
         Summary: 更新VC状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidUpdatevcstatusExecuteResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidUpdatevcstatusExecuteResponse(),
             await self.do_request_async('1.0', 'baas.did.updatevcstatus.execute.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25838,7 +28106,8 @@ class Client:
         Summary: 计算更新did交易hash
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDidUpdatedidHashResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDidUpdatedidHashResponse(),
             self.do_request('1.0', 'baas.did.updatedid.hash.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25853,7 +28122,8 @@ class Client:
         Summary: 计算更新did交易hash
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitDidUpdatedidHashResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitDidUpdatedidHashResponse(),
             await self.do_request_async('1.0', 'baas.did.updatedid.hash.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25892,7 +28162,8 @@ class Client:
         Summary: 更新did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidUpdatedidExecuteResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidUpdatedidExecuteResponse(),
             self.do_request('1.0', 'baas.did.updatedid.execute.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25907,7 +28178,8 @@ class Client:
         Summary: 更新did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidUpdatedidExecuteResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidUpdatedidExecuteResponse(),
             await self.do_request_async('1.0', 'baas.did.updatedid.execute.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25946,7 +28218,8 @@ class Client:
         Summary: 非托管查询did doc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidDiddocDirectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidDiddocDirectResponse(),
             self.do_request('1.0', 'baas.did.diddoc.direct.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -25961,7 +28234,8 @@ class Client:
         Summary: 非托管查询did doc
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidDiddocDirectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidDiddocDirectResponse(),
             await self.do_request_async('1.0', 'baas.did.diddoc.direct.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26000,7 +28274,8 @@ class Client:
         Summary: 非托管查询可验证声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidVcDirectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidVcDirectResponse(),
             self.do_request('1.0', 'baas.did.vc.direct.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26015,7 +28290,8 @@ class Client:
         Summary: 非托管查询可验证声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryDidVcDirectResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryDidVcDirectResponse(),
             await self.do_request_async('1.0', 'baas.did.vc.direct.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26054,7 +28330,8 @@ class Client:
         Summary: 非托管模式下创建个人did账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidIdentityPersonResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidIdentityPersonResponse(),
             self.do_request('1.0', 'baas.did.identity.person.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26069,7 +28346,8 @@ class Client:
         Summary: 非托管模式下创建个人did账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidIdentityPersonResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidIdentityPersonResponse(),
             await self.do_request_async('1.0', 'baas.did.identity.person.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26108,7 +28386,8 @@ class Client:
         Summary: 非托管模式更新doc中的auth key
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidUpdatedidAuthkeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidUpdatedidAuthkeyResponse(),
             self.do_request('1.0', 'baas.did.updatedid.authkey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26123,7 +28402,8 @@ class Client:
         Summary: 非托管模式更新doc中的auth key
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidUpdatedidAuthkeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidUpdatedidAuthkeyResponse(),
             await self.do_request_async('1.0', 'baas.did.updatedid.authkey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26162,7 +28442,8 @@ class Client:
         Summary: 更新did service信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidUpdatedidServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidUpdatedidServiceResponse(),
             self.do_request('1.0', 'baas.did.updatedid.service.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26177,7 +28458,8 @@ class Client:
         Summary: 更新did service信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidUpdatedidServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidUpdatedidServiceResponse(),
             await self.do_request_async('1.0', 'baas.did.updatedid.service.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26216,7 +28498,8 @@ class Client:
         Summary: 添加did doc中的service
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddDidUpdatedidServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddDidUpdatedidServiceResponse(),
             self.do_request('1.0', 'baas.did.updatedid.service.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26231,7 +28514,8 @@ class Client:
         Summary: 添加did doc中的service
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddDidUpdatedidServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddDidUpdatedidServiceResponse(),
             await self.do_request_async('1.0', 'baas.did.updatedid.service.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26270,7 +28554,8 @@ class Client:
         Summary: 删除did doc中的service信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteDidUpdatedidServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteDidUpdatedidServiceResponse(),
             self.do_request('1.0', 'baas.did.updatedid.service.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26285,7 +28570,8 @@ class Client:
         Summary: 删除did doc中的service信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeleteDidUpdatedidServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeleteDidUpdatedidServiceResponse(),
             await self.do_request_async('1.0', 'baas.did.updatedid.service.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26324,7 +28610,8 @@ class Client:
         Summary: 更新可验证声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidUpdatevcStatusResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidUpdatevcStatusResponse(),
             self.do_request('1.0', 'baas.did.updatevc.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26339,7 +28626,8 @@ class Client:
         Summary: 更新可验证声明
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidUpdatevcStatusResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidUpdatevcStatusResponse(),
             await self.do_request_async('1.0', 'baas.did.updatevc.status.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26378,7 +28666,8 @@ class Client:
         Summary: 开通resolver服务接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.OpenDidResolverServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.OpenDidResolverServiceResponse(),
             self.do_request('1.0', 'baas.did.resolver.service.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26393,7 +28682,8 @@ class Client:
         Summary: 开通resolver服务接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.OpenDidResolverServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.OpenDidResolverServiceResponse(),
             await self.do_request_async('1.0', 'baas.did.resolver.service.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26432,7 +28722,8 @@ class Client:
         Summary: 停止resolver服务接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StopDidResolverServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StopDidResolverServiceResponse(),
             self.do_request('1.0', 'baas.did.resolver.service.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26447,7 +28738,8 @@ class Client:
         Summary: 停止resolver服务接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StopDidResolverServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StopDidResolverServiceResponse(),
             await self.do_request_async('1.0', 'baas.did.resolver.service.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26486,7 +28778,8 @@ class Client:
         Summary: 派生子DID上链
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidDerivedidExecuteResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidDerivedidExecuteResponse(),
             self.do_request('1.0', 'baas.did.derivedid.execute.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26501,7 +28794,8 @@ class Client:
         Summary: 派生子DID上链
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartDidDerivedidExecuteResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartDidDerivedidExecuteResponse(),
             await self.do_request_async('1.0', 'baas.did.derivedid.execute.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26540,7 +28834,8 @@ class Client:
         Summary: 访问控制授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecDidAccesscontrolAuthorizeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecDidAccesscontrolAuthorizeResponse(),
             self.do_request('1.0', 'baas.did.accesscontrol.authorize.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26555,7 +28850,8 @@ class Client:
         Summary: 访问控制授权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecDidAccesscontrolAuthorizeResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecDidAccesscontrolAuthorizeResponse(),
             await self.do_request_async('1.0', 'baas.did.accesscontrol.authorize.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26594,7 +28890,8 @@ class Client:
         Summary: 访问控制鉴权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecDidAccesscontrolCheckResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecDidAccesscontrolCheckResponse(),
             self.do_request('1.0', 'baas.did.accesscontrol.check.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26609,7 +28906,8 @@ class Client:
         Summary: 访问控制鉴权
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecDidAccesscontrolCheckResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecDidAccesscontrolCheckResponse(),
             await self.do_request_async('1.0', 'baas.did.accesscontrol.check.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26648,7 +28946,8 @@ class Client:
         Summary: 对已授权的did更新权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecDidAccesscontrolUpdateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecDidAccesscontrolUpdateResponse(),
             self.do_request('1.0', 'baas.did.accesscontrol.update.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26663,7 +28962,8 @@ class Client:
         Summary: 对已授权的did更新权限
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecDidAccesscontrolUpdateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecDidAccesscontrolUpdateResponse(),
             await self.do_request_async('1.0', 'baas.did.accesscontrol.update.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26702,7 +29002,8 @@ class Client:
         Summary: 非托管模式下为iot创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidIdentityIotResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidIdentityIotResponse(),
             self.do_request('1.0', 'baas.did.identity.iot.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26717,7 +29018,8 @@ class Client:
         Summary: 非托管模式下为iot创建did
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidIdentityIotResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidIdentityIotResponse(),
             await self.do_request_async('1.0', 'baas.did.identity.iot.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26756,7 +29058,8 @@ class Client:
         Summary: 非托管模式下的服务类型创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecDidServicetypeCreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecDidServicetypeCreateResponse(),
             self.do_request('1.0', 'baas.did.servicetype.create.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26771,7 +29074,8 @@ class Client:
         Summary: 非托管模式下的服务类型创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ExecDidServicetypeCreateResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ExecDidServicetypeCreateResponse(),
             await self.do_request_async('1.0', 'baas.did.servicetype.create.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26810,7 +29114,8 @@ class Client:
         Summary: 非托管模式下创建普通did账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidIdentityCommonResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidIdentityCommonResponse(),
             self.do_request('1.0', 'baas.did.identity.common.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26825,7 +29130,8 @@ class Client:
         Summary: 非托管模式下创建普通did账户
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateDidIdentityCommonResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateDidIdentityCommonResponse(),
             await self.do_request_async('1.0', 'baas.did.identity.common.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26864,7 +29170,8 @@ class Client:
         Summary: VC传输确认请求
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ConfirmVcVcrepoVctransmitResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ConfirmVcVcrepoVctransmitResponse(),
             self.do_request('1.0', 'baas.vc.vcrepo.vctransmit.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26879,7 +29186,8 @@ class Client:
         Summary: VC传输确认请求
         """
         UtilClient.validate_model(request)
-        return blockchain_models.ConfirmVcVcrepoVctransmitResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.ConfirmVcVcrepoVctransmitResponse(),
             await self.do_request_async('1.0', 'baas.vc.vcrepo.vctransmit.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26921,7 +29229,8 @@ class Client:
         Summary: 非托管更新还未上链did的pub key
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidUpdatedidPubkeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidUpdatedidPubkeyResponse(),
             self.do_request('1.0', 'baas.did.updatedid.pubkey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26937,7 +29246,8 @@ class Client:
         Summary: 非托管更新还未上链did的pub key
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateDidUpdatedidPubkeyResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateDidUpdatedidPubkeyResponse(),
             await self.do_request_async('1.0', 'baas.did.updatedid.pubkey.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26976,7 +29286,8 @@ class Client:
         Summary: 一次增加多个service
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddDidUpdatedidServicelistResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddDidUpdatedidServicelistResponse(),
             self.do_request('1.0', 'baas.did.updatedid.servicelist.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -26991,7 +29302,8 @@ class Client:
         Summary: 一次增加多个service
         """
         UtilClient.validate_model(request)
-        return blockchain_models.AddDidUpdatedidServicelistResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.AddDidUpdatedidServicelistResponse(),
             await self.do_request_async('1.0', 'baas.did.updatedid.servicelist.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27030,7 +29342,8 @@ class Client:
         Summary: 写入VC存储
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepositoryWriteResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepositoryWriteResponse(),
             self.do_request('1.0', 'baas.vc.vcrepository.write.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27045,7 +29358,8 @@ class Client:
         Summary: 写入VC存储
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepositoryWriteResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepositoryWriteResponse(),
             await self.do_request_async('1.0', 'baas.vc.vcrepository.write.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27087,7 +29401,8 @@ class Client:
         Summary: 从VC存储读取已被授权VC内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepositoryReadResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepositoryReadResponse(),
             self.do_request('1.0', 'baas.vc.vcrepository.read.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27103,7 +29418,8 @@ class Client:
         Summary: 从VC存储读取已被授权VC内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepositoryReadResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepositoryReadResponse(),
             await self.do_request_async('1.0', 'baas.vc.vcrepository.read.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27145,7 +29461,8 @@ class Client:
         Summary: 添加已有证书VC的授权列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepositoryAuthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepositoryAuthResponse(),
             self.do_request('1.0', 'baas.vc.vcrepository.auth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27161,7 +29478,8 @@ class Client:
         Summary: 添加已有证书VC的授权列表
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepositoryAuthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepositoryAuthResponse(),
             await self.do_request_async('1.0', 'baas.vc.vcrepository.auth.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27200,7 +29518,8 @@ class Client:
         Summary: vc repo 上的用户注册
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepoUserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepoUserResponse(),
             self.do_request('1.0', 'baas.vc.vcrepo.user.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27215,7 +29534,8 @@ class Client:
         Summary: vc repo 上的用户注册
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepoUserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepoUserResponse(),
             await self.do_request_async('1.0', 'baas.vc.vcrepo.user.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27254,7 +29574,8 @@ class Client:
         Summary: VC Repo用户信息更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateVcVcrepoUserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateVcVcrepoUserResponse(),
             self.do_request('1.0', 'baas.vc.vcrepo.user.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27269,7 +29590,8 @@ class Client:
         Summary: VC Repo用户信息更新
         """
         UtilClient.validate_model(request)
-        return blockchain_models.UpdateVcVcrepoUserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.UpdateVcVcrepoUserResponse(),
             await self.do_request_async('1.0', 'baas.vc.vcrepo.user.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27308,7 +29630,8 @@ class Client:
         Summary: 指定VC可信传输到指定Verifier
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepoVctransmitResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepoVctransmitResponse(),
             self.do_request('1.0', 'baas.vc.vcrepo.vctransmit.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27323,7 +29646,8 @@ class Client:
         Summary: 指定VC可信传输到指定Verifier
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepoVctransmitResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepoVctransmitResponse(),
             await self.do_request_async('1.0', 'baas.vc.vcrepo.vctransmit.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27362,7 +29686,8 @@ class Client:
         Summary: 通过controller的用户注册
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepoControlleradduserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepoControlleradduserResponse(),
             self.do_request('1.0', 'baas.vc.vcrepo.controlleradduser.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27377,7 +29702,8 @@ class Client:
         Summary: 通过controller的用户注册
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepoControlleradduserResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepoControlleradduserResponse(),
             await self.do_request_async('1.0', 'baas.vc.vcrepo.controlleradduser.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27416,7 +29742,8 @@ class Client:
         Summary: VC存储
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepoVccontentsaveResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepoVccontentsaveResponse(),
             self.do_request('1.0', 'baas.vc.vcrepo.vccontentsave.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27431,7 +29758,8 @@ class Client:
         Summary: VC存储
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcVcrepoVccontentsaveResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcVcrepoVccontentsaveResponse(),
             await self.do_request_async('1.0', 'baas.vc.vcrepo.vccontentsave.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27470,7 +29798,8 @@ class Client:
         Summary: 根据vcid获取vccontent
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcRepoReadwithvcidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcRepoReadwithvcidResponse(),
             self.do_request('1.0', 'baas.vc.repo.readwithvcid.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27485,7 +29814,8 @@ class Client:
         Summary: 根据vcid获取vccontent
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartVcRepoReadwithvcidResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartVcRepoReadwithvcidResponse(),
             await self.do_request_async('1.0', 'baas.vc.repo.readwithvcid.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27524,7 +29854,8 @@ class Client:
         Summary: vc仓库非托管模式下的VC传输初始化接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitVcVcrepoVctransmitResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitVcVcrepoVctransmitResponse(),
             self.do_request('1.0', 'baas.vc.vcrepo.vctransmit.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27539,7 +29870,8 @@ class Client:
         Summary: vc仓库非托管模式下的VC传输初始化接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitVcVcrepoVctransmitResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitVcVcrepoVctransmitResponse(),
             await self.do_request_async('1.0', 'baas.vc.vcrepo.vctransmit.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27578,7 +29910,8 @@ class Client:
         Summary: 人脸实人认证初始化接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitIdentificationFaceauthResponse(),
             self.do_request('1.0', 'baas.identification.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27593,7 +29926,8 @@ class Client:
         Summary: 人脸实人认证初始化接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitIdentificationFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.identification.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27632,7 +29966,8 @@ class Client:
         Summary: 获取人脸实人认证结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationFaceauthResponse(),
             self.do_request('1.0', 'baas.identification.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27647,7 +29982,8 @@ class Client:
         Summary: 获取人脸实人认证结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.identification.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27686,7 +30022,8 @@ class Client:
         Summary: 存证交易初始化
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitNotaryTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitNotaryTransactionResponse(),
             self.do_request('1.0', 'baas.notary.transaction.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27701,7 +30038,8 @@ class Client:
         Summary: 存证交易初始化
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitNotaryTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitNotaryTransactionResponse(),
             await self.do_request_async('1.0', 'baas.notary.transaction.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27740,7 +30078,8 @@ class Client:
         Summary: 获取事务中所有的存证信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotaryTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotaryTransactionResponse(),
             self.do_request('1.0', 'baas.notary.transaction.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27755,7 +30094,8 @@ class Client:
         Summary: 获取事务中所有的存证信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotaryTransactionResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotaryTransactionResponse(),
             await self.do_request_async('1.0', 'baas.notary.transaction.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27794,7 +30134,8 @@ class Client:
         Summary: 发送文本存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SendNotaryTransactionTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SendNotaryTransactionTextResponse(),
             self.do_request('1.0', 'baas.notary.transaction.text.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27809,7 +30150,8 @@ class Client:
         Summary: 发送文本存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.SendNotaryTransactionTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.SendNotaryTransactionTextResponse(),
             await self.do_request_async('1.0', 'baas.notary.transaction.text.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27848,7 +30190,8 @@ class Client:
         Summary: 获取文本存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotaryTransactionTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotaryTransactionTextResponse(),
             self.do_request('1.0', 'baas.notary.transaction.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27863,7 +30206,8 @@ class Client:
         Summary: 获取文本存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotaryTransactionTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotaryTransactionTextResponse(),
             await self.do_request_async('1.0', 'baas.notary.transaction.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27902,7 +30246,8 @@ class Client:
         Summary: 获取存证事务ID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateNotaryTokenResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateNotaryTokenResponse(),
             self.do_request('1.0', 'baas.notary.token.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27917,7 +30262,8 @@ class Client:
         Summary: 获取存证事务ID
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateNotaryTokenResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateNotaryTokenResponse(),
             await self.do_request_async('1.0', 'baas.notary.token.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27956,7 +30302,8 @@ class Client:
         Summary: 获取事务中所有的存证信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotaryTransResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotaryTransResponse(),
             self.do_request('1.0', 'baas.notary.trans.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -27971,7 +30318,8 @@ class Client:
         Summary: 获取事务中所有的存证信息
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotaryTransResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotaryTransResponse(),
             await self.do_request_async('1.0', 'baas.notary.trans.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28010,7 +30358,8 @@ class Client:
         Summary: 文本存证，将文本内容存证上链
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateNotaryTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateNotaryTextResponse(),
             self.do_request('1.0', 'baas.notary.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28025,7 +30374,8 @@ class Client:
         Summary: 文本存证，将文本内容存证上链
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateNotaryTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateNotaryTextResponse(),
             await self.do_request_async('1.0', 'baas.notary.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28064,7 +30414,8 @@ class Client:
         Summary: 获取文本存证内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotaryTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotaryTextResponse(),
             self.do_request('1.0', 'baas.notary.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28079,7 +30430,8 @@ class Client:
         Summary: 获取文本存证内容
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotaryTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotaryTextResponse(),
             await self.do_request_async('1.0', 'baas.notary.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28118,7 +30470,8 @@ class Client:
         Summary: 文件内容存证上链
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateNotaryFileResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateNotaryFileResponse(),
             self.do_request('1.0', 'baas.notary.file.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28133,7 +30486,8 @@ class Client:
         Summary: 文件内容存证上链
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateNotaryFileResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateNotaryFileResponse(),
             await self.do_request_async('1.0', 'baas.notary.file.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28172,7 +30526,8 @@ class Client:
         Summary: 获取文件存证oss下载地址
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotaryFileResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotaryFileResponse(),
             self.do_request('1.0', 'baas.notary.file.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28187,7 +30542,8 @@ class Client:
         Summary: 获取文件存证oss下载地址
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotaryFileResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotaryFileResponse(),
             await self.do_request_async('1.0', 'baas.notary.file.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28226,7 +30582,8 @@ class Client:
         Summary: 原文内容存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateNotarySourceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateNotarySourceResponse(),
             self.do_request('1.0', 'baas.notary.source.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28241,7 +30598,8 @@ class Client:
         Summary: 原文内容存证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateNotarySourceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateNotarySourceResponse(),
             await self.do_request_async('1.0', 'baas.notary.source.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28280,7 +30638,8 @@ class Client:
         Summary: 获取原文存证oss下载地址
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotarySourceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotarySourceResponse(),
             self.do_request('1.0', 'baas.notary.source.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28295,7 +30654,8 @@ class Client:
         Summary: 获取原文存证oss下载地址
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotarySourceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotarySourceResponse(),
             await self.do_request_async('1.0', 'baas.notary.source.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28334,7 +30694,8 @@ class Client:
         Summary: test
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryNotaryTestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryNotaryTestResponse(),
             self.do_request('1.0', 'baas.notary.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28349,7 +30710,8 @@ class Client:
         Summary: test
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryNotaryTestResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryNotaryTestResponse(),
             await self.do_request_async('1.0', 'baas.notary.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28388,7 +30750,8 @@ class Client:
         Summary: 企业法人认证初始化接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitNotaryOpenapiMerchantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitNotaryOpenapiMerchantResponse(),
             self.do_request('1.0', 'baas.notary.openapi.merchant.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28403,7 +30766,8 @@ class Client:
         Summary: 企业法人认证初始化接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitNotaryOpenapiMerchantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitNotaryOpenapiMerchantResponse(),
             await self.do_request_async('1.0', 'baas.notary.openapi.merchant.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28442,7 +30806,8 @@ class Client:
         Summary: 企业法人认证查询认证状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryNotaryOpenapiMerchantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryNotaryOpenapiMerchantResponse(),
             self.do_request('1.0', 'baas.notary.openapi.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28457,7 +30822,8 @@ class Client:
         Summary: 企业法人认证查询认证状态
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryNotaryOpenapiMerchantResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryNotaryOpenapiMerchantResponse(),
             await self.do_request_async('1.0', 'baas.notary.openapi.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28496,7 +30862,8 @@ class Client:
         Summary: 为租赁服务平台部署合约
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeployNotaryLeaseContractResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeployNotaryLeaseContractResponse(),
             self.do_request('1.0', 'baas.notary.lease.contract.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28511,7 +30878,8 @@ class Client:
         Summary: 为租赁服务平台部署合约
         """
         UtilClient.validate_model(request)
-        return blockchain_models.DeployNotaryLeaseContractResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.DeployNotaryLeaseContractResponse(),
             await self.do_request_async('1.0', 'baas.notary.lease.contract.deploy', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28550,7 +30918,8 @@ class Client:
         Summary: 服务注册
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateOpenchainWebsitServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateOpenchainWebsitServiceResponse(),
             self.do_request('1.0', 'baas.openchain.websit.service.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28565,7 +30934,8 @@ class Client:
         Summary: 服务注册
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateOpenchainWebsitServiceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateOpenchainWebsitServiceResponse(),
             await self.do_request_async('1.0', 'baas.openchain.websit.service.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28604,7 +30974,8 @@ class Client:
         Summary: 可信建站法人四要素认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckOpenchainCorporateFaceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckOpenchainCorporateFaceResponse(),
             self.do_request('1.0', 'baas.openchain.corporate.face.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28619,7 +30990,8 @@ class Client:
         Summary: 可信建站法人四要素认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckOpenchainCorporateFaceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckOpenchainCorporateFaceResponse(),
             await self.do_request_async('1.0', 'baas.openchain.corporate.face.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28658,7 +31030,8 @@ class Client:
         Summary: 法人认证4要素结果查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryOpenchainCorporateFaceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryOpenchainCorporateFaceResponse(),
             self.do_request('1.0', 'baas.openchain.corporate.face.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28673,7 +31046,8 @@ class Client:
         Summary: 法人认证4要素结果查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryOpenchainCorporateFaceResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryOpenchainCorporateFaceResponse(),
             await self.do_request_async('1.0', 'baas.openchain.corporate.face.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28712,7 +31086,8 @@ class Client:
         Summary: 授权用户数据查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryOpenchainUserDataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryOpenchainUserDataResponse(),
             self.do_request('1.0', 'baas.openchain.user.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28727,7 +31102,8 @@ class Client:
         Summary: 授权用户数据查询
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryOpenchainUserDataResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryOpenchainUserDataResponse(),
             await self.do_request_async('1.0', 'baas.openchain.user.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28766,7 +31142,8 @@ class Client:
         Summary: 三要素验证身份冒用风险
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationRiskThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationRiskThreemetaResponse(),
             self.do_request('1.0', 'baas.identification.risk.threemeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28781,7 +31158,8 @@ class Client:
         Summary: 三要素验证身份冒用风险
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationRiskThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationRiskThreemetaResponse(),
             await self.do_request_async('1.0', 'baas.identification.risk.threemeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28820,7 +31198,8 @@ class Client:
         Summary: 文本内容安全扫描
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckContentRiskTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckContentRiskTextResponse(),
             self.do_request('1.0', 'baas.content.risk.text.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28835,7 +31214,8 @@ class Client:
         Summary: 文本内容安全扫描
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CheckContentRiskTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CheckContentRiskTextResponse(),
             await self.do_request_async('1.0', 'baas.content.risk.text.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28874,7 +31254,8 @@ class Client:
         Summary: 二要素验证身份冒用风险
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationRiskTwometaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationRiskTwometaResponse(),
             self.do_request('1.0', 'baas.identification.risk.twometa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28889,7 +31270,8 @@ class Client:
         Summary: 二要素验证身份冒用风险
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationRiskTwometaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationRiskTwometaResponse(),
             await self.do_request_async('1.0', 'baas.identification.risk.twometa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28928,7 +31310,8 @@ class Client:
         Summary: 四要素验证身份冒用风险
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationRiskFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationRiskFourmetaResponse(),
             self.do_request('1.0', 'baas.identification.risk.fourmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28943,7 +31326,8 @@ class Client:
         Summary: 四要素验证身份冒用风险
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationRiskFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationRiskFourmetaResponse(),
             await self.do_request_async('1.0', 'baas.identification.risk.fourmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28982,7 +31366,8 @@ class Client:
         Summary: 原生存证接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateNotaryRawTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateNotaryRawTextResponse(),
             self.do_request('1.0', 'baas.notary.raw.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -28997,7 +31382,8 @@ class Client:
         Summary: 原生存证接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateNotaryRawTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateNotaryRawTextResponse(),
             await self.do_request_async('1.0', 'baas.notary.raw.text.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29036,7 +31422,8 @@ class Client:
         Summary: 获取原生存证内容接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotaryRawTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotaryRawTextResponse(),
             self.do_request('1.0', 'baas.notary.raw.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29051,7 +31438,8 @@ class Client:
         Summary: 获取原生存证内容接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.GetNotaryRawTextResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.GetNotaryRawTextResponse(),
             await self.do_request_async('1.0', 'baas.notary.raw.text.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29090,7 +31478,8 @@ class Client:
         Summary: 脱敏身份验证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationRiskMaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationRiskMaskResponse(),
             self.do_request('1.0', 'baas.identification.risk.mask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29105,7 +31494,8 @@ class Client:
         Summary: 脱敏身份验证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationRiskMaskResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationRiskMaskResponse(),
             await self.do_request_async('1.0', 'baas.identification.risk.mask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29144,7 +31534,8 @@ class Client:
         Summary: 基于法人实人认证的企业四要素认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitIdentificationEnterpriseFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitIdentificationEnterpriseFaceauthResponse(),
             self.do_request('1.0', 'baas.identification.enterprise.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29159,7 +31550,8 @@ class Client:
         Summary: 基于法人实人认证的企业四要素认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.InitIdentificationEnterpriseFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.InitIdentificationEnterpriseFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.identification.enterprise.faceauth.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29198,7 +31590,8 @@ class Client:
         Summary: 查询企业四要素（实人）认证结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationEnterpriseFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationEnterpriseFaceauthResponse(),
             self.do_request('1.0', 'baas.identification.enterprise.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29213,7 +31606,8 @@ class Client:
         Summary: 查询企业四要素（实人）认证结果
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationEnterpriseFaceauthResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationEnterpriseFaceauthResponse(),
             await self.do_request_async('1.0', 'baas.identification.enterprise.faceauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29252,7 +31646,8 @@ class Client:
         Summary: 企业四要素认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationEnterpriseFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationEnterpriseFourmetaResponse(),
             self.do_request('1.0', 'baas.identification.enterprise.fourmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29267,7 +31662,8 @@ class Client:
         Summary: 企业四要素认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationEnterpriseFourmetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationEnterpriseFourmetaResponse(),
             await self.do_request_async('1.0', 'baas.identification.enterprise.fourmeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29306,7 +31702,8 @@ class Client:
         Summary: 企业三要素认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationEnterpriseThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationEnterpriseThreemetaResponse(),
             self.do_request('1.0', 'baas.identification.enterprise.threemeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29321,7 +31718,8 @@ class Client:
         Summary: 企业三要素认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationEnterpriseThreemetaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationEnterpriseThreemetaResponse(),
             await self.do_request_async('1.0', 'baas.identification.enterprise.threemeta.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29360,7 +31758,8 @@ class Client:
         Summary:  企业二要素认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationEnterpriseTwometaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationEnterpriseTwometaResponse(),
             self.do_request('1.0', 'baas.identification.enterprise.twometa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29375,7 +31774,8 @@ class Client:
         Summary:  企业二要素认证
         """
         UtilClient.validate_model(request)
-        return blockchain_models.QueryIdentificationEnterpriseTwometaResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.QueryIdentificationEnterpriseTwometaResponse(),
             await self.do_request_async('1.0', 'baas.identification.enterprise.twometa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29414,7 +31814,8 @@ class Client:
         Summary: 三要素认证与did创建接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidDidThreeelementResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidDidThreeelementResponse(),
             self.do_request('1.0', 'baas.mydid.did.threeelement.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29429,8 +31830,289 @@ class Client:
         Summary: 三要素认证与did创建接口
         """
         UtilClient.validate_model(request)
-        return blockchain_models.StartMydidDidThreeelementResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.StartMydidDidThreeelementResponse(),
             await self.do_request_async('1.0', 'baas.mydid.did.threeelement.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_waas_did_validpublickeys(
+        self,
+        request: blockchain_models.ListWaasDidValidpublickeysRequest,
+    ) -> blockchain_models.ListWaasDidValidpublickeysResponse:
+        """
+        Description: 查询用户可用的公钥列表
+        Summary: 查询用户可用的公钥列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_waas_did_validpublickeys_ex(request, headers, runtime)
+
+    async def list_waas_did_validpublickeys_async(
+        self,
+        request: blockchain_models.ListWaasDidValidpublickeysRequest,
+    ) -> blockchain_models.ListWaasDidValidpublickeysResponse:
+        """
+        Description: 查询用户可用的公钥列表
+        Summary: 查询用户可用的公钥列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_waas_did_validpublickeys_ex_async(request, headers, runtime)
+
+    def list_waas_did_validpublickeys_ex(
+        self,
+        request: blockchain_models.ListWaasDidValidpublickeysRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ListWaasDidValidpublickeysResponse:
+        """
+        Description: 查询用户可用的公钥列表
+        Summary: 查询用户可用的公钥列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ListWaasDidValidpublickeysResponse(),
+            self.do_request('1.0', 'baas.waas.did.validpublickeys.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_waas_did_validpublickeys_ex_async(
+        self,
+        request: blockchain_models.ListWaasDidValidpublickeysRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.ListWaasDidValidpublickeysResponse:
+        """
+        Description: 查询用户可用的公钥列表
+        Summary: 查询用户可用的公钥列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.ListWaasDidValidpublickeysResponse(),
+            await self.do_request_async('1.0', 'baas.waas.did.validpublickeys.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_waas_did_publickey(
+        self,
+        request: blockchain_models.QueryWaasDidPublickeyRequest,
+    ) -> blockchain_models.QueryWaasDidPublickeyResponse:
+        """
+        Description: 查询指定公钥信息
+        Summary: 查询指定公钥信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_waas_did_publickey_ex(request, headers, runtime)
+
+    async def query_waas_did_publickey_async(
+        self,
+        request: blockchain_models.QueryWaasDidPublickeyRequest,
+    ) -> blockchain_models.QueryWaasDidPublickeyResponse:
+        """
+        Description: 查询指定公钥信息
+        Summary: 查询指定公钥信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_waas_did_publickey_ex_async(request, headers, runtime)
+
+    def query_waas_did_publickey_ex(
+        self,
+        request: blockchain_models.QueryWaasDidPublickeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryWaasDidPublickeyResponse:
+        """
+        Description: 查询指定公钥信息
+        Summary: 查询指定公钥信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryWaasDidPublickeyResponse(),
+            self.do_request('1.0', 'baas.waas.did.publickey.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_waas_did_publickey_ex_async(
+        self,
+        request: blockchain_models.QueryWaasDidPublickeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryWaasDidPublickeyResponse:
+        """
+        Description: 查询指定公钥信息
+        Summary: 查询指定公钥信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryWaasDidPublickeyResponse(),
+            await self.do_request_async('1.0', 'baas.waas.did.publickey.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_waas_business(
+        self,
+        request: blockchain_models.RegisterWaasBusinessRequest,
+    ) -> blockchain_models.RegisterWaasBusinessResponse:
+        """
+        Description: 业务注册waas服务
+        Summary: 业务注册waas服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_waas_business_ex(request, headers, runtime)
+
+    async def register_waas_business_async(
+        self,
+        request: blockchain_models.RegisterWaasBusinessRequest,
+    ) -> blockchain_models.RegisterWaasBusinessResponse:
+        """
+        Description: 业务注册waas服务
+        Summary: 业务注册waas服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_waas_business_ex_async(request, headers, runtime)
+
+    def register_waas_business_ex(
+        self,
+        request: blockchain_models.RegisterWaasBusinessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.RegisterWaasBusinessResponse:
+        """
+        Description: 业务注册waas服务
+        Summary: 业务注册waas服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.RegisterWaasBusinessResponse(),
+            self.do_request('1.0', 'baas.waas.business.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_waas_business_ex_async(
+        self,
+        request: blockchain_models.RegisterWaasBusinessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.RegisterWaasBusinessResponse:
+        """
+        Description: 业务注册waas服务
+        Summary: 业务注册waas服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.RegisterWaasBusinessResponse(),
+            await self.do_request_async('1.0', 'baas.waas.business.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_waas_business_transferbody(
+        self,
+        request: blockchain_models.QueryWaasBusinessTransferbodyRequest,
+    ) -> blockchain_models.QueryWaasBusinessTransferbodyResponse:
+        """
+        Description: 为业务合作方提供查询转账时上链信息，里面包含dcep合约传参
+        Summary: 查询转账上链信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_waas_business_transferbody_ex(request, headers, runtime)
+
+    async def query_waas_business_transferbody_async(
+        self,
+        request: blockchain_models.QueryWaasBusinessTransferbodyRequest,
+    ) -> blockchain_models.QueryWaasBusinessTransferbodyResponse:
+        """
+        Description: 为业务合作方提供查询转账时上链信息，里面包含dcep合约传参
+        Summary: 查询转账上链信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_waas_business_transferbody_ex_async(request, headers, runtime)
+
+    def query_waas_business_transferbody_ex(
+        self,
+        request: blockchain_models.QueryWaasBusinessTransferbodyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryWaasBusinessTransferbodyResponse:
+        """
+        Description: 为业务合作方提供查询转账时上链信息，里面包含dcep合约传参
+        Summary: 查询转账上链信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryWaasBusinessTransferbodyResponse(),
+            self.do_request('1.0', 'baas.waas.business.transferbody.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_waas_business_transferbody_ex_async(
+        self,
+        request: blockchain_models.QueryWaasBusinessTransferbodyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryWaasBusinessTransferbodyResponse:
+        """
+        Description: 为业务合作方提供查询转账时上链信息，里面包含dcep合约传参
+        Summary: 查询转账上链信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryWaasBusinessTransferbodyResponse(),
+            await self.do_request_async('1.0', 'baas.waas.business.transferbody.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_waas_business_order(
+        self,
+        request: blockchain_models.NotifyWaasBusinessOrderRequest,
+    ) -> blockchain_models.NotifyWaasBusinessOrderResponse:
+        """
+        Description: 业务合作方通知订单上链情况
+        Summary: 业务合作方通知订单上链情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_waas_business_order_ex(request, headers, runtime)
+
+    async def notify_waas_business_order_async(
+        self,
+        request: blockchain_models.NotifyWaasBusinessOrderRequest,
+    ) -> blockchain_models.NotifyWaasBusinessOrderResponse:
+        """
+        Description: 业务合作方通知订单上链情况
+        Summary: 业务合作方通知订单上链情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_waas_business_order_ex_async(request, headers, runtime)
+
+    def notify_waas_business_order_ex(
+        self,
+        request: blockchain_models.NotifyWaasBusinessOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.NotifyWaasBusinessOrderResponse:
+        """
+        Description: 业务合作方通知订单上链情况
+        Summary: 业务合作方通知订单上链情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.NotifyWaasBusinessOrderResponse(),
+            self.do_request('1.0', 'baas.waas.business.order.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_waas_business_order_ex_async(
+        self,
+        request: blockchain_models.NotifyWaasBusinessOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.NotifyWaasBusinessOrderResponse:
+        """
+        Description: 业务合作方通知订单上链情况
+        Summary: 业务合作方通知订单上链情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.NotifyWaasBusinessOrderResponse(),
+            await self.do_request_async('1.0', 'baas.waas.business.order.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
@@ -29468,7 +32150,8 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAntcloudGatewayxFileUploadResponse(),
             self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -29483,6 +32166,7 @@ class Client:
         Summary: 文件上传创建
         """
         UtilClient.validate_model(request)
-        return blockchain_models.CreateAntcloudGatewayxFileUploadResponse().from_map(
+        return TeaCore.from_map(
+            blockchain_models.CreateAntcloudGatewayxFileUploadResponse(),
             await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

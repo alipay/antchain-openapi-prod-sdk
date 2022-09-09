@@ -13,8 +13,8 @@
 如未安装 `pip`, 请先至pip官网 [pip user guide](https://pip.pypa.io/en/stable/installing/ "pip User Guide") 安装pip .
 
 ```bash
-# 安装 antchain_sdk_blockchain
-pip install antchain_sdk_blockchain
+# 安装 antchain-blockchain
+pip install antchain-blockchain
 ```
 
 ## 问题
