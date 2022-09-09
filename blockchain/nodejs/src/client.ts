@@ -78,43 +78,6 @@ export class Config extends $tea.Model {
   }
 }
 
-// TriggerLogDTO类成员
-export class PositionStructBody extends $tea.Model {
-  // 错误计数
-  errorCount?: string;
-  // 高度
-  height?: string;
-  // 序号
-  index?: string;
-  // 最后一个错误
-  lastError?: string;
-  // 类型
-  type?: string;
-  static names(): { [key: string]: string } {
-    return {
-      errorCount: 'error_count',
-      height: 'height',
-      index: 'index',
-      lastError: 'last_error',
-      type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      errorCount: 'string',
-      height: 'string',
-      index: 'string',
-      lastError: 'string',
-      type: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 蚂蚁链浏览器合约链交易内容
 export class BlockchainBrowserTransactionContract extends $tea.Model {
   // data
@@ -197,6 +160,43 @@ export class ProcessNode extends $tea.Model {
       nodeId: 'string',
       nodeName: 'string',
       nodeNum: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// TriggerLogDTO类成员
+export class PositionStructBody extends $tea.Model {
+  // 错误计数
+  errorCount?: string;
+  // 高度
+  height?: string;
+  // 序号
+  index?: string;
+  // 最后一个错误
+  lastError?: string;
+  // 类型
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      errorCount: 'error_count',
+      height: 'height',
+      index: 'index',
+      lastError: 'last_error',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      errorCount: 'string',
+      height: 'string',
+      index: 'string',
+      lastError: 'string',
+      type: 'string',
     };
   }
 
@@ -306,6 +306,8 @@ export class DataEntity extends $tea.Model {
   createTime: number;
   // 修改时间
   updateTime?: number;
+  // DID doc里的公开信息
+  publicInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authStatus: 'auth_status',
@@ -321,6 +323,7 @@ export class DataEntity extends $tea.Model {
       status: 'status',
       createTime: 'create_time',
       updateTime: 'update_time',
+      publicInfo: 'public_info',
     };
   }
 
@@ -339,141 +342,7 @@ export class DataEntity extends $tea.Model {
       status: 'string',
       createTime: 'number',
       updateTime: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 授权流程节点详细信息
-export class NodeDetail extends $tea.Model {
-  // 节点审批意见
-  comment: string;
-  // 节点ID
-  nodeId: string;
-  // 节点名称
-  nodeName: string;
-  // 节点状态
-  nodeStatus: string;
-  // 节点审批时间
-  operateTime: number;
-  // 扩展参数
-  extensionInfo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      comment: 'comment',
-      nodeId: 'node_id',
-      nodeName: 'node_name',
-      nodeStatus: 'node_status',
-      operateTime: 'operate_time',
-      extensionInfo: 'extension_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      comment: 'string',
-      nodeId: 'string',
-      nodeName: 'string',
-      nodeStatus: 'string',
-      operateTime: 'number',
-      extensionInfo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云蚂蚁链相关下载链接
-export class ALiYunDownloadPath extends $tea.Model {
-  // client_crt_url
-  clientCrtUrl?: string;
-  // trust_ca_url
-  trustCaUrl?: string;
-  // ca_crt_url
-  caCrtUrl?: string;
-  // sdk_url
-  sdkUrl?: string;
-  static names(): { [key: string]: string } {
-    return {
-      clientCrtUrl: 'client_crt_url',
-      trustCaUrl: 'trust_ca_url',
-      caCrtUrl: 'ca_crt_url',
-      sdkUrl: 'sdk_url',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      clientCrtUrl: 'string',
-      trustCaUrl: 'string',
-      caCrtUrl: 'string',
-      sdkUrl: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 授权服务数据模型结构体
-export class DataModel extends $tea.Model {
-  // 业务系统唯一标示
-  bizUid?: string;
-  // 空间ID
-  spaceId: string;
-  // 创建时间
-  createTime: number;
-  // 数据模型描述
-  description?: string;
-  // 模型字段详细信息
-  fieldDetail: string;
-  // 数据模型业务ID
-  modelBizId?: string;
-  // 数据模型ID
-  modelId: string;
-  // 数据模型名称
-  name: string;
-  // 提交人
-  submitter: Participant;
-  // 更新时间
-  updateTime: number;
-  // 状态
-  status: string;
-  static names(): { [key: string]: string } {
-    return {
-      bizUid: 'biz_uid',
-      spaceId: 'space_id',
-      createTime: 'create_time',
-      description: 'description',
-      fieldDetail: 'field_detail',
-      modelBizId: 'model_biz_id',
-      modelId: 'model_id',
-      name: 'name',
-      submitter: 'submitter',
-      updateTime: 'update_time',
-      status: 'status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizUid: 'string',
-      spaceId: 'string',
-      createTime: 'number',
-      description: 'string',
-      fieldDetail: 'string',
-      modelBizId: 'string',
-      modelId: 'string',
-      name: 'string',
-      submitter: Participant,
-      updateTime: 'number',
-      status: 'string',
+      publicInfo: 'string',
     };
   }
 
@@ -571,43 +440,33 @@ export class ALiYunAntChain extends $tea.Model {
   }
 }
 
-// 阿里云账户信息
-export class ALiYunAccount extends $tea.Model {
-  // ant_chain_id
-  antChainId?: string;
-  // account
-  account?: string;
-  // account_public_key
-  accountPublicKey?: string;
-  // account_recovery_key
-  accountRecoveryKey?: string;
-  // account_status
-  accountStatus?: string;
-  // 机构信息
-  memberName?: string;
-  // 创建时间
-  createTime?: number;
+// Did Doc中的服务字段描述
+export class DidDocServicesInfo extends $tea.Model {
+  // 服务的扩展字段
+  extension?: string;
+  // 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务：
+  // DidAuthService， 有且只能有一个，并且id必须为didauth-1；
+  // VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
+  id: string;
+  // 服务的可访问地址
+  serviceEndpoint: string;
+  // 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
+  type: string;
   static names(): { [key: string]: string } {
     return {
-      antChainId: 'ant_chain_id',
-      account: 'account',
-      accountPublicKey: 'account_public_key',
-      accountRecoveryKey: 'account_recovery_key',
-      accountStatus: 'account_status',
-      memberName: 'member_name',
-      createTime: 'create_time',
+      extension: 'extension',
+      id: 'id',
+      serviceEndpoint: 'service_endpoint',
+      type: 'type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      antChainId: 'string',
-      account: 'string',
-      accountPublicKey: 'string',
-      accountRecoveryKey: 'string',
-      accountStatus: 'string',
-      memberName: 'string',
-      createTime: 'number',
+      extension: 'string',
+      id: 'string',
+      serviceEndpoint: 'string',
+      type: 'string',
     };
   }
 
@@ -653,363 +512,39 @@ export class ALiYunMember extends $tea.Model {
   }
 }
 
-// 阿里云合约工程信息
-export class ALiYunContractProject extends $tea.Model {
-  // consortium_id
-  consortiumId?: string;
-  // create_time
-  createTime?: number;
-  // project_description
-  projectDescription?: string;
-  // project_id
-  projectId?: string;
-  // project_name
-  projectName?: string;
-  // project_version
-  projectVersion?: string;
-  // update_time
-  updateTime?: number;
-  static names(): { [key: string]: string } {
-    return {
-      consortiumId: 'consortium_id',
-      createTime: 'create_time',
-      projectDescription: 'project_description',
-      projectId: 'project_id',
-      projectName: 'project_name',
-      projectVersion: 'project_version',
-      updateTime: 'update_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      consortiumId: 'string',
-      createTime: 'number',
-      projectDescription: 'string',
-      projectId: 'string',
-      projectName: 'string',
-      projectVersion: 'string',
-      updateTime: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云存证链信息
-export class ALiYunNotaryBlockchain extends $tea.Model {
-  // name
-  name?: string;
-  // bizid
-  bizid?: string;
-  // chain_type
-  chainType?: string;
-  // node_num
-  nodeNum?: number;
-  // member_status
-  memberStatus?: string;
-  // block_height
-  blockHeight?: number;
-  // transactions
-  transactions?: number;
-  // network
-  network?: string;
-  // version
-  version?: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      bizid: 'bizid',
-      chainType: 'chain_type',
-      nodeNum: 'node_num',
-      memberStatus: 'member_status',
-      blockHeight: 'block_height',
-      transactions: 'transactions',
-      network: 'network',
-      version: 'version',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      bizid: 'string',
-      chainType: 'string',
-      nodeNum: 'number',
-      memberStatus: 'string',
-      blockHeight: 'number',
-      transactions: 'number',
-      network: 'string',
-      version: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 证书颁发校验错误描述
-export class TemplateInstanceErrorDetailDTO extends $tea.Model {
-  // 当前错误类型的错误行数
-  errorNum: number;
-  // 出错数据抽样
-  samples: string[];
-  // 出错列，从0开始
-  errorColumnIndex: number;
-  // 当前错误类型的描述
-  errorDescription: string;
-  static names(): { [key: string]: string } {
-    return {
-      errorNum: 'error_num',
-      samples: 'samples',
-      errorColumnIndex: 'error_column_index',
-      errorDescription: 'error_description',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      errorNum: 'number',
-      samples: { 'type': 'array', 'itemType': 'string' },
-      errorColumnIndex: 'number',
-      errorDescription: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// {"key":"value"}
-export class KeyValuePair extends $tea.Model {
-  // 键名
-  key: string;
-  // 值
-  value: string;
-  static names(): { [key: string]: string } {
-    return {
-      key: 'key',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      key: 'string',
-      value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云区块链小程序用户权限信息
-export class ALiYunChainMiniAppAuthorizedUser extends $tea.Model {
-  // phone
-  phone?: string;
-  // gmt_authorized
-  gmtAuthorized?: string;
-  // 记录id
-  userId?: number;
-  static names(): { [key: string]: string } {
-    return {
-      phone: 'phone',
-      gmtAuthorized: 'gmt_authorized',
-      userId: 'user_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      phone: 'string',
-      gmtAuthorized: 'string',
-      userId: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云链节点信息
-export class ALiYunChainNodeInfo extends $tea.Model {
-  // block_height
-  blockHeight?: number;
-  // node_name
-  nodeName?: string;
+// 阿里云蚂蚁区块链证书信息
+export class ALiYunCertificateApplication extends $tea.Model {
+  // ant_chain_id
+  antChainId?: string;
+  // username
+  username?: string;
+  // createtime
+  createtime?: number;
+  // updatetime
+  updatetime?: number;
+  // bid
+  bid?: string;
   // status
-  status?: boolean;
-  // version
-  version?: string;
-  // 节点id
-  nodeId?: string;
-  // 节点ip
-  nodeIp?: string;
-  // 节点的端口
-  nodePort?: string;
-  // 节点类型
-  nodeType?: string;
-  // 节点状态
-  nodeState?: string;
-  // 节点来源
-  nodeSource?: string;
-  // 节点存储空间使用量
-  diskUse?: string;
-  // 节点存储总空间大小
-  diskTotal?: string;
-  // 节点公钥
-  publicKey?: string;
+  status?: string;
   static names(): { [key: string]: string } {
     return {
-      blockHeight: 'block_height',
-      nodeName: 'node_name',
+      antChainId: 'ant_chain_id',
+      username: 'username',
+      createtime: 'createtime',
+      updatetime: 'updatetime',
+      bid: 'bid',
       status: 'status',
-      version: 'version',
-      nodeId: 'node_id',
-      nodeIp: 'node_ip',
-      nodePort: 'node_port',
-      nodeType: 'node_type',
-      nodeState: 'node_state',
-      nodeSource: 'node_source',
-      diskUse: 'disk_use',
-      diskTotal: 'disk_total',
-      publicKey: 'public_key',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      blockHeight: 'number',
-      nodeName: 'string',
-      status: 'boolean',
-      version: 'string',
-      nodeId: 'string',
-      nodeIp: 'string',
-      nodePort: 'string',
-      nodeType: 'string',
-      nodeState: 'string',
-      nodeSource: 'string',
-      diskUse: 'string',
-      diskTotal: 'string',
-      publicKey: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 账户映射情况
-export class AccountMappingInfo extends $tea.Model {
-  // 链上账户id
-  bcAccount: string;
-  // 账户绑定状态，1为未绑定，2为绑定成功
-  bindingStatus: number;
-  // 1是激活状态，2是冻结状态
-  status: number;
-  // 账户唯一标示
-  uid: string;
-  static names(): { [key: string]: string } {
-    return {
-      bcAccount: 'bc_account',
-      bindingStatus: 'binding_status',
-      status: 'status',
-      uid: 'uid',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bcAccount: 'string',
-      bindingStatus: 'number',
-      status: 'number',
-      uid: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// Did doc中的service info
-export class DidServiceInfo extends $tea.Model {
-  // 服务的end point info
-  endPoint: string;
-  // 扩展字段信息
-  extensionInfo: string;
-  static names(): { [key: string]: string } {
-    return {
-      endPoint: 'end_point',
-      extensionInfo: 'extension_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      endPoint: 'string',
-      extensionInfo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云区块链信息
-export class ALiYunOldContractBlockchain extends $tea.Model {
-  // name
-  name?: string;
-  // bizid
-  bizid?: string;
-  // chain_type
-  chainType?: string;
-  // node_num
-  nodeNum?: number;
-  // member_status
-  memberStatus?: string;
-  // block_height
-  blockHeight?: number;
-  // transactions
-  transactions?: number;
-  // network
-  network?: string;
-  // version
-  version?: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      bizid: 'bizid',
-      chainType: 'chain_type',
-      nodeNum: 'node_num',
-      memberStatus: 'member_status',
-      blockHeight: 'block_height',
-      transactions: 'transactions',
-      network: 'network',
-      version: 'version',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      bizid: 'string',
-      chainType: 'string',
-      nodeNum: 'number',
-      memberStatus: 'string',
-      blockHeight: 'number',
-      transactions: 'number',
-      network: 'string',
-      version: 'string',
+      antChainId: 'string',
+      username: 'string',
+      createtime: 'number',
+      updatetime: 'number',
+      bid: 'string',
+      status: 'string',
     };
   }
 
@@ -1050,6 +585,350 @@ export class DisServicesInfo extends $tea.Model {
       serviceEndpoint: 'string',
       type: 'string',
       desc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云合约链信息
+export class ALiYunContractBlockchain extends $tea.Model {
+  // name
+  name?: string;
+  // bizid
+  bizid?: string;
+  // chain_type
+  chainType?: string;
+  // node_num
+  nodeNum?: number;
+  // member_status
+  memberStatus?: string;
+  // block_height
+  blockHeight?: number;
+  // transactions
+  transactions?: number;
+  // network
+  network?: string;
+  // version
+  version?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      bizid: 'bizid',
+      chainType: 'chain_type',
+      nodeNum: 'node_num',
+      memberStatus: 'member_status',
+      blockHeight: 'block_height',
+      transactions: 'transactions',
+      network: 'network',
+      version: 'version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      bizid: 'string',
+      chainType: 'string',
+      nodeNum: 'number',
+      memberStatus: 'string',
+      blockHeight: 'number',
+      transactions: 'number',
+      network: 'string',
+      version: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云区块链小程序用户权限信息
+export class ALiYunChainMiniAppAuthorizedUser extends $tea.Model {
+  // phone
+  phone?: string;
+  // gmt_authorized
+  gmtAuthorized?: string;
+  // 记录id
+  userId?: number;
+  static names(): { [key: string]: string } {
+    return {
+      phone: 'phone',
+      gmtAuthorized: 'gmt_authorized',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      phone: 'string',
+      gmtAuthorized: 'string',
+      userId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权服务数据模型结构体
+export class DataModel extends $tea.Model {
+  // 业务系统唯一标示
+  bizUid?: string;
+  // 空间ID
+  spaceId: string;
+  // 创建时间
+  createTime: number;
+  // 数据模型描述
+  description?: string;
+  // 模型字段详细信息
+  fieldDetail: string;
+  // 数据模型业务ID
+  modelBizId?: string;
+  // 数据模型ID
+  modelId: string;
+  // 数据模型名称
+  name: string;
+  // 提交人
+  submitter: Participant;
+  // 更新时间
+  updateTime: number;
+  // 状态
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      bizUid: 'biz_uid',
+      spaceId: 'space_id',
+      createTime: 'create_time',
+      description: 'description',
+      fieldDetail: 'field_detail',
+      modelBizId: 'model_biz_id',
+      modelId: 'model_id',
+      name: 'name',
+      submitter: 'submitter',
+      updateTime: 'update_time',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizUid: 'string',
+      spaceId: 'string',
+      createTime: 'number',
+      description: 'string',
+      fieldDetail: 'string',
+      modelBizId: 'string',
+      modelId: 'string',
+      name: 'string',
+      submitter: Participant,
+      updateTime: 'number',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权流程节点详细信息
+export class NodeDetail extends $tea.Model {
+  // 节点审批意见
+  comment: string;
+  // 节点ID
+  nodeId: string;
+  // 节点名称
+  nodeName: string;
+  // 节点状态
+  nodeStatus: string;
+  // 节点审批时间
+  operateTime: number;
+  // 扩展参数
+  extensionInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      comment: 'comment',
+      nodeId: 'node_id',
+      nodeName: 'node_name',
+      nodeStatus: 'node_status',
+      operateTime: 'operate_time',
+      extensionInfo: 'extension_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      comment: 'string',
+      nodeId: 'string',
+      nodeName: 'string',
+      nodeStatus: 'string',
+      operateTime: 'number',
+      extensionInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 合约链配置信息结果
+export class ContractIdeConfig extends $tea.Model {
+  // 合约链的一个已创建的测试账户
+  accountName: string;
+  // 区块链唯一标识
+  bizid: string;
+  // 合约链的名字
+  chainName: string;
+  // 目标合约链的host地址
+  host: string;
+  // 说明是否开启wasm合约功能
+  isWasm?: boolean;
+  // 目标合约链服务公开的端口号
+  port: string;
+  // 合约链已创建的测试账户的密钥
+  privateKey: string;
+  // 如果是TEE硬件隐私合约链，会包含此字段内容
+  rsaPublicKey?: string;
+  // 合约链的版本说明
+  version?: string;
+  static names(): { [key: string]: string } {
+    return {
+      accountName: 'account_name',
+      bizid: 'bizid',
+      chainName: 'chain_name',
+      host: 'host',
+      isWasm: 'is_wasm',
+      port: 'port',
+      privateKey: 'private_key',
+      rsaPublicKey: 'rsa_public_key',
+      version: 'version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accountName: 'string',
+      bizid: 'string',
+      chainName: 'string',
+      host: 'string',
+      isWasm: 'boolean',
+      port: 'string',
+      privateKey: 'string',
+      rsaPublicKey: 'string',
+      version: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// {"key":"value"}
+export class KeyValuePair extends $tea.Model {
+  // 键名
+  key: string;
+  // 值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 日志存储类型
+export class TriggerLogDTOStructBody extends $tea.Model {
+  // 创建时间
+  createTime?: string;
+  // 修改时间
+  modifyTime?: string;
+  // 状态
+  status?: string;
+  // uuid
+  uuid?: string;
+  // 位置
+  position?: PositionStructBody;
+  static names(): { [key: string]: string } {
+    return {
+      createTime: 'create_time',
+      modifyTime: 'modify_time',
+      status: 'status',
+      uuid: 'uuid',
+      position: 'position',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      createTime: 'string',
+      modifyTime: 'string',
+      status: 'string',
+      uuid: 'string',
+      position: PositionStructBody,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云合约工程信息
+export class ALiYunContractProject extends $tea.Model {
+  // consortium_id
+  consortiumId?: string;
+  // create_time
+  createTime?: number;
+  // project_description
+  projectDescription?: string;
+  // project_id
+  projectId?: string;
+  // project_name
+  projectName?: string;
+  // project_version
+  projectVersion?: string;
+  // update_time
+  updateTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      consortiumId: 'consortium_id',
+      createTime: 'create_time',
+      projectDescription: 'project_description',
+      projectId: 'project_id',
+      projectName: 'project_name',
+      projectVersion: 'project_version',
+      updateTime: 'update_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      consortiumId: 'string',
+      createTime: 'number',
+      projectDescription: 'string',
+      projectId: 'string',
+      projectName: 'string',
+      projectVersion: 'string',
+      updateTime: 'number',
     };
   }
 
@@ -1147,6 +1026,92 @@ export class BlockchainBrowserTransaction extends $tea.Model {
   }
 }
 
+// 阿里云区块链信息
+export class ALiYunOldContractBlockchain extends $tea.Model {
+  // name
+  name?: string;
+  // bizid
+  bizid?: string;
+  // chain_type
+  chainType?: string;
+  // node_num
+  nodeNum?: number;
+  // member_status
+  memberStatus?: string;
+  // block_height
+  blockHeight?: number;
+  // transactions
+  transactions?: number;
+  // network
+  network?: string;
+  // version
+  version?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      bizid: 'bizid',
+      chainType: 'chain_type',
+      nodeNum: 'node_num',
+      memberStatus: 'member_status',
+      blockHeight: 'block_height',
+      transactions: 'transactions',
+      network: 'network',
+      version: 'version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      bizid: 'string',
+      chainType: 'string',
+      nodeNum: 'number',
+      memberStatus: 'string',
+      blockHeight: 'number',
+      transactions: 'number',
+      network: 'string',
+      version: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云蚂蚁链相关下载链接
+export class ALiYunDownloadPath extends $tea.Model {
+  // client_crt_url
+  clientCrtUrl?: string;
+  // trust_ca_url
+  trustCaUrl?: string;
+  // ca_crt_url
+  caCrtUrl?: string;
+  // sdk_url
+  sdkUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      clientCrtUrl: 'client_crt_url',
+      trustCaUrl: 'trust_ca_url',
+      caCrtUrl: 'ca_crt_url',
+      sdkUrl: 'sdk_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      clientCrtUrl: 'string',
+      trustCaUrl: 'string',
+      caCrtUrl: 'string',
+      sdkUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 阿里云子链结构体
 export class ALiYunChainSubnet extends $tea.Model {
   // 子链id
@@ -1204,6 +1169,60 @@ export class ALiYunChainSubnet extends $tea.Model {
       mainChainId: 'string',
       rest: 'string',
       groupId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 分页属性
+export class ALiYunPagination extends $tea.Model {
+  // 分页大小
+  pageSize?: number;
+  // 分页编号
+  pageNumber?: number;
+  // 总数大小
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      pageSize: 'page_size',
+      pageNumber: 'page_number',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pageSize: 'number',
+      pageNumber: 'number',
+      totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// Did doc中的service info
+export class DidServiceInfo extends $tea.Model {
+  // 服务的end point info
+  endPoint: string;
+  // 扩展字段信息
+  extensionInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      endPoint: 'end_point',
+      extensionInfo: 'extension_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      endPoint: 'string',
+      extensionInfo: 'string',
     };
   }
 
@@ -1277,39 +1296,43 @@ export class ALiYunTransactionSummary extends $tea.Model {
   }
 }
 
-// 阿里云蚂蚁区块链证书信息
-export class ALiYunCertificateApplication extends $tea.Model {
+// 阿里云账户信息
+export class ALiYunAccount extends $tea.Model {
   // ant_chain_id
   antChainId?: string;
-  // username
-  username?: string;
-  // createtime
-  createtime?: number;
-  // updatetime
-  updatetime?: number;
-  // bid
-  bid?: string;
-  // status
-  status?: string;
+  // account
+  account?: string;
+  // account_public_key
+  accountPublicKey?: string;
+  // account_recovery_key
+  accountRecoveryKey?: string;
+  // account_status
+  accountStatus?: string;
+  // 机构信息
+  memberName?: string;
+  // 创建时间
+  createTime?: number;
   static names(): { [key: string]: string } {
     return {
       antChainId: 'ant_chain_id',
-      username: 'username',
-      createtime: 'createtime',
-      updatetime: 'updatetime',
-      bid: 'bid',
-      status: 'status',
+      account: 'account',
+      accountPublicKey: 'account_public_key',
+      accountRecoveryKey: 'account_recovery_key',
+      accountStatus: 'account_status',
+      memberName: 'member_name',
+      createTime: 'create_time',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       antChainId: 'string',
-      username: 'string',
-      createtime: 'number',
-      updatetime: 'number',
-      bid: 'string',
-      status: 'string',
+      account: 'string',
+      accountPublicKey: 'string',
+      accountRecoveryKey: 'string',
+      accountStatus: 'string',
+      memberName: 'string',
+      createTime: 'number',
     };
   }
 
@@ -1318,51 +1341,223 @@ export class ALiYunCertificateApplication extends $tea.Model {
   }
 }
 
-// 阿里云合约链信息
-export class ALiYunContractBlockchain extends $tea.Model {
-  // name
-  name?: string;
-  // bizid
-  bizid?: string;
-  // chain_type
-  chainType?: string;
-  // node_num
-  nodeNum?: number;
-  // member_status
-  memberStatus?: string;
+// 阿里云链节点信息
+export class ALiYunChainNodeInfo extends $tea.Model {
   // block_height
   blockHeight?: number;
-  // transactions
-  transactions?: number;
-  // network
-  network?: string;
+  // node_name
+  nodeName?: string;
+  // status
+  status?: boolean;
   // version
   version?: string;
+  // 节点id
+  nodeId?: string;
+  // 节点ip
+  nodeIp?: string;
+  // 节点的端口
+  nodePort?: string;
+  // 节点类型
+  nodeType?: string;
+  // 节点状态
+  nodeState?: string;
+  // 节点来源
+  nodeSource?: string;
+  // 节点存储空间使用量
+  diskUse?: string;
+  // 节点存储总空间大小
+  diskTotal?: string;
+  // 节点公钥
+  publicKey?: string;
   static names(): { [key: string]: string } {
     return {
-      name: 'name',
-      bizid: 'bizid',
-      chainType: 'chain_type',
-      nodeNum: 'node_num',
-      memberStatus: 'member_status',
       blockHeight: 'block_height',
-      transactions: 'transactions',
-      network: 'network',
+      nodeName: 'node_name',
+      status: 'status',
       version: 'version',
+      nodeId: 'node_id',
+      nodeIp: 'node_ip',
+      nodePort: 'node_port',
+      nodeType: 'node_type',
+      nodeState: 'node_state',
+      nodeSource: 'node_source',
+      diskUse: 'disk_use',
+      diskTotal: 'disk_total',
+      publicKey: 'public_key',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      name: 'string',
-      bizid: 'string',
-      chainType: 'string',
-      nodeNum: 'number',
-      memberStatus: 'string',
       blockHeight: 'number',
-      transactions: 'number',
-      network: 'string',
+      nodeName: 'string',
+      status: 'boolean',
       version: 'string',
+      nodeId: 'string',
+      nodeIp: 'string',
+      nodePort: 'string',
+      nodeType: 'string',
+      nodeState: 'string',
+      nodeSource: 'string',
+      diskUse: 'string',
+      diskTotal: 'string',
+      publicKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云联盟信息
+export class ALiYunAntConsortium extends $tea.Model {
+  // 链的数量
+  chainNum?: number;
+  // 成员数量
+  memberNum?: number;
+  // 时间戳
+  createTime?: number;
+  // 角色
+  role?: string;
+  // 联盟id
+  consortiumId?: string;
+  // 状态值
+  status?: string;
+  // 联盟名称
+  consortiumName?: string;
+  // 联盟描述
+  consortiumDescription?: string;
+  // 是否为空联盟
+  isEmptyConsortium?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      chainNum: 'chain_num',
+      memberNum: 'member_num',
+      createTime: 'create_time',
+      role: 'role',
+      consortiumId: 'consortium_id',
+      status: 'status',
+      consortiumName: 'consortium_name',
+      consortiumDescription: 'consortium_description',
+      isEmptyConsortium: 'is_empty_consortium',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      chainNum: 'number',
+      memberNum: 'number',
+      createTime: 'number',
+      role: 'string',
+      consortiumId: 'string',
+      status: 'string',
+      consortiumName: 'string',
+      consortiumDescription: 'string',
+      isEmptyConsortium: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云数据导出任务checkpoint类
+export class CheckPointStructBody extends $tea.Model {
+  // 高度
+  height?: string;
+  // 序号
+  index?: string;
+  // 类型
+  type?: string;
+  // last_error
+  lastError?: string;
+  // 错误统计
+  errorCount?: string;
+  // 统计
+  totalCount?: string;
+  static names(): { [key: string]: string } {
+    return {
+      height: 'height',
+      index: 'index',
+      type: 'type',
+      lastError: 'last_error',
+      errorCount: 'error_count',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      height: 'string',
+      index: 'string',
+      type: 'string',
+      lastError: 'string',
+      errorCount: 'string',
+      totalCount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 账户映射情况
+export class AccountMappingInfo extends $tea.Model {
+  // 链上账户id
+  bcAccount: string;
+  // 账户绑定状态，1为未绑定，2为绑定成功
+  bindingStatus: number;
+  // 1是激活状态，2是冻结状态
+  status: number;
+  // 账户唯一标示
+  uid: string;
+  static names(): { [key: string]: string } {
+    return {
+      bcAccount: 'bc_account',
+      bindingStatus: 'binding_status',
+      status: 'status',
+      uid: 'uid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bcAccount: 'string',
+      bindingStatus: 'number',
+      status: 'number',
+      uid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// VC可信传输时，指定的目标did信息
+export class VcTransmitTargetStruct extends $tea.Model {
+  // 目标did的公钥
+  publicKey?: string;
+  // 传输vc使用的区块链id
+  vcChannel?: string;
+  // 验证者did
+  verifierDid: string;
+  static names(): { [key: string]: string } {
+    return {
+      publicKey: 'public_key',
+      vcChannel: 'vc_channel',
+      verifierDid: 'verifier_did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      publicKey: 'string',
+      vcChannel: 'string',
+      verifierDid: 'string',
     };
   }
 
@@ -1436,209 +1631,47 @@ export class ALiYunTransaction extends $tea.Model {
   }
 }
 
-// Did Doc中的服务字段描述
-export class DidDocServicesInfo extends $tea.Model {
-  // 服务的扩展字段
-  extension?: string;
-  // 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务：
-  // DidAuthService， 有且只能有一个，并且id必须为didauth-1；
-  // VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
-  id: string;
-  // 服务的可访问地址
-  serviceEndpoint: string;
-  // 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
-  type: string;
+// 蚂蚁链用途申报结构体
+export class ChainPurpose extends $tea.Model {
+  // 用途id
+  id?: string;
+  // 用途key
+  key?: string;
+  // 用途内容
+  name?: string;
+  // 用途申报时间
+  time?: string;
+  // 用途申报状态
+  status?: string;
+  // 简短描述开关
+  item?: boolean;
+  // 详细描述开关
+  extend?: boolean;
+  // 用途申报简短描述
+  purposeItem?: string;
   static names(): { [key: string]: string } {
     return {
-      extension: 'extension',
       id: 'id',
-      serviceEndpoint: 'service_endpoint',
-      type: 'type',
+      key: 'key',
+      name: 'name',
+      time: 'time',
+      status: 'status',
+      item: 'item',
+      extend: 'extend',
+      purposeItem: 'purpose_item',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      extension: 'string',
       id: 'string',
-      serviceEndpoint: 'string',
-      type: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 合约链配置信息结果
-export class ContractIdeConfig extends $tea.Model {
-  // 合约链的一个已创建的测试账户
-  accountName: string;
-  // 区块链唯一标识
-  bizid: string;
-  // 合约链的名字
-  chainName: string;
-  // 目标合约链的host地址
-  host: string;
-  // 说明是否开启wasm合约功能
-  isWasm?: boolean;
-  // 目标合约链服务公开的端口号
-  port: string;
-  // 合约链已创建的测试账户的密钥
-  privateKey: string;
-  // 如果是TEE硬件隐私合约链，会包含此字段内容
-  rsaPublicKey?: string;
-  // 合约链的版本说明
-  version?: string;
-  static names(): { [key: string]: string } {
-    return {
-      accountName: 'account_name',
-      bizid: 'bizid',
-      chainName: 'chain_name',
-      host: 'host',
-      isWasm: 'is_wasm',
-      port: 'port',
-      privateKey: 'private_key',
-      rsaPublicKey: 'rsa_public_key',
-      version: 'version',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      accountName: 'string',
-      bizid: 'string',
-      chainName: 'string',
-      host: 'string',
-      isWasm: 'boolean',
-      port: 'string',
-      privateKey: 'string',
-      rsaPublicKey: 'string',
-      version: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云数据导出任务checkpoint类
-export class CheckPointStructBody extends $tea.Model {
-  // 高度
-  height?: string;
-  // 序号
-  index?: string;
-  // 类型
-  type?: string;
-  // last_error
-  lastError?: string;
-  // 错误统计
-  errorCount?: string;
-  // 统计
-  totalCount?: string;
-  static names(): { [key: string]: string } {
-    return {
-      height: 'height',
-      index: 'index',
-      type: 'type',
-      lastError: 'last_error',
-      errorCount: 'error_count',
-      totalCount: 'total_count',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      height: 'string',
-      index: 'string',
-      type: 'string',
-      lastError: 'string',
-      errorCount: 'string',
-      totalCount: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// VC可信传输时，指定的目标did信息
-export class VcTransmitTargetStruct extends $tea.Model {
-  // 目标did的公钥
-  publicKey?: string;
-  // 传输vc使用的区块链id
-  vcChannel?: string;
-  // 验证者did
-  verifierDid: string;
-  static names(): { [key: string]: string } {
-    return {
-      publicKey: 'public_key',
-      vcChannel: 'vc_channel',
-      verifierDid: 'verifier_did',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      publicKey: 'string',
-      vcChannel: 'string',
-      verifierDid: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云联盟信息
-export class ALiYunAntConsortium extends $tea.Model {
-  // 链的数量
-  chainNum?: number;
-  // 成员数量
-  memberNum?: number;
-  // 时间戳
-  createTime?: number;
-  // 角色
-  role?: string;
-  // 联盟id
-  consortiumId?: string;
-  // 状态值
-  status?: string;
-  // 联盟名称
-  consortiumName?: string;
-  // 联盟描述
-  consortiumDescription?: string;
-  // 是否为空联盟
-  isEmptyConsortium?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      chainNum: 'chain_num',
-      memberNum: 'member_num',
-      createTime: 'create_time',
-      role: 'role',
-      consortiumId: 'consortium_id',
-      status: 'status',
-      consortiumName: 'consortium_name',
-      consortiumDescription: 'consortium_description',
-      isEmptyConsortium: 'is_empty_consortium',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      chainNum: 'number',
-      memberNum: 'number',
-      createTime: 'number',
-      role: 'string',
-      consortiumId: 'string',
+      key: 'string',
+      name: 'string',
+      time: 'string',
       status: 'string',
-      consortiumName: 'string',
-      consortiumDescription: 'string',
-      isEmptyConsortium: 'boolean',
+      item: 'boolean',
+      extend: 'boolean',
+      purposeItem: 'string',
     };
   }
 
@@ -1647,549 +1680,51 @@ export class ALiYunAntConsortium extends $tea.Model {
   }
 }
 
-// 分页属性
-export class ALiYunPagination extends $tea.Model {
-  // 分页大小
-  pageSize?: number;
-  // 分页编号
-  pageNumber?: number;
-  // 总数大小
-  totalCount?: number;
-  static names(): { [key: string]: string } {
-    return {
-      pageSize: 'page_size',
-      pageNumber: 'page_number',
-      totalCount: 'total_count',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pageSize: 'number',
-      pageNumber: 'number',
-      totalCount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 日志存储类型
-export class TriggerLogDTOStructBody extends $tea.Model {
-  // 创建时间
-  createTime?: string;
-  // 修改时间
-  modifyTime?: string;
-  // 状态
-  status?: string;
-  // uuid
-  uuid?: string;
-  // 位置
-  position?: PositionStructBody;
-  static names(): { [key: string]: string } {
-    return {
-      createTime: 'create_time',
-      modifyTime: 'modify_time',
-      status: 'status',
-      uuid: 'uuid',
-      position: 'position',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      createTime: 'string',
-      modifyTime: 'string',
-      status: 'string',
-      uuid: 'string',
-      position: PositionStructBody,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数字资产管理平台版通交易信息
-export class EPTradeInfo extends $tea.Model {
-  // 版通代码
-  epCode: string;
-  // 版通交易号
-  txCode: string;
-  // 卖方账户
-  txFrom: string;
-  // 交易时间戳
-  txTime: number;
-  // 买方账户
-  txTo: string;
-  // 交易数量
-  txValue: number;
-  static names(): { [key: string]: string } {
-    return {
-      epCode: 'ep_code',
-      txCode: 'tx_code',
-      txFrom: 'tx_from',
-      txTime: 'tx_time',
-      txTo: 'tx_to',
-      txValue: 'tx_value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      epCode: 'string',
-      txCode: 'string',
-      txFrom: 'string',
-      txTime: 'number',
-      txTo: 'string',
-      txValue: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 删除资源返回结果
-export class ALiYunDeleteResource extends $tea.Model {
-  // data
-  data?: boolean;
-  // success
-  success?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      data: 'data',
-      success: 'success',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      data: 'boolean',
-      success: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// C3S可信计算服务TAPP应用信息
-export class TappInfo extends $tea.Model {
-  // C3S可信计算TAPP应用标识
-  taapId: string;
-  // C3S可信计算TAPP版本
-  tappVersion: number;
-  static names(): { [key: string]: string } {
-    return {
-      taapId: 'taap_id',
-      tappVersion: 'tapp_version',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      taapId: 'string',
-      tappVersion: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云售卖区信息
-export class ALiYunChainRegion extends $tea.Model {
-  // region_id
-  regionId?: string;
-  // region_name
-  regionName?: string;
-  static names(): { [key: string]: string } {
-    return {
-      regionId: 'region_id',
-      regionName: 'region_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      regionId: 'string',
-      regionName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云区块链小程序交易查询信息
-export class ALiYunChainMiniAppTransaction extends $tea.Model {
-  // authorized
-  authorized?: boolean;
-  // transaction_response
-  transactionResponse?: string;
-  // transaction_receipt
-  transactionReceipt?: string;
-  static names(): { [key: string]: string } {
-    return {
-      authorized: 'authorized',
-      transactionResponse: 'transaction_response',
-      transactionReceipt: 'transaction_receipt',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authorized: 'boolean',
-      transactionResponse: 'string',
-      transactionReceipt: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 更新did auth paylod结构体
-export class UpdateDidAuthPayload extends $tea.Model {
-  // 新公钥的实际控制者
-  controller: string;
-  // 旧Auth Key的过期时间
-  previousAuthKeyExpire: string;
-  // 更新Did doc的版本
-  previousVersion: number;
-  // 新DID Auth key的public key id
-  publicKeyId: string;
-  // 密钥对生成算法
-  publicKeyType: string;
-  // 公钥的实际值
-  value: string;
-  static names(): { [key: string]: string } {
-    return {
-      controller: 'controller',
-      previousAuthKeyExpire: 'previous_auth_key_expire',
-      previousVersion: 'previous_version',
-      publicKeyId: 'public_key_id',
-      publicKeyType: 'public_key_type',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      controller: 'string',
-      previousAuthKeyExpire: 'string',
-      previousVersion: 'number',
-      publicKeyId: 'string',
-      publicKeyType: 'string',
-      value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 物流金融信用流转流水信息
-export class CreditTransferStatementInfo extends $tea.Model {
-  // 信用凭证额度
-  creditLimit?: string;
-  // 信用凭证到期时间
-  expireDate?: string;
-  // 凭证来源方did
-  fromDid?: string;
-  // 信用凭证发起时间
-  issueDate?: string;
-  // 信用流转凭证
-  issueId?: string;
-  // 流水类型
-  stateType?: string;
-  // 凭证流转方did
-  toDid?: string;
-  static names(): { [key: string]: string } {
-    return {
-      creditLimit: 'credit_limit',
-      expireDate: 'expire_date',
-      fromDid: 'from_did',
-      issueDate: 'issue_date',
-      issueId: 'issue_id',
-      stateType: 'state_type',
-      toDid: 'to_did',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      creditLimit: 'string',
-      expireDate: 'string',
-      fromDid: 'string',
-      issueDate: 'string',
-      issueId: 'string',
-      stateType: 'string',
-      toDid: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云蚂蚁区块链账户创建信息
-export class ALiYunChainAccount extends $tea.Model {
-  // account_private_key
-  accountPrivateKey?: string;
-  // account_public_key
-  accountPublicKey?: string;
-  // account_recover_private_key
-  accountRecoverPrivateKey?: string;
-  // account_recover_public_key
-  accountRecoverPublicKey?: string;
-  // ant_chain_id
-  antChainId?: string;
-  // account
-  account?: string;
-  static names(): { [key: string]: string } {
-    return {
-      accountPrivateKey: 'account_private_key',
-      accountPublicKey: 'account_public_key',
-      accountRecoverPrivateKey: 'account_recover_private_key',
-      accountRecoverPublicKey: 'account_recover_public_key',
-      antChainId: 'ant_chain_id',
-      account: 'account',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      accountPrivateKey: 'string',
-      accountPublicKey: 'string',
-      accountRecoverPrivateKey: 'string',
-      accountRecoverPublicKey: 'string',
-      antChainId: 'string',
-      account: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 可信存证身份识别信息
-export class Identity extends $tea.Model {
-  // 经办人姓名，企业认证必选
-  agent?: string;
-  // 经办人身份证
-  agentId?: string;
-  // 用户名称
-  certName: string;
-  // 证件号
-  certNo: string;
-  // 证件类型，个人只支持身份证IDENTITY_CARD，企业支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号
-  certType: string;
-  // 法人姓名，企业认证必选
-  legalPerson?: string;
-  // 法人身份证,  企业认证必选
-  legalPersonId?: string;
-  // 用户手机号码
-  mobileNo?: string;
-  // 扩展属性
-  properties?: string;
-  // 用户类型，PERSON或者ENTERPRISE
-  userType: string;
-  static names(): { [key: string]: string } {
-    return {
-      agent: 'agent',
-      agentId: 'agent_id',
-      certName: 'cert_name',
-      certNo: 'cert_no',
-      certType: 'cert_type',
-      legalPerson: 'legal_person',
-      legalPersonId: 'legal_person_id',
-      mobileNo: 'mobile_no',
-      properties: 'properties',
-      userType: 'user_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      agent: 'string',
-      agentId: 'string',
-      certName: 'string',
-      certNo: 'string',
-      certType: 'string',
-      legalPerson: 'string',
-      legalPersonId: 'string',
-      mobileNo: 'string',
-      properties: 'string',
-      userType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云区块链Rest信息
-export class ALiYunChainRest extends $tea.Model {
-  // access_id
-  accessId?: string;
-  // create_time
-  createTime?: number;
-  // rest
-  rest?: string;
-  // update_time
-  updateTime?: number;
-  // REST开通结果
-  result?: string;
-  static names(): { [key: string]: string } {
-    return {
-      accessId: 'access_id',
-      createTime: 'create_time',
-      rest: 'rest',
-      updateTime: 'update_time',
-      result: 'result',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      accessId: 'string',
-      createTime: 'number',
-      rest: 'string',
-      updateTime: 'number',
-      result: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 蚂蚁链浏览器交易收据信息
-export class BlockchainBrowserTransactionReceipt extends $tea.Model {
-  // data
-  data: string;
-  // gas_used
-  gasUsed: number;
-  // logs
-  logs: string[];
-  // result
-  result: number;
-  static names(): { [key: string]: string } {
-    return {
-      data: 'data',
-      gasUsed: 'gas_used',
-      logs: 'logs',
-      result: 'result',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      data: 'string',
-      gasUsed: 'number',
-      logs: { 'type': 'array', 'itemType': 'string' },
-      result: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据授权服务用户公钥结构体
-export class PublicKey extends $tea.Model {
-  // 公钥颁发者ID
-  issuerId: string;
-  // 公钥内容
-  publicKeyContent: string;
-  // 公钥接受者ID
-  recipientId: string;
-  static names(): { [key: string]: string } {
-    return {
-      issuerId: 'issuer_id',
-      publicKeyContent: 'public_key_content',
-      recipientId: 'recipient_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      issuerId: 'string',
-      publicKeyContent: 'string',
-      recipientId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云链信息
-export class ALiYunChainInfo extends $tea.Model {
-  // abnormal_nodes
-  abnormalNodes?: number;
-  // ant_chain_id
-  antChainId?: string;
+// 阿里云存证链信息
+export class ALiYunNotaryBlockchain extends $tea.Model {
+  // name
+  name?: string;
+  // bizid
+  bizid?: string;
+  // chain_type
+  chainType?: string;
+  // node_num
+  nodeNum?: number;
+  // member_status
+  memberStatus?: string;
   // block_height
   blockHeight?: number;
-  // create_time
-  createTime?: number;
-  // is_role
-  isRole?: boolean;
-  // node_number
-  nodeNumber?: number;
-  // normal
-  normal?: boolean;
-  // transaction_sum
-  transactionSum?: number;
-  // Version
+  // transactions
+  transactions?: number;
+  // network
+  network?: string;
+  // version
   version?: string;
-  // node_infos
-  nodeInfos?: ALiYunChainNodeInfo[];
   static names(): { [key: string]: string } {
     return {
-      abnormalNodes: 'abnormal_nodes',
-      antChainId: 'ant_chain_id',
+      name: 'name',
+      bizid: 'bizid',
+      chainType: 'chain_type',
+      nodeNum: 'node_num',
+      memberStatus: 'member_status',
       blockHeight: 'block_height',
-      createTime: 'create_time',
-      isRole: 'is_role',
-      nodeNumber: 'node_number',
-      normal: 'normal',
-      transactionSum: 'transaction_sum',
+      transactions: 'transactions',
+      network: 'network',
       version: 'version',
-      nodeInfos: 'node_infos',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      abnormalNodes: 'number',
-      antChainId: 'string',
+      name: 'string',
+      bizid: 'string',
+      chainType: 'string',
+      nodeNum: 'number',
+      memberStatus: 'string',
       blockHeight: 'number',
-      createTime: 'number',
-      isRole: 'boolean',
-      nodeNumber: 'number',
-      normal: 'boolean',
-      transactionSum: 'number',
+      transactions: 'number',
+      network: 'string',
       version: 'string',
-      nodeInfos: { 'type': 'array', 'itemType': ALiYunChainNodeInfo },
     };
   }
 
@@ -2198,35 +1733,31 @@ export class ALiYunChainInfo extends $tea.Model {
   }
 }
 
-// BaaS平台联盟信息
-export class BaasUnionInfo extends $tea.Model {
-  // 联盟名称
-  unionName: string;
-  // 描述
-  unionDescription: string;
-  // 联系人
-  unionUser: string;
-  // 联盟联系人手机号码
-  unionUserCell: string;
-  // 联盟联系人邮箱
-  unionUserMail: string;
+// 证书颁发校验错误描述
+export class TemplateInstanceErrorDetailDTO extends $tea.Model {
+  // 当前错误类型的错误行数
+  errorNum: number;
+  // 出错数据抽样
+  samples: string[];
+  // 出错列，从0开始
+  errorColumnIndex: number;
+  // 当前错误类型的描述
+  errorDescription: string;
   static names(): { [key: string]: string } {
     return {
-      unionName: 'union_name',
-      unionDescription: 'union_description',
-      unionUser: 'union_user',
-      unionUserCell: 'union_user_cell',
-      unionUserMail: 'union_user_mail',
+      errorNum: 'error_num',
+      samples: 'samples',
+      errorColumnIndex: 'error_column_index',
+      errorDescription: 'error_description',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      unionName: 'string',
-      unionDescription: 'string',
-      unionUser: 'string',
-      unionUserCell: 'string',
-      unionUserMail: 'string',
+      errorNum: 'number',
+      samples: { 'type': 'array', 'itemType': 'string' },
+      errorColumnIndex: 'number',
+      errorDescription: 'string',
     };
   }
 
@@ -2284,221 +1815,35 @@ export class Location extends $tea.Model {
   }
 }
 
-// Vc可信传输实际参数
-export class VcTransmitPayload extends $tea.Model {
-  // 目标did相关信息列表
-  targetVerifier: VcTransmitTargetStruct[];
-  // 要传输的vc_id
-  vcId: string;
-  // vc原文，如果vc原文出现在传输接口，那么VC仓库不会从本地查找，而是直接将传输的VC上链
-  vcContent?: string;
+// 申请用户授权的目标可验证声明内容、过期时间等配置
+export class Claim extends $tea.Model {
+  // 一个json的string，内容包含具体需要的声明，不同业务场景不同。
+  claimContent: string;
+  // 如果在相同的biz_type下，还需要针对声明claim进行细化划分，可以使用此字段。
+  claimType?: string;
+  // 申请声明颁发后的有效期，可选参数，如果不指定则默认申请永久有效。
+  expire?: number;
+  // 授权颁发可验证声明的目标did信息，通常为机构或组织的did
+  did?: string;
+  // 目标待授权的名称，标定唯一性，与claim内容配合使用，如果不指定did可以考虑使用此字段。
+  name?: string;
   static names(): { [key: string]: string } {
     return {
-      targetVerifier: 'target_verifier',
-      vcId: 'vc_id',
-      vcContent: 'vc_content',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      targetVerifier: { 'type': 'array', 'itemType': VcTransmitTargetStruct },
-      vcId: 'string',
-      vcContent: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// VC分享的结果
-export class VcShareResult extends $tea.Model {
-  // 目标分享的VC的id
-  vcId: string;
-  // 分享给目标接受者的did
-  targetDid: string;
-  // 分享链上VC数据的交易hash，可用于直连区块链查询交易内容时使用。
-  txHash?: string;
-  // 分享是否成功，true：成功，false：失败
-  status: boolean;
-  // 失败的对应原因信息
-  msg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      vcId: 'vc_id',
-      targetDid: 'target_did',
-      txHash: 'tx_hash',
-      status: 'status',
-      msg: 'msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      vcId: 'string',
-      targetDid: 'string',
-      txHash: 'string',
-      status: 'boolean',
-      msg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// vc传输初始化结果
-export class VcTransmitInitResult extends $tea.Model {
-  // 初始化成功与否
-  isSuccess: boolean;
-  // 失败时返回的额外信息
-  message: string;
-  // 接受者did
-  targetVerifier: string;
-  // 待签名的交易hash
-  needSignatureTxHash: string;
-  static names(): { [key: string]: string } {
-    return {
-      isSuccess: 'is_success',
-      message: 'message',
-      targetVerifier: 'target_verifier',
-      needSignatureTxHash: 'need_signature_tx_hash',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      isSuccess: 'boolean',
-      message: 'string',
-      targetVerifier: 'string',
-      needSignatureTxHash: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 组件信息
-export class DiscreteValue extends $tea.Model {
-  // 排序id
-  sortId?: number;
-  // 字段描述
-  text: string;
-  // 提示信息
-  tips?: string;
-  // 单位信息
-  unit?: string;
-  // 值内容
-  value: string;
-  static names(): { [key: string]: string } {
-    return {
-      sortId: 'sort_id',
-      text: 'text',
-      tips: 'tips',
-      unit: 'unit',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      sortId: 'number',
-      text: 'string',
-      tips: 'string',
-      unit: 'string',
-      value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云区块链小程序交易二维码生成
-export class ALiYunChainMiniAppCodeCreate extends $tea.Model {
-  // ant_chain_id
-  antChainId?: string;
-  // transaction_hash
-  transactionHash?: string;
-  // base64_q_r_code_p_n_g
-  base64QRCodePNG?: string;
-  // q_r_code_content
-  qRCodeContent?: string;
-  static names(): { [key: string]: string } {
-    return {
-      antChainId: 'ant_chain_id',
-      transactionHash: 'transaction_hash',
-      base64QRCodePNG: 'base64_q_r_code_p_n_g',
-      qRCodeContent: 'q_r_code_content',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      antChainId: 'string',
-      transactionHash: 'string',
-      base64QRCodePNG: 'string',
-      qRCodeContent: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 用户身份、账户及手机号信息
-export class UserInfoParam extends $tea.Model {
-  // 用户手机号信息
-  phone: string;
-  // 用户账号信息
-  userAccount: string;
-  // 用户名称
-  userName: string;
-  static names(): { [key: string]: string } {
-    return {
-      phone: 'phone',
-      userAccount: 'user_account',
-      userName: 'user_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      phone: 'string',
-      userAccount: 'string',
-      userName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 服务发现结果
-export class ServiceDiscoveryResult extends $tea.Model {
-  // 提供该服务能力的did
-  did: string;
-  // 提供该服务能力的endpoint信息
-  services: DidDocServicesInfo[];
-  static names(): { [key: string]: string } {
-    return {
+      claimContent: 'claim_content',
+      claimType: 'claim_type',
+      expire: 'expire',
       did: 'did',
-      services: 'services',
+      name: 'name',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      claimContent: 'string',
+      claimType: 'string',
+      expire: 'number',
       did: 'string',
-      services: { 'type': 'array', 'itemType': DidDocServicesInfo },
+      name: 'string',
     };
   }
 
@@ -2507,31 +1852,31 @@ export class ServiceDiscoveryResult extends $tea.Model {
   }
 }
 
-// dis服务发现对象
-export class DisServiceInfo extends $tea.Model {
-  // 提供服务的did
-  controller: string;
-  // 服务地址
-  endPoint: string;
-  // 服务id
-  serviceId: string;
-  // 服务类型
-  serviceType: string;
+// 营销分销推广人账户流水信息
+export class CapitalInfo extends $tea.Model {
+  // 记录流水额度
+  balanceLog: string;
+  // 商户id
+  shopId: string;
+  // 记录时间
+  timeLog: number;
+  // 链上地址
+  txHash: string;
   static names(): { [key: string]: string } {
     return {
-      controller: 'controller',
-      endPoint: 'end_point',
-      serviceId: 'service_id',
-      serviceType: 'service_type',
+      balanceLog: 'balance_log',
+      shopId: 'shop_id',
+      timeLog: 'time_log',
+      txHash: 'tx_hash',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      controller: 'string',
-      endPoint: 'string',
-      serviceId: 'string',
-      serviceType: 'string',
+      balanceLog: 'string',
+      shopId: 'string',
+      timeLog: 'number',
+      txHash: 'string',
     };
   }
 
@@ -2540,351 +1885,39 @@ export class DisServiceInfo extends $tea.Model {
   }
 }
 
-// 合约加密字段
-export class ContractEncryptKeyItem extends $tea.Model {
-  // 字段对应的id
-  key: string;
-  // 0:encrypt_text,
-  // 1:encrypt_array_text,
-  // 2:encrypt_int
-  // 3:encrypt_array_int
-  type: number;
-  // 字段对应的数据
-  value: string;
-  static names(): { [key: string]: string } {
-    return {
-      key: 'key',
-      type: 'type',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      key: 'string',
-      type: 'number',
-      value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 证书详情
-export class BareClaim extends $tea.Model {
-  // 下面的内容由调用者自己定义，建议只存放必要的声明信息，不要放置敏感数据
-  claim: string;
-  // 证书类型
-  type?: string;
-  static names(): { [key: string]: string } {
-    return {
-      claim: 'claim',
-      type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      claim: 'string',
-      type: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 分页失败的展示日志（过滤器：待处理、成功、已忽略）
-export class CommonResponsePageableStructBody extends $tea.Model {
-  // 页面规格
-  pageSize?: string;
-  // 当前页码
-  current?: string;
-  // 总条数
-  total?: string;
-  // 失败日志数组
-  list?: TriggerLogDTOStructBody[];
-  static names(): { [key: string]: string } {
-    return {
-      pageSize: 'page_size',
-      current: 'current',
-      total: 'total',
-      list: 'list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pageSize: 'string',
-      current: 'string',
-      total: 'string',
-      list: { 'type': 'array', 'itemType': TriggerLogDTOStructBody },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 账户映射的具体信息
-export class AccountMap extends $tea.Model {
-  // 要映射的链对应的唯一id
-  bizid: string;
-  // 0: 身份证；1：手机；2: 电子邮箱；3: 企业营业执照号
-  entityInfoType?: number;
-  // 对应entity_info_type的具体值
-  // 
-  entityInfoValue?: string;
-  // 账户对应实体的全名
-  fullName?: string;
-  // 该账户在指定链上的状态1，激活，2，冻结，新建账户只能为1
-  status: number;
-  // 希望映射后在链上的账户名
-  targetName?: string;
-  // 该账户对应实体的类型：0， 个人； 1， 企业
-  type?: number;
-  // 自有系统中该账户的唯一标示
-  uid: string;
-  static names(): { [key: string]: string } {
-    return {
-      bizid: 'bizid',
-      entityInfoType: 'entity_info_type',
-      entityInfoValue: 'entity_info_value',
-      fullName: 'full_name',
-      status: 'status',
-      targetName: 'target_name',
-      type: 'type',
-      uid: 'uid',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizid: 'string',
-      entityInfoType: 'number',
-      entityInfoValue: 'string',
-      fullName: 'string',
-      status: 'number',
-      targetName: 'string',
-      type: 'number',
-      uid: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 交易详情
-export class TransactionInfo extends $tea.Model {
-  // 交易时间戳
-  timestamp: number;
-  // 交易hash
-  hash: string;
-  // 交易块高
-  height: number;
-  // 交易所在块高
-  blockhash: string;
-  // 交易来源
-  from: string;
-  // 交易地址
-  to: string;
-  // 交易类型
-  txtype: number;
-  // 转账额度
-  value: number;
-  // logs
-  logs: string;
-  // 燃料消耗
-  gasused: number;
-  // result
-  result: string;
-  // 拓展json字段
-  json: string;
-  static names(): { [key: string]: string } {
-    return {
-      timestamp: 'timestamp',
-      hash: 'hash',
-      height: 'height',
-      blockhash: 'blockhash',
-      from: 'from',
-      to: 'to',
-      txtype: 'txtype',
-      value: 'value',
-      logs: 'logs',
-      gasused: 'gasused',
-      result: 'result',
-      json: 'json',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      timestamp: 'number',
-      hash: 'string',
-      height: 'number',
-      blockhash: 'string',
-      from: 'string',
-      to: 'string',
-      txtype: 'number',
-      value: 'number',
-      logs: 'string',
-      gasused: 'number',
-      result: 'string',
-      json: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云账户列表信息
-export class ALiYunAccountList extends $tea.Model {
-  // pagination
-  pagination?: ALiYunPagination;
-  // accounts
-  accounts?: ALiYunAccount[];
+// 阿里云子链检查结果
+export class ALiYunChainSubnetCheck extends $tea.Model {
+  // 检查结果
+  checkResult?: string;
+  // 子链成员列表
+  consortiumMemberList?: string[];
+  // 节点信息列表
+  chainNodeInfoList?: ALiYunChainNodeInfo[];
   // 联盟管理员
   consortiumAdmin?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      pagination: 'pagination',
-      accounts: 'accounts',
-      consortiumAdmin: 'consortium_admin',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pagination: ALiYunPagination,
-      accounts: { 'type': 'array', 'itemType': ALiYunAccount },
-      consortiumAdmin: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 可信时间信息结构
-export class TsrResponse extends $tea.Model {
-  // hash后的信息
-  hashedMessage: string;
-  // 哈希算法
-  hashAlgorithm: string;
-  // 时间
-  ts: string;
-  static names(): { [key: string]: string } {
-    return {
-      hashedMessage: 'hashed_message',
-      hashAlgorithm: 'hash_algorithm',
-      ts: 'ts',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      hashedMessage: 'string',
-      hashAlgorithm: 'string',
-      ts: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云数据导出服务TriggerDTO结构体
-export class TriggerDTOStructBody extends $tea.Model {
-  // 名称
-  name?: string;
-  // 类型
-  type?: string;
-  // 源
-  source?: string;
-  // 创建时间
-  createTime?: string;
-  // 错误信息
-  errorMessage?: string;
-  // 状态
-  status?: string;
-  // option（map结构，由于金融云无map接口所以通过string类型传输json格式）
-  option?: string;
-  // checkpoint类
-  checkpoint?: CheckPointStructBody;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      type: 'type',
-      source: 'source',
-      createTime: 'create_time',
-      errorMessage: 'error_message',
-      status: 'status',
-      option: 'option',
-      checkpoint: 'checkpoint',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      type: 'string',
-      source: 'string',
-      createTime: 'string',
-      errorMessage: 'string',
-      status: 'string',
-      option: 'string',
-      checkpoint: CheckPointStructBody,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云联盟返回结果
-export class ALiYunUnion extends $tea.Model {
-  // 联盟内链的集合
-  antChains?: ALiYunAntChain[];
-  // 联盟信息
-  antConsortiums?: ALiYunAntConsortium[];
-  // 联盟Id
-  consortiumId?: string;
-  // 联盟成员信息
-  members?: ALiYunMember[];
-  // 阿里云分页属性
+  // 子链成员列表
+  consortiumMemberInfoList?: ALiYunMember[];
+  // 分页信息
   pagination?: ALiYunPagination;
-  // is_exist
-  isExist?: boolean;
   static names(): { [key: string]: string } {
     return {
-      antChains: 'ant_chains',
-      antConsortiums: 'ant_consortiums',
-      consortiumId: 'consortium_id',
-      members: 'members',
+      checkResult: 'check_result',
+      consortiumMemberList: 'consortium_member_list',
+      chainNodeInfoList: 'chain_node_info_list',
+      consortiumAdmin: 'consortium_admin',
+      consortiumMemberInfoList: 'consortium_member_info_list',
       pagination: 'pagination',
-      isExist: 'is_exist',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      antChains: { 'type': 'array', 'itemType': ALiYunAntChain },
-      antConsortiums: { 'type': 'array', 'itemType': ALiYunAntConsortium },
-      consortiumId: 'string',
-      members: { 'type': 'array', 'itemType': ALiYunMember },
+      checkResult: 'string',
+      consortiumMemberList: { 'type': 'array', 'itemType': 'string' },
+      chainNodeInfoList: { 'type': 'array', 'itemType': ALiYunChainNodeInfo },
+      consortiumAdmin: 'boolean',
+      consortiumMemberInfoList: { 'type': 'array', 'itemType': ALiYunMember },
       pagination: ALiYunPagination,
-      isExist: 'boolean',
     };
   }
 
@@ -2893,31 +1926,85 @@ export class ALiYunUnion extends $tea.Model {
   }
 }
 
-// 分享可验证声明时的核心内容
-export class VcShareStruct extends $tea.Model {
-  // 分享的目标VC的id
-  vcId: string;
-  // 目标的VC持有者的did
-  ownerDid: string;
-  // 在支持声明的claim字段级别分享能力时使用，可以指定哪些字段隐藏，哪些字段分享。示例中标记为”1“的是隐藏，”0“的是分享明文。
-  index?: string;
-  // 非托管模式下owner_did的签名，作为授权凭证
-  signature?: string;
+// 阿里云区块链小程序日志查询
+export class ALiYunChainMiniAppLog extends $tea.Model {
+  // access_count
+  accessCount?: number;
+  // access_alipay_account_count
+  accessAlipayAccountCount?: number;
   static names(): { [key: string]: string } {
     return {
-      vcId: 'vc_id',
-      ownerDid: 'owner_did',
-      index: 'index',
-      signature: 'signature',
+      accessCount: 'access_count',
+      accessAlipayAccountCount: 'access_alipay_account_count',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      vcId: 'string',
-      ownerDid: 'string',
+      accessCount: 'number',
+      accessAlipayAccountCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权规则详细信息
+export class AuthorizationRule extends $tea.Model {
+  // 规则来源
+  source: string;
+  // 规则索引
+  index: string;
+  // 规则类型
+  type: string;
+  // 规则表达式
+  expression: string;
+  // 规则内容
+  content: string;
+  static names(): { [key: string]: string } {
+    return {
+      source: 'source',
+      index: 'index',
+      type: 'type',
+      expression: 'expression',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      source: 'string',
       index: 'string',
-      signature: 'string',
+      type: 'string',
+      expression: 'string',
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单结果
+export class OrderResult extends $tea.Model {
+  // 事例id
+  instanceId: string;
+  // 是否成功
+  success: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      instanceId: 'instance_id',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      instanceId: 'string',
+      success: 'boolean',
     };
   }
 
@@ -2983,39 +2070,39 @@ export class BlockchainBrowserNodeOwner extends $tea.Model {
   }
 }
 
-// 阿里云子链检查结果
-export class ALiYunChainSubnetCheck extends $tea.Model {
-  // 检查结果
-  checkResult?: string;
-  // 子链成员列表
-  consortiumMemberList?: string[];
-  // 节点信息列表
-  chainNodeInfoList?: ALiYunChainNodeInfo[];
-  // 联盟管理员
-  consortiumAdmin?: boolean;
-  // 子链成员列表
-  consortiumMemberInfoList?: ALiYunMember[];
-  // 分页信息
-  pagination?: ALiYunPagination;
+// 阿里云蚂蚁区块链账户创建信息
+export class ALiYunChainAccount extends $tea.Model {
+  // account_private_key
+  accountPrivateKey?: string;
+  // account_public_key
+  accountPublicKey?: string;
+  // account_recover_private_key
+  accountRecoverPrivateKey?: string;
+  // account_recover_public_key
+  accountRecoverPublicKey?: string;
+  // ant_chain_id
+  antChainId?: string;
+  // account
+  account?: string;
   static names(): { [key: string]: string } {
     return {
-      checkResult: 'check_result',
-      consortiumMemberList: 'consortium_member_list',
-      chainNodeInfoList: 'chain_node_info_list',
-      consortiumAdmin: 'consortium_admin',
-      consortiumMemberInfoList: 'consortium_member_info_list',
-      pagination: 'pagination',
+      accountPrivateKey: 'account_private_key',
+      accountPublicKey: 'account_public_key',
+      accountRecoverPrivateKey: 'account_recover_private_key',
+      accountRecoverPublicKey: 'account_recover_public_key',
+      antChainId: 'ant_chain_id',
+      account: 'account',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      checkResult: 'string',
-      consortiumMemberList: { 'type': 'array', 'itemType': 'string' },
-      chainNodeInfoList: { 'type': 'array', 'itemType': ALiYunChainNodeInfo },
-      consortiumAdmin: 'boolean',
-      consortiumMemberInfoList: { 'type': 'array', 'itemType': ALiYunMember },
-      pagination: ALiYunPagination,
+      accountPrivateKey: 'string',
+      accountPublicKey: 'string',
+      accountRecoverPrivateKey: 'string',
+      accountRecoverPublicKey: 'string',
+      antChainId: 'string',
+      account: 'string',
     };
   }
 
@@ -3024,31 +2111,567 @@ export class ALiYunChainSubnetCheck extends $tea.Model {
   }
 }
 
-// 版通历史发行记录信息
-export class EPIssueHisInfo extends $tea.Model {
-  // 版通发行日期时间戳
-  issueDate: number;
-  // 版通线下发行量
-  offlineIssueAmount: number;
-  // 版通线上发行量
-  onlineIssueAmount: number;
-  // 版通自持发行量
-  selfIssueAmount: number;
+// 更新DID服务列表
+export class UpdateDidServiceList extends $tea.Model {
+  // 待更新did之前的版本号
+  previousVersion: number;
+  // 服务信息列表
+  serviceList: DisServicesInfo[];
   static names(): { [key: string]: string } {
     return {
-      issueDate: 'issue_date',
-      offlineIssueAmount: 'offline_issue_amount',
-      onlineIssueAmount: 'online_issue_amount',
-      selfIssueAmount: 'self_issue_amount',
+      previousVersion: 'previous_version',
+      serviceList: 'service_list',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      issueDate: 'number',
-      offlineIssueAmount: 'number',
-      onlineIssueAmount: 'number',
-      selfIssueAmount: 'number',
+      previousVersion: 'number',
+      serviceList: { 'type': 'array', 'itemType': DisServicesInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 营销分销商品信息
+export class ItemDto extends $tea.Model {
+  // 商品id
+  productId: string;
+  // 商户id
+  shopId: string;
+  // 链上地址
+  txHash: string;
+  static names(): { [key: string]: string } {
+    return {
+      productId: 'product_id',
+      shopId: 'shop_id',
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productId: 'string',
+      shopId: 'string',
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 蚂蚁链最新区块列表信息
+export class BlockchainBrowserLatestBlock extends $tea.Model {
+  // bizid
+  bizid: string;
+  // block_hash
+  blockHash: string;
+  // create_time
+  createTime: number;
+  // height
+  height: number;
+  // previous_hash
+  previousHash: string;
+  // root_tx_hash
+  rootTxHash: string;
+  // size
+  size: number;
+  // transaction_size
+  transactionSize: number;
+  // version
+  version: number;
+  static names(): { [key: string]: string } {
+    return {
+      bizid: 'bizid',
+      blockHash: 'block_hash',
+      createTime: 'create_time',
+      height: 'height',
+      previousHash: 'previous_hash',
+      rootTxHash: 'root_tx_hash',
+      size: 'size',
+      transactionSize: 'transaction_size',
+      version: 'version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizid: 'string',
+      blockHash: 'string',
+      createTime: 'number',
+      height: 'number',
+      previousHash: 'string',
+      rootTxHash: 'string',
+      size: 'number',
+      transactionSize: 'number',
+      version: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// VC传输确认
+export class VcTransmitCnf extends $tea.Model {
+  // 针对tx_hash的签名
+  signature: string;
+  // 交易hash
+  txHash: string;
+  // vc传输目标did
+  verifierId: string;
+  static names(): { [key: string]: string } {
+    return {
+      signature: 'signature',
+      txHash: 'tx_hash',
+      verifierId: 'verifier_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      signature: 'string',
+      txHash: 'string',
+      verifierId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 账户映射结果
+export class AccountMappingResult extends $tea.Model {
+  // 该账户在链上的唯一标示
+  baccount: string;
+  // 当前账户映射结果描述语句
+  message: string;
+  // 状态描述符
+  status: string;
+  // 自有系统中该账户唯一标示
+  uid: string;
+  static names(): { [key: string]: string } {
+    return {
+      baccount: 'baccount',
+      message: 'message',
+      status: 'status',
+      uid: 'uid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      baccount: 'string',
+      message: 'string',
+      status: 'string',
+      uid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云区块链小程序用户权限查询
+export class ALiYunChainMiniAppUserPrivilege extends $tea.Model {
+  // ant_chain_id
+  antChainId?: string;
+  // q_r_code_type
+  qRCodeType?: string;
+  // authorization_type
+  authorizationType?: string;
+  // pagination
+  pagination?: ALiYunPagination;
+  // ALiYunChainMiniAppAuthorizedUser
+  authorizedUserList?: ALiYunChainMiniAppAuthorizedUser[];
+  static names(): { [key: string]: string } {
+    return {
+      antChainId: 'ant_chain_id',
+      qRCodeType: 'q_r_code_type',
+      authorizationType: 'authorization_type',
+      pagination: 'pagination',
+      authorizedUserList: 'authorized_user_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      antChainId: 'string',
+      qRCodeType: 'string',
+      authorizationType: 'string',
+      pagination: ALiYunPagination,
+      authorizedUserList: { 'type': 'array', 'itemType': ALiYunChainMiniAppAuthorizedUser },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 可验证声明的完整内容以及状态，当前持有者的did等信息
+export class VcContent extends $tea.Model {
+  // 可验证声明的唯一标识id，status 为 “1” 时候非空
+  vcId: string;
+  // 可验证声明完整内容， status 为 “1” 时候非空
+  vcContent: string;
+  // 可验证声明的颁发状态说明： -1：颁发失败，0：未授权 1：授权成功，此时vc_content字段会包含授权后的声明内容，其它状态码，待定义后增加。
+  status: string;
+  // 被颁发当前可验证声明的目标did
+  did?: string;
+  // 如果status 是 “-1”，则说明当前可验证声明颁发失败，此字段说明失败原因。
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      vcId: 'vc_id',
+      vcContent: 'vc_content',
+      status: 'status',
+      did: 'did',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      vcId: 'string',
+      vcContent: 'string',
+      status: 'string',
+      did: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权服务流程信息
+export class ProcessInfo extends $tea.Model {
+  // 当前处理节点
+  currentNode: number;
+  // 扩展信息
+  extensionInfo?: string;
+  // 节点列表
+  nodes: NodeDetail[];
+  // 流程ID
+  processId: string;
+  // 流程状态
+  processStatus: string;
+  // 流程节点总数
+  totalCount: number;
+  // 数据对象ID
+  dataId: string;
+  static names(): { [key: string]: string } {
+    return {
+      currentNode: 'current_node',
+      extensionInfo: 'extension_info',
+      nodes: 'nodes',
+      processId: 'process_id',
+      processStatus: 'process_status',
+      totalCount: 'total_count',
+      dataId: 'data_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      currentNode: 'number',
+      extensionInfo: 'string',
+      nodes: { 'type': 'array', 'itemType': NodeDetail },
+      processId: 'string',
+      processStatus: 'string',
+      totalCount: 'number',
+      dataId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户身份、账户及手机号信息
+export class UserInfoParam extends $tea.Model {
+  // 用户手机号信息
+  phone: string;
+  // 用户账号信息
+  userAccount: string;
+  // 用户名称
+  userName: string;
+  static names(): { [key: string]: string } {
+    return {
+      phone: 'phone',
+      userAccount: 'user_account',
+      userName: 'user_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      phone: 'string',
+      userAccount: 'string',
+      userName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云区块链售卖资源信息
+export class ALiYunChainResouceForSale extends $tea.Model {
+  // region_id
+  regionId?: string;
+  // type_list
+  typeList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      regionId: 'region_id',
+      typeList: 'type_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      regionId: 'string',
+      typeList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数字资产管理平台账户映射结构
+export class ExchangeAccountMap extends $tea.Model {
+  // 用户联系方式
+  phone: string;
+  // 用户账户
+  userAccount: string;
+  // 用户名称
+  userName: string;
+  static names(): { [key: string]: string } {
+    return {
+      phone: 'phone',
+      userAccount: 'user_account',
+      userName: 'user_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      phone: 'string',
+      userAccount: 'string',
+      userName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云区块链创建信息
+export class ALiYunChainExecuteOrder extends $tea.Model {
+  // user_request_id
+  userRequestId?: string;
+  // data
+  data?: string;
+  // success
+  success?: boolean;
+  // code
+  code?: string;
+  // message
+  message?: string;
+  // synchro
+  synchro?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      userRequestId: 'user_request_id',
+      data: 'data',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      synchro: 'synchro',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userRequestId: 'string',
+      data: 'string',
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+      synchro: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 账户映射的具体信息
+export class AccountMap extends $tea.Model {
+  // 要映射的链对应的唯一id
+  bizid: string;
+  // 0: 身份证；1：手机；2: 电子邮箱；3: 企业营业执照号
+  entityInfoType?: number;
+  // 对应entity_info_type的具体值
+  // 
+  entityInfoValue?: string;
+  // 账户对应实体的全名
+  fullName?: string;
+  // 该账户在指定链上的状态1，激活，2，冻结，新建账户只能为1
+  status: number;
+  // 希望映射后在链上的账户名
+  targetName?: string;
+  // 该账户对应实体的类型：0， 个人； 1， 企业
+  type?: number;
+  // 自有系统中该账户的唯一标示
+  uid: string;
+  static names(): { [key: string]: string } {
+    return {
+      bizid: 'bizid',
+      entityInfoType: 'entity_info_type',
+      entityInfoValue: 'entity_info_value',
+      fullName: 'full_name',
+      status: 'status',
+      targetName: 'target_name',
+      type: 'type',
+      uid: 'uid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizid: 'string',
+      entityInfoType: 'number',
+      entityInfoValue: 'string',
+      fullName: 'string',
+      status: 'number',
+      targetName: 'string',
+      type: 'number',
+      uid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 链详情
+export class MyChainInfo extends $tea.Model {
+  // 链id
+  bizId: string;
+  // 授权租户id
+  tenant: string;
+  static names(): { [key: string]: string } {
+    return {
+      bizId: 'biz_id',
+      tenant: 'tenant',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizId: 'string',
+      tenant: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 派生DID的具体参数
+export class DeriveDid extends $tea.Model {
+  // 派生的子did
+  childdid: string;
+  // 子did 的did doc
+  childdiddoc: string;
+  // 用户输入用于派生子did的派生码
+  code: string;
+  static names(): { [key: string]: string } {
+    return {
+      childdid: 'childdid',
+      childdiddoc: 'childdiddoc',
+      code: 'code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      childdid: 'string',
+      childdiddoc: 'string',
+      code: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权明细详情
+export class AuthorizationDetail extends $tea.Model {
+  // 授权凭证ID
+  authorityCertId: string;
+  // 授权ID
+  authorizationId?: string;
+  // 区块号
+  blockNum: number;
+  // 过期时间
+  expire?: number;
+  // 授权时间
+  issuanceTime: number;
+  // 授权人
+  issuer: Participant;
+  // 被授权人
+  subject: Participant;
+  // 哈希
+  txHash: string;
+  // 资产所有者
+  owner: Participant;
+  static names(): { [key: string]: string } {
+    return {
+      authorityCertId: 'authority_cert_id',
+      authorizationId: 'authorization_id',
+      blockNum: 'block_num',
+      expire: 'expire',
+      issuanceTime: 'issuance_time',
+      issuer: 'issuer',
+      subject: 'subject',
+      txHash: 'tx_hash',
+      owner: 'owner',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authorityCertId: 'string',
+      authorizationId: 'string',
+      blockNum: 'number',
+      expire: 'number',
+      issuanceTime: 'number',
+      issuer: Participant,
+      subject: Participant,
+      txHash: 'string',
+      owner: Participant,
     };
   }
 
@@ -3094,6 +2717,475 @@ export class ALiYunChainCloudIdeConfig extends $tea.Model {
       antChainId: 'string',
       antChainName: 'string',
       version: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 服务端签名oss的url然后client直传文件到oss，此结构包含了服务端签名后的数据。
+export class PresignedUrlPolicy extends $tea.Model {
+  // oss访问的临时access id
+  accessId: string;
+  // 一个需要回调通知服务端的方法名，非必填
+  callback?: string;
+  // oss上的文件存放路径
+  dir: string;
+  // url超期的时间戳说明
+  expire: string;
+  // oss的地址
+  host: string;
+  // 被base64编码的policy内容
+  policy: string;
+  // 签名结果
+  signature: string;
+  static names(): { [key: string]: string } {
+    return {
+      accessId: 'access_id',
+      callback: 'callback',
+      dir: 'dir',
+      expire: 'expire',
+      host: 'host',
+      policy: 'policy',
+      signature: 'signature',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accessId: 'string',
+      callback: 'string',
+      dir: 'string',
+      expire: 'string',
+      host: 'string',
+      policy: 'string',
+      signature: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 更新did auth paylod结构体
+export class UpdateDidAuthPayload extends $tea.Model {
+  // 新公钥的实际控制者
+  controller: string;
+  // 旧Auth Key的过期时间
+  previousAuthKeyExpire: string;
+  // 更新Did doc的版本
+  previousVersion: number;
+  // 新DID Auth key的public key id
+  publicKeyId: string;
+  // 密钥对生成算法
+  publicKeyType: string;
+  // 公钥的实际值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      controller: 'controller',
+      previousAuthKeyExpire: 'previous_auth_key_expire',
+      previousVersion: 'previous_version',
+      publicKeyId: 'public_key_id',
+      publicKeyType: 'public_key_type',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      controller: 'string',
+      previousAuthKeyExpire: 'string',
+      previousVersion: 'number',
+      publicKeyId: 'string',
+      publicKeyType: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// did详情
+export class DidDetail extends $tea.Model {
+  // 控制者的did描述符
+  controller: string;
+  // did描述符
+  did: string;
+  // did doc
+  didDoc: string;
+  static names(): { [key: string]: string } {
+    return {
+      controller: 'controller',
+      did: 'did',
+      didDoc: 'did_doc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      controller: 'string',
+      did: 'string',
+      didDoc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云联盟返回结果
+export class ALiYunUnion extends $tea.Model {
+  // 联盟内链的集合
+  antChains?: ALiYunAntChain[];
+  // 联盟信息
+  antConsortiums?: ALiYunAntConsortium[];
+  // 联盟Id
+  consortiumId?: string;
+  // 联盟成员信息
+  members?: ALiYunMember[];
+  // 阿里云分页属性
+  pagination?: ALiYunPagination;
+  // is_exist
+  isExist?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      antChains: 'ant_chains',
+      antConsortiums: 'ant_consortiums',
+      consortiumId: 'consortium_id',
+      members: 'members',
+      pagination: 'pagination',
+      isExist: 'is_exist',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      antChains: { 'type': 'array', 'itemType': ALiYunAntChain },
+      antConsortiums: { 'type': 'array', 'itemType': ALiYunAntConsortium },
+      consortiumId: 'string',
+      members: { 'type': 'array', 'itemType': ALiYunMember },
+      pagination: ALiYunPagination,
+      isExist: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 蚂蚁链浏览器区块信息
+export class BlockchainBrowserBlock extends $tea.Model {
+  // bizid
+  bizid: string;
+  // blockchain_name
+  blockchainName: string;
+  // blockchain_status
+  blockchainStatus: boolean;
+  // block_hash
+  blockHash: string;
+  // create_time
+  createTime: number;
+  // hash_status
+  hashStatus: boolean;
+  // height
+  height: number;
+  // previous_hash
+  previousHash: string;
+  // root_tx_hash
+  rootTxHash: string;
+  // transaction_list
+  transactionList: BlockchainBrowserTransaction[];
+  // transaction_size
+  transactionSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      bizid: 'bizid',
+      blockchainName: 'blockchain_name',
+      blockchainStatus: 'blockchain_status',
+      blockHash: 'block_hash',
+      createTime: 'create_time',
+      hashStatus: 'hash_status',
+      height: 'height',
+      previousHash: 'previous_hash',
+      rootTxHash: 'root_tx_hash',
+      transactionList: 'transaction_list',
+      transactionSize: 'transaction_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizid: 'string',
+      blockchainName: 'string',
+      blockchainStatus: 'boolean',
+      blockHash: 'string',
+      createTime: 'number',
+      hashStatus: 'boolean',
+      height: 'number',
+      previousHash: 'string',
+      rootTxHash: 'string',
+      transactionList: { 'type': 'array', 'itemType': BlockchainBrowserTransaction },
+      transactionSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据授权服务公钥矩阵关系结构体
+export class PublicKeyRelation extends $tea.Model {
+  // 公钥颁发者ID
+  issuerId: string;
+  // 公钥接受者ID
+  recipientId: string;
+  static names(): { [key: string]: string } {
+    return {
+      issuerId: 'issuer_id',
+      recipientId: 'recipient_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      issuerId: 'string',
+      recipientId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 物流金融平台运单轨迹信息
+export class LogisticLocation extends $tea.Model {
+  // 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
+  address?: string;
+  // 行政区划代码
+  cityCode?: string;
+  // 纬度
+  lat: string;
+  // 经度
+  lon: string;
+  // 轨迹时间戳
+  trackTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      address: 'address',
+      cityCode: 'city_code',
+      lat: 'lat',
+      lon: 'lon',
+      trackTime: 'track_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      address: 'string',
+      cityCode: 'string',
+      lat: 'string',
+      lon: 'string',
+      trackTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云蚂蚁区块链信息
+export class ALiYunChain extends $tea.Model {
+  // notary_blockchain
+  notaryBlockchain?: ALiYunNotaryBlockchain;
+  // contract_blockchain
+  contractBlockchain?: ALiYunContractBlockchain;
+  // old_contract_blockchain
+  oldContractBlockchain?: ALiYunOldContractBlockchain;
+  static names(): { [key: string]: string } {
+    return {
+      notaryBlockchain: 'notary_blockchain',
+      contractBlockchain: 'contract_blockchain',
+      oldContractBlockchain: 'old_contract_blockchain',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      notaryBlockchain: ALiYunNotaryBlockchain,
+      contractBlockchain: ALiYunContractBlockchain,
+      oldContractBlockchain: ALiYunOldContractBlockchain,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云订单结果
+export class ALiYunOrderResult extends $tea.Model {
+  // request_id
+  requestId?: string;
+  // data
+  data?: string;
+  // success
+  success?: boolean;
+  // code
+  code?: string;
+  // message
+  message?: string;
+  // synchro
+  synchro?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      requestId: 'request_id',
+      data: 'data',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      synchro: 'synchro',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      requestId: 'string',
+      data: 'string',
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+      synchro: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 营销分销平台返佣信息
+export class RakeBackInfo extends $tea.Model {
+  // 推广层级
+  level: number;
+  // 上级推广订单id
+  parentId: string;
+  // 推广人id
+  promoterId: string;
+  // 返佣额度
+  quota: string;
+  // 返佣比例 10表示10%
+  rate: string;
+  static names(): { [key: string]: string } {
+    return {
+      level: 'level',
+      parentId: 'parent_id',
+      promoterId: 'promoter_id',
+      quota: 'quota',
+      rate: 'rate',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      level: 'number',
+      parentId: 'string',
+      promoterId: 'string',
+      quota: 'string',
+      rate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云区块链小程序交易查询信息
+export class ALiYunChainMiniAppTransaction extends $tea.Model {
+  // authorized
+  authorized?: boolean;
+  // transaction_response
+  transactionResponse?: string;
+  // transaction_receipt
+  transactionReceipt?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authorized: 'authorized',
+      transactionResponse: 'transaction_response',
+      transactionReceipt: 'transaction_receipt',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authorized: 'boolean',
+      transactionResponse: 'string',
+      transactionReceipt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云托管账户信息
+export class ALiYunChainKmsAccount extends $tea.Model {
+  // 账户公钥
+  pubKey?: string;
+  // 托管秘钥ID
+  myKmsKeyId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      pubKey: 'pub_key',
+      myKmsKeyId: 'my_kms_key_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pubKey: 'string',
+      myKmsKeyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 批量查询商户下已映射的账户信息接口，返回的对象
+export class QueryMappingBatchResult extends $tea.Model {
+  // 本次查询获取的账户信息
+  accounts: AccountMappingInfo[];
+  // 该商户下总共映射账户的数量
+  totalNum: number;
+  // 该商户下账户信息的总页数
+  totalPage: number;
+  static names(): { [key: string]: string } {
+    return {
+      accounts: 'accounts',
+      totalNum: 'total_num',
+      totalPage: 'total_page',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accounts: { 'type': 'array', 'itemType': AccountMappingInfo },
+      totalNum: 'number',
+      totalPage: 'number',
     };
   }
 
@@ -3155,23 +3247,27 @@ export class ALiYunChainBlock extends $tea.Model {
   }
 }
 
-// 用于内部业务统计的信息，外部商户请忽略
-export class BizInfo extends $tea.Model {
-  // BPWZPFCN
-  clientTenent?: string;
-  // 业务代码
-  code?: string;
+// 物流金融平台用户信息
+export class LogisticFinUser extends $tea.Model {
+  // 纳税人识别号
+  draweeTaxNo: string;
+  // 业务方企业id
+  orgId: string;
+  // 业务方用户id
+  userId: string;
   static names(): { [key: string]: string } {
     return {
-      clientTenent: 'client_tenent',
-      code: 'code',
+      draweeTaxNo: 'drawee_tax_no',
+      orgId: 'org_id',
+      userId: 'user_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      clientTenent: 'string',
-      code: 'string',
+      draweeTaxNo: 'string',
+      orgId: 'string',
+      userId: 'string',
     };
   }
 
@@ -3209,27 +3305,445 @@ export class DidZKPInfo extends $tea.Model {
   }
 }
 
-// 合约信息
-export class ContractInfo extends $tea.Model {
-  // 合约地址
-  contract?: string;
-  // 部署hash
-  hash?: string;
-  // 合约部署时间
-  timestamp?: number;
+// 阿里云账户列表信息
+export class ALiYunAccountList extends $tea.Model {
+  // pagination
+  pagination?: ALiYunPagination;
+  // accounts
+  accounts?: ALiYunAccount[];
+  // 联盟管理员
+  consortiumAdmin?: boolean;
   static names(): { [key: string]: string } {
     return {
-      contract: 'contract',
-      hash: 'hash',
-      timestamp: 'timestamp',
+      pagination: 'pagination',
+      accounts: 'accounts',
+      consortiumAdmin: 'consortium_admin',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      contract: 'string',
-      hash: 'string',
-      timestamp: 'number',
+      pagination: ALiYunPagination,
+      accounts: { 'type': 'array', 'itemType': ALiYunAccount },
+      consortiumAdmin: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 蚂蚁链用途申报结构体
+export class AntChainPurposeResponse extends $tea.Model {
+  // 用户申报用途状态
+  status?: string;
+  // 已申报的用途，比如供应链金融
+  purpose?: string;
+  // 申报时间
+  createTime?: string;
+  // 简短说明用途
+  chainPurposeItem?: string;
+  // 用途详情
+  chainPurposeExtend?: string;
+  // 申请用途列表
+  recordList?: ChainPurpose[];
+  static names(): { [key: string]: string } {
+    return {
+      status: 'status',
+      purpose: 'purpose',
+      createTime: 'create_time',
+      chainPurposeItem: 'chain_purpose_item',
+      chainPurposeExtend: 'chain_purpose_extend',
+      recordList: 'record_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      status: 'string',
+      purpose: 'string',
+      createTime: 'string',
+      chainPurposeItem: 'string',
+      chainPurposeExtend: 'string',
+      recordList: { 'type': 'array', 'itemType': ChainPurpose },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 分销会员用户信息
+export class DistributionUser extends $tea.Model {
+  // 用户创建时间
+  createTime: string;
+  // 用户手机号
+  mobile: string;
+  // 用户唯一标识
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      createTime: 'create_time',
+      mobile: 'mobile',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      createTime: 'string',
+      mobile: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云交易收据
+export class ALiYunTransactionReceipt extends $tea.Model {
+  // data
+  data?: string;
+  // gas_used
+  gasUsed?: string;
+  // result
+  result?: number;
+  // logs
+  logs?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      data: 'data',
+      gasUsed: 'gas_used',
+      result: 'result',
+      logs: 'logs',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      data: 'string',
+      gasUsed: 'string',
+      result: 'number',
+      logs: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 授权流程操作结果
+export class ProcessResult extends $tea.Model {
+  // 申请权限的扩展参数
+  extension?: string;
+  // 申请权限原因
+  message?: string;
+  // 下一个处理节点ID
+  next?: string;
+  // 流程ID
+  processId: string;
+  // 流程状态
+  status: string;
+  // 数据对象ID
+  dataId: string;
+  // 交易HASH
+  txHash?: string;
+  // 区块高度
+  blockNumber?: number;
+  // 授权凭证
+  authorityCert?: string;
+  static names(): { [key: string]: string } {
+    return {
+      extension: 'extension',
+      message: 'message',
+      next: 'next',
+      processId: 'process_id',
+      status: 'status',
+      dataId: 'data_id',
+      txHash: 'tx_hash',
+      blockNumber: 'block_number',
+      authorityCert: 'authority_cert',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      extension: 'string',
+      message: 'string',
+      next: 'string',
+      processId: 'string',
+      status: 'string',
+      dataId: 'string',
+      txHash: 'string',
+      blockNumber: 'number',
+      authorityCert: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 内部建链信息查询
+export class CreateBlockchainInfo extends $tea.Model {
+  // 链id
+  bizid: string;
+  // 链的状态
+  blockchainStatus: string;
+  // 链的类型
+  blockchainType: string;
+  // 链的名称
+  blockchainName: string;
+  // 节点数量
+  blockchanNodeNum: number;
+  // 创建时间
+  blockchainCreateTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      bizid: 'bizid',
+      blockchainStatus: 'blockchain_status',
+      blockchainType: 'blockchain_type',
+      blockchainName: 'blockchain_name',
+      blockchanNodeNum: 'blockchan_node_num',
+      blockchainCreateTime: 'blockchain_create_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizid: 'string',
+      blockchainStatus: 'string',
+      blockchainType: 'string',
+      blockchainName: 'string',
+      blockchanNodeNum: 'number',
+      blockchainCreateTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据授权服务用户公钥结构体
+export class PublicKey extends $tea.Model {
+  // 公钥颁发者ID
+  issuerId: string;
+  // 公钥内容
+  publicKeyContent: string;
+  // 公钥接受者ID
+  recipientId: string;
+  static names(): { [key: string]: string } {
+    return {
+      issuerId: 'issuer_id',
+      publicKeyContent: 'public_key_content',
+      recipientId: 'recipient_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      issuerId: 'string',
+      publicKeyContent: 'string',
+      recipientId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 合约部署记录
+export class ContractRecord extends $tea.Model {
+  // abi对应oss key
+  abiOssKey: string;
+  // abi oss 地址
+  abiOssUrl?: string;
+  // 区块链唯一标识
+  bizid: string;
+  // 区块链名称
+  blockchainName: string;
+  // bytecode对应oss key
+  bytecodeOssKey: string;
+  // bytecode oss 地址
+  bytecodeOssUrl?: string;
+  // 16进制表示的合约identity
+  identity: string;
+  // 合约代码中定义的合约实例名，比如solidity的contract 关键字后面的命名
+  instanceName: string;
+  // 合约名称
+  name: string;
+  // 发布状态，1未发布，3已发布
+  publish: number;
+  // 交易hash
+  txHash: string;
+  // solidity|cpp|go
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      abiOssKey: 'abi_oss_key',
+      abiOssUrl: 'abi_oss_url',
+      bizid: 'bizid',
+      blockchainName: 'blockchain_name',
+      bytecodeOssKey: 'bytecode_oss_key',
+      bytecodeOssUrl: 'bytecode_oss_url',
+      identity: 'identity',
+      instanceName: 'instance_name',
+      name: 'name',
+      publish: 'publish',
+      txHash: 'tx_hash',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      abiOssKey: 'string',
+      abiOssUrl: 'string',
+      bizid: 'string',
+      blockchainName: 'string',
+      bytecodeOssKey: 'string',
+      bytecodeOssUrl: 'string',
+      identity: 'string',
+      instanceName: 'string',
+      name: 'string',
+      publish: 'number',
+      txHash: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 蚂蚁链浏览器交易收据信息
+export class BlockchainBrowserTransactionReceipt extends $tea.Model {
+  // data
+  data: string;
+  // gas_used
+  gasUsed: number;
+  // logs
+  logs: string[];
+  // result
+  result: number;
+  static names(): { [key: string]: string } {
+    return {
+      data: 'data',
+      gasUsed: 'gas_used',
+      logs: 'logs',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      data: 'string',
+      gasUsed: 'number',
+      logs: { 'type': 'array', 'itemType': 'string' },
+      result: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// VC分享的结果
+export class VcShareResult extends $tea.Model {
+  // 目标分享的VC的id
+  vcId: string;
+  // 分享给目标接受者的did
+  targetDid: string;
+  // 分享链上VC数据的交易hash，可用于直连区块链查询交易内容时使用。
+  txHash?: string;
+  // 分享是否成功，true：成功，false：失败
+  status: boolean;
+  // 失败的对应原因信息
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      vcId: 'vc_id',
+      targetDid: 'target_did',
+      txHash: 'tx_hash',
+      status: 'status',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      vcId: 'string',
+      targetDid: 'string',
+      txHash: 'string',
+      status: 'boolean',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 合约加密字段
+export class ContractEncryptKeyItem extends $tea.Model {
+  // 字段对应的id
+  key: string;
+  // 0:encrypt_text,
+  // 1:encrypt_array_text,
+  // 2:encrypt_int
+  // 3:encrypt_array_int
+  type: number;
+  // 字段对应的数据
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      type: 'type',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      type: 'number',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数字资产管理平台批发结构
+export class AccountWholesaleParam extends $tea.Model {
+  // 批发数量
+  epAmount: number;
+  // 用户账户
+  userAccount: string;
+  static names(): { [key: string]: string } {
+    return {
+      epAmount: 'ep_amount',
+      userAccount: 'user_account',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      epAmount: 'number',
+      userAccount: 'string',
     };
   }
 
@@ -3283,19 +3797,27 @@ export class DidEvent extends $tea.Model {
   }
 }
 
-// 创建did doc时的具体操作
-export class DidAddDoc extends $tea.Model {
-  // did doc content
-  doc: string;
+// Vc可信传输实际参数
+export class VcTransmitPayload extends $tea.Model {
+  // 目标did相关信息列表
+  targetVerifier: VcTransmitTargetStruct[];
+  // 要传输的vc_id
+  vcId: string;
+  // vc原文，如果vc原文出现在传输接口，那么VC仓库不会从本地查找，而是直接将传输的VC上链
+  vcContent?: string;
   static names(): { [key: string]: string } {
     return {
-      doc: 'doc',
+      targetVerifier: 'target_verifier',
+      vcId: 'vc_id',
+      vcContent: 'vc_content',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      doc: 'string',
+      targetVerifier: { 'type': 'array', 'itemType': VcTransmitTargetStruct },
+      vcId: 'string',
+      vcContent: 'string',
     };
   }
 
@@ -3304,27 +3826,47 @@ export class DidAddDoc extends $tea.Model {
   }
 }
 
-// 数字资产管理平台账户映射结构
-export class ExchangeAccountMap extends $tea.Model {
-  // 用户联系方式
-  phone: string;
-  // 用户账户
-  userAccount: string;
-  // 用户名称
-  userName: string;
+// 阿里云合约内容
+export class ALiYunChainContractContent extends $tea.Model {
+  // content
+  content?: string;
+  // content_id
+  contentId?: string;
+  // content_name
+  contentName?: string;
+  // create_time
+  createTime?: number;
+  // is_directory
+  isDirectory?: boolean;
+  // parent_content_id
+  parentContentId?: string;
+  // project_id
+  projectId?: string;
+  // update_time
+  updateTime?: number;
   static names(): { [key: string]: string } {
     return {
-      phone: 'phone',
-      userAccount: 'user_account',
-      userName: 'user_name',
+      content: 'content',
+      contentId: 'content_id',
+      contentName: 'content_name',
+      createTime: 'create_time',
+      isDirectory: 'is_directory',
+      parentContentId: 'parent_content_id',
+      projectId: 'project_id',
+      updateTime: 'update_time',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      phone: 'string',
-      userAccount: 'string',
-      userName: 'string',
+      content: 'string',
+      contentId: 'string',
+      contentName: 'string',
+      createTime: 'number',
+      isDirectory: 'boolean',
+      parentContentId: 'string',
+      projectId: 'string',
+      updateTime: 'number',
     };
   }
 
@@ -3333,38 +3875,133 @@ export class ExchangeAccountMap extends $tea.Model {
   }
 }
 
-// Did服务类型描述结构体
-export class DidServiceType extends $tea.Model {
-  // 枚举类型，描述访问服务的方式
-  accessMode?: string;
-  // 对服务的文字描述，<1000个字符
-  description?: string;
-  // 服务类型创建者did
-  did: string;
-  // { "item1":"", "item2":"",...
-  serviceInput?: string;
-  // 返回值类型描述，json形式
-  serviceOutput?: string;
-  // 自定义服务类型，字符数16～32个
+// 阿里云交易查询结果
+export class ALiYunTransactionResult extends $tea.Model {
+  // block_hash
+  blockHash?: string;
+  // block_height
+  blockHeight?: number;
+  // block_version
+  blockVersion?: string;
+  // create_time
+  createTime?: number;
+  // hash
+  hash?: string;
+  // Transaction
+  transaction?: ALiYunTransaction;
+  static names(): { [key: string]: string } {
+    return {
+      blockHash: 'block_hash',
+      blockHeight: 'block_height',
+      blockVersion: 'block_version',
+      createTime: 'create_time',
+      hash: 'hash',
+      transaction: 'transaction',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      blockHash: 'string',
+      blockHeight: 'number',
+      blockVersion: 'string',
+      createTime: 'number',
+      hash: 'string',
+      transaction: ALiYunTransaction,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 结果
+export class Result extends $tea.Model {
+  // 联盟id
+  consortiumId: string;
+  static names(): { [key: string]: string } {
+    return {
+      consortiumId: 'consortium_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      consortiumId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// waas公钥信息
+export class PublicKeyInfo extends $tea.Model {
+  // 公钥id
+  keyId: string;
+  // 公钥内容
+  publicKey: string;
+  // 算法类型
+  signType: string;
+  // 过期时间戳（毫秒）
+  expire?: number;
+  // 公钥状态，0:不可用 1:可用
+  status: number;
+  // 创建者的did
+  controller?: string;
+  static names(): { [key: string]: string } {
+    return {
+      keyId: 'key_id',
+      publicKey: 'public_key',
+      signType: 'sign_type',
+      expire: 'expire',
+      status: 'status',
+      controller: 'controller',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      keyId: 'string',
+      publicKey: 'string',
+      signType: 'string',
+      expire: 'number',
+      status: 'number',
+      controller: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 更新did doc中的service信息
+export class UpdateDidService extends $tea.Model {
+  // 待更新did之前的版本号
+  previousVersion: number;
+  // did doc中的service id
+  serviceId: string;
+  // 服务信息
+  serviceInfo: DidServiceInfo;
+  // 服务类型
   serviceType: string;
   static names(): { [key: string]: string } {
     return {
-      accessMode: 'access_mode',
-      description: 'description',
-      did: 'did',
-      serviceInput: 'service_input',
-      serviceOutput: 'service_output',
+      previousVersion: 'previous_version',
+      serviceId: 'service_id',
+      serviceInfo: 'service_info',
       serviceType: 'service_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      accessMode: 'string',
-      description: 'string',
-      did: 'string',
-      serviceInput: 'string',
-      serviceOutput: 'string',
+      previousVersion: 'number',
+      serviceId: 'string',
+      serviceInfo: DidServiceInfo,
       serviceType: 'string',
     };
   }
@@ -3374,27 +4011,23 @@ export class DidServiceType extends $tea.Model {
   }
 }
 
-// 阿里云区块链小程序权限控制信息
-export class ALiYunChainMiniAppAuthorization extends $tea.Model {
-  // ant_chain_id
-  antChainId?: string;
-  // q_r_code_type
-  qRCodeType?: string;
-  // authorization_type
-  authorizationType?: string;
+// 更新VC状态数据结构
+export class UpdateVCStatus extends $tea.Model {
+  // valid or invalid
+  status: string;
+  // 可验证声明id
+  vcId: string;
   static names(): { [key: string]: string } {
     return {
-      antChainId: 'ant_chain_id',
-      qRCodeType: 'q_r_code_type',
-      authorizationType: 'authorization_type',
+      status: 'status',
+      vcId: 'vc_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      antChainId: 'string',
-      qRCodeType: 'string',
-      authorizationType: 'string',
+      status: 'string',
+      vcId: 'string',
     };
   }
 
@@ -3403,187 +4036,27 @@ export class ALiYunChainMiniAppAuthorization extends $tea.Model {
   }
 }
 
-// 阿里云最新交易信息
-export class ALiYunLatestTransaction extends $tea.Model {
-  // hash
-  hash?: string;
-  // transaction_v10_type
-  transactionV10Type?: string;
-  // trans_type_v6
-  transTypeV6?: string;
-  // from
-  from?: string;
-  // to
-  to?: string;
-  // create_time
-  createTime?: number;
+// 用户数据
+export class OCUserData extends $tea.Model {
+  // 创建时间
+  createTime: string;
+  // 手机号
+  phoneNumber: string;
+  // 用户姓名
+  userName: string;
   static names(): { [key: string]: string } {
     return {
-      hash: 'hash',
-      transactionV10Type: 'transaction_v10_type',
-      transTypeV6: 'trans_type_v6',
-      from: 'from',
-      to: 'to',
       createTime: 'create_time',
+      phoneNumber: 'phone_number',
+      userName: 'user_name',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      hash: 'string',
-      transactionV10Type: 'string',
-      transTypeV6: 'string',
-      from: 'string',
-      to: 'string',
-      createTime: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 授权服务流程信息
-export class ProcessInfo extends $tea.Model {
-  // 当前处理节点
-  currentNode: number;
-  // 扩展信息
-  extensionInfo?: string;
-  // 节点列表
-  nodes: NodeDetail[];
-  // 流程ID
-  processId: string;
-  // 流程状态
-  processStatus: string;
-  // 流程节点总数
-  totalCount: number;
-  // 数据对象ID
-  dataId: string;
-  static names(): { [key: string]: string } {
-    return {
-      currentNode: 'current_node',
-      extensionInfo: 'extension_info',
-      nodes: 'nodes',
-      processId: 'process_id',
-      processStatus: 'process_status',
-      totalCount: 'total_count',
-      dataId: 'data_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      currentNode: 'number',
-      extensionInfo: 'string',
-      nodes: { 'type': 'array', 'itemType': NodeDetail },
-      processId: 'string',
-      processStatus: 'string',
-      totalCount: 'number',
-      dataId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 营销分销商品信息
-export class ItemDto extends $tea.Model {
-  // 商品id
-  productId: string;
-  // 商户id
-  shopId: string;
-  // 链上地址
-  txHash: string;
-  static names(): { [key: string]: string } {
-    return {
-      productId: 'product_id',
-      shopId: 'shop_id',
-      txHash: 'tx_hash',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      productId: 'string',
-      shopId: 'string',
-      txHash: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云交易收据
-export class ALiYunTransactionReceipt extends $tea.Model {
-  // data
-  data?: string;
-  // gas_used
-  gasUsed?: string;
-  // result
-  result?: number;
-  // logs
-  logs?: string[];
-  static names(): { [key: string]: string } {
-    return {
-      data: 'data',
-      gasUsed: 'gas_used',
-      result: 'result',
-      logs: 'logs',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      data: 'string',
-      gasUsed: 'string',
-      result: 'number',
-      logs: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云订单结果
-export class ALiYunOrderResult extends $tea.Model {
-  // request_id
-  requestId?: string;
-  // data
-  data?: string;
-  // success
-  success?: boolean;
-  // code
-  code?: string;
-  // message
-  message?: string;
-  // synchro
-  synchro?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      requestId: 'request_id',
-      data: 'data',
-      success: 'success',
-      code: 'code',
-      message: 'message',
-      synchro: 'synchro',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      requestId: 'string',
-      data: 'string',
-      success: 'boolean',
-      code: 'string',
-      message: 'string',
-      synchro: 'boolean',
+      createTime: 'string',
+      phoneNumber: 'string',
+      userName: 'string',
     };
   }
 
@@ -3677,600 +4150,23 @@ export class AccountInfoWithBiz extends $tea.Model {
   }
 }
 
-// 存证信息集合
-export class NotaryTransaction extends $tea.Model {
-  // 如果存证类型为text, 则为存证内容
-  // 如果存证类型为file,则为存证文件临时下载地址
-  content: string;
-  // 链上存证哈希
-  transactionHash: string;
-  // 存证类型
+// 用户身份信息
+export class UserMetaInfo extends $tea.Model {
+  // 用户身份信息类型
   type: string;
+  // 用户身份信息
+  data: KeyValuePair[];
   static names(): { [key: string]: string } {
     return {
-      content: 'content',
-      transactionHash: 'transaction_hash',
       type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      content: 'string',
-      transactionHash: 'string',
-      type: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 合约部署记录
-export class ContractRecord extends $tea.Model {
-  // abi对应oss key
-  abiOssKey: string;
-  // abi oss 地址
-  abiOssUrl?: string;
-  // 区块链唯一标识
-  bizid: string;
-  // 区块链名称
-  blockchainName: string;
-  // bytecode对应oss key
-  bytecodeOssKey: string;
-  // bytecode oss 地址
-  bytecodeOssUrl?: string;
-  // 16进制表示的合约identity
-  identity: string;
-  // 合约代码中定义的合约实例名，比如solidity的contract 关键字后面的命名
-  instanceName: string;
-  // 合约名称
-  name: string;
-  // 发布状态，1未发布，3已发布
-  publish: number;
-  // 交易hash
-  txHash: string;
-  // solidity|cpp|go
-  type: string;
-  static names(): { [key: string]: string } {
-    return {
-      abiOssKey: 'abi_oss_key',
-      abiOssUrl: 'abi_oss_url',
-      bizid: 'bizid',
-      blockchainName: 'blockchain_name',
-      bytecodeOssKey: 'bytecode_oss_key',
-      bytecodeOssUrl: 'bytecode_oss_url',
-      identity: 'identity',
-      instanceName: 'instance_name',
-      name: 'name',
-      publish: 'publish',
-      txHash: 'tx_hash',
-      type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      abiOssKey: 'string',
-      abiOssUrl: 'string',
-      bizid: 'string',
-      blockchainName: 'string',
-      bytecodeOssKey: 'string',
-      bytecodeOssUrl: 'string',
-      identity: 'string',
-      instanceName: 'string',
-      name: 'string',
-      publish: 'number',
-      txHash: 'string',
-      type: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云蚂蚁区块链信息
-export class ALiYunChain extends $tea.Model {
-  // notary_blockchain
-  notaryBlockchain?: ALiYunNotaryBlockchain;
-  // contract_blockchain
-  contractBlockchain?: ALiYunContractBlockchain;
-  // old_contract_blockchain
-  oldContractBlockchain?: ALiYunOldContractBlockchain;
-  static names(): { [key: string]: string } {
-    return {
-      notaryBlockchain: 'notary_blockchain',
-      contractBlockchain: 'contract_blockchain',
-      oldContractBlockchain: 'old_contract_blockchain',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      notaryBlockchain: ALiYunNotaryBlockchain,
-      contractBlockchain: ALiYunContractBlockchain,
-      oldContractBlockchain: ALiYunOldContractBlockchain,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 营销分销平台返佣信息
-export class RakeBackInfo extends $tea.Model {
-  // 推广层级
-  level: number;
-  // 上级推广订单id
-  parentId: string;
-  // 推广人id
-  promoterId: string;
-  // 返佣额度
-  quota: string;
-  // 返佣比例 10表示10%
-  rate: string;
-  static names(): { [key: string]: string } {
-    return {
-      level: 'level',
-      parentId: 'parent_id',
-      promoterId: 'promoter_id',
-      quota: 'quota',
-      rate: 'rate',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      level: 'number',
-      parentId: 'string',
-      promoterId: 'string',
-      quota: 'string',
-      rate: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据隐私服务选择tapp信息的结构体
-export class ChoiceTappInfo extends $tea.Model {
-  // 选择的tapp的名字
-  tappName: string;
-  // 版本号，如果不填就选择最新的版本
-  tappVersion?: number;
-  // 该tapp将被声明在did doc中的id
-  serviceId: string;
-  static names(): { [key: string]: string } {
-    return {
-      tappName: 'tapp_name',
-      tappVersion: 'tapp_version',
-      serviceId: 'service_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      tappName: 'string',
-      tappVersion: 'number',
-      serviceId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据授权服务公钥矩阵关系结构体
-export class PublicKeyRelation extends $tea.Model {
-  // 公钥颁发者ID
-  issuerId: string;
-  // 公钥接受者ID
-  recipientId: string;
-  static names(): { [key: string]: string } {
-    return {
-      issuerId: 'issuer_id',
-      recipientId: 'recipient_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      issuerId: 'string',
-      recipientId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// VC传输确认
-export class VcTransmitCnf extends $tea.Model {
-  // 针对tx_hash的签名
-  signature: string;
-  // 交易hash
-  txHash: string;
-  // vc传输目标did
-  verifierId: string;
-  static names(): { [key: string]: string } {
-    return {
-      signature: 'signature',
-      txHash: 'tx_hash',
-      verifierId: 'verifier_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      signature: 'string',
-      txHash: 'string',
-      verifierId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// VC Repo用户注册结构体
-export class VcUserRegisterPayload extends $tea.Model {
-  // 用户did对应的授权公钥
-  publicKey?: string;
-  // 业务区块连的bizid
-  vcChannel?: string;
-  static names(): { [key: string]: string } {
-    return {
-      publicKey: 'public_key',
-      vcChannel: 'vc_channel',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      publicKey: 'string',
-      vcChannel: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// blockchain交易结构体
-export class TransactionPo extends $tea.Model {
-  // 交易所在块hash
-  blockHash?: string;
-  // 交易来源
-  from?: string;
-  // gas消耗
-  gasUsed?: number;
-  // 交易hash
-  hash?: string;
-  // 交易所在块 块高
-  height?: number;
-  // 交易返回结果
-  result?: string;
-  // 交易时间
-  timestamp?: number;
-  // 交易地址
-  to?: string;
-  // 交易类型 同SDK
-  txType?: number;
-  // 转账额度
-  value?: number;
-  static names(): { [key: string]: string } {
-    return {
-      blockHash: 'block_hash',
-      from: 'from',
-      gasUsed: 'gas_used',
-      hash: 'hash',
-      height: 'height',
-      result: 'result',
-      timestamp: 'timestamp',
-      to: 'to',
-      txType: 'tx_type',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      blockHash: 'string',
-      from: 'string',
-      gasUsed: 'number',
-      hash: 'string',
-      height: 'number',
-      result: 'string',
-      timestamp: 'number',
-      to: 'string',
-      txType: 'number',
-      value: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 账户信息
-export class AccountInfo extends $tea.Model {
-  // 版通数量
-  epAmount: number;
-  // 版通代码
-  epCode: string;
-  static names(): { [key: string]: string } {
-    return {
-      epAmount: 'ep_amount',
-      epCode: 'ep_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      epAmount: 'number',
-      epCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 派生DID的具体参数
-export class DeriveDid extends $tea.Model {
-  // 派生的子did
-  childdid: string;
-  // 子did 的did doc
-  childdiddoc: string;
-  // 用户输入用于派生子did的派生码
-  code: string;
-  static names(): { [key: string]: string } {
-    return {
-      childdid: 'childdid',
-      childdiddoc: 'childdiddoc',
-      code: 'code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      childdid: 'string',
-      childdiddoc: 'string',
-      code: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// did详情
-export class DidDetail extends $tea.Model {
-  // 控制者的did描述符
-  controller: string;
-  // did描述符
-  did: string;
-  // did doc
-  didDoc: string;
-  static names(): { [key: string]: string } {
-    return {
-      controller: 'controller',
-      did: 'did',
-      didDoc: 'did_doc',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      controller: 'string',
-      did: 'string',
-      didDoc: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云链统计信息
-export class ALiYunChainStatics extends $tea.Model {
-  // alias
-  alias?: string;
-  // Dt
-  dt?: number;
-  // trans_count
-  transCount?: number;
-  // last_sum_block_height
-  lastSumBlockHeight?: number;
-  // creat_time
-  creatTime?: number;
-  static names(): { [key: string]: string } {
-    return {
-      alias: 'alias',
-      dt: 'dt',
-      transCount: 'trans_count',
-      lastSumBlockHeight: 'last_sum_block_height',
-      creatTime: 'creat_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      alias: 'string',
-      dt: 'number',
-      transCount: 'number',
-      lastSumBlockHeight: 'number',
-      creatTime: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云交易查询结果
-export class ALiYunTransactionResult extends $tea.Model {
-  // block_hash
-  blockHash?: string;
-  // block_height
-  blockHeight?: number;
-  // block_version
-  blockVersion?: string;
-  // create_time
-  createTime?: number;
-  // hash
-  hash?: string;
-  // Transaction
-  transaction?: ALiYunTransaction;
-  static names(): { [key: string]: string } {
-    return {
-      blockHash: 'block_hash',
-      blockHeight: 'block_height',
-      blockVersion: 'block_version',
-      createTime: 'create_time',
-      hash: 'hash',
-      transaction: 'transaction',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      blockHash: 'string',
-      blockHeight: 'number',
-      blockVersion: 'string',
-      createTime: 'number',
-      hash: 'string',
-      transaction: ALiYunTransaction,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 授权规则详细信息
-export class AuthorizationRule extends $tea.Model {
-  // 规则来源
-  source: string;
-  // 规则索引
-  index: string;
-  // 规则类型
-  type: string;
-  // 规则表达式
-  expression: string;
-  // 规则内容
-  content: string;
-  static names(): { [key: string]: string } {
-    return {
-      source: 'source',
-      index: 'index',
-      type: 'type',
-      expression: 'expression',
-      content: 'content',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      source: 'string',
-      index: 'string',
-      type: 'string',
-      expression: 'string',
-      content: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 创建VC参数
-export class AddVC extends $tea.Model {
-  // vc原文hash
-  contentHash: string;
-  // issuer后缀的hash值
-  issuerHash: string;
-  // valid or invalid
-  status: string;
-  // 接收者后缀hash值
-  subjectHash: string;
-  // 可验证声明id
-  vcId: string;
-  static names(): { [key: string]: string } {
-    return {
-      contentHash: 'content_hash',
-      issuerHash: 'issuer_hash',
-      status: 'status',
-      subjectHash: 'subject_hash',
-      vcId: 'vc_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      contentHash: 'string',
-      issuerHash: 'string',
-      status: 'string',
-      subjectHash: 'string',
-      vcId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云区块链创建信息
-export class ALiYunChainExecuteOrder extends $tea.Model {
-  // user_request_id
-  userRequestId?: string;
-  // data
-  data?: string;
-  // success
-  success?: boolean;
-  // code
-  code?: string;
-  // message
-  message?: string;
-  // synchro
-  synchro?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      userRequestId: 'user_request_id',
       data: 'data',
-      success: 'success',
-      code: 'code',
-      message: 'message',
-      synchro: 'synchro',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      userRequestId: 'string',
-      data: 'string',
-      success: 'boolean',
-      code: 'string',
-      message: 'string',
-      synchro: 'boolean',
+      type: 'string',
+      data: { 'type': 'array', 'itemType': KeyValuePair },
     };
   }
 
@@ -4279,528 +4175,31 @@ export class ALiYunChainExecuteOrder extends $tea.Model {
   }
 }
 
-// 更新VC状态数据结构
-export class UpdateVCStatus extends $tea.Model {
-  // valid or invalid
-  status: string;
-  // 可验证声明id
-  vcId: string;
+// 阿里云子链列表信息
+export class ALiYunChainSubnetList extends $tea.Model {
+  // ant_chain_id
+  antChainId?: string;
+  // 子链名称
+  blockchainName?: string;
+  // 联盟管理员
+  consortiumAdmin?: boolean;
+  // 子链列表信息
+  blockchainSubnetList?: ALiYunChainSubnet[];
   static names(): { [key: string]: string } {
     return {
-      status: 'status',
-      vcId: 'vc_id',
+      antChainId: 'ant_chain_id',
+      blockchainName: 'blockchain_name',
+      consortiumAdmin: 'consortium_admin',
+      blockchainSubnetList: 'blockchain_subnet_list',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      status: 'string',
-      vcId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云区块链配置信息
-export class ALiYunChainConfigOption extends $tea.Model {
-  // config_option
-  configOption?: string;
-  // show_name
-  showName?: string;
-  // enable
-  enable?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      configOption: 'config_option',
-      showName: 'show_name',
-      enable: 'enable',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      configOption: 'string',
-      showName: 'string',
-      enable: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 物流金融平台用户信息
-export class LogisticFinUser extends $tea.Model {
-  // 纳税人识别号
-  draweeTaxNo: string;
-  // 业务方企业id
-  orgId: string;
-  // 业务方用户id
-  userId: string;
-  static names(): { [key: string]: string } {
-    return {
-      draweeTaxNo: 'drawee_tax_no',
-      orgId: 'org_id',
-      userId: 'user_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      draweeTaxNo: 'string',
-      orgId: 'string',
-      userId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 蚂蚁链最新交易信息
-export class BlockchainBrowserLatestTransaction extends $tea.Model {
-  // create_time
-  createTime: number;
-  // from
-  from: string;
-  // to
-  to: string;
-  // hash
-  hash: string;
-  // transactionV10Type
-  transactionType: string;
-  static names(): { [key: string]: string } {
-    return {
-      createTime: 'create_time',
-      from: 'from',
-      to: 'to',
-      hash: 'hash',
-      transactionType: 'transaction_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      createTime: 'number',
-      from: 'string',
-      to: 'string',
-      hash: 'string',
-      transactionType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 更新DID服务列表
-export class UpdateDidServiceList extends $tea.Model {
-  // 待更新did之前的版本号
-  previousVersion: number;
-  // 服务信息列表
-  serviceList: DisServicesInfo[];
-  static names(): { [key: string]: string } {
-    return {
-      previousVersion: 'previous_version',
-      serviceList: 'service_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      previousVersion: 'number',
-      serviceList: { 'type': 'array', 'itemType': DisServicesInfo },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云蚂蚁区块链证书列表信息
-export class ALiYunCertificateApplications extends $tea.Model {
-  // pagination
-  pagination?: ALiYunPagination;
-  // certificate_application
-  certificateApplications?: ALiYunCertificateApplication[];
-  static names(): { [key: string]: string } {
-    return {
-      pagination: 'pagination',
-      certificateApplications: 'certificate_applications',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pagination: ALiYunPagination,
-      certificateApplications: { 'type': 'array', 'itemType': ALiYunCertificateApplication },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 申请用户授权的目标可验证声明内容、过期时间等配置
-export class Claim extends $tea.Model {
-  // 一个json的string，内容包含具体需要的声明，不同业务场景不同。
-  claimContent: string;
-  // 如果在相同的biz_type下，还需要针对声明claim进行细化划分，可以使用此字段。
-  claimType?: string;
-  // 申请声明颁发后的有效期，可选参数，如果不指定则默认申请永久有效。
-  expire?: number;
-  // 授权颁发可验证声明的目标did信息，通常为机构或组织的did
-  did?: string;
-  // 目标待授权的名称，标定唯一性，与claim内容配合使用，如果不指定did可以考虑使用此字段。
-  name?: string;
-  static names(): { [key: string]: string } {
-    return {
-      claimContent: 'claim_content',
-      claimType: 'claim_type',
-      expire: 'expire',
-      did: 'did',
-      name: 'name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      claimContent: 'string',
-      claimType: 'string',
-      expire: 'number',
-      did: 'string',
-      name: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 蚂蚁链交易汇总信息
-export class BlockchainBrowserTransactionStatistic extends $tea.Model {
-  // 蚂蚁链id
-  bizid: string;
-  // 开始时间
-  createTime: number;
-  // 时间点
-  dateTime: string;
-  // 统计时间内最新块高度
-  lastSumBlockHeight: number;
-  // 统计周期内交易的数量
-  transCount: number;
-  static names(): { [key: string]: string } {
-    return {
-      bizid: 'bizid',
-      createTime: 'create_time',
-      dateTime: 'date_time',
-      lastSumBlockHeight: 'last_sum_block_height',
-      transCount: 'trans_count',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizid: 'string',
-      createTime: 'number',
-      dateTime: 'string',
-      lastSumBlockHeight: 'number',
-      transCount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 营销分销推广人账户流水信息
-export class CapitalInfo extends $tea.Model {
-  // 记录流水额度
-  balanceLog: string;
-  // 商户id
-  shopId: string;
-  // 记录时间
-  timeLog: number;
-  // 链上地址
-  txHash: string;
-  static names(): { [key: string]: string } {
-    return {
-      balanceLog: 'balance_log',
-      shopId: 'shop_id',
-      timeLog: 'time_log',
-      txHash: 'tx_hash',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      balanceLog: 'string',
-      shopId: 'string',
-      timeLog: 'number',
-      txHash: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 通过controller注册用户
-export class VcControllerAddUserRegisterPayload extends $tea.Model {
-  // 注册用户did
-  did: string;
-  // 用户did对应的授权公钥
-  publicKey: string;
-  // 业务区块连的bizid
-  vcChannel?: string;
-  static names(): { [key: string]: string } {
-    return {
-      did: 'did',
-      publicKey: 'public_key',
-      vcChannel: 'vc_channel',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      did: 'string',
-      publicKey: 'string',
-      vcChannel: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// AccountPo
-export class AccountPo extends $tea.Model {
-  // 账户 hash
-  account?: string;
-  // 账户创建时间
-  createTime?: number;
-  // 创建该账户的交易hash
-  hash?: string;
-  // 创建该账户的 账户hash
-  parent?: string;
-  static names(): { [key: string]: string } {
-    return {
-      account: 'account',
-      createTime: 'create_time',
-      hash: 'hash',
-      parent: 'parent',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      account: 'string',
-      createTime: 'number',
-      hash: 'string',
-      parent: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据资产分页查询
-export class ListDataEntityResult extends $tea.Model {
-  // 数据模型信息
-  dataModel: DataModel;
-  // 数据资产信息
-  dataEntity: DataEntity;
-  static names(): { [key: string]: string } {
-    return {
-      dataModel: 'data_model',
-      dataEntity: 'data_entity',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      dataModel: DataModel,
-      dataEntity: DataEntity,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 证书批量颁发进度
-export class CertIssueProgressDTO extends $tea.Model {
-  // 证书实例id
-  bizId: string;
-  // 因校验异常停止任务（不会继续校验文件内容和颁发证书） -3
-  // 因校验内容不正确停止颁发任务(会校验完所有的行但不执行颁发) -2
-  // 已手动取消（可重试状态下手动取消任务，取消状态下可以启动新的颁发任务） -1
-  // 可重试 0
-  // 执行中（初始状态） 1
-  // 已成功完成 2
-  status: number;
-  // is_error=true时的错误描述
-  errorMessage: string;
-  // 证书的字段标题列表
-  titles: string[];
-  // 颁发进度百分比
-  progressPercent: number;
-  // 当前批次数据总行数（不含标题）
-  totalNum: string;
-  // 颁发证书当前执行的阶段，VERIFY：校验文件中，ISSUE：颁发中
-  curTaskType: string;
-  // 颁发开始的时间戳
-  startTimeMillis: number;
-  // 颁发结束的时间戳
-  endTimeMillis: number;
-  // 校验错误描述列表
-  errorDetails: TemplateInstanceErrorDetailDTO[];
-  static names(): { [key: string]: string } {
-    return {
-      bizId: 'biz_id',
-      status: 'status',
-      errorMessage: 'error_message',
-      titles: 'titles',
-      progressPercent: 'progress_percent',
-      totalNum: 'total_num',
-      curTaskType: 'cur_task_type',
-      startTimeMillis: 'start_time_millis',
-      endTimeMillis: 'end_time_millis',
-      errorDetails: 'error_details',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizId: 'string',
-      status: 'number',
-      errorMessage: 'string',
-      titles: { 'type': 'array', 'itemType': 'string' },
-      progressPercent: 'number',
-      totalNum: 'string',
-      curTaskType: 'string',
-      startTimeMillis: 'number',
-      endTimeMillis: 'number',
-      errorDetails: { 'type': 'array', 'itemType': TemplateInstanceErrorDetailDTO },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云区块链小程序日志查询
-export class ALiYunChainMiniAppLog extends $tea.Model {
-  // access_count
-  accessCount?: number;
-  // access_alipay_account_count
-  accessAlipayAccountCount?: number;
-  static names(): { [key: string]: string } {
-    return {
-      accessCount: 'access_count',
-      accessAlipayAccountCount: 'access_alipay_account_count',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      accessCount: 'number',
-      accessAlipayAccountCount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 具体实体的身份信息
-export class EntityInfo extends $tea.Model {
-  // 0，身份证；1，电话；2，email，3，企业营业执照号
-  type: number;
-  // 具体号码
-  value: string;
-  static names(): { [key: string]: string } {
-    return {
-      type: 'type',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      type: 'number',
-      value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 链详情
-export class MyChainInfo extends $tea.Model {
-  // 链id
-  bizId: string;
-  // 授权租户id
-  tenant: string;
-  static names(): { [key: string]: string } {
-    return {
-      bizId: 'biz_id',
-      tenant: 'tenant',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizId: 'string',
-      tenant: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 存证元数据
-export class NotaryMetaParam extends $tea.Model {
-  // 描述本条存证在存证事务中的阶段，用户可自行维护
-  phase: string;
-  // 扩展字段
-  properties?: string;
-  // 全局唯一的存证事务ID
-  token: string;
-  static names(): { [key: string]: string } {
-    return {
-      phase: 'phase',
-      properties: 'properties',
-      token: 'token',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      phase: 'string',
-      properties: 'string',
-      token: 'string',
+      antChainId: 'string',
+      blockchainName: 'string',
+      consortiumAdmin: 'boolean',
+      blockchainSubnetList: { 'type': 'array', 'itemType': ALiYunChainSubnet },
     };
   }
 
@@ -4863,23 +4262,31 @@ export class IssueInfo extends $tea.Model {
   }
 }
 
-// 带单位的值
-export class ValueUnitPair extends $tea.Model {
-  // 数值
-  value: number;
-  // 单位
-  unit: string;
+// 分页失败的展示日志（过滤器：待处理、成功、已忽略）
+export class CommonResponsePageableStructBody extends $tea.Model {
+  // 页面规格
+  pageSize?: string;
+  // 当前页码
+  current?: string;
+  // 总条数
+  total?: string;
+  // 失败日志数组
+  list?: TriggerLogDTOStructBody[];
   static names(): { [key: string]: string } {
     return {
-      value: 'value',
-      unit: 'unit',
+      pageSize: 'page_size',
+      current: 'current',
+      total: 'total',
+      list: 'list',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      value: 'number',
-      unit: 'string',
+      pageSize: 'string',
+      current: 'string',
+      total: 'string',
+      list: { 'type': 'array', 'itemType': TriggerLogDTOStructBody },
     };
   }
 
@@ -4888,31 +4295,23 @@ export class ValueUnitPair extends $tea.Model {
   }
 }
 
-// 阿里云子链列表信息
-export class ALiYunChainSubnetList extends $tea.Model {
-  // ant_chain_id
-  antChainId?: string;
-  // 子链名称
-  blockchainName?: string;
-  // 联盟管理员
-  consortiumAdmin?: boolean;
-  // 子链列表信息
-  blockchainSubnetList?: ALiYunChainSubnet[];
+// 阿里云售卖区信息
+export class ALiYunChainRegion extends $tea.Model {
+  // region_id
+  regionId?: string;
+  // region_name
+  regionName?: string;
   static names(): { [key: string]: string } {
     return {
-      antChainId: 'ant_chain_id',
-      blockchainName: 'blockchain_name',
-      consortiumAdmin: 'consortium_admin',
-      blockchainSubnetList: 'blockchain_subnet_list',
+      regionId: 'region_id',
+      regionName: 'region_name',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      antChainId: 'string',
-      blockchainName: 'string',
-      consortiumAdmin: 'boolean',
-      blockchainSubnetList: { 'type': 'array', 'itemType': ALiYunChainSubnet },
+      regionId: 'string',
+      regionName: 'string',
     };
   }
 
@@ -4921,23 +4320,77 @@ export class ALiYunChainSubnetList extends $tea.Model {
   }
 }
 
-// 数字资产管理平台批发结构
-export class AccountWholesaleParam extends $tea.Model {
-  // 批发数量
-  epAmount: number;
-  // 用户账户
-  userAccount: string;
+// 阿里云售卖联盟信息
+export class ALiYunBuyUnion extends $tea.Model {
+  // consortium_name
+  consortiumName?: string;
+  // consortium_id
+  consortiumId?: string;
   static names(): { [key: string]: string } {
     return {
-      epAmount: 'ep_amount',
-      userAccount: 'user_account',
+      consortiumName: 'consortium_name',
+      consortiumId: 'consortium_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      epAmount: 'number',
-      userAccount: 'string',
+      consortiumName: 'string',
+      consortiumId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 分享可验证声明时的核心内容
+export class VcShareStruct extends $tea.Model {
+  // 分享的目标VC的id
+  vcId: string;
+  // 目标的VC持有者的did
+  ownerDid: string;
+  // 在支持声明的claim字段级别分享能力时使用，可以指定哪些字段隐藏，哪些字段分享。示例中标记为”1“的是隐藏，”0“的是分享明文。
+  index?: string;
+  // 非托管模式下owner_did的签名，作为授权凭证
+  signature?: string;
+  static names(): { [key: string]: string } {
+    return {
+      vcId: 'vc_id',
+      ownerDid: 'owner_did',
+      index: 'index',
+      signature: 'signature',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      vcId: 'string',
+      ownerDid: 'string',
+      index: 'string',
+      signature: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 小程序浏览器授权类型
+export class MiniAppBrowserAuthType extends $tea.Model {
+  // 授权类型
+  authType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authType: 'auth_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authType: 'string',
     };
   }
 
@@ -5003,199 +4456,34 @@ export class ALiYunChainBlockInfo extends $tea.Model {
   }
 }
 
-// 阿里云请求结果
-export class ALiYunHandleBabelMns extends $tea.Model {
-  // message
-  message?: string;
-  // request_id
-  requestId?: string;
-  // success
-  success?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      message: 'message',
-      requestId: 'request_id',
-      success: 'success',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      message: 'string',
-      requestId: 'string',
-      success: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 更新did doc中的service信息
-export class UpdateDidService extends $tea.Model {
-  // 待更新did之前的版本号
-  previousVersion: number;
-  // did doc中的service id
-  serviceId: string;
-  // 服务信息
-  serviceInfo: DidServiceInfo;
-  // 服务类型
-  serviceType: string;
-  static names(): { [key: string]: string } {
-    return {
-      previousVersion: 'previous_version',
-      serviceId: 'service_id',
-      serviceInfo: 'service_info',
-      serviceType: 'service_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      previousVersion: 'number',
-      serviceId: 'string',
-      serviceInfo: DidServiceInfo,
-      serviceType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 账户映射结果
-export class AccountMappingResult extends $tea.Model {
-  // 该账户在链上的唯一标示
-  baccount: string;
-  // 当前账户映射结果描述语句
-  message: string;
-  // 状态描述符
-  status: string;
-  // 自有系统中该账户唯一标示
-  uid: string;
-  static names(): { [key: string]: string } {
-    return {
-      baccount: 'baccount',
-      message: 'message',
-      status: 'status',
-      uid: 'uid',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      baccount: 'string',
-      message: 'string',
-      status: 'string',
-      uid: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// identity parameter
-export class IdentityParam extends $tea.Model {
-  // 经办人姓名
-  agent?: string;
-  // 经办人身份证号
-  agentId?: string;
-  // 用户的姓名
-  certName: string;
-  // 用户的身份证号
-  certNo: string;
-  // 用户证件类型，目前只支持IDENTITY_CARD
-  certType: string;
-  // 法人姓名，企业认证必选
-  legalPerson?: string;
-  // 法人身份证，企业认证必选
-  legalPersonId?: string;
-  // 手机号码
-  mobileNo?: string;
-  // 扩展属性字段
-  properties?: string;
-  // 用户类型，默认为PERSON
-  userType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      agent: 'agent',
-      agentId: 'agent_id',
-      certName: 'cert_name',
-      certNo: 'cert_no',
-      certType: 'cert_type',
-      legalPerson: 'legal_person',
-      legalPersonId: 'legal_person_id',
-      mobileNo: 'mobile_no',
-      properties: 'properties',
-      userType: 'user_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      agent: 'string',
-      agentId: 'string',
-      certName: 'string',
-      certNo: 'string',
-      certType: 'string',
-      legalPerson: 'string',
-      legalPersonId: 'string',
-      mobileNo: 'string',
-      properties: 'string',
-      userType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 用户密钥信息
-export class UserBizKeyInfo extends $tea.Model {
-  // 拥有该密钥的用户列表
-  grantedUser: string[];
-  // 密钥名称
-  keyName: string;
-  static names(): { [key: string]: string } {
-    return {
-      grantedUser: 'granted_user',
-      keyName: 'key_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      grantedUser: { 'type': 'array', 'itemType': 'string' },
-      keyName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 描述分布的结构，目前主要包含date和value值
-export class Curve extends $tea.Model {
-  // 分布以day为单位的日期
-  date: string;
-  // 以day为单位的一天凭证颁发的数据量统计。
+// 组件信息
+export class DiscreteValue extends $tea.Model {
+  // 排序id
+  sortId?: number;
+  // 字段描述
+  text: string;
+  // 提示信息
+  tips?: string;
+  // 单位信息
+  unit?: string;
+  // 值内容
   value: string;
   static names(): { [key: string]: string } {
     return {
-      date: 'date',
+      sortId: 'sort_id',
+      text: 'text',
+      tips: 'tips',
+      unit: 'unit',
       value: 'value',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      date: 'string',
+      sortId: 'number',
+      text: 'string',
+      tips: 'string',
+      unit: 'string',
       value: 'string',
     };
   }
@@ -5205,23 +4493,31 @@ export class Curve extends $tea.Model {
   }
 }
 
-// 阿里云蚂蚁区块链相关下载结果
-export class ALiYunChainDownload extends $tea.Model {
-  // private_key
-  privateKey?: string;
-  // download_path
-  downloadPath?: ALiYunDownloadPath;
+// AccountPo
+export class AccountPo extends $tea.Model {
+  // 账户 hash
+  account?: string;
+  // 账户创建时间
+  createTime?: number;
+  // 创建该账户的交易hash
+  hash?: string;
+  // 创建该账户的 账户hash
+  parent?: string;
   static names(): { [key: string]: string } {
     return {
-      privateKey: 'private_key',
-      downloadPath: 'download_path',
+      account: 'account',
+      createTime: 'create_time',
+      hash: 'hash',
+      parent: 'parent',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      privateKey: 'string',
-      downloadPath: ALiYunDownloadPath,
+      account: 'string',
+      createTime: 'number',
+      hash: 'string',
+      parent: 'string',
     };
   }
 
@@ -5230,35 +4526,23 @@ export class ALiYunChainDownload extends $tea.Model {
   }
 }
 
-// 证书模板详情类
-export class TemplateInfoDTO extends $tea.Model {
-  // 主键
-  id: number;
-  // 模板类别：马拉松类、滑雪类
-  category: string;
-  // 模板内容， json格式文本
-  claimTemplate: string;
-  // 创建时间
-  gmtCreate: string;
-  // 修改时间
-  gmtModified: string;
+// 服务发现结果
+export class ServiceDiscoveryResult extends $tea.Model {
+  // 提供该服务能力的did
+  did: string;
+  // 提供该服务能力的endpoint信息
+  services: DidDocServicesInfo[];
   static names(): { [key: string]: string } {
     return {
-      id: 'id',
-      category: 'category',
-      claimTemplate: 'claim_template',
-      gmtCreate: 'gmt_create',
-      gmtModified: 'gmt_modified',
+      did: 'did',
+      services: 'services',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      id: 'number',
-      category: 'string',
-      claimTemplate: 'string',
-      gmtCreate: 'string',
-      gmtModified: 'string',
+      did: 'string',
+      services: { 'type': 'array', 'itemType': DidDocServicesInfo },
     };
   }
 
@@ -5292,154 +4576,35 @@ export class DidDeleteService extends $tea.Model {
   }
 }
 
-// 阿里云区块链售卖资源信息
-export class ALiYunChainResouceForSale extends $tea.Model {
-  // region_id
-  regionId?: string;
-  // type_list
-  typeList?: string[];
-  static names(): { [key: string]: string } {
-    return {
-      regionId: 'region_id',
-      typeList: 'type_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      regionId: 'string',
-      typeList: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 授权明细详情
-export class AuthorizationDetail extends $tea.Model {
-  // 授权凭证ID
-  authorityCertId: string;
-  // 授权ID
-  authorizationId?: string;
-  // 区块号
-  blockNum: number;
-  // 过期时间
-  expire?: number;
-  // 授权时间
-  issuanceTime: number;
-  // 授权人
-  issuer: Participant;
-  // 被授权人
-  subject: Participant;
-  // 哈希
-  txHash: string;
-  // 资产所有者
-  owner: Participant;
-  static names(): { [key: string]: string } {
-    return {
-      authorityCertId: 'authority_cert_id',
-      authorizationId: 'authorization_id',
-      blockNum: 'block_num',
-      expire: 'expire',
-      issuanceTime: 'issuance_time',
-      issuer: 'issuer',
-      subject: 'subject',
-      txHash: 'tx_hash',
-      owner: 'owner',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authorityCertId: 'string',
-      authorizationId: 'string',
-      blockNum: 'number',
-      expire: 'number',
-      issuanceTime: 'number',
-      issuer: Participant,
-      subject: Participant,
-      txHash: 'string',
-      owner: Participant,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 用户身份信息
-export class UserMetaInfo extends $tea.Model {
-  // 用户身份信息类型
-  type: string;
-  // 用户身份信息
-  data: KeyValuePair[];
-  static names(): { [key: string]: string } {
-    return {
-      type: 'type',
-      data: 'data',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      type: 'string',
-      data: { 'type': 'array', 'itemType': KeyValuePair },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 蚂蚁链最新区块列表信息
-export class BlockchainBrowserLatestBlock extends $tea.Model {
-  // bizid
+// 蚂蚁链交易汇总信息
+export class BlockchainBrowserTransactionStatistic extends $tea.Model {
+  // 蚂蚁链id
   bizid: string;
-  // block_hash
-  blockHash: string;
-  // create_time
+  // 开始时间
   createTime: number;
-  // height
-  height: number;
-  // previous_hash
-  previousHash: string;
-  // root_tx_hash
-  rootTxHash: string;
-  // size
-  size: number;
-  // transaction_size
-  transactionSize: number;
-  // version
-  version: number;
+  // 时间点
+  dateTime: string;
+  // 统计时间内最新块高度
+  lastSumBlockHeight: number;
+  // 统计周期内交易的数量
+  transCount: number;
   static names(): { [key: string]: string } {
     return {
       bizid: 'bizid',
-      blockHash: 'block_hash',
       createTime: 'create_time',
-      height: 'height',
-      previousHash: 'previous_hash',
-      rootTxHash: 'root_tx_hash',
-      size: 'size',
-      transactionSize: 'transaction_size',
-      version: 'version',
+      dateTime: 'date_time',
+      lastSumBlockHeight: 'last_sum_block_height',
+      transCount: 'trans_count',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       bizid: 'string',
-      blockHash: 'string',
       createTime: 'number',
-      height: 'number',
-      previousHash: 'string',
-      rootTxHash: 'string',
-      size: 'number',
-      transactionSize: 'number',
-      version: 'number',
+      dateTime: 'string',
+      lastSumBlockHeight: 'number',
+      transCount: 'number',
     };
   }
 
@@ -5448,59 +4613,35 @@ export class BlockchainBrowserLatestBlock extends $tea.Model {
   }
 }
 
-// 蚂蚁链浏览器区块信息
-export class BlockchainBrowserBlock extends $tea.Model {
-  // bizid
-  bizid: string;
-  // blockchain_name
-  blockchainName: string;
-  // blockchain_status
-  blockchainStatus: boolean;
-  // block_hash
-  blockHash: string;
+// 阿里云区块链Rest信息
+export class ALiYunChainRest extends $tea.Model {
+  // access_id
+  accessId?: string;
   // create_time
-  createTime: number;
-  // hash_status
-  hashStatus: boolean;
-  // height
-  height: number;
-  // previous_hash
-  previousHash: string;
-  // root_tx_hash
-  rootTxHash: string;
-  // transaction_list
-  transactionList: BlockchainBrowserTransaction[];
-  // transaction_size
-  transactionSize: number;
+  createTime?: number;
+  // rest
+  rest?: string;
+  // update_time
+  updateTime?: number;
+  // REST开通结果
+  result?: string;
   static names(): { [key: string]: string } {
     return {
-      bizid: 'bizid',
-      blockchainName: 'blockchain_name',
-      blockchainStatus: 'blockchain_status',
-      blockHash: 'block_hash',
+      accessId: 'access_id',
       createTime: 'create_time',
-      hashStatus: 'hash_status',
-      height: 'height',
-      previousHash: 'previous_hash',
-      rootTxHash: 'root_tx_hash',
-      transactionList: 'transaction_list',
-      transactionSize: 'transaction_size',
+      rest: 'rest',
+      updateTime: 'update_time',
+      result: 'result',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      bizid: 'string',
-      blockchainName: 'string',
-      blockchainStatus: 'boolean',
-      blockHash: 'string',
+      accessId: 'string',
       createTime: 'number',
-      hashStatus: 'boolean',
-      height: 'number',
-      previousHash: 'string',
-      rootTxHash: 'string',
-      transactionList: { 'type': 'array', 'itemType': BlockchainBrowserTransaction },
-      transactionSize: 'number',
+      rest: 'string',
+      updateTime: 'number',
+      result: 'string',
     };
   }
 
@@ -5509,39 +4650,52 @@ export class BlockchainBrowserBlock extends $tea.Model {
   }
 }
 
-// 内部建链信息查询
-export class CreateBlockchainInfo extends $tea.Model {
-  // 链id
-  bizid: string;
-  // 链的状态
-  blockchainStatus: string;
-  // 链的类型
-  blockchainType: string;
-  // 链的名称
-  blockchainName: string;
-  // 节点数量
-  blockchanNodeNum: number;
-  // 创建时间
-  blockchainCreateTime: number;
+// 通过controller注册用户
+export class VcControllerAddUserRegisterPayload extends $tea.Model {
+  // 注册用户did
+  did: string;
+  // 用户did对应的授权公钥
+  publicKey: string;
+  // 业务区块连的bizid
+  vcChannel?: string;
   static names(): { [key: string]: string } {
     return {
-      bizid: 'bizid',
-      blockchainStatus: 'blockchain_status',
-      blockchainType: 'blockchain_type',
-      blockchainName: 'blockchain_name',
-      blockchanNodeNum: 'blockchan_node_num',
-      blockchainCreateTime: 'blockchain_create_time',
+      did: 'did',
+      publicKey: 'public_key',
+      vcChannel: 'vc_channel',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      bizid: 'string',
-      blockchainStatus: 'string',
-      blockchainType: 'string',
-      blockchainName: 'string',
-      blockchanNodeNum: 'number',
-      blockchainCreateTime: 'number',
+      did: 'string',
+      publicKey: 'string',
+      vcChannel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 账户信息
+export class AccountInfo extends $tea.Model {
+  // 版通数量
+  epAmount: number;
+  // 版通代码
+  epCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      epAmount: 'ep_amount',
+      epCode: 'ep_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      epAmount: 'number',
+      epCode: 'string',
     };
   }
 
@@ -5608,19 +4762,31 @@ export class VCEvent extends $tea.Model {
   }
 }
 
-// 结果
-export class Result extends $tea.Model {
-  // 联盟id
-  consortiumId: string;
+// dis服务发现对象
+export class DisServiceInfo extends $tea.Model {
+  // 提供服务的did
+  controller: string;
+  // 服务地址
+  endPoint: string;
+  // 服务id
+  serviceId: string;
+  // 服务类型
+  serviceType: string;
   static names(): { [key: string]: string } {
     return {
-      consortiumId: 'consortium_id',
+      controller: 'controller',
+      endPoint: 'end_point',
+      serviceId: 'service_id',
+      serviceType: 'service_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      consortiumId: 'string',
+      controller: 'string',
+      endPoint: 'string',
+      serviceId: 'string',
+      serviceType: 'string',
     };
   }
 
@@ -5629,31 +4795,270 @@ export class Result extends $tea.Model {
   }
 }
 
-// VC链上传输结果
-export class VcTransmitResult extends $tea.Model {
-  // 成功或者失败
-  isSuccess: boolean;
-  // 失败信息
-  message?: string;
-  // 验证verifier did
-  targetVerifier: string;
-  // 交易hash
-  txHash?: string;
+// 阿里云区块链配置信息
+export class ALiYunChainConfigOption extends $tea.Model {
+  // config_option
+  configOption?: string;
+  // show_name
+  showName?: string;
+  // enable
+  enable?: boolean;
   static names(): { [key: string]: string } {
     return {
-      isSuccess: 'is_success',
-      message: 'message',
-      targetVerifier: 'target_verifier',
-      txHash: 'tx_hash',
+      configOption: 'config_option',
+      showName: 'show_name',
+      enable: 'enable',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      isSuccess: 'boolean',
-      message: 'string',
-      targetVerifier: 'string',
-      txHash: 'string',
+      configOption: 'string',
+      showName: 'string',
+      enable: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 删除资源返回结果
+export class ALiYunDeleteResource extends $tea.Model {
+  // data
+  data?: boolean;
+  // success
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      data: 'data',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      data: 'boolean',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 交易详情
+export class TransactionInfo extends $tea.Model {
+  // 交易时间戳
+  timestamp: number;
+  // 交易hash
+  hash: string;
+  // 交易块高
+  height: number;
+  // 交易所在块高
+  blockhash: string;
+  // 交易来源
+  from: string;
+  // 交易地址
+  to: string;
+  // 交易类型
+  txtype: number;
+  // 转账额度
+  value: number;
+  // logs
+  logs: string;
+  // 燃料消耗
+  gasused: number;
+  // result
+  result: string;
+  // 拓展json字段
+  json: string;
+  static names(): { [key: string]: string } {
+    return {
+      timestamp: 'timestamp',
+      hash: 'hash',
+      height: 'height',
+      blockhash: 'blockhash',
+      from: 'from',
+      to: 'to',
+      txtype: 'txtype',
+      value: 'value',
+      logs: 'logs',
+      gasused: 'gasused',
+      result: 'result',
+      json: 'json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      timestamp: 'number',
+      hash: 'string',
+      height: 'number',
+      blockhash: 'string',
+      from: 'string',
+      to: 'string',
+      txtype: 'number',
+      value: 'number',
+      logs: 'string',
+      gasused: 'number',
+      result: 'string',
+      json: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// POAP徽章的详细信息
+export class PoapInfo extends $tea.Model {
+  // 徽章ID，具有唯一性
+  poapId: string;
+  // 徽章名字
+  poapName: string;
+  // 徽章HASH
+  uniHash: string;
+  // 状态，枚举值
+  status?: string;
+  // 徽章资源 URL
+  poapUrl: string;
+  // 枚举值，2D_IMAGE--2D图片渲染；3D_OASISENGINE--3D模型渲染
+  renderType: string;
+  // 3D模型降级使用的资源URL
+  faultToleranceUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      poapId: 'poap_id',
+      poapName: 'poap_name',
+      uniHash: 'uni_hash',
+      status: 'status',
+      poapUrl: 'poap_url',
+      renderType: 'render_type',
+      faultToleranceUrl: 'fault_tolerance_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      poapId: 'string',
+      poapName: 'string',
+      uniHash: 'string',
+      status: 'string',
+      poapUrl: 'string',
+      renderType: 'string',
+      faultToleranceUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云区块链小程序权限控制信息
+export class ALiYunChainMiniAppAuthorization extends $tea.Model {
+  // ant_chain_id
+  antChainId?: string;
+  // q_r_code_type
+  qRCodeType?: string;
+  // authorization_type
+  authorizationType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      antChainId: 'ant_chain_id',
+      qRCodeType: 'q_r_code_type',
+      authorizationType: 'authorization_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      antChainId: 'string',
+      qRCodeType: 'string',
+      authorizationType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云蚂蚁区块链相关下载结果
+export class ALiYunChainDownload extends $tea.Model {
+  // private_key
+  privateKey?: string;
+  // download_path
+  downloadPath?: ALiYunDownloadPath;
+  static names(): { [key: string]: string } {
+    return {
+      privateKey: 'private_key',
+      downloadPath: 'download_path',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      privateKey: 'string',
+      downloadPath: ALiYunDownloadPath,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 分布式数字身份信息
+export class DidInfo extends $tea.Model {
+  // 分布式数字身份id
+  did: string;
+  // 分布式数字身份对应的用户名称
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      did: 'did',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      did: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据隐私服务选择tapp信息的结构体
+export class ChoiceTappInfo extends $tea.Model {
+  // 选择的tapp的名字
+  tappName: string;
+  // 版本号，如果不填就选择最新的版本
+  tappVersion?: number;
+  // 该tapp将被声明在did doc中的id
+  serviceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      tappName: 'tapp_name',
+      tappVersion: 'tapp_version',
+      serviceId: 'service_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tappName: 'string',
+      tappVersion: 'number',
+      serviceId: 'string',
     };
   }
 
@@ -5707,43 +5112,43 @@ export class ALiYunContractProjectDuplicate extends $tea.Model {
   }
 }
 
-// 服务端签名oss的url然后client直传文件到oss，此结构包含了服务端签名后的数据。
-export class PresignedUrlPolicy extends $tea.Model {
-  // oss访问的临时access id
-  accessId: string;
-  // 一个需要回调通知服务端的方法名，非必填
-  callback?: string;
-  // oss上的文件存放路径
-  dir: string;
-  // url超期的时间戳说明
-  expire: string;
-  // oss的地址
-  host: string;
-  // 被base64编码的policy内容
-  policy: string;
-  // 签名结果
-  signature: string;
+// 物流金融信用流转流水信息
+export class CreditTransferStatementInfo extends $tea.Model {
+  // 信用凭证额度
+  creditLimit?: string;
+  // 信用凭证到期时间
+  expireDate?: string;
+  // 凭证来源方did
+  fromDid?: string;
+  // 信用凭证发起时间
+  issueDate?: string;
+  // 信用流转凭证
+  issueId?: string;
+  // 流水类型
+  stateType?: string;
+  // 凭证流转方did
+  toDid?: string;
   static names(): { [key: string]: string } {
     return {
-      accessId: 'access_id',
-      callback: 'callback',
-      dir: 'dir',
-      expire: 'expire',
-      host: 'host',
-      policy: 'policy',
-      signature: 'signature',
+      creditLimit: 'credit_limit',
+      expireDate: 'expire_date',
+      fromDid: 'from_did',
+      issueDate: 'issue_date',
+      issueId: 'issue_id',
+      stateType: 'state_type',
+      toDid: 'to_did',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      accessId: 'string',
-      callback: 'string',
-      dir: 'string',
-      expire: 'string',
-      host: 'string',
-      policy: 'string',
-      signature: 'string',
+      creditLimit: 'string',
+      expireDate: 'string',
+      fromDid: 'string',
+      issueDate: 'string',
+      issueId: 'string',
+      stateType: 'string',
+      toDid: 'string',
     };
   }
 
@@ -5752,35 +5157,35 @@ export class PresignedUrlPolicy extends $tea.Model {
   }
 }
 
-// 物流金融平台运单轨迹信息
-export class LogisticLocation extends $tea.Model {
-  // 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
-  address?: string;
-  // 行政区划代码
-  cityCode?: string;
-  // 纬度
-  lat: string;
-  // 经度
-  lon: string;
-  // 轨迹时间戳
-  trackTime: number;
+// 阿里云链统计信息
+export class ALiYunChainStatics extends $tea.Model {
+  // alias
+  alias?: string;
+  // Dt
+  dt?: number;
+  // trans_count
+  transCount?: number;
+  // last_sum_block_height
+  lastSumBlockHeight?: number;
+  // creat_time
+  creatTime?: number;
   static names(): { [key: string]: string } {
     return {
-      address: 'address',
-      cityCode: 'city_code',
-      lat: 'lat',
-      lon: 'lon',
-      trackTime: 'track_time',
+      alias: 'alias',
+      dt: 'dt',
+      transCount: 'trans_count',
+      lastSumBlockHeight: 'last_sum_block_height',
+      creatTime: 'creat_time',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      address: 'string',
-      cityCode: 'string',
-      lat: 'string',
-      lon: 'string',
-      trackTime: 'number',
+      alias: 'string',
+      dt: 'number',
+      transCount: 'number',
+      lastSumBlockHeight: 'number',
+      creatTime: 'number',
     };
   }
 
@@ -5789,93 +5194,23 @@ export class LogisticLocation extends $tea.Model {
   }
 }
 
-// 用户数据
-export class OCUserData extends $tea.Model {
-  // 创建时间
-  createTime: string;
-  // 手机号
-  phoneNumber: string;
-  // 用户姓名
-  userName: string;
+// 阿里云蚂蚁区块链证书列表信息
+export class ALiYunCertificateApplications extends $tea.Model {
+  // pagination
+  pagination?: ALiYunPagination;
+  // certificate_application
+  certificateApplications?: ALiYunCertificateApplication[];
   static names(): { [key: string]: string } {
     return {
-      createTime: 'create_time',
-      phoneNumber: 'phone_number',
-      userName: 'user_name',
+      pagination: 'pagination',
+      certificateApplications: 'certificate_applications',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      createTime: 'string',
-      phoneNumber: 'string',
-      userName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 批量查询商户下已映射的账户信息接口，返回的对象
-export class QueryMappingBatchResult extends $tea.Model {
-  // 本次查询获取的账户信息
-  accounts: AccountMappingInfo[];
-  // 该商户下总共映射账户的数量
-  totalNum: number;
-  // 该商户下账户信息的总页数
-  totalPage: number;
-  static names(): { [key: string]: string } {
-    return {
-      accounts: 'accounts',
-      totalNum: 'total_num',
-      totalPage: 'total_page',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      accounts: { 'type': 'array', 'itemType': AccountMappingInfo },
-      totalNum: 'number',
-      totalPage: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 溯源信息中的一项记录。
-export class Item extends $tea.Model {
-  // 溯源项的具体内容
-  desc: string;
-  // 扩展信息 ，json格式
-  extInfo: string;
-  // 溯源项的键值
-  key: string;
-  // 溯源项的中文标题 
-  title: string;
-  // 内容类型 
-  type: string;
-  static names(): { [key: string]: string } {
-    return {
-      desc: 'desc',
-      extInfo: 'ext_info',
-      key: 'key',
-      title: 'title',
-      type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      desc: 'string',
-      extInfo: 'string',
-      key: 'string',
-      title: 'string',
-      type: 'string',
+      pagination: ALiYunPagination,
+      certificateApplications: { 'type': 'array', 'itemType': ALiYunCertificateApplication },
     };
   }
 
@@ -5909,27 +5244,31 @@ export class ALiYunContractProjects extends $tea.Model {
   }
 }
 
-// 营销分销平台推广人账户信息
-export class FundInfo extends $tea.Model {
-  // 可提现余额
-  balance: string;
-  // 待结算额度
-  settleQuota: string;
-  // 商户id
-  shopId: string;
+// 阿里云区块链资源类型信息
+export class ALiYunChainResouceType extends $tea.Model {
+  // type_id
+  typeId?: number;
+  // cpu
+  cpu?: number;
+  // memory
+  memory?: number;
+  // disk
+  disk?: number;
   static names(): { [key: string]: string } {
     return {
-      balance: 'balance',
-      settleQuota: 'settle_quota',
-      shopId: 'shop_id',
+      typeId: 'type_id',
+      cpu: 'cpu',
+      memory: 'memory',
+      disk: 'disk',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      balance: 'string',
-      settleQuota: 'string',
-      shopId: 'string',
+      typeId: 'number',
+      cpu: 'number',
+      memory: 'number',
+      disk: 'number',
     };
   }
 
@@ -5938,221 +5277,31 @@ export class FundInfo extends $tea.Model {
   }
 }
 
-// 阿里云售卖联盟信息
-export class ALiYunBuyUnion extends $tea.Model {
-  // consortium_name
-  consortiumName?: string;
-  // consortium_id
-  consortiumId?: string;
+// vc传输初始化结果
+export class VcTransmitInitResult extends $tea.Model {
+  // 初始化成功与否
+  isSuccess: boolean;
+  // 失败时返回的额外信息
+  message: string;
+  // 接受者did
+  targetVerifier: string;
+  // 待签名的交易hash
+  needSignatureTxHash: string;
   static names(): { [key: string]: string } {
     return {
-      consortiumName: 'consortium_name',
-      consortiumId: 'consortium_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      consortiumName: 'string',
-      consortiumId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 授权流程操作结果
-export class ProcessResult extends $tea.Model {
-  // 申请权限的扩展参数
-  extension?: string;
-  // 申请权限原因
-  message?: string;
-  // 下一个处理节点ID
-  next?: string;
-  // 流程ID
-  processId: string;
-  // 流程状态
-  status: string;
-  // 数据对象ID
-  dataId: string;
-  static names(): { [key: string]: string } {
-    return {
-      extension: 'extension',
+      isSuccess: 'is_success',
       message: 'message',
-      next: 'next',
-      processId: 'process_id',
-      status: 'status',
-      dataId: 'data_id',
+      targetVerifier: 'target_verifier',
+      needSignatureTxHash: 'need_signature_tx_hash',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      extension: 'string',
+      isSuccess: 'boolean',
       message: 'string',
-      next: 'string',
-      processId: 'string',
-      status: 'string',
-      dataId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 合约链配置信息结果，内部包含一个列表，列举多个合约链的配置信息
-export class ContractIdeConfigResult extends $tea.Model {
-  // 合约链的配置信息，可包含多个合约链的配置
-  contractIdeConfigList: ContractIdeConfig[];
-  static names(): { [key: string]: string } {
-    return {
-      contractIdeConfigList: 'contract_ide_config_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      contractIdeConfigList: { 'type': 'array', 'itemType': ContractIdeConfig },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云合约内容
-export class ALiYunChainContractContent extends $tea.Model {
-  // content
-  content?: string;
-  // content_id
-  contentId?: string;
-  // content_name
-  contentName?: string;
-  // create_time
-  createTime?: number;
-  // is_directory
-  isDirectory?: boolean;
-  // parent_content_id
-  parentContentId?: string;
-  // project_id
-  projectId?: string;
-  // update_time
-  updateTime?: number;
-  static names(): { [key: string]: string } {
-    return {
-      content: 'content',
-      contentId: 'content_id',
-      contentName: 'content_name',
-      createTime: 'create_time',
-      isDirectory: 'is_directory',
-      parentContentId: 'parent_content_id',
-      projectId: 'project_id',
-      updateTime: 'update_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      content: 'string',
-      contentId: 'string',
-      contentName: 'string',
-      createTime: 'number',
-      isDirectory: 'boolean',
-      parentContentId: 'string',
-      projectId: 'string',
-      updateTime: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 小程序浏览器授权类型
-export class MiniAppBrowserAuthType extends $tea.Model {
-  // 授权类型
-  authType: string;
-  static names(): { [key: string]: string } {
-    return {
-      authType: 'auth_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 分销会员用户信息
-export class DistributionUser extends $tea.Model {
-  // 用户创建时间
-  createTime: string;
-  // 用户手机号
-  mobile: string;
-  // 用户唯一标识
-  userId: string;
-  static names(): { [key: string]: string } {
-    return {
-      createTime: 'create_time',
-      mobile: 'mobile',
-      userId: 'user_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      createTime: 'string',
-      mobile: 'string',
-      userId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 阿里云区块链小程序用户权限查询
-export class ALiYunChainMiniAppUserPrivilege extends $tea.Model {
-  // ant_chain_id
-  antChainId?: string;
-  // q_r_code_type
-  qRCodeType?: string;
-  // authorization_type
-  authorizationType?: string;
-  // pagination
-  pagination?: ALiYunPagination;
-  // ALiYunChainMiniAppAuthorizedUser
-  authorizedUserList?: ALiYunChainMiniAppAuthorizedUser[];
-  static names(): { [key: string]: string } {
-    return {
-      antChainId: 'ant_chain_id',
-      qRCodeType: 'q_r_code_type',
-      authorizationType: 'authorization_type',
-      pagination: 'pagination',
-      authorizedUserList: 'authorized_user_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      antChainId: 'string',
-      qRCodeType: 'string',
-      authorizationType: 'string',
-      pagination: ALiYunPagination,
-      authorizedUserList: { 'type': 'array', 'itemType': ALiYunChainMiniAppAuthorizedUser },
+      targetVerifier: 'string',
+      needSignatureTxHash: 'string',
     };
   }
 
@@ -6200,23 +5349,39 @@ export class DepositMetaDataItem extends $tea.Model {
   }
 }
 
-// 订单结果
-export class OrderResult extends $tea.Model {
-  // 事例id
-  instanceId: string;
-  // 是否成功
-  success: boolean;
+// 阿里云最新交易信息
+export class ALiYunLatestTransaction extends $tea.Model {
+  // hash
+  hash?: string;
+  // transaction_v10_type
+  transactionV10Type?: string;
+  // trans_type_v6
+  transTypeV6?: string;
+  // from
+  from?: string;
+  // to
+  to?: string;
+  // create_time
+  createTime?: number;
   static names(): { [key: string]: string } {
     return {
-      instanceId: 'instance_id',
-      success: 'success',
+      hash: 'hash',
+      transactionV10Type: 'transaction_v10_type',
+      transTypeV6: 'trans_type_v6',
+      from: 'from',
+      to: 'to',
+      createTime: 'create_time',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      instanceId: 'string',
-      success: 'boolean',
+      hash: 'string',
+      transactionV10Type: 'string',
+      transTypeV6: 'string',
+      from: 'string',
+      to: 'string',
+      createTime: 'number',
     };
   }
 
@@ -6225,31 +5390,23 @@ export class OrderResult extends $tea.Model {
   }
 }
 
-// 阿里云区块链资源类型信息
-export class ALiYunChainResouceType extends $tea.Model {
-  // type_id
-  typeId?: number;
-  // cpu
-  cpu?: number;
-  // memory
-  memory?: number;
-  // disk
-  disk?: number;
+// 具体实体的身份信息
+export class EntityInfo extends $tea.Model {
+  // 0，身份证；1，电话；2，email，3，企业营业执照号
+  type: number;
+  // 具体号码
+  value: string;
   static names(): { [key: string]: string } {
     return {
-      typeId: 'type_id',
-      cpu: 'cpu',
-      memory: 'memory',
-      disk: 'disk',
+      type: 'type',
+      value: 'value',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      typeId: 'number',
-      cpu: 'number',
-      memory: 'number',
-      disk: 'number',
+      type: 'number',
+      value: 'string',
     };
   }
 
@@ -6291,35 +5448,39 @@ export class NodeInfo extends $tea.Model {
   }
 }
 
-// 可验证声明的完整内容以及状态，当前持有者的did等信息
-export class VcContent extends $tea.Model {
-  // 可验证声明的唯一标识id，status 为 “1” 时候非空
-  vcId: string;
-  // 可验证声明完整内容， status 为 “1” 时候非空
-  vcContent: string;
-  // 可验证声明的颁发状态说明： -1：颁发失败，0：未授权 1：授权成功，此时vc_content字段会包含授权后的声明内容，其它状态码，待定义后增加。
-  status: string;
-  // 被颁发当前可验证声明的目标did
-  did?: string;
-  // 如果status 是 “-1”，则说明当前可验证声明颁发失败，此字段说明失败原因。
-  message?: string;
+// Did服务类型描述结构体
+export class DidServiceType extends $tea.Model {
+  // 枚举类型，描述访问服务的方式
+  accessMode?: string;
+  // 对服务的文字描述，<1000个字符
+  description?: string;
+  // 服务类型创建者did
+  did: string;
+  // { "item1":"", "item2":"",...
+  serviceInput?: string;
+  // 返回值类型描述，json形式
+  serviceOutput?: string;
+  // 自定义服务类型，字符数16～32个
+  serviceType: string;
   static names(): { [key: string]: string } {
     return {
-      vcId: 'vc_id',
-      vcContent: 'vc_content',
-      status: 'status',
+      accessMode: 'access_mode',
+      description: 'description',
       did: 'did',
-      message: 'message',
+      serviceInput: 'service_input',
+      serviceOutput: 'service_output',
+      serviceType: 'service_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      vcId: 'string',
-      vcContent: 'string',
-      status: 'string',
+      accessMode: 'string',
+      description: 'string',
       did: 'string',
-      message: 'string',
+      serviceInput: 'string',
+      serviceOutput: 'string',
+      serviceType: 'string',
     };
   }
 
@@ -6328,23 +5489,1120 @@ export class VcContent extends $tea.Model {
   }
 }
 
-// 分布式数字身份信息
-export class DidInfo extends $tea.Model {
-  // 分布式数字身份id
-  did: string;
-  // 分布式数字身份对应的用户名称
-  name: string;
+// 用户密钥信息
+export class UserBizKeyInfo extends $tea.Model {
+  // 拥有该密钥的用户列表
+  grantedUser: string[];
+  // 密钥名称
+  keyName: string;
   static names(): { [key: string]: string } {
     return {
-      did: 'did',
-      name: 'name',
+      grantedUser: 'granted_user',
+      keyName: 'key_name',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      did: 'string',
+      grantedUser: { 'type': 'array', 'itemType': 'string' },
+      keyName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 证书详情
+export class BareClaim extends $tea.Model {
+  // 下面的内容由调用者自己定义，建议只存放必要的声明信息，不要放置敏感数据
+  claim: string;
+  // 证书类型
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      claim: 'claim',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      claim: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 合约链配置信息结果，内部包含一个列表，列举多个合约链的配置信息
+export class ContractIdeConfigResult extends $tea.Model {
+  // 合约链的配置信息，可包含多个合约链的配置
+  contractIdeConfigList: ContractIdeConfig[];
+  static names(): { [key: string]: string } {
+    return {
+      contractIdeConfigList: 'contract_ide_config_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      contractIdeConfigList: { 'type': 'array', 'itemType': ContractIdeConfig },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 合约信息
+export class ContractInfo extends $tea.Model {
+  // 合约地址
+  contract?: string;
+  // 部署hash
+  hash?: string;
+  // 合约部署时间
+  timestamp?: number;
+  static names(): { [key: string]: string } {
+    return {
+      contract: 'contract',
+      hash: 'hash',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      contract: 'string',
+      hash: 'string',
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 创建VC参数
+export class AddVC extends $tea.Model {
+  // vc原文hash
+  contentHash: string;
+  // issuer后缀的hash值
+  issuerHash: string;
+  // valid or invalid
+  status: string;
+  // 接收者后缀hash值
+  subjectHash: string;
+  // 可验证声明id
+  vcId: string;
+  static names(): { [key: string]: string } {
+    return {
+      contentHash: 'content_hash',
+      issuerHash: 'issuer_hash',
+      status: 'status',
+      subjectHash: 'subject_hash',
+      vcId: 'vc_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      contentHash: 'string',
+      issuerHash: 'string',
+      status: 'string',
+      subjectHash: 'string',
+      vcId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 带单位的值
+export class ValueUnitPair extends $tea.Model {
+  // 数值
+  value: number;
+  // 单位
+  unit: string;
+  static names(): { [key: string]: string } {
+    return {
+      value: 'value',
+      unit: 'unit',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      value: 'number',
+      unit: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云区块链小程序交易二维码生成
+export class ALiYunChainMiniAppCodeCreate extends $tea.Model {
+  // ant_chain_id
+  antChainId?: string;
+  // transaction_hash
+  transactionHash?: string;
+  // base64_q_r_code_p_n_g
+  base64QRCodePNG?: string;
+  // q_r_code_content
+  qRCodeContent?: string;
+  static names(): { [key: string]: string } {
+    return {
+      antChainId: 'ant_chain_id',
+      transactionHash: 'transaction_hash',
+      base64QRCodePNG: 'base64_q_r_code_p_n_g',
+      qRCodeContent: 'q_r_code_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      antChainId: 'string',
+      transactionHash: 'string',
+      base64QRCodePNG: 'string',
+      qRCodeContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 描述分布的结构，目前主要包含date和value值
+export class Curve extends $tea.Model {
+  // 分布以day为单位的日期
+  date: string;
+  // 以day为单位的一天凭证颁发的数据量统计。
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      date: 'date',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      date: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 存证元数据
+export class NotaryMetaParam extends $tea.Model {
+  // 描述本条存证在存证事务中的阶段，用户可自行维护
+  phase: string;
+  // 扩展字段
+  properties?: string;
+  // 全局唯一的存证事务ID
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      phase: 'phase',
+      properties: 'properties',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      phase: 'string',
+      properties: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用于内部业务统计的信息，外部商户请忽略
+export class BizInfo extends $tea.Model {
+  // BPWZPFCN
+  clientTenent?: string;
+  // 业务代码
+  code?: string;
+  static names(): { [key: string]: string } {
+    return {
+      clientTenent: 'client_tenent',
+      code: 'code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      clientTenent: 'string',
+      code: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数字资产管理平台版通交易信息
+export class EPTradeInfo extends $tea.Model {
+  // 版通代码
+  epCode: string;
+  // 版通交易号
+  txCode: string;
+  // 卖方账户
+  txFrom: string;
+  // 交易时间戳
+  txTime: number;
+  // 买方账户
+  txTo: string;
+  // 交易数量
+  txValue: number;
+  static names(): { [key: string]: string } {
+    return {
+      epCode: 'ep_code',
+      txCode: 'tx_code',
+      txFrom: 'tx_from',
+      txTime: 'tx_time',
+      txTo: 'tx_to',
+      txValue: 'tx_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      epCode: 'string',
+      txCode: 'string',
+      txFrom: 'string',
+      txTime: 'number',
+      txTo: 'string',
+      txValue: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 托管数据库ManagedMQDTO结构体
+export class ManagedMQDTOStructBody extends $tea.Model {
+  // id
+  id: string;
+  // 实例
+  instance?: string;
+  // 主题
+  topic?: string;
+  // 类型
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      instance: 'instance',
+      topic: 'topic',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      instance: 'string',
+      topic: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 证书批量颁发进度
+export class CertIssueProgressDTO extends $tea.Model {
+  // 证书实例id
+  bizId: string;
+  // 存证ID，如果颁发失败，此值为null
+  vcId: string;
+  // 因校验异常停止任务（不会继续校验文件内容和颁发证书） -3
+  // 因校验内容不正确停止颁发任务(会校验完所有的行但不执行颁发) -2
+  // 已手动取消（可重试状态下手动取消任务，取消状态下可以启动新的颁发任务） -1
+  // 可重试 0
+  // 执行中（初始状态） 1
+  // 已成功完成 2
+  status: number;
+  // is_error=true时的错误描述
+  errorMessage: string;
+  // 证书的字段标题列表
+  titles: string[];
+  // 颁发进度百分比
+  progressPercent: number;
+  // 当前批次数据总行数（不含标题）
+  totalNum: string;
+  // 颁发证书当前执行的阶段，VERIFY：校验文件中，ISSUE：颁发中
+  curTaskType: string;
+  // 颁发开始的时间戳
+  startTimeMillis: number;
+  // 颁发结束的时间戳
+  endTimeMillis: number;
+  // 校验错误描述列表
+  errorDetails: TemplateInstanceErrorDetailDTO[];
+  static names(): { [key: string]: string } {
+    return {
+      bizId: 'biz_id',
+      vcId: 'vc_id',
+      status: 'status',
+      errorMessage: 'error_message',
+      titles: 'titles',
+      progressPercent: 'progress_percent',
+      totalNum: 'total_num',
+      curTaskType: 'cur_task_type',
+      startTimeMillis: 'start_time_millis',
+      endTimeMillis: 'end_time_millis',
+      errorDetails: 'error_details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizId: 'string',
+      vcId: 'string',
+      status: 'number',
+      errorMessage: 'string',
+      titles: { 'type': 'array', 'itemType': 'string' },
+      progressPercent: 'number',
+      totalNum: 'string',
+      curTaskType: 'string',
+      startTimeMillis: 'number',
+      endTimeMillis: 'number',
+      errorDetails: { 'type': 'array', 'itemType': TemplateInstanceErrorDetailDTO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 可信存证身份识别信息
+export class Identity extends $tea.Model {
+  // 经办人姓名，企业认证必选
+  agent?: string;
+  // 经办人身份证
+  agentId?: string;
+  // 用户名称
+  certName: string;
+  // 证件号
+  certNo: string;
+  // 证件类型，个人只支持身份证IDENTITY_CARD，企业支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号
+  certType: string;
+  // 法人姓名，企业认证必选
+  legalPerson?: string;
+  // 法人身份证,  企业认证必选
+  legalPersonId?: string;
+  // 用户手机号码
+  mobileNo?: string;
+  // 扩展属性
+  properties?: string;
+  // 用户类型，PERSON或者ENTERPRISE
+  userType: string;
+  static names(): { [key: string]: string } {
+    return {
+      agent: 'agent',
+      agentId: 'agent_id',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      certType: 'cert_type',
+      legalPerson: 'legal_person',
+      legalPersonId: 'legal_person_id',
+      mobileNo: 'mobile_no',
+      properties: 'properties',
+      userType: 'user_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      agent: 'string',
+      agentId: 'string',
+      certName: 'string',
+      certNo: 'string',
+      certType: 'string',
+      legalPerson: 'string',
+      legalPersonId: 'string',
+      mobileNo: 'string',
+      properties: 'string',
+      userType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 存证信息集合
+export class NotaryTransaction extends $tea.Model {
+  // 如果存证类型为text, 则为存证内容
+  // 如果存证类型为file,则为存证文件临时下载地址
+  content: string;
+  // 链上存证哈希
+  transactionHash: string;
+  // 存证类型
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      content: 'content',
+      transactionHash: 'transaction_hash',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      content: 'string',
+      transactionHash: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 营销分销平台推广人账户信息
+export class FundInfo extends $tea.Model {
+  // 可提现余额
+  balance: string;
+  // 待结算额度
+  settleQuota: string;
+  // 商户id
+  shopId: string;
+  static names(): { [key: string]: string } {
+    return {
+      balance: 'balance',
+      settleQuota: 'settle_quota',
+      shopId: 'shop_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      balance: 'string',
+      settleQuota: 'string',
+      shopId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 蚂蚁链最新交易信息
+export class BlockchainBrowserLatestTransaction extends $tea.Model {
+  // create_time
+  createTime: number;
+  // from
+  from: string;
+  // to
+  to: string;
+  // hash
+  hash: string;
+  // transactionV10Type
+  transactionType: string;
+  static names(): { [key: string]: string } {
+    return {
+      createTime: 'create_time',
+      from: 'from',
+      to: 'to',
+      hash: 'hash',
+      transactionType: 'transaction_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      createTime: 'number',
+      from: 'string',
+      to: 'string',
+      hash: 'string',
+      transactionType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// VC Repo用户注册结构体
+export class VcUserRegisterPayload extends $tea.Model {
+  // 用户did对应的授权公钥
+  publicKey?: string;
+  // 业务区块连的bizid
+  vcChannel?: string;
+  static names(): { [key: string]: string } {
+    return {
+      publicKey: 'public_key',
+      vcChannel: 'vc_channel',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      publicKey: 'string',
+      vcChannel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云请求结果
+export class ALiYunHandleBabelMns extends $tea.Model {
+  // message
+  message?: string;
+  // request_id
+  requestId?: string;
+  // success
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      message: 'message',
+      requestId: 'request_id',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      message: 'string',
+      requestId: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 溯源信息中的一项记录。
+export class Item extends $tea.Model {
+  // 溯源项的具体内容
+  desc: string;
+  // 扩展信息 ，json格式
+  extInfo: string;
+  // 溯源项的键值
+  key: string;
+  // 溯源项的中文标题 
+  title: string;
+  // 内容类型 
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      desc: 'desc',
+      extInfo: 'ext_info',
+      key: 'key',
+      title: 'title',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      desc: 'string',
+      extInfo: 'string',
+      key: 'string',
+      title: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// C3S可信计算服务TAPP应用信息
+export class TappInfo extends $tea.Model {
+  // C3S可信计算TAPP应用标识
+  taapId: string;
+  // C3S可信计算TAPP版本
+  tappVersion: number;
+  static names(): { [key: string]: string } {
+    return {
+      taapId: 'taap_id',
+      tappVersion: 'tapp_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      taapId: 'string',
+      tappVersion: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// BaaS平台联盟信息
+export class BaasUnionInfo extends $tea.Model {
+  // 联盟名称
+  unionName: string;
+  // 描述
+  unionDescription: string;
+  // 联系人
+  unionUser: string;
+  // 联盟联系人手机号码
+  unionUserCell: string;
+  // 联盟联系人邮箱
+  unionUserMail: string;
+  static names(): { [key: string]: string } {
+    return {
+      unionName: 'union_name',
+      unionDescription: 'union_description',
+      unionUser: 'union_user',
+      unionUserCell: 'union_user_cell',
+      unionUserMail: 'union_user_mail',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      unionName: 'string',
+      unionDescription: 'string',
+      unionUser: 'string',
+      unionUserCell: 'string',
+      unionUserMail: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 版通历史发行记录信息
+export class EPIssueHisInfo extends $tea.Model {
+  // 版通发行日期时间戳
+  issueDate: number;
+  // 版通线下发行量
+  offlineIssueAmount: number;
+  // 版通线上发行量
+  onlineIssueAmount: number;
+  // 版通自持发行量
+  selfIssueAmount: number;
+  static names(): { [key: string]: string } {
+    return {
+      issueDate: 'issue_date',
+      offlineIssueAmount: 'offline_issue_amount',
+      onlineIssueAmount: 'online_issue_amount',
+      selfIssueAmount: 'self_issue_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      issueDate: 'number',
+      offlineIssueAmount: 'number',
+      onlineIssueAmount: 'number',
+      selfIssueAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// blockchain交易结构体
+export class TransactionPo extends $tea.Model {
+  // 交易所在块hash
+  blockHash?: string;
+  // 交易来源
+  from?: string;
+  // gas消耗
+  gasUsed?: number;
+  // 交易hash
+  hash?: string;
+  // 交易所在块 块高
+  height?: number;
+  // 交易返回结果
+  result?: string;
+  // 交易时间
+  timestamp?: number;
+  // 交易地址
+  to?: string;
+  // 交易类型 同SDK
+  txType?: number;
+  // 转账额度
+  value?: number;
+  static names(): { [key: string]: string } {
+    return {
+      blockHash: 'block_hash',
+      from: 'from',
+      gasUsed: 'gas_used',
+      hash: 'hash',
+      height: 'height',
+      result: 'result',
+      timestamp: 'timestamp',
+      to: 'to',
+      txType: 'tx_type',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      blockHash: 'string',
+      from: 'string',
+      gasUsed: 'number',
+      hash: 'string',
+      height: 'number',
+      result: 'string',
+      timestamp: 'number',
+      to: 'string',
+      txType: 'number',
+      value: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据资产分页查询
+export class ListDataEntityResult extends $tea.Model {
+  // 数据模型信息
+  dataModel: DataModel;
+  // 数据资产信息
+  dataEntity: DataEntity;
+  static names(): { [key: string]: string } {
+    return {
+      dataModel: 'data_model',
+      dataEntity: 'data_entity',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dataModel: DataModel,
+      dataEntity: DataEntity,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// VC链上传输结果
+export class VcTransmitResult extends $tea.Model {
+  // 成功或者失败
+  isSuccess: boolean;
+  // 失败信息
+  message?: string;
+  // 验证verifier did
+  targetVerifier: string;
+  // 交易hash
+  txHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      isSuccess: 'is_success',
+      message: 'message',
+      targetVerifier: 'target_verifier',
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      isSuccess: 'boolean',
+      message: 'string',
+      targetVerifier: 'string',
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 可信时间信息结构
+export class TsrResponse extends $tea.Model {
+  // hash后的信息
+  hashedMessage: string;
+  // 哈希算法
+  hashAlgorithm: string;
+  // 时间
+  ts: string;
+  static names(): { [key: string]: string } {
+    return {
+      hashedMessage: 'hashed_message',
+      hashAlgorithm: 'hash_algorithm',
+      ts: 'ts',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      hashedMessage: 'string',
+      hashAlgorithm: 'string',
+      ts: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云数据导出服务TriggerDTO结构体
+export class TriggerDTOStructBody extends $tea.Model {
+  // 名称
+  name?: string;
+  // 类型
+  type?: string;
+  // 源
+  source?: string;
+  // 创建时间
+  createTime?: string;
+  // 错误信息
+  errorMessage?: string;
+  // 状态
+  status?: string;
+  // option（map结构，由于金融云无map接口所以通过string类型传输json格式）
+  option?: string;
+  // checkpoint类
+  checkpoint?: CheckPointStructBody;
+  // 待处理的错误事件总数
+  pendingErrorLogs?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      type: 'type',
+      source: 'source',
+      createTime: 'create_time',
+      errorMessage: 'error_message',
+      status: 'status',
+      option: 'option',
+      checkpoint: 'checkpoint',
+      pendingErrorLogs: 'pending_error_logs',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
       name: 'string',
+      type: 'string',
+      source: 'string',
+      createTime: 'string',
+      errorMessage: 'string',
+      status: 'string',
+      option: 'string',
+      checkpoint: CheckPointStructBody,
+      pendingErrorLogs: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// identity parameter
+export class IdentityParam extends $tea.Model {
+  // 经办人姓名
+  agent?: string;
+  // 经办人身份证号
+  agentId?: string;
+  // 用户的姓名
+  certName: string;
+  // 用户的身份证号
+  certNo: string;
+  // 用户证件类型，目前只支持IDENTITY_CARD
+  certType: string;
+  // 法人姓名，企业认证必选
+  legalPerson?: string;
+  // 法人身份证，企业认证必选
+  legalPersonId?: string;
+  // 手机号码
+  mobileNo?: string;
+  // 扩展属性字段
+  properties?: string;
+  // 用户类型，默认为PERSON
+  userType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      agent: 'agent',
+      agentId: 'agent_id',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      certType: 'cert_type',
+      legalPerson: 'legal_person',
+      legalPersonId: 'legal_person_id',
+      mobileNo: 'mobile_no',
+      properties: 'properties',
+      userType: 'user_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      agent: 'string',
+      agentId: 'string',
+      certName: 'string',
+      certNo: 'string',
+      certType: 'string',
+      legalPerson: 'string',
+      legalPersonId: 'string',
+      mobileNo: 'string',
+      properties: 'string',
+      userType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 阿里云链信息
+export class ALiYunChainInfo extends $tea.Model {
+  // abnormal_nodes
+  abnormalNodes?: number;
+  // ant_chain_id
+  antChainId?: string;
+  // block_height
+  blockHeight?: number;
+  // create_time
+  createTime?: number;
+  // is_role
+  isRole?: boolean;
+  // node_number
+  nodeNumber?: number;
+  // normal
+  normal?: boolean;
+  // transaction_sum
+  transactionSum?: number;
+  // Version
+  version?: string;
+  // node_infos
+  nodeInfos?: ALiYunChainNodeInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      abnormalNodes: 'abnormal_nodes',
+      antChainId: 'ant_chain_id',
+      blockHeight: 'block_height',
+      createTime: 'create_time',
+      isRole: 'is_role',
+      nodeNumber: 'node_number',
+      normal: 'normal',
+      transactionSum: 'transaction_sum',
+      version: 'version',
+      nodeInfos: 'node_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      abnormalNodes: 'number',
+      antChainId: 'string',
+      blockHeight: 'number',
+      createTime: 'number',
+      isRole: 'boolean',
+      nodeNumber: 'number',
+      normal: 'boolean',
+      transactionSum: 'number',
+      version: 'string',
+      nodeInfos: { 'type': 'array', 'itemType': ALiYunChainNodeInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 创建did doc时的具体操作
+export class DidAddDoc extends $tea.Model {
+  // did doc content
+  doc: string;
+  static names(): { [key: string]: string } {
+    return {
+      doc: 'doc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      doc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 证书模板详情类
+export class TemplateInfoDTO extends $tea.Model {
+  // 主键
+  id: number;
+  // 模板类别：马拉松类、滑雪类
+  category: string;
+  // 模板内容， json格式文本
+  claimTemplate: string;
+  // 创建时间
+  gmtCreate: string;
+  // 修改时间
+  gmtModified: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      category: 'category',
+      claimTemplate: 'claim_template',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'number',
+      category: 'string',
+      claimTemplate: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
     };
   }
 
@@ -14531,6 +14789,437 @@ export class UpdateChainFailureLogResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryChainManagedMqRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链id
+  antChainId: string;
+  // 联盟id
+  consortiumId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      antChainId: 'ant_chain_id',
+      consortiumId: 'consortium_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      antChainId: 'string',
+      consortiumId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryChainManagedMqResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // ManagedMQDTO接口体列表
+  result?: ManagedMQDTOStructBody[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: { 'type': 'array', 'itemType': ManagedMQDTOStructBody },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitChainManagedMqRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链id
+  antChainId: string;
+  // 联盟id
+  consortiumId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      antChainId: 'ant_chain_id',
+      consortiumId: 'consortium_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      antChainId: 'string',
+      consortiumId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitChainManagedMqResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 初始化托管 MQ 实例
+  result?: ManagedMQDTOStructBody;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: ManagedMQDTOStructBody,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryChainUseDeclarationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryChainUseDeclarationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户申报用途类
+  result?: ChainPurpose[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: { 'type': 'array', 'itemType': ChainPurpose },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyChainUseDeclarationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用途KEY
+  chainPurposeKey: string;
+  // 选择其他类型时，用户输入（必填）
+  chainPurposeExtend?: string;
+  // 简短说明用途
+  // 
+  // 选择其他类型时，用户输入
+  chainPurposeItem?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      chainPurposeKey: 'chain_purpose_key',
+      chainPurposeExtend: 'chain_purpose_extend',
+      chainPurposeItem: 'chain_purpose_item',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      chainPurposeKey: 'string',
+      chainPurposeExtend: 'string',
+      chainPurposeItem: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyChainUseDeclarationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 蚂蚁链申报用途接口体
+  result?: AntChainPurposeResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: AntChainPurposeResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryChainUseListRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryChainUseListResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 蚂蚁链用途申报结构体
+  result?: AntChainPurposeResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: AntChainPurposeResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckChainSensitiveWordsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用途KEY
+  chainPurposeKey: string;
+  // 敏感词检查条目内容
+  chainPurposeItem: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      chainPurposeKey: 'chain_purpose_key',
+      chainPurposeItem: 'chain_purpose_item',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      chainPurposeKey: 'string',
+      chainPurposeItem: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckChainSensitiveWordsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回敏感词校验结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateChainAccountAntkmsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链账户名称
+  account: string;
+  // 链ID
+  antChainId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      account: 'account',
+      antChainId: 'ant_chain_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      account: 'string',
+      antChainId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateChainAccountAntkmsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 阿里云托管账户返回值
+  result?: ALiYunChainKmsAccount;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: ALiYunChainKmsAccount,
     };
   }
 
@@ -24824,6 +25513,138 @@ export class GetContractBytecodeUrlResponse extends $tea.Model {
   }
 }
 
+export class UploadDataFileBatchqueryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 上传文件md5值
+  fileMd5: string;
+  // 数据集id
+  dataSetId: string;
+  // 文件id
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileMd5: 'file_md5',
+      dataSetId: 'data_set_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileMd5: 'string',
+      dataSetId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadDataFileBatchqueryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 离线任务查询id，批量任务结束后可通过该字段查询结果
+  queryId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      queryId: 'query_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      queryId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDataResultBatchqueryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 上传待查询数据集文件后得到的查询id，在此接口进行结果查询
+  queryId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      queryId: 'query_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      queryId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDataResultBatchqueryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果文件临时链接
+  filePath?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      filePath: 'file_path',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      filePath: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateDataauthorizationParticipantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -25195,6 +26016,8 @@ export class CreateDataauthorizationDataEntityRequest extends $tea.Model {
   ownerId: string;
   // 审批模版
   processTemplate?: ProcessNode[];
+  // DID doc里的公开信息
+  publicInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -25207,6 +26030,7 @@ export class CreateDataauthorizationDataEntityRequest extends $tea.Model {
       name: 'name',
       ownerId: 'owner_id',
       processTemplate: 'process_template',
+      publicInfo: 'public_info',
     };
   }
 
@@ -25222,6 +26046,7 @@ export class CreateDataauthorizationDataEntityRequest extends $tea.Model {
       name: 'string',
       ownerId: 'string',
       processTemplate: { 'type': 'array', 'itemType': ProcessNode },
+      publicInfo: 'string',
     };
   }
 
@@ -26111,6 +26936,8 @@ export class UpdateDataauthorizationDataEntityRequest extends $tea.Model {
   ownerId: string;
   // 流程模版
   processTemplate?: ProcessNode[];
+  // DID doc里的公开信息
+  publicInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -26122,6 +26949,7 @@ export class UpdateDataauthorizationDataEntityRequest extends $tea.Model {
       name: 'name',
       ownerId: 'owner_id',
       processTemplate: 'process_template',
+      publicInfo: 'public_info',
     };
   }
 
@@ -26136,6 +26964,7 @@ export class UpdateDataauthorizationDataEntityRequest extends $tea.Model {
       name: 'string',
       ownerId: 'string',
       processTemplate: { 'type': 'array', 'itemType': ProcessNode },
+      publicInfo: 'string',
     };
   }
 
@@ -27819,6 +28648,142 @@ export class ListDataauthorizationAuthorityCertResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: { 'type': 'array', 'itemType': AuthorizationDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveDataauthorizationDepositDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 存证内容
+  txData: string;
+  // 发送数据上链的DID
+  senderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      txData: 'tx_data',
+      senderId: 'sender_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      txData: 'string',
+      senderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveDataauthorizationDepositDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 交易HASH
+  txHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartDataauthorizationSyncDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 枚举值：
+  // DATAENTITY：数据目录
+  // PARTICIPANT：参与方
+  type: string;
+  // 接收同步数据的DID
+  receiverId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      receiverId: 'receiver_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      receiverId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartDataauthorizationSyncDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 待同步的数据总量
+  total?: number;
+  // 最后一条数据的创建时间
+  lastCreateTime?: number;
+  // 任务ID
+  taskId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      total: 'total',
+      lastCreateTime: 'last_create_time',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      total: 'number',
+      lastCreateTime: 'number',
+      taskId: 'string',
     };
   }
 
@@ -33100,6 +34065,575 @@ export class CreateAuthCertClaimurlResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       miniUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAuthClaimRecentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务类型
+  bizType: string;
+  // C类用户支付宝2088id
+  uid: string;
+  // 被授权机构did
+  subject?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizType: 'biz_type',
+      uid: 'uid',
+      subject: 'subject',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizType: 'string',
+      uid: 'string',
+      subject: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAuthClaimRecentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 声明的 id，status 为 “1” 时候非空
+  vcId?: string;
+  // 可验证声明完成内容， status 为 “1” 时候非空
+  vcContent?: string;
+  // 业务类型
+  bizType?: string;
+  // vc状态 0:未授权 1:已授权 2: 拒绝授权 3: 授权已撤销
+  status?: number;
+  // 授权是否可撤销
+  revocable?: boolean;
+  // 过期时间
+  expire?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      vcId: 'vc_id',
+      vcContent: 'vc_content',
+      bizType: 'biz_type',
+      status: 'status',
+      revocable: 'revocable',
+      expire: 'expire',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      vcId: 'string',
+      vcContent: 'string',
+      bizType: 'string',
+      status: 'number',
+      revocable: 'boolean',
+      expire: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAuthContractRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 地区
+  regionId?: string;
+  // ant_chain_id
+  antChainId: string;
+  // transaction
+  transaction: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      regionId: 'region_id',
+      antChainId: 'ant_chain_id',
+      transaction: 'transaction',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      regionId: 'string',
+      antChainId: 'string',
+      transaction: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAuthContractResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // result
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthSceneAuthstatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 支付宝会员id
+  userId: string;
+  // 当前场景id
+  sceneId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      sceneId: 'scene_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      sceneId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthSceneAuthstatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // Authorized 已授权
+  // Unauthorized 未授权
+  authStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      authStatus: 'auth_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      authStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAuthContractClaimRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 长度不超过64字符的业务流水唯一ID，用于对一个业务流的追踪，与请求中的biz_id一致方便业务方使用。
+  bizId: string;
+  // 业务类型
+  bizType: string;
+  // 合约名称
+  contractName: string;
+  // 合约方法名称
+  functionName: string;
+  // 合约入参类型，和 arguments对应， 取值类型： DOUBLE，STRING，INTEGER，LONG，FLOAT； 默认为String
+  arguments?: string[];
+  // 保留参数，选填，目前暂未用到，合约入参类型，和 arguments对应 取值类型： DOUBLE，STRING，INTEGER，LONG，FLOAT；
+  types?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      bizType: 'biz_type',
+      contractName: 'contract_name',
+      functionName: 'function_name',
+      arguments: 'arguments',
+      types: 'types',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      bizType: 'string',
+      contractName: 'string',
+      functionName: 'string',
+      arguments: { 'type': 'array', 'itemType': 'string' },
+      types: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAuthContractClaimResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 场景码
+  bizId?: string;
+  // 业务场景码类型
+  bizType?: string;
+  // 合约执行结果
+  resultData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+      bizType: 'biz_type',
+      resultData: 'result_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+      bizType: 'string',
+      resultData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAuthCertDetailpageurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 证书实例ID
+  instanceId: string;
+  // 用户领取条件信息, JSON结构，信息同颁发证书时使用的领取条件
+  userInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      instanceId: 'instance_id',
+      userInfo: 'user_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      instanceId: 'string',
+      userInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAuthCertDetailpageurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // H5页面url
+  resultData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultData: 'result_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SignAuthAgreementUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户id
+  userId: string;
+  // 协议id
+  agreementId: string;
+  // 签约时间
+  signDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      agreementId: 'agreement_id',
+      signDate: 'sign_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      agreementId: 'string',
+      signDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SignAuthAgreementUserResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindAuthPoapRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 长度不超过64字符的业务流水唯一id，可作幂等处理
+  bizId: string;
+  // 徽章元数据ID
+  poapMetaId: string;
+  // 支付宝UID，2088开头
+  userId?: string;
+  // 用户真实姓名
+  userName?: string;
+  // 用户手机号
+  userCertNo?: string;
+  // 用户手机号
+  userMobile?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      poapMetaId: 'poap_meta_id',
+      userId: 'user_id',
+      userName: 'user_name',
+      userCertNo: 'user_cert_no',
+      userMobile: 'user_mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      poapMetaId: 'string',
+      userId: 'string',
+      userName: 'string',
+      userCertNo: 'string',
+      userMobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindAuthPoapResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 徽章ID
+  poapId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      poapId: 'poap_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      poapId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthPoapRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // POAP徽章ID
+  poapId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      poapId: 'poap_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      poapId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthPoapResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 徽章信息信息
+  poapInfo?: PoapInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      poapInfo: 'poap_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      poapInfo: PoapInfo,
     };
   }
 
@@ -38599,6 +40133,8 @@ export class CreateDidPersonFacevrfminiappRequest extends $tea.Model {
   returnUrl: string;
   // DID未来创建锚定的用户身份唯一关联，如果不设置此参数则使用二要素拼接后的哈希值 SHA256("张三"+"210282*****X") 来进行关联创建DID，并且支持幂等。
   uid?: string;
+  // 刷脸类型，目前只支持FACE_SDK、FACE
+  faceType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -38611,6 +40147,7 @@ export class CreateDidPersonFacevrfminiappRequest extends $tea.Model {
       certType: 'cert_type',
       returnUrl: 'return_url',
       uid: 'uid',
+      faceType: 'face_type',
     };
   }
 
@@ -38626,6 +40163,7 @@ export class CreateDidPersonFacevrfminiappRequest extends $tea.Model {
       certType: 'string',
       returnUrl: 'string',
       uid: 'string',
+      faceType: 'string',
     };
   }
 
@@ -39291,6 +40829,8 @@ export class CreateDidPersonFacevrfminiappnewocpRequest extends $tea.Model {
   returnUrl: string;
   // DID未来创建锚定的用户身份唯一关联，如果不设置此参数则使用二要素拼接后的哈希值 SHA256("张三"+"210282*****X") 来进行关联创建DID，并且支持幂等。
   uid?: string;
+  // 刷脸类型，目前只支持FACE_SDK、FACE，默认FACE_SDK
+  faceType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -39303,6 +40843,7 @@ export class CreateDidPersonFacevrfminiappnewocpRequest extends $tea.Model {
       certType: 'cert_type',
       returnUrl: 'return_url',
       uid: 'uid',
+      faceType: 'face_type',
     };
   }
 
@@ -39318,6 +40859,7 @@ export class CreateDidPersonFacevrfminiappnewocpRequest extends $tea.Model {
       certType: 'string',
       returnUrl: 'string',
       uid: 'string',
+      faceType: 'string',
     };
   }
 
@@ -39354,6 +40896,260 @@ export class CreateDidPersonFacevrfminiappnewocpResponse extends $tea.Model {
       resultMsg: 'string',
       certifyId: 'string',
       certifyUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartDidCertificationThreemetanewocpRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 身份证号码
+  certNo: string;
+  // 证书的subject did，不给此参数时候三要素验证不颁发vc
+  did?: string;
+  // 手机号码
+  mobile: string;
+  // 姓名
+  name: string;
+  // 场景码，找dis工作人员进行分配
+  bizCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certNo: 'cert_no',
+      did: 'did',
+      mobile: 'mobile',
+      name: 'name',
+      bizCode: 'biz_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certNo: 'string',
+      did: 'string',
+      mobile: 'string',
+      name: 'string',
+      bizCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartDidCertificationThreemetanewocpResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // vc id，可通过该字符串来查询vc具体内容
+  vcId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      vcId: 'vc_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      vcId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportDidAldabaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 待迁移did
+  did: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      did: 'did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      did: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportDidAldabaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDidDtxPersonRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 唯一号，比如可以是hash(证件类型+企业营业执照号) 计算出来的唯一值等
+  ownerUid: string;
+  // 场景码，找dis工作人员进行分配
+  // 
+  bizCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      ownerUid: 'owner_uid',
+      bizCode: 'biz_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      ownerUid: 'string',
+      bizCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDidDtxPersonResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 生成的did字符串
+  // 
+  did?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      did: 'did',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      did: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddDidDtxPkRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 待操作的did
+  did: string;
+  // 待添加公钥
+  publicKey: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      did: 'did',
+      publicKey: 'public_key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      did: 'string',
+      publicKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddDidDtxPkResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -47104,6 +48900,361 @@ export class StartMydidDidThreeelementResponse extends $tea.Model {
   }
 }
 
+export class ListWaasDidValidpublickeysRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户数字身份ID
+  did?: string;
+  // 姓名
+  name?: string;
+  // 证件号码
+  certNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      did: 'did',
+      name: 'name',
+      certNo: 'cert_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      did: 'string',
+      name: 'string',
+      certNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListWaasDidValidpublickeysResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户数字身份ID
+  did?: string;
+  // 公钥信息列表
+  validPubKeys?: PublicKeyInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      did: 'did',
+      validPubKeys: 'valid_pub_keys',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      did: 'string',
+      validPubKeys: { 'type': 'array', 'itemType': PublicKeyInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryWaasDidPublickeyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户数字身份ID
+  did: string;
+  // 公钥id
+  keyId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      did: 'did',
+      keyId: 'key_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      did: 'string',
+      keyId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryWaasDidPublickeyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 公钥信息
+  publicKeyInfo?: PublicKeyInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      publicKeyInfo: 'public_key_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      publicKeyInfo: PublicKeyInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterWaasBusinessRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务场景名称
+  bizName: string;
+  // 业务场景公钥
+  publicKey: string;
+  // 业务场景运行dcep合约的链id
+  chainId: string;
+  // 数据资产展示首页
+  indexUrl: string;
+  // 与waas交互地址，waas服务会推送相关消息至该链接
+  interactionUrl: string;
+  // 业务场景描述
+  businessDesc: string;
+  // 扩展字段
+  extension?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizName: 'biz_name',
+      publicKey: 'public_key',
+      chainId: 'chain_id',
+      indexUrl: 'index_url',
+      interactionUrl: 'interaction_url',
+      businessDesc: 'business_desc',
+      extension: 'extension',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizName: 'string',
+      publicKey: 'string',
+      chainId: 'string',
+      indexUrl: 'string',
+      interactionUrl: 'string',
+      businessDesc: 'string',
+      extension: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterWaasBusinessResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // waas生成的对应的业务合作方id
+  businessId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      businessId: 'business_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      businessId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryWaasBusinessTransferbodyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务合作方id
+  businessId: string;
+  // 转账用户的did
+  did: string;
+  // 业务转账id
+  businessOrderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      businessId: 'business_id',
+      did: 'did',
+      businessOrderId: 'business_order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      businessId: 'string',
+      did: 'string',
+      businessOrderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryWaasBusinessTransferbodyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // dcep的data参数，包含用户签名信息
+  chainBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      chainBody: 'chain_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      chainBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyWaasBusinessOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务合作方id
+  businessId: string;
+  // 转账用户的did
+  did: string;
+  // 业务转账订单id
+  businessOrderId: string;
+  // 订单结果
+  result: string;
+  // 结果描述
+  resultMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      businessId: 'business_id',
+      did: 'did',
+      businessOrderId: 'business_order_id',
+      result: 'result',
+      resultMessage: 'result_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      businessId: 'string',
+      did: 'string',
+      businessOrderId: 'string',
+      result: 'string',
+      resultMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyWaasBusinessOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -47305,7 +49456,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.25.70",
+          sdk_version: "1.26.24",
+          _prod_code: "BLOCKCHAIN",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -48705,7 +50858,7 @@ export default class Client {
   }
 
   /**
-   * Description: 阿里云区块链合约执行
+   * Description: 阿里云区块链合约执行接口
    * Summary: 阿里云区块链合约执行
    */
   async execChainContract(request: ExecChainContractRequest): Promise<ExecChainContractResponse> {
@@ -48715,7 +50868,7 @@ export default class Client {
   }
 
   /**
-   * Description: 阿里云区块链合约执行
+   * Description: 阿里云区块链合约执行接口
    * Summary: 阿里云区块链合约执行
    */
   async execChainContractEx(request: ExecChainContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecChainContractResponse> {
@@ -49557,6 +51710,139 @@ export default class Client {
   async updateChainFailureLogEx(request: UpdateChainFailureLogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateChainFailureLogResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateChainFailureLogResponse>(await this.doRequest("1.0", "baas.chain.failure.log.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateChainFailureLogResponse({}));
+  }
+
+  /**
+   * Description: 列出当前用户的托管MQ实例
+   * Summary: 列出当前用户的托管MQ实例
+   */
+  async queryChainManagedMq(request: QueryChainManagedMqRequest): Promise<QueryChainManagedMqResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryChainManagedMqEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 列出当前用户的托管MQ实例
+   * Summary: 列出当前用户的托管MQ实例
+   */
+  async queryChainManagedMqEx(request: QueryChainManagedMqRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryChainManagedMqResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryChainManagedMqResponse>(await this.doRequest("1.0", "baas.chain.managed.mq.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryChainManagedMqResponse({}));
+  }
+
+  /**
+   * Description: 初始化托管 MQ 实例
+   * Summary: 初始化托管 MQ 实例
+   */
+  async initChainManagedMq(request: InitChainManagedMqRequest): Promise<InitChainManagedMqResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initChainManagedMqEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 初始化托管 MQ 实例
+   * Summary: 初始化托管 MQ 实例
+   */
+  async initChainManagedMqEx(request: InitChainManagedMqRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitChainManagedMqResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitChainManagedMqResponse>(await this.doRequest("1.0", "baas.chain.managed.mq.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitChainManagedMqResponse({}));
+  }
+
+  /**
+   * Description: 查询蚂蚁链用途列表接口
+   * Summary: 查询蚂蚁链用途列表
+   */
+  async queryChainUseDeclaration(request: QueryChainUseDeclarationRequest): Promise<QueryChainUseDeclarationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryChainUseDeclarationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询蚂蚁链用途列表接口
+   * Summary: 查询蚂蚁链用途列表
+   */
+  async queryChainUseDeclarationEx(request: QueryChainUseDeclarationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryChainUseDeclarationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryChainUseDeclarationResponse>(await this.doRequest("1.0", "baas.chain.use.declaration.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryChainUseDeclarationResponse({}));
+  }
+
+  /**
+   * Description: 选择蚂蚁链用途列表中的某项，进行提交申报接口
+   * Summary: 选择蚂蚁链用途列表中的某项，进行提交申报
+   */
+  async applyChainUseDeclaration(request: ApplyChainUseDeclarationRequest): Promise<ApplyChainUseDeclarationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyChainUseDeclarationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 选择蚂蚁链用途列表中的某项，进行提交申报接口
+   * Summary: 选择蚂蚁链用途列表中的某项，进行提交申报
+   */
+  async applyChainUseDeclarationEx(request: ApplyChainUseDeclarationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyChainUseDeclarationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyChainUseDeclarationResponse>(await this.doRequest("1.0", "baas.chain.use.declaration.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyChainUseDeclarationResponse({}));
+  }
+
+  /**
+   * Description: 展示用户添加申报的记录接口
+   * Summary: 展示用户添加申报的记录
+   */
+  async queryChainUseList(request: QueryChainUseListRequest): Promise<QueryChainUseListResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryChainUseListEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 展示用户添加申报的记录接口
+   * Summary: 展示用户添加申报的记录
+   */
+  async queryChainUseListEx(request: QueryChainUseListRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryChainUseListResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryChainUseListResponse>(await this.doRequest("1.0", "baas.chain.use.list.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryChainUseListResponse({}));
+  }
+
+  /**
+   * Description: BaaS用途申报敏感词检查接口
+   * Summary: BaaS用途申报敏感词检查
+   */
+  async checkChainSensitiveWords(request: CheckChainSensitiveWordsRequest): Promise<CheckChainSensitiveWordsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkChainSensitiveWordsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: BaaS用途申报敏感词检查接口
+   * Summary: BaaS用途申报敏感词检查
+   */
+  async checkChainSensitiveWordsEx(request: CheckChainSensitiveWordsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckChainSensitiveWordsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckChainSensitiveWordsResponse>(await this.doRequest("1.0", "baas.chain.sensitive.words.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckChainSensitiveWordsResponse({}));
+  }
+
+  /**
+   * Description: 阿里云MyChain创建托管账户
+   * Summary: 阿里云MyChain创建托管账户
+   */
+  async createChainAccountAntkms(request: CreateChainAccountAntkmsRequest): Promise<CreateChainAccountAntkmsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createChainAccountAntkmsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 阿里云MyChain创建托管账户
+   * Summary: 阿里云MyChain创建托管账户
+   */
+  async createChainAccountAntkmsEx(request: CreateChainAccountAntkmsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateChainAccountAntkmsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateChainAccountAntkmsResponse>(await this.doRequest("1.0", "baas.chain.account.antkms.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateChainAccountAntkmsResponse({}));
   }
 
   /**
@@ -51987,6 +54273,65 @@ export default class Client {
   }
 
   /**
+   * Description: 上传批量查询数据文件
+   * Summary: 上传批量查询数据文件
+   */
+  async uploadDataFileBatchquery(request: UploadDataFileBatchqueryRequest): Promise<UploadDataFileBatchqueryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadDataFileBatchqueryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 上传批量查询数据文件
+   * Summary: 上传批量查询数据文件
+   */
+  async uploadDataFileBatchqueryEx(request: UploadDataFileBatchqueryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadDataFileBatchqueryResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "baas.data.file.batchquery.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadDataFileBatchqueryResponse = new UploadDataFileBatchqueryResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadDataFileBatchqueryResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadDataFileBatchqueryResponse>(await this.doRequest("1.0", "baas.data.file.batchquery.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadDataFileBatchqueryResponse({}));
+  }
+
+  /**
+   * Description: 获取查询数据集任务结果
+   * Summary: 获取查询数据集任务结果
+   */
+  async queryDataResultBatchquery(request: QueryDataResultBatchqueryRequest): Promise<QueryDataResultBatchqueryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDataResultBatchqueryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取查询数据集任务结果
+   * Summary: 获取查询数据集任务结果
+   */
+  async queryDataResultBatchqueryEx(request: QueryDataResultBatchqueryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDataResultBatchqueryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDataResultBatchqueryResponse>(await this.doRequest("1.0", "baas.data.result.batchquery.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDataResultBatchqueryResponse({}));
+  }
+
+  /**
    * Description: 数据授权服务创建参与方
    * Summary: 数据授权服务创建参与方
    */
@@ -52763,6 +55108,44 @@ export default class Client {
   async listDataauthorizationAuthorityCertEx(request: ListDataauthorizationAuthorityCertRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListDataauthorizationAuthorityCertResponse> {
     Util.validateModel(request);
     return $tea.cast<ListDataauthorizationAuthorityCertResponse>(await this.doRequest("1.0", "baas.dataauthorization.authority.cert.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListDataauthorizationAuthorityCertResponse({}));
+  }
+
+  /**
+   * Description: 同步存证上链接口
+   * Summary: 同步存证上链
+   */
+  async saveDataauthorizationDepositData(request: SaveDataauthorizationDepositDataRequest): Promise<SaveDataauthorizationDepositDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.saveDataauthorizationDepositDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 同步存证上链接口
+   * Summary: 同步存证上链
+   */
+  async saveDataauthorizationDepositDataEx(request: SaveDataauthorizationDepositDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveDataauthorizationDepositDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SaveDataauthorizationDepositDataResponse>(await this.doRequest("1.0", "baas.dataauthorization.deposit.data.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveDataauthorizationDepositDataResponse({}));
+  }
+
+  /**
+   * Description: 启动全量同步
+   * Summary: 启动全量同步
+   */
+  async startDataauthorizationSyncData(request: StartDataauthorizationSyncDataRequest): Promise<StartDataauthorizationSyncDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startDataauthorizationSyncDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 启动全量同步
+   * Summary: 启动全量同步
+   */
+  async startDataauthorizationSyncDataEx(request: StartDataauthorizationSyncDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartDataauthorizationSyncDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartDataauthorizationSyncDataResponse>(await this.doRequest("1.0", "baas.dataauthorization.sync.data.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartDataauthorizationSyncDataResponse({}));
   }
 
   /**
@@ -54078,6 +56461,158 @@ export default class Client {
   async createAuthCertClaimurlEx(request: CreateAuthCertClaimurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAuthCertClaimurlResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateAuthCertClaimurlResponse>(await this.doRequest("1.0", "baas.auth.cert.claimurl.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAuthCertClaimurlResponse({}));
+  }
+
+  /**
+   * Description: 获取用户已授权的最近存证信息，在理财风测卡场景获取最近的题目答案
+   * Summary: 获取用户已授权的最近存证信息
+   */
+  async getAuthClaimRecent(request: GetAuthClaimRecentRequest): Promise<GetAuthClaimRecentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAuthClaimRecentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取用户已授权的最近存证信息，在理财风测卡场景获取最近的题目答案
+   * Summary: 获取用户已授权的最近存证信息
+   */
+  async getAuthClaimRecentEx(request: GetAuthClaimRecentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAuthClaimRecentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAuthClaimRecentResponse>(await this.doRequest("1.0", "baas.auth.claim.recent.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAuthClaimRecentResponse({}));
+  }
+
+  /**
+   * Description: 新的：baas.auth.contract.claim.exec
+   * Summary: 合约调用_废弃
+   */
+  async execAuthContract(request: ExecAuthContractRequest): Promise<ExecAuthContractResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execAuthContractEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 新的：baas.auth.contract.claim.exec
+   * Summary: 合约调用_废弃
+   */
+  async execAuthContractEx(request: ExecAuthContractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAuthContractResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecAuthContractResponse>(await this.doRequest("1.0", "baas.auth.contract.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAuthContractResponse({}));
+  }
+
+  /**
+   * Description: 查看用户对于某一场景的授权状态
+   * Summary: 查看用户授权状态
+   */
+  async queryAuthSceneAuthstatus(request: QueryAuthSceneAuthstatusRequest): Promise<QueryAuthSceneAuthstatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAuthSceneAuthstatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查看用户对于某一场景的授权状态
+   * Summary: 查看用户授权状态
+   */
+  async queryAuthSceneAuthstatusEx(request: QueryAuthSceneAuthstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthSceneAuthstatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAuthSceneAuthstatusResponse>(await this.doRequest("1.0", "baas.auth.scene.authstatus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthSceneAuthstatusResponse({}));
+  }
+
+  /**
+   * Description: 使用调用方did注册的vc channel链上账户调用指定合约
+   * Summary: 合约调用
+   */
+  async execAuthContractClaim(request: ExecAuthContractClaimRequest): Promise<ExecAuthContractClaimResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execAuthContractClaimEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 使用调用方did注册的vc channel链上账户调用指定合约
+   * Summary: 合约调用
+   */
+  async execAuthContractClaimEx(request: ExecAuthContractClaimRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAuthContractClaimResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecAuthContractClaimResponse>(await this.doRequest("1.0", "baas.auth.contract.claim.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAuthContractClaimResponse({}));
+  }
+
+  /**
+   * Description: B类用户获取证书查验页面二维码的url
+   * Summary: 获取证书查验页面二维码的url
+   */
+  async createAuthCertDetailpageurl(request: CreateAuthCertDetailpageurlRequest): Promise<CreateAuthCertDetailpageurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAuthCertDetailpageurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: B类用户获取证书查验页面二维码的url
+   * Summary: 获取证书查验页面二维码的url
+   */
+  async createAuthCertDetailpageurlEx(request: CreateAuthCertDetailpageurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAuthCertDetailpageurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAuthCertDetailpageurlResponse>(await this.doRequest("1.0", "baas.auth.cert.detailpageurl.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAuthCertDetailpageurlResponse({}));
+  }
+
+  /**
+   * Description: 用户合约签约接口
+   * Summary: 用户合约签约
+   */
+  async signAuthAgreementUser(request: SignAuthAgreementUserRequest): Promise<SignAuthAgreementUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.signAuthAgreementUserEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户合约签约接口
+   * Summary: 用户合约签约
+   */
+  async signAuthAgreementUserEx(request: SignAuthAgreementUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SignAuthAgreementUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SignAuthAgreementUserResponse>(await this.doRequest("1.0", "baas.auth.agreement.user.sign", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SignAuthAgreementUserResponse({}));
+  }
+
+  /**
+   * Description: 给指定用户发放POAP徽章
+   * Summary: 给指定用户发放POAP徽章
+   */
+  async bindAuthPoap(request: BindAuthPoapRequest): Promise<BindAuthPoapResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindAuthPoapEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 给指定用户发放POAP徽章
+   * Summary: 给指定用户发放POAP徽章
+   */
+  async bindAuthPoapEx(request: BindAuthPoapRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindAuthPoapResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindAuthPoapResponse>(await this.doRequest("1.0", "baas.auth.poap.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindAuthPoapResponse({}));
+  }
+
+  /**
+   * Description: 根据ID查询POAP徽章详情
+   * Summary: 查询POAP徽章详情
+   */
+  async queryAuthPoap(request: QueryAuthPoapRequest): Promise<QueryAuthPoapResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAuthPoapEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据ID查询POAP徽章详情
+   * Summary: 查询POAP徽章详情
+   */
+  async queryAuthPoapEx(request: QueryAuthPoapRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthPoapResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAuthPoapResponse>(await this.doRequest("1.0", "baas.auth.poap.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthPoapResponse({}));
   }
 
   /**
@@ -55610,6 +58145,82 @@ export default class Client {
   async createDidPersonFacevrfminiappnewocpEx(request: CreateDidPersonFacevrfminiappnewocpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDidPersonFacevrfminiappnewocpResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateDidPersonFacevrfminiappnewocpResponse>(await this.doRequest("1.0", "baas.did.person.facevrfminiappnewocp.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDidPersonFacevrfminiappnewocpResponse({}));
+  }
+
+  /**
+   * Description: 三要素实名认证（新商品）
+   * Summary: 三要素实名认证
+   */
+  async startDidCertificationThreemetanewocp(request: StartDidCertificationThreemetanewocpRequest): Promise<StartDidCertificationThreemetanewocpResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startDidCertificationThreemetanewocpEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 三要素实名认证（新商品）
+   * Summary: 三要素实名认证
+   */
+  async startDidCertificationThreemetanewocpEx(request: StartDidCertificationThreemetanewocpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartDidCertificationThreemetanewocpResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartDidCertificationThreemetanewocpResponse>(await this.doRequest("1.0", "baas.did.certification.threemetanewocp.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartDidCertificationThreemetanewocpResponse({}));
+  }
+
+  /**
+   * Description: 迁移did至aldaba链
+   * Summary: 迁移did至aldaba链
+   */
+  async importDidAldaba(request: ImportDidAldabaRequest): Promise<ImportDidAldabaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importDidAldabaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 迁移did至aldaba链
+   * Summary: 迁移did至aldaba链
+   */
+  async importDidAldabaEx(request: ImportDidAldabaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportDidAldabaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportDidAldabaResponse>(await this.doRequest("1.0", "baas.did.aldaba.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportDidAldabaResponse({}));
+  }
+
+  /**
+   * Description: 端上密钥生成did，但不doc上链
+   * Summary: 端上密钥生成did
+   */
+  async createDidDtxPerson(request: CreateDidDtxPersonRequest): Promise<CreateDidDtxPersonResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDidDtxPersonEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 端上密钥生成did，但不doc上链
+   * Summary: 端上密钥生成did
+   */
+  async createDidDtxPersonEx(request: CreateDidDtxPersonRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDidDtxPersonResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDidDtxPersonResponse>(await this.doRequest("1.0", "baas.did.dtx.person.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDidDtxPersonResponse({}));
+  }
+
+  /**
+   * Description: 添加端上密钥，并上链
+   * Summary: 添加端上密钥
+   */
+  async addDidDtxPk(request: AddDidDtxPkRequest): Promise<AddDidDtxPkResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addDidDtxPkEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 添加端上密钥，并上链
+   * Summary: 添加端上密钥
+   */
+  async addDidDtxPkEx(request: AddDidDtxPkRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddDidDtxPkResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddDidDtxPkResponse>(await this.doRequest("1.0", "baas.did.dtx.pk.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddDidDtxPkResponse({}));
   }
 
   /**
@@ -57630,6 +60241,101 @@ export default class Client {
   async startMydidDidThreeelementEx(request: StartMydidDidThreeelementRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartMydidDidThreeelementResponse> {
     Util.validateModel(request);
     return $tea.cast<StartMydidDidThreeelementResponse>(await this.doRequest("1.0", "baas.mydid.did.threeelement.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartMydidDidThreeelementResponse({}));
+  }
+
+  /**
+   * Description: 查询用户可用的公钥列表
+   * Summary: 查询用户可用的公钥列表
+   */
+  async listWaasDidValidpublickeys(request: ListWaasDidValidpublickeysRequest): Promise<ListWaasDidValidpublickeysResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listWaasDidValidpublickeysEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询用户可用的公钥列表
+   * Summary: 查询用户可用的公钥列表
+   */
+  async listWaasDidValidpublickeysEx(request: ListWaasDidValidpublickeysRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListWaasDidValidpublickeysResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListWaasDidValidpublickeysResponse>(await this.doRequest("1.0", "baas.waas.did.validpublickeys.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListWaasDidValidpublickeysResponse({}));
+  }
+
+  /**
+   * Description: 查询指定公钥信息
+   * Summary: 查询指定公钥信息
+   */
+  async queryWaasDidPublickey(request: QueryWaasDidPublickeyRequest): Promise<QueryWaasDidPublickeyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryWaasDidPublickeyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询指定公钥信息
+   * Summary: 查询指定公钥信息
+   */
+  async queryWaasDidPublickeyEx(request: QueryWaasDidPublickeyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryWaasDidPublickeyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryWaasDidPublickeyResponse>(await this.doRequest("1.0", "baas.waas.did.publickey.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryWaasDidPublickeyResponse({}));
+  }
+
+  /**
+   * Description: 业务注册waas服务
+   * Summary: 业务注册waas服务
+   */
+  async registerWaasBusiness(request: RegisterWaasBusinessRequest): Promise<RegisterWaasBusinessResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerWaasBusinessEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 业务注册waas服务
+   * Summary: 业务注册waas服务
+   */
+  async registerWaasBusinessEx(request: RegisterWaasBusinessRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterWaasBusinessResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterWaasBusinessResponse>(await this.doRequest("1.0", "baas.waas.business.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterWaasBusinessResponse({}));
+  }
+
+  /**
+   * Description: 为业务合作方提供查询转账时上链信息，里面包含dcep合约传参
+   * Summary: 查询转账上链信息
+   */
+  async queryWaasBusinessTransferbody(request: QueryWaasBusinessTransferbodyRequest): Promise<QueryWaasBusinessTransferbodyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryWaasBusinessTransferbodyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 为业务合作方提供查询转账时上链信息，里面包含dcep合约传参
+   * Summary: 查询转账上链信息
+   */
+  async queryWaasBusinessTransferbodyEx(request: QueryWaasBusinessTransferbodyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryWaasBusinessTransferbodyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryWaasBusinessTransferbodyResponse>(await this.doRequest("1.0", "baas.waas.business.transferbody.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryWaasBusinessTransferbodyResponse({}));
+  }
+
+  /**
+   * Description: 业务合作方通知订单上链情况
+   * Summary: 业务合作方通知订单上链情况
+   */
+  async notifyWaasBusinessOrder(request: NotifyWaasBusinessOrderRequest): Promise<NotifyWaasBusinessOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyWaasBusinessOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 业务合作方通知订单上链情况
+   * Summary: 业务合作方通知订单上链情况
+   */
+  async notifyWaasBusinessOrderEx(request: NotifyWaasBusinessOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyWaasBusinessOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyWaasBusinessOrderResponse>(await this.doRequest("1.0", "baas.waas.business.order.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyWaasBusinessOrderResponse({}));
   }
 
   /**
