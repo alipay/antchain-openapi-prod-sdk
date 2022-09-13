@@ -28,6 +28,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public string PublicKey { get; set; }
 
+        // keyId
+        [NameInMap("key_id")]
+        [Validation(Required=true)]
+        public string KeyId { get; set; }
+
     }
 
 }
