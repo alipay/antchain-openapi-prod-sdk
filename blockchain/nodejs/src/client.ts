@@ -41107,12 +41107,15 @@ export class AddDidDtxPkRequest extends $tea.Model {
   did: string;
   // 待添加公钥
   publicKey: string;
+  // keyId
+  keyId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       did: 'did',
       publicKey: 'public_key',
+      keyId: 'key_id',
     };
   }
 
@@ -41122,6 +41125,7 @@ export class AddDidDtxPkRequest extends $tea.Model {
       productInstanceId: 'string',
       did: 'string',
       publicKey: 'string',
+      keyId: 'string',
     };
   }
 
@@ -49456,7 +49460,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.26.24",
+          sdk_version: "1.26.25",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
