@@ -30,17 +30,25 @@ class AddDidDtxPkRequest extends Model
      * @var string
      */
     public $publicKey;
+
+    // keyId
+    /**
+     * @var string
+     */
+    public $keyId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'did'               => 'did',
         'publicKey'         => 'public_key',
+        'keyId'             => 'key_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('did', $this->did, true);
         Model::validateRequired('publicKey', $this->publicKey, true);
+        Model::validateRequired('keyId', $this->keyId, true);
     }
 
     public function toMap()
@@ -57,6 +65,9 @@ class AddDidDtxPkRequest extends Model
         }
         if (null !== $this->publicKey) {
             $res['public_key'] = $this->publicKey;
+        }
+        if (null !== $this->keyId) {
+            $res['key_id'] = $this->keyId;
         }
 
         return $res;
@@ -81,6 +92,9 @@ class AddDidDtxPkRequest extends Model
         }
         if (isset($map['public_key'])) {
             $model->publicKey = $map['public_key'];
+        }
+        if (isset($map['key_id'])) {
+            $model->keyId = $map['key_id'];
         }
 
         return $model;
