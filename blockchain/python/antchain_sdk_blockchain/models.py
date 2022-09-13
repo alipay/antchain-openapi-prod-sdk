@@ -66739,6 +66739,7 @@ class AddDidDtxPkRequest(TeaModel):
         product_instance_id: str = None,
         did: str = None,
         public_key: str = None,
+        key_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -66747,10 +66748,13 @@ class AddDidDtxPkRequest(TeaModel):
         self.did = did
         # 待添加公钥
         self.public_key = public_key
+        # keyId
+        self.key_id = key_id
 
     def validate(self):
         self.validate_required(self.did, 'did')
         self.validate_required(self.public_key, 'public_key')
+        self.validate_required(self.key_id, 'key_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -66766,6 +66770,8 @@ class AddDidDtxPkRequest(TeaModel):
             result['did'] = self.did
         if self.public_key is not None:
             result['public_key'] = self.public_key
+        if self.key_id is not None:
+            result['key_id'] = self.key_id
         return result
 
     def from_map(self, m: dict = None):
@@ -66778,6 +66784,8 @@ class AddDidDtxPkRequest(TeaModel):
             self.did = m.get('did')
         if m.get('public_key') is not None:
             self.public_key = m.get('public_key')
+        if m.get('key_id') is not None:
+            self.key_id = m.get('key_id')
         return self
 
 
