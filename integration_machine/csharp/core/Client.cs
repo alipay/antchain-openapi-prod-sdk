@@ -137,7 +137,9 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.13"},
+                        {"sdk_version", "1.0.15"},
+                        {"_prod_code", "INTEGRATION_MACHINE"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.13"},
+                        {"sdk_version", "1.0.15"},
+                        {"_prod_code", "INTEGRATION_MACHINE"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -567,6 +571,48 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryHealthinfologResponse>(await DoRequestAsync("1.0", "antchain.antim.healthinfolog.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通行日结统计查询
+         * Summary: 通行日结统计查询
+         */
+        public QueryHealthstatisticsResponse QueryHealthstatistics(QueryHealthstatisticsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryHealthstatisticsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通行日结统计查询
+         * Summary: 通行日结统计查询
+         */
+        public async Task<QueryHealthstatisticsResponse> QueryHealthstatisticsAsync(QueryHealthstatisticsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryHealthstatisticsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通行日结统计查询
+         * Summary: 通行日结统计查询
+         */
+        public QueryHealthstatisticsResponse QueryHealthstatisticsEx(QueryHealthstatisticsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHealthstatisticsResponse>(DoRequest("1.0", "antchain.antim.healthstatistics.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通行日结统计查询
+         * Summary: 通行日结统计查询
+         */
+        public async Task<QueryHealthstatisticsResponse> QueryHealthstatisticsExAsync(QueryHealthstatisticsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryHealthstatisticsResponse>(await DoRequestAsync("1.0", "antchain.antim.healthstatistics.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
