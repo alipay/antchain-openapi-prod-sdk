@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.17',
+    sdk_version = '1.12.19',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -836,18 +836,6 @@ model ZhimaQueryResp {
   subCode?: string(name='sub_code', example='isv.invalid-app-id'),
   //  
   subMsg?: string(name='sub_msg', example='无效的AppID参数'),
-}
-
-// 企业信息详情
-model BusinessDetail {
-  // 经营地址
-  operatingAddrJson: string(name='operating_addr_json', example='xxx'),
-  // 社会统一信用代码
-  ucCode: string(name='uc_code', example='xxx'),
-  // 注册日期
-  registerDate: string(name='register_date', example='2001-06-01'),
-  // 详细地址
-  addressDetail: string(name='address_detail', example='xxx'),
 }
 
 // 机构平台通知响应结果
@@ -4117,7 +4105,7 @@ model QueryDubbridgeCustomerCommonagreementsignRequest = {
   // 客户编号
   customNo: string(name='custom_no'),
   // 资金方编号
-  fundNo: string(name='fund_no'),
+  fundCode: string(name='fund_code'),
 }
 
 model QueryDubbridgeCustomerCommonagreementsignResponse = {
@@ -4248,6 +4236,84 @@ async function updateDubbridgeFile(request: UpdateDubbridgeFileRequest): UpdateD
 async function updateDubbridgeFileEx(request: UpdateDubbridgeFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDubbridgeFileResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.file.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeCreditUrlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryDubbridgeCreditUrlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 天枢系统获取授信H5地址
+ * Summary: 天枢系统获取授信H5地址
+ */
+async function queryDubbridgeCreditUrl(request: QueryDubbridgeCreditUrlRequest): QueryDubbridgeCreditUrlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeCreditUrlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统获取授信H5地址
+ * Summary: 天枢系统获取授信H5地址
+ */
+async function queryDubbridgeCreditUrlEx(request: QueryDubbridgeCreditUrlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeCreditUrlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.credit.url.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeBusinessDetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询字段（注册号，社会统一信用代码，公司名称）
+  keyword: string(name='keyword'),
+}
+
+model QueryDubbridgeBusinessDetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 社会统一信用代码
+  ucCode?: string(name='uc_code'),
+  // 注册日期
+  registerDate?: string(name='register_date'),
+  // 经营地址
+  operatingAddrJson?: string(name='operating_addr_json'),
+  // 详细地址
+  addressDetail?: string(name='address_detail'),
+}
+
+/**
+ * Description: 根据关键字从第三方查询企业详情信息
+ * Summary: 天枢系统企业详情信息查询
+ */
+async function queryDubbridgeBusinessDetail(request: QueryDubbridgeBusinessDetailRequest): QueryDubbridgeBusinessDetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeBusinessDetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据关键字从第三方查询企业详情信息
+ * Summary: 天枢系统企业详情信息查询
+ */
+async function queryDubbridgeBusinessDetailEx(request: QueryDubbridgeBusinessDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeBusinessDetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.business.detail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
@@ -7225,6 +7291,50 @@ async function cancelUmktDataaccessOfflinetask(request: CancelUmktDataaccessOffl
 async function cancelUmktDataaccessOfflinetaskEx(request: CancelUmktDataaccessOfflinetaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelUmktDataaccessOfflinetaskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.dataaccess.offlinetask.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUmktRtMarketingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景策略id，决策重点
+  sceneStrategyId: long(name='scene_strategy_id'),
+  // 用户凭证模版
+  queryTemplate: string(name='query_template'),
+  // 用户查询凭证
+  customerKey: string(name='customer_key'),
+  // 业务流水号
+  bizSerialNo: string(name='biz_serial_no'),
+}
+
+model QueryUmktRtMarketingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 实时单个营销结果
+  queryResult?: CustomerUmktInfoModel(name='query_result'),
+}
+
+/**
+ * Description: 营销盾实时单一凭证营销接口，服务于近rta的场景
+ * Summary: 营销盾实时单一凭证营销接口
+ */
+async function queryUmktRtMarketing(request: QueryUmktRtMarketingRequest): QueryUmktRtMarketingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUmktRtMarketingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 营销盾实时单一凭证营销接口，服务于近rta的场景
+ * Summary: 营销盾实时单一凭证营销接口
+ */
+async function queryUmktRtMarketingEx(request: QueryUmktRtMarketingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktRtMarketingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.rt.marketing.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
