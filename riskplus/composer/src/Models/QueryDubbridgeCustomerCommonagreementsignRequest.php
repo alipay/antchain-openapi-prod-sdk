@@ -35,20 +35,20 @@ class QueryDubbridgeCustomerCommonagreementsignRequest extends Model
     /**
      * @var string
      */
-    public $fundNo;
+    public $fundCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderNo'           => 'order_no',
         'customNo'          => 'custom_no',
-        'fundNo'            => 'fund_no',
+        'fundCode'          => 'fund_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('orderNo', $this->orderNo, true);
         Model::validateRequired('customNo', $this->customNo, true);
-        Model::validateRequired('fundNo', $this->fundNo, true);
+        Model::validateRequired('fundCode', $this->fundCode, true);
     }
 
     public function toMap()
@@ -66,8 +66,8 @@ class QueryDubbridgeCustomerCommonagreementsignRequest extends Model
         if (null !== $this->customNo) {
             $res['custom_no'] = $this->customNo;
         }
-        if (null !== $this->fundNo) {
-            $res['fund_no'] = $this->fundNo;
+        if (null !== $this->fundCode) {
+            $res['fund_code'] = $this->fundCode;
         }
 
         return $res;
@@ -93,8 +93,8 @@ class QueryDubbridgeCustomerCommonagreementsignRequest extends Model
         if (isset($map['custom_no'])) {
             $model->customNo = $map['custom_no'];
         }
-        if (isset($map['fund_no'])) {
-            $model->fundNo = $map['fund_no'];
+        if (isset($map['fund_code'])) {
+            $model->fundCode = $map['fund_code'];
         }
 
         return $model;

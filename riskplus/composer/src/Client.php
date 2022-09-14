@@ -99,10 +99,14 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeBusinessDetailRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeBusinessDetailResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCompanyItemsRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCompanyItemsResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCreditUrlRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeCreditUrlResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerAgreementsignRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerAgreementsignResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignRequest;
@@ -207,6 +211,8 @@ use AntChain\RISKPLUS\Models\QuerySnapshotEventRequest;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventResponse;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticRequest;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticResponse;
+use AntChain\RISKPLUS\Models\QueryUmktRtMarketingRequest;
+use AntChain\RISKPLUS\Models\QueryUmktRtMarketingResponse;
 use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestRequest;
 use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestResponse;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileRequest;
@@ -400,7 +406,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.17',
+                    'sdk_version'      => '1.12.19',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2345,6 +2351,72 @@ class Client
         Utils::validateModel($request);
 
         return UpdateDubbridgeFileResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.file.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统获取授信H5地址
+     * Summary: 天枢系统获取授信H5地址
+     *
+     * @param QueryDubbridgeCreditUrlRequest $request
+     *
+     * @return QueryDubbridgeCreditUrlResponse
+     */
+    public function queryDubbridgeCreditUrl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeCreditUrlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统获取授信H5地址
+     * Summary: 天枢系统获取授信H5地址
+     *
+     * @param QueryDubbridgeCreditUrlRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryDubbridgeCreditUrlResponse
+     */
+    public function queryDubbridgeCreditUrlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeCreditUrlResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.credit.url.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据关键字从第三方查询企业详情信息
+     * Summary: 天枢系统企业详情信息查询.
+     *
+     * @param QueryDubbridgeBusinessDetailRequest $request
+     *
+     * @return QueryDubbridgeBusinessDetailResponse
+     */
+    public function queryDubbridgeBusinessDetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeBusinessDetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据关键字从第三方查询企业详情信息
+     * Summary: 天枢系统企业详情信息查询.
+     *
+     * @param QueryDubbridgeBusinessDetailRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryDubbridgeBusinessDetailResponse
+     */
+    public function queryDubbridgeBusinessDetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeBusinessDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.business.detail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4462,6 +4534,39 @@ class Client
         Utils::validateModel($request);
 
         return CancelUmktDataaccessOfflinetaskResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.dataaccess.offlinetask.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾实时单一凭证营销接口，服务于近rta的场景
+     * Summary: 营销盾实时单一凭证营销接口.
+     *
+     * @param QueryUmktRtMarketingRequest $request
+     *
+     * @return QueryUmktRtMarketingResponse
+     */
+    public function queryUmktRtMarketing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUmktRtMarketingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾实时单一凭证营销接口，服务于近rta的场景
+     * Summary: 营销盾实时单一凭证营销接口.
+     *
+     * @param QueryUmktRtMarketingRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryUmktRtMarketingResponse
+     */
+    public function queryUmktRtMarketingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUmktRtMarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.marketing.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
