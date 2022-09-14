@@ -49,6 +49,10 @@ public class CreateDidPersonFacevrfminiappnewocpRequest extends TeaModel {
     @NameInMap("uid")
     public String uid;
 
+    // 刷脸类型，目前只支持FACE_SDK、FACE，默认FACE_SDK
+    @NameInMap("face_type")
+    public String faceType;
+
     public static CreateDidPersonFacevrfminiappnewocpRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDidPersonFacevrfminiappnewocpRequest self = new CreateDidPersonFacevrfminiappnewocpRequest();
         return TeaModel.build(map, self);
@@ -132,6 +136,14 @@ public class CreateDidPersonFacevrfminiappnewocpRequest extends TeaModel {
     }
     public String getUid() {
         return this.uid;
+    }
+
+    public CreateDidPersonFacevrfminiappnewocpRequest setFaceType(String faceType) {
+        this.faceType = faceType;
+        return this;
+    }
+    public String getFaceType() {
+        return this.faceType;
     }
 
 }

@@ -9,6 +9,11 @@ public class CertIssueProgressDTO extends TeaModel {
     @Validation(required = true)
     public String bizId;
 
+    // 存证ID，如果颁发失败，此值为null
+    @NameInMap("vc_id")
+    @Validation(required = true)
+    public String vcId;
+
     // 因校验异常停止任务（不会继续校验文件内容和颁发证书） -3
     // 因校验内容不正确停止颁发任务(会校验完所有的行但不执行颁发) -2
     // 已手动取消（可重试状态下手动取消任务，取消状态下可以启动新的颁发任务） -1
@@ -70,6 +75,14 @@ public class CertIssueProgressDTO extends TeaModel {
     }
     public String getBizId() {
         return this.bizId;
+    }
+
+    public CertIssueProgressDTO setVcId(String vcId) {
+        this.vcId = vcId;
+        return this;
+    }
+    public String getVcId() {
+        return this.vcId;
     }
 
     public CertIssueProgressDTO setStatus(Long status) {

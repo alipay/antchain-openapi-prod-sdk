@@ -36,6 +36,10 @@ public class TriggerDTOStructBody extends TeaModel {
     @NameInMap("checkpoint")
     public CheckPointStructBody checkpoint;
 
+    // 待处理的错误事件总数
+    @NameInMap("pending_error_logs")
+    public String pendingErrorLogs;
+
     public static TriggerDTOStructBody build(java.util.Map<String, ?> map) throws Exception {
         TriggerDTOStructBody self = new TriggerDTOStructBody();
         return TeaModel.build(map, self);
@@ -103,6 +107,14 @@ public class TriggerDTOStructBody extends TeaModel {
     }
     public CheckPointStructBody getCheckpoint() {
         return this.checkpoint;
+    }
+
+    public TriggerDTOStructBody setPendingErrorLogs(String pendingErrorLogs) {
+        this.pendingErrorLogs = pendingErrorLogs;
+        return this;
+    }
+    public String getPendingErrorLogs() {
+        return this.pendingErrorLogs;
     }
 
 }

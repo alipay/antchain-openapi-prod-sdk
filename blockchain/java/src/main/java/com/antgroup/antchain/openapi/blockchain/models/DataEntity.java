@@ -63,6 +63,10 @@ public class DataEntity extends TeaModel {
     @NameInMap("update_time")
     public Long updateTime;
 
+    // DID doc里的公开信息
+    @NameInMap("public_info")
+    public String publicInfo;
+
     public static DataEntity build(java.util.Map<String, ?> map) throws Exception {
         DataEntity self = new DataEntity();
         return TeaModel.build(map, self);
@@ -170,6 +174,14 @@ public class DataEntity extends TeaModel {
     }
     public Long getUpdateTime() {
         return this.updateTime;
+    }
+
+    public DataEntity setPublicInfo(String publicInfo) {
+        this.publicInfo = publicInfo;
+        return this;
+    }
+    public String getPublicInfo() {
+        return this.publicInfo;
     }
 
 }

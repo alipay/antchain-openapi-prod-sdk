@@ -48,6 +48,10 @@ public class CreateDataauthorizationDataEntityRequest extends TeaModel {
     @NameInMap("process_template")
     public java.util.List<ProcessNode> processTemplate;
 
+    // DID doc里的公开信息
+    @NameInMap("public_info")
+    public String publicInfo;
+
     public static CreateDataauthorizationDataEntityRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDataauthorizationDataEntityRequest self = new CreateDataauthorizationDataEntityRequest();
         return TeaModel.build(map, self);
@@ -131,6 +135,14 @@ public class CreateDataauthorizationDataEntityRequest extends TeaModel {
     }
     public java.util.List<ProcessNode> getProcessTemplate() {
         return this.processTemplate;
+    }
+
+    public CreateDataauthorizationDataEntityRequest setPublicInfo(String publicInfo) {
+        this.publicInfo = publicInfo;
+        return this;
+    }
+    public String getPublicInfo() {
+        return this.publicInfo;
     }
 
 }

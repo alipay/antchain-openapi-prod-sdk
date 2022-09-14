@@ -43,6 +43,10 @@ public class UpdateDataauthorizationDataEntityRequest extends TeaModel {
     @NameInMap("process_template")
     public java.util.List<ProcessNode> processTemplate;
 
+    // DID doc里的公开信息
+    @NameInMap("public_info")
+    public String publicInfo;
+
     public static UpdateDataauthorizationDataEntityRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateDataauthorizationDataEntityRequest self = new UpdateDataauthorizationDataEntityRequest();
         return TeaModel.build(map, self);
@@ -118,6 +122,14 @@ public class UpdateDataauthorizationDataEntityRequest extends TeaModel {
     }
     public java.util.List<ProcessNode> getProcessTemplate() {
         return this.processTemplate;
+    }
+
+    public UpdateDataauthorizationDataEntityRequest setPublicInfo(String publicInfo) {
+        this.publicInfo = publicInfo;
+        return this;
+    }
+    public String getPublicInfo() {
+        return this.publicInfo;
     }
 
 }

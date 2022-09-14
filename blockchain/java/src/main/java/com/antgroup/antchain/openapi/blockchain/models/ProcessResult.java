@@ -31,6 +31,18 @@ public class ProcessResult extends TeaModel {
     @Validation(required = true)
     public String dataId;
 
+    // 交易HASH
+    @NameInMap("tx_hash")
+    public String txHash;
+
+    // 区块高度
+    @NameInMap("block_number")
+    public Long blockNumber;
+
+    // 授权凭证
+    @NameInMap("authority_cert")
+    public String authorityCert;
+
     public static ProcessResult build(java.util.Map<String, ?> map) throws Exception {
         ProcessResult self = new ProcessResult();
         return TeaModel.build(map, self);
@@ -82,6 +94,30 @@ public class ProcessResult extends TeaModel {
     }
     public String getDataId() {
         return this.dataId;
+    }
+
+    public ProcessResult setTxHash(String txHash) {
+        this.txHash = txHash;
+        return this;
+    }
+    public String getTxHash() {
+        return this.txHash;
+    }
+
+    public ProcessResult setBlockNumber(Long blockNumber) {
+        this.blockNumber = blockNumber;
+        return this;
+    }
+    public Long getBlockNumber() {
+        return this.blockNumber;
+    }
+
+    public ProcessResult setAuthorityCert(String authorityCert) {
+        this.authorityCert = authorityCert;
+        return this;
+    }
+    public String getAuthorityCert() {
+        return this.authorityCert;
     }
 
 }
