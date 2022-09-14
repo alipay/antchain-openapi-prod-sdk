@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryDubbridgeCustomerCommonagreementsignRequest : TeaModel {
+    public class QueryDubbridgeBusinessDetailRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,10 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 订单号
-        [NameInMap("order_no")]
+        // 查询字段（注册号，社会统一信用代码，公司名称）
+        [NameInMap("keyword")]
         [Validation(Required=true)]
-        public string OrderNo { get; set; }
-
-        // 客户编号
-        [NameInMap("custom_no")]
-        [Validation(Required=true)]
-        public string CustomNo { get; set; }
-
-        // 资金方编号
-        [NameInMap("fund_code")]
-        [Validation(Required=true)]
-        public string FundCode { get; set; }
+        public string Keyword { get; set; }
 
     }
 
