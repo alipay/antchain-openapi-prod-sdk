@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.17"),
+                    new TeaPair("sdk_version", "1.12.19"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1263,6 +1263,44 @@ public class Client {
     public UpdateDubbridgeFileResponse updateDubbridgeFileEx(UpdateDubbridgeFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.file.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateDubbridgeFileResponse());
+    }
+
+    /**
+     * Description: 天枢系统获取授信H5地址
+     * Summary: 天枢系统获取授信H5地址
+     */
+    public QueryDubbridgeCreditUrlResponse queryDubbridgeCreditUrl(QueryDubbridgeCreditUrlRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeCreditUrlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 天枢系统获取授信H5地址
+     * Summary: 天枢系统获取授信H5地址
+     */
+    public QueryDubbridgeCreditUrlResponse queryDubbridgeCreditUrlEx(QueryDubbridgeCreditUrlRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.credit.url.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeCreditUrlResponse());
+    }
+
+    /**
+     * Description: 根据关键字从第三方查询企业详情信息
+     * Summary: 天枢系统企业详情信息查询
+     */
+    public QueryDubbridgeBusinessDetailResponse queryDubbridgeBusinessDetail(QueryDubbridgeBusinessDetailRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeBusinessDetailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据关键字从第三方查询企业详情信息
+     * Summary: 天枢系统企业详情信息查询
+     */
+    public QueryDubbridgeBusinessDetailResponse queryDubbridgeBusinessDetailEx(QueryDubbridgeBusinessDetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.business.detail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeBusinessDetailResponse());
     }
 
     /**
@@ -2504,6 +2542,25 @@ public class Client {
     public CancelUmktDataaccessOfflinetaskResponse cancelUmktDataaccessOfflinetaskEx(CancelUmktDataaccessOfflinetaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.dataaccess.offlinetask.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelUmktDataaccessOfflinetaskResponse());
+    }
+
+    /**
+     * Description: 营销盾实时单一凭证营销接口，服务于近rta的场景
+     * Summary: 营销盾实时单一凭证营销接口
+     */
+    public QueryUmktRtMarketingResponse queryUmktRtMarketing(QueryUmktRtMarketingRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUmktRtMarketingEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾实时单一凭证营销接口，服务于近rta的场景
+     * Summary: 营销盾实时单一凭证营销接口
+     */
+    public QueryUmktRtMarketingResponse queryUmktRtMarketingEx(QueryUmktRtMarketingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.rt.marketing.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktRtMarketingResponse());
     }
 
     /**

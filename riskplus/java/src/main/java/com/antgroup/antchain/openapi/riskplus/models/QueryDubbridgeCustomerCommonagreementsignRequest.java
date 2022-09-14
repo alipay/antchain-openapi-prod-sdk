@@ -22,9 +22,9 @@ public class QueryDubbridgeCustomerCommonagreementsignRequest extends TeaModel {
     public String customNo;
 
     // 资金方编号
-    @NameInMap("fund_no")
+    @NameInMap("fund_code")
     @Validation(required = true)
-    public String fundNo;
+    public String fundCode;
 
     public static QueryDubbridgeCustomerCommonagreementsignRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeCustomerCommonagreementsignRequest self = new QueryDubbridgeCustomerCommonagreementsignRequest();
@@ -63,12 +63,12 @@ public class QueryDubbridgeCustomerCommonagreementsignRequest extends TeaModel {
         return this.customNo;
     }
 
-    public QueryDubbridgeCustomerCommonagreementsignRequest setFundNo(String fundNo) {
-        this.fundNo = fundNo;
+    public QueryDubbridgeCustomerCommonagreementsignRequest setFundCode(String fundCode) {
+        this.fundCode = fundCode;
         return this;
     }
-    public String getFundNo() {
-        return this.fundNo;
+    public String getFundCode() {
+        return this.fundCode;
     }
 
 }
