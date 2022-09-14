@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.13',
+    sdk_version = '1.0.15',
+    _prod_code = 'INTEGRATION_MACHINE',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -315,6 +317,24 @@ model HealthInfo {
   healthCode?: string(name='health_code', example='1'),
   // 健康码红色原因
   healthFactor?: string(name='health_factor', example='123'),
+}
+
+// 通行日结统计
+model HealthStatistics {
+  // 统计日期
+  statisticsDate: string(name='statistics_date', example='2022-09-01'),
+  // 通行总数
+  totalCount: long(name='total_count', example='100'),
+  // 刷证数
+  certCount: long(name='cert_count', example='100'),
+  // 刷脸数
+  faceCount: long(name='face_count', example='100'),
+  // 二维码反扫数
+  inverseCount: long(name='inverse_count', example='100'),
+  // 正常通行数
+  passCount: long(name='pass_count', example='100'),
+  // 禁止通行数
+  stopCount: long(name='stop_count', example='100'),
 }
 
 // 行程信息
@@ -679,5 +699,47 @@ async function queryHealthinfolog(request: QueryHealthinfologRequest): QueryHeal
 async function queryHealthinfologEx(request: QueryHealthinfologRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryHealthinfologResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.antim.healthinfolog.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryHealthstatisticsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 开始日期
+  startDate: string(name='start_date'),
+  // 结束日期(为空或等于开始日期时为查询当天)
+  endDate?: string(name='end_date'),
+  // 统计类型(通行人数统计：PERSON，通行次数统计：NUMBER)
+  type: string(name='type'),
+}
+
+model QueryHealthstatisticsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 日结统计数据
+  dataList?: [ HealthStatistics ](name='data_list'),
+}
+
+/**
+ * Description: 通行日结统计查询
+ * Summary: 通行日结统计查询
+ */
+async function queryHealthstatistics(request: QueryHealthstatisticsRequest): QueryHealthstatisticsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryHealthstatisticsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通行日结统计查询
+ * Summary: 通行日结统计查询
+ */
+async function queryHealthstatisticsEx(request: QueryHealthstatisticsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryHealthstatisticsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.antim.healthstatistics.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
