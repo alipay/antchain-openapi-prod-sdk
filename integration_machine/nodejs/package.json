@@ -1,6 +1,6 @@
 {
-  "name": "@alicloud/integration_machine",
-  "version": "1.0.13",
+  "name": "@antchain/integration_machine",
+  "version": "1.0.15",
   "description": "",
   "main": "dist/client.js",
   "scripts": {

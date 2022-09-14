@@ -477,6 +477,51 @@ export class HealthInfo extends $tea.Model {
   }
 }
 
+// 通行日结统计
+export class HealthStatistics extends $tea.Model {
+  // 统计日期
+  statisticsDate: string;
+  // 通行总数
+  totalCount: number;
+  // 刷证数
+  certCount: number;
+  // 刷脸数
+  faceCount: number;
+  // 二维码反扫数
+  inverseCount: number;
+  // 正常通行数
+  passCount: number;
+  // 禁止通行数
+  stopCount: number;
+  static names(): { [key: string]: string } {
+    return {
+      statisticsDate: 'statistics_date',
+      totalCount: 'total_count',
+      certCount: 'cert_count',
+      faceCount: 'face_count',
+      inverseCount: 'inverse_count',
+      passCount: 'pass_count',
+      stopCount: 'stop_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      statisticsDate: 'string',
+      totalCount: 'number',
+      certCount: 'number',
+      faceCount: 'number',
+      inverseCount: 'number',
+      passCount: 'number',
+      stopCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 行程信息
 export class TravelInformation extends $tea.Model {
   // 1:没去过疫情区，绿码;
@@ -1086,6 +1131,73 @@ export class QueryHealthinfologResponse extends $tea.Model {
   }
 }
 
+export class QueryHealthstatisticsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 开始日期
+  startDate: string;
+  // 结束日期(为空或等于开始日期时为查询当天)
+  endDate?: string;
+  // 统计类型(通行人数统计：PERSON，通行次数统计：NUMBER)
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      startDate: 'start_date',
+      endDate: 'end_date',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      startDate: 'string',
+      endDate: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryHealthstatisticsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 日结统计数据
+  dataList?: HealthStatistics[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      dataList: 'data_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      dataList: { 'type': 'array', 'itemType': HealthStatistics },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1199,7 +1311,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.13",
+          sdk_version: "1.0.15",
+          _prod_code: "INTEGRATION_MACHINE",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1357,6 +1471,25 @@ export default class Client {
   async queryHealthinfologEx(request: QueryHealthinfologRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryHealthinfologResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryHealthinfologResponse>(await this.doRequest("1.0", "antchain.antim.healthinfolog.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryHealthinfologResponse({}));
+  }
+
+  /**
+   * Description: 通行日结统计查询
+   * Summary: 通行日结统计查询
+   */
+  async queryHealthstatistics(request: QueryHealthstatisticsRequest): Promise<QueryHealthstatisticsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryHealthstatisticsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通行日结统计查询
+   * Summary: 通行日结统计查询
+   */
+  async queryHealthstatisticsEx(request: QueryHealthstatisticsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryHealthstatisticsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryHealthstatisticsResponse>(await this.doRequest("1.0", "antchain.antim.healthstatistics.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryHealthstatisticsResponse({}));
   }
 
 }
