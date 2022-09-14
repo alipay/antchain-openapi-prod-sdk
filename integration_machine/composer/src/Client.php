@@ -23,6 +23,8 @@ use AntChain\INTEGRATION_MACHINE\Models\QueryHealthinfologRequest;
 use AntChain\INTEGRATION_MACHINE\Models\QueryHealthinfologResponse;
 use AntChain\INTEGRATION_MACHINE\Models\QueryHealthinfoRequest;
 use AntChain\INTEGRATION_MACHINE\Models\QueryHealthinfoResponse;
+use AntChain\INTEGRATION_MACHINE\Models\QueryHealthstatisticsRequest;
+use AntChain\INTEGRATION_MACHINE\Models\QueryHealthstatisticsResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -170,7 +172,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.13',
+                    'sdk_version'      => '1.0.15',
+                    '_prod_code'       => 'INTEGRATION_MACHINE',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -412,5 +416,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryHealthinfologResponse::fromMap($this->doRequest('1.0', 'antchain.antim.healthinfolog.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通行日结统计查询
+     * Summary: 通行日结统计查询.
+     *
+     * @param QueryHealthstatisticsRequest $request
+     *
+     * @return QueryHealthstatisticsResponse
+     */
+    public function queryHealthstatistics($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryHealthstatisticsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通行日结统计查询
+     * Summary: 通行日结统计查询.
+     *
+     * @param QueryHealthstatisticsRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryHealthstatisticsResponse
+     */
+    public function queryHealthstatisticsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryHealthstatisticsResponse::fromMap($this->doRequest('1.0', 'antchain.antim.healthstatistics.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
