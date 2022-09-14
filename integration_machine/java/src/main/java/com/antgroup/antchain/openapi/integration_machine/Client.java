@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.13")
+                    new TeaPair("sdk_version", "1.0.15"),
+                    new TeaPair("_prod_code", "INTEGRATION_MACHINE"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -271,5 +273,24 @@ public class Client {
     public QueryHealthinfologResponse queryHealthinfologEx(QueryHealthinfologRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.antim.healthinfolog.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryHealthinfologResponse());
+    }
+
+    /**
+     * Description: 通行日结统计查询
+     * Summary: 通行日结统计查询
+     */
+    public QueryHealthstatisticsResponse queryHealthstatistics(QueryHealthstatisticsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryHealthstatisticsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通行日结统计查询
+     * Summary: 通行日结统计查询
+     */
+    public QueryHealthstatisticsResponse queryHealthstatisticsEx(QueryHealthstatisticsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.antim.healthstatistics.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryHealthstatisticsResponse());
     }
 }
