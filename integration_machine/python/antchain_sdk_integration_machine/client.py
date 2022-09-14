@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.13'
+                    'sdk_version': '1.0.15',
+                    '_prod_code': 'INTEGRATION_MACHINE',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.13'
+                    'sdk_version': '1.0.15',
+                    '_prod_code': 'INTEGRATION_MACHINE',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -605,4 +609,60 @@ class Client:
         return TeaCore.from_map(
             integration__machine_models.QueryHealthinfologResponse(),
             await self.do_request_async('1.0', 'antchain.antim.healthinfolog.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_healthstatistics(
+        self,
+        request: integration__machine_models.QueryHealthstatisticsRequest,
+    ) -> integration__machine_models.QueryHealthstatisticsResponse:
+        """
+        Description: 通行日结统计查询
+        Summary: 通行日结统计查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_healthstatistics_ex(request, headers, runtime)
+
+    async def query_healthstatistics_async(
+        self,
+        request: integration__machine_models.QueryHealthstatisticsRequest,
+    ) -> integration__machine_models.QueryHealthstatisticsResponse:
+        """
+        Description: 通行日结统计查询
+        Summary: 通行日结统计查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_healthstatistics_ex_async(request, headers, runtime)
+
+    def query_healthstatistics_ex(
+        self,
+        request: integration__machine_models.QueryHealthstatisticsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> integration__machine_models.QueryHealthstatisticsResponse:
+        """
+        Description: 通行日结统计查询
+        Summary: 通行日结统计查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            integration__machine_models.QueryHealthstatisticsResponse(),
+            self.do_request('1.0', 'antchain.antim.healthstatistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_healthstatistics_ex_async(
+        self,
+        request: integration__machine_models.QueryHealthstatisticsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> integration__machine_models.QueryHealthstatisticsResponse:
+        """
+        Description: 通行日结统计查询
+        Summary: 通行日结统计查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            integration__machine_models.QueryHealthstatisticsResponse(),
+            await self.do_request_async('1.0', 'antchain.antim.healthstatistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

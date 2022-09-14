@@ -766,6 +766,82 @@ class HealthInfo(TeaModel):
         return self
 
 
+class HealthStatistics(TeaModel):
+    def __init__(
+        self,
+        statistics_date: str = None,
+        total_count: int = None,
+        cert_count: int = None,
+        face_count: int = None,
+        inverse_count: int = None,
+        pass_count: int = None,
+        stop_count: int = None,
+    ):
+        # 统计日期
+        self.statistics_date = statistics_date
+        # 通行总数
+        self.total_count = total_count
+        # 刷证数
+        self.cert_count = cert_count
+        # 刷脸数
+        self.face_count = face_count
+        # 二维码反扫数
+        self.inverse_count = inverse_count
+        # 正常通行数
+        self.pass_count = pass_count
+        # 禁止通行数
+        self.stop_count = stop_count
+
+    def validate(self):
+        self.validate_required(self.statistics_date, 'statistics_date')
+        self.validate_required(self.total_count, 'total_count')
+        self.validate_required(self.cert_count, 'cert_count')
+        self.validate_required(self.face_count, 'face_count')
+        self.validate_required(self.inverse_count, 'inverse_count')
+        self.validate_required(self.pass_count, 'pass_count')
+        self.validate_required(self.stop_count, 'stop_count')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.statistics_date is not None:
+            result['statistics_date'] = self.statistics_date
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        if self.cert_count is not None:
+            result['cert_count'] = self.cert_count
+        if self.face_count is not None:
+            result['face_count'] = self.face_count
+        if self.inverse_count is not None:
+            result['inverse_count'] = self.inverse_count
+        if self.pass_count is not None:
+            result['pass_count'] = self.pass_count
+        if self.stop_count is not None:
+            result['stop_count'] = self.stop_count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('statistics_date') is not None:
+            self.statistics_date = m.get('statistics_date')
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        if m.get('cert_count') is not None:
+            self.cert_count = m.get('cert_count')
+        if m.get('face_count') is not None:
+            self.face_count = m.get('face_count')
+        if m.get('inverse_count') is not None:
+            self.inverse_count = m.get('inverse_count')
+        if m.get('pass_count') is not None:
+            self.pass_count = m.get('pass_count')
+        if m.get('stop_count') is not None:
+            self.stop_count = m.get('stop_count')
+        return self
+
+
 class TravelInformation(TeaModel):
     def __init__(
         self,
@@ -1819,6 +1895,119 @@ class QueryHealthinfologResponse(TeaModel):
         if m.get('data_list') is not None:
             for k in m.get('data_list'):
                 temp_model = HealthInfoLog()
+                self.data_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryHealthstatisticsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        start_date: str = None,
+        end_date: str = None,
+        type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 开始日期
+        self.start_date = start_date
+        # 结束日期(为空或等于开始日期时为查询当天)
+        self.end_date = end_date
+        # 统计类型(通行人数统计：PERSON，通行次数统计：NUMBER)
+        self.type = type
+
+    def validate(self):
+        self.validate_required(self.start_date, 'start_date')
+        self.validate_required(self.type, 'type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.start_date is not None:
+            result['start_date'] = self.start_date
+        if self.end_date is not None:
+            result['end_date'] = self.end_date
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('start_date') is not None:
+            self.start_date = m.get('start_date')
+        if m.get('end_date') is not None:
+            self.end_date = m.get('end_date')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class QueryHealthstatisticsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data_list: List[HealthStatistics] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 日结统计数据
+        self.data_list = data_list
+
+    def validate(self):
+        if self.data_list:
+            for k in self.data_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data_list'] = []
+        if self.data_list is not None:
+            for k in self.data_list:
+                result['data_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data_list = []
+        if m.get('data_list') is not None:
+            for k in m.get('data_list'):
+                temp_model = HealthStatistics()
                 self.data_list.append(temp_model.from_map(k))
         return self
 
