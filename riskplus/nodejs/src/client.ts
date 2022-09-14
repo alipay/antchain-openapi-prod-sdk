@@ -1748,39 +1748,6 @@ export class ZhimaQueryResp extends $tea.Model {
   }
 }
 
-// 企业信息详情
-export class BusinessDetail extends $tea.Model {
-  // 经营地址
-  operatingAddrJson: string;
-  // 社会统一信用代码
-  ucCode: string;
-  // 注册日期
-  registerDate: string;
-  // 详细地址
-  addressDetail: string;
-  static names(): { [key: string]: string } {
-    return {
-      operatingAddrJson: 'operating_addr_json',
-      ucCode: 'uc_code',
-      registerDate: 'register_date',
-      addressDetail: 'address_detail',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      operatingAddrJson: 'string',
-      ucCode: 'string',
-      registerDate: 'string',
-      addressDetail: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 机构平台通知响应结果
 export class DefinInnerChannelNotifyResult extends $tea.Model {
   // 请求编号
@@ -7665,14 +7632,14 @@ export class QueryDubbridgeCustomerCommonagreementsignRequest extends $tea.Model
   // 客户编号
   customNo: string;
   // 资金方编号
-  fundNo: string;
+  fundCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderNo: 'order_no',
       customNo: 'custom_no',
-      fundNo: 'fund_no',
+      fundCode: 'fund_code',
     };
   }
 
@@ -7682,7 +7649,7 @@ export class QueryDubbridgeCustomerCommonagreementsignRequest extends $tea.Model
       productInstanceId: 'string',
       orderNo: 'string',
       customNo: 'string',
-      fundNo: 'string',
+      fundCode: 'string',
     };
   }
 
@@ -7881,6 +7848,128 @@ export class UpdateDubbridgeFileResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeCreditUrlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeCreditUrlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeBusinessDetailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询字段（注册号，社会统一信用代码，公司名称）
+  keyword: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      keyword: 'keyword',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      keyword: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeBusinessDetailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 社会统一信用代码
+  ucCode?: string;
+  // 注册日期
+  registerDate?: string;
+  // 经营地址
+  operatingAddrJson?: string;
+  // 详细地址
+  addressDetail?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      ucCode: 'uc_code',
+      registerDate: 'register_date',
+      operatingAddrJson: 'operating_addr_json',
+      addressDetail: 'address_detail',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      ucCode: 'string',
+      registerDate: 'string',
+      operatingAddrJson: 'string',
+      addressDetail: 'string',
     };
   }
 
@@ -12687,6 +12776,77 @@ export class CancelUmktDataaccessOfflinetaskResponse extends $tea.Model {
   }
 }
 
+export class QueryUmktRtMarketingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景策略id，决策重点
+  sceneStrategyId: number;
+  // 用户凭证模版
+  queryTemplate: string;
+  // 用户查询凭证
+  customerKey: string;
+  // 业务流水号
+  bizSerialNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneStrategyId: 'scene_strategy_id',
+      queryTemplate: 'query_template',
+      customerKey: 'customer_key',
+      bizSerialNo: 'biz_serial_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneStrategyId: 'number',
+      queryTemplate: 'string',
+      customerKey: 'string',
+      bizSerialNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktRtMarketingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 实时单个营销结果
+  queryResult?: CustomerUmktInfoModel;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      queryResult: 'query_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      queryResult: CustomerUmktInfoModel,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -12888,7 +13048,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.17",
+          sdk_version: "1.12.19",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -14038,6 +14198,44 @@ export default class Client {
   async updateDubbridgeFileEx(request: UpdateDubbridgeFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateDubbridgeFileResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateDubbridgeFileResponse>(await this.doRequest("1.0", "riskplus.dubbridge.file.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateDubbridgeFileResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统获取授信H5地址
+   * Summary: 天枢系统获取授信H5地址
+   */
+  async queryDubbridgeCreditUrl(request: QueryDubbridgeCreditUrlRequest): Promise<QueryDubbridgeCreditUrlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeCreditUrlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统获取授信H5地址
+   * Summary: 天枢系统获取授信H5地址
+   */
+  async queryDubbridgeCreditUrlEx(request: QueryDubbridgeCreditUrlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeCreditUrlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeCreditUrlResponse>(await this.doRequest("1.0", "riskplus.dubbridge.credit.url.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeCreditUrlResponse({}));
+  }
+
+  /**
+   * Description: 根据关键字从第三方查询企业详情信息
+   * Summary: 天枢系统企业详情信息查询
+   */
+  async queryDubbridgeBusinessDetail(request: QueryDubbridgeBusinessDetailRequest): Promise<QueryDubbridgeBusinessDetailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeBusinessDetailEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据关键字从第三方查询企业详情信息
+   * Summary: 天枢系统企业详情信息查询
+   */
+  async queryDubbridgeBusinessDetailEx(request: QueryDubbridgeBusinessDetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeBusinessDetailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeBusinessDetailResponse>(await this.doRequest("1.0", "riskplus.dubbridge.business.detail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeBusinessDetailResponse({}));
   }
 
   /**
@@ -15279,6 +15477,25 @@ export default class Client {
   async cancelUmktDataaccessOfflinetaskEx(request: CancelUmktDataaccessOfflinetaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelUmktDataaccessOfflinetaskResponse> {
     Util.validateModel(request);
     return $tea.cast<CancelUmktDataaccessOfflinetaskResponse>(await this.doRequest("1.0", "riskplus.umkt.dataaccess.offlinetask.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelUmktDataaccessOfflinetaskResponse({}));
+  }
+
+  /**
+   * Description: 营销盾实时单一凭证营销接口，服务于近rta的场景
+   * Summary: 营销盾实时单一凭证营销接口
+   */
+  async queryUmktRtMarketing(request: QueryUmktRtMarketingRequest): Promise<QueryUmktRtMarketingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUmktRtMarketingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾实时单一凭证营销接口，服务于近rta的场景
+   * Summary: 营销盾实时单一凭证营销接口
+   */
+  async queryUmktRtMarketingEx(request: QueryUmktRtMarketingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktRtMarketingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUmktRtMarketingResponse>(await this.doRequest("1.0", "riskplus.umkt.rt.marketing.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktRtMarketingResponse({}));
   }
 
   /**
