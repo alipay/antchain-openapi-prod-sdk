@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.2',
     _prod_code = 'MYCHARITY',
     _prod_channel = 'undefined'
   };
@@ -161,25 +161,787 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-model InitOrgRequest = {
+// 执行记录
+model ReceivedRecord {
+  // 执行记录id
+  id: string(maxLength=50, name='id', example='1'),
+  // 支付宝用户标识
+  receiverAlipayUserId: string(maxLength=16, minLength=16, name='receiver_alipay_user_id', example='2088612847668613'),
+  // 领取人姓名
+  receiverName: string(maxLength=50, name='receiver_name', example='张无忌'),
+  // 领取人身份证号码
+  receiverCardNo: string(name='receiver_card_no', example='330127199312239501'),
+  // 联系号码 
+  receiverPhoneNo?: string(maxLength=20, name='receiver_phone_no', example='151848223253'),
+  // 是否是受益人本人 0本人，1代领
+  agentFlag: long(name='agent_flag', example='0'),
+  // 领取人和受益人关系
+  relationship?: string(maxLength=100, name='relationship', example='父母'),
+  // 受益人信息
+  beneficiaryMessage?: string(maxLength=200, name='beneficiary_message', example='张**'),
+  // 领取人所属机构
+  receiverOrg?: string(maxLength=100, name='receiver_org', example='xx学校'),
+  // 领取说明
+  receiveNote?: string(maxLength=100, name='receive_note', example='说明'),
+  // 受益人数
+  benefitNumber?: long(maximum=999999999, minimum=1, name='benefit_number', example='1'),
+  // 快递地址
+  expressAddress?: string(maxLength=100, name='express_address', example='杭州市'),
+  // 发放数量
+  issueAmount?: long(maximum=100000000, minimum=1, name='issue_amount', example=''),
+}
+
+model CreateAlipaysignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 签约记录id
+  id: string(name='id'),
+  // 机构id
+  orgId: string(name='org_id'),
+  // 支付宝代扣账号
+  alipayAccount: string(name='alipay_account'),
+}
+
+model CreateAlipaysignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 待签约账号创建
+ * Summary: 待签约账号创建
+ */
+async function createAlipaysign(request: CreateAlipaysignRequest): CreateAlipaysignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAlipaysignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 待签约账号创建
+ * Summary: 待签约账号创建
+ */
+async function createAlipaysignEx(request: CreateAlipaysignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAlipaysignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.alipaysign.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAlipaysignStateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 签约记录id
+  id: string(name='id'),
+}
+
+model QueryAlipaysignStateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 机构下代扣账号签约状态查询
+ * Summary: 机构下代扣账号签约状态查询
+ */
+async function queryAlipaysignState(request: QueryAlipaysignStateRequest): QueryAlipaysignStateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAlipaysignStateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 机构下代扣账号签约状态查询
+ * Summary: 机构下代扣账号签约状态查询
+ */
+async function queryAlipaysignStateEx(request: QueryAlipaysignStateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAlipaysignStateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.alipaysign.state.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAlipaysignQrcodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryAlipaysignQrcodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 账号签约二维码获取
+ * Summary: 账号签约二维码获取
+ */
+async function queryAlipaysignQrcode(request: QueryAlipaysignQrcodeRequest): QueryAlipaysignQrcodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAlipaysignQrcodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 账号签约二维码获取
+ * Summary: 账号签约二维码获取
+ */
+async function queryAlipaysignQrcodeEx(request: QueryAlipaysignQrcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAlipaysignQrcodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.alipaysign.qrcode.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreatePersonPermissionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 机构ID(第三方指定ID 50字符)
+  orgId: string(name='org_id'),
+  // 项目角色ID(1项目管理员、2项目执行人、3项目财务)
+  roleId: long(name='role_id'),
+  // 项目ID(第三方指定ID 50字符)
+  pjId: string(name='pj_id'),
+  // 被授权人支付宝用户标识(16字符)
+  alipayUserId: string(name='alipay_user_id'),
+}
+
+model CreatePersonPermissionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建人员并配置权限。如人员已经存在，则不创建。
+ * Summary: 创建人员及配置权限
+ */
+async function createPersonPermission(request: CreatePersonPermissionRequest): CreatePersonPermissionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createPersonPermissionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建人员并配置权限。如人员已经存在，则不创建。
+ * Summary: 创建人员及配置权限
+ */
+async function createPersonPermissionEx(request: CreatePersonPermissionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreatePersonPermissionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.person.permission.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeletePersonRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 机构ID(第三方指定ID 50字符)
+  orgId: string(name='org_id'),
+  // 项目角色ID(1项目管理员、2项目执行人、3项目财务)
+  roleId: long(name='role_id'),
+  // 项目ID(第三方指定ID 50字符)
+  pjId: string(name='pj_id'),
+  // 被授权人支付宝用户标识（16字符）
+  alipayUserId: string(name='alipay_user_id'),
+}
+
+model DeletePersonResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 允许已授权的用户通过此接口删除人员权限。
+ * Summary: 配置权限删除
+ */
+async function deletePerson(request: DeletePersonRequest): DeletePersonResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deletePersonEx(request, headers, runtime);
+}
+
+/**
+ * Description: 允许已授权的用户通过此接口删除人员权限。
+ * Summary: 配置权限删除
+ */
+async function deletePersonEx(request: DeletePersonRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeletePersonResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.person.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitBatchRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // id
   id: string(maxLength=50, name='id'),
-  // 机构名称
-  name: string(maxLength=50, name='name'),
-  // 机构简介
-  introduction: string(maxLength=500, name='introduction'),
-  // 18位社会统一信用代码
-  unifiedSocialCreditCode: string(maxLength=18, minLength=18, name='unified_social_credit_code'),
-  // 测试机构说明:0正式机构(默认),1测试机构
-  testFlag?: string(maxLength=1, minLength=1, name='test_flag'),
-  // 13位时间戳 签约时间
-  signTime: string(maxLength=13, minLength=13, name='sign_time'),
+  // 实施内容id
+  combinationId: string(maxLength=50, name='combination_id'),
+  // 批次名称
+  name: string(maxLength=100, name='name'),
+  // 发放备注
+  remarks: string(maxLength=200, name='remarks'),
+  // 确认接收人 0发前确认 1发后确认
+  affirmanceReceivers: long(name='affirmance_receivers'),
+  // 发放方式：【0：自动拨付，1：其他方式拨付，2：快递寄送，3：当面发放，4：服务后确认发放，5：无特定发放方式，6：现场组织】
+  issueWay: long(name='issue_way'),
+  // 接收验证方式（0扫脸验证、1身份证号码验证，2扫二维码验证, 3快递签收验证，4登录确认，5直接导入）
+  receiveCheckWay: long(name='receive_check_way'),
+  // 分期ID
+  stagesId: string(maxLength=50, name='stages_id'),
+  // 发放数量最大值1亿（发后确认- 扫码领取时必填）单位分
+  issueAmount?: long(name='issue_amount'),
 }
 
-model InitOrgResponse = {
+model InitBatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建批次
+ * Summary: 创建批次
+ */
+async function initBatch(request: InitBatchRequest): InitBatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initBatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建批次
+ * Summary: 创建批次
+ */
+async function initBatchEx(request: InitBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitBatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.batch.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateBatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // id
+  id: string(name='id'),
+  // 批次暂停状态 2继续发放（领取中），3暂停发放，4领取完成
+  status: long(name='status'),
+}
+
+model UpdateBatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 修改批次状态
+ * Summary: 修改批次状态
+ */
+async function updateBatch(request: UpdateBatchRequest): UpdateBatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateBatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 修改批次状态
+ * Summary: 修改批次状态
+ */
+async function updateBatchEx(request: UpdateBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateBatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.batch.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteBatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // id
+  id: string(maxLength=50, name='id'),
+}
+
+model DeleteBatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除批次
+ * Summary: 删除批次
+ */
+async function deleteBatch(request: DeleteBatchRequest): DeleteBatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteBatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除批次
+ * Summary: 删除批次
+ */
+async function deleteBatchEx(request: DeleteBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteBatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.batch.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateStagesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分期id
+  id: string(maxLength=50, name='id'),
+  // 项目id
+  pjId: string(maxLength=50, name='pj_id'),
+  // 计划开始时间
+  startTime?: long(name='start_time'),
+  // 计划结束时间
+  endTime?: long(name='end_time'),
+  // 目标捐赠金额
+  targetMoney?: long(name='target_money'),
+  // 目标捐赠人数
+  targetNum?: long(name='target_num'),
+  // 说明
+  note?: string(maxLength=1000, name='note'),
+  // 公开募捐编号
+  publicFundraisingNo?: string(maxLength=50, name='public_fundraising_no'),
+  // 静态文件地址‘,’分割
+  coverUrl?: string(maxLength=450, name='cover_url'),
+  // 管理费用金额(单位：分)
+  administrativeRate?: long(name='administrative_rate'),
+  // 签约id,关联签约表
+  signId?: string(maxLength=50, name='sign_id'),
+}
+
+model CreateStagesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建项目分期
+ * Summary: 创建分期
+ */
+async function createStages(request: CreateStagesRequest): CreateStagesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createStagesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建项目分期
+ * Summary: 创建分期
+ */
+async function createStagesEx(request: CreateStagesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateStagesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.stages.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // id
+  id: string(maxLength=50, name='id'),
+}
+
+model QueryBatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 查询批次
+ * Summary: 查询批次
+ */
+async function queryBatch(request: QueryBatchRequest): QueryBatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询批次
+ * Summary: 查询批次
+ */
+async function queryBatchEx(request: QueryBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.batch.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateStagesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分期id
+  id: string(maxLength=50, name='id'),
+  // 计划开始时间
+  startTime?: long(name='start_time'),
+  // 计划结束时间
+  endTime?: long(name='end_time'),
+  // 目标捐赠金额
+  targetMoney?: long(name='target_money'),
+  // 目标捐赠人数
+  targetNum?: long(name='target_num'),
+  // 说明
+  note?: string(maxLength=1000, name='note'),
+  // 公开募捐编号
+  publicFundraisingNo?: string(maxLength=50, name='public_fundraising_no'),
+  // 静态文件地址‘,’分割
+  coverUrl?: string(maxLength=450, name='cover_url'),
+  // 管理费用金额(单位：分)
+  administrativeRate?: long(name='administrative_rate'),
+  // 项目状态，0进行中（默认），1已结项
+  state?: long(name='state'),
+  // 签约id,关联签约表
+  signId?: string(maxLength=50, name='sign_id'),
+}
+
+model UpdateStagesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新项目分期
+ * Summary: 更新分期
+ */
+async function updateStages(request: UpdateStagesRequest): UpdateStagesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateStagesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新项目分期
+ * Summary: 更新分期
+ */
+async function updateStagesEx(request: UpdateStagesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateStagesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.stages.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateOrgRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 50字符，单平台幂等
+  id: string(maxLength=50, minLength=1, name='id'),
+  // 50字符 机构名称
+  name: string(maxLength=50, minLength=1, name='name'),
+  // 500字符 机构简介
+  introduction: string(maxLength=500, minLength=1, name='introduction'),
+  // 社会统一信用代码18位
+  unifiedSocialCreditCode: string(maxLength=18, minLength=18, name='unified_social_credit_code'),
+  // 测试机构说明:0正式机构(默认),1测试机构
+  testFlag?: long(maximum=1, minimum=0, name='test_flag'),
+  // 13位时间戳 签约时间
+  signTime: long(name='sign_time'),
+}
+
+model CreateOrgResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建机构
+ * Summary: 创建机构
+ */
+async function createOrg(request: CreateOrgRequest): CreateOrgResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createOrgEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建机构
+ * Summary: 创建机构
+ */
+async function createOrgEx(request: CreateOrgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateOrgResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.org.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryStagesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分期id
+  id: string(maxLength=50, name='id'),
+}
+
+model QueryStagesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 查询分期
+ * Summary: 查询分期
+ */
+async function queryStages(request: QueryStagesRequest): QueryStagesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryStagesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询分期
+ * Summary: 查询分期
+ */
+async function queryStagesEx(request: QueryStagesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryStagesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.stages.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateOrgRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 50字符，单平台幂等
+  id: string(maxLength=50, minLength=1, name='id'),
+  // 50字符 机构名称
+  name: string(maxLength=50, minLength=1, name='name'),
+  // 500字符 机构简介
+  introduction: string(maxLength=500, minLength=1, name='introduction'),
+  // 社会统一信用代码固定18位
+  unifiedSocialCreditCode: string(maxLength=18, minLength=18, name='unified_social_credit_code'),
+  // 测试机构说明:0正式机构(默认),1测试机构
+  testFlag?: long(maximum=1, minimum=0, name='test_flag'),
+  // 13位时间戳 签约时间
+  signTime: long(name='sign_time'),
+}
+
+model UpdateOrgResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新机构
+ * Summary: 更新机构
+ */
+async function updateOrg(request: UpdateOrgRequest): UpdateOrgResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateOrgEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新机构
+ * Summary: 更新机构
+ */
+async function updateOrgEx(request: UpdateOrgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateOrgResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.org.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCombinationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 实施内容id
+  id: string(maxLength=50, name='id'),
+  // 分期id
+  stagesId: string(maxLength=50, name='stages_id'),
+  // 名称
+  name: string(maxLength=20, name='name'),
+  // 实施内容类型：0善款类，1实物类、2服务类
+  type: long(name='type'),
+  // 单位
+  unit: string(maxLength=10, name='unit'),
+  // 说明
+  note?: string(maxLength=1000, name='note'),
+  // 单价是否固定，0:不固定，1:固定
+  priceDeterminedFlag: long(name='price_determined_flag'),
+  // 单位分，预估单价
+  price: long(name='price'),
+  // 预估发放数量
+  totalNum: long(name='total_num'),
+}
+
+model CreateCombinationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建实施内容
+ * Summary: 创建实施内容
+ */
+async function createCombination(request: CreateCombinationRequest): CreateCombinationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCombinationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建实施内容
+ * Summary: 创建实施内容
+ */
+async function createCombinationEx(request: CreateCombinationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCombinationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.combination.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailOrgRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 50字符，单平台幂等
+  id: string(maxLength=50, minLength=1, name='id'),
+}
+
+model DetailOrgResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 机构详情
+ * Summary: 机构详情
+ */
+async function detailOrg(request: DetailOrgRequest): DetailOrgResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailOrgEx(request, headers, runtime);
+}
+
+/**
+ * Description: 机构详情
+ * Summary: 机构详情
+ */
+async function detailOrgEx(request: DetailOrgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailOrgResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.org.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateCombinationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 实施内容id
+  id: string(name='id'),
+  // 名称
+  name: string(maxLength=20, name='name'),
+  // 实施内容类型：0善款类，1实物类、2服务类
+  type: long(name='type'),
+  // 单位
+  unit: string(maxLength=10, name='unit'),
+  // 说明
+  note?: string(maxLength=1000, name='note'),
+  // 单价是否固定，0:不固定，1:固定
+  priceDeterminedFlag: long(name='price_determined_flag'),
+  // 单位分，预估单价
+  price: long(name='price'),
+  // 预估发放数量
+  totalNum: long(name='total_num'),
+}
+
+model UpdateCombinationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 修改实施内容
+ * Summary: 修改实施内容
+ */
+async function updateCombination(request: UpdateCombinationRequest): UpdateCombinationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateCombinationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 修改实施内容
+ * Summary: 修改实施内容
+ */
+async function updateCombinationEx(request: UpdateCombinationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateCombinationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.combination.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 50字符，单平台幂等
+  id: string(maxLength=50, minLength=1, name='id'),
+  // 50字符 机构id
+  orgId: string(maxLength=50, minLength=1, name='org_id'),
+  // 100字符 项目名称
+  pjName: string(maxLength=100, minLength=1, name='pj_name'),
+  // 64字符  公益领域（系统判断是否维护公益领域字典表，数据库存id）
+  publicWelfareDirection: string(maxLength=64, minLength=1, name='public_welfare_direction'),
+  // 测试项目说明:0正式项目(默认),1测试项目
+  testFlag?: long(maximum=1, minimum=0, name='test_flag'),
+}
+
+model CreateProjectResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -192,18 +954,170 @@ model InitOrgResponse = {
  * Description: 创建项目
  * Summary: 创建项目
  */
-async function initOrg(request: InitOrgRequest): InitOrgResponse {
+async function createProject(request: CreateProjectRequest): CreateProjectResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return initOrgEx(request, headers, runtime);
+  return createProjectEx(request, headers, runtime);
 }
 
 /**
  * Description: 创建项目
  * Summary: 创建项目
  */
-async function initOrgEx(request: InitOrgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitOrgResponse {
+async function createProjectEx(request: CreateProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateProjectResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antchain.mycharity.org.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antchain.mycharity.project.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 50字符，单平台幂等
+  id: string(maxLength=50, minLength=1, name='id'),
+  // 100字符 项目名称
+  pjName: string(maxLength=100, minLength=1, name='pj_name'),
+  // 64字符 公益领域（系统判断是否维护公益领域字典表，数据库存id）
+  publicWelfareDirection: string(maxLength=64, minLength=1, name='public_welfare_direction'),
+  // 测试项目说明:0正式项目(默认),1测试项目
+  testFlag: long(maximum=1, minimum=0, name='test_flag'),
+}
+
+model UpdateProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新项目
+ * Summary: 更新项目
+ */
+async function updateProject(request: UpdateProjectRequest): UpdateProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新项目
+ * Summary: 更新项目
+ */
+async function updateProjectEx(request: UpdateProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.project.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 50字符，单平台幂等
+  id: string(maxLength=50, minLength=1, name='id'),
+}
+
+model DetailProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 项目详情
+ * Summary: 项目详情
+ */
+async function detailProject(request: DetailProjectRequest): DetailProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 项目详情
+ * Summary: 项目详情
+ */
+async function detailProjectEx(request: DetailProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.project.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCombinationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 实施内容id
+  id: string(maxLength=50, name='id'),
+}
+
+model QueryCombinationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 查询实施内容
+ * Summary: 查询实施内容
+ */
+async function queryCombination(request: QueryCombinationRequest): QueryCombinationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCombinationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询实施内容
+ * Summary: 查询实施内容
+ */
+async function queryCombinationEx(request: QueryCombinationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCombinationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.combination.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateRecordRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批次id
+  batchId: string(maxLength=50, name='batch_id'),
+  // 执行记录数组
+  receivedRecordList: [ ReceivedRecord ](name='received_record_list'),
+}
+
+model BatchcreateRecordResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 批量创建执行记录
+ * Summary: 批量创建执行记录
+ */
+async function batchcreateRecord(request: BatchcreateRecordRequest): BatchcreateRecordResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateRecordEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量创建执行记录
+ * Summary: 批量创建执行记录
+ */
+async function batchcreateRecordEx(request: BatchcreateRecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateRecordResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.record.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
