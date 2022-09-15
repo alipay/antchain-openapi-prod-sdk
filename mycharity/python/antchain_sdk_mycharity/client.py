@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 执行记录
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'MYCHARITY',
                     '_prod_channel': 'undefined'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 执行记录
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'MYCHARITY',
                     '_prod_channel': 'undefined'
                 }
@@ -273,58 +275,1234 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def init_org(
+    def create_alipaysign(
         self,
-        request: mycharity_models.InitOrgRequest,
-    ) -> mycharity_models.InitOrgResponse:
+        request: mycharity_models.CreateAlipaysignRequest,
+    ) -> mycharity_models.CreateAlipaysignResponse:
         """
-        Description: 创建项目
-        Summary: 创建项目
+        Description: 待签约账号创建
+        Summary: 待签约账号创建
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.init_org_ex(request, headers, runtime)
+        return self.create_alipaysign_ex(request, headers, runtime)
 
-    async def init_org_async(
+    async def create_alipaysign_async(
         self,
-        request: mycharity_models.InitOrgRequest,
-    ) -> mycharity_models.InitOrgResponse:
+        request: mycharity_models.CreateAlipaysignRequest,
+    ) -> mycharity_models.CreateAlipaysignResponse:
         """
-        Description: 创建项目
-        Summary: 创建项目
+        Description: 待签约账号创建
+        Summary: 待签约账号创建
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.init_org_ex_async(request, headers, runtime)
+        return await self.create_alipaysign_ex_async(request, headers, runtime)
 
-    def init_org_ex(
+    def create_alipaysign_ex(
         self,
-        request: mycharity_models.InitOrgRequest,
+        request: mycharity_models.CreateAlipaysignRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> mycharity_models.InitOrgResponse:
+    ) -> mycharity_models.CreateAlipaysignResponse:
         """
-        Description: 创建项目
-        Summary: 创建项目
+        Description: 待签约账号创建
+        Summary: 待签约账号创建
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            mycharity_models.InitOrgResponse(),
-            self.do_request('1.0', 'antchain.mycharity.org.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            mycharity_models.CreateAlipaysignResponse(),
+            self.do_request('1.0', 'antchain.mycharity.alipaysign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def init_org_ex_async(
+    async def create_alipaysign_ex_async(
         self,
-        request: mycharity_models.InitOrgRequest,
+        request: mycharity_models.CreateAlipaysignRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> mycharity_models.InitOrgResponse:
+    ) -> mycharity_models.CreateAlipaysignResponse:
+        """
+        Description: 待签约账号创建
+        Summary: 待签约账号创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreateAlipaysignResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.alipaysign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_alipaysign_state(
+        self,
+        request: mycharity_models.QueryAlipaysignStateRequest,
+    ) -> mycharity_models.QueryAlipaysignStateResponse:
+        """
+        Description: 机构下代扣账号签约状态查询
+        Summary: 机构下代扣账号签约状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_alipaysign_state_ex(request, headers, runtime)
+
+    async def query_alipaysign_state_async(
+        self,
+        request: mycharity_models.QueryAlipaysignStateRequest,
+    ) -> mycharity_models.QueryAlipaysignStateResponse:
+        """
+        Description: 机构下代扣账号签约状态查询
+        Summary: 机构下代扣账号签约状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_alipaysign_state_ex_async(request, headers, runtime)
+
+    def query_alipaysign_state_ex(
+        self,
+        request: mycharity_models.QueryAlipaysignStateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.QueryAlipaysignStateResponse:
+        """
+        Description: 机构下代扣账号签约状态查询
+        Summary: 机构下代扣账号签约状态查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.QueryAlipaysignStateResponse(),
+            self.do_request('1.0', 'antchain.mycharity.alipaysign.state.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_alipaysign_state_ex_async(
+        self,
+        request: mycharity_models.QueryAlipaysignStateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.QueryAlipaysignStateResponse:
+        """
+        Description: 机构下代扣账号签约状态查询
+        Summary: 机构下代扣账号签约状态查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.QueryAlipaysignStateResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.alipaysign.state.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_alipaysign_qrcode(
+        self,
+        request: mycharity_models.QueryAlipaysignQrcodeRequest,
+    ) -> mycharity_models.QueryAlipaysignQrcodeResponse:
+        """
+        Description: 账号签约二维码获取
+        Summary: 账号签约二维码获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_alipaysign_qrcode_ex(request, headers, runtime)
+
+    async def query_alipaysign_qrcode_async(
+        self,
+        request: mycharity_models.QueryAlipaysignQrcodeRequest,
+    ) -> mycharity_models.QueryAlipaysignQrcodeResponse:
+        """
+        Description: 账号签约二维码获取
+        Summary: 账号签约二维码获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_alipaysign_qrcode_ex_async(request, headers, runtime)
+
+    def query_alipaysign_qrcode_ex(
+        self,
+        request: mycharity_models.QueryAlipaysignQrcodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.QueryAlipaysignQrcodeResponse:
+        """
+        Description: 账号签约二维码获取
+        Summary: 账号签约二维码获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.QueryAlipaysignQrcodeResponse(),
+            self.do_request('1.0', 'antchain.mycharity.alipaysign.qrcode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_alipaysign_qrcode_ex_async(
+        self,
+        request: mycharity_models.QueryAlipaysignQrcodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.QueryAlipaysignQrcodeResponse:
+        """
+        Description: 账号签约二维码获取
+        Summary: 账号签约二维码获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.QueryAlipaysignQrcodeResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.alipaysign.qrcode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_person_permission(
+        self,
+        request: mycharity_models.CreatePersonPermissionRequest,
+    ) -> mycharity_models.CreatePersonPermissionResponse:
+        """
+        Description: 创建人员并配置权限。如人员已经存在，则不创建。
+        Summary: 创建人员及配置权限
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_person_permission_ex(request, headers, runtime)
+
+    async def create_person_permission_async(
+        self,
+        request: mycharity_models.CreatePersonPermissionRequest,
+    ) -> mycharity_models.CreatePersonPermissionResponse:
+        """
+        Description: 创建人员并配置权限。如人员已经存在，则不创建。
+        Summary: 创建人员及配置权限
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_person_permission_ex_async(request, headers, runtime)
+
+    def create_person_permission_ex(
+        self,
+        request: mycharity_models.CreatePersonPermissionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreatePersonPermissionResponse:
+        """
+        Description: 创建人员并配置权限。如人员已经存在，则不创建。
+        Summary: 创建人员及配置权限
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreatePersonPermissionResponse(),
+            self.do_request('1.0', 'antchain.mycharity.person.permission.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_person_permission_ex_async(
+        self,
+        request: mycharity_models.CreatePersonPermissionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreatePersonPermissionResponse:
+        """
+        Description: 创建人员并配置权限。如人员已经存在，则不创建。
+        Summary: 创建人员及配置权限
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreatePersonPermissionResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.person.permission.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_person(
+        self,
+        request: mycharity_models.DeletePersonRequest,
+    ) -> mycharity_models.DeletePersonResponse:
+        """
+        Description: 允许已授权的用户通过此接口删除人员权限。
+        Summary: 配置权限删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_person_ex(request, headers, runtime)
+
+    async def delete_person_async(
+        self,
+        request: mycharity_models.DeletePersonRequest,
+    ) -> mycharity_models.DeletePersonResponse:
+        """
+        Description: 允许已授权的用户通过此接口删除人员权限。
+        Summary: 配置权限删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_person_ex_async(request, headers, runtime)
+
+    def delete_person_ex(
+        self,
+        request: mycharity_models.DeletePersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.DeletePersonResponse:
+        """
+        Description: 允许已授权的用户通过此接口删除人员权限。
+        Summary: 配置权限删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.DeletePersonResponse(),
+            self.do_request('1.0', 'antchain.mycharity.person.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_person_ex_async(
+        self,
+        request: mycharity_models.DeletePersonRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.DeletePersonResponse:
+        """
+        Description: 允许已授权的用户通过此接口删除人员权限。
+        Summary: 配置权限删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.DeletePersonResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.person.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_batch(
+        self,
+        request: mycharity_models.InitBatchRequest,
+    ) -> mycharity_models.InitBatchResponse:
+        """
+        Description: 创建批次
+        Summary: 创建批次
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_batch_ex(request, headers, runtime)
+
+    async def init_batch_async(
+        self,
+        request: mycharity_models.InitBatchRequest,
+    ) -> mycharity_models.InitBatchResponse:
+        """
+        Description: 创建批次
+        Summary: 创建批次
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_batch_ex_async(request, headers, runtime)
+
+    def init_batch_ex(
+        self,
+        request: mycharity_models.InitBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.InitBatchResponse:
+        """
+        Description: 创建批次
+        Summary: 创建批次
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.InitBatchResponse(),
+            self.do_request('1.0', 'antchain.mycharity.batch.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_batch_ex_async(
+        self,
+        request: mycharity_models.InitBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.InitBatchResponse:
+        """
+        Description: 创建批次
+        Summary: 创建批次
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.InitBatchResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.batch.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_batch(
+        self,
+        request: mycharity_models.UpdateBatchRequest,
+    ) -> mycharity_models.UpdateBatchResponse:
+        """
+        Description: 修改批次状态
+        Summary: 修改批次状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_batch_ex(request, headers, runtime)
+
+    async def update_batch_async(
+        self,
+        request: mycharity_models.UpdateBatchRequest,
+    ) -> mycharity_models.UpdateBatchResponse:
+        """
+        Description: 修改批次状态
+        Summary: 修改批次状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_batch_ex_async(request, headers, runtime)
+
+    def update_batch_ex(
+        self,
+        request: mycharity_models.UpdateBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.UpdateBatchResponse:
+        """
+        Description: 修改批次状态
+        Summary: 修改批次状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.UpdateBatchResponse(),
+            self.do_request('1.0', 'antchain.mycharity.batch.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_batch_ex_async(
+        self,
+        request: mycharity_models.UpdateBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.UpdateBatchResponse:
+        """
+        Description: 修改批次状态
+        Summary: 修改批次状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.UpdateBatchResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.batch.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_batch(
+        self,
+        request: mycharity_models.DeleteBatchRequest,
+    ) -> mycharity_models.DeleteBatchResponse:
+        """
+        Description: 删除批次
+        Summary: 删除批次
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_batch_ex(request, headers, runtime)
+
+    async def delete_batch_async(
+        self,
+        request: mycharity_models.DeleteBatchRequest,
+    ) -> mycharity_models.DeleteBatchResponse:
+        """
+        Description: 删除批次
+        Summary: 删除批次
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_batch_ex_async(request, headers, runtime)
+
+    def delete_batch_ex(
+        self,
+        request: mycharity_models.DeleteBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.DeleteBatchResponse:
+        """
+        Description: 删除批次
+        Summary: 删除批次
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.DeleteBatchResponse(),
+            self.do_request('1.0', 'antchain.mycharity.batch.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_batch_ex_async(
+        self,
+        request: mycharity_models.DeleteBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.DeleteBatchResponse:
+        """
+        Description: 删除批次
+        Summary: 删除批次
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.DeleteBatchResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.batch.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_stages(
+        self,
+        request: mycharity_models.CreateStagesRequest,
+    ) -> mycharity_models.CreateStagesResponse:
+        """
+        Description: 创建项目分期
+        Summary: 创建分期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_stages_ex(request, headers, runtime)
+
+    async def create_stages_async(
+        self,
+        request: mycharity_models.CreateStagesRequest,
+    ) -> mycharity_models.CreateStagesResponse:
+        """
+        Description: 创建项目分期
+        Summary: 创建分期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_stages_ex_async(request, headers, runtime)
+
+    def create_stages_ex(
+        self,
+        request: mycharity_models.CreateStagesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreateStagesResponse:
+        """
+        Description: 创建项目分期
+        Summary: 创建分期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreateStagesResponse(),
+            self.do_request('1.0', 'antchain.mycharity.stages.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_stages_ex_async(
+        self,
+        request: mycharity_models.CreateStagesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreateStagesResponse:
+        """
+        Description: 创建项目分期
+        Summary: 创建分期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreateStagesResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.stages.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_batch(
+        self,
+        request: mycharity_models.QueryBatchRequest,
+    ) -> mycharity_models.QueryBatchResponse:
+        """
+        Description: 查询批次
+        Summary: 查询批次
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_batch_ex(request, headers, runtime)
+
+    async def query_batch_async(
+        self,
+        request: mycharity_models.QueryBatchRequest,
+    ) -> mycharity_models.QueryBatchResponse:
+        """
+        Description: 查询批次
+        Summary: 查询批次
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_batch_ex_async(request, headers, runtime)
+
+    def query_batch_ex(
+        self,
+        request: mycharity_models.QueryBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.QueryBatchResponse:
+        """
+        Description: 查询批次
+        Summary: 查询批次
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.QueryBatchResponse(),
+            self.do_request('1.0', 'antchain.mycharity.batch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_batch_ex_async(
+        self,
+        request: mycharity_models.QueryBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.QueryBatchResponse:
+        """
+        Description: 查询批次
+        Summary: 查询批次
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.QueryBatchResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.batch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_stages(
+        self,
+        request: mycharity_models.UpdateStagesRequest,
+    ) -> mycharity_models.UpdateStagesResponse:
+        """
+        Description: 更新项目分期
+        Summary: 更新分期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_stages_ex(request, headers, runtime)
+
+    async def update_stages_async(
+        self,
+        request: mycharity_models.UpdateStagesRequest,
+    ) -> mycharity_models.UpdateStagesResponse:
+        """
+        Description: 更新项目分期
+        Summary: 更新分期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_stages_ex_async(request, headers, runtime)
+
+    def update_stages_ex(
+        self,
+        request: mycharity_models.UpdateStagesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.UpdateStagesResponse:
+        """
+        Description: 更新项目分期
+        Summary: 更新分期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.UpdateStagesResponse(),
+            self.do_request('1.0', 'antchain.mycharity.stages.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_stages_ex_async(
+        self,
+        request: mycharity_models.UpdateStagesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.UpdateStagesResponse:
+        """
+        Description: 更新项目分期
+        Summary: 更新分期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.UpdateStagesResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.stages.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_org(
+        self,
+        request: mycharity_models.CreateOrgRequest,
+    ) -> mycharity_models.CreateOrgResponse:
+        """
+        Description: 创建机构
+        Summary: 创建机构
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_org_ex(request, headers, runtime)
+
+    async def create_org_async(
+        self,
+        request: mycharity_models.CreateOrgRequest,
+    ) -> mycharity_models.CreateOrgResponse:
+        """
+        Description: 创建机构
+        Summary: 创建机构
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_org_ex_async(request, headers, runtime)
+
+    def create_org_ex(
+        self,
+        request: mycharity_models.CreateOrgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreateOrgResponse:
+        """
+        Description: 创建机构
+        Summary: 创建机构
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreateOrgResponse(),
+            self.do_request('1.0', 'antchain.mycharity.org.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_org_ex_async(
+        self,
+        request: mycharity_models.CreateOrgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreateOrgResponse:
+        """
+        Description: 创建机构
+        Summary: 创建机构
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreateOrgResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.org.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_stages(
+        self,
+        request: mycharity_models.QueryStagesRequest,
+    ) -> mycharity_models.QueryStagesResponse:
+        """
+        Description: 查询分期
+        Summary: 查询分期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_stages_ex(request, headers, runtime)
+
+    async def query_stages_async(
+        self,
+        request: mycharity_models.QueryStagesRequest,
+    ) -> mycharity_models.QueryStagesResponse:
+        """
+        Description: 查询分期
+        Summary: 查询分期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_stages_ex_async(request, headers, runtime)
+
+    def query_stages_ex(
+        self,
+        request: mycharity_models.QueryStagesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.QueryStagesResponse:
+        """
+        Description: 查询分期
+        Summary: 查询分期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.QueryStagesResponse(),
+            self.do_request('1.0', 'antchain.mycharity.stages.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_stages_ex_async(
+        self,
+        request: mycharity_models.QueryStagesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.QueryStagesResponse:
+        """
+        Description: 查询分期
+        Summary: 查询分期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.QueryStagesResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.stages.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_org(
+        self,
+        request: mycharity_models.UpdateOrgRequest,
+    ) -> mycharity_models.UpdateOrgResponse:
+        """
+        Description: 更新机构
+        Summary: 更新机构
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_org_ex(request, headers, runtime)
+
+    async def update_org_async(
+        self,
+        request: mycharity_models.UpdateOrgRequest,
+    ) -> mycharity_models.UpdateOrgResponse:
+        """
+        Description: 更新机构
+        Summary: 更新机构
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_org_ex_async(request, headers, runtime)
+
+    def update_org_ex(
+        self,
+        request: mycharity_models.UpdateOrgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.UpdateOrgResponse:
+        """
+        Description: 更新机构
+        Summary: 更新机构
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.UpdateOrgResponse(),
+            self.do_request('1.0', 'antchain.mycharity.org.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_org_ex_async(
+        self,
+        request: mycharity_models.UpdateOrgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.UpdateOrgResponse:
+        """
+        Description: 更新机构
+        Summary: 更新机构
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.UpdateOrgResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.org.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_combination(
+        self,
+        request: mycharity_models.CreateCombinationRequest,
+    ) -> mycharity_models.CreateCombinationResponse:
+        """
+        Description: 创建实施内容
+        Summary: 创建实施内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_combination_ex(request, headers, runtime)
+
+    async def create_combination_async(
+        self,
+        request: mycharity_models.CreateCombinationRequest,
+    ) -> mycharity_models.CreateCombinationResponse:
+        """
+        Description: 创建实施内容
+        Summary: 创建实施内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_combination_ex_async(request, headers, runtime)
+
+    def create_combination_ex(
+        self,
+        request: mycharity_models.CreateCombinationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreateCombinationResponse:
+        """
+        Description: 创建实施内容
+        Summary: 创建实施内容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreateCombinationResponse(),
+            self.do_request('1.0', 'antchain.mycharity.combination.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_combination_ex_async(
+        self,
+        request: mycharity_models.CreateCombinationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreateCombinationResponse:
+        """
+        Description: 创建实施内容
+        Summary: 创建实施内容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreateCombinationResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.combination.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_org(
+        self,
+        request: mycharity_models.DetailOrgRequest,
+    ) -> mycharity_models.DetailOrgResponse:
+        """
+        Description: 机构详情
+        Summary: 机构详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_org_ex(request, headers, runtime)
+
+    async def detail_org_async(
+        self,
+        request: mycharity_models.DetailOrgRequest,
+    ) -> mycharity_models.DetailOrgResponse:
+        """
+        Description: 机构详情
+        Summary: 机构详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_org_ex_async(request, headers, runtime)
+
+    def detail_org_ex(
+        self,
+        request: mycharity_models.DetailOrgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.DetailOrgResponse:
+        """
+        Description: 机构详情
+        Summary: 机构详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.DetailOrgResponse(),
+            self.do_request('1.0', 'antchain.mycharity.org.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_org_ex_async(
+        self,
+        request: mycharity_models.DetailOrgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.DetailOrgResponse:
+        """
+        Description: 机构详情
+        Summary: 机构详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.DetailOrgResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.org.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_combination(
+        self,
+        request: mycharity_models.UpdateCombinationRequest,
+    ) -> mycharity_models.UpdateCombinationResponse:
+        """
+        Description: 修改实施内容
+        Summary: 修改实施内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_combination_ex(request, headers, runtime)
+
+    async def update_combination_async(
+        self,
+        request: mycharity_models.UpdateCombinationRequest,
+    ) -> mycharity_models.UpdateCombinationResponse:
+        """
+        Description: 修改实施内容
+        Summary: 修改实施内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_combination_ex_async(request, headers, runtime)
+
+    def update_combination_ex(
+        self,
+        request: mycharity_models.UpdateCombinationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.UpdateCombinationResponse:
+        """
+        Description: 修改实施内容
+        Summary: 修改实施内容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.UpdateCombinationResponse(),
+            self.do_request('1.0', 'antchain.mycharity.combination.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_combination_ex_async(
+        self,
+        request: mycharity_models.UpdateCombinationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.UpdateCombinationResponse:
+        """
+        Description: 修改实施内容
+        Summary: 修改实施内容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.UpdateCombinationResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.combination.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_project(
+        self,
+        request: mycharity_models.CreateProjectRequest,
+    ) -> mycharity_models.CreateProjectResponse:
+        """
+        Description: 创建项目
+        Summary: 创建项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_project_ex(request, headers, runtime)
+
+    async def create_project_async(
+        self,
+        request: mycharity_models.CreateProjectRequest,
+    ) -> mycharity_models.CreateProjectResponse:
+        """
+        Description: 创建项目
+        Summary: 创建项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_project_ex_async(request, headers, runtime)
+
+    def create_project_ex(
+        self,
+        request: mycharity_models.CreateProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreateProjectResponse:
         """
         Description: 创建项目
         Summary: 创建项目
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            mycharity_models.InitOrgResponse(),
-            await self.do_request_async('1.0', 'antchain.mycharity.org.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            mycharity_models.CreateProjectResponse(),
+            self.do_request('1.0', 'antchain.mycharity.project.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_project_ex_async(
+        self,
+        request: mycharity_models.CreateProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreateProjectResponse:
+        """
+        Description: 创建项目
+        Summary: 创建项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreateProjectResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.project.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_project(
+        self,
+        request: mycharity_models.UpdateProjectRequest,
+    ) -> mycharity_models.UpdateProjectResponse:
+        """
+        Description: 更新项目
+        Summary: 更新项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_project_ex(request, headers, runtime)
+
+    async def update_project_async(
+        self,
+        request: mycharity_models.UpdateProjectRequest,
+    ) -> mycharity_models.UpdateProjectResponse:
+        """
+        Description: 更新项目
+        Summary: 更新项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_project_ex_async(request, headers, runtime)
+
+    def update_project_ex(
+        self,
+        request: mycharity_models.UpdateProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.UpdateProjectResponse:
+        """
+        Description: 更新项目
+        Summary: 更新项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.UpdateProjectResponse(),
+            self.do_request('1.0', 'antchain.mycharity.project.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_project_ex_async(
+        self,
+        request: mycharity_models.UpdateProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.UpdateProjectResponse:
+        """
+        Description: 更新项目
+        Summary: 更新项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.UpdateProjectResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.project.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_project(
+        self,
+        request: mycharity_models.DetailProjectRequest,
+    ) -> mycharity_models.DetailProjectResponse:
+        """
+        Description: 项目详情
+        Summary: 项目详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_project_ex(request, headers, runtime)
+
+    async def detail_project_async(
+        self,
+        request: mycharity_models.DetailProjectRequest,
+    ) -> mycharity_models.DetailProjectResponse:
+        """
+        Description: 项目详情
+        Summary: 项目详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_project_ex_async(request, headers, runtime)
+
+    def detail_project_ex(
+        self,
+        request: mycharity_models.DetailProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.DetailProjectResponse:
+        """
+        Description: 项目详情
+        Summary: 项目详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.DetailProjectResponse(),
+            self.do_request('1.0', 'antchain.mycharity.project.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_project_ex_async(
+        self,
+        request: mycharity_models.DetailProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.DetailProjectResponse:
+        """
+        Description: 项目详情
+        Summary: 项目详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.DetailProjectResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.project.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_combination(
+        self,
+        request: mycharity_models.QueryCombinationRequest,
+    ) -> mycharity_models.QueryCombinationResponse:
+        """
+        Description: 查询实施内容
+        Summary: 查询实施内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_combination_ex(request, headers, runtime)
+
+    async def query_combination_async(
+        self,
+        request: mycharity_models.QueryCombinationRequest,
+    ) -> mycharity_models.QueryCombinationResponse:
+        """
+        Description: 查询实施内容
+        Summary: 查询实施内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_combination_ex_async(request, headers, runtime)
+
+    def query_combination_ex(
+        self,
+        request: mycharity_models.QueryCombinationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.QueryCombinationResponse:
+        """
+        Description: 查询实施内容
+        Summary: 查询实施内容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.QueryCombinationResponse(),
+            self.do_request('1.0', 'antchain.mycharity.combination.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_combination_ex_async(
+        self,
+        request: mycharity_models.QueryCombinationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.QueryCombinationResponse:
+        """
+        Description: 查询实施内容
+        Summary: 查询实施内容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.QueryCombinationResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.combination.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchcreate_record(
+        self,
+        request: mycharity_models.BatchcreateRecordRequest,
+    ) -> mycharity_models.BatchcreateRecordResponse:
+        """
+        Description: 批量创建执行记录
+        Summary: 批量创建执行记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchcreate_record_ex(request, headers, runtime)
+
+    async def batchcreate_record_async(
+        self,
+        request: mycharity_models.BatchcreateRecordRequest,
+    ) -> mycharity_models.BatchcreateRecordResponse:
+        """
+        Description: 批量创建执行记录
+        Summary: 批量创建执行记录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchcreate_record_ex_async(request, headers, runtime)
+
+    def batchcreate_record_ex(
+        self,
+        request: mycharity_models.BatchcreateRecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.BatchcreateRecordResponse:
+        """
+        Description: 批量创建执行记录
+        Summary: 批量创建执行记录
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.BatchcreateRecordResponse(),
+            self.do_request('1.0', 'antchain.mycharity.record.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchcreate_record_ex_async(
+        self,
+        request: mycharity_models.BatchcreateRecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.BatchcreateRecordResponse:
+        """
+        Description: 批量创建执行记录
+        Summary: 批量创建执行记录
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.BatchcreateRecordResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.record.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
