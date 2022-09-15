@@ -13,8 +13,6 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_1c815cb61ea641fc864ccbdfba2970f7\Models\BindDemoAaaBbbCccRequest;
 use AntChain\Ak_1c815cb61ea641fc864ccbdfba2970f7\Models\BindDemoAaaBbbCccResponse;
-use AntChain\Ak_1c815cb61ea641fc864ccbdfba2970f7\Models\QueryDemoAaaBbbCccRequest;
-use AntChain\Ak_1c815cb61ea641fc864ccbdfba2970f7\Models\QueryDemoAaaBbbCccResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -161,7 +159,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_1c815cb61ea641fc864ccbdfba2970f7',
                     '_prod_channel'    => 'saas',
                 ];
@@ -240,38 +238,5 @@ class Client
         Utils::validateModel($request);
 
         return BindDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 自动化测试创建1
-     * Summary: 自动化测试创建（勿动）.
-     *
-     * @param QueryDemoAaaBbbCccRequest $request
-     *
-     * @return QueryDemoAaaBbbCccResponse
-     */
-    public function queryDemoAaaBbbCcc($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoAaaBbbCccEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 自动化测试创建1
-     * Summary: 自动化测试创建（勿动）.
-     *
-     * @param QueryDemoAaaBbbCccRequest $request
-     * @param string[]                  $headers
-     * @param RuntimeOptions            $runtime
-     *
-     * @return QueryDemoAaaBbbCccResponse
-     */
-    public function queryDemoAaaBbbCccEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
