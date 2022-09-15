@@ -42,11 +42,29 @@ class BaiGoodsIdentificationRespData extends Model
      * @var BaiGoodsPointIdentificationResult[]
      */
     public $pointIdentificationResults;
+
+    // 鉴定评价
+    /**
+     * @example 完全同一，趋于同一，和不同一
+     *
+     * @var string
+     */
+    public $appraiseMessage;
+
+    // 用户自定义字符串，系统不做处理，会在响应体中带回
+    /**
+     * @example state
+     *
+     * @var string
+     */
+    public $outState;
     protected $_name = [
         'identificationResult'       => 'identification_result',
         'grade'                      => 'grade',
         'description'                => 'description',
         'pointIdentificationResults' => 'point_identification_results',
+        'appraiseMessage'            => 'appraise_message',
+        'outState'                   => 'out_state',
     ];
 
     public function validate()
@@ -77,6 +95,12 @@ class BaiGoodsIdentificationRespData extends Model
                 }
             }
         }
+        if (null !== $this->appraiseMessage) {
+            $res['appraise_message'] = $this->appraiseMessage;
+        }
+        if (null !== $this->outState) {
+            $res['out_state'] = $this->outState;
+        }
 
         return $res;
     }
@@ -106,6 +130,12 @@ class BaiGoodsIdentificationRespData extends Model
                     $model->pointIdentificationResults[$n++] = null !== $item ? BaiGoodsPointIdentificationResult::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['appraise_message'])) {
+            $model->appraiseMessage = $map['appraise_message'];
+        }
+        if (isset($map['out_state'])) {
+            $model->outState = $map['out_state'];
         }
 
         return $model;

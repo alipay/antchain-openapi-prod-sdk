@@ -143,8 +143,6 @@ class UpdateDeviceInfoRequest extends Model
     public function validate()
     {
         Model::validateRequired('chainDeviceId', $this->chainDeviceId, true);
-        Model::validateRequired('owner', $this->owner, true);
-        Model::validateRequired('ownerName', $this->ownerName, true);
         Model::validatePattern('factoryTime', $this->factoryTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('releaseTime', $this->releaseTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }

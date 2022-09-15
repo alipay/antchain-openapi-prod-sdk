@@ -73,6 +73,24 @@ class CertifyIotbasicDeviceResponse extends Model
      * @var string
      */
     public $serviceStatus;
+
+    // 子账号ID
+    /**
+     * @var string
+     */
+    public $accountId;
+
+    // 所属账号名称
+    /**
+     * @var string
+     */
+    public $accountName;
+
+    // 子账号角色
+    /**
+     * @var string
+     */
+    public $userRole;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
@@ -85,6 +103,9 @@ class CertifyIotbasicDeviceResponse extends Model
         'tenantId'      => 'tenant_id',
         'appVersion'    => 'app_version',
         'serviceStatus' => 'service_status',
+        'accountId'     => 'account_id',
+        'accountName'   => 'account_name',
+        'userRole'      => 'user_role',
     ];
 
     public function validate()
@@ -126,6 +147,15 @@ class CertifyIotbasicDeviceResponse extends Model
         }
         if (null !== $this->serviceStatus) {
             $res['service_status'] = $this->serviceStatus;
+        }
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
+        }
+        if (null !== $this->accountName) {
+            $res['account_name'] = $this->accountName;
+        }
+        if (null !== $this->userRole) {
+            $res['user_role'] = $this->userRole;
         }
 
         return $res;
@@ -171,6 +201,15 @@ class CertifyIotbasicDeviceResponse extends Model
         }
         if (isset($map['service_status'])) {
             $model->serviceStatus = $map['service_status'];
+        }
+        if (isset($map['account_id'])) {
+            $model->accountId = $map['account_id'];
+        }
+        if (isset($map['account_name'])) {
+            $model->accountName = $map['account_name'];
+        }
+        if (isset($map['user_role'])) {
+            $model->userRole = $map['user_role'];
         }
 
         return $model;

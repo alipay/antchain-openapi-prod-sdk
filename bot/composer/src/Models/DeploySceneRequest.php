@@ -25,11 +25,17 @@ class DeploySceneRequest extends Model
      */
     public $sceneName;
 
-    // 链ID
+    // bnaas did
     /**
      * @var string
      */
     public $bnaasBasicServiceDid;
+
+    // baas rest bizId
+    /**
+     * @var string
+     */
+    public $baasRestBizId;
 
     // 合约版本号
     /**
@@ -41,13 +47,13 @@ class DeploySceneRequest extends Model
         'productInstanceId'    => 'product_instance_id',
         'sceneName'            => 'scene_name',
         'bnaasBasicServiceDid' => 'bnaas_basic_service_did',
+        'baasRestBizId'        => 'baas_rest_biz_id',
         'contractVersion'      => 'contract_version',
     ];
 
     public function validate()
     {
         Model::validateRequired('sceneName', $this->sceneName, true);
-        Model::validateRequired('bnaasBasicServiceDid', $this->bnaasBasicServiceDid, true);
     }
 
     public function toMap()
@@ -64,6 +70,9 @@ class DeploySceneRequest extends Model
         }
         if (null !== $this->bnaasBasicServiceDid) {
             $res['bnaas_basic_service_did'] = $this->bnaasBasicServiceDid;
+        }
+        if (null !== $this->baasRestBizId) {
+            $res['baas_rest_biz_id'] = $this->baasRestBizId;
         }
         if (null !== $this->contractVersion) {
             $res['contract_version'] = $this->contractVersion;
@@ -91,6 +100,9 @@ class DeploySceneRequest extends Model
         }
         if (isset($map['bnaas_basic_service_did'])) {
             $model->bnaasBasicServiceDid = $map['bnaas_basic_service_did'];
+        }
+        if (isset($map['baas_rest_biz_id'])) {
+            $model->baasRestBizId = $map['baas_rest_biz_id'];
         }
         if (isset($map['contract_version'])) {
             $model->contractVersion = $map['contract_version'];

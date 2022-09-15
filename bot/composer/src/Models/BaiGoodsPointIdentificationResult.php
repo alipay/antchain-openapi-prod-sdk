@@ -50,12 +50,30 @@ class BaiGoodsPointIdentificationResult extends Model
      * @var string
      */
     public $userPointId;
+
+    // 鉴定评价
+    /**
+     * @example 完全同一，趋于同一，不同一
+     *
+     * @var string
+     */
+    public $appraiseMessage;
+
+    // 鉴定点图片资源定位符
+    /**
+     * @example
+     *
+     * @var BaiResourceLocation
+     */
+    public $resourceLocation;
     protected $_name = [
-        'pointName'    => 'point_name',
-        'subPointName' => 'sub_point_name',
-        'result'       => 'result',
-        'grade'        => 'grade',
-        'userPointId'  => 'user_point_id',
+        'pointName'        => 'point_name',
+        'subPointName'     => 'sub_point_name',
+        'result'           => 'result',
+        'grade'            => 'grade',
+        'userPointId'      => 'user_point_id',
+        'appraiseMessage'  => 'appraise_message',
+        'resourceLocation' => 'resource_location',
     ];
 
     public function validate()
@@ -83,6 +101,12 @@ class BaiGoodsPointIdentificationResult extends Model
         if (null !== $this->userPointId) {
             $res['user_point_id'] = $this->userPointId;
         }
+        if (null !== $this->appraiseMessage) {
+            $res['appraise_message'] = $this->appraiseMessage;
+        }
+        if (null !== $this->resourceLocation) {
+            $res['resource_location'] = null !== $this->resourceLocation ? $this->resourceLocation->toMap() : null;
+        }
 
         return $res;
     }
@@ -109,6 +133,12 @@ class BaiGoodsPointIdentificationResult extends Model
         }
         if (isset($map['user_point_id'])) {
             $model->userPointId = $map['user_point_id'];
+        }
+        if (isset($map['appraise_message'])) {
+            $model->appraiseMessage = $map['appraise_message'];
+        }
+        if (isset($map['resource_location'])) {
+            $model->resourceLocation = BaiResourceLocation::fromMap($map['resource_location']);
         }
 
         return $model;

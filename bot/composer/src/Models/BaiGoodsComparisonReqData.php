@@ -39,11 +39,20 @@ class BaiGoodsComparisonReqData extends Model
      * @var BaiGoodsPoint[]
      */
     public $goodsPoints;
+
+    // 用户自定义字符串，系统不做处理，会在响应体中带回
+    /**
+     * @example state
+     *
+     * @var string
+     */
+    public $outState;
     protected $_name = [
         'category'    => 'category',
         'brand'       => 'brand',
         'style'       => 'style',
         'goodsPoints' => 'goods_points',
+        'outState'    => 'out_state',
     ];
 
     public function validate()
@@ -75,6 +84,9 @@ class BaiGoodsComparisonReqData extends Model
                 }
             }
         }
+        if (null !== $this->outState) {
+            $res['out_state'] = $this->outState;
+        }
 
         return $res;
     }
@@ -104,6 +116,9 @@ class BaiGoodsComparisonReqData extends Model
                     $model->goodsPoints[$n++] = null !== $item ? BaiGoodsPoint::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['out_state'])) {
+            $model->outState = $map['out_state'];
         }
 
         return $model;

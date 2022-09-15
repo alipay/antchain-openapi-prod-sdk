@@ -41,6 +41,8 @@ use AntChain\BOT\Models\CheckAiidentificationQrcodeRequest;
 use AntChain\BOT\Models\CheckAiidentificationQrcodeResponse;
 use AntChain\BOT\Models\CreateAcsDeviceRequest;
 use AntChain\BOT\Models\CreateAcsDeviceResponse;
+use AntChain\BOT\Models\CreateAiidentificationQrcodeRequest;
+use AntChain\BOT\Models\CreateAiidentificationQrcodeResponse;
 use AntChain\BOT\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\BOT\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\BOT\Models\CreateConsumerRequest;
@@ -67,6 +69,8 @@ use AntChain\BOT\Models\CreateTaskRequest;
 use AntChain\BOT\Models\CreateTaskResponse;
 use AntChain\BOT\Models\CreateTenantProjectRequest;
 use AntChain\BOT\Models\CreateTenantProjectResponse;
+use AntChain\BOT\Models\CreateThingmodelRequest;
+use AntChain\BOT\Models\CreateThingmodelResponse;
 use AntChain\BOT\Models\DeleteDeviceRelationRequest;
 use AntChain\BOT\Models\DeleteDeviceRelationResponse;
 use AntChain\BOT\Models\DeploySceneRequest;
@@ -125,8 +129,18 @@ use AntChain\BOT\Models\OnlineDeviceRequest;
 use AntChain\BOT\Models\OnlineDeviceResponse;
 use AntChain\BOT\Models\OpenAcecContractRequest;
 use AntChain\BOT\Models\OpenAcecContractResponse;
+use AntChain\BOT\Models\OperateIotbasicCategoryRequest;
+use AntChain\BOT\Models\OperateIotbasicCategoryResponse;
+use AntChain\BOT\Models\OperateIotbasicChainmodelRequest;
+use AntChain\BOT\Models\OperateIotbasicChainmodelResponse;
+use AntChain\BOT\Models\OperateIotbasicControlconfigRequest;
+use AntChain\BOT\Models\OperateIotbasicControlconfigResponse;
+use AntChain\BOT\Models\OperateIotbasicDictionaryRequest;
+use AntChain\BOT\Models\OperateIotbasicDictionaryResponse;
 use AntChain\BOT\Models\OperateIotbasicPermissionRequest;
 use AntChain\BOT\Models\OperateIotbasicPermissionResponse;
+use AntChain\BOT\Models\OperateIotbasicRelrationRequest;
+use AntChain\BOT\Models\OperateIotbasicRelrationResponse;
 use AntChain\BOT\Models\OperateIotbasicUserRequest;
 use AntChain\BOT\Models\OperateIotbasicUserResponse;
 use AntChain\BOT\Models\PagequeryAlertStrategyRequest;
@@ -145,6 +159,8 @@ use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
 use AntChain\BOT\Models\PushCollectotBychainidRequest;
 use AntChain\BOT\Models\PushCollectotBychainidResponse;
+use AntChain\BOT\Models\QueryAiidentificationGoodspointRequest;
+use AntChain\BOT\Models\QueryAiidentificationGoodspointResponse;
 use AntChain\BOT\Models\QueryAiidentificationGoodsRequest;
 use AntChain\BOT\Models\QueryAiidentificationGoodsResponse;
 use AntChain\BOT\Models\QueryAiidentificationQrcodeRequest;
@@ -179,6 +195,8 @@ use AntChain\BOT\Models\QueryScfleaseEqpinfoRequest;
 use AntChain\BOT\Models\QueryScfleaseEqpinfoResponse;
 use AntChain\BOT\Models\QueryTaskRequest;
 use AntChain\BOT\Models\QueryTaskResponse;
+use AntChain\BOT\Models\QueryThingmodelRequest;
+use AntChain\BOT\Models\QueryThingmodelResponse;
 use AntChain\BOT\Models\QueryThingsdidAsyncprocessRequest;
 use AntChain\BOT\Models\QueryThingsdidAsyncprocessResponse;
 use AntChain\BOT\Models\QueryThingsdidDidRequest;
@@ -251,6 +269,8 @@ use AntChain\BOT\Models\UpdateThingsdidStatusRequest;
 use AntChain\BOT\Models\UpdateThingsdidStatusResponse;
 use AntChain\BOT\Models\UpdateThingsdidTenantRequest;
 use AntChain\BOT\Models\UpdateThingsdidTenantResponse;
+use AntChain\BOT\Models\VerifyAiidentificationQrcodeRequest;
+use AntChain\BOT\Models\VerifyAiidentificationQrcodeResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -370,7 +390,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // iot平台权限数据
+            // 资源定位信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -398,7 +418,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.118',
+                    'sdk_version'      => '1.7.13',
+                    '_prod_code'       => 'BOT',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -826,6 +848,105 @@ class Client
     }
 
     /**
+     * Description: 用于生成溯源防伪码
+     * Summary: 溯源防伪码生成接口.
+     *
+     * @param CreateAiidentificationQrcodeRequest $request
+     *
+     * @return CreateAiidentificationQrcodeResponse
+     */
+    public function createAiidentificationQrcode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAiidentificationQrcodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于生成溯源防伪码
+     * Summary: 溯源防伪码生成接口.
+     *
+     * @param CreateAiidentificationQrcodeRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateAiidentificationQrcodeResponse
+     */
+    public function createAiidentificationQrcodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAiidentificationQrcodeResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.qrcode.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: B端二维码质检
+     * Summary: B端二维码质检
+     *
+     * @param VerifyAiidentificationQrcodeRequest $request
+     *
+     * @return VerifyAiidentificationQrcodeResponse
+     */
+    public function verifyAiidentificationQrcode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyAiidentificationQrcodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: B端二维码质检
+     * Summary: B端二维码质检
+     *
+     * @param VerifyAiidentificationQrcodeRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return VerifyAiidentificationQrcodeResponse
+     */
+    public function verifyAiidentificationQrcodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyAiidentificationQrcodeResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.qrcode.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品鉴定
+     * Summary: 商品鉴定.
+     *
+     * @param QueryAiidentificationGoodspointRequest $request
+     *
+     * @return QueryAiidentificationGoodspointResponse
+     */
+    public function queryAiidentificationGoodspoint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAiidentificationGoodspointEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品鉴定
+     * Summary: 商品鉴定.
+     *
+     * @param QueryAiidentificationGoodspointRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryAiidentificationGoodspointResponse
+     */
+    public function queryAiidentificationGoodspointEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAiidentificationGoodspointResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.goodspoint.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: biot 私有化 设备注册接口
      * Summary: biot 私有化 设备注册接口.
      *
@@ -1120,6 +1241,171 @@ class Client
         Utils::validateModel($request);
 
         return QueryDeviceSpecsResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.specs.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-设备规格关系维护
+     * Summary: IoT设备平台-设备规格关系维护.
+     *
+     * @param OperateIotbasicRelrationRequest $request
+     *
+     * @return OperateIotbasicRelrationResponse
+     */
+    public function operateIotbasicRelration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateIotbasicRelrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备规格关系维护
+     * Summary: IoT设备平台-设备规格关系维护.
+     *
+     * @param OperateIotbasicRelrationRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return OperateIotbasicRelrationResponse
+     */
+    public function operateIotbasicRelrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateIotbasicRelrationResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.relration.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-设备字典数据维护
+     * Summary: IoT设备平台-设备字典数据维护.
+     *
+     * @param OperateIotbasicDictionaryRequest $request
+     *
+     * @return OperateIotbasicDictionaryResponse
+     */
+    public function operateIotbasicDictionary($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateIotbasicDictionaryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备字典数据维护
+     * Summary: IoT设备平台-设备字典数据维护.
+     *
+     * @param OperateIotbasicDictionaryRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return OperateIotbasicDictionaryResponse
+     */
+    public function operateIotbasicDictionaryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateIotbasicDictionaryResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.dictionary.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-设备品类数据维护
+     * Summary: IoT设备平台-设备品类数据维护.
+     *
+     * @param OperateIotbasicCategoryRequest $request
+     *
+     * @return OperateIotbasicCategoryResponse
+     */
+    public function operateIotbasicCategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateIotbasicCategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备品类数据维护
+     * Summary: IoT设备平台-设备品类数据维护.
+     *
+     * @param OperateIotbasicCategoryRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return OperateIotbasicCategoryResponse
+     */
+    public function operateIotbasicCategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateIotbasicCategoryResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.category.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-设备管控配置维护
+     * Summary: IoT设备平台-设备管控配置维护.
+     *
+     * @param OperateIotbasicControlconfigRequest $request
+     *
+     * @return OperateIotbasicControlconfigResponse
+     */
+    public function operateIotbasicControlconfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateIotbasicControlconfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备管控配置维护
+     * Summary: IoT设备平台-设备管控配置维护.
+     *
+     * @param OperateIotbasicControlconfigRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return OperateIotbasicControlconfigResponse
+     */
+    public function operateIotbasicControlconfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateIotbasicControlconfigResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.controlconfig.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-上链业务模型配置维护
+     * Summary: IoT设备平台-上链业务模型配置维护.
+     *
+     * @param OperateIotbasicChainmodelRequest $request
+     *
+     * @return OperateIotbasicChainmodelResponse
+     */
+    public function operateIotbasicChainmodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateIotbasicChainmodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-上链业务模型配置维护
+     * Summary: IoT设备平台-上链业务模型配置维护.
+     *
+     * @param OperateIotbasicChainmodelRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return OperateIotbasicChainmodelResponse
+     */
+    public function operateIotbasicChainmodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateIotbasicChainmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.chainmodel.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3859,6 +4145,72 @@ class Client
         Utils::validateModel($request);
 
         return UpdateCustomerEntityResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.customer.entity.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为租户创建物模型
+     * Summary: 为租户创建物模型.
+     *
+     * @param CreateThingmodelRequest $request
+     *
+     * @return CreateThingmodelResponse
+     */
+    public function createThingmodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createThingmodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为租户创建物模型
+     * Summary: 为租户创建物模型.
+     *
+     * @param CreateThingmodelRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CreateThingmodelResponse
+     */
+    public function createThingmodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thingmodel.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询租户的物模型
+     * Summary: 查询租户的物模型.
+     *
+     * @param QueryThingmodelRequest $request
+     *
+     * @return QueryThingmodelResponse
+     */
+    public function queryThingmodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryThingmodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询租户的物模型
+     * Summary: 查询租户的物模型.
+     *
+     * @param QueryThingmodelRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryThingmodelResponse
+     */
+    public function queryThingmodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thingmodel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
