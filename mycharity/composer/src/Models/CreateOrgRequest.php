@@ -6,7 +6,7 @@ namespace AntChain\MYCHARITY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitOrgRequest extends Model
+class CreateOrgRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,25 +19,25 @@ class InitOrgRequest extends Model
      */
     public $productInstanceId;
 
-    // id
+    // 50字符，单平台幂等
     /**
      * @var string
      */
     public $id;
 
-    // 机构名称
+    // 50字符 机构名称
     /**
      * @var string
      */
     public $name;
 
-    // 机构简介
+    // 500字符 机构简介
     /**
      * @var string
      */
     public $introduction;
 
-    // 18位社会统一信用代码
+    // 社会统一信用代码18位
     /**
      * @var string
      */
@@ -45,13 +45,13 @@ class InitOrgRequest extends Model
 
     // 测试机构说明:0正式机构(默认),1测试机构
     /**
-     * @var string
+     * @var int
      */
     public $testFlag;
 
     // 13位时间戳 签约时间
     /**
-     * @var string
+     * @var int
      */
     public $signTime;
     protected $_name = [
@@ -76,11 +76,12 @@ class InitOrgRequest extends Model
         Model::validateMaxLength('name', $this->name, 50);
         Model::validateMaxLength('introduction', $this->introduction, 500);
         Model::validateMaxLength('unifiedSocialCreditCode', $this->unifiedSocialCreditCode, 18);
-        Model::validateMaxLength('testFlag', $this->testFlag, 1);
-        Model::validateMaxLength('signTime', $this->signTime, 13);
+        Model::validateMinLength('id', $this->id, 1);
+        Model::validateMinLength('name', $this->name, 1);
+        Model::validateMinLength('introduction', $this->introduction, 1);
         Model::validateMinLength('unifiedSocialCreditCode', $this->unifiedSocialCreditCode, 18);
-        Model::validateMinLength('testFlag', $this->testFlag, 1);
-        Model::validateMinLength('signTime', $this->signTime, 13);
+        Model::validateMaximum('testFlag', $this->testFlag, 1);
+        Model::validateMinimum('testFlag', $this->testFlag, 0);
     }
 
     public function toMap()
@@ -117,7 +118,7 @@ class InitOrgRequest extends Model
     /**
      * @param array $map
      *
-     * @return InitOrgRequest
+     * @return CreateOrgRequest
      */
     public static function fromMap($map = [])
     {

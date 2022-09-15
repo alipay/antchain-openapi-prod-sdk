@@ -11,8 +11,50 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\MYCHARITY\Models\InitOrgRequest;
-use AntChain\MYCHARITY\Models\InitOrgResponse;
+use AntChain\MYCHARITY\Models\BatchcreateRecordRequest;
+use AntChain\MYCHARITY\Models\BatchcreateRecordResponse;
+use AntChain\MYCHARITY\Models\CreateAlipaysignRequest;
+use AntChain\MYCHARITY\Models\CreateAlipaysignResponse;
+use AntChain\MYCHARITY\Models\CreateCombinationRequest;
+use AntChain\MYCHARITY\Models\CreateCombinationResponse;
+use AntChain\MYCHARITY\Models\CreateOrgRequest;
+use AntChain\MYCHARITY\Models\CreateOrgResponse;
+use AntChain\MYCHARITY\Models\CreatePersonPermissionRequest;
+use AntChain\MYCHARITY\Models\CreatePersonPermissionResponse;
+use AntChain\MYCHARITY\Models\CreateProjectRequest;
+use AntChain\MYCHARITY\Models\CreateProjectResponse;
+use AntChain\MYCHARITY\Models\CreateStagesRequest;
+use AntChain\MYCHARITY\Models\CreateStagesResponse;
+use AntChain\MYCHARITY\Models\DeleteBatchRequest;
+use AntChain\MYCHARITY\Models\DeleteBatchResponse;
+use AntChain\MYCHARITY\Models\DeletePersonRequest;
+use AntChain\MYCHARITY\Models\DeletePersonResponse;
+use AntChain\MYCHARITY\Models\DetailOrgRequest;
+use AntChain\MYCHARITY\Models\DetailOrgResponse;
+use AntChain\MYCHARITY\Models\DetailProjectRequest;
+use AntChain\MYCHARITY\Models\DetailProjectResponse;
+use AntChain\MYCHARITY\Models\InitBatchRequest;
+use AntChain\MYCHARITY\Models\InitBatchResponse;
+use AntChain\MYCHARITY\Models\QueryAlipaysignQrcodeRequest;
+use AntChain\MYCHARITY\Models\QueryAlipaysignQrcodeResponse;
+use AntChain\MYCHARITY\Models\QueryAlipaysignStateRequest;
+use AntChain\MYCHARITY\Models\QueryAlipaysignStateResponse;
+use AntChain\MYCHARITY\Models\QueryBatchRequest;
+use AntChain\MYCHARITY\Models\QueryBatchResponse;
+use AntChain\MYCHARITY\Models\QueryCombinationRequest;
+use AntChain\MYCHARITY\Models\QueryCombinationResponse;
+use AntChain\MYCHARITY\Models\QueryStagesRequest;
+use AntChain\MYCHARITY\Models\QueryStagesResponse;
+use AntChain\MYCHARITY\Models\UpdateBatchRequest;
+use AntChain\MYCHARITY\Models\UpdateBatchResponse;
+use AntChain\MYCHARITY\Models\UpdateCombinationRequest;
+use AntChain\MYCHARITY\Models\UpdateCombinationResponse;
+use AntChain\MYCHARITY\Models\UpdateOrgRequest;
+use AntChain\MYCHARITY\Models\UpdateOrgResponse;
+use AntChain\MYCHARITY\Models\UpdateProjectRequest;
+use AntChain\MYCHARITY\Models\UpdateProjectResponse;
+use AntChain\MYCHARITY\Models\UpdateStagesRequest;
+use AntChain\MYCHARITY\Models\UpdateStagesResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -132,6 +174,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 执行记录
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -159,7 +202,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.2',
                     '_prod_code'       => 'MYCHARITY',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -208,35 +251,728 @@ class Client
     }
 
     /**
-     * Description: 创建项目
-     * Summary: 创建项目.
+     * Description: 待签约账号创建
+     * Summary: 待签约账号创建.
      *
-     * @param InitOrgRequest $request
+     * @param CreateAlipaysignRequest $request
      *
-     * @return InitOrgResponse
+     * @return CreateAlipaysignResponse
      */
-    public function initOrg($request)
+    public function createAlipaysign($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->initOrgEx($request, $headers, $runtime);
+        return $this->createAlipaysignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 待签约账号创建
+     * Summary: 待签约账号创建.
+     *
+     * @param CreateAlipaysignRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CreateAlipaysignResponse
+     */
+    public function createAlipaysignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAlipaysignResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.alipaysign.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 机构下代扣账号签约状态查询
+     * Summary: 机构下代扣账号签约状态查询.
+     *
+     * @param QueryAlipaysignStateRequest $request
+     *
+     * @return QueryAlipaysignStateResponse
+     */
+    public function queryAlipaysignState($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAlipaysignStateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 机构下代扣账号签约状态查询
+     * Summary: 机构下代扣账号签约状态查询.
+     *
+     * @param QueryAlipaysignStateRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryAlipaysignStateResponse
+     */
+    public function queryAlipaysignStateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAlipaysignStateResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.alipaysign.state.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 账号签约二维码获取
+     * Summary: 账号签约二维码获取.
+     *
+     * @param QueryAlipaysignQrcodeRequest $request
+     *
+     * @return QueryAlipaysignQrcodeResponse
+     */
+    public function queryAlipaysignQrcode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAlipaysignQrcodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 账号签约二维码获取
+     * Summary: 账号签约二维码获取.
+     *
+     * @param QueryAlipaysignQrcodeRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryAlipaysignQrcodeResponse
+     */
+    public function queryAlipaysignQrcodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAlipaysignQrcodeResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.alipaysign.qrcode.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建人员并配置权限。如人员已经存在，则不创建。
+     * Summary: 创建人员及配置权限.
+     *
+     * @param CreatePersonPermissionRequest $request
+     *
+     * @return CreatePersonPermissionResponse
+     */
+    public function createPersonPermission($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createPersonPermissionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建人员并配置权限。如人员已经存在，则不创建。
+     * Summary: 创建人员及配置权限.
+     *
+     * @param CreatePersonPermissionRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreatePersonPermissionResponse
+     */
+    public function createPersonPermissionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreatePersonPermissionResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.person.permission.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 允许已授权的用户通过此接口删除人员权限。
+     * Summary: 配置权限删除.
+     *
+     * @param DeletePersonRequest $request
+     *
+     * @return DeletePersonResponse
+     */
+    public function deletePerson($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deletePersonEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 允许已授权的用户通过此接口删除人员权限。
+     * Summary: 配置权限删除.
+     *
+     * @param DeletePersonRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return DeletePersonResponse
+     */
+    public function deletePersonEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeletePersonResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.person.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建批次
+     * Summary: 创建批次
+     *
+     * @param InitBatchRequest $request
+     *
+     * @return InitBatchResponse
+     */
+    public function initBatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initBatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建批次
+     * Summary: 创建批次
+     *
+     * @param InitBatchRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return InitBatchResponse
+     */
+    public function initBatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitBatchResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.batch.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 修改批次状态
+     * Summary: 修改批次状态
+     *
+     * @param UpdateBatchRequest $request
+     *
+     * @return UpdateBatchResponse
+     */
+    public function updateBatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateBatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 修改批次状态
+     * Summary: 修改批次状态
+     *
+     * @param UpdateBatchRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return UpdateBatchResponse
+     */
+    public function updateBatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateBatchResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.batch.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除批次
+     * Summary: 删除批次
+     *
+     * @param DeleteBatchRequest $request
+     *
+     * @return DeleteBatchResponse
+     */
+    public function deleteBatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteBatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除批次
+     * Summary: 删除批次
+     *
+     * @param DeleteBatchRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return DeleteBatchResponse
+     */
+    public function deleteBatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteBatchResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.batch.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建项目分期
+     * Summary: 创建分期
+     *
+     * @param CreateStagesRequest $request
+     *
+     * @return CreateStagesResponse
+     */
+    public function createStages($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createStagesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建项目分期
+     * Summary: 创建分期
+     *
+     * @param CreateStagesRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return CreateStagesResponse
+     */
+    public function createStagesEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateStagesResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.stages.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询批次
+     * Summary: 查询批次
+     *
+     * @param QueryBatchRequest $request
+     *
+     * @return QueryBatchResponse
+     */
+    public function queryBatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询批次
+     * Summary: 查询批次
+     *
+     * @param QueryBatchRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return QueryBatchResponse
+     */
+    public function queryBatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBatchResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.batch.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新项目分期
+     * Summary: 更新分期
+     *
+     * @param UpdateStagesRequest $request
+     *
+     * @return UpdateStagesResponse
+     */
+    public function updateStages($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateStagesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新项目分期
+     * Summary: 更新分期
+     *
+     * @param UpdateStagesRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return UpdateStagesResponse
+     */
+    public function updateStagesEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateStagesResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.stages.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建机构
+     * Summary: 创建机构.
+     *
+     * @param CreateOrgRequest $request
+     *
+     * @return CreateOrgResponse
+     */
+    public function createOrg($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createOrgEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建机构
+     * Summary: 创建机构.
+     *
+     * @param CreateOrgRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return CreateOrgResponse
+     */
+    public function createOrgEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateOrgResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.org.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询分期
+     * Summary: 查询分期
+     *
+     * @param QueryStagesRequest $request
+     *
+     * @return QueryStagesResponse
+     */
+    public function queryStages($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryStagesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询分期
+     * Summary: 查询分期
+     *
+     * @param QueryStagesRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryStagesResponse
+     */
+    public function queryStagesEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryStagesResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.stages.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新机构
+     * Summary: 更新机构.
+     *
+     * @param UpdateOrgRequest $request
+     *
+     * @return UpdateOrgResponse
+     */
+    public function updateOrg($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateOrgEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新机构
+     * Summary: 更新机构.
+     *
+     * @param UpdateOrgRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return UpdateOrgResponse
+     */
+    public function updateOrgEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateOrgResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.org.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建实施内容
+     * Summary: 创建实施内容.
+     *
+     * @param CreateCombinationRequest $request
+     *
+     * @return CreateCombinationResponse
+     */
+    public function createCombination($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createCombinationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建实施内容
+     * Summary: 创建实施内容.
+     *
+     * @param CreateCombinationRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateCombinationResponse
+     */
+    public function createCombinationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateCombinationResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.combination.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 机构详情
+     * Summary: 机构详情.
+     *
+     * @param DetailOrgRequest $request
+     *
+     * @return DetailOrgResponse
+     */
+    public function detailOrg($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailOrgEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 机构详情
+     * Summary: 机构详情.
+     *
+     * @param DetailOrgRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return DetailOrgResponse
+     */
+    public function detailOrgEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailOrgResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.org.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 修改实施内容
+     * Summary: 修改实施内容.
+     *
+     * @param UpdateCombinationRequest $request
+     *
+     * @return UpdateCombinationResponse
+     */
+    public function updateCombination($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateCombinationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 修改实施内容
+     * Summary: 修改实施内容.
+     *
+     * @param UpdateCombinationRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return UpdateCombinationResponse
+     */
+    public function updateCombinationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateCombinationResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.combination.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 创建项目
      * Summary: 创建项目.
      *
-     * @param InitOrgRequest $request
-     * @param string[]       $headers
-     * @param RuntimeOptions $runtime
+     * @param CreateProjectRequest $request
      *
-     * @return InitOrgResponse
+     * @return CreateProjectResponse
      */
-    public function initOrgEx($request, $headers, $runtime)
+    public function createProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建项目
+     * Summary: 创建项目.
+     *
+     * @param CreateProjectRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return CreateProjectResponse
+     */
+    public function createProjectEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return InitOrgResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.org.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return CreateProjectResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.project.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新项目
+     * Summary: 更新项目.
+     *
+     * @param UpdateProjectRequest $request
+     *
+     * @return UpdateProjectResponse
+     */
+    public function updateProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新项目
+     * Summary: 更新项目.
+     *
+     * @param UpdateProjectRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return UpdateProjectResponse
+     */
+    public function updateProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateProjectResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.project.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 项目详情
+     * Summary: 项目详情.
+     *
+     * @param DetailProjectRequest $request
+     *
+     * @return DetailProjectResponse
+     */
+    public function detailProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 项目详情
+     * Summary: 项目详情.
+     *
+     * @param DetailProjectRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return DetailProjectResponse
+     */
+    public function detailProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailProjectResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.project.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询实施内容
+     * Summary: 查询实施内容.
+     *
+     * @param QueryCombinationRequest $request
+     *
+     * @return QueryCombinationResponse
+     */
+    public function queryCombination($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCombinationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询实施内容
+     * Summary: 查询实施内容.
+     *
+     * @param QueryCombinationRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryCombinationResponse
+     */
+    public function queryCombinationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCombinationResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.combination.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量创建执行记录
+     * Summary: 批量创建执行记录.
+     *
+     * @param BatchcreateRecordRequest $request
+     *
+     * @return BatchcreateRecordResponse
+     */
+    public function batchcreateRecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateRecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量创建执行记录
+     * Summary: 批量创建执行记录.
+     *
+     * @param BatchcreateRecordRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return BatchcreateRecordResponse
+     */
+    public function batchcreateRecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateRecordResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.record.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

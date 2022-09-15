@@ -6,7 +6,7 @@ namespace AntChain\MYCHARITY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitOrgResponse extends Model
+class QueryBatchResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -54,7 +54,7 @@ class InitOrgResponse extends Model
     /**
      * @param array $map
      *
-     * @return InitOrgResponse
+     * @return QueryBatchResponse
      */
     public static function fromMap($map = [])
     {
