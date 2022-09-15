@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.118',
+    sdk_version = '1.7.13',
+    _prod_code = 'BOT',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -159,6 +161,16 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 资源定位信息
+model BaiResourceLocation {
+  // 资源定位类型
+  // HTTP_URL：资源url
+  // STRING_BASE64：资源base64字符串（不带base64头部）
+  locationType: string(name='location_type', example='HTTP_URL, STRING_BASE64'),
+  // 资源定位值
+  locationValue: string(name='location_value', example='abc'),
+}
+
 // iot平台权限数据
 model IotBasicPermissionData {
   // 权限编码
@@ -194,16 +206,6 @@ model AlertStrategy {
   enabled: boolean(name='enabled', example='true, false'),
   // 备注
   remark?: string(name='remark', example='这是一条测试数据'),
-}
-
-// 资源定位信息
-model BaiResourceLocation {
-  // 资源定位类型
-  // HTTP_URL：资源url
-  // STRING_BASE64：资源base64字符串（不带base64头部）
-  locationType: string(name='location_type', example='HTTP_URL, STRING_BASE64'),
-  // 资源定位值
-  locationValue: string(name='location_value', example='abc'),
 }
 
 // sdk信息
@@ -391,6 +393,16 @@ model BaiGoodsPointIdentificationResult {
   grade?: string(name='grade', example='0.92'),
   // 用户侧的鉴定点point_id，直接将用户传入的user_point_id返回
   userPointId?: string(name='user_point_id', example='100'),
+  // 鉴定评价
+  appraiseMessage?: string(name='appraise_message', example='完全同一，趋于同一，不同一'),
+  // 鉴定点图片资源定位符
+  resourceLocation?: BaiResourceLocation(name='resource_location', example=''),
+}
+
+// 溯源防伪码质检请求的请求数据
+model BaiQrcodeVerifyReqData {
+  // 二维码图片url
+  queryImageUrl: string(name='query_image_url', example='http://xxxxxx'),
 }
 
 // Sdk分页查询结果
@@ -443,6 +455,33 @@ model ThingsDidRegisterReq {
   thingVersion: string(name='thing_version', example='"1.0.0"'),
   // 信物链实体的使用方的分布式身份列表
   userDid?: [ string ](name='user_did', example='["did:mychain:xxxx1","did:mychain:xxxx2"]'),
+}
+
+// 商品鉴定点鉴定响应体
+model BaiGoodsPointQueryRespData {
+  // 识别结果
+  // true：识别到鉴定点
+  // false：未识别到鉴定点
+  detection: boolean(name='detection', example='true'),
+  // 鉴定结果
+  // REAL：鉴定为真
+  // FAKE：鉴定为假
+  // UNABLE_IDENTIFY：无法鉴定
+  identificationResult: string(name='identification_result', example='REAL'),
+}
+
+// 溯源防伪码质检响应数据
+model BaiQrcodeVerifyRespData {
+  // 鉴定结果
+  // REAL：通过
+  // UNABLE_IDENTIFY：无法鉴定
+  identificationResult: string(name='identification_result', example='REAL'),
+  // 辅助识别结果码
+  identificationCode: string(name='identification_code', example='700'),
+  // 辅助识别信息
+  identificationMessage: string(name='identification_message', example='二维码不符合标准'),
+  // 无法鉴定时的解决方案
+  unableIdentifySolution: string(name='unable_identify_solution', example='请重新印刷'),
 }
 
 // 商品鉴定点检测接口响应数据
@@ -698,12 +737,32 @@ model BaiGoodsComparisonReqData {
   style: string(name='style', example='Gucci Diana'),
   // 商品鉴定点列表
   goodsPoints: [ BaiGoodsPoint ](name='goods_points', example=''),
+  // 用户自定义字符串，系统不做处理，会在响应体中带回
+  outState?: string(name='out_state', example='state'),
 }
 
 // 收集数据返回的上链结果
 model SendCollectorResult {
   // 数据内容content的上链交易哈希
   txHash: string(name='tx_hash', example='2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2'),
+}
+
+// 设备属性关系对象
+model IotDeviceAttributeRelationshipData {
+  // id
+  id?: long(name='id', example='1'),
+  // 设备品类名称
+  deviceCategory: string(name='device_category', example='智能防疫机一体机'),
+  // 关系类型
+  relationType: string(name='relation_type', example='CORP'),
+  // 厂商名称
+  corpName?: string(name='corp_name', example='天波'),
+  // 设备型号
+  deviceModel?: string(name='device_model', example='TPS980'),
+  // 设备规格
+  deviceSpecs?: string(name='device_specs', example='安卓标准版'),
+  // 硬件模块
+  hardwareModule?: string(name='hardware_module', example='测温头'),
 }
 
 // 创建订单失败的返回结构体
@@ -840,6 +899,12 @@ model CollectContent {
   dataModelId?: string(name='data_model_id', example='00000001'),
 }
 
+// 溯源二维码生成请求的请求数据
+model BaiQrcodeGenerateReqData {
+  // 二维码的码值
+  qrcodeContent: string(name='qrcode_content', example='TEST1234567890'),
+}
+
 // ProductKey分页查询结果
 model ProductKeyPageResponse {
   // 页数
@@ -914,6 +979,18 @@ model LabelTrace {
   isSuccess?: boolean(name='is_success', example='true, false'),
   // 标签对应资产版本号
   version?: long(name='version', example='1'),
+}
+
+// 溯源防伪码生成请求的响应数据
+model BaiQrcodeGenerateRespData {
+  // 二维码的base64字符串
+  generateResult: string(name='generate_result', example='/9j/4QyXRXhpZgAATU0AKgAAAAgABwESAAMAAAABAAEAAAEa......'),
+  // 生成结果码
+  generateCode: string(name='generate_code', example='200'),
+  // 用于异常场景下细化错误信息
+  generateMessage: string(name='generate_message', example='码值不正确'),
+  // 生成失败时的解决方案，用于异常场景下细化错误信息
+  unableGenerateSolution: string(name='unable_generate_solution', example='请调整码值重试'),
 }
 
 // 充电明细信息
@@ -1132,6 +1209,16 @@ model Device {
   deviceStatus?: string(name='device_status', example='NORMAL'),
 }
 
+// 新增厂商字典时需要传的产品信息
+model AddProductInfo {
+  // 产品名称
+  productName: string(name='product_name', example='防疫一体机'),
+  // 产品code
+  productCode: string(name='product_code', example='face_smart'),
+  // 产品描述
+  remark?: string(name='remark', example='智能防疫机'),
+}
+
 // 信物链实体查询返回的数据结构，对应数据表字段
 model DidBaseQueryResp {
   // 授权水平，0-默认关联授权
@@ -1344,6 +1431,10 @@ model BaiGoodsIdentificationRespData {
   description?: string(name='description', example='AI鉴定成功'),
   // 鉴定点鉴定结果列表
   pointIdentificationResults: [ BaiGoodsPointIdentificationResult ](name='point_identification_results', example=''),
+  // 鉴定评价
+  appraiseMessage?: string(name='appraise_message', example='完全同一，趋于同一，和不同一'),
+  // 用户自定义字符串，系统不做处理，会在响应体中带回
+  outState?: string(name='out_state', example='state'),
 }
 
 // iot平台用户信息
@@ -1953,6 +2044,132 @@ async function checkAiidentificationQrcodeEx(request: CheckAiidentificationQrcod
   return doRequest('1.0' ,'blockchain.bot.aiidentification.qrcode.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model CreateAiidentificationQrcodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户身份标识
+  appKey: string(name='app_key'),
+  // 二维码生成请求的请求数据
+  data: BaiQrcodeGenerateReqData(name='data'),
+}
+
+model CreateAiidentificationQrcodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  data?: BaiQrcodeGenerateRespData(name='data'),
+}
+
+/**
+ * Description: 用于生成溯源防伪码
+ * Summary: 溯源防伪码生成接口
+ */
+async function createAiidentificationQrcode(request: CreateAiidentificationQrcodeRequest): CreateAiidentificationQrcodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAiidentificationQrcodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于生成溯源防伪码
+ * Summary: 溯源防伪码生成接口
+ */
+async function createAiidentificationQrcodeEx(request: CreateAiidentificationQrcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAiidentificationQrcodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.aiidentification.qrcode.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyAiidentificationQrcodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户身份标识
+  appKey: string(name='app_key'),
+  // 溯源防伪码质检请求数据
+  data: BaiQrcodeVerifyReqData(name='data'),
+}
+
+model VerifyAiidentificationQrcodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 溯源防伪码质检响应结果
+  data?: BaiQrcodeVerifyRespData(name='data'),
+}
+
+/**
+ * Description: B端二维码质检
+ * Summary: B端二维码质检
+ */
+async function verifyAiidentificationQrcode(request: VerifyAiidentificationQrcodeRequest): VerifyAiidentificationQrcodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyAiidentificationQrcodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: B端二维码质检
+ * Summary: B端二维码质检
+ */
+async function verifyAiidentificationQrcodeEx(request: VerifyAiidentificationQrcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyAiidentificationQrcodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.aiidentification.qrcode.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAiidentificationGoodspointRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户调用标识
+  appKey: string(name='app_key'),
+  // 品类
+  category: string(name='category'),
+  // 品牌
+  brand: string(name='brand'),
+  // 款式
+  style: string(name='style'),
+  // 鉴定点信息
+  pointInfo: BaiGoodsPoint(name='point_info'),
+}
+
+model QueryAiidentificationGoodspointResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品鉴定点鉴定响应体
+  data?: BaiGoodsPointQueryRespData(name='data'),
+}
+
+/**
+ * Description: 商品鉴定
+ * Summary: 商品鉴定
+ */
+async function queryAiidentificationGoodspoint(request: QueryAiidentificationGoodspointRequest): QueryAiidentificationGoodspointResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAiidentificationGoodspointEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商品鉴定
+ * Summary: 商品鉴定
+ */
+async function queryAiidentificationGoodspointEx(request: QueryAiidentificationGoodspointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAiidentificationGoodspointResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.aiidentification.goodspoint.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateAcsDeviceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -2200,6 +2417,12 @@ model CertifyIotbasicDeviceResponse = {
   appVersion?: string(name='app_version'),
   // 服务状态
   serviceStatus?: string(name='service_status'),
+  // 子账号ID
+  accountId?: string(name='account_id'),
+  // 所属账号名称
+  accountName?: string(name='account_name'),
+  // 子账号角色
+  userRole?: string(name='user_role'),
 }
 
 /**
@@ -2421,6 +2644,278 @@ async function queryDeviceSpecs(request: QueryDeviceSpecsRequest): QueryDeviceSp
 async function queryDeviceSpecsEx(request: QueryDeviceSpecsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDeviceSpecsResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.device.specs.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateIotbasicRelrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备属性关系id
+  id?: long(name='id'),
+  // 设备品类名称
+  deviceCategory: string(name='device_category'),
+  // 数据关系类型
+  relationType: string(name='relation_type'),
+  // 厂商名称
+  corpName?: string(name='corp_name'),
+  // TPS980	设备型号
+  deviceModel?: string(name='device_model'),
+  // 设备规格
+  deviceSpecs?: string(name='device_specs'),
+  // 硬件模块
+  hardwareModule?: string(name='hardware_module'),
+  // ADD,EDIT,DELETE，QUERY；选择操作
+  operate: string(name='operate'),
+  // 参数签名校验
+  paramSign?: string(name='param_sign'),
+}
+
+model OperateIotbasicRelrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  success?: boolean(name='success'),
+  // 设备属性关系数据
+  iotDeviceAttributeRelationshipData?: IotDeviceAttributeRelationshipData(name='iot_device_attribute_relationship_data'),
+}
+
+/**
+ * Description: IoT设备平台-设备规格关系维护
+ * Summary: IoT设备平台-设备规格关系维护
+ */
+async function operateIotbasicRelration(request: OperateIotbasicRelrationRequest): OperateIotbasicRelrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateIotbasicRelrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-设备规格关系维护
+ * Summary: IoT设备平台-设备规格关系维护
+ */
+async function operateIotbasicRelrationEx(request: OperateIotbasicRelrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateIotbasicRelrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.relration.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateIotbasicDictionaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // id
+  id?: long(name='id'),
+  // 设备品类编码
+  deviceCategory?: string(name='device_category'),
+  // 字典数据类型
+  dictionaryType?: string(name='dictionary_type'),
+  // 字典数据名称
+  dictionaryName?: string(name='dictionary_name'),
+  // 字典数据值
+  dictionaryValue?: string(name='dictionary_value'),
+  // 硬件模块参数
+  dictionaryParam?: string(name='dictionary_param'),
+  // 选择操作
+  action: string(name='action'),
+  // 参数签名校验
+  paramSign?: string(name='param_sign'),
+}
+
+model OperateIotbasicDictionaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: IoT设备平台-设备字典数据维护
+ * Summary: IoT设备平台-设备字典数据维护
+ */
+async function operateIotbasicDictionary(request: OperateIotbasicDictionaryRequest): OperateIotbasicDictionaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateIotbasicDictionaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-设备字典数据维护
+ * Summary: IoT设备平台-设备字典数据维护
+ */
+async function operateIotbasicDictionaryEx(request: OperateIotbasicDictionaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateIotbasicDictionaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.dictionary.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateIotbasicCategoryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 品类名称
+  categoryName: string(name='category_name'),
+  // 行业
+  industry: string(name='industry'),
+  // 场景
+  scene: string(name='scene'),
+  // 品类类型：标准 | 自定义
+  categoryType: string(name='category_type'),
+  // 描述内容
+  remark?: string(name='remark'),
+  // 操作类型
+  action: string(name='action'),
+  // 操作人id
+  operatorId: string(name='operator_id'),
+  // 参数签名校验
+  paramSign: string(name='param_sign'),
+}
+
+model OperateIotbasicCategoryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: IoT设备平台-设备品类数据维护
+ * Summary: IoT设备平台-设备品类数据维护
+ */
+async function operateIotbasicCategory(request: OperateIotbasicCategoryRequest): OperateIotbasicCategoryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateIotbasicCategoryEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-设备品类数据维护
+ * Summary: IoT设备平台-设备品类数据维护
+ */
+async function operateIotbasicCategoryEx(request: OperateIotbasicCategoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateIotbasicCategoryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.category.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateIotbasicControlconfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备品类编码
+  categoryCode: string(name='category_code'),
+  // 厂商
+  corpName: string(name='corp_name'),
+  // 设备型号
+  deviceModel?: string(name='device_model'),
+  // 管控模式
+  controlModel: string(name='control_model'),
+  // 是否上链--注册设备后需上链存证，记录存证hash
+  ifPutChain: string(name='if_put_chain'),
+  // 是否标准设备-- 设备注册时 判断扩展属性 或展示时 显示扩展属性
+  ifStandardDevice: string(name='if_standard_device'),
+  // 是否生成密钥--注册设备时 生成密钥对， 存到 设备公钥(public_key)、deviceSecrect
+  ifGenerateScrect: string(name='if_generate_screct'),
+  // 接口地址
+  interfaceAddress?: string(name='interface_address'),
+  // 接口参数
+  interfaceParams?: string(name='interface_params'),
+  // 操作类型
+  action: string(name='action'),
+  // 操作人id
+  operatorId: string(name='operator_id'),
+  // 参数签名校验
+  paramSign: string(name='param_sign'),
+}
+
+model OperateIotbasicControlconfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: IoT设备平台-设备管控配置维护
+ * Summary: IoT设备平台-设备管控配置维护
+ */
+async function operateIotbasicControlconfig(request: OperateIotbasicControlconfigRequest): OperateIotbasicControlconfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateIotbasicControlconfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-设备管控配置维护
+ * Summary: IoT设备平台-设备管控配置维护
+ */
+async function operateIotbasicControlconfigEx(request: OperateIotbasicControlconfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateIotbasicControlconfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.controlconfig.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateIotbasicChainmodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 操作类型
+  action: string(name='action'),
+  // 操作人id
+  operatorId: string(name='operator_id'),
+  // 参数签名校验
+  paramSign: string(name='param_sign'),
+  // 所属业务
+  business: string(name='business'),
+  // 资产数据类型
+  dataType: string(name='data_type'),
+  // 资产ID-key
+  assetsIdKey: string(name='assets_id_key'),
+  // 资产ID-类型
+  assetsIdType: string(name='assets_id_type'),
+  // 签名验证方式
+  signatureCheckType: string(name='signature_check_type'),
+}
+
+model OperateIotbasicChainmodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: IoT设备平台-上链业务模型配置维护
+ * Summary: IoT设备平台-上链业务模型配置维护
+ */
+async function operateIotbasicChainmodel(request: OperateIotbasicChainmodelRequest): OperateIotbasicChainmodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateIotbasicChainmodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-上链业务模型配置维护
+ * Summary: IoT设备平台-上链业务模型配置维护
+ */
+async function operateIotbasicChainmodelEx(request: OperateIotbasicChainmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateIotbasicChainmodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.chainmodel.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
@@ -2702,6 +3197,8 @@ model CreateDeviceDatamodelRequest = {
   bizType?: string(name='biz_type'),
   // 用户自定义版本
   customerVersion?: string(name='customer_version'),
+  // 是否转化为物模型，默认false
+  transformThingModel?: boolean(name='transform_thing_model'),
 }
 
 model CreateDeviceDatamodelResponse = {
@@ -3043,9 +3540,9 @@ model UpdateDeviceInfoRequest = {
   // 额外信息
   extraInfo?: string(name='extra_info'),
   // 资产所有人标识（统一社会信用代码）
-  owner: string(name='owner'),
+  owner?: string(name='owner'),
   // 资产所有人名称
-  ownerName: string(name='owner_name'),
+  ownerName?: string(name='owner_name'),
 }
 
 model UpdateDeviceInfoResponse = {
@@ -3107,9 +3604,9 @@ model CreateDistributedeviceBydeviceidRequest = {
   // 额外信息
   extraInfo?: string(name='extra_info'),
   // 资产所有人标识（统一社会信用代码）
-  owner: string(name='owner'),
+  owner?: string(name='owner'),
   // 资产所有人名称
-  ownerName: string(name='owner_name'),
+  ownerName?: string(name='owner_name'),
 }
 
 model CreateDistributedeviceBydeviceidResponse = {
@@ -4080,9 +4577,9 @@ model CreateDistributedeviceBydeviceRequest = {
   // 设备型号
   deviceName: string(name='device_name'),
   // 资产所有人标识（统一社会信用代码）
-  owner: string(name='owner'),
+  owner?: string(name='owner'),
   // 资产所有人名称
-  ownerName: string(name='owner_name'),
+  ownerName?: string(name='owner_name'),
 }
 
 model CreateDistributedeviceBydeviceResponse = {
@@ -4434,9 +4931,9 @@ model UpdateDeviceInfobydeviceRequest = {
   // 额外信息
   extraInfo?: string(name='extra_info'),
   // 资产所有人标识（统一社会信用代码）
-  owner: string(name='owner'),
+  owner?: string(name='owner'),
   // 资产所有人名称
-  ownerName: string(name='owner_name'),
+  ownerName?: string(name='owner_name'),
 }
 
 model UpdateDeviceInfobydeviceResponse = {
@@ -5140,8 +5637,10 @@ model DeploySceneRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 场景名称
   sceneName: string(name='scene_name'),
-  // 链ID
-  bnaasBasicServiceDid: string(name='bnaas_basic_service_did'),
+  // bnaas did
+  bnaasBasicServiceDid?: string(name='bnaas_basic_service_did'),
+  // baas rest bizId
+  baasRestBizId?: string(name='baas_rest_biz_id'),
   // 合约版本号
   contractVersion?: string(name='contract_version'),
 }
@@ -6439,6 +6938,78 @@ async function updateCustomerEntity(request: UpdateCustomerEntityRequest): Updat
 async function updateCustomerEntityEx(request: UpdateCustomerEntityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateCustomerEntityResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.customer.entity.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateThingmodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 物模型内容（多个物模型功能拼合的json）
+  thingModel: string(name='thing_model'),
+}
+
+model CreateThingmodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 为租户创建物模型
+ * Summary: 为租户创建物模型
+ */
+async function createThingmodel(request: CreateThingmodelRequest): CreateThingmodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createThingmodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 为租户创建物模型
+ * Summary: 为租户创建物模型
+ */
+async function createThingmodelEx(request: CreateThingmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateThingmodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.thingmodel.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryThingmodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryThingmodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 租户的物模型内容（多个物模型功能拼合的json）
+  thingModel?: string(name='thing_model'),
+}
+
+/**
+ * Description: 查询租户的物模型
+ * Summary: 查询租户的物模型
+ */
+async function queryThingmodel(request: QueryThingmodelRequest): QueryThingmodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryThingmodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询租户的物模型
+ * Summary: 查询租户的物模型
+ */
+async function queryThingmodelEx(request: QueryThingmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryThingmodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.thingmodel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
