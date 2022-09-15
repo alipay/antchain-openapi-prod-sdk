@@ -16,10 +16,13 @@ public class DeploySceneRequest extends TeaModel {
     @Validation(required = true)
     public String sceneName;
 
-    // 链ID
+    // bnaas did
     @NameInMap("bnaas_basic_service_did")
-    @Validation(required = true)
     public String bnaasBasicServiceDid;
+
+    // baas rest bizId
+    @NameInMap("baas_rest_biz_id")
+    public String baasRestBizId;
 
     // 合约版本号
     @NameInMap("contract_version")
@@ -60,6 +63,14 @@ public class DeploySceneRequest extends TeaModel {
     }
     public String getBnaasBasicServiceDid() {
         return this.bnaasBasicServiceDid;
+    }
+
+    public DeploySceneRequest setBaasRestBizId(String baasRestBizId) {
+        this.baasRestBizId = baasRestBizId;
+        return this;
+    }
+    public String getBaasRestBizId() {
+        return this.baasRestBizId;
     }
 
     public DeploySceneRequest setContractVersion(String contractVersion) {

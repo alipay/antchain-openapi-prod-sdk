@@ -119,12 +119,10 @@ public class UpdateDeviceInfobydeviceRequest extends TeaModel {
 
     // 资产所有人标识（统一社会信用代码）
     @NameInMap("owner")
-    @Validation(required = true)
     public String owner;
 
     // 资产所有人名称
     @NameInMap("owner_name")
-    @Validation(required = true)
     public String ownerName;
 
     public static UpdateDeviceInfobydeviceRequest build(java.util.Map<String, ?> map) throws Exception {

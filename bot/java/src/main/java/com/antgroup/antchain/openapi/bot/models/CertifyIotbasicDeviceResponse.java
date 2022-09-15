@@ -48,6 +48,18 @@ public class CertifyIotbasicDeviceResponse extends TeaModel {
     @NameInMap("service_status")
     public String serviceStatus;
 
+    // 子账号ID
+    @NameInMap("account_id")
+    public String accountId;
+
+    // 所属账号名称
+    @NameInMap("account_name")
+    public String accountName;
+
+    // 子账号角色
+    @NameInMap("user_role")
+    public String userRole;
+
     public static CertifyIotbasicDeviceResponse build(java.util.Map<String, ?> map) throws Exception {
         CertifyIotbasicDeviceResponse self = new CertifyIotbasicDeviceResponse();
         return TeaModel.build(map, self);
@@ -139,6 +151,30 @@ public class CertifyIotbasicDeviceResponse extends TeaModel {
     }
     public String getServiceStatus() {
         return this.serviceStatus;
+    }
+
+    public CertifyIotbasicDeviceResponse setAccountId(String accountId) {
+        this.accountId = accountId;
+        return this;
+    }
+    public String getAccountId() {
+        return this.accountId;
+    }
+
+    public CertifyIotbasicDeviceResponse setAccountName(String accountName) {
+        this.accountName = accountName;
+        return this;
+    }
+    public String getAccountName() {
+        return this.accountName;
+    }
+
+    public CertifyIotbasicDeviceResponse setUserRole(String userRole) {
+        this.userRole = userRole;
+        return this;
+    }
+    public String getUserRole() {
+        return this.userRole;
     }
 
 }

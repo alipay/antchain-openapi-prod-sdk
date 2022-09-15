@@ -26,6 +26,14 @@ public class BaiGoodsIdentificationRespData extends TeaModel {
     @Validation(required = true)
     public java.util.List<BaiGoodsPointIdentificationResult> pointIdentificationResults;
 
+    // 鉴定评价
+    @NameInMap("appraise_message")
+    public String appraiseMessage;
+
+    // 用户自定义字符串，系统不做处理，会在响应体中带回
+    @NameInMap("out_state")
+    public String outState;
+
     public static BaiGoodsIdentificationRespData build(java.util.Map<String, ?> map) throws Exception {
         BaiGoodsIdentificationRespData self = new BaiGoodsIdentificationRespData();
         return TeaModel.build(map, self);
@@ -61,6 +69,22 @@ public class BaiGoodsIdentificationRespData extends TeaModel {
     }
     public java.util.List<BaiGoodsPointIdentificationResult> getPointIdentificationResults() {
         return this.pointIdentificationResults;
+    }
+
+    public BaiGoodsIdentificationRespData setAppraiseMessage(String appraiseMessage) {
+        this.appraiseMessage = appraiseMessage;
+        return this;
+    }
+    public String getAppraiseMessage() {
+        return this.appraiseMessage;
+    }
+
+    public BaiGoodsIdentificationRespData setOutState(String outState) {
+        this.outState = outState;
+        return this;
+    }
+    public String getOutState() {
+        return this.outState;
     }
 
 }

@@ -24,6 +24,10 @@ public class BaiGoodsComparisonReqData extends TeaModel {
     @Validation(required = true)
     public java.util.List<BaiGoodsPoint> goodsPoints;
 
+    // 用户自定义字符串，系统不做处理，会在响应体中带回
+    @NameInMap("out_state")
+    public String outState;
+
     public static BaiGoodsComparisonReqData build(java.util.Map<String, ?> map) throws Exception {
         BaiGoodsComparisonReqData self = new BaiGoodsComparisonReqData();
         return TeaModel.build(map, self);
@@ -59,6 +63,14 @@ public class BaiGoodsComparisonReqData extends TeaModel {
     }
     public java.util.List<BaiGoodsPoint> getGoodsPoints() {
         return this.goodsPoints;
+    }
+
+    public BaiGoodsComparisonReqData setOutState(String outState) {
+        this.outState = outState;
+        return this;
+    }
+    public String getOutState() {
+        return this.outState;
     }
 
 }

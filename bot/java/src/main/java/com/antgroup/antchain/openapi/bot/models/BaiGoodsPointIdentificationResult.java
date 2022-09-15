@@ -30,6 +30,14 @@ public class BaiGoodsPointIdentificationResult extends TeaModel {
     @NameInMap("user_point_id")
     public String userPointId;
 
+    // 鉴定评价
+    @NameInMap("appraise_message")
+    public String appraiseMessage;
+
+    // 鉴定点图片资源定位符
+    @NameInMap("resource_location")
+    public BaiResourceLocation resourceLocation;
+
     public static BaiGoodsPointIdentificationResult build(java.util.Map<String, ?> map) throws Exception {
         BaiGoodsPointIdentificationResult self = new BaiGoodsPointIdentificationResult();
         return TeaModel.build(map, self);
@@ -73,6 +81,22 @@ public class BaiGoodsPointIdentificationResult extends TeaModel {
     }
     public String getUserPointId() {
         return this.userPointId;
+    }
+
+    public BaiGoodsPointIdentificationResult setAppraiseMessage(String appraiseMessage) {
+        this.appraiseMessage = appraiseMessage;
+        return this;
+    }
+    public String getAppraiseMessage() {
+        return this.appraiseMessage;
+    }
+
+    public BaiGoodsPointIdentificationResult setResourceLocation(BaiResourceLocation resourceLocation) {
+        this.resourceLocation = resourceLocation;
+        return this;
+    }
+    public BaiResourceLocation getResourceLocation() {
+        return this.resourceLocation;
     }
 
 }
