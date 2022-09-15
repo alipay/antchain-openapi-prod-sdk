@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.mycharity.models;
 
 import com.aliyun.tea.*;
 
-public class InitOrgResponse extends TeaModel {
+public class DetailProjectResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class InitOrgResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static InitOrgResponse build(java.util.Map<String, ?> map) throws Exception {
-        InitOrgResponse self = new InitOrgResponse();
+    public static DetailProjectResponse build(java.util.Map<String, ?> map) throws Exception {
+        DetailProjectResponse self = new DetailProjectResponse();
         return TeaModel.build(map, self);
     }
 
-    public InitOrgResponse setReqMsgId(String reqMsgId) {
+    public DetailProjectResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class InitOrgResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public InitOrgResponse setResultCode(String resultCode) {
+    public DetailProjectResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class InitOrgResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public InitOrgResponse setResultMsg(String resultMsg) {
+    public DetailProjectResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }

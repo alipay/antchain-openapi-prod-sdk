@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.mycharity.models;
 
 import com.aliyun.tea.*;
 
-public class InitOrgRequest extends TeaModel {
+public class CreateOrgRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,42 +11,41 @@ public class InitOrgRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // id
+    // 50字符，单平台幂等
     @NameInMap("id")
-    @Validation(required = true, maxLength = 50)
+    @Validation(required = true, maxLength = 50, minLength = 1)
     public String id;
 
-    // 机构名称
+    // 50字符 机构名称
     @NameInMap("name")
-    @Validation(required = true, maxLength = 50)
+    @Validation(required = true, maxLength = 50, minLength = 1)
     public String name;
 
-    // 机构简介
+    // 500字符 机构简介
     @NameInMap("introduction")
-    @Validation(required = true, maxLength = 500)
+    @Validation(required = true, maxLength = 500, minLength = 1)
     public String introduction;
 
-    // 18位社会统一信用代码
+    // 社会统一信用代码18位
     @NameInMap("unified_social_credit_code")
     @Validation(required = true, maxLength = 18, minLength = 18)
     public String unifiedSocialCreditCode;
 
     // 测试机构说明:0正式机构(默认),1测试机构
     @NameInMap("test_flag")
-    @Validation(maxLength = 1, minLength = 1)
-    public String testFlag;
+    public Long testFlag;
 
     // 13位时间戳 签约时间
     @NameInMap("sign_time")
-    @Validation(required = true, maxLength = 13, minLength = 13)
-    public String signTime;
+    @Validation(required = true)
+    public Long signTime;
 
-    public static InitOrgRequest build(java.util.Map<String, ?> map) throws Exception {
-        InitOrgRequest self = new InitOrgRequest();
+    public static CreateOrgRequest build(java.util.Map<String, ?> map) throws Exception {
+        CreateOrgRequest self = new CreateOrgRequest();
         return TeaModel.build(map, self);
     }
 
-    public InitOrgRequest setAuthToken(String authToken) {
+    public CreateOrgRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -54,7 +53,7 @@ public class InitOrgRequest extends TeaModel {
         return this.authToken;
     }
 
-    public InitOrgRequest setProductInstanceId(String productInstanceId) {
+    public CreateOrgRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -62,7 +61,7 @@ public class InitOrgRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public InitOrgRequest setId(String id) {
+    public CreateOrgRequest setId(String id) {
         this.id = id;
         return this;
     }
@@ -70,7 +69,7 @@ public class InitOrgRequest extends TeaModel {
         return this.id;
     }
 
-    public InitOrgRequest setName(String name) {
+    public CreateOrgRequest setName(String name) {
         this.name = name;
         return this;
     }
@@ -78,7 +77,7 @@ public class InitOrgRequest extends TeaModel {
         return this.name;
     }
 
-    public InitOrgRequest setIntroduction(String introduction) {
+    public CreateOrgRequest setIntroduction(String introduction) {
         this.introduction = introduction;
         return this;
     }
@@ -86,7 +85,7 @@ public class InitOrgRequest extends TeaModel {
         return this.introduction;
     }
 
-    public InitOrgRequest setUnifiedSocialCreditCode(String unifiedSocialCreditCode) {
+    public CreateOrgRequest setUnifiedSocialCreditCode(String unifiedSocialCreditCode) {
         this.unifiedSocialCreditCode = unifiedSocialCreditCode;
         return this;
     }
@@ -94,19 +93,19 @@ public class InitOrgRequest extends TeaModel {
         return this.unifiedSocialCreditCode;
     }
 
-    public InitOrgRequest setTestFlag(String testFlag) {
+    public CreateOrgRequest setTestFlag(Long testFlag) {
         this.testFlag = testFlag;
         return this;
     }
-    public String getTestFlag() {
+    public Long getTestFlag() {
         return this.testFlag;
     }
 
-    public InitOrgRequest setSignTime(String signTime) {
+    public CreateOrgRequest setSignTime(Long signTime) {
         this.signTime = signTime;
         return this;
     }
-    public String getSignTime() {
+    public Long getSignTime() {
         return this.signTime;
     }
 

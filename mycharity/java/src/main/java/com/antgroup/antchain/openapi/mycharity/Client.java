@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.0.2"),
                     new TeaPair("_prod_code", "MYCHARITY"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -162,21 +162,420 @@ public class Client {
     }
 
     /**
-     * Description: 创建项目
-     * Summary: 创建项目
+     * Description: 待签约账号创建
+     * Summary: 待签约账号创建
      */
-    public InitOrgResponse initOrg(InitOrgRequest request) throws Exception {
+    public CreateAlipaysignResponse createAlipaysign(CreateAlipaysignRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.initOrgEx(request, headers, runtime);
+        return this.createAlipaysignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 待签约账号创建
+     * Summary: 待签约账号创建
+     */
+    public CreateAlipaysignResponse createAlipaysignEx(CreateAlipaysignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.alipaysign.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAlipaysignResponse());
+    }
+
+    /**
+     * Description: 机构下代扣账号签约状态查询
+     * Summary: 机构下代扣账号签约状态查询
+     */
+    public QueryAlipaysignStateResponse queryAlipaysignState(QueryAlipaysignStateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAlipaysignStateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 机构下代扣账号签约状态查询
+     * Summary: 机构下代扣账号签约状态查询
+     */
+    public QueryAlipaysignStateResponse queryAlipaysignStateEx(QueryAlipaysignStateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.alipaysign.state.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAlipaysignStateResponse());
+    }
+
+    /**
+     * Description: 账号签约二维码获取
+     * Summary: 账号签约二维码获取
+     */
+    public QueryAlipaysignQrcodeResponse queryAlipaysignQrcode(QueryAlipaysignQrcodeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAlipaysignQrcodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 账号签约二维码获取
+     * Summary: 账号签约二维码获取
+     */
+    public QueryAlipaysignQrcodeResponse queryAlipaysignQrcodeEx(QueryAlipaysignQrcodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.alipaysign.qrcode.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAlipaysignQrcodeResponse());
+    }
+
+    /**
+     * Description: 创建人员并配置权限。如人员已经存在，则不创建。
+     * Summary: 创建人员及配置权限
+     */
+    public CreatePersonPermissionResponse createPersonPermission(CreatePersonPermissionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createPersonPermissionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建人员并配置权限。如人员已经存在，则不创建。
+     * Summary: 创建人员及配置权限
+     */
+    public CreatePersonPermissionResponse createPersonPermissionEx(CreatePersonPermissionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.person.permission.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreatePersonPermissionResponse());
+    }
+
+    /**
+     * Description: 允许已授权的用户通过此接口删除人员权限。
+     * Summary: 配置权限删除
+     */
+    public DeletePersonResponse deletePerson(DeletePersonRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deletePersonEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 允许已授权的用户通过此接口删除人员权限。
+     * Summary: 配置权限删除
+     */
+    public DeletePersonResponse deletePersonEx(DeletePersonRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.person.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeletePersonResponse());
+    }
+
+    /**
+     * Description: 创建批次
+     * Summary: 创建批次
+     */
+    public InitBatchResponse initBatch(InitBatchRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initBatchEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建批次
+     * Summary: 创建批次
+     */
+    public InitBatchResponse initBatchEx(InitBatchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.batch.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitBatchResponse());
+    }
+
+    /**
+     * Description: 修改批次状态
+     * Summary: 修改批次状态
+     */
+    public UpdateBatchResponse updateBatch(UpdateBatchRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateBatchEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 修改批次状态
+     * Summary: 修改批次状态
+     */
+    public UpdateBatchResponse updateBatchEx(UpdateBatchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.batch.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateBatchResponse());
+    }
+
+    /**
+     * Description: 删除批次
+     * Summary: 删除批次
+     */
+    public DeleteBatchResponse deleteBatch(DeleteBatchRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteBatchEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除批次
+     * Summary: 删除批次
+     */
+    public DeleteBatchResponse deleteBatchEx(DeleteBatchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.batch.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteBatchResponse());
+    }
+
+    /**
+     * Description: 创建项目分期
+     * Summary: 创建分期
+     */
+    public CreateStagesResponse createStages(CreateStagesRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createStagesEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建项目分期
+     * Summary: 创建分期
+     */
+    public CreateStagesResponse createStagesEx(CreateStagesRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.stages.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateStagesResponse());
+    }
+
+    /**
+     * Description: 查询批次
+     * Summary: 查询批次
+     */
+    public QueryBatchResponse queryBatch(QueryBatchRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBatchEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询批次
+     * Summary: 查询批次
+     */
+    public QueryBatchResponse queryBatchEx(QueryBatchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.batch.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBatchResponse());
+    }
+
+    /**
+     * Description: 更新项目分期
+     * Summary: 更新分期
+     */
+    public UpdateStagesResponse updateStages(UpdateStagesRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateStagesEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新项目分期
+     * Summary: 更新分期
+     */
+    public UpdateStagesResponse updateStagesEx(UpdateStagesRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.stages.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateStagesResponse());
+    }
+
+    /**
+     * Description: 创建机构
+     * Summary: 创建机构
+     */
+    public CreateOrgResponse createOrg(CreateOrgRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createOrgEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建机构
+     * Summary: 创建机构
+     */
+    public CreateOrgResponse createOrgEx(CreateOrgRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.org.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateOrgResponse());
+    }
+
+    /**
+     * Description: 查询分期
+     * Summary: 查询分期
+     */
+    public QueryStagesResponse queryStages(QueryStagesRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryStagesEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询分期
+     * Summary: 查询分期
+     */
+    public QueryStagesResponse queryStagesEx(QueryStagesRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.stages.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryStagesResponse());
+    }
+
+    /**
+     * Description: 更新机构
+     * Summary: 更新机构
+     */
+    public UpdateOrgResponse updateOrg(UpdateOrgRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateOrgEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新机构
+     * Summary: 更新机构
+     */
+    public UpdateOrgResponse updateOrgEx(UpdateOrgRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.org.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateOrgResponse());
+    }
+
+    /**
+     * Description: 创建实施内容
+     * Summary: 创建实施内容
+     */
+    public CreateCombinationResponse createCombination(CreateCombinationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createCombinationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建实施内容
+     * Summary: 创建实施内容
+     */
+    public CreateCombinationResponse createCombinationEx(CreateCombinationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.combination.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateCombinationResponse());
+    }
+
+    /**
+     * Description: 机构详情
+     * Summary: 机构详情
+     */
+    public DetailOrgResponse detailOrg(DetailOrgRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailOrgEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 机构详情
+     * Summary: 机构详情
+     */
+    public DetailOrgResponse detailOrgEx(DetailOrgRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.org.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailOrgResponse());
+    }
+
+    /**
+     * Description: 修改实施内容
+     * Summary: 修改实施内容
+     */
+    public UpdateCombinationResponse updateCombination(UpdateCombinationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateCombinationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 修改实施内容
+     * Summary: 修改实施内容
+     */
+    public UpdateCombinationResponse updateCombinationEx(UpdateCombinationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.combination.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateCombinationResponse());
     }
 
     /**
      * Description: 创建项目
      * Summary: 创建项目
      */
-    public InitOrgResponse initOrgEx(InitOrgRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateProjectResponse createProject(CreateProjectRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createProjectEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建项目
+     * Summary: 创建项目
+     */
+    public CreateProjectResponse createProjectEx(CreateProjectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.org.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitOrgResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.project.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateProjectResponse());
+    }
+
+    /**
+     * Description: 更新项目
+     * Summary: 更新项目
+     */
+    public UpdateProjectResponse updateProject(UpdateProjectRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateProjectEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新项目
+     * Summary: 更新项目
+     */
+    public UpdateProjectResponse updateProjectEx(UpdateProjectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.project.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateProjectResponse());
+    }
+
+    /**
+     * Description: 项目详情
+     * Summary: 项目详情
+     */
+    public DetailProjectResponse detailProject(DetailProjectRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailProjectEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 项目详情
+     * Summary: 项目详情
+     */
+    public DetailProjectResponse detailProjectEx(DetailProjectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.project.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailProjectResponse());
+    }
+
+    /**
+     * Description: 查询实施内容
+     * Summary: 查询实施内容
+     */
+    public QueryCombinationResponse queryCombination(QueryCombinationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCombinationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询实施内容
+     * Summary: 查询实施内容
+     */
+    public QueryCombinationResponse queryCombinationEx(QueryCombinationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.combination.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCombinationResponse());
+    }
+
+    /**
+     * Description: 批量创建执行记录
+     * Summary: 批量创建执行记录
+     */
+    public BatchcreateRecordResponse batchcreateRecord(BatchcreateRecordRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchcreateRecordEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 批量创建执行记录
+     * Summary: 批量创建执行记录
+     */
+    public BatchcreateRecordResponse batchcreateRecordEx(BatchcreateRecordRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.record.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateRecordResponse());
     }
 }
