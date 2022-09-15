@@ -30,6 +30,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public List<BaiGoodsPoint> GoodsPoints { get; set; }
 
+        // 用户自定义字符串，系统不做处理，会在响应体中带回
+        [NameInMap("out_state")]
+        [Validation(Required=false)]
+        public string OutState { get; set; }
+
     }
 
 }

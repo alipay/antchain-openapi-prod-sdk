@@ -103,12 +103,12 @@ namespace AntChain.SDK.BOT.Models
 
         // 资产所有人标识（统一社会信用代码）
         [NameInMap("owner")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Owner { get; set; }
 
         // 资产所有人名称
         [NameInMap("owner_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string OwnerName { get; set; }
 
     }

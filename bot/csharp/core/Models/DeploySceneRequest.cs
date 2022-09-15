@@ -23,10 +23,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string SceneName { get; set; }
 
-        // 链ID
+        // bnaas did
         [NameInMap("bnaas_basic_service_did")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string BnaasBasicServiceDid { get; set; }
+
+        // baas rest bizId
+        [NameInMap("baas_rest_biz_id")]
+        [Validation(Required=false)]
+        public string BaasRestBizId { get; set; }
 
         // 合约版本号
         [NameInMap("contract_version")]

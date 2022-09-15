@@ -64,6 +64,21 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ServiceStatus { get; set; }
 
+        // 子账号ID
+        [NameInMap("account_id")]
+        [Validation(Required=false)]
+        public string AccountId { get; set; }
+
+        // 所属账号名称
+        [NameInMap("account_name")]
+        [Validation(Required=false)]
+        public string AccountName { get; set; }
+
+        // 子账号角色
+        [NameInMap("user_role")]
+        [Validation(Required=false)]
+        public string UserRole { get; set; }
+
     }
 
 }

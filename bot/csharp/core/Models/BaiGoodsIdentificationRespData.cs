@@ -33,6 +33,16 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public List<BaiGoodsPointIdentificationResult> PointIdentificationResults { get; set; }
 
+        // 鉴定评价
+        [NameInMap("appraise_message")]
+        [Validation(Required=false)]
+        public string AppraiseMessage { get; set; }
+
+        // 用户自定义字符串，系统不做处理，会在响应体中带回
+        [NameInMap("out_state")]
+        [Validation(Required=false)]
+        public string OutState { get; set; }
+
     }
 
 }

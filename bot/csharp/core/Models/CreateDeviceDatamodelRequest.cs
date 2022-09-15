@@ -38,6 +38,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string CustomerVersion { get; set; }
 
+        // 是否转化为物模型，默认false
+        [NameInMap("transform_thing_model")]
+        [Validation(Required=false)]
+        public bool? TransformThingModel { get; set; }
+
     }
 
 }

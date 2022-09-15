@@ -38,6 +38,16 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string UserPointId { get; set; }
 
+        // 鉴定评价
+        [NameInMap("appraise_message")]
+        [Validation(Required=false)]
+        public string AppraiseMessage { get; set; }
+
+        // 鉴定点图片资源定位符
+        [NameInMap("resource_location")]
+        [Validation(Required=false)]
+        public BaiResourceLocation ResourceLocation { get; set; }
+
     }
 
 }
