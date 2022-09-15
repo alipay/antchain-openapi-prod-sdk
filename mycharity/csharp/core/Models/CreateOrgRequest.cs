@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.MYCHARITY.Models
 {
-    public class InitOrgRequest : TeaModel {
+    public class CreateOrgRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,35 +18,35 @@ namespace AntChain.SDK.MYCHARITY.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // id
+        // 50字符，单平台幂等
         [NameInMap("id")]
         [Validation(Required=true, MaxLength=50)]
         public string Id { get; set; }
 
-        // 机构名称
+        // 50字符 机构名称
         [NameInMap("name")]
         [Validation(Required=true, MaxLength=50)]
         public string Name { get; set; }
 
-        // 机构简介
+        // 500字符 机构简介
         [NameInMap("introduction")]
         [Validation(Required=true, MaxLength=500)]
         public string Introduction { get; set; }
 
-        // 18位社会统一信用代码
+        // 社会统一信用代码18位
         [NameInMap("unified_social_credit_code")]
         [Validation(Required=true, MaxLength=18)]
         public string UnifiedSocialCreditCode { get; set; }
 
         // 测试机构说明:0正式机构(默认),1测试机构
         [NameInMap("test_flag")]
-        [Validation(Required=false, MaxLength=1)]
-        public string TestFlag { get; set; }
+        [Validation(Required=false)]
+        public long? TestFlag { get; set; }
 
         // 13位时间戳 签约时间
         [NameInMap("sign_time")]
-        [Validation(Required=true, MaxLength=13)]
-        public string SignTime { get; set; }
+        [Validation(Required=true)]
+        public long? SignTime { get; set; }
 
     }
 
