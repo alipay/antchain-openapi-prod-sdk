@@ -72,6 +72,18 @@ class PayOrderDataRequest extends Model
      * @var string
      */
     public $itemCode;
+
+    // 用户购买的商品个数
+    /**
+     * @var int
+     */
+    public $itemNum;
+
+    // 商品单价，单位分
+    /**
+     * @var int
+     */
+    public $itemPriceCent;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -84,6 +96,8 @@ class PayOrderDataRequest extends Model
         'returnUrl'           => 'return_url',
         'nftId'               => 'nft_id',
         'itemCode'            => 'item_code',
+        'itemNum'             => 'item_num',
+        'itemPriceCent'       => 'item_price_cent',
     ];
 
     public function validate()
@@ -132,6 +146,12 @@ class PayOrderDataRequest extends Model
         if (null !== $this->itemCode) {
             $res['item_code'] = $this->itemCode;
         }
+        if (null !== $this->itemNum) {
+            $res['item_num'] = $this->itemNum;
+        }
+        if (null !== $this->itemPriceCent) {
+            $res['item_price_cent'] = $this->itemPriceCent;
+        }
 
         return $res;
     }
@@ -176,6 +196,12 @@ class PayOrderDataRequest extends Model
         }
         if (isset($map['item_code'])) {
             $model->itemCode = $map['item_code'];
+        }
+        if (isset($map['item_num'])) {
+            $model->itemNum = $map['item_num'];
+        }
+        if (isset($map['item_price_cent'])) {
+            $model->itemPriceCent = $map['item_price_cent'];
         }
 
         return $model;
