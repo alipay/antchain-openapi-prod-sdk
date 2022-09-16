@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.0.2',
     _prod_code = 'ak_9620cd2b3b2f441d90280aee41564281',
     _prod_channel = 'saas'
   };
@@ -328,47 +328,5 @@ async function verifyAntchainBbpMeta(request: VerifyAntchainBbpMetaRequest): Ver
 async function verifyAntchainBbpMetaEx(request: VerifyAntchainBbpMetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyAntchainBbpMetaResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.bbp.meta.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model InitAntchainBbpInsuranceUserRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 保司编码
-  businessCode: string(name='business_code'),
-  // 三方Id，此处为天猫id
-  thirdPartId: string(name='third_part_id'),
-  // 来源渠道，TIANMAO（天猫）
-  channel: string(name='channel'),
-  // 埋点信息，JSON格式字符串
-  burieds?: string(name='burieds'),
-}
-
-model InitAntchainBbpInsuranceUserResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: 记录用户登录保司小程序信息
- * Summary: 用户登陆页面埋点
- */
-async function initAntchainBbpInsuranceUser(request: InitAntchainBbpInsuranceUserRequest): InitAntchainBbpInsuranceUserResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return initAntchainBbpInsuranceUserEx(request, headers, runtime);
-}
-
-/**
- * Description: 记录用户登录保司小程序信息
- * Summary: 用户登陆页面埋点
- */
-async function initAntchainBbpInsuranceUserEx(request: InitAntchainBbpInsuranceUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitAntchainBbpInsuranceUserResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'antchain.bbp.insurance.user.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
