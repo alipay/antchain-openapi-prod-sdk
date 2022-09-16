@@ -1,6 +1,6 @@
 {
   "name": "@antchain/mycharity",
-  "version": "1.0.3",
+  "version": "1.0.7",
   "description": "",
   "main": "dist/client.js",
   "scripts": {

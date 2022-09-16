@@ -77,6 +77,210 @@ export class Config extends $tea.Model {
   }
 }
 
+// 批次详情
+export class BatchDetailVO extends $tea.Model {
+  // id
+  id: string;
+  // 实施内容id
+  combinationId: string;
+  // 批次名称
+  name: string;
+  // 备注
+  remarks: string;
+  // 发放方式：【0：自动拨付，1：其他方式拨付，2：快递寄送，3：当面发放，4：服务后确认发放，5：无特定发放方式】
+  issueWay: number;
+  // 确认接收人 0发前确认 1发后确认
+  affirmanceReceivers: number;
+  // 接收方式（0扫脸验证、1身份证号码验证，2扫二维码验证, 3直接导入
+  receiveCheckWay: number;
+  // 发放数量
+  issueAmount: number;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      combinationId: 'combination_id',
+      name: 'name',
+      remarks: 'remarks',
+      issueWay: 'issue_way',
+      affirmanceReceivers: 'affirmance_receivers',
+      receiveCheckWay: 'receive_check_way',
+      issueAmount: 'issue_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      combinationId: 'string',
+      name: 'string',
+      remarks: 'string',
+      issueWay: 'number',
+      affirmanceReceivers: 'number',
+      receiveCheckWay: 'number',
+      issueAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 项目详情
+export class ProjectVO extends $tea.Model {
+  // 公益项目ID
+  id: string;
+  // 创建时间
+  gmtCreate: number;
+  // 修改时间
+  gmtModified: number;
+  // 公益项目名称
+  pjName: string;
+  // 机构ID
+  orgId: string;
+  // 公益方向
+  publicWelfareDirection: string;
+  // 测试项目:0正式项目(默认),1测试项目
+  testFlag?: number;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      pjName: 'pj_name',
+      orgId: 'org_id',
+      publicWelfareDirection: 'public_welfare_direction',
+      testFlag: 'test_flag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      gmtCreate: 'number',
+      gmtModified: 'number',
+      pjName: 'string',
+      orgId: 'string',
+      publicWelfareDirection: 'string',
+      testFlag: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 分期详情
+export class StagesDetailVO extends $tea.Model {
+  // 分期id
+  id: string;
+  // 计划开始时间
+  startTime?: number;
+  // 计划结束时间
+  endTime?: number;
+  // 目标捐赠金额
+  targetMoney?: number;
+  // 目标捐赠人数
+  targetNum?: number;
+  // 说明
+  note?: string;
+  // 公开募捐编号
+  publicFundraisingNo?: string;
+  // 静态文件地址‘,’分割
+  coverUrl?: string;
+  // 管理费用金额(单位：分)
+  administrativeRate?: number;
+  // 项目状态，0进行中（默认），1已结项
+  state?: number;
+  // 签约id,关联签约表
+  signId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      targetMoney: 'target_money',
+      targetNum: 'target_num',
+      note: 'note',
+      publicFundraisingNo: 'public_fundraising_no',
+      coverUrl: 'cover_url',
+      administrativeRate: 'administrative_rate',
+      state: 'state',
+      signId: 'sign_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      startTime: 'number',
+      endTime: 'number',
+      targetMoney: 'number',
+      targetNum: 'number',
+      note: 'string',
+      publicFundraisingNo: 'string',
+      coverUrl: 'string',
+      administrativeRate: 'number',
+      state: 'number',
+      signId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 实施内容详情
+export class OpenSubjectCombinationVO extends $tea.Model {
+  // 实施内容id
+  id?: string;
+  // 实施内容名称
+  name?: string;
+  // 实施内容类型
+  type?: number;
+  // 单位
+  unit?: string;
+  // 说明
+  note?: string;
+  // 单价是否固定，0:不固定，1:固定
+  priceDeterminedFlag?: number;
+  // 单价
+  price?: number;
+  // 预估发放个数
+  totalNum?: number;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+      type: 'type',
+      unit: 'unit',
+      note: 'note',
+      priceDeterminedFlag: 'price_determined_flag',
+      price: 'price',
+      totalNum: 'total_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+      type: 'number',
+      unit: 'string',
+      note: 'string',
+      priceDeterminedFlag: 'number',
+      price: 'number',
+      totalNum: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 执行记录
 export class ReceivedRecord extends $tea.Model {
   // 执行记录id
@@ -138,6 +342,55 @@ export class ReceivedRecord extends $tea.Model {
       benefitNumber: 'number',
       expressAddress: 'string',
       issueAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 机构详情结构
+export class OrgVO extends $tea.Model {
+  // 机构ID
+  id: string;
+  // 创建时间
+  gmtCreate: number;
+  // 修改时间
+  gmtModified: number;
+  // 机构名称
+  name: string;
+  // 统一社会信用代码
+  unifiedSocialCreditCode: string;
+  // 机构简介
+  introduction: string;
+  // 签约时间
+  signTime: number;
+  //  测试项目:0正式机构(默认),1测试机构
+  testFlag?: number;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      name: 'name',
+      unifiedSocialCreditCode: 'unified_social_credit_code',
+      introduction: 'introduction',
+      signTime: 'sign_time',
+      testFlag: 'test_flag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      gmtCreate: 'number',
+      gmtModified: 'number',
+      name: 'string',
+      unifiedSocialCreditCode: 'string',
+      introduction: 'string',
+      signTime: 'number',
+      testFlag: 'number',
     };
   }
 
@@ -243,11 +496,14 @@ export class QueryAlipaysignStateResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 代扣账号签约状态 0.未签约 1.已签约
+  state?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      state: 'state',
     };
   }
 
@@ -256,6 +512,7 @@ export class QueryAlipaysignStateResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      state: 'number',
     };
   }
 
@@ -294,11 +551,14 @@ export class QueryAlipaysignQrcodeResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 账号签约二维码url
+  signUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      signUrl: 'sign_url',
     };
   }
 
@@ -307,6 +567,7 @@ export class QueryAlipaysignQrcodeResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      signUrl: 'string',
     };
   }
 
@@ -779,11 +1040,14 @@ export class QueryBatchResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 批次详情
+  batchDetailVo?: BatchDetailVO;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      batchDetailVo: 'batch_detail_vo',
     };
   }
 
@@ -792,6 +1056,7 @@ export class QueryBatchResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      batchDetailVo: BatchDetailVO,
     };
   }
 
@@ -1004,11 +1269,14 @@ export class QueryStagesResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 分期详情
+  openStagesDetailVo?: StagesDetailVO;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      openStagesDetailVo: 'open_stages_detail_vo',
     };
   }
 
@@ -1017,6 +1285,7 @@ export class QueryStagesResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      openStagesDetailVo: StagesDetailVO,
     };
   }
 
@@ -1221,11 +1490,14 @@ export class DetailOrgResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 机构详情结构体
+  orgVo?: OrgVO;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      orgVo: 'org_vo',
     };
   }
 
@@ -1234,6 +1506,7 @@ export class DetailOrgResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      orgVo: OrgVO,
     };
   }
 
@@ -1497,11 +1770,14 @@ export class DetailProjectResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 项目结构体
+  projectVo?: ProjectVO;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      projectVo: 'project_vo',
     };
   }
 
@@ -1510,6 +1786,7 @@ export class DetailProjectResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      projectVo: ProjectVO,
     };
   }
 
@@ -1552,11 +1829,14 @@ export class QueryCombinationResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 实施内容详情
+  openSubjectCombinationVo?: OpenSubjectCombinationVO;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      openSubjectCombinationVo: 'open_subject_combination_vo',
     };
   }
 
@@ -1565,6 +1845,7 @@ export class QueryCombinationResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      openSubjectCombinationVo: OpenSubjectCombinationVO,
     };
   }
 
@@ -1605,6 +1886,93 @@ export class BatchcreateRecordRequest extends $tea.Model {
 }
 
 export class BatchcreateRecordResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateBatchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // id
+  id: string;
+  // 分期ID
+  stagesId: string;
+  // 实施内容id
+  combinationId: string;
+  // 批次名称
+  name: string;
+  // 备注
+  remarks: string;
+  // 接收验证方式（0扫脸验证、2扫二维码验证, 3快递签收验证，4登录确认）
+  issueWay: number;
+  // 确认接收人 0发前确认 1发后确认
+  affirmanceReceivers: number;
+  // 接收方式（0扫脸验证、1身份证号码验证，2扫二维码验证, 3直接导入
+  receiveCheckWay: number;
+  // 发放数量最大值1亿（发后确认- 扫码领取时必填）单位分
+  issueAmount: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      id: 'id',
+      stagesId: 'stages_id',
+      combinationId: 'combination_id',
+      name: 'name',
+      remarks: 'remarks',
+      issueWay: 'issue_way',
+      affirmanceReceivers: 'affirmance_receivers',
+      receiveCheckWay: 'receive_check_way',
+      issueAmount: 'issue_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      id: 'string',
+      stagesId: 'string',
+      combinationId: 'string',
+      name: 'string',
+      remarks: 'string',
+      issueWay: 'number',
+      affirmanceReceivers: 'number',
+      receiveCheckWay: 'number',
+      issueAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateBatchResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -1745,7 +2113,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.3",
+          sdk_version: "1.0.7",
           _prod_code: "MYCHARITY",
           _prod_channel: "undefined",
         };
@@ -2209,6 +2577,25 @@ export default class Client {
   async batchcreateRecordEx(request: BatchcreateRecordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchcreateRecordResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchcreateRecordResponse>(await this.doRequest("1.0", "antchain.mycharity.record.batchcreate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchcreateRecordResponse({}));
+  }
+
+  /**
+   * Description: 创建批次
+   * Summary: 创建批次
+   */
+  async createBatch(request: CreateBatchRequest): Promise<CreateBatchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createBatchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建批次
+   * Summary: 创建批次
+   */
+  async createBatchEx(request: CreateBatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateBatchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateBatchResponse>(await this.doRequest("1.0", "antchain.mycharity.batch.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateBatchResponse({}));
   }
 
 }
