@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'ak_9620cd2b3b2f441d90280aee41564281',
     _prod_channel = 'saas'
   };
@@ -258,5 +258,117 @@ async function authAntchainBbpCustomer(request: AuthAntchainBbpCustomerRequest):
 async function authAntchainBbpCustomerEx(request: AuthAntchainBbpCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthAntchainBbpCustomerResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.bbp.customer.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyAntchainBbpMetaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 预留业务code
+  bizCode?: string(name='biz_code'),
+  // 企业名称
+  epCertName: string(name='ep_cert_name'),
+  // 企业证件号码
+  epCertNo: string(name='ep_cert_no'),
+  // 企业证件号码类型，枚举值参考：com.alipay.fc.common.lang.enums.CertTypeEnum
+  epCertNoType: string(name='ep_cert_no_type'),
+  // 法人姓名
+  legalPersonCertName?: string(name='legal_person_cert_name'),
+  // 法人证件号码
+  legalPersonCertNo?: string(name='legal_person_cert_no'),
+  // 法人证件号码类型，枚举值参考：com.alipay.fc.common.lang.enums.CertTypeEnum
+  legalPersonCertNoType?: string(name='legal_person_cert_no_type'),
+  // 系统名称
+  ownerName?: string(name='owner_name'),
+  // 系统租户ID
+  ownerUid?: string(name='owner_uid'),
+  // 业务唯一ID
+  bizId: string(name='biz_id'),
+  // 业务渠道，需提前申请产品码
+  channel: string(name='channel'),
+  // 认证类型：ENTERPRISE-企业, PERSON-个人
+  certifyEnum: string(name='certify_enum'),
+  // 客户支付宝ID
+  alipayUid?: string(name='alipay_uid'),
+  // 个人姓名，用于个人认证
+  personName?: string(name='person_name'),
+  // 个人证件号码
+  personCertNo?: string(name='person_cert_no'),
+  // 个人证件类型，枚举值参考：com.alipay.fc.common.lang.enums.CertTypeEnum
+  personCertType?: string(name='person_cert_type'),
+  // 扩展信息
+  extensionInfo?: NameValuePair(name='extension_info'),
+}
+
+model VerifyAntchainBbpMetaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 要素认证结果
+  result?: CustomerAuthResult(name='result'),
+}
+
+/**
+ * Description: 对企业身份进行认证
+ * Summary: 企业四要素认证
+ */
+async function verifyAntchainBbpMeta(request: VerifyAntchainBbpMetaRequest): VerifyAntchainBbpMetaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyAntchainBbpMetaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 对企业身份进行认证
+ * Summary: 企业四要素认证
+ */
+async function verifyAntchainBbpMetaEx(request: VerifyAntchainBbpMetaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyAntchainBbpMetaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.bbp.meta.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitAntchainBbpInsuranceUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 保司编码
+  businessCode: string(name='business_code'),
+  // 三方Id，此处为天猫id
+  thirdPartId: string(name='third_part_id'),
+  // 来源渠道，TIANMAO（天猫）
+  channel: string(name='channel'),
+  // 埋点信息，JSON格式字符串
+  burieds?: string(name='burieds'),
+}
+
+model InitAntchainBbpInsuranceUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 记录用户登录保司小程序信息
+ * Summary: 用户登陆页面埋点
+ */
+async function initAntchainBbpInsuranceUser(request: InitAntchainBbpInsuranceUserRequest): InitAntchainBbpInsuranceUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initAntchainBbpInsuranceUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 记录用户登录保司小程序信息
+ * Summary: 用户登陆页面埋点
+ */
+async function initAntchainBbpInsuranceUserEx(request: InitAntchainBbpInsuranceUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitAntchainBbpInsuranceUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.bbp.insurance.user.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
