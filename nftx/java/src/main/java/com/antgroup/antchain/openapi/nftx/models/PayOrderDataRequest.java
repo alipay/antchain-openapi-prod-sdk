@@ -53,6 +53,14 @@ public class PayOrderDataRequest extends TeaModel {
     @NameInMap("item_code")
     public String itemCode;
 
+    // 用户购买的商品个数
+    @NameInMap("item_num")
+    public Long itemNum;
+
+    // 商品单价，单位分
+    @NameInMap("item_price_cent")
+    public Long itemPriceCent;
+
     public static PayOrderDataRequest build(java.util.Map<String, ?> map) throws Exception {
         PayOrderDataRequest self = new PayOrderDataRequest();
         return TeaModel.build(map, self);
@@ -144,6 +152,22 @@ public class PayOrderDataRequest extends TeaModel {
     }
     public String getItemCode() {
         return this.itemCode;
+    }
+
+    public PayOrderDataRequest setItemNum(Long itemNum) {
+        this.itemNum = itemNum;
+        return this;
+    }
+    public Long getItemNum() {
+        return this.itemNum;
+    }
+
+    public PayOrderDataRequest setItemPriceCent(Long itemPriceCent) {
+        this.itemPriceCent = itemPriceCent;
+        return this;
+    }
+    public Long getItemPriceCent() {
+        return this.itemPriceCent;
     }
 
 }
