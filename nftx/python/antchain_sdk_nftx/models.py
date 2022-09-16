@@ -2220,6 +2220,8 @@ class PayOrderDataRequest(TeaModel):
         return_url: str = None,
         nft_id: str = None,
         item_code: str = None,
+        item_num: int = None,
+        item_price_cent: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2242,6 +2244,10 @@ class PayOrderDataRequest(TeaModel):
         self.nft_id = nft_id
         # 鲸探测分配的实物规格编码
         self.item_code = item_code
+        # 用户购买的商品个数
+        self.item_num = item_num
+        # 商品单价，单位分
+        self.item_price_cent = item_price_cent
 
     def validate(self):
         self.validate_required(self.external_order_no, 'external_order_no')
@@ -2279,6 +2285,10 @@ class PayOrderDataRequest(TeaModel):
             result['nft_id'] = self.nft_id
         if self.item_code is not None:
             result['item_code'] = self.item_code
+        if self.item_num is not None:
+            result['item_num'] = self.item_num
+        if self.item_price_cent is not None:
+            result['item_price_cent'] = self.item_price_cent
         return result
 
     def from_map(self, m: dict = None):
@@ -2305,6 +2315,10 @@ class PayOrderDataRequest(TeaModel):
             self.nft_id = m.get('nft_id')
         if m.get('item_code') is not None:
             self.item_code = m.get('item_code')
+        if m.get('item_num') is not None:
+            self.item_num = m.get('item_num')
+        if m.get('item_price_cent') is not None:
+            self.item_price_cent = m.get('item_price_cent')
         return self
 
 
