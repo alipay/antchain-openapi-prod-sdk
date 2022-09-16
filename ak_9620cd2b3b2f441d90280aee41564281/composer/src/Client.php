@@ -13,8 +13,6 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_9620cd2b3b2f441d90280aee41564281\Models\AuthAntchainBbpCustomerRequest;
 use AntChain\Ak_9620cd2b3b2f441d90280aee41564281\Models\AuthAntchainBbpCustomerResponse;
-use AntChain\Ak_9620cd2b3b2f441d90280aee41564281\Models\InitAntchainBbpInsuranceUserRequest;
-use AntChain\Ak_9620cd2b3b2f441d90280aee41564281\Models\InitAntchainBbpInsuranceUserResponse;
 use AntChain\Ak_9620cd2b3b2f441d90280aee41564281\Models\VerifyAntchainBbpMetaRequest;
 use AntChain\Ak_9620cd2b3b2f441d90280aee41564281\Models\VerifyAntchainBbpMetaResponse;
 use AntChain\Util\UtilClient;
@@ -164,7 +162,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
                     '_prod_code'       => 'ak_9620cd2b3b2f441d90280aee41564281',
                     '_prod_channel'    => 'saas',
                 ];
@@ -276,38 +274,5 @@ class Client
         Utils::validateModel($request);
 
         return VerifyAntchainBbpMetaResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.meta.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 记录用户登录保司小程序信息
-     * Summary: 用户登陆页面埋点.
-     *
-     * @param InitAntchainBbpInsuranceUserRequest $request
-     *
-     * @return InitAntchainBbpInsuranceUserResponse
-     */
-    public function initAntchainBbpInsuranceUser($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->initAntchainBbpInsuranceUserEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 记录用户登录保司小程序信息
-     * Summary: 用户登陆页面埋点.
-     *
-     * @param InitAntchainBbpInsuranceUserRequest $request
-     * @param string[]                            $headers
-     * @param RuntimeOptions                      $runtime
-     *
-     * @return InitAntchainBbpInsuranceUserResponse
-     */
-    public function initAntchainBbpInsuranceUserEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return InitAntchainBbpInsuranceUserResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.insurance.user.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
