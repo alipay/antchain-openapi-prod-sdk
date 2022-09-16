@@ -1324,6 +1324,10 @@ export class PayOrderDataRequest extends $tea.Model {
   nftId?: string;
   // 鲸探测分配的实物规格编码
   itemCode?: string;
+  // 用户购买的商品个数
+  itemNum?: number;
+  // 商品单价，单位分
+  itemPriceCent?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1337,6 +1341,8 @@ export class PayOrderDataRequest extends $tea.Model {
       returnUrl: 'return_url',
       nftId: 'nft_id',
       itemCode: 'item_code',
+      itemNum: 'item_num',
+      itemPriceCent: 'item_price_cent',
     };
   }
 
@@ -1353,6 +1359,8 @@ export class PayOrderDataRequest extends $tea.Model {
       returnUrl: 'string',
       nftId: 'string',
       itemCode: 'string',
+      itemNum: 'number',
+      itemPriceCent: 'number',
     };
   }
 
@@ -1667,7 +1675,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.2",
+          sdk_version: "1.7.4",
           _prod_code: "NFTX",
           _prod_channel: "undefined",
         };
