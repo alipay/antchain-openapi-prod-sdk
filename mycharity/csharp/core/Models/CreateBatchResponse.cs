@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.MYCHARITY.Models
 {
-    public class DetailOrgResponse : TeaModel {
+    public class CreateBatchResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,11 +23,6 @@ namespace AntChain.SDK.MYCHARITY.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
-
-        // 机构详情结构体
-        [NameInMap("org_vo")]
-        [Validation(Required=false)]
-        public OrgVO OrgVo { get; set; }
 
     }
 

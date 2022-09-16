@@ -24,6 +24,11 @@ namespace AntChain.SDK.MYCHARITY.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 代扣账号签约状态 0.未签约 1.已签约
+        [NameInMap("state")]
+        [Validation(Required=false)]
+        public long? State { get; set; }
+
     }
 
 }

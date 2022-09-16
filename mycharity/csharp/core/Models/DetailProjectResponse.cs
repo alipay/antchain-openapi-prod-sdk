@@ -24,6 +24,11 @@ namespace AntChain.SDK.MYCHARITY.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 项目结构体
+        [NameInMap("project_vo")]
+        [Validation(Required=false)]
+        public ProjectVO ProjectVo { get; set; }
+
     }
 
 }

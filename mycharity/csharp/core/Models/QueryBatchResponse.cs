@@ -24,6 +24,11 @@ namespace AntChain.SDK.MYCHARITY.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 批次详情
+        [NameInMap("batch_detail_vo")]
+        [Validation(Required=false)]
+        public BatchDetailVO BatchDetailVo { get; set; }
+
     }
 
 }

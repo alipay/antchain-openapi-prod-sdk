@@ -24,6 +24,11 @@ namespace AntChain.SDK.MYCHARITY.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 实施内容详情
+        [NameInMap("open_subject_combination_vo")]
+        [Validation(Required=false)]
+        public OpenSubjectCombinationVO OpenSubjectCombinationVo { get; set; }
+
     }
 
 }

@@ -24,6 +24,11 @@ namespace AntChain.SDK.MYCHARITY.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 账号签约二维码url
+        [NameInMap("sign_url")]
+        [Validation(Required=false)]
+        public string SignUrl { get; set; }
+
     }
 
 }

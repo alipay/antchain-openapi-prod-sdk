@@ -24,6 +24,11 @@ namespace AntChain.SDK.MYCHARITY.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 分期详情
+        [NameInMap("open_stages_detail_vo")]
+        [Validation(Required=false)]
+        public StagesDetailVO OpenStagesDetailVo { get; set; }
+
     }
 
 }

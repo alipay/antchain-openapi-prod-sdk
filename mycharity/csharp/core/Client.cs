@@ -137,7 +137,7 @@ namespace AntChain.SDK.MYCHARITY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.7"},
                         {"_prod_code", "MYCHARITY"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MYCHARITY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.0.7"},
                         {"_prod_code", "MYCHARITY"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1243,6 +1243,48 @@ namespace AntChain.SDK.MYCHARITY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchcreateRecordResponse>(await DoRequestAsync("1.0", "antchain.mycharity.record.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建批次
+         * Summary: 创建批次
+         */
+        public CreateBatchResponse CreateBatch(CreateBatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateBatchEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建批次
+         * Summary: 创建批次
+         */
+        public async Task<CreateBatchResponse> CreateBatchAsync(CreateBatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateBatchExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建批次
+         * Summary: 创建批次
+         */
+        public CreateBatchResponse CreateBatchEx(CreateBatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBatchResponse>(DoRequest("1.0", "antchain.mycharity.batch.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建批次
+         * Summary: 创建批次
+         */
+        public async Task<CreateBatchResponse> CreateBatchExAsync(CreateBatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBatchResponse>(await DoRequestAsync("1.0", "antchain.mycharity.batch.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
