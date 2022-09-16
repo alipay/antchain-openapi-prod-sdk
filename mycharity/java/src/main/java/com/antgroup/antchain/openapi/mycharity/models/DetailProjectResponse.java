@@ -16,6 +16,10 @@ public class DetailProjectResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 项目结构体
+    @NameInMap("project_vo")
+    public ProjectVO projectVo;
+
     public static DetailProjectResponse build(java.util.Map<String, ?> map) throws Exception {
         DetailProjectResponse self = new DetailProjectResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class DetailProjectResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public DetailProjectResponse setProjectVo(ProjectVO projectVo) {
+        this.projectVo = projectVo;
+        return this;
+    }
+    public ProjectVO getProjectVo() {
+        return this.projectVo;
     }
 
 }

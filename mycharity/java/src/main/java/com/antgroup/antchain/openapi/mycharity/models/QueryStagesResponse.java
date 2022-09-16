@@ -16,6 +16,10 @@ public class QueryStagesResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 分期详情
+    @NameInMap("open_stages_detail_vo")
+    public StagesDetailVO openStagesDetailVo;
+
     public static QueryStagesResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryStagesResponse self = new QueryStagesResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryStagesResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public QueryStagesResponse setOpenStagesDetailVo(StagesDetailVO openStagesDetailVo) {
+        this.openStagesDetailVo = openStagesDetailVo;
+        return this;
+    }
+    public StagesDetailVO getOpenStagesDetailVo() {
+        return this.openStagesDetailVo;
     }
 
 }

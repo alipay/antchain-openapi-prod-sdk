@@ -16,6 +16,10 @@ public class QueryAlipaysignStateResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 代扣账号签约状态 0.未签约 1.已签约
+    @NameInMap("state")
+    public Long state;
+
     public static QueryAlipaysignStateResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAlipaysignStateResponse self = new QueryAlipaysignStateResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryAlipaysignStateResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public QueryAlipaysignStateResponse setState(Long state) {
+        this.state = state;
+        return this;
+    }
+    public Long getState() {
+        return this.state;
     }
 
 }

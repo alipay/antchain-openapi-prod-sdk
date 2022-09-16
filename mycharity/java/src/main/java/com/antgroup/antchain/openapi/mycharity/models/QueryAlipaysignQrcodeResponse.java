@@ -16,6 +16,10 @@ public class QueryAlipaysignQrcodeResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 账号签约二维码url
+    @NameInMap("sign_url")
+    public String signUrl;
+
     public static QueryAlipaysignQrcodeResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAlipaysignQrcodeResponse self = new QueryAlipaysignQrcodeResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryAlipaysignQrcodeResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public QueryAlipaysignQrcodeResponse setSignUrl(String signUrl) {
+        this.signUrl = signUrl;
+        return this;
+    }
+    public String getSignUrl() {
+        return this.signUrl;
     }
 
 }

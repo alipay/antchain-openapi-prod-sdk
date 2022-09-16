@@ -16,6 +16,10 @@ public class DetailOrgResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 机构详情结构体
+    @NameInMap("org_vo")
+    public OrgVO orgVo;
+
     public static DetailOrgResponse build(java.util.Map<String, ?> map) throws Exception {
         DetailOrgResponse self = new DetailOrgResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class DetailOrgResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public DetailOrgResponse setOrgVo(OrgVO orgVo) {
+        this.orgVo = orgVo;
+        return this;
+    }
+    public OrgVO getOrgVo() {
+        return this.orgVo;
     }
 
 }

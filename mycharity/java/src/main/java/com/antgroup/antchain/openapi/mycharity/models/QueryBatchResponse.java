@@ -16,6 +16,10 @@ public class QueryBatchResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 批次详情
+    @NameInMap("batch_detail_vo")
+    public BatchDetailVO batchDetailVo;
+
     public static QueryBatchResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryBatchResponse self = new QueryBatchResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryBatchResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public QueryBatchResponse setBatchDetailVo(BatchDetailVO batchDetailVo) {
+        this.batchDetailVo = batchDetailVo;
+        return this;
+    }
+    public BatchDetailVO getBatchDetailVo() {
+        return this.batchDetailVo;
     }
 
 }
