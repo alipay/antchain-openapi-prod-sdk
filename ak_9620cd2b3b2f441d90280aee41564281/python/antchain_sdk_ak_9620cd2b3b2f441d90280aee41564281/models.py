@@ -488,3 +488,321 @@ class AuthAntchainBbpCustomerResponse(TeaModel):
         return self
 
 
+class VerifyAntchainBbpMetaRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_code: str = None,
+        ep_cert_name: str = None,
+        ep_cert_no: str = None,
+        ep_cert_no_type: str = None,
+        legal_person_cert_name: str = None,
+        legal_person_cert_no: str = None,
+        legal_person_cert_no_type: str = None,
+        owner_name: str = None,
+        owner_uid: str = None,
+        biz_id: str = None,
+        channel: str = None,
+        certify_enum: str = None,
+        alipay_uid: str = None,
+        person_name: str = None,
+        person_cert_no: str = None,
+        person_cert_type: str = None,
+        extension_info: NameValuePair = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 预留业务code
+        self.biz_code = biz_code
+        # 企业名称
+        self.ep_cert_name = ep_cert_name
+        # 企业证件号码
+        self.ep_cert_no = ep_cert_no
+        # 企业证件号码类型，枚举值参考：com.alipay.fc.common.lang.enums.CertTypeEnum
+        self.ep_cert_no_type = ep_cert_no_type
+        # 法人姓名
+        self.legal_person_cert_name = legal_person_cert_name
+        # 法人证件号码
+        self.legal_person_cert_no = legal_person_cert_no
+        # 法人证件号码类型，枚举值参考：com.alipay.fc.common.lang.enums.CertTypeEnum
+        self.legal_person_cert_no_type = legal_person_cert_no_type
+        # 系统名称
+        self.owner_name = owner_name
+        # 系统租户ID
+        self.owner_uid = owner_uid
+        # 业务唯一ID
+        self.biz_id = biz_id
+        # 业务渠道，需提前申请产品码
+        self.channel = channel
+        # 认证类型：ENTERPRISE-企业, PERSON-个人
+        self.certify_enum = certify_enum
+        # 客户支付宝ID
+        self.alipay_uid = alipay_uid
+        # 个人姓名，用于个人认证
+        self.person_name = person_name
+        # 个人证件号码
+        self.person_cert_no = person_cert_no
+        # 个人证件类型，枚举值参考：com.alipay.fc.common.lang.enums.CertTypeEnum
+        self.person_cert_type = person_cert_type
+        # 扩展信息
+        self.extension_info = extension_info
+
+    def validate(self):
+        self.validate_required(self.ep_cert_name, 'ep_cert_name')
+        self.validate_required(self.ep_cert_no, 'ep_cert_no')
+        self.validate_required(self.ep_cert_no_type, 'ep_cert_no_type')
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.channel, 'channel')
+        self.validate_required(self.certify_enum, 'certify_enum')
+        if self.extension_info:
+            self.extension_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_code is not None:
+            result['biz_code'] = self.biz_code
+        if self.ep_cert_name is not None:
+            result['ep_cert_name'] = self.ep_cert_name
+        if self.ep_cert_no is not None:
+            result['ep_cert_no'] = self.ep_cert_no
+        if self.ep_cert_no_type is not None:
+            result['ep_cert_no_type'] = self.ep_cert_no_type
+        if self.legal_person_cert_name is not None:
+            result['legal_person_cert_name'] = self.legal_person_cert_name
+        if self.legal_person_cert_no is not None:
+            result['legal_person_cert_no'] = self.legal_person_cert_no
+        if self.legal_person_cert_no_type is not None:
+            result['legal_person_cert_no_type'] = self.legal_person_cert_no_type
+        if self.owner_name is not None:
+            result['owner_name'] = self.owner_name
+        if self.owner_uid is not None:
+            result['owner_uid'] = self.owner_uid
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.certify_enum is not None:
+            result['certify_enum'] = self.certify_enum
+        if self.alipay_uid is not None:
+            result['alipay_uid'] = self.alipay_uid
+        if self.person_name is not None:
+            result['person_name'] = self.person_name
+        if self.person_cert_no is not None:
+            result['person_cert_no'] = self.person_cert_no
+        if self.person_cert_type is not None:
+            result['person_cert_type'] = self.person_cert_type
+        if self.extension_info is not None:
+            result['extension_info'] = self.extension_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_code') is not None:
+            self.biz_code = m.get('biz_code')
+        if m.get('ep_cert_name') is not None:
+            self.ep_cert_name = m.get('ep_cert_name')
+        if m.get('ep_cert_no') is not None:
+            self.ep_cert_no = m.get('ep_cert_no')
+        if m.get('ep_cert_no_type') is not None:
+            self.ep_cert_no_type = m.get('ep_cert_no_type')
+        if m.get('legal_person_cert_name') is not None:
+            self.legal_person_cert_name = m.get('legal_person_cert_name')
+        if m.get('legal_person_cert_no') is not None:
+            self.legal_person_cert_no = m.get('legal_person_cert_no')
+        if m.get('legal_person_cert_no_type') is not None:
+            self.legal_person_cert_no_type = m.get('legal_person_cert_no_type')
+        if m.get('owner_name') is not None:
+            self.owner_name = m.get('owner_name')
+        if m.get('owner_uid') is not None:
+            self.owner_uid = m.get('owner_uid')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('certify_enum') is not None:
+            self.certify_enum = m.get('certify_enum')
+        if m.get('alipay_uid') is not None:
+            self.alipay_uid = m.get('alipay_uid')
+        if m.get('person_name') is not None:
+            self.person_name = m.get('person_name')
+        if m.get('person_cert_no') is not None:
+            self.person_cert_no = m.get('person_cert_no')
+        if m.get('person_cert_type') is not None:
+            self.person_cert_type = m.get('person_cert_type')
+        if m.get('extension_info') is not None:
+            temp_model = NameValuePair()
+            self.extension_info = temp_model.from_map(m['extension_info'])
+        return self
+
+
+class VerifyAntchainBbpMetaResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: CustomerAuthResult = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 要素认证结果
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            temp_model = CustomerAuthResult()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class InitAntchainBbpInsuranceUserRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        business_code: str = None,
+        third_part_id: str = None,
+        channel: str = None,
+        burieds: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 保司编码
+        self.business_code = business_code
+        # 三方Id，此处为天猫id
+        self.third_part_id = third_part_id
+        # 来源渠道，TIANMAO（天猫）
+        self.channel = channel
+        # 埋点信息，JSON格式字符串
+        self.burieds = burieds
+
+    def validate(self):
+        self.validate_required(self.business_code, 'business_code')
+        self.validate_required(self.third_part_id, 'third_part_id')
+        self.validate_required(self.channel, 'channel')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        if self.third_part_id is not None:
+            result['third_part_id'] = self.third_part_id
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.burieds is not None:
+            result['burieds'] = self.burieds
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        if m.get('third_part_id') is not None:
+            self.third_part_id = m.get('third_part_id')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('burieds') is not None:
+            self.burieds = m.get('burieds')
+        return self
+
+
+class InitAntchainBbpInsuranceUserResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+

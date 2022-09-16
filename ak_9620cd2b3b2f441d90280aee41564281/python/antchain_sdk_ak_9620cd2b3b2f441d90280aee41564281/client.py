@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_9620cd2b3b2f441d90280aee41564281',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_9620cd2b3b2f441d90280aee41564281',
                     '_prod_channel': 'saas'
                 }
@@ -329,4 +329,116 @@ class Client:
         return TeaCore.from_map(
             ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.AuthAntchainBbpCustomerResponse(),
             await self.do_request_async('1.0', 'antchain.bbp.customer.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_antchain_bbp_meta(
+        self,
+        request: ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.VerifyAntchainBbpMetaRequest,
+    ) -> ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.VerifyAntchainBbpMetaResponse:
+        """
+        Description: 对企业身份进行认证
+        Summary: 企业四要素认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_antchain_bbp_meta_ex(request, headers, runtime)
+
+    async def verify_antchain_bbp_meta_async(
+        self,
+        request: ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.VerifyAntchainBbpMetaRequest,
+    ) -> ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.VerifyAntchainBbpMetaResponse:
+        """
+        Description: 对企业身份进行认证
+        Summary: 企业四要素认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_antchain_bbp_meta_ex_async(request, headers, runtime)
+
+    def verify_antchain_bbp_meta_ex(
+        self,
+        request: ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.VerifyAntchainBbpMetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.VerifyAntchainBbpMetaResponse:
+        """
+        Description: 对企业身份进行认证
+        Summary: 企业四要素认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.VerifyAntchainBbpMetaResponse(),
+            self.do_request('1.0', 'antchain.bbp.meta.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_antchain_bbp_meta_ex_async(
+        self,
+        request: ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.VerifyAntchainBbpMetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.VerifyAntchainBbpMetaResponse:
+        """
+        Description: 对企业身份进行认证
+        Summary: 企业四要素认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.VerifyAntchainBbpMetaResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.meta.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_antchain_bbp_insurance_user(
+        self,
+        request: ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.InitAntchainBbpInsuranceUserRequest,
+    ) -> ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.InitAntchainBbpInsuranceUserResponse:
+        """
+        Description: 记录用户登录保司小程序信息
+        Summary: 用户登陆页面埋点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_antchain_bbp_insurance_user_ex(request, headers, runtime)
+
+    async def init_antchain_bbp_insurance_user_async(
+        self,
+        request: ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.InitAntchainBbpInsuranceUserRequest,
+    ) -> ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.InitAntchainBbpInsuranceUserResponse:
+        """
+        Description: 记录用户登录保司小程序信息
+        Summary: 用户登陆页面埋点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_antchain_bbp_insurance_user_ex_async(request, headers, runtime)
+
+    def init_antchain_bbp_insurance_user_ex(
+        self,
+        request: ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.InitAntchainBbpInsuranceUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.InitAntchainBbpInsuranceUserResponse:
+        """
+        Description: 记录用户登录保司小程序信息
+        Summary: 用户登陆页面埋点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.InitAntchainBbpInsuranceUserResponse(),
+            self.do_request('1.0', 'antchain.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_antchain_bbp_insurance_user_ex_async(
+        self,
+        request: ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.InitAntchainBbpInsuranceUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.InitAntchainBbpInsuranceUserResponse:
+        """
+        Description: 记录用户登录保司小程序信息
+        Summary: 用户登陆页面埋点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__9620cd_2b_3b_2f_441d_90280aee_41564281_models.InitAntchainBbpInsuranceUserResponse(),
+            await self.do_request_async('1.0', 'antchain.bbp.insurance.user.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
