@@ -275,6 +275,196 @@ export class AuthAntchainBbpCustomerResponse extends $tea.Model {
   }
 }
 
+export class VerifyAntchainBbpMetaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 预留业务code
+  bizCode?: string;
+  // 企业名称
+  epCertName: string;
+  // 企业证件号码
+  epCertNo: string;
+  // 企业证件号码类型，枚举值参考：com.alipay.fc.common.lang.enums.CertTypeEnum
+  epCertNoType: string;
+  // 法人姓名
+  legalPersonCertName?: string;
+  // 法人证件号码
+  legalPersonCertNo?: string;
+  // 法人证件号码类型，枚举值参考：com.alipay.fc.common.lang.enums.CertTypeEnum
+  legalPersonCertNoType?: string;
+  // 系统名称
+  ownerName?: string;
+  // 系统租户ID
+  ownerUid?: string;
+  // 业务唯一ID
+  bizId: string;
+  // 业务渠道，需提前申请产品码
+  channel: string;
+  // 认证类型：ENTERPRISE-企业, PERSON-个人
+  certifyEnum: string;
+  // 客户支付宝ID
+  alipayUid?: string;
+  // 个人姓名，用于个人认证
+  personName?: string;
+  // 个人证件号码
+  personCertNo?: string;
+  // 个人证件类型，枚举值参考：com.alipay.fc.common.lang.enums.CertTypeEnum
+  personCertType?: string;
+  // 扩展信息
+  extensionInfo?: NameValuePair;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizCode: 'biz_code',
+      epCertName: 'ep_cert_name',
+      epCertNo: 'ep_cert_no',
+      epCertNoType: 'ep_cert_no_type',
+      legalPersonCertName: 'legal_person_cert_name',
+      legalPersonCertNo: 'legal_person_cert_no',
+      legalPersonCertNoType: 'legal_person_cert_no_type',
+      ownerName: 'owner_name',
+      ownerUid: 'owner_uid',
+      bizId: 'biz_id',
+      channel: 'channel',
+      certifyEnum: 'certify_enum',
+      alipayUid: 'alipay_uid',
+      personName: 'person_name',
+      personCertNo: 'person_cert_no',
+      personCertType: 'person_cert_type',
+      extensionInfo: 'extension_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizCode: 'string',
+      epCertName: 'string',
+      epCertNo: 'string',
+      epCertNoType: 'string',
+      legalPersonCertName: 'string',
+      legalPersonCertNo: 'string',
+      legalPersonCertNoType: 'string',
+      ownerName: 'string',
+      ownerUid: 'string',
+      bizId: 'string',
+      channel: 'string',
+      certifyEnum: 'string',
+      alipayUid: 'string',
+      personName: 'string',
+      personCertNo: 'string',
+      personCertType: 'string',
+      extensionInfo: NameValuePair,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyAntchainBbpMetaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 要素认证结果
+  result?: CustomerAuthResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: CustomerAuthResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitAntchainBbpInsuranceUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 保司编码
+  businessCode: string;
+  // 三方Id，此处为天猫id
+  thirdPartId: string;
+  // 来源渠道，TIANMAO（天猫）
+  channel: string;
+  // 埋点信息，JSON格式字符串
+  burieds?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      businessCode: 'business_code',
+      thirdPartId: 'third_part_id',
+      channel: 'channel',
+      burieds: 'burieds',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      businessCode: 'string',
+      thirdPartId: 'string',
+      channel: 'string',
+      burieds: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitAntchainBbpInsuranceUserResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -388,7 +578,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_9620cd2b3b2f441d90280aee41564281",
           _prod_channel: "saas",
         };
@@ -453,6 +643,44 @@ export default class Client {
   async authAntchainBbpCustomerEx(request: AuthAntchainBbpCustomerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthAntchainBbpCustomerResponse> {
     Util.validateModel(request);
     return $tea.cast<AuthAntchainBbpCustomerResponse>(await this.doRequest("1.0", "antchain.bbp.customer.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthAntchainBbpCustomerResponse({}));
+  }
+
+  /**
+   * Description: 对企业身份进行认证
+   * Summary: 企业四要素认证
+   */
+  async verifyAntchainBbpMeta(request: VerifyAntchainBbpMetaRequest): Promise<VerifyAntchainBbpMetaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.verifyAntchainBbpMetaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 对企业身份进行认证
+   * Summary: 企业四要素认证
+   */
+  async verifyAntchainBbpMetaEx(request: VerifyAntchainBbpMetaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyAntchainBbpMetaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<VerifyAntchainBbpMetaResponse>(await this.doRequest("1.0", "antchain.bbp.meta.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyAntchainBbpMetaResponse({}));
+  }
+
+  /**
+   * Description: 记录用户登录保司小程序信息
+   * Summary: 用户登陆页面埋点
+   */
+  async initAntchainBbpInsuranceUser(request: InitAntchainBbpInsuranceUserRequest): Promise<InitAntchainBbpInsuranceUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initAntchainBbpInsuranceUserEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 记录用户登录保司小程序信息
+   * Summary: 用户登陆页面埋点
+   */
+  async initAntchainBbpInsuranceUserEx(request: InitAntchainBbpInsuranceUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitAntchainBbpInsuranceUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitAntchainBbpInsuranceUserResponse>(await this.doRequest("1.0", "antchain.bbp.insurance.user.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitAntchainBbpInsuranceUserResponse({}));
   }
 
 }
