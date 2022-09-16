@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_9620cd2b3b2f441d90280aee41564281
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_9620cd2b3b2f441d90280aee41564281"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_9620cd2b3b2f441d90280aee41564281
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_9620cd2b3b2f441d90280aee41564281"},
                         {"_prod_channel", "saas"},
                     };
@@ -361,6 +361,90 @@ namespace AntChain.SDK.Ak_9620cd2b3b2f441d90280aee41564281
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<AuthAntchainBbpCustomerResponse>(await DoRequestAsync("1.0", "antchain.bbp.customer.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 对企业身份进行认证
+         * Summary: 企业四要素认证
+         */
+        public VerifyAntchainBbpMetaResponse VerifyAntchainBbpMeta(VerifyAntchainBbpMetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return VerifyAntchainBbpMetaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对企业身份进行认证
+         * Summary: 企业四要素认证
+         */
+        public async Task<VerifyAntchainBbpMetaResponse> VerifyAntchainBbpMetaAsync(VerifyAntchainBbpMetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await VerifyAntchainBbpMetaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对企业身份进行认证
+         * Summary: 企业四要素认证
+         */
+        public VerifyAntchainBbpMetaResponse VerifyAntchainBbpMetaEx(VerifyAntchainBbpMetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyAntchainBbpMetaResponse>(DoRequest("1.0", "antchain.bbp.meta.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 对企业身份进行认证
+         * Summary: 企业四要素认证
+         */
+        public async Task<VerifyAntchainBbpMetaResponse> VerifyAntchainBbpMetaExAsync(VerifyAntchainBbpMetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyAntchainBbpMetaResponse>(await DoRequestAsync("1.0", "antchain.bbp.meta.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 记录用户登录保司小程序信息
+         * Summary: 用户登陆页面埋点
+         */
+        public InitAntchainBbpInsuranceUserResponse InitAntchainBbpInsuranceUser(InitAntchainBbpInsuranceUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitAntchainBbpInsuranceUserEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 记录用户登录保司小程序信息
+         * Summary: 用户登陆页面埋点
+         */
+        public async Task<InitAntchainBbpInsuranceUserResponse> InitAntchainBbpInsuranceUserAsync(InitAntchainBbpInsuranceUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitAntchainBbpInsuranceUserExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 记录用户登录保司小程序信息
+         * Summary: 用户登陆页面埋点
+         */
+        public InitAntchainBbpInsuranceUserResponse InitAntchainBbpInsuranceUserEx(InitAntchainBbpInsuranceUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitAntchainBbpInsuranceUserResponse>(DoRequest("1.0", "antchain.bbp.insurance.user.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 记录用户登录保司小程序信息
+         * Summary: 用户登陆页面埋点
+         */
+        public async Task<InitAntchainBbpInsuranceUserResponse> InitAntchainBbpInsuranceUserExAsync(InitAntchainBbpInsuranceUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitAntchainBbpInsuranceUserResponse>(await DoRequestAsync("1.0", "antchain.bbp.insurance.user.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
