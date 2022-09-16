@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 执行记录
+            # 批次详情
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3',
+                    'sdk_version': '1.0.7',
                     '_prod_code': 'MYCHARITY',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 执行记录
+            # 批次详情
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3',
+                    'sdk_version': '1.0.7',
                     '_prod_code': 'MYCHARITY',
                     '_prod_channel': 'undefined'
                 }
@@ -1505,4 +1505,60 @@ class Client:
         return TeaCore.from_map(
             mycharity_models.BatchcreateRecordResponse(),
             await self.do_request_async('1.0', 'antchain.mycharity.record.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_batch(
+        self,
+        request: mycharity_models.CreateBatchRequest,
+    ) -> mycharity_models.CreateBatchResponse:
+        """
+        Description: 创建批次
+        Summary: 创建批次
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_batch_ex(request, headers, runtime)
+
+    async def create_batch_async(
+        self,
+        request: mycharity_models.CreateBatchRequest,
+    ) -> mycharity_models.CreateBatchResponse:
+        """
+        Description: 创建批次
+        Summary: 创建批次
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_batch_ex_async(request, headers, runtime)
+
+    def create_batch_ex(
+        self,
+        request: mycharity_models.CreateBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreateBatchResponse:
+        """
+        Description: 创建批次
+        Summary: 创建批次
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreateBatchResponse(),
+            self.do_request('1.0', 'antchain.mycharity.batch.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_batch_ex_async(
+        self,
+        request: mycharity_models.CreateBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.CreateBatchResponse:
+        """
+        Description: 创建批次
+        Summary: 创建批次
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.CreateBatchResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.batch.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

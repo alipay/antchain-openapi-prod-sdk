@@ -154,6 +154,340 @@ class Config(TeaModel):
         return self
 
 
+class BatchDetailVO(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        combination_id: str = None,
+        name: str = None,
+        remarks: str = None,
+        issue_way: int = None,
+        affirmance_receivers: int = None,
+        receive_check_way: int = None,
+        issue_amount: int = None,
+    ):
+        # id
+        self.id = id
+        # 实施内容id
+        self.combination_id = combination_id
+        # 批次名称
+        self.name = name
+        # 备注
+        self.remarks = remarks
+        # 发放方式：【0：自动拨付，1：其他方式拨付，2：快递寄送，3：当面发放，4：服务后确认发放，5：无特定发放方式】
+        self.issue_way = issue_way
+        # 确认接收人 0发前确认 1发后确认
+        self.affirmance_receivers = affirmance_receivers
+        # 接收方式（0扫脸验证、1身份证号码验证，2扫二维码验证, 3直接导入
+        self.receive_check_way = receive_check_way
+        # 发放数量
+        self.issue_amount = issue_amount
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.combination_id, 'combination_id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.remarks, 'remarks')
+        self.validate_required(self.issue_way, 'issue_way')
+        self.validate_required(self.affirmance_receivers, 'affirmance_receivers')
+        self.validate_required(self.receive_check_way, 'receive_check_way')
+        self.validate_required(self.issue_amount, 'issue_amount')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.combination_id is not None:
+            result['combination_id'] = self.combination_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.remarks is not None:
+            result['remarks'] = self.remarks
+        if self.issue_way is not None:
+            result['issue_way'] = self.issue_way
+        if self.affirmance_receivers is not None:
+            result['affirmance_receivers'] = self.affirmance_receivers
+        if self.receive_check_way is not None:
+            result['receive_check_way'] = self.receive_check_way
+        if self.issue_amount is not None:
+            result['issue_amount'] = self.issue_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('combination_id') is not None:
+            self.combination_id = m.get('combination_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('remarks') is not None:
+            self.remarks = m.get('remarks')
+        if m.get('issue_way') is not None:
+            self.issue_way = m.get('issue_way')
+        if m.get('affirmance_receivers') is not None:
+            self.affirmance_receivers = m.get('affirmance_receivers')
+        if m.get('receive_check_way') is not None:
+            self.receive_check_way = m.get('receive_check_way')
+        if m.get('issue_amount') is not None:
+            self.issue_amount = m.get('issue_amount')
+        return self
+
+
+class ProjectVO(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        gmt_create: int = None,
+        gmt_modified: int = None,
+        pj_name: str = None,
+        org_id: str = None,
+        public_welfare_direction: str = None,
+        test_flag: int = None,
+    ):
+        # 公益项目ID
+        self.id = id
+        # 创建时间
+        self.gmt_create = gmt_create
+        # 修改时间
+        self.gmt_modified = gmt_modified
+        # 公益项目名称
+        self.pj_name = pj_name
+        # 机构ID
+        self.org_id = org_id
+        # 公益方向
+        self.public_welfare_direction = public_welfare_direction
+        # 测试项目:0正式项目(默认),1测试项目
+        self.test_flag = test_flag
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.gmt_create, 'gmt_create')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
+        self.validate_required(self.pj_name, 'pj_name')
+        self.validate_required(self.org_id, 'org_id')
+        self.validate_required(self.public_welfare_direction, 'public_welfare_direction')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.pj_name is not None:
+            result['pj_name'] = self.pj_name
+        if self.org_id is not None:
+            result['org_id'] = self.org_id
+        if self.public_welfare_direction is not None:
+            result['public_welfare_direction'] = self.public_welfare_direction
+        if self.test_flag is not None:
+            result['test_flag'] = self.test_flag
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('pj_name') is not None:
+            self.pj_name = m.get('pj_name')
+        if m.get('org_id') is not None:
+            self.org_id = m.get('org_id')
+        if m.get('public_welfare_direction') is not None:
+            self.public_welfare_direction = m.get('public_welfare_direction')
+        if m.get('test_flag') is not None:
+            self.test_flag = m.get('test_flag')
+        return self
+
+
+class StagesDetailVO(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        start_time: int = None,
+        end_time: int = None,
+        target_money: int = None,
+        target_num: int = None,
+        note: str = None,
+        public_fundraising_no: str = None,
+        cover_url: str = None,
+        administrative_rate: int = None,
+        state: int = None,
+        sign_id: str = None,
+    ):
+        # 分期id
+        self.id = id
+        # 计划开始时间
+        self.start_time = start_time
+        # 计划结束时间
+        self.end_time = end_time
+        # 目标捐赠金额
+        self.target_money = target_money
+        # 目标捐赠人数
+        self.target_num = target_num
+        # 说明
+        self.note = note
+        # 公开募捐编号
+        self.public_fundraising_no = public_fundraising_no
+        # 静态文件地址‘,’分割
+        self.cover_url = cover_url
+        # 管理费用金额(单位：分)
+        self.administrative_rate = administrative_rate
+        # 项目状态，0进行中（默认），1已结项
+        self.state = state
+        # 签约id,关联签约表
+        self.sign_id = sign_id
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.target_money is not None:
+            result['target_money'] = self.target_money
+        if self.target_num is not None:
+            result['target_num'] = self.target_num
+        if self.note is not None:
+            result['note'] = self.note
+        if self.public_fundraising_no is not None:
+            result['public_fundraising_no'] = self.public_fundraising_no
+        if self.cover_url is not None:
+            result['cover_url'] = self.cover_url
+        if self.administrative_rate is not None:
+            result['administrative_rate'] = self.administrative_rate
+        if self.state is not None:
+            result['state'] = self.state
+        if self.sign_id is not None:
+            result['sign_id'] = self.sign_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('target_money') is not None:
+            self.target_money = m.get('target_money')
+        if m.get('target_num') is not None:
+            self.target_num = m.get('target_num')
+        if m.get('note') is not None:
+            self.note = m.get('note')
+        if m.get('public_fundraising_no') is not None:
+            self.public_fundraising_no = m.get('public_fundraising_no')
+        if m.get('cover_url') is not None:
+            self.cover_url = m.get('cover_url')
+        if m.get('administrative_rate') is not None:
+            self.administrative_rate = m.get('administrative_rate')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('sign_id') is not None:
+            self.sign_id = m.get('sign_id')
+        return self
+
+
+class OpenSubjectCombinationVO(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        name: str = None,
+        type: int = None,
+        unit: str = None,
+        note: str = None,
+        price_determined_flag: int = None,
+        price: int = None,
+        total_num: int = None,
+    ):
+        # 实施内容id
+        self.id = id
+        # 实施内容名称
+        self.name = name
+        # 实施内容类型
+        self.type = type
+        # 单位
+        self.unit = unit
+        # 说明
+        self.note = note
+        # 单价是否固定，0:不固定，1:固定
+        self.price_determined_flag = price_determined_flag
+        # 单价
+        self.price = price
+        # 预估发放个数
+        self.total_num = total_num
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.type is not None:
+            result['type'] = self.type
+        if self.unit is not None:
+            result['unit'] = self.unit
+        if self.note is not None:
+            result['note'] = self.note
+        if self.price_determined_flag is not None:
+            result['price_determined_flag'] = self.price_determined_flag
+        if self.price is not None:
+            result['price'] = self.price
+        if self.total_num is not None:
+            result['total_num'] = self.total_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('unit') is not None:
+            self.unit = m.get('unit')
+        if m.get('note') is not None:
+            self.note = m.get('note')
+        if m.get('price_determined_flag') is not None:
+            self.price_determined_flag = m.get('price_determined_flag')
+        if m.get('price') is not None:
+            self.price = m.get('price')
+        if m.get('total_num') is not None:
+            self.total_num = m.get('total_num')
+        return self
+
+
 class ReceivedRecord(TeaModel):
     def __init__(
         self,
@@ -291,6 +625,89 @@ class ReceivedRecord(TeaModel):
             self.express_address = m.get('express_address')
         if m.get('issue_amount') is not None:
             self.issue_amount = m.get('issue_amount')
+        return self
+
+
+class OrgVO(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        gmt_create: int = None,
+        gmt_modified: int = None,
+        name: str = None,
+        unified_social_credit_code: str = None,
+        introduction: str = None,
+        sign_time: int = None,
+        test_flag: int = None,
+    ):
+        # 机构ID
+        self.id = id
+        # 创建时间
+        self.gmt_create = gmt_create
+        # 修改时间
+        self.gmt_modified = gmt_modified
+        # 机构名称
+        self.name = name
+        # 统一社会信用代码
+        self.unified_social_credit_code = unified_social_credit_code
+        # 机构简介
+        self.introduction = introduction
+        # 签约时间
+        self.sign_time = sign_time
+        # 测试项目:0正式机构(默认),1测试机构
+        self.test_flag = test_flag
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.gmt_create, 'gmt_create')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.unified_social_credit_code, 'unified_social_credit_code')
+        self.validate_required(self.introduction, 'introduction')
+        self.validate_required(self.sign_time, 'sign_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        if self.name is not None:
+            result['name'] = self.name
+        if self.unified_social_credit_code is not None:
+            result['unified_social_credit_code'] = self.unified_social_credit_code
+        if self.introduction is not None:
+            result['introduction'] = self.introduction
+        if self.sign_time is not None:
+            result['sign_time'] = self.sign_time
+        if self.test_flag is not None:
+            result['test_flag'] = self.test_flag
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('unified_social_credit_code') is not None:
+            self.unified_social_credit_code = m.get('unified_social_credit_code')
+        if m.get('introduction') is not None:
+            self.introduction = m.get('introduction')
+        if m.get('sign_time') is not None:
+            self.sign_time = m.get('sign_time')
+        if m.get('test_flag') is not None:
+            self.test_flag = m.get('test_flag')
         return self
 
 
@@ -440,6 +857,7 @@ class QueryAlipaysignStateResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        state: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -447,6 +865,8 @@ class QueryAlipaysignStateResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 代扣账号签约状态 0.未签约 1.已签约
+        self.state = state
 
     def validate(self):
         pass
@@ -463,6 +883,8 @@ class QueryAlipaysignStateResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.state is not None:
+            result['state'] = self.state
         return result
 
     def from_map(self, m: dict = None):
@@ -473,6 +895,8 @@ class QueryAlipaysignStateResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('state') is not None:
+            self.state = m.get('state')
         return self
 
 
@@ -516,6 +940,7 @@ class QueryAlipaysignQrcodeResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        sign_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -523,6 +948,8 @@ class QueryAlipaysignQrcodeResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 账号签约二维码url
+        self.sign_url = sign_url
 
     def validate(self):
         pass
@@ -539,6 +966,8 @@ class QueryAlipaysignQrcodeResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.sign_url is not None:
+            result['sign_url'] = self.sign_url
         return result
 
     def from_map(self, m: dict = None):
@@ -549,6 +978,8 @@ class QueryAlipaysignQrcodeResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('sign_url') is not None:
+            self.sign_url = m.get('sign_url')
         return self
 
 
@@ -1313,6 +1744,7 @@ class QueryBatchResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        batch_detail_vo: BatchDetailVO = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1320,9 +1752,12 @@ class QueryBatchResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 批次详情
+        self.batch_detail_vo = batch_detail_vo
 
     def validate(self):
-        pass
+        if self.batch_detail_vo:
+            self.batch_detail_vo.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1336,6 +1771,8 @@ class QueryBatchResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.batch_detail_vo is not None:
+            result['batch_detail_vo'] = self.batch_detail_vo.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -1346,6 +1783,9 @@ class QueryBatchResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('batch_detail_vo') is not None:
+            temp_model = BatchDetailVO()
+            self.batch_detail_vo = temp_model.from_map(m['batch_detail_vo'])
         return self
 
 
@@ -1694,6 +2134,7 @@ class QueryStagesResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        open_stages_detail_vo: StagesDetailVO = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1701,9 +2142,12 @@ class QueryStagesResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 分期详情
+        self.open_stages_detail_vo = open_stages_detail_vo
 
     def validate(self):
-        pass
+        if self.open_stages_detail_vo:
+            self.open_stages_detail_vo.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1717,6 +2161,8 @@ class QueryStagesResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.open_stages_detail_vo is not None:
+            result['open_stages_detail_vo'] = self.open_stages_detail_vo.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -1727,6 +2173,9 @@ class QueryStagesResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('open_stages_detail_vo') is not None:
+            temp_model = StagesDetailVO()
+            self.open_stages_detail_vo = temp_model.from_map(m['open_stages_detail_vo'])
         return self
 
 
@@ -2068,6 +2517,7 @@ class DetailOrgResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        org_vo: OrgVO = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2075,9 +2525,12 @@ class DetailOrgResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 机构详情结构体
+        self.org_vo = org_vo
 
     def validate(self):
-        pass
+        if self.org_vo:
+            self.org_vo.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -2091,6 +2544,8 @@ class DetailOrgResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.org_vo is not None:
+            result['org_vo'] = self.org_vo.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -2101,6 +2556,9 @@ class DetailOrgResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('org_vo') is not None:
+            temp_model = OrgVO()
+            self.org_vo = temp_model.from_map(m['org_vo'])
         return self
 
 
@@ -2538,6 +2996,7 @@ class DetailProjectResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        project_vo: ProjectVO = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2545,9 +3004,12 @@ class DetailProjectResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 项目结构体
+        self.project_vo = project_vo
 
     def validate(self):
-        pass
+        if self.project_vo:
+            self.project_vo.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -2561,6 +3023,8 @@ class DetailProjectResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.project_vo is not None:
+            result['project_vo'] = self.project_vo.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -2571,6 +3035,9 @@ class DetailProjectResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('project_vo') is not None:
+            temp_model = ProjectVO()
+            self.project_vo = temp_model.from_map(m['project_vo'])
         return self
 
 
@@ -2623,6 +3090,7 @@ class QueryCombinationResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        open_subject_combination_vo: OpenSubjectCombinationVO = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -2630,9 +3098,12 @@ class QueryCombinationResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 实施内容详情
+        self.open_subject_combination_vo = open_subject_combination_vo
 
     def validate(self):
-        pass
+        if self.open_subject_combination_vo:
+            self.open_subject_combination_vo.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -2646,6 +3117,8 @@ class QueryCombinationResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.open_subject_combination_vo is not None:
+            result['open_subject_combination_vo'] = self.open_subject_combination_vo.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -2656,6 +3129,9 @@ class QueryCombinationResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('open_subject_combination_vo') is not None:
+            temp_model = OpenSubjectCombinationVO()
+            self.open_subject_combination_vo = temp_model.from_map(m['open_subject_combination_vo'])
         return self
 
 
@@ -2720,6 +3196,153 @@ class BatchcreateRecordRequest(TeaModel):
 
 
 class BatchcreateRecordResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class CreateBatchRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        id: str = None,
+        stages_id: str = None,
+        combination_id: str = None,
+        name: str = None,
+        remarks: str = None,
+        issue_way: int = None,
+        affirmance_receivers: int = None,
+        receive_check_way: int = None,
+        issue_amount: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # id
+        self.id = id
+        # 分期ID
+        self.stages_id = stages_id
+        # 实施内容id
+        self.combination_id = combination_id
+        # 批次名称
+        self.name = name
+        # 备注
+        self.remarks = remarks
+        # 接收验证方式（0扫脸验证、2扫二维码验证, 3快递签收验证，4登录确认）
+        self.issue_way = issue_way
+        # 确认接收人 0发前确认 1发后确认
+        self.affirmance_receivers = affirmance_receivers
+        # 接收方式（0扫脸验证、1身份证号码验证，2扫二维码验证, 3直接导入
+        self.receive_check_way = receive_check_way
+        # 发放数量最大值1亿（发后确认- 扫码领取时必填）单位分
+        self.issue_amount = issue_amount
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.stages_id, 'stages_id')
+        self.validate_required(self.combination_id, 'combination_id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.remarks, 'remarks')
+        self.validate_required(self.issue_way, 'issue_way')
+        self.validate_required(self.affirmance_receivers, 'affirmance_receivers')
+        self.validate_required(self.receive_check_way, 'receive_check_way')
+        self.validate_required(self.issue_amount, 'issue_amount')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.id is not None:
+            result['id'] = self.id
+        if self.stages_id is not None:
+            result['stages_id'] = self.stages_id
+        if self.combination_id is not None:
+            result['combination_id'] = self.combination_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.remarks is not None:
+            result['remarks'] = self.remarks
+        if self.issue_way is not None:
+            result['issue_way'] = self.issue_way
+        if self.affirmance_receivers is not None:
+            result['affirmance_receivers'] = self.affirmance_receivers
+        if self.receive_check_way is not None:
+            result['receive_check_way'] = self.receive_check_way
+        if self.issue_amount is not None:
+            result['issue_amount'] = self.issue_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('stages_id') is not None:
+            self.stages_id = m.get('stages_id')
+        if m.get('combination_id') is not None:
+            self.combination_id = m.get('combination_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('remarks') is not None:
+            self.remarks = m.get('remarks')
+        if m.get('issue_way') is not None:
+            self.issue_way = m.get('issue_way')
+        if m.get('affirmance_receivers') is not None:
+            self.affirmance_receivers = m.get('affirmance_receivers')
+        if m.get('receive_check_way') is not None:
+            self.receive_check_way = m.get('receive_check_way')
+        if m.get('issue_amount') is not None:
+            self.issue_amount = m.get('issue_amount')
+        return self
+
+
+class CreateBatchResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
