@@ -63,6 +63,16 @@ namespace AntChain.SDK.NFTX.Models
         [Validation(Required=false)]
         public string ItemCode { get; set; }
 
+        // 用户购买的商品个数
+        [NameInMap("item_num")]
+        [Validation(Required=false)]
+        public long? ItemNum { get; set; }
+
+        // 商品单价，单位分
+        [NameInMap("item_price_cent")]
+        [Validation(Required=false)]
+        public long? ItemPriceCent { get; set; }
+
     }
 
 }
