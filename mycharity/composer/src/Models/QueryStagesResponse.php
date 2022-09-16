@@ -25,10 +25,17 @@ class QueryStagesResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 分期详情
+    /**
+     * @var StagesDetailVO
+     */
+    public $openStagesDetailVo;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'           => 'req_msg_id',
+        'resultCode'         => 'result_code',
+        'resultMsg'          => 'result_msg',
+        'openStagesDetailVo' => 'open_stages_detail_vo',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class QueryStagesResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->openStagesDetailVo) {
+            $res['open_stages_detail_vo'] = null !== $this->openStagesDetailVo ? $this->openStagesDetailVo->toMap() : null;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class QueryStagesResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['open_stages_detail_vo'])) {
+            $model->openStagesDetailVo = StagesDetailVO::fromMap($map['open_stages_detail_vo']);
         }
 
         return $model;

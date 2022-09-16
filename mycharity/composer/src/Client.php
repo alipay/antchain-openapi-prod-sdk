@@ -15,6 +15,8 @@ use AntChain\MYCHARITY\Models\BatchcreateRecordRequest;
 use AntChain\MYCHARITY\Models\BatchcreateRecordResponse;
 use AntChain\MYCHARITY\Models\CreateAlipaysignRequest;
 use AntChain\MYCHARITY\Models\CreateAlipaysignResponse;
+use AntChain\MYCHARITY\Models\CreateBatchRequest;
+use AntChain\MYCHARITY\Models\CreateBatchResponse;
 use AntChain\MYCHARITY\Models\CreateCombinationRequest;
 use AntChain\MYCHARITY\Models\CreateCombinationResponse;
 use AntChain\MYCHARITY\Models\CreateOrgRequest;
@@ -174,7 +176,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 执行记录
+            // 批次详情
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -202,7 +204,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.3',
+                    'sdk_version'      => '1.0.7',
                     '_prod_code'       => 'MYCHARITY',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -974,5 +976,38 @@ class Client
         Utils::validateModel($request);
 
         return BatchcreateRecordResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.record.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建批次
+     * Summary: 创建批次
+     *
+     * @param CreateBatchRequest $request
+     *
+     * @return CreateBatchResponse
+     */
+    public function createBatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建批次
+     * Summary: 创建批次
+     *
+     * @param CreateBatchRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return CreateBatchResponse
+     */
+    public function createBatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBatchResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.batch.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

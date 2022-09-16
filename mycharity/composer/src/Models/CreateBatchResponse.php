@@ -6,7 +6,7 @@ namespace AntChain\MYCHARITY\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DetailProjectResponse extends Model
+class CreateBatchResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class DetailProjectResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 项目结构体
-    /**
-     * @var ProjectVO
-     */
-    public $projectVo;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'projectVo'  => 'project_vo',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class DetailProjectResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->projectVo) {
-            $res['project_vo'] = null !== $this->projectVo ? $this->projectVo->toMap() : null;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class DetailProjectResponse extends Model
     /**
      * @param array $map
      *
-     * @return DetailProjectResponse
+     * @return CreateBatchResponse
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class DetailProjectResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['project_vo'])) {
-            $model->projectVo = ProjectVO::fromMap($map['project_vo']);
         }
 
         return $model;

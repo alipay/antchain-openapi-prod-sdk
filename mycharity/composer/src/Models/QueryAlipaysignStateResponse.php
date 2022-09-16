@@ -25,10 +25,17 @@ class QueryAlipaysignStateResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 代扣账号签约状态 0.未签约 1.已签约
+    /**
+     * @var int
+     */
+    public $state;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'state'      => 'state',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class QueryAlipaysignStateResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->state) {
+            $res['state'] = $this->state;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class QueryAlipaysignStateResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['state'])) {
+            $model->state = $map['state'];
         }
 
         return $model;

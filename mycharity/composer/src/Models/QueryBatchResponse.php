@@ -25,10 +25,17 @@ class QueryBatchResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 批次详情
+    /**
+     * @var BatchDetailVO
+     */
+    public $batchDetailVo;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'      => 'req_msg_id',
+        'resultCode'    => 'result_code',
+        'resultMsg'     => 'result_msg',
+        'batchDetailVo' => 'batch_detail_vo',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class QueryBatchResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->batchDetailVo) {
+            $res['batch_detail_vo'] = null !== $this->batchDetailVo ? $this->batchDetailVo->toMap() : null;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class QueryBatchResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['batch_detail_vo'])) {
+            $model->batchDetailVo = BatchDetailVO::fromMap($map['batch_detail_vo']);
         }
 
         return $model;

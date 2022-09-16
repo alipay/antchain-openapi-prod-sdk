@@ -25,10 +25,17 @@ class QueryAlipaysignQrcodeResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 账号签约二维码url
+    /**
+     * @var string
+     */
+    public $signUrl;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'signUrl'    => 'sign_url',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class QueryAlipaysignQrcodeResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->signUrl) {
+            $res['sign_url'] = $this->signUrl;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class QueryAlipaysignQrcodeResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['sign_url'])) {
+            $model->signUrl = $map['sign_url'];
         }
 
         return $model;
