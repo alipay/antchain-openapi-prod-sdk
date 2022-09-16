@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.3',
+    sdk_version = '1.0.7',
     _prod_code = 'MYCHARITY',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,90 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 批次详情
+model BatchDetailVO {
+  // id
+  id: string(name='id', example='0282t2hs'),
+  // 实施内容id
+  combinationId: string(name='combination_id', example='0282t2hs'),
+  // 批次名称
+  name: string(name='name', example='助学金'),
+  // 备注
+  remarks: string(name='remarks', example='50人助学金发放'),
+  // 发放方式：【0：自动拨付，1：其他方式拨付，2：快递寄送，3：当面发放，4：服务后确认发放，5：无特定发放方式】
+  issueWay: long(name='issue_way', example='1'),
+  // 确认接收人 0发前确认 1发后确认
+  affirmanceReceivers: long(name='affirmance_receivers', example='1'),
+  // 接收方式（0扫脸验证、1身份证号码验证，2扫二维码验证, 3直接导入
+  receiveCheckWay: long(name='receive_check_way', example='1'),
+  // 发放数量
+  issueAmount: long(name='issue_amount', example='111'),
+}
+
+// 项目详情
+model ProjectVO {
+  // 公益项目ID
+  id: string(name='id', example='1663225167260'),
+  // 创建时间
+  gmtCreate: long(name='gmt_create', example='1663225167260'),
+  // 修改时间
+  gmtModified: long(name='gmt_modified', example='1663225167260'),
+  // 公益项目名称
+  pjName: string(name='pj_name', example='公益项目名称'),
+  // 机构ID
+  orgId: string(name='org_id', example='1663225167260'),
+  // 公益方向
+  publicWelfareDirection: string(name='public_welfare_direction', example='1663225167260'),
+  // 测试项目:0正式项目(默认),1测试项目
+  testFlag?: long(name='test_flag', example='0'),
+}
+
+// 分期详情
+model StagesDetailVO {
+  // 分期id
+  id: string(name='id', example='1'),
+  // 计划开始时间
+  startTime?: long(name='start_time', example='1661926245540'),
+  // 计划结束时间
+  endTime?: long(name='end_time', example='1662013142106'),
+  // 目标捐赠金额
+  targetMoney?: long(name='target_money', example='100'),
+  // 目标捐赠人数
+  targetNum?: long(name='target_num', example=''),
+  // 说明
+  note?: string(name='note', example='说明'),
+  // 公开募捐编号
+  publicFundraisingNo?: string(name='public_fundraising_no', example='24345sdw2423'),
+  // 静态文件地址‘,’分割
+  coverUrl?: string(name='cover_url', example='http://xxxxx.jpg'),
+  // 管理费用金额(单位：分)
+  administrativeRate?: long(name='administrative_rate', example=''),
+  // 项目状态，0进行中（默认），1已结项
+  state?: long(name='state', example=''),
+  // 签约id,关联签约表
+  signId?: string(name='sign_id', example='1'),
+}
+
+// 实施内容详情
+model OpenSubjectCombinationVO {
+  // 实施内容id
+  id?: string(name='id', example='1'),
+  // 实施内容名称
+  name?: string(name='name', example='名称'),
+  // 实施内容类型
+  type?: long(name='type', example=''),
+  // 单位
+  unit?: string(name='unit', example='个'),
+  // 说明
+  note?: string(name='note', example='说明'),
+  // 单价是否固定，0:不固定，1:固定
+  priceDeterminedFlag?: long(name='price_determined_flag', example=''),
+  // 单价
+  price?: long(name='price', example=''),
+  // 预估发放个数
+  totalNum?: long(name='total_num', example=''),
+}
+
 // 执行记录
 model ReceivedRecord {
   // 执行记录id
@@ -189,6 +273,26 @@ model ReceivedRecord {
   expressAddress?: string(maxLength=100, name='express_address', example='杭州市'),
   // 发放数量
   issueAmount?: long(maximum=100000000, minimum=1, name='issue_amount', example=''),
+}
+
+// 机构详情结构
+model OrgVO {
+  // 机构ID
+  id: string(name='id', example='1663225167260'),
+  // 创建时间
+  gmtCreate: long(name='gmt_create', example='1663225167260'),
+  // 修改时间
+  gmtModified: long(name='gmt_modified', example='1663225167260'),
+  // 机构名称
+  name: string(name='name', example='机构名称'),
+  // 统一社会信用代码
+  unifiedSocialCreditCode: string(name='unified_social_credit_code', example='166322516726012345'),
+  // 机构简介
+  introduction: string(name='introduction', example='机构简介'),
+  // 签约时间
+  signTime: long(name='sign_time', example='1663225167260'),
+  //  测试项目:0正式机构(默认),1测试机构
+  testFlag?: long(name='test_flag', example='0'),
 }
 
 model CreateAlipaysignRequest = {
@@ -246,6 +350,8 @@ model QueryAlipaysignStateResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 代扣账号签约状态 0.未签约 1.已签约
+  state?: long(name='state'),
 }
 
 /**
@@ -280,6 +386,8 @@ model QueryAlipaysignQrcodeResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 账号签约二维码url
+  signUrl?: string(name='sign_url'),
 }
 
 /**
@@ -582,6 +690,8 @@ model QueryBatchResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 批次详情
+  batchDetailVo?: BatchDetailVO(name='batch_detail_vo'),
 }
 
 /**
@@ -720,6 +830,8 @@ model QueryStagesResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 分期详情
+  openStagesDetailVo?: StagesDetailVO(name='open_stages_detail_vo'),
 }
 
 /**
@@ -854,6 +966,8 @@ model DetailOrgResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 机构详情结构体
+  orgVo?: OrgVO(name='org_vo'),
 }
 
 /**
@@ -1026,6 +1140,8 @@ model DetailProjectResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 项目结构体
+  projectVo?: ProjectVO(name='project_vo'),
 }
 
 /**
@@ -1062,6 +1178,8 @@ model QueryCombinationResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 实施内容详情
+  openSubjectCombinationVo?: OpenSubjectCombinationVO(name='open_subject_combination_vo'),
 }
 
 /**
@@ -1119,5 +1237,57 @@ async function batchcreateRecord(request: BatchcreateRecordRequest): Batchcreate
 async function batchcreateRecordEx(request: BatchcreateRecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateRecordResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.mycharity.record.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // id
+  id: string(name='id'),
+  // 分期ID
+  stagesId: string(name='stages_id'),
+  // 实施内容id
+  combinationId: string(name='combination_id'),
+  // 批次名称
+  name: string(name='name'),
+  // 备注
+  remarks: string(name='remarks'),
+  // 接收验证方式（0扫脸验证、2扫二维码验证, 3快递签收验证，4登录确认）
+  issueWay: long(name='issue_way'),
+  // 确认接收人 0发前确认 1发后确认
+  affirmanceReceivers: long(name='affirmance_receivers'),
+  // 接收方式（0扫脸验证、1身份证号码验证，2扫二维码验证, 3直接导入
+  receiveCheckWay: long(name='receive_check_way'),
+  // 发放数量最大值1亿（发后确认- 扫码领取时必填）单位分
+  issueAmount: long(name='issue_amount'),
+}
+
+model CreateBatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建批次
+ * Summary: 创建批次
+ */
+async function createBatch(request: CreateBatchRequest): CreateBatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建批次
+ * Summary: 创建批次
+ */
+async function createBatchEx(request: CreateBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.batch.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
