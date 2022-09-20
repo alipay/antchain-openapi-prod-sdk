@@ -49,6 +49,9 @@ class CreateAlipaysignRequest extends Model
         Model::validateRequired('id', $this->id, true);
         Model::validateRequired('orgId', $this->orgId, true);
         Model::validateRequired('alipayAccount', $this->alipayAccount, true);
+        Model::validateMaxLength('id', $this->id, 50);
+        Model::validateMaxLength('orgId', $this->orgId, 50);
+        Model::validateMaxLength('alipayAccount', $this->alipayAccount, 100);
     }
 
     public function toMap()

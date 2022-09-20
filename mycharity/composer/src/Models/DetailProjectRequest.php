@@ -34,7 +34,6 @@ class DetailProjectRequest extends Model
     {
         Model::validateRequired('id', $this->id, true);
         Model::validateMaxLength('id', $this->id, 50);
-        Model::validateMinLength('id', $this->id, 1);
     }
 
     public function toMap()

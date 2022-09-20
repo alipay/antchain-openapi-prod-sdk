@@ -37,13 +37,13 @@ class CreateOrgRequest extends Model
      */
     public $introduction;
 
-    // 社会统一信用代码18位
+    // 社会统一信用代码固定18位
     /**
      * @var string
      */
     public $unifiedSocialCreditCode;
 
-    // 测试机构说明:0正式机构(默认),1测试机构
+    // 测试机构说明:0正式机构(未填写默认0),1测试机构
     /**
      * @var int
      */
@@ -75,13 +75,6 @@ class CreateOrgRequest extends Model
         Model::validateMaxLength('id', $this->id, 50);
         Model::validateMaxLength('name', $this->name, 50);
         Model::validateMaxLength('introduction', $this->introduction, 500);
-        Model::validateMaxLength('unifiedSocialCreditCode', $this->unifiedSocialCreditCode, 18);
-        Model::validateMinLength('id', $this->id, 1);
-        Model::validateMinLength('name', $this->name, 1);
-        Model::validateMinLength('introduction', $this->introduction, 1);
-        Model::validateMinLength('unifiedSocialCreditCode', $this->unifiedSocialCreditCode, 18);
-        Model::validateMaximum('testFlag', $this->testFlag, 1);
-        Model::validateMinimum('testFlag', $this->testFlag, 0);
     }
 
     public function toMap()

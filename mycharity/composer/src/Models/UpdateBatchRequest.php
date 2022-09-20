@@ -41,6 +41,10 @@ class UpdateBatchRequest extends Model
     {
         Model::validateRequired('id', $this->id, true);
         Model::validateRequired('status', $this->status, true);
+        Model::validateMaxLength('id', $this->id, 50);
+        Model::validateMinLength('id', $this->id, 1);
+        Model::validateMaximum('status', $this->status, 4);
+        Model::validateMinimum('status', $this->status, 2);
     }
 
     public function toMap()

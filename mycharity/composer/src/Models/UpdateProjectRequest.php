@@ -37,7 +37,7 @@ class UpdateProjectRequest extends Model
      */
     public $publicWelfareDirection;
 
-    // 测试项目说明:0正式项目(默认),1测试项目
+    // 测试项目说明:0正式项目(未填写默认0),1测试项目
     /**
      * @var int
      */
@@ -54,17 +54,9 @@ class UpdateProjectRequest extends Model
     public function validate()
     {
         Model::validateRequired('id', $this->id, true);
-        Model::validateRequired('pjName', $this->pjName, true);
-        Model::validateRequired('publicWelfareDirection', $this->publicWelfareDirection, true);
-        Model::validateRequired('testFlag', $this->testFlag, true);
         Model::validateMaxLength('id', $this->id, 50);
         Model::validateMaxLength('pjName', $this->pjName, 100);
         Model::validateMaxLength('publicWelfareDirection', $this->publicWelfareDirection, 64);
-        Model::validateMinLength('id', $this->id, 1);
-        Model::validateMinLength('pjName', $this->pjName, 1);
-        Model::validateMinLength('publicWelfareDirection', $this->publicWelfareDirection, 1);
-        Model::validateMaximum('testFlag', $this->testFlag, 1);
-        Model::validateMinimum('testFlag', $this->testFlag, 0);
     }
 
     public function toMap()

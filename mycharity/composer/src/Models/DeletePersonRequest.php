@@ -57,6 +57,8 @@ class DeletePersonRequest extends Model
         Model::validateRequired('roleId', $this->roleId, true);
         Model::validateRequired('pjId', $this->pjId, true);
         Model::validateRequired('alipayUserId', $this->alipayUserId, true);
+        Model::validateMaxLength('orgId', $this->orgId, 50);
+        Model::validateMaxLength('pjId', $this->pjId, 50);
     }
 
     public function toMap()

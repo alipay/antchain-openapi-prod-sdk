@@ -96,7 +96,16 @@ class CreateBatchRequest extends Model
         Model::validateRequired('issueWay', $this->issueWay, true);
         Model::validateRequired('affirmanceReceivers', $this->affirmanceReceivers, true);
         Model::validateRequired('receiveCheckWay', $this->receiveCheckWay, true);
-        Model::validateRequired('issueAmount', $this->issueAmount, true);
+        Model::validateMaxLength('id', $this->id, 50);
+        Model::validateMaxLength('stagesId', $this->stagesId, 50);
+        Model::validateMaxLength('combinationId', $this->combinationId, 50);
+        Model::validateMaxLength('name', $this->name, 100);
+        Model::validateMaxLength('remarks', $this->remarks, 200);
+        Model::validateMinLength('id', $this->id, 1);
+        Model::validateMinLength('stagesId', $this->stagesId, 1);
+        Model::validateMinLength('combinationId', $this->combinationId, 1);
+        Model::validateMinLength('name', $this->name, 1);
+        Model::validateMinLength('remarks', $this->remarks, 1);
     }
 
     public function toMap()

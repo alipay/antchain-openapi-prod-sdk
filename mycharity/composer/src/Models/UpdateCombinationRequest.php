@@ -82,12 +82,7 @@ class UpdateCombinationRequest extends Model
     public function validate()
     {
         Model::validateRequired('id', $this->id, true);
-        Model::validateRequired('name', $this->name, true);
-        Model::validateRequired('type', $this->type, true);
-        Model::validateRequired('unit', $this->unit, true);
-        Model::validateRequired('priceDeterminedFlag', $this->priceDeterminedFlag, true);
-        Model::validateRequired('price', $this->price, true);
-        Model::validateRequired('totalNum', $this->totalNum, true);
+        Model::validateMaxLength('id', $this->id, 50);
         Model::validateMaxLength('name', $this->name, 20);
         Model::validateMaxLength('unit', $this->unit, 10);
         Model::validateMaxLength('note', $this->note, 1000);
