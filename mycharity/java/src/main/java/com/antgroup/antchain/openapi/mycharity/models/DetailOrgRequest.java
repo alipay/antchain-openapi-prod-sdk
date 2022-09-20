@@ -13,7 +13,7 @@ public class DetailOrgRequest extends TeaModel {
 
     // 50字符，单平台幂等
     @NameInMap("id")
-    @Validation(required = true, maxLength = 50, minLength = 1)
+    @Validation(required = true, maxLength = 50)
     public String id;
 
     public static DetailOrgRequest build(java.util.Map<String, ?> map) throws Exception {

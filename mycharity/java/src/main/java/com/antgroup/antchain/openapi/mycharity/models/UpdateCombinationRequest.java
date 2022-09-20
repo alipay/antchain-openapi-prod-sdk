@@ -13,22 +13,21 @@ public class UpdateCombinationRequest extends TeaModel {
 
     // 实施内容id
     @NameInMap("id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50)
     public String id;
 
     // 名称
     @NameInMap("name")
-    @Validation(required = true, maxLength = 20)
+    @Validation(maxLength = 20)
     public String name;
 
     // 实施内容类型：0善款类，1实物类、2服务类
     @NameInMap("type")
-    @Validation(required = true)
     public Long type;
 
     // 单位
     @NameInMap("unit")
-    @Validation(required = true, maxLength = 10)
+    @Validation(maxLength = 10)
     public String unit;
 
     // 说明
@@ -38,17 +37,14 @@ public class UpdateCombinationRequest extends TeaModel {
 
     // 单价是否固定，0:不固定，1:固定
     @NameInMap("price_determined_flag")
-    @Validation(required = true)
     public Long priceDeterminedFlag;
 
     // 单位分，预估单价
     @NameInMap("price")
-    @Validation(required = true)
     public Long price;
 
     // 预估发放数量
     @NameInMap("total_num")
-    @Validation(required = true)
     public Long totalNum;
 
     public static UpdateCombinationRequest build(java.util.Map<String, ?> map) throws Exception {

@@ -13,22 +13,21 @@ public class UpdateProjectRequest extends TeaModel {
 
     // 50字符，单平台幂等
     @NameInMap("id")
-    @Validation(required = true, maxLength = 50, minLength = 1)
+    @Validation(required = true, maxLength = 50)
     public String id;
 
     // 100字符 项目名称
     @NameInMap("pj_name")
-    @Validation(required = true, maxLength = 100, minLength = 1)
+    @Validation(maxLength = 100)
     public String pjName;
 
     // 64字符 公益领域（系统判断是否维护公益领域字典表，数据库存id）
     @NameInMap("public_welfare_direction")
-    @Validation(required = true, maxLength = 64, minLength = 1)
+    @Validation(maxLength = 64)
     public String publicWelfareDirection;
 
-    // 测试项目说明:0正式项目(默认),1测试项目
+    // 测试项目说明:0正式项目(未填写默认0),1测试项目
     @NameInMap("test_flag")
-    @Validation(required = true, maximum = 1)
     public Long testFlag;
 
     public static UpdateProjectRequest build(java.util.Map<String, ?> map) throws Exception {

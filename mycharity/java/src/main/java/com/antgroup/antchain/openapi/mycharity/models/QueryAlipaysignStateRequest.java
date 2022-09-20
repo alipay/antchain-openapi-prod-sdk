@@ -13,7 +13,7 @@ public class QueryAlipaysignStateRequest extends TeaModel {
 
     // 签约记录id
     @NameInMap("id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50, minLength = 1)
     public String id;
 
     public static QueryAlipaysignStateRequest build(java.util.Map<String, ?> map) throws Exception {

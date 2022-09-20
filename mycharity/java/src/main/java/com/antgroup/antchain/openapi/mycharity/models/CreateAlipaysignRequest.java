@@ -13,17 +13,17 @@ public class CreateAlipaysignRequest extends TeaModel {
 
     // 签约记录id
     @NameInMap("id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50)
     public String id;
 
     // 机构id
     @NameInMap("org_id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50)
     public String orgId;
 
     // 支付宝代扣账号
     @NameInMap("alipay_account")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 100)
     public String alipayAccount;
 
     public static CreateAlipaysignRequest build(java.util.Map<String, ?> map) throws Exception {

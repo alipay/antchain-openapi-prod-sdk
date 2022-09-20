@@ -13,25 +13,25 @@ public class CreateOrgRequest extends TeaModel {
 
     // 50字符，单平台幂等
     @NameInMap("id")
-    @Validation(required = true, maxLength = 50, minLength = 1)
+    @Validation(required = true, maxLength = 50)
     public String id;
 
     // 50字符 机构名称
     @NameInMap("name")
-    @Validation(required = true, maxLength = 50, minLength = 1)
+    @Validation(required = true, maxLength = 50)
     public String name;
 
     // 500字符 机构简介
     @NameInMap("introduction")
-    @Validation(required = true, maxLength = 500, minLength = 1)
+    @Validation(required = true, maxLength = 500)
     public String introduction;
 
-    // 社会统一信用代码18位
+    // 社会统一信用代码固定18位
     @NameInMap("unified_social_credit_code")
-    @Validation(required = true, maxLength = 18, minLength = 18)
+    @Validation(required = true)
     public String unifiedSocialCreditCode;
 
-    // 测试机构说明:0正式机构(默认),1测试机构
+    // 测试机构说明:0正式机构(未填写默认0),1测试机构
     @NameInMap("test_flag")
     public Long testFlag;
 

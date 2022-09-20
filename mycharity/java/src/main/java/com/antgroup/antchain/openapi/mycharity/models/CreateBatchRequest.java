@@ -13,27 +13,27 @@ public class CreateBatchRequest extends TeaModel {
 
     // id
     @NameInMap("id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50, minLength = 1)
     public String id;
 
     // 分期ID
     @NameInMap("stages_id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50, minLength = 1)
     public String stagesId;
 
     // 实施内容id
     @NameInMap("combination_id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50, minLength = 1)
     public String combinationId;
 
     // 批次名称
     @NameInMap("name")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 100, minLength = 1)
     public String name;
 
     // 备注
     @NameInMap("remarks")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 200, minLength = 1)
     public String remarks;
 
     // 接收验证方式（0扫脸验证、2扫二维码验证, 3快递签收验证，4登录确认）
@@ -53,7 +53,6 @@ public class CreateBatchRequest extends TeaModel {
 
     // 发放数量最大值1亿（发后确认- 扫码领取时必填）单位分
     @NameInMap("issue_amount")
-    @Validation(required = true)
     public Long issueAmount;
 
     public static CreateBatchRequest build(java.util.Map<String, ?> map) throws Exception {

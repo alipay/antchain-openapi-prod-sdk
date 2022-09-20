@@ -13,12 +13,12 @@ public class UpdateBatchRequest extends TeaModel {
 
     // id
     @NameInMap("id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50, minLength = 1)
     public String id;
 
     // 批次暂停状态 2继续发放（领取中），3暂停发放，4领取完成
     @NameInMap("status")
-    @Validation(required = true)
+    @Validation(required = true, maximum = 4, minimum = 2)
     public Long status;
 
     public static UpdateBatchRequest build(java.util.Map<String, ?> map) throws Exception {

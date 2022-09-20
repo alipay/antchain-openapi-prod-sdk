@@ -13,7 +13,7 @@ public class DeletePersonRequest extends TeaModel {
 
     // 机构ID(第三方指定ID 50字符)
     @NameInMap("org_id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50)
     public String orgId;
 
     // 项目角色ID(1项目管理员、2项目执行人、3项目财务)
@@ -23,7 +23,7 @@ public class DeletePersonRequest extends TeaModel {
 
     // 项目ID(第三方指定ID 50字符)
     @NameInMap("pj_id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 50)
     public String pjId;
 
     // 被授权人支付宝用户标识（16字符）

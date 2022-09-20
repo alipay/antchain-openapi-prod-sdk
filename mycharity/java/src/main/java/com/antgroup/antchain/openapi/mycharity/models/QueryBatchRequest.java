@@ -13,7 +13,7 @@ public class QueryBatchRequest extends TeaModel {
 
     // id
     @NameInMap("id")
-    @Validation(required = true, maxLength = 50)
+    @Validation(required = true, maxLength = 50, minLength = 1)
     public String id;
 
     public static QueryBatchRequest build(java.util.Map<String, ?> map) throws Exception {
