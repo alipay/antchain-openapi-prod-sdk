@@ -1170,9 +1170,9 @@ export class CreateOrgRequest extends $tea.Model {
   name: string;
   // 500字符 机构简介
   introduction: string;
-  // 社会统一信用代码18位
+  // 社会统一信用代码固定18位
   unifiedSocialCreditCode: string;
-  // 测试机构说明:0正式机构(默认),1测试机构
+  // 测试机构说明:0正式机构(未填写默认0),1测试机构
   testFlag?: number;
   // 13位时间戳 签约时间
   signTime: number;
@@ -1300,25 +1300,19 @@ export class UpdateOrgRequest extends $tea.Model {
   productInstanceId?: string;
   // 50字符，单平台幂等
   id: string;
-  // 50字符 机构名称
-  name: string;
   // 500字符 机构简介
-  introduction: string;
+  introduction?: string;
   // 社会统一信用代码固定18位
-  unifiedSocialCreditCode: string;
-  // 测试机构说明:0正式机构(默认),1测试机构
-  testFlag?: number;
+  unifiedSocialCreditCode?: string;
   // 13位时间戳 签约时间
-  signTime: number;
+  signTime?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       id: 'id',
-      name: 'name',
       introduction: 'introduction',
       unifiedSocialCreditCode: 'unified_social_credit_code',
-      testFlag: 'test_flag',
       signTime: 'sign_time',
     };
   }
@@ -1328,10 +1322,8 @@ export class UpdateOrgRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       id: 'string',
-      name: 'string',
       introduction: 'string',
       unifiedSocialCreditCode: 'string',
-      testFlag: 'number',
       signTime: 'number',
     };
   }
@@ -1522,19 +1514,19 @@ export class UpdateCombinationRequest extends $tea.Model {
   // 实施内容id
   id: string;
   // 名称
-  name: string;
+  name?: string;
   // 实施内容类型：0善款类，1实物类、2服务类
-  type: number;
+  type?: number;
   // 单位
-  unit: string;
+  unit?: string;
   // 说明
   note?: string;
   // 单价是否固定，0:不固定，1:固定
-  priceDeterminedFlag: number;
+  priceDeterminedFlag?: number;
   // 单位分，预估单价
-  price: number;
+  price?: number;
   // 预估发放数量
-  totalNum: number;
+  totalNum?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1610,7 +1602,7 @@ export class CreateProjectRequest extends $tea.Model {
   pjName: string;
   // 64字符  公益领域（系统判断是否维护公益领域字典表，数据库存id）
   publicWelfareDirection: string;
-  // 测试项目说明:0正式项目(默认),1测试项目
+  // 测试项目说明:0正式项目(未填写默认0),1测试项目
   testFlag?: number;
   static names(): { [key: string]: string } {
     return {
@@ -1676,11 +1668,11 @@ export class UpdateProjectRequest extends $tea.Model {
   // 50字符，单平台幂等
   id: string;
   // 100字符 项目名称
-  pjName: string;
+  pjName?: string;
   // 64字符 公益领域（系统判断是否维护公益领域字典表，数据库存id）
-  publicWelfareDirection: string;
-  // 测试项目说明:0正式项目(默认),1测试项目
-  testFlag: number;
+  publicWelfareDirection?: string;
+  // 测试项目说明:0正式项目(未填写默认0),1测试项目
+  testFlag?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1934,7 +1926,7 @@ export class CreateBatchRequest extends $tea.Model {
   // 接收方式（0扫脸验证、1身份证号码验证，2扫二维码验证, 3直接导入
   receiveCheckWay: number;
   // 发放数量最大值1亿（发后确认- 扫码领取时必填）单位分
-  issueAmount: number;
+  issueAmount?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2113,7 +2105,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.7",
+          sdk_version: "1.0.11",
           _prod_code: "MYCHARITY",
           _prod_channel: "undefined",
         };
