@@ -20,7 +20,7 @@ namespace AntChain.SDK.MYCHARITY.Models
 
         // 签约记录id
         [NameInMap("id")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=50)]
         public string Id { get; set; }
 
     }

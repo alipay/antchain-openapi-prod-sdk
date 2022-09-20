@@ -38,7 +38,7 @@ namespace AntChain.SDK.MYCHARITY.Models
         [Validation(Required=true, MaxLength=64)]
         public string PublicWelfareDirection { get; set; }
 
-        // 测试项目说明:0正式项目(默认),1测试项目
+        // 测试项目说明:0正式项目(未填写默认0),1测试项目
         [NameInMap("test_flag")]
         [Validation(Required=false)]
         public long? TestFlag { get; set; }

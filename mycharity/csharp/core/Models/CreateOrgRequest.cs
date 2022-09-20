@@ -33,12 +33,12 @@ namespace AntChain.SDK.MYCHARITY.Models
         [Validation(Required=true, MaxLength=500)]
         public string Introduction { get; set; }
 
-        // 社会统一信用代码18位
+        // 社会统一信用代码固定18位
         [NameInMap("unified_social_credit_code")]
-        [Validation(Required=true, MaxLength=18)]
+        [Validation(Required=true)]
         public string UnifiedSocialCreditCode { get; set; }
 
-        // 测试机构说明:0正式机构(默认),1测试机构
+        // 测试机构说明:0正式机构(未填写默认0),1测试机构
         [NameInMap("test_flag")]
         [Validation(Required=false)]
         public long? TestFlag { get; set; }

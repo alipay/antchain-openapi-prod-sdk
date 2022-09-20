@@ -20,7 +20,7 @@ namespace AntChain.SDK.MYCHARITY.Models
 
         // id
         [NameInMap("id")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=50)]
         public string Id { get; set; }
 
         // 批次暂停状态 2继续发放（领取中），3暂停发放，4领取完成

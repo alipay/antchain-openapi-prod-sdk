@@ -20,27 +20,27 @@ namespace AntChain.SDK.MYCHARITY.Models
 
         // id
         [NameInMap("id")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=50)]
         public string Id { get; set; }
 
         // 分期ID
         [NameInMap("stages_id")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=50)]
         public string StagesId { get; set; }
 
         // 实施内容id
         [NameInMap("combination_id")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=50)]
         public string CombinationId { get; set; }
 
         // 批次名称
         [NameInMap("name")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=100)]
         public string Name { get; set; }
 
         // 备注
         [NameInMap("remarks")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=200)]
         public string Remarks { get; set; }
 
         // 接收验证方式（0扫脸验证、2扫二维码验证, 3快递签收验证，4登录确认）
@@ -60,7 +60,7 @@ namespace AntChain.SDK.MYCHARITY.Models
 
         // 发放数量最大值1亿（发后确认- 扫码领取时必填）单位分
         [NameInMap("issue_amount")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? IssueAmount { get; set; }
 
     }

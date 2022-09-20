@@ -25,17 +25,17 @@ namespace AntChain.SDK.MYCHARITY.Models
 
         // 100字符 项目名称
         [NameInMap("pj_name")]
-        [Validation(Required=true, MaxLength=100)]
+        [Validation(Required=false, MaxLength=100)]
         public string PjName { get; set; }
 
         // 64字符 公益领域（系统判断是否维护公益领域字典表，数据库存id）
         [NameInMap("public_welfare_direction")]
-        [Validation(Required=true, MaxLength=64)]
+        [Validation(Required=false, MaxLength=64)]
         public string PublicWelfareDirection { get; set; }
 
-        // 测试项目说明:0正式项目(默认),1测试项目
+        // 测试项目说明:0正式项目(未填写默认0),1测试项目
         [NameInMap("test_flag")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? TestFlag { get; set; }
 
     }

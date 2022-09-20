@@ -20,7 +20,7 @@ namespace AntChain.SDK.MYCHARITY.Models
 
         // 机构ID(第三方指定ID 50字符)
         [NameInMap("org_id")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=50)]
         public string OrgId { get; set; }
 
         // 项目角色ID(1项目管理员、2项目执行人、3项目财务)
@@ -30,7 +30,7 @@ namespace AntChain.SDK.MYCHARITY.Models
 
         // 项目ID(第三方指定ID 50字符)
         [NameInMap("pj_id")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=50)]
         public string PjId { get; set; }
 
         // 被授权人支付宝用户标识(16字符)

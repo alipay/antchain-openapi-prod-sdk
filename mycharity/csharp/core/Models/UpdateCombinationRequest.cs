@@ -20,22 +20,22 @@ namespace AntChain.SDK.MYCHARITY.Models
 
         // 实施内容id
         [NameInMap("id")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=50)]
         public string Id { get; set; }
 
         // 名称
         [NameInMap("name")]
-        [Validation(Required=true, MaxLength=20)]
+        [Validation(Required=false, MaxLength=20)]
         public string Name { get; set; }
 
         // 实施内容类型：0善款类，1实物类、2服务类
         [NameInMap("type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? Type { get; set; }
 
         // 单位
         [NameInMap("unit")]
-        [Validation(Required=true, MaxLength=10)]
+        [Validation(Required=false, MaxLength=10)]
         public string Unit { get; set; }
 
         // 说明
@@ -45,17 +45,17 @@ namespace AntChain.SDK.MYCHARITY.Models
 
         // 单价是否固定，0:不固定，1:固定
         [NameInMap("price_determined_flag")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? PriceDeterminedFlag { get; set; }
 
         // 单位分，预估单价
         [NameInMap("price")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? Price { get; set; }
 
         // 预估发放数量
         [NameInMap("total_num")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? TotalNum { get; set; }
 
     }
