@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.7',
+    sdk_version = '1.0.11',
     _prod_code = 'MYCHARITY',
     _prod_channel = 'undefined'
   };
@@ -300,11 +300,11 @@ model CreateAlipaysignRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 签约记录id
-  id: string(name='id'),
+  id: string(maxLength=50, name='id'),
   // 机构id
-  orgId: string(name='org_id'),
+  orgId: string(maxLength=50, name='org_id'),
   // 支付宝代扣账号
-  alipayAccount: string(name='alipay_account'),
+  alipayAccount: string(maxLength=100, name='alipay_account'),
 }
 
 model CreateAlipaysignResponse = {
@@ -340,7 +340,7 @@ model QueryAlipaysignStateRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 签约记录id
-  id: string(name='id'),
+  id: string(maxLength=50, minLength=1, name='id'),
 }
 
 model QueryAlipaysignStateResponse = {
@@ -414,11 +414,11 @@ model CreatePersonPermissionRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 机构ID(第三方指定ID 50字符)
-  orgId: string(name='org_id'),
+  orgId: string(maxLength=50, name='org_id'),
   // 项目角色ID(1项目管理员、2项目执行人、3项目财务)
   roleId: long(name='role_id'),
   // 项目ID(第三方指定ID 50字符)
-  pjId: string(name='pj_id'),
+  pjId: string(maxLength=50, name='pj_id'),
   // 被授权人支付宝用户标识(16字符)
   alipayUserId: string(name='alipay_user_id'),
 }
@@ -456,11 +456,11 @@ model DeletePersonRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 机构ID(第三方指定ID 50字符)
-  orgId: string(name='org_id'),
+  orgId: string(maxLength=50, name='org_id'),
   // 项目角色ID(1项目管理员、2项目执行人、3项目财务)
   roleId: long(name='role_id'),
   // 项目ID(第三方指定ID 50字符)
-  pjId: string(name='pj_id'),
+  pjId: string(maxLength=50, name='pj_id'),
   // 被授权人支付宝用户标识（16字符）
   alipayUserId: string(name='alipay_user_id'),
 }
@@ -550,9 +550,9 @@ model UpdateBatchRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // id
-  id: string(name='id'),
+  id: string(maxLength=50, minLength=1, name='id'),
   // 批次暂停状态 2继续发放（领取中），3暂停发放，4领取完成
-  status: long(name='status'),
+  status: long(maximum=4, minimum=2, name='status'),
 }
 
 model UpdateBatchResponse = {
@@ -680,7 +680,7 @@ model QueryBatchRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // id
-  id: string(maxLength=50, name='id'),
+  id: string(maxLength=50, minLength=1, name='id'),
 }
 
 model QueryBatchResponse = {
@@ -774,15 +774,15 @@ model CreateOrgRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 50字符，单平台幂等
-  id: string(maxLength=50, minLength=1, name='id'),
+  id: string(maxLength=50, name='id'),
   // 50字符 机构名称
-  name: string(maxLength=50, minLength=1, name='name'),
+  name: string(maxLength=50, name='name'),
   // 500字符 机构简介
-  introduction: string(maxLength=500, minLength=1, name='introduction'),
-  // 社会统一信用代码18位
-  unifiedSocialCreditCode: string(maxLength=18, minLength=18, name='unified_social_credit_code'),
-  // 测试机构说明:0正式机构(默认),1测试机构
-  testFlag?: long(maximum=1, minimum=0, name='test_flag'),
+  introduction: string(maxLength=500, name='introduction'),
+  // 社会统一信用代码固定18位
+  unifiedSocialCreditCode: string(name='unified_social_credit_code'),
+  // 测试机构说明:0正式机构(未填写默认0),1测试机构
+  testFlag?: long(name='test_flag'),
   // 13位时间戳 签约时间
   signTime: long(name='sign_time'),
 }
@@ -858,17 +858,13 @@ model UpdateOrgRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 50字符，单平台幂等
-  id: string(maxLength=50, minLength=1, name='id'),
-  // 50字符 机构名称
-  name: string(maxLength=50, minLength=1, name='name'),
+  id: string(maxLength=50, name='id'),
   // 500字符 机构简介
-  introduction: string(maxLength=500, minLength=1, name='introduction'),
+  introduction?: string(maxLength=500, name='introduction'),
   // 社会统一信用代码固定18位
-  unifiedSocialCreditCode: string(maxLength=18, minLength=18, name='unified_social_credit_code'),
-  // 测试机构说明:0正式机构(默认),1测试机构
-  testFlag?: long(maximum=1, minimum=0, name='test_flag'),
+  unifiedSocialCreditCode?: string(name='unified_social_credit_code'),
   // 13位时间戳 签约时间
-  signTime: long(name='sign_time'),
+  signTime?: long(name='sign_time'),
 }
 
 model UpdateOrgResponse = {
@@ -956,7 +952,7 @@ model DetailOrgRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 50字符，单平台幂等
-  id: string(maxLength=50, minLength=1, name='id'),
+  id: string(maxLength=50, name='id'),
 }
 
 model DetailOrgResponse = {
@@ -994,21 +990,21 @@ model UpdateCombinationRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 实施内容id
-  id: string(name='id'),
+  id: string(maxLength=50, name='id'),
   // 名称
-  name: string(maxLength=20, name='name'),
+  name?: string(maxLength=20, name='name'),
   // 实施内容类型：0善款类，1实物类、2服务类
-  type: long(name='type'),
+  type?: long(name='type'),
   // 单位
-  unit: string(maxLength=10, name='unit'),
+  unit?: string(maxLength=10, name='unit'),
   // 说明
   note?: string(maxLength=1000, name='note'),
   // 单价是否固定，0:不固定，1:固定
-  priceDeterminedFlag: long(name='price_determined_flag'),
+  priceDeterminedFlag?: long(name='price_determined_flag'),
   // 单位分，预估单价
-  price: long(name='price'),
+  price?: long(name='price'),
   // 预估发放数量
-  totalNum: long(name='total_num'),
+  totalNum?: long(name='total_num'),
 }
 
 model UpdateCombinationResponse = {
@@ -1044,15 +1040,15 @@ model CreateProjectRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 50字符，单平台幂等
-  id: string(maxLength=50, minLength=1, name='id'),
+  id: string(maxLength=50, name='id'),
   // 50字符 机构id
-  orgId: string(maxLength=50, minLength=1, name='org_id'),
+  orgId: string(maxLength=50, name='org_id'),
   // 100字符 项目名称
-  pjName: string(maxLength=100, minLength=1, name='pj_name'),
+  pjName: string(maxLength=100, name='pj_name'),
   // 64字符  公益领域（系统判断是否维护公益领域字典表，数据库存id）
-  publicWelfareDirection: string(maxLength=64, minLength=1, name='public_welfare_direction'),
-  // 测试项目说明:0正式项目(默认),1测试项目
-  testFlag?: long(maximum=1, minimum=0, name='test_flag'),
+  publicWelfareDirection: string(maxLength=64, name='public_welfare_direction'),
+  // 测试项目说明:0正式项目(未填写默认0),1测试项目
+  testFlag?: long(name='test_flag'),
 }
 
 model CreateProjectResponse = {
@@ -1088,13 +1084,13 @@ model UpdateProjectRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 50字符，单平台幂等
-  id: string(maxLength=50, minLength=1, name='id'),
+  id: string(maxLength=50, name='id'),
   // 100字符 项目名称
-  pjName: string(maxLength=100, minLength=1, name='pj_name'),
+  pjName?: string(maxLength=100, name='pj_name'),
   // 64字符 公益领域（系统判断是否维护公益领域字典表，数据库存id）
-  publicWelfareDirection: string(maxLength=64, minLength=1, name='public_welfare_direction'),
-  // 测试项目说明:0正式项目(默认),1测试项目
-  testFlag: long(maximum=1, minimum=0, name='test_flag'),
+  publicWelfareDirection?: string(maxLength=64, name='public_welfare_direction'),
+  // 测试项目说明:0正式项目(未填写默认0),1测试项目
+  testFlag?: long(name='test_flag'),
 }
 
 model UpdateProjectResponse = {
@@ -1130,7 +1126,7 @@ model DetailProjectRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 50字符，单平台幂等
-  id: string(maxLength=50, minLength=1, name='id'),
+  id: string(maxLength=50, name='id'),
 }
 
 model DetailProjectResponse = {
@@ -1244,15 +1240,15 @@ model CreateBatchRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // id
-  id: string(name='id'),
+  id: string(maxLength=50, minLength=1, name='id'),
   // 分期ID
-  stagesId: string(name='stages_id'),
+  stagesId: string(maxLength=50, minLength=1, name='stages_id'),
   // 实施内容id
-  combinationId: string(name='combination_id'),
+  combinationId: string(maxLength=50, minLength=1, name='combination_id'),
   // 批次名称
-  name: string(name='name'),
+  name: string(maxLength=100, minLength=1, name='name'),
   // 备注
-  remarks: string(name='remarks'),
+  remarks: string(maxLength=200, minLength=1, name='remarks'),
   // 接收验证方式（0扫脸验证、2扫二维码验证, 3快递签收验证，4登录确认）
   issueWay: long(name='issue_way'),
   // 确认接收人 0发前确认 1发后确认
@@ -1260,7 +1256,7 @@ model CreateBatchRequest = {
   // 接收方式（0扫脸验证、1身份证号码验证，2扫二维码验证, 3直接导入
   receiveCheckWay: long(name='receive_check_way'),
   // 发放数量最大值1亿（发后确认- 扫码领取时必填）单位分
-  issueAmount: long(name='issue_amount'),
+  issueAmount?: long(name='issue_amount'),
 }
 
 model CreateBatchResponse = {
