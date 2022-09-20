@@ -732,8 +732,14 @@ class CreateAlipaysignRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.id, 'id')
+        if self.id is not None:
+            self.validate_max_length(self.id, 'id', 50)
         self.validate_required(self.org_id, 'org_id')
+        if self.org_id is not None:
+            self.validate_max_length(self.org_id, 'org_id', 50)
         self.validate_required(self.alipay_account, 'alipay_account')
+        if self.alipay_account is not None:
+            self.validate_max_length(self.alipay_account, 'alipay_account', 100)
 
     def to_map(self):
         _map = super().to_map()
@@ -825,6 +831,8 @@ class QueryAlipaysignStateRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.id, 'id')
+        if self.id is not None:
+            self.validate_max_length(self.id, 'id', 50)
 
     def to_map(self):
         _map = super().to_map()
@@ -1007,8 +1015,12 @@ class CreatePersonPermissionRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.org_id, 'org_id')
+        if self.org_id is not None:
+            self.validate_max_length(self.org_id, 'org_id', 50)
         self.validate_required(self.role_id, 'role_id')
         self.validate_required(self.pj_id, 'pj_id')
+        if self.pj_id is not None:
+            self.validate_max_length(self.pj_id, 'pj_id', 50)
         self.validate_required(self.alipay_user_id, 'alipay_user_id')
 
     def to_map(self):
@@ -1114,8 +1126,12 @@ class DeletePersonRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.org_id, 'org_id')
+        if self.org_id is not None:
+            self.validate_max_length(self.org_id, 'org_id', 50)
         self.validate_required(self.role_id, 'role_id')
         self.validate_required(self.pj_id, 'pj_id')
+        if self.pj_id is not None:
+            self.validate_max_length(self.pj_id, 'pj_id', 50)
         self.validate_required(self.alipay_user_id, 'alipay_user_id')
 
     def to_map(self):
@@ -1371,7 +1387,12 @@ class UpdateBatchRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.id, 'id')
+        if self.id is not None:
+            self.validate_max_length(self.id, 'id', 50)
         self.validate_required(self.status, 'status')
+        if self.status is not None:
+            self.validate_maximum(self.status, 'status', 4)
+            self.validate_minimum(self.status, 'status', 2)
 
     def to_map(self):
         _map = super().to_map()
@@ -1973,9 +1994,9 @@ class CreateOrgRequest(TeaModel):
         self.name = name
         # 500字符 机构简介
         self.introduction = introduction
-        # 社会统一信用代码18位
+        # 社会统一信用代码固定18位
         self.unified_social_credit_code = unified_social_credit_code
-        # 测试机构说明:0正式机构(默认),1测试机构
+        # 测试机构说明:0正式机构(未填写默认0),1测试机构
         self.test_flag = test_flag
         # 13位时间戳 签约时间
         self.sign_time = sign_time
@@ -1991,11 +2012,6 @@ class CreateOrgRequest(TeaModel):
         if self.introduction is not None:
             self.validate_max_length(self.introduction, 'introduction', 500)
         self.validate_required(self.unified_social_credit_code, 'unified_social_credit_code')
-        if self.unified_social_credit_code is not None:
-            self.validate_max_length(self.unified_social_credit_code, 'unified_social_credit_code', 18)
-        if self.test_flag is not None:
-            self.validate_maximum(self.test_flag, 'test_flag', 1)
-            self.validate_minimum(self.test_flag, 'test_flag', 0)
         self.validate_required(self.sign_time, 'sign_time')
 
     def to_map(self):
@@ -2185,10 +2201,8 @@ class UpdateOrgRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         id: str = None,
-        name: str = None,
         introduction: str = None,
         unified_social_credit_code: str = None,
-        test_flag: int = None,
         sign_time: int = None,
     ):
         # OAuth模式下的授权token
@@ -2196,14 +2210,10 @@ class UpdateOrgRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 50字符，单平台幂等
         self.id = id
-        # 50字符 机构名称
-        self.name = name
         # 500字符 机构简介
         self.introduction = introduction
         # 社会统一信用代码固定18位
         self.unified_social_credit_code = unified_social_credit_code
-        # 测试机构说明:0正式机构(默认),1测试机构
-        self.test_flag = test_flag
         # 13位时间戳 签约时间
         self.sign_time = sign_time
 
@@ -2211,19 +2221,8 @@ class UpdateOrgRequest(TeaModel):
         self.validate_required(self.id, 'id')
         if self.id is not None:
             self.validate_max_length(self.id, 'id', 50)
-        self.validate_required(self.name, 'name')
-        if self.name is not None:
-            self.validate_max_length(self.name, 'name', 50)
-        self.validate_required(self.introduction, 'introduction')
         if self.introduction is not None:
             self.validate_max_length(self.introduction, 'introduction', 500)
-        self.validate_required(self.unified_social_credit_code, 'unified_social_credit_code')
-        if self.unified_social_credit_code is not None:
-            self.validate_max_length(self.unified_social_credit_code, 'unified_social_credit_code', 18)
-        if self.test_flag is not None:
-            self.validate_maximum(self.test_flag, 'test_flag', 1)
-            self.validate_minimum(self.test_flag, 'test_flag', 0)
-        self.validate_required(self.sign_time, 'sign_time')
 
     def to_map(self):
         _map = super().to_map()
@@ -2237,14 +2236,10 @@ class UpdateOrgRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.id is not None:
             result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
         if self.introduction is not None:
             result['introduction'] = self.introduction
         if self.unified_social_credit_code is not None:
             result['unified_social_credit_code'] = self.unified_social_credit_code
-        if self.test_flag is not None:
-            result['test_flag'] = self.test_flag
         if self.sign_time is not None:
             result['sign_time'] = self.sign_time
         return result
@@ -2257,14 +2252,10 @@ class UpdateOrgRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('id') is not None:
             self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
         if m.get('introduction') is not None:
             self.introduction = m.get('introduction')
         if m.get('unified_social_credit_code') is not None:
             self.unified_social_credit_code = m.get('unified_social_credit_code')
-        if m.get('test_flag') is not None:
-            self.test_flag = m.get('test_flag')
         if m.get('sign_time') is not None:
             self.sign_time = m.get('sign_time')
         return self
@@ -2598,18 +2589,14 @@ class UpdateCombinationRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.id, 'id')
-        self.validate_required(self.name, 'name')
+        if self.id is not None:
+            self.validate_max_length(self.id, 'id', 50)
         if self.name is not None:
             self.validate_max_length(self.name, 'name', 20)
-        self.validate_required(self.type, 'type')
-        self.validate_required(self.unit, 'unit')
         if self.unit is not None:
             self.validate_max_length(self.unit, 'unit', 10)
         if self.note is not None:
             self.validate_max_length(self.note, 'note', 1000)
-        self.validate_required(self.price_determined_flag, 'price_determined_flag')
-        self.validate_required(self.price, 'price')
-        self.validate_required(self.total_num, 'total_num')
 
     def to_map(self):
         _map = super().to_map()
@@ -2728,7 +2715,7 @@ class CreateProjectRequest(TeaModel):
         self.pj_name = pj_name
         # 64字符  公益领域（系统判断是否维护公益领域字典表，数据库存id）
         self.public_welfare_direction = public_welfare_direction
-        # 测试项目说明:0正式项目(默认),1测试项目
+        # 测试项目说明:0正式项目(未填写默认0),1测试项目
         self.test_flag = test_flag
 
     def validate(self):
@@ -2744,9 +2731,6 @@ class CreateProjectRequest(TeaModel):
         self.validate_required(self.public_welfare_direction, 'public_welfare_direction')
         if self.public_welfare_direction is not None:
             self.validate_max_length(self.public_welfare_direction, 'public_welfare_direction', 64)
-        if self.test_flag is not None:
-            self.validate_maximum(self.test_flag, 'test_flag', 1)
-            self.validate_minimum(self.test_flag, 'test_flag', 0)
 
     def to_map(self):
         _map = super().to_map()
@@ -2850,23 +2834,17 @@ class UpdateProjectRequest(TeaModel):
         self.pj_name = pj_name
         # 64字符 公益领域（系统判断是否维护公益领域字典表，数据库存id）
         self.public_welfare_direction = public_welfare_direction
-        # 测试项目说明:0正式项目(默认),1测试项目
+        # 测试项目说明:0正式项目(未填写默认0),1测试项目
         self.test_flag = test_flag
 
     def validate(self):
         self.validate_required(self.id, 'id')
         if self.id is not None:
             self.validate_max_length(self.id, 'id', 50)
-        self.validate_required(self.pj_name, 'pj_name')
         if self.pj_name is not None:
             self.validate_max_length(self.pj_name, 'pj_name', 100)
-        self.validate_required(self.public_welfare_direction, 'public_welfare_direction')
         if self.public_welfare_direction is not None:
             self.validate_max_length(self.public_welfare_direction, 'public_welfare_direction', 64)
-        self.validate_required(self.test_flag, 'test_flag')
-        if self.test_flag is not None:
-            self.validate_maximum(self.test_flag, 'test_flag', 1)
-            self.validate_minimum(self.test_flag, 'test_flag', 0)
 
     def to_map(self):
         _map = super().to_map()
@@ -3276,14 +3254,23 @@ class CreateBatchRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.id, 'id')
+        if self.id is not None:
+            self.validate_max_length(self.id, 'id', 50)
         self.validate_required(self.stages_id, 'stages_id')
+        if self.stages_id is not None:
+            self.validate_max_length(self.stages_id, 'stages_id', 50)
         self.validate_required(self.combination_id, 'combination_id')
+        if self.combination_id is not None:
+            self.validate_max_length(self.combination_id, 'combination_id', 50)
         self.validate_required(self.name, 'name')
+        if self.name is not None:
+            self.validate_max_length(self.name, 'name', 100)
         self.validate_required(self.remarks, 'remarks')
+        if self.remarks is not None:
+            self.validate_max_length(self.remarks, 'remarks', 200)
         self.validate_required(self.issue_way, 'issue_way')
         self.validate_required(self.affirmance_receivers, 'affirmance_receivers')
         self.validate_required(self.receive_check_way, 'receive_check_way')
-        self.validate_required(self.issue_amount, 'issue_amount')
 
     def to_map(self):
         _map = super().to_map()
