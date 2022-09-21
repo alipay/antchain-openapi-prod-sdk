@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "MYCHARITY",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,8 +10,8 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-mycharity:1.0.7",
-    "go": "github.com/antchain-openapi-sdk-go/mycharity/client:v0.0.1",
+    "java": "com.antgroup.antchain.openapi:openapi-mycharity:1.0.11",
+    "go": "github.com/antchain-openapi-sdk-go/mycharity/client:v1.0.11",
     "csharp": "AntChain.SDK.MYCHARITY:1.0.11",
     "ts": "@antchain/mycharity:1.0.11",
     "php": "antchain/mycharity:1.0.11",
