@@ -13,12 +13,24 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\BindDemoAaaBbbCccRequest;
 use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\BindDemoAaaBbbCccResponse;
+use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\BindDemoTestTestTestRequest;
+use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\BindDemoTestTestTestResponse;
 use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\InitDemoBbpInsuranceUserRequest;
 use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\InitDemoBbpInsuranceUserResponse;
 use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\QueryDemoAaaBbbCccRequest;
 use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\QueryDemoAaaBbbCccResponse;
 use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\QueryDemoAdAsdAsdRequest;
 use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\QueryDemoAdAsdAsdResponse;
+use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\QueryDemoGatewayMyRequest;
+use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\QueryDemoGatewayMyResponse;
+use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\QueryDemoGongxiangTestDemoRequest;
+use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\QueryDemoGongxiangTestDemoResponse;
+use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\QueryDemoTestTestobjectBbbRequest;
+use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\QueryDemoTestTestobjectBbbResponse;
+use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\QueryDemoTestTestRequest;
+use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\QueryDemoTestTestResponse;
+use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\RegisterDemoTestBizeventMessageRequest;
+use AntChain\Ak_e24d1923d9dc43cc8cb90aeb2f35cc20\Models\RegisterDemoTestBizeventMessageResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -166,7 +178,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_e24d1923d9dc43cc8cb90aeb2f35cc20',
                     '_prod_channel'    => 'saas',
                 ];
@@ -344,5 +356,203 @@ class Client
         Utils::validateModel($request);
 
         return InitDemoBbpInsuranceUserResponse::fromMap($this->doRequest('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aaa
+     * Summary: 测试demo.
+     *
+     * @param QueryDemoGatewayMyRequest $request
+     *
+     * @return QueryDemoGatewayMyResponse
+     */
+    public function queryDemoGatewayMy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoGatewayMyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aaa
+     * Summary: 测试demo.
+     *
+     * @param QueryDemoGatewayMyRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryDemoGatewayMyResponse
+     */
+    public function queryDemoGatewayMyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoGatewayMyResponse::fromMap($this->doRequest('1.0', 'demo.gateway.my.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 共享能力中心六期回归验证创建使用
+     * Summary: 共享能力中心六期回归验证创建.
+     *
+     * @param QueryDemoGongxiangTestDemoRequest $request
+     *
+     * @return QueryDemoGongxiangTestDemoResponse
+     */
+    public function queryDemoGongxiangTestDemo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoGongxiangTestDemoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 共享能力中心六期回归验证创建使用
+     * Summary: 共享能力中心六期回归验证创建.
+     *
+     * @param QueryDemoGongxiangTestDemoRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryDemoGongxiangTestDemoResponse
+     */
+    public function queryDemoGongxiangTestDemoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoGongxiangTestDemoResponse::fromMap($this->doRequest('1.0', 'demo.gongxiang.test.demo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 随机测试
+     * Summary: 消息发送及消费.
+     *
+     * @param RegisterDemoTestBizeventMessageRequest $request
+     *
+     * @return RegisterDemoTestBizeventMessageResponse
+     */
+    public function registerDemoTestBizeventMessage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerDemoTestBizeventMessageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 随机测试
+     * Summary: 消息发送及消费.
+     *
+     * @param RegisterDemoTestBizeventMessageRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return RegisterDemoTestBizeventMessageResponse
+     */
+    public function registerDemoTestBizeventMessageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterDemoTestBizeventMessageResponse::fromMap($this->doRequest('1.0', 'demo.test.bizevent.message.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 的
+     * Summary: 下载地址创建.
+     *
+     * @param QueryDemoTestTestRequest $request
+     *
+     * @return QueryDemoTestTestResponse
+     */
+    public function queryDemoTestTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoTestTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 的
+     * Summary: 下载地址创建.
+     *
+     * @param QueryDemoTestTestRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryDemoTestTestResponse
+     */
+    public function queryDemoTestTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoTestTestResponse::fromMap($this->doRequest('1.0', 'demo.test.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: testaaa
+     * Summary: test.
+     *
+     * @param BindDemoTestTestTestRequest $request
+     *
+     * @return BindDemoTestTestTestResponse
+     */
+    public function bindDemoTestTestTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoTestTestTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: testaaa
+     * Summary: test.
+     *
+     * @param BindDemoTestTestTestRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return BindDemoTestTestTestResponse
+     */
+    public function bindDemoTestTestTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoTestTestTestResponse::fromMap($this->doRequest('1.0', 'demo.test.test.test.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试添加api
+     * Summary: 测试用api.
+     *
+     * @param QueryDemoTestTestobjectBbbRequest $request
+     *
+     * @return array|QueryDemoTestTestobjectBbbResponse
+     */
+    public function queryDemoTestTestobjectBbb($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoTestTestobjectBbbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试添加api
+     * Summary: 测试用api.
+     *
+     * @param QueryDemoTestTestobjectBbbRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return array|QueryDemoTestTestobjectBbbResponse
+     */
+    public function queryDemoTestTestobjectBbbEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoTestTestobjectBbbResponse::fromMap($this->doRequest('1.0', 'demo.test.testobject.bbb.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
