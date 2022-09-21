@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_mycharity.
 
-Created on 20/09/2022
+Created on 21/09/2022
 
 @author: Ant Chain SDK
 """
