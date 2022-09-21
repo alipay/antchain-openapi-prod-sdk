@@ -1,0 +1,573 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'ak_f2ba648e36a44708ab93a511f45f8a19',
+    _prod_channel = 'saas'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 键值对，兼容map用
+model NameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
+}
+
+// Map<String,Object> 集合
+model QueryMap {
+  // 键值
+  name: string(name='name', example='BUSINESS_CODE'),
+  // 额外用户信息
+  value?: [ NameValuePair ](name='value', example=''),
+}
+
+model InitDemoBbpInsuranceUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 保司编码
+  businessCode: string(name='business_code'),
+  // 第三方id，此处为天猫uid
+  thirdPartId: string(name='third_part_id'),
+  // 来源渠道
+  channel: string(name='channel'),
+  // 埋点信息
+  burieds?: QueryMap(name='burieds'),
+}
+
+model InitDemoBbpInsuranceUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 保司用户埋点信息
+ * Summary: 用户登陆页面埋点
+ */
+async function initDemoBbpInsuranceUser(request: InitDemoBbpInsuranceUserRequest): InitDemoBbpInsuranceUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initDemoBbpInsuranceUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保司用户埋点信息
+ * Summary: 用户登陆页面埋点
+ */
+async function initDemoBbpInsuranceUserEx(request: InitDemoBbpInsuranceUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitDemoBbpInsuranceUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.bbp.insurance.user.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindDemoDemoCheckEeeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BindDemoDemoCheckEeeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: s
+ * Summary: ss
+ */
+async function bindDemoDemoCheckEee(request: BindDemoDemoCheckEeeRequest): BindDemoDemoCheckEeeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindDemoDemoCheckEeeEx(request, headers, runtime);
+}
+
+/**
+ * Description: s
+ * Summary: ss
+ */
+async function bindDemoDemoCheckEeeEx(request: BindDemoDemoCheckEeeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoDemoCheckEeeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.demo.check.eee.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindDemoGatewayAbcTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BindDemoGatewayAbcTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function bindDemoGatewayAbcTest(request: BindDemoGatewayAbcTestRequest): BindDemoGatewayAbcTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindDemoGatewayAbcTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: test
+ * Summary: test
+ */
+async function bindDemoGatewayAbcTestEx(request: BindDemoGatewayAbcTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoGatewayAbcTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.gateway.abc.test.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindDemoQweQweRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BindDemoQweQweResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 123
+ * Summary: 123
+ */
+async function bindDemoQweQwe(request: BindDemoQweQweRequest): BindDemoQweQweResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindDemoQweQweEx(request, headers, runtime);
+}
+
+/**
+ * Description: 123
+ * Summary: 123
+ */
+async function bindDemoQweQweEx(request: BindDemoQweQweRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoQweQweResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.qwe.qwe.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindDemoSdfSssSssRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BindDemoSdfSssSssResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: sdf
+ * Summary: sdf
+ */
+async function bindDemoSdfSssSss(request: BindDemoSdfSssSssRequest): BindDemoSdfSssSssResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindDemoSdfSssSssEx(request, headers, runtime);
+}
+
+/**
+ * Description: sdf
+ * Summary: sdf
+ */
+async function bindDemoSdfSssSssEx(request: BindDemoSdfSssSssRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoSdfSssSssResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.sdf.sss.sss.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindDemoSssSsSsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model BindDemoSssSsSsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: sss
+ * Summary: ss
+ */
+async function bindDemoSssSsSs(request: BindDemoSssSsSsRequest): BindDemoSssSsSsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindDemoSssSsSsEx(request, headers, runtime);
+}
+
+/**
+ * Description: sss
+ * Summary: ss
+ */
+async function bindDemoSssSsSsEx(request: BindDemoSssSsSsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoSssSsSsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.sss.ss.ss.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterDemoTestBizeventMessageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model RegisterDemoTestBizeventMessageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 随机测试
+ * Summary: 消息发送及消费
+ */
+async function registerDemoTestBizeventMessage(request: RegisterDemoTestBizeventMessageRequest): RegisterDemoTestBizeventMessageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerDemoTestBizeventMessageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 随机测试
+ * Summary: 消息发送及消费
+ */
+async function registerDemoTestBizeventMessageEx(request: RegisterDemoTestBizeventMessageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterDemoTestBizeventMessageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.bizevent.message.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoTestGatewayTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryDemoTestGatewayTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 测试使用
+ * Summary: 测试创建
+ */
+async function queryDemoTestGatewayTest(request: QueryDemoTestGatewayTestRequest): QueryDemoTestGatewayTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoTestGatewayTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试使用
+ * Summary: 测试创建
+ */
+async function queryDemoTestGatewayTestEx(request: QueryDemoTestGatewayTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoTestGatewayTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.gateway.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoTestTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  
+  acpmpcore: string(name='acpmpcore'),
+}
+
+model QueryDemoTestTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 的
+ * Summary: 下载地址创建
+ */
+async function queryDemoTestTest(request: QueryDemoTestTestRequest): QueryDemoTestTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoTestTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 的
+ * Summary: 下载地址创建
+ */
+async function queryDemoTestTestEx(request: QueryDemoTestTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoTestTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BindDemoTestTestTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // test
+  test: string(name='test'),
+}
+
+model BindDemoTestTestTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  test?: string(name='test'),
+}
+
+/**
+ * Description: testaaa
+ * Summary: test
+ */
+async function bindDemoTestTestTest(request: BindDemoTestTestTestRequest): BindDemoTestTestTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return bindDemoTestTestTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: testaaa
+ * Summary: test
+ */
+async function bindDemoTestTestTestEx(request: BindDemoTestTestTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoTestTestTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.test.test.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoTestTestobjectBbbRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 测试入参
+  requestParam1: string(name='request_param1'),
+  // 测试入参2
+  requestParam2: string(name='request_param2'),
+}
+
+model QueryDemoTestTestobjectBbbResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 测试返回参数
+  response?: string(name='response'),
+}
+
+/**
+ * Description: 测试添加api
+ * Summary: 测试用api
+ */
+async function queryDemoTestTestobjectBbb(request: QueryDemoTestTestobjectBbbRequest): QueryDemoTestTestobjectBbbResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoTestTestobjectBbbEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试添加api
+ * Summary: 测试用api
+ */
+async function queryDemoTestTestobjectBbbEx(request: QueryDemoTestTestobjectBbbRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoTestTestobjectBbbResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.testobject.bbb.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
