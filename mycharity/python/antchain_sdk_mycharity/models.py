@@ -411,6 +411,99 @@ class StagesDetailVO(TeaModel):
         return self
 
 
+class SubjectCombinationMessage(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        name: str = None,
+        type: int = None,
+        unit: str = None,
+        note: str = None,
+        price_determined_flag: int = None,
+        price: int = None,
+        total_num: int = None,
+        operate: int = None,
+    ):
+        # 实施内容id
+        self.id = id
+        # 实施内容名称
+        self.name = name
+        # 实施内容类型：0善款类，1实物类、2服务类
+        self.type = type
+        # 单位
+        self.unit = unit
+        # 说明
+        self.note = note
+        # 单价是否固定，0:不固定，1:固定
+        self.price_determined_flag = price_determined_flag
+        # 单价
+        self.price = price
+        # 预估发放数量
+        self.total_num = total_num
+        # 操作类型0-新增，1-修改，2-删除
+        self.operate = operate
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        if self.id is not None:
+            self.validate_max_length(self.id, 'id', 50)
+        if self.name is not None:
+            self.validate_max_length(self.name, 'name', 20)
+        if self.unit is not None:
+            self.validate_max_length(self.unit, 'unit', 10)
+        if self.note is not None:
+            self.validate_max_length(self.note, 'note', 1000)
+        self.validate_required(self.operate, 'operate')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.type is not None:
+            result['type'] = self.type
+        if self.unit is not None:
+            result['unit'] = self.unit
+        if self.note is not None:
+            result['note'] = self.note
+        if self.price_determined_flag is not None:
+            result['price_determined_flag'] = self.price_determined_flag
+        if self.price is not None:
+            result['price'] = self.price
+        if self.total_num is not None:
+            result['total_num'] = self.total_num
+        if self.operate is not None:
+            result['operate'] = self.operate
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('unit') is not None:
+            self.unit = m.get('unit')
+        if m.get('note') is not None:
+            self.note = m.get('note')
+        if m.get('price_determined_flag') is not None:
+            self.price_determined_flag = m.get('price_determined_flag')
+        if m.get('price') is not None:
+            self.price = m.get('price')
+        if m.get('total_num') is not None:
+            self.total_num = m.get('total_num')
+        if m.get('operate') is not None:
+            self.operate = m.get('operate')
+        return self
+
+
 class OpenSubjectCombinationVO(TeaModel):
     def __init__(
         self,
@@ -3330,6 +3423,236 @@ class CreateBatchRequest(TeaModel):
 
 
 class CreateBatchResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class UpdateRecordRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        id: str = None,
+        express_number: str = None,
+        express_company: str = None,
+        express_address: str = None,
+        pay_serial_number: str = None,
+        transfer_method: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # id
+        self.id = id
+        # 快递单号，50字符（发放方式（issue_way）为快递寄送时可修改）
+        self.express_number = express_number
+        # 快递公司，50字符（发放方式（issue_way）为快递寄送时可修改）
+        self.express_company = express_company
+        # 快递地址，100字符（发放方式（issue_way）为快递寄送时可修改）
+        self.express_address = express_address
+        # 支付流水号，100字符（实施内容为善款类且执行记录状态为待发放（receive_status）必填）
+        self.pay_serial_number = pay_serial_number
+        # 转账方式，100字符 发放方式为善款类且执行记录状态为待发放（receive_status）必填）
+        self.transfer_method = transfer_method
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        if self.id is not None:
+            self.validate_max_length(self.id, 'id', 50)
+        if self.express_number is not None:
+            self.validate_max_length(self.express_number, 'express_number', 50)
+        if self.express_company is not None:
+            self.validate_max_length(self.express_company, 'express_company', 50)
+        if self.express_address is not None:
+            self.validate_max_length(self.express_address, 'express_address', 100)
+        if self.pay_serial_number is not None:
+            self.validate_max_length(self.pay_serial_number, 'pay_serial_number', 100)
+        if self.transfer_method is not None:
+            self.validate_max_length(self.transfer_method, 'transfer_method', 100)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.id is not None:
+            result['id'] = self.id
+        if self.express_number is not None:
+            result['express_number'] = self.express_number
+        if self.express_company is not None:
+            result['express_company'] = self.express_company
+        if self.express_address is not None:
+            result['express_address'] = self.express_address
+        if self.pay_serial_number is not None:
+            result['pay_serial_number'] = self.pay_serial_number
+        if self.transfer_method is not None:
+            result['transfer_method'] = self.transfer_method
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('express_number') is not None:
+            self.express_number = m.get('express_number')
+        if m.get('express_company') is not None:
+            self.express_company = m.get('express_company')
+        if m.get('express_address') is not None:
+            self.express_address = m.get('express_address')
+        if m.get('pay_serial_number') is not None:
+            self.pay_serial_number = m.get('pay_serial_number')
+        if m.get('transfer_method') is not None:
+            self.transfer_method = m.get('transfer_method')
+        return self
+
+
+class UpdateRecordResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class BatchcreateCombinationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        stages_id: str = None,
+        combination_message_list: List[SubjectCombinationMessage] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 分期id
+        self.stages_id = stages_id
+        # 实施内容信息集合
+        self.combination_message_list = combination_message_list
+
+    def validate(self):
+        self.validate_required(self.stages_id, 'stages_id')
+        self.validate_required(self.combination_message_list, 'combination_message_list')
+        if self.combination_message_list:
+            for k in self.combination_message_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.stages_id is not None:
+            result['stages_id'] = self.stages_id
+        result['combination_message_list'] = []
+        if self.combination_message_list is not None:
+            for k in self.combination_message_list:
+                result['combination_message_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('stages_id') is not None:
+            self.stages_id = m.get('stages_id')
+        self.combination_message_list = []
+        if m.get('combination_message_list') is not None:
+            for k in m.get('combination_message_list'):
+                temp_model = SubjectCombinationMessage()
+                self.combination_message_list.append(temp_model.from_map(k))
+        return self
+
+
+class BatchcreateCombinationResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,

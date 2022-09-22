@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.11',
+                    'sdk_version': '1.0.13',
                     '_prod_code': 'MYCHARITY',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.11',
+                    'sdk_version': '1.0.13',
                     '_prod_code': 'MYCHARITY',
                     '_prod_channel': 'undefined'
                 }
@@ -1561,4 +1561,116 @@ class Client:
         return TeaCore.from_map(
             mycharity_models.CreateBatchResponse(),
             await self.do_request_async('1.0', 'antchain.mycharity.batch.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_record(
+        self,
+        request: mycharity_models.UpdateRecordRequest,
+    ) -> mycharity_models.UpdateRecordResponse:
+        """
+        Description: 修改执行记录状态
+        Summary: 修改执行记录状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_record_ex(request, headers, runtime)
+
+    async def update_record_async(
+        self,
+        request: mycharity_models.UpdateRecordRequest,
+    ) -> mycharity_models.UpdateRecordResponse:
+        """
+        Description: 修改执行记录状态
+        Summary: 修改执行记录状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_record_ex_async(request, headers, runtime)
+
+    def update_record_ex(
+        self,
+        request: mycharity_models.UpdateRecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.UpdateRecordResponse:
+        """
+        Description: 修改执行记录状态
+        Summary: 修改执行记录状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.UpdateRecordResponse(),
+            self.do_request('1.0', 'antchain.mycharity.record.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_record_ex_async(
+        self,
+        request: mycharity_models.UpdateRecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.UpdateRecordResponse:
+        """
+        Description: 修改执行记录状态
+        Summary: 修改执行记录状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.UpdateRecordResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.record.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchcreate_combination(
+        self,
+        request: mycharity_models.BatchcreateCombinationRequest,
+    ) -> mycharity_models.BatchcreateCombinationResponse:
+        """
+        Description: 批量创建、修改、删除实施内容
+        Summary: 批量创建、修改、删除实施内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchcreate_combination_ex(request, headers, runtime)
+
+    async def batchcreate_combination_async(
+        self,
+        request: mycharity_models.BatchcreateCombinationRequest,
+    ) -> mycharity_models.BatchcreateCombinationResponse:
+        """
+        Description: 批量创建、修改、删除实施内容
+        Summary: 批量创建、修改、删除实施内容
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchcreate_combination_ex_async(request, headers, runtime)
+
+    def batchcreate_combination_ex(
+        self,
+        request: mycharity_models.BatchcreateCombinationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.BatchcreateCombinationResponse:
+        """
+        Description: 批量创建、修改、删除实施内容
+        Summary: 批量创建、修改、删除实施内容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.BatchcreateCombinationResponse(),
+            self.do_request('1.0', 'antchain.mycharity.combination.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchcreate_combination_ex_async(
+        self,
+        request: mycharity_models.BatchcreateCombinationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.BatchcreateCombinationResponse:
+        """
+        Description: 批量创建、修改、删除实施内容
+        Summary: 批量创建、修改、删除实施内容
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.BatchcreateCombinationResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.combination.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
