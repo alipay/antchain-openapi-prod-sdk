@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.15',
+    sdk_version = '1.0.18',
     _prod_code = 'INTEGRATION_MACHINE',
     _prod_channel = 'undefined'
   };
@@ -182,6 +182,23 @@ model TravelInfo {
   travelFactor?: string(name='travel_factor', example='123'),
 }
 
+// 统计附加额外字段
+model StatisticsExtendArg {
+  // 字段key
+  key: string(name='key', example='totalFace'),
+  // 数量
+  number: long(name='number', example='100'),
+}
+
+// 户籍所在省分布
+model IdentityDistributed {
+  // 户籍身份证号(前两位标识)
+  // 11代表北京市，12天代表天津市，13河北省，14山代表山西省，15内代表蒙古自治区，21代表辽宁省，22代表吉林省，23代表黑龙江省，31代表上海市，32代表江苏省，33代表浙江省，34代表代表安徽省，35代表福建省，36代表江西省，37代表山东省，41代表河南省，42代表湖北省，43代表湖南省，44代表广东省，45代表广西壮族自治区，46代表海南省，50代表重庆市，51代表四川省，52代表贵州省，53代表云南省，54代表西藏自治区，61代表陕西省，62代表甘肃省，63代表青海省，64代表宁夏回族自治区，65代表新疆维吾尔自治区，71代表台湾省，81代表香港特别行政区，82代表澳门特别行政区
+  key: string(name='key', example='11'),
+  // 户籍所在省分布数量
+  number: long(name='number', example='100'),
+}
+
 // 抗原信息
 model AntigenInfo {
   // 抗原检测状态
@@ -232,6 +249,84 @@ model NucleicAcidInformation {
   nucleicAcidTime: string(name='nucleic_acid_time', example='2022-07-07 12:12:12'),
 }
 
+// 设备实时通行统计
+model DeviceStatistics {
+  // 设备SN号
+  serialNo: string(name='serial_no', example='12345567745'),
+  // 设备状态(初始化:init,在线:online,离线:offline,故障:fault)
+  status: string(name='status', example='online'),
+  // 通行人次
+  total: long(name='total', example='100'),
+  // 绿码人次
+  green: long(name='green', example='100'),
+  // 黄码人次
+  yellow: long(name='yellow', example='100'),
+  // 红码人次
+  red: long(name='red', example='100'),
+  // 码值异常人次
+  codeErr: long(name='code_err', example='100'),
+  // 刷脸人次
+  face: long(name='face', example='100'),
+  // 刷健康码人次
+  healthCode: long(name='health_code', example='100'),
+  // 刷身份证人次
+  cert: long(name='cert', example='100'),
+  // 其他方式人次
+  otherMode: long(name='other_mode', example='100'),
+  // 通行成功人次
+  pass: long(name='pass', example='100'),
+  // 通行失败人次
+  stop: long(name='stop', example='100'),
+  // 平均通行时间(ms)
+  avgTime: long(name='avg_time', example='1000'),
+  // 疫苗未接种人次
+  vaccineNo: long(name='vaccine_no', example='100'),
+  // 疫苗接种一针人次
+  vaccineFirst: long(name='vaccine_first', example='100'),
+  // 疫苗接种两针人次
+  vaccineSecond: long(name='vaccine_second', example='100'),
+  // 疫苗接种三针人次
+  vaccineThird: long(name='vaccine_third', example='100'),
+  // 疫苗未查询人次
+  vaccineUnknown: long(name='vaccine_unknown', example='100'),
+  // 核酸有效期24h人次
+  nucleicAcid24h: long(name='nucleic_acid24h', example='100'),
+  // 核酸有效期48h人次
+  nucleicAcid48h: long(name='nucleic_acid48h', example='100'),
+  // 核酸有效期72h人次
+  nucleicAcid72h: long(name='nucleic_acid72h', example='100'),
+  // 核酸有效期7d人次
+  nucleicAcid7d: long(name='nucleic_acid7d', example='100'),
+  // 超过7D或无核酸人次
+  nucleicAcidOther: long(name='nucleic_acid_other', example='100'),
+  // 体温小于35.5人次
+  temperatureA: long(name='temperature_a', example='100'),
+  // 体温35.5-36度人次
+  temperatureB: long(name='temperature_b', example='100'),
+  // 体温36.1-36.3度人次
+  temperatureC: long(name='temperature_c', example='100'),
+  // 体温36.4-36.7度人次
+  temperatureD: long(name='temperature_d', example='100'),
+  // 体温36.8-37度人次
+  temperatureE: long(name='temperature_e', example='100'),
+  // 体温37.1-37.5度人次
+  temperatureF: long(name='temperature_f', example='100'),
+  // 体温37.6-38度人次
+  temperatureG: long(name='temperature_g', example='100'),
+  // 体温38.1-38.5度人次
+  temperatureH: long(name='temperature_h', example='100'),
+  // 体温38.6-39度人次
+  temperatureI: long(name='temperature_i', example='100'),
+  // 体温大于39人次
+  temperatureJ: long(name='temperature_j', example='100'),
+  // 体温未获取人次
+  temperatureK: long(name='temperature_k', example='100'),
+  // 户籍所在省分布
+  identityDistributedList: [ IdentityDistributed ](name='identity_distributed_list', example=''),
+  // 扩展统计字段
+  extendArgList: [ StatisticsExtendArg ](name='extend_arg_list', example=''),
+}
+
 // 疫苗信息
 model VaccinationInformation {
   // 疫苗接种状态(0查询失败 1未接种 2已接种一针 3完成接种)
@@ -250,6 +345,14 @@ model ArgsNameValue {
   argsValue: string(name='args_value', example='value'),
   // 设备参数标识(ip,mac,bizid)
   argsMark?: string(name='args_mark', example='ip'),
+}
+
+// 查询健康信息扩展参数
+model QueryHealthInfoExtendedArg {
+  // 参数名
+  argKey?: string(name='arg_key', example='temperature'),
+  // 参数值
+  argValue?: string(name='arg_value', example='36.5'),
 }
 
 // 场所信息
@@ -372,6 +475,8 @@ model QueryHealthinfoRequest = {
   healthTypes: string(name='health_types'),
   // 通行记录ID
   passId?: string(name='pass_id'),
+  // 获取健康信息所需扩展参数列表：体温（temperature：36.5）
+  extensionInfo?: [ QueryHealthInfoExtendedArg ](name='extension_info'),
 }
 
 model QueryHealthinfoResponse = {
@@ -516,6 +621,8 @@ model GetHealthinfoRequest = {
   // 通行记录ID
   // 
   passId?: string(name='pass_id'),
+  // 获取健康信息所需扩展参数列表：体温（temperature：36.5）
+  extensionInfo?: [ QueryHealthInfoExtendedArg ](name='extension_info'),
 }
 
 model GetHealthinfoResponse = {
@@ -707,7 +814,7 @@ model QueryHealthstatisticsRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 开始日期
   startDate: string(name='start_date'),
-  // 结束日期(为空或等于开始日期时为查询当天)
+  // 结束日期(为空或等于开始日期时为查询当天,时间范围最大可查询100天)
   endDate?: string(name='end_date'),
   // 统计类型(通行人数统计：PERSON，通行次数统计：NUMBER)
   type: string(name='type'),
@@ -741,5 +848,53 @@ async function queryHealthstatistics(request: QueryHealthstatisticsRequest): Que
 async function queryHealthstatisticsEx(request: QueryHealthstatisticsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryHealthstatisticsResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.antim.healthstatistics.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDevicestatisticsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备SN号(最大限制100条)
+  serialNoList: [ string ](name='serial_no_list'),
+  // 厂商名称
+  // 为空时:默认值telpo(天波)
+  // 可用枚举值:
+  // telpo(天波) 
+  // hemiao(禾苗)
+  cropName?: string(name='crop_name'),
+  // 开始时间(精确到ms)
+  startTime: long(name='start_time'),
+  // 结束时间(精确到ms,时间跨度不能超过24h)
+  endTime: long(name='end_time'),
+}
+
+model QueryDevicestatisticsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 设备实时统计
+  dataList?: [ DeviceStatistics ](name='data_list'),
+}
+
+/**
+ * Description: 设备实时通行统计查询
+ * Summary: 设备实时通行统计查询
+ */
+async function queryDevicestatistics(request: QueryDevicestatisticsRequest): QueryDevicestatisticsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDevicestatisticsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 设备实时通行统计查询
+ * Summary: 设备实时通行统计查询
+ */
+async function queryDevicestatisticsEx(request: QueryDevicestatisticsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDevicestatisticsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.antim.devicestatistics.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
