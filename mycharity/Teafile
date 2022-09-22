@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "MYCHARITY",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-mycharity:1.0.11",
-    "go": "github.com/antchain-openapi-sdk-go/mycharity/client:v1.0.11",
-    "csharp": "AntChain.SDK.MYCHARITY:1.0.11",
-    "ts": "@antchain/mycharity:1.0.11",
-    "php": "antchain/mycharity:1.0.11",
-    "python": "antchain_sdk_mycharity:1.0.11"
+    "java": "com.antgroup.antchain.openapi:openapi-mycharity:1.0.13",
+    "go": "github.com/antchain-openapi-sdk-go/mycharity/client:v1.0.13",
+    "csharp": "AntChain.SDK.MYCHARITY:1.0.13",
+    "ts": "@antchain/mycharity:1.0.13",
+    "php": "antchain/mycharity:1.0.13",
+    "python": "antchain_sdk_mycharity:1.0.13"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

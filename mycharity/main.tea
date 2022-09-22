@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.11',
+    sdk_version = '1.0.13',
     _prod_code = 'MYCHARITY',
     _prod_channel = 'undefined'
   };
@@ -223,6 +223,28 @@ model StagesDetailVO {
   state?: long(name='state', example=''),
   // 签约id,关联签约表
   signId?: string(name='sign_id', example='1'),
+}
+
+// 实施内容信息
+model SubjectCombinationMessage {
+  // 实施内容id
+  id: string(maxLength=50, name='id', example='1'),
+  // 实施内容名称
+  name?: string(maxLength=20, name='name', example='名称'),
+  // 实施内容类型：0善款类，1实物类、2服务类
+  type?: long(name='type', example='0'),
+  // 单位
+  unit?: string(maxLength=10, name='unit', example='个'),
+  // 说明
+  note?: string(maxLength=1000, name='note', example='说明'),
+  // 单价是否固定，0:不固定，1:固定
+  priceDeterminedFlag?: long(name='price_determined_flag', example=''),
+  // 单价
+  price?: long(name='price', example=''),
+  // 预估发放数量
+  totalNum?: long(name='total_num', example=''),
+  // 操作类型0-新增，1-修改，2-删除
+  operate: long(name='operate', example=''),
 }
 
 // 实施内容详情
@@ -1285,5 +1307,89 @@ async function createBatch(request: CreateBatchRequest): CreateBatchResponse {
 async function createBatchEx(request: CreateBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBatchResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.mycharity.batch.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateRecordRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // id
+  id: string(maxLength=50, minLength=1, name='id'),
+  // 快递单号，50字符（发放方式（issue_way）为快递寄送时可修改）
+  expressNumber?: string(maxLength=50, minLength=1, name='express_number'),
+  // 快递公司，50字符（发放方式（issue_way）为快递寄送时可修改）
+  expressCompany?: string(maxLength=50, minLength=1, name='express_company'),
+  // 快递地址，100字符（发放方式（issue_way）为快递寄送时可修改）
+  expressAddress?: string(maxLength=100, minLength=1, name='express_address'),
+  // 支付流水号，100字符（实施内容为善款类且执行记录状态为待发放（receive_status）必填）
+  paySerialNumber?: string(maxLength=100, minLength=1, name='pay_serial_number'),
+  // 转账方式，100字符 发放方式为善款类且执行记录状态为待发放（receive_status）必填）
+  transferMethod?: string(maxLength=100, minLength=1, name='transfer_method'),
+}
+
+model UpdateRecordResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 修改执行记录状态
+ * Summary: 修改执行记录状态
+ */
+async function updateRecord(request: UpdateRecordRequest): UpdateRecordResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateRecordEx(request, headers, runtime);
+}
+
+/**
+ * Description: 修改执行记录状态
+ * Summary: 修改执行记录状态
+ */
+async function updateRecordEx(request: UpdateRecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateRecordResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.record.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateCombinationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分期id
+  stagesId: string(name='stages_id'),
+  // 实施内容信息集合
+  combinationMessageList: [ SubjectCombinationMessage ](name='combination_message_list'),
+}
+
+model BatchcreateCombinationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 批量创建、修改、删除实施内容
+ * Summary: 批量创建、修改、删除实施内容
+ */
+async function batchcreateCombination(request: BatchcreateCombinationRequest): BatchcreateCombinationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateCombinationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量创建、修改、删除实施内容
+ * Summary: 批量创建、修改、删除实施内容
+ */
+async function batchcreateCombinationEx(request: BatchcreateCombinationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateCombinationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.combination.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
