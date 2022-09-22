@@ -137,7 +137,7 @@ namespace AntChain.SDK.MYCHARITY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.11"},
+                        {"sdk_version", "1.0.13"},
                         {"_prod_code", "MYCHARITY"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MYCHARITY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.11"},
+                        {"sdk_version", "1.0.13"},
                         {"_prod_code", "MYCHARITY"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1285,6 +1285,90 @@ namespace AntChain.SDK.MYCHARITY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateBatchResponse>(await DoRequestAsync("1.0", "antchain.mycharity.batch.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改执行记录状态
+         * Summary: 修改执行记录状态
+         */
+        public UpdateRecordResponse UpdateRecord(UpdateRecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateRecordEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改执行记录状态
+         * Summary: 修改执行记录状态
+         */
+        public async Task<UpdateRecordResponse> UpdateRecordAsync(UpdateRecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateRecordExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改执行记录状态
+         * Summary: 修改执行记录状态
+         */
+        public UpdateRecordResponse UpdateRecordEx(UpdateRecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateRecordResponse>(DoRequest("1.0", "antchain.mycharity.record.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改执行记录状态
+         * Summary: 修改执行记录状态
+         */
+        public async Task<UpdateRecordResponse> UpdateRecordExAsync(UpdateRecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateRecordResponse>(await DoRequestAsync("1.0", "antchain.mycharity.record.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量创建、修改、删除实施内容
+         * Summary: 批量创建、修改、删除实施内容
+         */
+        public BatchcreateCombinationResponse BatchcreateCombination(BatchcreateCombinationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchcreateCombinationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量创建、修改、删除实施内容
+         * Summary: 批量创建、修改、删除实施内容
+         */
+        public async Task<BatchcreateCombinationResponse> BatchcreateCombinationAsync(BatchcreateCombinationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchcreateCombinationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量创建、修改、删除实施内容
+         * Summary: 批量创建、修改、删除实施内容
+         */
+        public BatchcreateCombinationResponse BatchcreateCombinationEx(BatchcreateCombinationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateCombinationResponse>(DoRequest("1.0", "antchain.mycharity.combination.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量创建、修改、删除实施内容
+         * Summary: 批量创建、修改、删除实施内容
+         */
+        public async Task<BatchcreateCombinationResponse> BatchcreateCombinationExAsync(BatchcreateCombinationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateCombinationResponse>(await DoRequestAsync("1.0", "antchain.mycharity.combination.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
