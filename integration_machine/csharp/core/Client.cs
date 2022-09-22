@@ -137,7 +137,7 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.15"},
+                        {"sdk_version", "1.0.18"},
                         {"_prod_code", "INTEGRATION_MACHINE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.15"},
+                        {"sdk_version", "1.0.18"},
                         {"_prod_code", "INTEGRATION_MACHINE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -613,6 +613,48 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryHealthstatisticsResponse>(await DoRequestAsync("1.0", "antchain.antim.healthstatistics.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备实时通行统计查询
+         * Summary: 设备实时通行统计查询
+         */
+        public QueryDevicestatisticsResponse QueryDevicestatistics(QueryDevicestatisticsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDevicestatisticsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备实时通行统计查询
+         * Summary: 设备实时通行统计查询
+         */
+        public async Task<QueryDevicestatisticsResponse> QueryDevicestatisticsAsync(QueryDevicestatisticsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDevicestatisticsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设备实时通行统计查询
+         * Summary: 设备实时通行统计查询
+         */
+        public QueryDevicestatisticsResponse QueryDevicestatisticsEx(QueryDevicestatisticsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDevicestatisticsResponse>(DoRequest("1.0", "antchain.antim.devicestatistics.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设备实时通行统计查询
+         * Summary: 设备实时通行统计查询
+         */
+        public async Task<QueryDevicestatisticsResponse> QueryDevicestatisticsExAsync(QueryDevicestatisticsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDevicestatisticsResponse>(await DoRequestAsync("1.0", "antchain.antim.devicestatistics.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

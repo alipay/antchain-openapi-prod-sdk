@@ -23,7 +23,7 @@ namespace AntChain.SDK.INTEGRATION_MACHINE.Models
         [Validation(Required=true)]
         public string StartDate { get; set; }
 
-        // 结束日期(为空或等于开始日期时为查询当天)
+        // 结束日期(为空或等于开始日期时为查询当天,时间范围最大可查询100天)
         [NameInMap("end_date")]
         [Validation(Required=false)]
         public string EndDate { get; set; }

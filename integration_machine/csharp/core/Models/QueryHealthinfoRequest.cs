@@ -55,6 +55,11 @@ namespace AntChain.SDK.INTEGRATION_MACHINE.Models
         [Validation(Required=false)]
         public string PassId { get; set; }
 
+        // 获取健康信息所需扩展参数列表：体温（temperature：36.5）
+        [NameInMap("extension_info")]
+        [Validation(Required=false)]
+        public List<QueryHealthInfoExtendedArg> ExtensionInfo { get; set; }
+
     }
 
 }
