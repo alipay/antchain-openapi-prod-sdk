@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.15',
+    sdk_version = '1.12.83',
+    _prod_code = 'ldc',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -169,7 +171,7 @@ model LabelSelectorRequirement {
   values: [ string ](name='values', example=''),
 }
 
-// label of all k8s resource
+// k8s 资源的标签
 model Label {
   // label key
   key: string(name='key', example='labelKey'),
@@ -247,6 +249,14 @@ model ConfigmapSecretVolumeSource {
   volumeRefName: string(name='volume_ref_name', example='test-config'),
 }
 
+// NFS volume
+model NFSVolumeSource {
+  // 挂载路径
+  path: string(name='path', example='/home/admin/logs/'),
+  // NFS 服务端地址
+  server: string(name='server', example='192.168.8.120'),
+}
+
 // volume mount of PersistentVolumeClaim.
 model PersistentVolumeClaimSource {
   // 引用的PVC名称。
@@ -299,8 +309,7 @@ model EmptyDirVolumeSource {
   sizeLimit: string(name='size_limit', example='100g'),
 }
 
-// 健康检查探针
-// 
+// 健康检查探针 
 model HealthCheckProbe {
   // 基于命令行类型的探针必填
   execAction?: ExecAction(name='exec_action', example=''),
@@ -387,6 +396,20 @@ model LogConfigEntity {
   logPath: string(name='log_path', example='/var/log/httpd/'),
   // file_pattern
   filePattern?: string(name='file_pattern', example='*'),
+  // log_sample
+  logSample?: string(name='log_sample', example='log_sample'),
+  // logBeginRegex
+  logBeginRegex?: string(name='log_begin_regex', example='logBeginRegex'),
+  // regex
+  regex?: string(name='regex', example='regex'),
+  // op不支持map，请传入一个可以序列化成map的字符串
+  dockerIncludeLabel?: string(name='docker_include_label', example='{"a":"b"}'),
+  // OP不支持map，请传入一个可以序列化的JSON
+  dockerExcludeLabel?: string(name='docker_exclude_label', example='{"a":"b"}'),
+  // file_path_blacklist
+  filePathBlacklist?: [ string ](name='file_path_blacklist', example=''),
+  // 正则表达式必填，用于提取内容
+  key?: [ string ](name='key', example='["time","he"]'),
 }
 
 // Node affinity is a group of node affinity scheduling rules.
@@ -397,8 +420,7 @@ model NodeAffinity {
   requiredDuringDchedulingIgnoredDuringExecution: NodeSelector(name='required_during_dcheduling_ignored_during_execution', example=''),
 }
 
-// 健康检查配置
-// 
+// 健康检查配置 
 model HealthCheckConfig {
   // liveness 检查
   // 
@@ -442,6 +464,8 @@ model VolumeMount {
   pvcSource?: PersistentVolumeClaimSource(name='pvc_source', example='{}'),
   // 容器内挂载子路径的表达式，与sub_path互斥
   subPathExpr?: string(name='sub_path_expr', example='$(POD_NAME)'),
+  // nfs volume
+  nfsVolumeSource?: NFSVolumeSource(name='nfs_volume_source', example='{}'),
 }
 
 // 环境变量配置覆盖。
@@ -478,9 +502,7 @@ model LifecycleHook {
   preStopTcp?: TcpSocketAction(name='pre_stop_tcp', example='{}'),
 }
 
-// V1PodDNSConfigOption， PodDNSConfigOption defines DNS resolver options of a pod.
-// 
-// 
+// V1PodDNSConfigOption， PodDNSConfigOption defines DNS resolver options of a pod.  
 model PodDNSConfigOption {
   // name
   name?: string(name='name', example='name'),
@@ -528,7 +550,7 @@ model ContainerStateRunning {
   startedAt: string(name='started_at', example='2019-12-05'),
 }
 
-// k8s resource annotations
+// k8s 资源的注解
 model Annotation {
   // annotation key
   key: string(name='key', example='key'),
@@ -631,6 +653,8 @@ model ContainerSpec {
   volumesStr?: string(name='volumes_str', example='{}'),
   // 基础字段覆盖
   fieldOverrides?: [ FieldOverride ](name='field_overrides', example=''),
+  // 容器yaml内容
+  yamlContent?: string(name='yaml_content', example='workingDir: /home/admin/logs'),
 }
 
 // 弹性伸缩指标目标值
@@ -829,6 +853,8 @@ model LoadBalancerListener {
   // ip： 后端服务器的私网IP。当指定了IP或该参数未指定时，负载均衡会使用各后端服务器的私网IP当做健康检查使用的域名。
   // domain：域名长度为1-80，只能包含字母、数字、点号（.）和连字符（-）。
   healthCheckDomain?: string(name='health_check_domain', example='ip'),
+  // 健康检查http method，支持head和get
+  healthCheckHttpMethod?: string(name='health_check_http_method', example='head'),
   // 健康检查正常的HTTP状态码，多个状态码用逗号分隔。
   // 默认值为http_2xx。
   healthCheckHttpCode?: string(name='health_check_http_code', example='http_2xx'),
@@ -869,6 +895,12 @@ model LoadBalancerListener {
   domain?: string(name='domain', example='alipay.net'),
   // 统一接入转发路径
   path?: string(name='path', example='/urlpath'),
+  // on 代表开启 acl，off 代表关闭 acl
+  aclStatus?: string(name='acl_status', example='on, off'),
+  // acl 类型，white 代表白名单；black 代表黑名单
+  aclType?: string(name='acl_type', example='white, black'),
+  // 访问控制列表的 id
+  aclId?: string(name='acl_id', example='acl-123456'),
 }
 
 // 某一部署单元或集群对应的副本数。
@@ -1005,6 +1037,44 @@ model ContainerState {
   waiting: ContainerStateWaiting(name='waiting', example='{}'),
 }
 
+// 发布模板参数
+model TemplateParam {
+  // 参数唯一标识
+  id?: string(name='id', example='111'),
+  // 参数key
+  key: string(name='key', example='aaa'),
+  // 参数值
+  value?: string(name='value', example='111'),
+  // 参数中文名称
+  name?: string(name='name', example='测试'),
+  // 是否必填
+  required?: boolean(name='required', example='true, false'),
+}
+
+// 守夜人类型卡点配置
+model HasHookConfig {
+  // 前置脚本类型，巡检或预案
+  preType?: string(name='pre_type', example='01'),
+  // 前置巡检或预案id
+  preRefId?: string(name='pre_ref_id', example='test'),
+  // 前置巡检或预案名称
+  preName?: string(name='pre_name', example='test'),
+  // 前置巡检或预案参数
+  preParams?: [ TemplateParam ](name='pre_params', example='[]'),
+  // 前置是否需要确认
+  preNeedConfirm?: boolean(name='pre_need_confirm', example='true, false'),
+  // 后置脚本类型，巡检或预案
+  postType?: string(name='post_type', example='01'),
+  // 后置巡检或预案id
+  postRefId?: string(name='post_ref_id', example='test'),
+  // 后置巡检或预案名称
+  postName?: string(name='post_name', example='test'),
+  // 后置巡检或预案参数
+  postParams?: [ TemplateParam ](name='post_params', example='[]'),
+  // 后置是否需要确认
+  postNeedConfirm?: boolean(name='post_need_confirm', example='true, false'),
+}
+
 // AffinityEntity
 model AffinityEntity {
   // NodeAffinityConfig list
@@ -1047,6 +1117,18 @@ model RegistryAccout {
   registry: string(name='registry', example='registry.com'),
   // registry username
   username: string(name='username', example='admin'),
+}
+
+// api类型自定义卡点配置
+model ApiHookConfig {
+  // 卡点要调用的api地址
+  postUrl: string(name='post_url', example='http://xxx.com/prepost-check'),
+  // 授权码
+  authKey?: string(name='auth_key', example='1234544'),
+  // 接口超时时间，单位ms
+  timeout?: string(name='timeout', example='3000'),
+  // 查询异步卡点接口执行结果api
+  checkUrl?: string(name='check_url', example='http://xxx.com/retrieve-check'),
 }
 
 // 基于弹性伸缩的应用服务配置
@@ -1200,26 +1282,6 @@ model ConfigMapData {
   key: string(name='key', example='key'),
   // configmap data value
   value: string(name='value', example='value'),
-}
-
-// 守夜人类型卡点配置
-model HasHookConfig {
-  // 前置脚本类型，巡检或预案
-  preType?: string(name='pre_type', example='01'),
-  // 前置巡检或预案id
-  preRefId?: string(name='pre_ref_id', example='test'),
-  // 前置巡检或预案名称
-  preName?: string(name='pre_name', example='test'),
-  // 前置巡检或预案参数
-  preParam?: string(name='pre_param', example='aaa'),
-  // 后置脚本类型，巡检或预案
-  postType?: string(name='post_type', example='01'),
-  // 后置巡检或预案id
-  postRefId?: string(name='post_ref_id', example='test'),
-  // 后置巡检或预案参数
-  postParam?: string(name='post_param', example='aaa'),
-  // 后置巡检或预案名称
-  postName?: string(name='post_name', example='test'),
 }
 
 // 运维变更对象
@@ -1379,24 +1441,20 @@ model FederatedDeploymentStatusTopologies {
   time: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='time', example=''),
 }
 
-// api类型自定义卡点配置
-model ApiHookConfig {
-  // 卡点要调用的api地址
-  postUrl: string(name='post_url', example='http://xxx.com/prepost-check'),
-  // 授权码
-  authKey?: string(name='auth_key', example='1234544'),
-  // 接口超时时间，单位ms
-  timeout?: string(name='timeout', example='3000'),
-  // 查询异步卡点接口执行结果api
-  checkUrl?: string(name='check_url', example='http://xxx.com/retrieve-check'),
-}
-
 // 集群内ClusterIP类型Service。
 model ClusterIpService {
   // 对应ClusterIP service名称。
   name: string(name='name', example='svc'),
   // ClusterIP service暴露的端口列表。
   ports?: [ ServicePortMapping ](name='ports', example='[]'),
+}
+
+// 摘流配置
+model TrafficConfig {
+  // 是否摘除注册中心流量
+  registryManaged?: boolean(name='registry_managed', example='true, false'),
+  // 摘流等待时间
+  registryTrafficOffWaitSec?: long(name='registry_traffic_off_wait_sec', example='10'),
 }
 
 // 描述本地spanner集群一组容器的详细信息
@@ -1447,6 +1505,12 @@ model LoadBalancerService {
   useFedLoadbalancer?: boolean(name='use_fed_loadbalancer', example='true, false'),
   // 联邦负载均衡实例名称
   fedLoadbalancerName?: string(name='fed_loadbalancer_name', example='fed-lb-example'),
+  // 是否开启优雅下线等待，默认为false。
+  enableGracefulShutdownWaiting?: boolean(name='enable_graceful_shutdown_waiting', example='true, false'),
+  // 优雅下线等待时间，单位秒，默认0.
+  gracefulShutdownWaitingTime?: long(name='graceful_shutdown_waiting_time', example='10'),
+  // 是否开启集群内转发优化（集群内访问lb vip时是否走kube-proxy转发链路）
+  enableInClusterForwardOptimization?: boolean(name='enable_in_cluster_forward_optimization', example='true, false'),
 }
 
 // 有状态应用数据卷模板配置
@@ -1459,12 +1523,39 @@ model VolumeClaimConfig {
   resourceRequirementConfig?: ResourceRequirementConfig(name='resource_requirement_config', example=''),
 }
 
-// Secret数据
+// 保密字典数据
 model SecretData {
   // secret data key
   key: string(name='key', example='key'),
   // secret data value
   value: string(name='value', example='value'),
+}
+
+// 发布单自定义卡点。暂时不支持
+model CustomHook {
+  // 卡点范围，目前只支持分批
+  hookScope: string(name='hook_scope', example='batch'),
+  // 卡点类型：api或has
+  hookType: string(name='hook_type', example='api'),
+  // 卡点名称
+  hookName?: string(name='hook_name', example='TEST1'),
+  // 卡点执行策略：each-每个分组，first-第一个分组，last-最后一个分组，custom-自定义分组。
+  // 默认每个分组都会执行。
+  hookStrategy?: string(name='hook_strategy', example='each'),
+  // 自定义批次编号，从1开始。hook_strategy=custom时有效
+  customNum?: long(name='custom_num', example='1'),
+  // api类型卡点配置，当hook_type=api时不能为空
+  apiHookConfig?: ApiHookConfig(name='api_hook_config', example='{}'),
+  // 守夜人类型卡点配置，当hook_type=has时不能为空
+  hasHookConfig?: HasHookConfig(name='has_hook_config', example='{}'),
+  // 【暂不支持】是否允许忽略
+  ignoreSupported?: boolean(name='ignore_supported', example='true'),
+  // 【暂不支持】任务超时时间，单位毫秒，默认10分钟
+  timeoutMillis?: long(name='timeout_millis', example='60000'),
+  // 【暂不支持】默认true
+  unOverride?: boolean(name='un_override', example='true, false'),
+  // 【暂不支持】是否需要确认
+  needConfirm?: boolean(name='need_confirm', example='true, false'),
 }
 
 // 发布批次对象
@@ -1551,6 +1642,12 @@ model AppReleaseConfig {
   commitId: string(name='commit_id', example='aad2121sa'),
   // 代码分支
   commitBranch: string(name='commit_branch', example='master'),
+  // diff基准版本，上一次最新发布的版本
+  lastRevisionId?: string(name='last_revision_id', example='xxxxxx'),
+  // 应用服务版本id
+  revisionId?: string(name='revision_id', example='xxxxxx'),
+  // 应用服务版本diff摘要信息
+  revisionDiff?: string(name='revision_diff', example='xxxxx'),
 }
 
 // V1FederatedAppInstanceRevisionSpecOverridesAppinstance
@@ -1665,6 +1762,18 @@ model PodStatus {
   containerStatuses: [ ContainerStatus ](name='container_statuses', example='[{}]'),
 }
 
+// topologyStatus
+model FederatedServiceTopologyStatus {
+  // 部署单元
+  topologyName: string(name='topology_name', example='gz00a'),
+  // annotations
+  annotations?: [ Annotation ](name='annotations', example='[]'),
+  // 状态：succeed、updating、fail
+  status: string(name='status', example='succeed'),
+  // 错误信息
+  message?: string(name='message', example='test'),
+}
+
 // sidecar运维流程任务
 model SidecarOpsMachineTask {
   // 分组ID
@@ -1705,8 +1814,7 @@ model SidecarConfig {
   ext?: string(name='ext', example='ext'),
 }
 
-// Workspace info
-// 
+// Workspace info 
 model Workspace {
   // workspace id
   id: string(name='id', example='0001'),
@@ -1732,6 +1840,24 @@ model UnireleaseSolutionApp {
   middlewareConfigs: [ string ](name='middleware_configs', example='中间件配置信息，列表内容为OAM类型的yaml列表'),
   // 机构/租户信息
   tenant: string(name='tenant', example='ANTCLOUD'),
+  // 中间件配置diff信息
+  middlewareConfigDiffs?: [ string ](name='middleware_config_diffs', example='[]'),
+  // 工作空间组
+  workspaceGroup?: string(name='workspace_group', example='test'),
+  // 命名空间
+  namespace?: string(name='namespace', example='default'),
+  // 中间件配置变更diff摘要
+  middlewareConfigDiffSummary?: string(name='middleware_config_diff_summary', example='xxx'),
+  // 风险等级: ORDINARY-一般、HIGH-高危
+  riskLevel?: string(name='risk_level', example='ORDINARY'),
+}
+
+// FederatedServiceStatus
+model FederatedServiceStatus {
+  // metadata
+  metadata?: ObjectMeta(name='metadata', example=''),
+  // topologyStatus
+  topologyStatus?: [ FederatedServiceTopologyStatus ](name='topology_status', example='[]'),
 }
 
 // 应用服务示例
@@ -1854,6 +1980,8 @@ model ContainerServiceConfig {
   headlessServices?: [ HeadlessService ](name='headless_services', example='[]'),
   // 资源overrides（lks 1.24.0后开始支持）
   resourceOverrides?: [ ResourceOverride ](name='resource_overrides', example='[{}]'),
+  // 摘流配置
+  trafficConfig?: TrafficConfig(name='traffic_config', example='{}'),
 }
 
 // 部署单元
@@ -1886,15 +2014,15 @@ model Cell {
   cluster?: string(name='cluster', example='mayibank-sit'),
 }
 
-// 集群部署单元状态
+// 联邦资源在某个部署单元（cell）中的分发状态
 model ClusteCellStatus {
-  // 集群名称
+  // 部署单元所在集群名称
   cluster: string(name='cluster', example='cluster-name'),
   // 部署单元名称
-  cell: string(name='cell', example='CellA'),
-  // Cell资源状态
-  status: string(name='status', example='ApplyOverridesFailed'),
-  // 详细说明或错误信息
+  cell: string(name='cell', example='gz00a'),
+  // 联邦资源的分发状态，空字符串代表成功，否则为错误码
+  status: string(name='status', example='CreationFailed'),
+  // 详细错误信息
   message?: string(name='message', example='some error message'),
 }
 
@@ -2010,6 +2138,8 @@ model PodInfo {
   uid: string(name='uid', example='3D67a3dd9a-0d05-11ea-a525-02420ba6ad3d'),
   // Pod volume信息。
   volumes?: [ Volume ](name='volumes', example='[{}]'),
+  // pod唯一标识
+  podIdentity?: string(name='pod_identity', example='test-rz00a-1'),
 }
 
 // 联邦负载均衡实例对应的local lb实例信息（per cell)
@@ -2051,7 +2181,7 @@ model ContainerServiceOperation {
   // 应用服务当前版本
   containerServiceRevision?: string(name='container_service_revision', example='cafe-8789ffsd89fadisrd3'),
   // [huanyu场景使用]，灰度平台pods分批序列化为json的结果
-  graycoreBatches?: string(name='graycore_batches', example='[{"podA"}, {"podB, podC"}]'),
+  graycoreBatches?: string(name='graycore_batches', example='[]'),
 }
 
 // 联邦负载均衡实例与应用服务之间的关联关系，以及占用端口情况。
@@ -2072,6 +2202,10 @@ model AppGroupSimpleView {
   id: string(name='id', example='0000000103243151'),
   // 状态
   state: string(name='state', example='DEPLOYED'),
+  // 蓝绿发布专用
+  bgCellName?: string(name='bg_cell_name', example='gz00a'),
+  // 蓝绿发布专用，traffic或release
+  bgGroupType?: string(name='bg_group_type', example='traffic'),
 }
 
 // cluster overview info
@@ -2151,6 +2285,8 @@ model ContainerServiceDeployment {
   upgradePolicy?: string(name='upgrade_policy', example='ByIndex'),
   // 发布模板名称
   deploymentTemplateName?: string(name='deployment_template_name', example='TEST'),
+  // 发布模板卡点规则
+  deploymentTemplateHooks?: [ CustomHook ](name='deployment_template_hooks', example='[]'),
 }
 
 // master cluster info
@@ -2171,15 +2307,14 @@ model MasterCluster {
   zoneName?: string(name='zone_name', example='hangzhou-a'),
 }
 
-// FedSecret cluster override
+// 联邦保密字典数据在不同 cell 下的自定义覆盖配置
 model FedSecretOverride {
-  // fed secret data override
+  // 要覆盖的保密字典数据
   data: [ SecretData ](name='data', example=''),
-  // cluster name
-  // 
-  name: string(name='name', example='default'),
-  // name cell override
-  nameOverride: string(name='name_override', example='cella'),
+  // 部署单元的名称
+  name: string(name='name', example='gz00a'),
+  // 覆盖的名称，必须为：保密字典名称-cell-部署单元名称
+  nameOverride: string(name='name_override', example='sc-cell-gz00a'),
 }
 
 // 统一接入实例接入settings （vip, id, etc.)
@@ -2259,31 +2394,6 @@ model LocalSpannerClusterDetail {
   state?: string(name='state', example='健康'),
   // 若干组容器信息
   subClustersDetails?: [ LocalSubClusterDetail ](name='sub_clusters_details', example=''),
-}
-
-// 发布单自定义卡点。暂时不支持
-model CustomHook {
-  // 卡点范围，目前只支持分批
-  hookScope: string(name='hook_scope', example='batch'),
-  // 卡点类型：api或has
-  hookType: string(name='hook_type', example='api'),
-  // 卡点名称
-  hookName?: string(name='hook_name', example='TEST1'),
-  // 卡点执行策略：each-每个分组，first-第一个分组，last-最后一个分组，custom-自定义分组。
-  // 默认每个分组都会执行。
-  hookStrategy?: string(name='hook_strategy', example='each'),
-  // 自定义批次编号，从0开始。hook_strategy=custom时有效
-  customNum?: long(name='custom_num', example='1'),
-  // api类型卡点配置，当hook_type=api时不能为空
-  apiHookConfig?: ApiHookConfig(name='api_hook_config', example='{}'),
-  // 守夜人类型卡点配置，当hook_type=has时不能为空
-  hasHookConfig?: HasHookConfig(name='has_hook_config', example='{}'),
-  // 【暂不支持】是否允许忽略
-  ignoreSupported?: boolean(name='ignore_supported', example='true'),
-  // 【暂不支持】任务超时时间，单位毫秒，默认10分钟
-  timeoutMillis?: long(name='timeout_millis', example='60000'),
-  // 【暂不支持】默认false
-  unOverride?: boolean(name='un_override', example='true, false'),
 }
 
 // Federated Deployment Status
@@ -2367,13 +2477,13 @@ model LivenessProbe {
   timeoutSeconds: long(name='timeout_seconds', example='10'),
 }
 
-// fed k8s resource cluster state map
+// 联邦资源在某个子集群中的分发状态
 model ClusterState {
   // 集群名称
   clusterName: string(name='cluster_name', example='cluster'),
-  // k8s resource state
-  state: string(name='state', example='Active'),
-  // 详细描述或错误信息
+  // 联邦资源的分发状态，空字符串代表成功，否则为错误码
+  state: string(name='state', example='CreationFailed'),
+  // 详细错误信息
   message?: string(name='message', example='some detailed message'),
 }
 
@@ -2406,20 +2516,20 @@ model Deployment {
   status: DeploymentStatus(name='status', example=''),
 }
 
-// fed configmap override struct
+// 联邦配置项数据在不同 cell 下的自定义覆盖配置
 model FedConfigmapOverride {
-  // fed configmap data override
+  // 要覆盖的配置项数据
   data: [ ConfigMapData ](name='data', example=''),
-  // cluster name
-  name: string(name='name', example='default'),
-  // name cell  override
-  nameOverride: string(name='name_override', example='aaa-cella'),
+  // 部署单元名称
+  name: string(name='name', example='gz00a'),
+  // 覆盖的名称，必须为：配置项名称-cell-部署单元名称
+  nameOverride: string(name='name_override', example='cm-cell-gz00a'),
 }
 
 // 部署单元权重
 model CellWeightInfo {
   // 部署单元所属工作空间
-  workspace: string(name='workspace', example='工作空间'),
+  workspace?: string(name='workspace', example='工作空间'),
   // 部署单元名称
   name: string(name='name', example='CellA'),
   // 部署单元所占单元组流量比重
@@ -2642,6 +2752,20 @@ model FedSecretOverrideList {
   list: [ FedSecretOverride ](name='list', example=''),
 }
 
+// 单元化管理中的单元组对象
+model FlowCellGroup {
+  // 单元组名称
+  name: string(name='name', example='RZ00'),
+  // 单元组类型，枚举，GZG、RZG
+  type: string(name='type', example='GZG'),
+  // 默认GZone，一般为 GZ00
+  defaultGzone?: string(name='default_gzone', example='GZ00'),
+  // 单元组是否有效
+  valid: boolean(name='valid', example='true, false'),
+  // 单元组容灾状态，枚举，NORMAL（正常）、LOCAL（同城容灾）、REMOTE（异地容灾）
+  disasterState?: string(name='disaster_state', example='LOCAL'),
+}
+
 // 联邦无状态工作负载
 model FederatedDeployment {
   // Standard object metadata.
@@ -2723,6 +2847,8 @@ model DeploymentTemplate {
   createdTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='created_time', example='2018-10-10T10:10:00Z'),
   // 更新时间
   modifiedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='modified_time', example='2018-10-10T10:10:00Z'),
+  // 版本号
+  version?: long(name='version', example='1'),
 }
 
 // uid 信息
@@ -2739,6 +2865,8 @@ model UidInfo {
   press?: boolean(name='press', example='true, false'),
   // 是否灰度
   gray?: boolean(name='gray', example='true, false'),
+  // 单元分片容灾状态，枚举，NORMAL（正常）、LOCAL（同城容灾）、REMOTE（异地容灾）
+  disasterState: string(name='disaster_state', example='LOCAL'),
 }
 
 // 获取单个spanner cluster的详细信息
@@ -2755,40 +2883,34 @@ model CellWeightInfoList {
   data: [ CellWeightInfo ](name='data', example='[{}]'),
 }
 
-// fed secret struct
-// 
+// 联邦保密字典
 model FedSecret {
-  // fed secret annotations
+  // 保密字典的注解
   // 
-  annotations?: [ Annotation ](name='annotations', example='fed secret annotations'),
-  // FedSecret Cell Cluster Status
+  annotations?: [ Annotation ](name='annotations', example=''),
+  // 分发状态
   cellStatus: [ ClusteCellStatus ](name='cell_status', example=''),
-  // fed clusters
-  // 
+  // 分发的 cell 列表
   clusters: [ string ](name='clusters', example=''),
   // 创建时间
   createTimeStamp: string(name='create_time_stamp', example='2019-10-30T10:18:10Z'),
-  // fed secret data
-  // 
+  // 保密字典数据
   data: [ SecretData ](name='data', example=''),
-  // fed secret labels
-  // 
+  // 保密字典的标签
   labels?: [ Label ](name='labels', example=''),
-  // fed secret name
+  // 名称
+  name: string(name='name', example='sc'),
+  // 命名空间
   // 
-  name: string(name='name', example='cm'),
-  // fed secret namespace
-  // 
-  namespace: string(name='namespace', example='antstack'),
-  // fed secret override
-  // 
+  namespace: string(name='namespace', example='antcloud-cafe-default'),
+  // 保密字典数据在不同 cell 下的自定义覆盖配置
   overrides: [ FedSecretOverride ](name='overrides', example=''),
-  // 原因描述
-  reason?: string(name='reason', example='GetKeysInCellFailed'),
-  // FedSecret同步状态
-  status: string(name='status', example='propagation'),
-  // opaque
-  type: string(name='type', example='类型'),
+  // 导致该分发状态的原因
+  reason?: string(name='reason', example='ClusterNotReady'),
+  // 分发状态，成功 True，失败 False，删除中 Deleting
+  status: string(name='status', example='True'),
+  // 保密字典类型
+  type: string(name='type', example='Opaque'),
 }
 
 // 前后置任务
@@ -2857,6 +2979,12 @@ model UnireleaseSolution {
   apps: [ UnireleaseSolutionApp ](name='apps', example=''),
   // 租户列表
   tenants: [ string ](name='tenants', example=''),
+  // 错误信息
+  message?: string(name='message', example='error'),
+  // AC ID
+  acId?: string(name='ac_id', example='1000000000001'),
+  // 是否是紧急发布
+  emergent?: boolean(name='emergent', example='true, false'),
 }
 
 // master clusters info of each zone
@@ -2881,6 +3009,14 @@ model PopOutUid {
 model SontainerServicesList {
   // ContainerServiceDeployment
   list: [ ContainerServiceDeployment ](name='list', example=''),
+}
+
+// FederatedService
+model FederatedService {
+  // metadata
+  metadata?: ObjectMeta(name='metadata', example=''),
+  // status
+  status?: FederatedServiceStatus(name='status', example=''),
 }
 
 // 联邦负载均衡实例属性
@@ -3141,6 +3277,34 @@ model HealthCheckConfigInfo {
   readinessProbe?: ReadinessProbe(name='readiness_probe', example='{}'),
 }
 
+// 操作日志信息
+model OperationLog {
+  // 工作空间组id
+  workspaceGroupId?: string(name='workspace_group_id', example='dev'),
+  // LDC_PLAN或者LDC_SERVICE
+  entity?: string(name='entity', example='LDC_PLAN'),
+  // 操作。
+  action?: string(name='action', example='CREATE'),
+  // 发布单plan_id或者lks_service_id
+  targetId?: string(name='target_id', example='targetid'),
+  // operatorId
+  operatorId?: string(name='operator_id', example='operatorId'),
+  // operatorName
+  operatorName?: string(name='operator_name', example='operatorName'),
+  // sourceSystem
+  sourceSystem?: string(name='source_system', example='sourceSystem'),
+  // context
+  context?: string(name='context', example='context'),
+  // 集群id
+  clusterId?: string(name='cluster_id', example='0000000000020006'),
+  // pod名称
+  podName?: string(name='pod_name', example='passdev-lks-lhc-0'),
+  // 操作内容
+  content?: string(name='content', example='test'),
+  // 创建时间
+  createTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time', example='2018-10-10T10:10:00Z'),
+}
+
 // 发布单摘要信息
 model PlanSimpleView {
   // 发布单涉及的应用个数
@@ -3276,25 +3440,25 @@ model Cluster {
   zoneName: string(name='zone_name', example='sh-a'),
 }
 
-// fed namespace
+// 联邦命名空间
 model FedNamespace {
-  // fed namespace annotations
+  // 命名空间的注解
   annotations: [ Annotation ](name='annotations', example=''),
-  // fed namespace clusters
+  // 分发的集群列表
   clusters: [ string ](name='clusters', example=''),
-  // fed namespace cluster state map
+  // 分发状态
   clusterStateMap: [ ClusterState ](name='cluster_state_map', example=''),
-  // fed namespace labels
-  labels: [ Label ](name='labels', example='labels'),
-  // fed namespace name
-  name: string(name='name', example='antstack'),
-  // Fed CRD namespace
-  namespace: string(name='namespace', example='default'),
+  // 命名空间的标签
+  labels: [ Label ](name='labels', example=''),
+  // 命名空间名称
+  name: string(name='name', example='antcloud-cafe-default'),
+  // 联邦命名空间所在命名空间，和命名空间自身名称保持一致
+  namespace: string(name='namespace', example='antcloud-cafe-default'),
   // 创建时间
   createTimeStamp: string(name='create_time_stamp', example='2019-10-30T10:18:11Z'),
-  // fed 资源的状态
+  // 分发状态，成功 True，失败 False，删除中 Deleting
   status?: string(name='status', example='True,False,Deleting'),
-  // 导致 fed 资源处于该状态的原因
+  // 导致该分发状态的原因
   reason?: string(name='reason', example='ClusterNotReady'),
 }
 
@@ -3340,6 +3504,10 @@ model AppSimpleInfo {
   message?: string(name='message', example='ok'),
   // 发布模板名称
   deploymentTemplateName?: string(name='deployment_template_name', example='TEST'),
+  // 蓝绿部署单元名
+  bgCellName?: string(name='bg_cell_name', example='GZ00A'),
+  // 蓝绿发布类型
+  bgGroupType?: string(name='bg_group_type', example='release'),
 }
 
 // 应用技术栈
@@ -3388,6 +3556,8 @@ model EmergencyPlan {
   id: string(name='id', example='EP202201101723224858'),
   // 预案名称
   name: string(name='name', example='wlftest'),
+  // 预案参数，只有传预案id时才返回预案参数
+  params?: [ TemplateParam ](name='params', example='[]'),
 }
 
 // FedConfigMapOverride 列表
@@ -3726,6 +3896,18 @@ model LocalObjectReference {
   name: string(name='name', example='name'),
 }
 
+// JsonPatch
+model JsonPatch {
+  // 操作类型
+  op: string(name='op', example='add、remove、replace'),
+  // json path 路径
+  path: string(name='path', example='/containerSpecs/0/logConfigs/0/dockerExcludeLabel'),
+  // 值
+  value?: string(name='value', example='111'),
+  // 值类型，默认 string
+  valueType?: string(name='value_type', example='string、number、array、object'),
+}
+
 // 弹性规则
 model ElasticRuleView {
   // ID
@@ -3776,6 +3958,8 @@ model PushRuleResult {
   succeedList?: [ string ](name='succeed_list', example=''),
   // 推送失败的zone
   failedList?: [ string ](name='failed_list', example=''),
+  // 失败信息
+  message?: string(name='message', example='失败信息'),
 }
 
 // 容器应用服务基础信息。
@@ -3878,6 +4062,14 @@ model ListPodOption {
   podNumbers?: [ long ](name='pod_numbers', example='[0,3,7,2]'),
 }
 
+// 部署单元权重
+model CellWeight {
+  // 统一接入或负载均衡名称
+  name: string(name='name', example='test'),
+  // 部署单元权重详情
+  cellWeightInfos: [ CellWeightInfo ](name='cell_weight_infos', example='[]'),
+}
+
 // OAM应用配置
 model OAMApplicationConfiguration {
 }
@@ -3902,30 +4094,30 @@ model PushSite {
   siteType: string(name='site_type', example='MAIN'),
 }
 
-// fed configmap struct
+// 联邦配置项
 model FedConfigmap {
-  // fed configmap annotations
+  // 配置项的注解
   annotations: [ Annotation ](name='annotations', example=''),
-  // Fed资源集群Cell状态
+  // 分发状态
   cellStatus?: [ ClusteCellStatus ](name='cell_status', example=''),
-  // fed clusters
+  // 分发的 cell 列表
   clusters: [ string ](name='clusters', example=''),
   // 创建时间
   createTimeStamp: string(name='create_time_stamp', example='2019-10-30T10:18:10Z'),
-  // fed configmap data
+  // 配置项数据
   data: [ ConfigMapData ](name='data', example=''),
-  // fed configmap labels
+  // 配置项的标签
   labels: [ Label ](name='labels', example=''),
-  // fed configmap name
+  // 名称
   name: string(name='name', example='cm'),
-  // fed configmap namespace
-  namespace: string(name='namespace', example='antstack'),
-  // fed configmap override
+  // 命名空间
+  namespace: string(name='namespace', example='antcloud-cafe-default'),
+  // 配置项数据在不同 cell 下的自定义覆盖配置
   overrides: [ FedConfigmapOverride ](name='overrides', example=''),
-  // 原因
-  reason?: string(name='reason', example='GetKeysInCellFailed'),
-  // propagation状态
-  status?: string(name='status', example='propagation'),
+  // 导致该分发状态的原因
+  reason?: string(name='reason', example='ClusterNotReady'),
+  // 分发状态，成功 True，失败 False，删除中 Deleting
+  status?: string(name='status', example='True'),
 }
 
 // 统一接入实例信息
@@ -4317,6 +4509,8 @@ model RetryAppopsRequest = {
   operationId: string(name='operation_id'),
   // 操作人账号，lks1.23.0才支持
   operator?: string(name='operator'),
+  // 租户编码
+  tenantName?: string(name='tenant_name'),
 }
 
 model RetryAppopsResponse = {
@@ -4643,6 +4837,8 @@ model CreateFederationNamespaceRequest = {
   name: string(name='name'),
   // workspaceGroup名称
   workspaceGroupName: string(name='workspace_group_name'),
+  // annotation,可以用来存放description等其他字段
+  annotations?: [ Annotation ](name='annotations'),
 }
 
 model CreateFederationNamespaceResponse = {
@@ -5324,6 +5520,12 @@ model CreateContainerserviceDeploymentRequest = {
   operator?: string(name='operator'),
   // 灰度发布的参数，仅当ops_type为GRAY_RELEASE时生效
   grayReleaseConfig?: GrayReleaseConfig(name='gray_release_config'),
+  // 引流应用服务列表, 部署单元蓝绿专用
+  trafficContainerServices?: [ string ](name='traffic_container_services'),
+  // cell列表，部署单元蓝绿专用，按顺序发布
+  cellNames?: [ string ](name='cell_names'),
+  // 是否紧急发布，目前会自动跳过变更核心
+  emergent?: boolean(name='emergent'),
 }
 
 model CreateContainerserviceDeploymentResponse = {
@@ -8040,19 +8242,19 @@ async function exportFlowRuleEx(request: ExportFlowRuleRequest, headers: map[str
 model PushFlowRuleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 包含系统列表
+  // 包含系统列表，目前功能不支持，禁止设置
   apps?: [ string ](name='apps'),
   // 是否灰度（默认 false）
   gray?: boolean(name='gray'),
   // 操作人
   operator: string(name='operator'),
-  // 站点是否全局推送
+  // 推送中间件流量规则时，是否同时推送中间件中枢
   pushAll?: boolean(name='push_all'),
   // 规则类型,支持(ZONE_INFO,ELASTIC_BIZ_RULE,ZONE_COLOR,TAO_BAO_RULE)
   ruleType: string(name='rule_type'),
   // 规则文本
   ruleValue: string(name='rule_value'),
-  // 全量的targets信息
+  // 推送目标列表，域外支持 MIDDLEWARE（微服务/中间件）、ALB（统一接入） 两种
   targets?: [ string ](name='targets'),
   // 工作空间组
   workspaceGroup: string(name='workspace_group'),
@@ -8881,7 +9083,7 @@ model RollbackContainerserviceDeploymentRequest = {
   // 部署单ID
   operationId: string(name='operation_id'),
   // 操作人账号
-  operator: string(name='operator'),
+  operator?: string(name='operator'),
   // 分组数，默认为3
   groupCount?: long(name='group_count'),
   // 回滚时的分组策略，取值为： QUICK：快速分组； EACH_ONE：每台一组； UNIT：按逻辑单元分组； CELL：按部署单元分组； 默认为CELL
@@ -9642,6 +9844,8 @@ model QueryFlowRecordRequest = {
   workspaceGroup: string(name='workspace_group'),
   // 规则类型
   ruleType?: string(name='rule_type'),
+  // 推送目标，可选（MAIN、MIDDLEWARE、ALB）
+  pushTarget?: string(name='push_target'),
 }
 
 model QueryFlowRecordResponse = {
@@ -9984,6 +10188,8 @@ model QueryFlowRuleRequest = {
   workspaceGroup: string(name='workspace_group'),
   // 规则类型：ZONE_INFO,ELASTIC_BIZ_RULE,ZONE_COLOR
   ruleType: string(name='rule_type'),
+  // 推送目标类型: MAIN, MIDDLEWARE, ALB
+  pushTarget?: string(name='push_target'),
 }
 
 model QueryFlowRuleResponse = {
@@ -10495,6 +10701,8 @@ model ConfirmOpsplanServicerollbackRequest = {
   id: string(name='id'),
   // 工作空间组
   workspaceGroup: string(name='workspace_group'),
+  // 操作人账号
+  operator?: string(name='operator'),
 }
 
 model ConfirmOpsplanServicerollbackResponse = {
@@ -11670,6 +11878,8 @@ model ListKubernetesResourcesRequest = {
   path: string(name='path'),
   // 命名空间名称。
   namespace?: string(name='namespace'),
+  // cell名称列表，只查指定cell的集群
+  cells?: [ string ](name='cells'),
 }
 
 model ListKubernetesResourcesResponse = {
@@ -12790,7 +13000,7 @@ model CreateContainerserviceOperationRequest = {
   title: string(name='title'),
   // 所属工作空间组名称。
   workspaceGroup: string(name='workspace_group'),
-  // 在具体分组策略下，每个执行单元（部署单元，机房等）内部的分组个数。
+  // 最小分组数，同发布单中的group_count
   groupAmount?: long(name='group_amount'),
   // 审批人账号id，暂时不支持
   assigneeIds?: [ string ](name='assignee_ids'),
@@ -12802,6 +13012,8 @@ model CreateContainerserviceOperationRequest = {
   maxGroupCapacity?: long(name='max_group_capacity'),
   // 每个部署单元单批次变更pod数量百分比，仅当group_strategey为ALL_CELL_PERCENTAGE时生效
   maxCellPodPercentage?: long(name='max_cell_pod_percentage'),
+  // 部署单元流量权重
+  cellWeights?: [ CellWeightInfo ](name='cell_weights'),
 }
 
 model CreateContainerserviceOperationResponse = {
@@ -12919,10 +13131,12 @@ async function applyContainerserviceDeploymentEx(request: ApplyContainerserviceD
 model UpdateIngressTrafficweightRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 流量权重列表
-  serviceWeights: [ ServiceWeight ](name='service_weights'),
   // service id
   serviceId: string(name='service_id'),
+  // 流量权重列表
+  serviceWeights?: [ ServiceWeight ](name='service_weights'),
+  // 流量权重列表蓝绿发布v2
+  cellWeights?: [ CellWeight ](name='cell_weights'),
 }
 
 model UpdateIngressTrafficweightResponse = {
@@ -13006,6 +13220,8 @@ model ListIngressTrafficweightResponse = {
   resultMsg?: string(name='result_msg'),
   // 流量权重列表
   serviceWeights?: [ ServiceWeight ](name='service_weights'),
+  // 流量权重列表蓝绿发布v2
+  cellWeights?: [ CellWeight ](name='cell_weights'),
 }
 
 /**
@@ -13290,6 +13506,12 @@ model ImportUnireleaseSolutionRequest = {
   solution: string(name='solution'),
   // 机构列表信息；如果不填默认是所有机构统一发布
   tenants?: [ string ](name='tenants'),
+  // 银数AC工单ID
+  acId?: string(name='ac_id'),
+  // 环境信息
+  env?: string(name='env'),
+  // 是否是紧急发布场景
+  emergent?: boolean(name='emergent'),
 }
 
 model ImportUnireleaseSolutionResponse = {
@@ -13339,6 +13561,8 @@ model ListUnireleaseSolutionsRequest = {
   creationTimeFrom?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='creation_time_from'),
   // 创建时间结束值
   creationTimeTo?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='creation_time_to'),
+  // AC ID
+  acId?: string(name='ac_id'),
 }
 
 model ListUnireleaseSolutionsResponse = {
@@ -13841,6 +14065,8 @@ model UpdateSidecaropsConsistencyRequest = {
   sidecarVersion?: string(name='sidecar_version'),
   // 发布单号
   orderNum: string(name='order_num'),
+  // 是否回滚流程
+  isRollback?: boolean(name='is_rollback'),
 }
 
 model UpdateSidecaropsConsistencyResponse = {
@@ -13890,6 +14116,8 @@ model FinishSidecaropsRequest = {
   cellNames: [ string ](name='cell_names'),
   // sidecar配置
   sidecarConfig: SidecarConfig(name='sidecar_config'),
+  // 是否回滚流程
+  isRollback?: boolean(name='is_rollback'),
 }
 
 model FinishSidecaropsResponse = {
@@ -14611,6 +14839,8 @@ model ListEmergencyPlansRequest = {
   pageNumber?: long(name='page_number'),
   // 每页大小
   pageSize?: long(name='page_size'),
+  // 预案id，只有传预案id时才返回预案参数
+  emergencyPlanId?: string(name='emergency_plan_id'),
 }
 
 model ListEmergencyPlansResponse = {
@@ -14721,5 +14951,702 @@ async function queryContainerserivceGrayreleaseconfig(request: QueryContainerser
 async function queryContainerserivceGrayreleaseconfigEx(request: QueryContainerserivceGrayreleaseconfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContainerserivceGrayreleaseconfigResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.ldc.containerserivce.grayreleaseconfig.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailContainerserviceRevisiondiffRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 命名空间
+  namespace: string(name='namespace'),
+  // 租户名
+  tenantName?: string(name='tenant_name'),
+  // 工作空间组
+  workspaceGroup: string(name='workspace_group'),
+  // 应用服务名称
+  containerServiceName: string(name='container_service_name'),
+  // 源版本号，不传取应用服务当前发布成功的版本
+  sourceRevision?: string(name='source_revision'),
+  // 目标版本号，当前需要对比的版本号
+  targetRevision: string(name='target_revision'),
+  // 是否只显示摘要信息
+  onlySummary?: boolean(name='only_summary'),
+}
+
+model DetailContainerserviceRevisiondiffResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 源版本配置详情
+  sourceConfig?: ContainerServiceConfig(name='source_config'),
+  // 源版本号
+  sourceRevision?: string(name='source_revision'),
+  // 目标版本配置详情
+  targetConfig?: ContainerServiceConfig(name='target_config'),
+  // 目标版本号
+  targetRevision?: string(name='target_revision'),
+  // 摘要信息
+  summary?: string(name='summary'),
+  // diff详情，JSON数组字符串
+  diffDetail?: string(name='diff_detail'),
+  // 风险等级: ORDINARY-一般、HIGH-高危	
+  riskLevel?: string(name='risk_level'),
+}
+
+/**
+ * Description: 应用服务版本diff
+ * Summary: 应用服务版本diff
+ */
+async function detailContainerserviceRevisiondiff(request: DetailContainerserviceRevisiondiffRequest): DetailContainerserviceRevisiondiffResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailContainerserviceRevisiondiffEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用服务版本diff
+ * Summary: 应用服务版本diff
+ */
+async function detailContainerserviceRevisiondiffEx(request: DetailContainerserviceRevisiondiffRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailContainerserviceRevisiondiffResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.containerservice.revisiondiff.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RollbackSidecaropsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 应用服务名称
+  appName: string(name='app_name'),
+  // 请求幂等
+  clientToken?: string(name='client_token'),
+  // 所属命名空间
+  namespace: string(name='namespace'),
+  // 所属工作空间
+  workspaceGroup: string(name='workspace_group'),
+  // sidecar相关配置，包含image，feature等
+  sidecarConfig: SidecarConfig(name='sidecar_config'),
+  // 指定sidecar的基线模板版本进行回滚
+  sidecarVersion?: string(name='sidecar_version'),
+  // 部署单元
+  cellName: string(name='cell_name'),
+  // 要更新的hostname列表
+  // 
+  serverIdentities: [ string ](name='server_identities'),
+  // 工单id
+  orderNum: string(name='order_num'),
+}
+
+model RollbackSidecaropsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 返回被更新的podNumber list
+  updatedPodNumbers?: [ string ](name='updated_pod_numbers'),
+}
+
+/**
+ * Description: 可用于huanyu升级sidecar时，回滚变更单的执行，回滚到执行前的sidecar状态。
+ * Summary: 回滚sidecar升级
+ */
+async function rollbackSidecarops(request: RollbackSidecaropsRequest): RollbackSidecaropsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return rollbackSidecaropsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 可用于huanyu升级sidecar时，回滚变更单的执行，回滚到执行前的sidecar状态。
+ * Summary: 回滚sidecar升级
+ */
+async function rollbackSidecaropsEx(request: RollbackSidecaropsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RollbackSidecaropsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.sidecarops.rollback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmAppopsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 运维单timeSeriesId
+  operationId: string(name='operation_id'),
+  // 操作人账号
+  operator?: string(name='operator'),
+  // 租户编码
+  tenantName?: string(name='tenant_name'),
+  // 服务分组id
+  serviceGroupId?: string(name='service_group_id'),
+}
+
+model ConfirmAppopsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 对一个运维操作中所有暂停的分组进行确认操作，lks1.36.0才支持
+ * Summary: 确认运维
+ */
+async function confirmAppops(request: ConfirmAppopsRequest): ConfirmAppopsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmAppopsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 对一个运维操作中所有暂停的分组进行确认操作，lks1.36.0才支持
+ * Summary: 确认运维
+ */
+async function confirmAppopsEx(request: ConfirmAppopsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmAppopsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.appops.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddContainerserviceLogpvRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // app名称
+  apps: [ string ](name='apps'),
+  // 环境信息
+  env: string(name='env'),
+  // PVC 名称
+  pvcName: string(name='pvc_name'),
+  // StorageClass
+  storageClass: string(name='storage_class'),
+  // 存储大小
+  storageSize: long(name='storage_size'),
+  // 挂载路径，默认/home/admin/logs
+  mountPath?: string(name='mount_path'),
+  // addDefaultInitContainer, 默认值false
+  disableInitContainer?: boolean(name='disable_init_container'),
+  // Init Container名称
+  logInitContainerName?: string(name='log_init_container_name'),
+  // 默认值添加Sidecar PV
+  disableSidecarPv?: boolean(name='disable_sidecar_pv'),
+}
+
+model AddContainerserviceLogpvResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 批量添加应用服务PVC和init Container
+ * Summary: 批量添加应用服务PVC
+ */
+async function addContainerserviceLogpv(request: AddContainerserviceLogpvRequest): AddContainerserviceLogpvResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addContainerserviceLogpvEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量添加应用服务PVC和init Container
+ * Summary: 批量添加应用服务PVC
+ */
+async function addContainerserviceLogpvEx(request: AddContainerserviceLogpvRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddContainerserviceLogpvResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.containerservice.logpv.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListFederationServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 工作空间组
+  workspaceGroupName: string(name='workspace_group_name'),
+  // 命名空间
+  namespace: string(name='namespace'),
+  // 应用服务名称
+  containerServiceName: string(name='container_service_name'),
+}
+
+model ListFederationServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 列表
+  list?: [ FederatedService ](name='list'),
+}
+
+/**
+ * Description: 查询 fedservice 列表
+ * Summary: 查询 fedservice 列表
+ */
+async function listFederationService(request: ListFederationServiceRequest): ListFederationServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listFederationServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询 fedservice 列表
+ * Summary: 查询 fedservice 列表
+ */
+async function listFederationServiceEx(request: ListFederationServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListFederationServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.federation.service.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryOperationlogRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 页码。起始值：1。默认值：1。
+  pageNo?: long(name='page_no'),
+  // 分页查询时设置的每页行数。最大值：100，默认值：10。
+  pageSize?: long(name='page_size'),
+  // 实体类型。LDC_PLAN/LDC_SERVICE/POD_CONTAINER
+  entityType?: string(name='entity_type'),
+  // 目标id。发布单plan_id或者lks_service_id。
+  targetId?: string(name='target_id'),
+  // 当前工作空间组名称
+  workspaceGroup: string(name='workspace_group'),
+  // 集群id，entity_type==POD_CONTAINER 时有用
+  clusterId?: string(name='cluster_id'),
+  // pod名称，entity_type==POD_CONTAINER 时有用
+  podName?: string(name='pod_name'),
+  // 命名空间，entity_type==POD_CONTAINER 时必传
+  namespace?: string(name='namespace'),
+}
+
+model QueryOperationlogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总数。
+  totalCount?: long(name='total_count'),
+  // 页码
+  pageNo?: long(name='page_no'),
+  // 每页行数
+  pageSize?: long(name='page_size'),
+  // operationlog列表
+  list?: [ OperationLog ](name='list'),
+}
+
+/**
+ * Description: 查询操作日志OpenAPI
+ * Summary: 查询操作日志
+ */
+async function queryOperationlog(request: QueryOperationlogRequest): QueryOperationlogResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryOperationlogEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询操作日志OpenAPI
+ * Summary: 查询操作日志
+ */
+async function queryOperationlogEx(request: QueryOperationlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryOperationlogResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.operationlog.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetEmergencyPlansRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 预案id
+  id: string(name='id'),
+}
+
+model GetEmergencyPlansResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 预案id
+  id?: string(name='id'),
+  // 预案名称	
+  name?: string(name='name'),
+  // 预案参数
+  params?: [ TemplateParam ](name='params'),
+}
+
+/**
+ * Description: 查询守夜人预案详情
+ * Summary: 查询守夜人预案详情
+ */
+async function getEmergencyPlans(request: GetEmergencyPlansRequest): GetEmergencyPlansResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getEmergencyPlansEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询守夜人预案详情
+ * Summary: 查询守夜人预案详情
+ */
+async function getEmergencyPlansEx(request: GetEmergencyPlansRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetEmergencyPlansResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.emergency.plans.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddFedspannerclusterZoneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 工作空间组
+  workspaceGroup: string(name='workspace_group'),
+  // 联邦统一接入集群名称
+  name: string(name='name'),
+  // 待添加的机房（可用区）列表
+  zones: [ string ](name='zones'),
+}
+
+model AddFedspannerclusterZoneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 为统一接入集群添加可用区，必须是当前工作空间组下已规划的可用区。待添加的可用区内应有规划用于部署spanner容器的节点资源。
+ * Summary: 为统一接入集群添加可用区
+ */
+async function addFedspannerclusterZone(request: AddFedspannerclusterZoneRequest): AddFedspannerclusterZoneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addFedspannerclusterZoneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 为统一接入集群添加可用区，必须是当前工作空间组下已规划的可用区。待添加的可用区内应有规划用于部署spanner容器的节点资源。
+ * Summary: 为统一接入集群添加可用区
+ */
+async function addFedspannerclusterZoneEx(request: AddFedspannerclusterZoneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddFedspannerclusterZoneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.fedspannercluster.zone.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddUnifiedaccessinstanceZoneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 工作空间组
+  workspaceGroup: string(name='workspace_group'),
+  // 统一接入实例名称
+  name: string(name='name'),
+  // 可用区（机房）列表
+  zones: [ string ](name='zones'),
+}
+
+model AddUnifiedaccessinstanceZoneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 为统一接入实例添加可用区，统一接入实例在新增的可用区内将增加一个入口（LVS VIP）。
+ * Summary: 为统一接入实例添加可用区
+ */
+async function addUnifiedaccessinstanceZone(request: AddUnifiedaccessinstanceZoneRequest): AddUnifiedaccessinstanceZoneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addUnifiedaccessinstanceZoneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 为统一接入实例添加可用区，统一接入实例在新增的可用区内将增加一个入口（LVS VIP）。
+ * Summary: 为统一接入实例添加可用区
+ */
+async function addUnifiedaccessinstanceZoneEx(request: AddUnifiedaccessinstanceZoneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddUnifiedaccessinstanceZoneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.unifiedaccessinstance.zone.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateContainerserviceJsonpatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 必填：保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。ClientToken只支持ASCII字符，且不能超过64个字符。
+  clientToken: string(name='client_token'),
+  // 应用服务名称
+  name: string(name='name'),
+  // 命名空间
+  namespace: string(name='namespace'),
+  // 工作空间组
+  workspaceGroup: string(name='workspace_group'),
+  // 应用服务版本，不传取最新的版本
+  revision?: string(name='revision'),
+  // 操作人账号
+  operator?: string(name='operator'),
+  // json patch 内容
+  jsonPatches: [ JsonPatch ](name='json_patches'),
+  // 配置为CLOUD_NATIVE_GROUP_RELEASE会自动创建发布单
+  opsType?: string(name='ops_type'),
+  // 发布单类型，SLS_CHANGE代表只做sls配置变更
+  opsMode?: string(name='ops_mode'),
+  // 部署策略
+  deployConfig?: DeployConfig(name='deploy_config'),
+  // 是否自动执行发布单，默认 true
+  isAutoExecute?: boolean(name='is_auto_execute'),
+  // 灰度平台pods分批序列化为json的结果	
+  // 
+  graycoreBatches?: string(name='graycore_batches'),
+  // [huanyu场景使用]huanyu变更单id
+  huanyuExecNo?: string(name='huanyu_exec_no'),
+}
+
+model UpdateContainerserviceJsonpatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 新的应用服务版本
+  revision?: string(name='revision'),
+  // 部署单id
+  operationId?: string(name='operation_id'),
+}
+
+/**
+ * Description: 通过jsonpatch方式更新应用服务配置
+ * Summary: 通过jsonpatch更新应用服务配置
+ */
+async function updateContainerserviceJsonpatch(request: UpdateContainerserviceJsonpatchRequest): UpdateContainerserviceJsonpatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateContainerserviceJsonpatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过jsonpatch方式更新应用服务配置
+ * Summary: 通过jsonpatch更新应用服务配置
+ */
+async function updateContainerserviceJsonpatchEx(request: UpdateContainerserviceJsonpatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateContainerserviceJsonpatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.containerservice.jsonpatch.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListFlowCellgroupRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 工作空间组
+  workspaceGroup: string(name='workspace_group'),
+}
+
+model ListFlowCellgroupResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 单元组查询列表
+  cellgroupList?: [ FlowCellGroup ](name='cellgroup_list'),
+}
+
+/**
+ * Description: 查看单元化管理中的单元组元数据
+ * Summary: 查看单元化管理中的单元组元数据
+ */
+async function listFlowCellgroup(request: ListFlowCellgroupRequest): ListFlowCellgroupResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listFlowCellgroupEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查看单元化管理中的单元组元数据
+ * Summary: 查看单元化管理中的单元组元数据
+ */
+async function listFlowCellgroupEx(request: ListFlowCellgroupRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListFlowCellgroupResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.flow.cellgroup.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncFlowMetadataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 工作空间组
+  workspaceGroup: string(name='workspace_group'),
+}
+
+model SyncFlowMetadataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 同步单元化元数据
+ * Summary: 同步单元化元数据
+ */
+async function syncFlowMetadata(request: SyncFlowMetadataRequest): SyncFlowMetadataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncFlowMetadataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 同步单元化元数据
+ * Summary: 同步单元化元数据
+ */
+async function syncFlowMetadataEx(request: SyncFlowMetadataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncFlowMetadataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.flow.metadata.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckContainerserviceConflictopsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 命名空间
+  namespace: string(name='namespace'),
+  // 应用服务名称
+  containerServiceName: string(name='container_service_name'),
+  // 工作空间组
+  workspaceGroup: string(name='workspace_group'),
+  // 是否检查Sidercar有运维工单，默认false
+  checkSidercar?: boolean(name='check_sidercar'),
+}
+
+model CheckContainerserviceConflictopsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果
+  result?: boolean(name='result'),
+  // 冲突的发布单id
+  operationId?: string(name='operation_id'),
+  // sidercar工单id
+  sidercarPlanId?: string(name='sidercar_plan_id'),
+}
+
+/**
+ * Description: 发布单冲突检测
+ * Summary: 发布单冲突检测
+ */
+async function checkContainerserviceConflictops(request: CheckContainerserviceConflictopsRequest): CheckContainerserviceConflictopsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkContainerserviceConflictopsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发布单冲突检测
+ * Summary: 发布单冲突检测
+ */
+async function checkContainerserviceConflictopsEx(request: CheckContainerserviceConflictopsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckContainerserviceConflictopsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.containerservice.conflictops.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecFlowDisasterswitchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 工作空间组
+  workspaceGroup: string(name='workspace_group'),
+  // 容灾切换类型，枚举型，CUTOFF（切流），RECOVER（恢复）
+  disasterType: string(name='disaster_type'),
+  // 容灾切换范围，枚举型，GROUP（单元组）、ZONE（单元）、IDC（机房，暂不支持）
+  disasterScope: string(name='disaster_scope'),
+  // 同城或者异地容灾，true代表异地容灾，false代表同城容灾
+  remote: boolean(name='remote'),
+  // 容灾切换对象列表
+  targets: [ string ](name='targets'),
+  // 操作者，选填，应填登录名
+  operator?: string(name='operator'),
+}
+
+model ExecFlowDisasterswitchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 单元化流量规则的容灾切换
+ * Summary: 单元化流量规则的容灾切换
+ */
+async function execFlowDisasterswitch(request: ExecFlowDisasterswitchRequest): ExecFlowDisasterswitchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execFlowDisasterswitchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 单元化流量规则的容灾切换
+ * Summary: 单元化流量规则的容灾切换
+ */
+async function execFlowDisasterswitchEx(request: ExecFlowDisasterswitchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecFlowDisasterswitchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.flow.disasterswitch.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelSidecaropsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 应用服务名称
+  containerServiceName: string(name='container_service_name'),
+  // mosn/odp
+  sidecarName: string(name='sidecar_name'),
+  // 具体sidecar的版本，非必填
+  sidecarVersion?: string(name='sidecar_version'),
+  // 环宇 order number
+  orderNum: string(name='order_num'),
+}
+
+model CancelSidecaropsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 取消sidecar工单，租户应用+sidecar type维度
+ * Summary: 取消sidecar工单
+ */
+async function cancelSidecarops(request: CancelSidecaropsRequest): CancelSidecaropsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelSidecaropsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 取消sidecar工单，租户应用+sidecar type维度
+ * Summary: 取消sidecar工单
+ */
+async function cancelSidecaropsEx(request: CancelSidecaropsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelSidecaropsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.ldc.sidecarops.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
