@@ -106,7 +106,7 @@ export class LabelSelectorRequirement extends $tea.Model {
   }
 }
 
-// label of all k8s resource
+// k8s 资源的标签
 export class Label extends $tea.Model {
   // label key
   key: string;
@@ -350,6 +350,31 @@ export class ConfigmapSecretVolumeSource extends $tea.Model {
   }
 }
 
+// NFS volume
+export class NFSVolumeSource extends $tea.Model {
+  // 挂载路径
+  path: string;
+  // NFS 服务端地址
+  server: string;
+  static names(): { [key: string]: string } {
+    return {
+      path: 'path',
+      server: 'server',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      path: 'string',
+      server: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // volume mount of PersistentVolumeClaim.
 export class PersistentVolumeClaimSource extends $tea.Model {
   // 引用的PVC名称。
@@ -506,8 +531,7 @@ export class EmptyDirVolumeSource extends $tea.Model {
   }
 }
 
-// 健康检查探针
-// 
+// 健康检查探针 
 export class HealthCheckProbe extends $tea.Model {
   // 基于命令行类型的探针必填
   execAction?: ExecAction;
@@ -712,6 +736,20 @@ export class LogConfigEntity extends $tea.Model {
   logPath: string;
   // file_pattern
   filePattern?: string;
+  // log_sample
+  logSample?: string;
+  // logBeginRegex
+  logBeginRegex?: string;
+  // regex
+  regex?: string;
+  // op不支持map，请传入一个可以序列化成map的字符串
+  dockerIncludeLabel?: string;
+  // OP不支持map，请传入一个可以序列化的JSON
+  dockerExcludeLabel?: string;
+  // file_path_blacklist
+  filePathBlacklist?: string[];
+  // 正则表达式必填，用于提取内容
+  key?: string[];
   static names(): { [key: string]: string } {
     return {
       configName: 'config_name',
@@ -719,6 +757,13 @@ export class LogConfigEntity extends $tea.Model {
       logstoreName: 'logstore_name',
       logPath: 'log_path',
       filePattern: 'file_pattern',
+      logSample: 'log_sample',
+      logBeginRegex: 'log_begin_regex',
+      regex: 'regex',
+      dockerIncludeLabel: 'docker_include_label',
+      dockerExcludeLabel: 'docker_exclude_label',
+      filePathBlacklist: 'file_path_blacklist',
+      key: 'key',
     };
   }
 
@@ -729,6 +774,13 @@ export class LogConfigEntity extends $tea.Model {
       logstoreName: 'string',
       logPath: 'string',
       filePattern: 'string',
+      logSample: 'string',
+      logBeginRegex: 'string',
+      regex: 'string',
+      dockerIncludeLabel: 'string',
+      dockerExcludeLabel: 'string',
+      filePathBlacklist: { 'type': 'array', 'itemType': 'string' },
+      key: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -762,8 +814,7 @@ export class NodeAffinity extends $tea.Model {
   }
 }
 
-// 健康检查配置
-// 
+// 健康检查配置 
 export class HealthCheckConfig extends $tea.Model {
   // liveness 检查
   // 
@@ -845,6 +896,8 @@ export class VolumeMount extends $tea.Model {
   pvcSource?: PersistentVolumeClaimSource;
   // 容器内挂载子路径的表达式，与sub_path互斥
   subPathExpr?: string;
+  // nfs volume
+  nfsVolumeSource?: NFSVolumeSource;
   static names(): { [key: string]: string } {
     return {
       configmapSecretVolumeSource: 'configmap_secret_volume_source',
@@ -857,6 +910,7 @@ export class VolumeMount extends $tea.Model {
       volumeSourceCategoryType: 'volume_source_category_type',
       pvcSource: 'pvc_source',
       subPathExpr: 'sub_path_expr',
+      nfsVolumeSource: 'nfs_volume_source',
     };
   }
 
@@ -872,6 +926,7 @@ export class VolumeMount extends $tea.Model {
       volumeSourceCategoryType: 'string',
       pvcSource: PersistentVolumeClaimSource,
       subPathExpr: 'string',
+      nfsVolumeSource: NFSVolumeSource,
     };
   }
 
@@ -975,9 +1030,7 @@ export class LifecycleHook extends $tea.Model {
   }
 }
 
-// V1PodDNSConfigOption， PodDNSConfigOption defines DNS resolver options of a pod.
-// 
-// 
+// V1PodDNSConfigOption， PodDNSConfigOption defines DNS resolver options of a pod.  
 export class PodDNSConfigOption extends $tea.Model {
   // name
   name?: string;
@@ -1118,7 +1171,7 @@ export class ContainerStateRunning extends $tea.Model {
   }
 }
 
-// k8s resource annotations
+// k8s 资源的注解
 export class Annotation extends $tea.Model {
   // annotation key
   key: string;
@@ -1238,6 +1291,8 @@ export class ContainerSpec extends $tea.Model {
   volumesStr?: string;
   // 基础字段覆盖
   fieldOverrides?: FieldOverride[];
+  // 容器yaml内容
+  yamlContent?: string;
   static names(): { [key: string]: string } {
     return {
       cpuLimit: 'cpu_limit',
@@ -1261,6 +1316,7 @@ export class ContainerSpec extends $tea.Model {
       volumeMountsStr: 'volume_mounts_str',
       volumesStr: 'volumes_str',
       fieldOverrides: 'field_overrides',
+      yamlContent: 'yaml_content',
     };
   }
 
@@ -1287,6 +1343,7 @@ export class ContainerSpec extends $tea.Model {
       volumeMountsStr: 'string',
       volumesStr: 'string',
       fieldOverrides: { 'type': 'array', 'itemType': FieldOverride },
+      yamlContent: 'string',
     };
   }
 
@@ -1784,6 +1841,8 @@ export class LoadBalancerListener extends $tea.Model {
   // ip： 后端服务器的私网IP。当指定了IP或该参数未指定时，负载均衡会使用各后端服务器的私网IP当做健康检查使用的域名。
   // domain：域名长度为1-80，只能包含字母、数字、点号（.）和连字符（-）。
   healthCheckDomain?: string;
+  // 健康检查http method，支持head和get
+  healthCheckHttpMethod?: string;
   // 健康检查正常的HTTP状态码，多个状态码用逗号分隔。
   // 默认值为http_2xx。
   healthCheckHttpCode?: string;
@@ -1824,6 +1883,12 @@ export class LoadBalancerListener extends $tea.Model {
   domain?: string;
   // 统一接入转发路径
   path?: string;
+  // on 代表开启 acl，off 代表关闭 acl
+  aclStatus?: string;
+  // acl 类型，white 代表白名单；black 代表黑名单
+  aclType?: string;
+  // 访问控制列表的 id
+  aclId?: string;
   static names(): { [key: string]: string } {
     return {
       backendServerPort: 'backend_server_port',
@@ -1837,6 +1902,7 @@ export class LoadBalancerListener extends $tea.Model {
       healthCheckConnectPort: 'health_check_connect_port',
       healthCheckConnectTimeout: 'health_check_connect_timeout',
       healthCheckDomain: 'health_check_domain',
+      healthCheckHttpMethod: 'health_check_http_method',
       healthCheckHttpCode: 'health_check_http_code',
       healthCheckInterval: 'health_check_interval',
       healthCheckThreshold: 'health_check_threshold',
@@ -1851,6 +1917,9 @@ export class LoadBalancerListener extends $tea.Model {
       xforwardFor: 'xforward_for',
       domain: 'domain',
       path: 'path',
+      aclStatus: 'acl_status',
+      aclType: 'acl_type',
+      aclId: 'acl_id',
     };
   }
 
@@ -1867,6 +1936,7 @@ export class LoadBalancerListener extends $tea.Model {
       healthCheckConnectPort: 'number',
       healthCheckConnectTimeout: 'number',
       healthCheckDomain: 'string',
+      healthCheckHttpMethod: 'string',
       healthCheckHttpCode: 'string',
       healthCheckInterval: 'number',
       healthCheckThreshold: 'number',
@@ -1881,6 +1951,9 @@ export class LoadBalancerListener extends $tea.Model {
       xforwardFor: 'boolean',
       domain: 'string',
       path: 'string',
+      aclStatus: 'string',
+      aclType: 'string',
+      aclId: 'string',
     };
   }
 
@@ -2219,6 +2292,100 @@ export class ContainerState extends $tea.Model {
   }
 }
 
+// 发布模板参数
+export class TemplateParam extends $tea.Model {
+  // 参数唯一标识
+  id?: string;
+  // 参数key
+  key: string;
+  // 参数值
+  value?: string;
+  // 参数中文名称
+  name?: string;
+  // 是否必填
+  required?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      key: 'key',
+      value: 'value',
+      name: 'name',
+      required: 'required',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      key: 'string',
+      value: 'string',
+      name: 'string',
+      required: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 守夜人类型卡点配置
+export class HasHookConfig extends $tea.Model {
+  // 前置脚本类型，巡检或预案
+  preType?: string;
+  // 前置巡检或预案id
+  preRefId?: string;
+  // 前置巡检或预案名称
+  preName?: string;
+  // 前置巡检或预案参数
+  preParams?: TemplateParam[];
+  // 前置是否需要确认
+  preNeedConfirm?: boolean;
+  // 后置脚本类型，巡检或预案
+  postType?: string;
+  // 后置巡检或预案id
+  postRefId?: string;
+  // 后置巡检或预案名称
+  postName?: string;
+  // 后置巡检或预案参数
+  postParams?: TemplateParam[];
+  // 后置是否需要确认
+  postNeedConfirm?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      preType: 'pre_type',
+      preRefId: 'pre_ref_id',
+      preName: 'pre_name',
+      preParams: 'pre_params',
+      preNeedConfirm: 'pre_need_confirm',
+      postType: 'post_type',
+      postRefId: 'post_ref_id',
+      postName: 'post_name',
+      postParams: 'post_params',
+      postNeedConfirm: 'post_need_confirm',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      preType: 'string',
+      preRefId: 'string',
+      preName: 'string',
+      preParams: { 'type': 'array', 'itemType': TemplateParam },
+      preNeedConfirm: 'boolean',
+      postType: 'string',
+      postRefId: 'string',
+      postName: 'string',
+      postParams: { 'type': 'array', 'itemType': TemplateParam },
+      postNeedConfirm: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // AffinityEntity
 export class AffinityEntity extends $tea.Model {
   // NodeAffinityConfig list
@@ -2335,6 +2502,39 @@ export class RegistryAccout extends $tea.Model {
       password: 'string',
       registry: 'string',
       username: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// api类型自定义卡点配置
+export class ApiHookConfig extends $tea.Model {
+  // 卡点要调用的api地址
+  postUrl: string;
+  // 授权码
+  authKey?: string;
+  // 接口超时时间，单位ms
+  timeout?: string;
+  // 查询异步卡点接口执行结果api
+  checkUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      postUrl: 'post_url',
+      authKey: 'auth_key',
+      timeout: 'timeout',
+      checkUrl: 'check_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      postUrl: 'string',
+      authKey: 'string',
+      timeout: 'string',
+      checkUrl: 'string',
     };
   }
 
@@ -2770,55 +2970,6 @@ export class ConfigMapData extends $tea.Model {
   }
 }
 
-// 守夜人类型卡点配置
-export class HasHookConfig extends $tea.Model {
-  // 前置脚本类型，巡检或预案
-  preType?: string;
-  // 前置巡检或预案id
-  preRefId?: string;
-  // 前置巡检或预案名称
-  preName?: string;
-  // 前置巡检或预案参数
-  preParam?: string;
-  // 后置脚本类型，巡检或预案
-  postType?: string;
-  // 后置巡检或预案id
-  postRefId?: string;
-  // 后置巡检或预案参数
-  postParam?: string;
-  // 后置巡检或预案名称
-  postName?: string;
-  static names(): { [key: string]: string } {
-    return {
-      preType: 'pre_type',
-      preRefId: 'pre_ref_id',
-      preName: 'pre_name',
-      preParam: 'pre_param',
-      postType: 'post_type',
-      postRefId: 'post_ref_id',
-      postParam: 'post_param',
-      postName: 'post_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      preType: 'string',
-      preRefId: 'string',
-      preName: 'string',
-      preParam: 'string',
-      postType: 'string',
-      postRefId: 'string',
-      postParam: 'string',
-      postName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 运维变更对象
 export class OperationChangeInstance extends $tea.Model {
   // 主机名
@@ -3216,39 +3367,6 @@ export class FederatedDeploymentStatusTopologies extends $tea.Model {
   }
 }
 
-// api类型自定义卡点配置
-export class ApiHookConfig extends $tea.Model {
-  // 卡点要调用的api地址
-  postUrl: string;
-  // 授权码
-  authKey?: string;
-  // 接口超时时间，单位ms
-  timeout?: string;
-  // 查询异步卡点接口执行结果api
-  checkUrl?: string;
-  static names(): { [key: string]: string } {
-    return {
-      postUrl: 'post_url',
-      authKey: 'auth_key',
-      timeout: 'timeout',
-      checkUrl: 'check_url',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      postUrl: 'string',
-      authKey: 'string',
-      timeout: 'string',
-      checkUrl: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 集群内ClusterIP类型Service。
 export class ClusterIpService extends $tea.Model {
   // 对应ClusterIP service名称。
@@ -3266,6 +3384,31 @@ export class ClusterIpService extends $tea.Model {
     return {
       name: 'string',
       ports: { 'type': 'array', 'itemType': ServicePortMapping },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 摘流配置
+export class TrafficConfig extends $tea.Model {
+  // 是否摘除注册中心流量
+  registryManaged?: boolean;
+  // 摘流等待时间
+  registryTrafficOffWaitSec?: number;
+  static names(): { [key: string]: string } {
+    return {
+      registryManaged: 'registry_managed',
+      registryTrafficOffWaitSec: 'registry_traffic_off_wait_sec',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      registryManaged: 'boolean',
+      registryTrafficOffWaitSec: 'number',
     };
   }
 
@@ -3355,6 +3498,12 @@ export class LoadBalancerService extends $tea.Model {
   useFedLoadbalancer?: boolean;
   // 联邦负载均衡实例名称
   fedLoadbalancerName?: string;
+  // 是否开启优雅下线等待，默认为false。
+  enableGracefulShutdownWaiting?: boolean;
+  // 优雅下线等待时间，单位秒，默认0.
+  gracefulShutdownWaitingTime?: number;
+  // 是否开启集群内转发优化（集群内访问lb vip时是否走kube-proxy转发链路）
+  enableInClusterForwardOptimization?: boolean;
   static names(): { [key: string]: string } {
     return {
       domain: 'domain',
@@ -3368,6 +3517,9 @@ export class LoadBalancerService extends $tea.Model {
       cellLbVipMap: 'cell_lb_vip_map',
       useFedLoadbalancer: 'use_fed_loadbalancer',
       fedLoadbalancerName: 'fed_loadbalancer_name',
+      enableGracefulShutdownWaiting: 'enable_graceful_shutdown_waiting',
+      gracefulShutdownWaitingTime: 'graceful_shutdown_waiting_time',
+      enableInClusterForwardOptimization: 'enable_in_cluster_forward_optimization',
     };
   }
 
@@ -3384,6 +3536,9 @@ export class LoadBalancerService extends $tea.Model {
       cellLbVipMap: { 'type': 'array', 'itemType': MapStringToString },
       useFedLoadbalancer: 'boolean',
       fedLoadbalancerName: 'string',
+      enableGracefulShutdownWaiting: 'boolean',
+      gracefulShutdownWaitingTime: 'number',
+      enableInClusterForwardOptimization: 'boolean',
     };
   }
 
@@ -3421,7 +3576,7 @@ export class VolumeClaimConfig extends $tea.Model {
   }
 }
 
-// Secret数据
+// 保密字典数据
 export class SecretData extends $tea.Model {
   // secret data key
   key: string;
@@ -3438,6 +3593,68 @@ export class SecretData extends $tea.Model {
     return {
       key: 'string',
       value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发布单自定义卡点。暂时不支持
+export class CustomHook extends $tea.Model {
+  // 卡点范围，目前只支持分批
+  hookScope: string;
+  // 卡点类型：api或has
+  hookType: string;
+  // 卡点名称
+  hookName?: string;
+  // 卡点执行策略：each-每个分组，first-第一个分组，last-最后一个分组，custom-自定义分组。
+  // 默认每个分组都会执行。
+  hookStrategy?: string;
+  // 自定义批次编号，从1开始。hook_strategy=custom时有效
+  customNum?: number;
+  // api类型卡点配置，当hook_type=api时不能为空
+  apiHookConfig?: ApiHookConfig;
+  // 守夜人类型卡点配置，当hook_type=has时不能为空
+  hasHookConfig?: HasHookConfig;
+  // 【暂不支持】是否允许忽略
+  ignoreSupported?: boolean;
+  // 【暂不支持】任务超时时间，单位毫秒，默认10分钟
+  timeoutMillis?: number;
+  // 【暂不支持】默认true
+  unOverride?: boolean;
+  // 【暂不支持】是否需要确认
+  needConfirm?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      hookScope: 'hook_scope',
+      hookType: 'hook_type',
+      hookName: 'hook_name',
+      hookStrategy: 'hook_strategy',
+      customNum: 'custom_num',
+      apiHookConfig: 'api_hook_config',
+      hasHookConfig: 'has_hook_config',
+      ignoreSupported: 'ignore_supported',
+      timeoutMillis: 'timeout_millis',
+      unOverride: 'un_override',
+      needConfirm: 'need_confirm',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      hookScope: 'string',
+      hookType: 'string',
+      hookName: 'string',
+      hookStrategy: 'string',
+      customNum: 'number',
+      apiHookConfig: ApiHookConfig,
+      hasHookConfig: HasHookConfig,
+      ignoreSupported: 'boolean',
+      timeoutMillis: 'number',
+      unOverride: 'boolean',
+      needConfirm: 'boolean',
     };
   }
 
@@ -3645,12 +3862,21 @@ export class AppReleaseConfig extends $tea.Model {
   commitId: string;
   // 代码分支
   commitBranch: string;
+  // diff基准版本，上一次最新发布的版本
+  lastRevisionId?: string;
+  // 应用服务版本id
+  revisionId?: string;
+  // 应用服务版本diff摘要信息
+  revisionDiff?: string;
   static names(): { [key: string]: string } {
     return {
       name: 'name',
       image: 'image',
       commitId: 'commit_id',
       commitBranch: 'commit_branch',
+      lastRevisionId: 'last_revision_id',
+      revisionId: 'revision_id',
+      revisionDiff: 'revision_diff',
     };
   }
 
@@ -3660,6 +3886,9 @@ export class AppReleaseConfig extends $tea.Model {
       image: 'string',
       commitId: 'string',
       commitBranch: 'string',
+      lastRevisionId: 'string',
+      revisionId: 'string',
+      revisionDiff: 'string',
     };
   }
 
@@ -3955,6 +4184,39 @@ export class PodStatus extends $tea.Model {
   }
 }
 
+// topologyStatus
+export class FederatedServiceTopologyStatus extends $tea.Model {
+  // 部署单元
+  topologyName: string;
+  // annotations
+  annotations?: Annotation[];
+  // 状态：succeed、updating、fail
+  status: string;
+  // 错误信息
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      topologyName: 'topology_name',
+      annotations: 'annotations',
+      status: 'status',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      topologyName: 'string',
+      annotations: { 'type': 'array', 'itemType': Annotation },
+      status: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // sidecar运维流程任务
 export class SidecarOpsMachineTask extends $tea.Model {
   // 分组ID
@@ -4053,8 +4315,7 @@ export class SidecarConfig extends $tea.Model {
   }
 }
 
-// Workspace info
-// 
+// Workspace info 
 export class Workspace extends $tea.Model {
   // workspace id
   id: string;
@@ -4112,6 +4373,16 @@ export class UnireleaseSolutionApp extends $tea.Model {
   middlewareConfigs: string[];
   // 机构/租户信息
   tenant: string;
+  // 中间件配置diff信息
+  middlewareConfigDiffs?: string[];
+  // 工作空间组
+  workspaceGroup?: string;
+  // 命名空间
+  namespace?: string;
+  // 中间件配置变更diff摘要
+  middlewareConfigDiffSummary?: string;
+  // 风险等级: ORDINARY-一般、HIGH-高危
+  riskLevel?: string;
   static names(): { [key: string]: string } {
     return {
       app: 'app',
@@ -4119,6 +4390,11 @@ export class UnireleaseSolutionApp extends $tea.Model {
       releaseConfig: 'release_config',
       middlewareConfigs: 'middleware_configs',
       tenant: 'tenant',
+      middlewareConfigDiffs: 'middleware_config_diffs',
+      workspaceGroup: 'workspace_group',
+      namespace: 'namespace',
+      middlewareConfigDiffSummary: 'middleware_config_diff_summary',
+      riskLevel: 'risk_level',
     };
   }
 
@@ -4129,6 +4405,36 @@ export class UnireleaseSolutionApp extends $tea.Model {
       releaseConfig: AppReleaseConfig,
       middlewareConfigs: { 'type': 'array', 'itemType': 'string' },
       tenant: 'string',
+      middlewareConfigDiffs: { 'type': 'array', 'itemType': 'string' },
+      workspaceGroup: 'string',
+      namespace: 'string',
+      middlewareConfigDiffSummary: 'string',
+      riskLevel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// FederatedServiceStatus
+export class FederatedServiceStatus extends $tea.Model {
+  // metadata
+  metadata?: ObjectMeta;
+  // topologyStatus
+  topologyStatus?: FederatedServiceTopologyStatus[];
+  static names(): { [key: string]: string } {
+    return {
+      metadata: 'metadata',
+      topologyStatus: 'topology_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      metadata: ObjectMeta,
+      topologyStatus: { 'type': 'array', 'itemType': FederatedServiceTopologyStatus },
     };
   }
 
@@ -4400,6 +4706,8 @@ export class ContainerServiceConfig extends $tea.Model {
   headlessServices?: HeadlessService[];
   // 资源overrides（lks 1.24.0后开始支持）
   resourceOverrides?: ResourceOverride[];
+  // 摘流配置
+  trafficConfig?: TrafficConfig;
   static names(): { [key: string]: string } {
     return {
       bizMonitorPaths: 'biz_monitor_paths',
@@ -4421,6 +4729,7 @@ export class ContainerServiceConfig extends $tea.Model {
       sidercars: 'sidercars',
       headlessServices: 'headless_services',
       resourceOverrides: 'resource_overrides',
+      trafficConfig: 'traffic_config',
     };
   }
 
@@ -4445,6 +4754,7 @@ export class ContainerServiceConfig extends $tea.Model {
       sidercars: { 'type': 'array', 'itemType': SidecarConfig },
       headlessServices: { 'type': 'array', 'itemType': HeadlessService },
       resourceOverrides: { 'type': 'array', 'itemType': ResourceOverride },
+      trafficConfig: TrafficConfig,
     };
   }
 
@@ -4522,15 +4832,15 @@ export class Cell extends $tea.Model {
   }
 }
 
-// 集群部署单元状态
+// 联邦资源在某个部署单元（cell）中的分发状态
 export class ClusteCellStatus extends $tea.Model {
-  // 集群名称
+  // 部署单元所在集群名称
   cluster: string;
   // 部署单元名称
   cell: string;
-  // Cell资源状态
+  // 联邦资源的分发状态，空字符串代表成功，否则为错误码
   status: string;
-  // 详细说明或错误信息
+  // 详细错误信息
   message?: string;
   static names(): { [key: string]: string } {
     return {
@@ -4811,6 +5121,8 @@ export class PodInfo extends $tea.Model {
   uid: string;
   // Pod volume信息。
   volumes?: Volume[];
+  // pod唯一标识
+  podIdentity?: string;
   static names(): { [key: string]: string } {
     return {
       cellDisplayName: 'cell_display_name',
@@ -4822,6 +5134,7 @@ export class PodInfo extends $tea.Model {
       status: 'status',
       uid: 'uid',
       volumes: 'volumes',
+      podIdentity: 'pod_identity',
     };
   }
 
@@ -4836,6 +5149,7 @@ export class PodInfo extends $tea.Model {
       status: PodStatus,
       uid: 'string',
       volumes: { 'type': 'array', 'itemType': Volume },
+      podIdentity: 'string',
     };
   }
 
@@ -4992,11 +5306,17 @@ export class AppGroupSimpleView extends $tea.Model {
   id: string;
   // 状态
   state: string;
+  // 蓝绿发布专用
+  bgCellName?: string;
+  // 蓝绿发布专用，traffic或release
+  bgGroupType?: string;
   static names(): { [key: string]: string } {
     return {
       appIdList: 'app_id_list',
       id: 'id',
       state: 'state',
+      bgCellName: 'bg_cell_name',
+      bgGroupType: 'bg_group_type',
     };
   }
 
@@ -5005,6 +5325,8 @@ export class AppGroupSimpleView extends $tea.Model {
       appIdList: { 'type': 'array', 'itemType': 'string' },
       id: 'string',
       state: 'string',
+      bgCellName: 'string',
+      bgGroupType: 'string',
     };
   }
 
@@ -5177,6 +5499,8 @@ export class ContainerServiceDeployment extends $tea.Model {
   upgradePolicy?: string;
   // 发布模板名称
   deploymentTemplateName?: string;
+  // 发布模板卡点规则
+  deploymentTemplateHooks?: CustomHook[];
   static names(): { [key: string]: string } {
     return {
       containerServiceName: 'container_service_name',
@@ -5186,6 +5510,7 @@ export class ContainerServiceDeployment extends $tea.Model {
       batches: 'batches',
       upgradePolicy: 'upgrade_policy',
       deploymentTemplateName: 'deployment_template_name',
+      deploymentTemplateHooks: 'deployment_template_hooks',
     };
   }
 
@@ -5198,6 +5523,7 @@ export class ContainerServiceDeployment extends $tea.Model {
       batches: { 'type': 'array', 'itemType': ReleaseBatchObj },
       upgradePolicy: 'string',
       deploymentTemplateName: 'string',
+      deploymentTemplateHooks: { 'type': 'array', 'itemType': CustomHook },
     };
   }
 
@@ -5251,14 +5577,13 @@ export class MasterCluster extends $tea.Model {
   }
 }
 
-// FedSecret cluster override
+// 联邦保密字典数据在不同 cell 下的自定义覆盖配置
 export class FedSecretOverride extends $tea.Model {
-  // fed secret data override
+  // 要覆盖的保密字典数据
   data: SecretData[];
-  // cluster name
-  // 
+  // 部署单元的名称
   name: string;
-  // name cell override
+  // 覆盖的名称，必须为：保密字典名称-cell-部署单元名称
   nameOverride: string;
   static names(): { [key: string]: string } {
     return {
@@ -5490,64 +5815,6 @@ export class LocalSpannerClusterDetail extends $tea.Model {
   }
 }
 
-// 发布单自定义卡点。暂时不支持
-export class CustomHook extends $tea.Model {
-  // 卡点范围，目前只支持分批
-  hookScope: string;
-  // 卡点类型：api或has
-  hookType: string;
-  // 卡点名称
-  hookName?: string;
-  // 卡点执行策略：each-每个分组，first-第一个分组，last-最后一个分组，custom-自定义分组。
-  // 默认每个分组都会执行。
-  hookStrategy?: string;
-  // 自定义批次编号，从0开始。hook_strategy=custom时有效
-  customNum?: number;
-  // api类型卡点配置，当hook_type=api时不能为空
-  apiHookConfig?: ApiHookConfig;
-  // 守夜人类型卡点配置，当hook_type=has时不能为空
-  hasHookConfig?: HasHookConfig;
-  // 【暂不支持】是否允许忽略
-  ignoreSupported?: boolean;
-  // 【暂不支持】任务超时时间，单位毫秒，默认10分钟
-  timeoutMillis?: number;
-  // 【暂不支持】默认false
-  unOverride?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      hookScope: 'hook_scope',
-      hookType: 'hook_type',
-      hookName: 'hook_name',
-      hookStrategy: 'hook_strategy',
-      customNum: 'custom_num',
-      apiHookConfig: 'api_hook_config',
-      hasHookConfig: 'has_hook_config',
-      ignoreSupported: 'ignore_supported',
-      timeoutMillis: 'timeout_millis',
-      unOverride: 'un_override',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      hookScope: 'string',
-      hookType: 'string',
-      hookName: 'string',
-      hookStrategy: 'string',
-      customNum: 'number',
-      apiHookConfig: ApiHookConfig,
-      hasHookConfig: HasHookConfig,
-      ignoreSupported: 'boolean',
-      timeoutMillis: 'number',
-      unOverride: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // Federated Deployment Status
 export class FederatedDeploymentStatus extends $tea.Model {
   // Federated Deployment Conditions
@@ -5763,13 +6030,13 @@ export class LivenessProbe extends $tea.Model {
   }
 }
 
-// fed k8s resource cluster state map
+// 联邦资源在某个子集群中的分发状态
 export class ClusterState extends $tea.Model {
   // 集群名称
   clusterName: string;
-  // k8s resource state
+  // 联邦资源的分发状态，空字符串代表成功，否则为错误码
   state: string;
-  // 详细描述或错误信息
+  // 详细错误信息
   message?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5874,13 +6141,13 @@ export class Deployment extends $tea.Model {
   }
 }
 
-// fed configmap override struct
+// 联邦配置项数据在不同 cell 下的自定义覆盖配置
 export class FedConfigmapOverride extends $tea.Model {
-  // fed configmap data override
+  // 要覆盖的配置项数据
   data: ConfigMapData[];
-  // cluster name
+  // 部署单元名称
   name: string;
-  // name cell  override
+  // 覆盖的名称，必须为：配置项名称-cell-部署单元名称
   nameOverride: string;
   static names(): { [key: string]: string } {
     return {
@@ -5906,7 +6173,7 @@ export class FedConfigmapOverride extends $tea.Model {
 // 部署单元权重
 export class CellWeightInfo extends $tea.Model {
   // 部署单元所属工作空间
-  workspace: string;
+  workspace?: string;
   // 部署单元名称
   name: string;
   // 部署单元所占单元组流量比重
@@ -6508,6 +6775,43 @@ export class FedSecretOverrideList extends $tea.Model {
   }
 }
 
+// 单元化管理中的单元组对象
+export class FlowCellGroup extends $tea.Model {
+  // 单元组名称
+  name: string;
+  // 单元组类型，枚举，GZG、RZG
+  type: string;
+  // 默认GZone，一般为 GZ00
+  defaultGzone?: string;
+  // 单元组是否有效
+  valid: boolean;
+  // 单元组容灾状态，枚举，NORMAL（正常）、LOCAL（同城容灾）、REMOTE（异地容灾）
+  disasterState?: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      type: 'type',
+      defaultGzone: 'default_gzone',
+      valid: 'valid',
+      disasterState: 'disaster_state',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      type: 'string',
+      defaultGzone: 'string',
+      valid: 'boolean',
+      disasterState: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 联邦无状态工作负载
 export class FederatedDeployment extends $tea.Model {
   // Standard object metadata.
@@ -6673,6 +6977,8 @@ export class DeploymentTemplate extends $tea.Model {
   createdTime?: string;
   // 更新时间
   modifiedTime?: string;
+  // 版本号
+  version?: number;
   static names(): { [key: string]: string } {
     return {
       name: 'name',
@@ -6686,6 +6992,7 @@ export class DeploymentTemplate extends $tea.Model {
       operator: 'operator',
       createdTime: 'created_time',
       modifiedTime: 'modified_time',
+      version: 'version',
     };
   }
 
@@ -6702,6 +7009,7 @@ export class DeploymentTemplate extends $tea.Model {
       operator: 'string',
       createdTime: 'string',
       modifiedTime: 'string',
+      version: 'number',
     };
   }
 
@@ -6724,6 +7032,8 @@ export class UidInfo extends $tea.Model {
   press?: boolean;
   // 是否灰度
   gray?: boolean;
+  // 单元分片容灾状态，枚举，NORMAL（正常）、LOCAL（同城容灾）、REMOTE（异地容灾）
+  disasterState: string;
   static names(): { [key: string]: string } {
     return {
       uid: 'uid',
@@ -6732,6 +7042,7 @@ export class UidInfo extends $tea.Model {
       elastic: 'elastic',
       press: 'press',
       gray: 'gray',
+      disasterState: 'disaster_state',
     };
   }
 
@@ -6743,6 +7054,7 @@ export class UidInfo extends $tea.Model {
       elastic: 'boolean',
       press: 'boolean',
       gray: 'boolean',
+      disasterState: 'string',
     };
   }
 
@@ -6797,39 +7109,33 @@ export class CellWeightInfoList extends $tea.Model {
   }
 }
 
-// fed secret struct
-// 
+// 联邦保密字典
 export class FedSecret extends $tea.Model {
-  // fed secret annotations
+  // 保密字典的注解
   // 
   annotations?: Annotation[];
-  // FedSecret Cell Cluster Status
+  // 分发状态
   cellStatus: ClusteCellStatus[];
-  // fed clusters
-  // 
+  // 分发的 cell 列表
   clusters: string[];
   // 创建时间
   createTimeStamp: string;
-  // fed secret data
-  // 
+  // 保密字典数据
   data: SecretData[];
-  // fed secret labels
-  // 
+  // 保密字典的标签
   labels?: Label[];
-  // fed secret name
-  // 
+  // 名称
   name: string;
-  // fed secret namespace
+  // 命名空间
   // 
   namespace: string;
-  // fed secret override
-  // 
+  // 保密字典数据在不同 cell 下的自定义覆盖配置
   overrides: FedSecretOverride[];
-  // 原因描述
+  // 导致该分发状态的原因
   reason?: string;
-  // FedSecret同步状态
+  // 分发状态，成功 True，失败 False，删除中 Deleting
   status: string;
-  // opaque
+  // 保密字典类型
   type: string;
   static names(): { [key: string]: string } {
     return {
@@ -6974,6 +7280,12 @@ export class UnireleaseSolution extends $tea.Model {
   apps: UnireleaseSolutionApp[];
   // 租户列表
   tenants: string[];
+  // 错误信息
+  message?: string;
+  // AC ID
+  acId?: string;
+  // 是否是紧急发布
+  emergent?: boolean;
   static names(): { [key: string]: string } {
     return {
       id: 'id',
@@ -6989,6 +7301,9 @@ export class UnireleaseSolution extends $tea.Model {
       extInfo: 'ext_info',
       apps: 'apps',
       tenants: 'tenants',
+      message: 'message',
+      acId: 'ac_id',
+      emergent: 'emergent',
     };
   }
 
@@ -7007,6 +7322,9 @@ export class UnireleaseSolution extends $tea.Model {
       extInfo: UnireleaseSolutionExtInfo,
       apps: { 'type': 'array', 'itemType': UnireleaseSolutionApp },
       tenants: { 'type': 'array', 'itemType': 'string' },
+      message: 'string',
+      acId: 'string',
+      emergent: 'boolean',
     };
   }
 
@@ -7082,6 +7400,31 @@ export class SontainerServicesList extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       list: { 'type': 'array', 'itemType': ContainerServiceDeployment },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// FederatedService
+export class FederatedService extends $tea.Model {
+  // metadata
+  metadata?: ObjectMeta;
+  // status
+  status?: FederatedServiceStatus;
+  static names(): { [key: string]: string } {
+    return {
+      metadata: 'metadata',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      metadata: ObjectMeta,
+      status: FederatedServiceStatus,
     };
   }
 
@@ -7750,6 +8093,71 @@ export class HealthCheckConfigInfo extends $tea.Model {
   }
 }
 
+// 操作日志信息
+export class OperationLog extends $tea.Model {
+  // 工作空间组id
+  workspaceGroupId?: string;
+  // LDC_PLAN或者LDC_SERVICE
+  entity?: string;
+  // 操作。
+  action?: string;
+  // 发布单plan_id或者lks_service_id
+  targetId?: string;
+  // operatorId
+  operatorId?: string;
+  // operatorName
+  operatorName?: string;
+  // sourceSystem
+  sourceSystem?: string;
+  // context
+  context?: string;
+  // 集群id
+  clusterId?: string;
+  // pod名称
+  podName?: string;
+  // 操作内容
+  content?: string;
+  // 创建时间
+  createTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      workspaceGroupId: 'workspace_group_id',
+      entity: 'entity',
+      action: 'action',
+      targetId: 'target_id',
+      operatorId: 'operator_id',
+      operatorName: 'operator_name',
+      sourceSystem: 'source_system',
+      context: 'context',
+      clusterId: 'cluster_id',
+      podName: 'pod_name',
+      content: 'content',
+      createTime: 'create_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      workspaceGroupId: 'string',
+      entity: 'string',
+      action: 'string',
+      targetId: 'string',
+      operatorId: 'string',
+      operatorName: 'string',
+      sourceSystem: 'string',
+      context: 'string',
+      clusterId: 'string',
+      podName: 'string',
+      content: 'string',
+      createTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 发布单摘要信息
 export class PlanSimpleView extends $tea.Model {
   // 发布单涉及的应用个数
@@ -8091,25 +8499,25 @@ export class Cluster extends $tea.Model {
   }
 }
 
-// fed namespace
+// 联邦命名空间
 export class FedNamespace extends $tea.Model {
-  // fed namespace annotations
+  // 命名空间的注解
   annotations: Annotation[];
-  // fed namespace clusters
+  // 分发的集群列表
   clusters: string[];
-  // fed namespace cluster state map
+  // 分发状态
   clusterStateMap: ClusterState[];
-  // fed namespace labels
+  // 命名空间的标签
   labels: Label[];
-  // fed namespace name
+  // 命名空间名称
   name: string;
-  // Fed CRD namespace
+  // 联邦命名空间所在命名空间，和命名空间自身名称保持一致
   namespace: string;
   // 创建时间
   createTimeStamp: string;
-  // fed 资源的状态
+  // 分发状态，成功 True，失败 False，删除中 Deleting
   status?: string;
-  // 导致 fed 资源处于该状态的原因
+  // 导致该分发状态的原因
   reason?: string;
   static names(): { [key: string]: string } {
     return {
@@ -8186,6 +8594,10 @@ export class AppSimpleInfo extends $tea.Model {
   message?: string;
   // 发布模板名称
   deploymentTemplateName?: string;
+  // 蓝绿部署单元名
+  bgCellName?: string;
+  // 蓝绿发布类型
+  bgGroupType?: string;
   static names(): { [key: string]: string } {
     return {
       appId: 'app_id',
@@ -8208,6 +8620,8 @@ export class AppSimpleInfo extends $tea.Model {
       dependContainerServiceNames: 'depend_container_service_names',
       message: 'message',
       deploymentTemplateName: 'deployment_template_name',
+      bgCellName: 'bg_cell_name',
+      bgGroupType: 'bg_group_type',
     };
   }
 
@@ -8233,6 +8647,8 @@ export class AppSimpleInfo extends $tea.Model {
       dependContainerServiceNames: { 'type': 'array', 'itemType': 'string' },
       message: 'string',
       deploymentTemplateName: 'string',
+      bgCellName: 'string',
+      bgGroupType: 'string',
     };
   }
 
@@ -8345,10 +8761,13 @@ export class EmergencyPlan extends $tea.Model {
   id: string;
   // 预案名称
   name: string;
+  // 预案参数，只有传预案id时才返回预案参数
+  params?: TemplateParam[];
   static names(): { [key: string]: string } {
     return {
       id: 'id',
       name: 'name',
+      params: 'params',
     };
   }
 
@@ -8356,6 +8775,7 @@ export class EmergencyPlan extends $tea.Model {
     return {
       id: 'string',
       name: 'string',
+      params: { 'type': 'array', 'itemType': TemplateParam },
     };
   }
 
@@ -9277,6 +9697,39 @@ export class LocalObjectReference extends $tea.Model {
   }
 }
 
+// JsonPatch
+export class JsonPatch extends $tea.Model {
+  // 操作类型
+  op: string;
+  // json path 路径
+  path: string;
+  // 值
+  value?: string;
+  // 值类型，默认 string
+  valueType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      op: 'op',
+      path: 'path',
+      value: 'value',
+      valueType: 'value_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      op: 'string',
+      path: 'string',
+      value: 'string',
+      valueType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 弹性规则
 export class ElasticRuleView extends $tea.Model {
   // ID
@@ -9385,12 +9838,15 @@ export class PushRuleResult extends $tea.Model {
   succeedList?: string[];
   // 推送失败的zone
   failedList?: string[];
+  // 失败信息
+  message?: string;
   static names(): { [key: string]: string } {
     return {
       name: 'name',
       desc: 'desc',
       succeedList: 'succeed_list',
       failedList: 'failed_list',
+      message: 'message',
     };
   }
 
@@ -9400,6 +9856,7 @@ export class PushRuleResult extends $tea.Model {
       desc: 'string',
       succeedList: { 'type': 'array', 'itemType': 'string' },
       failedList: { 'type': 'array', 'itemType': 'string' },
+      message: 'string',
     };
   }
 
@@ -9644,6 +10101,31 @@ export class ListPodOption extends $tea.Model {
   }
 }
 
+// 部署单元权重
+export class CellWeight extends $tea.Model {
+  // 统一接入或负载均衡名称
+  name: string;
+  // 部署单元权重详情
+  cellWeightInfos: CellWeightInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      cellWeightInfos: 'cell_weight_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      cellWeightInfos: { 'type': 'array', 'itemType': CellWeightInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // OAM应用配置
 export class OAMApplicationConfiguration extends $tea.Model {
   static names(): { [key: string]: string } {
@@ -9710,29 +10192,29 @@ export class PushSite extends $tea.Model {
   }
 }
 
-// fed configmap struct
+// 联邦配置项
 export class FedConfigmap extends $tea.Model {
-  // fed configmap annotations
+  // 配置项的注解
   annotations: Annotation[];
-  // Fed资源集群Cell状态
+  // 分发状态
   cellStatus?: ClusteCellStatus[];
-  // fed clusters
+  // 分发的 cell 列表
   clusters: string[];
   // 创建时间
   createTimeStamp: string;
-  // fed configmap data
+  // 配置项数据
   data: ConfigMapData[];
-  // fed configmap labels
+  // 配置项的标签
   labels: Label[];
-  // fed configmap name
+  // 名称
   name: string;
-  // fed configmap namespace
+  // 命名空间
   namespace: string;
-  // fed configmap override
+  // 配置项数据在不同 cell 下的自定义覆盖配置
   overrides: FedConfigmapOverride[];
-  // 原因
+  // 导致该分发状态的原因
   reason?: string;
-  // propagation状态
+  // 分发状态，成功 True，失败 False，删除中 Deleting
   status?: string;
   static names(): { [key: string]: string } {
     return {
@@ -10412,11 +10894,14 @@ export class RetryAppopsRequest extends $tea.Model {
   operationId: string;
   // 操作人账号，lks1.23.0才支持
   operator?: string;
+  // 租户编码
+  tenantName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       operationId: 'operation_id',
       operator: 'operator',
+      tenantName: 'tenant_name',
     };
   }
 
@@ -10425,6 +10910,7 @@ export class RetryAppopsRequest extends $tea.Model {
       authToken: 'string',
       operationId: 'string',
       operator: 'string',
+      tenantName: 'string',
     };
   }
 
@@ -10917,12 +11403,15 @@ export class CreateFederationNamespaceRequest extends $tea.Model {
   name: string;
   // workspaceGroup名称
   workspaceGroupName: string;
+  // annotation,可以用来存放description等其他字段
+  annotations?: Annotation[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       labels: 'labels',
       name: 'name',
       workspaceGroupName: 'workspace_group_name',
+      annotations: 'annotations',
     };
   }
 
@@ -10932,6 +11421,7 @@ export class CreateFederationNamespaceRequest extends $tea.Model {
       labels: { 'type': 'array', 'itemType': Label },
       name: 'string',
       workspaceGroupName: 'string',
+      annotations: { 'type': 'array', 'itemType': Annotation },
     };
   }
 
@@ -11965,6 +12455,12 @@ export class CreateContainerserviceDeploymentRequest extends $tea.Model {
   operator?: string;
   // 灰度发布的参数，仅当ops_type为GRAY_RELEASE时生效
   grayReleaseConfig?: GrayReleaseConfig;
+  // 引流应用服务列表, 部署单元蓝绿专用
+  trafficContainerServices?: string[];
+  // cell列表，部署单元蓝绿专用，按顺序发布
+  cellNames?: string[];
+  // 是否紧急发布，目前会自动跳过变更核心
+  emergent?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11979,6 +12475,9 @@ export class CreateContainerserviceDeploymentRequest extends $tea.Model {
       assigneeIds: 'assignee_ids',
       operator: 'operator',
       grayReleaseConfig: 'gray_release_config',
+      trafficContainerServices: 'traffic_container_services',
+      cellNames: 'cell_names',
+      emergent: 'emergent',
     };
   }
 
@@ -11996,6 +12495,9 @@ export class CreateContainerserviceDeploymentRequest extends $tea.Model {
       assigneeIds: { 'type': 'array', 'itemType': 'string' },
       operator: 'string',
       grayReleaseConfig: GrayReleaseConfig,
+      trafficContainerServices: { 'type': 'array', 'itemType': 'string' },
+      cellNames: { 'type': 'array', 'itemType': 'string' },
+      emergent: 'boolean',
     };
   }
 
@@ -16283,19 +16785,19 @@ export class ExportFlowRuleResponse extends $tea.Model {
 export class PushFlowRuleRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 包含系统列表
+  // 包含系统列表，目前功能不支持，禁止设置
   apps?: string[];
   // 是否灰度（默认 false）
   gray?: boolean;
   // 操作人
   operator: string;
-  // 站点是否全局推送
+  // 推送中间件流量规则时，是否同时推送中间件中枢
   pushAll?: boolean;
   // 规则类型,支持(ZONE_INFO,ELASTIC_BIZ_RULE,ZONE_COLOR,TAO_BAO_RULE)
   ruleType: string;
   // 规则文本
   ruleValue: string;
-  // 全量的targets信息
+  // 推送目标列表，域外支持 MIDDLEWARE（微服务/中间件）、ALB（统一接入） 两种
   targets?: string[];
   // 工作空间组
   workspaceGroup: string;
@@ -17612,7 +18114,7 @@ export class RollbackContainerserviceDeploymentRequest extends $tea.Model {
   // 部署单ID
   operationId: string;
   // 操作人账号
-  operator: string;
+  operator?: string;
   // 分组数，默认为3
   groupCount?: number;
   // 回滚时的分组策略，取值为： QUICK：快速分组； EACH_ONE：每台一组； UNIT：按逻辑单元分组； CELL：按部署单元分组； 默认为CELL
@@ -18803,6 +19305,8 @@ export class QueryFlowRecordRequest extends $tea.Model {
   workspaceGroup: string;
   // 规则类型
   ruleType?: string;
+  // 推送目标，可选（MAIN、MIDDLEWARE、ALB）
+  pushTarget?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -18814,6 +19318,7 @@ export class QueryFlowRecordRequest extends $tea.Model {
       startTime: 'start_time',
       workspaceGroup: 'workspace_group',
       ruleType: 'rule_type',
+      pushTarget: 'push_target',
     };
   }
 
@@ -18828,6 +19333,7 @@ export class QueryFlowRecordRequest extends $tea.Model {
       startTime: 'string',
       workspaceGroup: 'string',
       ruleType: 'string',
+      pushTarget: 'string',
     };
   }
 
@@ -19355,11 +19861,14 @@ export class QueryFlowRuleRequest extends $tea.Model {
   workspaceGroup: string;
   // 规则类型：ZONE_INFO,ELASTIC_BIZ_RULE,ZONE_COLOR
   ruleType: string;
+  // 推送目标类型: MAIN, MIDDLEWARE, ALB
+  pushTarget?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       workspaceGroup: 'workspace_group',
       ruleType: 'rule_type',
+      pushTarget: 'push_target',
     };
   }
 
@@ -19368,6 +19877,7 @@ export class QueryFlowRuleRequest extends $tea.Model {
       authToken: 'string',
       workspaceGroup: 'string',
       ruleType: 'string',
+      pushTarget: 'string',
     };
   }
 
@@ -20160,11 +20670,14 @@ export class ConfirmOpsplanServicerollbackRequest extends $tea.Model {
   id: string;
   // 工作空间组
   workspaceGroup: string;
+  // 操作人账号
+  operator?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       id: 'id',
       workspaceGroup: 'workspace_group',
+      operator: 'operator',
     };
   }
 
@@ -20173,6 +20686,7 @@ export class ConfirmOpsplanServicerollbackRequest extends $tea.Model {
       authToken: 'string',
       id: 'string',
       workspaceGroup: 'string',
+      operator: 'string',
     };
   }
 
@@ -21993,6 +22507,8 @@ export class ListKubernetesResourcesRequest extends $tea.Model {
   path: string;
   // 命名空间名称。
   namespace?: string;
+  // cell名称列表，只查指定cell的集群
+  cells?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -22000,6 +22516,7 @@ export class ListKubernetesResourcesRequest extends $tea.Model {
       labelSelector: 'label_selector',
       path: 'path',
       namespace: 'namespace',
+      cells: 'cells',
     };
   }
 
@@ -22010,6 +22527,7 @@ export class ListKubernetesResourcesRequest extends $tea.Model {
       labelSelector: 'string',
       path: 'string',
       namespace: 'string',
+      cells: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -23755,7 +24273,7 @@ export class CreateContainerserviceOperationRequest extends $tea.Model {
   title: string;
   // 所属工作空间组名称。
   workspaceGroup: string;
-  // 在具体分组策略下，每个执行单元（部署单元，机房等）内部的分组个数。
+  // 最小分组数，同发布单中的group_count
   groupAmount?: number;
   // 审批人账号id，暂时不支持
   assigneeIds?: string[];
@@ -23767,6 +24285,8 @@ export class CreateContainerserviceOperationRequest extends $tea.Model {
   maxGroupCapacity?: number;
   // 每个部署单元单批次变更pod数量百分比，仅当group_strategey为ALL_CELL_PERCENTAGE时生效
   maxCellPodPercentage?: number;
+  // 部署单元流量权重
+  cellWeights?: CellWeightInfo[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -23785,6 +24305,7 @@ export class CreateContainerserviceOperationRequest extends $tea.Model {
       huanyuExecNo: 'huanyu_exec_no',
       maxGroupCapacity: 'max_group_capacity',
       maxCellPodPercentage: 'max_cell_pod_percentage',
+      cellWeights: 'cell_weights',
     };
   }
 
@@ -23806,6 +24327,7 @@ export class CreateContainerserviceOperationRequest extends $tea.Model {
       huanyuExecNo: 'string',
       maxGroupCapacity: 'number',
       maxCellPodPercentage: 'number',
+      cellWeights: { 'type': 'array', 'itemType': CellWeightInfo },
     };
   }
 
@@ -23977,23 +24499,27 @@ export class ApplyContainerserviceDeploymentResponse extends $tea.Model {
 export class UpdateIngressTrafficweightRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 流量权重列表
-  serviceWeights: ServiceWeight[];
   // service id
   serviceId: string;
+  // 流量权重列表
+  serviceWeights?: ServiceWeight[];
+  // 流量权重列表蓝绿发布v2
+  cellWeights?: CellWeight[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
-      serviceWeights: 'service_weights',
       serviceId: 'service_id',
+      serviceWeights: 'service_weights',
+      cellWeights: 'cell_weights',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       authToken: 'string',
-      serviceWeights: { 'type': 'array', 'itemType': ServiceWeight },
       serviceId: 'string',
+      serviceWeights: { 'type': 'array', 'itemType': ServiceWeight },
+      cellWeights: { 'type': 'array', 'itemType': CellWeight },
     };
   }
 
@@ -24119,12 +24645,15 @@ export class ListIngressTrafficweightResponse extends $tea.Model {
   resultMsg?: string;
   // 流量权重列表
   serviceWeights?: ServiceWeight[];
+  // 流量权重列表蓝绿发布v2
+  cellWeights?: CellWeight[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       serviceWeights: 'service_weights',
+      cellWeights: 'cell_weights',
     };
   }
 
@@ -24134,6 +24663,7 @@ export class ListIngressTrafficweightResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       serviceWeights: { 'type': 'array', 'itemType': ServiceWeight },
+      cellWeights: { 'type': 'array', 'itemType': CellWeight },
     };
   }
 
@@ -24553,11 +25083,20 @@ export class ImportUnireleaseSolutionRequest extends $tea.Model {
   solution: string;
   // 机构列表信息；如果不填默认是所有机构统一发布
   tenants?: string[];
+  // 银数AC工单ID
+  acId?: string;
+  // 环境信息
+  env?: string;
+  // 是否是紧急发布场景
+  emergent?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       solution: 'solution',
       tenants: 'tenants',
+      acId: 'ac_id',
+      env: 'env',
+      emergent: 'emergent',
     };
   }
 
@@ -24566,6 +25105,9 @@ export class ImportUnireleaseSolutionRequest extends $tea.Model {
       authToken: 'string',
       solution: 'string',
       tenants: { 'type': 'array', 'itemType': 'string' },
+      acId: 'string',
+      env: 'string',
+      emergent: 'boolean',
     };
   }
 
@@ -24625,6 +25167,8 @@ export class ListUnireleaseSolutionsRequest extends $tea.Model {
   creationTimeFrom?: string;
   // 创建时间结束值
   creationTimeTo?: string;
+  // AC ID
+  acId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -24634,6 +25178,7 @@ export class ListUnireleaseSolutionsRequest extends $tea.Model {
       name: 'name',
       creationTimeFrom: 'creation_time_from',
       creationTimeTo: 'creation_time_to',
+      acId: 'ac_id',
     };
   }
 
@@ -24646,6 +25191,7 @@ export class ListUnireleaseSolutionsRequest extends $tea.Model {
       name: 'string',
       creationTimeFrom: 'string',
       creationTimeTo: 'string',
+      acId: 'string',
     };
   }
 
@@ -25426,6 +25972,8 @@ export class UpdateSidecaropsConsistencyRequest extends $tea.Model {
   sidecarVersion?: string;
   // 发布单号
   orderNum: string;
+  // 是否回滚流程
+  isRollback?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -25437,6 +25985,7 @@ export class UpdateSidecaropsConsistencyRequest extends $tea.Model {
       sidecarConfig: 'sidecar_config',
       sidecarVersion: 'sidecar_version',
       orderNum: 'order_num',
+      isRollback: 'is_rollback',
     };
   }
 
@@ -25451,6 +26000,7 @@ export class UpdateSidecaropsConsistencyRequest extends $tea.Model {
       sidecarConfig: SidecarConfig,
       sidecarVersion: 'string',
       orderNum: 'string',
+      isRollback: 'boolean',
     };
   }
 
@@ -25508,6 +26058,8 @@ export class FinishSidecaropsRequest extends $tea.Model {
   cellNames: string[];
   // sidecar配置
   sidecarConfig: SidecarConfig;
+  // 是否回滚流程
+  isRollback?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -25518,6 +26070,7 @@ export class FinishSidecaropsRequest extends $tea.Model {
       orderNum: 'order_num',
       cellNames: 'cell_names',
       sidecarConfig: 'sidecar_config',
+      isRollback: 'is_rollback',
     };
   }
 
@@ -25531,6 +26084,7 @@ export class FinishSidecaropsRequest extends $tea.Model {
       orderNum: 'string',
       cellNames: { 'type': 'array', 'itemType': 'string' },
       sidecarConfig: SidecarConfig,
+      isRollback: 'boolean',
     };
   }
 
@@ -26669,12 +27223,15 @@ export class ListEmergencyPlansRequest extends $tea.Model {
   pageNumber?: number;
   // 每页大小
   pageSize?: number;
+  // 预案id，只有传预案id时才返回预案参数
+  emergencyPlanId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       name: 'name',
       pageNumber: 'page_number',
       pageSize: 'page_size',
+      emergencyPlanId: 'emergency_plan_id',
     };
   }
 
@@ -26684,6 +27241,7 @@ export class ListEmergencyPlansRequest extends $tea.Model {
       name: 'string',
       pageNumber: 'number',
       pageSize: 'number',
+      emergencyPlanId: 'string',
     };
   }
 
@@ -26848,6 +27406,1128 @@ export class QueryContainerserivceGrayreleaseconfigResponse extends $tea.Model {
   }
 }
 
+export class DetailContainerserviceRevisiondiffRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 命名空间
+  namespace: string;
+  // 租户名
+  tenantName?: string;
+  // 工作空间组
+  workspaceGroup: string;
+  // 应用服务名称
+  containerServiceName: string;
+  // 源版本号，不传取应用服务当前发布成功的版本
+  sourceRevision?: string;
+  // 目标版本号，当前需要对比的版本号
+  targetRevision: string;
+  // 是否只显示摘要信息
+  onlySummary?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      namespace: 'namespace',
+      tenantName: 'tenant_name',
+      workspaceGroup: 'workspace_group',
+      containerServiceName: 'container_service_name',
+      sourceRevision: 'source_revision',
+      targetRevision: 'target_revision',
+      onlySummary: 'only_summary',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      namespace: 'string',
+      tenantName: 'string',
+      workspaceGroup: 'string',
+      containerServiceName: 'string',
+      sourceRevision: 'string',
+      targetRevision: 'string',
+      onlySummary: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailContainerserviceRevisiondiffResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 源版本配置详情
+  sourceConfig?: ContainerServiceConfig;
+  // 源版本号
+  sourceRevision?: string;
+  // 目标版本配置详情
+  targetConfig?: ContainerServiceConfig;
+  // 目标版本号
+  targetRevision?: string;
+  // 摘要信息
+  summary?: string;
+  // diff详情，JSON数组字符串
+  diffDetail?: string;
+  // 风险等级: ORDINARY-一般、HIGH-高危	
+  riskLevel?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      sourceConfig: 'source_config',
+      sourceRevision: 'source_revision',
+      targetConfig: 'target_config',
+      targetRevision: 'target_revision',
+      summary: 'summary',
+      diffDetail: 'diff_detail',
+      riskLevel: 'risk_level',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      sourceConfig: ContainerServiceConfig,
+      sourceRevision: 'string',
+      targetConfig: ContainerServiceConfig,
+      targetRevision: 'string',
+      summary: 'string',
+      diffDetail: 'string',
+      riskLevel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RollbackSidecaropsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 应用服务名称
+  appName: string;
+  // 请求幂等
+  clientToken?: string;
+  // 所属命名空间
+  namespace: string;
+  // 所属工作空间
+  workspaceGroup: string;
+  // sidecar相关配置，包含image，feature等
+  sidecarConfig: SidecarConfig;
+  // 指定sidecar的基线模板版本进行回滚
+  sidecarVersion?: string;
+  // 部署单元
+  cellName: string;
+  // 要更新的hostname列表
+  // 
+  serverIdentities: string[];
+  // 工单id
+  orderNum: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      appName: 'app_name',
+      clientToken: 'client_token',
+      namespace: 'namespace',
+      workspaceGroup: 'workspace_group',
+      sidecarConfig: 'sidecar_config',
+      sidecarVersion: 'sidecar_version',
+      cellName: 'cell_name',
+      serverIdentities: 'server_identities',
+      orderNum: 'order_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      appName: 'string',
+      clientToken: 'string',
+      namespace: 'string',
+      workspaceGroup: 'string',
+      sidecarConfig: SidecarConfig,
+      sidecarVersion: 'string',
+      cellName: 'string',
+      serverIdentities: { 'type': 'array', 'itemType': 'string' },
+      orderNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RollbackSidecaropsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 返回被更新的podNumber list
+  updatedPodNumbers?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      updatedPodNumbers: 'updated_pod_numbers',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      updatedPodNumbers: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmAppopsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 运维单timeSeriesId
+  operationId: string;
+  // 操作人账号
+  operator?: string;
+  // 租户编码
+  tenantName?: string;
+  // 服务分组id
+  serviceGroupId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      operationId: 'operation_id',
+      operator: 'operator',
+      tenantName: 'tenant_name',
+      serviceGroupId: 'service_group_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      operationId: 'string',
+      operator: 'string',
+      tenantName: 'string',
+      serviceGroupId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmAppopsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddContainerserviceLogpvRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // app名称
+  apps: string[];
+  // 环境信息
+  env: string;
+  // PVC 名称
+  pvcName: string;
+  // StorageClass
+  storageClass: string;
+  // 存储大小
+  storageSize: number;
+  // 挂载路径，默认/home/admin/logs
+  mountPath?: string;
+  // addDefaultInitContainer, 默认值false
+  disableInitContainer?: boolean;
+  // Init Container名称
+  logInitContainerName?: string;
+  // 默认值添加Sidecar PV
+  disableSidecarPv?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      apps: 'apps',
+      env: 'env',
+      pvcName: 'pvc_name',
+      storageClass: 'storage_class',
+      storageSize: 'storage_size',
+      mountPath: 'mount_path',
+      disableInitContainer: 'disable_init_container',
+      logInitContainerName: 'log_init_container_name',
+      disableSidecarPv: 'disable_sidecar_pv',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      apps: { 'type': 'array', 'itemType': 'string' },
+      env: 'string',
+      pvcName: 'string',
+      storageClass: 'string',
+      storageSize: 'number',
+      mountPath: 'string',
+      disableInitContainer: 'boolean',
+      logInitContainerName: 'string',
+      disableSidecarPv: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddContainerserviceLogpvResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListFederationServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 工作空间组
+  workspaceGroupName: string;
+  // 命名空间
+  namespace: string;
+  // 应用服务名称
+  containerServiceName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceGroupName: 'workspace_group_name',
+      namespace: 'namespace',
+      containerServiceName: 'container_service_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceGroupName: 'string',
+      namespace: 'string',
+      containerServiceName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListFederationServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 列表
+  list?: FederatedService[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      list: { 'type': 'array', 'itemType': FederatedService },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryOperationlogRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 页码。起始值：1。默认值：1。
+  pageNo?: number;
+  // 分页查询时设置的每页行数。最大值：100，默认值：10。
+  pageSize?: number;
+  // 实体类型。LDC_PLAN/LDC_SERVICE/POD_CONTAINER
+  entityType?: string;
+  // 目标id。发布单plan_id或者lks_service_id。
+  targetId?: string;
+  // 当前工作空间组名称
+  workspaceGroup: string;
+  // 集群id，entity_type==POD_CONTAINER 时有用
+  clusterId?: string;
+  // pod名称，entity_type==POD_CONTAINER 时有用
+  podName?: string;
+  // 命名空间，entity_type==POD_CONTAINER 时必传
+  namespace?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+      entityType: 'entity_type',
+      targetId: 'target_id',
+      workspaceGroup: 'workspace_group',
+      clusterId: 'cluster_id',
+      podName: 'pod_name',
+      namespace: 'namespace',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      pageNo: 'number',
+      pageSize: 'number',
+      entityType: 'string',
+      targetId: 'string',
+      workspaceGroup: 'string',
+      clusterId: 'string',
+      podName: 'string',
+      namespace: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryOperationlogResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总数。
+  totalCount?: number;
+  // 页码
+  pageNo?: number;
+  // 每页行数
+  pageSize?: number;
+  // operationlog列表
+  list?: OperationLog[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalCount: 'total_count',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalCount: 'number',
+      pageNo: 'number',
+      pageSize: 'number',
+      list: { 'type': 'array', 'itemType': OperationLog },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetEmergencyPlansRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 预案id
+  id: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      id: 'id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      id: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetEmergencyPlansResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 预案id
+  id?: string;
+  // 预案名称	
+  name?: string;
+  // 预案参数
+  params?: TemplateParam[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      id: 'id',
+      name: 'name',
+      params: 'params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      id: 'string',
+      name: 'string',
+      params: { 'type': 'array', 'itemType': TemplateParam },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddFedspannerclusterZoneRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 工作空间组
+  workspaceGroup: string;
+  // 联邦统一接入集群名称
+  name: string;
+  // 待添加的机房（可用区）列表
+  zones: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceGroup: 'workspace_group',
+      name: 'name',
+      zones: 'zones',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceGroup: 'string',
+      name: 'string',
+      zones: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddFedspannerclusterZoneResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddUnifiedaccessinstanceZoneRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 工作空间组
+  workspaceGroup: string;
+  // 统一接入实例名称
+  name: string;
+  // 可用区（机房）列表
+  zones: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceGroup: 'workspace_group',
+      name: 'name',
+      zones: 'zones',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceGroup: 'string',
+      name: 'string',
+      zones: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddUnifiedaccessinstanceZoneResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateContainerserviceJsonpatchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 必填：保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。ClientToken只支持ASCII字符，且不能超过64个字符。
+  clientToken: string;
+  // 应用服务名称
+  name: string;
+  // 命名空间
+  namespace: string;
+  // 工作空间组
+  workspaceGroup: string;
+  // 应用服务版本，不传取最新的版本
+  revision?: string;
+  // 操作人账号
+  operator?: string;
+  // json patch 内容
+  jsonPatches: JsonPatch[];
+  // 配置为CLOUD_NATIVE_GROUP_RELEASE会自动创建发布单
+  opsType?: string;
+  // 发布单类型，SLS_CHANGE代表只做sls配置变更
+  opsMode?: string;
+  // 部署策略
+  deployConfig?: DeployConfig;
+  // 是否自动执行发布单，默认 true
+  isAutoExecute?: boolean;
+  // 灰度平台pods分批序列化为json的结果	
+  // 
+  graycoreBatches?: string;
+  // [huanyu场景使用]huanyu变更单id
+  huanyuExecNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      clientToken: 'client_token',
+      name: 'name',
+      namespace: 'namespace',
+      workspaceGroup: 'workspace_group',
+      revision: 'revision',
+      operator: 'operator',
+      jsonPatches: 'json_patches',
+      opsType: 'ops_type',
+      opsMode: 'ops_mode',
+      deployConfig: 'deploy_config',
+      isAutoExecute: 'is_auto_execute',
+      graycoreBatches: 'graycore_batches',
+      huanyuExecNo: 'huanyu_exec_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      clientToken: 'string',
+      name: 'string',
+      namespace: 'string',
+      workspaceGroup: 'string',
+      revision: 'string',
+      operator: 'string',
+      jsonPatches: { 'type': 'array', 'itemType': JsonPatch },
+      opsType: 'string',
+      opsMode: 'string',
+      deployConfig: DeployConfig,
+      isAutoExecute: 'boolean',
+      graycoreBatches: 'string',
+      huanyuExecNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateContainerserviceJsonpatchResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 新的应用服务版本
+  revision?: string;
+  // 部署单id
+  operationId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      revision: 'revision',
+      operationId: 'operation_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      revision: 'string',
+      operationId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListFlowCellgroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 工作空间组
+  workspaceGroup: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceGroup: 'workspace_group',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceGroup: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListFlowCellgroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 单元组查询列表
+  cellgroupList?: FlowCellGroup[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      cellgroupList: 'cellgroup_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      cellgroupList: { 'type': 'array', 'itemType': FlowCellGroup },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncFlowMetadataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 工作空间组
+  workspaceGroup: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceGroup: 'workspace_group',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceGroup: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncFlowMetadataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckContainerserviceConflictopsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 命名空间
+  namespace: string;
+  // 应用服务名称
+  containerServiceName: string;
+  // 工作空间组
+  workspaceGroup: string;
+  // 是否检查Sidercar有运维工单，默认false
+  checkSidercar?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      namespace: 'namespace',
+      containerServiceName: 'container_service_name',
+      workspaceGroup: 'workspace_group',
+      checkSidercar: 'check_sidercar',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      namespace: 'string',
+      containerServiceName: 'string',
+      workspaceGroup: 'string',
+      checkSidercar: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckContainerserviceConflictopsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果
+  result?: boolean;
+  // 冲突的发布单id
+  operationId?: string;
+  // sidercar工单id
+  sidercarPlanId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+      operationId: 'operation_id',
+      sidercarPlanId: 'sidercar_plan_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+      operationId: 'string',
+      sidercarPlanId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecFlowDisasterswitchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 工作空间组
+  workspaceGroup: string;
+  // 容灾切换类型，枚举型，CUTOFF（切流），RECOVER（恢复）
+  disasterType: string;
+  // 容灾切换范围，枚举型，GROUP（单元组）、ZONE（单元）、IDC（机房，暂不支持）
+  disasterScope: string;
+  // 同城或者异地容灾，true代表异地容灾，false代表同城容灾
+  remote: boolean;
+  // 容灾切换对象列表
+  targets: string[];
+  // 操作者，选填，应填登录名
+  operator?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      workspaceGroup: 'workspace_group',
+      disasterType: 'disaster_type',
+      disasterScope: 'disaster_scope',
+      remote: 'remote',
+      targets: 'targets',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      workspaceGroup: 'string',
+      disasterType: 'string',
+      disasterScope: 'string',
+      remote: 'boolean',
+      targets: { 'type': 'array', 'itemType': 'string' },
+      operator: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecFlowDisasterswitchResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelSidecaropsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 应用服务名称
+  containerServiceName: string;
+  // mosn/odp
+  sidecarName: string;
+  // 具体sidecar的版本，非必填
+  sidecarVersion?: string;
+  // 环宇 order number
+  orderNum: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      containerServiceName: 'container_service_name',
+      sidecarName: 'sidecar_name',
+      sidecarVersion: 'sidecar_version',
+      orderNum: 'order_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      containerServiceName: 'string',
+      sidecarName: 'string',
+      sidecarVersion: 'string',
+      orderNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelSidecaropsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -26961,7 +28641,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.15",
+          sdk_version: "1.12.83",
+          _prod_code: "ldc",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -31647,6 +33329,291 @@ export default class Client {
   async queryContainerserivceGrayreleaseconfigEx(request: QueryContainerserivceGrayreleaseconfigRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContainerserivceGrayreleaseconfigResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryContainerserivceGrayreleaseconfigResponse>(await this.doRequest("1.0", "antcloud.ldc.containerserivce.grayreleaseconfig.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContainerserivceGrayreleaseconfigResponse({}));
+  }
+
+  /**
+   * Description: 应用服务版本diff
+   * Summary: 应用服务版本diff
+   */
+  async detailContainerserviceRevisiondiff(request: DetailContainerserviceRevisiondiffRequest): Promise<DetailContainerserviceRevisiondiffResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailContainerserviceRevisiondiffEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 应用服务版本diff
+   * Summary: 应用服务版本diff
+   */
+  async detailContainerserviceRevisiondiffEx(request: DetailContainerserviceRevisiondiffRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailContainerserviceRevisiondiffResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailContainerserviceRevisiondiffResponse>(await this.doRequest("1.0", "antcloud.ldc.containerservice.revisiondiff.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailContainerserviceRevisiondiffResponse({}));
+  }
+
+  /**
+   * Description: 可用于huanyu升级sidecar时，回滚变更单的执行，回滚到执行前的sidecar状态。
+   * Summary: 回滚sidecar升级
+   */
+  async rollbackSidecarops(request: RollbackSidecaropsRequest): Promise<RollbackSidecaropsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.rollbackSidecaropsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 可用于huanyu升级sidecar时，回滚变更单的执行，回滚到执行前的sidecar状态。
+   * Summary: 回滚sidecar升级
+   */
+  async rollbackSidecaropsEx(request: RollbackSidecaropsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RollbackSidecaropsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RollbackSidecaropsResponse>(await this.doRequest("1.0", "antcloud.ldc.sidecarops.rollback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RollbackSidecaropsResponse({}));
+  }
+
+  /**
+   * Description: 对一个运维操作中所有暂停的分组进行确认操作，lks1.36.0才支持
+   * Summary: 确认运维
+   */
+  async confirmAppops(request: ConfirmAppopsRequest): Promise<ConfirmAppopsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmAppopsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 对一个运维操作中所有暂停的分组进行确认操作，lks1.36.0才支持
+   * Summary: 确认运维
+   */
+  async confirmAppopsEx(request: ConfirmAppopsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmAppopsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmAppopsResponse>(await this.doRequest("1.0", "antcloud.ldc.appops.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmAppopsResponse({}));
+  }
+
+  /**
+   * Description: 批量添加应用服务PVC和init Container
+   * Summary: 批量添加应用服务PVC
+   */
+  async addContainerserviceLogpv(request: AddContainerserviceLogpvRequest): Promise<AddContainerserviceLogpvResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addContainerserviceLogpvEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批量添加应用服务PVC和init Container
+   * Summary: 批量添加应用服务PVC
+   */
+  async addContainerserviceLogpvEx(request: AddContainerserviceLogpvRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddContainerserviceLogpvResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddContainerserviceLogpvResponse>(await this.doRequest("1.0", "antcloud.ldc.containerservice.logpv.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddContainerserviceLogpvResponse({}));
+  }
+
+  /**
+   * Description: 查询 fedservice 列表
+   * Summary: 查询 fedservice 列表
+   */
+  async listFederationService(request: ListFederationServiceRequest): Promise<ListFederationServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listFederationServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询 fedservice 列表
+   * Summary: 查询 fedservice 列表
+   */
+  async listFederationServiceEx(request: ListFederationServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListFederationServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListFederationServiceResponse>(await this.doRequest("1.0", "antcloud.ldc.federation.service.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListFederationServiceResponse({}));
+  }
+
+  /**
+   * Description: 查询操作日志OpenAPI
+   * Summary: 查询操作日志
+   */
+  async queryOperationlog(request: QueryOperationlogRequest): Promise<QueryOperationlogResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryOperationlogEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询操作日志OpenAPI
+   * Summary: 查询操作日志
+   */
+  async queryOperationlogEx(request: QueryOperationlogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryOperationlogResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryOperationlogResponse>(await this.doRequest("1.0", "antcloud.ldc.operationlog.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryOperationlogResponse({}));
+  }
+
+  /**
+   * Description: 查询守夜人预案详情
+   * Summary: 查询守夜人预案详情
+   */
+  async getEmergencyPlans(request: GetEmergencyPlansRequest): Promise<GetEmergencyPlansResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getEmergencyPlansEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询守夜人预案详情
+   * Summary: 查询守夜人预案详情
+   */
+  async getEmergencyPlansEx(request: GetEmergencyPlansRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetEmergencyPlansResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetEmergencyPlansResponse>(await this.doRequest("1.0", "antcloud.ldc.emergency.plans.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetEmergencyPlansResponse({}));
+  }
+
+  /**
+   * Description: 为统一接入集群添加可用区，必须是当前工作空间组下已规划的可用区。待添加的可用区内应有规划用于部署spanner容器的节点资源。
+   * Summary: 为统一接入集群添加可用区
+   */
+  async addFedspannerclusterZone(request: AddFedspannerclusterZoneRequest): Promise<AddFedspannerclusterZoneResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addFedspannerclusterZoneEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 为统一接入集群添加可用区，必须是当前工作空间组下已规划的可用区。待添加的可用区内应有规划用于部署spanner容器的节点资源。
+   * Summary: 为统一接入集群添加可用区
+   */
+  async addFedspannerclusterZoneEx(request: AddFedspannerclusterZoneRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddFedspannerclusterZoneResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddFedspannerclusterZoneResponse>(await this.doRequest("1.0", "antcloud.ldc.fedspannercluster.zone.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddFedspannerclusterZoneResponse({}));
+  }
+
+  /**
+   * Description: 为统一接入实例添加可用区，统一接入实例在新增的可用区内将增加一个入口（LVS VIP）。
+   * Summary: 为统一接入实例添加可用区
+   */
+  async addUnifiedaccessinstanceZone(request: AddUnifiedaccessinstanceZoneRequest): Promise<AddUnifiedaccessinstanceZoneResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addUnifiedaccessinstanceZoneEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 为统一接入实例添加可用区，统一接入实例在新增的可用区内将增加一个入口（LVS VIP）。
+   * Summary: 为统一接入实例添加可用区
+   */
+  async addUnifiedaccessinstanceZoneEx(request: AddUnifiedaccessinstanceZoneRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddUnifiedaccessinstanceZoneResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddUnifiedaccessinstanceZoneResponse>(await this.doRequest("1.0", "antcloud.ldc.unifiedaccessinstance.zone.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddUnifiedaccessinstanceZoneResponse({}));
+  }
+
+  /**
+   * Description: 通过jsonpatch方式更新应用服务配置
+   * Summary: 通过jsonpatch更新应用服务配置
+   */
+  async updateContainerserviceJsonpatch(request: UpdateContainerserviceJsonpatchRequest): Promise<UpdateContainerserviceJsonpatchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateContainerserviceJsonpatchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通过jsonpatch方式更新应用服务配置
+   * Summary: 通过jsonpatch更新应用服务配置
+   */
+  async updateContainerserviceJsonpatchEx(request: UpdateContainerserviceJsonpatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateContainerserviceJsonpatchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateContainerserviceJsonpatchResponse>(await this.doRequest("1.0", "antcloud.ldc.containerservice.jsonpatch.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateContainerserviceJsonpatchResponse({}));
+  }
+
+  /**
+   * Description: 查看单元化管理中的单元组元数据
+   * Summary: 查看单元化管理中的单元组元数据
+   */
+  async listFlowCellgroup(request: ListFlowCellgroupRequest): Promise<ListFlowCellgroupResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listFlowCellgroupEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查看单元化管理中的单元组元数据
+   * Summary: 查看单元化管理中的单元组元数据
+   */
+  async listFlowCellgroupEx(request: ListFlowCellgroupRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListFlowCellgroupResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListFlowCellgroupResponse>(await this.doRequest("1.0", "antcloud.ldc.flow.cellgroup.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListFlowCellgroupResponse({}));
+  }
+
+  /**
+   * Description: 同步单元化元数据
+   * Summary: 同步单元化元数据
+   */
+  async syncFlowMetadata(request: SyncFlowMetadataRequest): Promise<SyncFlowMetadataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncFlowMetadataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 同步单元化元数据
+   * Summary: 同步单元化元数据
+   */
+  async syncFlowMetadataEx(request: SyncFlowMetadataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncFlowMetadataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncFlowMetadataResponse>(await this.doRequest("1.0", "antcloud.ldc.flow.metadata.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncFlowMetadataResponse({}));
+  }
+
+  /**
+   * Description: 发布单冲突检测
+   * Summary: 发布单冲突检测
+   */
+  async checkContainerserviceConflictops(request: CheckContainerserviceConflictopsRequest): Promise<CheckContainerserviceConflictopsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkContainerserviceConflictopsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发布单冲突检测
+   * Summary: 发布单冲突检测
+   */
+  async checkContainerserviceConflictopsEx(request: CheckContainerserviceConflictopsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckContainerserviceConflictopsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckContainerserviceConflictopsResponse>(await this.doRequest("1.0", "antcloud.ldc.containerservice.conflictops.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckContainerserviceConflictopsResponse({}));
+  }
+
+  /**
+   * Description: 单元化流量规则的容灾切换
+   * Summary: 单元化流量规则的容灾切换
+   */
+  async execFlowDisasterswitch(request: ExecFlowDisasterswitchRequest): Promise<ExecFlowDisasterswitchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execFlowDisasterswitchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 单元化流量规则的容灾切换
+   * Summary: 单元化流量规则的容灾切换
+   */
+  async execFlowDisasterswitchEx(request: ExecFlowDisasterswitchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecFlowDisasterswitchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecFlowDisasterswitchResponse>(await this.doRequest("1.0", "antcloud.ldc.flow.disasterswitch.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecFlowDisasterswitchResponse({}));
+  }
+
+  /**
+   * Description: 取消sidecar工单，租户应用+sidecar type维度
+   * Summary: 取消sidecar工单
+   */
+  async cancelSidecarops(request: CancelSidecaropsRequest): Promise<CancelSidecaropsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelSidecaropsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 取消sidecar工单，租户应用+sidecar type维度
+   * Summary: 取消sidecar工单
+   */
+  async cancelSidecaropsEx(request: CancelSidecaropsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelSidecaropsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelSidecaropsResponse>(await this.doRequest("1.0", "antcloud.ldc.sidecarops.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelSidecaropsResponse({}));
   }
 
 }
