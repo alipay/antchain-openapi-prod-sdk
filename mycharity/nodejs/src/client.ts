@@ -232,6 +232,59 @@ export class StagesDetailVO extends $tea.Model {
   }
 }
 
+// 实施内容信息
+export class SubjectCombinationMessage extends $tea.Model {
+  // 实施内容id
+  id: string;
+  // 实施内容名称
+  name?: string;
+  // 实施内容类型：0善款类，1实物类、2服务类
+  type?: number;
+  // 单位
+  unit?: string;
+  // 说明
+  note?: string;
+  // 单价是否固定，0:不固定，1:固定
+  priceDeterminedFlag?: number;
+  // 单价
+  price?: number;
+  // 预估发放数量
+  totalNum?: number;
+  // 操作类型0-新增，1-修改，2-删除
+  operate: number;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      name: 'name',
+      type: 'type',
+      unit: 'unit',
+      note: 'note',
+      priceDeterminedFlag: 'price_determined_flag',
+      price: 'price',
+      totalNum: 'total_num',
+      operate: 'operate',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      name: 'string',
+      type: 'number',
+      unit: 'string',
+      note: 'string',
+      priceDeterminedFlag: 'number',
+      price: 'number',
+      totalNum: 'number',
+      operate: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 实施内容详情
 export class OpenSubjectCombinationVO extends $tea.Model {
   // 实施内容id
@@ -1992,6 +2045,140 @@ export class CreateBatchResponse extends $tea.Model {
   }
 }
 
+export class UpdateRecordRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // id
+  id: string;
+  // 快递单号，50字符（发放方式（issue_way）为快递寄送时可修改）
+  expressNumber?: string;
+  // 快递公司，50字符（发放方式（issue_way）为快递寄送时可修改）
+  expressCompany?: string;
+  // 快递地址，100字符（发放方式（issue_way）为快递寄送时可修改）
+  expressAddress?: string;
+  // 支付流水号，100字符（实施内容为善款类且执行记录状态为待发放（receive_status）必填）
+  paySerialNumber?: string;
+  // 转账方式，100字符 发放方式为善款类且执行记录状态为待发放（receive_status）必填）
+  transferMethod?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      id: 'id',
+      expressNumber: 'express_number',
+      expressCompany: 'express_company',
+      expressAddress: 'express_address',
+      paySerialNumber: 'pay_serial_number',
+      transferMethod: 'transfer_method',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      id: 'string',
+      expressNumber: 'string',
+      expressCompany: 'string',
+      expressAddress: 'string',
+      paySerialNumber: 'string',
+      transferMethod: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateRecordResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchcreateCombinationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 分期id
+  stagesId: string;
+  // 实施内容信息集合
+  combinationMessageList: SubjectCombinationMessage[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      stagesId: 'stages_id',
+      combinationMessageList: 'combination_message_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      stagesId: 'string',
+      combinationMessageList: { 'type': 'array', 'itemType': SubjectCombinationMessage },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchcreateCombinationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2105,7 +2292,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.11",
+          sdk_version: "1.0.13",
           _prod_code: "MYCHARITY",
           _prod_channel: "undefined",
         };
@@ -2588,6 +2775,44 @@ export default class Client {
   async createBatchEx(request: CreateBatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateBatchResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateBatchResponse>(await this.doRequest("1.0", "antchain.mycharity.batch.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateBatchResponse({}));
+  }
+
+  /**
+   * Description: 修改执行记录状态
+   * Summary: 修改执行记录状态
+   */
+  async updateRecord(request: UpdateRecordRequest): Promise<UpdateRecordResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateRecordEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 修改执行记录状态
+   * Summary: 修改执行记录状态
+   */
+  async updateRecordEx(request: UpdateRecordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateRecordResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateRecordResponse>(await this.doRequest("1.0", "antchain.mycharity.record.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateRecordResponse({}));
+  }
+
+  /**
+   * Description: 批量创建、修改、删除实施内容
+   * Summary: 批量创建、修改、删除实施内容
+   */
+  async batchcreateCombination(request: BatchcreateCombinationRequest): Promise<BatchcreateCombinationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchcreateCombinationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批量创建、修改、删除实施内容
+   * Summary: 批量创建、修改、删除实施内容
+   */
+  async batchcreateCombinationEx(request: BatchcreateCombinationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchcreateCombinationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchcreateCombinationResponse>(await this.doRequest("1.0", "antchain.mycharity.combination.batchcreate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchcreateCombinationResponse({}));
   }
 
 }
