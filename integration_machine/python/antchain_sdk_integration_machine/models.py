@@ -229,6 +229,79 @@ class TravelInfo(TeaModel):
         return self
 
 
+class StatisticsExtendArg(TeaModel):
+    def __init__(
+        self,
+        key: str = None,
+        number: int = None,
+    ):
+        # 字段key
+        self.key = key
+        # 数量
+        self.number = number
+
+    def validate(self):
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.number, 'number')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.number is not None:
+            result['number'] = self.number
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('number') is not None:
+            self.number = m.get('number')
+        return self
+
+
+class IdentityDistributed(TeaModel):
+    def __init__(
+        self,
+        key: str = None,
+        number: int = None,
+    ):
+        # 户籍身份证号(前两位标识)
+        # 11代表北京市，12天代表天津市，13河北省，14山代表山西省，15内代表蒙古自治区，21代表辽宁省，22代表吉林省，23代表黑龙江省，31代表上海市，32代表江苏省，33代表浙江省，34代表代表安徽省，35代表福建省，36代表江西省，37代表山东省，41代表河南省，42代表湖北省，43代表湖南省，44代表广东省，45代表广西壮族自治区，46代表海南省，50代表重庆市，51代表四川省，52代表贵州省，53代表云南省，54代表西藏自治区，61代表陕西省，62代表甘肃省，63代表青海省，64代表宁夏回族自治区，65代表新疆维吾尔自治区，71代表台湾省，81代表香港特别行政区，82代表澳门特别行政区
+        self.key = key
+        # 户籍所在省分布数量
+        self.number = number
+
+    def validate(self):
+        self.validate_required(self.key, 'key')
+        self.validate_required(self.number, 'number')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.number is not None:
+            result['number'] = self.number
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('number') is not None:
+            self.number = m.get('number')
+        return self
+
+
 class AntigenInfo(TeaModel):
     def __init__(
         self,
@@ -431,6 +504,340 @@ class NucleicAcidInformation(TeaModel):
         return self
 
 
+class DeviceStatistics(TeaModel):
+    def __init__(
+        self,
+        serial_no: str = None,
+        status: str = None,
+        total: int = None,
+        green: int = None,
+        yellow: int = None,
+        red: int = None,
+        code_err: int = None,
+        face: int = None,
+        health_code: int = None,
+        cert: int = None,
+        other_mode: int = None,
+        pass_: int = None,
+        stop: int = None,
+        avg_time: int = None,
+        vaccine_no: int = None,
+        vaccine_first: int = None,
+        vaccine_second: int = None,
+        vaccine_third: int = None,
+        vaccine_unknown: int = None,
+        nucleic_acid_24h: int = None,
+        nucleic_acid_48h: int = None,
+        nucleic_acid_72h: int = None,
+        nucleic_acid_7d: int = None,
+        nucleic_acid_other: int = None,
+        temperature_a: int = None,
+        temperature_b: int = None,
+        temperature_c: int = None,
+        temperature_d: int = None,
+        temperature_e: int = None,
+        temperature_f: int = None,
+        temperature_g: int = None,
+        temperature_h: int = None,
+        temperature_i: int = None,
+        temperature_j: int = None,
+        temperature_k: int = None,
+        identity_distributed_list: List[IdentityDistributed] = None,
+        extend_arg_list: List[StatisticsExtendArg] = None,
+    ):
+        # 设备SN号
+        self.serial_no = serial_no
+        # 设备状态(初始化:init,在线:online,离线:offline,故障:fault)
+        self.status = status
+        # 通行人次
+        self.total = total
+        # 绿码人次
+        self.green = green
+        # 黄码人次
+        self.yellow = yellow
+        # 红码人次
+        self.red = red
+        # 码值异常人次
+        self.code_err = code_err
+        # 刷脸人次
+        self.face = face
+        # 刷健康码人次
+        self.health_code = health_code
+        # 刷身份证人次
+        self.cert = cert
+        # 其他方式人次
+        self.other_mode = other_mode
+        # 通行成功人次
+        self.pass_ = pass_
+        # 通行失败人次
+        self.stop = stop
+        # 平均通行时间(ms)
+        self.avg_time = avg_time
+        # 疫苗未接种人次
+        self.vaccine_no = vaccine_no
+        # 疫苗接种一针人次
+        self.vaccine_first = vaccine_first
+        # 疫苗接种两针人次
+        self.vaccine_second = vaccine_second
+        # 疫苗接种三针人次
+        self.vaccine_third = vaccine_third
+        # 疫苗未查询人次
+        self.vaccine_unknown = vaccine_unknown
+        # 核酸有效期24h人次
+        self.nucleic_acid_24h = nucleic_acid_24h
+        # 核酸有效期48h人次
+        self.nucleic_acid_48h = nucleic_acid_48h
+        # 核酸有效期72h人次
+        self.nucleic_acid_72h = nucleic_acid_72h
+        # 核酸有效期7d人次
+        self.nucleic_acid_7d = nucleic_acid_7d
+        # 超过7D或无核酸人次
+        self.nucleic_acid_other = nucleic_acid_other
+        # 体温小于35.5人次
+        self.temperature_a = temperature_a
+        # 体温35.5-36度人次
+        self.temperature_b = temperature_b
+        # 体温36.1-36.3度人次
+        self.temperature_c = temperature_c
+        # 体温36.4-36.7度人次
+        self.temperature_d = temperature_d
+        # 体温36.8-37度人次
+        self.temperature_e = temperature_e
+        # 体温37.1-37.5度人次
+        self.temperature_f = temperature_f
+        # 体温37.6-38度人次
+        self.temperature_g = temperature_g
+        # 体温38.1-38.5度人次
+        self.temperature_h = temperature_h
+        # 体温38.6-39度人次
+        self.temperature_i = temperature_i
+        # 体温大于39人次
+        self.temperature_j = temperature_j
+        # 体温未获取人次
+        self.temperature_k = temperature_k
+        # 户籍所在省分布
+        self.identity_distributed_list = identity_distributed_list
+        # 扩展统计字段
+        self.extend_arg_list = extend_arg_list
+
+    def validate(self):
+        self.validate_required(self.serial_no, 'serial_no')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.total, 'total')
+        self.validate_required(self.green, 'green')
+        self.validate_required(self.yellow, 'yellow')
+        self.validate_required(self.red, 'red')
+        self.validate_required(self.code_err, 'code_err')
+        self.validate_required(self.face, 'face')
+        self.validate_required(self.health_code, 'health_code')
+        self.validate_required(self.cert, 'cert')
+        self.validate_required(self.other_mode, 'other_mode')
+        self.validate_required(self.pass_, 'pass_')
+        self.validate_required(self.stop, 'stop')
+        self.validate_required(self.avg_time, 'avg_time')
+        self.validate_required(self.vaccine_no, 'vaccine_no')
+        self.validate_required(self.vaccine_first, 'vaccine_first')
+        self.validate_required(self.vaccine_second, 'vaccine_second')
+        self.validate_required(self.vaccine_third, 'vaccine_third')
+        self.validate_required(self.vaccine_unknown, 'vaccine_unknown')
+        self.validate_required(self.nucleic_acid_24h, 'nucleic_acid_24h')
+        self.validate_required(self.nucleic_acid_48h, 'nucleic_acid_48h')
+        self.validate_required(self.nucleic_acid_72h, 'nucleic_acid_72h')
+        self.validate_required(self.nucleic_acid_7d, 'nucleic_acid_7d')
+        self.validate_required(self.nucleic_acid_other, 'nucleic_acid_other')
+        self.validate_required(self.temperature_a, 'temperature_a')
+        self.validate_required(self.temperature_b, 'temperature_b')
+        self.validate_required(self.temperature_c, 'temperature_c')
+        self.validate_required(self.temperature_d, 'temperature_d')
+        self.validate_required(self.temperature_e, 'temperature_e')
+        self.validate_required(self.temperature_f, 'temperature_f')
+        self.validate_required(self.temperature_g, 'temperature_g')
+        self.validate_required(self.temperature_h, 'temperature_h')
+        self.validate_required(self.temperature_i, 'temperature_i')
+        self.validate_required(self.temperature_j, 'temperature_j')
+        self.validate_required(self.temperature_k, 'temperature_k')
+        self.validate_required(self.identity_distributed_list, 'identity_distributed_list')
+        if self.identity_distributed_list:
+            for k in self.identity_distributed_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.extend_arg_list, 'extend_arg_list')
+        if self.extend_arg_list:
+            for k in self.extend_arg_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.serial_no is not None:
+            result['serial_no'] = self.serial_no
+        if self.status is not None:
+            result['status'] = self.status
+        if self.total is not None:
+            result['total'] = self.total
+        if self.green is not None:
+            result['green'] = self.green
+        if self.yellow is not None:
+            result['yellow'] = self.yellow
+        if self.red is not None:
+            result['red'] = self.red
+        if self.code_err is not None:
+            result['code_err'] = self.code_err
+        if self.face is not None:
+            result['face'] = self.face
+        if self.health_code is not None:
+            result['health_code'] = self.health_code
+        if self.cert is not None:
+            result['cert'] = self.cert
+        if self.other_mode is not None:
+            result['other_mode'] = self.other_mode
+        if self.pass_ is not None:
+            result['pass'] = self.pass_
+        if self.stop is not None:
+            result['stop'] = self.stop
+        if self.avg_time is not None:
+            result['avg_time'] = self.avg_time
+        if self.vaccine_no is not None:
+            result['vaccine_no'] = self.vaccine_no
+        if self.vaccine_first is not None:
+            result['vaccine_first'] = self.vaccine_first
+        if self.vaccine_second is not None:
+            result['vaccine_second'] = self.vaccine_second
+        if self.vaccine_third is not None:
+            result['vaccine_third'] = self.vaccine_third
+        if self.vaccine_unknown is not None:
+            result['vaccine_unknown'] = self.vaccine_unknown
+        if self.nucleic_acid_24h is not None:
+            result['nucleic_acid24h'] = self.nucleic_acid_24h
+        if self.nucleic_acid_48h is not None:
+            result['nucleic_acid48h'] = self.nucleic_acid_48h
+        if self.nucleic_acid_72h is not None:
+            result['nucleic_acid72h'] = self.nucleic_acid_72h
+        if self.nucleic_acid_7d is not None:
+            result['nucleic_acid7d'] = self.nucleic_acid_7d
+        if self.nucleic_acid_other is not None:
+            result['nucleic_acid_other'] = self.nucleic_acid_other
+        if self.temperature_a is not None:
+            result['temperature_a'] = self.temperature_a
+        if self.temperature_b is not None:
+            result['temperature_b'] = self.temperature_b
+        if self.temperature_c is not None:
+            result['temperature_c'] = self.temperature_c
+        if self.temperature_d is not None:
+            result['temperature_d'] = self.temperature_d
+        if self.temperature_e is not None:
+            result['temperature_e'] = self.temperature_e
+        if self.temperature_f is not None:
+            result['temperature_f'] = self.temperature_f
+        if self.temperature_g is not None:
+            result['temperature_g'] = self.temperature_g
+        if self.temperature_h is not None:
+            result['temperature_h'] = self.temperature_h
+        if self.temperature_i is not None:
+            result['temperature_i'] = self.temperature_i
+        if self.temperature_j is not None:
+            result['temperature_j'] = self.temperature_j
+        if self.temperature_k is not None:
+            result['temperature_k'] = self.temperature_k
+        result['identity_distributed_list'] = []
+        if self.identity_distributed_list is not None:
+            for k in self.identity_distributed_list:
+                result['identity_distributed_list'].append(k.to_map() if k else None)
+        result['extend_arg_list'] = []
+        if self.extend_arg_list is not None:
+            for k in self.extend_arg_list:
+                result['extend_arg_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('serial_no') is not None:
+            self.serial_no = m.get('serial_no')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('green') is not None:
+            self.green = m.get('green')
+        if m.get('yellow') is not None:
+            self.yellow = m.get('yellow')
+        if m.get('red') is not None:
+            self.red = m.get('red')
+        if m.get('code_err') is not None:
+            self.code_err = m.get('code_err')
+        if m.get('face') is not None:
+            self.face = m.get('face')
+        if m.get('health_code') is not None:
+            self.health_code = m.get('health_code')
+        if m.get('cert') is not None:
+            self.cert = m.get('cert')
+        if m.get('other_mode') is not None:
+            self.other_mode = m.get('other_mode')
+        if m.get('pass') is not None:
+            self.pass_ = m.get('pass')
+        if m.get('stop') is not None:
+            self.stop = m.get('stop')
+        if m.get('avg_time') is not None:
+            self.avg_time = m.get('avg_time')
+        if m.get('vaccine_no') is not None:
+            self.vaccine_no = m.get('vaccine_no')
+        if m.get('vaccine_first') is not None:
+            self.vaccine_first = m.get('vaccine_first')
+        if m.get('vaccine_second') is not None:
+            self.vaccine_second = m.get('vaccine_second')
+        if m.get('vaccine_third') is not None:
+            self.vaccine_third = m.get('vaccine_third')
+        if m.get('vaccine_unknown') is not None:
+            self.vaccine_unknown = m.get('vaccine_unknown')
+        if m.get('nucleic_acid24h') is not None:
+            self.nucleic_acid_24h = m.get('nucleic_acid24h')
+        if m.get('nucleic_acid48h') is not None:
+            self.nucleic_acid_48h = m.get('nucleic_acid48h')
+        if m.get('nucleic_acid72h') is not None:
+            self.nucleic_acid_72h = m.get('nucleic_acid72h')
+        if m.get('nucleic_acid7d') is not None:
+            self.nucleic_acid_7d = m.get('nucleic_acid7d')
+        if m.get('nucleic_acid_other') is not None:
+            self.nucleic_acid_other = m.get('nucleic_acid_other')
+        if m.get('temperature_a') is not None:
+            self.temperature_a = m.get('temperature_a')
+        if m.get('temperature_b') is not None:
+            self.temperature_b = m.get('temperature_b')
+        if m.get('temperature_c') is not None:
+            self.temperature_c = m.get('temperature_c')
+        if m.get('temperature_d') is not None:
+            self.temperature_d = m.get('temperature_d')
+        if m.get('temperature_e') is not None:
+            self.temperature_e = m.get('temperature_e')
+        if m.get('temperature_f') is not None:
+            self.temperature_f = m.get('temperature_f')
+        if m.get('temperature_g') is not None:
+            self.temperature_g = m.get('temperature_g')
+        if m.get('temperature_h') is not None:
+            self.temperature_h = m.get('temperature_h')
+        if m.get('temperature_i') is not None:
+            self.temperature_i = m.get('temperature_i')
+        if m.get('temperature_j') is not None:
+            self.temperature_j = m.get('temperature_j')
+        if m.get('temperature_k') is not None:
+            self.temperature_k = m.get('temperature_k')
+        self.identity_distributed_list = []
+        if m.get('identity_distributed_list') is not None:
+            for k in m.get('identity_distributed_list'):
+                temp_model = IdentityDistributed()
+                self.identity_distributed_list.append(temp_model.from_map(k))
+        self.extend_arg_list = []
+        if m.get('extend_arg_list') is not None:
+            for k in m.get('extend_arg_list'):
+                temp_model = StatisticsExtendArg()
+                self.extend_arg_list.append(temp_model.from_map(k))
+        return self
+
+
 class VaccinationInformation(TeaModel):
     def __init__(
         self,
@@ -514,6 +921,41 @@ class ArgsNameValue(TeaModel):
             self.args_value = m.get('args_value')
         if m.get('args_mark') is not None:
             self.args_mark = m.get('args_mark')
+        return self
+
+
+class QueryHealthInfoExtendedArg(TeaModel):
+    def __init__(
+        self,
+        arg_key: str = None,
+        arg_value: str = None,
+    ):
+        # 参数名
+        self.arg_key = arg_key
+        # 参数值
+        self.arg_value = arg_value
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.arg_key is not None:
+            result['arg_key'] = self.arg_key
+        if self.arg_value is not None:
+            result['arg_value'] = self.arg_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('arg_key') is not None:
+            self.arg_key = m.get('arg_key')
+        if m.get('arg_value') is not None:
+            self.arg_value = m.get('arg_value')
         return self
 
 
@@ -893,6 +1335,7 @@ class QueryHealthinfoRequest(TeaModel):
         cert_no: str = None,
         health_types: str = None,
         pass_id: str = None,
+        extension_info: List[QueryHealthInfoExtendedArg] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -916,6 +1359,8 @@ class QueryHealthinfoRequest(TeaModel):
         self.health_types = health_types
         # 通行记录ID
         self.pass_id = pass_id
+        # 获取健康信息所需扩展参数列表：体温（temperature：36.5）
+        self.extension_info = extension_info
 
     def validate(self):
         self.validate_required(self.serial_no, 'serial_no')
@@ -923,6 +1368,10 @@ class QueryHealthinfoRequest(TeaModel):
         self.validate_required(self.name, 'name')
         self.validate_required(self.cert_no, 'cert_no')
         self.validate_required(self.health_types, 'health_types')
+        if self.extension_info:
+            for k in self.extension_info:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -946,6 +1395,10 @@ class QueryHealthinfoRequest(TeaModel):
             result['health_types'] = self.health_types
         if self.pass_id is not None:
             result['pass_id'] = self.pass_id
+        result['extension_info'] = []
+        if self.extension_info is not None:
+            for k in self.extension_info:
+                result['extension_info'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -966,6 +1419,11 @@ class QueryHealthinfoRequest(TeaModel):
             self.health_types = m.get('health_types')
         if m.get('pass_id') is not None:
             self.pass_id = m.get('pass_id')
+        self.extension_info = []
+        if m.get('extension_info') is not None:
+            for k in m.get('extension_info'):
+                temp_model = QueryHealthInfoExtendedArg()
+                self.extension_info.append(temp_model.from_map(k))
         return self
 
 
@@ -1343,6 +1801,7 @@ class GetHealthinfoRequest(TeaModel):
         qr_code: str = None,
         health_types: str = None,
         pass_id: str = None,
+        extension_info: List[QueryHealthInfoExtendedArg] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1360,12 +1819,18 @@ class GetHealthinfoRequest(TeaModel):
         # 通行记录ID
         # 
         self.pass_id = pass_id
+        # 获取健康信息所需扩展参数列表：体温（temperature：36.5）
+        self.extension_info = extension_info
 
     def validate(self):
         self.validate_required(self.serial_no, 'serial_no')
         self.validate_required(self.corp_name, 'corp_name')
         self.validate_required(self.qr_code, 'qr_code')
         self.validate_required(self.health_types, 'health_types')
+        if self.extension_info:
+            for k in self.extension_info:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1387,6 +1852,10 @@ class GetHealthinfoRequest(TeaModel):
             result['health_types'] = self.health_types
         if self.pass_id is not None:
             result['pass_id'] = self.pass_id
+        result['extension_info'] = []
+        if self.extension_info is not None:
+            for k in self.extension_info:
+                result['extension_info'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1405,6 +1874,11 @@ class GetHealthinfoRequest(TeaModel):
             self.health_types = m.get('health_types')
         if m.get('pass_id') is not None:
             self.pass_id = m.get('pass_id')
+        self.extension_info = []
+        if m.get('extension_info') is not None:
+            for k in m.get('extension_info'):
+                temp_model = QueryHealthInfoExtendedArg()
+                self.extension_info.append(temp_model.from_map(k))
         return self
 
 
@@ -1913,7 +2387,7 @@ class QueryHealthstatisticsRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 开始日期
         self.start_date = start_date
-        # 结束日期(为空或等于开始日期时为查询当天)
+        # 结束日期(为空或等于开始日期时为查询当天,时间范围最大可查询100天)
         self.end_date = end_date
         # 统计类型(通行人数统计：PERSON，通行次数统计：NUMBER)
         self.type = type
@@ -2008,6 +2482,131 @@ class QueryHealthstatisticsResponse(TeaModel):
         if m.get('data_list') is not None:
             for k in m.get('data_list'):
                 temp_model = HealthStatistics()
+                self.data_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryDevicestatisticsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        serial_no_list: List[str] = None,
+        crop_name: str = None,
+        start_time: int = None,
+        end_time: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备SN号(最大限制100条)
+        self.serial_no_list = serial_no_list
+        # 厂商名称
+        # 为空时:默认值telpo(天波)
+        # 可用枚举值:
+        # telpo(天波)
+        # hemiao(禾苗)
+        self.crop_name = crop_name
+        # 开始时间(精确到ms)
+        self.start_time = start_time
+        # 结束时间(精确到ms,时间跨度不能超过24h)
+        self.end_time = end_time
+
+    def validate(self):
+        self.validate_required(self.serial_no_list, 'serial_no_list')
+        self.validate_required(self.start_time, 'start_time')
+        self.validate_required(self.end_time, 'end_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.serial_no_list is not None:
+            result['serial_no_list'] = self.serial_no_list
+        if self.crop_name is not None:
+            result['crop_name'] = self.crop_name
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('serial_no_list') is not None:
+            self.serial_no_list = m.get('serial_no_list')
+        if m.get('crop_name') is not None:
+            self.crop_name = m.get('crop_name')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        return self
+
+
+class QueryDevicestatisticsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data_list: List[DeviceStatistics] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 设备实时统计
+        self.data_list = data_list
+
+    def validate(self):
+        if self.data_list:
+            for k in self.data_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data_list'] = []
+        if self.data_list is not None:
+            for k in self.data_list:
+                result['data_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data_list = []
+        if m.get('data_list') is not None:
+            for k in m.get('data_list'):
+                temp_model = DeviceStatistics()
                 self.data_list.append(temp_model.from_map(k))
         return self
 

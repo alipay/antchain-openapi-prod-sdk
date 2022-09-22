@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.15',
+                    'sdk_version': '1.0.18',
                     '_prod_code': 'INTEGRATION_MACHINE',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.15',
+                    'sdk_version': '1.0.18',
                     '_prod_code': 'INTEGRATION_MACHINE',
                     '_prod_channel': 'undefined'
                 }
@@ -665,4 +665,60 @@ class Client:
         return TeaCore.from_map(
             integration__machine_models.QueryHealthstatisticsResponse(),
             await self.do_request_async('1.0', 'antchain.antim.healthstatistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_devicestatistics(
+        self,
+        request: integration__machine_models.QueryDevicestatisticsRequest,
+    ) -> integration__machine_models.QueryDevicestatisticsResponse:
+        """
+        Description: 设备实时通行统计查询
+        Summary: 设备实时通行统计查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_devicestatistics_ex(request, headers, runtime)
+
+    async def query_devicestatistics_async(
+        self,
+        request: integration__machine_models.QueryDevicestatisticsRequest,
+    ) -> integration__machine_models.QueryDevicestatisticsResponse:
+        """
+        Description: 设备实时通行统计查询
+        Summary: 设备实时通行统计查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_devicestatistics_ex_async(request, headers, runtime)
+
+    def query_devicestatistics_ex(
+        self,
+        request: integration__machine_models.QueryDevicestatisticsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> integration__machine_models.QueryDevicestatisticsResponse:
+        """
+        Description: 设备实时通行统计查询
+        Summary: 设备实时通行统计查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            integration__machine_models.QueryDevicestatisticsResponse(),
+            self.do_request('1.0', 'antchain.antim.devicestatistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_devicestatistics_ex_async(
+        self,
+        request: integration__machine_models.QueryDevicestatisticsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> integration__machine_models.QueryDevicestatisticsResponse:
+        """
+        Description: 设备实时通行统计查询
+        Summary: 设备实时通行统计查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            integration__machine_models.QueryDevicestatisticsResponse(),
+            await self.do_request_async('1.0', 'antchain.antim.devicestatistics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
