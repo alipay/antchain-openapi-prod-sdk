@@ -16,15 +16,15 @@ class ClusterState extends Model
      */
     public $clusterName;
 
-    // k8s resource state
+    // 联邦资源的分发状态，空字符串代表成功，否则为错误码
     /**
-     * @example Active
+     * @example CreationFailed
      *
      * @var string
      */
     public $state;
 
-    // 详细描述或错误信息
+    // 详细错误信息
     /**
      * @example some detailed message
      *

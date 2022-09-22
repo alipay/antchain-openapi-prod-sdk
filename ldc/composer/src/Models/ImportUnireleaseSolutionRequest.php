@@ -25,10 +25,31 @@ class ImportUnireleaseSolutionRequest extends Model
      * @var string[]
      */
     public $tenants;
+
+    // 银数AC工单ID
+    /**
+     * @var string
+     */
+    public $acId;
+
+    // 环境信息
+    /**
+     * @var string
+     */
+    public $env;
+
+    // 是否是紧急发布场景
+    /**
+     * @var bool
+     */
+    public $emergent;
     protected $_name = [
         'authToken' => 'auth_token',
         'solution'  => 'solution',
         'tenants'   => 'tenants',
+        'acId'      => 'ac_id',
+        'env'       => 'env',
+        'emergent'  => 'emergent',
     ];
 
     public function validate()
@@ -47,6 +68,15 @@ class ImportUnireleaseSolutionRequest extends Model
         }
         if (null !== $this->tenants) {
             $res['tenants'] = $this->tenants;
+        }
+        if (null !== $this->acId) {
+            $res['ac_id'] = $this->acId;
+        }
+        if (null !== $this->env) {
+            $res['env'] = $this->env;
+        }
+        if (null !== $this->emergent) {
+            $res['emergent'] = $this->emergent;
         }
 
         return $res;
@@ -70,6 +100,15 @@ class ImportUnireleaseSolutionRequest extends Model
             if (!empty($map['tenants'])) {
                 $model->tenants = $map['tenants'];
             }
+        }
+        if (isset($map['ac_id'])) {
+            $model->acId = $map['ac_id'];
+        }
+        if (isset($map['env'])) {
+            $model->env = $map['env'];
+        }
+        if (isset($map['emergent'])) {
+            $model->emergent = $map['emergent'];
         }
 
         return $model;

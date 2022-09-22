@@ -167,6 +167,22 @@ class AppSimpleInfo extends Model
      * @var string
      */
     public $deploymentTemplateName;
+
+    // 蓝绿部署单元名
+    /**
+     * @example GZ00A
+     *
+     * @var string
+     */
+    public $bgCellName;
+
+    // 蓝绿发布类型
+    /**
+     * @example release
+     *
+     * @var string
+     */
+    public $bgGroupType;
     protected $_name = [
         'appId'                       => 'app_id',
         'appInstanceGroupName'        => 'app_instance_group_name',
@@ -188,6 +204,8 @@ class AppSimpleInfo extends Model
         'dependContainerServiceNames' => 'depend_container_service_names',
         'message'                     => 'message',
         'deploymentTemplateName'      => 'deployment_template_name',
+        'bgCellName'                  => 'bg_cell_name',
+        'bgGroupType'                 => 'bg_group_type',
     ];
 
     public function validate()
@@ -272,6 +290,12 @@ class AppSimpleInfo extends Model
         if (null !== $this->deploymentTemplateName) {
             $res['deployment_template_name'] = $this->deploymentTemplateName;
         }
+        if (null !== $this->bgCellName) {
+            $res['bg_cell_name'] = $this->bgCellName;
+        }
+        if (null !== $this->bgGroupType) {
+            $res['bg_group_type'] = $this->bgGroupType;
+        }
 
         return $res;
     }
@@ -345,6 +369,12 @@ class AppSimpleInfo extends Model
         }
         if (isset($map['deployment_template_name'])) {
             $model->deploymentTemplateName = $map['deployment_template_name'];
+        }
+        if (isset($map['bg_cell_name'])) {
+            $model->bgCellName = $map['bg_cell_name'];
+        }
+        if (isset($map['bg_group_type'])) {
+            $model->bgGroupType = $map['bg_group_type'];
         }
 
         return $model;

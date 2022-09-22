@@ -106,6 +106,14 @@ class LoadBalancerListener extends Model
      */
     public $healthCheckDomain;
 
+    // 健康检查http method，支持head和get
+    /**
+     * @example head
+     *
+     * @var string
+     */
+    public $healthCheckHttpMethod;
+
     // 健康检查正常的HTTP状态码，多个状态码用逗号分隔。
     // 默认值为http_2xx。
     /**
@@ -229,6 +237,30 @@ class LoadBalancerListener extends Model
      * @var string
      */
     public $path;
+
+    // on 代表开启 acl，off 代表关闭 acl
+    /**
+     * @example on, off
+     *
+     * @var string
+     */
+    public $aclStatus;
+
+    // acl 类型，white 代表白名单；black 代表黑名单
+    /**
+     * @example white, black
+     *
+     * @var string
+     */
+    public $aclType;
+
+    // 访问控制列表的 id
+    /**
+     * @example acl-123456
+     *
+     * @var string
+     */
+    public $aclId;
     protected $_name = [
         'backendServerPort'         => 'backend_server_port',
         'bandWidth'                 => 'band_width',
@@ -241,6 +273,7 @@ class LoadBalancerListener extends Model
         'healthCheckConnectPort'    => 'health_check_connect_port',
         'healthCheckConnectTimeout' => 'health_check_connect_timeout',
         'healthCheckDomain'         => 'health_check_domain',
+        'healthCheckHttpMethod'     => 'health_check_http_method',
         'healthCheckHttpCode'       => 'health_check_http_code',
         'healthCheckInterval'       => 'health_check_interval',
         'healthCheckThreshold'      => 'health_check_threshold',
@@ -255,6 +288,9 @@ class LoadBalancerListener extends Model
         'xforwardFor'               => 'xforward_for',
         'domain'                    => 'domain',
         'path'                      => 'path',
+        'aclStatus'                 => 'acl_status',
+        'aclType'                   => 'acl_type',
+        'aclId'                     => 'acl_id',
     ];
 
     public function validate()
@@ -299,6 +335,9 @@ class LoadBalancerListener extends Model
         if (null !== $this->healthCheckDomain) {
             $res['health_check_domain'] = $this->healthCheckDomain;
         }
+        if (null !== $this->healthCheckHttpMethod) {
+            $res['health_check_http_method'] = $this->healthCheckHttpMethod;
+        }
         if (null !== $this->healthCheckHttpCode) {
             $res['health_check_http_code'] = $this->healthCheckHttpCode;
         }
@@ -340,6 +379,15 @@ class LoadBalancerListener extends Model
         }
         if (null !== $this->path) {
             $res['path'] = $this->path;
+        }
+        if (null !== $this->aclStatus) {
+            $res['acl_status'] = $this->aclStatus;
+        }
+        if (null !== $this->aclType) {
+            $res['acl_type'] = $this->aclType;
+        }
+        if (null !== $this->aclId) {
+            $res['acl_id'] = $this->aclId;
         }
 
         return $res;
@@ -386,6 +434,9 @@ class LoadBalancerListener extends Model
         if (isset($map['health_check_domain'])) {
             $model->healthCheckDomain = $map['health_check_domain'];
         }
+        if (isset($map['health_check_http_method'])) {
+            $model->healthCheckHttpMethod = $map['health_check_http_method'];
+        }
         if (isset($map['health_check_http_code'])) {
             $model->healthCheckHttpCode = $map['health_check_http_code'];
         }
@@ -427,6 +478,15 @@ class LoadBalancerListener extends Model
         }
         if (isset($map['path'])) {
             $model->path = $map['path'];
+        }
+        if (isset($map['acl_status'])) {
+            $model->aclStatus = $map['acl_status'];
+        }
+        if (isset($map['acl_type'])) {
+            $model->aclType = $map['acl_type'];
+        }
+        if (isset($map['acl_id'])) {
+            $model->aclId = $map['acl_id'];
         }
 
         return $model;

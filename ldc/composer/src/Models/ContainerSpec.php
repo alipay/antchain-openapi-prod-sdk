@@ -226,6 +226,14 @@ class ContainerSpec extends Model
      * @var FieldOverride[]
      */
     public $fieldOverrides;
+
+    // 容器yaml内容
+    /**
+     * @example workingDir: /home/admin/logs
+     *
+     * @var string
+     */
+    public $yamlContent;
     protected $_name = [
         'cpuLimit'          => 'cpu_limit',
         'cpuRequest'        => 'cpu_request',
@@ -248,6 +256,7 @@ class ContainerSpec extends Model
         'volumeMountsStr'   => 'volume_mounts_str',
         'volumesStr'        => 'volumes_str',
         'fieldOverrides'    => 'field_overrides',
+        'yamlContent'       => 'yaml_content',
     ];
 
     public function validate()
@@ -359,6 +368,9 @@ class ContainerSpec extends Model
                 }
             }
         }
+        if (null !== $this->yamlContent) {
+            $res['yaml_content'] = $this->yamlContent;
+        }
 
         return $res;
     }
@@ -465,6 +477,9 @@ class ContainerSpec extends Model
                     $model->fieldOverrides[$n++] = null !== $item ? FieldOverride::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['yaml_content'])) {
+            $model->yamlContent = $map['yaml_content'];
         }
 
         return $model;

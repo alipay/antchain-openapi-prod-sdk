@@ -96,6 +96,14 @@ class DeploymentTemplate extends Model
      * @var string
      */
     public $modifiedTime;
+
+    // 版本号
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $version;
     protected $_name = [
         'name'                 => 'name',
         'displayName'          => 'display_name',
@@ -108,6 +116,7 @@ class DeploymentTemplate extends Model
         'operator'             => 'operator',
         'createdTime'          => 'created_time',
         'modifiedTime'         => 'modified_time',
+        'version'              => 'version',
     ];
 
     public function validate()
@@ -162,6 +171,9 @@ class DeploymentTemplate extends Model
         if (null !== $this->modifiedTime) {
             $res['modified_time'] = $this->modifiedTime;
         }
+        if (null !== $this->version) {
+            $res['version'] = $this->version;
+        }
 
         return $res;
     }
@@ -212,6 +224,9 @@ class DeploymentTemplate extends Model
         }
         if (isset($map['modified_time'])) {
             $model->modifiedTime = $map['modified_time'];
+        }
+        if (isset($map['version'])) {
+            $model->version = $map['version'];
         }
 
         return $model;

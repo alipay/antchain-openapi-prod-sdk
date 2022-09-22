@@ -14,7 +14,7 @@ class PushFlowRuleRequest extends Model
      */
     public $authToken;
 
-    // 包含系统列表
+    // 包含系统列表，目前功能不支持，禁止设置
     /**
      * @var string[]
      */
@@ -32,7 +32,7 @@ class PushFlowRuleRequest extends Model
      */
     public $operator;
 
-    // 站点是否全局推送
+    // 推送中间件流量规则时，是否同时推送中间件中枢
     /**
      * @var bool
      */
@@ -50,7 +50,7 @@ class PushFlowRuleRequest extends Model
      */
     public $ruleValue;
 
-    // 全量的targets信息
+    // 推送目标列表，域外支持 MIDDLEWARE（微服务/中间件）、ALB（统一接入） 两种
     /**
      * @var string[]
      */

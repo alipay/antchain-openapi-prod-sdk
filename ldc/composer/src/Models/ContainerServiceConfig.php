@@ -159,6 +159,14 @@ class ContainerServiceConfig extends Model
      * @var ResourceOverride[]
      */
     public $resourceOverrides;
+
+    // 摘流配置
+    /**
+     * @example {}
+     *
+     * @var TrafficConfig
+     */
+    public $trafficConfig;
     protected $_name = [
         'bizMonitorPaths'            => 'biz_monitor_paths',
         'clusterIpServices'          => 'cluster_ip_services',
@@ -179,6 +187,7 @@ class ContainerServiceConfig extends Model
         'sidercars'                  => 'sidercars',
         'headlessServices'           => 'headless_services',
         'resourceOverrides'          => 'resource_overrides',
+        'trafficConfig'              => 'traffic_config',
     ];
 
     public function validate()
@@ -319,6 +328,9 @@ class ContainerServiceConfig extends Model
                     $res['resource_overrides'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->trafficConfig) {
+            $res['traffic_config'] = null !== $this->trafficConfig ? $this->trafficConfig->toMap() : null;
         }
 
         return $res;
@@ -462,6 +474,9 @@ class ContainerServiceConfig extends Model
                     $model->resourceOverrides[$n++] = null !== $item ? ResourceOverride::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['traffic_config'])) {
+            $model->trafficConfig = TrafficConfig::fromMap($map['traffic_config']);
         }
 
         return $model;

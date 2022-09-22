@@ -63,6 +63,14 @@ class ContainerServiceDeployment extends Model
      * @var string
      */
     public $deploymentTemplateName;
+
+    // 发布模板卡点规则
+    /**
+     * @example []
+     *
+     * @var CustomHook[]
+     */
+    public $deploymentTemplateHooks;
     protected $_name = [
         'containerServiceName'        => 'container_service_name',
         'containerServiceRevision'    => 'container_service_revision',
@@ -71,6 +79,7 @@ class ContainerServiceDeployment extends Model
         'batches'                     => 'batches',
         'upgradePolicy'               => 'upgrade_policy',
         'deploymentTemplateName'      => 'deployment_template_name',
+        'deploymentTemplateHooks'     => 'deployment_template_hooks',
     ];
 
     public function validate()
@@ -109,6 +118,15 @@ class ContainerServiceDeployment extends Model
         }
         if (null !== $this->deploymentTemplateName) {
             $res['deployment_template_name'] = $this->deploymentTemplateName;
+        }
+        if (null !== $this->deploymentTemplateHooks) {
+            $res['deployment_template_hooks'] = [];
+            if (null !== $this->deploymentTemplateHooks && \is_array($this->deploymentTemplateHooks)) {
+                $n = 0;
+                foreach ($this->deploymentTemplateHooks as $item) {
+                    $res['deployment_template_hooks'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -152,6 +170,15 @@ class ContainerServiceDeployment extends Model
         }
         if (isset($map['deployment_template_name'])) {
             $model->deploymentTemplateName = $map['deployment_template_name'];
+        }
+        if (isset($map['deployment_template_hooks'])) {
+            if (!empty($map['deployment_template_hooks'])) {
+                $model->deploymentTemplateHooks = [];
+                $n                              = 0;
+                foreach ($map['deployment_template_hooks'] as $item) {
+                    $model->deploymentTemplateHooks[$n++] = null !== $item ? CustomHook::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

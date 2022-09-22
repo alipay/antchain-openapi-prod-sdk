@@ -55,6 +55,12 @@ class FinishSidecaropsRequest extends Model
      * @var SidecarConfig
      */
     public $sidecarConfig;
+
+    // 是否回滚流程
+    /**
+     * @var bool
+     */
+    public $isRollback;
     protected $_name = [
         'authToken'      => 'auth_token',
         'appName'        => 'app_name',
@@ -64,6 +70,7 @@ class FinishSidecaropsRequest extends Model
         'orderNum'       => 'order_num',
         'cellNames'      => 'cell_names',
         'sidecarConfig'  => 'sidecar_config',
+        'isRollback'     => 'is_rollback',
     ];
 
     public function validate()
@@ -103,6 +110,9 @@ class FinishSidecaropsRequest extends Model
         if (null !== $this->sidecarConfig) {
             $res['sidecar_config'] = null !== $this->sidecarConfig ? $this->sidecarConfig->toMap() : null;
         }
+        if (null !== $this->isRollback) {
+            $res['is_rollback'] = $this->isRollback;
+        }
 
         return $res;
     }
@@ -140,6 +150,9 @@ class FinishSidecaropsRequest extends Model
         }
         if (isset($map['sidecar_config'])) {
             $model->sidecarConfig = SidecarConfig::fromMap($map['sidecar_config']);
+        }
+        if (isset($map['is_rollback'])) {
+            $model->isRollback = $map['is_rollback'];
         }
 
         return $model;

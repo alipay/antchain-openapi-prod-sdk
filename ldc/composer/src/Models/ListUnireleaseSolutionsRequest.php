@@ -49,6 +49,12 @@ class ListUnireleaseSolutionsRequest extends Model
      * @var string
      */
     public $creationTimeTo;
+
+    // AC ID
+    /**
+     * @var string
+     */
+    public $acId;
     protected $_name = [
         'authToken'        => 'auth_token',
         'page'             => 'page',
@@ -57,6 +63,7 @@ class ListUnireleaseSolutionsRequest extends Model
         'name'             => 'name',
         'creationTimeFrom' => 'creation_time_from',
         'creationTimeTo'   => 'creation_time_to',
+        'acId'             => 'ac_id',
     ];
 
     public function validate()
@@ -91,6 +98,9 @@ class ListUnireleaseSolutionsRequest extends Model
         if (null !== $this->creationTimeTo) {
             $res['creation_time_to'] = $this->creationTimeTo;
         }
+        if (null !== $this->acId) {
+            $res['ac_id'] = $this->acId;
+        }
 
         return $res;
     }
@@ -123,6 +133,9 @@ class ListUnireleaseSolutionsRequest extends Model
         }
         if (isset($map['creation_time_to'])) {
             $model->creationTimeTo = $map['creation_time_to'];
+        }
+        if (isset($map['ac_id'])) {
+            $model->acId = $map['ac_id'];
         }
 
         return $model;

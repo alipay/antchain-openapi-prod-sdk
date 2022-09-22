@@ -87,6 +87,14 @@ class VolumeMount extends Model
      * @var string
      */
     public $subPathExpr;
+
+    // nfs volume
+    /**
+     * @example {}
+     *
+     * @var NFSVolumeSource
+     */
+    public $nfsVolumeSource;
     protected $_name = [
         'configmapSecretVolumeSource' => 'configmap_secret_volume_source',
         'emptyDirVolumeSource'        => 'empty_dir_volume_source',
@@ -98,6 +106,7 @@ class VolumeMount extends Model
         'volumeSourceCategoryType'    => 'volume_source_category_type',
         'pvcSource'                   => 'pvc_source',
         'subPathExpr'                 => 'sub_path_expr',
+        'nfsVolumeSource'             => 'nfs_volume_source',
     ];
 
     public function validate()
@@ -140,6 +149,9 @@ class VolumeMount extends Model
         if (null !== $this->subPathExpr) {
             $res['sub_path_expr'] = $this->subPathExpr;
         }
+        if (null !== $this->nfsVolumeSource) {
+            $res['nfs_volume_source'] = null !== $this->nfsVolumeSource ? $this->nfsVolumeSource->toMap() : null;
+        }
 
         return $res;
     }
@@ -181,6 +193,9 @@ class VolumeMount extends Model
         }
         if (isset($map['sub_path_expr'])) {
             $model->subPathExpr = $map['sub_path_expr'];
+        }
+        if (isset($map['nfs_volume_source'])) {
+            $model->nfsVolumeSource = NFSVolumeSource::fromMap($map['nfs_volume_source']);
         }
 
         return $model;

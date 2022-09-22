@@ -31,11 +31,18 @@ class CreateFederationNamespaceRequest extends Model
      * @var string
      */
     public $workspaceGroupName;
+
+    // annotation,可以用来存放description等其他字段
+    /**
+     * @var Annotation[]
+     */
+    public $annotations;
     protected $_name = [
         'authToken'          => 'auth_token',
         'labels'             => 'labels',
         'name'               => 'name',
         'workspaceGroupName' => 'workspace_group_name',
+        'annotations'        => 'annotations',
     ];
 
     public function validate()
@@ -64,6 +71,15 @@ class CreateFederationNamespaceRequest extends Model
         }
         if (null !== $this->workspaceGroupName) {
             $res['workspace_group_name'] = $this->workspaceGroupName;
+        }
+        if (null !== $this->annotations) {
+            $res['annotations'] = [];
+            if (null !== $this->annotations && \is_array($this->annotations)) {
+                $n = 0;
+                foreach ($this->annotations as $item) {
+                    $res['annotations'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -94,6 +110,15 @@ class CreateFederationNamespaceRequest extends Model
         }
         if (isset($map['workspace_group_name'])) {
             $model->workspaceGroupName = $map['workspace_group_name'];
+        }
+        if (isset($map['annotations'])) {
+            if (!empty($map['annotations'])) {
+                $model->annotations = [];
+                $n                  = 0;
+                foreach ($map['annotations'] as $item) {
+                    $model->annotations[$n++] = null !== $item ? Annotation::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

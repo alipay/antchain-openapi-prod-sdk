@@ -61,6 +61,12 @@ class QueryFlowRecordRequest extends Model
      * @var string
      */
     public $ruleType;
+
+    // 推送目标，可选（MAIN、MIDDLEWARE、ALB）
+    /**
+     * @var string
+     */
+    public $pushTarget;
     protected $_name = [
         'authToken'      => 'auth_token',
         'app'            => 'app',
@@ -71,6 +77,7 @@ class QueryFlowRecordRequest extends Model
         'startTime'      => 'start_time',
         'workspaceGroup' => 'workspace_group',
         'ruleType'       => 'rule_type',
+        'pushTarget'     => 'push_target',
     ];
 
     public function validate()
@@ -110,6 +117,9 @@ class QueryFlowRecordRequest extends Model
         if (null !== $this->ruleType) {
             $res['rule_type'] = $this->ruleType;
         }
+        if (null !== $this->pushTarget) {
+            $res['push_target'] = $this->pushTarget;
+        }
 
         return $res;
     }
@@ -148,6 +158,9 @@ class QueryFlowRecordRequest extends Model
         }
         if (isset($map['rule_type'])) {
             $model->ruleType = $map['rule_type'];
+        }
+        if (isset($map['push_target'])) {
+            $model->pushTarget = $map['push_target'];
         }
 
         return $model;

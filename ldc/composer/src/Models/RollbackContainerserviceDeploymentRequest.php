@@ -87,7 +87,6 @@ class RollbackContainerserviceDeploymentRequest extends Model
         Model::validateRequired('namespace', $this->namespace, true);
         Model::validateRequired('revision', $this->revision, true);
         Model::validateRequired('operationId', $this->operationId, true);
-        Model::validateRequired('operator', $this->operator, true);
         Model::validateRequired('reason', $this->reason, true);
     }
 

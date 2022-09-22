@@ -37,12 +37,19 @@ class ListKubernetesResourcesRequest extends Model
      * @var string
      */
     public $namespace;
+
+    // cell名称列表，只查指定cell的集群
+    /**
+     * @var string[]
+     */
+    public $cells;
     protected $_name = [
         'authToken'      => 'auth_token',
         'workspaceGroup' => 'workspace_group',
         'labelSelector'  => 'label_selector',
         'path'           => 'path',
         'namespace'      => 'namespace',
+        'cells'          => 'cells',
     ];
 
     public function validate()
@@ -68,6 +75,9 @@ class ListKubernetesResourcesRequest extends Model
         }
         if (null !== $this->namespace) {
             $res['namespace'] = $this->namespace;
+        }
+        if (null !== $this->cells) {
+            $res['cells'] = $this->cells;
         }
 
         return $res;
@@ -95,6 +105,11 @@ class ListKubernetesResourcesRequest extends Model
         }
         if (isset($map['namespace'])) {
             $model->namespace = $map['namespace'];
+        }
+        if (isset($map['cells'])) {
+            if (!empty($map['cells'])) {
+                $model->cells = $map['cells'];
+            }
         }
 
         return $model;

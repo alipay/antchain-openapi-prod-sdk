@@ -25,10 +25,17 @@ class ConfirmOpsplanServicerollbackRequest extends Model
      * @var string
      */
     public $workspaceGroup;
+
+    // 操作人账号
+    /**
+     * @var string
+     */
+    public $operator;
     protected $_name = [
         'authToken'      => 'auth_token',
         'id'             => 'id',
         'workspaceGroup' => 'workspace_group',
+        'operator'       => 'operator',
     ];
 
     public function validate()
@@ -48,6 +55,9 @@ class ConfirmOpsplanServicerollbackRequest extends Model
         }
         if (null !== $this->workspaceGroup) {
             $res['workspace_group'] = $this->workspaceGroup;
+        }
+        if (null !== $this->operator) {
+            $res['operator'] = $this->operator;
         }
 
         return $res;
@@ -69,6 +79,9 @@ class ConfirmOpsplanServicerollbackRequest extends Model
         }
         if (isset($map['workspace_group'])) {
             $model->workspaceGroup = $map['workspace_group'];
+        }
+        if (isset($map['operator'])) {
+            $model->operator = $map['operator'];
         }
 
         return $model;

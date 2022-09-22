@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class FedSecretOverride extends Model
 {
-    // fed secret data override
+    // 要覆盖的保密字典数据
     /**
      * @example
      *
@@ -16,18 +16,17 @@ class FedSecretOverride extends Model
      */
     public $data;
 
-    // cluster name
-    //
+    // 部署单元的名称
     /**
-     * @example default
+     * @example gz00a
      *
      * @var string
      */
     public $name;
 
-    // name cell override
+    // 覆盖的名称，必须为：保密字典名称-cell-部署单元名称
     /**
-     * @example cella
+     * @example sc-cell-gz00a
      *
      * @var string
      */

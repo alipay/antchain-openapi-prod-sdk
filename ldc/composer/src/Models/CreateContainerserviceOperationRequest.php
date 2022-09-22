@@ -68,7 +68,7 @@ class CreateContainerserviceOperationRequest extends Model
      */
     public $workspaceGroup;
 
-    // 在具体分组策略下，每个执行单元（部署单元，机房等）内部的分组个数。
+    // 最小分组数，同发布单中的group_count
     /**
      * @var int
      */
@@ -103,6 +103,12 @@ class CreateContainerserviceOperationRequest extends Model
      * @var int
      */
     public $maxCellPodPercentage;
+
+    // 部署单元流量权重
+    /**
+     * @var CellWeightInfo[]
+     */
+    public $cellWeights;
     protected $_name = [
         'authToken'            => 'auth_token',
         'containerServices'    => 'container_services',
@@ -120,6 +126,7 @@ class CreateContainerserviceOperationRequest extends Model
         'huanyuExecNo'         => 'huanyu_exec_no',
         'maxGroupCapacity'     => 'max_group_capacity',
         'maxCellPodPercentage' => 'max_cell_pod_percentage',
+        'cellWeights'          => 'cell_weights',
     ];
 
     public function validate()
@@ -182,6 +189,15 @@ class CreateContainerserviceOperationRequest extends Model
         if (null !== $this->maxCellPodPercentage) {
             $res['max_cell_pod_percentage'] = $this->maxCellPodPercentage;
         }
+        if (null !== $this->cellWeights) {
+            $res['cell_weights'] = [];
+            if (null !== $this->cellWeights && \is_array($this->cellWeights)) {
+                $n = 0;
+                foreach ($this->cellWeights as $item) {
+                    $res['cell_weights'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
 
         return $res;
     }
@@ -243,6 +259,15 @@ class CreateContainerserviceOperationRequest extends Model
         }
         if (isset($map['max_cell_pod_percentage'])) {
             $model->maxCellPodPercentage = $map['max_cell_pod_percentage'];
+        }
+        if (isset($map['cell_weights'])) {
+            if (!empty($map['cell_weights'])) {
+                $model->cellWeights = [];
+                $n                  = 0;
+                foreach ($map['cell_weights'] as $item) {
+                    $model->cellWeights[$n++] = null !== $item ? CellWeightInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

@@ -39,11 +39,20 @@ class PushRuleResult extends Model
      * @var string[]
      */
     public $failedList;
+
+    // 失败信息
+    /**
+     * @example 失败信息
+     *
+     * @var string
+     */
+    public $message;
     protected $_name = [
         'name'        => 'name',
         'desc'        => 'desc',
         'succeedList' => 'succeed_list',
         'failedList'  => 'failed_list',
+        'message'     => 'message',
     ];
 
     public function validate()
@@ -64,6 +73,9 @@ class PushRuleResult extends Model
         }
         if (null !== $this->failedList) {
             $res['failed_list'] = $this->failedList;
+        }
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
         }
 
         return $res;
@@ -92,6 +104,9 @@ class PushRuleResult extends Model
             if (!empty($map['failed_list'])) {
                 $model->failedList = $map['failed_list'];
             }
+        }
+        if (isset($map['message'])) {
+            $model->message = $map['message'];
         }
 
         return $model;

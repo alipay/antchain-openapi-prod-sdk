@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class FedNamespace extends Model
 {
-    // fed namespace annotations
+    // 命名空间的注解
     /**
      * @example
      *
@@ -16,7 +16,7 @@ class FedNamespace extends Model
      */
     public $annotations;
 
-    // fed namespace clusters
+    // 分发的集群列表
     /**
      * @example
      *
@@ -24,7 +24,7 @@ class FedNamespace extends Model
      */
     public $clusters;
 
-    // fed namespace cluster state map
+    // 分发状态
     /**
      * @example
      *
@@ -32,25 +32,25 @@ class FedNamespace extends Model
      */
     public $clusterStateMap;
 
-    // fed namespace labels
+    // 命名空间的标签
     /**
-     * @example labels
+     * @example
      *
      * @var Label[]
      */
     public $labels;
 
-    // fed namespace name
+    // 命名空间名称
     /**
-     * @example antstack
+     * @example antcloud-cafe-default
      *
      * @var string
      */
     public $name;
 
-    // Fed CRD namespace
+    // 联邦命名空间所在命名空间，和命名空间自身名称保持一致
     /**
-     * @example default
+     * @example antcloud-cafe-default
      *
      * @var string
      */
@@ -64,7 +64,7 @@ class FedNamespace extends Model
      */
     public $createTimeStamp;
 
-    // fed 资源的状态
+    // 分发状态，成功 True，失败 False，删除中 Deleting
     /**
      * @example True,False,Deleting
      *
@@ -72,7 +72,7 @@ class FedNamespace extends Model
      */
     public $status;
 
-    // 导致 fed 资源处于该状态的原因
+    // 导致该分发状态的原因
     /**
      * @example ClusterNotReady
      *

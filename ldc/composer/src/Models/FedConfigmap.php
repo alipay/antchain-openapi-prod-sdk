@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class FedConfigmap extends Model
 {
-    // fed configmap annotations
+    // 配置项的注解
     /**
      * @example
      *
@@ -16,7 +16,7 @@ class FedConfigmap extends Model
      */
     public $annotations;
 
-    // Fed资源集群Cell状态
+    // 分发状态
     /**
      * @example
      *
@@ -24,7 +24,7 @@ class FedConfigmap extends Model
      */
     public $cellStatus;
 
-    // fed clusters
+    // 分发的 cell 列表
     /**
      * @example
      *
@@ -40,7 +40,7 @@ class FedConfigmap extends Model
      */
     public $createTimeStamp;
 
-    // fed configmap data
+    // 配置项数据
     /**
      * @example
      *
@@ -48,7 +48,7 @@ class FedConfigmap extends Model
      */
     public $data;
 
-    // fed configmap labels
+    // 配置项的标签
     /**
      * @example
      *
@@ -56,7 +56,7 @@ class FedConfigmap extends Model
      */
     public $labels;
 
-    // fed configmap name
+    // 名称
     /**
      * @example cm
      *
@@ -64,15 +64,15 @@ class FedConfigmap extends Model
      */
     public $name;
 
-    // fed configmap namespace
+    // 命名空间
     /**
-     * @example antstack
+     * @example antcloud-cafe-default
      *
      * @var string
      */
     public $namespace;
 
-    // fed configmap override
+    // 配置项数据在不同 cell 下的自定义覆盖配置
     /**
      * @example
      *
@@ -80,17 +80,17 @@ class FedConfigmap extends Model
      */
     public $overrides;
 
-    // 原因
+    // 导致该分发状态的原因
     /**
-     * @example GetKeysInCellFailed
+     * @example ClusterNotReady
      *
      * @var string
      */
     public $reason;
 
-    // propagation状态
+    // 分发状态，成功 True，失败 False，删除中 Deleting
     /**
-     * @example propagation
+     * @example True
      *
      * @var string
      */

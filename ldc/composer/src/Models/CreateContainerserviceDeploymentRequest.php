@@ -79,19 +79,40 @@ class CreateContainerserviceDeploymentRequest extends Model
      * @var GrayReleaseConfig
      */
     public $grayReleaseConfig;
+
+    // 引流应用服务列表, 部署单元蓝绿专用
+    /**
+     * @var string[]
+     */
+    public $trafficContainerServices;
+
+    // cell列表，部署单元蓝绿专用，按顺序发布
+    /**
+     * @var string[]
+     */
+    public $cellNames;
+
+    // 是否紧急发布，目前会自动跳过变更核心
+    /**
+     * @var bool
+     */
+    public $emergent;
     protected $_name = [
-        'authToken'           => 'auth_token',
-        'containerServices'   => 'container_services',
-        'isAutoExecute'       => 'is_auto_execute',
-        'namespace'           => 'namespace',
-        'opsType'             => 'ops_type',
-        'releasePlanUniqueId' => 'release_plan_unique_id',
-        'tenantName'          => 'tenant_name',
-        'title'               => 'title',
-        'workspaceGroup'      => 'workspace_group',
-        'assigneeIds'         => 'assignee_ids',
-        'operator'            => 'operator',
-        'grayReleaseConfig'   => 'gray_release_config',
+        'authToken'                => 'auth_token',
+        'containerServices'        => 'container_services',
+        'isAutoExecute'            => 'is_auto_execute',
+        'namespace'                => 'namespace',
+        'opsType'                  => 'ops_type',
+        'releasePlanUniqueId'      => 'release_plan_unique_id',
+        'tenantName'               => 'tenant_name',
+        'title'                    => 'title',
+        'workspaceGroup'           => 'workspace_group',
+        'assigneeIds'              => 'assignee_ids',
+        'operator'                 => 'operator',
+        'grayReleaseConfig'        => 'gray_release_config',
+        'trafficContainerServices' => 'traffic_container_services',
+        'cellNames'                => 'cell_names',
+        'emergent'                 => 'emergent',
     ];
 
     public function validate()
@@ -140,6 +161,15 @@ class CreateContainerserviceDeploymentRequest extends Model
         }
         if (null !== $this->grayReleaseConfig) {
             $res['gray_release_config'] = null !== $this->grayReleaseConfig ? $this->grayReleaseConfig->toMap() : null;
+        }
+        if (null !== $this->trafficContainerServices) {
+            $res['traffic_container_services'] = $this->trafficContainerServices;
+        }
+        if (null !== $this->cellNames) {
+            $res['cell_names'] = $this->cellNames;
+        }
+        if (null !== $this->emergent) {
+            $res['emergent'] = $this->emergent;
         }
 
         return $res;
@@ -190,6 +220,19 @@ class CreateContainerserviceDeploymentRequest extends Model
         }
         if (isset($map['gray_release_config'])) {
             $model->grayReleaseConfig = GrayReleaseConfig::fromMap($map['gray_release_config']);
+        }
+        if (isset($map['traffic_container_services'])) {
+            if (!empty($map['traffic_container_services'])) {
+                $model->trafficContainerServices = $map['traffic_container_services'];
+            }
+        }
+        if (isset($map['cell_names'])) {
+            if (!empty($map['cell_names'])) {
+                $model->cellNames = $map['cell_names'];
+            }
+        }
+        if (isset($map['emergent'])) {
+            $model->emergent = $map['emergent'];
         }
 
         return $model;

@@ -31,10 +31,28 @@ class AppGroupSimpleView extends Model
      * @var string
      */
     public $state;
+
+    // 蓝绿发布专用
+    /**
+     * @example gz00a
+     *
+     * @var string
+     */
+    public $bgCellName;
+
+    // 蓝绿发布专用，traffic或release
+    /**
+     * @example traffic
+     *
+     * @var string
+     */
+    public $bgGroupType;
     protected $_name = [
-        'appIdList' => 'app_id_list',
-        'id'        => 'id',
-        'state'     => 'state',
+        'appIdList'   => 'app_id_list',
+        'id'          => 'id',
+        'state'       => 'state',
+        'bgCellName'  => 'bg_cell_name',
+        'bgGroupType' => 'bg_group_type',
     ];
 
     public function validate()
@@ -55,6 +73,12 @@ class AppGroupSimpleView extends Model
         }
         if (null !== $this->state) {
             $res['state'] = $this->state;
+        }
+        if (null !== $this->bgCellName) {
+            $res['bg_cell_name'] = $this->bgCellName;
+        }
+        if (null !== $this->bgGroupType) {
+            $res['bg_group_type'] = $this->bgGroupType;
         }
 
         return $res;
@@ -78,6 +102,12 @@ class AppGroupSimpleView extends Model
         }
         if (isset($map['state'])) {
             $model->state = $map['state'];
+        }
+        if (isset($map['bg_cell_name'])) {
+            $model->bgCellName = $map['bg_cell_name'];
+        }
+        if (isset($map['bg_group_type'])) {
+            $model->bgGroupType = $map['bg_group_type'];
         }
 
         return $model;

@@ -58,7 +58,7 @@ class ContainerServiceOperation extends Model
 
     // [huanyu场景使用]，灰度平台pods分批序列化为json的结果
     /**
-     * @example [{"podA"}, {"podB, podC"}]
+     * @example []
      *
      * @var string
      */

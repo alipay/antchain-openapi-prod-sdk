@@ -95,18 +95,45 @@ class LoadBalancerService extends Model
      * @var string
      */
     public $fedLoadbalancerName;
+
+    // 是否开启优雅下线等待，默认为false。
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $enableGracefulShutdownWaiting;
+
+    // 优雅下线等待时间，单位秒，默认0.
+    /**
+     * @example 10
+     *
+     * @var int
+     */
+    public $gracefulShutdownWaitingTime;
+
+    // 是否开启集群内转发优化（集群内访问lb vip时是否走kube-proxy转发链路）
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $enableInClusterForwardOptimization;
     protected $_name = [
-        'domain'              => 'domain',
-        'listeners'           => 'listeners',
-        'loadBalancerIaasId'  => 'load_balancer_iaas_id',
-        'loadBalancerName'    => 'load_balancer_name',
-        'name'                => 'name',
-        'spannerClusterId'    => 'spanner_cluster_id',
-        'addressType'         => 'address_type',
-        'cellSlbIaasIdMap'    => 'cell_slb_iaas_id_map',
-        'cellLbVipMap'        => 'cell_lb_vip_map',
-        'useFedLoadbalancer'  => 'use_fed_loadbalancer',
-        'fedLoadbalancerName' => 'fed_loadbalancer_name',
+        'domain'                             => 'domain',
+        'listeners'                          => 'listeners',
+        'loadBalancerIaasId'                 => 'load_balancer_iaas_id',
+        'loadBalancerName'                   => 'load_balancer_name',
+        'name'                               => 'name',
+        'spannerClusterId'                   => 'spanner_cluster_id',
+        'addressType'                        => 'address_type',
+        'cellSlbIaasIdMap'                   => 'cell_slb_iaas_id_map',
+        'cellLbVipMap'                       => 'cell_lb_vip_map',
+        'useFedLoadbalancer'                 => 'use_fed_loadbalancer',
+        'fedLoadbalancerName'                => 'fed_loadbalancer_name',
+        'enableGracefulShutdownWaiting'      => 'enable_graceful_shutdown_waiting',
+        'gracefulShutdownWaitingTime'        => 'graceful_shutdown_waiting_time',
+        'enableInClusterForwardOptimization' => 'enable_in_cluster_forward_optimization',
     ];
 
     public function validate()
@@ -168,6 +195,15 @@ class LoadBalancerService extends Model
         }
         if (null !== $this->fedLoadbalancerName) {
             $res['fed_loadbalancer_name'] = $this->fedLoadbalancerName;
+        }
+        if (null !== $this->enableGracefulShutdownWaiting) {
+            $res['enable_graceful_shutdown_waiting'] = $this->enableGracefulShutdownWaiting;
+        }
+        if (null !== $this->gracefulShutdownWaitingTime) {
+            $res['graceful_shutdown_waiting_time'] = $this->gracefulShutdownWaitingTime;
+        }
+        if (null !== $this->enableInClusterForwardOptimization) {
+            $res['enable_in_cluster_forward_optimization'] = $this->enableInClusterForwardOptimization;
         }
 
         return $res;
@@ -231,6 +267,15 @@ class LoadBalancerService extends Model
         }
         if (isset($map['fed_loadbalancer_name'])) {
             $model->fedLoadbalancerName = $map['fed_loadbalancer_name'];
+        }
+        if (isset($map['enable_graceful_shutdown_waiting'])) {
+            $model->enableGracefulShutdownWaiting = $map['enable_graceful_shutdown_waiting'];
+        }
+        if (isset($map['graceful_shutdown_waiting_time'])) {
+            $model->gracefulShutdownWaitingTime = $map['graceful_shutdown_waiting_time'];
+        }
+        if (isset($map['enable_in_cluster_forward_optimization'])) {
+            $model->enableInClusterForwardOptimization = $map['enable_in_cluster_forward_optimization'];
         }
 
         return $model;

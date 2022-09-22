@@ -13,14 +13,20 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ldc\Models\AddAntvipDomainRequest;
 use AntChain\Ldc\Models\AddAntvipDomainResponse;
+use AntChain\Ldc\Models\AddContainerserviceLogpvRequest;
+use AntChain\Ldc\Models\AddContainerserviceLogpvResponse;
 use AntChain\Ldc\Models\AddContainerserviceMiddlewareconfigRequest;
 use AntChain\Ldc\Models\AddContainerserviceMiddlewareconfigResponse;
+use AntChain\Ldc\Models\AddFedspannerclusterZoneRequest;
+use AntChain\Ldc\Models\AddFedspannerclusterZoneResponse;
 use AntChain\Ldc\Models\AddFlowElasticruleRequest;
 use AntChain\Ldc\Models\AddFlowElasticruleResponse;
 use AntChain\Ldc\Models\AddFlowElasticsubruleRequest;
 use AntChain\Ldc\Models\AddFlowElasticsubruleResponse;
 use AntChain\Ldc\Models\AddSidecaropsTemplateRequest;
 use AntChain\Ldc\Models\AddSidecaropsTemplateResponse;
+use AntChain\Ldc\Models\AddUnifiedaccessinstanceZoneRequest;
+use AntChain\Ldc\Models\AddUnifiedaccessinstanceZoneResponse;
 use AntChain\Ldc\Models\ApplyContainerserviceDeploymentRequest;
 use AntChain\Ldc\Models\ApplyContainerserviceDeploymentResponse;
 use AntChain\Ldc\Models\BatchdeleteFedspannerclusterRequest;
@@ -35,6 +41,12 @@ use AntChain\Ldc\Models\CancelOpsplanServiceRequest;
 use AntChain\Ldc\Models\CancelOpsplanServiceResponse;
 use AntChain\Ldc\Models\CancelSidecarOperationRequest;
 use AntChain\Ldc\Models\CancelSidecarOperationResponse;
+use AntChain\Ldc\Models\CancelSidecaropsRequest;
+use AntChain\Ldc\Models\CancelSidecaropsResponse;
+use AntChain\Ldc\Models\CheckContainerserviceConflictopsRequest;
+use AntChain\Ldc\Models\CheckContainerserviceConflictopsResponse;
+use AntChain\Ldc\Models\ConfirmAppopsRequest;
+use AntChain\Ldc\Models\ConfirmAppopsResponse;
 use AntChain\Ldc\Models\ConfirmOpsplanServicerollbackRequest;
 use AntChain\Ldc\Models\ConfirmOpsplanServicerollbackResponse;
 use AntChain\Ldc\Models\CountContainerserviceCellreplicasRequest;
@@ -143,6 +155,8 @@ use AntChain\Ldc\Models\DescribeContainerserviceRevisionRequest;
 use AntChain\Ldc\Models\DescribeContainerserviceRevisionResponse;
 use AntChain\Ldc\Models\DetailAppMetainfoRequest;
 use AntChain\Ldc\Models\DetailAppMetainfoResponse;
+use AntChain\Ldc\Models\DetailContainerserviceRevisiondiffRequest;
+use AntChain\Ldc\Models\DetailContainerserviceRevisiondiffResponse;
 use AntChain\Ldc\Models\DisableFlowElasticuidRequest;
 use AntChain\Ldc\Models\DisableFlowElasticuidResponse;
 use AntChain\Ldc\Models\DisableFlowElasticvalueRequest;
@@ -151,6 +165,8 @@ use AntChain\Ldc\Models\EnableFlowElasticuidRequest;
 use AntChain\Ldc\Models\EnableFlowElasticuidResponse;
 use AntChain\Ldc\Models\ExecContainerserviceApihookRequest;
 use AntChain\Ldc\Models\ExecContainerserviceApihookResponse;
+use AntChain\Ldc\Models\ExecFlowDisasterswitchRequest;
+use AntChain\Ldc\Models\ExecFlowDisasterswitchResponse;
 use AntChain\Ldc\Models\ExecOpsplanAppopstaskRequest;
 use AntChain\Ldc\Models\ExecOpsplanAppopstaskResponse;
 use AntChain\Ldc\Models\ExecUnireleasePipelinesRequest;
@@ -191,6 +207,8 @@ use AntChain\Ldc\Models\GetDeploymentRequest;
 use AntChain\Ldc\Models\GetDeploymentResponse;
 use AntChain\Ldc\Models\GetDeploymentRollbackRequest;
 use AntChain\Ldc\Models\GetDeploymentRollbackResponse;
+use AntChain\Ldc\Models\GetEmergencyPlansRequest;
+use AntChain\Ldc\Models\GetEmergencyPlansResponse;
 use AntChain\Ldc\Models\GetFederationConfigmapRequest;
 use AntChain\Ldc\Models\GetFederationConfigmapResponse;
 use AntChain\Ldc\Models\GetFederationDeploymentRequest;
@@ -273,10 +291,14 @@ use AntChain\Ldc\Models\ListFederationNamespaceRequest;
 use AntChain\Ldc\Models\ListFederationNamespaceResponse;
 use AntChain\Ldc\Models\ListFederationSecretRequest;
 use AntChain\Ldc\Models\ListFederationSecretResponse;
+use AntChain\Ldc\Models\ListFederationServiceRequest;
+use AntChain\Ldc\Models\ListFederationServiceResponse;
 use AntChain\Ldc\Models\ListFedloadbalancerRequest;
 use AntChain\Ldc\Models\ListFedloadbalancerResponse;
 use AntChain\Ldc\Models\ListFedspannerclusterRequest;
 use AntChain\Ldc\Models\ListFedspannerclusterResponse;
+use AntChain\Ldc\Models\ListFlowCellgroupRequest;
+use AntChain\Ldc\Models\ListFlowCellgroupResponse;
 use AntChain\Ldc\Models\ListIngressTrafficweightRequest;
 use AntChain\Ldc\Models\ListIngressTrafficweightResponse;
 use AntChain\Ldc\Models\ListKubernetesResourcesRequest;
@@ -369,6 +391,8 @@ use AntChain\Ldc\Models\QueryFlowUidinfoRequest;
 use AntChain\Ldc\Models\QueryFlowUidinfoResponse;
 use AntChain\Ldc\Models\QueryLoadbalancerRequest;
 use AntChain\Ldc\Models\QueryLoadbalancerResponse;
+use AntChain\Ldc\Models\QueryOperationlogRequest;
+use AntChain\Ldc\Models\QueryOperationlogResponse;
 use AntChain\Ldc\Models\QueryOpsplanAppprogressRequest;
 use AntChain\Ldc\Models\QueryOpsplanAppprogressResponse;
 use AntChain\Ldc\Models\QueryOpsplanDetailRequest;
@@ -417,6 +441,8 @@ use AntChain\Ldc\Models\RollbackContainerserviceDeploymentRequest;
 use AntChain\Ldc\Models\RollbackContainerserviceDeploymentResponse;
 use AntChain\Ldc\Models\RollbackDeploymentApplicationRequest;
 use AntChain\Ldc\Models\RollbackDeploymentApplicationResponse;
+use AntChain\Ldc\Models\RollbackSidecaropsRequest;
+use AntChain\Ldc\Models\RollbackSidecaropsResponse;
 use AntChain\Ldc\Models\SaveContainerserviceRevisionRequest;
 use AntChain\Ldc\Models\SaveContainerserviceRevisionResponse;
 use AntChain\Ldc\Models\SaveFlowEnvrelRequest;
@@ -431,6 +457,8 @@ use AntChain\Ldc\Models\StartAppopsRequest;
 use AntChain\Ldc\Models\StartAppopsResponse;
 use AntChain\Ldc\Models\StartOpsplanServiceRequest;
 use AntChain\Ldc\Models\StartOpsplanServiceResponse;
+use AntChain\Ldc\Models\SyncFlowMetadataRequest;
+use AntChain\Ldc\Models\SyncFlowMetadataResponse;
 use AntChain\Ldc\Models\UnbindAppserviceRequest;
 use AntChain\Ldc\Models\UnbindAppserviceResponse;
 use AntChain\Ldc\Models\UpdateBuildpackNativetechstackversionRequest;
@@ -447,6 +475,8 @@ use AntChain\Ldc\Models\UpdateContainerserviceGrayreleaseconfigRequest;
 use AntChain\Ldc\Models\UpdateContainerserviceGrayreleaseconfigResponse;
 use AntChain\Ldc\Models\UpdateContainerserviceImageRequest;
 use AntChain\Ldc\Models\UpdateContainerserviceImageResponse;
+use AntChain\Ldc\Models\UpdateContainerserviceJsonpatchRequest;
+use AntChain\Ldc\Models\UpdateContainerserviceJsonpatchResponse;
 use AntChain\Ldc\Models\UpdateContainerserviceNativebpversionRequest;
 use AntChain\Ldc\Models\UpdateContainerserviceNativebpversionResponse;
 use AntChain\Ldc\Models\UpdateContainerserviceReplicasRequest;
@@ -646,7 +676,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.15',
+                    'sdk_version'      => '1.12.83',
+                    '_prod_code'       => 'ldc',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -8748,5 +8780,500 @@ class Client
         Utils::validateModel($request);
 
         return QueryContainerserivceGrayreleaseconfigResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.containerserivce.grayreleaseconfig.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用服务版本diff
+     * Summary: 应用服务版本diff.
+     *
+     * @param DetailContainerserviceRevisiondiffRequest $request
+     *
+     * @return DetailContainerserviceRevisiondiffResponse
+     */
+    public function detailContainerserviceRevisiondiff($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailContainerserviceRevisiondiffEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用服务版本diff
+     * Summary: 应用服务版本diff.
+     *
+     * @param DetailContainerserviceRevisiondiffRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return DetailContainerserviceRevisiondiffResponse
+     */
+    public function detailContainerserviceRevisiondiffEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailContainerserviceRevisiondiffResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.containerservice.revisiondiff.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可用于huanyu升级sidecar时，回滚变更单的执行，回滚到执行前的sidecar状态。
+     * Summary: 回滚sidecar升级.
+     *
+     * @param RollbackSidecaropsRequest $request
+     *
+     * @return RollbackSidecaropsResponse
+     */
+    public function rollbackSidecarops($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->rollbackSidecaropsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可用于huanyu升级sidecar时，回滚变更单的执行，回滚到执行前的sidecar状态。
+     * Summary: 回滚sidecar升级.
+     *
+     * @param RollbackSidecaropsRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return RollbackSidecaropsResponse
+     */
+    public function rollbackSidecaropsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RollbackSidecaropsResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.sidecarops.rollback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对一个运维操作中所有暂停的分组进行确认操作，lks1.36.0才支持
+     * Summary: 确认运维.
+     *
+     * @param ConfirmAppopsRequest $request
+     *
+     * @return ConfirmAppopsResponse
+     */
+    public function confirmAppops($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmAppopsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对一个运维操作中所有暂停的分组进行确认操作，lks1.36.0才支持
+     * Summary: 确认运维.
+     *
+     * @param ConfirmAppopsRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return ConfirmAppopsResponse
+     */
+    public function confirmAppopsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmAppopsResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.appops.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量添加应用服务PVC和init Container
+     * Summary: 批量添加应用服务PVC.
+     *
+     * @param AddContainerserviceLogpvRequest $request
+     *
+     * @return AddContainerserviceLogpvResponse
+     */
+    public function addContainerserviceLogpv($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addContainerserviceLogpvEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量添加应用服务PVC和init Container
+     * Summary: 批量添加应用服务PVC.
+     *
+     * @param AddContainerserviceLogpvRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return AddContainerserviceLogpvResponse
+     */
+    public function addContainerserviceLogpvEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddContainerserviceLogpvResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.containerservice.logpv.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询 fedservice 列表
+     * Summary: 查询 fedservice 列表.
+     *
+     * @param ListFederationServiceRequest $request
+     *
+     * @return ListFederationServiceResponse
+     */
+    public function listFederationService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listFederationServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询 fedservice 列表
+     * Summary: 查询 fedservice 列表.
+     *
+     * @param ListFederationServiceRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ListFederationServiceResponse
+     */
+    public function listFederationServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListFederationServiceResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.federation.service.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询操作日志OpenAPI
+     * Summary: 查询操作日志.
+     *
+     * @param QueryOperationlogRequest $request
+     *
+     * @return QueryOperationlogResponse
+     */
+    public function queryOperationlog($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOperationlogEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询操作日志OpenAPI
+     * Summary: 查询操作日志.
+     *
+     * @param QueryOperationlogRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryOperationlogResponse
+     */
+    public function queryOperationlogEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOperationlogResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.operationlog.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询守夜人预案详情
+     * Summary: 查询守夜人预案详情.
+     *
+     * @param GetEmergencyPlansRequest $request
+     *
+     * @return GetEmergencyPlansResponse
+     */
+    public function getEmergencyPlans($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getEmergencyPlansEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询守夜人预案详情
+     * Summary: 查询守夜人预案详情.
+     *
+     * @param GetEmergencyPlansRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return GetEmergencyPlansResponse
+     */
+    public function getEmergencyPlansEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetEmergencyPlansResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.emergency.plans.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为统一接入集群添加可用区，必须是当前工作空间组下已规划的可用区。待添加的可用区内应有规划用于部署spanner容器的节点资源。
+     * Summary: 为统一接入集群添加可用区.
+     *
+     * @param AddFedspannerclusterZoneRequest $request
+     *
+     * @return AddFedspannerclusterZoneResponse
+     */
+    public function addFedspannerclusterZone($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addFedspannerclusterZoneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为统一接入集群添加可用区，必须是当前工作空间组下已规划的可用区。待添加的可用区内应有规划用于部署spanner容器的节点资源。
+     * Summary: 为统一接入集群添加可用区.
+     *
+     * @param AddFedspannerclusterZoneRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return AddFedspannerclusterZoneResponse
+     */
+    public function addFedspannerclusterZoneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddFedspannerclusterZoneResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.fedspannercluster.zone.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为统一接入实例添加可用区，统一接入实例在新增的可用区内将增加一个入口（LVS VIP）。
+     * Summary: 为统一接入实例添加可用区.
+     *
+     * @param AddUnifiedaccessinstanceZoneRequest $request
+     *
+     * @return AddUnifiedaccessinstanceZoneResponse
+     */
+    public function addUnifiedaccessinstanceZone($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addUnifiedaccessinstanceZoneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为统一接入实例添加可用区，统一接入实例在新增的可用区内将增加一个入口（LVS VIP）。
+     * Summary: 为统一接入实例添加可用区.
+     *
+     * @param AddUnifiedaccessinstanceZoneRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return AddUnifiedaccessinstanceZoneResponse
+     */
+    public function addUnifiedaccessinstanceZoneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddUnifiedaccessinstanceZoneResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.unifiedaccessinstance.zone.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过jsonpatch方式更新应用服务配置
+     * Summary: 通过jsonpatch更新应用服务配置.
+     *
+     * @param UpdateContainerserviceJsonpatchRequest $request
+     *
+     * @return UpdateContainerserviceJsonpatchResponse
+     */
+    public function updateContainerserviceJsonpatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateContainerserviceJsonpatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过jsonpatch方式更新应用服务配置
+     * Summary: 通过jsonpatch更新应用服务配置.
+     *
+     * @param UpdateContainerserviceJsonpatchRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return UpdateContainerserviceJsonpatchResponse
+     */
+    public function updateContainerserviceJsonpatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateContainerserviceJsonpatchResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.containerservice.jsonpatch.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查看单元化管理中的单元组元数据
+     * Summary: 查看单元化管理中的单元组元数据.
+     *
+     * @param ListFlowCellgroupRequest $request
+     *
+     * @return ListFlowCellgroupResponse
+     */
+    public function listFlowCellgroup($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listFlowCellgroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查看单元化管理中的单元组元数据
+     * Summary: 查看单元化管理中的单元组元数据.
+     *
+     * @param ListFlowCellgroupRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ListFlowCellgroupResponse
+     */
+    public function listFlowCellgroupEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListFlowCellgroupResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.flow.cellgroup.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 同步单元化元数据
+     * Summary: 同步单元化元数据.
+     *
+     * @param SyncFlowMetadataRequest $request
+     *
+     * @return SyncFlowMetadataResponse
+     */
+    public function syncFlowMetadata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncFlowMetadataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 同步单元化元数据
+     * Summary: 同步单元化元数据.
+     *
+     * @param SyncFlowMetadataRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return SyncFlowMetadataResponse
+     */
+    public function syncFlowMetadataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncFlowMetadataResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.flow.metadata.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发布单冲突检测
+     * Summary: 发布单冲突检测.
+     *
+     * @param CheckContainerserviceConflictopsRequest $request
+     *
+     * @return CheckContainerserviceConflictopsResponse
+     */
+    public function checkContainerserviceConflictops($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkContainerserviceConflictopsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发布单冲突检测
+     * Summary: 发布单冲突检测.
+     *
+     * @param CheckContainerserviceConflictopsRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CheckContainerserviceConflictopsResponse
+     */
+    public function checkContainerserviceConflictopsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckContainerserviceConflictopsResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.containerservice.conflictops.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 单元化流量规则的容灾切换
+     * Summary: 单元化流量规则的容灾切换.
+     *
+     * @param ExecFlowDisasterswitchRequest $request
+     *
+     * @return ExecFlowDisasterswitchResponse
+     */
+    public function execFlowDisasterswitch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execFlowDisasterswitchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 单元化流量规则的容灾切换
+     * Summary: 单元化流量规则的容灾切换.
+     *
+     * @param ExecFlowDisasterswitchRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ExecFlowDisasterswitchResponse
+     */
+    public function execFlowDisasterswitchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecFlowDisasterswitchResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.flow.disasterswitch.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 取消sidecar工单，租户应用+sidecar type维度
+     * Summary: 取消sidecar工单.
+     *
+     * @param CancelSidecaropsRequest $request
+     *
+     * @return CancelSidecaropsResponse
+     */
+    public function cancelSidecarops($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelSidecaropsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 取消sidecar工单，租户应用+sidecar type维度
+     * Summary: 取消sidecar工单.
+     *
+     * @param CancelSidecaropsRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CancelSidecaropsResponse
+     */
+    public function cancelSidecaropsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelSidecaropsResponse::fromMap($this->doRequest('1.0', 'antcloud.ldc.sidecarops.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

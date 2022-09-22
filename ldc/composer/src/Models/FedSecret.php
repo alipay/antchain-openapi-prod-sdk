@@ -8,16 +8,16 @@ use AlibabaCloud\Tea\Model;
 
 class FedSecret extends Model
 {
-    // fed secret annotations
+    // 保密字典的注解
     //
     /**
-     * @example fed secret annotations
+     * @example
      *
      * @var Annotation[]
      */
     public $annotations;
 
-    // FedSecret Cell Cluster Status
+    // 分发状态
     /**
      * @example
      *
@@ -25,8 +25,7 @@ class FedSecret extends Model
      */
     public $cellStatus;
 
-    // fed clusters
-    //
+    // 分发的 cell 列表
     /**
      * @example
      *
@@ -42,8 +41,7 @@ class FedSecret extends Model
      */
     public $createTimeStamp;
 
-    // fed secret data
-    //
+    // 保密字典数据
     /**
      * @example
      *
@@ -51,8 +49,7 @@ class FedSecret extends Model
      */
     public $data;
 
-    // fed secret labels
-    //
+    // 保密字典的标签
     /**
      * @example
      *
@@ -60,26 +57,24 @@ class FedSecret extends Model
      */
     public $labels;
 
-    // fed secret name
-    //
+    // 名称
     /**
-     * @example cm
+     * @example sc
      *
      * @var string
      */
     public $name;
 
-    // fed secret namespace
+    // 命名空间
     //
     /**
-     * @example antstack
+     * @example antcloud-cafe-default
      *
      * @var string
      */
     public $namespace;
 
-    // fed secret override
-    //
+    // 保密字典数据在不同 cell 下的自定义覆盖配置
     /**
      * @example
      *
@@ -87,25 +82,25 @@ class FedSecret extends Model
      */
     public $overrides;
 
-    // 原因描述
+    // 导致该分发状态的原因
     /**
-     * @example GetKeysInCellFailed
+     * @example ClusterNotReady
      *
      * @var string
      */
     public $reason;
 
-    // FedSecret同步状态
+    // 分发状态，成功 True，失败 False，删除中 Deleting
     /**
-     * @example propagation
+     * @example True
      *
      * @var string
      */
     public $status;
 
-    // opaque
+    // 保密字典类型
     /**
-     * @example 类型
+     * @example Opaque
      *
      * @var string
      */

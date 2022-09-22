@@ -31,11 +31,18 @@ class ListEmergencyPlansRequest extends Model
      * @var int
      */
     public $pageSize;
+
+    // 预案id，只有传预案id时才返回预案参数
+    /**
+     * @var string
+     */
+    public $emergencyPlanId;
     protected $_name = [
-        'authToken'  => 'auth_token',
-        'name'       => 'name',
-        'pageNumber' => 'page_number',
-        'pageSize'   => 'page_size',
+        'authToken'       => 'auth_token',
+        'name'            => 'name',
+        'pageNumber'      => 'page_number',
+        'pageSize'        => 'page_size',
+        'emergencyPlanId' => 'emergency_plan_id',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class ListEmergencyPlansRequest extends Model
         }
         if (null !== $this->pageSize) {
             $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->emergencyPlanId) {
+            $res['emergency_plan_id'] = $this->emergencyPlanId;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class ListEmergencyPlansRequest extends Model
         }
         if (isset($map['page_size'])) {
             $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['emergency_plan_id'])) {
+            $model->emergencyPlanId = $map['emergency_plan_id'];
         }
 
         return $model;

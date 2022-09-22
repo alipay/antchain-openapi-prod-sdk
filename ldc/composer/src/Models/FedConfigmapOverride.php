@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class FedConfigmapOverride extends Model
 {
-    // fed configmap data override
+    // 要覆盖的配置项数据
     /**
      * @example
      *
@@ -16,17 +16,17 @@ class FedConfigmapOverride extends Model
      */
     public $data;
 
-    // cluster name
+    // 部署单元名称
     /**
-     * @example default
+     * @example gz00a
      *
      * @var string
      */
     public $name;
 
-    // name cell  override
+    // 覆盖的名称，必须为：配置项名称-cell-部署单元名称
     /**
-     * @example aaa-cella
+     * @example cm-cell-gz00a
      *
      * @var string
      */

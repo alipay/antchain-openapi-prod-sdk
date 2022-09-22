@@ -23,9 +23,18 @@ class EmergencyPlan extends Model
      * @var string
      */
     public $name;
+
+    // 预案参数，只有传预案id时才返回预案参数
+    /**
+     * @example []
+     *
+     * @var TemplateParam[]
+     */
+    public $params;
     protected $_name = [
-        'id'   => 'id',
-        'name' => 'name',
+        'id'     => 'id',
+        'name'   => 'name',
+        'params' => 'params',
     ];
 
     public function validate()
@@ -42,6 +51,15 @@ class EmergencyPlan extends Model
         }
         if (null !== $this->name) {
             $res['name'] = $this->name;
+        }
+        if (null !== $this->params) {
+            $res['params'] = [];
+            if (null !== $this->params && \is_array($this->params)) {
+                $n = 0;
+                foreach ($this->params as $item) {
+                    $res['params'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -60,6 +78,15 @@ class EmergencyPlan extends Model
         }
         if (isset($map['name'])) {
             $model->name = $map['name'];
+        }
+        if (isset($map['params'])) {
+            if (!empty($map['params'])) {
+                $model->params = [];
+                $n             = 0;
+                foreach ($map['params'] as $item) {
+                    $model->params[$n++] = null !== $item ? TemplateParam::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

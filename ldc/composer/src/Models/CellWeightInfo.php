@@ -39,7 +39,6 @@ class CellWeightInfo extends Model
 
     public function validate()
     {
-        Model::validateRequired('workspace', $this->workspace, true);
         Model::validateRequired('name', $this->name, true);
         Model::validateRequired('weight', $this->weight, true);
     }

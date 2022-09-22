@@ -47,12 +47,57 @@ class UnireleaseSolutionApp extends Model
      * @var string
      */
     public $tenant;
+
+    // 中间件配置diff信息
+    /**
+     * @example []
+     *
+     * @var string[]
+     */
+    public $middlewareConfigDiffs;
+
+    // 工作空间组
+    /**
+     * @example test
+     *
+     * @var string
+     */
+    public $workspaceGroup;
+
+    // 命名空间
+    /**
+     * @example default
+     *
+     * @var string
+     */
+    public $namespace;
+
+    // 中间件配置变更diff摘要
+    /**
+     * @example xxx
+     *
+     * @var string
+     */
+    public $middlewareConfigDiffSummary;
+
+    // 风险等级: ORDINARY-一般、HIGH-高危
+    /**
+     * @example ORDINARY
+     *
+     * @var string
+     */
+    public $riskLevel;
     protected $_name = [
-        'app'               => 'app',
-        'dependsOn'         => 'depends_on',
-        'releaseConfig'     => 'release_config',
-        'middlewareConfigs' => 'middleware_configs',
-        'tenant'            => 'tenant',
+        'app'                         => 'app',
+        'dependsOn'                   => 'depends_on',
+        'releaseConfig'               => 'release_config',
+        'middlewareConfigs'           => 'middleware_configs',
+        'tenant'                      => 'tenant',
+        'middlewareConfigDiffs'       => 'middleware_config_diffs',
+        'workspaceGroup'              => 'workspace_group',
+        'namespace'                   => 'namespace',
+        'middlewareConfigDiffSummary' => 'middleware_config_diff_summary',
+        'riskLevel'                   => 'risk_level',
     ];
 
     public function validate()
@@ -81,6 +126,21 @@ class UnireleaseSolutionApp extends Model
         }
         if (null !== $this->tenant) {
             $res['tenant'] = $this->tenant;
+        }
+        if (null !== $this->middlewareConfigDiffs) {
+            $res['middleware_config_diffs'] = $this->middlewareConfigDiffs;
+        }
+        if (null !== $this->workspaceGroup) {
+            $res['workspace_group'] = $this->workspaceGroup;
+        }
+        if (null !== $this->namespace) {
+            $res['namespace'] = $this->namespace;
+        }
+        if (null !== $this->middlewareConfigDiffSummary) {
+            $res['middleware_config_diff_summary'] = $this->middlewareConfigDiffSummary;
+        }
+        if (null !== $this->riskLevel) {
+            $res['risk_level'] = $this->riskLevel;
         }
 
         return $res;
@@ -112,6 +172,23 @@ class UnireleaseSolutionApp extends Model
         }
         if (isset($map['tenant'])) {
             $model->tenant = $map['tenant'];
+        }
+        if (isset($map['middleware_config_diffs'])) {
+            if (!empty($map['middleware_config_diffs'])) {
+                $model->middlewareConfigDiffs = $map['middleware_config_diffs'];
+            }
+        }
+        if (isset($map['workspace_group'])) {
+            $model->workspaceGroup = $map['workspace_group'];
+        }
+        if (isset($map['namespace'])) {
+            $model->namespace = $map['namespace'];
+        }
+        if (isset($map['middleware_config_diff_summary'])) {
+            $model->middlewareConfigDiffSummary = $map['middleware_config_diff_summary'];
+        }
+        if (isset($map['risk_level'])) {
+            $model->riskLevel = $map['risk_level'];
         }
 
         return $model;

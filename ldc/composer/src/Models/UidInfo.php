@@ -55,13 +55,22 @@ class UidInfo extends Model
      * @var bool
      */
     public $gray;
+
+    // 单元分片容灾状态，枚举，NORMAL（正常）、LOCAL（同城容灾）、REMOTE（异地容灾）
+    /**
+     * @example LOCAL
+     *
+     * @var string
+     */
+    public $disasterState;
     protected $_name = [
-        'uid'          => 'uid',
-        'currentGroup' => 'current_group',
-        'defaultGroup' => 'default_group',
-        'elastic'      => 'elastic',
-        'press'        => 'press',
-        'gray'         => 'gray',
+        'uid'           => 'uid',
+        'currentGroup'  => 'current_group',
+        'defaultGroup'  => 'default_group',
+        'elastic'       => 'elastic',
+        'press'         => 'press',
+        'gray'          => 'gray',
+        'disasterState' => 'disaster_state',
     ];
 
     public function validate()
@@ -69,6 +78,7 @@ class UidInfo extends Model
         Model::validateRequired('uid', $this->uid, true);
         Model::validateRequired('currentGroup', $this->currentGroup, true);
         Model::validateRequired('defaultGroup', $this->defaultGroup, true);
+        Model::validateRequired('disasterState', $this->disasterState, true);
     }
 
     public function toMap()
@@ -91,6 +101,9 @@ class UidInfo extends Model
         }
         if (null !== $this->gray) {
             $res['gray'] = $this->gray;
+        }
+        if (null !== $this->disasterState) {
+            $res['disaster_state'] = $this->disasterState;
         }
 
         return $res;
@@ -121,6 +134,9 @@ class UidInfo extends Model
         }
         if (isset($map['gray'])) {
             $model->gray = $map['gray'];
+        }
+        if (isset($map['disaster_state'])) {
+            $model->disasterState = $map['disaster_state'];
         }
 
         return $model;

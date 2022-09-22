@@ -25,10 +25,17 @@ class RetryAppopsRequest extends Model
      * @var string
      */
     public $operator;
+
+    // 租户编码
+    /**
+     * @var string
+     */
+    public $tenantName;
     protected $_name = [
         'authToken'   => 'auth_token',
         'operationId' => 'operation_id',
         'operator'    => 'operator',
+        'tenantName'  => 'tenant_name',
     ];
 
     public function validate()
@@ -47,6 +54,9 @@ class RetryAppopsRequest extends Model
         }
         if (null !== $this->operator) {
             $res['operator'] = $this->operator;
+        }
+        if (null !== $this->tenantName) {
+            $res['tenant_name'] = $this->tenantName;
         }
 
         return $res;
@@ -68,6 +78,9 @@ class RetryAppopsRequest extends Model
         }
         if (isset($map['operator'])) {
             $model->operator = $map['operator'];
+        }
+        if (isset($map['tenant_name'])) {
+            $model->tenantName = $map['tenant_name'];
         }
 
         return $model;

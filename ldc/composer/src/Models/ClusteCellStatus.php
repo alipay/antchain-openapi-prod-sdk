@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class ClusteCellStatus extends Model
 {
-    // 集群名称
+    // 部署单元所在集群名称
     /**
      * @example cluster-name
      *
@@ -18,21 +18,21 @@ class ClusteCellStatus extends Model
 
     // 部署单元名称
     /**
-     * @example CellA
+     * @example gz00a
      *
      * @var string
      */
     public $cell;
 
-    // Cell资源状态
+    // 联邦资源的分发状态，空字符串代表成功，否则为错误码
     /**
-     * @example ApplyOverridesFailed
+     * @example CreationFailed
      *
      * @var string
      */
     public $status;
 
-    // 详细说明或错误信息
+    // 详细错误信息
     /**
      * @example some error message
      *

@@ -79,6 +79,14 @@ class PodInfo extends Model
      * @var Volume[]
      */
     public $volumes;
+
+    // pod唯一标识
+    /**
+     * @example test-rz00a-1
+     *
+     * @var string
+     */
+    public $podIdentity;
     protected $_name = [
         'cellDisplayName' => 'cell_display_name',
         'cluster'         => 'cluster',
@@ -89,6 +97,7 @@ class PodInfo extends Model
         'status'          => 'status',
         'uid'             => 'uid',
         'volumes'         => 'volumes',
+        'podIdentity'     => 'pod_identity',
     ];
 
     public function validate()
@@ -145,6 +154,9 @@ class PodInfo extends Model
                 }
             }
         }
+        if (null !== $this->podIdentity) {
+            $res['pod_identity'] = $this->podIdentity;
+        }
 
         return $res;
     }
@@ -195,6 +207,9 @@ class PodInfo extends Model
                     $model->volumes[$n++] = null !== $item ? Volume::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['pod_identity'])) {
+            $model->podIdentity = $map['pod_identity'];
         }
 
         return $model;

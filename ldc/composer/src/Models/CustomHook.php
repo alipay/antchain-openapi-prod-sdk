@@ -41,7 +41,7 @@ class CustomHook extends Model
      */
     public $hookStrategy;
 
-    // 自定义批次编号，从0开始。hook_strategy=custom时有效
+    // 自定义批次编号，从1开始。hook_strategy=custom时有效
     /**
      * @example 1
      *
@@ -81,13 +81,21 @@ class CustomHook extends Model
      */
     public $timeoutMillis;
 
-    // 【暂不支持】默认false
+    // 【暂不支持】默认true
     /**
      * @example true, false
      *
      * @var bool
      */
     public $unOverride;
+
+    // 【暂不支持】是否需要确认
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $needConfirm;
     protected $_name = [
         'hookScope'       => 'hook_scope',
         'hookType'        => 'hook_type',
@@ -99,6 +107,7 @@ class CustomHook extends Model
         'ignoreSupported' => 'ignore_supported',
         'timeoutMillis'   => 'timeout_millis',
         'unOverride'      => 'un_override',
+        'needConfirm'     => 'need_confirm',
     ];
 
     public function validate()
@@ -139,6 +148,9 @@ class CustomHook extends Model
         }
         if (null !== $this->unOverride) {
             $res['un_override'] = $this->unOverride;
+        }
+        if (null !== $this->needConfirm) {
+            $res['need_confirm'] = $this->needConfirm;
         }
 
         return $res;
@@ -181,6 +193,9 @@ class CustomHook extends Model
         }
         if (isset($map['un_override'])) {
             $model->unOverride = $map['un_override'];
+        }
+        if (isset($map['need_confirm'])) {
+            $model->needConfirm = $map['need_confirm'];
         }
 
         return $model;

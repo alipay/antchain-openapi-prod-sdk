@@ -61,6 +61,12 @@ class UpdateSidecaropsConsistencyRequest extends Model
      * @var string
      */
     public $orderNum;
+
+    // 是否回滚流程
+    /**
+     * @var bool
+     */
+    public $isRollback;
     protected $_name = [
         'authToken'      => 'auth_token',
         'appName'        => 'app_name',
@@ -71,6 +77,7 @@ class UpdateSidecaropsConsistencyRequest extends Model
         'sidecarConfig'  => 'sidecar_config',
         'sidecarVersion' => 'sidecar_version',
         'orderNum'       => 'order_num',
+        'isRollback'     => 'is_rollback',
     ];
 
     public function validate()
@@ -113,6 +120,9 @@ class UpdateSidecaropsConsistencyRequest extends Model
         if (null !== $this->orderNum) {
             $res['order_num'] = $this->orderNum;
         }
+        if (null !== $this->isRollback) {
+            $res['is_rollback'] = $this->isRollback;
+        }
 
         return $res;
     }
@@ -153,6 +163,9 @@ class UpdateSidecaropsConsistencyRequest extends Model
         }
         if (isset($map['order_num'])) {
             $model->orderNum = $map['order_num'];
+        }
+        if (isset($map['is_rollback'])) {
+            $model->isRollback = $map['is_rollback'];
         }
 
         return $model;

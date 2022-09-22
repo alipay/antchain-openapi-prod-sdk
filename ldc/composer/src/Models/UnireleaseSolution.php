@@ -111,6 +111,30 @@ class UnireleaseSolution extends Model
      * @var string[]
      */
     public $tenants;
+
+    // 错误信息
+    /**
+     * @example error
+     *
+     * @var string
+     */
+    public $message;
+
+    // AC ID
+    /**
+     * @example 1000000000001
+     *
+     * @var string
+     */
+    public $acId;
+
+    // 是否是紧急发布
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $emergent;
     protected $_name = [
         'id'              => 'id',
         'title'           => 'title',
@@ -125,6 +149,9 @@ class UnireleaseSolution extends Model
         'extInfo'         => 'ext_info',
         'apps'            => 'apps',
         'tenants'         => 'tenants',
+        'message'         => 'message',
+        'acId'            => 'ac_id',
+        'emergent'        => 'emergent',
     ];
 
     public function validate()
@@ -193,6 +220,15 @@ class UnireleaseSolution extends Model
         if (null !== $this->tenants) {
             $res['tenants'] = $this->tenants;
         }
+        if (null !== $this->message) {
+            $res['message'] = $this->message;
+        }
+        if (null !== $this->acId) {
+            $res['ac_id'] = $this->acId;
+        }
+        if (null !== $this->emergent) {
+            $res['emergent'] = $this->emergent;
+        }
 
         return $res;
     }
@@ -251,6 +287,15 @@ class UnireleaseSolution extends Model
             if (!empty($map['tenants'])) {
                 $model->tenants = $map['tenants'];
             }
+        }
+        if (isset($map['message'])) {
+            $model->message = $map['message'];
+        }
+        if (isset($map['ac_id'])) {
+            $model->acId = $map['ac_id'];
+        }
+        if (isset($map['emergent'])) {
+            $model->emergent = $map['emergent'];
         }
 
         return $model;
