@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\MYCHARITY\Models\BatchcreateCombinationRequest;
+use AntChain\MYCHARITY\Models\BatchcreateCombinationResponse;
 use AntChain\MYCHARITY\Models\BatchcreateRecordRequest;
 use AntChain\MYCHARITY\Models\BatchcreateRecordResponse;
 use AntChain\MYCHARITY\Models\CreateAlipaysignRequest;
@@ -55,6 +57,8 @@ use AntChain\MYCHARITY\Models\UpdateOrgRequest;
 use AntChain\MYCHARITY\Models\UpdateOrgResponse;
 use AntChain\MYCHARITY\Models\UpdateProjectRequest;
 use AntChain\MYCHARITY\Models\UpdateProjectResponse;
+use AntChain\MYCHARITY\Models\UpdateRecordRequest;
+use AntChain\MYCHARITY\Models\UpdateRecordResponse;
 use AntChain\MYCHARITY\Models\UpdateStagesRequest;
 use AntChain\MYCHARITY\Models\UpdateStagesResponse;
 use AntChain\Util\UtilClient;
@@ -204,7 +208,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.11',
+                    'sdk_version'      => '1.0.13',
                     '_prod_code'       => 'MYCHARITY',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1009,5 +1013,71 @@ class Client
         Utils::validateModel($request);
 
         return CreateBatchResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.batch.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 修改执行记录状态
+     * Summary: 修改执行记录状态
+     *
+     * @param UpdateRecordRequest $request
+     *
+     * @return UpdateRecordResponse
+     */
+    public function updateRecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateRecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 修改执行记录状态
+     * Summary: 修改执行记录状态
+     *
+     * @param UpdateRecordRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return UpdateRecordResponse
+     */
+    public function updateRecordEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateRecordResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.record.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量创建、修改、删除实施内容
+     * Summary: 批量创建、修改、删除实施内容.
+     *
+     * @param BatchcreateCombinationRequest $request
+     *
+     * @return BatchcreateCombinationResponse
+     */
+    public function batchcreateCombination($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateCombinationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量创建、修改、删除实施内容
+     * Summary: 批量创建、修改、删除实施内容.
+     *
+     * @param BatchcreateCombinationRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return BatchcreateCombinationResponse
+     */
+    public function batchcreateCombinationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateCombinationResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.combination.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
