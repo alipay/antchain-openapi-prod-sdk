@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.11"),
+                    new TeaPair("sdk_version", "1.0.13"),
                     new TeaPair("_prod_code", "MYCHARITY"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -596,5 +596,43 @@ public class Client {
     public CreateBatchResponse createBatchEx(CreateBatchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.batch.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBatchResponse());
+    }
+
+    /**
+     * Description: 修改执行记录状态
+     * Summary: 修改执行记录状态
+     */
+    public UpdateRecordResponse updateRecord(UpdateRecordRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateRecordEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 修改执行记录状态
+     * Summary: 修改执行记录状态
+     */
+    public UpdateRecordResponse updateRecordEx(UpdateRecordRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.record.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateRecordResponse());
+    }
+
+    /**
+     * Description: 批量创建、修改、删除实施内容
+     * Summary: 批量创建、修改、删除实施内容
+     */
+    public BatchcreateCombinationResponse batchcreateCombination(BatchcreateCombinationRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchcreateCombinationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 批量创建、修改、删除实施内容
+     * Summary: 批量创建、修改、删除实施内容
+     */
+    public BatchcreateCombinationResponse batchcreateCombinationEx(BatchcreateCombinationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.combination.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateCombinationResponse());
     }
 }

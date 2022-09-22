@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-mycharity</artifactId>
-  <version>1.0.11</version>
+  <version>1.0.13</version>
   <packaging>jar</packaging>
   <name>openapi-mycharity</name>
   <description>Ant Chain MYCHARITY SDK for Java
