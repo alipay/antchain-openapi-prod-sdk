@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "ldc",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,7 +10,7 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-ldc:1.12.15",
+    "java": "com.antgroup.antchain.openapi:openapi-ldc:1.12.83",
     "go": "github.com/antchain-openapi-sdk-go/ldc/client:v1.12.83",
     "csharp": "AntChain.SDK.Ldc:1.12.83",
     "ts": "@antchain/ldc:1.12.83",
