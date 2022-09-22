@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -205,6 +205,59 @@ func (s *TravelInfo) SetTravelFactor(v string) *TravelInfo {
 	return s
 }
 
+// 统计附加额外字段
+type StatisticsExtendArg struct {
+	// 字段key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 数量
+	Number *int64 `json:"number,omitempty" xml:"number,omitempty" require:"true"`
+}
+
+func (s StatisticsExtendArg) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StatisticsExtendArg) GoString() string {
+	return s.String()
+}
+
+func (s *StatisticsExtendArg) SetKey(v string) *StatisticsExtendArg {
+	s.Key = &v
+	return s
+}
+
+func (s *StatisticsExtendArg) SetNumber(v int64) *StatisticsExtendArg {
+	s.Number = &v
+	return s
+}
+
+// 户籍所在省分布
+type IdentityDistributed struct {
+	// 户籍身份证号(前两位标识)
+	// 11代表北京市，12天代表天津市，13河北省，14山代表山西省，15内代表蒙古自治区，21代表辽宁省，22代表吉林省，23代表黑龙江省，31代表上海市，32代表江苏省，33代表浙江省，34代表代表安徽省，35代表福建省，36代表江西省，37代表山东省，41代表河南省，42代表湖北省，43代表湖南省，44代表广东省，45代表广西壮族自治区，46代表海南省，50代表重庆市，51代表四川省，52代表贵州省，53代表云南省，54代表西藏自治区，61代表陕西省，62代表甘肃省，63代表青海省，64代表宁夏回族自治区，65代表新疆维吾尔自治区，71代表台湾省，81代表香港特别行政区，82代表澳门特别行政区
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 户籍所在省分布数量
+	Number *int64 `json:"number,omitempty" xml:"number,omitempty" require:"true"`
+}
+
+func (s IdentityDistributed) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IdentityDistributed) GoString() string {
+	return s.String()
+}
+
+func (s *IdentityDistributed) SetKey(v string) *IdentityDistributed {
+	s.Key = &v
+	return s
+}
+
+func (s *IdentityDistributed) SetNumber(v int64) *IdentityDistributed {
+	s.Number = &v
+	return s
+}
+
 // 抗原信息
 type AntigenInfo struct {
 	// 抗原检测状态
@@ -360,6 +413,277 @@ func (s *NucleicAcidInformation) SetNucleicAcidTime(v string) *NucleicAcidInform
 	return s
 }
 
+// 设备实时通行统计
+type DeviceStatistics struct {
+	// 设备SN号
+	SerialNo *string `json:"serial_no,omitempty" xml:"serial_no,omitempty" require:"true"`
+	// 设备状态(初始化:init,在线:online,离线:offline,故障:fault)
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 通行人次
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+	// 绿码人次
+	Green *int64 `json:"green,omitempty" xml:"green,omitempty" require:"true"`
+	// 黄码人次
+	Yellow *int64 `json:"yellow,omitempty" xml:"yellow,omitempty" require:"true"`
+	// 红码人次
+	Red *int64 `json:"red,omitempty" xml:"red,omitempty" require:"true"`
+	// 码值异常人次
+	CodeErr *int64 `json:"code_err,omitempty" xml:"code_err,omitempty" require:"true"`
+	// 刷脸人次
+	Face *int64 `json:"face,omitempty" xml:"face,omitempty" require:"true"`
+	// 刷健康码人次
+	HealthCode *int64 `json:"health_code,omitempty" xml:"health_code,omitempty" require:"true"`
+	// 刷身份证人次
+	Cert *int64 `json:"cert,omitempty" xml:"cert,omitempty" require:"true"`
+	// 其他方式人次
+	OtherMode *int64 `json:"other_mode,omitempty" xml:"other_mode,omitempty" require:"true"`
+	// 通行成功人次
+	Pass *int64 `json:"pass,omitempty" xml:"pass,omitempty" require:"true"`
+	// 通行失败人次
+	Stop *int64 `json:"stop,omitempty" xml:"stop,omitempty" require:"true"`
+	// 平均通行时间(ms)
+	AvgTime *int64 `json:"avg_time,omitempty" xml:"avg_time,omitempty" require:"true"`
+	// 疫苗未接种人次
+	VaccineNo *int64 `json:"vaccine_no,omitempty" xml:"vaccine_no,omitempty" require:"true"`
+	// 疫苗接种一针人次
+	VaccineFirst *int64 `json:"vaccine_first,omitempty" xml:"vaccine_first,omitempty" require:"true"`
+	// 疫苗接种两针人次
+	VaccineSecond *int64 `json:"vaccine_second,omitempty" xml:"vaccine_second,omitempty" require:"true"`
+	// 疫苗接种三针人次
+	VaccineThird *int64 `json:"vaccine_third,omitempty" xml:"vaccine_third,omitempty" require:"true"`
+	// 疫苗未查询人次
+	VaccineUnknown *int64 `json:"vaccine_unknown,omitempty" xml:"vaccine_unknown,omitempty" require:"true"`
+	// 核酸有效期24h人次
+	NucleicAcid24h *int64 `json:"nucleic_acid24h,omitempty" xml:"nucleic_acid24h,omitempty" require:"true"`
+	// 核酸有效期48h人次
+	NucleicAcid48h *int64 `json:"nucleic_acid48h,omitempty" xml:"nucleic_acid48h,omitempty" require:"true"`
+	// 核酸有效期72h人次
+	NucleicAcid72h *int64 `json:"nucleic_acid72h,omitempty" xml:"nucleic_acid72h,omitempty" require:"true"`
+	// 核酸有效期7d人次
+	NucleicAcid7d *int64 `json:"nucleic_acid7d,omitempty" xml:"nucleic_acid7d,omitempty" require:"true"`
+	// 超过7D或无核酸人次
+	NucleicAcidOther *int64 `json:"nucleic_acid_other,omitempty" xml:"nucleic_acid_other,omitempty" require:"true"`
+	// 体温小于35.5人次
+	TemperatureA *int64 `json:"temperature_a,omitempty" xml:"temperature_a,omitempty" require:"true"`
+	// 体温35.5-36度人次
+	TemperatureB *int64 `json:"temperature_b,omitempty" xml:"temperature_b,omitempty" require:"true"`
+	// 体温36.1-36.3度人次
+	TemperatureC *int64 `json:"temperature_c,omitempty" xml:"temperature_c,omitempty" require:"true"`
+	// 体温36.4-36.7度人次
+	TemperatureD *int64 `json:"temperature_d,omitempty" xml:"temperature_d,omitempty" require:"true"`
+	// 体温36.8-37度人次
+	TemperatureE *int64 `json:"temperature_e,omitempty" xml:"temperature_e,omitempty" require:"true"`
+	// 体温37.1-37.5度人次
+	TemperatureF *int64 `json:"temperature_f,omitempty" xml:"temperature_f,omitempty" require:"true"`
+	// 体温37.6-38度人次
+	TemperatureG *int64 `json:"temperature_g,omitempty" xml:"temperature_g,omitempty" require:"true"`
+	// 体温38.1-38.5度人次
+	TemperatureH *int64 `json:"temperature_h,omitempty" xml:"temperature_h,omitempty" require:"true"`
+	// 体温38.6-39度人次
+	TemperatureI *int64 `json:"temperature_i,omitempty" xml:"temperature_i,omitempty" require:"true"`
+	// 体温大于39人次
+	TemperatureJ *int64 `json:"temperature_j,omitempty" xml:"temperature_j,omitempty" require:"true"`
+	// 体温未获取人次
+	TemperatureK *int64 `json:"temperature_k,omitempty" xml:"temperature_k,omitempty" require:"true"`
+	// 户籍所在省分布
+	IdentityDistributedList []*IdentityDistributed `json:"identity_distributed_list,omitempty" xml:"identity_distributed_list,omitempty" require:"true" type:"Repeated"`
+	// 扩展统计字段
+	ExtendArgList []*StatisticsExtendArg `json:"extend_arg_list,omitempty" xml:"extend_arg_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s DeviceStatistics) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceStatistics) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceStatistics) SetSerialNo(v string) *DeviceStatistics {
+	s.SerialNo = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetStatus(v string) *DeviceStatistics {
+	s.Status = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetTotal(v int64) *DeviceStatistics {
+	s.Total = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetGreen(v int64) *DeviceStatistics {
+	s.Green = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetYellow(v int64) *DeviceStatistics {
+	s.Yellow = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetRed(v int64) *DeviceStatistics {
+	s.Red = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetCodeErr(v int64) *DeviceStatistics {
+	s.CodeErr = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetFace(v int64) *DeviceStatistics {
+	s.Face = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetHealthCode(v int64) *DeviceStatistics {
+	s.HealthCode = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetCert(v int64) *DeviceStatistics {
+	s.Cert = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetOtherMode(v int64) *DeviceStatistics {
+	s.OtherMode = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetPass(v int64) *DeviceStatistics {
+	s.Pass = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetStop(v int64) *DeviceStatistics {
+	s.Stop = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetAvgTime(v int64) *DeviceStatistics {
+	s.AvgTime = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetVaccineNo(v int64) *DeviceStatistics {
+	s.VaccineNo = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetVaccineFirst(v int64) *DeviceStatistics {
+	s.VaccineFirst = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetVaccineSecond(v int64) *DeviceStatistics {
+	s.VaccineSecond = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetVaccineThird(v int64) *DeviceStatistics {
+	s.VaccineThird = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetVaccineUnknown(v int64) *DeviceStatistics {
+	s.VaccineUnknown = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetNucleicAcid24h(v int64) *DeviceStatistics {
+	s.NucleicAcid24h = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetNucleicAcid48h(v int64) *DeviceStatistics {
+	s.NucleicAcid48h = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetNucleicAcid72h(v int64) *DeviceStatistics {
+	s.NucleicAcid72h = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetNucleicAcid7d(v int64) *DeviceStatistics {
+	s.NucleicAcid7d = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetNucleicAcidOther(v int64) *DeviceStatistics {
+	s.NucleicAcidOther = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetTemperatureA(v int64) *DeviceStatistics {
+	s.TemperatureA = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetTemperatureB(v int64) *DeviceStatistics {
+	s.TemperatureB = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetTemperatureC(v int64) *DeviceStatistics {
+	s.TemperatureC = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetTemperatureD(v int64) *DeviceStatistics {
+	s.TemperatureD = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetTemperatureE(v int64) *DeviceStatistics {
+	s.TemperatureE = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetTemperatureF(v int64) *DeviceStatistics {
+	s.TemperatureF = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetTemperatureG(v int64) *DeviceStatistics {
+	s.TemperatureG = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetTemperatureH(v int64) *DeviceStatistics {
+	s.TemperatureH = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetTemperatureI(v int64) *DeviceStatistics {
+	s.TemperatureI = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetTemperatureJ(v int64) *DeviceStatistics {
+	s.TemperatureJ = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetTemperatureK(v int64) *DeviceStatistics {
+	s.TemperatureK = &v
+	return s
+}
+
+func (s *DeviceStatistics) SetIdentityDistributedList(v []*IdentityDistributed) *DeviceStatistics {
+	s.IdentityDistributedList = v
+	return s
+}
+
+func (s *DeviceStatistics) SetExtendArgList(v []*StatisticsExtendArg) *DeviceStatistics {
+	s.ExtendArgList = v
+	return s
+}
+
 // 疫苗信息
 type VaccinationInformation struct {
 	// 疫苗接种状态(0查询失败 1未接种 2已接种一针 3完成接种)
@@ -423,6 +747,32 @@ func (s *ArgsNameValue) SetArgsValue(v string) *ArgsNameValue {
 
 func (s *ArgsNameValue) SetArgsMark(v string) *ArgsNameValue {
 	s.ArgsMark = &v
+	return s
+}
+
+// 查询健康信息扩展参数
+type QueryHealthInfoExtendedArg struct {
+	// 参数名
+	ArgKey *string `json:"arg_key,omitempty" xml:"arg_key,omitempty"`
+	// 参数值
+	ArgValue *string `json:"arg_value,omitempty" xml:"arg_value,omitempty"`
+}
+
+func (s QueryHealthInfoExtendedArg) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHealthInfoExtendedArg) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHealthInfoExtendedArg) SetArgKey(v string) *QueryHealthInfoExtendedArg {
+	s.ArgKey = &v
+	return s
+}
+
+func (s *QueryHealthInfoExtendedArg) SetArgValue(v string) *QueryHealthInfoExtendedArg {
+	s.ArgValue = &v
 	return s
 }
 
@@ -617,6 +967,67 @@ func (s *HealthInfo) SetHealthFactor(v string) *HealthInfo {
 	return s
 }
 
+// 通行日结统计
+type HealthStatistics struct {
+	// 统计日期
+	StatisticsDate *string `json:"statistics_date,omitempty" xml:"statistics_date,omitempty" require:"true"`
+	// 通行总数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty" require:"true"`
+	// 刷证数
+	CertCount *int64 `json:"cert_count,omitempty" xml:"cert_count,omitempty" require:"true"`
+	// 刷脸数
+	FaceCount *int64 `json:"face_count,omitempty" xml:"face_count,omitempty" require:"true"`
+	// 二维码反扫数
+	InverseCount *int64 `json:"inverse_count,omitempty" xml:"inverse_count,omitempty" require:"true"`
+	// 正常通行数
+	PassCount *int64 `json:"pass_count,omitempty" xml:"pass_count,omitempty" require:"true"`
+	// 禁止通行数
+	StopCount *int64 `json:"stop_count,omitempty" xml:"stop_count,omitempty" require:"true"`
+}
+
+func (s HealthStatistics) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HealthStatistics) GoString() string {
+	return s.String()
+}
+
+func (s *HealthStatistics) SetStatisticsDate(v string) *HealthStatistics {
+	s.StatisticsDate = &v
+	return s
+}
+
+func (s *HealthStatistics) SetTotalCount(v int64) *HealthStatistics {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *HealthStatistics) SetCertCount(v int64) *HealthStatistics {
+	s.CertCount = &v
+	return s
+}
+
+func (s *HealthStatistics) SetFaceCount(v int64) *HealthStatistics {
+	s.FaceCount = &v
+	return s
+}
+
+func (s *HealthStatistics) SetInverseCount(v int64) *HealthStatistics {
+	s.InverseCount = &v
+	return s
+}
+
+func (s *HealthStatistics) SetPassCount(v int64) *HealthStatistics {
+	s.PassCount = &v
+	return s
+}
+
+func (s *HealthStatistics) SetStopCount(v int64) *HealthStatistics {
+	s.StopCount = &v
+	return s
+}
+
 // 行程信息
 type TravelInformation struct {
 	// 1:没去过疫情区，绿码;
@@ -670,6 +1081,8 @@ type QueryHealthinfoRequest struct {
 	HealthTypes *string `json:"health_types,omitempty" xml:"health_types,omitempty" require:"true"`
 	// 通行记录ID
 	PassId *string `json:"pass_id,omitempty" xml:"pass_id,omitempty"`
+	// 获取健康信息所需扩展参数列表：体温（temperature：36.5）
+	ExtensionInfo []*QueryHealthInfoExtendedArg `json:"extension_info,omitempty" xml:"extension_info,omitempty" type:"Repeated"`
 }
 
 func (s QueryHealthinfoRequest) String() string {
@@ -717,6 +1130,11 @@ func (s *QueryHealthinfoRequest) SetHealthTypes(v string) *QueryHealthinfoReques
 
 func (s *QueryHealthinfoRequest) SetPassId(v string) *QueryHealthinfoRequest {
 	s.PassId = &v
+	return s
+}
+
+func (s *QueryHealthinfoRequest) SetExtensionInfo(v []*QueryHealthInfoExtendedArg) *QueryHealthinfoRequest {
+	s.ExtensionInfo = v
 	return s
 }
 
@@ -1033,6 +1451,8 @@ type GetHealthinfoRequest struct {
 	// 通行记录ID
 	//
 	PassId *string `json:"pass_id,omitempty" xml:"pass_id,omitempty"`
+	// 获取健康信息所需扩展参数列表：体温（temperature：36.5）
+	ExtensionInfo []*QueryHealthInfoExtendedArg `json:"extension_info,omitempty" xml:"extension_info,omitempty" type:"Repeated"`
 }
 
 func (s GetHealthinfoRequest) String() string {
@@ -1075,6 +1495,11 @@ func (s *GetHealthinfoRequest) SetHealthTypes(v string) *GetHealthinfoRequest {
 
 func (s *GetHealthinfoRequest) SetPassId(v string) *GetHealthinfoRequest {
 	s.PassId = &v
+	return s
+}
+
+func (s *GetHealthinfoRequest) SetExtensionInfo(v []*QueryHealthInfoExtendedArg) *GetHealthinfoRequest {
+	s.ExtensionInfo = v
 	return s
 }
 
@@ -1446,6 +1871,185 @@ func (s *QueryHealthinfologResponse) SetDataList(v []*HealthInfoLog) *QueryHealt
 	return s
 }
 
+type QueryHealthstatisticsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 开始日期
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" require:"true"`
+	// 结束日期(为空或等于开始日期时为查询当天,时间范围最大可查询100天)
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty"`
+	// 统计类型(通行人数统计：PERSON，通行次数统计：NUMBER)
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s QueryHealthstatisticsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHealthstatisticsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHealthstatisticsRequest) SetAuthToken(v string) *QueryHealthstatisticsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryHealthstatisticsRequest) SetProductInstanceId(v string) *QueryHealthstatisticsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryHealthstatisticsRequest) SetStartDate(v string) *QueryHealthstatisticsRequest {
+	s.StartDate = &v
+	return s
+}
+
+func (s *QueryHealthstatisticsRequest) SetEndDate(v string) *QueryHealthstatisticsRequest {
+	s.EndDate = &v
+	return s
+}
+
+func (s *QueryHealthstatisticsRequest) SetType(v string) *QueryHealthstatisticsRequest {
+	s.Type = &v
+	return s
+}
+
+type QueryHealthstatisticsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 日结统计数据
+	DataList []*HealthStatistics `json:"data_list,omitempty" xml:"data_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryHealthstatisticsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryHealthstatisticsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryHealthstatisticsResponse) SetReqMsgId(v string) *QueryHealthstatisticsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryHealthstatisticsResponse) SetResultCode(v string) *QueryHealthstatisticsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryHealthstatisticsResponse) SetResultMsg(v string) *QueryHealthstatisticsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryHealthstatisticsResponse) SetDataList(v []*HealthStatistics) *QueryHealthstatisticsResponse {
+	s.DataList = v
+	return s
+}
+
+type QueryDevicestatisticsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备SN号(最大限制100条)
+	SerialNoList []*string `json:"serial_no_list,omitempty" xml:"serial_no_list,omitempty" require:"true" type:"Repeated"`
+	// 厂商名称
+	// 为空时:默认值telpo(天波)
+	// 可用枚举值:
+	// telpo(天波)
+	// hemiao(禾苗)
+	CropName *string `json:"crop_name,omitempty" xml:"crop_name,omitempty"`
+	// 开始时间(精确到ms)
+	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 结束时间(精确到ms,时间跨度不能超过24h)
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+}
+
+func (s QueryDevicestatisticsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDevicestatisticsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDevicestatisticsRequest) SetAuthToken(v string) *QueryDevicestatisticsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDevicestatisticsRequest) SetProductInstanceId(v string) *QueryDevicestatisticsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDevicestatisticsRequest) SetSerialNoList(v []*string) *QueryDevicestatisticsRequest {
+	s.SerialNoList = v
+	return s
+}
+
+func (s *QueryDevicestatisticsRequest) SetCropName(v string) *QueryDevicestatisticsRequest {
+	s.CropName = &v
+	return s
+}
+
+func (s *QueryDevicestatisticsRequest) SetStartTime(v int64) *QueryDevicestatisticsRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryDevicestatisticsRequest) SetEndTime(v int64) *QueryDevicestatisticsRequest {
+	s.EndTime = &v
+	return s
+}
+
+type QueryDevicestatisticsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备实时统计
+	DataList []*DeviceStatistics `json:"data_list,omitempty" xml:"data_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryDevicestatisticsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDevicestatisticsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDevicestatisticsResponse) SetReqMsgId(v string) *QueryDevicestatisticsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDevicestatisticsResponse) SetResultCode(v string) *QueryDevicestatisticsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDevicestatisticsResponse) SetResultMsg(v string) *QueryDevicestatisticsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDevicestatisticsResponse) SetDataList(v []*DeviceStatistics) *QueryDevicestatisticsResponse {
+	s.DataList = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1568,7 +2172,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.13"),
+				"sdk_version":      tea.String("1.0.18"),
+				"_prod_code":       tea.String("INTEGRATION_MACHINE"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1594,8 +2200,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -1813,6 +2427,74 @@ func (client *Client) QueryHealthinfologEx(request *QueryHealthinfologRequest, h
 	}
 	_result = &QueryHealthinfologResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antim.healthinfolog.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通行日结统计查询
+ * Summary: 通行日结统计查询
+ */
+func (client *Client) QueryHealthstatistics(request *QueryHealthstatisticsRequest) (_result *QueryHealthstatisticsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryHealthstatisticsResponse{}
+	_body, _err := client.QueryHealthstatisticsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通行日结统计查询
+ * Summary: 通行日结统计查询
+ */
+func (client *Client) QueryHealthstatisticsEx(request *QueryHealthstatisticsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryHealthstatisticsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryHealthstatisticsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antim.healthstatistics.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 设备实时通行统计查询
+ * Summary: 设备实时通行统计查询
+ */
+func (client *Client) QueryDevicestatistics(request *QueryDevicestatisticsRequest) (_result *QueryDevicestatisticsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDevicestatisticsResponse{}
+	_body, _err := client.QueryDevicestatisticsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 设备实时通行统计查询
+ * Summary: 设备实时通行统计查询
+ */
+func (client *Client) QueryDevicestatisticsEx(request *QueryDevicestatisticsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDevicestatisticsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDevicestatisticsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.antim.devicestatistics.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
