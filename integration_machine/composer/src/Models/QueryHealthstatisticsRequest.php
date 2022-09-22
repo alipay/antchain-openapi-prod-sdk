@@ -25,7 +25,7 @@ class QueryHealthstatisticsRequest extends Model
      */
     public $startDate;
 
-    // 结束日期(为空或等于开始日期时为查询当天)
+    // 结束日期(为空或等于开始日期时为查询当天,时间范围最大可查询100天)
     /**
      * @var string
      */

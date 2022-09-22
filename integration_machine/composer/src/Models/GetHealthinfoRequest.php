@@ -51,6 +51,12 @@ class GetHealthinfoRequest extends Model
      * @var string
      */
     public $passId;
+
+    // 获取健康信息所需扩展参数列表：体温（temperature：36.5）
+    /**
+     * @var QueryHealthInfoExtendedArg[]
+     */
+    public $extensionInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -59,6 +65,7 @@ class GetHealthinfoRequest extends Model
         'qrCode'            => 'qr_code',
         'healthTypes'       => 'health_types',
         'passId'            => 'pass_id',
+        'extensionInfo'     => 'extension_info',
     ];
 
     public function validate()
@@ -93,6 +100,15 @@ class GetHealthinfoRequest extends Model
         if (null !== $this->passId) {
             $res['pass_id'] = $this->passId;
         }
+        if (null !== $this->extensionInfo) {
+            $res['extension_info'] = [];
+            if (null !== $this->extensionInfo && \is_array($this->extensionInfo)) {
+                $n = 0;
+                foreach ($this->extensionInfo as $item) {
+                    $res['extension_info'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
 
         return $res;
     }
@@ -125,6 +141,15 @@ class GetHealthinfoRequest extends Model
         }
         if (isset($map['pass_id'])) {
             $model->passId = $map['pass_id'];
+        }
+        if (isset($map['extension_info'])) {
+            if (!empty($map['extension_info'])) {
+                $model->extensionInfo = [];
+                $n                    = 0;
+                foreach ($map['extension_info'] as $item) {
+                    $model->extensionInfo[$n++] = null !== $item ? QueryHealthInfoExtendedArg::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

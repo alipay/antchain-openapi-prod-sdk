@@ -19,6 +19,8 @@ use AntChain\INTEGRATION_MACHINE\Models\PushHealthinfologRequest;
 use AntChain\INTEGRATION_MACHINE\Models\PushHealthinfologResponse;
 use AntChain\INTEGRATION_MACHINE\Models\QueryDeviceargsRequest;
 use AntChain\INTEGRATION_MACHINE\Models\QueryDeviceargsResponse;
+use AntChain\INTEGRATION_MACHINE\Models\QueryDevicestatisticsRequest;
+use AntChain\INTEGRATION_MACHINE\Models\QueryDevicestatisticsResponse;
 use AntChain\INTEGRATION_MACHINE\Models\QueryHealthinfologRequest;
 use AntChain\INTEGRATION_MACHINE\Models\QueryHealthinfologResponse;
 use AntChain\INTEGRATION_MACHINE\Models\QueryHealthinfoRequest;
@@ -172,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.15',
+                    'sdk_version'      => '1.0.18',
                     '_prod_code'       => 'INTEGRATION_MACHINE',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -449,5 +451,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryHealthstatisticsResponse::fromMap($this->doRequest('1.0', 'antchain.antim.healthstatistics.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 设备实时通行统计查询
+     * Summary: 设备实时通行统计查询.
+     *
+     * @param QueryDevicestatisticsRequest $request
+     *
+     * @return QueryDevicestatisticsResponse
+     */
+    public function queryDevicestatistics($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDevicestatisticsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 设备实时通行统计查询
+     * Summary: 设备实时通行统计查询.
+     *
+     * @param QueryDevicestatisticsRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryDevicestatisticsResponse
+     */
+    public function queryDevicestatisticsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDevicestatisticsResponse::fromMap($this->doRequest('1.0', 'antchain.antim.devicestatistics.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
