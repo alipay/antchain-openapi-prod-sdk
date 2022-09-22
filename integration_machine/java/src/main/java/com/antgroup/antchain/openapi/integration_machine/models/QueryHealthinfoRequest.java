@@ -47,6 +47,10 @@ public class QueryHealthinfoRequest extends TeaModel {
     @NameInMap("pass_id")
     public String passId;
 
+    // 获取健康信息所需扩展参数列表：体温（temperature：36.5）
+    @NameInMap("extension_info")
+    public java.util.List<QueryHealthInfoExtendedArg> extensionInfo;
+
     public static QueryHealthinfoRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryHealthinfoRequest self = new QueryHealthinfoRequest();
         return TeaModel.build(map, self);
@@ -114,6 +118,14 @@ public class QueryHealthinfoRequest extends TeaModel {
     }
     public String getPassId() {
         return this.passId;
+    }
+
+    public QueryHealthinfoRequest setExtensionInfo(java.util.List<QueryHealthInfoExtendedArg> extensionInfo) {
+        this.extensionInfo = extensionInfo;
+        return this;
+    }
+    public java.util.List<QueryHealthInfoExtendedArg> getExtensionInfo() {
+        return this.extensionInfo;
     }
 
 }
