@@ -47,6 +47,10 @@ public class VolumeMount extends TeaModel {
     @NameInMap("sub_path_expr")
     public String subPathExpr;
 
+    // nfs volume
+    @NameInMap("nfs_volume_source")
+    public NFSVolumeSource nfsVolumeSource;
+
     public static VolumeMount build(java.util.Map<String, ?> map) throws Exception {
         VolumeMount self = new VolumeMount();
         return TeaModel.build(map, self);
@@ -130,6 +134,14 @@ public class VolumeMount extends TeaModel {
     }
     public String getSubPathExpr() {
         return this.subPathExpr;
+    }
+
+    public VolumeMount setNfsVolumeSource(NFSVolumeSource nfsVolumeSource) {
+        this.nfsVolumeSource = nfsVolumeSource;
+        return this;
+    }
+    public NFSVolumeSource getNfsVolumeSource() {
+        return this.nfsVolumeSource;
     }
 
 }

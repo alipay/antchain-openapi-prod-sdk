@@ -4,18 +4,17 @@ package com.antgroup.antchain.openapi.ldc.models;
 import com.aliyun.tea.*;
 
 public class FedSecretOverride extends TeaModel {
-    // fed secret data override
+    // 要覆盖的保密字典数据
     @NameInMap("data")
     @Validation(required = true)
     public java.util.List<SecretData> data;
 
-    // cluster name
-    // 
+    // 部署单元的名称
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
-    // name cell override
+    // 覆盖的名称，必须为：保密字典名称-cell-部署单元名称
     @NameInMap("name_override")
     @Validation(required = true)
     public String nameOverride;

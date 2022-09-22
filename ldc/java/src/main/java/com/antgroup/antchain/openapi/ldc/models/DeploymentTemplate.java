@@ -55,6 +55,10 @@ public class DeploymentTemplate extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String modifiedTime;
 
+    // 版本号
+    @NameInMap("version")
+    public Long version;
+
     public static DeploymentTemplate build(java.util.Map<String, ?> map) throws Exception {
         DeploymentTemplate self = new DeploymentTemplate();
         return TeaModel.build(map, self);
@@ -146,6 +150,14 @@ public class DeploymentTemplate extends TeaModel {
     }
     public String getModifiedTime() {
         return this.modifiedTime;
+    }
+
+    public DeploymentTemplate setVersion(Long version) {
+        this.version = version;
+        return this;
+    }
+    public Long getVersion() {
+        return this.version;
     }
 
 }

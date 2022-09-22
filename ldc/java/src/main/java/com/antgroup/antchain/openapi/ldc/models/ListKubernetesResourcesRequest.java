@@ -26,6 +26,10 @@ public class ListKubernetesResourcesRequest extends TeaModel {
     @NameInMap("namespace")
     public String namespace;
 
+    // cell名称列表，只查指定cell的集群
+    @NameInMap("cells")
+    public java.util.List<String> cells;
+
     public static ListKubernetesResourcesRequest build(java.util.Map<String, ?> map) throws Exception {
         ListKubernetesResourcesRequest self = new ListKubernetesResourcesRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class ListKubernetesResourcesRequest extends TeaModel {
     }
     public String getNamespace() {
         return this.namespace;
+    }
+
+    public ListKubernetesResourcesRequest setCells(java.util.List<String> cells) {
+        this.cells = cells;
+        return this;
+    }
+    public java.util.List<String> getCells() {
+        return this.cells;
     }
 
 }

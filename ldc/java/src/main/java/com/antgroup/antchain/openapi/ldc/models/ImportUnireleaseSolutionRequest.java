@@ -17,6 +17,18 @@ public class ImportUnireleaseSolutionRequest extends TeaModel {
     @NameInMap("tenants")
     public java.util.List<String> tenants;
 
+    // 银数AC工单ID
+    @NameInMap("ac_id")
+    public String acId;
+
+    // 环境信息
+    @NameInMap("env")
+    public String env;
+
+    // 是否是紧急发布场景
+    @NameInMap("emergent")
+    public Boolean emergent;
+
     public static ImportUnireleaseSolutionRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportUnireleaseSolutionRequest self = new ImportUnireleaseSolutionRequest();
         return TeaModel.build(map, self);
@@ -44,6 +56,30 @@ public class ImportUnireleaseSolutionRequest extends TeaModel {
     }
     public java.util.List<String> getTenants() {
         return this.tenants;
+    }
+
+    public ImportUnireleaseSolutionRequest setAcId(String acId) {
+        this.acId = acId;
+        return this;
+    }
+    public String getAcId() {
+        return this.acId;
+    }
+
+    public ImportUnireleaseSolutionRequest setEnv(String env) {
+        this.env = env;
+        return this;
+    }
+    public String getEnv() {
+        return this.env;
+    }
+
+    public ImportUnireleaseSolutionRequest setEmergent(Boolean emergent) {
+        this.emergent = emergent;
+        return this;
+    }
+    public Boolean getEmergent() {
+        return this.emergent;
     }
 
 }

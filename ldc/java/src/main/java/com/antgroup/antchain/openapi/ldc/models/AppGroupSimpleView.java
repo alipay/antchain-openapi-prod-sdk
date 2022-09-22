@@ -19,6 +19,14 @@ public class AppGroupSimpleView extends TeaModel {
     @Validation(required = true)
     public String state;
 
+    // 蓝绿发布专用
+    @NameInMap("bg_cell_name")
+    public String bgCellName;
+
+    // 蓝绿发布专用，traffic或release
+    @NameInMap("bg_group_type")
+    public String bgGroupType;
+
     public static AppGroupSimpleView build(java.util.Map<String, ?> map) throws Exception {
         AppGroupSimpleView self = new AppGroupSimpleView();
         return TeaModel.build(map, self);
@@ -46,6 +54,22 @@ public class AppGroupSimpleView extends TeaModel {
     }
     public String getState() {
         return this.state;
+    }
+
+    public AppGroupSimpleView setBgCellName(String bgCellName) {
+        this.bgCellName = bgCellName;
+        return this;
+    }
+    public String getBgCellName() {
+        return this.bgCellName;
+    }
+
+    public AppGroupSimpleView setBgGroupType(String bgGroupType) {
+        this.bgGroupType = bgGroupType;
+        return this;
+    }
+    public String getBgGroupType() {
+        return this.bgGroupType;
     }
 
 }

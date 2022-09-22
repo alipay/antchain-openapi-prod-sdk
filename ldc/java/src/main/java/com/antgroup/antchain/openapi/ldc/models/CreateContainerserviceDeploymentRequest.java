@@ -56,6 +56,18 @@ public class CreateContainerserviceDeploymentRequest extends TeaModel {
     @NameInMap("gray_release_config")
     public GrayReleaseConfig grayReleaseConfig;
 
+    // 引流应用服务列表, 部署单元蓝绿专用
+    @NameInMap("traffic_container_services")
+    public java.util.List<String> trafficContainerServices;
+
+    // cell列表，部署单元蓝绿专用，按顺序发布
+    @NameInMap("cell_names")
+    public java.util.List<String> cellNames;
+
+    // 是否紧急发布，目前会自动跳过变更核心
+    @NameInMap("emergent")
+    public Boolean emergent;
+
     public static CreateContainerserviceDeploymentRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateContainerserviceDeploymentRequest self = new CreateContainerserviceDeploymentRequest();
         return TeaModel.build(map, self);
@@ -155,6 +167,30 @@ public class CreateContainerserviceDeploymentRequest extends TeaModel {
     }
     public GrayReleaseConfig getGrayReleaseConfig() {
         return this.grayReleaseConfig;
+    }
+
+    public CreateContainerserviceDeploymentRequest setTrafficContainerServices(java.util.List<String> trafficContainerServices) {
+        this.trafficContainerServices = trafficContainerServices;
+        return this;
+    }
+    public java.util.List<String> getTrafficContainerServices() {
+        return this.trafficContainerServices;
+    }
+
+    public CreateContainerserviceDeploymentRequest setCellNames(java.util.List<String> cellNames) {
+        this.cellNames = cellNames;
+        return this;
+    }
+    public java.util.List<String> getCellNames() {
+        return this.cellNames;
+    }
+
+    public CreateContainerserviceDeploymentRequest setEmergent(Boolean emergent) {
+        this.emergent = emergent;
+        return this;
+    }
+    public Boolean getEmergent() {
+        return this.emergent;
     }
 
 }

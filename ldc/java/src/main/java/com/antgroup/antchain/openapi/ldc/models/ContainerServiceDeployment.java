@@ -35,6 +35,10 @@ public class ContainerServiceDeployment extends TeaModel {
     @NameInMap("deployment_template_name")
     public String deploymentTemplateName;
 
+    // 发布模板卡点规则
+    @NameInMap("deployment_template_hooks")
+    public java.util.List<CustomHook> deploymentTemplateHooks;
+
     public static ContainerServiceDeployment build(java.util.Map<String, ?> map) throws Exception {
         ContainerServiceDeployment self = new ContainerServiceDeployment();
         return TeaModel.build(map, self);
@@ -94,6 +98,14 @@ public class ContainerServiceDeployment extends TeaModel {
     }
     public String getDeploymentTemplateName() {
         return this.deploymentTemplateName;
+    }
+
+    public ContainerServiceDeployment setDeploymentTemplateHooks(java.util.List<CustomHook> deploymentTemplateHooks) {
+        this.deploymentTemplateHooks = deploymentTemplateHooks;
+        return this;
+    }
+    public java.util.List<CustomHook> getDeploymentTemplateHooks() {
+        return this.deploymentTemplateHooks;
     }
 
 }

@@ -18,6 +18,10 @@ public class ConfirmOpsplanServicerollbackRequest extends TeaModel {
     @Validation(required = true)
     public String workspaceGroup;
 
+    // 操作人账号
+    @NameInMap("operator")
+    public String operator;
+
     public static ConfirmOpsplanServicerollbackRequest build(java.util.Map<String, ?> map) throws Exception {
         ConfirmOpsplanServicerollbackRequest self = new ConfirmOpsplanServicerollbackRequest();
         return TeaModel.build(map, self);
@@ -45,6 +49,14 @@ public class ConfirmOpsplanServicerollbackRequest extends TeaModel {
     }
     public String getWorkspaceGroup() {
         return this.workspaceGroup;
+    }
+
+    public ConfirmOpsplanServicerollbackRequest setOperator(String operator) {
+        this.operator = operator;
+        return this;
+    }
+    public String getOperator() {
+        return this.operator;
     }
 
 }

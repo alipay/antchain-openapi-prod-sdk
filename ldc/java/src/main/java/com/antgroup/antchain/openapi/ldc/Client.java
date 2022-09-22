@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.15")
+                    new TeaPair("sdk_version", "1.12.83"),
+                    new TeaPair("_prod_code", "ldc"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -4799,5 +4801,290 @@ public class Client {
     public QueryContainerserivceGrayreleaseconfigResponse queryContainerserivceGrayreleaseconfigEx(QueryContainerserivceGrayreleaseconfigRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.containerserivce.grayreleaseconfig.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContainerserivceGrayreleaseconfigResponse());
+    }
+
+    /**
+     * Description: 应用服务版本diff
+     * Summary: 应用服务版本diff
+     */
+    public DetailContainerserviceRevisiondiffResponse detailContainerserviceRevisiondiff(DetailContainerserviceRevisiondiffRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailContainerserviceRevisiondiffEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用服务版本diff
+     * Summary: 应用服务版本diff
+     */
+    public DetailContainerserviceRevisiondiffResponse detailContainerserviceRevisiondiffEx(DetailContainerserviceRevisiondiffRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.containerservice.revisiondiff.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailContainerserviceRevisiondiffResponse());
+    }
+
+    /**
+     * Description: 可用于huanyu升级sidecar时，回滚变更单的执行，回滚到执行前的sidecar状态。
+     * Summary: 回滚sidecar升级
+     */
+    public RollbackSidecaropsResponse rollbackSidecarops(RollbackSidecaropsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.rollbackSidecaropsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 可用于huanyu升级sidecar时，回滚变更单的执行，回滚到执行前的sidecar状态。
+     * Summary: 回滚sidecar升级
+     */
+    public RollbackSidecaropsResponse rollbackSidecaropsEx(RollbackSidecaropsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.sidecarops.rollback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RollbackSidecaropsResponse());
+    }
+
+    /**
+     * Description: 对一个运维操作中所有暂停的分组进行确认操作，lks1.36.0才支持
+     * Summary: 确认运维
+     */
+    public ConfirmAppopsResponse confirmAppops(ConfirmAppopsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmAppopsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 对一个运维操作中所有暂停的分组进行确认操作，lks1.36.0才支持
+     * Summary: 确认运维
+     */
+    public ConfirmAppopsResponse confirmAppopsEx(ConfirmAppopsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.appops.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmAppopsResponse());
+    }
+
+    /**
+     * Description: 批量添加应用服务PVC和init Container
+     * Summary: 批量添加应用服务PVC
+     */
+    public AddContainerserviceLogpvResponse addContainerserviceLogpv(AddContainerserviceLogpvRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addContainerserviceLogpvEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 批量添加应用服务PVC和init Container
+     * Summary: 批量添加应用服务PVC
+     */
+    public AddContainerserviceLogpvResponse addContainerserviceLogpvEx(AddContainerserviceLogpvRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.containerservice.logpv.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddContainerserviceLogpvResponse());
+    }
+
+    /**
+     * Description: 查询 fedservice 列表
+     * Summary: 查询 fedservice 列表
+     */
+    public ListFederationServiceResponse listFederationService(ListFederationServiceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listFederationServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询 fedservice 列表
+     * Summary: 查询 fedservice 列表
+     */
+    public ListFederationServiceResponse listFederationServiceEx(ListFederationServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.federation.service.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListFederationServiceResponse());
+    }
+
+    /**
+     * Description: 查询操作日志OpenAPI
+     * Summary: 查询操作日志
+     */
+    public QueryOperationlogResponse queryOperationlog(QueryOperationlogRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOperationlogEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询操作日志OpenAPI
+     * Summary: 查询操作日志
+     */
+    public QueryOperationlogResponse queryOperationlogEx(QueryOperationlogRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.operationlog.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOperationlogResponse());
+    }
+
+    /**
+     * Description: 查询守夜人预案详情
+     * Summary: 查询守夜人预案详情
+     */
+    public GetEmergencyPlansResponse getEmergencyPlans(GetEmergencyPlansRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getEmergencyPlansEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询守夜人预案详情
+     * Summary: 查询守夜人预案详情
+     */
+    public GetEmergencyPlansResponse getEmergencyPlansEx(GetEmergencyPlansRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.emergency.plans.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetEmergencyPlansResponse());
+    }
+
+    /**
+     * Description: 为统一接入集群添加可用区，必须是当前工作空间组下已规划的可用区。待添加的可用区内应有规划用于部署spanner容器的节点资源。
+     * Summary: 为统一接入集群添加可用区
+     */
+    public AddFedspannerclusterZoneResponse addFedspannerclusterZone(AddFedspannerclusterZoneRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addFedspannerclusterZoneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 为统一接入集群添加可用区，必须是当前工作空间组下已规划的可用区。待添加的可用区内应有规划用于部署spanner容器的节点资源。
+     * Summary: 为统一接入集群添加可用区
+     */
+    public AddFedspannerclusterZoneResponse addFedspannerclusterZoneEx(AddFedspannerclusterZoneRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.fedspannercluster.zone.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddFedspannerclusterZoneResponse());
+    }
+
+    /**
+     * Description: 为统一接入实例添加可用区，统一接入实例在新增的可用区内将增加一个入口（LVS VIP）。
+     * Summary: 为统一接入实例添加可用区
+     */
+    public AddUnifiedaccessinstanceZoneResponse addUnifiedaccessinstanceZone(AddUnifiedaccessinstanceZoneRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addUnifiedaccessinstanceZoneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 为统一接入实例添加可用区，统一接入实例在新增的可用区内将增加一个入口（LVS VIP）。
+     * Summary: 为统一接入实例添加可用区
+     */
+    public AddUnifiedaccessinstanceZoneResponse addUnifiedaccessinstanceZoneEx(AddUnifiedaccessinstanceZoneRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.unifiedaccessinstance.zone.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddUnifiedaccessinstanceZoneResponse());
+    }
+
+    /**
+     * Description: 通过jsonpatch方式更新应用服务配置
+     * Summary: 通过jsonpatch更新应用服务配置
+     */
+    public UpdateContainerserviceJsonpatchResponse updateContainerserviceJsonpatch(UpdateContainerserviceJsonpatchRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateContainerserviceJsonpatchEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过jsonpatch方式更新应用服务配置
+     * Summary: 通过jsonpatch更新应用服务配置
+     */
+    public UpdateContainerserviceJsonpatchResponse updateContainerserviceJsonpatchEx(UpdateContainerserviceJsonpatchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.containerservice.jsonpatch.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateContainerserviceJsonpatchResponse());
+    }
+
+    /**
+     * Description: 查看单元化管理中的单元组元数据
+     * Summary: 查看单元化管理中的单元组元数据
+     */
+    public ListFlowCellgroupResponse listFlowCellgroup(ListFlowCellgroupRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listFlowCellgroupEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查看单元化管理中的单元组元数据
+     * Summary: 查看单元化管理中的单元组元数据
+     */
+    public ListFlowCellgroupResponse listFlowCellgroupEx(ListFlowCellgroupRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.flow.cellgroup.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListFlowCellgroupResponse());
+    }
+
+    /**
+     * Description: 同步单元化元数据
+     * Summary: 同步单元化元数据
+     */
+    public SyncFlowMetadataResponse syncFlowMetadata(SyncFlowMetadataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncFlowMetadataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 同步单元化元数据
+     * Summary: 同步单元化元数据
+     */
+    public SyncFlowMetadataResponse syncFlowMetadataEx(SyncFlowMetadataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.flow.metadata.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncFlowMetadataResponse());
+    }
+
+    /**
+     * Description: 发布单冲突检测
+     * Summary: 发布单冲突检测
+     */
+    public CheckContainerserviceConflictopsResponse checkContainerserviceConflictops(CheckContainerserviceConflictopsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkContainerserviceConflictopsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 发布单冲突检测
+     * Summary: 发布单冲突检测
+     */
+    public CheckContainerserviceConflictopsResponse checkContainerserviceConflictopsEx(CheckContainerserviceConflictopsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.containerservice.conflictops.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckContainerserviceConflictopsResponse());
+    }
+
+    /**
+     * Description: 单元化流量规则的容灾切换
+     * Summary: 单元化流量规则的容灾切换
+     */
+    public ExecFlowDisasterswitchResponse execFlowDisasterswitch(ExecFlowDisasterswitchRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execFlowDisasterswitchEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 单元化流量规则的容灾切换
+     * Summary: 单元化流量规则的容灾切换
+     */
+    public ExecFlowDisasterswitchResponse execFlowDisasterswitchEx(ExecFlowDisasterswitchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.flow.disasterswitch.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecFlowDisasterswitchResponse());
+    }
+
+    /**
+     * Description: 取消sidecar工单，租户应用+sidecar type维度
+     * Summary: 取消sidecar工单
+     */
+    public CancelSidecaropsResponse cancelSidecarops(CancelSidecaropsRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelSidecaropsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 取消sidecar工单，租户应用+sidecar type维度
+     * Summary: 取消sidecar工单
+     */
+    public CancelSidecaropsResponse cancelSidecaropsEx(CancelSidecaropsRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.ldc.sidecarops.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelSidecaropsResponse());
     }
 }

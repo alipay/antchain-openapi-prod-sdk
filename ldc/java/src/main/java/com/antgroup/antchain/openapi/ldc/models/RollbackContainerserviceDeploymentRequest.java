@@ -35,7 +35,6 @@ public class RollbackContainerserviceDeploymentRequest extends TeaModel {
 
     // 操作人账号
     @NameInMap("operator")
-    @Validation(required = true)
     public String operator;
 
     // 分组数，默认为3

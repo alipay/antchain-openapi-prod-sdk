@@ -4,18 +4,17 @@ package com.antgroup.antchain.openapi.ldc.models;
 import com.aliyun.tea.*;
 
 public class FedSecret extends TeaModel {
-    // fed secret annotations
+    // 保密字典的注解
     // 
     @NameInMap("annotations")
     public java.util.List<Annotation> annotations;
 
-    // FedSecret Cell Cluster Status
+    // 分发状态
     @NameInMap("cell_status")
     @Validation(required = true)
     public java.util.List<ClusteCellStatus> cellStatus;
 
-    // fed clusters
-    // 
+    // 分发的 cell 列表
     @NameInMap("clusters")
     @Validation(required = true)
     public java.util.List<String> clusters;
@@ -25,45 +24,41 @@ public class FedSecret extends TeaModel {
     @Validation(required = true)
     public String createTimeStamp;
 
-    // fed secret data
-    // 
+    // 保密字典数据
     @NameInMap("data")
     @Validation(required = true)
     public java.util.List<SecretData> data;
 
-    // fed secret labels
-    // 
+    // 保密字典的标签
     @NameInMap("labels")
     public java.util.List<Label> labels;
 
-    // fed secret name
-    // 
+    // 名称
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
-    // fed secret namespace
+    // 命名空间
     // 
     @NameInMap("namespace")
     @Validation(required = true)
     public String namespace;
 
-    // fed secret override
-    // 
+    // 保密字典数据在不同 cell 下的自定义覆盖配置
     @NameInMap("overrides")
     @Validation(required = true)
     public java.util.List<FedSecretOverride> overrides;
 
-    // 原因描述
+    // 导致该分发状态的原因
     @NameInMap("reason")
     public String reason;
 
-    // FedSecret同步状态
+    // 分发状态，成功 True，失败 False，删除中 Deleting
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
-    // opaque
+    // 保密字典类型
     @NameInMap("type")
     @Validation(required = true)
     public String type;

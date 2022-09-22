@@ -42,6 +42,10 @@ public class FinishSidecaropsRequest extends TeaModel {
     @Validation(required = true)
     public SidecarConfig sidecarConfig;
 
+    // 是否回滚流程
+    @NameInMap("is_rollback")
+    public Boolean isRollback;
+
     public static FinishSidecaropsRequest build(java.util.Map<String, ?> map) throws Exception {
         FinishSidecaropsRequest self = new FinishSidecaropsRequest();
         return TeaModel.build(map, self);
@@ -109,6 +113,14 @@ public class FinishSidecaropsRequest extends TeaModel {
     }
     public SidecarConfig getSidecarConfig() {
         return this.sidecarConfig;
+    }
+
+    public FinishSidecaropsRequest setIsRollback(Boolean isRollback) {
+        this.isRollback = isRollback;
+        return this;
+    }
+    public Boolean getIsRollback() {
+        return this.isRollback;
     }
 
 }

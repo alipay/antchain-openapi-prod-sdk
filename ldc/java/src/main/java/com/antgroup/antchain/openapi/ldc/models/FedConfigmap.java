@@ -4,16 +4,16 @@ package com.antgroup.antchain.openapi.ldc.models;
 import com.aliyun.tea.*;
 
 public class FedConfigmap extends TeaModel {
-    // fed configmap annotations
+    // 配置项的注解
     @NameInMap("annotations")
     @Validation(required = true)
     public java.util.List<Annotation> annotations;
 
-    // Fed资源集群Cell状态
+    // 分发状态
     @NameInMap("cell_status")
     public java.util.List<ClusteCellStatus> cellStatus;
 
-    // fed clusters
+    // 分发的 cell 列表
     @NameInMap("clusters")
     @Validation(required = true)
     public java.util.List<String> clusters;
@@ -23,36 +23,36 @@ public class FedConfigmap extends TeaModel {
     @Validation(required = true)
     public String createTimeStamp;
 
-    // fed configmap data
+    // 配置项数据
     @NameInMap("data")
     @Validation(required = true)
     public java.util.List<ConfigMapData> data;
 
-    // fed configmap labels
+    // 配置项的标签
     @NameInMap("labels")
     @Validation(required = true)
     public java.util.List<Label> labels;
 
-    // fed configmap name
+    // 名称
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
-    // fed configmap namespace
+    // 命名空间
     @NameInMap("namespace")
     @Validation(required = true)
     public String namespace;
 
-    // fed configmap override
+    // 配置项数据在不同 cell 下的自定义覆盖配置
     @NameInMap("overrides")
     @Validation(required = true)
     public java.util.List<FedConfigmapOverride> overrides;
 
-    // 原因
+    // 导致该分发状态的原因
     @NameInMap("reason")
     public String reason;
 
-    // propagation状态
+    // 分发状态，成功 True，失败 False，删除中 Deleting
     @NameInMap("status")
     public String status;
 

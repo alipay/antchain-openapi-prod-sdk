@@ -36,6 +36,10 @@ public class ListUnireleaseSolutionsRequest extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String creationTimeTo;
 
+    // AC ID
+    @NameInMap("ac_id")
+    public String acId;
+
     public static ListUnireleaseSolutionsRequest build(java.util.Map<String, ?> map) throws Exception {
         ListUnireleaseSolutionsRequest self = new ListUnireleaseSolutionsRequest();
         return TeaModel.build(map, self);
@@ -95,6 +99,14 @@ public class ListUnireleaseSolutionsRequest extends TeaModel {
     }
     public String getCreationTimeTo() {
         return this.creationTimeTo;
+    }
+
+    public ListUnireleaseSolutionsRequest setAcId(String acId) {
+        this.acId = acId;
+        return this;
+    }
+    public String getAcId() {
+        return this.acId;
     }
 
 }

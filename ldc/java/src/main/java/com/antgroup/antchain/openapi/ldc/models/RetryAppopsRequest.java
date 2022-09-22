@@ -17,6 +17,10 @@ public class RetryAppopsRequest extends TeaModel {
     @NameInMap("operator")
     public String operator;
 
+    // 租户编码
+    @NameInMap("tenant_name")
+    public String tenantName;
+
     public static RetryAppopsRequest build(java.util.Map<String, ?> map) throws Exception {
         RetryAppopsRequest self = new RetryAppopsRequest();
         return TeaModel.build(map, self);
@@ -44,6 +48,14 @@ public class RetryAppopsRequest extends TeaModel {
     }
     public String getOperator() {
         return this.operator;
+    }
+
+    public RetryAppopsRequest setTenantName(String tenantName) {
+        this.tenantName = tenantName;
+        return this;
+    }
+    public String getTenantName() {
+        return this.tenantName;
     }
 
 }

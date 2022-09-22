@@ -48,6 +48,10 @@ public class PodInfo extends TeaModel {
     @NameInMap("volumes")
     public java.util.List<Volume> volumes;
 
+    // pod唯一标识
+    @NameInMap("pod_identity")
+    public String podIdentity;
+
     public static PodInfo build(java.util.Map<String, ?> map) throws Exception {
         PodInfo self = new PodInfo();
         return TeaModel.build(map, self);
@@ -123,6 +127,14 @@ public class PodInfo extends TeaModel {
     }
     public java.util.List<Volume> getVolumes() {
         return this.volumes;
+    }
+
+    public PodInfo setPodIdentity(String podIdentity) {
+        this.podIdentity = podIdentity;
+        return this;
+    }
+    public String getPodIdentity() {
+        return this.podIdentity;
     }
 
 }

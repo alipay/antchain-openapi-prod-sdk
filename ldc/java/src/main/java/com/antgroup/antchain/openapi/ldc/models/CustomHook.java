@@ -23,7 +23,7 @@ public class CustomHook extends TeaModel {
     @NameInMap("hook_strategy")
     public String hookStrategy;
 
-    // 自定义批次编号，从0开始。hook_strategy=custom时有效
+    // 自定义批次编号，从1开始。hook_strategy=custom时有效
     @NameInMap("custom_num")
     public Long customNum;
 
@@ -43,9 +43,13 @@ public class CustomHook extends TeaModel {
     @NameInMap("timeout_millis")
     public Long timeoutMillis;
 
-    // 【暂不支持】默认false
+    // 【暂不支持】默认true
     @NameInMap("un_override")
     public Boolean unOverride;
+
+    // 【暂不支持】是否需要确认
+    @NameInMap("need_confirm")
+    public Boolean needConfirm;
 
     public static CustomHook build(java.util.Map<String, ?> map) throws Exception {
         CustomHook self = new CustomHook();
@@ -130,6 +134,14 @@ public class CustomHook extends TeaModel {
     }
     public Boolean getUnOverride() {
         return this.unOverride;
+    }
+
+    public CustomHook setNeedConfirm(Boolean needConfirm) {
+        this.needConfirm = needConfirm;
+        return this;
+    }
+    public Boolean getNeedConfirm() {
+        return this.needConfirm;
     }
 
 }

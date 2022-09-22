@@ -148,6 +148,10 @@ public class ContainerSpec extends TeaModel {
     @NameInMap("field_overrides")
     public java.util.List<FieldOverride> fieldOverrides;
 
+    // 容器yaml内容
+    @NameInMap("yaml_content")
+    public String yamlContent;
+
     public static ContainerSpec build(java.util.Map<String, ?> map) throws Exception {
         ContainerSpec self = new ContainerSpec();
         return TeaModel.build(map, self);
@@ -319,6 +323,14 @@ public class ContainerSpec extends TeaModel {
     }
     public java.util.List<FieldOverride> getFieldOverrides() {
         return this.fieldOverrides;
+    }
+
+    public ContainerSpec setYamlContent(String yamlContent) {
+        this.yamlContent = yamlContent;
+        return this;
+    }
+    public String getYamlContent() {
+        return this.yamlContent;
     }
 
 }

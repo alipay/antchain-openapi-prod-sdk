@@ -4,32 +4,32 @@ package com.antgroup.antchain.openapi.ldc.models;
 import com.aliyun.tea.*;
 
 public class FedNamespace extends TeaModel {
-    // fed namespace annotations
+    // 命名空间的注解
     @NameInMap("annotations")
     @Validation(required = true)
     public java.util.List<Annotation> annotations;
 
-    // fed namespace clusters
+    // 分发的集群列表
     @NameInMap("clusters")
     @Validation(required = true)
     public java.util.List<String> clusters;
 
-    // fed namespace cluster state map
+    // 分发状态
     @NameInMap("cluster_state_map")
     @Validation(required = true)
     public java.util.List<ClusterState> clusterStateMap;
 
-    // fed namespace labels
+    // 命名空间的标签
     @NameInMap("labels")
     @Validation(required = true)
     public java.util.List<Label> labels;
 
-    // fed namespace name
+    // 命名空间名称
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
-    // Fed CRD namespace
+    // 联邦命名空间所在命名空间，和命名空间自身名称保持一致
     @NameInMap("namespace")
     @Validation(required = true)
     public String namespace;
@@ -39,11 +39,11 @@ public class FedNamespace extends TeaModel {
     @Validation(required = true)
     public String createTimeStamp;
 
-    // fed 资源的状态
+    // 分发状态，成功 True，失败 False，删除中 Deleting
     @NameInMap("status")
     public String status;
 
-    // 导致 fed 资源处于该状态的原因
+    // 导致该分发状态的原因
     @NameInMap("reason")
     public String reason;
 

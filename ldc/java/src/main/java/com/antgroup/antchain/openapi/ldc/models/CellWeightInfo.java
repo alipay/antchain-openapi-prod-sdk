@@ -6,7 +6,6 @@ import com.aliyun.tea.*;
 public class CellWeightInfo extends TeaModel {
     // 部署单元所属工作空间
     @NameInMap("workspace")
-    @Validation(required = true)
     public String workspace;
 
     // 部署单元名称

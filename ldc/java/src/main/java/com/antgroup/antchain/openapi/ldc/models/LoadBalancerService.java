@@ -50,6 +50,18 @@ public class LoadBalancerService extends TeaModel {
     @NameInMap("fed_loadbalancer_name")
     public String fedLoadbalancerName;
 
+    // 是否开启优雅下线等待，默认为false。
+    @NameInMap("enable_graceful_shutdown_waiting")
+    public Boolean enableGracefulShutdownWaiting;
+
+    // 优雅下线等待时间，单位秒，默认0.
+    @NameInMap("graceful_shutdown_waiting_time")
+    public Long gracefulShutdownWaitingTime;
+
+    // 是否开启集群内转发优化（集群内访问lb vip时是否走kube-proxy转发链路）
+    @NameInMap("enable_in_cluster_forward_optimization")
+    public Boolean enableInClusterForwardOptimization;
+
     public static LoadBalancerService build(java.util.Map<String, ?> map) throws Exception {
         LoadBalancerService self = new LoadBalancerService();
         return TeaModel.build(map, self);
@@ -141,6 +153,30 @@ public class LoadBalancerService extends TeaModel {
     }
     public String getFedLoadbalancerName() {
         return this.fedLoadbalancerName;
+    }
+
+    public LoadBalancerService setEnableGracefulShutdownWaiting(Boolean enableGracefulShutdownWaiting) {
+        this.enableGracefulShutdownWaiting = enableGracefulShutdownWaiting;
+        return this;
+    }
+    public Boolean getEnableGracefulShutdownWaiting() {
+        return this.enableGracefulShutdownWaiting;
+    }
+
+    public LoadBalancerService setGracefulShutdownWaitingTime(Long gracefulShutdownWaitingTime) {
+        this.gracefulShutdownWaitingTime = gracefulShutdownWaitingTime;
+        return this;
+    }
+    public Long getGracefulShutdownWaitingTime() {
+        return this.gracefulShutdownWaitingTime;
+    }
+
+    public LoadBalancerService setEnableInClusterForwardOptimization(Boolean enableInClusterForwardOptimization) {
+        this.enableInClusterForwardOptimization = enableInClusterForwardOptimization;
+        return this;
+    }
+    public Boolean getEnableInClusterForwardOptimization() {
+        return this.enableInClusterForwardOptimization;
     }
 
 }

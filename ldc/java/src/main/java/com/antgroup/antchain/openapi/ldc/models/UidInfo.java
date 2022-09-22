@@ -31,6 +31,11 @@ public class UidInfo extends TeaModel {
     @NameInMap("gray")
     public Boolean gray;
 
+    // 单元分片容灾状态，枚举，NORMAL（正常）、LOCAL（同城容灾）、REMOTE（异地容灾）
+    @NameInMap("disaster_state")
+    @Validation(required = true)
+    public String disasterState;
+
     public static UidInfo build(java.util.Map<String, ?> map) throws Exception {
         UidInfo self = new UidInfo();
         return TeaModel.build(map, self);
@@ -82,6 +87,14 @@ public class UidInfo extends TeaModel {
     }
     public Boolean getGray() {
         return this.gray;
+    }
+
+    public UidInfo setDisasterState(String disasterState) {
+        this.disasterState = disasterState;
+        return this;
+    }
+    public String getDisasterState() {
+        return this.disasterState;
     }
 
 }

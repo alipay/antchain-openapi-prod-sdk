@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.ldc.models;
 import com.aliyun.tea.*;
 
 public class ClusteCellStatus extends TeaModel {
-    // 集群名称
+    // 部署单元所在集群名称
     @NameInMap("cluster")
     @Validation(required = true)
     public String cluster;
@@ -14,12 +14,12 @@ public class ClusteCellStatus extends TeaModel {
     @Validation(required = true)
     public String cell;
 
-    // Cell资源状态
+    // 联邦资源的分发状态，空字符串代表成功，否则为错误码
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
-    // 详细说明或错误信息
+    // 详细错误信息
     @NameInMap("message")
     public String message;
 

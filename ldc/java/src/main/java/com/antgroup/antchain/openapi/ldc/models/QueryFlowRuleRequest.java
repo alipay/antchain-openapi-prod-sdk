@@ -18,6 +18,10 @@ public class QueryFlowRuleRequest extends TeaModel {
     @Validation(required = true)
     public String ruleType;
 
+    // 推送目标类型: MAIN, MIDDLEWARE, ALB
+    @NameInMap("push_target")
+    public String pushTarget;
+
     public static QueryFlowRuleRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryFlowRuleRequest self = new QueryFlowRuleRequest();
         return TeaModel.build(map, self);
@@ -45,6 +49,14 @@ public class QueryFlowRuleRequest extends TeaModel {
     }
     public String getRuleType() {
         return this.ruleType;
+    }
+
+    public QueryFlowRuleRequest setPushTarget(String pushTarget) {
+        this.pushTarget = pushTarget;
+        return this;
+    }
+    public String getPushTarget() {
+        return this.pushTarget;
     }
 
 }

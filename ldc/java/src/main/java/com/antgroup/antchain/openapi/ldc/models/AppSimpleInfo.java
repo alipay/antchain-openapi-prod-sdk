@@ -97,6 +97,14 @@ public class AppSimpleInfo extends TeaModel {
     @NameInMap("deployment_template_name")
     public String deploymentTemplateName;
 
+    // 蓝绿部署单元名
+    @NameInMap("bg_cell_name")
+    public String bgCellName;
+
+    // 蓝绿发布类型
+    @NameInMap("bg_group_type")
+    public String bgGroupType;
+
     public static AppSimpleInfo build(java.util.Map<String, ?> map) throws Exception {
         AppSimpleInfo self = new AppSimpleInfo();
         return TeaModel.build(map, self);
@@ -260,6 +268,22 @@ public class AppSimpleInfo extends TeaModel {
     }
     public String getDeploymentTemplateName() {
         return this.deploymentTemplateName;
+    }
+
+    public AppSimpleInfo setBgCellName(String bgCellName) {
+        this.bgCellName = bgCellName;
+        return this;
+    }
+    public String getBgCellName() {
+        return this.bgCellName;
+    }
+
+    public AppSimpleInfo setBgGroupType(String bgGroupType) {
+        this.bgGroupType = bgGroupType;
+        return this;
+    }
+    public String getBgGroupType() {
+        return this.bgGroupType;
     }
 
 }

@@ -29,6 +29,26 @@ public class UnireleaseSolutionApp extends TeaModel {
     @Validation(required = true)
     public String tenant;
 
+    // 中间件配置diff信息
+    @NameInMap("middleware_config_diffs")
+    public java.util.List<String> middlewareConfigDiffs;
+
+    // 工作空间组
+    @NameInMap("workspace_group")
+    public String workspaceGroup;
+
+    // 命名空间
+    @NameInMap("namespace")
+    public String namespace;
+
+    // 中间件配置变更diff摘要
+    @NameInMap("middleware_config_diff_summary")
+    public String middlewareConfigDiffSummary;
+
+    // 风险等级: ORDINARY-一般、HIGH-高危
+    @NameInMap("risk_level")
+    public String riskLevel;
+
     public static UnireleaseSolutionApp build(java.util.Map<String, ?> map) throws Exception {
         UnireleaseSolutionApp self = new UnireleaseSolutionApp();
         return TeaModel.build(map, self);
@@ -72,6 +92,46 @@ public class UnireleaseSolutionApp extends TeaModel {
     }
     public String getTenant() {
         return this.tenant;
+    }
+
+    public UnireleaseSolutionApp setMiddlewareConfigDiffs(java.util.List<String> middlewareConfigDiffs) {
+        this.middlewareConfigDiffs = middlewareConfigDiffs;
+        return this;
+    }
+    public java.util.List<String> getMiddlewareConfigDiffs() {
+        return this.middlewareConfigDiffs;
+    }
+
+    public UnireleaseSolutionApp setWorkspaceGroup(String workspaceGroup) {
+        this.workspaceGroup = workspaceGroup;
+        return this;
+    }
+    public String getWorkspaceGroup() {
+        return this.workspaceGroup;
+    }
+
+    public UnireleaseSolutionApp setNamespace(String namespace) {
+        this.namespace = namespace;
+        return this;
+    }
+    public String getNamespace() {
+        return this.namespace;
+    }
+
+    public UnireleaseSolutionApp setMiddlewareConfigDiffSummary(String middlewareConfigDiffSummary) {
+        this.middlewareConfigDiffSummary = middlewareConfigDiffSummary;
+        return this;
+    }
+    public String getMiddlewareConfigDiffSummary() {
+        return this.middlewareConfigDiffSummary;
+    }
+
+    public UnireleaseSolutionApp setRiskLevel(String riskLevel) {
+        this.riskLevel = riskLevel;
+        return this;
+    }
+    public String getRiskLevel() {
+        return this.riskLevel;
     }
 
 }

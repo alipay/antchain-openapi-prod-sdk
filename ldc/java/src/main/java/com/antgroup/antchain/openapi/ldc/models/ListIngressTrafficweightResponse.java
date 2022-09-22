@@ -20,6 +20,10 @@ public class ListIngressTrafficweightResponse extends TeaModel {
     @NameInMap("service_weights")
     public java.util.List<ServiceWeight> serviceWeights;
 
+    // 流量权重列表蓝绿发布v2
+    @NameInMap("cell_weights")
+    public java.util.List<CellWeight> cellWeights;
+
     public static ListIngressTrafficweightResponse build(java.util.Map<String, ?> map) throws Exception {
         ListIngressTrafficweightResponse self = new ListIngressTrafficweightResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class ListIngressTrafficweightResponse extends TeaModel {
     }
     public java.util.List<ServiceWeight> getServiceWeights() {
         return this.serviceWeights;
+    }
+
+    public ListIngressTrafficweightResponse setCellWeights(java.util.List<CellWeight> cellWeights) {
+        this.cellWeights = cellWeights;
+        return this;
+    }
+    public java.util.List<CellWeight> getCellWeights() {
+        return this.cellWeights;
     }
 
 }

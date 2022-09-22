@@ -43,6 +43,10 @@ public class QueryFlowRecordRequest extends TeaModel {
     @NameInMap("rule_type")
     public String ruleType;
 
+    // 推送目标，可选（MAIN、MIDDLEWARE、ALB）
+    @NameInMap("push_target")
+    public String pushTarget;
+
     public static QueryFlowRecordRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryFlowRecordRequest self = new QueryFlowRecordRequest();
         return TeaModel.build(map, self);
@@ -118,6 +122,14 @@ public class QueryFlowRecordRequest extends TeaModel {
     }
     public String getRuleType() {
         return this.ruleType;
+    }
+
+    public QueryFlowRecordRequest setPushTarget(String pushTarget) {
+        this.pushTarget = pushTarget;
+        return this;
+    }
+    public String getPushTarget() {
+        return this.pushTarget;
     }
 
 }

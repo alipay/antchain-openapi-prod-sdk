@@ -22,6 +22,10 @@ public class CreateFederationNamespaceRequest extends TeaModel {
     @Validation(required = true)
     public String workspaceGroupName;
 
+    // annotation,可以用来存放description等其他字段
+    @NameInMap("annotations")
+    public java.util.List<Annotation> annotations;
+
     public static CreateFederationNamespaceRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateFederationNamespaceRequest self = new CreateFederationNamespaceRequest();
         return TeaModel.build(map, self);
@@ -57,6 +61,14 @@ public class CreateFederationNamespaceRequest extends TeaModel {
     }
     public String getWorkspaceGroupName() {
         return this.workspaceGroupName;
+    }
+
+    public CreateFederationNamespaceRequest setAnnotations(java.util.List<Annotation> annotations) {
+        this.annotations = annotations;
+        return this;
+    }
+    public java.util.List<Annotation> getAnnotations() {
+        return this.annotations;
     }
 
 }

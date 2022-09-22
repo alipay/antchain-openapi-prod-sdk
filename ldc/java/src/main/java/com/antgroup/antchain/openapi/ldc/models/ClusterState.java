@@ -9,12 +9,12 @@ public class ClusterState extends TeaModel {
     @Validation(required = true)
     public String clusterName;
 
-    // k8s resource state
+    // 联邦资源的分发状态，空字符串代表成功，否则为错误码
     @NameInMap("state")
     @Validation(required = true)
     public String state;
 
-    // 详细描述或错误信息
+    // 详细错误信息
     @NameInMap("message")
     public String message;
 

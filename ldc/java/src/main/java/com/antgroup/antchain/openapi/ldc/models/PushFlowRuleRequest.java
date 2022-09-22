@@ -8,7 +8,7 @@ public class PushFlowRuleRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 包含系统列表
+    // 包含系统列表，目前功能不支持，禁止设置
     @NameInMap("apps")
     public java.util.List<String> apps;
 
@@ -21,7 +21,7 @@ public class PushFlowRuleRequest extends TeaModel {
     @Validation(required = true)
     public String operator;
 
-    // 站点是否全局推送
+    // 推送中间件流量规则时，是否同时推送中间件中枢
     @NameInMap("push_all")
     public Boolean pushAll;
 
@@ -35,7 +35,7 @@ public class PushFlowRuleRequest extends TeaModel {
     @Validation(required = true)
     public String ruleValue;
 
-    // 全量的targets信息
+    // 推送目标列表，域外支持 MIDDLEWARE（微服务/中间件）、ALB（统一接入） 两种
     @NameInMap("targets")
     public java.util.List<String> targets;
 

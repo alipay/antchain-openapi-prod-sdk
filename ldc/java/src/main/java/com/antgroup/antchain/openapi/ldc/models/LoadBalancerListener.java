@@ -59,6 +59,10 @@ public class LoadBalancerListener extends TeaModel {
     @NameInMap("health_check_domain")
     public String healthCheckDomain;
 
+    // 健康检查http method，支持head和get
+    @NameInMap("health_check_http_method")
+    public String healthCheckHttpMethod;
+
     // 健康检查正常的HTTP状态码，多个状态码用逗号分隔。
     // 默认值为http_2xx。
     @NameInMap("health_check_http_code")
@@ -127,6 +131,18 @@ public class LoadBalancerListener extends TeaModel {
     // 统一接入转发路径
     @NameInMap("path")
     public String path;
+
+    // on 代表开启 acl，off 代表关闭 acl
+    @NameInMap("acl_status")
+    public String aclStatus;
+
+    // acl 类型，white 代表白名单；black 代表黑名单
+    @NameInMap("acl_type")
+    public String aclType;
+
+    // 访问控制列表的 id
+    @NameInMap("acl_id")
+    public String aclId;
 
     public static LoadBalancerListener build(java.util.Map<String, ?> map) throws Exception {
         LoadBalancerListener self = new LoadBalancerListener();
@@ -219,6 +235,14 @@ public class LoadBalancerListener extends TeaModel {
     }
     public String getHealthCheckDomain() {
         return this.healthCheckDomain;
+    }
+
+    public LoadBalancerListener setHealthCheckHttpMethod(String healthCheckHttpMethod) {
+        this.healthCheckHttpMethod = healthCheckHttpMethod;
+        return this;
+    }
+    public String getHealthCheckHttpMethod() {
+        return this.healthCheckHttpMethod;
     }
 
     public LoadBalancerListener setHealthCheckHttpCode(String healthCheckHttpCode) {
@@ -331,6 +355,30 @@ public class LoadBalancerListener extends TeaModel {
     }
     public String getPath() {
         return this.path;
+    }
+
+    public LoadBalancerListener setAclStatus(String aclStatus) {
+        this.aclStatus = aclStatus;
+        return this;
+    }
+    public String getAclStatus() {
+        return this.aclStatus;
+    }
+
+    public LoadBalancerListener setAclType(String aclType) {
+        this.aclType = aclType;
+        return this;
+    }
+    public String getAclType() {
+        return this.aclType;
+    }
+
+    public LoadBalancerListener setAclId(String aclId) {
+        this.aclId = aclId;
+        return this;
+    }
+    public String getAclId() {
+        return this.aclId;
     }
 
 }

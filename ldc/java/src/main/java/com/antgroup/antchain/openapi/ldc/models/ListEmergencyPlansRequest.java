@@ -20,6 +20,10 @@ public class ListEmergencyPlansRequest extends TeaModel {
     @NameInMap("page_size")
     public Long pageSize;
 
+    // 预案id，只有传预案id时才返回预案参数
+    @NameInMap("emergency_plan_id")
+    public String emergencyPlanId;
+
     public static ListEmergencyPlansRequest build(java.util.Map<String, ?> map) throws Exception {
         ListEmergencyPlansRequest self = new ListEmergencyPlansRequest();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class ListEmergencyPlansRequest extends TeaModel {
     }
     public Long getPageSize() {
         return this.pageSize;
+    }
+
+    public ListEmergencyPlansRequest setEmergencyPlanId(String emergencyPlanId) {
+        this.emergencyPlanId = emergencyPlanId;
+        return this;
+    }
+    public String getEmergencyPlanId() {
+        return this.emergencyPlanId;
     }
 
 }

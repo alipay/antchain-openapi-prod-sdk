@@ -20,6 +20,10 @@ public class PushRuleResult extends TeaModel {
     @NameInMap("failed_list")
     public java.util.List<String> failedList;
 
+    // 失败信息
+    @NameInMap("message")
+    public String message;
+
     public static PushRuleResult build(java.util.Map<String, ?> map) throws Exception {
         PushRuleResult self = new PushRuleResult();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class PushRuleResult extends TeaModel {
     }
     public java.util.List<String> getFailedList() {
         return this.failedList;
+    }
+
+    public PushRuleResult setMessage(String message) {
+        this.message = message;
+        return this;
+    }
+    public String getMessage() {
+        return this.message;
     }
 
 }

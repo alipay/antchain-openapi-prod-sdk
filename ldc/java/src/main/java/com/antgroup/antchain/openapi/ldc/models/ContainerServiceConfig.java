@@ -83,6 +83,10 @@ public class ContainerServiceConfig extends TeaModel {
     @NameInMap("resource_overrides")
     public java.util.List<ResourceOverride> resourceOverrides;
 
+    // 摘流配置
+    @NameInMap("traffic_config")
+    public TrafficConfig trafficConfig;
+
     public static ContainerServiceConfig build(java.util.Map<String, ?> map) throws Exception {
         ContainerServiceConfig self = new ContainerServiceConfig();
         return TeaModel.build(map, self);
@@ -238,6 +242,14 @@ public class ContainerServiceConfig extends TeaModel {
     }
     public java.util.List<ResourceOverride> getResourceOverrides() {
         return this.resourceOverrides;
+    }
+
+    public ContainerServiceConfig setTrafficConfig(TrafficConfig trafficConfig) {
+        this.trafficConfig = trafficConfig;
+        return this;
+    }
+    public TrafficConfig getTrafficConfig() {
+        return this.trafficConfig;
     }
 
 }

@@ -14,6 +14,10 @@ public class EmergencyPlan extends TeaModel {
     @Validation(required = true)
     public String name;
 
+    // 预案参数，只有传预案id时才返回预案参数
+    @NameInMap("params")
+    public java.util.List<TemplateParam> params;
+
     public static EmergencyPlan build(java.util.Map<String, ?> map) throws Exception {
         EmergencyPlan self = new EmergencyPlan();
         return TeaModel.build(map, self);
@@ -33,6 +37,14 @@ public class EmergencyPlan extends TeaModel {
     }
     public String getName() {
         return this.name;
+    }
+
+    public EmergencyPlan setParams(java.util.List<TemplateParam> params) {
+        this.params = params;
+        return this;
+    }
+    public java.util.List<TemplateParam> getParams() {
+        return this.params;
     }
 
 }

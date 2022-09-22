@@ -49,7 +49,7 @@ public class CreateContainerserviceOperationRequest extends TeaModel {
     @Validation(required = true)
     public String workspaceGroup;
 
-    // 在具体分组策略下，每个执行单元（部署单元，机房等）内部的分组个数。
+    // 最小分组数，同发布单中的group_count
     @NameInMap("group_amount")
     public Long groupAmount;
 
@@ -72,6 +72,10 @@ public class CreateContainerserviceOperationRequest extends TeaModel {
     // 每个部署单元单批次变更pod数量百分比，仅当group_strategey为ALL_CELL_PERCENTAGE时生效
     @NameInMap("max_cell_pod_percentage")
     public Long maxCellPodPercentage;
+
+    // 部署单元流量权重
+    @NameInMap("cell_weights")
+    public java.util.List<CellWeightInfo> cellWeights;
 
     public static CreateContainerserviceOperationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateContainerserviceOperationRequest self = new CreateContainerserviceOperationRequest();
@@ -204,6 +208,14 @@ public class CreateContainerserviceOperationRequest extends TeaModel {
     }
     public Long getMaxCellPodPercentage() {
         return this.maxCellPodPercentage;
+    }
+
+    public CreateContainerserviceOperationRequest setCellWeights(java.util.List<CellWeightInfo> cellWeights) {
+        this.cellWeights = cellWeights;
+        return this;
+    }
+    public java.util.List<CellWeightInfo> getCellWeights() {
+        return this.cellWeights;
     }
 
 }

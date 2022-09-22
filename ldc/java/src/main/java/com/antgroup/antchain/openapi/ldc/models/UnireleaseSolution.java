@@ -69,6 +69,18 @@ public class UnireleaseSolution extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> tenants;
 
+    // 错误信息
+    @NameInMap("message")
+    public String message;
+
+    // AC ID
+    @NameInMap("ac_id")
+    public String acId;
+
+    // 是否是紧急发布
+    @NameInMap("emergent")
+    public Boolean emergent;
+
     public static UnireleaseSolution build(java.util.Map<String, ?> map) throws Exception {
         UnireleaseSolution self = new UnireleaseSolution();
         return TeaModel.build(map, self);
@@ -176,6 +188,30 @@ public class UnireleaseSolution extends TeaModel {
     }
     public java.util.List<String> getTenants() {
         return this.tenants;
+    }
+
+    public UnireleaseSolution setMessage(String message) {
+        this.message = message;
+        return this;
+    }
+    public String getMessage() {
+        return this.message;
+    }
+
+    public UnireleaseSolution setAcId(String acId) {
+        this.acId = acId;
+        return this;
+    }
+    public String getAcId() {
+        return this.acId;
+    }
+
+    public UnireleaseSolution setEmergent(Boolean emergent) {
+        this.emergent = emergent;
+        return this;
+    }
+    public Boolean getEmergent() {
+        return this.emergent;
     }
 
 }

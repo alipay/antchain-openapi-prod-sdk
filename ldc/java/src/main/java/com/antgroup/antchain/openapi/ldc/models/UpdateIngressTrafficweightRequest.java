@@ -8,15 +8,18 @@ public class UpdateIngressTrafficweightRequest extends TeaModel {
     @NameInMap("auth_token")
     public String authToken;
 
-    // 流量权重列表
-    @NameInMap("service_weights")
-    @Validation(required = true)
-    public java.util.List<ServiceWeight> serviceWeights;
-
     // service id
     @NameInMap("service_id")
     @Validation(required = true)
     public String serviceId;
+
+    // 流量权重列表
+    @NameInMap("service_weights")
+    public java.util.List<ServiceWeight> serviceWeights;
+
+    // 流量权重列表蓝绿发布v2
+    @NameInMap("cell_weights")
+    public java.util.List<CellWeight> cellWeights;
 
     public static UpdateIngressTrafficweightRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateIngressTrafficweightRequest self = new UpdateIngressTrafficweightRequest();
@@ -31,6 +34,14 @@ public class UpdateIngressTrafficweightRequest extends TeaModel {
         return this.authToken;
     }
 
+    public UpdateIngressTrafficweightRequest setServiceId(String serviceId) {
+        this.serviceId = serviceId;
+        return this;
+    }
+    public String getServiceId() {
+        return this.serviceId;
+    }
+
     public UpdateIngressTrafficweightRequest setServiceWeights(java.util.List<ServiceWeight> serviceWeights) {
         this.serviceWeights = serviceWeights;
         return this;
@@ -39,12 +50,12 @@ public class UpdateIngressTrafficweightRequest extends TeaModel {
         return this.serviceWeights;
     }
 
-    public UpdateIngressTrafficweightRequest setServiceId(String serviceId) {
-        this.serviceId = serviceId;
+    public UpdateIngressTrafficweightRequest setCellWeights(java.util.List<CellWeight> cellWeights) {
+        this.cellWeights = cellWeights;
         return this;
     }
-    public String getServiceId() {
-        return this.serviceId;
+    public java.util.List<CellWeight> getCellWeights() {
+        return this.cellWeights;
     }
 
 }

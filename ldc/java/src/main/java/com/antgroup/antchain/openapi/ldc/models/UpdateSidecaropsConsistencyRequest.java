@@ -46,6 +46,10 @@ public class UpdateSidecaropsConsistencyRequest extends TeaModel {
     @Validation(required = true)
     public String orderNum;
 
+    // 是否回滚流程
+    @NameInMap("is_rollback")
+    public Boolean isRollback;
+
     public static UpdateSidecaropsConsistencyRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateSidecaropsConsistencyRequest self = new UpdateSidecaropsConsistencyRequest();
         return TeaModel.build(map, self);
@@ -121,6 +125,14 @@ public class UpdateSidecaropsConsistencyRequest extends TeaModel {
     }
     public String getOrderNum() {
         return this.orderNum;
+    }
+
+    public UpdateSidecaropsConsistencyRequest setIsRollback(Boolean isRollback) {
+        this.isRollback = isRollback;
+        return this;
+    }
+    public Boolean getIsRollback() {
+        return this.isRollback;
     }
 
 }
