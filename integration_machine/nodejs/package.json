@@ -1,6 +1,6 @@
 {
   "name": "@antchain/integration_machine",
-  "version": "1.0.15",
+  "version": "1.0.18",
   "description": "",
   "main": "dist/client.js",
   "scripts": {

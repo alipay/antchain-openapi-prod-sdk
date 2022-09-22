@@ -132,6 +132,57 @@ export class TravelInfo extends $tea.Model {
   }
 }
 
+// 统计附加额外字段
+export class StatisticsExtendArg extends $tea.Model {
+  // 字段key
+  key: string;
+  // 数量
+  number: number;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      number: 'number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      number: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 户籍所在省分布
+export class IdentityDistributed extends $tea.Model {
+  // 户籍身份证号(前两位标识)
+  // 11代表北京市，12天代表天津市，13河北省，14山代表山西省，15内代表蒙古自治区，21代表辽宁省，22代表吉林省，23代表黑龙江省，31代表上海市，32代表江苏省，33代表浙江省，34代表代表安徽省，35代表福建省，36代表江西省，37代表山东省，41代表河南省，42代表湖北省，43代表湖南省，44代表广东省，45代表广西壮族自治区，46代表海南省，50代表重庆市，51代表四川省，52代表贵州省，53代表云南省，54代表西藏自治区，61代表陕西省，62代表甘肃省，63代表青海省，64代表宁夏回族自治区，65代表新疆维吾尔自治区，71代表台湾省，81代表香港特别行政区，82代表澳门特别行政区
+  key: string;
+  // 户籍所在省分布数量
+  number: number;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      number: 'number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      number: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 抗原信息
 export class AntigenInfo extends $tea.Model {
   // 抗原检测状态
@@ -273,6 +324,171 @@ export class NucleicAcidInformation extends $tea.Model {
   }
 }
 
+// 设备实时通行统计
+export class DeviceStatistics extends $tea.Model {
+  // 设备SN号
+  serialNo: string;
+  // 设备状态(初始化:init,在线:online,离线:offline,故障:fault)
+  status: string;
+  // 通行人次
+  total: number;
+  // 绿码人次
+  green: number;
+  // 黄码人次
+  yellow: number;
+  // 红码人次
+  red: number;
+  // 码值异常人次
+  codeErr: number;
+  // 刷脸人次
+  face: number;
+  // 刷健康码人次
+  healthCode: number;
+  // 刷身份证人次
+  cert: number;
+  // 其他方式人次
+  otherMode: number;
+  // 通行成功人次
+  pass: number;
+  // 通行失败人次
+  stop: number;
+  // 平均通行时间(ms)
+  avgTime: number;
+  // 疫苗未接种人次
+  vaccineNo: number;
+  // 疫苗接种一针人次
+  vaccineFirst: number;
+  // 疫苗接种两针人次
+  vaccineSecond: number;
+  // 疫苗接种三针人次
+  vaccineThird: number;
+  // 疫苗未查询人次
+  vaccineUnknown: number;
+  // 核酸有效期24h人次
+  nucleicAcid24h: number;
+  // 核酸有效期48h人次
+  nucleicAcid48h: number;
+  // 核酸有效期72h人次
+  nucleicAcid72h: number;
+  // 核酸有效期7d人次
+  nucleicAcid7d: number;
+  // 超过7D或无核酸人次
+  nucleicAcidOther: number;
+  // 体温小于35.5人次
+  temperatureA: number;
+  // 体温35.5-36度人次
+  temperatureB: number;
+  // 体温36.1-36.3度人次
+  temperatureC: number;
+  // 体温36.4-36.7度人次
+  temperatureD: number;
+  // 体温36.8-37度人次
+  temperatureE: number;
+  // 体温37.1-37.5度人次
+  temperatureF: number;
+  // 体温37.6-38度人次
+  temperatureG: number;
+  // 体温38.1-38.5度人次
+  temperatureH: number;
+  // 体温38.6-39度人次
+  temperatureI: number;
+  // 体温大于39人次
+  temperatureJ: number;
+  // 体温未获取人次
+  temperatureK: number;
+  // 户籍所在省分布
+  identityDistributedList: IdentityDistributed[];
+  // 扩展统计字段
+  extendArgList: StatisticsExtendArg[];
+  static names(): { [key: string]: string } {
+    return {
+      serialNo: 'serial_no',
+      status: 'status',
+      total: 'total',
+      green: 'green',
+      yellow: 'yellow',
+      red: 'red',
+      codeErr: 'code_err',
+      face: 'face',
+      healthCode: 'health_code',
+      cert: 'cert',
+      otherMode: 'other_mode',
+      pass: 'pass',
+      stop: 'stop',
+      avgTime: 'avg_time',
+      vaccineNo: 'vaccine_no',
+      vaccineFirst: 'vaccine_first',
+      vaccineSecond: 'vaccine_second',
+      vaccineThird: 'vaccine_third',
+      vaccineUnknown: 'vaccine_unknown',
+      nucleicAcid24h: 'nucleic_acid24h',
+      nucleicAcid48h: 'nucleic_acid48h',
+      nucleicAcid72h: 'nucleic_acid72h',
+      nucleicAcid7d: 'nucleic_acid7d',
+      nucleicAcidOther: 'nucleic_acid_other',
+      temperatureA: 'temperature_a',
+      temperatureB: 'temperature_b',
+      temperatureC: 'temperature_c',
+      temperatureD: 'temperature_d',
+      temperatureE: 'temperature_e',
+      temperatureF: 'temperature_f',
+      temperatureG: 'temperature_g',
+      temperatureH: 'temperature_h',
+      temperatureI: 'temperature_i',
+      temperatureJ: 'temperature_j',
+      temperatureK: 'temperature_k',
+      identityDistributedList: 'identity_distributed_list',
+      extendArgList: 'extend_arg_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      serialNo: 'string',
+      status: 'string',
+      total: 'number',
+      green: 'number',
+      yellow: 'number',
+      red: 'number',
+      codeErr: 'number',
+      face: 'number',
+      healthCode: 'number',
+      cert: 'number',
+      otherMode: 'number',
+      pass: 'number',
+      stop: 'number',
+      avgTime: 'number',
+      vaccineNo: 'number',
+      vaccineFirst: 'number',
+      vaccineSecond: 'number',
+      vaccineThird: 'number',
+      vaccineUnknown: 'number',
+      nucleicAcid24h: 'number',
+      nucleicAcid48h: 'number',
+      nucleicAcid72h: 'number',
+      nucleicAcid7d: 'number',
+      nucleicAcidOther: 'number',
+      temperatureA: 'number',
+      temperatureB: 'number',
+      temperatureC: 'number',
+      temperatureD: 'number',
+      temperatureE: 'number',
+      temperatureF: 'number',
+      temperatureG: 'number',
+      temperatureH: 'number',
+      temperatureI: 'number',
+      temperatureJ: 'number',
+      temperatureK: 'number',
+      identityDistributedList: { 'type': 'array', 'itemType': IdentityDistributed },
+      extendArgList: { 'type': 'array', 'itemType': StatisticsExtendArg },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 疫苗信息
 export class VaccinationInformation extends $tea.Model {
   // 疫苗接种状态(0查询失败 1未接种 2已接种一针 3完成接种)
@@ -323,6 +539,31 @@ export class ArgsNameValue extends $tea.Model {
       argsKey: 'string',
       argsValue: 'string',
       argsMark: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 查询健康信息扩展参数
+export class QueryHealthInfoExtendedArg extends $tea.Model {
+  // 参数名
+  argKey?: string;
+  // 参数值
+  argValue?: string;
+  static names(): { [key: string]: string } {
+    return {
+      argKey: 'arg_key',
+      argValue: 'arg_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      argKey: 'string',
+      argValue: 'string',
     };
   }
 
@@ -574,6 +815,8 @@ export class QueryHealthinfoRequest extends $tea.Model {
   healthTypes: string;
   // 通行记录ID
   passId?: string;
+  // 获取健康信息所需扩展参数列表：体温（temperature：36.5）
+  extensionInfo?: QueryHealthInfoExtendedArg[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -584,6 +827,7 @@ export class QueryHealthinfoRequest extends $tea.Model {
       certNo: 'cert_no',
       healthTypes: 'health_types',
       passId: 'pass_id',
+      extensionInfo: 'extension_info',
     };
   }
 
@@ -597,6 +841,7 @@ export class QueryHealthinfoRequest extends $tea.Model {
       certNo: 'string',
       healthTypes: 'string',
       passId: 'string',
+      extensionInfo: { 'type': 'array', 'itemType': QueryHealthInfoExtendedArg },
     };
   }
 
@@ -822,6 +1067,8 @@ export class GetHealthinfoRequest extends $tea.Model {
   // 通行记录ID
   // 
   passId?: string;
+  // 获取健康信息所需扩展参数列表：体温（temperature：36.5）
+  extensionInfo?: QueryHealthInfoExtendedArg[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -831,6 +1078,7 @@ export class GetHealthinfoRequest extends $tea.Model {
       qrCode: 'qr_code',
       healthTypes: 'health_types',
       passId: 'pass_id',
+      extensionInfo: 'extension_info',
     };
   }
 
@@ -843,6 +1091,7 @@ export class GetHealthinfoRequest extends $tea.Model {
       qrCode: 'string',
       healthTypes: 'string',
       passId: 'string',
+      extensionInfo: { 'type': 'array', 'itemType': QueryHealthInfoExtendedArg },
     };
   }
 
@@ -1137,7 +1386,7 @@ export class QueryHealthstatisticsRequest extends $tea.Model {
   productInstanceId?: string;
   // 开始日期
   startDate: string;
-  // 结束日期(为空或等于开始日期时为查询当天)
+  // 结束日期(为空或等于开始日期时为查询当天,时间范围最大可查询100天)
   endDate?: string;
   // 统计类型(通行人数统计：PERSON，通行次数统计：NUMBER)
   type: string;
@@ -1190,6 +1439,81 @@ export class QueryHealthstatisticsResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       dataList: { 'type': 'array', 'itemType': HealthStatistics },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDevicestatisticsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备SN号(最大限制100条)
+  serialNoList: string[];
+  // 厂商名称
+  // 为空时:默认值telpo(天波)
+  // 可用枚举值:
+  // telpo(天波) 
+  // hemiao(禾苗)
+  cropName?: string;
+  // 开始时间(精确到ms)
+  startTime: number;
+  // 结束时间(精确到ms,时间跨度不能超过24h)
+  endTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serialNoList: 'serial_no_list',
+      cropName: 'crop_name',
+      startTime: 'start_time',
+      endTime: 'end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serialNoList: { 'type': 'array', 'itemType': 'string' },
+      cropName: 'string',
+      startTime: 'number',
+      endTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDevicestatisticsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 设备实时统计
+  dataList?: DeviceStatistics[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      dataList: 'data_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      dataList: { 'type': 'array', 'itemType': DeviceStatistics },
     };
   }
 
@@ -1311,7 +1635,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.15",
+          sdk_version: "1.0.18",
           _prod_code: "INTEGRATION_MACHINE",
           _prod_channel: "undefined",
         };
@@ -1490,6 +1814,25 @@ export default class Client {
   async queryHealthstatisticsEx(request: QueryHealthstatisticsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryHealthstatisticsResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryHealthstatisticsResponse>(await this.doRequest("1.0", "antchain.antim.healthstatistics.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryHealthstatisticsResponse({}));
+  }
+
+  /**
+   * Description: 设备实时通行统计查询
+   * Summary: 设备实时通行统计查询
+   */
+  async queryDevicestatistics(request: QueryDevicestatisticsRequest): Promise<QueryDevicestatisticsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDevicestatisticsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 设备实时通行统计查询
+   * Summary: 设备实时通行统计查询
+   */
+  async queryDevicestatisticsEx(request: QueryDevicestatisticsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDevicestatisticsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDevicestatisticsResponse>(await this.doRequest("1.0", "antchain.antim.devicestatistics.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDevicestatisticsResponse({}));
   }
 
 }
