@@ -366,6 +366,81 @@ func (s *StagesDetailVO) SetSignId(v string) *StagesDetailVO {
 	return s
 }
 
+// 实施内容信息
+type SubjectCombinationMessage struct {
+	// 实施内容id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true" maxLength:"50"`
+	// 实施内容名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" maxLength:"20"`
+	// 实施内容类型：0善款类，1实物类、2服务类
+	Type *int64 `json:"type,omitempty" xml:"type,omitempty"`
+	// 单位
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" maxLength:"10"`
+	// 说明
+	Note *string `json:"note,omitempty" xml:"note,omitempty" maxLength:"1000"`
+	// 单价是否固定，0:不固定，1:固定
+	PriceDeterminedFlag *int64 `json:"price_determined_flag,omitempty" xml:"price_determined_flag,omitempty"`
+	// 单价
+	Price *int64 `json:"price,omitempty" xml:"price,omitempty"`
+	// 预估发放数量
+	TotalNum *int64 `json:"total_num,omitempty" xml:"total_num,omitempty"`
+	// 操作类型0-新增，1-修改，2-删除
+	Operate *int64 `json:"operate,omitempty" xml:"operate,omitempty" require:"true"`
+}
+
+func (s SubjectCombinationMessage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubjectCombinationMessage) GoString() string {
+	return s.String()
+}
+
+func (s *SubjectCombinationMessage) SetId(v string) *SubjectCombinationMessage {
+	s.Id = &v
+	return s
+}
+
+func (s *SubjectCombinationMessage) SetName(v string) *SubjectCombinationMessage {
+	s.Name = &v
+	return s
+}
+
+func (s *SubjectCombinationMessage) SetType(v int64) *SubjectCombinationMessage {
+	s.Type = &v
+	return s
+}
+
+func (s *SubjectCombinationMessage) SetUnit(v string) *SubjectCombinationMessage {
+	s.Unit = &v
+	return s
+}
+
+func (s *SubjectCombinationMessage) SetNote(v string) *SubjectCombinationMessage {
+	s.Note = &v
+	return s
+}
+
+func (s *SubjectCombinationMessage) SetPriceDeterminedFlag(v int64) *SubjectCombinationMessage {
+	s.PriceDeterminedFlag = &v
+	return s
+}
+
+func (s *SubjectCombinationMessage) SetPrice(v int64) *SubjectCombinationMessage {
+	s.Price = &v
+	return s
+}
+
+func (s *SubjectCombinationMessage) SetTotalNum(v int64) *SubjectCombinationMessage {
+	s.TotalNum = &v
+	return s
+}
+
+func (s *SubjectCombinationMessage) SetOperate(v int64) *SubjectCombinationMessage {
+	s.Operate = &v
+	return s
+}
+
 // 实施内容详情
 type OpenSubjectCombinationVO struct {
 	// 实施内容id
@@ -2628,6 +2703,174 @@ func (s *CreateBatchResponse) SetResultMsg(v string) *CreateBatchResponse {
 	return s
 }
 
+type UpdateRecordRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true" maxLength:"50" minLength:"1"`
+	// 快递单号，50字符（发放方式（issue_way）为快递寄送时可修改）
+	ExpressNumber *string `json:"express_number,omitempty" xml:"express_number,omitempty" maxLength:"50" minLength:"1"`
+	// 快递公司，50字符（发放方式（issue_way）为快递寄送时可修改）
+	ExpressCompany *string `json:"express_company,omitempty" xml:"express_company,omitempty" maxLength:"50" minLength:"1"`
+	// 快递地址，100字符（发放方式（issue_way）为快递寄送时可修改）
+	ExpressAddress *string `json:"express_address,omitempty" xml:"express_address,omitempty" maxLength:"100" minLength:"1"`
+	// 支付流水号，100字符（实施内容为善款类且执行记录状态为待发放（receive_status）必填）
+	PaySerialNumber *string `json:"pay_serial_number,omitempty" xml:"pay_serial_number,omitempty" maxLength:"100" minLength:"1"`
+	// 转账方式，100字符 发放方式为善款类且执行记录状态为待发放（receive_status）必填）
+	TransferMethod *string `json:"transfer_method,omitempty" xml:"transfer_method,omitempty" maxLength:"100" minLength:"1"`
+}
+
+func (s UpdateRecordRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateRecordRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateRecordRequest) SetAuthToken(v string) *UpdateRecordRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateRecordRequest) SetProductInstanceId(v string) *UpdateRecordRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateRecordRequest) SetId(v string) *UpdateRecordRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *UpdateRecordRequest) SetExpressNumber(v string) *UpdateRecordRequest {
+	s.ExpressNumber = &v
+	return s
+}
+
+func (s *UpdateRecordRequest) SetExpressCompany(v string) *UpdateRecordRequest {
+	s.ExpressCompany = &v
+	return s
+}
+
+func (s *UpdateRecordRequest) SetExpressAddress(v string) *UpdateRecordRequest {
+	s.ExpressAddress = &v
+	return s
+}
+
+func (s *UpdateRecordRequest) SetPaySerialNumber(v string) *UpdateRecordRequest {
+	s.PaySerialNumber = &v
+	return s
+}
+
+func (s *UpdateRecordRequest) SetTransferMethod(v string) *UpdateRecordRequest {
+	s.TransferMethod = &v
+	return s
+}
+
+type UpdateRecordResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateRecordResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateRecordResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateRecordResponse) SetReqMsgId(v string) *UpdateRecordResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateRecordResponse) SetResultCode(v string) *UpdateRecordResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateRecordResponse) SetResultMsg(v string) *UpdateRecordResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type BatchcreateCombinationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 分期id
+	StagesId *string `json:"stages_id,omitempty" xml:"stages_id,omitempty" require:"true"`
+	// 实施内容信息集合
+	CombinationMessageList []*SubjectCombinationMessage `json:"combination_message_list,omitempty" xml:"combination_message_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BatchcreateCombinationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchcreateCombinationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchcreateCombinationRequest) SetAuthToken(v string) *BatchcreateCombinationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchcreateCombinationRequest) SetProductInstanceId(v string) *BatchcreateCombinationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchcreateCombinationRequest) SetStagesId(v string) *BatchcreateCombinationRequest {
+	s.StagesId = &v
+	return s
+}
+
+func (s *BatchcreateCombinationRequest) SetCombinationMessageList(v []*SubjectCombinationMessage) *BatchcreateCombinationRequest {
+	s.CombinationMessageList = v
+	return s
+}
+
+type BatchcreateCombinationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BatchcreateCombinationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchcreateCombinationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchcreateCombinationResponse) SetReqMsgId(v string) *BatchcreateCombinationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchcreateCombinationResponse) SetResultCode(v string) *BatchcreateCombinationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchcreateCombinationResponse) SetResultMsg(v string) *BatchcreateCombinationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2750,7 +2993,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.11"),
+				"sdk_version":      tea.String("1.0.13"),
 				"_prod_code":       tea.String("MYCHARITY"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3583,6 +3826,74 @@ func (client *Client) CreateBatchEx(request *CreateBatchRequest, headers map[str
 	}
 	_result = &CreateBatchResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mycharity.batch.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 修改执行记录状态
+ * Summary: 修改执行记录状态
+ */
+func (client *Client) UpdateRecord(request *UpdateRecordRequest) (_result *UpdateRecordResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateRecordResponse{}
+	_body, _err := client.UpdateRecordEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 修改执行记录状态
+ * Summary: 修改执行记录状态
+ */
+func (client *Client) UpdateRecordEx(request *UpdateRecordRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateRecordResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateRecordResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mycharity.record.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 批量创建、修改、删除实施内容
+ * Summary: 批量创建、修改、删除实施内容
+ */
+func (client *Client) BatchcreateCombination(request *BatchcreateCombinationRequest) (_result *BatchcreateCombinationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchcreateCombinationResponse{}
+	_body, _err := client.BatchcreateCombinationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 批量创建、修改、删除实施内容
+ * Summary: 批量创建、修改、删除实施内容
+ */
+func (client *Client) BatchcreateCombinationEx(request *BatchcreateCombinationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchcreateCombinationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchcreateCombinationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mycharity.combination.batchcreate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
