@@ -44,6 +44,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string CreationTimeTo { get; set; }
 
+        // AC ID
+        [NameInMap("ac_id")]
+        [Validation(Required=false)]
+        public string AcId { get; set; }
+
     }
 
 }

@@ -105,6 +105,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public List<ResourceOverride> ResourceOverrides { get; set; }
 
+        // 摘流配置
+        [NameInMap("traffic_config")]
+        [Validation(Required=false)]
+        public TrafficConfig TrafficConfig { get; set; }
+
     }
 
 }

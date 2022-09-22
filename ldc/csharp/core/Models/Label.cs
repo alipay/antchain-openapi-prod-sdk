@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ldc.Models
 {
-    // label of all k8s resource
+    // k8s 资源的标签
     public class Label : TeaModel {
         // label key
         [NameInMap("key")]

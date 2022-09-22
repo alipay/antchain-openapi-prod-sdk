@@ -54,6 +54,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public string RuleType { get; set; }
 
+        // 推送目标，可选（MAIN、MIDDLEWARE、ALB）
+        [NameInMap("push_target")]
+        [Validation(Required=false)]
+        public string PushTarget { get; set; }
+
     }
 
 }

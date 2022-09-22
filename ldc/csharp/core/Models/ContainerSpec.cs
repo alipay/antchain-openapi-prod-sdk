@@ -166,6 +166,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public List<FieldOverride> FieldOverrides { get; set; }
 
+        // 容器yaml内容
+        [NameInMap("yaml_content")]
+        [Validation(Required=false)]
+        public string YamlContent { get; set; }
+
     }
 
 }

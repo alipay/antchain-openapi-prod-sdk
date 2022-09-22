@@ -24,6 +24,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=true)]
         public string WorkspaceGroup { get; set; }
 
+        // 操作人账号
+        [NameInMap("operator")]
+        [Validation(Required=false)]
+        public string Operator { get; set; }
+
     }
 
 }

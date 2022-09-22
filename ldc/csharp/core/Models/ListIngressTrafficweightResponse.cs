@@ -29,6 +29,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public List<ServiceWeight> ServiceWeights { get; set; }
 
+        // 流量权重列表蓝绿发布v2
+        [NameInMap("cell_weights")]
+        [Validation(Required=false)]
+        public List<CellWeight> CellWeights { get; set; }
+
     }
 
 }

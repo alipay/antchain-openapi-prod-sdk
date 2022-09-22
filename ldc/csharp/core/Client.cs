@@ -137,7 +137,9 @@ namespace AntChain.SDK.Ldc
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.15"},
+                        {"sdk_version", "1.12.83"},
+                        {"_prod_code", "ldc"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.Ldc
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.15"},
+                        {"sdk_version", "1.12.83"},
+                        {"_prod_code", "ldc"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -10575,6 +10579,636 @@ namespace AntChain.SDK.Ldc
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryContainerserivceGrayreleaseconfigResponse>(await DoRequestAsync("1.0", "antcloud.ldc.containerserivce.grayreleaseconfig.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用服务版本diff
+         * Summary: 应用服务版本diff
+         */
+        public DetailContainerserviceRevisiondiffResponse DetailContainerserviceRevisiondiff(DetailContainerserviceRevisiondiffRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailContainerserviceRevisiondiffEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用服务版本diff
+         * Summary: 应用服务版本diff
+         */
+        public async Task<DetailContainerserviceRevisiondiffResponse> DetailContainerserviceRevisiondiffAsync(DetailContainerserviceRevisiondiffRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailContainerserviceRevisiondiffExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 应用服务版本diff
+         * Summary: 应用服务版本diff
+         */
+        public DetailContainerserviceRevisiondiffResponse DetailContainerserviceRevisiondiffEx(DetailContainerserviceRevisiondiffRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailContainerserviceRevisiondiffResponse>(DoRequest("1.0", "antcloud.ldc.containerservice.revisiondiff.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 应用服务版本diff
+         * Summary: 应用服务版本diff
+         */
+        public async Task<DetailContainerserviceRevisiondiffResponse> DetailContainerserviceRevisiondiffExAsync(DetailContainerserviceRevisiondiffRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailContainerserviceRevisiondiffResponse>(await DoRequestAsync("1.0", "antcloud.ldc.containerservice.revisiondiff.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 可用于huanyu升级sidecar时，回滚变更单的执行，回滚到执行前的sidecar状态。
+         * Summary: 回滚sidecar升级
+         */
+        public RollbackSidecaropsResponse RollbackSidecarops(RollbackSidecaropsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RollbackSidecaropsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 可用于huanyu升级sidecar时，回滚变更单的执行，回滚到执行前的sidecar状态。
+         * Summary: 回滚sidecar升级
+         */
+        public async Task<RollbackSidecaropsResponse> RollbackSidecaropsAsync(RollbackSidecaropsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RollbackSidecaropsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 可用于huanyu升级sidecar时，回滚变更单的执行，回滚到执行前的sidecar状态。
+         * Summary: 回滚sidecar升级
+         */
+        public RollbackSidecaropsResponse RollbackSidecaropsEx(RollbackSidecaropsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RollbackSidecaropsResponse>(DoRequest("1.0", "antcloud.ldc.sidecarops.rollback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 可用于huanyu升级sidecar时，回滚变更单的执行，回滚到执行前的sidecar状态。
+         * Summary: 回滚sidecar升级
+         */
+        public async Task<RollbackSidecaropsResponse> RollbackSidecaropsExAsync(RollbackSidecaropsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RollbackSidecaropsResponse>(await DoRequestAsync("1.0", "antcloud.ldc.sidecarops.rollback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 对一个运维操作中所有暂停的分组进行确认操作，lks1.36.0才支持
+         * Summary: 确认运维
+         */
+        public ConfirmAppopsResponse ConfirmAppops(ConfirmAppopsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ConfirmAppopsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对一个运维操作中所有暂停的分组进行确认操作，lks1.36.0才支持
+         * Summary: 确认运维
+         */
+        public async Task<ConfirmAppopsResponse> ConfirmAppopsAsync(ConfirmAppopsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ConfirmAppopsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对一个运维操作中所有暂停的分组进行确认操作，lks1.36.0才支持
+         * Summary: 确认运维
+         */
+        public ConfirmAppopsResponse ConfirmAppopsEx(ConfirmAppopsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmAppopsResponse>(DoRequest("1.0", "antcloud.ldc.appops.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 对一个运维操作中所有暂停的分组进行确认操作，lks1.36.0才支持
+         * Summary: 确认运维
+         */
+        public async Task<ConfirmAppopsResponse> ConfirmAppopsExAsync(ConfirmAppopsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmAppopsResponse>(await DoRequestAsync("1.0", "antcloud.ldc.appops.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量添加应用服务PVC和init Container
+         * Summary: 批量添加应用服务PVC
+         */
+        public AddContainerserviceLogpvResponse AddContainerserviceLogpv(AddContainerserviceLogpvRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddContainerserviceLogpvEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量添加应用服务PVC和init Container
+         * Summary: 批量添加应用服务PVC
+         */
+        public async Task<AddContainerserviceLogpvResponse> AddContainerserviceLogpvAsync(AddContainerserviceLogpvRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddContainerserviceLogpvExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量添加应用服务PVC和init Container
+         * Summary: 批量添加应用服务PVC
+         */
+        public AddContainerserviceLogpvResponse AddContainerserviceLogpvEx(AddContainerserviceLogpvRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddContainerserviceLogpvResponse>(DoRequest("1.0", "antcloud.ldc.containerservice.logpv.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量添加应用服务PVC和init Container
+         * Summary: 批量添加应用服务PVC
+         */
+        public async Task<AddContainerserviceLogpvResponse> AddContainerserviceLogpvExAsync(AddContainerserviceLogpvRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddContainerserviceLogpvResponse>(await DoRequestAsync("1.0", "antcloud.ldc.containerservice.logpv.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询 fedservice 列表
+         * Summary: 查询 fedservice 列表
+         */
+        public ListFederationServiceResponse ListFederationService(ListFederationServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListFederationServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询 fedservice 列表
+         * Summary: 查询 fedservice 列表
+         */
+        public async Task<ListFederationServiceResponse> ListFederationServiceAsync(ListFederationServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListFederationServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询 fedservice 列表
+         * Summary: 查询 fedservice 列表
+         */
+        public ListFederationServiceResponse ListFederationServiceEx(ListFederationServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListFederationServiceResponse>(DoRequest("1.0", "antcloud.ldc.federation.service.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询 fedservice 列表
+         * Summary: 查询 fedservice 列表
+         */
+        public async Task<ListFederationServiceResponse> ListFederationServiceExAsync(ListFederationServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListFederationServiceResponse>(await DoRequestAsync("1.0", "antcloud.ldc.federation.service.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询操作日志OpenAPI
+         * Summary: 查询操作日志
+         */
+        public QueryOperationlogResponse QueryOperationlog(QueryOperationlogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOperationlogEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询操作日志OpenAPI
+         * Summary: 查询操作日志
+         */
+        public async Task<QueryOperationlogResponse> QueryOperationlogAsync(QueryOperationlogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOperationlogExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询操作日志OpenAPI
+         * Summary: 查询操作日志
+         */
+        public QueryOperationlogResponse QueryOperationlogEx(QueryOperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOperationlogResponse>(DoRequest("1.0", "antcloud.ldc.operationlog.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询操作日志OpenAPI
+         * Summary: 查询操作日志
+         */
+        public async Task<QueryOperationlogResponse> QueryOperationlogExAsync(QueryOperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOperationlogResponse>(await DoRequestAsync("1.0", "antcloud.ldc.operationlog.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询守夜人预案详情
+         * Summary: 查询守夜人预案详情
+         */
+        public GetEmergencyPlansResponse GetEmergencyPlans(GetEmergencyPlansRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetEmergencyPlansEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询守夜人预案详情
+         * Summary: 查询守夜人预案详情
+         */
+        public async Task<GetEmergencyPlansResponse> GetEmergencyPlansAsync(GetEmergencyPlansRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetEmergencyPlansExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询守夜人预案详情
+         * Summary: 查询守夜人预案详情
+         */
+        public GetEmergencyPlansResponse GetEmergencyPlansEx(GetEmergencyPlansRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetEmergencyPlansResponse>(DoRequest("1.0", "antcloud.ldc.emergency.plans.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询守夜人预案详情
+         * Summary: 查询守夜人预案详情
+         */
+        public async Task<GetEmergencyPlansResponse> GetEmergencyPlansExAsync(GetEmergencyPlansRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetEmergencyPlansResponse>(await DoRequestAsync("1.0", "antcloud.ldc.emergency.plans.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 为统一接入集群添加可用区，必须是当前工作空间组下已规划的可用区。待添加的可用区内应有规划用于部署spanner容器的节点资源。
+         * Summary: 为统一接入集群添加可用区
+         */
+        public AddFedspannerclusterZoneResponse AddFedspannerclusterZone(AddFedspannerclusterZoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddFedspannerclusterZoneEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 为统一接入集群添加可用区，必须是当前工作空间组下已规划的可用区。待添加的可用区内应有规划用于部署spanner容器的节点资源。
+         * Summary: 为统一接入集群添加可用区
+         */
+        public async Task<AddFedspannerclusterZoneResponse> AddFedspannerclusterZoneAsync(AddFedspannerclusterZoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddFedspannerclusterZoneExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 为统一接入集群添加可用区，必须是当前工作空间组下已规划的可用区。待添加的可用区内应有规划用于部署spanner容器的节点资源。
+         * Summary: 为统一接入集群添加可用区
+         */
+        public AddFedspannerclusterZoneResponse AddFedspannerclusterZoneEx(AddFedspannerclusterZoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddFedspannerclusterZoneResponse>(DoRequest("1.0", "antcloud.ldc.fedspannercluster.zone.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 为统一接入集群添加可用区，必须是当前工作空间组下已规划的可用区。待添加的可用区内应有规划用于部署spanner容器的节点资源。
+         * Summary: 为统一接入集群添加可用区
+         */
+        public async Task<AddFedspannerclusterZoneResponse> AddFedspannerclusterZoneExAsync(AddFedspannerclusterZoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddFedspannerclusterZoneResponse>(await DoRequestAsync("1.0", "antcloud.ldc.fedspannercluster.zone.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 为统一接入实例添加可用区，统一接入实例在新增的可用区内将增加一个入口（LVS VIP）。
+         * Summary: 为统一接入实例添加可用区
+         */
+        public AddUnifiedaccessinstanceZoneResponse AddUnifiedaccessinstanceZone(AddUnifiedaccessinstanceZoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddUnifiedaccessinstanceZoneEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 为统一接入实例添加可用区，统一接入实例在新增的可用区内将增加一个入口（LVS VIP）。
+         * Summary: 为统一接入实例添加可用区
+         */
+        public async Task<AddUnifiedaccessinstanceZoneResponse> AddUnifiedaccessinstanceZoneAsync(AddUnifiedaccessinstanceZoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddUnifiedaccessinstanceZoneExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 为统一接入实例添加可用区，统一接入实例在新增的可用区内将增加一个入口（LVS VIP）。
+         * Summary: 为统一接入实例添加可用区
+         */
+        public AddUnifiedaccessinstanceZoneResponse AddUnifiedaccessinstanceZoneEx(AddUnifiedaccessinstanceZoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddUnifiedaccessinstanceZoneResponse>(DoRequest("1.0", "antcloud.ldc.unifiedaccessinstance.zone.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 为统一接入实例添加可用区，统一接入实例在新增的可用区内将增加一个入口（LVS VIP）。
+         * Summary: 为统一接入实例添加可用区
+         */
+        public async Task<AddUnifiedaccessinstanceZoneResponse> AddUnifiedaccessinstanceZoneExAsync(AddUnifiedaccessinstanceZoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddUnifiedaccessinstanceZoneResponse>(await DoRequestAsync("1.0", "antcloud.ldc.unifiedaccessinstance.zone.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过jsonpatch方式更新应用服务配置
+         * Summary: 通过jsonpatch更新应用服务配置
+         */
+        public UpdateContainerserviceJsonpatchResponse UpdateContainerserviceJsonpatch(UpdateContainerserviceJsonpatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateContainerserviceJsonpatchEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过jsonpatch方式更新应用服务配置
+         * Summary: 通过jsonpatch更新应用服务配置
+         */
+        public async Task<UpdateContainerserviceJsonpatchResponse> UpdateContainerserviceJsonpatchAsync(UpdateContainerserviceJsonpatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateContainerserviceJsonpatchExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过jsonpatch方式更新应用服务配置
+         * Summary: 通过jsonpatch更新应用服务配置
+         */
+        public UpdateContainerserviceJsonpatchResponse UpdateContainerserviceJsonpatchEx(UpdateContainerserviceJsonpatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateContainerserviceJsonpatchResponse>(DoRequest("1.0", "antcloud.ldc.containerservice.jsonpatch.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过jsonpatch方式更新应用服务配置
+         * Summary: 通过jsonpatch更新应用服务配置
+         */
+        public async Task<UpdateContainerserviceJsonpatchResponse> UpdateContainerserviceJsonpatchExAsync(UpdateContainerserviceJsonpatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateContainerserviceJsonpatchResponse>(await DoRequestAsync("1.0", "antcloud.ldc.containerservice.jsonpatch.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查看单元化管理中的单元组元数据
+         * Summary: 查看单元化管理中的单元组元数据
+         */
+        public ListFlowCellgroupResponse ListFlowCellgroup(ListFlowCellgroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListFlowCellgroupEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查看单元化管理中的单元组元数据
+         * Summary: 查看单元化管理中的单元组元数据
+         */
+        public async Task<ListFlowCellgroupResponse> ListFlowCellgroupAsync(ListFlowCellgroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListFlowCellgroupExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查看单元化管理中的单元组元数据
+         * Summary: 查看单元化管理中的单元组元数据
+         */
+        public ListFlowCellgroupResponse ListFlowCellgroupEx(ListFlowCellgroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListFlowCellgroupResponse>(DoRequest("1.0", "antcloud.ldc.flow.cellgroup.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查看单元化管理中的单元组元数据
+         * Summary: 查看单元化管理中的单元组元数据
+         */
+        public async Task<ListFlowCellgroupResponse> ListFlowCellgroupExAsync(ListFlowCellgroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListFlowCellgroupResponse>(await DoRequestAsync("1.0", "antcloud.ldc.flow.cellgroup.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步单元化元数据
+         * Summary: 同步单元化元数据
+         */
+        public SyncFlowMetadataResponse SyncFlowMetadata(SyncFlowMetadataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncFlowMetadataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步单元化元数据
+         * Summary: 同步单元化元数据
+         */
+        public async Task<SyncFlowMetadataResponse> SyncFlowMetadataAsync(SyncFlowMetadataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncFlowMetadataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步单元化元数据
+         * Summary: 同步单元化元数据
+         */
+        public SyncFlowMetadataResponse SyncFlowMetadataEx(SyncFlowMetadataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncFlowMetadataResponse>(DoRequest("1.0", "antcloud.ldc.flow.metadata.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步单元化元数据
+         * Summary: 同步单元化元数据
+         */
+        public async Task<SyncFlowMetadataResponse> SyncFlowMetadataExAsync(SyncFlowMetadataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncFlowMetadataResponse>(await DoRequestAsync("1.0", "antcloud.ldc.flow.metadata.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发布单冲突检测
+         * Summary: 发布单冲突检测
+         */
+        public CheckContainerserviceConflictopsResponse CheckContainerserviceConflictops(CheckContainerserviceConflictopsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckContainerserviceConflictopsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发布单冲突检测
+         * Summary: 发布单冲突检测
+         */
+        public async Task<CheckContainerserviceConflictopsResponse> CheckContainerserviceConflictopsAsync(CheckContainerserviceConflictopsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckContainerserviceConflictopsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发布单冲突检测
+         * Summary: 发布单冲突检测
+         */
+        public CheckContainerserviceConflictopsResponse CheckContainerserviceConflictopsEx(CheckContainerserviceConflictopsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckContainerserviceConflictopsResponse>(DoRequest("1.0", "antcloud.ldc.containerservice.conflictops.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发布单冲突检测
+         * Summary: 发布单冲突检测
+         */
+        public async Task<CheckContainerserviceConflictopsResponse> CheckContainerserviceConflictopsExAsync(CheckContainerserviceConflictopsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckContainerserviceConflictopsResponse>(await DoRequestAsync("1.0", "antcloud.ldc.containerservice.conflictops.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 单元化流量规则的容灾切换
+         * Summary: 单元化流量规则的容灾切换
+         */
+        public ExecFlowDisasterswitchResponse ExecFlowDisasterswitch(ExecFlowDisasterswitchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecFlowDisasterswitchEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 单元化流量规则的容灾切换
+         * Summary: 单元化流量规则的容灾切换
+         */
+        public async Task<ExecFlowDisasterswitchResponse> ExecFlowDisasterswitchAsync(ExecFlowDisasterswitchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecFlowDisasterswitchExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 单元化流量规则的容灾切换
+         * Summary: 单元化流量规则的容灾切换
+         */
+        public ExecFlowDisasterswitchResponse ExecFlowDisasterswitchEx(ExecFlowDisasterswitchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecFlowDisasterswitchResponse>(DoRequest("1.0", "antcloud.ldc.flow.disasterswitch.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 单元化流量规则的容灾切换
+         * Summary: 单元化流量规则的容灾切换
+         */
+        public async Task<ExecFlowDisasterswitchResponse> ExecFlowDisasterswitchExAsync(ExecFlowDisasterswitchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecFlowDisasterswitchResponse>(await DoRequestAsync("1.0", "antcloud.ldc.flow.disasterswitch.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 取消sidecar工单，租户应用+sidecar type维度
+         * Summary: 取消sidecar工单
+         */
+        public CancelSidecaropsResponse CancelSidecarops(CancelSidecaropsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelSidecaropsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 取消sidecar工单，租户应用+sidecar type维度
+         * Summary: 取消sidecar工单
+         */
+        public async Task<CancelSidecaropsResponse> CancelSidecaropsAsync(CancelSidecaropsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelSidecaropsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 取消sidecar工单，租户应用+sidecar type维度
+         * Summary: 取消sidecar工单
+         */
+        public CancelSidecaropsResponse CancelSidecaropsEx(CancelSidecaropsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelSidecaropsResponse>(DoRequest("1.0", "antcloud.ldc.sidecarops.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 取消sidecar工单，租户应用+sidecar type维度
+         * Summary: 取消sidecar工单
+         */
+        public async Task<CancelSidecaropsResponse> CancelSidecaropsExAsync(CancelSidecaropsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelSidecaropsResponse>(await DoRequestAsync("1.0", "antcloud.ldc.sidecarops.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

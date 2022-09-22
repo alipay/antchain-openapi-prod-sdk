@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ldc.Models
 {
-    // Secret数据
+    // 保密字典数据
     public class SecretData : TeaModel {
         // secret data key
         [NameInMap("key")]

@@ -69,6 +69,21 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public GrayReleaseConfig GrayReleaseConfig { get; set; }
 
+        // 引流应用服务列表, 部署单元蓝绿专用
+        [NameInMap("traffic_container_services")]
+        [Validation(Required=false)]
+        public List<string> TrafficContainerServices { get; set; }
+
+        // cell列表，部署单元蓝绿专用，按顺序发布
+        [NameInMap("cell_names")]
+        [Validation(Required=false)]
+        public List<string> CellNames { get; set; }
+
+        // 是否紧急发布，目前会自动跳过变更核心
+        [NameInMap("emergent")]
+        [Validation(Required=false)]
+        public bool? Emergent { get; set; }
+
     }
 
 }

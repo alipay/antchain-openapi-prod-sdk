@@ -75,6 +75,21 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=true)]
         public List<string> Tenants { get; set; }
 
+        // 错误信息
+        [NameInMap("message")]
+        [Validation(Required=false)]
+        public string Message { get; set; }
+
+        // AC ID
+        [NameInMap("ac_id")]
+        [Validation(Required=false)]
+        public string AcId { get; set; }
+
+        // 是否是紧急发布
+        [NameInMap("emergent")]
+        [Validation(Required=false)]
+        public bool? Emergent { get; set; }
+
     }
 
 }

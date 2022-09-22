@@ -8,19 +8,19 @@ using Tea;
 
 namespace AntChain.SDK.Ldc.Models
 {
-    // fed k8s resource cluster state map
+    // 联邦资源在某个子集群中的分发状态
     public class ClusterState : TeaModel {
         // 集群名称
         [NameInMap("cluster_name")]
         [Validation(Required=true)]
         public string ClusterName { get; set; }
 
-        // k8s resource state
+        // 联邦资源的分发状态，空字符串代表成功，否则为错误码
         [NameInMap("state")]
         [Validation(Required=true)]
         public string State { get; set; }
 
-        // 详细描述或错误信息
+        // 详细错误信息
         [NameInMap("message")]
         [Validation(Required=false)]
         public string Message { get; set; }

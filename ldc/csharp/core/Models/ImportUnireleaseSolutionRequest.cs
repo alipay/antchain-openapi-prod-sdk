@@ -24,6 +24,21 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public List<string> Tenants { get; set; }
 
+        // 银数AC工单ID
+        [NameInMap("ac_id")]
+        [Validation(Required=false)]
+        public string AcId { get; set; }
+
+        // 环境信息
+        [NameInMap("env")]
+        [Validation(Required=false)]
+        public string Env { get; set; }
+
+        // 是否是紧急发布场景
+        [NameInMap("emergent")]
+        [Validation(Required=false)]
+        public bool? Emergent { get; set; }
+
     }
 
 }

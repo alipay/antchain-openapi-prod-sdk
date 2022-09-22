@@ -14,15 +14,20 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 流量权重列表
-        [NameInMap("service_weights")]
-        [Validation(Required=true)]
-        public List<ServiceWeight> ServiceWeights { get; set; }
-
         // service id
         [NameInMap("service_id")]
         [Validation(Required=true)]
         public string ServiceId { get; set; }
+
+        // 流量权重列表
+        [NameInMap("service_weights")]
+        [Validation(Required=false)]
+        public List<ServiceWeight> ServiceWeights { get; set; }
+
+        // 流量权重列表蓝绿发布v2
+        [NameInMap("cell_weights")]
+        [Validation(Required=false)]
+        public List<CellWeight> CellWeights { get; set; }
 
     }
 

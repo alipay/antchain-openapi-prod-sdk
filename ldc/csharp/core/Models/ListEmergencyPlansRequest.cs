@@ -29,6 +29,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public long? PageSize { get; set; }
 
+        // 预案id，只有传预案id时才返回预案参数
+        [NameInMap("emergency_plan_id")]
+        [Validation(Required=false)]
+        public string EmergencyPlanId { get; set; }
+
     }
 
 }

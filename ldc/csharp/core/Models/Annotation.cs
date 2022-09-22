@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ldc.Models
 {
-    // k8s resource annotations
+    // k8s 资源的注解
     public class Annotation : TeaModel {
         // annotation key
         [NameInMap("key")]

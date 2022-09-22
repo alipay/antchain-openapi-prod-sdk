@@ -26,9 +26,14 @@ namespace AntChain.SDK.Ldc.Models
         public string PreName { get; set; }
 
         // 前置巡检或预案参数
-        [NameInMap("pre_param")]
+        [NameInMap("pre_params")]
         [Validation(Required=false)]
-        public string PreParam { get; set; }
+        public List<TemplateParam> PreParams { get; set; }
+
+        // 前置是否需要确认
+        [NameInMap("pre_need_confirm")]
+        [Validation(Required=false)]
+        public bool? PreNeedConfirm { get; set; }
 
         // 后置脚本类型，巡检或预案
         [NameInMap("post_type")]
@@ -40,15 +45,20 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public string PostRefId { get; set; }
 
-        // 后置巡检或预案参数
-        [NameInMap("post_param")]
-        [Validation(Required=false)]
-        public string PostParam { get; set; }
-
         // 后置巡检或预案名称
         [NameInMap("post_name")]
         [Validation(Required=false)]
         public string PostName { get; set; }
+
+        // 后置巡检或预案参数
+        [NameInMap("post_params")]
+        [Validation(Required=false)]
+        public List<TemplateParam> PostParams { get; set; }
+
+        // 后置是否需要确认
+        [NameInMap("post_need_confirm")]
+        [Validation(Required=false)]
+        public bool? PostNeedConfirm { get; set; }
 
     }
 

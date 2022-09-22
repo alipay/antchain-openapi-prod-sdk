@@ -8,34 +8,34 @@ using Tea;
 
 namespace AntChain.SDK.Ldc.Models
 {
-    // fed namespace
+    // 联邦命名空间
     public class FedNamespace : TeaModel {
-        // fed namespace annotations
+        // 命名空间的注解
         [NameInMap("annotations")]
         [Validation(Required=true)]
         public List<Annotation> Annotations { get; set; }
 
-        // fed namespace clusters
+        // 分发的集群列表
         [NameInMap("clusters")]
         [Validation(Required=true)]
         public List<string> Clusters { get; set; }
 
-        // fed namespace cluster state map
+        // 分发状态
         [NameInMap("cluster_state_map")]
         [Validation(Required=true)]
         public List<ClusterState> ClusterStateMap { get; set; }
 
-        // fed namespace labels
+        // 命名空间的标签
         [NameInMap("labels")]
         [Validation(Required=true)]
         public List<Label> Labels { get; set; }
 
-        // fed namespace name
+        // 命名空间名称
         [NameInMap("name")]
         [Validation(Required=true)]
         public string Name { get; set; }
 
-        // Fed CRD namespace
+        // 联邦命名空间所在命名空间，和命名空间自身名称保持一致
         [NameInMap("namespace")]
         [Validation(Required=true)]
         public string Namespace { get; set; }
@@ -45,12 +45,12 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=true)]
         public string CreateTimeStamp { get; set; }
 
-        // fed 资源的状态
+        // 分发状态，成功 True，失败 False，删除中 Deleting
         [NameInMap("status")]
         [Validation(Required=false)]
         public string Status { get; set; }
 
-        // 导致 fed 资源处于该状态的原因
+        // 导致该分发状态的原因
         [NameInMap("reason")]
         [Validation(Required=false)]
         public string Reason { get; set; }

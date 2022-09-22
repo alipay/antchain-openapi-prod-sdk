@@ -45,6 +45,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public string DeploymentTemplateName { get; set; }
 
+        // 发布模板卡点规则
+        [NameInMap("deployment_template_hooks")]
+        [Validation(Required=false)]
+        public List<CustomHook> DeploymentTemplateHooks { get; set; }
+
     }
 
 }

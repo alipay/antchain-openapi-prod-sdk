@@ -49,6 +49,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=true)]
         public SidecarConfig SidecarConfig { get; set; }
 
+        // 是否回滚流程
+        [NameInMap("is_rollback")]
+        [Validation(Required=false)]
+        public bool? IsRollback { get; set; }
+
     }
 
 }

@@ -59,7 +59,7 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=true)]
         public string WorkspaceGroup { get; set; }
 
-        // 在具体分组策略下，每个执行单元（部署单元，机房等）内部的分组个数。
+        // 最小分组数，同发布单中的group_count
         [NameInMap("group_amount")]
         [Validation(Required=false)]
         public long? GroupAmount { get; set; }
@@ -88,6 +88,11 @@ namespace AntChain.SDK.Ldc.Models
         [NameInMap("max_cell_pod_percentage")]
         [Validation(Required=false)]
         public long? MaxCellPodPercentage { get; set; }
+
+        // 部署单元流量权重
+        [NameInMap("cell_weights")]
+        [Validation(Required=false)]
+        public List<CellWeightInfo> CellWeights { get; set; }
 
     }
 

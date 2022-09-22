@@ -29,6 +29,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=true)]
         public string WorkspaceGroupName { get; set; }
 
+        // annotation,可以用来存放description等其他字段
+        [NameInMap("annotations")]
+        [Validation(Required=false)]
+        public List<Annotation> Annotations { get; set; }
+
     }
 
 }

@@ -60,6 +60,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public string SubPathExpr { get; set; }
 
+        // nfs volume
+        [NameInMap("nfs_volume_source")]
+        [Validation(Required=false)]
+        public NFSVolumeSource NfsVolumeSource { get; set; }
+
     }
 
 }

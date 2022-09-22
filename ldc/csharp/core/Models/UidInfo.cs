@@ -40,6 +40,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public bool? Gray { get; set; }
 
+        // 单元分片容灾状态，枚举，NORMAL（正常）、LOCAL（同城容灾）、REMOTE（异地容灾）
+        [NameInMap("disaster_state")]
+        [Validation(Required=true)]
+        public string DisasterState { get; set; }
+
     }
 
 }

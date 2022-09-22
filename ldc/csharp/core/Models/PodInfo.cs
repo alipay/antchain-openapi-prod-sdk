@@ -55,6 +55,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public List<Volume> Volumes { get; set; }
 
+        // pod唯一标识
+        [NameInMap("pod_identity")]
+        [Validation(Required=false)]
+        public string PodIdentity { get; set; }
+
     }
 
 }

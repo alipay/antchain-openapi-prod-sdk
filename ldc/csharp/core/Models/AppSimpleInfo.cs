@@ -110,6 +110,16 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public string DeploymentTemplateName { get; set; }
 
+        // 蓝绿部署单元名
+        [NameInMap("bg_cell_name")]
+        [Validation(Required=false)]
+        public string BgCellName { get; set; }
+
+        // 蓝绿发布类型
+        [NameInMap("bg_group_type")]
+        [Validation(Required=false)]
+        public string BgGroupType { get; set; }
+
     }
 
 }

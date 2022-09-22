@@ -8,8 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ldc.Models
 {
-    // 健康检查配置
-    // 
+    // 健康检查配置 
     public class HealthCheckConfig : TeaModel {
         // liveness 检查
         // 

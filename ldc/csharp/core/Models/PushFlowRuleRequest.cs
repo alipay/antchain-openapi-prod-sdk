@@ -14,7 +14,7 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 包含系统列表
+        // 包含系统列表，目前功能不支持，禁止设置
         [NameInMap("apps")]
         [Validation(Required=false)]
         public List<string> Apps { get; set; }
@@ -29,7 +29,7 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=true)]
         public string Operator { get; set; }
 
-        // 站点是否全局推送
+        // 推送中间件流量规则时，是否同时推送中间件中枢
         [NameInMap("push_all")]
         [Validation(Required=false)]
         public bool? PushAll { get; set; }
@@ -44,7 +44,7 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=true)]
         public string RuleValue { get; set; }
 
-        // 全量的targets信息
+        // 推送目标列表，域外支持 MIDDLEWARE（微服务/中间件）、ALB（统一接入） 两种
         [NameInMap("targets")]
         [Validation(Required=false)]
         public List<string> Targets { get; set; }

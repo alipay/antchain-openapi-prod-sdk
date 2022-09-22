@@ -12,7 +12,7 @@ namespace AntChain.SDK.Ldc.Models
     public class CellWeightInfo : TeaModel {
         // 部署单元所属工作空间
         [NameInMap("workspace")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Workspace { get; set; }
 
         // 部署单元名称

@@ -8,20 +8,19 @@ using Tea;
 
 namespace AntChain.SDK.Ldc.Models
 {
-    // FedSecret cluster override
+    // 联邦保密字典数据在不同 cell 下的自定义覆盖配置
     public class FedSecretOverride : TeaModel {
-        // fed secret data override
+        // 要覆盖的保密字典数据
         [NameInMap("data")]
         [Validation(Required=true)]
         public List<SecretData> Data { get; set; }
 
-        // cluster name
-        // 
+        // 部署单元的名称
         [NameInMap("name")]
         [Validation(Required=true)]
         public string Name { get; set; }
 
-        // name cell override
+        // 覆盖的名称，必须为：保密字典名称-cell-部署单元名称
         [NameInMap("name_override")]
         [Validation(Required=true)]
         public string NameOverride { get; set; }

@@ -34,6 +34,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public string Namespace { get; set; }
 
+        // cell名称列表，只查指定cell的集群
+        [NameInMap("cells")]
+        [Validation(Required=false)]
+        public List<string> Cells { get; set; }
+
     }
 
 }

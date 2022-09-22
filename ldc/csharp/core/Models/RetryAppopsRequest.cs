@@ -24,6 +24,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public string Operator { get; set; }
 
+        // 租户编码
+        [NameInMap("tenant_name")]
+        [Validation(Required=false)]
+        public string TenantName { get; set; }
+
     }
 
 }

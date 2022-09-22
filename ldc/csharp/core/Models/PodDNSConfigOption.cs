@@ -8,9 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ldc.Models
 {
-    // V1PodDNSConfigOption， PodDNSConfigOption defines DNS resolver options of a pod.
-    // 
-    // 
+    // V1PodDNSConfigOption， PodDNSConfigOption defines DNS resolver options of a pod.  
     public class PodDNSConfigOption : TeaModel {
         // name
         [NameInMap("name")]

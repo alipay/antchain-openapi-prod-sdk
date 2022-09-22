@@ -8,19 +8,19 @@ using Tea;
 
 namespace AntChain.SDK.Ldc.Models
 {
-    // fed configmap override struct
+    // 联邦配置项数据在不同 cell 下的自定义覆盖配置
     public class FedConfigmapOverride : TeaModel {
-        // fed configmap data override
+        // 要覆盖的配置项数据
         [NameInMap("data")]
         [Validation(Required=true)]
         public List<ConfigMapData> Data { get; set; }
 
-        // cluster name
+        // 部署单元名称
         [NameInMap("name")]
         [Validation(Required=true)]
         public string Name { get; set; }
 
-        // name cell  override
+        // 覆盖的名称，必须为：配置项名称-cell-部署单元名称
         [NameInMap("name_override")]
         [Validation(Required=true)]
         public string NameOverride { get; set; }

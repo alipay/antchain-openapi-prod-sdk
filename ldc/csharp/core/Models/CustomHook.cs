@@ -31,7 +31,7 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public string HookStrategy { get; set; }
 
-        // 自定义批次编号，从0开始。hook_strategy=custom时有效
+        // 自定义批次编号，从1开始。hook_strategy=custom时有效
         [NameInMap("custom_num")]
         [Validation(Required=false)]
         public long? CustomNum { get; set; }
@@ -56,10 +56,15 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public long? TimeoutMillis { get; set; }
 
-        // 【暂不支持】默认false
+        // 【暂不支持】默认true
         [NameInMap("un_override")]
         [Validation(Required=false)]
         public bool? UnOverride { get; set; }
+
+        // 【暂不支持】是否需要确认
+        [NameInMap("need_confirm")]
+        [Validation(Required=false)]
+        public bool? NeedConfirm { get; set; }
 
     }
 

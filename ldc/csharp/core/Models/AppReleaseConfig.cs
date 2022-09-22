@@ -30,6 +30,21 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=true)]
         public string CommitBranch { get; set; }
 
+        // diff基准版本，上一次最新发布的版本
+        [NameInMap("last_revision_id")]
+        [Validation(Required=false)]
+        public string LastRevisionId { get; set; }
+
+        // 应用服务版本id
+        [NameInMap("revision_id")]
+        [Validation(Required=false)]
+        public string RevisionId { get; set; }
+
+        // 应用服务版本diff摘要信息
+        [NameInMap("revision_diff")]
+        [Validation(Required=false)]
+        public string RevisionDiff { get; set; }
+
     }
 
 }

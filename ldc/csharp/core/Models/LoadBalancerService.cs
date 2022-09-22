@@ -65,6 +65,21 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public string FedLoadbalancerName { get; set; }
 
+        // 是否开启优雅下线等待，默认为false。
+        [NameInMap("enable_graceful_shutdown_waiting")]
+        [Validation(Required=false)]
+        public bool? EnableGracefulShutdownWaiting { get; set; }
+
+        // 优雅下线等待时间，单位秒，默认0.
+        [NameInMap("graceful_shutdown_waiting_time")]
+        [Validation(Required=false)]
+        public long? GracefulShutdownWaitingTime { get; set; }
+
+        // 是否开启集群内转发优化（集群内访问lb vip时是否走kube-proxy转发链路）
+        [NameInMap("enable_in_cluster_forward_optimization")]
+        [Validation(Required=false)]
+        public bool? EnableInClusterForwardOptimization { get; set; }
+
     }
 
 }

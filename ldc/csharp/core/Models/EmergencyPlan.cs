@@ -20,6 +20,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=true)]
         public string Name { get; set; }
 
+        // 预案参数，只有传预案id时才返回预案参数
+        [NameInMap("params")]
+        [Validation(Required=false)]
+        public List<TemplateParam> Params { get; set; }
+
     }
 
 }

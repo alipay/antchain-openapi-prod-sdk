@@ -25,6 +25,16 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=true)]
         public string State { get; set; }
 
+        // 蓝绿发布专用
+        [NameInMap("bg_cell_name")]
+        [Validation(Required=false)]
+        public string BgCellName { get; set; }
+
+        // 蓝绿发布专用，traffic或release
+        [NameInMap("bg_group_type")]
+        [Validation(Required=false)]
+        public string BgGroupType { get; set; }
+
     }
 
 }

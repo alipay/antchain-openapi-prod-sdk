@@ -41,7 +41,7 @@ namespace AntChain.SDK.Ldc.Models
 
         // 操作人账号
         [NameInMap("operator")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Operator { get; set; }
 
         // 分组数，默认为3

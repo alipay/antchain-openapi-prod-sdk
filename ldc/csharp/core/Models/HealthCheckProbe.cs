@@ -8,8 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ldc.Models
 {
-    // 健康检查探针
-    // 
+    // 健康检查探针 
     public class HealthCheckProbe : TeaModel {
         // 基于命令行类型的探针必填
         [NameInMap("exec_action")]

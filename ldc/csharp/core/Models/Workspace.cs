@@ -8,8 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ldc.Models
 {
-    // Workspace info
-    // 
+    // Workspace info 
     public class Workspace : TeaModel {
         // workspace id
         [NameInMap("id")]

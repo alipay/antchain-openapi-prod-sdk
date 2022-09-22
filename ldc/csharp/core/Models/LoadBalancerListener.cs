@@ -75,6 +75,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public string HealthCheckDomain { get; set; }
 
+        // 健康检查http method，支持head和get
+        [NameInMap("health_check_http_method")]
+        [Validation(Required=false)]
+        public string HealthCheckHttpMethod { get; set; }
+
         // 健康检查正常的HTTP状态码，多个状态码用逗号分隔。
         // 默认值为http_2xx。
         [NameInMap("health_check_http_code")]
@@ -156,6 +161,21 @@ namespace AntChain.SDK.Ldc.Models
         [NameInMap("path")]
         [Validation(Required=false)]
         public string Path { get; set; }
+
+        // on 代表开启 acl，off 代表关闭 acl
+        [NameInMap("acl_status")]
+        [Validation(Required=false)]
+        public string AclStatus { get; set; }
+
+        // acl 类型，white 代表白名单；black 代表黑名单
+        [NameInMap("acl_type")]
+        [Validation(Required=false)]
+        public string AclType { get; set; }
+
+        // 访问控制列表的 id
+        [NameInMap("acl_id")]
+        [Validation(Required=false)]
+        public string AclId { get; set; }
 
     }
 

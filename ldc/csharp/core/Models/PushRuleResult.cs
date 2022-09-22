@@ -30,6 +30,11 @@ namespace AntChain.SDK.Ldc.Models
         [Validation(Required=false)]
         public List<string> FailedList { get; set; }
 
+        // 失败信息
+        [NameInMap("message")]
+        [Validation(Required=false)]
+        public string Message { get; set; }
+
     }
 
 }
