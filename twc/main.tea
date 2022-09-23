@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.75',
+    sdk_version = '1.7.86',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -381,6 +381,10 @@ model JudicialPersonInfo {
   jobTitle?: string(name='job_title', example='法人代表'),
   // 任职证明
   jobCertification?: JudicialFileInfo(name='job_certification', example=''),
+  // 性别， 0-男，1-女
+  sex?: long(name='sex', example='0'),
+  // 联系邮件地址
+  email?: string(name='email', example='email@ali.com'),
 }
 
 // 承诺信息
@@ -953,6 +957,8 @@ model StubCommonInfo {
   customerId: string(name='customer_id', example='2088xxxxx'),
   // 景区支付宝id，当biz_source为Alipay时，该字段必填
   sceneAlipayId?: string(name='scene_alipay_id', example='2088xxxxx'),
+  // 数字票根背面业务类型，如 IMAGE（背面上传照片业务）、IMAGEANDAR（背面上传照片和AR孔明灯业务）
+  backType?: string(name='back_type', example='IMAGE'),
 }
 
 // 见证流程创建响应数据
@@ -1131,6 +1137,22 @@ model SupplierLogisticInfo {
   logisticOrderId: string(name='logistic_order_id', example='SF1234567890'),
 }
 
+// 人保扩展信息
+model RenbaoExtInfo {
+  // 银行区域代码，可网上查询各银行最新对应的区域代码，比如杭州的区域代码为：3301
+  recBankAreaCode: string(maxLength=8, name='rec_bank_area_code', example='3301'),
+  // 投保人收款账号
+  accountNo: string(maxLength=32, name='account_no', example='8765123556748921'),
+  // 完整银行名称，不需要具体到分行
+  bankName: string(maxLength=32, name='bank_name', example='工商银行'),
+  // 投保人户名
+  accountName: string(maxLength=64, name='account_name', example='XXXXX有限公司'),
+  // 联行号
+  cnaps: string(maxLength=16, name='cnaps', example='827330119378'),
+  // 统一社会信用代码
+  identifyNo: string(maxLength=32, name='identify_no', example='173829930011029381'),
+}
+
 // 司法纠纷平台案件维权事件响应信息
 model JudicialEventOperateInfo {
   // 响应类型:
@@ -1161,7 +1183,7 @@ model ContractSignFlowConfig {
   noticeType: string(name='notice_type', example='1'),
   // 签署成功或者流程结束后的默认重定向地址，默认签署完成停在当前页面
   redirectUrl?: string(name='redirect_url', example='http://127.0.0.1:8110/h5/forword'),
-  // 签署平台，逗号分割，1-开放服务h5，2-支付宝签 ，默认值1
+  // 【该字段已废弃】签署平台，逗号分割，1-开放服务h5，2-支付宝签 ，默认值1
   signPlatform?: string(name='sign_platform', example='1'),
   // 签署失败时的跳转地址，如果不做单独配置，默认与redirect_url一致（配合twc.notary.contract.signflow.create接口使用）
   redirectUrlOnFailure?: string(name='redirect_url_on_failure', example='http://127.0.0.1:8110/h5/forword/failure'),
@@ -1611,6 +1633,18 @@ model ProductInfo {
   extraInfo?: string(name='extra_info', example='{}'),
 }
 
+// 查询全流程存证证据详情查询的请求信息
+model NotaryFlowDetailQueryReq {
+  // 全流程存证模板ID
+  templateId: string(name='template_id', example='someId'),
+  // 全流程存证流程id
+  flowId: string(name='flow_id', example='someId'),
+  // 链上证据包对应的链上交易Hash
+  chainPackTxHash: string(name='chain_pack_tx_hash', example='9d5f26c7469ea9699a6e5f03ecfce24d'),
+  // 链上证据包授权码
+  authcode: string(name='authcode', example='someId'),
+}
+
 // 支付扣款详情
 model PaymentDetail {
   // 业务自定义扣款id，长度不能超过64
@@ -1649,6 +1683,18 @@ model ContractPlatformAccountApplication {
   name: string(name='name', example='张三'),
   // 用户唯一标识，可传入第三方平台的个人用户id等
   userId: string(name='user_id', example='A001'),
+}
+
+// 调解回款银行账户
+model BankAccountInfo {
+  // 开户名称
+  accountName: string(name='account_name', example='张某某'),
+  // 开户行
+  accountBank: string(name='account_bank', example='某某银行'),
+  // 开户账号
+  accountNumber: string(name='account_number', example='6234242342343456'),
+  // 联系电话
+  accountPhone: string(name='account_phone', example='132312312xx'),
 }
 
 // 更新后平台方企业信息
@@ -1928,6 +1974,16 @@ model Identity {
   agentCertType?: string(name='agent_cert_type', example='IDENTITY_CARD'),
   // 法人证件类型，企业认证必选
   legalPersonCertType?: string(name='legal_person_cert_type', example='IDENTITY_CARD'),
+}
+
+// 调解沟通联系人
+model ContactInfo {
+  // 联系人-姓名
+  contactName: string(name='contact_name', example='张三'),
+  // 联系人-电话
+  contactPhone: string(name='contact_phone', example='18888xxxx66'),
+  // 联系人-电子邮箱
+  contactEmail: string(name='contact_email', example='aaaaa@qq.com'),
 }
 
 // 存证证明的证书信息
@@ -8840,9 +8896,9 @@ model CreateJusticeNormalcaseRequest = {
   // 案由
   caseReason: string(name='case_reason'),
   // 业务类型
-  // 1- 租赁
-  // 2 - 金融
-  caseType: long(name='case_type'),
+  // LEASE- 租赁
+  // HB_FINANCIAL - HB金融
+  caseType: string(name='case_type'),
   // 外部业务ID
   externalBizId: string(name='external_biz_id'),
   // 业务描述,用于案件的补充描述; 没有则不填
@@ -8898,18 +8954,17 @@ model CreateJusticeChaincaseRequest = {
   // 案由
   caseReason: string(name='case_reason'),
   // 业务类型
-  // 1- 租赁
-  // 2 - 金融
-  caseType: long(name='case_type'),
+  // LEASE- 租赁 
+  // HB_FINANCIAL - HB金融,其他不支持
+  caseType: string(name='case_type'),
   // 外部业务ID
   externalBizId: string(name='external_biz_id'),
   // 业务描述,用于案件的补充描述; 没有则不填
   caseDesc?: string(name='case_desc'),
   // 当事人(申请人)ID, 案件填充信息返回
   partyId: long(name='party_id'),
-  // 全流程存证信息, 内容为字符串;
-  // 格式: "全流程存证模板id:全流程存证id"
-  notaryFlowInfos: [ string ](name='notary_flow_infos'),
+  // 全流程存证信息
+  notaryFlowInfos: [ NotaryFlowDetailQueryReq ](name='notary_flow_infos'),
 }
 
 model CreateJusticeChaincaseResponse = {
@@ -8952,10 +9007,15 @@ model StartJusticeCaseRequest = {
   caseId: long(name='case_id'),
   // 处置端租户ID
   isvTenantId: string(name='isv_tenant_id'),
-  // 处置方式, 5-司法调解
-  judicialBizType: long(name='judicial_biz_type'),
+  // 处置方式
+  // JUDICIAL_MEDIATION-司法调解
+  judicialBizType: string(name='judicial_biz_type'),
   // 司法调解基础参数, 当处置方式为5, 必填.
-  judiciallMediationParam?: JudicialMediationBaseParamInfo(name='judiciall_mediation_param'),
+  judicialMediationParam?: JudicialMediationBaseParamInfo(name='judicial_mediation_param'),
+  // 调解沟通联系人(如果不传则使用租户维度的配置信息)
+  contactInfo?: ContactInfo(name='contact_info'),
+  // 调解回款银行账户(如果不传则使用租户维度的配置信息)
+  bankAccountInfo?: BankAccountInfo(name='bank_account_info'),
 }
 
 model StartJusticeCaseResponse = {
@@ -9235,6 +9295,61 @@ async function getJusticeFileuploadurl(request: GetJusticeFileuploadurlRequest):
 async function getJusticeFileuploadurlEx(request: GetJusticeFileuploadurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetJusticeFileuploadurlResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.justice.fileuploadurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateJusticeDocumenttemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文书模板id，如果不为空是修改
+  documentTemplateId?: string(name='document_template_id'),
+  // 维权要素模板id
+  rightProtectTemplateId: string(name='right_protect_template_id'),
+  // 文书模板类型名称，如“仲裁申请书”、“调解协议书”、“起诉状”等
+  templateName: string(name='template_name'),
+  // 文书生成格式类型，枚举
+  // NORMAL：普通文本，
+  // RICHTEXT：富文本，
+  // PDF：pdf格式文件
+  outputType: string(name='output_type'),
+  // 传入的模板样式文件格式（目前只支持txt、doc）
+  // TXT：txt格式
+  // DOC：doc格式
+  inputType: string(name='input_type'),
+  // 原始模板文件下载地址，如果inputType为DOC则必填
+  downloadUrl?: string(name='download_url'),
+  // 模板数据内容，如果inputType为TXT则必填
+  textContent?: string(name='text_content'),
+}
+
+model CreateJusticeDocumenttemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文书模板ID，创建成功时返回
+  templateId?: string(name='template_id'),
+}
+
+/**
+ * Description: 司法解纷平台API服务，创建文书要素模板接口
+ * Summary: 创建文书要素模板
+ */
+async function createJusticeDocumenttemplate(request: CreateJusticeDocumenttemplateRequest): CreateJusticeDocumenttemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createJusticeDocumenttemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 司法解纷平台API服务，创建文书要素模板接口
+ * Summary: 创建文书要素模板
+ */
+async function createJusticeDocumenttemplateEx(request: CreateJusticeDocumenttemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateJusticeDocumenttemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.justice.documenttemplate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateLeaseProductinfoRequest = {
@@ -10748,6 +10863,56 @@ async function queryLeaseInstallment(request: QueryLeaseInstallmentRequest): Que
 async function queryLeaseInstallmentEx(request: QueryLeaseInstallmentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLeaseInstallmentResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.lease.installment.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelLeaseInsuranceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租赁订单id
+  orderId: string(name='order_id'),
+  // 人保扩展信息，订单投保时的保司为人保时，此字段必填
+  renbaoExtInfo?: RenbaoExtInfo(name='renbao_ext_info'),
+}
+
+model CancelLeaseInsuranceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 退保状态：CALCE_FAIL退保失败、CACEL_SUCCESS退保成功、CANCELING退保中
+  status?: string(name='status'),
+  // 退保保单号
+  policyNo?: string(name='policy_no'),
+  // 是否为实收保单退保：ture实收退保，涉及实体账户退费；false未实收退保，不涉及账户退费；
+  repayFlag?: string(name='repay_flag'),
+  // 退还保费，单位：分
+  srdPremium?: string(name='srd_premium'),
+  // 结果码
+  code?: string(name='code'),
+  // 结果描述
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 租赁保险退保接口
+ * Summary: 租赁保险退保
+ */
+async function cancelLeaseInsurance(request: CancelLeaseInsuranceRequest): CancelLeaseInsuranceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelLeaseInsuranceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租赁保险退保接口
+ * Summary: 租赁保险退保
+ */
+async function cancelLeaseInsuranceEx(request: CancelLeaseInsuranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelLeaseInsuranceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.insurance.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateWitnessFlowRequest = {
@@ -15535,6 +15700,8 @@ model QueryStubResponse = {
   phaseQueryResultList?: [ PhaseQueryResult ](name='phase_query_result_list'),
   // legal标URL，只有当入参needLegalLogo为true且响应status为FINISH时才会返回
   legalLogoUrl?: string(name='legal_logo_url'),
+  // 数字纪念票背面URL，只有当创建数字票根时写入了backType字段且响应status为FINISH时才会返回
+  stubBackUrl?: string(name='stub_back_url'),
 }
 
 /**
