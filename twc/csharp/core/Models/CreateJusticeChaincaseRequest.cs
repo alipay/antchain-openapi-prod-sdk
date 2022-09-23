@@ -24,11 +24,11 @@ namespace AntChain.SDK.TWC.Models
         public string CaseReason { get; set; }
 
         // 业务类型
-        // 1- 租赁
-        // 2 - 金融
+        // LEASE- 租赁 
+        // HB_FINANCIAL - HB金融,其他不支持
         [NameInMap("case_type")]
         [Validation(Required=true)]
-        public long? CaseType { get; set; }
+        public string CaseType { get; set; }
 
         // 外部业务ID
         [NameInMap("external_biz_id")]
@@ -45,11 +45,10 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public long? PartyId { get; set; }
 
-        // 全流程存证信息, 内容为字符串;
-        // 格式: "全流程存证模板id:全流程存证id"
+        // 全流程存证信息
         [NameInMap("notary_flow_infos")]
         [Validation(Required=true)]
-        public List<string> NotaryFlowInfos { get; set; }
+        public List<NotaryFlowDetailQueryReq> NotaryFlowInfos { get; set; }
 
     }
 

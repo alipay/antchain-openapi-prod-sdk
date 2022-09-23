@@ -28,15 +28,26 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=true)]
         public string IsvTenantId { get; set; }
 
-        // 处置方式, 5-司法调解
+        // 处置方式
+        // JUDICIAL_MEDIATION-司法调解
         [NameInMap("judicial_biz_type")]
         [Validation(Required=true)]
-        public long? JudicialBizType { get; set; }
+        public string JudicialBizType { get; set; }
 
         // 司法调解基础参数, 当处置方式为5, 必填.
-        [NameInMap("judiciall_mediation_param")]
+        [NameInMap("judicial_mediation_param")]
         [Validation(Required=false)]
-        public JudicialMediationBaseParamInfo JudiciallMediationParam { get; set; }
+        public JudicialMediationBaseParamInfo JudicialMediationParam { get; set; }
+
+        // 调解沟通联系人(如果不传则使用租户维度的配置信息)
+        [NameInMap("contact_info")]
+        [Validation(Required=false)]
+        public ContactInfo ContactInfo { get; set; }
+
+        // 调解回款银行账户(如果不传则使用租户维度的配置信息)
+        [NameInMap("bank_account_info")]
+        [Validation(Required=false)]
+        public BankAccountInfo BankAccountInfo { get; set; }
 
     }
 

@@ -24,11 +24,11 @@ namespace AntChain.SDK.TWC.Models
         public string CaseReason { get; set; }
 
         // 业务类型
-        // 1- 租赁
-        // 2 - 金融
+        // LEASE- 租赁
+        // HB_FINANCIAL - HB金融
         [NameInMap("case_type")]
         [Validation(Required=true)]
-        public long? CaseType { get; set; }
+        public string CaseType { get; set; }
 
         // 外部业务ID
         [NameInMap("external_biz_id")]

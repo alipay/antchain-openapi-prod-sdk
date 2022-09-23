@@ -65,6 +65,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string SceneAlipayId { get; set; }
 
+        // 数字票根背面业务类型，如 IMAGE（背面上传照片业务）、IMAGEANDAR（背面上传照片和AR孔明灯业务）
+        [NameInMap("back_type")]
+        [Validation(Required=false)]
+        public string BackType { get; set; }
+
     }
 
 }

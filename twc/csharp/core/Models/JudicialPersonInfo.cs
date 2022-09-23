@@ -50,6 +50,16 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public JudicialFileInfo JobCertification { get; set; }
 
+        // 性别， 0-男，1-女
+        [NameInMap("sex")]
+        [Validation(Required=false)]
+        public long? Sex { get; set; }
+
+        // 联系邮件地址
+        [NameInMap("email")]
+        [Validation(Required=false)]
+        public string Email { get; set; }
+
     }
 
 }

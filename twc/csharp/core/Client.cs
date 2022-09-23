@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.75"},
+                        {"sdk_version", "1.7.86"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.75"},
+                        {"sdk_version", "1.7.86"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6336,6 +6336,48 @@ namespace AntChain.SDK.TWC
         }
 
         /**
+         * Description: 司法解纷平台API服务，创建文书要素模板接口
+         * Summary: 创建文书要素模板
+         */
+        public CreateJusticeDocumenttemplateResponse CreateJusticeDocumenttemplate(CreateJusticeDocumenttemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateJusticeDocumenttemplateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 司法解纷平台API服务，创建文书要素模板接口
+         * Summary: 创建文书要素模板
+         */
+        public async Task<CreateJusticeDocumenttemplateResponse> CreateJusticeDocumenttemplateAsync(CreateJusticeDocumenttemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateJusticeDocumenttemplateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 司法解纷平台API服务，创建文书要素模板接口
+         * Summary: 创建文书要素模板
+         */
+        public CreateJusticeDocumenttemplateResponse CreateJusticeDocumenttemplateEx(CreateJusticeDocumenttemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateJusticeDocumenttemplateResponse>(DoRequest("1.0", "twc.notary.justice.documenttemplate.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 司法解纷平台API服务，创建文书要素模板接口
+         * Summary: 创建文书要素模板
+         */
+        public async Task<CreateJusticeDocumenttemplateResponse> CreateJusticeDocumenttemplateExAsync(CreateJusticeDocumenttemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateJusticeDocumenttemplateResponse>(await DoRequestAsync("1.0", "twc.notary.justice.documenttemplate.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 融资服务平台上传商品类别信息
          * Summary: 融资服务平台上传商品类别信息
          */
@@ -7593,6 +7635,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryLeaseInstallmentResponse>(await DoRequestAsync("1.0", "twc.notary.lease.installment.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁保险退保接口
+         * Summary: 租赁保险退保
+         */
+        public CancelLeaseInsuranceResponse CancelLeaseInsurance(CancelLeaseInsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelLeaseInsuranceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁保险退保接口
+         * Summary: 租赁保险退保
+         */
+        public async Task<CancelLeaseInsuranceResponse> CancelLeaseInsuranceAsync(CancelLeaseInsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelLeaseInsuranceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租赁保险退保接口
+         * Summary: 租赁保险退保
+         */
+        public CancelLeaseInsuranceResponse CancelLeaseInsuranceEx(CancelLeaseInsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelLeaseInsuranceResponse>(DoRequest("1.0", "twc.notary.lease.insurance.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租赁保险退保接口
+         * Summary: 租赁保险退保
+         */
+        public async Task<CancelLeaseInsuranceResponse> CancelLeaseInsuranceExAsync(CancelLeaseInsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelLeaseInsuranceResponse>(await DoRequestAsync("1.0", "twc.notary.lease.insurance.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.TWC.Models
 {
-    public class QueryStubResponse : TeaModel {
+    public class CancelLeaseInsuranceResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,35 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 数字票根存证全流程状态，FINISH(完结)、PROCESSING(上链中)、DISABLE(失效)、FAILED(失败)
+        // 退保状态：CALCE_FAIL退保失败、CACEL_SUCCESS退保成功、CANCELING退保中
         [NameInMap("status")]
         [Validation(Required=false)]
         public string Status { get; set; }
 
-        // 阶段存证查询结果列表
-        [NameInMap("phase_query_result_list")]
+        // 退保保单号
+        [NameInMap("policy_no")]
         [Validation(Required=false)]
-        public List<PhaseQueryResult> PhaseQueryResultList { get; set; }
+        public string PolicyNo { get; set; }
 
-        // legal标URL，只有当入参needLegalLogo为true且响应status为FINISH时才会返回
-        [NameInMap("legal_logo_url")]
+        // 是否为实收保单退保：ture实收退保，涉及实体账户退费；false未实收退保，不涉及账户退费；
+        [NameInMap("repay_flag")]
         [Validation(Required=false)]
-        public string LegalLogoUrl { get; set; }
+        public string RepayFlag { get; set; }
 
-        // 数字纪念票背面URL，只有当创建数字票根时写入了backType字段且响应status为FINISH时才会返回
-        [NameInMap("stub_back_url")]
+        // 退还保费，单位：分
+        [NameInMap("srd_premium")]
         [Validation(Required=false)]
-        public string StubBackUrl { get; set; }
+        public string SrdPremium { get; set; }
+
+        // 结果码
+        [NameInMap("code")]
+        [Validation(Required=false)]
+        public string Code { get; set; }
+
+        // 结果描述
+        [NameInMap("message")]
+        [Validation(Required=false)]
+        public string Message { get; set; }
 
     }
 
