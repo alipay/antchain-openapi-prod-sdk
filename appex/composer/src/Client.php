@@ -13,8 +13,6 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\APPEX\Models\AuthChannelUserRequest;
 use AntChain\APPEX\Models\AuthChannelUserResponse;
-use AntChain\APPEX\Models\BindMypocketKmsaccountRequest;
-use AntChain\APPEX\Models\BindMypocketKmsaccountResponse;
 use AntChain\APPEX\Models\CancelChannelUserRequest;
 use AntChain\APPEX\Models\CancelChannelUserResponse;
 use AntChain\APPEX\Models\ConfirmUnionApplyRequest;
@@ -87,6 +85,10 @@ use AntChain\APPEX\Models\SaveSolutionFastnotaryRequest;
 use AntChain\APPEX\Models\SaveSolutionFastnotaryResponse;
 use AntChain\APPEX\Models\StartDatastatusDriveRequest;
 use AntChain\APPEX\Models\StartDatastatusDriveResponse;
+use AntChain\APPEX\Models\StartMypocketAppdidsignverifyRequest;
+use AntChain\APPEX\Models\StartMypocketAppdidsignverifyResponse;
+use AntChain\APPEX\Models\StartMypocketUserdidsignverifyRequest;
+use AntChain\APPEX\Models\StartMypocketUserdidsignverifyResponse;
 use AntChain\APPEX\Models\SyncSolutionFilenotaryRequest;
 use AntChain\APPEX\Models\SyncSolutionFilenotaryResponse;
 use AntChain\Util\UtilClient;
@@ -236,7 +238,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.3',
+                    'sdk_version'      => '1.3.8',
+                    '_prod_code'       => 'APPEX',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -346,39 +350,6 @@ class Client
         Utils::validateModel($request);
 
         return QueryMypocketChainaccountResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.chainaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 外部DApp应用绑定链账户至did
-     * Summary: 外部DApp应用绑定链账户至did.
-     *
-     * @param BindMypocketKmsaccountRequest $request
-     *
-     * @return BindMypocketKmsaccountResponse
-     */
-    public function bindMypocketKmsaccount($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->bindMypocketKmsaccountEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 外部DApp应用绑定链账户至did
-     * Summary: 外部DApp应用绑定链账户至did.
-     *
-     * @param BindMypocketKmsaccountRequest $request
-     * @param string[]                      $headers
-     * @param RuntimeOptions                $runtime
-     *
-     * @return BindMypocketKmsaccountResponse
-     */
-    public function bindMypocketKmsaccountEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BindMypocketKmsaccountResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.kmsaccount.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -511,6 +482,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryMypocketEscrowchainaccountResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.escrowchainaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 验证app did签名
+     * Summary: app did验签接口.
+     *
+     * @param StartMypocketAppdidsignverifyRequest $request
+     *
+     * @return StartMypocketAppdidsignverifyResponse
+     */
+    public function startMypocketAppdidsignverify($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMypocketAppdidsignverifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 验证app did签名
+     * Summary: app did验签接口.
+     *
+     * @param StartMypocketAppdidsignverifyRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return StartMypocketAppdidsignverifyResponse
+     */
+    public function startMypocketAppdidsignverifyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMypocketAppdidsignverifyResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.appdidsignverify.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 验证user did签名
+     * Summary: 验证user did签名.
+     *
+     * @param StartMypocketUserdidsignverifyRequest $request
+     *
+     * @return StartMypocketUserdidsignverifyResponse
+     */
+    public function startMypocketUserdidsignverify($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startMypocketUserdidsignverifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 验证user did签名
+     * Summary: 验证user did签名.
+     *
+     * @param StartMypocketUserdidsignverifyRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return StartMypocketUserdidsignverifyResponse
+     */
+    public function startMypocketUserdidsignverifyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartMypocketUserdidsignverifyResponse::fromMap($this->doRequest('1.0', 'blockchain.appex.mypocket.userdidsignverify.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -6,7 +6,7 @@ namespace AntChain\APPEX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BindMypocketKmsaccountResponse extends Model
+class StartMypocketAppdidsignverifyResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,17 @@ class BindMypocketKmsaccountResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 签名是否合法
+    /**
+     * @var bool
+     */
+    public $isValid;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'isValid'    => 'is_valid',
     ];
 
     public function validate()
@@ -47,6 +54,9 @@ class BindMypocketKmsaccountResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->isValid) {
+            $res['is_valid'] = $this->isValid;
+        }
 
         return $res;
     }
@@ -54,7 +64,7 @@ class BindMypocketKmsaccountResponse extends Model
     /**
      * @param array $map
      *
-     * @return BindMypocketKmsaccountResponse
+     * @return StartMypocketAppdidsignverifyResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +77,9 @@ class BindMypocketKmsaccountResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['is_valid'])) {
+            $model->isValid = $map['is_valid'];
         }
 
         return $model;
