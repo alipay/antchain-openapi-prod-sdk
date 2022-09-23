@@ -1000,6 +1000,8 @@ class JudicialPersonInfo(TeaModel):
         identity_certification: JudicialFileInfo = None,
         job_title: str = None,
         job_certification: JudicialFileInfo = None,
+        sex: int = None,
+        email: str = None,
     ):
         # 姓名
         self.name = name
@@ -1017,6 +1019,10 @@ class JudicialPersonInfo(TeaModel):
         self.job_title = job_title
         # 任职证明
         self.job_certification = job_certification
+        # 性别， 0-男，1-女
+        self.sex = sex
+        # 联系邮件地址
+        self.email = email
 
     def validate(self):
         self.validate_required(self.name, 'name')
@@ -1047,6 +1053,10 @@ class JudicialPersonInfo(TeaModel):
             result['job_title'] = self.job_title
         if self.job_certification is not None:
             result['job_certification'] = self.job_certification.to_map()
+        if self.sex is not None:
+            result['sex'] = self.sex
+        if self.email is not None:
+            result['email'] = self.email
         return result
 
     def from_map(self, m: dict = None):
@@ -1069,6 +1079,10 @@ class JudicialPersonInfo(TeaModel):
         if m.get('job_certification') is not None:
             temp_model = JudicialFileInfo()
             self.job_certification = temp_model.from_map(m['job_certification'])
+        if m.get('sex') is not None:
+            self.sex = m.get('sex')
+        if m.get('email') is not None:
+            self.email = m.get('email')
         return self
 
 
@@ -3281,6 +3295,7 @@ class StubCommonInfo(TeaModel):
         stub_amount: int = None,
         customer_id: str = None,
         scene_alipay_id: str = None,
+        back_type: str = None,
     ):
         # 项目名称
         self.project_name = project_name
@@ -3304,6 +3319,8 @@ class StubCommonInfo(TeaModel):
         self.customer_id = customer_id
         # 景区支付宝id，当biz_source为Alipay时，该字段必填
         self.scene_alipay_id = scene_alipay_id
+        # 数字票根背面业务类型，如 IMAGE（背面上传照片业务）、IMAGEANDAR（背面上传照片和AR孔明灯业务）
+        self.back_type = back_type
 
     def validate(self):
         self.validate_required(self.project_name, 'project_name')
@@ -3346,6 +3363,8 @@ class StubCommonInfo(TeaModel):
             result['customer_id'] = self.customer_id
         if self.scene_alipay_id is not None:
             result['scene_alipay_id'] = self.scene_alipay_id
+        if self.back_type is not None:
+            result['back_type'] = self.back_type
         return result
 
     def from_map(self, m: dict = None):
@@ -3372,6 +3391,8 @@ class StubCommonInfo(TeaModel):
             self.customer_id = m.get('customer_id')
         if m.get('scene_alipay_id') is not None:
             self.scene_alipay_id = m.get('scene_alipay_id')
+        if m.get('back_type') is not None:
+            self.back_type = m.get('back_type')
         return self
 
 
@@ -4086,6 +4107,86 @@ class SupplierLogisticInfo(TeaModel):
         return self
 
 
+class RenbaoExtInfo(TeaModel):
+    def __init__(
+        self,
+        rec_bank_area_code: str = None,
+        account_no: str = None,
+        bank_name: str = None,
+        account_name: str = None,
+        cnaps: str = None,
+        identify_no: str = None,
+    ):
+        # 银行区域代码，可网上查询各银行最新对应的区域代码，比如杭州的区域代码为：3301
+        self.rec_bank_area_code = rec_bank_area_code
+        # 投保人收款账号
+        self.account_no = account_no
+        # 完整银行名称，不需要具体到分行
+        self.bank_name = bank_name
+        # 投保人户名
+        self.account_name = account_name
+        # 联行号
+        self.cnaps = cnaps
+        # 统一社会信用代码
+        self.identify_no = identify_no
+
+    def validate(self):
+        self.validate_required(self.rec_bank_area_code, 'rec_bank_area_code')
+        if self.rec_bank_area_code is not None:
+            self.validate_max_length(self.rec_bank_area_code, 'rec_bank_area_code', 8)
+        self.validate_required(self.account_no, 'account_no')
+        if self.account_no is not None:
+            self.validate_max_length(self.account_no, 'account_no', 32)
+        self.validate_required(self.bank_name, 'bank_name')
+        if self.bank_name is not None:
+            self.validate_max_length(self.bank_name, 'bank_name', 32)
+        self.validate_required(self.account_name, 'account_name')
+        if self.account_name is not None:
+            self.validate_max_length(self.account_name, 'account_name', 64)
+        self.validate_required(self.cnaps, 'cnaps')
+        if self.cnaps is not None:
+            self.validate_max_length(self.cnaps, 'cnaps', 16)
+        self.validate_required(self.identify_no, 'identify_no')
+        if self.identify_no is not None:
+            self.validate_max_length(self.identify_no, 'identify_no', 32)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.rec_bank_area_code is not None:
+            result['rec_bank_area_code'] = self.rec_bank_area_code
+        if self.account_no is not None:
+            result['account_no'] = self.account_no
+        if self.bank_name is not None:
+            result['bank_name'] = self.bank_name
+        if self.account_name is not None:
+            result['account_name'] = self.account_name
+        if self.cnaps is not None:
+            result['cnaps'] = self.cnaps
+        if self.identify_no is not None:
+            result['identify_no'] = self.identify_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('rec_bank_area_code') is not None:
+            self.rec_bank_area_code = m.get('rec_bank_area_code')
+        if m.get('account_no') is not None:
+            self.account_no = m.get('account_no')
+        if m.get('bank_name') is not None:
+            self.bank_name = m.get('bank_name')
+        if m.get('account_name') is not None:
+            self.account_name = m.get('account_name')
+        if m.get('cnaps') is not None:
+            self.cnaps = m.get('cnaps')
+        if m.get('identify_no') is not None:
+            self.identify_no = m.get('identify_no')
+        return self
+
+
 class JudicialEventOperateInfo(TeaModel):
     def __init__(
         self,
@@ -4162,7 +4263,7 @@ class ContractSignFlowConfig(TeaModel):
         self.notice_type = notice_type
         # 签署成功或者流程结束后的默认重定向地址，默认签署完成停在当前页面
         self.redirect_url = redirect_url
-        # 签署平台，逗号分割，1-开放服务h5，2-支付宝签 ，默认值1
+        # 【该字段已废弃】签署平台，逗号分割，1-开放服务h5，2-支付宝签 ，默认值1
         self.sign_platform = sign_platform
         # 签署失败时的跳转地址，如果不做单独配置，默认与redirect_url一致（配合twc.notary.contract.signflow.create接口使用）
         self.redirect_url_on_failure = redirect_url_on_failure
@@ -6037,6 +6138,58 @@ class ProductInfo(TeaModel):
         return self
 
 
+class NotaryFlowDetailQueryReq(TeaModel):
+    def __init__(
+        self,
+        template_id: str = None,
+        flow_id: str = None,
+        chain_pack_tx_hash: str = None,
+        authcode: str = None,
+    ):
+        # 全流程存证模板ID
+        self.template_id = template_id
+        # 全流程存证流程id
+        self.flow_id = flow_id
+        # 链上证据包对应的链上交易Hash
+        self.chain_pack_tx_hash = chain_pack_tx_hash
+        # 链上证据包授权码
+        self.authcode = authcode
+
+    def validate(self):
+        self.validate_required(self.template_id, 'template_id')
+        self.validate_required(self.flow_id, 'flow_id')
+        self.validate_required(self.chain_pack_tx_hash, 'chain_pack_tx_hash')
+        self.validate_required(self.authcode, 'authcode')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.chain_pack_tx_hash is not None:
+            result['chain_pack_tx_hash'] = self.chain_pack_tx_hash
+        if self.authcode is not None:
+            result['authcode'] = self.authcode
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('chain_pack_tx_hash') is not None:
+            self.chain_pack_tx_hash = m.get('chain_pack_tx_hash')
+        if m.get('authcode') is not None:
+            self.authcode = m.get('authcode')
+        return self
+
+
 class PaymentDetail(TeaModel):
     def __init__(
         self,
@@ -6204,6 +6357,58 @@ class ContractPlatformAccountApplication(TeaModel):
             self.name = m.get('name')
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
+        return self
+
+
+class BankAccountInfo(TeaModel):
+    def __init__(
+        self,
+        account_name: str = None,
+        account_bank: str = None,
+        account_number: str = None,
+        account_phone: str = None,
+    ):
+        # 开户名称
+        self.account_name = account_name
+        # 开户行
+        self.account_bank = account_bank
+        # 开户账号
+        self.account_number = account_number
+        # 联系电话
+        self.account_phone = account_phone
+
+    def validate(self):
+        self.validate_required(self.account_name, 'account_name')
+        self.validate_required(self.account_bank, 'account_bank')
+        self.validate_required(self.account_number, 'account_number')
+        self.validate_required(self.account_phone, 'account_phone')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_name is not None:
+            result['account_name'] = self.account_name
+        if self.account_bank is not None:
+            result['account_bank'] = self.account_bank
+        if self.account_number is not None:
+            result['account_number'] = self.account_number
+        if self.account_phone is not None:
+            result['account_phone'] = self.account_phone
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('account_name') is not None:
+            self.account_name = m.get('account_name')
+        if m.get('account_bank') is not None:
+            self.account_bank = m.get('account_bank')
+        if m.get('account_number') is not None:
+            self.account_number = m.get('account_number')
+        if m.get('account_phone') is not None:
+            self.account_phone = m.get('account_phone')
         return self
 
 
@@ -7335,6 +7540,50 @@ class Identity(TeaModel):
             self.agent_cert_type = m.get('agent_cert_type')
         if m.get('legal_person_cert_type') is not None:
             self.legal_person_cert_type = m.get('legal_person_cert_type')
+        return self
+
+
+class ContactInfo(TeaModel):
+    def __init__(
+        self,
+        contact_name: str = None,
+        contact_phone: str = None,
+        contact_email: str = None,
+    ):
+        # 联系人-姓名
+        self.contact_name = contact_name
+        # 联系人-电话
+        self.contact_phone = contact_phone
+        # 联系人-电子邮箱
+        self.contact_email = contact_email
+
+    def validate(self):
+        self.validate_required(self.contact_name, 'contact_name')
+        self.validate_required(self.contact_phone, 'contact_phone')
+        self.validate_required(self.contact_email, 'contact_email')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact_name is not None:
+            result['contact_name'] = self.contact_name
+        if self.contact_phone is not None:
+            result['contact_phone'] = self.contact_phone
+        if self.contact_email is not None:
+            result['contact_email'] = self.contact_email
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('contact_name') is not None:
+            self.contact_name = m.get('contact_name')
+        if m.get('contact_phone') is not None:
+            self.contact_phone = m.get('contact_phone')
+        if m.get('contact_email') is not None:
+            self.contact_email = m.get('contact_email')
         return self
 
 
@@ -26097,7 +26346,7 @@ class CreateJusticeNormalcaseRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         case_reason: str = None,
-        case_type: int = None,
+        case_type: str = None,
         external_biz_id: str = None,
         case_desc: str = None,
         case_biz_element_info: str = None,
@@ -26111,8 +26360,8 @@ class CreateJusticeNormalcaseRequest(TeaModel):
         # 案由
         self.case_reason = case_reason
         # 业务类型
-        # 1- 租赁
-        # 2 - 金融
+        # LEASE- 租赁
+        # HB_FINANCIAL - HB金融
         self.case_type = case_type
         # 外部业务ID
         self.external_biz_id = external_biz_id
@@ -26255,11 +26504,11 @@ class CreateJusticeChaincaseRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         case_reason: str = None,
-        case_type: int = None,
+        case_type: str = None,
         external_biz_id: str = None,
         case_desc: str = None,
         party_id: int = None,
-        notary_flow_infos: List[str] = None,
+        notary_flow_infos: List[NotaryFlowDetailQueryReq] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -26267,8 +26516,8 @@ class CreateJusticeChaincaseRequest(TeaModel):
         # 案由
         self.case_reason = case_reason
         # 业务类型
-        # 1- 租赁
-        # 2 - 金融
+        # LEASE- 租赁
+        # HB_FINANCIAL - HB金融,其他不支持
         self.case_type = case_type
         # 外部业务ID
         self.external_biz_id = external_biz_id
@@ -26276,8 +26525,7 @@ class CreateJusticeChaincaseRequest(TeaModel):
         self.case_desc = case_desc
         # 当事人(申请人)ID, 案件填充信息返回
         self.party_id = party_id
-        # 全流程存证信息, 内容为字符串;
-        # 格式: "全流程存证模板id:全流程存证id"
+        # 全流程存证信息
         self.notary_flow_infos = notary_flow_infos
 
     def validate(self):
@@ -26286,6 +26534,10 @@ class CreateJusticeChaincaseRequest(TeaModel):
         self.validate_required(self.external_biz_id, 'external_biz_id')
         self.validate_required(self.party_id, 'party_id')
         self.validate_required(self.notary_flow_infos, 'notary_flow_infos')
+        if self.notary_flow_infos:
+            for k in self.notary_flow_infos:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -26307,8 +26559,10 @@ class CreateJusticeChaincaseRequest(TeaModel):
             result['case_desc'] = self.case_desc
         if self.party_id is not None:
             result['party_id'] = self.party_id
+        result['notary_flow_infos'] = []
         if self.notary_flow_infos is not None:
-            result['notary_flow_infos'] = self.notary_flow_infos
+            for k in self.notary_flow_infos:
+                result['notary_flow_infos'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -26327,8 +26581,11 @@ class CreateJusticeChaincaseRequest(TeaModel):
             self.case_desc = m.get('case_desc')
         if m.get('party_id') is not None:
             self.party_id = m.get('party_id')
+        self.notary_flow_infos = []
         if m.get('notary_flow_infos') is not None:
-            self.notary_flow_infos = m.get('notary_flow_infos')
+            for k in m.get('notary_flow_infos'):
+                temp_model = NotaryFlowDetailQueryReq()
+                self.notary_flow_infos.append(temp_model.from_map(k))
         return self
 
 
@@ -26395,8 +26652,10 @@ class StartJusticeCaseRequest(TeaModel):
         product_instance_id: str = None,
         case_id: int = None,
         isv_tenant_id: str = None,
-        judicial_biz_type: int = None,
-        judiciall_mediation_param: JudicialMediationBaseParamInfo = None,
+        judicial_biz_type: str = None,
+        judicial_mediation_param: JudicialMediationBaseParamInfo = None,
+        contact_info: ContactInfo = None,
+        bank_account_info: BankAccountInfo = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -26405,17 +26664,26 @@ class StartJusticeCaseRequest(TeaModel):
         self.case_id = case_id
         # 处置端租户ID
         self.isv_tenant_id = isv_tenant_id
-        # 处置方式, 5-司法调解
+        # 处置方式
+        # JUDICIAL_MEDIATION-司法调解
         self.judicial_biz_type = judicial_biz_type
         # 司法调解基础参数, 当处置方式为5, 必填.
-        self.judiciall_mediation_param = judiciall_mediation_param
+        self.judicial_mediation_param = judicial_mediation_param
+        # 调解沟通联系人(如果不传则使用租户维度的配置信息)
+        self.contact_info = contact_info
+        # 调解回款银行账户(如果不传则使用租户维度的配置信息)
+        self.bank_account_info = bank_account_info
 
     def validate(self):
         self.validate_required(self.case_id, 'case_id')
         self.validate_required(self.isv_tenant_id, 'isv_tenant_id')
         self.validate_required(self.judicial_biz_type, 'judicial_biz_type')
-        if self.judiciall_mediation_param:
-            self.judiciall_mediation_param.validate()
+        if self.judicial_mediation_param:
+            self.judicial_mediation_param.validate()
+        if self.contact_info:
+            self.contact_info.validate()
+        if self.bank_account_info:
+            self.bank_account_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -26433,8 +26701,12 @@ class StartJusticeCaseRequest(TeaModel):
             result['isv_tenant_id'] = self.isv_tenant_id
         if self.judicial_biz_type is not None:
             result['judicial_biz_type'] = self.judicial_biz_type
-        if self.judiciall_mediation_param is not None:
-            result['judiciall_mediation_param'] = self.judiciall_mediation_param.to_map()
+        if self.judicial_mediation_param is not None:
+            result['judicial_mediation_param'] = self.judicial_mediation_param.to_map()
+        if self.contact_info is not None:
+            result['contact_info'] = self.contact_info.to_map()
+        if self.bank_account_info is not None:
+            result['bank_account_info'] = self.bank_account_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -26449,9 +26721,15 @@ class StartJusticeCaseRequest(TeaModel):
             self.isv_tenant_id = m.get('isv_tenant_id')
         if m.get('judicial_biz_type') is not None:
             self.judicial_biz_type = m.get('judicial_biz_type')
-        if m.get('judiciall_mediation_param') is not None:
+        if m.get('judicial_mediation_param') is not None:
             temp_model = JudicialMediationBaseParamInfo()
-            self.judiciall_mediation_param = temp_model.from_map(m['judiciall_mediation_param'])
+            self.judicial_mediation_param = temp_model.from_map(m['judicial_mediation_param'])
+        if m.get('contact_info') is not None:
+            temp_model = ContactInfo()
+            self.contact_info = temp_model.from_map(m['contact_info'])
+        if m.get('bank_account_info') is not None:
+            temp_model = BankAccountInfo()
+            self.bank_account_info = temp_model.from_map(m['bank_account_info'])
         return self
 
 
@@ -27136,6 +27414,146 @@ class GetJusticeFileuploadurlResponse(TeaModel):
             self.upload_url = m.get('upload_url')
         if m.get('expired_time') is not None:
             self.expired_time = m.get('expired_time')
+        return self
+
+
+class CreateJusticeDocumenttemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        document_template_id: str = None,
+        right_protect_template_id: str = None,
+        template_name: str = None,
+        output_type: str = None,
+        input_type: str = None,
+        download_url: str = None,
+        text_content: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 文书模板id，如果不为空是修改
+        self.document_template_id = document_template_id
+        # 维权要素模板id
+        self.right_protect_template_id = right_protect_template_id
+        # 文书模板类型名称，如“仲裁申请书”、“调解协议书”、“起诉状”等
+        self.template_name = template_name
+        # 文书生成格式类型，枚举
+        # NORMAL：普通文本，
+        # RICHTEXT：富文本，
+        # PDF：pdf格式文件
+        self.output_type = output_type
+        # 传入的模板样式文件格式（目前只支持txt、doc）
+        # TXT：txt格式
+        # DOC：doc格式
+        self.input_type = input_type
+        # 原始模板文件下载地址，如果inputType为DOC则必填
+        self.download_url = download_url
+        # 模板数据内容，如果inputType为TXT则必填
+        self.text_content = text_content
+
+    def validate(self):
+        self.validate_required(self.right_protect_template_id, 'right_protect_template_id')
+        self.validate_required(self.template_name, 'template_name')
+        self.validate_required(self.output_type, 'output_type')
+        self.validate_required(self.input_type, 'input_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.document_template_id is not None:
+            result['document_template_id'] = self.document_template_id
+        if self.right_protect_template_id is not None:
+            result['right_protect_template_id'] = self.right_protect_template_id
+        if self.template_name is not None:
+            result['template_name'] = self.template_name
+        if self.output_type is not None:
+            result['output_type'] = self.output_type
+        if self.input_type is not None:
+            result['input_type'] = self.input_type
+        if self.download_url is not None:
+            result['download_url'] = self.download_url
+        if self.text_content is not None:
+            result['text_content'] = self.text_content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('document_template_id') is not None:
+            self.document_template_id = m.get('document_template_id')
+        if m.get('right_protect_template_id') is not None:
+            self.right_protect_template_id = m.get('right_protect_template_id')
+        if m.get('template_name') is not None:
+            self.template_name = m.get('template_name')
+        if m.get('output_type') is not None:
+            self.output_type = m.get('output_type')
+        if m.get('input_type') is not None:
+            self.input_type = m.get('input_type')
+        if m.get('download_url') is not None:
+            self.download_url = m.get('download_url')
+        if m.get('text_content') is not None:
+            self.text_content = m.get('text_content')
+        return self
+
+
+class CreateJusticeDocumenttemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        template_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 文书模板ID，创建成功时返回
+        self.template_id = template_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
         return self
 
 
@@ -31327,6 +31745,141 @@ class QueryLeaseInstallmentResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('response_data') is not None:
             self.response_data = m.get('response_data')
+        return self
+
+
+class CancelLeaseInsuranceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        renbao_ext_info: RenbaoExtInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租赁订单id
+        self.order_id = order_id
+        # 人保扩展信息，订单投保时的保司为人保时，此字段必填
+        self.renbao_ext_info = renbao_ext_info
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        if self.renbao_ext_info:
+            self.renbao_ext_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.renbao_ext_info is not None:
+            result['renbao_ext_info'] = self.renbao_ext_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('renbao_ext_info') is not None:
+            temp_model = RenbaoExtInfo()
+            self.renbao_ext_info = temp_model.from_map(m['renbao_ext_info'])
+        return self
+
+
+class CancelLeaseInsuranceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        status: str = None,
+        policy_no: str = None,
+        repay_flag: str = None,
+        srd_premium: str = None,
+        code: str = None,
+        message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 退保状态：CALCE_FAIL退保失败、CACEL_SUCCESS退保成功、CANCELING退保中
+        self.status = status
+        # 退保保单号
+        self.policy_no = policy_no
+        # 是否为实收保单退保：ture实收退保，涉及实体账户退费；false未实收退保，不涉及账户退费；
+        self.repay_flag = repay_flag
+        # 退还保费，单位：分
+        self.srd_premium = srd_premium
+        # 结果码
+        self.code = code
+        # 结果描述
+        self.message = message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.status is not None:
+            result['status'] = self.status
+        if self.policy_no is not None:
+            result['policy_no'] = self.policy_no
+        if self.repay_flag is not None:
+            result['repay_flag'] = self.repay_flag
+        if self.srd_premium is not None:
+            result['srd_premium'] = self.srd_premium
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('policy_no') is not None:
+            self.policy_no = m.get('policy_no')
+        if m.get('repay_flag') is not None:
+            self.repay_flag = m.get('repay_flag')
+        if m.get('srd_premium') is not None:
+            self.srd_premium = m.get('srd_premium')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         return self
 
 
@@ -44761,6 +45314,7 @@ class QueryStubResponse(TeaModel):
         status: str = None,
         phase_query_result_list: List[PhaseQueryResult] = None,
         legal_logo_url: str = None,
+        stub_back_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -44774,6 +45328,8 @@ class QueryStubResponse(TeaModel):
         self.phase_query_result_list = phase_query_result_list
         # legal标URL，只有当入参needLegalLogo为true且响应status为FINISH时才会返回
         self.legal_logo_url = legal_logo_url
+        # 数字纪念票背面URL，只有当创建数字票根时写入了backType字段且响应status为FINISH时才会返回
+        self.stub_back_url = stub_back_url
 
     def validate(self):
         if self.phase_query_result_list:
@@ -44801,6 +45357,8 @@ class QueryStubResponse(TeaModel):
                 result['phase_query_result_list'].append(k.to_map() if k else None)
         if self.legal_logo_url is not None:
             result['legal_logo_url'] = self.legal_logo_url
+        if self.stub_back_url is not None:
+            result['stub_back_url'] = self.stub_back_url
         return result
 
     def from_map(self, m: dict = None):
@@ -44820,6 +45378,8 @@ class QueryStubResponse(TeaModel):
                 self.phase_query_result_list.append(temp_model.from_map(k))
         if m.get('legal_logo_url') is not None:
             self.legal_logo_url = m.get('legal_logo_url')
+        if m.get('stub_back_url') is not None:
+            self.stub_back_url = m.get('stub_back_url')
         return self
 
 

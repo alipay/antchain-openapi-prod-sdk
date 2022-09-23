@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.75',
+                    'sdk_version': '1.7.86',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.75',
+                    'sdk_version': '1.7.86',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -8291,6 +8291,62 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.justice.fileuploadurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def create_justice_documenttemplate(
+        self,
+        request: twc_models.CreateJusticeDocumenttemplateRequest,
+    ) -> twc_models.CreateJusticeDocumenttemplateResponse:
+        """
+        Description: 司法解纷平台API服务，创建文书要素模板接口
+        Summary: 创建文书要素模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_justice_documenttemplate_ex(request, headers, runtime)
+
+    async def create_justice_documenttemplate_async(
+        self,
+        request: twc_models.CreateJusticeDocumenttemplateRequest,
+    ) -> twc_models.CreateJusticeDocumenttemplateResponse:
+        """
+        Description: 司法解纷平台API服务，创建文书要素模板接口
+        Summary: 创建文书要素模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_justice_documenttemplate_ex_async(request, headers, runtime)
+
+    def create_justice_documenttemplate_ex(
+        self,
+        request: twc_models.CreateJusticeDocumenttemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateJusticeDocumenttemplateResponse:
+        """
+        Description: 司法解纷平台API服务，创建文书要素模板接口
+        Summary: 创建文书要素模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateJusticeDocumenttemplateResponse(),
+            self.do_request('1.0', 'twc.notary.justice.documenttemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_justice_documenttemplate_ex_async(
+        self,
+        request: twc_models.CreateJusticeDocumenttemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateJusticeDocumenttemplateResponse:
+        """
+        Description: 司法解纷平台API服务，创建文书要素模板接口
+        Summary: 创建文书要素模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateJusticeDocumenttemplateResponse(),
+            await self.do_request_async('1.0', 'twc.notary.justice.documenttemplate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_lease_productinfo(
         self,
         request: twc_models.CreateLeaseProductinfoRequest,
@@ -9969,6 +10025,62 @@ class Client:
         return TeaCore.from_map(
             twc_models.QueryLeaseInstallmentResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.installment.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_lease_insurance(
+        self,
+        request: twc_models.CancelLeaseInsuranceRequest,
+    ) -> twc_models.CancelLeaseInsuranceResponse:
+        """
+        Description: 租赁保险退保接口
+        Summary: 租赁保险退保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_lease_insurance_ex(request, headers, runtime)
+
+    async def cancel_lease_insurance_async(
+        self,
+        request: twc_models.CancelLeaseInsuranceRequest,
+    ) -> twc_models.CancelLeaseInsuranceResponse:
+        """
+        Description: 租赁保险退保接口
+        Summary: 租赁保险退保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_lease_insurance_ex_async(request, headers, runtime)
+
+    def cancel_lease_insurance_ex(
+        self,
+        request: twc_models.CancelLeaseInsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CancelLeaseInsuranceResponse:
+        """
+        Description: 租赁保险退保接口
+        Summary: 租赁保险退保
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CancelLeaseInsuranceResponse(),
+            self.do_request('1.0', 'twc.notary.lease.insurance.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_lease_insurance_ex_async(
+        self,
+        request: twc_models.CancelLeaseInsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CancelLeaseInsuranceResponse:
+        """
+        Description: 租赁保险退保接口
+        Summary: 租赁保险退保
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CancelLeaseInsuranceResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.insurance.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_witness_flow(
