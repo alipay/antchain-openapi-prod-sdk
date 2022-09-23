@@ -601,6 +601,10 @@ export class JudicialPersonInfo extends $tea.Model {
   jobTitle?: string;
   // 任职证明
   jobCertification?: JudicialFileInfo;
+  // 性别， 0-男，1-女
+  sex?: number;
+  // 联系邮件地址
+  email?: string;
   static names(): { [key: string]: string } {
     return {
       name: 'name',
@@ -611,6 +615,8 @@ export class JudicialPersonInfo extends $tea.Model {
       identityCertification: 'identity_certification',
       jobTitle: 'job_title',
       jobCertification: 'job_certification',
+      sex: 'sex',
+      email: 'email',
     };
   }
 
@@ -624,6 +630,8 @@ export class JudicialPersonInfo extends $tea.Model {
       identityCertification: JudicialFileInfo,
       jobTitle: 'string',
       jobCertification: JudicialFileInfo,
+      sex: 'number',
+      email: 'string',
     };
   }
 
@@ -2002,6 +2010,8 @@ export class StubCommonInfo extends $tea.Model {
   customerId: string;
   // 景区支付宝id，当biz_source为Alipay时，该字段必填
   sceneAlipayId?: string;
+  // 数字票根背面业务类型，如 IMAGE（背面上传照片业务）、IMAGEANDAR（背面上传照片和AR孔明灯业务）
+  backType?: string;
   static names(): { [key: string]: string } {
     return {
       projectName: 'project_name',
@@ -2015,6 +2025,7 @@ export class StubCommonInfo extends $tea.Model {
       stubAmount: 'stub_amount',
       customerId: 'customer_id',
       sceneAlipayId: 'scene_alipay_id',
+      backType: 'back_type',
     };
   }
 
@@ -2031,6 +2042,7 @@ export class StubCommonInfo extends $tea.Model {
       stubAmount: 'number',
       customerId: 'string',
       sceneAlipayId: 'string',
+      backType: 'string',
     };
   }
 
@@ -2493,6 +2505,47 @@ export class SupplierLogisticInfo extends $tea.Model {
   }
 }
 
+// 人保扩展信息
+export class RenbaoExtInfo extends $tea.Model {
+  // 银行区域代码，可网上查询各银行最新对应的区域代码，比如杭州的区域代码为：3301
+  recBankAreaCode: string;
+  // 投保人收款账号
+  accountNo: string;
+  // 完整银行名称，不需要具体到分行
+  bankName: string;
+  // 投保人户名
+  accountName: string;
+  // 联行号
+  cnaps: string;
+  // 统一社会信用代码
+  identifyNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      recBankAreaCode: 'rec_bank_area_code',
+      accountNo: 'account_no',
+      bankName: 'bank_name',
+      accountName: 'account_name',
+      cnaps: 'cnaps',
+      identifyNo: 'identify_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      recBankAreaCode: 'string',
+      accountNo: 'string',
+      bankName: 'string',
+      accountName: 'string',
+      cnaps: 'string',
+      identifyNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 司法纠纷平台案件维权事件响应信息
 export class JudicialEventOperateInfo extends $tea.Model {
   // 响应类型:
@@ -2544,7 +2597,7 @@ export class ContractSignFlowConfig extends $tea.Model {
   noticeType: string;
   // 签署成功或者流程结束后的默认重定向地址，默认签署完成停在当前页面
   redirectUrl?: string;
-  // 签署平台，逗号分割，1-开放服务h5，2-支付宝签 ，默认值1
+  // 【该字段已废弃】签署平台，逗号分割，1-开放服务h5，2-支付宝签 ，默认值1
   signPlatform?: string;
   // 签署失败时的跳转地址，如果不做单独配置，默认与redirect_url一致（配合twc.notary.contract.signflow.create接口使用）
   redirectUrlOnFailure?: string;
@@ -3682,6 +3735,39 @@ export class ProductInfo extends $tea.Model {
   }
 }
 
+// 查询全流程存证证据详情查询的请求信息
+export class NotaryFlowDetailQueryReq extends $tea.Model {
+  // 全流程存证模板ID
+  templateId: string;
+  // 全流程存证流程id
+  flowId: string;
+  // 链上证据包对应的链上交易Hash
+  chainPackTxHash: string;
+  // 链上证据包授权码
+  authcode: string;
+  static names(): { [key: string]: string } {
+    return {
+      templateId: 'template_id',
+      flowId: 'flow_id',
+      chainPackTxHash: 'chain_pack_tx_hash',
+      authcode: 'authcode',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      templateId: 'string',
+      flowId: 'string',
+      chainPackTxHash: 'string',
+      authcode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 支付扣款详情
 export class PaymentDetail extends $tea.Model {
   // 业务自定义扣款id，长度不能超过64
@@ -3781,6 +3867,39 @@ export class ContractPlatformAccountApplication extends $tea.Model {
       mobile: 'string',
       name: 'string',
       userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 调解回款银行账户
+export class BankAccountInfo extends $tea.Model {
+  // 开户名称
+  accountName: string;
+  // 开户行
+  accountBank: string;
+  // 开户账号
+  accountNumber: string;
+  // 联系电话
+  accountPhone: string;
+  static names(): { [key: string]: string } {
+    return {
+      accountName: 'account_name',
+      accountBank: 'account_bank',
+      accountNumber: 'account_number',
+      accountPhone: 'account_phone',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accountName: 'string',
+      accountBank: 'string',
+      accountNumber: 'string',
+      accountPhone: 'string',
     };
   }
 
@@ -4473,6 +4592,35 @@ export class Identity extends $tea.Model {
       userType: 'string',
       agentCertType: 'string',
       legalPersonCertType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 调解沟通联系人
+export class ContactInfo extends $tea.Model {
+  // 联系人-姓名
+  contactName: string;
+  // 联系人-电话
+  contactPhone: string;
+  // 联系人-电子邮箱
+  contactEmail: string;
+  static names(): { [key: string]: string } {
+    return {
+      contactName: 'contact_name',
+      contactPhone: 'contact_phone',
+      contactEmail: 'contact_email',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      contactName: 'string',
+      contactPhone: 'string',
+      contactEmail: 'string',
     };
   }
 
@@ -15962,9 +16110,9 @@ export class CreateJusticeNormalcaseRequest extends $tea.Model {
   // 案由
   caseReason: string;
   // 业务类型
-  // 1- 租赁
-  // 2 - 金融
-  caseType: number;
+  // LEASE- 租赁
+  // HB_FINANCIAL - HB金融
+  caseType: string;
   // 外部业务ID
   externalBizId: string;
   // 业务描述,用于案件的补充描述; 没有则不填
@@ -15999,7 +16147,7 @@ export class CreateJusticeNormalcaseRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       caseReason: 'string',
-      caseType: 'number',
+      caseType: 'string',
       externalBizId: 'string',
       caseDesc: 'string',
       caseBizElementInfo: 'string',
@@ -16057,18 +16205,17 @@ export class CreateJusticeChaincaseRequest extends $tea.Model {
   // 案由
   caseReason: string;
   // 业务类型
-  // 1- 租赁
-  // 2 - 金融
-  caseType: number;
+  // LEASE- 租赁 
+  // HB_FINANCIAL - HB金融,其他不支持
+  caseType: string;
   // 外部业务ID
   externalBizId: string;
   // 业务描述,用于案件的补充描述; 没有则不填
   caseDesc?: string;
   // 当事人(申请人)ID, 案件填充信息返回
   partyId: number;
-  // 全流程存证信息, 内容为字符串;
-  // 格式: "全流程存证模板id:全流程存证id"
-  notaryFlowInfos: string[];
+  // 全流程存证信息
+  notaryFlowInfos: NotaryFlowDetailQueryReq[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16087,11 +16234,11 @@ export class CreateJusticeChaincaseRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       caseReason: 'string',
-      caseType: 'number',
+      caseType: 'string',
       externalBizId: 'string',
       caseDesc: 'string',
       partyId: 'number',
-      notaryFlowInfos: { 'type': 'array', 'itemType': 'string' },
+      notaryFlowInfos: { 'type': 'array', 'itemType': NotaryFlowDetailQueryReq },
     };
   }
 
@@ -16144,10 +16291,15 @@ export class StartJusticeCaseRequest extends $tea.Model {
   caseId: number;
   // 处置端租户ID
   isvTenantId: string;
-  // 处置方式, 5-司法调解
-  judicialBizType: number;
+  // 处置方式
+  // JUDICIAL_MEDIATION-司法调解
+  judicialBizType: string;
   // 司法调解基础参数, 当处置方式为5, 必填.
-  judiciallMediationParam?: JudicialMediationBaseParamInfo;
+  judicialMediationParam?: JudicialMediationBaseParamInfo;
+  // 调解沟通联系人(如果不传则使用租户维度的配置信息)
+  contactInfo?: ContactInfo;
+  // 调解回款银行账户(如果不传则使用租户维度的配置信息)
+  bankAccountInfo?: BankAccountInfo;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16155,7 +16307,9 @@ export class StartJusticeCaseRequest extends $tea.Model {
       caseId: 'case_id',
       isvTenantId: 'isv_tenant_id',
       judicialBizType: 'judicial_biz_type',
-      judiciallMediationParam: 'judiciall_mediation_param',
+      judicialMediationParam: 'judicial_mediation_param',
+      contactInfo: 'contact_info',
+      bankAccountInfo: 'bank_account_info',
     };
   }
 
@@ -16165,8 +16319,10 @@ export class StartJusticeCaseRequest extends $tea.Model {
       productInstanceId: 'string',
       caseId: 'number',
       isvTenantId: 'string',
-      judicialBizType: 'number',
-      judiciallMediationParam: JudicialMediationBaseParamInfo,
+      judicialBizType: 'string',
+      judicialMediationParam: JudicialMediationBaseParamInfo,
+      contactInfo: ContactInfo,
+      bankAccountInfo: BankAccountInfo,
     };
   }
 
@@ -16595,6 +16751,94 @@ export class GetJusticeFileuploadurlResponse extends $tea.Model {
       fileKey: 'string',
       uploadUrl: 'string',
       expiredTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateJusticeDocumenttemplateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文书模板id，如果不为空是修改
+  documentTemplateId?: string;
+  // 维权要素模板id
+  rightProtectTemplateId: string;
+  // 文书模板类型名称，如“仲裁申请书”、“调解协议书”、“起诉状”等
+  templateName: string;
+  // 文书生成格式类型，枚举
+  // NORMAL：普通文本，
+  // RICHTEXT：富文本，
+  // PDF：pdf格式文件
+  outputType: string;
+  // 传入的模板样式文件格式（目前只支持txt、doc）
+  // TXT：txt格式
+  // DOC：doc格式
+  inputType: string;
+  // 原始模板文件下载地址，如果inputType为DOC则必填
+  downloadUrl?: string;
+  // 模板数据内容，如果inputType为TXT则必填
+  textContent?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      documentTemplateId: 'document_template_id',
+      rightProtectTemplateId: 'right_protect_template_id',
+      templateName: 'template_name',
+      outputType: 'output_type',
+      inputType: 'input_type',
+      downloadUrl: 'download_url',
+      textContent: 'text_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      documentTemplateId: 'string',
+      rightProtectTemplateId: 'string',
+      templateName: 'string',
+      outputType: 'string',
+      inputType: 'string',
+      downloadUrl: 'string',
+      textContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateJusticeDocumenttemplateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文书模板ID，创建成功时返回
+  templateId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      templateId: 'template_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      templateId: 'string',
     };
   }
 
@@ -19108,6 +19352,89 @@ export class QueryLeaseInstallmentResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       responseData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelLeaseInsuranceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租赁订单id
+  orderId: string;
+  // 人保扩展信息，订单投保时的保司为人保时，此字段必填
+  renbaoExtInfo?: RenbaoExtInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      renbaoExtInfo: 'renbao_ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      renbaoExtInfo: RenbaoExtInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelLeaseInsuranceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 退保状态：CALCE_FAIL退保失败、CACEL_SUCCESS退保成功、CANCELING退保中
+  status?: string;
+  // 退保保单号
+  policyNo?: string;
+  // 是否为实收保单退保：ture实收退保，涉及实体账户退费；false未实收退保，不涉及账户退费；
+  repayFlag?: string;
+  // 退还保费，单位：分
+  srdPremium?: string;
+  // 结果码
+  code?: string;
+  // 结果描述
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      policyNo: 'policy_no',
+      repayFlag: 'repay_flag',
+      srdPremium: 'srd_premium',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      policyNo: 'string',
+      repayFlag: 'string',
+      srdPremium: 'string',
+      code: 'string',
+      message: 'string',
     };
   }
 
@@ -27161,6 +27488,8 @@ export class QueryStubResponse extends $tea.Model {
   phaseQueryResultList?: PhaseQueryResult[];
   // legal标URL，只有当入参needLegalLogo为true且响应status为FINISH时才会返回
   legalLogoUrl?: string;
+  // 数字纪念票背面URL，只有当创建数字票根时写入了backType字段且响应status为FINISH时才会返回
+  stubBackUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -27169,6 +27498,7 @@ export class QueryStubResponse extends $tea.Model {
       status: 'status',
       phaseQueryResultList: 'phase_query_result_list',
       legalLogoUrl: 'legal_logo_url',
+      stubBackUrl: 'stub_back_url',
     };
   }
 
@@ -27180,6 +27510,7 @@ export class QueryStubResponse extends $tea.Model {
       status: 'string',
       phaseQueryResultList: { 'type': 'array', 'itemType': PhaseQueryResult },
       legalLogoUrl: 'string',
+      stubBackUrl: 'string',
     };
   }
 
@@ -27954,7 +28285,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.75",
+          sdk_version: "1.7.86",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -30724,6 +31055,25 @@ export default class Client {
   }
 
   /**
+   * Description: 司法解纷平台API服务，创建文书要素模板接口
+   * Summary: 创建文书要素模板
+   */
+  async createJusticeDocumenttemplate(request: CreateJusticeDocumenttemplateRequest): Promise<CreateJusticeDocumenttemplateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createJusticeDocumenttemplateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 司法解纷平台API服务，创建文书要素模板接口
+   * Summary: 创建文书要素模板
+   */
+  async createJusticeDocumenttemplateEx(request: CreateJusticeDocumenttemplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateJusticeDocumenttemplateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateJusticeDocumenttemplateResponse>(await this.doRequest("1.0", "twc.notary.justice.documenttemplate.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateJusticeDocumenttemplateResponse({}));
+  }
+
+  /**
    * Description: 融资服务平台上传商品类别信息
    * Summary: 融资服务平台上传商品类别信息
    */
@@ -31291,6 +31641,25 @@ export default class Client {
   async queryLeaseInstallmentEx(request: QueryLeaseInstallmentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryLeaseInstallmentResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryLeaseInstallmentResponse>(await this.doRequest("1.0", "twc.notary.lease.installment.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryLeaseInstallmentResponse({}));
+  }
+
+  /**
+   * Description: 租赁保险退保接口
+   * Summary: 租赁保险退保
+   */
+  async cancelLeaseInsurance(request: CancelLeaseInsuranceRequest): Promise<CancelLeaseInsuranceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelLeaseInsuranceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁保险退保接口
+   * Summary: 租赁保险退保
+   */
+  async cancelLeaseInsuranceEx(request: CancelLeaseInsuranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelLeaseInsuranceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelLeaseInsuranceResponse>(await this.doRequest("1.0", "twc.notary.lease.insurance.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelLeaseInsuranceResponse({}));
   }
 
   /**
