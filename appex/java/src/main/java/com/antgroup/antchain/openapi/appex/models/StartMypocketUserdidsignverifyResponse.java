@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.appex.models;
 
 import com.aliyun.tea.*;
 
-public class BindMypocketKmsaccountResponse extends TeaModel {
+public class StartMypocketUserdidsignverifyResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,17 @@ public class BindMypocketKmsaccountResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static BindMypocketKmsaccountResponse build(java.util.Map<String, ?> map) throws Exception {
-        BindMypocketKmsaccountResponse self = new BindMypocketKmsaccountResponse();
+    // 	
+    // 签名是否合法
+    @NameInMap("is_valid")
+    public Boolean isValid;
+
+    public static StartMypocketUserdidsignverifyResponse build(java.util.Map<String, ?> map) throws Exception {
+        StartMypocketUserdidsignverifyResponse self = new StartMypocketUserdidsignverifyResponse();
         return TeaModel.build(map, self);
     }
 
-    public BindMypocketKmsaccountResponse setReqMsgId(String reqMsgId) {
+    public StartMypocketUserdidsignverifyResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +34,7 @@ public class BindMypocketKmsaccountResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public BindMypocketKmsaccountResponse setResultCode(String resultCode) {
+    public StartMypocketUserdidsignverifyResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,12 +42,20 @@ public class BindMypocketKmsaccountResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public BindMypocketKmsaccountResponse setResultMsg(String resultMsg) {
+    public StartMypocketUserdidsignverifyResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public StartMypocketUserdidsignverifyResponse setIsValid(Boolean isValid) {
+        this.isValid = isValid;
+        return this;
+    }
+    public Boolean getIsValid() {
+        return this.isValid;
     }
 
 }

@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.3")
+                    new TeaPair("sdk_version", "1.3.8"),
+                    new TeaPair("_prod_code", "APPEX"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -198,25 +200,6 @@ public class Client {
     }
 
     /**
-     * Description: 外部DApp应用绑定链账户至did
-     * Summary: 外部DApp应用绑定链账户至did
-     */
-    public BindMypocketKmsaccountResponse bindMypocketKmsaccount(BindMypocketKmsaccountRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.bindMypocketKmsaccountEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 外部DApp应用绑定链账户至did
-     * Summary: 外部DApp应用绑定链账户至did
-     */
-    public BindMypocketKmsaccountResponse bindMypocketKmsaccountEx(BindMypocketKmsaccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.mypocket.kmsaccount.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindMypocketKmsaccountResponse());
-    }
-
-    /**
      * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
      * Summary: 创建普通用户DID账户（支付宝UID）
      */
@@ -290,6 +273,44 @@ public class Client {
     public QueryMypocketEscrowchainaccountResponse queryMypocketEscrowchainaccountEx(QueryMypocketEscrowchainaccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.mypocket.escrowchainaccount.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMypocketEscrowchainaccountResponse());
+    }
+
+    /**
+     * Description: 验证app did签名
+     * Summary: app did验签接口
+     */
+    public StartMypocketAppdidsignverifyResponse startMypocketAppdidsignverify(StartMypocketAppdidsignverifyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startMypocketAppdidsignverifyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 验证app did签名
+     * Summary: app did验签接口
+     */
+    public StartMypocketAppdidsignverifyResponse startMypocketAppdidsignverifyEx(StartMypocketAppdidsignverifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.mypocket.appdidsignverify.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartMypocketAppdidsignverifyResponse());
+    }
+
+    /**
+     * Description: 验证user did签名
+     * Summary: 验证user did签名
+     */
+    public StartMypocketUserdidsignverifyResponse startMypocketUserdidsignverify(StartMypocketUserdidsignverifyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startMypocketUserdidsignverifyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 验证user did签名
+     * Summary: 验证user did签名
+     */
+    public StartMypocketUserdidsignverifyResponse startMypocketUserdidsignverifyEx(StartMypocketUserdidsignverifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.appex.mypocket.userdidsignverify.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartMypocketUserdidsignverifyResponse());
     }
 
     /**
