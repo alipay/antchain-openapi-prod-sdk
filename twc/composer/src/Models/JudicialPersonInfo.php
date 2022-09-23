@@ -71,6 +71,22 @@ class JudicialPersonInfo extends Model
      * @var JudicialFileInfo
      */
     public $jobCertification;
+
+    // 性别， 0-男，1-女
+    /**
+     * @example 0
+     *
+     * @var int
+     */
+    public $sex;
+
+    // 联系邮件地址
+    /**
+     * @example email@ali.com
+     *
+     * @var string
+     */
+    public $email;
     protected $_name = [
         'name'                  => 'name',
         'certNumber'            => 'cert_number',
@@ -80,6 +96,8 @@ class JudicialPersonInfo extends Model
         'identityCertification' => 'identity_certification',
         'jobTitle'              => 'job_title',
         'jobCertification'      => 'job_certification',
+        'sex'                   => 'sex',
+        'email'                 => 'email',
     ];
 
     public function validate()
@@ -113,6 +131,12 @@ class JudicialPersonInfo extends Model
         }
         if (null !== $this->jobCertification) {
             $res['job_certification'] = null !== $this->jobCertification ? $this->jobCertification->toMap() : null;
+        }
+        if (null !== $this->sex) {
+            $res['sex'] = $this->sex;
+        }
+        if (null !== $this->email) {
+            $res['email'] = $this->email;
         }
 
         return $res;
@@ -149,6 +173,12 @@ class JudicialPersonInfo extends Model
         }
         if (isset($map['job_certification'])) {
             $model->jobCertification = JudicialFileInfo::fromMap($map['job_certification']);
+        }
+        if (isset($map['sex'])) {
+            $model->sex = $map['sex'];
+        }
+        if (isset($map['email'])) {
+            $model->email = $map['email'];
         }
 
         return $model;

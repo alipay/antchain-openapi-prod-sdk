@@ -95,6 +95,14 @@ class StubCommonInfo extends Model
      * @var string
      */
     public $sceneAlipayId;
+
+    // 数字票根背面业务类型，如 IMAGE（背面上传照片业务）、IMAGEANDAR（背面上传照片和AR孔明灯业务）
+    /**
+     * @example IMAGE
+     *
+     * @var string
+     */
+    public $backType;
     protected $_name = [
         'projectName'   => 'project_name',
         'sceneName'     => 'scene_name',
@@ -107,6 +115,7 @@ class StubCommonInfo extends Model
         'stubAmount'    => 'stub_amount',
         'customerId'    => 'customer_id',
         'sceneAlipayId' => 'scene_alipay_id',
+        'backType'      => 'back_type',
     ];
 
     public function validate()
@@ -159,6 +168,9 @@ class StubCommonInfo extends Model
         if (null !== $this->sceneAlipayId) {
             $res['scene_alipay_id'] = $this->sceneAlipayId;
         }
+        if (null !== $this->backType) {
+            $res['back_type'] = $this->backType;
+        }
 
         return $res;
     }
@@ -203,6 +215,9 @@ class StubCommonInfo extends Model
         }
         if (isset($map['scene_alipay_id'])) {
             $model->sceneAlipayId = $map['scene_alipay_id'];
+        }
+        if (isset($map['back_type'])) {
+            $model->backType = $map['back_type'];
         }
 
         return $model;

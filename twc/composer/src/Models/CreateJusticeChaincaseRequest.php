@@ -26,10 +26,10 @@ class CreateJusticeChaincaseRequest extends Model
     public $caseReason;
 
     // 业务类型
-    // 1- 租赁
-    // 2 - 金融
+    // LEASE- 租赁
+    // HB_FINANCIAL - HB金融,其他不支持
     /**
-     * @var int
+     * @var string
      */
     public $caseType;
 
@@ -51,10 +51,9 @@ class CreateJusticeChaincaseRequest extends Model
      */
     public $partyId;
 
-    // 全流程存证信息, 内容为字符串;
-    // 格式: "全流程存证模板id:全流程存证id"
+    // 全流程存证信息
     /**
-     * @var string[]
+     * @var NotaryFlowDetailQueryReq[]
      */
     public $notaryFlowInfos;
     protected $_name = [
@@ -102,7 +101,13 @@ class CreateJusticeChaincaseRequest extends Model
             $res['party_id'] = $this->partyId;
         }
         if (null !== $this->notaryFlowInfos) {
-            $res['notary_flow_infos'] = $this->notaryFlowInfos;
+            $res['notary_flow_infos'] = [];
+            if (null !== $this->notaryFlowInfos && \is_array($this->notaryFlowInfos)) {
+                $n = 0;
+                foreach ($this->notaryFlowInfos as $item) {
+                    $res['notary_flow_infos'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -139,7 +144,11 @@ class CreateJusticeChaincaseRequest extends Model
         }
         if (isset($map['notary_flow_infos'])) {
             if (!empty($map['notary_flow_infos'])) {
-                $model->notaryFlowInfos = $map['notary_flow_infos'];
+                $model->notaryFlowInfos = [];
+                $n                      = 0;
+                foreach ($map['notary_flow_infos'] as $item) {
+                    $model->notaryFlowInfos[$n++] = null !== $item ? NotaryFlowDetailQueryReq::fromMap($item) : $item;
+                }
             }
         }
 

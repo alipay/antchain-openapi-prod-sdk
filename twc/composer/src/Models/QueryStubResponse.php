@@ -43,6 +43,12 @@ class QueryStubResponse extends Model
      * @var string
      */
     public $legalLogoUrl;
+
+    // 数字纪念票背面URL，只有当创建数字票根时写入了backType字段且响应status为FINISH时才会返回
+    /**
+     * @var string
+     */
+    public $stubBackUrl;
     protected $_name = [
         'reqMsgId'             => 'req_msg_id',
         'resultCode'           => 'result_code',
@@ -50,6 +56,7 @@ class QueryStubResponse extends Model
         'status'               => 'status',
         'phaseQueryResultList' => 'phase_query_result_list',
         'legalLogoUrl'         => 'legal_logo_url',
+        'stubBackUrl'          => 'stub_back_url',
     ];
 
     public function validate()
@@ -82,6 +89,9 @@ class QueryStubResponse extends Model
         }
         if (null !== $this->legalLogoUrl) {
             $res['legal_logo_url'] = $this->legalLogoUrl;
+        }
+        if (null !== $this->stubBackUrl) {
+            $res['stub_back_url'] = $this->stubBackUrl;
         }
 
         return $res;
@@ -118,6 +128,9 @@ class QueryStubResponse extends Model
         }
         if (isset($map['legal_logo_url'])) {
             $model->legalLogoUrl = $map['legal_logo_url'];
+        }
+        if (isset($map['stub_back_url'])) {
+            $model->stubBackUrl = $map['stub_back_url'];
         }
 
         return $model;

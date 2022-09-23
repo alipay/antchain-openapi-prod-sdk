@@ -31,9 +31,10 @@ class StartJusticeCaseRequest extends Model
      */
     public $isvTenantId;
 
-    // 处置方式, 5-司法调解
+    // 处置方式
+    // JUDICIAL_MEDIATION-司法调解
     /**
-     * @var int
+     * @var string
      */
     public $judicialBizType;
 
@@ -41,14 +42,28 @@ class StartJusticeCaseRequest extends Model
     /**
      * @var JudicialMediationBaseParamInfo
      */
-    public $judiciallMediationParam;
+    public $judicialMediationParam;
+
+    // 调解沟通联系人(如果不传则使用租户维度的配置信息)
+    /**
+     * @var ContactInfo
+     */
+    public $contactInfo;
+
+    // 调解回款银行账户(如果不传则使用租户维度的配置信息)
+    /**
+     * @var BankAccountInfo
+     */
+    public $bankAccountInfo;
     protected $_name = [
-        'authToken'               => 'auth_token',
-        'productInstanceId'       => 'product_instance_id',
-        'caseId'                  => 'case_id',
-        'isvTenantId'             => 'isv_tenant_id',
-        'judicialBizType'         => 'judicial_biz_type',
-        'judiciallMediationParam' => 'judiciall_mediation_param',
+        'authToken'              => 'auth_token',
+        'productInstanceId'      => 'product_instance_id',
+        'caseId'                 => 'case_id',
+        'isvTenantId'            => 'isv_tenant_id',
+        'judicialBizType'        => 'judicial_biz_type',
+        'judicialMediationParam' => 'judicial_mediation_param',
+        'contactInfo'            => 'contact_info',
+        'bankAccountInfo'        => 'bank_account_info',
     ];
 
     public function validate()
@@ -76,8 +91,14 @@ class StartJusticeCaseRequest extends Model
         if (null !== $this->judicialBizType) {
             $res['judicial_biz_type'] = $this->judicialBizType;
         }
-        if (null !== $this->judiciallMediationParam) {
-            $res['judiciall_mediation_param'] = null !== $this->judiciallMediationParam ? $this->judiciallMediationParam->toMap() : null;
+        if (null !== $this->judicialMediationParam) {
+            $res['judicial_mediation_param'] = null !== $this->judicialMediationParam ? $this->judicialMediationParam->toMap() : null;
+        }
+        if (null !== $this->contactInfo) {
+            $res['contact_info'] = null !== $this->contactInfo ? $this->contactInfo->toMap() : null;
+        }
+        if (null !== $this->bankAccountInfo) {
+            $res['bank_account_info'] = null !== $this->bankAccountInfo ? $this->bankAccountInfo->toMap() : null;
         }
 
         return $res;
@@ -106,8 +127,14 @@ class StartJusticeCaseRequest extends Model
         if (isset($map['judicial_biz_type'])) {
             $model->judicialBizType = $map['judicial_biz_type'];
         }
-        if (isset($map['judiciall_mediation_param'])) {
-            $model->judiciallMediationParam = JudicialMediationBaseParamInfo::fromMap($map['judiciall_mediation_param']);
+        if (isset($map['judicial_mediation_param'])) {
+            $model->judicialMediationParam = JudicialMediationBaseParamInfo::fromMap($map['judicial_mediation_param']);
+        }
+        if (isset($map['contact_info'])) {
+            $model->contactInfo = ContactInfo::fromMap($map['contact_info']);
+        }
+        if (isset($map['bank_account_info'])) {
+            $model->bankAccountInfo = BankAccountInfo::fromMap($map['bank_account_info']);
         }
 
         return $model;

@@ -26,10 +26,10 @@ class CreateJusticeNormalcaseRequest extends Model
     public $caseReason;
 
     // 业务类型
-    // 1- 租赁
-    // 2 - 金融
+    // LEASE- 租赁
+    // HB_FINANCIAL - HB金融
     /**
-     * @var int
+     * @var string
      */
     public $caseType;
 

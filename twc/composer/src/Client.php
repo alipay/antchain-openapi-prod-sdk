@@ -55,6 +55,8 @@ use AntChain\TWC\Models\CancelContractPaysingletradeRequest;
 use AntChain\TWC\Models\CancelContractPaysingletradeResponse;
 use AntChain\TWC\Models\CancelContractPaytradeRequest;
 use AntChain\TWC\Models\CancelContractPaytradeResponse;
+use AntChain\TWC\Models\CancelLeaseInsuranceRequest;
+use AntChain\TWC\Models\CancelLeaseInsuranceResponse;
 use AntChain\TWC\Models\CertifyEnterpriseFaceauthRequest;
 use AntChain\TWC\Models\CertifyEnterpriseFaceauthResponse;
 use AntChain\TWC\Models\CertifyIdentificationFaceauthRequest;
@@ -161,6 +163,8 @@ use AntChain\TWC\Models\CreateJusticeCasewritebackRequest;
 use AntChain\TWC\Models\CreateJusticeCasewritebackResponse;
 use AntChain\TWC\Models\CreateJusticeChaincaseRequest;
 use AntChain\TWC\Models\CreateJusticeChaincaseResponse;
+use AntChain\TWC\Models\CreateJusticeDocumenttemplateRequest;
+use AntChain\TWC\Models\CreateJusticeDocumenttemplateResponse;
 use AntChain\TWC\Models\CreateJusticeNormalcaseRequest;
 use AntChain\TWC\Models\CreateJusticeNormalcaseResponse;
 use AntChain\TWC\Models\CreateJusticeRightprotecttemplateRequest;
@@ -698,7 +702,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.75',
+                    'sdk_version'      => '1.7.86',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5470,6 +5474,39 @@ class Client
     }
 
     /**
+     * Description: 司法解纷平台API服务，创建文书要素模板接口
+     * Summary: 创建文书要素模板
+     *
+     * @param CreateJusticeDocumenttemplateRequest $request
+     *
+     * @return CreateJusticeDocumenttemplateResponse
+     */
+    public function createJusticeDocumenttemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createJusticeDocumenttemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 司法解纷平台API服务，创建文书要素模板接口
+     * Summary: 创建文书要素模板
+     *
+     * @param CreateJusticeDocumenttemplateRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CreateJusticeDocumenttemplateResponse
+     */
+    public function createJusticeDocumenttemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateJusticeDocumenttemplateResponse::fromMap($this->doRequest('1.0', 'twc.notary.justice.documenttemplate.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 融资服务平台上传商品类别信息
      * Summary: 融资服务平台上传商品类别信息.
      *
@@ -6457,6 +6494,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryLeaseInstallmentResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.installment.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租赁保险退保接口
+     * Summary: 租赁保险退保.
+     *
+     * @param CancelLeaseInsuranceRequest $request
+     *
+     * @return CancelLeaseInsuranceResponse
+     */
+    public function cancelLeaseInsurance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelLeaseInsuranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租赁保险退保接口
+     * Summary: 租赁保险退保.
+     *
+     * @param CancelLeaseInsuranceRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CancelLeaseInsuranceResponse
+     */
+    public function cancelLeaseInsuranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelLeaseInsuranceResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.insurance.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
