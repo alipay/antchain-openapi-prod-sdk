@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.75"),
+                    new TeaPair("sdk_version", "1.7.86"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2883,6 +2883,25 @@ public class Client {
     }
 
     /**
+     * Description: 司法解纷平台API服务，创建文书要素模板接口
+     * Summary: 创建文书要素模板
+     */
+    public CreateJusticeDocumenttemplateResponse createJusticeDocumenttemplate(CreateJusticeDocumenttemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createJusticeDocumenttemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 司法解纷平台API服务，创建文书要素模板接口
+     * Summary: 创建文书要素模板
+     */
+    public CreateJusticeDocumenttemplateResponse createJusticeDocumenttemplateEx(CreateJusticeDocumenttemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.justice.documenttemplate.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateJusticeDocumenttemplateResponse());
+    }
+
+    /**
      * Description: 融资服务平台上传商品类别信息
      * Summary: 融资服务平台上传商品类别信息
      */
@@ -3450,6 +3469,25 @@ public class Client {
     public QueryLeaseInstallmentResponse queryLeaseInstallmentEx(QueryLeaseInstallmentRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.installment.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLeaseInstallmentResponse());
+    }
+
+    /**
+     * Description: 租赁保险退保接口
+     * Summary: 租赁保险退保
+     */
+    public CancelLeaseInsuranceResponse cancelLeaseInsurance(CancelLeaseInsuranceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelLeaseInsuranceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 租赁保险退保接口
+     * Summary: 租赁保险退保
+     */
+    public CancelLeaseInsuranceResponse cancelLeaseInsuranceEx(CancelLeaseInsuranceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.insurance.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelLeaseInsuranceResponse());
     }
 
     /**

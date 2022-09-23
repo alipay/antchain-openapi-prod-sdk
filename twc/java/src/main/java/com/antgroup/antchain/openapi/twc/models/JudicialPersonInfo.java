@@ -37,6 +37,14 @@ public class JudicialPersonInfo extends TeaModel {
     @NameInMap("job_certification")
     public JudicialFileInfo jobCertification;
 
+    // 性别， 0-男，1-女
+    @NameInMap("sex")
+    public Long sex;
+
+    // 联系邮件地址
+    @NameInMap("email")
+    public String email;
+
     public static JudicialPersonInfo build(java.util.Map<String, ?> map) throws Exception {
         JudicialPersonInfo self = new JudicialPersonInfo();
         return TeaModel.build(map, self);
@@ -104,6 +112,22 @@ public class JudicialPersonInfo extends TeaModel {
     }
     public JudicialFileInfo getJobCertification() {
         return this.jobCertification;
+    }
+
+    public JudicialPersonInfo setSex(Long sex) {
+        this.sex = sex;
+        return this;
+    }
+    public Long getSex() {
+        return this.sex;
+    }
+
+    public JudicialPersonInfo setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+    public String getEmail() {
+        return this.email;
     }
 
 }

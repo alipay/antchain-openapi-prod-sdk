@@ -17,11 +17,11 @@ public class CreateJusticeNormalcaseRequest extends TeaModel {
     public String caseReason;
 
     // 业务类型
-    // 1- 租赁
-    // 2 - 金融
+    // LEASE- 租赁
+    // HB_FINANCIAL - HB金融
     @NameInMap("case_type")
     @Validation(required = true)
-    public Long caseType;
+    public String caseType;
 
     // 外部业务ID
     @NameInMap("external_biz_id")
@@ -82,11 +82,11 @@ public class CreateJusticeNormalcaseRequest extends TeaModel {
         return this.caseReason;
     }
 
-    public CreateJusticeNormalcaseRequest setCaseType(Long caseType) {
+    public CreateJusticeNormalcaseRequest setCaseType(String caseType) {
         this.caseType = caseType;
         return this;
     }
-    public Long getCaseType() {
+    public String getCaseType() {
         return this.caseType;
     }
 

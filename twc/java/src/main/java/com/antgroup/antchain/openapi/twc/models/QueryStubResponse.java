@@ -28,6 +28,10 @@ public class QueryStubResponse extends TeaModel {
     @NameInMap("legal_logo_url")
     public String legalLogoUrl;
 
+    // 数字纪念票背面URL，只有当创建数字票根时写入了backType字段且响应status为FINISH时才会返回
+    @NameInMap("stub_back_url")
+    public String stubBackUrl;
+
     public static QueryStubResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryStubResponse self = new QueryStubResponse();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class QueryStubResponse extends TeaModel {
     }
     public String getLegalLogoUrl() {
         return this.legalLogoUrl;
+    }
+
+    public QueryStubResponse setStubBackUrl(String stubBackUrl) {
+        this.stubBackUrl = stubBackUrl;
+        return this;
+    }
+    public String getStubBackUrl() {
+        return this.stubBackUrl;
     }
 
 }

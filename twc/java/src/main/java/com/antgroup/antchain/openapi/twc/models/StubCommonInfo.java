@@ -57,6 +57,10 @@ public class StubCommonInfo extends TeaModel {
     @NameInMap("scene_alipay_id")
     public String sceneAlipayId;
 
+    // 数字票根背面业务类型，如 IMAGE（背面上传照片业务）、IMAGEANDAR（背面上传照片和AR孔明灯业务）
+    @NameInMap("back_type")
+    public String backType;
+
     public static StubCommonInfo build(java.util.Map<String, ?> map) throws Exception {
         StubCommonInfo self = new StubCommonInfo();
         return TeaModel.build(map, self);
@@ -148,6 +152,14 @@ public class StubCommonInfo extends TeaModel {
     }
     public String getSceneAlipayId() {
         return this.sceneAlipayId;
+    }
+
+    public StubCommonInfo setBackType(String backType) {
+        this.backType = backType;
+        return this;
+    }
+    public String getBackType() {
+        return this.backType;
     }
 
 }

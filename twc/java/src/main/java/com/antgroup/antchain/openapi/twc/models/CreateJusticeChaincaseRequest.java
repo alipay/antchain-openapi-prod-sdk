@@ -17,11 +17,11 @@ public class CreateJusticeChaincaseRequest extends TeaModel {
     public String caseReason;
 
     // 业务类型
-    // 1- 租赁
-    // 2 - 金融
+    // LEASE- 租赁 
+    // HB_FINANCIAL - HB金融,其他不支持
     @NameInMap("case_type")
     @Validation(required = true)
-    public Long caseType;
+    public String caseType;
 
     // 外部业务ID
     @NameInMap("external_biz_id")
@@ -37,11 +37,10 @@ public class CreateJusticeChaincaseRequest extends TeaModel {
     @Validation(required = true)
     public Long partyId;
 
-    // 全流程存证信息, 内容为字符串;
-    // 格式: "全流程存证模板id:全流程存证id"
+    // 全流程存证信息
     @NameInMap("notary_flow_infos")
     @Validation(required = true)
-    public java.util.List<String> notaryFlowInfos;
+    public java.util.List<NotaryFlowDetailQueryReq> notaryFlowInfos;
 
     public static CreateJusticeChaincaseRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateJusticeChaincaseRequest self = new CreateJusticeChaincaseRequest();
@@ -72,11 +71,11 @@ public class CreateJusticeChaincaseRequest extends TeaModel {
         return this.caseReason;
     }
 
-    public CreateJusticeChaincaseRequest setCaseType(Long caseType) {
+    public CreateJusticeChaincaseRequest setCaseType(String caseType) {
         this.caseType = caseType;
         return this;
     }
-    public Long getCaseType() {
+    public String getCaseType() {
         return this.caseType;
     }
 
@@ -104,11 +103,11 @@ public class CreateJusticeChaincaseRequest extends TeaModel {
         return this.partyId;
     }
 
-    public CreateJusticeChaincaseRequest setNotaryFlowInfos(java.util.List<String> notaryFlowInfos) {
+    public CreateJusticeChaincaseRequest setNotaryFlowInfos(java.util.List<NotaryFlowDetailQueryReq> notaryFlowInfos) {
         this.notaryFlowInfos = notaryFlowInfos;
         return this;
     }
-    public java.util.List<String> getNotaryFlowInfos() {
+    public java.util.List<NotaryFlowDetailQueryReq> getNotaryFlowInfos() {
         return this.notaryFlowInfos;
     }
 

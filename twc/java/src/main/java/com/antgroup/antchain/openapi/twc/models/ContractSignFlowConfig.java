@@ -17,7 +17,7 @@ public class ContractSignFlowConfig extends TeaModel {
     @NameInMap("redirect_url")
     public String redirectUrl;
 
-    // 签署平台，逗号分割，1-开放服务h5，2-支付宝签 ，默认值1
+    // 【该字段已废弃】签署平台，逗号分割，1-开放服务h5，2-支付宝签 ，默认值1
     @NameInMap("sign_platform")
     public String signPlatform;
 
