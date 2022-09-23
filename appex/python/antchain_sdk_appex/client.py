@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.3'
+                    'sdk_version': '1.3.8',
+                    '_prod_code': 'APPEX',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.3'
+                    'sdk_version': '1.3.8',
+                    '_prod_code': 'APPEX',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -381,62 +385,6 @@ class Client:
         return TeaCore.from_map(
             appex_models.QueryMypocketChainaccountResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.mypocket.chainaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def bind_mypocket_kmsaccount(
-        self,
-        request: appex_models.BindMypocketKmsaccountRequest,
-    ) -> appex_models.BindMypocketKmsaccountResponse:
-        """
-        Description: 外部DApp应用绑定链账户至did
-        Summary: 外部DApp应用绑定链账户至did
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.bind_mypocket_kmsaccount_ex(request, headers, runtime)
-
-    async def bind_mypocket_kmsaccount_async(
-        self,
-        request: appex_models.BindMypocketKmsaccountRequest,
-    ) -> appex_models.BindMypocketKmsaccountResponse:
-        """
-        Description: 外部DApp应用绑定链账户至did
-        Summary: 外部DApp应用绑定链账户至did
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.bind_mypocket_kmsaccount_ex_async(request, headers, runtime)
-
-    def bind_mypocket_kmsaccount_ex(
-        self,
-        request: appex_models.BindMypocketKmsaccountRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> appex_models.BindMypocketKmsaccountResponse:
-        """
-        Description: 外部DApp应用绑定链账户至did
-        Summary: 外部DApp应用绑定链账户至did
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            appex_models.BindMypocketKmsaccountResponse(),
-            self.do_request('1.0', 'blockchain.appex.mypocket.kmsaccount.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def bind_mypocket_kmsaccount_ex_async(
-        self,
-        request: appex_models.BindMypocketKmsaccountRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> appex_models.BindMypocketKmsaccountResponse:
-        """
-        Description: 外部DApp应用绑定链账户至did
-        Summary: 外部DApp应用绑定链账户至did
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            appex_models.BindMypocketKmsaccountResponse(),
-            await self.do_request_async('1.0', 'blockchain.appex.mypocket.kmsaccount.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_mypocket_didaccountbyalipay(
@@ -661,6 +609,118 @@ class Client:
         return TeaCore.from_map(
             appex_models.QueryMypocketEscrowchainaccountResponse(),
             await self.do_request_async('1.0', 'blockchain.appex.mypocket.escrowchainaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_mypocket_appdidsignverify(
+        self,
+        request: appex_models.StartMypocketAppdidsignverifyRequest,
+    ) -> appex_models.StartMypocketAppdidsignverifyResponse:
+        """
+        Description: 验证app did签名
+        Summary: app did验签接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_mypocket_appdidsignverify_ex(request, headers, runtime)
+
+    async def start_mypocket_appdidsignverify_async(
+        self,
+        request: appex_models.StartMypocketAppdidsignverifyRequest,
+    ) -> appex_models.StartMypocketAppdidsignverifyResponse:
+        """
+        Description: 验证app did签名
+        Summary: app did验签接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_mypocket_appdidsignverify_ex_async(request, headers, runtime)
+
+    def start_mypocket_appdidsignverify_ex(
+        self,
+        request: appex_models.StartMypocketAppdidsignverifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.StartMypocketAppdidsignverifyResponse:
+        """
+        Description: 验证app did签名
+        Summary: app did验签接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.StartMypocketAppdidsignverifyResponse(),
+            self.do_request('1.0', 'blockchain.appex.mypocket.appdidsignverify.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_mypocket_appdidsignverify_ex_async(
+        self,
+        request: appex_models.StartMypocketAppdidsignverifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.StartMypocketAppdidsignverifyResponse:
+        """
+        Description: 验证app did签名
+        Summary: app did验签接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.StartMypocketAppdidsignverifyResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.mypocket.appdidsignverify.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_mypocket_userdidsignverify(
+        self,
+        request: appex_models.StartMypocketUserdidsignverifyRequest,
+    ) -> appex_models.StartMypocketUserdidsignverifyResponse:
+        """
+        Description: 验证user did签名
+        Summary: 验证user did签名
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_mypocket_userdidsignverify_ex(request, headers, runtime)
+
+    async def start_mypocket_userdidsignverify_async(
+        self,
+        request: appex_models.StartMypocketUserdidsignverifyRequest,
+    ) -> appex_models.StartMypocketUserdidsignverifyResponse:
+        """
+        Description: 验证user did签名
+        Summary: 验证user did签名
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_mypocket_userdidsignverify_ex_async(request, headers, runtime)
+
+    def start_mypocket_userdidsignverify_ex(
+        self,
+        request: appex_models.StartMypocketUserdidsignverifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.StartMypocketUserdidsignverifyResponse:
+        """
+        Description: 验证user did签名
+        Summary: 验证user did签名
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.StartMypocketUserdidsignverifyResponse(),
+            self.do_request('1.0', 'blockchain.appex.mypocket.userdidsignverify.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_mypocket_userdidsignverify_ex_async(
+        self,
+        request: appex_models.StartMypocketUserdidsignverifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> appex_models.StartMypocketUserdidsignverifyResponse:
+        """
+        Description: 验证user did签名
+        Summary: 验证user did签名
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            appex_models.StartMypocketUserdidsignverifyResponse(),
+            await self.do_request_async('1.0', 'blockchain.appex.mypocket.userdidsignverify.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_user_did(

@@ -885,113 +885,6 @@ class QueryMypocketChainaccountResponse(TeaModel):
         return self
 
 
-class BindMypocketKmsaccountRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        did: str = None,
-        chain_id: str = None,
-        chain_account: str = None,
-        kms_id: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 用户的DID
-        self.did = did
-        # 区块链ID
-        self.chain_id = chain_id
-        # 用户的链上账户
-        self.chain_account = chain_account
-        # 该链账户在BaaS服务的KMS ID
-        self.kms_id = kms_id
-
-    def validate(self):
-        self.validate_required(self.did, 'did')
-        self.validate_required(self.chain_id, 'chain_id')
-        self.validate_required(self.chain_account, 'chain_account')
-        self.validate_required(self.kms_id, 'kms_id')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.did is not None:
-            result['did'] = self.did
-        if self.chain_id is not None:
-            result['chain_id'] = self.chain_id
-        if self.chain_account is not None:
-            result['chain_account'] = self.chain_account
-        if self.kms_id is not None:
-            result['kms_id'] = self.kms_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('did') is not None:
-            self.did = m.get('did')
-        if m.get('chain_id') is not None:
-            self.chain_id = m.get('chain_id')
-        if m.get('chain_account') is not None:
-            self.chain_account = m.get('chain_account')
-        if m.get('kms_id') is not None:
-            self.kms_id = m.get('kms_id')
-        return self
-
-
-class BindMypocketKmsaccountResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        return self
-
-
 class CreateMypocketDidaccountbyalipayRequest(TeaModel):
     def __init__(
         self,
@@ -1380,6 +1273,235 @@ class QueryMypocketEscrowchainaccountResponse(TeaModel):
             for k in m.get('chain_accounts'):
                 temp_model = AccountEntry()
                 self.chain_accounts.append(temp_model.from_map(k))
+        return self
+
+
+class StartMypocketAppdidsignverifyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        did_sign: str = None,
+        payload: str = None,
+        dapp_id: str = None,
+        timestamp: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 签名
+        self.did_sign = did_sign
+        # 签名原文
+        self.payload = payload
+        # 分配的dapp id，uuid v4格式
+        self.dapp_id = dapp_id
+        # epoch时间，毫秒
+        self.timestamp = timestamp
+
+    def validate(self):
+        self.validate_required(self.did_sign, 'did_sign')
+        self.validate_required(self.payload, 'payload')
+        self.validate_required(self.dapp_id, 'dapp_id')
+        self.validate_required(self.timestamp, 'timestamp')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.did_sign is not None:
+            result['did_sign'] = self.did_sign
+        if self.payload is not None:
+            result['payload'] = self.payload
+        if self.dapp_id is not None:
+            result['dapp_id'] = self.dapp_id
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('did_sign') is not None:
+            self.did_sign = m.get('did_sign')
+        if m.get('payload') is not None:
+            self.payload = m.get('payload')
+        if m.get('dapp_id') is not None:
+            self.dapp_id = m.get('dapp_id')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
+class StartMypocketAppdidsignverifyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        is_valid: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 签名是否合法
+        self.is_valid = is_valid
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.is_valid is not None:
+            result['is_valid'] = self.is_valid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('is_valid') is not None:
+            self.is_valid = m.get('is_valid')
+        return self
+
+
+class StartMypocketUserdidsignverifyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        did_sign: str = None,
+        payload: str = None,
+        user_did: str = None,
+        timestamp: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 签名
+        self.did_sign = did_sign
+        # 签名原文
+        self.payload = payload
+        # mychain did信息
+        self.user_did = user_did
+        # epoch时间，毫秒
+        self.timestamp = timestamp
+
+    def validate(self):
+        self.validate_required(self.did_sign, 'did_sign')
+        self.validate_required(self.payload, 'payload')
+        self.validate_required(self.user_did, 'user_did')
+        self.validate_required(self.timestamp, 'timestamp')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.did_sign is not None:
+            result['did_sign'] = self.did_sign
+        if self.payload is not None:
+            result['payload'] = self.payload
+        if self.user_did is not None:
+            result['user_did'] = self.user_did
+        if self.timestamp is not None:
+            result['timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('did_sign') is not None:
+            self.did_sign = m.get('did_sign')
+        if m.get('payload') is not None:
+            self.payload = m.get('payload')
+        if m.get('user_did') is not None:
+            self.user_did = m.get('user_did')
+        if m.get('timestamp') is not None:
+            self.timestamp = m.get('timestamp')
+        return self
+
+
+class StartMypocketUserdidsignverifyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        is_valid: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 
+        # 签名是否合法
+        self.is_valid = is_valid
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.is_valid is not None:
+            result['is_valid'] = self.is_valid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('is_valid') is not None:
+            self.is_valid = m.get('is_valid')
         return self
 
 
