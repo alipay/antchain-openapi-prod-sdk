@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.APPEX.Models
 {
-    public class BindMypocketKmsaccountRequest : TeaModel {
+    public class StartMypocketUserdidsignverifyRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,25 @@ namespace AntChain.SDK.APPEX.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 用户的DID
-        [NameInMap("did")]
+        // 签名
+        [NameInMap("did_sign")]
         [Validation(Required=true)]
-        public string Did { get; set; }
+        public string DidSign { get; set; }
 
-        // 区块链ID
-        [NameInMap("chain_id")]
+        // 签名原文
+        [NameInMap("payload")]
         [Validation(Required=true)]
-        public string ChainId { get; set; }
+        public string Payload { get; set; }
 
-        // 用户的链上账户
-        [NameInMap("chain_account")]
+        // mychain did信息
+        [NameInMap("user_did")]
         [Validation(Required=true)]
-        public string ChainAccount { get; set; }
+        public string UserDid { get; set; }
 
-        // 该链账户在BaaS服务的KMS ID 
-        [NameInMap("kms_id")]
+        // epoch时间，毫秒
+        [NameInMap("timestamp")]
         [Validation(Required=true)]
-        public string KmsId { get; set; }
+        public long? Timestamp { get; set; }
 
     }
 

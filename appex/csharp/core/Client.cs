@@ -137,7 +137,9 @@ namespace AntChain.SDK.APPEX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.3"},
+                        {"sdk_version", "1.3.8"},
+                        {"_prod_code", "APPEX"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.APPEX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.3"},
+                        {"sdk_version", "1.3.8"},
+                        {"_prod_code", "APPEX"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -399,48 +403,6 @@ namespace AntChain.SDK.APPEX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryMypocketChainaccountResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.chainaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 外部DApp应用绑定链账户至did
-         * Summary: 外部DApp应用绑定链账户至did
-         */
-        public BindMypocketKmsaccountResponse BindMypocketKmsaccount(BindMypocketKmsaccountRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return BindMypocketKmsaccountEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 外部DApp应用绑定链账户至did
-         * Summary: 外部DApp应用绑定链账户至did
-         */
-        public async Task<BindMypocketKmsaccountResponse> BindMypocketKmsaccountAsync(BindMypocketKmsaccountRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await BindMypocketKmsaccountExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 外部DApp应用绑定链账户至did
-         * Summary: 外部DApp应用绑定链账户至did
-         */
-        public BindMypocketKmsaccountResponse BindMypocketKmsaccountEx(BindMypocketKmsaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<BindMypocketKmsaccountResponse>(DoRequest("1.0", "blockchain.appex.mypocket.kmsaccount.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 外部DApp应用绑定链账户至did
-         * Summary: 外部DApp应用绑定链账户至did
-         */
-        public async Task<BindMypocketKmsaccountResponse> BindMypocketKmsaccountExAsync(BindMypocketKmsaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<BindMypocketKmsaccountResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.kmsaccount.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -609,6 +571,90 @@ namespace AntChain.SDK.APPEX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryMypocketEscrowchainaccountResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.escrowchainaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 验证app did签名
+         * Summary: app did验签接口
+         */
+        public StartMypocketAppdidsignverifyResponse StartMypocketAppdidsignverify(StartMypocketAppdidsignverifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartMypocketAppdidsignverifyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 验证app did签名
+         * Summary: app did验签接口
+         */
+        public async Task<StartMypocketAppdidsignverifyResponse> StartMypocketAppdidsignverifyAsync(StartMypocketAppdidsignverifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartMypocketAppdidsignverifyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 验证app did签名
+         * Summary: app did验签接口
+         */
+        public StartMypocketAppdidsignverifyResponse StartMypocketAppdidsignverifyEx(StartMypocketAppdidsignverifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartMypocketAppdidsignverifyResponse>(DoRequest("1.0", "blockchain.appex.mypocket.appdidsignverify.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 验证app did签名
+         * Summary: app did验签接口
+         */
+        public async Task<StartMypocketAppdidsignverifyResponse> StartMypocketAppdidsignverifyExAsync(StartMypocketAppdidsignverifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartMypocketAppdidsignverifyResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.appdidsignverify.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 验证user did签名
+         * Summary: 验证user did签名
+         */
+        public StartMypocketUserdidsignverifyResponse StartMypocketUserdidsignverify(StartMypocketUserdidsignverifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartMypocketUserdidsignverifyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 验证user did签名
+         * Summary: 验证user did签名
+         */
+        public async Task<StartMypocketUserdidsignverifyResponse> StartMypocketUserdidsignverifyAsync(StartMypocketUserdidsignverifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartMypocketUserdidsignverifyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 验证user did签名
+         * Summary: 验证user did签名
+         */
+        public StartMypocketUserdidsignverifyResponse StartMypocketUserdidsignverifyEx(StartMypocketUserdidsignverifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartMypocketUserdidsignverifyResponse>(DoRequest("1.0", "blockchain.appex.mypocket.userdidsignverify.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 验证user did签名
+         * Summary: 验证user did签名
+         */
+        public async Task<StartMypocketUserdidsignverifyResponse> StartMypocketUserdidsignverifyExAsync(StartMypocketUserdidsignverifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartMypocketUserdidsignverifyResponse>(await DoRequestAsync("1.0", "blockchain.appex.mypocket.userdidsignverify.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
