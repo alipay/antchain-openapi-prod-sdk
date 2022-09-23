@@ -539,73 +539,6 @@ export class QueryMypocketChainaccountResponse extends $tea.Model {
   }
 }
 
-export class BindMypocketKmsaccountRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 用户的DID
-  did: string;
-  // 区块链ID
-  chainId: string;
-  // 用户的链上账户
-  chainAccount: string;
-  // 该链账户在BaaS服务的KMS ID 
-  kmsId: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      did: 'did',
-      chainId: 'chain_id',
-      chainAccount: 'chain_account',
-      kmsId: 'kms_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      did: 'string',
-      chainId: 'string',
-      chainAccount: 'string',
-      kmsId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class BindMypocketKmsaccountResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class CreateMypocketDidaccountbyalipayRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -846,6 +779,149 @@ export class QueryMypocketEscrowchainaccountResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       chainAccounts: { 'type': 'array', 'itemType': AccountEntry },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartMypocketAppdidsignverifyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 签名
+  didSign: string;
+  // 签名原文
+  payload: string;
+  // 分配的dapp id，uuid v4格式
+  dappId: string;
+  // epoch时间，毫秒
+  timestamp: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      didSign: 'did_sign',
+      payload: 'payload',
+      dappId: 'dapp_id',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      didSign: 'string',
+      payload: 'string',
+      dappId: 'string',
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartMypocketAppdidsignverifyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签名是否合法
+  isValid?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      isValid: 'is_valid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      isValid: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartMypocketUserdidsignverifyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 签名
+  didSign: string;
+  // 签名原文
+  payload: string;
+  // mychain did信息
+  userDid: string;
+  // epoch时间，毫秒
+  timestamp: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      didSign: 'did_sign',
+      payload: 'payload',
+      userDid: 'user_did',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      didSign: 'string',
+      payload: 'string',
+      userDid: 'string',
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartMypocketUserdidsignverifyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 	
+  // 签名是否合法
+  isValid?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      isValid: 'is_valid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      isValid: 'boolean',
     };
   }
 
@@ -3425,7 +3501,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.3",
+          sdk_version: "1.3.8",
+          _prod_code: "APPEX",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -3510,25 +3588,6 @@ export default class Client {
   }
 
   /**
-   * Description: 外部DApp应用绑定链账户至did
-   * Summary: 外部DApp应用绑定链账户至did
-   */
-  async bindMypocketKmsaccount(request: BindMypocketKmsaccountRequest): Promise<BindMypocketKmsaccountResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.bindMypocketKmsaccountEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 外部DApp应用绑定链账户至did
-   * Summary: 外部DApp应用绑定链账户至did
-   */
-  async bindMypocketKmsaccountEx(request: BindMypocketKmsaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindMypocketKmsaccountResponse> {
-    Util.validateModel(request);
-    return $tea.cast<BindMypocketKmsaccountResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.kmsaccount.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindMypocketKmsaccountResponse({}));
-  }
-
-  /**
    * Description: 外部DApp应用通过支付宝UID创建普通用户did账户
    * Summary: 创建普通用户DID账户（支付宝UID）
    */
@@ -3602,6 +3661,44 @@ export default class Client {
   async queryMypocketEscrowchainaccountEx(request: QueryMypocketEscrowchainaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMypocketEscrowchainaccountResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryMypocketEscrowchainaccountResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.escrowchainaccount.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMypocketEscrowchainaccountResponse({}));
+  }
+
+  /**
+   * Description: 验证app did签名
+   * Summary: app did验签接口
+   */
+  async startMypocketAppdidsignverify(request: StartMypocketAppdidsignverifyRequest): Promise<StartMypocketAppdidsignverifyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startMypocketAppdidsignverifyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 验证app did签名
+   * Summary: app did验签接口
+   */
+  async startMypocketAppdidsignverifyEx(request: StartMypocketAppdidsignverifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartMypocketAppdidsignverifyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartMypocketAppdidsignverifyResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.appdidsignverify.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartMypocketAppdidsignverifyResponse({}));
+  }
+
+  /**
+   * Description: 验证user did签名
+   * Summary: 验证user did签名
+   */
+  async startMypocketUserdidsignverify(request: StartMypocketUserdidsignverifyRequest): Promise<StartMypocketUserdidsignverifyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startMypocketUserdidsignverifyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 验证user did签名
+   * Summary: 验证user did签名
+   */
+  async startMypocketUserdidsignverifyEx(request: StartMypocketUserdidsignverifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartMypocketUserdidsignverifyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartMypocketUserdidsignverifyResponse>(await this.doRequest("1.0", "blockchain.appex.mypocket.userdidsignverify.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartMypocketUserdidsignverifyResponse({}));
   }
 
   /**
