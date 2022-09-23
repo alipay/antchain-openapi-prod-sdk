@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -694,90 +694,6 @@ func (s *QueryMypocketChainaccountResponse) SetChainAccounts(v []*AccountEntry) 
 	return s
 }
 
-type BindMypocketKmsaccountRequest struct {
-	// OAuth模式下的授权token
-	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 用户的DID
-	Did *string `json:"did,omitempty" xml:"did,omitempty" require:"true"`
-	// 区块链ID
-	ChainId *string `json:"chain_id,omitempty" xml:"chain_id,omitempty" require:"true"`
-	// 用户的链上账户
-	ChainAccount *string `json:"chain_account,omitempty" xml:"chain_account,omitempty" require:"true"`
-	// 该链账户在BaaS服务的KMS ID
-	KmsId *string `json:"kms_id,omitempty" xml:"kms_id,omitempty" require:"true"`
-}
-
-func (s BindMypocketKmsaccountRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindMypocketKmsaccountRequest) GoString() string {
-	return s.String()
-}
-
-func (s *BindMypocketKmsaccountRequest) SetAuthToken(v string) *BindMypocketKmsaccountRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *BindMypocketKmsaccountRequest) SetProductInstanceId(v string) *BindMypocketKmsaccountRequest {
-	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *BindMypocketKmsaccountRequest) SetDid(v string) *BindMypocketKmsaccountRequest {
-	s.Did = &v
-	return s
-}
-
-func (s *BindMypocketKmsaccountRequest) SetChainId(v string) *BindMypocketKmsaccountRequest {
-	s.ChainId = &v
-	return s
-}
-
-func (s *BindMypocketKmsaccountRequest) SetChainAccount(v string) *BindMypocketKmsaccountRequest {
-	s.ChainAccount = &v
-	return s
-}
-
-func (s *BindMypocketKmsaccountRequest) SetKmsId(v string) *BindMypocketKmsaccountRequest {
-	s.KmsId = &v
-	return s
-}
-
-type BindMypocketKmsaccountResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-}
-
-func (s BindMypocketKmsaccountResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BindMypocketKmsaccountResponse) GoString() string {
-	return s.String()
-}
-
-func (s *BindMypocketKmsaccountResponse) SetReqMsgId(v string) *BindMypocketKmsaccountResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *BindMypocketKmsaccountResponse) SetResultCode(v string) *BindMypocketKmsaccountResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *BindMypocketKmsaccountResponse) SetResultMsg(v string) *BindMypocketKmsaccountResponse {
-	s.ResultMsg = &v
-	return s
-}
-
 type CreateMypocketDidaccountbyalipayRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1076,6 +992,189 @@ func (s *QueryMypocketEscrowchainaccountResponse) SetResultMsg(v string) *QueryM
 
 func (s *QueryMypocketEscrowchainaccountResponse) SetChainAccounts(v []*AccountEntry) *QueryMypocketEscrowchainaccountResponse {
 	s.ChainAccounts = v
+	return s
+}
+
+type StartMypocketAppdidsignverifyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 签名
+	DidSign *string `json:"did_sign,omitempty" xml:"did_sign,omitempty" require:"true"`
+	// 签名原文
+	Payload *string `json:"payload,omitempty" xml:"payload,omitempty" require:"true"`
+	// 分配的dapp id，uuid v4格式
+	DappId *string `json:"dapp_id,omitempty" xml:"dapp_id,omitempty" require:"true"`
+	// epoch时间，毫秒
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+}
+
+func (s StartMypocketAppdidsignverifyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartMypocketAppdidsignverifyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartMypocketAppdidsignverifyRequest) SetAuthToken(v string) *StartMypocketAppdidsignverifyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartMypocketAppdidsignverifyRequest) SetProductInstanceId(v string) *StartMypocketAppdidsignverifyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartMypocketAppdidsignverifyRequest) SetDidSign(v string) *StartMypocketAppdidsignverifyRequest {
+	s.DidSign = &v
+	return s
+}
+
+func (s *StartMypocketAppdidsignverifyRequest) SetPayload(v string) *StartMypocketAppdidsignverifyRequest {
+	s.Payload = &v
+	return s
+}
+
+func (s *StartMypocketAppdidsignverifyRequest) SetDappId(v string) *StartMypocketAppdidsignverifyRequest {
+	s.DappId = &v
+	return s
+}
+
+func (s *StartMypocketAppdidsignverifyRequest) SetTimestamp(v int64) *StartMypocketAppdidsignverifyRequest {
+	s.Timestamp = &v
+	return s
+}
+
+type StartMypocketAppdidsignverifyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签名是否合法
+	IsValid *bool `json:"is_valid,omitempty" xml:"is_valid,omitempty"`
+}
+
+func (s StartMypocketAppdidsignverifyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartMypocketAppdidsignverifyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartMypocketAppdidsignverifyResponse) SetReqMsgId(v string) *StartMypocketAppdidsignverifyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartMypocketAppdidsignverifyResponse) SetResultCode(v string) *StartMypocketAppdidsignverifyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartMypocketAppdidsignverifyResponse) SetResultMsg(v string) *StartMypocketAppdidsignverifyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StartMypocketAppdidsignverifyResponse) SetIsValid(v bool) *StartMypocketAppdidsignverifyResponse {
+	s.IsValid = &v
+	return s
+}
+
+type StartMypocketUserdidsignverifyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 签名
+	DidSign *string `json:"did_sign,omitempty" xml:"did_sign,omitempty" require:"true"`
+	// 签名原文
+	Payload *string `json:"payload,omitempty" xml:"payload,omitempty" require:"true"`
+	// mychain did信息
+	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty" require:"true"`
+	// epoch时间，毫秒
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+}
+
+func (s StartMypocketUserdidsignverifyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartMypocketUserdidsignverifyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartMypocketUserdidsignverifyRequest) SetAuthToken(v string) *StartMypocketUserdidsignverifyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartMypocketUserdidsignverifyRequest) SetProductInstanceId(v string) *StartMypocketUserdidsignverifyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartMypocketUserdidsignverifyRequest) SetDidSign(v string) *StartMypocketUserdidsignverifyRequest {
+	s.DidSign = &v
+	return s
+}
+
+func (s *StartMypocketUserdidsignverifyRequest) SetPayload(v string) *StartMypocketUserdidsignverifyRequest {
+	s.Payload = &v
+	return s
+}
+
+func (s *StartMypocketUserdidsignverifyRequest) SetUserDid(v string) *StartMypocketUserdidsignverifyRequest {
+	s.UserDid = &v
+	return s
+}
+
+func (s *StartMypocketUserdidsignverifyRequest) SetTimestamp(v int64) *StartMypocketUserdidsignverifyRequest {
+	s.Timestamp = &v
+	return s
+}
+
+type StartMypocketUserdidsignverifyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	//
+	// 签名是否合法
+	IsValid *bool `json:"is_valid,omitempty" xml:"is_valid,omitempty"`
+}
+
+func (s StartMypocketUserdidsignverifyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartMypocketUserdidsignverifyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartMypocketUserdidsignverifyResponse) SetReqMsgId(v string) *StartMypocketUserdidsignverifyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartMypocketUserdidsignverifyResponse) SetResultCode(v string) *StartMypocketUserdidsignverifyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartMypocketUserdidsignverifyResponse) SetResultMsg(v string) *StartMypocketUserdidsignverifyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StartMypocketUserdidsignverifyResponse) SetIsValid(v bool) *StartMypocketUserdidsignverifyResponse {
+	s.IsValid = &v
 	return s
 }
 
@@ -4398,7 +4497,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.3"),
+				"sdk_version":      tea.String("1.3.8"),
+				"_prod_code":       tea.String("APPEX"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -4424,8 +4525,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -4507,40 +4616,6 @@ func (client *Client) QueryMypocketChainaccountEx(request *QueryMypocketChainacc
 	}
 	_result = &QueryMypocketChainaccountResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.chainaccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
- * Description: 外部DApp应用绑定链账户至did
- * Summary: 外部DApp应用绑定链账户至did
- */
-func (client *Client) BindMypocketKmsaccount(request *BindMypocketKmsaccountRequest) (_result *BindMypocketKmsaccountResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &BindMypocketKmsaccountResponse{}
-	_body, _err := client.BindMypocketKmsaccountEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: 外部DApp应用绑定链账户至did
- * Summary: 外部DApp应用绑定链账户至did
- */
-func (client *Client) BindMypocketKmsaccountEx(request *BindMypocketKmsaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindMypocketKmsaccountResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &BindMypocketKmsaccountResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.kmsaccount.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -4677,6 +4752,74 @@ func (client *Client) QueryMypocketEscrowchainaccountEx(request *QueryMypocketEs
 	}
 	_result = &QueryMypocketEscrowchainaccountResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.escrowchainaccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 验证app did签名
+ * Summary: app did验签接口
+ */
+func (client *Client) StartMypocketAppdidsignverify(request *StartMypocketAppdidsignverifyRequest) (_result *StartMypocketAppdidsignverifyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartMypocketAppdidsignverifyResponse{}
+	_body, _err := client.StartMypocketAppdidsignverifyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 验证app did签名
+ * Summary: app did验签接口
+ */
+func (client *Client) StartMypocketAppdidsignverifyEx(request *StartMypocketAppdidsignverifyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartMypocketAppdidsignverifyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartMypocketAppdidsignverifyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.appdidsignverify.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 验证user did签名
+ * Summary: 验证user did签名
+ */
+func (client *Client) StartMypocketUserdidsignverify(request *StartMypocketUserdidsignverifyRequest) (_result *StartMypocketUserdidsignverifyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartMypocketUserdidsignverifyResponse{}
+	_body, _err := client.StartMypocketUserdidsignverifyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 验证user did签名
+ * Summary: 验证user did签名
+ */
+func (client *Client) StartMypocketUserdidsignverifyEx(request *StartMypocketUserdidsignverifyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartMypocketUserdidsignverifyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartMypocketUserdidsignverifyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.appex.mypocket.userdidsignverify.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
