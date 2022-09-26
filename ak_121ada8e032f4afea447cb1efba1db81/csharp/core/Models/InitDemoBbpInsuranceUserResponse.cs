@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_121ada8e032f4afea447cb1efba1db81.Models
 {
-    public class QueryAntchainBbpContractReconciliationResponse : TeaModel {
+    public class InitDemoBbpInsuranceUserResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,11 +23,6 @@ namespace AntChain.SDK.Ak_121ada8e032f4afea447cb1efba1db81.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
-
-        // 结算单
-        [NameInMap("reconciliations")]
-        [Validation(Required=false)]
-        public List<Reconciliation> Reconciliations { get; set; }
 
     }
 
