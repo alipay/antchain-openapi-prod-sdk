@@ -154,52 +154,20 @@ class Config(TeaModel):
         return self
 
 
-class Reconciliation(TeaModel):
+class NameValuePair(TeaModel):
     def __init__(
         self,
-        sup_code: str = None,
-        sup_name: str = None,
-        settlement_amount: int = None,
-        confirm_date_gw: str = None,
-        confirmer_gw: str = None,
-        confirm_state_gw: str = None,
-        confirm_date_sup: str = None,
-        confirmer_sup: str = None,
-        confirm_state_sup: str = None,
-        socre_date: str = None,
+        name: str = None,
+        value: str = None,
     ):
-        # 供应商
-        self.sup_code = sup_code
-        # 供应商名称
-        self.sup_name = sup_name
-        # 结算金额(单位分)
-        self.settlement_amount = settlement_amount
-        # 长城确认时间
-        self.confirm_date_gw = confirm_date_gw
-        # 长城方确认人
-        self.confirmer_gw = confirmer_gw
-        # 长城确认状态
-        self.confirm_state_gw = confirm_state_gw
-        # 服务方确认时间
-        self.confirm_date_sup = confirm_date_sup
-        # 服务方确认人
-        self.confirmer_sup = confirmer_sup
-        # 服务方确认状态
-        self.confirm_state_sup = confirm_state_sup
-        # 计算时间
-        self.socre_date = socre_date
+        # 键名
+        self.name = name
+        # 键值
+        self.value = value
 
     def validate(self):
-        self.validate_required(self.sup_code, 'sup_code')
-        self.validate_required(self.sup_name, 'sup_name')
-        self.validate_required(self.settlement_amount, 'settlement_amount')
-        self.validate_required(self.confirm_date_gw, 'confirm_date_gw')
-        self.validate_required(self.confirmer_gw, 'confirmer_gw')
-        self.validate_required(self.confirm_state_gw, 'confirm_state_gw')
-        self.validate_required(self.confirm_date_sup, 'confirm_date_sup')
-        self.validate_required(self.confirmer_sup, 'confirmer_sup')
-        self.validate_required(self.confirm_state_sup, 'confirm_state_sup')
-        self.validate_required(self.socre_date, 'socre_date')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.value, 'value')
 
     def to_map(self):
         _map = super().to_map()
@@ -207,346 +175,36 @@ class Reconciliation(TeaModel):
             return _map
 
         result = dict()
-        if self.sup_code is not None:
-            result['sup_code'] = self.sup_code
-        if self.sup_name is not None:
-            result['sup_name'] = self.sup_name
-        if self.settlement_amount is not None:
-            result['settlement_amount'] = self.settlement_amount
-        if self.confirm_date_gw is not None:
-            result['confirm_date_gw'] = self.confirm_date_gw
-        if self.confirmer_gw is not None:
-            result['confirmer_gw'] = self.confirmer_gw
-        if self.confirm_state_gw is not None:
-            result['confirm_state_gw'] = self.confirm_state_gw
-        if self.confirm_date_sup is not None:
-            result['confirm_date_sup'] = self.confirm_date_sup
-        if self.confirmer_sup is not None:
-            result['confirmer_sup'] = self.confirmer_sup
-        if self.confirm_state_sup is not None:
-            result['confirm_state_sup'] = self.confirm_state_sup
-        if self.socre_date is not None:
-            result['socre_date'] = self.socre_date
+        if self.name is not None:
+            result['name'] = self.name
+        if self.value is not None:
+            result['value'] = self.value
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('sup_code') is not None:
-            self.sup_code = m.get('sup_code')
-        if m.get('sup_name') is not None:
-            self.sup_name = m.get('sup_name')
-        if m.get('settlement_amount') is not None:
-            self.settlement_amount = m.get('settlement_amount')
-        if m.get('confirm_date_gw') is not None:
-            self.confirm_date_gw = m.get('confirm_date_gw')
-        if m.get('confirmer_gw') is not None:
-            self.confirmer_gw = m.get('confirmer_gw')
-        if m.get('confirm_state_gw') is not None:
-            self.confirm_state_gw = m.get('confirm_state_gw')
-        if m.get('confirm_date_sup') is not None:
-            self.confirm_date_sup = m.get('confirm_date_sup')
-        if m.get('confirmer_sup') is not None:
-            self.confirmer_sup = m.get('confirmer_sup')
-        if m.get('confirm_state_sup') is not None:
-            self.confirm_state_sup = m.get('confirm_state_sup')
-        if m.get('socre_date') is not None:
-            self.socre_date = m.get('socre_date')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('value') is not None:
+            self.value = m.get('value')
         return self
 
 
-class ExecAntchainBbpContractReconciliationRequest(TeaModel):
+class QueryMap(TeaModel):
     def __init__(
         self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        sup_code: str = None,
-        score_date: str = None,
+        name: str = None,
+        value: List[NameValuePair] = None,
     ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 供应商
-        self.sup_code = sup_code
-        # 结算时间
-        self.score_date = score_date
+        # 键值
+        self.name = name
+        # 额外用户信息
+        self.value = value
 
     def validate(self):
-        self.validate_required(self.sup_code, 'sup_code')
-        self.validate_required(self.score_date, 'score_date')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.sup_code is not None:
-            result['sup_code'] = self.sup_code
-        if self.score_date is not None:
-            result['score_date'] = self.score_date
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('sup_code') is not None:
-            self.sup_code = m.get('sup_code')
-        if m.get('score_date') is not None:
-            self.score_date = m.get('score_date')
-        return self
-
-
-class ExecAntchainBbpContractReconciliationResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        reconciliation: Reconciliation = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 结算单
-        self.reconciliation = reconciliation
-
-    def validate(self):
-        if self.reconciliation:
-            self.reconciliation.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.reconciliation is not None:
-            result['reconciliation'] = self.reconciliation.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('reconciliation') is not None:
-            temp_model = Reconciliation()
-            self.reconciliation = temp_model.from_map(m['reconciliation'])
-        return self
-
-
-class ConfirmAntchainBbpContractReconciliationRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        sup_code: str = None,
-        socre_date: str = None,
-        confirm_type: str = None,
-        confirmer: str = None,
-        confirm_status: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 服务商
-        self.sup_code = sup_code
-        # 确认时间
-        self.socre_date = socre_date
-        # 确认类型：1、长城  2、服务方
-        self.confirm_type = confirm_type
-        # 确认者
-        self.confirmer = confirmer
-        # 认证状态
-        self.confirm_status = confirm_status
-
-    def validate(self):
-        self.validate_required(self.sup_code, 'sup_code')
-        self.validate_required(self.socre_date, 'socre_date')
-        self.validate_required(self.confirm_type, 'confirm_type')
-        self.validate_required(self.confirmer, 'confirmer')
-        self.validate_required(self.confirm_status, 'confirm_status')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.sup_code is not None:
-            result['sup_code'] = self.sup_code
-        if self.socre_date is not None:
-            result['socre_date'] = self.socre_date
-        if self.confirm_type is not None:
-            result['confirm_type'] = self.confirm_type
-        if self.confirmer is not None:
-            result['confirmer'] = self.confirmer
-        if self.confirm_status is not None:
-            result['confirm_status'] = self.confirm_status
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('sup_code') is not None:
-            self.sup_code = m.get('sup_code')
-        if m.get('socre_date') is not None:
-            self.socre_date = m.get('socre_date')
-        if m.get('confirm_type') is not None:
-            self.confirm_type = m.get('confirm_type')
-        if m.get('confirmer') is not None:
-            self.confirmer = m.get('confirmer')
-        if m.get('confirm_status') is not None:
-            self.confirm_status = m.get('confirm_status')
-        return self
-
-
-class ConfirmAntchainBbpContractReconciliationResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        reconciliation: Reconciliation = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 结算单
-        self.reconciliation = reconciliation
-
-    def validate(self):
-        if self.reconciliation:
-            self.reconciliation.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.reconciliation is not None:
-            result['reconciliation'] = self.reconciliation.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('reconciliation') is not None:
-            temp_model = Reconciliation()
-            self.reconciliation = temp_model.from_map(m['reconciliation'])
-        return self
-
-
-class QueryAntchainBbpContractReconciliationRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        sup_code: str = None,
-        score_dates: List[str] = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 供应商code
-        self.sup_code = sup_code
-        # 月份
-        self.score_dates = score_dates
-
-    def validate(self):
-        self.validate_required(self.sup_code, 'sup_code')
-        self.validate_required(self.score_dates, 'score_dates')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.sup_code is not None:
-            result['sup_code'] = self.sup_code
-        if self.score_dates is not None:
-            result['score_dates'] = self.score_dates
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('sup_code') is not None:
-            self.sup_code = m.get('sup_code')
-        if m.get('score_dates') is not None:
-            self.score_dates = m.get('score_dates')
-        return self
-
-
-class QueryAntchainBbpContractReconciliationResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        reconciliations: List[Reconciliation] = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 结算单
-        self.reconciliations = reconciliations
-
-    def validate(self):
-        if self.reconciliations:
-            for k in self.reconciliations:
+        self.validate_required(self.name, 'name')
+        if self.value:
+            for k in self.value:
                 if k:
                     k.validate()
 
@@ -556,16 +214,122 @@ class QueryAntchainBbpContractReconciliationResponse(TeaModel):
             return _map
 
         result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        result['value'] = []
+        if self.value is not None:
+            for k in self.value:
+                result['value'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        self.value = []
+        if m.get('value') is not None:
+            for k in m.get('value'):
+                temp_model = NameValuePair()
+                self.value.append(temp_model.from_map(k))
+        return self
+
+
+class InitDemoBbpInsuranceUserRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        business_code: str = None,
+        third_part_id: str = None,
+        channel: str = None,
+        burieds: QueryMap = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 保司编码
+        self.business_code = business_code
+        # 第三方id，此处为天猫uid
+        self.third_part_id = third_part_id
+        # 来源渠道
+        self.channel = channel
+        # 埋点信息
+        self.burieds = burieds
+
+    def validate(self):
+        self.validate_required(self.business_code, 'business_code')
+        self.validate_required(self.third_part_id, 'third_part_id')
+        self.validate_required(self.channel, 'channel')
+        if self.burieds:
+            self.burieds.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        if self.third_part_id is not None:
+            result['third_part_id'] = self.third_part_id
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.burieds is not None:
+            result['burieds'] = self.burieds.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        if m.get('third_part_id') is not None:
+            self.third_part_id = m.get('third_part_id')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('burieds') is not None:
+            temp_model = QueryMap()
+            self.burieds = temp_model.from_map(m['burieds'])
+        return self
+
+
+class InitDemoBbpInsuranceUserResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
         if self.req_msg_id is not None:
             result['req_msg_id'] = self.req_msg_id
         if self.result_code is not None:
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        result['reconciliations'] = []
-        if self.reconciliations is not None:
-            for k in self.reconciliations:
-                result['reconciliations'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -576,11 +340,111 @@ class QueryAntchainBbpContractReconciliationResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        self.reconciliations = []
-        if m.get('reconciliations') is not None:
-            for k in m.get('reconciliations'):
-                temp_model = Reconciliation()
-                self.reconciliations.append(temp_model.from_map(k))
+        return self
+
+
+class UpdateDemoCjtestCjRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        var_1: str = None,
+        var_2: str = None,
+        subject: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 测试参数
+        self.var_1 = var_1
+        # 测试参数2
+        self.var_2 = var_2
+        # 被授权机构did
+        self.subject = subject
+
+    def validate(self):
+        self.validate_required(self.var_1, 'var_1')
+        self.validate_required(self.var_2, 'var_2')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.var_1 is not None:
+            result['var1'] = self.var_1
+        if self.var_2 is not None:
+            result['var2'] = self.var_2
+        if self.subject is not None:
+            result['subject'] = self.subject
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('var1') is not None:
+            self.var_1 = m.get('var1')
+        if m.get('var2') is not None:
+            self.var_2 = m.get('var2')
+        if m.get('subject') is not None:
+            self.subject = m.get('subject')
+        return self
+
+
+class UpdateDemoCjtestCjResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        return_1: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 测试返回参数1
+        self.return_1 = return_1
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.return_1 is not None:
+            result['return1'] = self.return_1
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('return1') is not None:
+            self.return_1 = m.get('return1')
         return self
 
 
