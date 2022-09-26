@@ -6,7 +6,7 @@ namespace AntChain\Ak_121ada8e032f4afea447cb1efba1db81\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainBbpContractReconciliationRequest extends Model
+class UpdateDemoCjtestCjRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,35 @@ class QueryAntchainBbpContractReconciliationRequest extends Model
      */
     public $productInstanceId;
 
-    // 供应商code
+    // 测试参数
     /**
      * @var string
      */
-    public $supCode;
+    public $var1;
 
-    // 月份
+    // 测试参数2
     /**
-     * @var string[]
+     * @var string
      */
-    public $scoreDates;
+    public $var2;
+
+    // 被授权机构did
+    /**
+     * @var string
+     */
+    public $subject;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'supCode'           => 'sup_code',
-        'scoreDates'        => 'score_dates',
+        'var1'              => 'var1',
+        'var2'              => 'var2',
+        'subject'           => 'subject',
     ];
 
     public function validate()
     {
-        Model::validateRequired('supCode', $this->supCode, true);
-        Model::validateRequired('scoreDates', $this->scoreDates, true);
+        Model::validateRequired('var1', $this->var1, true);
+        Model::validateRequired('var2', $this->var2, true);
     }
 
     public function toMap()
@@ -52,11 +59,14 @@ class QueryAntchainBbpContractReconciliationRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->supCode) {
-            $res['sup_code'] = $this->supCode;
+        if (null !== $this->var1) {
+            $res['var1'] = $this->var1;
         }
-        if (null !== $this->scoreDates) {
-            $res['score_dates'] = $this->scoreDates;
+        if (null !== $this->var2) {
+            $res['var2'] = $this->var2;
+        }
+        if (null !== $this->subject) {
+            $res['subject'] = $this->subject;
         }
 
         return $res;
@@ -65,7 +75,7 @@ class QueryAntchainBbpContractReconciliationRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainBbpContractReconciliationRequest
+     * @return UpdateDemoCjtestCjRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,13 +86,14 @@ class QueryAntchainBbpContractReconciliationRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['sup_code'])) {
-            $model->supCode = $map['sup_code'];
+        if (isset($map['var1'])) {
+            $model->var1 = $map['var1'];
         }
-        if (isset($map['score_dates'])) {
-            if (!empty($map['score_dates'])) {
-                $model->scoreDates = $map['score_dates'];
-            }
+        if (isset($map['var2'])) {
+            $model->var2 = $map['var2'];
+        }
+        if (isset($map['subject'])) {
+            $model->subject = $map['subject'];
         }
 
         return $model;

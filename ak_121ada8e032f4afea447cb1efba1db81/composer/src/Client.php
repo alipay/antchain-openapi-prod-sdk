@@ -11,12 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_121ada8e032f4afea447cb1efba1db81\Models\ConfirmAntchainBbpContractReconciliationRequest;
-use AntChain\Ak_121ada8e032f4afea447cb1efba1db81\Models\ConfirmAntchainBbpContractReconciliationResponse;
-use AntChain\Ak_121ada8e032f4afea447cb1efba1db81\Models\ExecAntchainBbpContractReconciliationRequest;
-use AntChain\Ak_121ada8e032f4afea447cb1efba1db81\Models\ExecAntchainBbpContractReconciliationResponse;
-use AntChain\Ak_121ada8e032f4afea447cb1efba1db81\Models\QueryAntchainBbpContractReconciliationRequest;
-use AntChain\Ak_121ada8e032f4afea447cb1efba1db81\Models\QueryAntchainBbpContractReconciliationResponse;
+use AntChain\Ak_121ada8e032f4afea447cb1efba1db81\Models\InitDemoBbpInsuranceUserRequest;
+use AntChain\Ak_121ada8e032f4afea447cb1efba1db81\Models\InitDemoBbpInsuranceUserResponse;
+use AntChain\Ak_121ada8e032f4afea447cb1efba1db81\Models\UpdateDemoCjtestCjRequest;
+use AntChain\Ak_121ada8e032f4afea447cb1efba1db81\Models\UpdateDemoCjtestCjResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -136,7 +134,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 对账单
+            // 键值对，兼容map用
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -164,7 +162,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_121ada8e032f4afea447cb1efba1db81',
                     '_prod_channel'    => 'saas',
                 ];
@@ -213,101 +211,68 @@ class Client
     }
 
     /**
-     * Description: 对账单执行
-     * Summary: 对账单执行接口.
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点.
      *
-     * @param ExecAntchainBbpContractReconciliationRequest $request
+     * @param InitDemoBbpInsuranceUserRequest $request
      *
-     * @return ExecAntchainBbpContractReconciliationResponse
+     * @return InitDemoBbpInsuranceUserResponse
      */
-    public function execAntchainBbpContractReconciliation($request)
+    public function initDemoBbpInsuranceUser($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->execAntchainBbpContractReconciliationEx($request, $headers, $runtime);
+        return $this->initDemoBbpInsuranceUserEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 对账单执行
-     * Summary: 对账单执行接口.
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点.
      *
-     * @param ExecAntchainBbpContractReconciliationRequest $request
-     * @param string[]                                     $headers
-     * @param RuntimeOptions                               $runtime
+     * @param InitDemoBbpInsuranceUserRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
      *
-     * @return ExecAntchainBbpContractReconciliationResponse
+     * @return InitDemoBbpInsuranceUserResponse
      */
-    public function execAntchainBbpContractReconciliationEx($request, $headers, $runtime)
+    public function initDemoBbpInsuranceUserEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return ExecAntchainBbpContractReconciliationResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.contract.reconciliation.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return InitDemoBbpInsuranceUserResponse::fromMap($this->doRequest('1.0', 'demo.bbp.insurance.user.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
-     * Description: 结算单确认
-     * Summary: 结算单确认.
+     * Description: 测试网关评审能力
+     * Summary: 评审测试.
      *
-     * @param ConfirmAntchainBbpContractReconciliationRequest $request
+     * @param UpdateDemoCjtestCjRequest $request
      *
-     * @return ConfirmAntchainBbpContractReconciliationResponse
+     * @return UpdateDemoCjtestCjResponse
      */
-    public function confirmAntchainBbpContractReconciliation($request)
+    public function updateDemoCjtestCj($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->confirmAntchainBbpContractReconciliationEx($request, $headers, $runtime);
+        return $this->updateDemoCjtestCjEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 结算单确认
-     * Summary: 结算单确认.
+     * Description: 测试网关评审能力
+     * Summary: 评审测试.
      *
-     * @param ConfirmAntchainBbpContractReconciliationRequest $request
-     * @param string[]                                        $headers
-     * @param RuntimeOptions                                  $runtime
+     * @param UpdateDemoCjtestCjRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
      *
-     * @return ConfirmAntchainBbpContractReconciliationResponse
+     * @return UpdateDemoCjtestCjResponse
      */
-    public function confirmAntchainBbpContractReconciliationEx($request, $headers, $runtime)
+    public function updateDemoCjtestCjEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return ConfirmAntchainBbpContractReconciliationResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.contract.reconciliation.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 查询结算单
-     * Summary: 查询结算单.
-     *
-     * @param QueryAntchainBbpContractReconciliationRequest $request
-     *
-     * @return QueryAntchainBbpContractReconciliationResponse
-     */
-    public function queryAntchainBbpContractReconciliation($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryAntchainBbpContractReconciliationEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 查询结算单
-     * Summary: 查询结算单.
-     *
-     * @param QueryAntchainBbpContractReconciliationRequest $request
-     * @param string[]                                      $headers
-     * @param RuntimeOptions                                $runtime
-     *
-     * @return QueryAntchainBbpContractReconciliationResponse
-     */
-    public function queryAntchainBbpContractReconciliationEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryAntchainBbpContractReconciliationResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.contract.reconciliation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return UpdateDemoCjtestCjResponse::fromMap($this->doRequest('1.0', 'demo.cjtest.cj.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
