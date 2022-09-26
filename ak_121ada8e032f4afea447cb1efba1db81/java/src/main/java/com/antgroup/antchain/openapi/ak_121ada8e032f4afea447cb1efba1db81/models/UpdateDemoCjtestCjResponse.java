@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_121ada8e032f4afea447cb1efba1db81.models
 
 import com.aliyun.tea.*;
 
-public class ConfirmAntchainBbpContractReconciliationResponse extends TeaModel {
+public class UpdateDemoCjtestCjResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class ConfirmAntchainBbpContractReconciliationResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 结算单
-    @NameInMap("reconciliation")
-    public Reconciliation reconciliation;
+    // 测试返回参数1
+    @NameInMap("return1")
+    public String return1;
 
-    public static ConfirmAntchainBbpContractReconciliationResponse build(java.util.Map<String, ?> map) throws Exception {
-        ConfirmAntchainBbpContractReconciliationResponse self = new ConfirmAntchainBbpContractReconciliationResponse();
+    public static UpdateDemoCjtestCjResponse build(java.util.Map<String, ?> map) throws Exception {
+        UpdateDemoCjtestCjResponse self = new UpdateDemoCjtestCjResponse();
         return TeaModel.build(map, self);
     }
 
-    public ConfirmAntchainBbpContractReconciliationResponse setReqMsgId(String reqMsgId) {
+    public UpdateDemoCjtestCjResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class ConfirmAntchainBbpContractReconciliationResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public ConfirmAntchainBbpContractReconciliationResponse setResultCode(String resultCode) {
+    public UpdateDemoCjtestCjResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class ConfirmAntchainBbpContractReconciliationResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public ConfirmAntchainBbpContractReconciliationResponse setResultMsg(String resultMsg) {
+    public UpdateDemoCjtestCjResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class ConfirmAntchainBbpContractReconciliationResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public ConfirmAntchainBbpContractReconciliationResponse setReconciliation(Reconciliation reconciliation) {
-        this.reconciliation = reconciliation;
+    public UpdateDemoCjtestCjResponse setReturn1(String return1) {
+        this.return1 = return1;
         return this;
     }
-    public Reconciliation getReconciliation() {
-        return this.reconciliation;
+    public String getReturn1() {
+        return this.return1;
     }
 
 }

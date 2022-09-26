@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.0.1"),
                     new TeaPair("_prod_code", "ak_121ada8e032f4afea447cb1efba1db81"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -162,59 +162,40 @@ public class Client {
     }
 
     /**
-     * Description: 对账单执行
-     * Summary: 对账单执行接口
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点
      */
-    public ExecAntchainBbpContractReconciliationResponse execAntchainBbpContractReconciliation(ExecAntchainBbpContractReconciliationRequest request) throws Exception {
+    public InitDemoBbpInsuranceUserResponse initDemoBbpInsuranceUser(InitDemoBbpInsuranceUserRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.execAntchainBbpContractReconciliationEx(request, headers, runtime);
+        return this.initDemoBbpInsuranceUserEx(request, headers, runtime);
     }
 
     /**
-     * Description: 对账单执行
-     * Summary: 对账单执行接口
+     * Description: 保司用户埋点信息
+     * Summary: 用户登陆页面埋点
      */
-    public ExecAntchainBbpContractReconciliationResponse execAntchainBbpContractReconciliationEx(ExecAntchainBbpContractReconciliationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitDemoBbpInsuranceUserResponse initDemoBbpInsuranceUserEx(InitDemoBbpInsuranceUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.contract.reconciliation.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntchainBbpContractReconciliationResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.bbp.insurance.user.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitDemoBbpInsuranceUserResponse());
     }
 
     /**
-     * Description: 结算单确认
-     * Summary: 结算单确认
+     * Description: 测试网关评审能力
+     * Summary: 评审测试
      */
-    public ConfirmAntchainBbpContractReconciliationResponse confirmAntchainBbpContractReconciliation(ConfirmAntchainBbpContractReconciliationRequest request) throws Exception {
+    public UpdateDemoCjtestCjResponse updateDemoCjtestCj(UpdateDemoCjtestCjRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.confirmAntchainBbpContractReconciliationEx(request, headers, runtime);
+        return this.updateDemoCjtestCjEx(request, headers, runtime);
     }
 
     /**
-     * Description: 结算单确认
-     * Summary: 结算单确认
+     * Description: 测试网关评审能力
+     * Summary: 评审测试
      */
-    public ConfirmAntchainBbpContractReconciliationResponse confirmAntchainBbpContractReconciliationEx(ConfirmAntchainBbpContractReconciliationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public UpdateDemoCjtestCjResponse updateDemoCjtestCjEx(UpdateDemoCjtestCjRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.contract.reconciliation.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmAntchainBbpContractReconciliationResponse());
-    }
-
-    /**
-     * Description: 查询结算单
-     * Summary: 查询结算单
-     */
-    public QueryAntchainBbpContractReconciliationResponse queryAntchainBbpContractReconciliation(QueryAntchainBbpContractReconciliationRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryAntchainBbpContractReconciliationEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 查询结算单
-     * Summary: 查询结算单
-     */
-    public QueryAntchainBbpContractReconciliationResponse queryAntchainBbpContractReconciliationEx(QueryAntchainBbpContractReconciliationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.bbp.contract.reconciliation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainBbpContractReconciliationResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "demo.cjtest.cj.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateDemoCjtestCjResponse());
     }
 }
