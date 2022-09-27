@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_b14fc97503f943f48147eb72b47b244d\Models\AuthAntchainBbpCustomerRequest;
 use AntChain\Ak_b14fc97503f943f48147eb72b47b244d\Models\AuthAntchainBbpCustomerResponse;
+use AntChain\Ak_b14fc97503f943f48147eb72b47b244d\Models\BindDemoAaaBbbCccRequest;
+use AntChain\Ak_b14fc97503f943f48147eb72b47b244d\Models\BindDemoAaaBbbCccResponse;
 use AntChain\Ak_b14fc97503f943f48147eb72b47b244d\Models\CheckAntchainBbpVerifyRequest;
 use AntChain\Ak_b14fc97503f943f48147eb72b47b244d\Models\CheckAntchainBbpVerifyResponse;
 use AntChain\Ak_b14fc97503f943f48147eb72b47b244d\Models\CreateAntchainBbpCustomerRequest;
@@ -180,7 +182,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_b14fc97503f943f48147eb72b47b244d',
                     '_prod_channel'    => 'saas',
                 ];
@@ -589,5 +591,38 @@ class Client
         Utils::validateModel($request);
 
         return StartAntchainBbpVerifyResponse::fromMap($this->doRequest('1.0', 'antchain.bbp.verify.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建，用于测试新建&修改功能
+     * Summary: 自动化测试创建，用于测试新建&修改功能.
+     *
+     * @param BindDemoAaaBbbCccRequest $request
+     *
+     * @return BindDemoAaaBbbCccResponse
+     */
+    public function bindDemoAaaBbbCcc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoAaaBbbCccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建，用于测试新建&修改功能
+     * Summary: 自动化测试创建，用于测试新建&修改功能.
+     *
+     * @param BindDemoAaaBbbCccRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return BindDemoAaaBbbCccResponse
+     */
+    public function bindDemoAaaBbbCccEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
