@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 	"io"
@@ -352,6 +352,32 @@ func (s *DecisionFlow) SetInfoCodes(v *InfoCodes) *DecisionFlow {
 	return s
 }
 
+// 回流事件记录属性项
+type BackflowEventRecordProperty struct {
+	// 属性code
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 属性value，统一为字符串
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s BackflowEventRecordProperty) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BackflowEventRecordProperty) GoString() string {
+	return s.String()
+}
+
+func (s *BackflowEventRecordProperty) SetKey(v string) *BackflowEventRecordProperty {
+	s.Key = &v
+	return s
+}
+
+func (s *BackflowEventRecordProperty) SetValue(v string) *BackflowEventRecordProperty {
+	s.Value = &v
+	return s
+}
+
 // 营销盾批量查询单条结果
 type BaseCustomerUmktInfoModel struct {
 	// 用户凭证
@@ -476,6 +502,53 @@ func (s *RtopRiskTag) SetClueDetailType(v string) *RtopRiskTag {
 
 func (s *RtopRiskTag) SetTagClueDetail(v string) *RtopRiskTag {
 	s.TagClueDetail = &v
+	return s
+}
+
+// 回执统计数据详情
+type StatisticInfoDetail struct {
+	// actionDriverCode类型
+	ActionDriverCode *int64 `json:"action_driver_code,omitempty" xml:"action_driver_code,omitempty"`
+	// 调用总数
+	InvokeCount *int64 `json:"invoke_count,omitempty" xml:"invoke_count,omitempty"`
+	// 成功数
+	SuccessCount *int64 `json:"success_count,omitempty" xml:"success_count,omitempty"`
+	// 失败数
+	FailCount *int64 `json:"fail_count,omitempty" xml:"fail_count,omitempty"`
+	// 已处理完成任务数
+	FinishCount *int64 `json:"finish_count,omitempty" xml:"finish_count,omitempty"`
+}
+
+func (s StatisticInfoDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StatisticInfoDetail) GoString() string {
+	return s.String()
+}
+
+func (s *StatisticInfoDetail) SetActionDriverCode(v int64) *StatisticInfoDetail {
+	s.ActionDriverCode = &v
+	return s
+}
+
+func (s *StatisticInfoDetail) SetInvokeCount(v int64) *StatisticInfoDetail {
+	s.InvokeCount = &v
+	return s
+}
+
+func (s *StatisticInfoDetail) SetSuccessCount(v int64) *StatisticInfoDetail {
+	s.SuccessCount = &v
+	return s
+}
+
+func (s *StatisticInfoDetail) SetFailCount(v int64) *StatisticInfoDetail {
+	s.FailCount = &v
+	return s
+}
+
+func (s *StatisticInfoDetail) SetFinishCount(v int64) *StatisticInfoDetail {
+	s.FinishCount = &v
 	return s
 }
 
@@ -799,6 +872,32 @@ func (s *RuleDetail) SetName(v string) *RuleDetail {
 
 func (s *RuleDetail) SetValue(v string) *RuleDetail {
 	s.Value = &v
+	return s
+}
+
+// 回调通用返回体
+type CommonNotyfyResult struct {
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 业务响应Json
+	BizResponse *string `json:"biz_response,omitempty" xml:"biz_response,omitempty" require:"true"`
+}
+
+func (s CommonNotyfyResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommonNotyfyResult) GoString() string {
+	return s.String()
+}
+
+func (s *CommonNotyfyResult) SetRequestId(v string) *CommonNotyfyResult {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CommonNotyfyResult) SetBizResponse(v string) *CommonNotyfyResult {
+	s.BizResponse = &v
 	return s
 }
 
@@ -1376,6 +1475,32 @@ func (s *UpdateCustomerRelationResponseData) SetUpdateTime(v string) *UpdateCust
 	return s
 }
 
+// 回流事件记录
+type BackflowEventRecord struct {
+	// 回流事件记录分组，ACTION-触达属性组/SERVICE-业务属性组/CONVERSION-转化属性组
+	GroupCode *string `json:"group_code,omitempty" xml:"group_code,omitempty" require:"true"`
+	// 回流事件部分分组后的记录list
+	Properties []*BackflowEventRecordProperty `json:"properties,omitempty" xml:"properties,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BackflowEventRecord) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BackflowEventRecord) GoString() string {
+	return s.String()
+}
+
+func (s *BackflowEventRecord) SetGroupCode(v string) *BackflowEventRecord {
+	s.GroupCode = &v
+	return s
+}
+
+func (s *BackflowEventRecord) SetProperties(v []*BackflowEventRecordProperty) *BackflowEventRecord {
+	s.Properties = v
+	return s
+}
+
 // 风险维度
 type RtopCompanyRiskFactor struct {
 	// 维度名称
@@ -1734,6 +1859,46 @@ func (s *RtopCompanyFeedback) SetFeedbackReasonDetail(v string) *RtopCompanyFeed
 
 func (s *RtopCompanyFeedback) SetComment(v string) *RtopCompanyFeedback {
 	s.Comment = &v
+	return s
+}
+
+// 上传文件运行结果
+type RuntimeResult struct {
+	// 上传成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// true代表上传成功，false代表上传失败
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 上文件传成功
+	Resultmsg *string `json:"resultmsg,omitempty" xml:"resultmsg,omitempty" require:"true"`
+	// 文件上传结果
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s RuntimeResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RuntimeResult) GoString() string {
+	return s.String()
+}
+
+func (s *RuntimeResult) SetCode(v int64) *RuntimeResult {
+	s.Code = &v
+	return s
+}
+
+func (s *RuntimeResult) SetSuccess(v bool) *RuntimeResult {
+	s.Success = &v
+	return s
+}
+
+func (s *RuntimeResult) SetResultmsg(v string) *RuntimeResult {
+	s.Resultmsg = &v
+	return s
+}
+
+func (s *RuntimeResult) SetData(v string) *RuntimeResult {
+	s.Data = &v
 	return s
 }
 
@@ -2458,6 +2623,32 @@ func (s *RtopCrowdRiskSummaryResp) SetRegisteredProvince(v string) *RtopCrowdRis
 	return s
 }
 
+// 回执统计结果
+type StatisticResult struct {
+	// 有效任务总数量
+	ValidCount *int64 `json:"valid_count,omitempty" xml:"valid_count,omitempty" require:"true"`
+	// 各类actionDriverCode的统计结果集合
+	StatisticInfoDetailList []*StatisticInfoDetail `json:"statistic_info_detail_list,omitempty" xml:"statistic_info_detail_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s StatisticResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StatisticResult) GoString() string {
+	return s.String()
+}
+
+func (s *StatisticResult) SetValidCount(v int64) *StatisticResult {
+	s.ValidCount = &v
+	return s
+}
+
+func (s *StatisticResult) SetStatisticInfoDetailList(v []*StatisticInfoDetail) *StatisticResult {
+	s.StatisticInfoDetailList = v
+	return s
+}
+
 // 标签配置全量信息
 type RiskLabelConfigInfo struct {
 	// id
@@ -2598,6 +2789,53 @@ func (s *StrategyDetails) SetDecision(v string) *StrategyDetails {
 
 func (s *StrategyDetails) SetSceneCode(v string) *StrategyDetails {
 	s.SceneCode = &v
+	return s
+}
+
+// 支付方式锁定结果
+type PayMethodLockResult struct {
+	// 签约结果
+	SignStatus *string `json:"sign_status,omitempty" xml:"sign_status,omitempty" require:"true"`
+	// 账号
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 登录号
+	LoginId *string `json:"login_id,omitempty" xml:"login_id,omitempty" require:"true"`
+	// 支付公司
+	PayChannel *string `json:"pay_channel,omitempty" xml:"pay_channel,omitempty" require:"true"`
+	// 绑定账号名称
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
+}
+
+func (s PayMethodLockResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PayMethodLockResult) GoString() string {
+	return s.String()
+}
+
+func (s *PayMethodLockResult) SetSignStatus(v string) *PayMethodLockResult {
+	s.SignStatus = &v
+	return s
+}
+
+func (s *PayMethodLockResult) SetAccountId(v string) *PayMethodLockResult {
+	s.AccountId = &v
+	return s
+}
+
+func (s *PayMethodLockResult) SetLoginId(v string) *PayMethodLockResult {
+	s.LoginId = &v
+	return s
+}
+
+func (s *PayMethodLockResult) SetPayChannel(v string) *PayMethodLockResult {
+	s.PayChannel = &v
+	return s
+}
+
+func (s *PayMethodLockResult) SetAccountName(v string) *PayMethodLockResult {
+	s.AccountName = &v
 	return s
 }
 
@@ -3255,6 +3493,60 @@ func (s *RpcommonResp) SetData(v string) *RpcommonResp {
 	return s
 }
 
+// 公司列表
+type CompanyItems struct {
+	// 公司id
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+	// 公司名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 匹配名称
+	MatchingName *string `json:"matching_name,omitempty" xml:"matching_name,omitempty" require:"true"`
+	// 匹配类型
+	MatchingType *string `json:"matching_type,omitempty" xml:"matching_type,omitempty" require:"true"`
+	// 匹配值
+	MatchingValue *string `json:"matching_value,omitempty" xml:"matching_value,omitempty" require:"true"`
+	// 社会统一信用代码
+	UcCode *string `json:"uc_code,omitempty" xml:"uc_code,omitempty" require:"true"`
+}
+
+func (s CompanyItems) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CompanyItems) GoString() string {
+	return s.String()
+}
+
+func (s *CompanyItems) SetCompanyId(v string) *CompanyItems {
+	s.CompanyId = &v
+	return s
+}
+
+func (s *CompanyItems) SetCompanyName(v string) *CompanyItems {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *CompanyItems) SetMatchingName(v string) *CompanyItems {
+	s.MatchingName = &v
+	return s
+}
+
+func (s *CompanyItems) SetMatchingType(v string) *CompanyItems {
+	s.MatchingType = &v
+	return s
+}
+
+func (s *CompanyItems) SetMatchingValue(v string) *CompanyItems {
+	s.MatchingValue = &v
+	return s
+}
+
+func (s *CompanyItems) SetUcCode(v string) *CompanyItems {
+	s.UcCode = &v
+	return s
+}
+
 // 标签图片
 type RtopTagImage struct {
 	// 标签图片表主键
@@ -3570,6 +3862,41 @@ func (s *RtopCompanyOpinionCount) SetCompanyName(v string) *RtopCompanyOpinionCo
 
 func (s *RtopCompanyOpinionCount) SetCount(v int) *RtopCompanyOpinionCount {
 	s.Count = &v
+	return s
+}
+
+// 商户资金链锁定结果
+type FundChainLockResult struct {
+	// 店铺名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 店铺id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 0:成功
+	// 1:失败
+	// 2:处理中
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s FundChainLockResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FundChainLockResult) GoString() string {
+	return s.String()
+}
+
+func (s *FundChainLockResult) SetName(v string) *FundChainLockResult {
+	s.Name = &v
+	return s
+}
+
+func (s *FundChainLockResult) SetId(v string) *FundChainLockResult {
+	s.Id = &v
+	return s
+}
+
+func (s *FundChainLockResult) SetStatus(v string) *FundChainLockResult {
+	s.Status = &v
 	return s
 }
 
@@ -7515,7 +7842,7 @@ type BindDubbridgeCustomerBankcardRequest struct {
 	// 订单号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
 	// 客户编号
-	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty" require:"true"`
 	// 银行卡号
 	BankCardNo *string `json:"bank_card_no,omitempty" xml:"bank_card_no,omitempty" require:"true"`
 	// 渠道描述，具体请见分配
@@ -7545,8 +7872,8 @@ func (s *BindDubbridgeCustomerBankcardRequest) SetOrderNo(v string) *BindDubbrid
 	return s
 }
 
-func (s *BindDubbridgeCustomerBankcardRequest) SetCustomNo(v string) *BindDubbridgeCustomerBankcardRequest {
-	s.CustomNo = &v
+func (s *BindDubbridgeCustomerBankcardRequest) SetCustomerNo(v string) *BindDubbridgeCustomerBankcardRequest {
+	s.CustomerNo = &v
 	return s
 }
 
@@ -7569,6 +7896,8 @@ type BindDubbridgeCustomerBankcardResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 绑卡流水
 	BindSerialNo *string `json:"bind_serial_no,omitempty" xml:"bind_serial_no,omitempty"`
+	// 客户号
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty"`
 }
 
 func (s BindDubbridgeCustomerBankcardResponse) String() string {
@@ -7599,10 +7928,23 @@ func (s *BindDubbridgeCustomerBankcardResponse) SetBindSerialNo(v string) *BindD
 	return s
 }
 
+func (s *BindDubbridgeCustomerBankcardResponse) SetCustomerNo(v string) *BindDubbridgeCustomerBankcardResponse {
+	s.CustomerNo = &v
+	return s
+}
+
 type VerifyDubbridgeCustomerBankcardRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 客户号
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty"`
+	// 绑卡流水
+	BindSerialNo *string `json:"bind_serial_no,omitempty" xml:"bind_serial_no,omitempty" require:"true"`
+	// 绑卡验证码
+	BindValidCode *string `json:"bind_valid_code,omitempty" xml:"bind_valid_code,omitempty" require:"true"`
 }
 
 func (s VerifyDubbridgeCustomerBankcardRequest) String() string {
@@ -7623,6 +7965,26 @@ func (s *VerifyDubbridgeCustomerBankcardRequest) SetProductInstanceId(v string) 
 	return s
 }
 
+func (s *VerifyDubbridgeCustomerBankcardRequest) SetOrderNo(v string) *VerifyDubbridgeCustomerBankcardRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *VerifyDubbridgeCustomerBankcardRequest) SetCustomNo(v string) *VerifyDubbridgeCustomerBankcardRequest {
+	s.CustomNo = &v
+	return s
+}
+
+func (s *VerifyDubbridgeCustomerBankcardRequest) SetBindSerialNo(v string) *VerifyDubbridgeCustomerBankcardRequest {
+	s.BindSerialNo = &v
+	return s
+}
+
+func (s *VerifyDubbridgeCustomerBankcardRequest) SetBindValidCode(v string) *VerifyDubbridgeCustomerBankcardRequest {
+	s.BindValidCode = &v
+	return s
+}
+
 type VerifyDubbridgeCustomerBankcardResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -7630,6 +7992,10 @@ type VerifyDubbridgeCustomerBankcardResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 绑卡流水
+	BindSerialNo *string `json:"bind_serial_no,omitempty" xml:"bind_serial_no,omitempty"`
+	// 签约结果
+	SignResult *string `json:"sign_result,omitempty" xml:"sign_result,omitempty"`
 }
 
 func (s VerifyDubbridgeCustomerBankcardResponse) String() string {
@@ -7652,6 +8018,16 @@ func (s *VerifyDubbridgeCustomerBankcardResponse) SetResultCode(v string) *Verif
 
 func (s *VerifyDubbridgeCustomerBankcardResponse) SetResultMsg(v string) *VerifyDubbridgeCustomerBankcardResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyDubbridgeCustomerBankcardResponse) SetBindSerialNo(v string) *VerifyDubbridgeCustomerBankcardResponse {
+	s.BindSerialNo = &v
+	return s
+}
+
+func (s *VerifyDubbridgeCustomerBankcardResponse) SetSignResult(v string) *VerifyDubbridgeCustomerBankcardResponse {
+	s.SignResult = &v
 	return s
 }
 
@@ -8419,6 +8795,8 @@ type QueryDubbridgeAccountStatusRequest struct {
 	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty"`
 	// 资产方用户唯一标识（资产方用户唯一标记二选一）
 	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
+	// 查询业务
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
 }
 
 func (s QueryDubbridgeAccountStatusRequest) String() string {
@@ -8449,6 +8827,11 @@ func (s *QueryDubbridgeAccountStatusRequest) SetOpenId(v string) *QueryDubbridge
 	return s
 }
 
+func (s *QueryDubbridgeAccountStatusRequest) SetBizType(v string) *QueryDubbridgeAccountStatusRequest {
+	s.BizType = &v
+	return s
+}
+
 type QueryDubbridgeAccountStatusResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -8458,6 +8841,10 @@ type QueryDubbridgeAccountStatusResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 授信申请状态
 	Data *CustomStatus `json:"data,omitempty" xml:"data,omitempty"`
+	// 支付账户签约结果
+	PayMethodLockResult *PayMethodLockResult `json:"pay_method_lock_result,omitempty" xml:"pay_method_lock_result,omitempty"`
+	// 支付账户锁定结果
+	FundChainLockResult []*FundChainLockResult `json:"fund_chain_lock_result,omitempty" xml:"fund_chain_lock_result,omitempty" type:"Repeated"`
 }
 
 func (s QueryDubbridgeAccountStatusResponse) String() string {
@@ -8485,6 +8872,16 @@ func (s *QueryDubbridgeAccountStatusResponse) SetResultMsg(v string) *QueryDubbr
 
 func (s *QueryDubbridgeAccountStatusResponse) SetData(v *CustomStatus) *QueryDubbridgeAccountStatusResponse {
 	s.Data = v
+	return s
+}
+
+func (s *QueryDubbridgeAccountStatusResponse) SetPayMethodLockResult(v *PayMethodLockResult) *QueryDubbridgeAccountStatusResponse {
+	s.PayMethodLockResult = v
+	return s
+}
+
+func (s *QueryDubbridgeAccountStatusResponse) SetFundChainLockResult(v []*FundChainLockResult) *QueryDubbridgeAccountStatusResponse {
+	s.FundChainLockResult = v
 	return s
 }
 
@@ -9635,6 +10032,8 @@ type QueryDubbridgeSearchContractRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 原用信订单号
 	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty" require:"true"`
+	// 客户号
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty" require:"true"`
 }
 
 func (s QueryDubbridgeSearchContractRequest) String() string {
@@ -9657,6 +10056,11 @@ func (s *QueryDubbridgeSearchContractRequest) SetProductInstanceId(v string) *Qu
 
 func (s *QueryDubbridgeSearchContractRequest) SetOriginalOrderNo(v string) *QueryDubbridgeSearchContractRequest {
 	s.OriginalOrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeSearchContractRequest) SetCustomerNo(v string) *QueryDubbridgeSearchContractRequest {
+	s.CustomerNo = &v
 	return s
 }
 
@@ -10021,6 +10425,546 @@ func (s *QueryDubbridgeReceiptStatusResponse) SetData(v *CustomReceiptStatus) *Q
 	return s
 }
 
+type QueryDubbridgeCustomerCommonagreementsignRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 客户编号
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
+	// 资金方编号
+	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty" require:"true"`
+}
+
+func (s QueryDubbridgeCustomerCommonagreementsignRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCustomerCommonagreementsignRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignRequest) SetAuthToken(v string) *QueryDubbridgeCustomerCommonagreementsignRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignRequest) SetProductInstanceId(v string) *QueryDubbridgeCustomerCommonagreementsignRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignRequest) SetOrderNo(v string) *QueryDubbridgeCustomerCommonagreementsignRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignRequest) SetCustomNo(v string) *QueryDubbridgeCustomerCommonagreementsignRequest {
+	s.CustomNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignRequest) SetFundCode(v string) *QueryDubbridgeCustomerCommonagreementsignRequest {
+	s.FundCode = &v
+	return s
+}
+
+type QueryDubbridgeCustomerCommonagreementsignResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 客户编号
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty"`
+	// 客户名称
+	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty"`
+	// 流水号
+	TransSerials *string `json:"trans_serials,omitempty" xml:"trans_serials,omitempty"`
+	// 签约状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 签约用户唯一标识
+	AccountUserId *string `json:"account_user_id,omitempty" xml:"account_user_id,omitempty"`
+	// 脱敏的签约账号
+	AccountNo *string `json:"account_no,omitempty" xml:"account_no,omitempty"`
+	// 协议号
+	ProtocolNo *string `json:"protocol_no,omitempty" xml:"protocol_no,omitempty"`
+	// 协议签约时间
+	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 协议生效时间
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 协议失效时间
+	InvalidTime *string `json:"invalid_time,omitempty" xml:"invalid_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s QueryDubbridgeCustomerCommonagreementsignResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCustomerCommonagreementsignResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetReqMsgId(v string) *QueryDubbridgeCustomerCommonagreementsignResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetResultCode(v string) *QueryDubbridgeCustomerCommonagreementsignResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetResultMsg(v string) *QueryDubbridgeCustomerCommonagreementsignResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetCustomNo(v string) *QueryDubbridgeCustomerCommonagreementsignResponse {
+	s.CustomNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetCustomName(v string) *QueryDubbridgeCustomerCommonagreementsignResponse {
+	s.CustomName = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetTransSerials(v string) *QueryDubbridgeCustomerCommonagreementsignResponse {
+	s.TransSerials = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetStatus(v string) *QueryDubbridgeCustomerCommonagreementsignResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetAccountUserId(v string) *QueryDubbridgeCustomerCommonagreementsignResponse {
+	s.AccountUserId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetAccountNo(v string) *QueryDubbridgeCustomerCommonagreementsignResponse {
+	s.AccountNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetProtocolNo(v string) *QueryDubbridgeCustomerCommonagreementsignResponse {
+	s.ProtocolNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetSignTime(v string) *QueryDubbridgeCustomerCommonagreementsignResponse {
+	s.SignTime = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetValidTime(v string) *QueryDubbridgeCustomerCommonagreementsignResponse {
+	s.ValidTime = &v
+	return s
+}
+
+func (s *QueryDubbridgeCustomerCommonagreementsignResponse) SetInvalidTime(v string) *QueryDubbridgeCustomerCommonagreementsignResponse {
+	s.InvalidTime = &v
+	return s
+}
+
+type QueryDubbridgeCompanyItemsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询字段（公司名、产品名、平台名等不能为空）
+	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty" require:"true"`
+}
+
+func (s QueryDubbridgeCompanyItemsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCompanyItemsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCompanyItemsRequest) SetAuthToken(v string) *QueryDubbridgeCompanyItemsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeCompanyItemsRequest) SetProductInstanceId(v string) *QueryDubbridgeCompanyItemsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCompanyItemsRequest) SetKeyword(v string) *QueryDubbridgeCompanyItemsRequest {
+	s.Keyword = &v
+	return s
+}
+
+type QueryDubbridgeCompanyItemsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回公司列表
+	BusinessItems []*CompanyItems `json:"business_items,omitempty" xml:"business_items,omitempty" type:"Repeated"`
+	// 企业信息个数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+}
+
+func (s QueryDubbridgeCompanyItemsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCompanyItemsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCompanyItemsResponse) SetReqMsgId(v string) *QueryDubbridgeCompanyItemsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCompanyItemsResponse) SetResultCode(v string) *QueryDubbridgeCompanyItemsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeCompanyItemsResponse) SetResultMsg(v string) *QueryDubbridgeCompanyItemsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeCompanyItemsResponse) SetBusinessItems(v []*CompanyItems) *QueryDubbridgeCompanyItemsResponse {
+	s.BusinessItems = v
+	return s
+}
+
+func (s *QueryDubbridgeCompanyItemsResponse) SetTotal(v int64) *QueryDubbridgeCompanyItemsResponse {
+	s.Total = &v
+	return s
+}
+
+type UpdateDubbridgeFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 授信申请订单号(资产方)
+	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty" require:"true"`
+	// 客户编号
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
+	// 资料文件
+	Materials []*Material `json:"materials,omitempty" xml:"materials,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s UpdateDubbridgeFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDubbridgeFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDubbridgeFileRequest) SetAuthToken(v string) *UpdateDubbridgeFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateDubbridgeFileRequest) SetProductInstanceId(v string) *UpdateDubbridgeFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateDubbridgeFileRequest) SetOrderNo(v string) *UpdateDubbridgeFileRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *UpdateDubbridgeFileRequest) SetOriginalOrderNo(v string) *UpdateDubbridgeFileRequest {
+	s.OriginalOrderNo = &v
+	return s
+}
+
+func (s *UpdateDubbridgeFileRequest) SetCustomNo(v string) *UpdateDubbridgeFileRequest {
+	s.CustomNo = &v
+	return s
+}
+
+func (s *UpdateDubbridgeFileRequest) SetMaterials(v []*Material) *UpdateDubbridgeFileRequest {
+	s.Materials = v
+	return s
+}
+
+type UpdateDubbridgeFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateDubbridgeFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDubbridgeFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDubbridgeFileResponse) SetReqMsgId(v string) *UpdateDubbridgeFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateDubbridgeFileResponse) SetResultCode(v string) *UpdateDubbridgeFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateDubbridgeFileResponse) SetResultMsg(v string) *UpdateDubbridgeFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryDubbridgeCreditUrlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryDubbridgeCreditUrlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCreditUrlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCreditUrlRequest) SetAuthToken(v string) *QueryDubbridgeCreditUrlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditUrlRequest) SetProductInstanceId(v string) *QueryDubbridgeCreditUrlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryDubbridgeCreditUrlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryDubbridgeCreditUrlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeCreditUrlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeCreditUrlResponse) SetReqMsgId(v string) *QueryDubbridgeCreditUrlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditUrlResponse) SetResultCode(v string) *QueryDubbridgeCreditUrlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeCreditUrlResponse) SetResultMsg(v string) *QueryDubbridgeCreditUrlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryDubbridgeBusinessDetailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询字段（注册号，社会统一信用代码，公司名称）
+	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty" require:"true"`
+}
+
+func (s QueryDubbridgeBusinessDetailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeBusinessDetailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeBusinessDetailRequest) SetAuthToken(v string) *QueryDubbridgeBusinessDetailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeBusinessDetailRequest) SetProductInstanceId(v string) *QueryDubbridgeBusinessDetailRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeBusinessDetailRequest) SetKeyword(v string) *QueryDubbridgeBusinessDetailRequest {
+	s.Keyword = &v
+	return s
+}
+
+type QueryDubbridgeBusinessDetailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 社会统一信用代码
+	UcCode *string `json:"uc_code,omitempty" xml:"uc_code,omitempty"`
+	// 注册日期
+	RegisterDate *string `json:"register_date,omitempty" xml:"register_date,omitempty"`
+	// 经营地址
+	OperatingAddrJson *string `json:"operating_addr_json,omitempty" xml:"operating_addr_json,omitempty"`
+	// 详细地址
+	AddressDetail *string `json:"address_detail,omitempty" xml:"address_detail,omitempty"`
+}
+
+func (s QueryDubbridgeBusinessDetailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeBusinessDetailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeBusinessDetailResponse) SetReqMsgId(v string) *QueryDubbridgeBusinessDetailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeBusinessDetailResponse) SetResultCode(v string) *QueryDubbridgeBusinessDetailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeBusinessDetailResponse) SetResultMsg(v string) *QueryDubbridgeBusinessDetailResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeBusinessDetailResponse) SetUcCode(v string) *QueryDubbridgeBusinessDetailResponse {
+	s.UcCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeBusinessDetailResponse) SetRegisterDate(v string) *QueryDubbridgeBusinessDetailResponse {
+	s.RegisterDate = &v
+	return s
+}
+
+func (s *QueryDubbridgeBusinessDetailResponse) SetOperatingAddrJson(v string) *QueryDubbridgeBusinessDetailResponse {
+	s.OperatingAddrJson = &v
+	return s
+}
+
+func (s *QueryDubbridgeBusinessDetailResponse) SetAddressDetail(v string) *QueryDubbridgeBusinessDetailResponse {
+	s.AddressDetail = &v
+	return s
+}
+
+type NotifyDubbridgeCallbackRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// json参数
+	BizParam *string `json:"biz_param,omitempty" xml:"biz_param,omitempty" require:"true"`
+	// 回调类型（1授信回调2用信回调）
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+}
+
+func (s NotifyDubbridgeCallbackRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyDubbridgeCallbackRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyDubbridgeCallbackRequest) SetAuthToken(v string) *NotifyDubbridgeCallbackRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyDubbridgeCallbackRequest) SetProductInstanceId(v string) *NotifyDubbridgeCallbackRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyDubbridgeCallbackRequest) SetChannelCode(v string) *NotifyDubbridgeCallbackRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *NotifyDubbridgeCallbackRequest) SetBizParam(v string) *NotifyDubbridgeCallbackRequest {
+	s.BizParam = &v
+	return s
+}
+
+func (s *NotifyDubbridgeCallbackRequest) SetBizType(v string) *NotifyDubbridgeCallbackRequest {
+	s.BizType = &v
+	return s
+}
+
+type NotifyDubbridgeCallbackResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	//
+	// 处理结果
+	Data *CommonNotyfyResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s NotifyDubbridgeCallbackResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyDubbridgeCallbackResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyDubbridgeCallbackResponse) SetReqMsgId(v string) *NotifyDubbridgeCallbackResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyDubbridgeCallbackResponse) SetResultCode(v string) *NotifyDubbridgeCallbackResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyDubbridgeCallbackResponse) SetResultMsg(v string) *NotifyDubbridgeCallbackResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyDubbridgeCallbackResponse) SetData(v *CommonNotyfyResult) *NotifyDubbridgeCallbackResponse {
+	s.Data = v
+	return s
+}
+
 type VerifyFinserviceZhimaIdentifyRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -10304,6 +11248,8 @@ type ReceiveMdipParamsFileResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件上传结果
+	Content *RuntimeResult `json:"content,omitempty" xml:"content,omitempty"`
 }
 
 func (s ReceiveMdipParamsFileResponse) String() string {
@@ -10326,6 +11272,11 @@ func (s *ReceiveMdipParamsFileResponse) SetResultCode(v string) *ReceiveMdipPara
 
 func (s *ReceiveMdipParamsFileResponse) SetResultMsg(v string) *ReceiveMdipParamsFileResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *ReceiveMdipParamsFileResponse) SetContent(v *RuntimeResult) *ReceiveMdipParamsFileResponse {
+	s.Content = v
 	return s
 }
 
@@ -15594,6 +16545,8 @@ type UploadUmktParamsFileResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传后返回的任务id
+	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty"`
 }
 
 func (s UploadUmktParamsFileResponse) String() string {
@@ -15619,6 +16572,11 @@ func (s *UploadUmktParamsFileResponse) SetResultMsg(v string) *UploadUmktParamsF
 	return s
 }
 
+func (s *UploadUmktParamsFileResponse) SetTaskId(v int64) *UploadUmktParamsFileResponse {
+	s.TaskId = &v
+	return s
+}
+
 type BatchqueryUmktRtMarketingRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -15632,7 +16590,7 @@ type BatchqueryUmktRtMarketingRequest struct {
 	// 业务方流水号
 	BizSerialNo *string `json:"biz_serial_no,omitempty" xml:"biz_serial_no,omitempty" require:"true"`
 	// 访问类型，PROD/TEST，正式流量/测试流量
-	VisitType *string `json:"visit_type,omitempty" xml:"visit_type,omitempty" require:"true"`
+	VisitType *string `json:"visit_type,omitempty" xml:"visit_type,omitempty"`
 }
 
 func (s BatchqueryUmktRtMarketingRequest) String() string {
@@ -16176,6 +17134,517 @@ func (s *ApplyUmktRobotcallResponse) SetCallId(v string) *ApplyUmktRobotcallResp
 	return s
 }
 
+type QueryUmktDataaccessStatisticRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询回执统计的任务id
+	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryUmktDataaccessStatisticRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktDataaccessStatisticRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktDataaccessStatisticRequest) SetAuthToken(v string) *QueryUmktDataaccessStatisticRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUmktDataaccessStatisticRequest) SetProductInstanceId(v string) *QueryUmktDataaccessStatisticRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUmktDataaccessStatisticRequest) SetTaskId(v int64) *QueryUmktDataaccessStatisticRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryUmktDataaccessStatisticResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 回执统计结果
+	StatisticResult *StatisticResult `json:"statistic_result,omitempty" xml:"statistic_result,omitempty"`
+}
+
+func (s QueryUmktDataaccessStatisticResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktDataaccessStatisticResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktDataaccessStatisticResponse) SetReqMsgId(v string) *QueryUmktDataaccessStatisticResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUmktDataaccessStatisticResponse) SetResultCode(v string) *QueryUmktDataaccessStatisticResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUmktDataaccessStatisticResponse) SetResultMsg(v string) *QueryUmktDataaccessStatisticResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUmktDataaccessStatisticResponse) SetStatisticResult(v *StatisticResult) *QueryUmktDataaccessStatisticResponse {
+	s.StatisticResult = v
+	return s
+}
+
+type CancelUmktDataaccessOfflinetaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 离线批量任务id
+	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s CancelUmktDataaccessOfflinetaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelUmktDataaccessOfflinetaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelUmktDataaccessOfflinetaskRequest) SetAuthToken(v string) *CancelUmktDataaccessOfflinetaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelUmktDataaccessOfflinetaskRequest) SetProductInstanceId(v string) *CancelUmktDataaccessOfflinetaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CancelUmktDataaccessOfflinetaskRequest) SetTaskId(v int64) *CancelUmktDataaccessOfflinetaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+type CancelUmktDataaccessOfflinetaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CancelUmktDataaccessOfflinetaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelUmktDataaccessOfflinetaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelUmktDataaccessOfflinetaskResponse) SetReqMsgId(v string) *CancelUmktDataaccessOfflinetaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelUmktDataaccessOfflinetaskResponse) SetResultCode(v string) *CancelUmktDataaccessOfflinetaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelUmktDataaccessOfflinetaskResponse) SetResultMsg(v string) *CancelUmktDataaccessOfflinetaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryUmktRtMarketingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景策略id，决策重点
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 用户凭证模版
+	QueryTemplate *string `json:"query_template,omitempty" xml:"query_template,omitempty" require:"true"`
+	// 用户查询凭证
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
+	// 业务流水号
+	BizSerialNo *string `json:"biz_serial_no,omitempty" xml:"biz_serial_no,omitempty" require:"true"`
+}
+
+func (s QueryUmktRtMarketingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktRtMarketingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktRtMarketingRequest) SetAuthToken(v string) *QueryUmktRtMarketingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUmktRtMarketingRequest) SetProductInstanceId(v string) *QueryUmktRtMarketingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUmktRtMarketingRequest) SetSceneStrategyId(v int64) *QueryUmktRtMarketingRequest {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *QueryUmktRtMarketingRequest) SetQueryTemplate(v string) *QueryUmktRtMarketingRequest {
+	s.QueryTemplate = &v
+	return s
+}
+
+func (s *QueryUmktRtMarketingRequest) SetCustomerKey(v string) *QueryUmktRtMarketingRequest {
+	s.CustomerKey = &v
+	return s
+}
+
+func (s *QueryUmktRtMarketingRequest) SetBizSerialNo(v string) *QueryUmktRtMarketingRequest {
+	s.BizSerialNo = &v
+	return s
+}
+
+type QueryUmktRtMarketingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 实时单个营销结果
+	QueryResult *CustomerUmktInfoModel `json:"query_result,omitempty" xml:"query_result,omitempty"`
+}
+
+func (s QueryUmktRtMarketingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktRtMarketingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktRtMarketingResponse) SetReqMsgId(v string) *QueryUmktRtMarketingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUmktRtMarketingResponse) SetResultCode(v string) *QueryUmktRtMarketingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUmktRtMarketingResponse) SetResultMsg(v string) *QueryUmktRtMarketingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUmktRtMarketingResponse) SetQueryResult(v *CustomerUmktInfoModel) *QueryUmktRtMarketingResponse {
+	s.QueryResult = v
+	return s
+}
+
+type PushUmktBackflowEventRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 回流事件id，对应租户回流事件id
+	EventId *int64 `json:"event_id,omitempty" xml:"event_id,omitempty" require:"true"`
+	// 回流事件记录列表
+	EventRecords []*BackflowEventRecord `json:"event_records,omitempty" xml:"event_records,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s PushUmktBackflowEventRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushUmktBackflowEventRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushUmktBackflowEventRequest) SetAuthToken(v string) *PushUmktBackflowEventRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushUmktBackflowEventRequest) SetProductInstanceId(v string) *PushUmktBackflowEventRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushUmktBackflowEventRequest) SetEventId(v int64) *PushUmktBackflowEventRequest {
+	s.EventId = &v
+	return s
+}
+
+func (s *PushUmktBackflowEventRequest) SetEventRecords(v []*BackflowEventRecord) *PushUmktBackflowEventRequest {
+	s.EventRecords = v
+	return s
+}
+
+type PushUmktBackflowEventResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushUmktBackflowEventResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushUmktBackflowEventResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushUmktBackflowEventResponse) SetReqMsgId(v string) *PushUmktBackflowEventResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushUmktBackflowEventResponse) SetResultCode(v string) *PushUmktBackflowEventResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushUmktBackflowEventResponse) SetResultMsg(v string) *PushUmktBackflowEventResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SendUmktCardsmsBatchRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// cpassAccessKey
+	CpassAk *string `json:"cpass_ak,omitempty" xml:"cpass_ak,omitempty"`
+	// 行业标签
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty" require:"true"`
+	// 卡片短信模板
+	CardTemplateCode *string `json:"card_template_code,omitempty" xml:"card_template_code,omitempty" require:"true"`
+	// {}
+	CardTemplateParamJson *string `json:"card_template_param_json,omitempty" xml:"card_template_param_json,omitempty" require:"true"`
+	// ["13455","76898"]
+	PhoneNumberJson *string `json:"phone_number_json,omitempty" xml:"phone_number_json,omitempty" require:"true"`
+	// ["蚂蚁营销"]
+	SignNameJson *string `json:"sign_name_json,omitempty" xml:"sign_name_json,omitempty" require:"true"`
+	// 上行短信扩展码
+	SmsUpExtendCodeJson *string `json:"sms_up_extend_code_json,omitempty" xml:"sms_up_extend_code_json,omitempty"`
+}
+
+func (s SendUmktCardsmsBatchRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendUmktCardsmsBatchRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendUmktCardsmsBatchRequest) SetAuthToken(v string) *SendUmktCardsmsBatchRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchRequest) SetProductInstanceId(v string) *SendUmktCardsmsBatchRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchRequest) SetCpassAk(v string) *SendUmktCardsmsBatchRequest {
+	s.CpassAk = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchRequest) SetIndustryTag(v string) *SendUmktCardsmsBatchRequest {
+	s.IndustryTag = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchRequest) SetCardTemplateCode(v string) *SendUmktCardsmsBatchRequest {
+	s.CardTemplateCode = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchRequest) SetCardTemplateParamJson(v string) *SendUmktCardsmsBatchRequest {
+	s.CardTemplateParamJson = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchRequest) SetPhoneNumberJson(v string) *SendUmktCardsmsBatchRequest {
+	s.PhoneNumberJson = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchRequest) SetSignNameJson(v string) *SendUmktCardsmsBatchRequest {
+	s.SignNameJson = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchRequest) SetSmsUpExtendCodeJson(v string) *SendUmktCardsmsBatchRequest {
+	s.SmsUpExtendCodeJson = &v
+	return s
+}
+
+type SendUmktCardsmsBatchResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 卡片短信回执id
+	BizCardId *string `json:"biz_card_id,omitempty" xml:"biz_card_id,omitempty"`
+	// 支持的手机号
+	MediaMobiles *string `json:"media_mobiles,omitempty" xml:"media_mobiles,omitempty"`
+	// 不支持的手机号
+	NotMediaMobiles *string `json:"not_media_mobiles,omitempty" xml:"not_media_mobiles,omitempty"`
+}
+
+func (s SendUmktCardsmsBatchResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendUmktCardsmsBatchResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendUmktCardsmsBatchResponse) SetReqMsgId(v string) *SendUmktCardsmsBatchResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchResponse) SetResultCode(v string) *SendUmktCardsmsBatchResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchResponse) SetResultMsg(v string) *SendUmktCardsmsBatchResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchResponse) SetBizCardId(v string) *SendUmktCardsmsBatchResponse {
+	s.BizCardId = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchResponse) SetMediaMobiles(v string) *SendUmktCardsmsBatchResponse {
+	s.MediaMobiles = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchResponse) SetNotMediaMobiles(v string) *SendUmktCardsmsBatchResponse {
+	s.NotMediaMobiles = &v
+	return s
+}
+
+type QueryUmktCardsmsSupportRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// cpassAccessKey
+	CpassAk *string `json:"cpass_ak,omitempty" xml:"cpass_ak,omitempty"`
+	// 行业标签
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty" require:"true"`
+	// 卡片短信模板
+	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty" require:"true"`
+	// 手机号
+	Mobiles *string `json:"mobiles,omitempty" xml:"mobiles,omitempty" require:"true"`
+}
+
+func (s QueryUmktCardsmsSupportRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktCardsmsSupportRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktCardsmsSupportRequest) SetAuthToken(v string) *QueryUmktCardsmsSupportRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsSupportRequest) SetProductInstanceId(v string) *QueryUmktCardsmsSupportRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsSupportRequest) SetCpassAk(v string) *QueryUmktCardsmsSupportRequest {
+	s.CpassAk = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsSupportRequest) SetIndustryTag(v string) *QueryUmktCardsmsSupportRequest {
+	s.IndustryTag = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsSupportRequest) SetTemplateCode(v string) *QueryUmktCardsmsSupportRequest {
+	s.TemplateCode = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsSupportRequest) SetMobiles(v string) *QueryUmktCardsmsSupportRequest {
+	s.Mobiles = &v
+	return s
+}
+
+type QueryUmktCardsmsSupportResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 手机号卡片短信支持信息
+	Datas *string `json:"datas,omitempty" xml:"datas,omitempty"`
+}
+
+func (s QueryUmktCardsmsSupportResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktCardsmsSupportResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktCardsmsSupportResponse) SetReqMsgId(v string) *QueryUmktCardsmsSupportResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsSupportResponse) SetResultCode(v string) *QueryUmktCardsmsSupportResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsSupportResponse) SetResultMsg(v string) *QueryUmktCardsmsSupportResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUmktCardsmsSupportResponse) SetDatas(v string) *QueryUmktCardsmsSupportResponse {
+	s.Datas = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -16418,7 +17887,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.11"),
+				"sdk_version":      tea.String("1.13.3"),
+				"_prod_code":       tea.String("RISKPLUS"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -16444,8 +17915,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -18324,6 +19803,210 @@ func (client *Client) QueryDubbridgeReceiptStatusEx(request *QueryDubbridgeRecei
 	}
 	_result = &QueryDubbridgeReceiptStatusResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.receipt.status.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统协议签约查询(通用)
+ * Summary: 天枢系统协议签约查询(通用)
+ */
+func (client *Client) QueryDubbridgeCustomerCommonagreementsign(request *QueryDubbridgeCustomerCommonagreementsignRequest) (_result *QueryDubbridgeCustomerCommonagreementsignResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeCustomerCommonagreementsignResponse{}
+	_body, _err := client.QueryDubbridgeCustomerCommonagreementsignEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统协议签约查询(通用)
+ * Summary: 天枢系统协议签约查询(通用)
+ */
+func (client *Client) QueryDubbridgeCustomerCommonagreementsignEx(request *QueryDubbridgeCustomerCommonagreementsignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeCustomerCommonagreementsignResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeCustomerCommonagreementsignResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.customer.commonagreementsign.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据关键字从第三方查询企业信息
+ * Summary: 天枢系统企业搜索
+ */
+func (client *Client) QueryDubbridgeCompanyItems(request *QueryDubbridgeCompanyItemsRequest) (_result *QueryDubbridgeCompanyItemsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeCompanyItemsResponse{}
+	_body, _err := client.QueryDubbridgeCompanyItemsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据关键字从第三方查询企业信息
+ * Summary: 天枢系统企业搜索
+ */
+func (client *Client) QueryDubbridgeCompanyItemsEx(request *QueryDubbridgeCompanyItemsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeCompanyItemsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeCompanyItemsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.company.items.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 客户影像信息更新
+ * Summary: 客户影像信息更新
+ */
+func (client *Client) UpdateDubbridgeFile(request *UpdateDubbridgeFileRequest) (_result *UpdateDubbridgeFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateDubbridgeFileResponse{}
+	_body, _err := client.UpdateDubbridgeFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 客户影像信息更新
+ * Summary: 客户影像信息更新
+ */
+func (client *Client) UpdateDubbridgeFileEx(request *UpdateDubbridgeFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateDubbridgeFileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateDubbridgeFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.file.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统获取授信H5地址
+ * Summary: 天枢系统获取授信H5地址
+ */
+func (client *Client) QueryDubbridgeCreditUrl(request *QueryDubbridgeCreditUrlRequest) (_result *QueryDubbridgeCreditUrlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeCreditUrlResponse{}
+	_body, _err := client.QueryDubbridgeCreditUrlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统获取授信H5地址
+ * Summary: 天枢系统获取授信H5地址
+ */
+func (client *Client) QueryDubbridgeCreditUrlEx(request *QueryDubbridgeCreditUrlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeCreditUrlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeCreditUrlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.credit.url.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据关键字从第三方查询企业详情信息
+ * Summary: 天枢系统企业详情信息查询
+ */
+func (client *Client) QueryDubbridgeBusinessDetail(request *QueryDubbridgeBusinessDetailRequest) (_result *QueryDubbridgeBusinessDetailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeBusinessDetailResponse{}
+	_body, _err := client.QueryDubbridgeBusinessDetailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据关键字从第三方查询企业详情信息
+ * Summary: 天枢系统企业详情信息查询
+ */
+func (client *Client) QueryDubbridgeBusinessDetailEx(request *QueryDubbridgeBusinessDetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeBusinessDetailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeBusinessDetailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.business.detail.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天枢回调通用接口
+ * Summary: 天枢回调通用接口
+ */
+func (client *Client) NotifyDubbridgeCallback(request *NotifyDubbridgeCallbackRequest) (_result *NotifyDubbridgeCallbackResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyDubbridgeCallbackResponse{}
+	_body, _err := client.NotifyDubbridgeCallbackEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢回调通用接口
+ * Summary: 天枢回调通用接口
+ */
+func (client *Client) NotifyDubbridgeCallbackEx(request *NotifyDubbridgeCallbackRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyDubbridgeCallbackResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyDubbridgeCallbackResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.callback.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -20458,6 +22141,210 @@ func (client *Client) ApplyUmktRobotcallEx(request *ApplyUmktRobotcallRequest, h
 	}
 	_result = &ApplyUmktRobotcallResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.robotcall.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾查询回执统计数据接口
+ * Summary: 营销盾回执统计查询
+ */
+func (client *Client) QueryUmktDataaccessStatistic(request *QueryUmktDataaccessStatisticRequest) (_result *QueryUmktDataaccessStatisticResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUmktDataaccessStatisticResponse{}
+	_body, _err := client.QueryUmktDataaccessStatisticEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾查询回执统计数据接口
+ * Summary: 营销盾回执统计查询
+ */
+func (client *Client) QueryUmktDataaccessStatisticEx(request *QueryUmktDataaccessStatisticRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktDataaccessStatisticResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUmktDataaccessStatisticResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.dataaccess.statistic.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾离线批量任务取消接口
+ * Summary: 营销盾取消离线批量任务
+ */
+func (client *Client) CancelUmktDataaccessOfflinetask(request *CancelUmktDataaccessOfflinetaskRequest) (_result *CancelUmktDataaccessOfflinetaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelUmktDataaccessOfflinetaskResponse{}
+	_body, _err := client.CancelUmktDataaccessOfflinetaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾离线批量任务取消接口
+ * Summary: 营销盾取消离线批量任务
+ */
+func (client *Client) CancelUmktDataaccessOfflinetaskEx(request *CancelUmktDataaccessOfflinetaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelUmktDataaccessOfflinetaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelUmktDataaccessOfflinetaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.dataaccess.offlinetask.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾实时单一凭证营销接口，服务于近rta的场景
+ * Summary: 营销盾实时单一凭证营销接口
+ */
+func (client *Client) QueryUmktRtMarketing(request *QueryUmktRtMarketingRequest) (_result *QueryUmktRtMarketingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUmktRtMarketingResponse{}
+	_body, _err := client.QueryUmktRtMarketingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾实时单一凭证营销接口，服务于近rta的场景
+ * Summary: 营销盾实时单一凭证营销接口
+ */
+func (client *Client) QueryUmktRtMarketingEx(request *QueryUmktRtMarketingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktRtMarketingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUmktRtMarketingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.rt.marketing.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾业务回流事件推送
+ * Summary: 营销盾回流事件推送
+ */
+func (client *Client) PushUmktBackflowEvent(request *PushUmktBackflowEventRequest) (_result *PushUmktBackflowEventResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushUmktBackflowEventResponse{}
+	_body, _err := client.PushUmktBackflowEventEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾业务回流事件推送
+ * Summary: 营销盾回流事件推送
+ */
+func (client *Client) PushUmktBackflowEventEx(request *PushUmktBackflowEventRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushUmktBackflowEventResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushUmktBackflowEventResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.backflow.event.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 卡片短信批量发送接口
+ * Summary: 卡片短信批量发送接口
+ */
+func (client *Client) SendUmktCardsmsBatch(request *SendUmktCardsmsBatchRequest) (_result *SendUmktCardsmsBatchResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendUmktCardsmsBatchResponse{}
+	_body, _err := client.SendUmktCardsmsBatchEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 卡片短信批量发送接口
+ * Summary: 卡片短信批量发送接口
+ */
+func (client *Client) SendUmktCardsmsBatchEx(request *SendUmktCardsmsBatchRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendUmktCardsmsBatchResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendUmktCardsmsBatchResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.cardsms.batch.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 卡片短信支持能力查询
+ * Summary: 卡片短信支持能力查询
+ */
+func (client *Client) QueryUmktCardsmsSupport(request *QueryUmktCardsmsSupportRequest) (_result *QueryUmktCardsmsSupportResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUmktCardsmsSupportResponse{}
+	_body, _err := client.QueryUmktCardsmsSupportEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 卡片短信支持能力查询
+ * Summary: 卡片短信支持能力查询
+ */
+func (client *Client) QueryUmktCardsmsSupportEx(request *QueryUmktCardsmsSupportRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktCardsmsSupportResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUmktCardsmsSupportResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.cardsms.support.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
