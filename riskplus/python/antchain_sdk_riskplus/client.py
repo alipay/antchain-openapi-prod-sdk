@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.19',
+                    'sdk_version': '1.13.3',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.19',
+                    'sdk_version': '1.13.3',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -3611,6 +3611,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryDubbridgeBusinessDetailResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.business.detail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_dubbridge_callback(
+        self,
+        request: riskplus_models.NotifyDubbridgeCallbackRequest,
+    ) -> riskplus_models.NotifyDubbridgeCallbackResponse:
+        """
+        Description: 天枢回调通用接口
+        Summary: 天枢回调通用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_dubbridge_callback_ex(request, headers, runtime)
+
+    async def notify_dubbridge_callback_async(
+        self,
+        request: riskplus_models.NotifyDubbridgeCallbackRequest,
+    ) -> riskplus_models.NotifyDubbridgeCallbackResponse:
+        """
+        Description: 天枢回调通用接口
+        Summary: 天枢回调通用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_dubbridge_callback_ex_async(request, headers, runtime)
+
+    def notify_dubbridge_callback_ex(
+        self,
+        request: riskplus_models.NotifyDubbridgeCallbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyDubbridgeCallbackResponse:
+        """
+        Description: 天枢回调通用接口
+        Summary: 天枢回调通用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyDubbridgeCallbackResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.callback.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_dubbridge_callback_ex_async(
+        self,
+        request: riskplus_models.NotifyDubbridgeCallbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyDubbridgeCallbackResponse:
+        """
+        Description: 天枢回调通用接口
+        Summary: 天枢回调通用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyDubbridgeCallbackResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.callback.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(
@@ -7267,6 +7323,174 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryUmktRtMarketingResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.rt.marketing.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_umkt_backflow_event(
+        self,
+        request: riskplus_models.PushUmktBackflowEventRequest,
+    ) -> riskplus_models.PushUmktBackflowEventResponse:
+        """
+        Description: 营销盾业务回流事件推送
+        Summary: 营销盾回流事件推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_umkt_backflow_event_ex(request, headers, runtime)
+
+    async def push_umkt_backflow_event_async(
+        self,
+        request: riskplus_models.PushUmktBackflowEventRequest,
+    ) -> riskplus_models.PushUmktBackflowEventResponse:
+        """
+        Description: 营销盾业务回流事件推送
+        Summary: 营销盾回流事件推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_umkt_backflow_event_ex_async(request, headers, runtime)
+
+    def push_umkt_backflow_event_ex(
+        self,
+        request: riskplus_models.PushUmktBackflowEventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushUmktBackflowEventResponse:
+        """
+        Description: 营销盾业务回流事件推送
+        Summary: 营销盾回流事件推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushUmktBackflowEventResponse(),
+            self.do_request('1.0', 'riskplus.umkt.backflow.event.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_umkt_backflow_event_ex_async(
+        self,
+        request: riskplus_models.PushUmktBackflowEventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushUmktBackflowEventResponse:
+        """
+        Description: 营销盾业务回流事件推送
+        Summary: 营销盾回流事件推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushUmktBackflowEventResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.backflow.event.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_umkt_cardsms_batch(
+        self,
+        request: riskplus_models.SendUmktCardsmsBatchRequest,
+    ) -> riskplus_models.SendUmktCardsmsBatchResponse:
+        """
+        Description: 卡片短信批量发送接口
+        Summary: 卡片短信批量发送接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_umkt_cardsms_batch_ex(request, headers, runtime)
+
+    async def send_umkt_cardsms_batch_async(
+        self,
+        request: riskplus_models.SendUmktCardsmsBatchRequest,
+    ) -> riskplus_models.SendUmktCardsmsBatchResponse:
+        """
+        Description: 卡片短信批量发送接口
+        Summary: 卡片短信批量发送接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_umkt_cardsms_batch_ex_async(request, headers, runtime)
+
+    def send_umkt_cardsms_batch_ex(
+        self,
+        request: riskplus_models.SendUmktCardsmsBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SendUmktCardsmsBatchResponse:
+        """
+        Description: 卡片短信批量发送接口
+        Summary: 卡片短信批量发送接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SendUmktCardsmsBatchResponse(),
+            self.do_request('1.0', 'riskplus.umkt.cardsms.batch.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_umkt_cardsms_batch_ex_async(
+        self,
+        request: riskplus_models.SendUmktCardsmsBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SendUmktCardsmsBatchResponse:
+        """
+        Description: 卡片短信批量发送接口
+        Summary: 卡片短信批量发送接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SendUmktCardsmsBatchResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.cardsms.batch.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_umkt_cardsms_support(
+        self,
+        request: riskplus_models.QueryUmktCardsmsSupportRequest,
+    ) -> riskplus_models.QueryUmktCardsmsSupportResponse:
+        """
+        Description: 卡片短信支持能力查询
+        Summary: 卡片短信支持能力查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_umkt_cardsms_support_ex(request, headers, runtime)
+
+    async def query_umkt_cardsms_support_async(
+        self,
+        request: riskplus_models.QueryUmktCardsmsSupportRequest,
+    ) -> riskplus_models.QueryUmktCardsmsSupportResponse:
+        """
+        Description: 卡片短信支持能力查询
+        Summary: 卡片短信支持能力查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_umkt_cardsms_support_ex_async(request, headers, runtime)
+
+    def query_umkt_cardsms_support_ex(
+        self,
+        request: riskplus_models.QueryUmktCardsmsSupportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktCardsmsSupportResponse:
+        """
+        Description: 卡片短信支持能力查询
+        Summary: 卡片短信支持能力查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktCardsmsSupportResponse(),
+            self.do_request('1.0', 'riskplus.umkt.cardsms.support.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_umkt_cardsms_support_ex_async(
+        self,
+        request: riskplus_models.QueryUmktCardsmsSupportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktCardsmsSupportResponse:
+        """
+        Description: 卡片短信支持能力查询
+        Summary: 卡片短信支持能力查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktCardsmsSupportResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.cardsms.support.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
