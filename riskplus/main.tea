@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.19',
+    sdk_version = '1.13.3',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -226,6 +226,14 @@ model DecisionFlow {
   decision: string(name='decision', example='reject'),
   // infocodes
   infoCodes?: InfoCodes(name='info_codes', example='infocodes'),
+}
+
+// 回流事件记录属性项
+model BackflowEventRecordProperty {
+  // 属性code
+  key: string(name='key', example='mobile'),
+  // 属性value，统一为字符串
+  value: string(name='value', example='18941147005'),
 }
 
 // 营销盾批量查询单条结果
@@ -372,6 +380,14 @@ model RuleDetail {
   name: string(name='name', example='出现次数'),
   // 规则细节值
   value: string(name='value', example='19'),
+}
+
+// 回调通用返回体
+model CommonNotyfyResult {
+  // 请求id
+  requestId: string(name='request_id', example='123AA'),
+  // 业务响应Json
+  bizResponse: string(name='biz_response', example='{\"a\":\"b\"} '),
 }
 
 // 安全场景参数
@@ -542,6 +558,14 @@ model UpdateCustomerRelationResponseData {
   createTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time', example='2018-10-10T10:10:00Z'),
   // 更新时间
   updateTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='update_time', example='2018-10-10T10:10:00Z'),
+}
+
+// 回流事件记录
+model BackflowEventRecord {
+  // 回流事件记录分组，ACTION-触达属性组/SERVICE-业务属性组/CONVERSION-转化属性组
+  groupCode: string(name='group_code', example='BUSINESS'),
+  // 回流事件部分分组后的记录list
+  properties: [ BackflowEventRecordProperty ](name='properties', example=''),
 }
 
 // 风险维度
@@ -930,6 +954,20 @@ model StrategyDetails {
   sceneCode: string(name='scene_code', example='scene_code'),
 }
 
+// 支付方式锁定结果
+model PayMethodLockResult {
+  // 签约结果
+  signStatus: string(name='sign_status', example='0、1'),
+  // 账号
+  accountId: string(name='account_id', example='userId'),
+  // 登录号
+  loginId: string(name='login_id', example='userIdA'),
+  // 支付公司
+  payChannel: string(name='pay_channel', example='AliPay'),
+  // 绑定账号名称
+  accountName: string(name='account_name', example='someName'),
+}
+
 // 反欺诈风险数据服务决策结果
 model SecurityResultInfos {
   // 反欺诈风险数据服务风险建议决策
@@ -1125,16 +1163,16 @@ model RpcommonResp {
 model CompanyItems {
   // 公司id
   companyId: string(name='company_id', example='20111b9afa08b3a53580e20513933966'),
-  // 蚂蚁科技集团股份有限公司
-  companyName: string(name='company_name', example='公司名称'),
+  // 公司名称
+  companyName: string(name='company_name', example='蚂蚁科技集团股份有限公司'),
   // 匹配名称
   matchingName: string(name='matching_name', example='平台名'),
   // 匹配类型
   matchingType: string(name='matching_type', example='平台名匹配'),
   // 匹配值
   matchingValue: string(name='matching_value', example='蚂蚁金服'),
-  // 返回标识
-  ucCode: string(name='uc_code', example='S'),
+  // 社会统一信用代码
+  ucCode: string(name='uc_code', example='XXX'),
 }
 
 // 标签图片
@@ -1233,6 +1271,18 @@ model RtopCompanyOpinionCount {
   companyName: string(name='company_name', example='福州北辰智创投资中心'),
   // 企业对应的舆情数量
   count: integer(name='count', example='10'),
+}
+
+// 商户资金链锁定结果
+model FundChainLockResult {
+  // 店铺名称
+  name: string(name='name', example='某店铺'),
+  // 店铺id
+  id: string(name='id', example='2022091300001'),
+  // 0:成功
+  // 1:失败
+  // 2:处理中
+  status: string(name='status', example='0'),
 }
 
 // 企业地区分布统计
@@ -3354,6 +3404,8 @@ model QueryDubbridgeAccountStatusRequest = {
   customNo?: string(name='custom_no'),
   // 资产方用户唯一标识（资产方用户唯一标记二选一）
   openId?: string(name='open_id'),
+  // 查询业务
+  bizType: string(name='biz_type'),
 }
 
 model QueryDubbridgeAccountStatusResponse = {
@@ -3365,6 +3417,10 @@ model QueryDubbridgeAccountStatusResponse = {
   resultMsg?: string(name='result_msg'),
   // 授信申请状态
   data?: CustomStatus(name='data'),
+  // 支付账户签约结果
+  payMethodLockResult?: PayMethodLockResult(name='pay_method_lock_result'),
+  // 支付账户锁定结果
+  fundChainLockResult?: [ FundChainLockResult ](name='fund_chain_lock_result'),
 }
 
 /**
@@ -4314,6 +4370,49 @@ async function queryDubbridgeBusinessDetail(request: QueryDubbridgeBusinessDetai
 async function queryDubbridgeBusinessDetailEx(request: QueryDubbridgeBusinessDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeBusinessDetailResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.business.detail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyDubbridgeCallbackRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  channelCode: string(name='channel_code'),
+  // json参数
+  bizParam: string(name='biz_param'),
+  // 回调类型（1授信回调2用信回调）
+  bizType: string(name='biz_type'),
+}
+
+model NotifyDubbridgeCallbackResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 	
+  // 处理结果
+  data?: CommonNotyfyResult(name='data'),
+}
+
+/**
+ * Description: 天枢回调通用接口
+ * Summary: 天枢回调通用接口
+ */
+async function notifyDubbridgeCallback(request: NotifyDubbridgeCallbackRequest): NotifyDubbridgeCallbackResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyDubbridgeCallbackEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢回调通用接口
+ * Summary: 天枢回调通用接口
+ */
+async function notifyDubbridgeCallbackEx(request: NotifyDubbridgeCallbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyDubbridgeCallbackResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.callback.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
@@ -7335,6 +7434,142 @@ async function queryUmktRtMarketing(request: QueryUmktRtMarketingRequest): Query
 async function queryUmktRtMarketingEx(request: QueryUmktRtMarketingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktRtMarketingResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.rt.marketing.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushUmktBackflowEventRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回流事件id，对应租户回流事件id
+  eventId: long(name='event_id'),
+  // 回流事件记录列表
+  eventRecords: [ BackflowEventRecord ](name='event_records'),
+}
+
+model PushUmktBackflowEventResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 营销盾业务回流事件推送
+ * Summary: 营销盾回流事件推送
+ */
+async function pushUmktBackflowEvent(request: PushUmktBackflowEventRequest): PushUmktBackflowEventResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushUmktBackflowEventEx(request, headers, runtime);
+}
+
+/**
+ * Description: 营销盾业务回流事件推送
+ * Summary: 营销盾回流事件推送
+ */
+async function pushUmktBackflowEventEx(request: PushUmktBackflowEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushUmktBackflowEventResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.backflow.event.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendUmktCardsmsBatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // cpassAccessKey
+  cpassAk?: string(name='cpass_ak'),
+  // 行业标签
+  industryTag: string(name='industry_tag'),
+  // 卡片短信模板
+  cardTemplateCode: string(name='card_template_code'),
+  // {}
+  cardTemplateParamJson: string(name='card_template_param_json'),
+  // ["13455","76898"]
+  phoneNumberJson: string(name='phone_number_json'),
+  // ["蚂蚁营销"]
+  signNameJson: string(name='sign_name_json'),
+  // 上行短信扩展码
+  smsUpExtendCodeJson?: string(name='sms_up_extend_code_json'),
+}
+
+model SendUmktCardsmsBatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 卡片短信回执id
+  bizCardId?: string(name='biz_card_id'),
+  // 支持的手机号
+  mediaMobiles?: string(name='media_mobiles'),
+  // 不支持的手机号
+  notMediaMobiles?: string(name='not_media_mobiles'),
+}
+
+/**
+ * Description: 卡片短信批量发送接口
+ * Summary: 卡片短信批量发送接口
+ */
+async function sendUmktCardsmsBatch(request: SendUmktCardsmsBatchRequest): SendUmktCardsmsBatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendUmktCardsmsBatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 卡片短信批量发送接口
+ * Summary: 卡片短信批量发送接口
+ */
+async function sendUmktCardsmsBatchEx(request: SendUmktCardsmsBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendUmktCardsmsBatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.cardsms.batch.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUmktCardsmsSupportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // cpassAccessKey
+  cpassAk?: string(name='cpass_ak'),
+  // 行业标签
+  industryTag: string(name='industry_tag'),
+  // 卡片短信模板
+  templateCode: string(name='template_code'),
+  // 手机号
+  mobiles: string(name='mobiles'),
+}
+
+model QueryUmktCardsmsSupportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 手机号卡片短信支持信息
+  datas?: string(name='datas'),
+}
+
+/**
+ * Description: 卡片短信支持能力查询
+ * Summary: 卡片短信支持能力查询
+ */
+async function queryUmktCardsmsSupport(request: QueryUmktCardsmsSupportRequest): QueryUmktCardsmsSupportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUmktCardsmsSupportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 卡片短信支持能力查询
+ * Summary: 卡片短信支持能力查询
+ */
+async function queryUmktCardsmsSupportEx(request: QueryUmktCardsmsSupportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktCardsmsSupportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.cardsms.support.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
