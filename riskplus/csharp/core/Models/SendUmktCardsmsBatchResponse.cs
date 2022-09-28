@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryDubbridgeAccountStatusResponse : TeaModel {
+    public class SendUmktCardsmsBatchResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,20 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 授信申请状态
-        [NameInMap("data")]
+        // 卡片短信回执id
+        [NameInMap("biz_card_id")]
         [Validation(Required=false)]
-        public CustomStatus Data { get; set; }
+        public string BizCardId { get; set; }
 
-        // 支付账户签约结果
-        [NameInMap("pay_method_lock_result")]
+        // 支持的手机号
+        [NameInMap("media_mobiles")]
         [Validation(Required=false)]
-        public PayMethodLockResult PayMethodLockResult { get; set; }
+        public string MediaMobiles { get; set; }
 
-        // 支付账户锁定结果
-        [NameInMap("fund_chain_lock_result")]
+        // 不支持的手机号
+        [NameInMap("not_media_mobiles")]
         [Validation(Required=false)]
-        public List<FundChainLockResult> FundChainLockResult { get; set; }
+        public string NotMediaMobiles { get; set; }
 
     }
 

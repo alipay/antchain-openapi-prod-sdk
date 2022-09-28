@@ -15,7 +15,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string CompanyId { get; set; }
 
-        // 蚂蚁科技集团股份有限公司
+        // 公司名称
         [NameInMap("company_name")]
         [Validation(Required=true)]
         public string CompanyName { get; set; }
@@ -35,7 +35,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string MatchingValue { get; set; }
 
-        // 返回标识
+        // 社会统一信用代码
         [NameInMap("uc_code")]
         [Validation(Required=true)]
         public string UcCode { get; set; }
