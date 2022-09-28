@@ -16,9 +16,9 @@ class CompanyItems extends Model
      */
     public $companyId;
 
-    // 蚂蚁科技集团股份有限公司
+    // 公司名称
     /**
-     * @example 公司名称
+     * @example 蚂蚁科技集团股份有限公司
      *
      * @var string
      */
@@ -48,9 +48,9 @@ class CompanyItems extends Model
      */
     public $matchingValue;
 
-    // 返回标识
+    // 社会统一信用代码
     /**
-     * @example S
+     * @example XXX
      *
      * @var string
      */

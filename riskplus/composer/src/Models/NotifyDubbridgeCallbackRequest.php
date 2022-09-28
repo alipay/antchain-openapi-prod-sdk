@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDubbridgeAccountStatusRequest extends Model
+class NotifyDubbridgeCallbackRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,19 +19,19 @@ class QueryDubbridgeAccountStatusRequest extends Model
      */
     public $productInstanceId;
 
-    // 客户编号（资产方用户唯一标记二选一）
+    // 租户id
     /**
      * @var string
      */
-    public $customNo;
+    public $channelCode;
 
-    // 资产方用户唯一标识（资产方用户唯一标记二选一）
+    // json参数
     /**
      * @var string
      */
-    public $openId;
+    public $bizParam;
 
-    // 查询业务
+    // 回调类型（1授信回调2用信回调）
     /**
      * @var string
      */
@@ -39,13 +39,15 @@ class QueryDubbridgeAccountStatusRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'customNo'          => 'custom_no',
-        'openId'            => 'open_id',
+        'channelCode'       => 'channel_code',
+        'bizParam'          => 'biz_param',
         'bizType'           => 'biz_type',
     ];
 
     public function validate()
     {
+        Model::validateRequired('channelCode', $this->channelCode, true);
+        Model::validateRequired('bizParam', $this->bizParam, true);
         Model::validateRequired('bizType', $this->bizType, true);
     }
 
@@ -58,11 +60,11 @@ class QueryDubbridgeAccountStatusRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->customNo) {
-            $res['custom_no'] = $this->customNo;
+        if (null !== $this->channelCode) {
+            $res['channel_code'] = $this->channelCode;
         }
-        if (null !== $this->openId) {
-            $res['open_id'] = $this->openId;
+        if (null !== $this->bizParam) {
+            $res['biz_param'] = $this->bizParam;
         }
         if (null !== $this->bizType) {
             $res['biz_type'] = $this->bizType;
@@ -74,7 +76,7 @@ class QueryDubbridgeAccountStatusRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryDubbridgeAccountStatusRequest
+     * @return NotifyDubbridgeCallbackRequest
      */
     public static function fromMap($map = [])
     {
@@ -85,11 +87,11 @@ class QueryDubbridgeAccountStatusRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['custom_no'])) {
-            $model->customNo = $map['custom_no'];
+        if (isset($map['channel_code'])) {
+            $model->channelCode = $map['channel_code'];
         }
-        if (isset($map['open_id'])) {
-            $model->openId = $map['open_id'];
+        if (isset($map['biz_param'])) {
+            $model->bizParam = $map['biz_param'];
         }
         if (isset($map['biz_type'])) {
             $model->bizType = $map['biz_type'];

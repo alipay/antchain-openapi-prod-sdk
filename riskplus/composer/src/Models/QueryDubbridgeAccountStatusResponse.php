@@ -31,11 +31,25 @@ class QueryDubbridgeAccountStatusResponse extends Model
      * @var CustomStatus
      */
     public $data;
+
+    // 支付账户签约结果
+    /**
+     * @var PayMethodLockResult
+     */
+    public $payMethodLockResult;
+
+    // 支付账户锁定结果
+    /**
+     * @var FundChainLockResult[]
+     */
+    public $fundChainLockResult;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'data'       => 'data',
+        'reqMsgId'            => 'req_msg_id',
+        'resultCode'          => 'result_code',
+        'resultMsg'           => 'result_msg',
+        'data'                => 'data',
+        'payMethodLockResult' => 'pay_method_lock_result',
+        'fundChainLockResult' => 'fund_chain_lock_result',
     ];
 
     public function validate()
@@ -56,6 +70,18 @@ class QueryDubbridgeAccountStatusResponse extends Model
         }
         if (null !== $this->data) {
             $res['data'] = null !== $this->data ? $this->data->toMap() : null;
+        }
+        if (null !== $this->payMethodLockResult) {
+            $res['pay_method_lock_result'] = null !== $this->payMethodLockResult ? $this->payMethodLockResult->toMap() : null;
+        }
+        if (null !== $this->fundChainLockResult) {
+            $res['fund_chain_lock_result'] = [];
+            if (null !== $this->fundChainLockResult && \is_array($this->fundChainLockResult)) {
+                $n = 0;
+                foreach ($this->fundChainLockResult as $item) {
+                    $res['fund_chain_lock_result'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -80,6 +106,18 @@ class QueryDubbridgeAccountStatusResponse extends Model
         }
         if (isset($map['data'])) {
             $model->data = CustomStatus::fromMap($map['data']);
+        }
+        if (isset($map['pay_method_lock_result'])) {
+            $model->payMethodLockResult = PayMethodLockResult::fromMap($map['pay_method_lock_result']);
+        }
+        if (isset($map['fund_chain_lock_result'])) {
+            if (!empty($map['fund_chain_lock_result'])) {
+                $model->fundChainLockResult = [];
+                $n                          = 0;
+                foreach ($map['fund_chain_lock_result'] as $item) {
+                    $model->fundChainLockResult[$n++] = null !== $item ? FundChainLockResult::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

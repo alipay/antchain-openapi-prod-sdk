@@ -87,6 +87,8 @@ use AntChain\RISKPLUS\Models\ListRtopCrowdriskRequest;
 use AntChain\RISKPLUS\Models\ListRtopCrowdriskResponse;
 use AntChain\RISKPLUS\Models\ListRtopStarCompanyRequest;
 use AntChain\RISKPLUS\Models\ListRtopStarCompanyResponse;
+use AntChain\RISKPLUS\Models\NotifyDubbridgeCallbackRequest;
+use AntChain\RISKPLUS\Models\NotifyDubbridgeCallbackResponse;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelRequest;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelResponse;
 use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultRequest;
@@ -95,6 +97,8 @@ use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
 use AntChain\RISKPLUS\Models\PushRbbCustomerCompanyinfoRequest;
 use AntChain\RISKPLUS\Models\PushRbbCustomerCompanyinfoResponse;
+use AntChain\RISKPLUS\Models\PushUmktBackflowEventRequest;
+use AntChain\RISKPLUS\Models\PushUmktBackflowEventResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusRequest;
@@ -209,6 +213,8 @@ use AntChain\RISKPLUS\Models\QuerySecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QuerySecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventRequest;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventResponse;
+use AntChain\RISKPLUS\Models\QueryUmktCardsmsSupportRequest;
+use AntChain\RISKPLUS\Models\QueryUmktCardsmsSupportResponse;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticRequest;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticResponse;
 use AntChain\RISKPLUS\Models\QueryUmktRtMarketingRequest;
@@ -233,6 +239,8 @@ use AntChain\RISKPLUS\Models\SendDubbridgeSmsRequest;
 use AntChain\RISKPLUS\Models\SendDubbridgeSmsResponse;
 use AntChain\RISKPLUS\Models\SendSecurityDataRequest;
 use AntChain\RISKPLUS\Models\SendSecurityDataResponse;
+use AntChain\RISKPLUS\Models\SendUmktCardsmsBatchRequest;
+use AntChain\RISKPLUS\Models\SendUmktCardsmsBatchResponse;
 use AntChain\RISKPLUS\Models\StartRbbRegdatasyncScheduleRequest;
 use AntChain\RISKPLUS\Models\StartRbbRegdatasyncScheduleResponse;
 use AntChain\RISKPLUS\Models\SyncRpgwUserOrderinfoRequest;
@@ -406,7 +414,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.19',
+                    'sdk_version'      => '1.13.3',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2417,6 +2425,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryDubbridgeBusinessDetailResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.business.detail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢回调通用接口
+     * Summary: 天枢回调通用接口.
+     *
+     * @param NotifyDubbridgeCallbackRequest $request
+     *
+     * @return NotifyDubbridgeCallbackResponse
+     */
+    public function notifyDubbridgeCallback($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyDubbridgeCallbackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢回调通用接口
+     * Summary: 天枢回调通用接口.
+     *
+     * @param NotifyDubbridgeCallbackRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return NotifyDubbridgeCallbackResponse
+     */
+    public function notifyDubbridgeCallbackEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyDubbridgeCallbackResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.callback.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4567,6 +4608,105 @@ class Client
         Utils::validateModel($request);
 
         return QueryUmktRtMarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.rt.marketing.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾业务回流事件推送
+     * Summary: 营销盾回流事件推送
+     *
+     * @param PushUmktBackflowEventRequest $request
+     *
+     * @return PushUmktBackflowEventResponse
+     */
+    public function pushUmktBackflowEvent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushUmktBackflowEventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾业务回流事件推送
+     * Summary: 营销盾回流事件推送
+     *
+     * @param PushUmktBackflowEventRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return PushUmktBackflowEventResponse
+     */
+    public function pushUmktBackflowEventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushUmktBackflowEventResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.backflow.event.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 卡片短信批量发送接口
+     * Summary: 卡片短信批量发送接口.
+     *
+     * @param SendUmktCardsmsBatchRequest $request
+     *
+     * @return SendUmktCardsmsBatchResponse
+     */
+    public function sendUmktCardsmsBatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendUmktCardsmsBatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 卡片短信批量发送接口
+     * Summary: 卡片短信批量发送接口.
+     *
+     * @param SendUmktCardsmsBatchRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return SendUmktCardsmsBatchResponse
+     */
+    public function sendUmktCardsmsBatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendUmktCardsmsBatchResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.cardsms.batch.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 卡片短信支持能力查询
+     * Summary: 卡片短信支持能力查询.
+     *
+     * @param QueryUmktCardsmsSupportRequest $request
+     *
+     * @return QueryUmktCardsmsSupportResponse
+     */
+    public function queryUmktCardsmsSupport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUmktCardsmsSupportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 卡片短信支持能力查询
+     * Summary: 卡片短信支持能力查询.
+     *
+     * @param QueryUmktCardsmsSupportRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryUmktCardsmsSupportResponse
+     */
+    public function queryUmktCardsmsSupportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUmktCardsmsSupportResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.cardsms.support.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
