@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.19"),
+                    new TeaPair("sdk_version", "1.13.3"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1301,6 +1301,25 @@ public class Client {
     public QueryDubbridgeBusinessDetailResponse queryDubbridgeBusinessDetailEx(QueryDubbridgeBusinessDetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.business.detail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeBusinessDetailResponse());
+    }
+
+    /**
+     * Description: 天枢回调通用接口
+     * Summary: 天枢回调通用接口
+     */
+    public NotifyDubbridgeCallbackResponse notifyDubbridgeCallback(NotifyDubbridgeCallbackRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyDubbridgeCallbackEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 天枢回调通用接口
+     * Summary: 天枢回调通用接口
+     */
+    public NotifyDubbridgeCallbackResponse notifyDubbridgeCallbackEx(NotifyDubbridgeCallbackRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.callback.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyDubbridgeCallbackResponse());
     }
 
     /**
@@ -2561,6 +2580,63 @@ public class Client {
     public QueryUmktRtMarketingResponse queryUmktRtMarketingEx(QueryUmktRtMarketingRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.rt.marketing.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktRtMarketingResponse());
+    }
+
+    /**
+     * Description: 营销盾业务回流事件推送
+     * Summary: 营销盾回流事件推送
+     */
+    public PushUmktBackflowEventResponse pushUmktBackflowEvent(PushUmktBackflowEventRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushUmktBackflowEventEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾业务回流事件推送
+     * Summary: 营销盾回流事件推送
+     */
+    public PushUmktBackflowEventResponse pushUmktBackflowEventEx(PushUmktBackflowEventRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.backflow.event.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushUmktBackflowEventResponse());
+    }
+
+    /**
+     * Description: 卡片短信批量发送接口
+     * Summary: 卡片短信批量发送接口
+     */
+    public SendUmktCardsmsBatchResponse sendUmktCardsmsBatch(SendUmktCardsmsBatchRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendUmktCardsmsBatchEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 卡片短信批量发送接口
+     * Summary: 卡片短信批量发送接口
+     */
+    public SendUmktCardsmsBatchResponse sendUmktCardsmsBatchEx(SendUmktCardsmsBatchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.cardsms.batch.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendUmktCardsmsBatchResponse());
+    }
+
+    /**
+     * Description: 卡片短信支持能力查询
+     * Summary: 卡片短信支持能力查询
+     */
+    public QueryUmktCardsmsSupportResponse queryUmktCardsmsSupport(QueryUmktCardsmsSupportRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUmktCardsmsSupportEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 卡片短信支持能力查询
+     * Summary: 卡片短信支持能力查询
+     */
+    public QueryUmktCardsmsSupportResponse queryUmktCardsmsSupportEx(QueryUmktCardsmsSupportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.cardsms.support.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktCardsmsSupportResponse());
     }
 
     /**

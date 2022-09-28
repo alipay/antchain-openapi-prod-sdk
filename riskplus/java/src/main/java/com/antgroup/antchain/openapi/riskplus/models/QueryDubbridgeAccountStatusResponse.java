@@ -20,6 +20,14 @@ public class QueryDubbridgeAccountStatusResponse extends TeaModel {
     @NameInMap("data")
     public CustomStatus data;
 
+    // 支付账户签约结果
+    @NameInMap("pay_method_lock_result")
+    public PayMethodLockResult payMethodLockResult;
+
+    // 支付账户锁定结果
+    @NameInMap("fund_chain_lock_result")
+    public java.util.List<FundChainLockResult> fundChainLockResult;
+
     public static QueryDubbridgeAccountStatusResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeAccountStatusResponse self = new QueryDubbridgeAccountStatusResponse();
         return TeaModel.build(map, self);
@@ -55,6 +63,22 @@ public class QueryDubbridgeAccountStatusResponse extends TeaModel {
     }
     public CustomStatus getData() {
         return this.data;
+    }
+
+    public QueryDubbridgeAccountStatusResponse setPayMethodLockResult(PayMethodLockResult payMethodLockResult) {
+        this.payMethodLockResult = payMethodLockResult;
+        return this;
+    }
+    public PayMethodLockResult getPayMethodLockResult() {
+        return this.payMethodLockResult;
+    }
+
+    public QueryDubbridgeAccountStatusResponse setFundChainLockResult(java.util.List<FundChainLockResult> fundChainLockResult) {
+        this.fundChainLockResult = fundChainLockResult;
+        return this;
+    }
+    public java.util.List<FundChainLockResult> getFundChainLockResult() {
+        return this.fundChainLockResult;
     }
 
 }

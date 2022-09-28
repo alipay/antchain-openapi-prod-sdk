@@ -9,7 +9,7 @@ public class CompanyItems extends TeaModel {
     @Validation(required = true)
     public String companyId;
 
-    // 蚂蚁科技集团股份有限公司
+    // 公司名称
     @NameInMap("company_name")
     @Validation(required = true)
     public String companyName;
@@ -29,7 +29,7 @@ public class CompanyItems extends TeaModel {
     @Validation(required = true)
     public String matchingValue;
 
-    // 返回标识
+    // 社会统一信用代码
     @NameInMap("uc_code")
     @Validation(required = true)
     public String ucCode;

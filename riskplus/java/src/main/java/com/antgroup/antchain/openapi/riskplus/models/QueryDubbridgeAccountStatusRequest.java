@@ -19,6 +19,11 @@ public class QueryDubbridgeAccountStatusRequest extends TeaModel {
     @NameInMap("open_id")
     public String openId;
 
+    // 查询业务
+    @NameInMap("biz_type")
+    @Validation(required = true)
+    public String bizType;
+
     public static QueryDubbridgeAccountStatusRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeAccountStatusRequest self = new QueryDubbridgeAccountStatusRequest();
         return TeaModel.build(map, self);
@@ -54,6 +59,14 @@ public class QueryDubbridgeAccountStatusRequest extends TeaModel {
     }
     public String getOpenId() {
         return this.openId;
+    }
+
+    public QueryDubbridgeAccountStatusRequest setBizType(String bizType) {
+        this.bizType = bizType;
+        return this;
+    }
+    public String getBizType() {
+        return this.bizType;
     }
 
 }
