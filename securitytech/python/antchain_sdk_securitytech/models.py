@@ -160,6 +160,7 @@ class RunGeneralRequest(TeaModel):
         product_instance_id: str = None,
         request: str = None,
         service_name: str = None,
+        ext_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -168,6 +169,8 @@ class RunGeneralRequest(TeaModel):
         self.request = request
         # 要调用的具体的服务名称
         self.service_name = service_name
+        # 扩展信息
+        self.ext_info = ext_info
 
     def validate(self):
         self.validate_required(self.request, 'request')
@@ -187,6 +190,8 @@ class RunGeneralRequest(TeaModel):
             result['request'] = self.request
         if self.service_name is not None:
             result['service_name'] = self.service_name
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
         return result
 
     def from_map(self, m: dict = None):
@@ -199,6 +204,8 @@ class RunGeneralRequest(TeaModel):
             self.request = m.get('request')
         if m.get('service_name') is not None:
             self.service_name = m.get('service_name')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
         return self
 
 
