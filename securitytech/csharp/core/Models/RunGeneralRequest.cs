@@ -28,6 +28,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string ServiceName { get; set; }
 
+        // 扩展信息
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public string ExtInfo { get; set; }
+
     }
 
 }
