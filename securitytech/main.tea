@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.2',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -169,6 +169,8 @@ model RunGeneralRequest = {
   request: string(name='request'),
   // 要调用的具体的服务名称
   serviceName: string(name='service_name'),
+  // 扩展信息
+  extInfo?: string(name='ext_info'),
 }
 
 model RunGeneralResponse = {
