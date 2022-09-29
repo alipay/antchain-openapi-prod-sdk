@@ -30,11 +30,18 @@ class RunGeneralRequest extends Model
      * @var string
      */
     public $serviceName;
+
+    // 扩展信息
+    /**
+     * @var string
+     */
+    public $extInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'request'           => 'request',
         'serviceName'       => 'service_name',
+        'extInfo'           => 'ext_info',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class RunGeneralRequest extends Model
         }
         if (null !== $this->serviceName) {
             $res['service_name'] = $this->serviceName;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class RunGeneralRequest extends Model
         }
         if (isset($map['service_name'])) {
             $model->serviceName = $map['service_name'];
+        }
+        if (isset($map['ext_info'])) {
+            $model->extInfo = $map['ext_info'];
         }
 
         return $model;
