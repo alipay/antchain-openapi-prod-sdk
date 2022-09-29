@@ -21,6 +21,10 @@ public class RunGeneralRequest extends TeaModel {
     @Validation(required = true)
     public String serviceName;
 
+    // 扩展信息
+    @NameInMap("ext_info")
+    public String extInfo;
+
     public static RunGeneralRequest build(java.util.Map<String, ?> map) throws Exception {
         RunGeneralRequest self = new RunGeneralRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class RunGeneralRequest extends TeaModel {
     }
     public String getServiceName() {
         return this.serviceName;
+    }
+
+    public RunGeneralRequest setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
 }
