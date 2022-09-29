@@ -85,12 +85,15 @@ export class RunGeneralRequest extends $tea.Model {
   request: string;
   // 要调用的具体的服务名称
   serviceName: string;
+  // 扩展信息
+  extInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       request: 'request',
       serviceName: 'service_name',
+      extInfo: 'ext_info',
     };
   }
 
@@ -100,6 +103,7 @@ export class RunGeneralRequest extends $tea.Model {
       productInstanceId: 'string',
       request: 'string',
       serviceName: 'string',
+      extInfo: 'string',
     };
   }
 
@@ -253,7 +257,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.2",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
