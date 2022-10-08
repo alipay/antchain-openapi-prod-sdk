@@ -588,6 +588,7 @@ class RecordScreenData(TeaModel):
         certificate_storage_no: str = None,
         zip_tx_hash: str = None,
         inventory: str = None,
+        zip_file_hash: str = None,
     ):
         # 错误原因（状态为FAIL才有数据）
         self.error_reason = error_reason
@@ -623,6 +624,8 @@ class RecordScreenData(TeaModel):
         self.zip_tx_hash = zip_tx_hash
         # 取证备注信息
         self.inventory = inventory
+        # 证据包文件hash
+        self.zip_file_hash = zip_file_hash
 
     def validate(self):
         self.validate_required(self.gmt_end, 'gmt_end')
@@ -672,6 +675,8 @@ class RecordScreenData(TeaModel):
             result['zip_tx_hash'] = self.zip_tx_hash
         if self.inventory is not None:
             result['inventory'] = self.inventory
+        if self.zip_file_hash is not None:
+            result['zip_file_hash'] = self.zip_file_hash
         return result
 
     def from_map(self, m: dict = None):
@@ -711,6 +716,8 @@ class RecordScreenData(TeaModel):
             self.zip_tx_hash = m.get('zip_tx_hash')
         if m.get('inventory') is not None:
             self.inventory = m.get('inventory')
+        if m.get('zip_file_hash') is not None:
+            self.zip_file_hash = m.get('zip_file_hash')
         return self
 
 
@@ -872,6 +879,7 @@ class ScreenshotData(TeaModel):
         zip_tx_hash: str = None,
         error_reason: str = None,
         error_reason_cn: str = None,
+        zip_file_hash: str = None,
     ):
         # 取证地址
         self.url = url
@@ -907,6 +915,8 @@ class ScreenshotData(TeaModel):
         self.error_reason = error_reason
         # 中文失败原因
         self.error_reason_cn = error_reason_cn
+        # 证据包文件hash
+        self.zip_file_hash = zip_file_hash
 
     def validate(self):
         self.validate_required(self.url, 'url')
@@ -953,6 +963,8 @@ class ScreenshotData(TeaModel):
             result['error_reason'] = self.error_reason
         if self.error_reason_cn is not None:
             result['error_reason_cn'] = self.error_reason_cn
+        if self.zip_file_hash is not None:
+            result['zip_file_hash'] = self.zip_file_hash
         return result
 
     def from_map(self, m: dict = None):
@@ -992,6 +1004,8 @@ class ScreenshotData(TeaModel):
             self.error_reason = m.get('error_reason')
         if m.get('error_reason_cn') is not None:
             self.error_reason_cn = m.get('error_reason_cn')
+        if m.get('zip_file_hash') is not None:
+            self.zip_file_hash = m.get('zip_file_hash')
         return self
 
 
@@ -1061,6 +1075,7 @@ class DciPublicationInfo(TeaModel):
         publication_status: str = None,
         first_publication_date: str = None,
         first_publication_place: str = None,
+        first_publication_code: str = None,
     ):
         # 作品发表状态
         self.publication_status = publication_status
@@ -1068,11 +1083,13 @@ class DciPublicationInfo(TeaModel):
         self.first_publication_date = first_publication_date
         # 首次发表地址
         self.first_publication_place = first_publication_place
+        # 首次发表地点地区编码
+        self.first_publication_code = first_publication_code
 
     def validate(self):
         self.validate_required(self.publication_status, 'publication_status')
         self.validate_required(self.first_publication_date, 'first_publication_date')
-        self.validate_required(self.first_publication_place, 'first_publication_place')
+        self.validate_required(self.first_publication_code, 'first_publication_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -1086,6 +1103,8 @@ class DciPublicationInfo(TeaModel):
             result['first_publication_date'] = self.first_publication_date
         if self.first_publication_place is not None:
             result['first_publication_place'] = self.first_publication_place
+        if self.first_publication_code is not None:
+            result['first_publication_code'] = self.first_publication_code
         return result
 
     def from_map(self, m: dict = None):
@@ -1096,6 +1115,8 @@ class DciPublicationInfo(TeaModel):
             self.first_publication_date = m.get('first_publication_date')
         if m.get('first_publication_place') is not None:
             self.first_publication_place = m.get('first_publication_place')
+        if m.get('first_publication_code') is not None:
+            self.first_publication_code = m.get('first_publication_code')
         return self
 
 
@@ -1105,6 +1126,7 @@ class DciCreationInfo(TeaModel):
         creation_nature: str = None,
         creation_completion_date: str = None,
         creation_completion_place: str = None,
+        creation_completion_code: str = None,
     ):
         # 作品创作性质
         self.creation_nature = creation_nature
@@ -1112,11 +1134,13 @@ class DciCreationInfo(TeaModel):
         self.creation_completion_date = creation_completion_date
         # 创作完成地点
         self.creation_completion_place = creation_completion_place
+        # 作品创作地点地区编码
+        self.creation_completion_code = creation_completion_code
 
     def validate(self):
         self.validate_required(self.creation_nature, 'creation_nature')
         self.validate_required(self.creation_completion_date, 'creation_completion_date')
-        self.validate_required(self.creation_completion_place, 'creation_completion_place')
+        self.validate_required(self.creation_completion_code, 'creation_completion_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -1130,6 +1154,8 @@ class DciCreationInfo(TeaModel):
             result['creation_completion_date'] = self.creation_completion_date
         if self.creation_completion_place is not None:
             result['creation_completion_place'] = self.creation_completion_place
+        if self.creation_completion_code is not None:
+            result['creation_completion_code'] = self.creation_completion_code
         return result
 
     def from_map(self, m: dict = None):
@@ -1140,6 +1166,8 @@ class DciCreationInfo(TeaModel):
             self.creation_completion_date = m.get('creation_completion_date')
         if m.get('creation_completion_place') is not None:
             self.creation_completion_place = m.get('creation_completion_place')
+        if m.get('creation_completion_code') is not None:
+            self.creation_completion_code = m.get('creation_completion_code')
         return self
 
 
