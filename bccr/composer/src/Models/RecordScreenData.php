@@ -143,6 +143,14 @@ class RecordScreenData extends Model
      * @var string
      */
     public $inventory;
+
+    // 证据包文件hash
+    /**
+     * @example 0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd
+     *
+     * @var string
+     */
+    public $zipFileHash;
     protected $_name = [
         'errorReason'          => 'error_reason',
         'fileHash'             => 'file_hash',
@@ -161,6 +169,7 @@ class RecordScreenData extends Model
         'certificateStorageNo' => 'certificate_storage_no',
         'zipTxHash'            => 'zip_tx_hash',
         'inventory'            => 'inventory',
+        'zipFileHash'          => 'zip_file_hash',
     ];
 
     public function validate()
@@ -225,6 +234,9 @@ class RecordScreenData extends Model
         if (null !== $this->inventory) {
             $res['inventory'] = $this->inventory;
         }
+        if (null !== $this->zipFileHash) {
+            $res['zip_file_hash'] = $this->zipFileHash;
+        }
 
         return $res;
     }
@@ -287,6 +299,9 @@ class RecordScreenData extends Model
         }
         if (isset($map['inventory'])) {
             $model->inventory = $map['inventory'];
+        }
+        if (isset($map['zip_file_hash'])) {
+            $model->zipFileHash = $map['zip_file_hash'];
         }
 
         return $model;

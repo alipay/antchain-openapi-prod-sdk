@@ -31,17 +31,26 @@ class DciCreationInfo extends Model
      * @var string
      */
     public $creationCompletionPlace;
+
+    // 作品创作地点地区编码
+    /**
+     * @example 110101
+     *
+     * @var string
+     */
+    public $creationCompletionCode;
     protected $_name = [
         'creationNature'          => 'creation_nature',
         'creationCompletionDate'  => 'creation_completion_date',
         'creationCompletionPlace' => 'creation_completion_place',
+        'creationCompletionCode'  => 'creation_completion_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('creationNature', $this->creationNature, true);
         Model::validateRequired('creationCompletionDate', $this->creationCompletionDate, true);
-        Model::validateRequired('creationCompletionPlace', $this->creationCompletionPlace, true);
+        Model::validateRequired('creationCompletionCode', $this->creationCompletionCode, true);
     }
 
     public function toMap()
@@ -55,6 +64,9 @@ class DciCreationInfo extends Model
         }
         if (null !== $this->creationCompletionPlace) {
             $res['creation_completion_place'] = $this->creationCompletionPlace;
+        }
+        if (null !== $this->creationCompletionCode) {
+            $res['creation_completion_code'] = $this->creationCompletionCode;
         }
 
         return $res;
@@ -76,6 +88,9 @@ class DciCreationInfo extends Model
         }
         if (isset($map['creation_completion_place'])) {
             $model->creationCompletionPlace = $map['creation_completion_place'];
+        }
+        if (isset($map['creation_completion_code'])) {
+            $model->creationCompletionCode = $map['creation_completion_code'];
         }
 
         return $model;

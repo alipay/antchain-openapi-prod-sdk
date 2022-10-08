@@ -143,6 +143,14 @@ class ScreenshotData extends Model
      * @var string
      */
     public $errorReasonCn;
+
+    // 证据包文件hash
+    /**
+     * @example 0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd
+     *
+     * @var string
+     */
+    public $zipFileHash;
     protected $_name = [
         'url'                  => 'url',
         'gmtEvidence'          => 'gmt_evidence',
@@ -161,6 +169,7 @@ class ScreenshotData extends Model
         'zipTxHash'            => 'zip_tx_hash',
         'errorReason'          => 'error_reason',
         'errorReasonCn'        => 'error_reason_cn',
+        'zipFileHash'          => 'zip_file_hash',
     ];
 
     public function validate()
@@ -221,6 +230,9 @@ class ScreenshotData extends Model
         }
         if (null !== $this->errorReasonCn) {
             $res['error_reason_cn'] = $this->errorReasonCn;
+        }
+        if (null !== $this->zipFileHash) {
+            $res['zip_file_hash'] = $this->zipFileHash;
         }
 
         return $res;
@@ -284,6 +296,9 @@ class ScreenshotData extends Model
         }
         if (isset($map['error_reason_cn'])) {
             $model->errorReasonCn = $map['error_reason_cn'];
+        }
+        if (isset($map['zip_file_hash'])) {
+            $model->zipFileHash = $map['zip_file_hash'];
         }
 
         return $model;
