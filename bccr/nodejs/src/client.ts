@@ -371,6 +371,8 @@ export class RecordScreenData extends $tea.Model {
   zipTxHash?: string;
   // 取证备注信息
   inventory?: string;
+  // 证据包文件hash
+  zipFileHash?: string;
   static names(): { [key: string]: string } {
     return {
       errorReason: 'error_reason',
@@ -390,6 +392,7 @@ export class RecordScreenData extends $tea.Model {
       certificateStorageNo: 'certificate_storage_no',
       zipTxHash: 'zip_tx_hash',
       inventory: 'inventory',
+      zipFileHash: 'zip_file_hash',
     };
   }
 
@@ -412,6 +415,7 @@ export class RecordScreenData extends $tea.Model {
       certificateStorageNo: 'string',
       zipTxHash: 'string',
       inventory: 'string',
+      zipFileHash: 'string',
     };
   }
 
@@ -547,6 +551,8 @@ export class ScreenshotData extends $tea.Model {
   errorReason?: string;
   // 中文失败原因
   errorReasonCn?: string;
+  // 证据包文件hash
+  zipFileHash?: string;
   static names(): { [key: string]: string } {
     return {
       url: 'url',
@@ -566,6 +572,7 @@ export class ScreenshotData extends $tea.Model {
       zipTxHash: 'zip_tx_hash',
       errorReason: 'error_reason',
       errorReasonCn: 'error_reason_cn',
+      zipFileHash: 'zip_file_hash',
     };
   }
 
@@ -588,6 +595,7 @@ export class ScreenshotData extends $tea.Model {
       zipTxHash: 'string',
       errorReason: 'string',
       errorReasonCn: 'string',
+      zipFileHash: 'string',
     };
   }
 
@@ -636,12 +644,15 @@ export class DciPublicationInfo extends $tea.Model {
   // 首次发表日期
   firstPublicationDate: string;
   // 首次发表地址
-  firstPublicationPlace: string;
+  firstPublicationPlace?: string;
+  // 首次发表地点地区编码
+  firstPublicationCode: string;
   static names(): { [key: string]: string } {
     return {
       publicationStatus: 'publication_status',
       firstPublicationDate: 'first_publication_date',
       firstPublicationPlace: 'first_publication_place',
+      firstPublicationCode: 'first_publication_code',
     };
   }
 
@@ -650,6 +661,7 @@ export class DciPublicationInfo extends $tea.Model {
       publicationStatus: 'string',
       firstPublicationDate: 'string',
       firstPublicationPlace: 'string',
+      firstPublicationCode: 'string',
     };
   }
 
@@ -665,12 +677,15 @@ export class DciCreationInfo extends $tea.Model {
   // 创作完成日期
   creationCompletionDate: string;
   // 创作完成地点
-  creationCompletionPlace: string;
+  creationCompletionPlace?: string;
+  // 作品创作地点地区编码
+  creationCompletionCode: string;
   static names(): { [key: string]: string } {
     return {
       creationNature: 'creation_nature',
       creationCompletionDate: 'creation_completion_date',
       creationCompletionPlace: 'creation_completion_place',
+      creationCompletionCode: 'creation_completion_code',
     };
   }
 
@@ -679,6 +694,7 @@ export class DciCreationInfo extends $tea.Model {
       creationNature: 'string',
       creationCompletionDate: 'string',
       creationCompletionPlace: 'string',
+      creationCompletionCode: 'string',
     };
   }
 
@@ -5945,7 +5961,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.20",
+          sdk_version: "1.16.23",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
