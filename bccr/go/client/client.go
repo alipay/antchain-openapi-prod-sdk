@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -152,10 +152,16 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 type ScreenshotInfo struct {
 	// 全链路取证日志文件下载链接
 	ProcessLogFile *string `json:"process_log_file,omitempty" xml:"process_log_file,omitempty"`
+	// 全链路取证日志文件哈希
+	ProcessLogFileHash *string `json:"process_log_file_hash,omitempty" xml:"process_log_file_hash,omitempty"`
 	// 自清洁文件下载链接
 	CheckLogFile *string `json:"check_log_file,omitempty" xml:"check_log_file,omitempty"`
+	// 自清洁文件哈希
+	CheckLogFileHash *string `json:"check_log_file_hash,omitempty" xml:"check_log_file_hash,omitempty"`
 	// 网页截图文件下载链接
 	ScreenshotFile *string `json:"screenshot_file,omitempty" xml:"screenshot_file,omitempty" require:"true"`
+	// 网页截图文件哈希
+	ScreenshotFileHash *string `json:"screenshot_file_hash,omitempty" xml:"screenshot_file_hash,omitempty"`
 }
 
 func (s ScreenshotInfo) String() string {
@@ -171,8 +177,18 @@ func (s *ScreenshotInfo) SetProcessLogFile(v string) *ScreenshotInfo {
 	return s
 }
 
+func (s *ScreenshotInfo) SetProcessLogFileHash(v string) *ScreenshotInfo {
+	s.ProcessLogFileHash = &v
+	return s
+}
+
 func (s *ScreenshotInfo) SetCheckLogFile(v string) *ScreenshotInfo {
 	s.CheckLogFile = &v
+	return s
+}
+
+func (s *ScreenshotInfo) SetCheckLogFileHash(v string) *ScreenshotInfo {
+	s.CheckLogFileHash = &v
 	return s
 }
 
@@ -181,18 +197,41 @@ func (s *ScreenshotInfo) SetScreenshotFile(v string) *ScreenshotInfo {
 	return s
 }
 
+func (s *ScreenshotInfo) SetScreenshotFileHash(v string) *ScreenshotInfo {
+	s.ScreenshotFileHash = &v
+	return s
+}
+
 // 取证文件信息
 type ScreenInfo struct {
 	// 全链路取证日志文件下载链接
 	ProcessLogFile *string `json:"process_log_file,omitempty" xml:"process_log_file,omitempty"`
+	// 全链路取证日志文件哈希
+	ProcessLogFileHash *string `json:"process_log_file_hash,omitempty" xml:"process_log_file_hash,omitempty"`
 	// 自清洁文件下载地址
 	CheckLogFile *string `json:"check_log_file,omitempty" xml:"check_log_file,omitempty"`
+	// 自清洁文件哈希
+	CheckLogFileHash *string `json:"check_log_file_hash,omitempty" xml:"check_log_file_hash,omitempty"`
 	// 网页截图文件下载链接
 	WebScreenshotFile *string `json:"web_screenshot_file,omitempty" xml:"web_screenshot_file,omitempty"`
+	// 网页截图文件哈希
+	WebScreenshotFileHash *string `json:"web_screenshot_file_hash,omitempty" xml:"web_screenshot_file_hash,omitempty"`
 	// 网页源码文件下载链接
 	WebSourceFile *string `json:"web_source_file,omitempty" xml:"web_source_file,omitempty"`
+	// 网页源码文件哈希
+	WebSourceFileHash *string `json:"web_source_file_hash,omitempty" xml:"web_source_file_hash,omitempty"`
 	// 视频源文件下载链接
 	VideoFile *string `json:"video_file,omitempty" xml:"video_file,omitempty"`
+	// 视频源文件哈希
+	VideoFileHash *string `json:"video_file_hash,omitempty" xml:"video_file_hash,omitempty"`
+	// 手机自清洁文件下载链接
+	ExtendDeviceCheckFile *string `json:"extend_device_check_file,omitempty" xml:"extend_device_check_file,omitempty"`
+	// 手机自清洁文件哈希
+	ExtendDeviceCheckFileHash *string `json:"extend_device_check_file_hash,omitempty" xml:"extend_device_check_file_hash,omitempty"`
+	// 手机操作日志下载链接
+	ExtendDeviceProcessFile *string `json:"extend_device_process_file,omitempty" xml:"extend_device_process_file,omitempty"`
+	// 手机操作日志哈希
+	ExtendDeviceProcessFileHash *string `json:"extend_device_process_file_hash,omitempty" xml:"extend_device_process_file_hash,omitempty"`
 }
 
 func (s ScreenInfo) String() string {
@@ -208,8 +247,18 @@ func (s *ScreenInfo) SetProcessLogFile(v string) *ScreenInfo {
 	return s
 }
 
+func (s *ScreenInfo) SetProcessLogFileHash(v string) *ScreenInfo {
+	s.ProcessLogFileHash = &v
+	return s
+}
+
 func (s *ScreenInfo) SetCheckLogFile(v string) *ScreenInfo {
 	s.CheckLogFile = &v
+	return s
+}
+
+func (s *ScreenInfo) SetCheckLogFileHash(v string) *ScreenInfo {
+	s.CheckLogFileHash = &v
 	return s
 }
 
@@ -218,13 +267,48 @@ func (s *ScreenInfo) SetWebScreenshotFile(v string) *ScreenInfo {
 	return s
 }
 
+func (s *ScreenInfo) SetWebScreenshotFileHash(v string) *ScreenInfo {
+	s.WebScreenshotFileHash = &v
+	return s
+}
+
 func (s *ScreenInfo) SetWebSourceFile(v string) *ScreenInfo {
 	s.WebSourceFile = &v
 	return s
 }
 
+func (s *ScreenInfo) SetWebSourceFileHash(v string) *ScreenInfo {
+	s.WebSourceFileHash = &v
+	return s
+}
+
 func (s *ScreenInfo) SetVideoFile(v string) *ScreenInfo {
 	s.VideoFile = &v
+	return s
+}
+
+func (s *ScreenInfo) SetVideoFileHash(v string) *ScreenInfo {
+	s.VideoFileHash = &v
+	return s
+}
+
+func (s *ScreenInfo) SetExtendDeviceCheckFile(v string) *ScreenInfo {
+	s.ExtendDeviceCheckFile = &v
+	return s
+}
+
+func (s *ScreenInfo) SetExtendDeviceCheckFileHash(v string) *ScreenInfo {
+	s.ExtendDeviceCheckFileHash = &v
+	return s
+}
+
+func (s *ScreenInfo) SetExtendDeviceProcessFile(v string) *ScreenInfo {
+	s.ExtendDeviceProcessFile = &v
+	return s
+}
+
+func (s *ScreenInfo) SetExtendDeviceProcessFileHash(v string) *ScreenInfo {
+	s.ExtendDeviceProcessFileHash = &v
 	return s
 }
 
@@ -445,6 +529,8 @@ type RecordScreenData struct {
 	ZipTxHash *string `json:"zip_tx_hash,omitempty" xml:"zip_tx_hash,omitempty"`
 	// 取证备注信息
 	Inventory *string `json:"inventory,omitempty" xml:"inventory,omitempty"`
+	// 证据包文件hash
+	ZipFileHash *string `json:"zip_file_hash,omitempty" xml:"zip_file_hash,omitempty"`
 }
 
 func (s RecordScreenData) String() string {
@@ -537,6 +623,11 @@ func (s *RecordScreenData) SetZipTxHash(v string) *RecordScreenData {
 
 func (s *RecordScreenData) SetInventory(v string) *RecordScreenData {
 	s.Inventory = &v
+	return s
+}
+
+func (s *RecordScreenData) SetZipFileHash(v string) *RecordScreenData {
+	s.ZipFileHash = &v
 	return s
 }
 
@@ -682,6 +773,8 @@ type ScreenshotData struct {
 	ErrorReason *string `json:"error_reason,omitempty" xml:"error_reason,omitempty"`
 	// 中文失败原因
 	ErrorReasonCn *string `json:"error_reason_cn,omitempty" xml:"error_reason_cn,omitempty"`
+	// 证据包文件hash
+	ZipFileHash *string `json:"zip_file_hash,omitempty" xml:"zip_file_hash,omitempty"`
 }
 
 func (s ScreenshotData) String() string {
@@ -777,6 +870,11 @@ func (s *ScreenshotData) SetErrorReasonCn(v string) *ScreenshotData {
 	return s
 }
 
+func (s *ScreenshotData) SetZipFileHash(v string) *ScreenshotData {
+	s.ZipFileHash = &v
+	return s
+}
+
 // 类型对应供应商
 type MonitorProviderType struct {
 	// 监测文件类型
@@ -824,7 +922,9 @@ type DciPublicationInfo struct {
 	// 首次发表日期
 	FirstPublicationDate *string `json:"first_publication_date,omitempty" xml:"first_publication_date,omitempty" require:"true"`
 	// 首次发表地址
-	FirstPublicationPlace *string `json:"first_publication_place,omitempty" xml:"first_publication_place,omitempty" require:"true"`
+	FirstPublicationPlace *string `json:"first_publication_place,omitempty" xml:"first_publication_place,omitempty"`
+	// 首次发表地点地区编码
+	FirstPublicationCode *string `json:"first_publication_code,omitempty" xml:"first_publication_code,omitempty" require:"true"`
 }
 
 func (s DciPublicationInfo) String() string {
@@ -850,6 +950,11 @@ func (s *DciPublicationInfo) SetFirstPublicationPlace(v string) *DciPublicationI
 	return s
 }
 
+func (s *DciPublicationInfo) SetFirstPublicationCode(v string) *DciPublicationInfo {
+	s.FirstPublicationCode = &v
+	return s
+}
+
 // dci作品创作信息
 type DciCreationInfo struct {
 	// 作品创作性质
@@ -857,7 +962,9 @@ type DciCreationInfo struct {
 	// 创作完成日期
 	CreationCompletionDate *string `json:"creation_completion_date,omitempty" xml:"creation_completion_date,omitempty" require:"true"`
 	// 创作完成地点
-	CreationCompletionPlace *string `json:"creation_completion_place,omitempty" xml:"creation_completion_place,omitempty" require:"true"`
+	CreationCompletionPlace *string `json:"creation_completion_place,omitempty" xml:"creation_completion_place,omitempty"`
+	// 作品创作地点地区编码
+	CreationCompletionCode *string `json:"creation_completion_code,omitempty" xml:"creation_completion_code,omitempty" require:"true"`
 }
 
 func (s DciCreationInfo) String() string {
@@ -880,6 +987,11 @@ func (s *DciCreationInfo) SetCreationCompletionDate(v string) *DciCreationInfo {
 
 func (s *DciCreationInfo) SetCreationCompletionPlace(v string) *DciCreationInfo {
 	s.CreationCompletionPlace = &v
+	return s
+}
+
+func (s *DciCreationInfo) SetCreationCompletionCode(v string) *DciCreationInfo {
+	s.CreationCompletionCode = &v
 	return s
 }
 
@@ -1200,7 +1312,7 @@ type InvoiceInfo struct {
 	// 发票抬头（著作权人之一）
 	InvoiceHeader *string `json:"invoice_header,omitempty" xml:"invoice_header,omitempty" require:"true"`
 	// 纳税人识别号（机构必填）
-	TaxpayerNumber *string `json:"taxpayer_number,omitempty" xml:"taxpayer_number,omitempty" require:"true"`
+	TaxpayerNumber *string `json:"taxpayer_number,omitempty" xml:"taxpayer_number,omitempty"`
 	// 注册地址（专票必填）
 	RegisteredAddress *string `json:"registered_address,omitempty" xml:"registered_address,omitempty"`
 	// 注册电话（专票必填）
@@ -1579,6 +1691,80 @@ func (s *MonitorTask) SetFailureMsg(v string) *MonitorTask {
 
 func (s *MonitorTask) SetFailureCode(v string) *MonitorTask {
 	s.FailureCode = &v
+	return s
+}
+
+// 播放列表实体类
+type PlayListEntity struct {
+	// 播放列表名称，可包含多个视频
+	PlayListName *string `json:"play_list_name,omitempty" xml:"play_list_name,omitempty" require:"true"`
+	// 表示授权类型，仅支持EXCLUSIVE，表示独家
+	// 默认EXCLUSIVE
+	AuthorizeType *string `json:"authorize_type,omitempty" xml:"authorize_type,omitempty"`
+	// 授权类型范围，仅支持OVERSEA，表示全海外
+	// 默认OVERSEA
+	AuthorizeScopeType *string `json:"authorize_scope_type,omitempty" xml:"authorize_scope_type,omitempty"`
+	// 维权类型，仅支持CONTAIN_PROTECT，表示包含维权
+	// 默认CONTAIN_PROTECT
+	ProtectRightsType *string `json:"protect_rights_type,omitempty" xml:"protect_rights_type,omitempty"`
+	// 维权类型范围，仅支持OVERSEA，表示全海外
+	// 默认OVERSEA
+	ProtectRightsScopeType *string `json:"protect_rights_scope_type,omitempty" xml:"protect_rights_scope_type,omitempty"`
+	// 内容授权开始日期yyyy-MM-dd
+	AuthorizationStartDate *string `json:"authorization_start_date,omitempty" xml:"authorization_start_date,omitempty" require:"true"`
+	// 内容授权时长,单位：年，目前支持1~3年，
+	// 注意结束时间即开始时间 + 授权时长 不能早于当前时间
+	AuthorizationTimeLength *int64 `json:"authorization_time_length,omitempty" xml:"authorization_time_length,omitempty" require:"true"`
+	// 内容授权平台列表：
+	//        默认授权平台都会进行运营，当前仅支持YOUTUBE
+	AuthPlatform []*string `json:"auth_platform,omitempty" xml:"auth_platform,omitempty" type:"Repeated"`
+}
+
+func (s PlayListEntity) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PlayListEntity) GoString() string {
+	return s.String()
+}
+
+func (s *PlayListEntity) SetPlayListName(v string) *PlayListEntity {
+	s.PlayListName = &v
+	return s
+}
+
+func (s *PlayListEntity) SetAuthorizeType(v string) *PlayListEntity {
+	s.AuthorizeType = &v
+	return s
+}
+
+func (s *PlayListEntity) SetAuthorizeScopeType(v string) *PlayListEntity {
+	s.AuthorizeScopeType = &v
+	return s
+}
+
+func (s *PlayListEntity) SetProtectRightsType(v string) *PlayListEntity {
+	s.ProtectRightsType = &v
+	return s
+}
+
+func (s *PlayListEntity) SetProtectRightsScopeType(v string) *PlayListEntity {
+	s.ProtectRightsScopeType = &v
+	return s
+}
+
+func (s *PlayListEntity) SetAuthorizationStartDate(v string) *PlayListEntity {
+	s.AuthorizationStartDate = &v
+	return s
+}
+
+func (s *PlayListEntity) SetAuthorizationTimeLength(v int64) *PlayListEntity {
+	s.AuthorizationTimeLength = &v
+	return s
+}
+
+func (s *PlayListEntity) SetAuthPlatform(v []*string) *PlayListEntity {
+	s.AuthPlatform = v
 	return s
 }
 
@@ -2022,6 +2208,53 @@ func (s *MonitorType) SetFileType(v string) *MonitorType {
 
 func (s *MonitorType) SetSubmitType(v string) *MonitorType {
 	s.SubmitType = &v
+	return s
+}
+
+// 日统计数据模型
+type DayStatisticsInfo struct {
+	// 日期时间戳
+	Date *int64 `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 日观看次数
+	DayViews *string `json:"day_views,omitempty" xml:"day_views,omitempty" require:"true"`
+	// 日观看时长
+	DayViewDuration *string `json:"day_view_duration,omitempty" xml:"day_view_duration,omitempty" require:"true"`
+	// 日平均观看时长
+	DayAverageViewDuration *string `json:"day_average_view_duration,omitempty" xml:"day_average_view_duration,omitempty" require:"true"`
+	// 日预计收入
+	Revenue *string `json:"revenue,omitempty" xml:"revenue,omitempty" require:"true"`
+}
+
+func (s DayStatisticsInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DayStatisticsInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DayStatisticsInfo) SetDate(v int64) *DayStatisticsInfo {
+	s.Date = &v
+	return s
+}
+
+func (s *DayStatisticsInfo) SetDayViews(v string) *DayStatisticsInfo {
+	s.DayViews = &v
+	return s
+}
+
+func (s *DayStatisticsInfo) SetDayViewDuration(v string) *DayStatisticsInfo {
+	s.DayViewDuration = &v
+	return s
+}
+
+func (s *DayStatisticsInfo) SetDayAverageViewDuration(v string) *DayStatisticsInfo {
+	s.DayAverageViewDuration = &v
+	return s
+}
+
+func (s *DayStatisticsInfo) SetRevenue(v string) *DayStatisticsInfo {
+	s.Revenue = &v
 	return s
 }
 
@@ -4948,6 +5181,8 @@ type CreateDciPreregistrationRequest struct {
 	CategorySimilarRatio *string `json:"category_similar_ratio,omitempty" xml:"category_similar_ratio,omitempty"`
 	// 作品类型风险等级
 	CategoryRiskRank *string `json:"category_risk_rank,omitempty" xml:"category_risk_rank,omitempty"`
+	// 著作权人用户id List
+	CopyrightOwnerIds []*string `json:"copyright_owner_ids,omitempty" xml:"copyright_owner_ids,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s CreateDciPreregistrationRequest) String() string {
@@ -5050,6 +5285,11 @@ func (s *CreateDciPreregistrationRequest) SetCategorySimilarRatio(v string) *Cre
 
 func (s *CreateDciPreregistrationRequest) SetCategoryRiskRank(v string) *CreateDciPreregistrationRequest {
 	s.CategoryRiskRank = &v
+	return s
+}
+
+func (s *CreateDciPreregistrationRequest) SetCopyrightOwnerIds(v []*string) *CreateDciPreregistrationRequest {
+	s.CopyrightOwnerIds = v
 	return s
 }
 
@@ -5183,6 +5423,8 @@ type QueryDciPreregistrationResponse struct {
 	DciCodeObtainDate *string `json:"dci_code_obtain_date,omitempty" xml:"dci_code_obtain_date,omitempty"`
 	// 错误原因
 	ErrorReason *string `json:"error_reason,omitempty" xml:"error_reason,omitempty"`
+	// 公式地址
+	PublicationUrl *string `json:"publication_url,omitempty" xml:"publication_url,omitempty"`
 }
 
 func (s QueryDciPreregistrationResponse) String() string {
@@ -5323,6 +5565,11 @@ func (s *QueryDciPreregistrationResponse) SetErrorReason(v string) *QueryDciPrer
 	return s
 }
 
+func (s *QueryDciPreregistrationResponse) SetPublicationUrl(v string) *QueryDciPreregistrationResponse {
+	s.PublicationUrl = &v
+	return s
+}
+
 type AddDciUserRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5359,6 +5606,14 @@ type AddDciUserRequest struct {
 	ProxyData *ProxyData `json:"proxy_data,omitempty" xml:"proxy_data,omitempty" require:"true"`
 	// 幂等字段
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 用户名称废弃
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+	// 证件正面OSS fileId废弃
+	CertificateFrontFilePath *string `json:"certificate_front_file_path,omitempty" xml:"certificate_front_file_path,omitempty"`
+	// 证件反面OSS filePath废弃
+	CertificateBackFilePath *string `json:"certificate_back_file_path,omitempty" xml:"certificate_back_file_path,omitempty"`
+	// 用户类型废弃
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
 }
 
 func (s AddDciUserRequest) String() string {
@@ -5456,6 +5711,26 @@ func (s *AddDciUserRequest) SetProxyData(v *ProxyData) *AddDciUserRequest {
 
 func (s *AddDciUserRequest) SetClientToken(v string) *AddDciUserRequest {
 	s.ClientToken = &v
+	return s
+}
+
+func (s *AddDciUserRequest) SetUserName(v string) *AddDciUserRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *AddDciUserRequest) SetCertificateFrontFilePath(v string) *AddDciUserRequest {
+	s.CertificateFrontFilePath = &v
+	return s
+}
+
+func (s *AddDciUserRequest) SetCertificateBackFilePath(v string) *AddDciUserRequest {
+	s.CertificateBackFilePath = &v
+	return s
+}
+
+func (s *AddDciUserRequest) SetUserType(v string) *AddDciUserRequest {
+	s.UserType = &v
 	return s
 }
 
@@ -6102,6 +6377,8 @@ type QueryDciRegistrationResponse struct {
 	ErrorReason *string `json:"error_reason,omitempty" xml:"error_reason,omitempty"`
 	// 发票oss fileId List
 	InvoiceFileIdList []*string `json:"invoice_file_id_list,omitempty" xml:"invoice_file_id_list,omitempty" type:"Repeated"`
+	// 数登申请时间
+	ApplyRegisterTime *string `json:"apply_register_time,omitempty" xml:"apply_register_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s QueryDciRegistrationResponse) String() string {
@@ -6174,6 +6451,11 @@ func (s *QueryDciRegistrationResponse) SetErrorReason(v string) *QueryDciRegistr
 
 func (s *QueryDciRegistrationResponse) SetInvoiceFileIdList(v []*string) *QueryDciRegistrationResponse {
 	s.InvoiceFileIdList = v
+	return s
+}
+
+func (s *QueryDciRegistrationResponse) SetApplyRegisterTime(v string) *QueryDciRegistrationResponse {
+	s.ApplyRegisterTime = &v
 	return s
 }
 
@@ -6553,6 +6835,8 @@ type GetDciPayurlRequest struct {
 	PayMent *string `json:"pay_ment,omitempty" xml:"pay_ment,omitempty"`
 	// 发票信息-当前支持普票
 	InvoiceInfo *InvoiceInfo `json:"invoice_info,omitempty" xml:"invoice_info,omitempty" require:"true"`
+	// 客户端token，幂等号，用来保证并发请求幂等性
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
 }
 
 func (s GetDciPayurlRequest) String() string {
@@ -6590,6 +6874,11 @@ func (s *GetDciPayurlRequest) SetPayMent(v string) *GetDciPayurlRequest {
 
 func (s *GetDciPayurlRequest) SetInvoiceInfo(v *InvoiceInfo) *GetDciPayurlRequest {
 	s.InvoiceInfo = v
+	return s
+}
+
+func (s *GetDciPayurlRequest) SetClientToken(v string) *GetDciPayurlRequest {
+	s.ClientToken = &v
 	return s
 }
 
@@ -6815,10 +7104,96 @@ func (s *CallbackDciPayresultResponse) SetResultMsg(v string) *CallbackDciPayres
 	return s
 }
 
+type RefuseDciRegistrationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 客户端token，幂等号，用来保证并发请求幂等性
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
+}
+
+func (s RefuseDciRegistrationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefuseDciRegistrationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RefuseDciRegistrationRequest) SetAuthToken(v string) *RefuseDciRegistrationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RefuseDciRegistrationRequest) SetProductInstanceId(v string) *RefuseDciRegistrationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RefuseDciRegistrationRequest) SetTaskId(v string) *RefuseDciRegistrationRequest {
+	s.TaskId = &v
+	return s
+}
+
+func (s *RefuseDciRegistrationRequest) SetClientToken(v string) *RefuseDciRegistrationRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type RefuseDciRegistrationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RefuseDciRegistrationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RefuseDciRegistrationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RefuseDciRegistrationResponse) SetReqMsgId(v string) *RefuseDciRegistrationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RefuseDciRegistrationResponse) SetResultCode(v string) *RefuseDciRegistrationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RefuseDciRegistrationResponse) SetResultMsg(v string) *RefuseDciRegistrationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type AddContentRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 内容标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// 文件类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 内容标签列表
+	Keywords []*string `json:"keywords,omitempty" xml:"keywords,omitempty" type:"Repeated"`
+	// 内容描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 内容封面文件id
+	CoverFileId *string `json:"cover_file_id,omitempty" xml:"cover_file_id,omitempty"`
+	// 播放列表实体：包括名称和各种授权维权信息
+	PlayListEntity *PlayListEntity `json:"play_list_entity,omitempty" xml:"play_list_entity,omitempty" require:"true"`
+	// 客户端token，幂等号，用来保证并发请求幂等性
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty"`
 }
 
 func (s AddContentRequest) String() string {
@@ -6839,6 +7214,46 @@ func (s *AddContentRequest) SetProductInstanceId(v string) *AddContentRequest {
 	return s
 }
 
+func (s *AddContentRequest) SetFileId(v string) *AddContentRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *AddContentRequest) SetTitle(v string) *AddContentRequest {
+	s.Title = &v
+	return s
+}
+
+func (s *AddContentRequest) SetType(v string) *AddContentRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *AddContentRequest) SetKeywords(v []*string) *AddContentRequest {
+	s.Keywords = v
+	return s
+}
+
+func (s *AddContentRequest) SetDescription(v string) *AddContentRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *AddContentRequest) SetCoverFileId(v string) *AddContentRequest {
+	s.CoverFileId = &v
+	return s
+}
+
+func (s *AddContentRequest) SetPlayListEntity(v *PlayListEntity) *AddContentRequest {
+	s.PlayListEntity = v
+	return s
+}
+
+func (s *AddContentRequest) SetClientToken(v string) *AddContentRequest {
+	s.ClientToken = &v
+	return s
+}
+
 type AddContentResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -6846,6 +7261,8 @@ type AddContentResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 视频内容id
+	ContentId *string `json:"content_id,omitempty" xml:"content_id,omitempty"`
 }
 
 func (s AddContentResponse) String() string {
@@ -6871,59 +7288,141 @@ func (s *AddContentResponse) SetResultMsg(v string) *AddContentResponse {
 	return s
 }
 
-type QueryContentRequest struct {
+func (s *AddContentResponse) SetContentId(v string) *AddContentResponse {
+	s.ContentId = &v
+	return s
+}
+
+type QueryContentStatusRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 视频内容id
+	ContentId *string `json:"content_id,omitempty" xml:"content_id,omitempty" require:"true"`
 }
 
-func (s QueryContentRequest) String() string {
+func (s QueryContentStatusRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryContentRequest) GoString() string {
+func (s QueryContentStatusRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryContentRequest) SetAuthToken(v string) *QueryContentRequest {
+func (s *QueryContentStatusRequest) SetAuthToken(v string) *QueryContentStatusRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryContentRequest) SetProductInstanceId(v string) *QueryContentRequest {
+func (s *QueryContentStatusRequest) SetProductInstanceId(v string) *QueryContentStatusRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-type QueryContentResponse struct {
+func (s *QueryContentStatusRequest) SetContentId(v string) *QueryContentStatusRequest {
+	s.ContentId = &v
+	return s
+}
+
+type QueryContentStatusResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 视频内容id
+	ContentId *string `json:"content_id,omitempty" xml:"content_id,omitempty"`
+	// 视频状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 内容标题
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 内容类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 标签列表
+	Keywords []*string `json:"keywords,omitempty" xml:"keywords,omitempty" type:"Repeated"`
+	// 内容描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 内容封面文件地址
+	CoverUrl *string `json:"cover_url,omitempty" xml:"cover_url,omitempty"`
+	// 存证id
+	RegisterId *string `json:"register_id,omitempty" xml:"register_id,omitempty"`
+	// 内容授权合同文件地址
+	AuthPdfUrl *string `json:"auth_pdf_url,omitempty" xml:"auth_pdf_url,omitempty"`
+	// 播放列表名称
+	PlayListName *string `json:"play_list_name,omitempty" xml:"play_list_name,omitempty"`
 }
 
-func (s QueryContentResponse) String() string {
+func (s QueryContentStatusResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryContentResponse) GoString() string {
+func (s QueryContentStatusResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryContentResponse) SetReqMsgId(v string) *QueryContentResponse {
+func (s *QueryContentStatusResponse) SetReqMsgId(v string) *QueryContentStatusResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryContentResponse) SetResultCode(v string) *QueryContentResponse {
+func (s *QueryContentStatusResponse) SetResultCode(v string) *QueryContentStatusResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryContentResponse) SetResultMsg(v string) *QueryContentResponse {
+func (s *QueryContentStatusResponse) SetResultMsg(v string) *QueryContentStatusResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContentStatusResponse) SetContentId(v string) *QueryContentStatusResponse {
+	s.ContentId = &v
+	return s
+}
+
+func (s *QueryContentStatusResponse) SetStatus(v string) *QueryContentStatusResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryContentStatusResponse) SetTitle(v string) *QueryContentStatusResponse {
+	s.Title = &v
+	return s
+}
+
+func (s *QueryContentStatusResponse) SetType(v string) *QueryContentStatusResponse {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryContentStatusResponse) SetKeywords(v []*string) *QueryContentStatusResponse {
+	s.Keywords = v
+	return s
+}
+
+func (s *QueryContentStatusResponse) SetDescription(v string) *QueryContentStatusResponse {
+	s.Description = &v
+	return s
+}
+
+func (s *QueryContentStatusResponse) SetCoverUrl(v string) *QueryContentStatusResponse {
+	s.CoverUrl = &v
+	return s
+}
+
+func (s *QueryContentStatusResponse) SetRegisterId(v string) *QueryContentStatusResponse {
+	s.RegisterId = &v
+	return s
+}
+
+func (s *QueryContentStatusResponse) SetAuthPdfUrl(v string) *QueryContentStatusResponse {
+	s.AuthPdfUrl = &v
+	return s
+}
+
+func (s *QueryContentStatusResponse) SetPlayListName(v string) *QueryContentStatusResponse {
+	s.PlayListName = &v
 	return s
 }
 
@@ -6931,6 +7430,12 @@ type QueryContentStatisticsRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 内容id
+	ContentId *string `json:"content_id,omitempty" xml:"content_id,omitempty" require:"true"`
+	// 起始日期时间戳
+	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 截止日期时间戳
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
 }
 
 func (s QueryContentStatisticsRequest) String() string {
@@ -6951,6 +7456,21 @@ func (s *QueryContentStatisticsRequest) SetProductInstanceId(v string) *QueryCon
 	return s
 }
 
+func (s *QueryContentStatisticsRequest) SetContentId(v string) *QueryContentStatisticsRequest {
+	s.ContentId = &v
+	return s
+}
+
+func (s *QueryContentStatisticsRequest) SetStartTime(v int64) *QueryContentStatisticsRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryContentStatisticsRequest) SetEndTime(v int64) *QueryContentStatisticsRequest {
+	s.EndTime = &v
+	return s
+}
+
 type QueryContentStatisticsResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -6958,6 +7478,16 @@ type QueryContentStatisticsResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总观看次数
+	TotalViews *string `json:"total_views,omitempty" xml:"total_views,omitempty"`
+	// 总观看时长
+	TotalViewDuration *string `json:"total_view_duration,omitempty" xml:"total_view_duration,omitempty"`
+	// 总平均观看时长
+	TotalAverageViewDuration *string `json:"total_average_view_duration,omitempty" xml:"total_average_view_duration,omitempty"`
+	//  总预计收入
+	TotalRevenue *string `json:"total_revenue,omitempty" xml:"total_revenue,omitempty"`
+	// 每日详细统计列表
+	DayStatisticsList []*DayStatisticsInfo `json:"day_statistics_list,omitempty" xml:"day_statistics_list,omitempty" type:"Repeated"`
 }
 
 func (s QueryContentStatisticsResponse) String() string {
@@ -6980,6 +7510,31 @@ func (s *QueryContentStatisticsResponse) SetResultCode(v string) *QueryContentSt
 
 func (s *QueryContentStatisticsResponse) SetResultMsg(v string) *QueryContentStatisticsResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContentStatisticsResponse) SetTotalViews(v string) *QueryContentStatisticsResponse {
+	s.TotalViews = &v
+	return s
+}
+
+func (s *QueryContentStatisticsResponse) SetTotalViewDuration(v string) *QueryContentStatisticsResponse {
+	s.TotalViewDuration = &v
+	return s
+}
+
+func (s *QueryContentStatisticsResponse) SetTotalAverageViewDuration(v string) *QueryContentStatisticsResponse {
+	s.TotalAverageViewDuration = &v
+	return s
+}
+
+func (s *QueryContentStatisticsResponse) SetTotalRevenue(v string) *QueryContentStatisticsResponse {
+	s.TotalRevenue = &v
+	return s
+}
+
+func (s *QueryContentStatisticsResponse) SetDayStatisticsList(v []*DayStatisticsInfo) *QueryContentStatisticsResponse {
+	s.DayStatisticsList = v
 	return s
 }
 
@@ -7497,7 +8052,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.7"),
+				"sdk_version":      tea.String("1.16.23"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -7525,8 +8080,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -8908,6 +9471,40 @@ func (client *Client) CallbackDciPayresultEx(request *CallbackDciPayresultReques
 }
 
 /**
+ * Description: dci数登审核失败结果回调
+ * Summary: dci数登审核失败结果回调
+ */
+func (client *Client) RefuseDciRegistration(request *RefuseDciRegistrationRequest) (_result *RefuseDciRegistrationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RefuseDciRegistrationResponse{}
+	_body, _err := client.RefuseDciRegistrationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: dci数登审核失败结果回调
+ * Summary: dci数登审核失败结果回调
+ */
+func (client *Client) RefuseDciRegistrationEx(request *RefuseDciRegistrationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RefuseDciRegistrationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RefuseDciRegistrationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.registration.refuse"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 添加发布视频内容
  * Summary: 发布视频内容
  */
@@ -8943,13 +9540,13 @@ func (client *Client) AddContentEx(request *AddContentRequest, headers map[strin
 
 /**
  * Description: 查询视频内容状态
- * Summary: 查询视频内容
+ * Summary: 查询视频内容状态
  */
-func (client *Client) QueryContent(request *QueryContentRequest) (_result *QueryContentResponse, _err error) {
+func (client *Client) QueryContentStatus(request *QueryContentStatusRequest) (_result *QueryContentStatusResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryContentResponse{}
-	_body, _err := client.QueryContentEx(request, headers, runtime)
+	_result = &QueryContentStatusResponse{}
+	_body, _err := client.QueryContentStatusEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -8959,15 +9556,15 @@ func (client *Client) QueryContent(request *QueryContentRequest) (_result *Query
 
 /**
  * Description: 查询视频内容状态
- * Summary: 查询视频内容
+ * Summary: 查询视频内容状态
  */
-func (client *Client) QueryContentEx(request *QueryContentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContentResponse, _err error) {
+func (client *Client) QueryContentStatusEx(request *QueryContentStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContentStatusResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryContentResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.content.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryContentStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.content.status.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
