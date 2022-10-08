@@ -16,8 +16,12 @@ public class DciCreationInfo extends TeaModel {
 
     // 创作完成地点
     @NameInMap("creation_completion_place")
-    @Validation(required = true)
     public String creationCompletionPlace;
+
+    // 作品创作地点地区编码
+    @NameInMap("creation_completion_code")
+    @Validation(required = true)
+    public String creationCompletionCode;
 
     public static DciCreationInfo build(java.util.Map<String, ?> map) throws Exception {
         DciCreationInfo self = new DciCreationInfo();
@@ -46,6 +50,14 @@ public class DciCreationInfo extends TeaModel {
     }
     public String getCreationCompletionPlace() {
         return this.creationCompletionPlace;
+    }
+
+    public DciCreationInfo setCreationCompletionCode(String creationCompletionCode) {
+        this.creationCompletionCode = creationCompletionCode;
+        return this;
+    }
+    public String getCreationCompletionCode() {
+        return this.creationCompletionCode;
     }
 
 }

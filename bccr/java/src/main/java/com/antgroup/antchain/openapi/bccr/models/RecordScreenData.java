@@ -76,6 +76,10 @@ public class RecordScreenData extends TeaModel {
     @NameInMap("inventory")
     public String inventory;
 
+    // 证据包文件hash
+    @NameInMap("zip_file_hash")
+    public String zipFileHash;
+
     public static RecordScreenData build(java.util.Map<String, ?> map) throws Exception {
         RecordScreenData self = new RecordScreenData();
         return TeaModel.build(map, self);
@@ -215,6 +219,14 @@ public class RecordScreenData extends TeaModel {
     }
     public String getInventory() {
         return this.inventory;
+    }
+
+    public RecordScreenData setZipFileHash(String zipFileHash) {
+        this.zipFileHash = zipFileHash;
+        return this;
+    }
+    public String getZipFileHash() {
+        return this.zipFileHash;
     }
 
 }

@@ -16,8 +16,12 @@ public class DciPublicationInfo extends TeaModel {
 
     // 首次发表地址
     @NameInMap("first_publication_place")
-    @Validation(required = true)
     public String firstPublicationPlace;
+
+    // 首次发表地点地区编码
+    @NameInMap("first_publication_code")
+    @Validation(required = true)
+    public String firstPublicationCode;
 
     public static DciPublicationInfo build(java.util.Map<String, ?> map) throws Exception {
         DciPublicationInfo self = new DciPublicationInfo();
@@ -46,6 +50,14 @@ public class DciPublicationInfo extends TeaModel {
     }
     public String getFirstPublicationPlace() {
         return this.firstPublicationPlace;
+    }
+
+    public DciPublicationInfo setFirstPublicationCode(String firstPublicationCode) {
+        this.firstPublicationCode = firstPublicationCode;
+        return this;
+    }
+    public String getFirstPublicationCode() {
+        return this.firstPublicationCode;
     }
 
 }

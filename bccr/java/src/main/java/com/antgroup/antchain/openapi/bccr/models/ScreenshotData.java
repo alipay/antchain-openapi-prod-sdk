@@ -73,6 +73,10 @@ public class ScreenshotData extends TeaModel {
     @NameInMap("error_reason_cn")
     public String errorReasonCn;
 
+    // 证据包文件hash
+    @NameInMap("zip_file_hash")
+    public String zipFileHash;
+
     public static ScreenshotData build(java.util.Map<String, ?> map) throws Exception {
         ScreenshotData self = new ScreenshotData();
         return TeaModel.build(map, self);
@@ -212,6 +216,14 @@ public class ScreenshotData extends TeaModel {
     }
     public String getErrorReasonCn() {
         return this.errorReasonCn;
+    }
+
+    public ScreenshotData setZipFileHash(String zipFileHash) {
+        this.zipFileHash = zipFileHash;
+        return this;
+    }
+    public String getZipFileHash() {
+        return this.zipFileHash;
     }
 
 }
