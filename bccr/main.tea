@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.20',
+    sdk_version = '1.16.23',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -299,6 +299,8 @@ model RecordScreenData {
   zipTxHash?: string(name='zip_tx_hash', example='0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd'),
   // 取证备注信息
   inventory?: string(name='inventory', example='{    "urls": [       "https://www.baidu.com",       "https://www.mydcs.com"    ] }'),
+  // 证据包文件hash
+  zipFileHash?: string(name='zip_file_hash', example='0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd'),
 }
 
 // 权利声明核验信息
@@ -369,6 +371,8 @@ model ScreenshotData {
   errorReason?: string(name='error_reason', example='error'),
   // 中文失败原因
   errorReasonCn?: string(name='error_reason_cn', example='中文失败原因'),
+  // 证据包文件hash
+  zipFileHash?: string(name='zip_file_hash', example='0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd'),
 }
 
 // 类型对应供应商
@@ -390,7 +394,9 @@ model DciPublicationInfo {
   // 首次发表日期
   firstPublicationDate: string(name='first_publication_date', example='yyyy-MM-dd'),
   // 首次发表地址
-  firstPublicationPlace: string(name='first_publication_place', example='杭州'),
+  firstPublicationPlace?: string(name='first_publication_place', example='杭州'),
+  // 首次发表地点地区编码
+  firstPublicationCode: string(name='first_publication_code', example='110101'),
 }
 
 // dci作品创作信息
@@ -400,7 +406,9 @@ model DciCreationInfo {
   // 创作完成日期
   creationCompletionDate: string(name='creation_completion_date', example='yyyy-MM-dd'),
   // 创作完成地点
-  creationCompletionPlace: string(name='creation_completion_place', example='杭州'),
+  creationCompletionPlace?: string(name='creation_completion_place', example='杭州'),
+  // 作品创作地点地区编码
+  creationCompletionCode: string(name='creation_completion_code', example='110101'),
 }
 
 // 权利信息
