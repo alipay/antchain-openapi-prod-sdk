@@ -95,6 +95,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ErrorReasonCn { get; set; }
 
+        // 证据包文件hash
+        [NameInMap("zip_file_hash")]
+        [Validation(Required=false)]
+        public string ZipFileHash { get; set; }
+
     }
 
 }

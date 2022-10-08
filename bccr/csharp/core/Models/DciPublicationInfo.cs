@@ -22,8 +22,13 @@ namespace AntChain.SDK.BCCR.Models
 
         // 首次发表地址
         [NameInMap("first_publication_place")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string FirstPublicationPlace { get; set; }
+
+        // 首次发表地点地区编码
+        [NameInMap("first_publication_code")]
+        [Validation(Required=true)]
+        public string FirstPublicationCode { get; set; }
 
     }
 

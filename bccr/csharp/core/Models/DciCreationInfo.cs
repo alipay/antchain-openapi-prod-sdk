@@ -22,8 +22,13 @@ namespace AntChain.SDK.BCCR.Models
 
         // 创作完成地点
         [NameInMap("creation_completion_place")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CreationCompletionPlace { get; set; }
+
+        // 作品创作地点地区编码
+        [NameInMap("creation_completion_code")]
+        [Validation(Required=true)]
+        public string CreationCompletionCode { get; set; }
 
     }
 
