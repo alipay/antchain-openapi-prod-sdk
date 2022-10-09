@@ -1882,6 +1882,8 @@ type WorksInfo struct {
 	WorksName *string `json:"works_name,omitempty" xml:"works_name,omitempty" require:"true"`
 	// 作品类型
 	WorksType *string `json:"works_type,omitempty" xml:"works_type,omitempty" require:"true"`
+	// 作品类型英文标识
+	WorksTypeEn *string `json:"works_type_en,omitempty" xml:"works_type_en,omitempty"`
 }
 
 func (s WorksInfo) String() string {
@@ -1899,6 +1901,11 @@ func (s *WorksInfo) SetWorksName(v string) *WorksInfo {
 
 func (s *WorksInfo) SetWorksType(v string) *WorksInfo {
 	s.WorksType = &v
+	return s
+}
+
+func (s *WorksInfo) SetWorksTypeEn(v string) *WorksInfo {
+	s.WorksTypeEn = &v
 	return s
 }
 
@@ -8052,7 +8059,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.16.23"),
+				"sdk_version":      tea.String("1.16.24"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
