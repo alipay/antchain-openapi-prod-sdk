@@ -137,7 +137,9 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.18"},
+                        {"sdk_version", "1.7.19"},
+                        {"_prod_code", "BOT"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.18"},
+                        {"sdk_version", "1.7.19"},
+                        {"_prod_code", "BOT"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1579,6 +1583,216 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OperateIotbasicDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.device.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: biot设备注册-创建设备
+         * Summary: biot设备注册-创建设备
+         */
+        public CreateIotbasicDeviceResponse CreateIotbasicDevice(CreateIotbasicDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateIotbasicDeviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: biot设备注册-创建设备
+         * Summary: biot设备注册-创建设备
+         */
+        public async Task<CreateIotbasicDeviceResponse> CreateIotbasicDeviceAsync(CreateIotbasicDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateIotbasicDeviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: biot设备注册-创建设备
+         * Summary: biot设备注册-创建设备
+         */
+        public CreateIotbasicDeviceResponse CreateIotbasicDeviceEx(CreateIotbasicDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateIotbasicDeviceResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.device.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: biot设备注册-创建设备
+         * Summary: biot设备注册-创建设备
+         */
+        public async Task<CreateIotbasicDeviceResponse> CreateIotbasicDeviceExAsync(CreateIotbasicDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateIotbasicDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.device.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: biot设备注册-批量创建设备
+         * Summary: biot设备注册-批量创建设备
+         */
+        public BatchcreateIotbasicDeviceResponse BatchcreateIotbasicDevice(BatchcreateIotbasicDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchcreateIotbasicDeviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: biot设备注册-批量创建设备
+         * Summary: biot设备注册-批量创建设备
+         */
+        public async Task<BatchcreateIotbasicDeviceResponse> BatchcreateIotbasicDeviceAsync(BatchcreateIotbasicDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchcreateIotbasicDeviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: biot设备注册-批量创建设备
+         * Summary: biot设备注册-批量创建设备
+         */
+        public BatchcreateIotbasicDeviceResponse BatchcreateIotbasicDeviceEx(BatchcreateIotbasicDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateIotbasicDeviceResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.device.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: biot设备注册-批量创建设备
+         * Summary: biot设备注册-批量创建设备
+         */
+        public async Task<BatchcreateIotbasicDeviceResponse> BatchcreateIotbasicDeviceExAsync(BatchcreateIotbasicDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateIotbasicDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.device.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: biot设备状态同步
+         * Summary: biot设备状态同步
+         */
+        public SyncIotbasicDevicestatusResponse SyncIotbasicDevicestatus(SyncIotbasicDevicestatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncIotbasicDevicestatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: biot设备状态同步
+         * Summary: biot设备状态同步
+         */
+        public async Task<SyncIotbasicDevicestatusResponse> SyncIotbasicDevicestatusAsync(SyncIotbasicDevicestatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncIotbasicDevicestatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: biot设备状态同步
+         * Summary: biot设备状态同步
+         */
+        public SyncIotbasicDevicestatusResponse SyncIotbasicDevicestatusEx(SyncIotbasicDevicestatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncIotbasicDevicestatusResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.devicestatus.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: biot设备状态同步
+         * Summary: biot设备状态同步
+         */
+        public async Task<SyncIotbasicDevicestatusResponse> SyncIotbasicDevicestatusExAsync(SyncIotbasicDevicestatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncIotbasicDevicestatusResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.devicestatus.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: biot设备-安全认证
+         * Summary: biot设备-安全认证
+         */
+        public VerifyIotbasicIdentifyResponse VerifyIotbasicIdentify(VerifyIotbasicIdentifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return VerifyIotbasicIdentifyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: biot设备-安全认证
+         * Summary: biot设备-安全认证
+         */
+        public async Task<VerifyIotbasicIdentifyResponse> VerifyIotbasicIdentifyAsync(VerifyIotbasicIdentifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await VerifyIotbasicIdentifyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: biot设备-安全认证
+         * Summary: biot设备-安全认证
+         */
+        public VerifyIotbasicIdentifyResponse VerifyIotbasicIdentifyEx(VerifyIotbasicIdentifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyIotbasicIdentifyResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.identify.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: biot设备-安全认证
+         * Summary: biot设备-安全认证
+         */
+        public async Task<VerifyIotbasicIdentifyResponse> VerifyIotbasicIdentifyExAsync(VerifyIotbasicIdentifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyIotbasicIdentifyResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.identify.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-更新设备信息
+         * Summary: IoT设备平台-更新设备信息
+         */
+        public UpdateIotbasicDeviceResponse UpdateIotbasicDevice(UpdateIotbasicDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateIotbasicDeviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-更新设备信息
+         * Summary: IoT设备平台-更新设备信息
+         */
+        public async Task<UpdateIotbasicDeviceResponse> UpdateIotbasicDeviceAsync(UpdateIotbasicDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateIotbasicDeviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-更新设备信息
+         * Summary: IoT设备平台-更新设备信息
+         */
+        public UpdateIotbasicDeviceResponse UpdateIotbasicDeviceEx(UpdateIotbasicDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateIotbasicDeviceResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.device.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-更新设备信息
+         * Summary: IoT设备平台-更新设备信息
+         */
+        public async Task<UpdateIotbasicDeviceResponse> UpdateIotbasicDeviceExAsync(UpdateIotbasicDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateIotbasicDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.device.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
