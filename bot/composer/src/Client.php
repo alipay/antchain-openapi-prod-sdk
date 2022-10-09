@@ -135,6 +135,8 @@ use AntChain\BOT\Models\OperateIotbasicChainmodelRequest;
 use AntChain\BOT\Models\OperateIotbasicChainmodelResponse;
 use AntChain\BOT\Models\OperateIotbasicControlconfigRequest;
 use AntChain\BOT\Models\OperateIotbasicControlconfigResponse;
+use AntChain\BOT\Models\OperateIotbasicDeviceRequest;
+use AntChain\BOT\Models\OperateIotbasicDeviceResponse;
 use AntChain\BOT\Models\OperateIotbasicDictionaryRequest;
 use AntChain\BOT\Models\OperateIotbasicDictionaryResponse;
 use AntChain\BOT\Models\OperateIotbasicPermissionRequest;
@@ -418,9 +420,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.13',
-                    '_prod_code'       => 'BOT',
-                    '_prod_channel'    => 'undefined',
+                    'sdk_version'      => '1.7.18',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1406,6 +1406,39 @@ class Client
         Utils::validateModel($request);
 
         return OperateIotbasicChainmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.chainmodel.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-设备不可操作标记更新
+     * Summary: IoT设备平台-设备不可操作标记更新.
+     *
+     * @param OperateIotbasicDeviceRequest $request
+     *
+     * @return OperateIotbasicDeviceResponse
+     */
+    public function operateIotbasicDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateIotbasicDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备不可操作标记更新
+     * Summary: IoT设备平台-设备不可操作标记更新.
+     *
+     * @param OperateIotbasicDeviceRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return OperateIotbasicDeviceResponse
+     */
+    public function operateIotbasicDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateIotbasicDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.device.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

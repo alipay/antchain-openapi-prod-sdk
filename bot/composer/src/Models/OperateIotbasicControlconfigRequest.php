@@ -47,31 +47,31 @@ class OperateIotbasicControlconfigRequest extends Model
     /**
      * @var string
      */
-    public $ifPutChain;
+    public $isRegisterNotify;
 
     // 是否标准设备-- 设备注册时 判断扩展属性 或展示时 显示扩展属性
     /**
      * @var string
      */
-    public $ifStandardDevice;
+    public $isStandard;
 
     // 是否生成密钥--注册设备时 生成密钥对， 存到 设备公钥(public_key)、deviceSecrect
     /**
      * @var string
      */
-    public $ifGenerateScrect;
+    public $isGenSecret;
 
     // 接口地址
     /**
      * @var string
      */
-    public $interfaceAddress;
+    public $serviceProvider;
 
     // 接口参数
     /**
      * @var string
      */
-    public $interfaceParams;
+    public $controlParam;
 
     // 操作类型
     /**
@@ -90,6 +90,24 @@ class OperateIotbasicControlconfigRequest extends Model
      * @var string
      */
     public $paramSign;
+
+    // 是否接入安全认证
+    /**
+     * @var string
+     */
+    public $isSupportSec;
+
+    // 设备规格ID
+    /**
+     * @var int
+     */
+    public $deviceSpecs;
+
+    // 厂商ID
+    /**
+     * @var int
+     */
+    public $corpId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -97,14 +115,17 @@ class OperateIotbasicControlconfigRequest extends Model
         'corpName'          => 'corp_name',
         'deviceModel'       => 'device_model',
         'controlModel'      => 'control_model',
-        'ifPutChain'        => 'if_put_chain',
-        'ifStandardDevice'  => 'if_standard_device',
-        'ifGenerateScrect'  => 'if_generate_screct',
-        'interfaceAddress'  => 'interface_address',
-        'interfaceParams'   => 'interface_params',
+        'isRegisterNotify'  => 'is_register_notify',
+        'isStandard'        => 'is_standard',
+        'isGenSecret'       => 'is_gen_secret',
+        'serviceProvider'   => 'service_provider',
+        'controlParam'      => 'control_param',
         'action'            => 'action',
         'operatorId'        => 'operator_id',
         'paramSign'         => 'param_sign',
+        'isSupportSec'      => 'is_support_sec',
+        'deviceSpecs'       => 'device_specs',
+        'corpId'            => 'corp_id',
     ];
 
     public function validate()
@@ -112,12 +133,14 @@ class OperateIotbasicControlconfigRequest extends Model
         Model::validateRequired('categoryCode', $this->categoryCode, true);
         Model::validateRequired('corpName', $this->corpName, true);
         Model::validateRequired('controlModel', $this->controlModel, true);
-        Model::validateRequired('ifPutChain', $this->ifPutChain, true);
-        Model::validateRequired('ifStandardDevice', $this->ifStandardDevice, true);
-        Model::validateRequired('ifGenerateScrect', $this->ifGenerateScrect, true);
+        Model::validateRequired('isRegisterNotify', $this->isRegisterNotify, true);
+        Model::validateRequired('isStandard', $this->isStandard, true);
+        Model::validateRequired('isGenSecret', $this->isGenSecret, true);
         Model::validateRequired('action', $this->action, true);
         Model::validateRequired('operatorId', $this->operatorId, true);
         Model::validateRequired('paramSign', $this->paramSign, true);
+        Model::validateRequired('isSupportSec', $this->isSupportSec, true);
+        Model::validateRequired('corpId', $this->corpId, true);
     }
 
     public function toMap()
@@ -141,20 +164,20 @@ class OperateIotbasicControlconfigRequest extends Model
         if (null !== $this->controlModel) {
             $res['control_model'] = $this->controlModel;
         }
-        if (null !== $this->ifPutChain) {
-            $res['if_put_chain'] = $this->ifPutChain;
+        if (null !== $this->isRegisterNotify) {
+            $res['is_register_notify'] = $this->isRegisterNotify;
         }
-        if (null !== $this->ifStandardDevice) {
-            $res['if_standard_device'] = $this->ifStandardDevice;
+        if (null !== $this->isStandard) {
+            $res['is_standard'] = $this->isStandard;
         }
-        if (null !== $this->ifGenerateScrect) {
-            $res['if_generate_screct'] = $this->ifGenerateScrect;
+        if (null !== $this->isGenSecret) {
+            $res['is_gen_secret'] = $this->isGenSecret;
         }
-        if (null !== $this->interfaceAddress) {
-            $res['interface_address'] = $this->interfaceAddress;
+        if (null !== $this->serviceProvider) {
+            $res['service_provider'] = $this->serviceProvider;
         }
-        if (null !== $this->interfaceParams) {
-            $res['interface_params'] = $this->interfaceParams;
+        if (null !== $this->controlParam) {
+            $res['control_param'] = $this->controlParam;
         }
         if (null !== $this->action) {
             $res['action'] = $this->action;
@@ -164,6 +187,15 @@ class OperateIotbasicControlconfigRequest extends Model
         }
         if (null !== $this->paramSign) {
             $res['param_sign'] = $this->paramSign;
+        }
+        if (null !== $this->isSupportSec) {
+            $res['is_support_sec'] = $this->isSupportSec;
+        }
+        if (null !== $this->deviceSpecs) {
+            $res['device_specs'] = $this->deviceSpecs;
+        }
+        if (null !== $this->corpId) {
+            $res['corp_id'] = $this->corpId;
         }
 
         return $res;
@@ -195,20 +227,20 @@ class OperateIotbasicControlconfigRequest extends Model
         if (isset($map['control_model'])) {
             $model->controlModel = $map['control_model'];
         }
-        if (isset($map['if_put_chain'])) {
-            $model->ifPutChain = $map['if_put_chain'];
+        if (isset($map['is_register_notify'])) {
+            $model->isRegisterNotify = $map['is_register_notify'];
         }
-        if (isset($map['if_standard_device'])) {
-            $model->ifStandardDevice = $map['if_standard_device'];
+        if (isset($map['is_standard'])) {
+            $model->isStandard = $map['is_standard'];
         }
-        if (isset($map['if_generate_screct'])) {
-            $model->ifGenerateScrect = $map['if_generate_screct'];
+        if (isset($map['is_gen_secret'])) {
+            $model->isGenSecret = $map['is_gen_secret'];
         }
-        if (isset($map['interface_address'])) {
-            $model->interfaceAddress = $map['interface_address'];
+        if (isset($map['service_provider'])) {
+            $model->serviceProvider = $map['service_provider'];
         }
-        if (isset($map['interface_params'])) {
-            $model->interfaceParams = $map['interface_params'];
+        if (isset($map['control_param'])) {
+            $model->controlParam = $map['control_param'];
         }
         if (isset($map['action'])) {
             $model->action = $map['action'];
@@ -218,6 +250,15 @@ class OperateIotbasicControlconfigRequest extends Model
         }
         if (isset($map['param_sign'])) {
             $model->paramSign = $map['param_sign'];
+        }
+        if (isset($map['is_support_sec'])) {
+            $model->isSupportSec = $map['is_support_sec'];
+        }
+        if (isset($map['device_specs'])) {
+            $model->deviceSpecs = $map['device_specs'];
+        }
+        if (isset($map['corp_id'])) {
+            $model->corpId = $map['corp_id'];
         }
 
         return $model;

@@ -66,6 +66,12 @@ class OperateIotbasicCategoryRequest extends Model
      * @var string
      */
     public $paramSign;
+
+    // 品类code
+    /**
+     * @var string
+     */
+    public $categoryCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +83,7 @@ class OperateIotbasicCategoryRequest extends Model
         'action'            => 'action',
         'operatorId'        => 'operator_id',
         'paramSign'         => 'param_sign',
+        'categoryCode'      => 'category_code',
     ];
 
     public function validate()
@@ -123,6 +130,9 @@ class OperateIotbasicCategoryRequest extends Model
         if (null !== $this->paramSign) {
             $res['param_sign'] = $this->paramSign;
         }
+        if (null !== $this->categoryCode) {
+            $res['category_code'] = $this->categoryCode;
+        }
 
         return $res;
     }
@@ -164,6 +174,9 @@ class OperateIotbasicCategoryRequest extends Model
         }
         if (isset($map['param_sign'])) {
             $model->paramSign = $map['param_sign'];
+        }
+        if (isset($map['category_code'])) {
+            $model->categoryCode = $map['category_code'];
         }
 
         return $model;
