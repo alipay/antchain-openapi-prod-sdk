@@ -919,6 +919,18 @@ export class RepayResult extends $tea.Model {
   settleDate: string;
   // 还款日期
   tradeDate: string;
+  // 已还担保费
+  alreadyGuaranteeFee: number;
+  // 已还违约金
+  alreadyLiquidatedDamages: number;
+  // 当期剩余担保费
+  restGuaranteeFee: number;
+  // 当期剩余违约金
+  restLiquidatedDamages: number;
+  // 应还担保费
+  needGuaranteeFee: number;
+  // 应还违约金
+  needLiquidatedDamages: number;
   static names(): { [key: string]: string } {
     return {
       customNo: 'custom_no',
@@ -944,6 +956,12 @@ export class RepayResult extends $tea.Model {
       status: 'status',
       settleDate: 'settle_date',
       tradeDate: 'trade_date',
+      alreadyGuaranteeFee: 'already_guarantee_fee',
+      alreadyLiquidatedDamages: 'already_liquidated_damages',
+      restGuaranteeFee: 'rest_guarantee_fee',
+      restLiquidatedDamages: 'rest_liquidated_damages',
+      needGuaranteeFee: 'need_guarantee_fee',
+      needLiquidatedDamages: 'need_liquidated_damages',
     };
   }
 
@@ -972,6 +990,12 @@ export class RepayResult extends $tea.Model {
       status: 'string',
       settleDate: 'string',
       tradeDate: 'string',
+      alreadyGuaranteeFee: 'number',
+      alreadyLiquidatedDamages: 'number',
+      restGuaranteeFee: 'number',
+      restLiquidatedDamages: 'number',
+      needGuaranteeFee: 'number',
+      needLiquidatedDamages: 'number',
     };
   }
 
@@ -7127,6 +7151,10 @@ export class QueryDubbridgeRepayInfoResponse extends $tea.Model {
   failReason?: string;
   // 授信申请编号
   applyNo?: string;
+  // 担保费
+  guaranteeFee?: number;
+  // 违约金
+  liquidatedDamages?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -7153,6 +7181,8 @@ export class QueryDubbridgeRepayInfoResponse extends $tea.Model {
       repayStatus: 'repay_status',
       failReason: 'fail_reason',
       applyNo: 'apply_no',
+      guaranteeFee: 'guarantee_fee',
+      liquidatedDamages: 'liquidated_damages',
     };
   }
 
@@ -7182,6 +7212,8 @@ export class QueryDubbridgeRepayInfoResponse extends $tea.Model {
       repayStatus: 'string',
       failReason: 'string',
       applyNo: 'string',
+      guaranteeFee: 'number',
+      liquidatedDamages: 'number',
     };
   }
 
@@ -7382,6 +7414,10 @@ export class CountDubbridgeRepayTrialResponse extends $tea.Model {
   realOverAmt?: number;
   // 服务费
   serviceCharge?: number;
+  // 担保费
+  realGuaranteeFee?: number;
+  // 违约金
+  realLiquidatedDamages?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -7391,6 +7427,8 @@ export class CountDubbridgeRepayTrialResponse extends $tea.Model {
       realInterest: 'real_interest',
       realOverAmt: 'real_over_amt',
       serviceCharge: 'service_charge',
+      realGuaranteeFee: 'real_guarantee_fee',
+      realLiquidatedDamages: 'real_liquidated_damages',
     };
   }
 
@@ -7403,6 +7441,8 @@ export class CountDubbridgeRepayTrialResponse extends $tea.Model {
       realInterest: 'number',
       realOverAmt: 'number',
       serviceCharge: 'number',
+      realGuaranteeFee: 'number',
+      realLiquidatedDamages: 'number',
     };
   }
 
@@ -7579,6 +7619,8 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
   repayType: string;
   // 1：手机数码 2：旅游 3：装修 4：教育 5：婚庆 6：租房 7：家具家居 8：健康医疗 9：其他消费 10：家用电器
   loanWay: string;
+  // 还款日
+  repayDate: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7590,6 +7632,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       orderNo: 'order_no',
       repayType: 'repay_type',
       loanWay: 'loan_way',
+      repayDate: 'repay_date',
     };
   }
 
@@ -7604,6 +7647,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       orderNo: 'string',
       repayType: 'string',
       loanWay: 'string',
+      repayDate: 'string',
     };
   }
 
@@ -7686,6 +7730,10 @@ export class QueryDubbridgeUsecreditStatusResponse extends $tea.Model {
   receiptInfo?: ReceiptInfo;
   // 还款计划列表
   repayRef?: RepayRef[];
+  // 用信合同编号
+  disburseContractNo?: string;
+  // 授信合同编号
+  creditContractNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -7695,6 +7743,8 @@ export class QueryDubbridgeUsecreditStatusResponse extends $tea.Model {
       msg: 'msg',
       receiptInfo: 'receipt_info',
       repayRef: 'repay_ref',
+      disburseContractNo: 'disburse_contract_no',
+      creditContractNo: 'credit_contract_no',
     };
   }
 
@@ -7707,6 +7757,8 @@ export class QueryDubbridgeUsecreditStatusResponse extends $tea.Model {
       msg: 'string',
       receiptInfo: ReceiptInfo,
       repayRef: { 'type': 'array', 'itemType': RepayRef },
+      disburseContractNo: 'string',
+      creditContractNo: 'string',
     };
   }
 
@@ -8143,6 +8195,8 @@ export class NotifyDubbridgeCallbackRequest extends $tea.Model {
   bizParam: string;
   // 回调类型（1授信回调2用信回调）
   bizType: string;
+  // 对应授信/用信传给三方留存单号
+  seqNo: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8150,6 +8204,7 @@ export class NotifyDubbridgeCallbackRequest extends $tea.Model {
       channelCode: 'channel_code',
       bizParam: 'biz_param',
       bizType: 'biz_type',
+      seqNo: 'seq_no',
     };
   }
 
@@ -8160,6 +8215,7 @@ export class NotifyDubbridgeCallbackRequest extends $tea.Model {
       channelCode: 'string',
       bizParam: 'string',
       bizType: 'string',
+      seqNo: 'string',
     };
   }
 
@@ -13147,6 +13203,16 @@ export class SendUmktCardsmsBatchRequest extends $tea.Model {
   signNameJson: string;
   // 上行短信扩展码
   smsUpExtendCodeJson?: string;
+  // 回落类型
+  fallbackType?: string;
+  // 回落短信模版
+  fallbackTemplateCode?: string;
+  // 回落短信模版参数
+  fallbackTemplateParamJson?: string;
+  // 卡片短信对应的原始文本短信模板，不传则用默认文本
+  templateCode?: string;
+  // 默认文本对应参数
+  templateParamJson?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13158,6 +13224,11 @@ export class SendUmktCardsmsBatchRequest extends $tea.Model {
       phoneNumberJson: 'phone_number_json',
       signNameJson: 'sign_name_json',
       smsUpExtendCodeJson: 'sms_up_extend_code_json',
+      fallbackType: 'fallback_type',
+      fallbackTemplateCode: 'fallback_template_code',
+      fallbackTemplateParamJson: 'fallback_template_param_json',
+      templateCode: 'template_code',
+      templateParamJson: 'template_param_json',
     };
   }
 
@@ -13172,6 +13243,11 @@ export class SendUmktCardsmsBatchRequest extends $tea.Model {
       phoneNumberJson: 'string',
       signNameJson: 'string',
       smsUpExtendCodeJson: 'string',
+      fallbackType: 'string',
+      fallbackTemplateCode: 'string',
+      fallbackTemplateParamJson: 'string',
+      templateCode: 'string',
+      templateParamJson: 'string',
     };
   }
 
@@ -13193,6 +13269,10 @@ export class SendUmktCardsmsBatchResponse extends $tea.Model {
   mediaMobiles?: string;
   // 不支持的手机号
   notMediaMobiles?: string;
+  // 回落文本短信回执id
+  bizId?: string;
+  // 回落数字短信回执id
+  bizDigitalId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -13201,6 +13281,8 @@ export class SendUmktCardsmsBatchResponse extends $tea.Model {
       bizCardId: 'biz_card_id',
       mediaMobiles: 'media_mobiles',
       notMediaMobiles: 'not_media_mobiles',
+      bizId: 'biz_id',
+      bizDigitalId: 'biz_digital_id',
     };
   }
 
@@ -13212,6 +13294,8 @@ export class SendUmktCardsmsBatchResponse extends $tea.Model {
       bizCardId: 'string',
       mediaMobiles: 'string',
       notMediaMobiles: 'string',
+      bizId: 'string',
+      bizDigitalId: 'string',
     };
   }
 
@@ -13492,9 +13576,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.3",
-          _prod_code: "RISKPLUS",
-          _prod_channel: "undefined",
+          sdk_version: "1.13.5",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
