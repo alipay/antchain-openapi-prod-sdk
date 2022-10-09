@@ -1394,10 +1394,13 @@ export class WorksInfo extends $tea.Model {
   worksName: string;
   // 作品类型
   worksType: string;
+  // 作品类型英文标识
+  worksTypeEn?: string;
   static names(): { [key: string]: string } {
     return {
       worksName: 'works_name',
       worksType: 'works_type',
+      worksTypeEn: 'works_type_en',
     };
   }
 
@@ -1405,6 +1408,7 @@ export class WorksInfo extends $tea.Model {
     return {
       worksName: 'string',
       worksType: 'string',
+      worksTypeEn: 'string',
     };
   }
 
@@ -5961,7 +5965,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.23",
+          sdk_version: "1.16.24",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
