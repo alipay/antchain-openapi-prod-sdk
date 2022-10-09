@@ -135,9 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.19',
-                    '_prod_code': 'BOT',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.7.24'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -239,9 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.19',
-                    '_prod_code': 'BOT',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.7.24'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -2051,7 +2047,7 @@ class Client:
     ) -> bot_models.SyncIotbasicDevicestatusResponse:
         """
         Description: biot设备状态同步
-        Summary: biot设备状态同步
+        Summary: iot平台-设备状态同步
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2063,7 +2059,7 @@ class Client:
     ) -> bot_models.SyncIotbasicDevicestatusResponse:
         """
         Description: biot设备状态同步
-        Summary: biot设备状态同步
+        Summary: iot平台-设备状态同步
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2077,7 +2073,7 @@ class Client:
     ) -> bot_models.SyncIotbasicDevicestatusResponse:
         """
         Description: biot设备状态同步
-        Summary: biot设备状态同步
+        Summary: iot平台-设备状态同步
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2093,7 +2089,7 @@ class Client:
     ) -> bot_models.SyncIotbasicDevicestatusResponse:
         """
         Description: biot设备状态同步
-        Summary: biot设备状态同步
+        Summary: iot平台-设备状态同步
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2211,6 +2207,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.UpdateIotbasicDeviceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.device.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_iotbasic_devicecollect(
+        self,
+        request: bot_models.OperateIotbasicDevicecollectRequest,
+    ) -> bot_models.OperateIotbasicDevicecollectResponse:
+        """
+        Description: IoT设备平台-设备上链
+        Summary: IoT设备平台-设备上链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_iotbasic_devicecollect_ex(request, headers, runtime)
+
+    async def operate_iotbasic_devicecollect_async(
+        self,
+        request: bot_models.OperateIotbasicDevicecollectRequest,
+    ) -> bot_models.OperateIotbasicDevicecollectResponse:
+        """
+        Description: IoT设备平台-设备上链
+        Summary: IoT设备平台-设备上链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_iotbasic_devicecollect_ex_async(request, headers, runtime)
+
+    def operate_iotbasic_devicecollect_ex(
+        self,
+        request: bot_models.OperateIotbasicDevicecollectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateIotbasicDevicecollectResponse:
+        """
+        Description: IoT设备平台-设备上链
+        Summary: IoT设备平台-设备上链
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OperateIotbasicDevicecollectResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.devicecollect.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_iotbasic_devicecollect_ex_async(
+        self,
+        request: bot_models.OperateIotbasicDevicecollectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateIotbasicDevicecollectResponse:
+        """
+        Description: IoT设备平台-设备上链
+        Summary: IoT设备平台-设备上链
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OperateIotbasicDevicecollectResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.devicecollect.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
