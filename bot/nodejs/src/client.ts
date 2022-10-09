@@ -1085,6 +1085,55 @@ export class TenantBindInfoReq extends $tea.Model {
   }
 }
 
+// 设备注册 请求对象
+export class IotBasicDeviceRegisterInfo extends $tea.Model {
+  // 设备规格
+  deviceSpecs: string;
+  // 设备型号
+  deviceModel: string;
+  // 设备名称
+  deviceName: string;
+  // 设备sn
+  deviceSn: string;
+  // 设备标签
+  nickName?: string;
+  // 安装位置
+  location?: string;
+  // 设备扩展信息
+  deviceExt?: string;
+  // 设备安全认证ID
+  secId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      deviceSpecs: 'device_specs',
+      deviceModel: 'device_model',
+      deviceName: 'device_name',
+      deviceSn: 'device_sn',
+      nickName: 'nick_name',
+      location: 'location',
+      deviceExt: 'device_ext',
+      secId: 'sec_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deviceSpecs: 'string',
+      deviceModel: 'string',
+      deviceName: 'string',
+      deviceSn: 'string',
+      nickName: 'string',
+      location: 'string',
+      deviceExt: 'string',
+      secId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 信物链证据基本组成结构体
 export class EvidenceBaseModel extends $tea.Model {
   // 业务数据
@@ -2281,6 +2330,39 @@ export class Peripheral extends $tea.Model {
   }
 }
 
+// 设备注册结果对象
+export class IotBasicDeviceRegisterResult extends $tea.Model {
+  // 设备did
+  deviceDid: string;
+  // 设备密钥
+  privateKey: string;
+  // 设备名称
+  deviceName: string;
+  // 设备sn
+  deviceSn: string;
+  static names(): { [key: string]: string } {
+    return {
+      deviceDid: 'device_did',
+      privateKey: 'private_key',
+      deviceName: 'device_name',
+      deviceSn: 'device_sn',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deviceDid: 'string',
+      privateKey: 'string',
+      deviceName: 'string',
+      deviceSn: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 更新设备和空间关联请求结构体
 export class UpdateDeviceSpaceReq extends $tea.Model {
   // API要更新的设备DID
@@ -2364,6 +2446,39 @@ export class ThingsDidBaseRegisterRequest extends $tea.Model {
       thingVersion: 'string',
       bizType: 'string',
       thingExtraParams: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 设备注册失败对象
+export class IotBasicDeviceRegisterFail extends $tea.Model {
+  // 设备名称
+  deviceName: string;
+  // 设备sn
+  deviceSn: string;
+  // 错误编码
+  code: string;
+  // 错误描述
+  message: string;
+  static names(): { [key: string]: string } {
+    return {
+      deviceName: 'device_name',
+      deviceSn: 'device_sn',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deviceName: 'string',
+      deviceSn: 'string',
+      code: 'string',
+      message: 'string',
     };
   }
 
@@ -5670,6 +5785,385 @@ export class OperateIotbasicDeviceResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateIotbasicDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备厂商名称
+  corpName: string;
+  // 设备品类编码
+  deviceCategoryCode: string;
+  // A1
+  deviceModel: string;
+  // xxx
+  deviceName: string;
+  // xe21d
+  deviceSn: string;
+  // standard
+  deviceSpecs: string;
+  // 安装位置
+  location?: string;
+  // 设备标签
+  nickName?: string;
+  // secid
+  secId?: string;
+  // 设备扩展信息
+  deviceExt?: string;
+  // 业务场景编码
+  bizScene: string;
+  // 所属租户ID
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      corpName: 'corp_name',
+      deviceCategoryCode: 'device_category_code',
+      deviceModel: 'device_model',
+      deviceName: 'device_name',
+      deviceSn: 'device_sn',
+      deviceSpecs: 'device_specs',
+      location: 'location',
+      nickName: 'nick_name',
+      secId: 'sec_id',
+      deviceExt: 'device_ext',
+      bizScene: 'biz_scene',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      corpName: 'string',
+      deviceCategoryCode: 'string',
+      deviceModel: 'string',
+      deviceName: 'string',
+      deviceSn: 'string',
+      deviceSpecs: 'string',
+      location: 'string',
+      nickName: 'string',
+      secId: 'string',
+      deviceExt: 'string',
+      bizScene: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateIotbasicDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // ddi
+  deviceDid?: string;
+  // 设备私钥
+  privateKey?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      deviceDid: 'device_did',
+      privateKey: 'private_key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      deviceDid: 'string',
+      privateKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchcreateIotbasicDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备厂商
+  corpName: string;
+  // 设备品类编码
+  deviceCategoryCode: string;
+  // 业务场景码
+  bizScene: string;
+  // 所属租户ID
+  tenantId: string;
+  // 注册设备集合
+  deviceList: IotBasicDeviceRegisterInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      corpName: 'corp_name',
+      deviceCategoryCode: 'device_category_code',
+      bizScene: 'biz_scene',
+      tenantId: 'tenant_id',
+      deviceList: 'device_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      corpName: 'string',
+      deviceCategoryCode: 'string',
+      bizScene: 'string',
+      tenantId: 'string',
+      deviceList: { 'type': 'array', 'itemType': IotBasicDeviceRegisterInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchcreateIotbasicDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 注册成功集合
+  successList?: IotBasicDeviceRegisterResult[];
+  // 注册失败集合
+  failList?: IotBasicDeviceRegisterFail;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      successList: 'success_list',
+      failList: 'fail_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      successList: { 'type': 'array', 'itemType': IotBasicDeviceRegisterResult },
+      failList: IotBasicDeviceRegisterFail,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncIotbasicDevicestatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备did
+  deviceDid: string;
+  // 设备状态
+  deviceStatus: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceDid: 'device_did',
+      deviceStatus: 'device_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceDid: 'string',
+      deviceStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncIotbasicDevicestatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyIotbasicIdentifyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备did
+  deviceDid: string;
+  // 设备认证参数
+  verifyParam: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceDid: 'device_did',
+      verifyParam: 'verify_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceDid: 'string',
+      verifyParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyIotbasicIdentifyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 认证结果
+  verifyResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      verifyResult: 'verify_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      verifyResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateIotbasicDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备did
+  deviceDid: string;
+  // 设备名称
+  deviceName?: string;
+  // 安装位置
+  location?: string;
+  // 设备扩展信息
+  deviceExt?: string;
+  // 设备标签
+  nickName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceDid: 'device_did',
+      deviceName: 'device_name',
+      location: 'location',
+      deviceExt: 'device_ext',
+      nickName: 'nick_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceDid: 'string',
+      deviceName: 'string',
+      location: 'string',
+      deviceExt: 'string',
+      nickName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateIotbasicDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -13523,7 +14017,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.18",
+          sdk_version: "1.7.19",
+          _prod_code: "BOT",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -14139,6 +14635,101 @@ export default class Client {
   async operateIotbasicDeviceEx(request: OperateIotbasicDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateIotbasicDeviceResponse> {
     Util.validateModel(request);
     return $tea.cast<OperateIotbasicDeviceResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.device.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateIotbasicDeviceResponse({}));
+  }
+
+  /**
+   * Description: biot设备注册-创建设备
+   * Summary: biot设备注册-创建设备
+   */
+  async createIotbasicDevice(request: CreateIotbasicDeviceRequest): Promise<CreateIotbasicDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createIotbasicDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: biot设备注册-创建设备
+   * Summary: biot设备注册-创建设备
+   */
+  async createIotbasicDeviceEx(request: CreateIotbasicDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateIotbasicDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateIotbasicDeviceResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.device.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateIotbasicDeviceResponse({}));
+  }
+
+  /**
+   * Description: biot设备注册-批量创建设备
+   * Summary: biot设备注册-批量创建设备
+   */
+  async batchcreateIotbasicDevice(request: BatchcreateIotbasicDeviceRequest): Promise<BatchcreateIotbasicDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchcreateIotbasicDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: biot设备注册-批量创建设备
+   * Summary: biot设备注册-批量创建设备
+   */
+  async batchcreateIotbasicDeviceEx(request: BatchcreateIotbasicDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchcreateIotbasicDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchcreateIotbasicDeviceResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.device.batchcreate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchcreateIotbasicDeviceResponse({}));
+  }
+
+  /**
+   * Description: biot设备状态同步
+   * Summary: biot设备状态同步
+   */
+  async syncIotbasicDevicestatus(request: SyncIotbasicDevicestatusRequest): Promise<SyncIotbasicDevicestatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncIotbasicDevicestatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: biot设备状态同步
+   * Summary: biot设备状态同步
+   */
+  async syncIotbasicDevicestatusEx(request: SyncIotbasicDevicestatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncIotbasicDevicestatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncIotbasicDevicestatusResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.devicestatus.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncIotbasicDevicestatusResponse({}));
+  }
+
+  /**
+   * Description: biot设备-安全认证
+   * Summary: biot设备-安全认证
+   */
+  async verifyIotbasicIdentify(request: VerifyIotbasicIdentifyRequest): Promise<VerifyIotbasicIdentifyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.verifyIotbasicIdentifyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: biot设备-安全认证
+   * Summary: biot设备-安全认证
+   */
+  async verifyIotbasicIdentifyEx(request: VerifyIotbasicIdentifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyIotbasicIdentifyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<VerifyIotbasicIdentifyResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.identify.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyIotbasicIdentifyResponse({}));
+  }
+
+  /**
+   * Description: IoT设备平台-更新设备信息
+   * Summary: IoT设备平台-更新设备信息
+   */
+  async updateIotbasicDevice(request: UpdateIotbasicDeviceRequest): Promise<UpdateIotbasicDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateIotbasicDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: IoT设备平台-更新设备信息
+   * Summary: IoT设备平台-更新设备信息
+   */
+  async updateIotbasicDeviceEx(request: UpdateIotbasicDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateIotbasicDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateIotbasicDeviceResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.device.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateIotbasicDeviceResponse({}));
   }
 
   /**
