@@ -43,6 +43,18 @@ class SendUmktCardsmsBatchResponse extends Model
      * @var string
      */
     public $notMediaMobiles;
+
+    // 回落文本短信回执id
+    /**
+     * @var string
+     */
+    public $bizId;
+
+    // 回落数字短信回执id
+    /**
+     * @var string
+     */
+    public $bizDigitalId;
     protected $_name = [
         'reqMsgId'        => 'req_msg_id',
         'resultCode'      => 'result_code',
@@ -50,6 +62,8 @@ class SendUmktCardsmsBatchResponse extends Model
         'bizCardId'       => 'biz_card_id',
         'mediaMobiles'    => 'media_mobiles',
         'notMediaMobiles' => 'not_media_mobiles',
+        'bizId'           => 'biz_id',
+        'bizDigitalId'    => 'biz_digital_id',
     ];
 
     public function validate()
@@ -76,6 +90,12 @@ class SendUmktCardsmsBatchResponse extends Model
         }
         if (null !== $this->notMediaMobiles) {
             $res['not_media_mobiles'] = $this->notMediaMobiles;
+        }
+        if (null !== $this->bizId) {
+            $res['biz_id'] = $this->bizId;
+        }
+        if (null !== $this->bizDigitalId) {
+            $res['biz_digital_id'] = $this->bizDigitalId;
         }
 
         return $res;
@@ -106,6 +126,12 @@ class SendUmktCardsmsBatchResponse extends Model
         }
         if (isset($map['not_media_mobiles'])) {
             $model->notMediaMobiles = $map['not_media_mobiles'];
+        }
+        if (isset($map['biz_id'])) {
+            $model->bizId = $map['biz_id'];
+        }
+        if (isset($map['biz_digital_id'])) {
+            $model->bizDigitalId = $map['biz_digital_id'];
         }
 
         return $model;

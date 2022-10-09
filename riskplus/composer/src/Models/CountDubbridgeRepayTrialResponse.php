@@ -49,14 +49,28 @@ class CountDubbridgeRepayTrialResponse extends Model
      * @var int
      */
     public $serviceCharge;
+
+    // 担保费
+    /**
+     * @var int
+     */
+    public $realGuaranteeFee;
+
+    // 违约金
+    /**
+     * @var int
+     */
+    public $realLiquidatedDamages;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'realPrincipal' => 'real_principal',
-        'realInterest'  => 'real_interest',
-        'realOverAmt'   => 'real_over_amt',
-        'serviceCharge' => 'service_charge',
+        'reqMsgId'              => 'req_msg_id',
+        'resultCode'            => 'result_code',
+        'resultMsg'             => 'result_msg',
+        'realPrincipal'         => 'real_principal',
+        'realInterest'          => 'real_interest',
+        'realOverAmt'           => 'real_over_amt',
+        'serviceCharge'         => 'service_charge',
+        'realGuaranteeFee'      => 'real_guarantee_fee',
+        'realLiquidatedDamages' => 'real_liquidated_damages',
     ];
 
     public function validate()
@@ -86,6 +100,12 @@ class CountDubbridgeRepayTrialResponse extends Model
         }
         if (null !== $this->serviceCharge) {
             $res['service_charge'] = $this->serviceCharge;
+        }
+        if (null !== $this->realGuaranteeFee) {
+            $res['real_guarantee_fee'] = $this->realGuaranteeFee;
+        }
+        if (null !== $this->realLiquidatedDamages) {
+            $res['real_liquidated_damages'] = $this->realLiquidatedDamages;
         }
 
         return $res;
@@ -119,6 +139,12 @@ class CountDubbridgeRepayTrialResponse extends Model
         }
         if (isset($map['service_charge'])) {
             $model->serviceCharge = $map['service_charge'];
+        }
+        if (isset($map['real_guarantee_fee'])) {
+            $model->realGuaranteeFee = $map['real_guarantee_fee'];
+        }
+        if (isset($map['real_liquidated_damages'])) {
+            $model->realLiquidatedDamages = $map['real_liquidated_damages'];
         }
 
         return $model;

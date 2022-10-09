@@ -49,14 +49,28 @@ class QueryDubbridgeUsecreditStatusResponse extends Model
      * @var RepayRef[]
      */
     public $repayRef;
+
+    // 用信合同编号
+    /**
+     * @var string
+     */
+    public $disburseContractNo;
+
+    // 授信合同编号
+    /**
+     * @var string
+     */
+    public $creditContractNo;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'status'      => 'status',
-        'msg'         => 'msg',
-        'receiptInfo' => 'receipt_info',
-        'repayRef'    => 'repay_ref',
+        'reqMsgId'           => 'req_msg_id',
+        'resultCode'         => 'result_code',
+        'resultMsg'          => 'result_msg',
+        'status'             => 'status',
+        'msg'                => 'msg',
+        'receiptInfo'        => 'receipt_info',
+        'repayRef'           => 'repay_ref',
+        'disburseContractNo' => 'disburse_contract_no',
+        'creditContractNo'   => 'credit_contract_no',
     ];
 
     public function validate()
@@ -92,6 +106,12 @@ class QueryDubbridgeUsecreditStatusResponse extends Model
                     $res['repay_ref'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->disburseContractNo) {
+            $res['disburse_contract_no'] = $this->disburseContractNo;
+        }
+        if (null !== $this->creditContractNo) {
+            $res['credit_contract_no'] = $this->creditContractNo;
         }
 
         return $res;
@@ -131,6 +151,12 @@ class QueryDubbridgeUsecreditStatusResponse extends Model
                     $model->repayRef[$n++] = null !== $item ? RepayRef::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['disburse_contract_no'])) {
+            $model->disburseContractNo = $map['disburse_contract_no'];
+        }
+        if (isset($map['credit_contract_no'])) {
+            $model->creditContractNo = $map['credit_contract_no'];
         }
 
         return $model;

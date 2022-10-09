@@ -36,12 +36,19 @@ class NotifyDubbridgeCallbackRequest extends Model
      * @var string
      */
     public $bizType;
+
+    // 对应授信/用信传给三方留存单号
+    /**
+     * @var string
+     */
+    public $seqNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'channelCode'       => 'channel_code',
         'bizParam'          => 'biz_param',
         'bizType'           => 'biz_type',
+        'seqNo'             => 'seq_no',
     ];
 
     public function validate()
@@ -49,6 +56,7 @@ class NotifyDubbridgeCallbackRequest extends Model
         Model::validateRequired('channelCode', $this->channelCode, true);
         Model::validateRequired('bizParam', $this->bizParam, true);
         Model::validateRequired('bizType', $this->bizType, true);
+        Model::validateRequired('seqNo', $this->seqNo, true);
     }
 
     public function toMap()
@@ -68,6 +76,9 @@ class NotifyDubbridgeCallbackRequest extends Model
         }
         if (null !== $this->bizType) {
             $res['biz_type'] = $this->bizType;
+        }
+        if (null !== $this->seqNo) {
+            $res['seq_no'] = $this->seqNo;
         }
 
         return $res;
@@ -95,6 +106,9 @@ class NotifyDubbridgeCallbackRequest extends Model
         }
         if (isset($map['biz_type'])) {
             $model->bizType = $map['biz_type'];
+        }
+        if (isset($map['seq_no'])) {
+            $model->seqNo = $map['seq_no'];
         }
 
         return $model;

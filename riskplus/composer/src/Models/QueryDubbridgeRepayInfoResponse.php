@@ -151,31 +151,45 @@ class QueryDubbridgeRepayInfoResponse extends Model
      * @var string
      */
     public $applyNo;
+
+    // 担保费
+    /**
+     * @var int
+     */
+    public $guaranteeFee;
+
+    // 违约金
+    /**
+     * @var int
+     */
+    public $liquidatedDamages;
     protected $_name = [
-        'reqMsgId'         => 'req_msg_id',
-        'resultCode'       => 'result_code',
-        'resultMsg'        => 'result_msg',
-        'repayNo'          => 'repay_no',
-        'receiptNo'        => 'receipt_no',
-        'customNo'         => 'custom_no',
-        'customName'       => 'custom_name',
-        'repayType'        => 'repay_type',
-        'repaySign'        => 'repay_sign',
-        'repayDate'        => 'repay_date',
-        'repayAmount'      => 'repay_amount',
-        'repayPrincipal'   => 'repay_principal',
-        'repayInterest'    => 'repay_interest',
-        'channelAmt'       => 'channel_amt',
-        'repayFee'         => 'repay_fee',
-        'repayPunish'      => 'repay_punish',
-        'repayAccount'     => 'repay_account',
-        'repayAccountName' => 'repay_account_name',
-        'repayMobile'      => 'repay_mobile',
-        'repayBankNo'      => 'repay_bank_no',
-        'repayBankName'    => 'repay_bank_name',
-        'repayStatus'      => 'repay_status',
-        'failReason'       => 'fail_reason',
-        'applyNo'          => 'apply_no',
+        'reqMsgId'          => 'req_msg_id',
+        'resultCode'        => 'result_code',
+        'resultMsg'         => 'result_msg',
+        'repayNo'           => 'repay_no',
+        'receiptNo'         => 'receipt_no',
+        'customNo'          => 'custom_no',
+        'customName'        => 'custom_name',
+        'repayType'         => 'repay_type',
+        'repaySign'         => 'repay_sign',
+        'repayDate'         => 'repay_date',
+        'repayAmount'       => 'repay_amount',
+        'repayPrincipal'    => 'repay_principal',
+        'repayInterest'     => 'repay_interest',
+        'channelAmt'        => 'channel_amt',
+        'repayFee'          => 'repay_fee',
+        'repayPunish'       => 'repay_punish',
+        'repayAccount'      => 'repay_account',
+        'repayAccountName'  => 'repay_account_name',
+        'repayMobile'       => 'repay_mobile',
+        'repayBankNo'       => 'repay_bank_no',
+        'repayBankName'     => 'repay_bank_name',
+        'repayStatus'       => 'repay_status',
+        'failReason'        => 'fail_reason',
+        'applyNo'           => 'apply_no',
+        'guaranteeFee'      => 'guarantee_fee',
+        'liquidatedDamages' => 'liquidated_damages',
     ];
 
     public function validate()
@@ -256,6 +270,12 @@ class QueryDubbridgeRepayInfoResponse extends Model
         }
         if (null !== $this->applyNo) {
             $res['apply_no'] = $this->applyNo;
+        }
+        if (null !== $this->guaranteeFee) {
+            $res['guarantee_fee'] = $this->guaranteeFee;
+        }
+        if (null !== $this->liquidatedDamages) {
+            $res['liquidated_damages'] = $this->liquidatedDamages;
         }
 
         return $res;
@@ -340,6 +360,12 @@ class QueryDubbridgeRepayInfoResponse extends Model
         }
         if (isset($map['apply_no'])) {
             $model->applyNo = $map['apply_no'];
+        }
+        if (isset($map['guarantee_fee'])) {
+            $model->guaranteeFee = $map['guarantee_fee'];
+        }
+        if (isset($map['liquidated_damages'])) {
+            $model->liquidatedDamages = $map['liquidated_damages'];
         }
 
         return $model;

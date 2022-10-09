@@ -60,16 +60,51 @@ class SendUmktCardsmsBatchRequest extends Model
      * @var string
      */
     public $smsUpExtendCodeJson;
+
+    // 回落类型
+    /**
+     * @var string
+     */
+    public $fallbackType;
+
+    // 回落短信模版
+    /**
+     * @var string
+     */
+    public $fallbackTemplateCode;
+
+    // 回落短信模版参数
+    /**
+     * @var string
+     */
+    public $fallbackTemplateParamJson;
+
+    // 卡片短信对应的原始文本短信模板，不传则用默认文本
+    /**
+     * @var string
+     */
+    public $templateCode;
+
+    // 默认文本对应参数
+    /**
+     * @var string
+     */
+    public $templateParamJson;
     protected $_name = [
-        'authToken'             => 'auth_token',
-        'productInstanceId'     => 'product_instance_id',
-        'cpassAk'               => 'cpass_ak',
-        'industryTag'           => 'industry_tag',
-        'cardTemplateCode'      => 'card_template_code',
-        'cardTemplateParamJson' => 'card_template_param_json',
-        'phoneNumberJson'       => 'phone_number_json',
-        'signNameJson'          => 'sign_name_json',
-        'smsUpExtendCodeJson'   => 'sms_up_extend_code_json',
+        'authToken'                 => 'auth_token',
+        'productInstanceId'         => 'product_instance_id',
+        'cpassAk'                   => 'cpass_ak',
+        'industryTag'               => 'industry_tag',
+        'cardTemplateCode'          => 'card_template_code',
+        'cardTemplateParamJson'     => 'card_template_param_json',
+        'phoneNumberJson'           => 'phone_number_json',
+        'signNameJson'              => 'sign_name_json',
+        'smsUpExtendCodeJson'       => 'sms_up_extend_code_json',
+        'fallbackType'              => 'fallback_type',
+        'fallbackTemplateCode'      => 'fallback_template_code',
+        'fallbackTemplateParamJson' => 'fallback_template_param_json',
+        'templateCode'              => 'template_code',
+        'templateParamJson'         => 'template_param_json',
     ];
 
     public function validate()
@@ -111,6 +146,21 @@ class SendUmktCardsmsBatchRequest extends Model
         if (null !== $this->smsUpExtendCodeJson) {
             $res['sms_up_extend_code_json'] = $this->smsUpExtendCodeJson;
         }
+        if (null !== $this->fallbackType) {
+            $res['fallback_type'] = $this->fallbackType;
+        }
+        if (null !== $this->fallbackTemplateCode) {
+            $res['fallback_template_code'] = $this->fallbackTemplateCode;
+        }
+        if (null !== $this->fallbackTemplateParamJson) {
+            $res['fallback_template_param_json'] = $this->fallbackTemplateParamJson;
+        }
+        if (null !== $this->templateCode) {
+            $res['template_code'] = $this->templateCode;
+        }
+        if (null !== $this->templateParamJson) {
+            $res['template_param_json'] = $this->templateParamJson;
+        }
 
         return $res;
     }
@@ -149,6 +199,21 @@ class SendUmktCardsmsBatchRequest extends Model
         }
         if (isset($map['sms_up_extend_code_json'])) {
             $model->smsUpExtendCodeJson = $map['sms_up_extend_code_json'];
+        }
+        if (isset($map['fallback_type'])) {
+            $model->fallbackType = $map['fallback_type'];
+        }
+        if (isset($map['fallback_template_code'])) {
+            $model->fallbackTemplateCode = $map['fallback_template_code'];
+        }
+        if (isset($map['fallback_template_param_json'])) {
+            $model->fallbackTemplateParamJson = $map['fallback_template_param_json'];
+        }
+        if (isset($map['template_code'])) {
+            $model->templateCode = $map['template_code'];
+        }
+        if (isset($map['template_param_json'])) {
+            $model->templateParamJson = $map['template_param_json'];
         }
 
         return $model;

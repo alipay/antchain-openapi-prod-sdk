@@ -191,30 +191,84 @@ class RepayResult extends Model
      * @var string
      */
     public $tradeDate;
+
+    // 已还担保费
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $alreadyGuaranteeFee;
+
+    // 已还违约金
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $alreadyLiquidatedDamages;
+
+    // 当期剩余担保费
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $restGuaranteeFee;
+
+    // 当期剩余违约金
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $restLiquidatedDamages;
+
+    // 应还担保费
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $needGuaranteeFee;
+
+    // 应还违约金
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $needLiquidatedDamages;
     protected $_name = [
-        'customNo'          => 'custom_no',
-        'period'            => 'period',
-        'needAmount'        => 'need_amount',
-        'needCorpus'        => 'need_corpus',
-        'needAccrual'       => 'need_accrual',
-        'needFee'           => 'need_fee',
-        'alreadyAmount'     => 'already_amount',
-        'alreadyCorpus'     => 'already_corpus',
-        'alreadyOvercorpus' => 'already_overcorpus',
-        'alreadyAccrual'    => 'already_accrual',
-        'alreadyPunish'     => 'already_punish',
-        'alreadyFee'        => 'already_fee',
-        'rate'              => 'rate',
-        'penaltyValue'      => 'penalty_value',
-        'restAmount'        => 'rest_amount',
-        'restCorpus'        => 'rest_corpus',
-        'restAccrual'       => 'rest_accrual',
-        'restPunish'        => 'rest_punish',
-        'remainCorpus'      => 'remain_corpus',
-        'receiptNo'         => 'receipt_no',
-        'status'            => 'status',
-        'settleDate'        => 'settle_date',
-        'tradeDate'         => 'trade_date',
+        'customNo'                 => 'custom_no',
+        'period'                   => 'period',
+        'needAmount'               => 'need_amount',
+        'needCorpus'               => 'need_corpus',
+        'needAccrual'              => 'need_accrual',
+        'needFee'                  => 'need_fee',
+        'alreadyAmount'            => 'already_amount',
+        'alreadyCorpus'            => 'already_corpus',
+        'alreadyOvercorpus'        => 'already_overcorpus',
+        'alreadyAccrual'           => 'already_accrual',
+        'alreadyPunish'            => 'already_punish',
+        'alreadyFee'               => 'already_fee',
+        'rate'                     => 'rate',
+        'penaltyValue'             => 'penalty_value',
+        'restAmount'               => 'rest_amount',
+        'restCorpus'               => 'rest_corpus',
+        'restAccrual'              => 'rest_accrual',
+        'restPunish'               => 'rest_punish',
+        'remainCorpus'             => 'remain_corpus',
+        'receiptNo'                => 'receipt_no',
+        'status'                   => 'status',
+        'settleDate'               => 'settle_date',
+        'tradeDate'                => 'trade_date',
+        'alreadyGuaranteeFee'      => 'already_guarantee_fee',
+        'alreadyLiquidatedDamages' => 'already_liquidated_damages',
+        'restGuaranteeFee'         => 'rest_guarantee_fee',
+        'restLiquidatedDamages'    => 'rest_liquidated_damages',
+        'needGuaranteeFee'         => 'need_guarantee_fee',
+        'needLiquidatedDamages'    => 'need_liquidated_damages',
     ];
 
     public function validate()
@@ -242,6 +296,12 @@ class RepayResult extends Model
         Model::validateRequired('status', $this->status, true);
         Model::validateRequired('settleDate', $this->settleDate, true);
         Model::validateRequired('tradeDate', $this->tradeDate, true);
+        Model::validateRequired('alreadyGuaranteeFee', $this->alreadyGuaranteeFee, true);
+        Model::validateRequired('alreadyLiquidatedDamages', $this->alreadyLiquidatedDamages, true);
+        Model::validateRequired('restGuaranteeFee', $this->restGuaranteeFee, true);
+        Model::validateRequired('restLiquidatedDamages', $this->restLiquidatedDamages, true);
+        Model::validateRequired('needGuaranteeFee', $this->needGuaranteeFee, true);
+        Model::validateRequired('needLiquidatedDamages', $this->needLiquidatedDamages, true);
         Model::validatePattern('settleDate', $this->settleDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('tradeDate', $this->tradeDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
@@ -317,6 +377,24 @@ class RepayResult extends Model
         }
         if (null !== $this->tradeDate) {
             $res['trade_date'] = $this->tradeDate;
+        }
+        if (null !== $this->alreadyGuaranteeFee) {
+            $res['already_guarantee_fee'] = $this->alreadyGuaranteeFee;
+        }
+        if (null !== $this->alreadyLiquidatedDamages) {
+            $res['already_liquidated_damages'] = $this->alreadyLiquidatedDamages;
+        }
+        if (null !== $this->restGuaranteeFee) {
+            $res['rest_guarantee_fee'] = $this->restGuaranteeFee;
+        }
+        if (null !== $this->restLiquidatedDamages) {
+            $res['rest_liquidated_damages'] = $this->restLiquidatedDamages;
+        }
+        if (null !== $this->needGuaranteeFee) {
+            $res['need_guarantee_fee'] = $this->needGuaranteeFee;
+        }
+        if (null !== $this->needLiquidatedDamages) {
+            $res['need_liquidated_damages'] = $this->needLiquidatedDamages;
         }
 
         return $res;
@@ -398,6 +476,24 @@ class RepayResult extends Model
         }
         if (isset($map['trade_date'])) {
             $model->tradeDate = $map['trade_date'];
+        }
+        if (isset($map['already_guarantee_fee'])) {
+            $model->alreadyGuaranteeFee = $map['already_guarantee_fee'];
+        }
+        if (isset($map['already_liquidated_damages'])) {
+            $model->alreadyLiquidatedDamages = $map['already_liquidated_damages'];
+        }
+        if (isset($map['rest_guarantee_fee'])) {
+            $model->restGuaranteeFee = $map['rest_guarantee_fee'];
+        }
+        if (isset($map['rest_liquidated_damages'])) {
+            $model->restLiquidatedDamages = $map['rest_liquidated_damages'];
+        }
+        if (isset($map['need_guarantee_fee'])) {
+            $model->needGuaranteeFee = $map['need_guarantee_fee'];
+        }
+        if (isset($map['need_liquidated_damages'])) {
+            $model->needLiquidatedDamages = $map['need_liquidated_damages'];
         }
 
         return $model;

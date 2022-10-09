@@ -60,6 +60,12 @@ class ApplyDubbridgeUsecreditRequest extends Model
      * @var string
      */
     public $loanWay;
+
+    // 还款日
+    /**
+     * @var string
+     */
+    public $repayDate;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +76,7 @@ class ApplyDubbridgeUsecreditRequest extends Model
         'orderNo'           => 'order_no',
         'repayType'         => 'repay_type',
         'loanWay'           => 'loan_way',
+        'repayDate'         => 'repay_date',
     ];
 
     public function validate()
@@ -81,6 +88,7 @@ class ApplyDubbridgeUsecreditRequest extends Model
         Model::validateRequired('orderNo', $this->orderNo, true);
         Model::validateRequired('repayType', $this->repayType, true);
         Model::validateRequired('loanWay', $this->loanWay, true);
+        Model::validateRequired('repayDate', $this->repayDate, true);
     }
 
     public function toMap()
@@ -112,6 +120,9 @@ class ApplyDubbridgeUsecreditRequest extends Model
         }
         if (null !== $this->loanWay) {
             $res['loan_way'] = $this->loanWay;
+        }
+        if (null !== $this->repayDate) {
+            $res['repay_date'] = $this->repayDate;
         }
 
         return $res;
@@ -151,6 +162,9 @@ class ApplyDubbridgeUsecreditRequest extends Model
         }
         if (isset($map['loan_way'])) {
             $model->loanWay = $map['loan_way'];
+        }
+        if (isset($map['repay_date'])) {
+            $model->repayDate = $map['repay_date'];
         }
 
         return $model;
