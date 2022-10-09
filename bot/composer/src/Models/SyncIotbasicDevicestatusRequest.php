@@ -30,17 +30,25 @@ class SyncIotbasicDevicestatusRequest extends Model
      * @var string
      */
     public $deviceStatus;
+
+    // 设备签名
+    /**
+     * @var string
+     */
+    public $deviceSignature;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'deviceDid'         => 'device_did',
         'deviceStatus'      => 'device_status',
+        'deviceSignature'   => 'device_signature',
     ];
 
     public function validate()
     {
         Model::validateRequired('deviceDid', $this->deviceDid, true);
         Model::validateRequired('deviceStatus', $this->deviceStatus, true);
+        Model::validateRequired('deviceSignature', $this->deviceSignature, true);
     }
 
     public function toMap()
@@ -57,6 +65,9 @@ class SyncIotbasicDevicestatusRequest extends Model
         }
         if (null !== $this->deviceStatus) {
             $res['device_status'] = $this->deviceStatus;
+        }
+        if (null !== $this->deviceSignature) {
+            $res['device_signature'] = $this->deviceSignature;
         }
 
         return $res;
@@ -81,6 +92,9 @@ class SyncIotbasicDevicestatusRequest extends Model
         }
         if (isset($map['device_status'])) {
             $model->deviceStatus = $map['device_status'];
+        }
+        if (isset($map['device_signature'])) {
+            $model->deviceSignature = $map['device_signature'];
         }
 
         return $model;

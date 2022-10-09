@@ -34,7 +34,7 @@ class BatchcreateIotbasicDeviceResponse extends Model
 
     // 注册失败集合
     /**
-     * @var IotBasicDeviceRegisterFail
+     * @var IotBasicDeviceRegisterFail[]
      */
     public $failList;
     protected $_name = [
@@ -71,7 +71,13 @@ class BatchcreateIotbasicDeviceResponse extends Model
             }
         }
         if (null !== $this->failList) {
-            $res['fail_list'] = null !== $this->failList ? $this->failList->toMap() : null;
+            $res['fail_list'] = [];
+            if (null !== $this->failList && \is_array($this->failList)) {
+                $n = 0;
+                foreach ($this->failList as $item) {
+                    $res['fail_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -104,7 +110,13 @@ class BatchcreateIotbasicDeviceResponse extends Model
             }
         }
         if (isset($map['fail_list'])) {
-            $model->failList = IotBasicDeviceRegisterFail::fromMap($map['fail_list']);
+            if (!empty($map['fail_list'])) {
+                $model->failList = [];
+                $n               = 0;
+                foreach ($map['fail_list'] as $item) {
+                    $model->failList[$n++] = null !== $item ? IotBasicDeviceRegisterFail::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

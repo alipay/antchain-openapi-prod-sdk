@@ -48,6 +48,12 @@ class UpdateIotbasicDeviceRequest extends Model
      * @var string
      */
     public $nickName;
+
+    // 设备签名
+    /**
+     * @var string
+     */
+    public $deviceSignature;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,11 +62,13 @@ class UpdateIotbasicDeviceRequest extends Model
         'location'          => 'location',
         'deviceExt'         => 'device_ext',
         'nickName'          => 'nick_name',
+        'deviceSignature'   => 'device_signature',
     ];
 
     public function validate()
     {
         Model::validateRequired('deviceDid', $this->deviceDid, true);
+        Model::validateRequired('deviceSignature', $this->deviceSignature, true);
     }
 
     public function toMap()
@@ -86,6 +94,9 @@ class UpdateIotbasicDeviceRequest extends Model
         }
         if (null !== $this->nickName) {
             $res['nick_name'] = $this->nickName;
+        }
+        if (null !== $this->deviceSignature) {
+            $res['device_signature'] = $this->deviceSignature;
         }
 
         return $res;
@@ -119,6 +130,9 @@ class UpdateIotbasicDeviceRequest extends Model
         }
         if (isset($map['nick_name'])) {
             $model->nickName = $map['nick_name'];
+        }
+        if (isset($map['device_signature'])) {
+            $model->deviceSignature = $map['device_signature'];
         }
 
         return $model;

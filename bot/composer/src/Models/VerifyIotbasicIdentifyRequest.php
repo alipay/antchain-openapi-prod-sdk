@@ -30,17 +30,25 @@ class VerifyIotbasicIdentifyRequest extends Model
      * @var string
      */
     public $verifyParam;
+
+    // 设备签名，用设备pri_key 进行签名
+    /**
+     * @var string
+     */
+    public $deviceSignature;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'deviceDid'         => 'device_did',
         'verifyParam'       => 'verify_param',
+        'deviceSignature'   => 'device_signature',
     ];
 
     public function validate()
     {
         Model::validateRequired('deviceDid', $this->deviceDid, true);
         Model::validateRequired('verifyParam', $this->verifyParam, true);
+        Model::validateRequired('deviceSignature', $this->deviceSignature, true);
     }
 
     public function toMap()
@@ -57,6 +65,9 @@ class VerifyIotbasicIdentifyRequest extends Model
         }
         if (null !== $this->verifyParam) {
             $res['verify_param'] = $this->verifyParam;
+        }
+        if (null !== $this->deviceSignature) {
+            $res['device_signature'] = $this->deviceSignature;
         }
 
         return $res;
@@ -81,6 +92,9 @@ class VerifyIotbasicIdentifyRequest extends Model
         }
         if (isset($map['verify_param'])) {
             $model->verifyParam = $map['verify_param'];
+        }
+        if (isset($map['device_signature'])) {
+            $model->deviceSignature = $map['device_signature'];
         }
 
         return $model;

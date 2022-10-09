@@ -139,6 +139,8 @@ use AntChain\BOT\Models\OperateIotbasicChainmodelRequest;
 use AntChain\BOT\Models\OperateIotbasicChainmodelResponse;
 use AntChain\BOT\Models\OperateIotbasicControlconfigRequest;
 use AntChain\BOT\Models\OperateIotbasicControlconfigResponse;
+use AntChain\BOT\Models\OperateIotbasicDevicecollectRequest;
+use AntChain\BOT\Models\OperateIotbasicDevicecollectResponse;
 use AntChain\BOT\Models\OperateIotbasicDeviceRequest;
 use AntChain\BOT\Models\OperateIotbasicDeviceResponse;
 use AntChain\BOT\Models\OperateIotbasicDictionaryRequest;
@@ -430,9 +432,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.19',
-                    '_prod_code'       => 'BOT',
-                    '_prod_channel'    => 'undefined',
+                    'sdk_version'      => '1.7.24',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1521,7 +1521,7 @@ class Client
 
     /**
      * Description: biot设备状态同步
-     * Summary: biot设备状态同步.
+     * Summary: iot平台-设备状态同步.
      *
      * @param SyncIotbasicDevicestatusRequest $request
      *
@@ -1537,7 +1537,7 @@ class Client
 
     /**
      * Description: biot设备状态同步
-     * Summary: biot设备状态同步.
+     * Summary: iot平台-设备状态同步.
      *
      * @param SyncIotbasicDevicestatusRequest $request
      * @param string[]                        $headers
@@ -1616,6 +1616,39 @@ class Client
         Utils::validateModel($request);
 
         return UpdateIotbasicDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.device.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-设备上链
+     * Summary: IoT设备平台-设备上链.
+     *
+     * @param OperateIotbasicDevicecollectRequest $request
+     *
+     * @return OperateIotbasicDevicecollectResponse
+     */
+    public function operateIotbasicDevicecollect($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateIotbasicDevicecollectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-设备上链
+     * Summary: IoT设备平台-设备上链.
+     *
+     * @param OperateIotbasicDevicecollectRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return OperateIotbasicDevicecollectResponse
+     */
+    public function operateIotbasicDevicecollectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateIotbasicDevicecollectResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.devicecollect.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
