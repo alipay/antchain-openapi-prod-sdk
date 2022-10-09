@@ -33,6 +33,8 @@ use AntChain\BOT\Models\AddUserRoleRequest;
 use AntChain\BOT\Models\AddUserRoleResponse;
 use AntChain\BOT\Models\ApplyMqtokenRequest;
 use AntChain\BOT\Models\ApplyMqtokenResponse;
+use AntChain\BOT\Models\BatchcreateIotbasicDeviceRequest;
+use AntChain\BOT\Models\BatchcreateIotbasicDeviceResponse;
 use AntChain\BOT\Models\CertifyIotbasicDeviceRequest;
 use AntChain\BOT\Models\CertifyIotbasicDeviceResponse;
 use AntChain\BOT\Models\CheckAiidentificationGoodspointRequest;
@@ -63,6 +65,8 @@ use AntChain\BOT\Models\CreateDistributedeviceBydeviceRequest;
 use AntChain\BOT\Models\CreateDistributedeviceBydeviceResponse;
 use AntChain\BOT\Models\CreateDistributedeviceByperipheralidRequest;
 use AntChain\BOT\Models\CreateDistributedeviceByperipheralidResponse;
+use AntChain\BOT\Models\CreateIotbasicDeviceRequest;
+use AntChain\BOT\Models\CreateIotbasicDeviceResponse;
 use AntChain\BOT\Models\CreateLeaseRealpersonRequest;
 use AntChain\BOT\Models\CreateLeaseRealpersonResponse;
 use AntChain\BOT\Models\CreateTaskRequest;
@@ -243,6 +247,8 @@ use AntChain\BOT\Models\StartTlsnotaryTaskRequest;
 use AntChain\BOT\Models\StartTlsnotaryTaskResponse;
 use AntChain\BOT\Models\StopAcecContractRequest;
 use AntChain\BOT\Models\StopAcecContractResponse;
+use AntChain\BOT\Models\SyncIotbasicDevicestatusRequest;
+use AntChain\BOT\Models\SyncIotbasicDevicestatusResponse;
 use AntChain\BOT\Models\SyncLabelTransferrawRequest;
 use AntChain\BOT\Models\SyncLabelTransferrawResponse;
 use AntChain\BOT\Models\SyncLabelTransferRequest;
@@ -255,6 +261,8 @@ use AntChain\BOT\Models\UpdateDeviceInfobydeviceRequest;
 use AntChain\BOT\Models\UpdateDeviceInfobydeviceResponse;
 use AntChain\BOT\Models\UpdateDeviceInfoRequest;
 use AntChain\BOT\Models\UpdateDeviceInfoResponse;
+use AntChain\BOT\Models\UpdateIotbasicDeviceRequest;
+use AntChain\BOT\Models\UpdateIotbasicDeviceResponse;
 use AntChain\BOT\Models\UpdateProductkeyRequest;
 use AntChain\BOT\Models\UpdateProductkeyResponse;
 use AntChain\BOT\Models\UpdateSceneRequest;
@@ -273,6 +281,8 @@ use AntChain\BOT\Models\UpdateThingsdidTenantRequest;
 use AntChain\BOT\Models\UpdateThingsdidTenantResponse;
 use AntChain\BOT\Models\VerifyAiidentificationQrcodeRequest;
 use AntChain\BOT\Models\VerifyAiidentificationQrcodeResponse;
+use AntChain\BOT\Models\VerifyIotbasicIdentifyRequest;
+use AntChain\BOT\Models\VerifyIotbasicIdentifyResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -420,7 +430,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.18',
+                    'sdk_version'      => '1.7.19',
+                    '_prod_code'       => 'BOT',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -1439,6 +1451,171 @@ class Client
         Utils::validateModel($request);
 
         return OperateIotbasicDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.device.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: biot设备注册-创建设备
+     * Summary: biot设备注册-创建设备.
+     *
+     * @param CreateIotbasicDeviceRequest $request
+     *
+     * @return CreateIotbasicDeviceResponse
+     */
+    public function createIotbasicDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createIotbasicDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: biot设备注册-创建设备
+     * Summary: biot设备注册-创建设备.
+     *
+     * @param CreateIotbasicDeviceRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CreateIotbasicDeviceResponse
+     */
+    public function createIotbasicDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateIotbasicDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.device.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: biot设备注册-批量创建设备
+     * Summary: biot设备注册-批量创建设备.
+     *
+     * @param BatchcreateIotbasicDeviceRequest $request
+     *
+     * @return BatchcreateIotbasicDeviceResponse
+     */
+    public function batchcreateIotbasicDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateIotbasicDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: biot设备注册-批量创建设备
+     * Summary: biot设备注册-批量创建设备.
+     *
+     * @param BatchcreateIotbasicDeviceRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return BatchcreateIotbasicDeviceResponse
+     */
+    public function batchcreateIotbasicDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateIotbasicDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.device.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: biot设备状态同步
+     * Summary: biot设备状态同步.
+     *
+     * @param SyncIotbasicDevicestatusRequest $request
+     *
+     * @return SyncIotbasicDevicestatusResponse
+     */
+    public function syncIotbasicDevicestatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncIotbasicDevicestatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: biot设备状态同步
+     * Summary: biot设备状态同步.
+     *
+     * @param SyncIotbasicDevicestatusRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return SyncIotbasicDevicestatusResponse
+     */
+    public function syncIotbasicDevicestatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncIotbasicDevicestatusResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.devicestatus.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: biot设备-安全认证
+     * Summary: biot设备-安全认证
+     *
+     * @param VerifyIotbasicIdentifyRequest $request
+     *
+     * @return VerifyIotbasicIdentifyResponse
+     */
+    public function verifyIotbasicIdentify($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyIotbasicIdentifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: biot设备-安全认证
+     * Summary: biot设备-安全认证
+     *
+     * @param VerifyIotbasicIdentifyRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return VerifyIotbasicIdentifyResponse
+     */
+    public function verifyIotbasicIdentifyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyIotbasicIdentifyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.identify.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-更新设备信息
+     * Summary: IoT设备平台-更新设备信息.
+     *
+     * @param UpdateIotbasicDeviceRequest $request
+     *
+     * @return UpdateIotbasicDeviceResponse
+     */
+    public function updateIotbasicDevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateIotbasicDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-更新设备信息
+     * Summary: IoT设备平台-更新设备信息.
+     *
+     * @param UpdateIotbasicDeviceRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UpdateIotbasicDeviceResponse
+     */
+    public function updateIotbasicDeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateIotbasicDeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.device.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
