@@ -5953,7 +5953,7 @@ export class BatchcreateIotbasicDeviceResponse extends $tea.Model {
   // 注册成功集合
   successList?: IotBasicDeviceRegisterResult[];
   // 注册失败集合
-  failList?: IotBasicDeviceRegisterFail;
+  failList?: IotBasicDeviceRegisterFail[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -5970,7 +5970,7 @@ export class BatchcreateIotbasicDeviceResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       successList: { 'type': 'array', 'itemType': IotBasicDeviceRegisterResult },
-      failList: IotBasicDeviceRegisterFail,
+      failList: { 'type': 'array', 'itemType': IotBasicDeviceRegisterFail },
     };
   }
 
@@ -5987,12 +5987,15 @@ export class SyncIotbasicDevicestatusRequest extends $tea.Model {
   deviceDid: string;
   // 设备状态
   deviceStatus: string;
+  // 设备签名
+  deviceSignature: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       deviceDid: 'device_did',
       deviceStatus: 'device_status',
+      deviceSignature: 'device_signature',
     };
   }
 
@@ -6002,6 +6005,7 @@ export class SyncIotbasicDevicestatusRequest extends $tea.Model {
       productInstanceId: 'string',
       deviceDid: 'string',
       deviceStatus: 'string',
+      deviceSignature: 'string',
     };
   }
 
@@ -6046,12 +6050,15 @@ export class VerifyIotbasicIdentifyRequest extends $tea.Model {
   deviceDid: string;
   // 设备认证参数
   verifyParam: string;
+  // 设备签名，用设备pri_key 进行签名
+  deviceSignature: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       deviceDid: 'device_did',
       verifyParam: 'verify_param',
+      deviceSignature: 'device_signature',
     };
   }
 
@@ -6061,6 +6068,7 @@ export class VerifyIotbasicIdentifyRequest extends $tea.Model {
       productInstanceId: 'string',
       deviceDid: 'string',
       verifyParam: 'string',
+      deviceSignature: 'string',
     };
   }
 
@@ -6115,6 +6123,8 @@ export class UpdateIotbasicDeviceRequest extends $tea.Model {
   deviceExt?: string;
   // 设备标签
   nickName?: string;
+  // 设备签名
+  deviceSignature: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6124,6 +6134,7 @@ export class UpdateIotbasicDeviceRequest extends $tea.Model {
       location: 'location',
       deviceExt: 'device_ext',
       nickName: 'nick_name',
+      deviceSignature: 'device_signature',
     };
   }
 
@@ -6136,6 +6147,7 @@ export class UpdateIotbasicDeviceRequest extends $tea.Model {
       location: 'string',
       deviceExt: 'string',
       nickName: 'string',
+      deviceSignature: 'string',
     };
   }
 
@@ -6164,6 +6176,85 @@ export class UpdateIotbasicDeviceResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateIotbasicDevicecollectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 资产ID
+  assetId?: string;
+  // 数据资产类型
+  dataScene: string;
+  // 所属业务
+  bizScene: string;
+  // 资产数据内容，业务要上链的数据JSON格式
+  assetData: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      assetId: 'asset_id',
+      dataScene: 'data_scene',
+      bizScene: 'biz_scene',
+      assetData: 'asset_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      assetId: 'string',
+      dataScene: 'string',
+      bizScene: 'string',
+      assetData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateIotbasicDevicecollectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 上链id
+  antchainId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      antchainId: 'antchain_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      antchainId: 'string',
     };
   }
 
@@ -14017,9 +14108,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.19",
-          _prod_code: "BOT",
-          _prod_channel: "undefined",
+          sdk_version: "1.7.24",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -14677,7 +14766,7 @@ export default class Client {
 
   /**
    * Description: biot设备状态同步
-   * Summary: biot设备状态同步
+   * Summary: iot平台-设备状态同步
    */
   async syncIotbasicDevicestatus(request: SyncIotbasicDevicestatusRequest): Promise<SyncIotbasicDevicestatusResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -14687,7 +14776,7 @@ export default class Client {
 
   /**
    * Description: biot设备状态同步
-   * Summary: biot设备状态同步
+   * Summary: iot平台-设备状态同步
    */
   async syncIotbasicDevicestatusEx(request: SyncIotbasicDevicestatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncIotbasicDevicestatusResponse> {
     Util.validateModel(request);
@@ -14730,6 +14819,25 @@ export default class Client {
   async updateIotbasicDeviceEx(request: UpdateIotbasicDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateIotbasicDeviceResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateIotbasicDeviceResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.device.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateIotbasicDeviceResponse({}));
+  }
+
+  /**
+   * Description: IoT设备平台-设备上链
+   * Summary: IoT设备平台-设备上链
+   */
+  async operateIotbasicDevicecollect(request: OperateIotbasicDevicecollectRequest): Promise<OperateIotbasicDevicecollectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateIotbasicDevicecollectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: IoT设备平台-设备上链
+   * Summary: IoT设备平台-设备上链
+   */
+  async operateIotbasicDevicecollectEx(request: OperateIotbasicDevicecollectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateIotbasicDevicecollectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateIotbasicDevicecollectResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.devicecollect.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateIotbasicDevicecollectResponse({}));
   }
 
   /**
