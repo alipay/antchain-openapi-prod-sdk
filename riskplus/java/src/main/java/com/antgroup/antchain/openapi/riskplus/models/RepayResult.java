@@ -119,6 +119,36 @@ public class RepayResult extends TeaModel {
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String tradeDate;
 
+    // 已还担保费
+    @NameInMap("already_guarantee_fee")
+    @Validation(required = true)
+    public Long alreadyGuaranteeFee;
+
+    // 已还违约金
+    @NameInMap("already_liquidated_damages")
+    @Validation(required = true)
+    public Long alreadyLiquidatedDamages;
+
+    // 当期剩余担保费
+    @NameInMap("rest_guarantee_fee")
+    @Validation(required = true)
+    public Long restGuaranteeFee;
+
+    // 当期剩余违约金
+    @NameInMap("rest_liquidated_damages")
+    @Validation(required = true)
+    public Long restLiquidatedDamages;
+
+    // 应还担保费
+    @NameInMap("need_guarantee_fee")
+    @Validation(required = true)
+    public Long needGuaranteeFee;
+
+    // 应还违约金
+    @NameInMap("need_liquidated_damages")
+    @Validation(required = true)
+    public Long needLiquidatedDamages;
+
     public static RepayResult build(java.util.Map<String, ?> map) throws Exception {
         RepayResult self = new RepayResult();
         return TeaModel.build(map, self);
@@ -306,6 +336,54 @@ public class RepayResult extends TeaModel {
     }
     public String getTradeDate() {
         return this.tradeDate;
+    }
+
+    public RepayResult setAlreadyGuaranteeFee(Long alreadyGuaranteeFee) {
+        this.alreadyGuaranteeFee = alreadyGuaranteeFee;
+        return this;
+    }
+    public Long getAlreadyGuaranteeFee() {
+        return this.alreadyGuaranteeFee;
+    }
+
+    public RepayResult setAlreadyLiquidatedDamages(Long alreadyLiquidatedDamages) {
+        this.alreadyLiquidatedDamages = alreadyLiquidatedDamages;
+        return this;
+    }
+    public Long getAlreadyLiquidatedDamages() {
+        return this.alreadyLiquidatedDamages;
+    }
+
+    public RepayResult setRestGuaranteeFee(Long restGuaranteeFee) {
+        this.restGuaranteeFee = restGuaranteeFee;
+        return this;
+    }
+    public Long getRestGuaranteeFee() {
+        return this.restGuaranteeFee;
+    }
+
+    public RepayResult setRestLiquidatedDamages(Long restLiquidatedDamages) {
+        this.restLiquidatedDamages = restLiquidatedDamages;
+        return this;
+    }
+    public Long getRestLiquidatedDamages() {
+        return this.restLiquidatedDamages;
+    }
+
+    public RepayResult setNeedGuaranteeFee(Long needGuaranteeFee) {
+        this.needGuaranteeFee = needGuaranteeFee;
+        return this;
+    }
+    public Long getNeedGuaranteeFee() {
+        return this.needGuaranteeFee;
+    }
+
+    public RepayResult setNeedLiquidatedDamages(Long needLiquidatedDamages) {
+        this.needLiquidatedDamages = needLiquidatedDamages;
+        return this;
+    }
+    public Long getNeedLiquidatedDamages() {
+        return this.needLiquidatedDamages;
     }
 
 }

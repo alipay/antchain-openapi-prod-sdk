@@ -28,6 +28,14 @@ public class SendUmktCardsmsBatchResponse extends TeaModel {
     @NameInMap("not_media_mobiles")
     public String notMediaMobiles;
 
+    // 回落文本短信回执id
+    @NameInMap("biz_id")
+    public String bizId;
+
+    // 回落数字短信回执id
+    @NameInMap("biz_digital_id")
+    public String bizDigitalId;
+
     public static SendUmktCardsmsBatchResponse build(java.util.Map<String, ?> map) throws Exception {
         SendUmktCardsmsBatchResponse self = new SendUmktCardsmsBatchResponse();
         return TeaModel.build(map, self);
@@ -79,6 +87,22 @@ public class SendUmktCardsmsBatchResponse extends TeaModel {
     }
     public String getNotMediaMobiles() {
         return this.notMediaMobiles;
+    }
+
+    public SendUmktCardsmsBatchResponse setBizId(String bizId) {
+        this.bizId = bizId;
+        return this;
+    }
+    public String getBizId() {
+        return this.bizId;
+    }
+
+    public SendUmktCardsmsBatchResponse setBizDigitalId(String bizDigitalId) {
+        this.bizDigitalId = bizDigitalId;
+        return this;
+    }
+    public String getBizDigitalId() {
+        return this.bizDigitalId;
     }
 
 }

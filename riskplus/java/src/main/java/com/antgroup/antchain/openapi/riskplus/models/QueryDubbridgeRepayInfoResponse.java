@@ -100,6 +100,14 @@ public class QueryDubbridgeRepayInfoResponse extends TeaModel {
     @NameInMap("apply_no")
     public String applyNo;
 
+    // 担保费
+    @NameInMap("guarantee_fee")
+    public Long guaranteeFee;
+
+    // 违约金
+    @NameInMap("liquidated_damages")
+    public Long liquidatedDamages;
+
     public static QueryDubbridgeRepayInfoResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRepayInfoResponse self = new QueryDubbridgeRepayInfoResponse();
         return TeaModel.build(map, self);
@@ -295,6 +303,22 @@ public class QueryDubbridgeRepayInfoResponse extends TeaModel {
     }
     public String getApplyNo() {
         return this.applyNo;
+    }
+
+    public QueryDubbridgeRepayInfoResponse setGuaranteeFee(Long guaranteeFee) {
+        this.guaranteeFee = guaranteeFee;
+        return this;
+    }
+    public Long getGuaranteeFee() {
+        return this.guaranteeFee;
+    }
+
+    public QueryDubbridgeRepayInfoResponse setLiquidatedDamages(Long liquidatedDamages) {
+        this.liquidatedDamages = liquidatedDamages;
+        return this;
+    }
+    public Long getLiquidatedDamages() {
+        return this.liquidatedDamages;
     }
 
 }

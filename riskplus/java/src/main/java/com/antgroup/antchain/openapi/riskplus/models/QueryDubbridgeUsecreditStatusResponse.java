@@ -32,6 +32,14 @@ public class QueryDubbridgeUsecreditStatusResponse extends TeaModel {
     @NameInMap("repay_ref")
     public java.util.List<RepayRef> repayRef;
 
+    // 用信合同编号
+    @NameInMap("disburse_contract_no")
+    public String disburseContractNo;
+
+    // 授信合同编号
+    @NameInMap("credit_contract_no")
+    public String creditContractNo;
+
     public static QueryDubbridgeUsecreditStatusResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeUsecreditStatusResponse self = new QueryDubbridgeUsecreditStatusResponse();
         return TeaModel.build(map, self);
@@ -91,6 +99,22 @@ public class QueryDubbridgeUsecreditStatusResponse extends TeaModel {
     }
     public java.util.List<RepayRef> getRepayRef() {
         return this.repayRef;
+    }
+
+    public QueryDubbridgeUsecreditStatusResponse setDisburseContractNo(String disburseContractNo) {
+        this.disburseContractNo = disburseContractNo;
+        return this;
+    }
+    public String getDisburseContractNo() {
+        return this.disburseContractNo;
+    }
+
+    public QueryDubbridgeUsecreditStatusResponse setCreditContractNo(String creditContractNo) {
+        this.creditContractNo = creditContractNo;
+        return this;
+    }
+    public String getCreditContractNo() {
+        return this.creditContractNo;
     }
 
 }

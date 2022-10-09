@@ -44,6 +44,26 @@ public class SendUmktCardsmsBatchRequest extends TeaModel {
     @NameInMap("sms_up_extend_code_json")
     public String smsUpExtendCodeJson;
 
+    // 回落类型
+    @NameInMap("fallback_type")
+    public String fallbackType;
+
+    // 回落短信模版
+    @NameInMap("fallback_template_code")
+    public String fallbackTemplateCode;
+
+    // 回落短信模版参数
+    @NameInMap("fallback_template_param_json")
+    public String fallbackTemplateParamJson;
+
+    // 卡片短信对应的原始文本短信模板，不传则用默认文本
+    @NameInMap("template_code")
+    public String templateCode;
+
+    // 默认文本对应参数
+    @NameInMap("template_param_json")
+    public String templateParamJson;
+
     public static SendUmktCardsmsBatchRequest build(java.util.Map<String, ?> map) throws Exception {
         SendUmktCardsmsBatchRequest self = new SendUmktCardsmsBatchRequest();
         return TeaModel.build(map, self);
@@ -119,6 +139,46 @@ public class SendUmktCardsmsBatchRequest extends TeaModel {
     }
     public String getSmsUpExtendCodeJson() {
         return this.smsUpExtendCodeJson;
+    }
+
+    public SendUmktCardsmsBatchRequest setFallbackType(String fallbackType) {
+        this.fallbackType = fallbackType;
+        return this;
+    }
+    public String getFallbackType() {
+        return this.fallbackType;
+    }
+
+    public SendUmktCardsmsBatchRequest setFallbackTemplateCode(String fallbackTemplateCode) {
+        this.fallbackTemplateCode = fallbackTemplateCode;
+        return this;
+    }
+    public String getFallbackTemplateCode() {
+        return this.fallbackTemplateCode;
+    }
+
+    public SendUmktCardsmsBatchRequest setFallbackTemplateParamJson(String fallbackTemplateParamJson) {
+        this.fallbackTemplateParamJson = fallbackTemplateParamJson;
+        return this;
+    }
+    public String getFallbackTemplateParamJson() {
+        return this.fallbackTemplateParamJson;
+    }
+
+    public SendUmktCardsmsBatchRequest setTemplateCode(String templateCode) {
+        this.templateCode = templateCode;
+        return this;
+    }
+    public String getTemplateCode() {
+        return this.templateCode;
+    }
+
+    public SendUmktCardsmsBatchRequest setTemplateParamJson(String templateParamJson) {
+        this.templateParamJson = templateParamJson;
+        return this;
+    }
+    public String getTemplateParamJson() {
+        return this.templateParamJson;
     }
 
 }

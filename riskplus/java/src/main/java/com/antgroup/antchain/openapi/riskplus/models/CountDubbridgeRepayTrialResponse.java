@@ -32,6 +32,14 @@ public class CountDubbridgeRepayTrialResponse extends TeaModel {
     @NameInMap("service_charge")
     public Long serviceCharge;
 
+    // 担保费
+    @NameInMap("real_guarantee_fee")
+    public Long realGuaranteeFee;
+
+    // 违约金
+    @NameInMap("real_liquidated_damages")
+    public Long realLiquidatedDamages;
+
     public static CountDubbridgeRepayTrialResponse build(java.util.Map<String, ?> map) throws Exception {
         CountDubbridgeRepayTrialResponse self = new CountDubbridgeRepayTrialResponse();
         return TeaModel.build(map, self);
@@ -91,6 +99,22 @@ public class CountDubbridgeRepayTrialResponse extends TeaModel {
     }
     public Long getServiceCharge() {
         return this.serviceCharge;
+    }
+
+    public CountDubbridgeRepayTrialResponse setRealGuaranteeFee(Long realGuaranteeFee) {
+        this.realGuaranteeFee = realGuaranteeFee;
+        return this;
+    }
+    public Long getRealGuaranteeFee() {
+        return this.realGuaranteeFee;
+    }
+
+    public CountDubbridgeRepayTrialResponse setRealLiquidatedDamages(Long realLiquidatedDamages) {
+        this.realLiquidatedDamages = realLiquidatedDamages;
+        return this;
+    }
+    public Long getRealLiquidatedDamages() {
+        return this.realLiquidatedDamages;
     }
 
 }

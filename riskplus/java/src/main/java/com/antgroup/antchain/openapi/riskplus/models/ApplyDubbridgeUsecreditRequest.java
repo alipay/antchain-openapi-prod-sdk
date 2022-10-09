@@ -46,6 +46,11 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     @Validation(required = true)
     public String loanWay;
 
+    // 还款日
+    @NameInMap("repay_date")
+    @Validation(required = true)
+    public String repayDate;
+
     public static ApplyDubbridgeUsecreditRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeUsecreditRequest self = new ApplyDubbridgeUsecreditRequest();
         return TeaModel.build(map, self);
@@ -121,6 +126,14 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     }
     public String getLoanWay() {
         return this.loanWay;
+    }
+
+    public ApplyDubbridgeUsecreditRequest setRepayDate(String repayDate) {
+        this.repayDate = repayDate;
+        return this;
+    }
+    public String getRepayDate() {
+        return this.repayDate;
     }
 
 }

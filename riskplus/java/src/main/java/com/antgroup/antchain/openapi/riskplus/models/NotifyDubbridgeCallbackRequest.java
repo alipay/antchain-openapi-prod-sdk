@@ -26,6 +26,11 @@ public class NotifyDubbridgeCallbackRequest extends TeaModel {
     @Validation(required = true)
     public String bizType;
 
+    // 对应授信/用信传给三方留存单号
+    @NameInMap("seq_no")
+    @Validation(required = true)
+    public String seqNo;
+
     public static NotifyDubbridgeCallbackRequest build(java.util.Map<String, ?> map) throws Exception {
         NotifyDubbridgeCallbackRequest self = new NotifyDubbridgeCallbackRequest();
         return TeaModel.build(map, self);
@@ -69,6 +74,14 @@ public class NotifyDubbridgeCallbackRequest extends TeaModel {
     }
     public String getBizType() {
         return this.bizType;
+    }
+
+    public NotifyDubbridgeCallbackRequest setSeqNo(String seqNo) {
+        this.seqNo = seqNo;
+        return this;
+    }
+    public String getSeqNo() {
+        return this.seqNo;
     }
 
 }
