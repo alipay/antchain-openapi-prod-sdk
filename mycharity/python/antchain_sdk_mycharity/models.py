@@ -411,6 +411,46 @@ class StagesDetailVO(TeaModel):
         return self
 
 
+class SignUserInfo(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        alipay_account: str = None,
+    ):
+        # 签约记录id
+        self.id = id
+        # 支付宝代扣账号
+        self.alipay_account = alipay_account
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        if self.id is not None:
+            self.validate_max_length(self.id, 'id', 50)
+        self.validate_required(self.alipay_account, 'alipay_account')
+        if self.alipay_account is not None:
+            self.validate_max_length(self.alipay_account, 'alipay_account', 100)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.alipay_account is not None:
+            result['alipay_account'] = self.alipay_account
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('alipay_account') is not None:
+            self.alipay_account = m.get('alipay_account')
+        return self
+
+
 class SubjectCombinationMessage(TeaModel):
     def __init__(
         self,
@@ -3653,6 +3693,108 @@ class BatchcreateCombinationRequest(TeaModel):
 
 
 class BatchcreateCombinationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class BatchcreateAlipaysignRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        org_id: str = None,
+        sign_user_info_list: List[SignUserInfo] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 机构id
+        self.org_id = org_id
+        # 代扣签约账号信息列表
+        self.sign_user_info_list = sign_user_info_list
+
+    def validate(self):
+        self.validate_required(self.org_id, 'org_id')
+        if self.org_id is not None:
+            self.validate_max_length(self.org_id, 'org_id', 50)
+        self.validate_required(self.sign_user_info_list, 'sign_user_info_list')
+        if self.sign_user_info_list:
+            for k in self.sign_user_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.org_id is not None:
+            result['org_id'] = self.org_id
+        result['sign_user_info_list'] = []
+        if self.sign_user_info_list is not None:
+            for k in self.sign_user_info_list:
+                result['sign_user_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('org_id') is not None:
+            self.org_id = m.get('org_id')
+        self.sign_user_info_list = []
+        if m.get('sign_user_info_list') is not None:
+            for k in m.get('sign_user_info_list'):
+                temp_model = SignUserInfo()
+                self.sign_user_info_list.append(temp_model.from_map(k))
+        return self
+
+
+class BatchcreateAlipaysignResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,

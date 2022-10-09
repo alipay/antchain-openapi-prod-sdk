@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.14',
+                    'sdk_version': '1.0.16',
                     '_prod_code': 'MYCHARITY',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.14',
+                    'sdk_version': '1.0.16',
                     '_prod_code': 'MYCHARITY',
                     '_prod_channel': 'undefined'
                 }
@@ -1673,4 +1673,60 @@ class Client:
         return TeaCore.from_map(
             mycharity_models.BatchcreateCombinationResponse(),
             await self.do_request_async('1.0', 'antchain.mycharity.combination.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchcreate_alipaysign(
+        self,
+        request: mycharity_models.BatchcreateAlipaysignRequest,
+    ) -> mycharity_models.BatchcreateAlipaysignResponse:
+        """
+        Description: 代扣签约账号批量创建接口
+        Summary: 代扣签约账号批量创建接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchcreate_alipaysign_ex(request, headers, runtime)
+
+    async def batchcreate_alipaysign_async(
+        self,
+        request: mycharity_models.BatchcreateAlipaysignRequest,
+    ) -> mycharity_models.BatchcreateAlipaysignResponse:
+        """
+        Description: 代扣签约账号批量创建接口
+        Summary: 代扣签约账号批量创建接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchcreate_alipaysign_ex_async(request, headers, runtime)
+
+    def batchcreate_alipaysign_ex(
+        self,
+        request: mycharity_models.BatchcreateAlipaysignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.BatchcreateAlipaysignResponse:
+        """
+        Description: 代扣签约账号批量创建接口
+        Summary: 代扣签约账号批量创建接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.BatchcreateAlipaysignResponse(),
+            self.do_request('1.0', 'antchain.mycharity.alipaysign.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchcreate_alipaysign_ex_async(
+        self,
+        request: mycharity_models.BatchcreateAlipaysignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> mycharity_models.BatchcreateAlipaysignResponse:
+        """
+        Description: 代扣签约账号批量创建接口
+        Summary: 代扣签约账号批量创建接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            mycharity_models.BatchcreateAlipaysignResponse(),
+            await self.do_request_async('1.0', 'antchain.mycharity.alipaysign.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
