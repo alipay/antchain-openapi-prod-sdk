@@ -21,6 +21,11 @@ public class VerifyIotbasicIdentifyRequest extends TeaModel {
     @Validation(required = true)
     public String verifyParam;
 
+    // 设备签名，用设备pri_key 进行签名
+    @NameInMap("device_signature")
+    @Validation(required = true)
+    public String deviceSignature;
+
     public static VerifyIotbasicIdentifyRequest build(java.util.Map<String, ?> map) throws Exception {
         VerifyIotbasicIdentifyRequest self = new VerifyIotbasicIdentifyRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class VerifyIotbasicIdentifyRequest extends TeaModel {
     }
     public String getVerifyParam() {
         return this.verifyParam;
+    }
+
+    public VerifyIotbasicIdentifyRequest setDeviceSignature(String deviceSignature) {
+        this.deviceSignature = deviceSignature;
+        return this;
+    }
+    public String getDeviceSignature() {
+        return this.deviceSignature;
     }
 
 }

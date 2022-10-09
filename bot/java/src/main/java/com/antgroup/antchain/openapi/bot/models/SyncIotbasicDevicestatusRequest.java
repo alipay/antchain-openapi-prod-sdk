@@ -21,6 +21,11 @@ public class SyncIotbasicDevicestatusRequest extends TeaModel {
     @Validation(required = true)
     public String deviceStatus;
 
+    // 设备签名
+    @NameInMap("device_signature")
+    @Validation(required = true)
+    public String deviceSignature;
+
     public static SyncIotbasicDevicestatusRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncIotbasicDevicestatusRequest self = new SyncIotbasicDevicestatusRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class SyncIotbasicDevicestatusRequest extends TeaModel {
     }
     public String getDeviceStatus() {
         return this.deviceStatus;
+    }
+
+    public SyncIotbasicDevicestatusRequest setDeviceSignature(String deviceSignature) {
+        this.deviceSignature = deviceSignature;
+        return this;
+    }
+    public String getDeviceSignature() {
+        return this.deviceSignature;
     }
 
 }

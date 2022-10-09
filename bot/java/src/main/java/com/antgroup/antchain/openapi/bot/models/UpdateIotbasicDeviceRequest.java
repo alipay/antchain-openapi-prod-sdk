@@ -32,6 +32,11 @@ public class UpdateIotbasicDeviceRequest extends TeaModel {
     @NameInMap("nick_name")
     public String nickName;
 
+    // 设备签名
+    @NameInMap("device_signature")
+    @Validation(required = true)
+    public String deviceSignature;
+
     public static UpdateIotbasicDeviceRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateIotbasicDeviceRequest self = new UpdateIotbasicDeviceRequest();
         return TeaModel.build(map, self);
@@ -91,6 +96,14 @@ public class UpdateIotbasicDeviceRequest extends TeaModel {
     }
     public String getNickName() {
         return this.nickName;
+    }
+
+    public UpdateIotbasicDeviceRequest setDeviceSignature(String deviceSignature) {
+        this.deviceSignature = deviceSignature;
+        return this;
+    }
+    public String getDeviceSignature() {
+        return this.deviceSignature;
     }
 
 }

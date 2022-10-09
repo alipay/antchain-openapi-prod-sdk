@@ -22,7 +22,7 @@ public class BatchcreateIotbasicDeviceResponse extends TeaModel {
 
     // 注册失败集合
     @NameInMap("fail_list")
-    public IotBasicDeviceRegisterFail failList;
+    public java.util.List<IotBasicDeviceRegisterFail> failList;
 
     public static BatchcreateIotbasicDeviceResponse build(java.util.Map<String, ?> map) throws Exception {
         BatchcreateIotbasicDeviceResponse self = new BatchcreateIotbasicDeviceResponse();
@@ -61,11 +61,11 @@ public class BatchcreateIotbasicDeviceResponse extends TeaModel {
         return this.successList;
     }
 
-    public BatchcreateIotbasicDeviceResponse setFailList(IotBasicDeviceRegisterFail failList) {
+    public BatchcreateIotbasicDeviceResponse setFailList(java.util.List<IotBasicDeviceRegisterFail> failList) {
         this.failList = failList;
         return this;
     }
-    public IotBasicDeviceRegisterFail getFailList() {
+    public java.util.List<IotBasicDeviceRegisterFail> getFailList() {
         return this.failList;
     }
 
