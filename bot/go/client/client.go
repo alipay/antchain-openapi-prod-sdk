@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 	"io"
@@ -149,6 +149,34 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 资源定位信息
+type BaiResourceLocation struct {
+	// 资源定位类型
+	// HTTP_URL：资源url
+	// STRING_BASE64：资源base64字符串（不带base64头部）
+	LocationType *string `json:"location_type,omitempty" xml:"location_type,omitempty" require:"true"`
+	// 资源定位值
+	LocationValue *string `json:"location_value,omitempty" xml:"location_value,omitempty" require:"true"`
+}
+
+func (s BaiResourceLocation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiResourceLocation) GoString() string {
+	return s.String()
+}
+
+func (s *BaiResourceLocation) SetLocationType(v string) *BaiResourceLocation {
+	s.LocationType = &v
+	return s
+}
+
+func (s *BaiResourceLocation) SetLocationValue(v string) *BaiResourceLocation {
+	s.LocationValue = &v
+	return s
+}
+
 // iot平台权限数据
 type IotBasicPermissionData struct {
 	// 权限编码
@@ -269,34 +297,6 @@ func (s *AlertStrategy) SetEnabled(v bool) *AlertStrategy {
 
 func (s *AlertStrategy) SetRemark(v string) *AlertStrategy {
 	s.Remark = &v
-	return s
-}
-
-// 资源定位信息
-type BaiResourceLocation struct {
-	// 资源定位类型
-	// HTTP_URL：资源url
-	// STRING_BASE64：资源base64字符串（不带base64头部）
-	LocationType *string `json:"location_type,omitempty" xml:"location_type,omitempty" require:"true"`
-	// 资源定位值
-	LocationValue *string `json:"location_value,omitempty" xml:"location_value,omitempty" require:"true"`
-}
-
-func (s BaiResourceLocation) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BaiResourceLocation) GoString() string {
-	return s.String()
-}
-
-func (s *BaiResourceLocation) SetLocationType(v string) *BaiResourceLocation {
-	s.LocationType = &v
-	return s
-}
-
-func (s *BaiResourceLocation) SetLocationValue(v string) *BaiResourceLocation {
-	s.LocationValue = &v
 	return s
 }
 
@@ -892,6 +892,10 @@ type BaiGoodsPointIdentificationResult struct {
 	Grade *string `json:"grade,omitempty" xml:"grade,omitempty"`
 	// 用户侧的鉴定点point_id，直接将用户传入的user_point_id返回
 	UserPointId *string `json:"user_point_id,omitempty" xml:"user_point_id,omitempty"`
+	// 鉴定评价
+	AppraiseMessage *string `json:"appraise_message,omitempty" xml:"appraise_message,omitempty"`
+	// 鉴定点图片资源定位符
+	ResourceLocation *BaiResourceLocation `json:"resource_location,omitempty" xml:"resource_location,omitempty"`
 }
 
 func (s BaiGoodsPointIdentificationResult) String() string {
@@ -924,6 +928,35 @@ func (s *BaiGoodsPointIdentificationResult) SetGrade(v string) *BaiGoodsPointIde
 
 func (s *BaiGoodsPointIdentificationResult) SetUserPointId(v string) *BaiGoodsPointIdentificationResult {
 	s.UserPointId = &v
+	return s
+}
+
+func (s *BaiGoodsPointIdentificationResult) SetAppraiseMessage(v string) *BaiGoodsPointIdentificationResult {
+	s.AppraiseMessage = &v
+	return s
+}
+
+func (s *BaiGoodsPointIdentificationResult) SetResourceLocation(v *BaiResourceLocation) *BaiGoodsPointIdentificationResult {
+	s.ResourceLocation = v
+	return s
+}
+
+// 溯源防伪码质检请求的请求数据
+type BaiQrcodeVerifyReqData struct {
+	// 二维码图片url
+	QueryImageUrl *string `json:"query_image_url,omitempty" xml:"query_image_url,omitempty" require:"true"`
+}
+
+func (s BaiQrcodeVerifyReqData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiQrcodeVerifyReqData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiQrcodeVerifyReqData) SetQueryImageUrl(v string) *BaiQrcodeVerifyReqData {
+	s.QueryImageUrl = &v
 	return s
 }
 
@@ -1057,6 +1090,79 @@ func (s *ThingsDidRegisterReq) SetThingVersion(v string) *ThingsDidRegisterReq {
 
 func (s *ThingsDidRegisterReq) SetUserDid(v []*string) *ThingsDidRegisterReq {
 	s.UserDid = v
+	return s
+}
+
+// 商品鉴定点鉴定响应体
+type BaiGoodsPointQueryRespData struct {
+	// 识别结果
+	// true：识别到鉴定点
+	// false：未识别到鉴定点
+	Detection *bool `json:"detection,omitempty" xml:"detection,omitempty" require:"true"`
+	// 鉴定结果
+	// REAL：鉴定为真
+	// FAKE：鉴定为假
+	// UNABLE_IDENTIFY：无法鉴定
+	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
+}
+
+func (s BaiGoodsPointQueryRespData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiGoodsPointQueryRespData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiGoodsPointQueryRespData) SetDetection(v bool) *BaiGoodsPointQueryRespData {
+	s.Detection = &v
+	return s
+}
+
+func (s *BaiGoodsPointQueryRespData) SetIdentificationResult(v string) *BaiGoodsPointQueryRespData {
+	s.IdentificationResult = &v
+	return s
+}
+
+// 溯源防伪码质检响应数据
+type BaiQrcodeVerifyRespData struct {
+	// 鉴定结果
+	// REAL：通过
+	// UNABLE_IDENTIFY：无法鉴定
+	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
+	// 辅助识别结果码
+	IdentificationCode *string `json:"identification_code,omitempty" xml:"identification_code,omitempty" require:"true"`
+	// 辅助识别信息
+	IdentificationMessage *string `json:"identification_message,omitempty" xml:"identification_message,omitempty" require:"true"`
+	// 无法鉴定时的解决方案
+	UnableIdentifySolution *string `json:"unable_identify_solution,omitempty" xml:"unable_identify_solution,omitempty" require:"true"`
+}
+
+func (s BaiQrcodeVerifyRespData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiQrcodeVerifyRespData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiQrcodeVerifyRespData) SetIdentificationResult(v string) *BaiQrcodeVerifyRespData {
+	s.IdentificationResult = &v
+	return s
+}
+
+func (s *BaiQrcodeVerifyRespData) SetIdentificationCode(v string) *BaiQrcodeVerifyRespData {
+	s.IdentificationCode = &v
+	return s
+}
+
+func (s *BaiQrcodeVerifyRespData) SetIdentificationMessage(v string) *BaiQrcodeVerifyRespData {
+	s.IdentificationMessage = &v
+	return s
+}
+
+func (s *BaiQrcodeVerifyRespData) SetUnableIdentifySolution(v string) *BaiQrcodeVerifyRespData {
+	s.UnableIdentifySolution = &v
 	return s
 }
 
@@ -1850,6 +1956,8 @@ type BaiGoodsComparisonReqData struct {
 	Style *string `json:"style,omitempty" xml:"style,omitempty" require:"true"`
 	// 商品鉴定点列表
 	GoodsPoints []*BaiGoodsPoint `json:"goods_points,omitempty" xml:"goods_points,omitempty" require:"true" type:"Repeated"`
+	// 用户自定义字符串，系统不做处理，会在响应体中带回
+	OutState *string `json:"out_state,omitempty" xml:"out_state,omitempty"`
 }
 
 func (s BaiGoodsComparisonReqData) String() string {
@@ -1880,6 +1988,11 @@ func (s *BaiGoodsComparisonReqData) SetGoodsPoints(v []*BaiGoodsPoint) *BaiGoods
 	return s
 }
 
+func (s *BaiGoodsComparisonReqData) SetOutState(v string) *BaiGoodsComparisonReqData {
+	s.OutState = &v
+	return s
+}
+
 // 收集数据返回的上链结果
 type SendCollectorResult struct {
 	// 数据内容content的上链交易哈希
@@ -1896,6 +2009,93 @@ func (s SendCollectorResult) GoString() string {
 
 func (s *SendCollectorResult) SetTxHash(v string) *SendCollectorResult {
 	s.TxHash = &v
+	return s
+}
+
+// 设备不可操作标识类
+type DeviceDisableData struct {
+	// 设备sn号
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+	// 厂商
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+}
+
+func (s DeviceDisableData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeviceDisableData) GoString() string {
+	return s.String()
+}
+
+func (s *DeviceDisableData) SetDeviceSn(v string) *DeviceDisableData {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *DeviceDisableData) SetCorpName(v string) *DeviceDisableData {
+	s.CorpName = &v
+	return s
+}
+
+// 设备属性关系对象
+type IotDeviceAttributeRelationshipData struct {
+	// id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// 设备品类名称
+	DeviceCategory *string `json:"device_category,omitempty" xml:"device_category,omitempty" require:"true"`
+	// 关系类型
+	RelationType *string `json:"relation_type,omitempty" xml:"relation_type,omitempty" require:"true"`
+	// 厂商名称
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
+	// 设备型号
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
+	// 设备规格
+	DeviceSpecs *string `json:"device_specs,omitempty" xml:"device_specs,omitempty"`
+	// 硬件模块
+	HardwareModule *string `json:"hardware_module,omitempty" xml:"hardware_module,omitempty"`
+}
+
+func (s IotDeviceAttributeRelationshipData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotDeviceAttributeRelationshipData) GoString() string {
+	return s.String()
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetId(v int64) *IotDeviceAttributeRelationshipData {
+	s.Id = &v
+	return s
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetDeviceCategory(v string) *IotDeviceAttributeRelationshipData {
+	s.DeviceCategory = &v
+	return s
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetRelationType(v string) *IotDeviceAttributeRelationshipData {
+	s.RelationType = &v
+	return s
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetCorpName(v string) *IotDeviceAttributeRelationshipData {
+	s.CorpName = &v
+	return s
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetDeviceModel(v string) *IotDeviceAttributeRelationshipData {
+	s.DeviceModel = &v
+	return s
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetDeviceSpecs(v string) *IotDeviceAttributeRelationshipData {
+	s.DeviceSpecs = &v
+	return s
+}
+
+func (s *IotDeviceAttributeRelationshipData) SetHardwareModule(v string) *IotDeviceAttributeRelationshipData {
+	s.HardwareModule = &v
 	return s
 }
 
@@ -2317,6 +2517,25 @@ func (s *CollectContent) SetDataModelId(v string) *CollectContent {
 	return s
 }
 
+// 溯源二维码生成请求的请求数据
+type BaiQrcodeGenerateReqData struct {
+	// 二维码的码值
+	QrcodeContent *string `json:"qrcode_content,omitempty" xml:"qrcode_content,omitempty" require:"true"`
+}
+
+func (s BaiQrcodeGenerateReqData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiQrcodeGenerateReqData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiQrcodeGenerateReqData) SetQrcodeContent(v string) *BaiQrcodeGenerateReqData {
+	s.QrcodeContent = &v
+	return s
+}
+
 // ProductKey分页查询结果
 type ProductKeyPageResponse struct {
 	// 页数
@@ -2562,6 +2781,46 @@ func (s *LabelTrace) SetIsSuccess(v bool) *LabelTrace {
 
 func (s *LabelTrace) SetVersion(v int64) *LabelTrace {
 	s.Version = &v
+	return s
+}
+
+// 溯源防伪码生成请求的响应数据
+type BaiQrcodeGenerateRespData struct {
+	// 二维码的base64字符串
+	GenerateResult *string `json:"generate_result,omitempty" xml:"generate_result,omitempty" require:"true"`
+	// 生成结果码
+	GenerateCode *string `json:"generate_code,omitempty" xml:"generate_code,omitempty" require:"true"`
+	// 用于异常场景下细化错误信息
+	GenerateMessage *string `json:"generate_message,omitempty" xml:"generate_message,omitempty" require:"true"`
+	// 生成失败时的解决方案，用于异常场景下细化错误信息
+	UnableGenerateSolution *string `json:"unable_generate_solution,omitempty" xml:"unable_generate_solution,omitempty" require:"true"`
+}
+
+func (s BaiQrcodeGenerateRespData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BaiQrcodeGenerateRespData) GoString() string {
+	return s.String()
+}
+
+func (s *BaiQrcodeGenerateRespData) SetGenerateResult(v string) *BaiQrcodeGenerateRespData {
+	s.GenerateResult = &v
+	return s
+}
+
+func (s *BaiQrcodeGenerateRespData) SetGenerateCode(v string) *BaiQrcodeGenerateRespData {
+	s.GenerateCode = &v
+	return s
+}
+
+func (s *BaiQrcodeGenerateRespData) SetGenerateMessage(v string) *BaiQrcodeGenerateRespData {
+	s.GenerateMessage = &v
+	return s
+}
+
+func (s *BaiQrcodeGenerateRespData) SetUnableGenerateSolution(v string) *BaiQrcodeGenerateRespData {
+	s.UnableGenerateSolution = &v
 	return s
 }
 
@@ -3114,6 +3373,39 @@ func (s *Device) SetFactoryTime(v string) *Device {
 
 func (s *Device) SetDeviceStatus(v string) *Device {
 	s.DeviceStatus = &v
+	return s
+}
+
+// 新增厂商字典时需要传的产品信息
+type AddProductInfo struct {
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	// 产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 产品描述
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+}
+
+func (s AddProductInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddProductInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AddProductInfo) SetProductName(v string) *AddProductInfo {
+	s.ProductName = &v
+	return s
+}
+
+func (s *AddProductInfo) SetProductCode(v string) *AddProductInfo {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *AddProductInfo) SetRemark(v string) *AddProductInfo {
+	s.Remark = &v
 	return s
 }
 
@@ -3717,6 +4009,10 @@ type BaiGoodsIdentificationRespData struct {
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 鉴定点鉴定结果列表
 	PointIdentificationResults []*BaiGoodsPointIdentificationResult `json:"point_identification_results,omitempty" xml:"point_identification_results,omitempty" require:"true" type:"Repeated"`
+	// 鉴定评价
+	AppraiseMessage *string `json:"appraise_message,omitempty" xml:"appraise_message,omitempty"`
+	// 用户自定义字符串，系统不做处理，会在响应体中带回
+	OutState *string `json:"out_state,omitempty" xml:"out_state,omitempty"`
 }
 
 func (s BaiGoodsIdentificationRespData) String() string {
@@ -3744,6 +4040,16 @@ func (s *BaiGoodsIdentificationRespData) SetDescription(v string) *BaiGoodsIdent
 
 func (s *BaiGoodsIdentificationRespData) SetPointIdentificationResults(v []*BaiGoodsPointIdentificationResult) *BaiGoodsIdentificationRespData {
 	s.PointIdentificationResults = v
+	return s
+}
+
+func (s *BaiGoodsIdentificationRespData) SetAppraiseMessage(v string) *BaiGoodsIdentificationRespData {
+	s.AppraiseMessage = &v
+	return s
+}
+
+func (s *BaiGoodsIdentificationRespData) SetOutState(v string) *BaiGoodsIdentificationRespData {
+	s.OutState = &v
 	return s
 }
 
@@ -5063,6 +5369,258 @@ func (s *CheckAiidentificationQrcodeResponse) SetData(v *BaiQrcodeComparisonResp
 	return s
 }
 
+type CreateAiidentificationQrcodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户身份标识
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty" require:"true"`
+	// 二维码生成请求的请求数据
+	Data *BaiQrcodeGenerateReqData `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s CreateAiidentificationQrcodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAiidentificationQrcodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAiidentificationQrcodeRequest) SetAuthToken(v string) *CreateAiidentificationQrcodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAiidentificationQrcodeRequest) SetProductInstanceId(v string) *CreateAiidentificationQrcodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateAiidentificationQrcodeRequest) SetAppKey(v string) *CreateAiidentificationQrcodeRequest {
+	s.AppKey = &v
+	return s
+}
+
+func (s *CreateAiidentificationQrcodeRequest) SetData(v *BaiQrcodeGenerateReqData) *CreateAiidentificationQrcodeRequest {
+	s.Data = v
+	return s
+}
+
+type CreateAiidentificationQrcodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Data *BaiQrcodeGenerateRespData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CreateAiidentificationQrcodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAiidentificationQrcodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAiidentificationQrcodeResponse) SetReqMsgId(v string) *CreateAiidentificationQrcodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAiidentificationQrcodeResponse) SetResultCode(v string) *CreateAiidentificationQrcodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAiidentificationQrcodeResponse) SetResultMsg(v string) *CreateAiidentificationQrcodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAiidentificationQrcodeResponse) SetData(v *BaiQrcodeGenerateRespData) *CreateAiidentificationQrcodeResponse {
+	s.Data = v
+	return s
+}
+
+type VerifyAiidentificationQrcodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户身份标识
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty" require:"true"`
+	// 溯源防伪码质检请求数据
+	Data *BaiQrcodeVerifyReqData `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s VerifyAiidentificationQrcodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyAiidentificationQrcodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyAiidentificationQrcodeRequest) SetAuthToken(v string) *VerifyAiidentificationQrcodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyAiidentificationQrcodeRequest) SetProductInstanceId(v string) *VerifyAiidentificationQrcodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyAiidentificationQrcodeRequest) SetAppKey(v string) *VerifyAiidentificationQrcodeRequest {
+	s.AppKey = &v
+	return s
+}
+
+func (s *VerifyAiidentificationQrcodeRequest) SetData(v *BaiQrcodeVerifyReqData) *VerifyAiidentificationQrcodeRequest {
+	s.Data = v
+	return s
+}
+
+type VerifyAiidentificationQrcodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 溯源防伪码质检响应结果
+	Data *BaiQrcodeVerifyRespData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s VerifyAiidentificationQrcodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyAiidentificationQrcodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyAiidentificationQrcodeResponse) SetReqMsgId(v string) *VerifyAiidentificationQrcodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyAiidentificationQrcodeResponse) SetResultCode(v string) *VerifyAiidentificationQrcodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyAiidentificationQrcodeResponse) SetResultMsg(v string) *VerifyAiidentificationQrcodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyAiidentificationQrcodeResponse) SetData(v *BaiQrcodeVerifyRespData) *VerifyAiidentificationQrcodeResponse {
+	s.Data = v
+	return s
+}
+
+type QueryAiidentificationGoodspointRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户调用标识
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty" require:"true"`
+	// 品类
+	Category *string `json:"category,omitempty" xml:"category,omitempty" require:"true"`
+	// 品牌
+	Brand *string `json:"brand,omitempty" xml:"brand,omitempty" require:"true"`
+	// 款式
+	Style *string `json:"style,omitempty" xml:"style,omitempty" require:"true"`
+	// 鉴定点信息
+	PointInfo *BaiGoodsPoint `json:"point_info,omitempty" xml:"point_info,omitempty" require:"true"`
+}
+
+func (s QueryAiidentificationGoodspointRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAiidentificationGoodspointRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAiidentificationGoodspointRequest) SetAuthToken(v string) *QueryAiidentificationGoodspointRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodspointRequest) SetProductInstanceId(v string) *QueryAiidentificationGoodspointRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodspointRequest) SetAppKey(v string) *QueryAiidentificationGoodspointRequest {
+	s.AppKey = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodspointRequest) SetCategory(v string) *QueryAiidentificationGoodspointRequest {
+	s.Category = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodspointRequest) SetBrand(v string) *QueryAiidentificationGoodspointRequest {
+	s.Brand = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodspointRequest) SetStyle(v string) *QueryAiidentificationGoodspointRequest {
+	s.Style = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodspointRequest) SetPointInfo(v *BaiGoodsPoint) *QueryAiidentificationGoodspointRequest {
+	s.PointInfo = v
+	return s
+}
+
+type QueryAiidentificationGoodspointResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商品鉴定点鉴定响应体
+	Data *BaiGoodsPointQueryRespData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryAiidentificationGoodspointResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAiidentificationGoodspointResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAiidentificationGoodspointResponse) SetReqMsgId(v string) *QueryAiidentificationGoodspointResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodspointResponse) SetResultCode(v string) *QueryAiidentificationGoodspointResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodspointResponse) SetResultMsg(v string) *QueryAiidentificationGoodspointResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAiidentificationGoodspointResponse) SetData(v *BaiGoodsPointQueryRespData) *QueryAiidentificationGoodspointResponse {
+	s.Data = v
+	return s
+}
+
 type CreateAcsDeviceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5606,6 +6164,12 @@ type CertifyIotbasicDeviceResponse struct {
 	AppVersion *string `json:"app_version,omitempty" xml:"app_version,omitempty"`
 	// 服务状态
 	ServiceStatus *string `json:"service_status,omitempty" xml:"service_status,omitempty"`
+	// 子账号ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
+	// 所属账号名称
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty"`
+	// 子账号角色
+	UserRole *string `json:"user_role,omitempty" xml:"user_role,omitempty"`
 }
 
 func (s CertifyIotbasicDeviceResponse) String() string {
@@ -5668,6 +6232,21 @@ func (s *CertifyIotbasicDeviceResponse) SetAppVersion(v string) *CertifyIotbasic
 
 func (s *CertifyIotbasicDeviceResponse) SetServiceStatus(v string) *CertifyIotbasicDeviceResponse {
 	s.ServiceStatus = &v
+	return s
+}
+
+func (s *CertifyIotbasicDeviceResponse) SetAccountId(v string) *CertifyIotbasicDeviceResponse {
+	s.AccountId = &v
+	return s
+}
+
+func (s *CertifyIotbasicDeviceResponse) SetAccountName(v string) *CertifyIotbasicDeviceResponse {
+	s.AccountName = &v
+	return s
+}
+
+func (s *CertifyIotbasicDeviceResponse) SetUserRole(v string) *CertifyIotbasicDeviceResponse {
+	s.UserRole = &v
 	return s
 }
 
@@ -6103,6 +6682,765 @@ func (s *QueryDeviceSpecsResponse) SetDeviceSpecs(v *IotBasicDeviceSpecs) *Query
 
 func (s *QueryDeviceSpecsResponse) SetHardwareModuleList(v []*IotBasicDeviceHardWareModule) *QueryDeviceSpecsResponse {
 	s.HardwareModuleList = v
+	return s
+}
+
+type OperateIotbasicRelrationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备属性关系id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// 设备品类名称
+	DeviceCategory *string `json:"device_category,omitempty" xml:"device_category,omitempty" require:"true"`
+	// 数据关系类型
+	RelationType *string `json:"relation_type,omitempty" xml:"relation_type,omitempty" require:"true"`
+	// 厂商名称
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
+	// TPS980	设备型号
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
+	// 设备规格
+	DeviceSpecs *string `json:"device_specs,omitempty" xml:"device_specs,omitempty"`
+	// 硬件模块
+	HardwareModule *string `json:"hardware_module,omitempty" xml:"hardware_module,omitempty"`
+	// ADD,EDIT,DELETE，QUERY；选择操作
+	Operate *string `json:"operate,omitempty" xml:"operate,omitempty" require:"true"`
+	// 参数签名校验
+	ParamSign *string `json:"param_sign,omitempty" xml:"param_sign,omitempty"`
+}
+
+func (s OperateIotbasicRelrationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicRelrationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicRelrationRequest) SetAuthToken(v string) *OperateIotbasicRelrationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationRequest) SetProductInstanceId(v string) *OperateIotbasicRelrationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationRequest) SetId(v int64) *OperateIotbasicRelrationRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationRequest) SetDeviceCategory(v string) *OperateIotbasicRelrationRequest {
+	s.DeviceCategory = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationRequest) SetRelationType(v string) *OperateIotbasicRelrationRequest {
+	s.RelationType = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationRequest) SetCorpName(v string) *OperateIotbasicRelrationRequest {
+	s.CorpName = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationRequest) SetDeviceModel(v string) *OperateIotbasicRelrationRequest {
+	s.DeviceModel = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationRequest) SetDeviceSpecs(v string) *OperateIotbasicRelrationRequest {
+	s.DeviceSpecs = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationRequest) SetHardwareModule(v string) *OperateIotbasicRelrationRequest {
+	s.HardwareModule = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationRequest) SetOperate(v string) *OperateIotbasicRelrationRequest {
+	s.Operate = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationRequest) SetParamSign(v string) *OperateIotbasicRelrationRequest {
+	s.ParamSign = &v
+	return s
+}
+
+type OperateIotbasicRelrationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 设备属性关系数据
+	IotDeviceAttributeRelationshipData *IotDeviceAttributeRelationshipData `json:"iot_device_attribute_relationship_data,omitempty" xml:"iot_device_attribute_relationship_data,omitempty"`
+}
+
+func (s OperateIotbasicRelrationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicRelrationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicRelrationResponse) SetReqMsgId(v string) *OperateIotbasicRelrationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationResponse) SetResultCode(v string) *OperateIotbasicRelrationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationResponse) SetResultMsg(v string) *OperateIotbasicRelrationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationResponse) SetSuccess(v bool) *OperateIotbasicRelrationResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationResponse) SetIotDeviceAttributeRelationshipData(v *IotDeviceAttributeRelationshipData) *OperateIotbasicRelrationResponse {
+	s.IotDeviceAttributeRelationshipData = v
+	return s
+}
+
+type OperateIotbasicDictionaryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// 设备品类编码
+	DeviceCategory *string `json:"device_category,omitempty" xml:"device_category,omitempty"`
+	// 字典数据类型
+	DictionaryType *string `json:"dictionary_type,omitempty" xml:"dictionary_type,omitempty"`
+	// 字典数据名称
+	DictionaryName *string `json:"dictionary_name,omitempty" xml:"dictionary_name,omitempty"`
+	// 字典数据值
+	DictionaryValue *string `json:"dictionary_value,omitempty" xml:"dictionary_value,omitempty"`
+	// 硬件模块参数
+	DictionaryParam *string `json:"dictionary_param,omitempty" xml:"dictionary_param,omitempty"`
+	// 选择操作
+	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
+	// 参数签名校验
+	ParamSign *string `json:"param_sign,omitempty" xml:"param_sign,omitempty"`
+}
+
+func (s OperateIotbasicDictionaryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicDictionaryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicDictionaryRequest) SetAuthToken(v string) *OperateIotbasicDictionaryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateIotbasicDictionaryRequest) SetProductInstanceId(v string) *OperateIotbasicDictionaryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateIotbasicDictionaryRequest) SetId(v int64) *OperateIotbasicDictionaryRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *OperateIotbasicDictionaryRequest) SetDeviceCategory(v string) *OperateIotbasicDictionaryRequest {
+	s.DeviceCategory = &v
+	return s
+}
+
+func (s *OperateIotbasicDictionaryRequest) SetDictionaryType(v string) *OperateIotbasicDictionaryRequest {
+	s.DictionaryType = &v
+	return s
+}
+
+func (s *OperateIotbasicDictionaryRequest) SetDictionaryName(v string) *OperateIotbasicDictionaryRequest {
+	s.DictionaryName = &v
+	return s
+}
+
+func (s *OperateIotbasicDictionaryRequest) SetDictionaryValue(v string) *OperateIotbasicDictionaryRequest {
+	s.DictionaryValue = &v
+	return s
+}
+
+func (s *OperateIotbasicDictionaryRequest) SetDictionaryParam(v string) *OperateIotbasicDictionaryRequest {
+	s.DictionaryParam = &v
+	return s
+}
+
+func (s *OperateIotbasicDictionaryRequest) SetAction(v string) *OperateIotbasicDictionaryRequest {
+	s.Action = &v
+	return s
+}
+
+func (s *OperateIotbasicDictionaryRequest) SetParamSign(v string) *OperateIotbasicDictionaryRequest {
+	s.ParamSign = &v
+	return s
+}
+
+type OperateIotbasicDictionaryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s OperateIotbasicDictionaryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicDictionaryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicDictionaryResponse) SetReqMsgId(v string) *OperateIotbasicDictionaryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateIotbasicDictionaryResponse) SetResultCode(v string) *OperateIotbasicDictionaryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateIotbasicDictionaryResponse) SetResultMsg(v string) *OperateIotbasicDictionaryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateIotbasicDictionaryResponse) SetSuccess(v bool) *OperateIotbasicDictionaryResponse {
+	s.Success = &v
+	return s
+}
+
+type OperateIotbasicCategoryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品类名称
+	CategoryName *string `json:"category_name,omitempty" xml:"category_name,omitempty" require:"true"`
+	// 行业
+	Industry *string `json:"industry,omitempty" xml:"industry,omitempty" require:"true"`
+	// 场景
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 品类类型：标准 | 自定义
+	CategoryType *string `json:"category_type,omitempty" xml:"category_type,omitempty" require:"true"`
+	// 描述内容
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+	// 操作类型
+	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
+	// 操作人id
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+	// 参数签名校验
+	ParamSign *string `json:"param_sign,omitempty" xml:"param_sign,omitempty" require:"true"`
+	// 品类code
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty"`
+}
+
+func (s OperateIotbasicCategoryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicCategoryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicCategoryRequest) SetAuthToken(v string) *OperateIotbasicCategoryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateIotbasicCategoryRequest) SetProductInstanceId(v string) *OperateIotbasicCategoryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateIotbasicCategoryRequest) SetCategoryName(v string) *OperateIotbasicCategoryRequest {
+	s.CategoryName = &v
+	return s
+}
+
+func (s *OperateIotbasicCategoryRequest) SetIndustry(v string) *OperateIotbasicCategoryRequest {
+	s.Industry = &v
+	return s
+}
+
+func (s *OperateIotbasicCategoryRequest) SetScene(v string) *OperateIotbasicCategoryRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *OperateIotbasicCategoryRequest) SetCategoryType(v string) *OperateIotbasicCategoryRequest {
+	s.CategoryType = &v
+	return s
+}
+
+func (s *OperateIotbasicCategoryRequest) SetRemark(v string) *OperateIotbasicCategoryRequest {
+	s.Remark = &v
+	return s
+}
+
+func (s *OperateIotbasicCategoryRequest) SetAction(v string) *OperateIotbasicCategoryRequest {
+	s.Action = &v
+	return s
+}
+
+func (s *OperateIotbasicCategoryRequest) SetOperatorId(v string) *OperateIotbasicCategoryRequest {
+	s.OperatorId = &v
+	return s
+}
+
+func (s *OperateIotbasicCategoryRequest) SetParamSign(v string) *OperateIotbasicCategoryRequest {
+	s.ParamSign = &v
+	return s
+}
+
+func (s *OperateIotbasicCategoryRequest) SetCategoryCode(v string) *OperateIotbasicCategoryRequest {
+	s.CategoryCode = &v
+	return s
+}
+
+type OperateIotbasicCategoryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s OperateIotbasicCategoryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicCategoryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicCategoryResponse) SetReqMsgId(v string) *OperateIotbasicCategoryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateIotbasicCategoryResponse) SetResultCode(v string) *OperateIotbasicCategoryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateIotbasicCategoryResponse) SetResultMsg(v string) *OperateIotbasicCategoryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateIotbasicCategoryResponse) SetSuccess(v bool) *OperateIotbasicCategoryResponse {
+	s.Success = &v
+	return s
+}
+
+type OperateIotbasicControlconfigRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备品类编码
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty" require:"true"`
+	// 厂商
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+	// 设备型号
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
+	// 管控模式
+	ControlModel *string `json:"control_model,omitempty" xml:"control_model,omitempty" require:"true"`
+	// 是否上链--注册设备后需上链存证，记录存证hash
+	IsRegisterNotify *string `json:"is_register_notify,omitempty" xml:"is_register_notify,omitempty" require:"true"`
+	// 是否标准设备-- 设备注册时 判断扩展属性 或展示时 显示扩展属性
+	IsStandard *string `json:"is_standard,omitempty" xml:"is_standard,omitempty" require:"true"`
+	// 是否生成密钥--注册设备时 生成密钥对， 存到 设备公钥(public_key)、deviceSecrect
+	IsGenSecret *string `json:"is_gen_secret,omitempty" xml:"is_gen_secret,omitempty" require:"true"`
+	// 接口地址
+	ServiceProvider *string `json:"service_provider,omitempty" xml:"service_provider,omitempty"`
+	// 接口参数
+	ControlParam *string `json:"control_param,omitempty" xml:"control_param,omitempty"`
+	// 操作类型
+	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
+	// 操作人id
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+	// 参数签名校验
+	ParamSign *string `json:"param_sign,omitempty" xml:"param_sign,omitempty" require:"true"`
+	// 是否接入安全认证
+	IsSupportSec *string `json:"is_support_sec,omitempty" xml:"is_support_sec,omitempty" require:"true"`
+	// 设备规格ID
+	DeviceSpecs *int64 `json:"device_specs,omitempty" xml:"device_specs,omitempty"`
+	// 厂商ID
+	CorpId *int64 `json:"corp_id,omitempty" xml:"corp_id,omitempty" require:"true"`
+}
+
+func (s OperateIotbasicControlconfigRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicControlconfigRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetAuthToken(v string) *OperateIotbasicControlconfigRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetProductInstanceId(v string) *OperateIotbasicControlconfigRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetCategoryCode(v string) *OperateIotbasicControlconfigRequest {
+	s.CategoryCode = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetCorpName(v string) *OperateIotbasicControlconfigRequest {
+	s.CorpName = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetDeviceModel(v string) *OperateIotbasicControlconfigRequest {
+	s.DeviceModel = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetControlModel(v string) *OperateIotbasicControlconfigRequest {
+	s.ControlModel = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetIsRegisterNotify(v string) *OperateIotbasicControlconfigRequest {
+	s.IsRegisterNotify = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetIsStandard(v string) *OperateIotbasicControlconfigRequest {
+	s.IsStandard = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetIsGenSecret(v string) *OperateIotbasicControlconfigRequest {
+	s.IsGenSecret = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetServiceProvider(v string) *OperateIotbasicControlconfigRequest {
+	s.ServiceProvider = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetControlParam(v string) *OperateIotbasicControlconfigRequest {
+	s.ControlParam = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetAction(v string) *OperateIotbasicControlconfigRequest {
+	s.Action = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetOperatorId(v string) *OperateIotbasicControlconfigRequest {
+	s.OperatorId = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetParamSign(v string) *OperateIotbasicControlconfigRequest {
+	s.ParamSign = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetIsSupportSec(v string) *OperateIotbasicControlconfigRequest {
+	s.IsSupportSec = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetDeviceSpecs(v int64) *OperateIotbasicControlconfigRequest {
+	s.DeviceSpecs = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigRequest) SetCorpId(v int64) *OperateIotbasicControlconfigRequest {
+	s.CorpId = &v
+	return s
+}
+
+type OperateIotbasicControlconfigResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s OperateIotbasicControlconfigResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicControlconfigResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicControlconfigResponse) SetReqMsgId(v string) *OperateIotbasicControlconfigResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigResponse) SetResultCode(v string) *OperateIotbasicControlconfigResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigResponse) SetResultMsg(v string) *OperateIotbasicControlconfigResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateIotbasicControlconfigResponse) SetSuccess(v bool) *OperateIotbasicControlconfigResponse {
+	s.Success = &v
+	return s
+}
+
+type OperateIotbasicChainmodelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 操作类型
+	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
+	// 操作人id
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+	// 参数签名校验
+	ParamSign *string `json:"param_sign,omitempty" xml:"param_sign,omitempty" require:"true"`
+	// 所属业务
+	Business *string `json:"business,omitempty" xml:"business,omitempty" require:"true"`
+	// 资产数据类型
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 资产ID-key
+	AssetsIdKey *string `json:"assets_id_key,omitempty" xml:"assets_id_key,omitempty" require:"true"`
+	// 资产ID-类型
+	AssetsIdType *string `json:"assets_id_type,omitempty" xml:"assets_id_type,omitempty" require:"true"`
+	// 签名验证方式
+	SignatureCheckType *string `json:"signature_check_type,omitempty" xml:"signature_check_type,omitempty" require:"true"`
+}
+
+func (s OperateIotbasicChainmodelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicChainmodelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicChainmodelRequest) SetAuthToken(v string) *OperateIotbasicChainmodelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateIotbasicChainmodelRequest) SetProductInstanceId(v string) *OperateIotbasicChainmodelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateIotbasicChainmodelRequest) SetAction(v string) *OperateIotbasicChainmodelRequest {
+	s.Action = &v
+	return s
+}
+
+func (s *OperateIotbasicChainmodelRequest) SetOperatorId(v string) *OperateIotbasicChainmodelRequest {
+	s.OperatorId = &v
+	return s
+}
+
+func (s *OperateIotbasicChainmodelRequest) SetParamSign(v string) *OperateIotbasicChainmodelRequest {
+	s.ParamSign = &v
+	return s
+}
+
+func (s *OperateIotbasicChainmodelRequest) SetBusiness(v string) *OperateIotbasicChainmodelRequest {
+	s.Business = &v
+	return s
+}
+
+func (s *OperateIotbasicChainmodelRequest) SetDataType(v string) *OperateIotbasicChainmodelRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *OperateIotbasicChainmodelRequest) SetAssetsIdKey(v string) *OperateIotbasicChainmodelRequest {
+	s.AssetsIdKey = &v
+	return s
+}
+
+func (s *OperateIotbasicChainmodelRequest) SetAssetsIdType(v string) *OperateIotbasicChainmodelRequest {
+	s.AssetsIdType = &v
+	return s
+}
+
+func (s *OperateIotbasicChainmodelRequest) SetSignatureCheckType(v string) *OperateIotbasicChainmodelRequest {
+	s.SignatureCheckType = &v
+	return s
+}
+
+type OperateIotbasicChainmodelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s OperateIotbasicChainmodelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicChainmodelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicChainmodelResponse) SetReqMsgId(v string) *OperateIotbasicChainmodelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateIotbasicChainmodelResponse) SetResultCode(v string) *OperateIotbasicChainmodelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateIotbasicChainmodelResponse) SetResultMsg(v string) *OperateIotbasicChainmodelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateIotbasicChainmodelResponse) SetSuccess(v bool) *OperateIotbasicChainmodelResponse {
+	s.Success = &v
+	return s
+}
+
+type OperateIotbasicDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备不可操作列表
+	DeviceDisableList []*DeviceDisableData `json:"device_disable_list,omitempty" xml:"device_disable_list,omitempty" require:"true" type:"Repeated"`
+	// 不允许操作类型
+	// DISABLE_CHAGE：不允许变更租户
+	// DISABLE_EDIT：不允许编辑设备
+	// DISABLE_DEL：不允许删除设备
+	DisableOperateType *string `json:"disable_operate_type,omitempty" xml:"disable_operate_type,omitempty" require:"true"`
+	// 操作状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 不允许操作提示，操作状态为true时必须有值
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s OperateIotbasicDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicDeviceRequest) SetAuthToken(v string) *OperateIotbasicDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateIotbasicDeviceRequest) SetProductInstanceId(v string) *OperateIotbasicDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateIotbasicDeviceRequest) SetDeviceDisableList(v []*DeviceDisableData) *OperateIotbasicDeviceRequest {
+	s.DeviceDisableList = v
+	return s
+}
+
+func (s *OperateIotbasicDeviceRequest) SetDisableOperateType(v string) *OperateIotbasicDeviceRequest {
+	s.DisableOperateType = &v
+	return s
+}
+
+func (s *OperateIotbasicDeviceRequest) SetStatus(v string) *OperateIotbasicDeviceRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *OperateIotbasicDeviceRequest) SetMessage(v string) *OperateIotbasicDeviceRequest {
+	s.Message = &v
+	return s
+}
+
+type OperateIotbasicDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s OperateIotbasicDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicDeviceResponse) SetReqMsgId(v string) *OperateIotbasicDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateIotbasicDeviceResponse) SetResultCode(v string) *OperateIotbasicDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateIotbasicDeviceResponse) SetResultMsg(v string) *OperateIotbasicDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateIotbasicDeviceResponse) SetSuccess(v bool) *OperateIotbasicDeviceResponse {
+	s.Success = &v
 	return s
 }
 
@@ -6710,6 +8048,8 @@ type CreateDeviceDatamodelRequest struct {
 	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
 	// 用户自定义版本
 	CustomerVersion *string `json:"customer_version,omitempty" xml:"customer_version,omitempty"`
+	// 是否转化为物模型，默认false
+	TransformThingModel *bool `json:"transform_thing_model,omitempty" xml:"transform_thing_model,omitempty"`
 }
 
 func (s CreateDeviceDatamodelRequest) String() string {
@@ -6747,6 +8087,11 @@ func (s *CreateDeviceDatamodelRequest) SetBizType(v string) *CreateDeviceDatamod
 
 func (s *CreateDeviceDatamodelRequest) SetCustomerVersion(v string) *CreateDeviceDatamodelRequest {
 	s.CustomerVersion = &v
+	return s
+}
+
+func (s *CreateDeviceDatamodelRequest) SetTransformThingModel(v bool) *CreateDeviceDatamodelRequest {
+	s.TransformThingModel = &v
 	return s
 }
 
@@ -7333,9 +8678,9 @@ type UpdateDeviceInfoRequest struct {
 	// 额外信息
 	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 	// 资产所有人标识（统一社会信用代码）
-	Owner *string `json:"owner,omitempty" xml:"owner,omitempty" require:"true"`
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
 	// 资产所有人名称
-	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty" require:"true"`
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
 }
 
 func (s UpdateDeviceInfoRequest) String() string {
@@ -7479,9 +8824,9 @@ type CreateDistributedeviceBydeviceidRequest struct {
 	// 额外信息
 	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 	// 资产所有人标识（统一社会信用代码）
-	Owner *string `json:"owner,omitempty" xml:"owner,omitempty" require:"true"`
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
 	// 资产所有人名称
-	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty" require:"true"`
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
 }
 
 func (s CreateDistributedeviceBydeviceidRequest) String() string {
@@ -9364,9 +10709,9 @@ type CreateDistributedeviceBydeviceRequest struct {
 	// 设备型号
 	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
 	// 资产所有人标识（统一社会信用代码）
-	Owner *string `json:"owner,omitempty" xml:"owner,omitempty" require:"true"`
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
 	// 资产所有人名称
-	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty" require:"true"`
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
 }
 
 func (s CreateDistributedeviceBydeviceRequest) String() string {
@@ -10025,9 +11370,9 @@ type UpdateDeviceInfobydeviceRequest struct {
 	// 额外信息
 	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 	// 资产所有人标识（统一社会信用代码）
-	Owner *string `json:"owner,omitempty" xml:"owner,omitempty" require:"true"`
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
 	// 资产所有人名称
-	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty" require:"true"`
+	OwnerName *string `json:"owner_name,omitempty" xml:"owner_name,omitempty"`
 }
 
 func (s UpdateDeviceInfobydeviceRequest) String() string {
@@ -11518,8 +12863,10 @@ type DeploySceneRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 场景名称
 	SceneName *string `json:"scene_name,omitempty" xml:"scene_name,omitempty" require:"true"`
-	// 链ID
-	BnaasBasicServiceDid *string `json:"bnaas_basic_service_did,omitempty" xml:"bnaas_basic_service_did,omitempty" require:"true"`
+	// bnaas did
+	BnaasBasicServiceDid *string `json:"bnaas_basic_service_did,omitempty" xml:"bnaas_basic_service_did,omitempty"`
+	// baas rest bizId
+	BaasRestBizId *string `json:"baas_rest_biz_id,omitempty" xml:"baas_rest_biz_id,omitempty"`
 	// 合约版本号
 	ContractVersion *string `json:"contract_version,omitempty" xml:"contract_version,omitempty"`
 }
@@ -11549,6 +12896,11 @@ func (s *DeploySceneRequest) SetSceneName(v string) *DeploySceneRequest {
 
 func (s *DeploySceneRequest) SetBnaasBasicServiceDid(v string) *DeploySceneRequest {
 	s.BnaasBasicServiceDid = &v
+	return s
+}
+
+func (s *DeploySceneRequest) SetBaasRestBizId(v string) *DeploySceneRequest {
+	s.BaasRestBizId = &v
 	return s
 }
 
@@ -14240,6 +15592,132 @@ func (s *UpdateCustomerEntityResponse) SetResultMsg(v string) *UpdateCustomerEnt
 	return s
 }
 
+type CreateThingmodelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 物模型内容（多个物模型功能拼合的json）
+	ThingModel *string `json:"thing_model,omitempty" xml:"thing_model,omitempty" require:"true"`
+}
+
+func (s CreateThingmodelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateThingmodelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateThingmodelRequest) SetAuthToken(v string) *CreateThingmodelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateThingmodelRequest) SetProductInstanceId(v string) *CreateThingmodelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateThingmodelRequest) SetThingModel(v string) *CreateThingmodelRequest {
+	s.ThingModel = &v
+	return s
+}
+
+type CreateThingmodelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateThingmodelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateThingmodelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateThingmodelResponse) SetReqMsgId(v string) *CreateThingmodelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateThingmodelResponse) SetResultCode(v string) *CreateThingmodelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateThingmodelResponse) SetResultMsg(v string) *CreateThingmodelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryThingmodelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryThingmodelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThingmodelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThingmodelRequest) SetAuthToken(v string) *QueryThingmodelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryThingmodelRequest) SetProductInstanceId(v string) *QueryThingmodelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryThingmodelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 租户的物模型内容（多个物模型功能拼合的json）
+	ThingModel *string `json:"thing_model,omitempty" xml:"thing_model,omitempty"`
+}
+
+func (s QueryThingmodelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryThingmodelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryThingmodelResponse) SetReqMsgId(v string) *QueryThingmodelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryThingmodelResponse) SetResultCode(v string) *QueryThingmodelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryThingmodelResponse) SetResultMsg(v string) *QueryThingmodelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryThingmodelResponse) SetThingModel(v string) *QueryThingmodelResponse {
+	s.ThingModel = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -16010,7 +17488,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.118"),
+				"sdk_version":      tea.String("1.7.18"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -16036,8 +17514,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -16462,6 +17948,108 @@ func (client *Client) CheckAiidentificationQrcodeEx(request *CheckAiidentificati
 }
 
 /**
+ * Description: 用于生成溯源防伪码
+ * Summary: 溯源防伪码生成接口
+ */
+func (client *Client) CreateAiidentificationQrcode(request *CreateAiidentificationQrcodeRequest) (_result *CreateAiidentificationQrcodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAiidentificationQrcodeResponse{}
+	_body, _err := client.CreateAiidentificationQrcodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用于生成溯源防伪码
+ * Summary: 溯源防伪码生成接口
+ */
+func (client *Client) CreateAiidentificationQrcodeEx(request *CreateAiidentificationQrcodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAiidentificationQrcodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAiidentificationQrcodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiidentification.qrcode.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: B端二维码质检
+ * Summary: B端二维码质检
+ */
+func (client *Client) VerifyAiidentificationQrcode(request *VerifyAiidentificationQrcodeRequest) (_result *VerifyAiidentificationQrcodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyAiidentificationQrcodeResponse{}
+	_body, _err := client.VerifyAiidentificationQrcodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: B端二维码质检
+ * Summary: B端二维码质检
+ */
+func (client *Client) VerifyAiidentificationQrcodeEx(request *VerifyAiidentificationQrcodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyAiidentificationQrcodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyAiidentificationQrcodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiidentification.qrcode.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商品鉴定
+ * Summary: 商品鉴定
+ */
+func (client *Client) QueryAiidentificationGoodspoint(request *QueryAiidentificationGoodspointRequest) (_result *QueryAiidentificationGoodspointResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAiidentificationGoodspointResponse{}
+	_body, _err := client.QueryAiidentificationGoodspointEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商品鉴定
+ * Summary: 商品鉴定
+ */
+func (client *Client) QueryAiidentificationGoodspointEx(request *QueryAiidentificationGoodspointRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAiidentificationGoodspointResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAiidentificationGoodspointResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiidentification.goodspoint.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: biot 私有化 设备注册接口
  * Summary: biot 私有化 设备注册接口
  */
@@ -16760,6 +18348,210 @@ func (client *Client) QueryDeviceSpecsEx(request *QueryDeviceSpecsRequest, heade
 	}
 	_result = &QueryDeviceSpecsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.specs.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备规格关系维护
+ * Summary: IoT设备平台-设备规格关系维护
+ */
+func (client *Client) OperateIotbasicRelration(request *OperateIotbasicRelrationRequest) (_result *OperateIotbasicRelrationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateIotbasicRelrationResponse{}
+	_body, _err := client.OperateIotbasicRelrationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备规格关系维护
+ * Summary: IoT设备平台-设备规格关系维护
+ */
+func (client *Client) OperateIotbasicRelrationEx(request *OperateIotbasicRelrationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateIotbasicRelrationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateIotbasicRelrationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.relration.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备字典数据维护
+ * Summary: IoT设备平台-设备字典数据维护
+ */
+func (client *Client) OperateIotbasicDictionary(request *OperateIotbasicDictionaryRequest) (_result *OperateIotbasicDictionaryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateIotbasicDictionaryResponse{}
+	_body, _err := client.OperateIotbasicDictionaryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备字典数据维护
+ * Summary: IoT设备平台-设备字典数据维护
+ */
+func (client *Client) OperateIotbasicDictionaryEx(request *OperateIotbasicDictionaryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateIotbasicDictionaryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateIotbasicDictionaryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.dictionary.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备品类数据维护
+ * Summary: IoT设备平台-设备品类数据维护
+ */
+func (client *Client) OperateIotbasicCategory(request *OperateIotbasicCategoryRequest) (_result *OperateIotbasicCategoryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateIotbasicCategoryResponse{}
+	_body, _err := client.OperateIotbasicCategoryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备品类数据维护
+ * Summary: IoT设备平台-设备品类数据维护
+ */
+func (client *Client) OperateIotbasicCategoryEx(request *OperateIotbasicCategoryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateIotbasicCategoryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateIotbasicCategoryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.category.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备管控配置维护
+ * Summary: IoT设备平台-设备管控配置维护
+ */
+func (client *Client) OperateIotbasicControlconfig(request *OperateIotbasicControlconfigRequest) (_result *OperateIotbasicControlconfigResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateIotbasicControlconfigResponse{}
+	_body, _err := client.OperateIotbasicControlconfigEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备管控配置维护
+ * Summary: IoT设备平台-设备管控配置维护
+ */
+func (client *Client) OperateIotbasicControlconfigEx(request *OperateIotbasicControlconfigRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateIotbasicControlconfigResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateIotbasicControlconfigResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.controlconfig.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-上链业务模型配置维护
+ * Summary: IoT设备平台-上链业务模型配置维护
+ */
+func (client *Client) OperateIotbasicChainmodel(request *OperateIotbasicChainmodelRequest) (_result *OperateIotbasicChainmodelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateIotbasicChainmodelResponse{}
+	_body, _err := client.OperateIotbasicChainmodelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-上链业务模型配置维护
+ * Summary: IoT设备平台-上链业务模型配置维护
+ */
+func (client *Client) OperateIotbasicChainmodelEx(request *OperateIotbasicChainmodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateIotbasicChainmodelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateIotbasicChainmodelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.chainmodel.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备不可操作标记更新
+ * Summary: IoT设备平台-设备不可操作标记更新
+ */
+func (client *Client) OperateIotbasicDevice(request *OperateIotbasicDeviceRequest) (_result *OperateIotbasicDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateIotbasicDeviceResponse{}
+	_body, _err := client.OperateIotbasicDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-设备不可操作标记更新
+ * Summary: IoT设备平台-设备不可操作标记更新
+ */
+func (client *Client) OperateIotbasicDeviceEx(request *OperateIotbasicDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateIotbasicDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateIotbasicDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.device.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -19582,6 +21374,74 @@ func (client *Client) UpdateCustomerEntityEx(request *UpdateCustomerEntityReques
 	}
 	_result = &UpdateCustomerEntityResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.customer.entity.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 为租户创建物模型
+ * Summary: 为租户创建物模型
+ */
+func (client *Client) CreateThingmodel(request *CreateThingmodelRequest) (_result *CreateThingmodelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateThingmodelResponse{}
+	_body, _err := client.CreateThingmodelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 为租户创建物模型
+ * Summary: 为租户创建物模型
+ */
+func (client *Client) CreateThingmodelEx(request *CreateThingmodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateThingmodelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateThingmodelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thingmodel.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询租户的物模型
+ * Summary: 查询租户的物模型
+ */
+func (client *Client) QueryThingmodel(request *QueryThingmodelRequest) (_result *QueryThingmodelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryThingmodelResponse{}
+	_body, _err := client.QueryThingmodelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询租户的物模型
+ * Summary: 查询租户的物模型
+ */
+func (client *Client) QueryThingmodelEx(request *QueryThingmodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryThingmodelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryThingmodelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thingmodel.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
