@@ -1477,6 +1477,12 @@ class RepayResult(TeaModel):
         status: str = None,
         settle_date: str = None,
         trade_date: str = None,
+        already_guarantee_fee: int = None,
+        already_liquidated_damages: int = None,
+        rest_guarantee_fee: int = None,
+        rest_liquidated_damages: int = None,
+        need_guarantee_fee: int = None,
+        need_liquidated_damages: int = None,
     ):
         # 客户编码
         self.custom_no = custom_no
@@ -1524,6 +1530,18 @@ class RepayResult(TeaModel):
         self.settle_date = settle_date
         # 还款日期
         self.trade_date = trade_date
+        # 已还担保费
+        self.already_guarantee_fee = already_guarantee_fee
+        # 已还违约金
+        self.already_liquidated_damages = already_liquidated_damages
+        # 当期剩余担保费
+        self.rest_guarantee_fee = rest_guarantee_fee
+        # 当期剩余违约金
+        self.rest_liquidated_damages = rest_liquidated_damages
+        # 应还担保费
+        self.need_guarantee_fee = need_guarantee_fee
+        # 应还违约金
+        self.need_liquidated_damages = need_liquidated_damages
 
     def validate(self):
         self.validate_required(self.custom_no, 'custom_no')
@@ -1553,6 +1571,12 @@ class RepayResult(TeaModel):
         self.validate_required(self.trade_date, 'trade_date')
         if self.trade_date is not None:
             self.validate_pattern(self.trade_date, 'trade_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.already_guarantee_fee, 'already_guarantee_fee')
+        self.validate_required(self.already_liquidated_damages, 'already_liquidated_damages')
+        self.validate_required(self.rest_guarantee_fee, 'rest_guarantee_fee')
+        self.validate_required(self.rest_liquidated_damages, 'rest_liquidated_damages')
+        self.validate_required(self.need_guarantee_fee, 'need_guarantee_fee')
+        self.validate_required(self.need_liquidated_damages, 'need_liquidated_damages')
 
     def to_map(self):
         _map = super().to_map()
@@ -1606,6 +1630,18 @@ class RepayResult(TeaModel):
             result['settle_date'] = self.settle_date
         if self.trade_date is not None:
             result['trade_date'] = self.trade_date
+        if self.already_guarantee_fee is not None:
+            result['already_guarantee_fee'] = self.already_guarantee_fee
+        if self.already_liquidated_damages is not None:
+            result['already_liquidated_damages'] = self.already_liquidated_damages
+        if self.rest_guarantee_fee is not None:
+            result['rest_guarantee_fee'] = self.rest_guarantee_fee
+        if self.rest_liquidated_damages is not None:
+            result['rest_liquidated_damages'] = self.rest_liquidated_damages
+        if self.need_guarantee_fee is not None:
+            result['need_guarantee_fee'] = self.need_guarantee_fee
+        if self.need_liquidated_damages is not None:
+            result['need_liquidated_damages'] = self.need_liquidated_damages
         return result
 
     def from_map(self, m: dict = None):
@@ -1656,6 +1692,18 @@ class RepayResult(TeaModel):
             self.settle_date = m.get('settle_date')
         if m.get('trade_date') is not None:
             self.trade_date = m.get('trade_date')
+        if m.get('already_guarantee_fee') is not None:
+            self.already_guarantee_fee = m.get('already_guarantee_fee')
+        if m.get('already_liquidated_damages') is not None:
+            self.already_liquidated_damages = m.get('already_liquidated_damages')
+        if m.get('rest_guarantee_fee') is not None:
+            self.rest_guarantee_fee = m.get('rest_guarantee_fee')
+        if m.get('rest_liquidated_damages') is not None:
+            self.rest_liquidated_damages = m.get('rest_liquidated_damages')
+        if m.get('need_guarantee_fee') is not None:
+            self.need_guarantee_fee = m.get('need_guarantee_fee')
+        if m.get('need_liquidated_damages') is not None:
+            self.need_liquidated_damages = m.get('need_liquidated_damages')
         return self
 
 
@@ -11776,6 +11824,8 @@ class QueryDubbridgeRepayInfoResponse(TeaModel):
         repay_status: str = None,
         fail_reason: str = None,
         apply_no: str = None,
+        guarantee_fee: int = None,
+        liquidated_damages: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -11825,6 +11875,10 @@ class QueryDubbridgeRepayInfoResponse(TeaModel):
         self.fail_reason = fail_reason
         # 授信申请编号
         self.apply_no = apply_no
+        # 担保费
+        self.guarantee_fee = guarantee_fee
+        # 违约金
+        self.liquidated_damages = liquidated_damages
 
     def validate(self):
         pass
@@ -11883,6 +11937,10 @@ class QueryDubbridgeRepayInfoResponse(TeaModel):
             result['fail_reason'] = self.fail_reason
         if self.apply_no is not None:
             result['apply_no'] = self.apply_no
+        if self.guarantee_fee is not None:
+            result['guarantee_fee'] = self.guarantee_fee
+        if self.liquidated_damages is not None:
+            result['liquidated_damages'] = self.liquidated_damages
         return result
 
     def from_map(self, m: dict = None):
@@ -11935,6 +11993,10 @@ class QueryDubbridgeRepayInfoResponse(TeaModel):
             self.fail_reason = m.get('fail_reason')
         if m.get('apply_no') is not None:
             self.apply_no = m.get('apply_no')
+        if m.get('guarantee_fee') is not None:
+            self.guarantee_fee = m.get('guarantee_fee')
+        if m.get('liquidated_damages') is not None:
+            self.liquidated_damages = m.get('liquidated_damages')
         return self
 
 
@@ -12249,6 +12311,8 @@ class CountDubbridgeRepayTrialResponse(TeaModel):
         real_interest: int = None,
         real_over_amt: int = None,
         service_charge: int = None,
+        real_guarantee_fee: int = None,
+        real_liquidated_damages: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -12264,6 +12328,10 @@ class CountDubbridgeRepayTrialResponse(TeaModel):
         self.real_over_amt = real_over_amt
         # 服务费
         self.service_charge = service_charge
+        # 担保费
+        self.real_guarantee_fee = real_guarantee_fee
+        # 违约金
+        self.real_liquidated_damages = real_liquidated_damages
 
     def validate(self):
         pass
@@ -12288,6 +12356,10 @@ class CountDubbridgeRepayTrialResponse(TeaModel):
             result['real_over_amt'] = self.real_over_amt
         if self.service_charge is not None:
             result['service_charge'] = self.service_charge
+        if self.real_guarantee_fee is not None:
+            result['real_guarantee_fee'] = self.real_guarantee_fee
+        if self.real_liquidated_damages is not None:
+            result['real_liquidated_damages'] = self.real_liquidated_damages
         return result
 
     def from_map(self, m: dict = None):
@@ -12306,6 +12378,10 @@ class CountDubbridgeRepayTrialResponse(TeaModel):
             self.real_over_amt = m.get('real_over_amt')
         if m.get('service_charge') is not None:
             self.service_charge = m.get('service_charge')
+        if m.get('real_guarantee_fee') is not None:
+            self.real_guarantee_fee = m.get('real_guarantee_fee')
+        if m.get('real_liquidated_damages') is not None:
+            self.real_liquidated_damages = m.get('real_liquidated_damages')
         return self
 
 
@@ -12560,6 +12636,7 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
         order_no: str = None,
         repay_type: str = None,
         loan_way: str = None,
+        repay_date: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -12578,6 +12655,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
         self.repay_type = repay_type
         # 1：手机数码 2：旅游 3：装修 4：教育 5：婚庆 6：租房 7：家具家居 8：健康医疗 9：其他消费 10：家用电器
         self.loan_way = loan_way
+        # 还款日
+        self.repay_date = repay_date
 
     def validate(self):
         self.validate_required(self.original_order_no, 'original_order_no')
@@ -12587,6 +12666,7 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
         self.validate_required(self.order_no, 'order_no')
         self.validate_required(self.repay_type, 'repay_type')
         self.validate_required(self.loan_way, 'loan_way')
+        self.validate_required(self.repay_date, 'repay_date')
 
     def to_map(self):
         _map = super().to_map()
@@ -12612,6 +12692,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
             result['repay_type'] = self.repay_type
         if self.loan_way is not None:
             result['loan_way'] = self.loan_way
+        if self.repay_date is not None:
+            result['repay_date'] = self.repay_date
         return result
 
     def from_map(self, m: dict = None):
@@ -12634,6 +12716,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
             self.repay_type = m.get('repay_type')
         if m.get('loan_way') is not None:
             self.loan_way = m.get('loan_way')
+        if m.get('repay_date') is not None:
+            self.repay_date = m.get('repay_date')
         return self
 
 
@@ -12738,6 +12822,8 @@ class QueryDubbridgeUsecreditStatusResponse(TeaModel):
         msg: str = None,
         receipt_info: ReceiptInfo = None,
         repay_ref: List[RepayRef] = None,
+        disburse_contract_no: str = None,
+        credit_contract_no: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -12753,6 +12839,10 @@ class QueryDubbridgeUsecreditStatusResponse(TeaModel):
         self.receipt_info = receipt_info
         # 还款计划列表
         self.repay_ref = repay_ref
+        # 用信合同编号
+        self.disburse_contract_no = disburse_contract_no
+        # 授信合同编号
+        self.credit_contract_no = credit_contract_no
 
     def validate(self):
         if self.receipt_info:
@@ -12784,6 +12874,10 @@ class QueryDubbridgeUsecreditStatusResponse(TeaModel):
         if self.repay_ref is not None:
             for k in self.repay_ref:
                 result['repay_ref'].append(k.to_map() if k else None)
+        if self.disburse_contract_no is not None:
+            result['disburse_contract_no'] = self.disburse_contract_no
+        if self.credit_contract_no is not None:
+            result['credit_contract_no'] = self.credit_contract_no
         return result
 
     def from_map(self, m: dict = None):
@@ -12806,6 +12900,10 @@ class QueryDubbridgeUsecreditStatusResponse(TeaModel):
             for k in m.get('repay_ref'):
                 temp_model = RepayRef()
                 self.repay_ref.append(temp_model.from_map(k))
+        if m.get('disburse_contract_no') is not None:
+            self.disburse_contract_no = m.get('disburse_contract_no')
+        if m.get('credit_contract_no') is not None:
+            self.credit_contract_no = m.get('credit_contract_no')
         return self
 
 
@@ -13498,6 +13596,7 @@ class NotifyDubbridgeCallbackRequest(TeaModel):
         channel_code: str = None,
         biz_param: str = None,
         biz_type: str = None,
+        seq_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13508,11 +13607,14 @@ class NotifyDubbridgeCallbackRequest(TeaModel):
         self.biz_param = biz_param
         # 回调类型（1授信回调2用信回调）
         self.biz_type = biz_type
+        # 对应授信/用信传给三方留存单号
+        self.seq_no = seq_no
 
     def validate(self):
         self.validate_required(self.channel_code, 'channel_code')
         self.validate_required(self.biz_param, 'biz_param')
         self.validate_required(self.biz_type, 'biz_type')
+        self.validate_required(self.seq_no, 'seq_no')
 
     def to_map(self):
         _map = super().to_map()
@@ -13530,6 +13632,8 @@ class NotifyDubbridgeCallbackRequest(TeaModel):
             result['biz_param'] = self.biz_param
         if self.biz_type is not None:
             result['biz_type'] = self.biz_type
+        if self.seq_no is not None:
+            result['seq_no'] = self.seq_no
         return result
 
     def from_map(self, m: dict = None):
@@ -13544,6 +13648,8 @@ class NotifyDubbridgeCallbackRequest(TeaModel):
             self.biz_param = m.get('biz_param')
         if m.get('biz_type') is not None:
             self.biz_type = m.get('biz_type')
+        if m.get('seq_no') is not None:
+            self.seq_no = m.get('seq_no')
         return self
 
 
@@ -21850,6 +21956,11 @@ class SendUmktCardsmsBatchRequest(TeaModel):
         phone_number_json: str = None,
         sign_name_json: str = None,
         sms_up_extend_code_json: str = None,
+        fallback_type: str = None,
+        fallback_template_code: str = None,
+        fallback_template_param_json: str = None,
+        template_code: str = None,
+        template_param_json: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -21868,6 +21979,16 @@ class SendUmktCardsmsBatchRequest(TeaModel):
         self.sign_name_json = sign_name_json
         # 上行短信扩展码
         self.sms_up_extend_code_json = sms_up_extend_code_json
+        # 回落类型
+        self.fallback_type = fallback_type
+        # 回落短信模版
+        self.fallback_template_code = fallback_template_code
+        # 回落短信模版参数
+        self.fallback_template_param_json = fallback_template_param_json
+        # 卡片短信对应的原始文本短信模板，不传则用默认文本
+        self.template_code = template_code
+        # 默认文本对应参数
+        self.template_param_json = template_param_json
 
     def validate(self):
         self.validate_required(self.industry_tag, 'industry_tag')
@@ -21900,6 +22021,16 @@ class SendUmktCardsmsBatchRequest(TeaModel):
             result['sign_name_json'] = self.sign_name_json
         if self.sms_up_extend_code_json is not None:
             result['sms_up_extend_code_json'] = self.sms_up_extend_code_json
+        if self.fallback_type is not None:
+            result['fallback_type'] = self.fallback_type
+        if self.fallback_template_code is not None:
+            result['fallback_template_code'] = self.fallback_template_code
+        if self.fallback_template_param_json is not None:
+            result['fallback_template_param_json'] = self.fallback_template_param_json
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.template_param_json is not None:
+            result['template_param_json'] = self.template_param_json
         return result
 
     def from_map(self, m: dict = None):
@@ -21922,6 +22053,16 @@ class SendUmktCardsmsBatchRequest(TeaModel):
             self.sign_name_json = m.get('sign_name_json')
         if m.get('sms_up_extend_code_json') is not None:
             self.sms_up_extend_code_json = m.get('sms_up_extend_code_json')
+        if m.get('fallback_type') is not None:
+            self.fallback_type = m.get('fallback_type')
+        if m.get('fallback_template_code') is not None:
+            self.fallback_template_code = m.get('fallback_template_code')
+        if m.get('fallback_template_param_json') is not None:
+            self.fallback_template_param_json = m.get('fallback_template_param_json')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('template_param_json') is not None:
+            self.template_param_json = m.get('template_param_json')
         return self
 
 
@@ -21934,6 +22075,8 @@ class SendUmktCardsmsBatchResponse(TeaModel):
         biz_card_id: str = None,
         media_mobiles: str = None,
         not_media_mobiles: str = None,
+        biz_id: str = None,
+        biz_digital_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -21947,6 +22090,10 @@ class SendUmktCardsmsBatchResponse(TeaModel):
         self.media_mobiles = media_mobiles
         # 不支持的手机号
         self.not_media_mobiles = not_media_mobiles
+        # 回落文本短信回执id
+        self.biz_id = biz_id
+        # 回落数字短信回执id
+        self.biz_digital_id = biz_digital_id
 
     def validate(self):
         pass
@@ -21969,6 +22116,10 @@ class SendUmktCardsmsBatchResponse(TeaModel):
             result['media_mobiles'] = self.media_mobiles
         if self.not_media_mobiles is not None:
             result['not_media_mobiles'] = self.not_media_mobiles
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.biz_digital_id is not None:
+            result['biz_digital_id'] = self.biz_digital_id
         return result
 
     def from_map(self, m: dict = None):
@@ -21985,6 +22136,10 @@ class SendUmktCardsmsBatchResponse(TeaModel):
             self.media_mobiles = m.get('media_mobiles')
         if m.get('not_media_mobiles') is not None:
             self.not_media_mobiles = m.get('not_media_mobiles')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('biz_digital_id') is not None:
+            self.biz_digital_id = m.get('biz_digital_id')
         return self
 
 
