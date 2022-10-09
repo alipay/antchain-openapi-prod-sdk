@@ -14,6 +14,10 @@ public class WorksInfo extends TeaModel {
     @Validation(required = true)
     public String worksType;
 
+    // 作品类型英文标识
+    @NameInMap("works_type_en")
+    public String worksTypeEn;
+
     public static WorksInfo build(java.util.Map<String, ?> map) throws Exception {
         WorksInfo self = new WorksInfo();
         return TeaModel.build(map, self);
@@ -33,6 +37,14 @@ public class WorksInfo extends TeaModel {
     }
     public String getWorksType() {
         return this.worksType;
+    }
+
+    public WorksInfo setWorksTypeEn(String worksTypeEn) {
+        this.worksTypeEn = worksTypeEn;
+        return this;
+    }
+    public String getWorksTypeEn() {
+        return this.worksTypeEn;
     }
 
 }
