@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\MYCHARITY\Models\BatchcreateAlipaysignRequest;
+use AntChain\MYCHARITY\Models\BatchcreateAlipaysignResponse;
 use AntChain\MYCHARITY\Models\BatchcreateCombinationRequest;
 use AntChain\MYCHARITY\Models\BatchcreateCombinationResponse;
 use AntChain\MYCHARITY\Models\BatchcreateRecordRequest;
@@ -208,7 +210,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.14',
+                    'sdk_version'      => '1.0.16',
                     '_prod_code'       => 'MYCHARITY',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1079,5 +1081,38 @@ class Client
         Utils::validateModel($request);
 
         return BatchcreateCombinationResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.combination.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣签约账号批量创建接口
+     * Summary: 代扣签约账号批量创建接口.
+     *
+     * @param BatchcreateAlipaysignRequest $request
+     *
+     * @return BatchcreateAlipaysignResponse
+     */
+    public function batchcreateAlipaysign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateAlipaysignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣签约账号批量创建接口
+     * Summary: 代扣签约账号批量创建接口.
+     *
+     * @param BatchcreateAlipaysignRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return BatchcreateAlipaysignResponse
+     */
+    public function batchcreateAlipaysignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateAlipaysignResponse::fromMap($this->doRequest('1.0', 'antchain.mycharity.alipaysign.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
