@@ -31,27 +31,27 @@ public class OperateIotbasicControlconfigRequest extends TeaModel {
     public String controlModel;
 
     // 是否上链--注册设备后需上链存证，记录存证hash
-    @NameInMap("if_put_chain")
+    @NameInMap("is_register_notify")
     @Validation(required = true)
-    public String ifPutChain;
+    public String isRegisterNotify;
 
     // 是否标准设备-- 设备注册时 判断扩展属性 或展示时 显示扩展属性
-    @NameInMap("if_standard_device")
+    @NameInMap("is_standard")
     @Validation(required = true)
-    public String ifStandardDevice;
+    public String isStandard;
 
     // 是否生成密钥--注册设备时 生成密钥对， 存到 设备公钥(public_key)、deviceSecrect
-    @NameInMap("if_generate_screct")
+    @NameInMap("is_gen_secret")
     @Validation(required = true)
-    public String ifGenerateScrect;
+    public String isGenSecret;
 
     // 接口地址
-    @NameInMap("interface_address")
-    public String interfaceAddress;
+    @NameInMap("service_provider")
+    public String serviceProvider;
 
     // 接口参数
-    @NameInMap("interface_params")
-    public String interfaceParams;
+    @NameInMap("control_param")
+    public String controlParam;
 
     // 操作类型
     @NameInMap("action")
@@ -67,6 +67,20 @@ public class OperateIotbasicControlconfigRequest extends TeaModel {
     @NameInMap("param_sign")
     @Validation(required = true)
     public String paramSign;
+
+    // 是否接入安全认证
+    @NameInMap("is_support_sec")
+    @Validation(required = true)
+    public String isSupportSec;
+
+    // 设备规格ID
+    @NameInMap("device_specs")
+    public Long deviceSpecs;
+
+    // 厂商ID
+    @NameInMap("corp_id")
+    @Validation(required = true)
+    public Long corpId;
 
     public static OperateIotbasicControlconfigRequest build(java.util.Map<String, ?> map) throws Exception {
         OperateIotbasicControlconfigRequest self = new OperateIotbasicControlconfigRequest();
@@ -121,44 +135,44 @@ public class OperateIotbasicControlconfigRequest extends TeaModel {
         return this.controlModel;
     }
 
-    public OperateIotbasicControlconfigRequest setIfPutChain(String ifPutChain) {
-        this.ifPutChain = ifPutChain;
+    public OperateIotbasicControlconfigRequest setIsRegisterNotify(String isRegisterNotify) {
+        this.isRegisterNotify = isRegisterNotify;
         return this;
     }
-    public String getIfPutChain() {
-        return this.ifPutChain;
+    public String getIsRegisterNotify() {
+        return this.isRegisterNotify;
     }
 
-    public OperateIotbasicControlconfigRequest setIfStandardDevice(String ifStandardDevice) {
-        this.ifStandardDevice = ifStandardDevice;
+    public OperateIotbasicControlconfigRequest setIsStandard(String isStandard) {
+        this.isStandard = isStandard;
         return this;
     }
-    public String getIfStandardDevice() {
-        return this.ifStandardDevice;
+    public String getIsStandard() {
+        return this.isStandard;
     }
 
-    public OperateIotbasicControlconfigRequest setIfGenerateScrect(String ifGenerateScrect) {
-        this.ifGenerateScrect = ifGenerateScrect;
+    public OperateIotbasicControlconfigRequest setIsGenSecret(String isGenSecret) {
+        this.isGenSecret = isGenSecret;
         return this;
     }
-    public String getIfGenerateScrect() {
-        return this.ifGenerateScrect;
+    public String getIsGenSecret() {
+        return this.isGenSecret;
     }
 
-    public OperateIotbasicControlconfigRequest setInterfaceAddress(String interfaceAddress) {
-        this.interfaceAddress = interfaceAddress;
+    public OperateIotbasicControlconfigRequest setServiceProvider(String serviceProvider) {
+        this.serviceProvider = serviceProvider;
         return this;
     }
-    public String getInterfaceAddress() {
-        return this.interfaceAddress;
+    public String getServiceProvider() {
+        return this.serviceProvider;
     }
 
-    public OperateIotbasicControlconfigRequest setInterfaceParams(String interfaceParams) {
-        this.interfaceParams = interfaceParams;
+    public OperateIotbasicControlconfigRequest setControlParam(String controlParam) {
+        this.controlParam = controlParam;
         return this;
     }
-    public String getInterfaceParams() {
-        return this.interfaceParams;
+    public String getControlParam() {
+        return this.controlParam;
     }
 
     public OperateIotbasicControlconfigRequest setAction(String action) {
@@ -183,6 +197,30 @@ public class OperateIotbasicControlconfigRequest extends TeaModel {
     }
     public String getParamSign() {
         return this.paramSign;
+    }
+
+    public OperateIotbasicControlconfigRequest setIsSupportSec(String isSupportSec) {
+        this.isSupportSec = isSupportSec;
+        return this;
+    }
+    public String getIsSupportSec() {
+        return this.isSupportSec;
+    }
+
+    public OperateIotbasicControlconfigRequest setDeviceSpecs(Long deviceSpecs) {
+        this.deviceSpecs = deviceSpecs;
+        return this;
+    }
+    public Long getDeviceSpecs() {
+        return this.deviceSpecs;
+    }
+
+    public OperateIotbasicControlconfigRequest setCorpId(Long corpId) {
+        this.corpId = corpId;
+        return this;
+    }
+    public Long getCorpId() {
+        return this.corpId;
     }
 
 }

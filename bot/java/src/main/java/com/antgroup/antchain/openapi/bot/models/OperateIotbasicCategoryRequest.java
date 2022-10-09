@@ -50,6 +50,10 @@ public class OperateIotbasicCategoryRequest extends TeaModel {
     @Validation(required = true)
     public String paramSign;
 
+    // 品类code
+    @NameInMap("category_code")
+    public String categoryCode;
+
     public static OperateIotbasicCategoryRequest build(java.util.Map<String, ?> map) throws Exception {
         OperateIotbasicCategoryRequest self = new OperateIotbasicCategoryRequest();
         return TeaModel.build(map, self);
@@ -133,6 +137,14 @@ public class OperateIotbasicCategoryRequest extends TeaModel {
     }
     public String getParamSign() {
         return this.paramSign;
+    }
+
+    public OperateIotbasicCategoryRequest setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
+        return this;
+    }
+    public String getCategoryCode() {
+        return this.categoryCode;
     }
 
 }
