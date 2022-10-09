@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.18',
+    sdk_version = '1.7.19',
+    _prod_code = 'BOT',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -575,6 +577,26 @@ model TenantBindInfoReq {
   tenantUid: string(name='tenant_uid', example='"12345"'),
   // 组织结构名称
   userName: string(name='user_name', example='"xx公司xx部门"'),
+}
+
+// 设备注册 请求对象
+model IotBasicDeviceRegisterInfo {
+  // 设备规格
+  deviceSpecs: string(name='device_specs', example='xxx'),
+  // 设备型号
+  deviceModel: string(name='device_model', example='xxx'),
+  // 设备名称
+  deviceName: string(name='device_name', example='test'),
+  // 设备sn
+  deviceSn: string(name='device_sn', example='xx'),
+  // 设备标签
+  nickName?: string(name='nick_name', example='telpo'),
+  // 安装位置
+  location?: string(name='location', example='杭州市'),
+  // 设备扩展信息
+  deviceExt?: string(name='device_ext', example='[{ "txHash" : "2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2" }]'),
+  // 设备安全认证ID
+  secId?: string(name='sec_id', example='secid'),
 }
 
 // 信物链证据基本组成结构体
@@ -1074,6 +1096,18 @@ model Peripheral {
   releaseTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time', example='2018-10-10T10:10:00Z'),
 }
 
+// 设备注册结果对象
+model IotBasicDeviceRegisterResult {
+  // 设备did
+  deviceDid: string(name='device_did', example='did:private:12dsadadadf'),
+  // 设备密钥
+  privateKey: string(name='private_key', example='12321321'),
+  // 设备名称
+  deviceName: string(name='device_name', example='test'),
+  // 设备sn
+  deviceSn: string(name='device_sn', example='12321321'),
+}
+
 // 更新设备和空间关联请求结构体
 model UpdateDeviceSpaceReq {
   // API要更新的设备DID
@@ -1115,6 +1149,18 @@ model ThingsDidBaseRegisterRequest {
   // 信物链实体附加信息
   // 不同实体身份，有不同的json组织格式，参考另外技术文档
   thingExtraParams?: string(name='thing_extra_params', example='"附加信息"'),
+}
+
+// 设备注册失败对象
+model IotBasicDeviceRegisterFail {
+  // 设备名称
+  deviceName: string(name='device_name', example='12321321'),
+  // 设备sn
+  deviceSn: string(name='device_sn', example='2088xx'),
+  // 错误编码
+  code: string(name='code', example='code'),
+  // 错误描述
+  message: string(name='message', example='message'),
 }
 
 // 告警策略分页查询结果
@@ -2977,6 +3023,238 @@ async function operateIotbasicDevice(request: OperateIotbasicDeviceRequest): Ope
 async function operateIotbasicDeviceEx(request: OperateIotbasicDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateIotbasicDeviceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.iotbasic.device.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateIotbasicDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备厂商名称
+  corpName: string(name='corp_name'),
+  // 设备品类编码
+  deviceCategoryCode: string(name='device_category_code'),
+  // A1
+  deviceModel: string(name='device_model'),
+  // xxx
+  deviceName: string(name='device_name'),
+  // xe21d
+  deviceSn: string(name='device_sn'),
+  // standard
+  deviceSpecs: string(name='device_specs'),
+  // 安装位置
+  location?: string(name='location'),
+  // 设备标签
+  nickName?: string(name='nick_name'),
+  // secid
+  secId?: string(name='sec_id'),
+  // 设备扩展信息
+  deviceExt?: string(name='device_ext'),
+  // 业务场景编码
+  bizScene: string(name='biz_scene'),
+  // 所属租户ID
+  tenantId: string(name='tenant_id'),
+}
+
+model CreateIotbasicDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // ddi
+  deviceDid?: string(name='device_did'),
+  // 设备私钥
+  privateKey?: string(name='private_key'),
+}
+
+/**
+ * Description: biot设备注册-创建设备
+ * Summary: biot设备注册-创建设备
+ */
+async function createIotbasicDevice(request: CreateIotbasicDeviceRequest): CreateIotbasicDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createIotbasicDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: biot设备注册-创建设备
+ * Summary: biot设备注册-创建设备
+ */
+async function createIotbasicDeviceEx(request: CreateIotbasicDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateIotbasicDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.device.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateIotbasicDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备厂商
+  corpName: string(name='corp_name'),
+  // 设备品类编码
+  deviceCategoryCode: string(name='device_category_code'),
+  // 业务场景码
+  bizScene: string(name='biz_scene'),
+  // 所属租户ID
+  tenantId: string(name='tenant_id'),
+  // 注册设备集合
+  deviceList: [ IotBasicDeviceRegisterInfo ](name='device_list'),
+}
+
+model BatchcreateIotbasicDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 注册成功集合
+  successList?: [ IotBasicDeviceRegisterResult ](name='success_list'),
+  // 注册失败集合
+  failList?: IotBasicDeviceRegisterFail(name='fail_list'),
+}
+
+/**
+ * Description: biot设备注册-批量创建设备
+ * Summary: biot设备注册-批量创建设备
+ */
+async function batchcreateIotbasicDevice(request: BatchcreateIotbasicDeviceRequest): BatchcreateIotbasicDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateIotbasicDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: biot设备注册-批量创建设备
+ * Summary: biot设备注册-批量创建设备
+ */
+async function batchcreateIotbasicDeviceEx(request: BatchcreateIotbasicDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateIotbasicDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.device.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncIotbasicDevicestatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备did
+  deviceDid: string(name='device_did'),
+  // 设备状态
+  deviceStatus: string(name='device_status'),
+}
+
+model SyncIotbasicDevicestatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: biot设备状态同步
+ * Summary: biot设备状态同步
+ */
+async function syncIotbasicDevicestatus(request: SyncIotbasicDevicestatusRequest): SyncIotbasicDevicestatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncIotbasicDevicestatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: biot设备状态同步
+ * Summary: biot设备状态同步
+ */
+async function syncIotbasicDevicestatusEx(request: SyncIotbasicDevicestatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncIotbasicDevicestatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.devicestatus.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyIotbasicIdentifyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备did
+  deviceDid: string(name='device_did'),
+  // 设备认证参数
+  verifyParam: string(name='verify_param'),
+}
+
+model VerifyIotbasicIdentifyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 认证结果
+  verifyResult?: string(name='verify_result'),
+}
+
+/**
+ * Description: biot设备-安全认证
+ * Summary: biot设备-安全认证
+ */
+async function verifyIotbasicIdentify(request: VerifyIotbasicIdentifyRequest): VerifyIotbasicIdentifyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyIotbasicIdentifyEx(request, headers, runtime);
+}
+
+/**
+ * Description: biot设备-安全认证
+ * Summary: biot设备-安全认证
+ */
+async function verifyIotbasicIdentifyEx(request: VerifyIotbasicIdentifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyIotbasicIdentifyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.identify.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateIotbasicDeviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备did
+  deviceDid: string(name='device_did'),
+  // 设备名称
+  deviceName?: string(name='device_name'),
+  // 安装位置
+  location?: string(name='location'),
+  // 设备扩展信息
+  deviceExt?: string(name='device_ext'),
+  // 设备标签
+  nickName?: string(name='nick_name'),
+}
+
+model UpdateIotbasicDeviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: IoT设备平台-更新设备信息
+ * Summary: IoT设备平台-更新设备信息
+ */
+async function updateIotbasicDevice(request: UpdateIotbasicDeviceRequest): UpdateIotbasicDeviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateIotbasicDeviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-更新设备信息
+ * Summary: IoT设备平台-更新设备信息
+ */
+async function updateIotbasicDeviceEx(request: UpdateIotbasicDeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateIotbasicDeviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.device.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
