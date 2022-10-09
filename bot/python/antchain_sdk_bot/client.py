@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.18'
+                    'sdk_version': '1.7.19',
+                    '_prod_code': 'BOT',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.18'
+                    'sdk_version': '1.7.19',
+                    '_prod_code': 'BOT',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1927,6 +1931,286 @@ class Client:
         return TeaCore.from_map(
             bot_models.OperateIotbasicDeviceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.device.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_iotbasic_device(
+        self,
+        request: bot_models.CreateIotbasicDeviceRequest,
+    ) -> bot_models.CreateIotbasicDeviceResponse:
+        """
+        Description: biot设备注册-创建设备
+        Summary: biot设备注册-创建设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_iotbasic_device_ex(request, headers, runtime)
+
+    async def create_iotbasic_device_async(
+        self,
+        request: bot_models.CreateIotbasicDeviceRequest,
+    ) -> bot_models.CreateIotbasicDeviceResponse:
+        """
+        Description: biot设备注册-创建设备
+        Summary: biot设备注册-创建设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_iotbasic_device_ex_async(request, headers, runtime)
+
+    def create_iotbasic_device_ex(
+        self,
+        request: bot_models.CreateIotbasicDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateIotbasicDeviceResponse:
+        """
+        Description: biot设备注册-创建设备
+        Summary: biot设备注册-创建设备
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateIotbasicDeviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.device.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_iotbasic_device_ex_async(
+        self,
+        request: bot_models.CreateIotbasicDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateIotbasicDeviceResponse:
+        """
+        Description: biot设备注册-创建设备
+        Summary: biot设备注册-创建设备
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateIotbasicDeviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.device.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchcreate_iotbasic_device(
+        self,
+        request: bot_models.BatchcreateIotbasicDeviceRequest,
+    ) -> bot_models.BatchcreateIotbasicDeviceResponse:
+        """
+        Description: biot设备注册-批量创建设备
+        Summary: biot设备注册-批量创建设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchcreate_iotbasic_device_ex(request, headers, runtime)
+
+    async def batchcreate_iotbasic_device_async(
+        self,
+        request: bot_models.BatchcreateIotbasicDeviceRequest,
+    ) -> bot_models.BatchcreateIotbasicDeviceResponse:
+        """
+        Description: biot设备注册-批量创建设备
+        Summary: biot设备注册-批量创建设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchcreate_iotbasic_device_ex_async(request, headers, runtime)
+
+    def batchcreate_iotbasic_device_ex(
+        self,
+        request: bot_models.BatchcreateIotbasicDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.BatchcreateIotbasicDeviceResponse:
+        """
+        Description: biot设备注册-批量创建设备
+        Summary: biot设备注册-批量创建设备
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.BatchcreateIotbasicDeviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.device.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchcreate_iotbasic_device_ex_async(
+        self,
+        request: bot_models.BatchcreateIotbasicDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.BatchcreateIotbasicDeviceResponse:
+        """
+        Description: biot设备注册-批量创建设备
+        Summary: biot设备注册-批量创建设备
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.BatchcreateIotbasicDeviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.device.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_iotbasic_devicestatus(
+        self,
+        request: bot_models.SyncIotbasicDevicestatusRequest,
+    ) -> bot_models.SyncIotbasicDevicestatusResponse:
+        """
+        Description: biot设备状态同步
+        Summary: biot设备状态同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_iotbasic_devicestatus_ex(request, headers, runtime)
+
+    async def sync_iotbasic_devicestatus_async(
+        self,
+        request: bot_models.SyncIotbasicDevicestatusRequest,
+    ) -> bot_models.SyncIotbasicDevicestatusResponse:
+        """
+        Description: biot设备状态同步
+        Summary: biot设备状态同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_iotbasic_devicestatus_ex_async(request, headers, runtime)
+
+    def sync_iotbasic_devicestatus_ex(
+        self,
+        request: bot_models.SyncIotbasicDevicestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncIotbasicDevicestatusResponse:
+        """
+        Description: biot设备状态同步
+        Summary: biot设备状态同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SyncIotbasicDevicestatusResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.devicestatus.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_iotbasic_devicestatus_ex_async(
+        self,
+        request: bot_models.SyncIotbasicDevicestatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncIotbasicDevicestatusResponse:
+        """
+        Description: biot设备状态同步
+        Summary: biot设备状态同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SyncIotbasicDevicestatusResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.devicestatus.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_iotbasic_identify(
+        self,
+        request: bot_models.VerifyIotbasicIdentifyRequest,
+    ) -> bot_models.VerifyIotbasicIdentifyResponse:
+        """
+        Description: biot设备-安全认证
+        Summary: biot设备-安全认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_iotbasic_identify_ex(request, headers, runtime)
+
+    async def verify_iotbasic_identify_async(
+        self,
+        request: bot_models.VerifyIotbasicIdentifyRequest,
+    ) -> bot_models.VerifyIotbasicIdentifyResponse:
+        """
+        Description: biot设备-安全认证
+        Summary: biot设备-安全认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_iotbasic_identify_ex_async(request, headers, runtime)
+
+    def verify_iotbasic_identify_ex(
+        self,
+        request: bot_models.VerifyIotbasicIdentifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.VerifyIotbasicIdentifyResponse:
+        """
+        Description: biot设备-安全认证
+        Summary: biot设备-安全认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.VerifyIotbasicIdentifyResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.identify.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_iotbasic_identify_ex_async(
+        self,
+        request: bot_models.VerifyIotbasicIdentifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.VerifyIotbasicIdentifyResponse:
+        """
+        Description: biot设备-安全认证
+        Summary: biot设备-安全认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.VerifyIotbasicIdentifyResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.identify.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_iotbasic_device(
+        self,
+        request: bot_models.UpdateIotbasicDeviceRequest,
+    ) -> bot_models.UpdateIotbasicDeviceResponse:
+        """
+        Description: IoT设备平台-更新设备信息
+        Summary: IoT设备平台-更新设备信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_iotbasic_device_ex(request, headers, runtime)
+
+    async def update_iotbasic_device_async(
+        self,
+        request: bot_models.UpdateIotbasicDeviceRequest,
+    ) -> bot_models.UpdateIotbasicDeviceResponse:
+        """
+        Description: IoT设备平台-更新设备信息
+        Summary: IoT设备平台-更新设备信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_iotbasic_device_ex_async(request, headers, runtime)
+
+    def update_iotbasic_device_ex(
+        self,
+        request: bot_models.UpdateIotbasicDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateIotbasicDeviceResponse:
+        """
+        Description: IoT设备平台-更新设备信息
+        Summary: IoT设备平台-更新设备信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateIotbasicDeviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.device.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_iotbasic_device_ex_async(
+        self,
+        request: bot_models.UpdateIotbasicDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateIotbasicDeviceResponse:
+        """
+        Description: IoT设备平台-更新设备信息
+        Summary: IoT设备平台-更新设备信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateIotbasicDeviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.device.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
