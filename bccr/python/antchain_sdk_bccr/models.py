@@ -2237,11 +2237,14 @@ class WorksInfo(TeaModel):
         self,
         works_name: str = None,
         works_type: str = None,
+        works_type_en: str = None,
     ):
         # 作品名称
         self.works_name = works_name
         # 作品类型
         self.works_type = works_type
+        # 作品类型英文标识
+        self.works_type_en = works_type_en
 
     def validate(self):
         self.validate_required(self.works_name, 'works_name')
@@ -2257,6 +2260,8 @@ class WorksInfo(TeaModel):
             result['works_name'] = self.works_name
         if self.works_type is not None:
             result['works_type'] = self.works_type
+        if self.works_type_en is not None:
+            result['works_type_en'] = self.works_type_en
         return result
 
     def from_map(self, m: dict = None):
@@ -2265,6 +2270,8 @@ class WorksInfo(TeaModel):
             self.works_name = m.get('works_name')
         if m.get('works_type') is not None:
             self.works_type = m.get('works_type')
+        if m.get('works_type_en') is not None:
+            self.works_type_en = m.get('works_type_en')
         return self
 
 
