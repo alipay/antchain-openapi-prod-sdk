@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.14',
+    sdk_version = '1.0.16',
     _prod_code = 'MYCHARITY',
     _prod_channel = 'undefined'
   };
@@ -223,6 +223,14 @@ model StagesDetailVO {
   state?: long(name='state', example=''),
   // 签约id,关联签约表
   signId?: string(name='sign_id', example='1'),
+}
+
+// 签约账号用户信息
+model SignUserInfo {
+  // 签约记录id
+  id: string(maxLength=50, name='id', example='1'),
+  // 支付宝代扣账号
+  alipayAccount: string(maxLength=100, name='alipay_account', example='133XXXX4444'),
 }
 
 // 实施内容信息
@@ -1391,5 +1399,43 @@ async function batchcreateCombination(request: BatchcreateCombinationRequest): B
 async function batchcreateCombinationEx(request: BatchcreateCombinationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateCombinationResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.mycharity.combination.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateAlipaysignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 机构id
+  orgId: string(maxLength=50, name='org_id'),
+  // 代扣签约账号信息列表
+  signUserInfoList: [ SignUserInfo ](name='sign_user_info_list'),
+}
+
+model BatchcreateAlipaysignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 代扣签约账号批量创建接口
+ * Summary: 代扣签约账号批量创建接口
+ */
+async function batchcreateAlipaysign(request: BatchcreateAlipaysignRequest): BatchcreateAlipaysignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateAlipaysignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣签约账号批量创建接口
+ * Summary: 代扣签约账号批量创建接口
+ */
+async function batchcreateAlipaysignEx(request: BatchcreateAlipaysignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateAlipaysignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.mycharity.alipaysign.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
