@@ -366,6 +366,32 @@ func (s *StagesDetailVO) SetSignId(v string) *StagesDetailVO {
 	return s
 }
 
+// 签约账号用户信息
+type SignUserInfo struct {
+	// 签约记录id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true" maxLength:"50"`
+	// 支付宝代扣账号
+	AlipayAccount *string `json:"alipay_account,omitempty" xml:"alipay_account,omitempty" require:"true" maxLength:"100"`
+}
+
+func (s SignUserInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SignUserInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SignUserInfo) SetId(v string) *SignUserInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *SignUserInfo) SetAlipayAccount(v string) *SignUserInfo {
+	s.AlipayAccount = &v
+	return s
+}
+
 // 实施内容信息
 type SubjectCombinationMessage struct {
 	// 实施内容id
@@ -2871,6 +2897,76 @@ func (s *BatchcreateCombinationResponse) SetResultMsg(v string) *BatchcreateComb
 	return s
 }
 
+type BatchcreateAlipaysignRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 机构id
+	OrgId *string `json:"org_id,omitempty" xml:"org_id,omitempty" require:"true" maxLength:"50"`
+	// 代扣签约账号信息列表
+	SignUserInfoList []*SignUserInfo `json:"sign_user_info_list,omitempty" xml:"sign_user_info_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BatchcreateAlipaysignRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchcreateAlipaysignRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchcreateAlipaysignRequest) SetAuthToken(v string) *BatchcreateAlipaysignRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchcreateAlipaysignRequest) SetProductInstanceId(v string) *BatchcreateAlipaysignRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchcreateAlipaysignRequest) SetOrgId(v string) *BatchcreateAlipaysignRequest {
+	s.OrgId = &v
+	return s
+}
+
+func (s *BatchcreateAlipaysignRequest) SetSignUserInfoList(v []*SignUserInfo) *BatchcreateAlipaysignRequest {
+	s.SignUserInfoList = v
+	return s
+}
+
+type BatchcreateAlipaysignResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BatchcreateAlipaysignResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchcreateAlipaysignResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchcreateAlipaysignResponse) SetReqMsgId(v string) *BatchcreateAlipaysignResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchcreateAlipaysignResponse) SetResultCode(v string) *BatchcreateAlipaysignResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchcreateAlipaysignResponse) SetResultMsg(v string) *BatchcreateAlipaysignResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2993,7 +3089,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.14"),
+				"sdk_version":      tea.String("1.0.16"),
 				"_prod_code":       tea.String("MYCHARITY"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3894,6 +3990,40 @@ func (client *Client) BatchcreateCombinationEx(request *BatchcreateCombinationRe
 	}
 	_result = &BatchcreateCombinationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mycharity.combination.batchcreate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代扣签约账号批量创建接口
+ * Summary: 代扣签约账号批量创建接口
+ */
+func (client *Client) BatchcreateAlipaysign(request *BatchcreateAlipaysignRequest) (_result *BatchcreateAlipaysignResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchcreateAlipaysignResponse{}
+	_body, _err := client.BatchcreateAlipaysignEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代扣签约账号批量创建接口
+ * Summary: 代扣签约账号批量创建接口
+ */
+func (client *Client) BatchcreateAlipaysignEx(request *BatchcreateAlipaysignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchcreateAlipaysignResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchcreateAlipaysignResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.mycharity.alipaysign.batchcreate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
