@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.14"),
+                    new TeaPair("sdk_version", "1.0.16"),
                     new TeaPair("_prod_code", "MYCHARITY"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -634,5 +634,24 @@ public class Client {
     public BatchcreateCombinationResponse batchcreateCombinationEx(BatchcreateCombinationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.combination.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateCombinationResponse());
+    }
+
+    /**
+     * Description: 代扣签约账号批量创建接口
+     * Summary: 代扣签约账号批量创建接口
+     */
+    public BatchcreateAlipaysignResponse batchcreateAlipaysign(BatchcreateAlipaysignRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchcreateAlipaysignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣签约账号批量创建接口
+     * Summary: 代扣签约账号批量创建接口
+     */
+    public BatchcreateAlipaysignResponse batchcreateAlipaysignEx(BatchcreateAlipaysignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.mycharity.alipaysign.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateAlipaysignResponse());
     }
 }
