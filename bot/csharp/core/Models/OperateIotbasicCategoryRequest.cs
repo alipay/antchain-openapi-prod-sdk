@@ -58,6 +58,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string ParamSign { get; set; }
 
+        // 品类code
+        [NameInMap("category_code")]
+        [Validation(Required=false)]
+        public string CategoryCode { get; set; }
+
     }
 
 }

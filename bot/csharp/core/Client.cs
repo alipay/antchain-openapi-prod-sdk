@@ -137,9 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.13"},
-                        {"_prod_code", "BOT"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.7.18"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -263,9 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.13"},
-                        {"_prod_code", "BOT"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.7.18"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1541,6 +1537,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OperateIotbasicChainmodelResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.chainmodel.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设备不可操作标记更新
+         * Summary: IoT设备平台-设备不可操作标记更新
+         */
+        public OperateIotbasicDeviceResponse OperateIotbasicDevice(OperateIotbasicDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateIotbasicDeviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设备不可操作标记更新
+         * Summary: IoT设备平台-设备不可操作标记更新
+         */
+        public async Task<OperateIotbasicDeviceResponse> OperateIotbasicDeviceAsync(OperateIotbasicDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateIotbasicDeviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设备不可操作标记更新
+         * Summary: IoT设备平台-设备不可操作标记更新
+         */
+        public OperateIotbasicDeviceResponse OperateIotbasicDeviceEx(OperateIotbasicDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateIotbasicDeviceResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.device.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设备不可操作标记更新
+         * Summary: IoT设备平台-设备不可操作标记更新
+         */
+        public async Task<OperateIotbasicDeviceResponse> OperateIotbasicDeviceExAsync(OperateIotbasicDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateIotbasicDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.device.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
