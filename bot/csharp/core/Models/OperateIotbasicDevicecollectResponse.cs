@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class BatchcreateIotbasicDeviceResponse : TeaModel {
+    public class OperateIotbasicDevicecollectResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 注册成功集合
-        [NameInMap("success_list")]
+        // 是否成功
+        [NameInMap("success")]
         [Validation(Required=false)]
-        public List<IotBasicDeviceRegisterResult> SuccessList { get; set; }
+        public bool? Success { get; set; }
 
-        // 注册失败集合
-        [NameInMap("fail_list")]
+        // 上链id
+        [NameInMap("antchain_id")]
         [Validation(Required=false)]
-        public List<IotBasicDeviceRegisterFail> FailList { get; set; }
+        public string AntchainId { get; set; }
 
     }
 

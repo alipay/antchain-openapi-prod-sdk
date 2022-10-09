@@ -43,6 +43,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string NickName { get; set; }
 
+        // 设备签名
+        [NameInMap("device_signature")]
+        [Validation(Required=true)]
+        public string DeviceSignature { get; set; }
+
     }
 
 }

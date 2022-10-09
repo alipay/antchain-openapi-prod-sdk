@@ -28,6 +28,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string DeviceStatus { get; set; }
 
+        // 设备签名
+        [NameInMap("device_signature")]
+        [Validation(Required=true)]
+        public string DeviceSignature { get; set; }
+
     }
 
 }

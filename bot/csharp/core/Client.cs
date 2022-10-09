@@ -137,9 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.19"},
-                        {"_prod_code", "BOT"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.7.24"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -263,9 +261,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.19"},
-                        {"_prod_code", "BOT"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.7.24"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -1671,7 +1667,7 @@ namespace AntChain.SDK.BOT
 
         /**
          * Description: biot设备状态同步
-         * Summary: biot设备状态同步
+         * Summary: iot平台-设备状态同步
          */
         public SyncIotbasicDevicestatusResponse SyncIotbasicDevicestatus(SyncIotbasicDevicestatusRequest request)
         {
@@ -1682,7 +1678,7 @@ namespace AntChain.SDK.BOT
 
         /**
          * Description: biot设备状态同步
-         * Summary: biot设备状态同步
+         * Summary: iot平台-设备状态同步
          */
         public async Task<SyncIotbasicDevicestatusResponse> SyncIotbasicDevicestatusAsync(SyncIotbasicDevicestatusRequest request)
         {
@@ -1693,7 +1689,7 @@ namespace AntChain.SDK.BOT
 
         /**
          * Description: biot设备状态同步
-         * Summary: biot设备状态同步
+         * Summary: iot平台-设备状态同步
          */
         public SyncIotbasicDevicestatusResponse SyncIotbasicDevicestatusEx(SyncIotbasicDevicestatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1703,7 +1699,7 @@ namespace AntChain.SDK.BOT
 
         /**
          * Description: biot设备状态同步
-         * Summary: biot设备状态同步
+         * Summary: iot平台-设备状态同步
          */
         public async Task<SyncIotbasicDevicestatusResponse> SyncIotbasicDevicestatusExAsync(SyncIotbasicDevicestatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1793,6 +1789,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UpdateIotbasicDeviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.device.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设备上链
+         * Summary: IoT设备平台-设备上链
+         */
+        public OperateIotbasicDevicecollectResponse OperateIotbasicDevicecollect(OperateIotbasicDevicecollectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateIotbasicDevicecollectEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设备上链
+         * Summary: IoT设备平台-设备上链
+         */
+        public async Task<OperateIotbasicDevicecollectResponse> OperateIotbasicDevicecollectAsync(OperateIotbasicDevicecollectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateIotbasicDevicecollectExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-设备上链
+         * Summary: IoT设备平台-设备上链
+         */
+        public OperateIotbasicDevicecollectResponse OperateIotbasicDevicecollectEx(OperateIotbasicDevicecollectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateIotbasicDevicecollectResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.devicecollect.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-设备上链
+         * Summary: IoT设备平台-设备上链
+         */
+        public async Task<OperateIotbasicDevicecollectResponse> OperateIotbasicDevicecollectExAsync(OperateIotbasicDevicecollectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateIotbasicDevicecollectResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.devicecollect.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
