@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.16.23',
+    sdk_version = '1.16.24',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -710,6 +710,8 @@ model WorksInfo {
   worksName: string(name='works_name', example='我的作品'),
   // 作品类型
   worksType: string(name='works_type', example='视频'),
+  // 作品类型英文标识
+  worksTypeEn?: string(name='works_type_en', example='MODEL'),
 }
 
 // 审查结果
