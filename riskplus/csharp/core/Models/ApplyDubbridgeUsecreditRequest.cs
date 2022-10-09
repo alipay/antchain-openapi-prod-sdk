@@ -53,6 +53,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string LoanWay { get; set; }
 
+        // 还款日
+        [NameInMap("repay_date")]
+        [Validation(Required=true)]
+        public string RepayDate { get; set; }
+
     }
 
 }

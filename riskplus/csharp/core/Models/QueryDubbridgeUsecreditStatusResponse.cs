@@ -44,6 +44,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public List<RepayRef> RepayRef { get; set; }
 
+        // 用信合同编号
+        [NameInMap("disburse_contract_no")]
+        [Validation(Required=false)]
+        public string DisburseContractNo { get; set; }
+
+        // 授信合同编号
+        [NameInMap("credit_contract_no")]
+        [Validation(Required=false)]
+        public string CreditContractNo { get; set; }
+
     }
 
 }

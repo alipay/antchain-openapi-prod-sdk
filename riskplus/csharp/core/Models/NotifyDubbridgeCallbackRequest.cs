@@ -33,6 +33,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string BizType { get; set; }
 
+        // 对应授信/用信传给三方留存单号
+        [NameInMap("seq_no")]
+        [Validation(Required=true)]
+        public string SeqNo { get; set; }
+
     }
 
 }

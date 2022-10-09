@@ -125,6 +125,36 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string TradeDate { get; set; }
 
+        // 已还担保费
+        [NameInMap("already_guarantee_fee")]
+        [Validation(Required=true)]
+        public long? AlreadyGuaranteeFee { get; set; }
+
+        // 已还违约金
+        [NameInMap("already_liquidated_damages")]
+        [Validation(Required=true)]
+        public long? AlreadyLiquidatedDamages { get; set; }
+
+        // 当期剩余担保费
+        [NameInMap("rest_guarantee_fee")]
+        [Validation(Required=true)]
+        public long? RestGuaranteeFee { get; set; }
+
+        // 当期剩余违约金
+        [NameInMap("rest_liquidated_damages")]
+        [Validation(Required=true)]
+        public long? RestLiquidatedDamages { get; set; }
+
+        // 应还担保费
+        [NameInMap("need_guarantee_fee")]
+        [Validation(Required=true)]
+        public long? NeedGuaranteeFee { get; set; }
+
+        // 应还违约金
+        [NameInMap("need_liquidated_damages")]
+        [Validation(Required=true)]
+        public long? NeedLiquidatedDamages { get; set; }
+
     }
 
 }

@@ -53,6 +53,31 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string SmsUpExtendCodeJson { get; set; }
 
+        // 回落类型
+        [NameInMap("fallback_type")]
+        [Validation(Required=false)]
+        public string FallbackType { get; set; }
+
+        // 回落短信模版
+        [NameInMap("fallback_template_code")]
+        [Validation(Required=false)]
+        public string FallbackTemplateCode { get; set; }
+
+        // 回落短信模版参数
+        [NameInMap("fallback_template_param_json")]
+        [Validation(Required=false)]
+        public string FallbackTemplateParamJson { get; set; }
+
+        // 卡片短信对应的原始文本短信模板，不传则用默认文本
+        [NameInMap("template_code")]
+        [Validation(Required=false)]
+        public string TemplateCode { get; set; }
+
+        // 默认文本对应参数
+        [NameInMap("template_param_json")]
+        [Validation(Required=false)]
+        public string TemplateParamJson { get; set; }
+
     }
 
 }

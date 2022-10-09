@@ -44,6 +44,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public long? ServiceCharge { get; set; }
 
+        // 担保费
+        [NameInMap("real_guarantee_fee")]
+        [Validation(Required=false)]
+        public long? RealGuaranteeFee { get; set; }
+
+        // 违约金
+        [NameInMap("real_liquidated_damages")]
+        [Validation(Required=false)]
+        public long? RealLiquidatedDamages { get; set; }
+
     }
 
 }

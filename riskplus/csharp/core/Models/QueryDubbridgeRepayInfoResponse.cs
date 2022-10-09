@@ -129,6 +129,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ApplyNo { get; set; }
 
+        // 担保费
+        [NameInMap("guarantee_fee")]
+        [Validation(Required=false)]
+        public long? GuaranteeFee { get; set; }
+
+        // 违约金
+        [NameInMap("liquidated_damages")]
+        [Validation(Required=false)]
+        public long? LiquidatedDamages { get; set; }
+
     }
 
 }

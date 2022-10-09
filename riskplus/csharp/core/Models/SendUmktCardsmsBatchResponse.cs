@@ -39,6 +39,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string NotMediaMobiles { get; set; }
 
+        // 回落文本短信回执id
+        [NameInMap("biz_id")]
+        [Validation(Required=false)]
+        public string BizId { get; set; }
+
+        // 回落数字短信回执id
+        [NameInMap("biz_digital_id")]
+        [Validation(Required=false)]
+        public string BizDigitalId { get; set; }
+
     }
 
 }
