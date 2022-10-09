@@ -1508,6 +1508,31 @@ export class SendCollectorResult extends $tea.Model {
   }
 }
 
+// 设备不可操作标识类
+export class DeviceDisableData extends $tea.Model {
+  // 设备sn号
+  deviceSn: string;
+  // 厂商
+  corpName: string;
+  static names(): { [key: string]: string } {
+    return {
+      deviceSn: 'device_sn',
+      corpName: 'corp_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deviceSn: 'string',
+      corpName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 设备属性关系对象
 export class IotDeviceAttributeRelationshipData extends $tea.Model {
   // id
@@ -5306,6 +5331,8 @@ export class OperateIotbasicCategoryRequest extends $tea.Model {
   operatorId: string;
   // 参数签名校验
   paramSign: string;
+  // 品类code
+  categoryCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5318,6 +5345,7 @@ export class OperateIotbasicCategoryRequest extends $tea.Model {
       action: 'action',
       operatorId: 'operator_id',
       paramSign: 'param_sign',
+      categoryCode: 'category_code',
     };
   }
 
@@ -5333,6 +5361,7 @@ export class OperateIotbasicCategoryRequest extends $tea.Model {
       action: 'string',
       operatorId: 'string',
       paramSign: 'string',
+      categoryCode: 'string',
     };
   }
 
@@ -5386,21 +5415,27 @@ export class OperateIotbasicControlconfigRequest extends $tea.Model {
   // 管控模式
   controlModel: string;
   // 是否上链--注册设备后需上链存证，记录存证hash
-  ifPutChain: string;
+  isRegisterNotify: string;
   // 是否标准设备-- 设备注册时 判断扩展属性 或展示时 显示扩展属性
-  ifStandardDevice: string;
+  isStandard: string;
   // 是否生成密钥--注册设备时 生成密钥对， 存到 设备公钥(public_key)、deviceSecrect
-  ifGenerateScrect: string;
+  isGenSecret: string;
   // 接口地址
-  interfaceAddress?: string;
+  serviceProvider?: string;
   // 接口参数
-  interfaceParams?: string;
+  controlParam?: string;
   // 操作类型
   action: string;
   // 操作人id
   operatorId: string;
   // 参数签名校验
   paramSign: string;
+  // 是否接入安全认证
+  isSupportSec: string;
+  // 设备规格ID
+  deviceSpecs?: number;
+  // 厂商ID
+  corpId: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5409,14 +5444,17 @@ export class OperateIotbasicControlconfigRequest extends $tea.Model {
       corpName: 'corp_name',
       deviceModel: 'device_model',
       controlModel: 'control_model',
-      ifPutChain: 'if_put_chain',
-      ifStandardDevice: 'if_standard_device',
-      ifGenerateScrect: 'if_generate_screct',
-      interfaceAddress: 'interface_address',
-      interfaceParams: 'interface_params',
+      isRegisterNotify: 'is_register_notify',
+      isStandard: 'is_standard',
+      isGenSecret: 'is_gen_secret',
+      serviceProvider: 'service_provider',
+      controlParam: 'control_param',
       action: 'action',
       operatorId: 'operator_id',
       paramSign: 'param_sign',
+      isSupportSec: 'is_support_sec',
+      deviceSpecs: 'device_specs',
+      corpId: 'corp_id',
     };
   }
 
@@ -5428,14 +5466,17 @@ export class OperateIotbasicControlconfigRequest extends $tea.Model {
       corpName: 'string',
       deviceModel: 'string',
       controlModel: 'string',
-      ifPutChain: 'string',
-      ifStandardDevice: 'string',
-      ifGenerateScrect: 'string',
-      interfaceAddress: 'string',
-      interfaceParams: 'string',
+      isRegisterNotify: 'string',
+      isStandard: 'string',
+      isGenSecret: 'string',
+      serviceProvider: 'string',
+      controlParam: 'string',
       action: 'string',
       operatorId: 'string',
       paramSign: 'string',
+      isSupportSec: 'string',
+      deviceSpecs: 'number',
+      corpId: 'number',
     };
   }
 
@@ -5532,6 +5573,80 @@ export class OperateIotbasicChainmodelRequest extends $tea.Model {
 }
 
 export class OperateIotbasicChainmodelResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateIotbasicDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备不可操作列表
+  deviceDisableList: DeviceDisableData[];
+  // 不允许操作类型
+  // DISABLE_CHAGE：不允许变更租户
+  // DISABLE_EDIT：不允许编辑设备
+  // DISABLE_DEL：不允许删除设备
+  disableOperateType: string;
+  // 操作状态
+  status: string;
+  // 不允许操作提示，操作状态为true时必须有值
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceDisableList: 'device_disable_list',
+      disableOperateType: 'disable_operate_type',
+      status: 'status',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceDisableList: { 'type': 'array', 'itemType': DeviceDisableData },
+      disableOperateType: 'string',
+      status: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateIotbasicDeviceResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -13408,9 +13523,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.13",
-          _prod_code: "BOT",
-          _prod_channel: "undefined",
+          sdk_version: "1.7.18",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -14007,6 +14120,25 @@ export default class Client {
   async operateIotbasicChainmodelEx(request: OperateIotbasicChainmodelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateIotbasicChainmodelResponse> {
     Util.validateModel(request);
     return $tea.cast<OperateIotbasicChainmodelResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.chainmodel.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateIotbasicChainmodelResponse({}));
+  }
+
+  /**
+   * Description: IoT设备平台-设备不可操作标记更新
+   * Summary: IoT设备平台-设备不可操作标记更新
+   */
+  async operateIotbasicDevice(request: OperateIotbasicDeviceRequest): Promise<OperateIotbasicDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateIotbasicDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: IoT设备平台-设备不可操作标记更新
+   * Summary: IoT设备平台-设备不可操作标记更新
+   */
+  async operateIotbasicDeviceEx(request: OperateIotbasicDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateIotbasicDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateIotbasicDeviceResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.device.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateIotbasicDeviceResponse({}));
   }
 
   /**
