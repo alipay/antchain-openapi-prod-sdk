@@ -100,9 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.3',
-    _prod_code = 'RISKPLUS',
-    _prod_channel = 'undefined'
+    sdk_version = '1.13.5',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -520,6 +518,18 @@ model RepayResult {
   settleDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='settle_date', example='2018-10-10T10:10:00Z'),
   // 还款日期
   tradeDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='trade_date', example='2018-10-10T10:10:00Z'),
+  // 已还担保费
+  alreadyGuaranteeFee: long(name='already_guarantee_fee', example=''),
+  // 已还违约金
+  alreadyLiquidatedDamages: long(name='already_liquidated_damages', example=''),
+  // 当期剩余担保费
+  restGuaranteeFee: long(name='rest_guarantee_fee', example=''),
+  // 当期剩余违约金
+  restLiquidatedDamages: long(name='rest_liquidated_damages', example=''),
+  // 应还担保费
+  needGuaranteeFee: long(name='need_guarantee_fee', example=''),
+  // 应还违约金
+  needLiquidatedDamages: long(name='need_liquidated_damages', example=''),
 }
 
 // 策略流信息
@@ -3769,6 +3779,10 @@ model QueryDubbridgeRepayInfoResponse = {
   failReason?: string(name='fail_reason'),
   // 授信申请编号
   applyNo?: string(name='apply_no'),
+  // 担保费
+  guaranteeFee?: long(name='guarantee_fee'),
+  // 违约金
+  liquidatedDamages?: long(name='liquidated_damages'),
 }
 
 /**
@@ -3905,6 +3919,10 @@ model CountDubbridgeRepayTrialResponse = {
   realOverAmt?: long(name='real_over_amt'),
   // 服务费
   serviceCharge?: long(name='service_charge'),
+  // 担保费
+  realGuaranteeFee?: long(name='real_guarantee_fee'),
+  // 违约金
+  realLiquidatedDamages?: long(name='real_liquidated_damages'),
 }
 
 /**
@@ -4036,6 +4054,8 @@ model ApplyDubbridgeUsecreditRequest = {
   repayType: string(name='repay_type'),
   // 1：手机数码 2：旅游 3：装修 4：教育 5：婚庆 6：租房 7：家具家居 8：健康医疗 9：其他消费 10：家用电器
   loanWay: string(name='loan_way'),
+  // 还款日
+  repayDate: string(name='repay_date'),
 }
 
 model ApplyDubbridgeUsecreditResponse = {
@@ -4091,6 +4111,10 @@ model QueryDubbridgeUsecreditStatusResponse = {
   receiptInfo?: ReceiptInfo(name='receipt_info'),
   // 还款计划列表
   repayRef?: [ RepayRef ](name='repay_ref'),
+  // 用信合同编号
+  disburseContractNo?: string(name='disburse_contract_no'),
+  // 授信合同编号
+  creditContractNo?: string(name='credit_contract_no'),
 }
 
 /**
@@ -4382,6 +4406,8 @@ model NotifyDubbridgeCallbackRequest = {
   bizParam: string(name='biz_param'),
   // 回调类型（1授信回调2用信回调）
   bizType: string(name='biz_type'),
+  // 对应授信/用信传给三方留存单号
+  seqNo: string(name='seq_no'),
 }
 
 model NotifyDubbridgeCallbackResponse = {
@@ -7492,6 +7518,16 @@ model SendUmktCardsmsBatchRequest = {
   signNameJson: string(name='sign_name_json'),
   // 上行短信扩展码
   smsUpExtendCodeJson?: string(name='sms_up_extend_code_json'),
+  // 回落类型
+  fallbackType?: string(name='fallback_type'),
+  // 回落短信模版
+  fallbackTemplateCode?: string(name='fallback_template_code'),
+  // 回落短信模版参数
+  fallbackTemplateParamJson?: string(name='fallback_template_param_json'),
+  // 卡片短信对应的原始文本短信模板，不传则用默认文本
+  templateCode?: string(name='template_code'),
+  // 默认文本对应参数
+  templateParamJson?: string(name='template_param_json'),
 }
 
 model SendUmktCardsmsBatchResponse = {
@@ -7507,6 +7543,10 @@ model SendUmktCardsmsBatchResponse = {
   mediaMobiles?: string(name='media_mobiles'),
   // 不支持的手机号
   notMediaMobiles?: string(name='not_media_mobiles'),
+  // 回落文本短信回执id
+  bizId?: string(name='biz_id'),
+  // 回落数字短信回执id
+  bizDigitalId?: string(name='biz_digital_id'),
 }
 
 /**
