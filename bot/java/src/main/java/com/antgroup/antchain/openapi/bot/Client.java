@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.18")
+                    new TeaPair("sdk_version", "1.7.19"),
+                    new TeaPair("_prod_code", "BOT"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -729,6 +731,101 @@ public class Client {
     public OperateIotbasicDeviceResponse operateIotbasicDeviceEx(OperateIotbasicDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.device.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateIotbasicDeviceResponse());
+    }
+
+    /**
+     * Description: biot设备注册-创建设备
+     * Summary: biot设备注册-创建设备
+     */
+    public CreateIotbasicDeviceResponse createIotbasicDevice(CreateIotbasicDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createIotbasicDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: biot设备注册-创建设备
+     * Summary: biot设备注册-创建设备
+     */
+    public CreateIotbasicDeviceResponse createIotbasicDeviceEx(CreateIotbasicDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.device.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateIotbasicDeviceResponse());
+    }
+
+    /**
+     * Description: biot设备注册-批量创建设备
+     * Summary: biot设备注册-批量创建设备
+     */
+    public BatchcreateIotbasicDeviceResponse batchcreateIotbasicDevice(BatchcreateIotbasicDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchcreateIotbasicDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: biot设备注册-批量创建设备
+     * Summary: biot设备注册-批量创建设备
+     */
+    public BatchcreateIotbasicDeviceResponse batchcreateIotbasicDeviceEx(BatchcreateIotbasicDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.device.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateIotbasicDeviceResponse());
+    }
+
+    /**
+     * Description: biot设备状态同步
+     * Summary: biot设备状态同步
+     */
+    public SyncIotbasicDevicestatusResponse syncIotbasicDevicestatus(SyncIotbasicDevicestatusRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncIotbasicDevicestatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: biot设备状态同步
+     * Summary: biot设备状态同步
+     */
+    public SyncIotbasicDevicestatusResponse syncIotbasicDevicestatusEx(SyncIotbasicDevicestatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.devicestatus.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncIotbasicDevicestatusResponse());
+    }
+
+    /**
+     * Description: biot设备-安全认证
+     * Summary: biot设备-安全认证
+     */
+    public VerifyIotbasicIdentifyResponse verifyIotbasicIdentify(VerifyIotbasicIdentifyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyIotbasicIdentifyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: biot设备-安全认证
+     * Summary: biot设备-安全认证
+     */
+    public VerifyIotbasicIdentifyResponse verifyIotbasicIdentifyEx(VerifyIotbasicIdentifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.identify.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyIotbasicIdentifyResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-更新设备信息
+     * Summary: IoT设备平台-更新设备信息
+     */
+    public UpdateIotbasicDeviceResponse updateIotbasicDevice(UpdateIotbasicDeviceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateIotbasicDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-更新设备信息
+     * Summary: IoT设备平台-更新设备信息
+     */
+    public UpdateIotbasicDeviceResponse updateIotbasicDeviceEx(UpdateIotbasicDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.device.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateIotbasicDeviceResponse());
     }
 
     /**
