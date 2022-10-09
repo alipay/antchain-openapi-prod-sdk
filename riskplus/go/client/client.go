@@ -1223,6 +1223,18 @@ type RepayResult struct {
 	SettleDate *string `json:"settle_date,omitempty" xml:"settle_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 还款日期
 	TradeDate *string `json:"trade_date,omitempty" xml:"trade_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 已还担保费
+	AlreadyGuaranteeFee *int64 `json:"already_guarantee_fee,omitempty" xml:"already_guarantee_fee,omitempty" require:"true"`
+	// 已还违约金
+	AlreadyLiquidatedDamages *int64 `json:"already_liquidated_damages,omitempty" xml:"already_liquidated_damages,omitempty" require:"true"`
+	// 当期剩余担保费
+	RestGuaranteeFee *int64 `json:"rest_guarantee_fee,omitempty" xml:"rest_guarantee_fee,omitempty" require:"true"`
+	// 当期剩余违约金
+	RestLiquidatedDamages *int64 `json:"rest_liquidated_damages,omitempty" xml:"rest_liquidated_damages,omitempty" require:"true"`
+	// 应还担保费
+	NeedGuaranteeFee *int64 `json:"need_guarantee_fee,omitempty" xml:"need_guarantee_fee,omitempty" require:"true"`
+	// 应还违约金
+	NeedLiquidatedDamages *int64 `json:"need_liquidated_damages,omitempty" xml:"need_liquidated_damages,omitempty" require:"true"`
 }
 
 func (s RepayResult) String() string {
@@ -1345,6 +1357,36 @@ func (s *RepayResult) SetSettleDate(v string) *RepayResult {
 
 func (s *RepayResult) SetTradeDate(v string) *RepayResult {
 	s.TradeDate = &v
+	return s
+}
+
+func (s *RepayResult) SetAlreadyGuaranteeFee(v int64) *RepayResult {
+	s.AlreadyGuaranteeFee = &v
+	return s
+}
+
+func (s *RepayResult) SetAlreadyLiquidatedDamages(v int64) *RepayResult {
+	s.AlreadyLiquidatedDamages = &v
+	return s
+}
+
+func (s *RepayResult) SetRestGuaranteeFee(v int64) *RepayResult {
+	s.RestGuaranteeFee = &v
+	return s
+}
+
+func (s *RepayResult) SetRestLiquidatedDamages(v int64) *RepayResult {
+	s.RestLiquidatedDamages = &v
+	return s
+}
+
+func (s *RepayResult) SetNeedGuaranteeFee(v int64) *RepayResult {
+	s.NeedGuaranteeFee = &v
+	return s
+}
+
+func (s *RepayResult) SetNeedLiquidatedDamages(v int64) *RepayResult {
+	s.NeedLiquidatedDamages = &v
 	return s
 }
 
@@ -9532,6 +9574,10 @@ type QueryDubbridgeRepayInfoResponse struct {
 	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
 	// 授信申请编号
 	ApplyNo *string `json:"apply_no,omitempty" xml:"apply_no,omitempty"`
+	// 担保费
+	GuaranteeFee *int64 `json:"guarantee_fee,omitempty" xml:"guarantee_fee,omitempty"`
+	// 违约金
+	LiquidatedDamages *int64 `json:"liquidated_damages,omitempty" xml:"liquidated_damages,omitempty"`
 }
 
 func (s QueryDubbridgeRepayInfoResponse) String() string {
@@ -9659,6 +9705,16 @@ func (s *QueryDubbridgeRepayInfoResponse) SetFailReason(v string) *QueryDubbridg
 
 func (s *QueryDubbridgeRepayInfoResponse) SetApplyNo(v string) *QueryDubbridgeRepayInfoResponse {
 	s.ApplyNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepayInfoResponse) SetGuaranteeFee(v int64) *QueryDubbridgeRepayInfoResponse {
+	s.GuaranteeFee = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepayInfoResponse) SetLiquidatedDamages(v int64) *QueryDubbridgeRepayInfoResponse {
+	s.LiquidatedDamages = &v
 	return s
 }
 
@@ -9904,6 +9960,10 @@ type CountDubbridgeRepayTrialResponse struct {
 	RealOverAmt *int64 `json:"real_over_amt,omitempty" xml:"real_over_amt,omitempty"`
 	// 服务费
 	ServiceCharge *int64 `json:"service_charge,omitempty" xml:"service_charge,omitempty"`
+	// 担保费
+	RealGuaranteeFee *int64 `json:"real_guarantee_fee,omitempty" xml:"real_guarantee_fee,omitempty"`
+	// 违约金
+	RealLiquidatedDamages *int64 `json:"real_liquidated_damages,omitempty" xml:"real_liquidated_damages,omitempty"`
 }
 
 func (s CountDubbridgeRepayTrialResponse) String() string {
@@ -9946,6 +10006,16 @@ func (s *CountDubbridgeRepayTrialResponse) SetRealOverAmt(v int64) *CountDubbrid
 
 func (s *CountDubbridgeRepayTrialResponse) SetServiceCharge(v int64) *CountDubbridgeRepayTrialResponse {
 	s.ServiceCharge = &v
+	return s
+}
+
+func (s *CountDubbridgeRepayTrialResponse) SetRealGuaranteeFee(v int64) *CountDubbridgeRepayTrialResponse {
+	s.RealGuaranteeFee = &v
+	return s
+}
+
+func (s *CountDubbridgeRepayTrialResponse) SetRealLiquidatedDamages(v int64) *CountDubbridgeRepayTrialResponse {
+	s.RealLiquidatedDamages = &v
 	return s
 }
 
@@ -10163,6 +10233,8 @@ type ApplyDubbridgeUsecreditRequest struct {
 	RepayType *string `json:"repay_type,omitempty" xml:"repay_type,omitempty" require:"true"`
 	// 1：手机数码 2：旅游 3：装修 4：教育 5：婚庆 6：租房 7：家具家居 8：健康医疗 9：其他消费 10：家用电器
 	LoanWay *string `json:"loan_way,omitempty" xml:"loan_way,omitempty" require:"true"`
+	// 还款日
+	RepayDate *string `json:"repay_date,omitempty" xml:"repay_date,omitempty" require:"true"`
 }
 
 func (s ApplyDubbridgeUsecreditRequest) String() string {
@@ -10215,6 +10287,11 @@ func (s *ApplyDubbridgeUsecreditRequest) SetRepayType(v string) *ApplyDubbridgeU
 
 func (s *ApplyDubbridgeUsecreditRequest) SetLoanWay(v string) *ApplyDubbridgeUsecreditRequest {
 	s.LoanWay = &v
+	return s
+}
+
+func (s *ApplyDubbridgeUsecreditRequest) SetRepayDate(v string) *ApplyDubbridgeUsecreditRequest {
+	s.RepayDate = &v
 	return s
 }
 
@@ -10303,6 +10380,10 @@ type QueryDubbridgeUsecreditStatusResponse struct {
 	ReceiptInfo *ReceiptInfo `json:"receipt_info,omitempty" xml:"receipt_info,omitempty"`
 	// 还款计划列表
 	RepayRef []*RepayRef `json:"repay_ref,omitempty" xml:"repay_ref,omitempty" type:"Repeated"`
+	// 用信合同编号
+	DisburseContractNo *string `json:"disburse_contract_no,omitempty" xml:"disburse_contract_no,omitempty"`
+	// 授信合同编号
+	CreditContractNo *string `json:"credit_contract_no,omitempty" xml:"credit_contract_no,omitempty"`
 }
 
 func (s QueryDubbridgeUsecreditStatusResponse) String() string {
@@ -10345,6 +10426,16 @@ func (s *QueryDubbridgeUsecreditStatusResponse) SetReceiptInfo(v *ReceiptInfo) *
 
 func (s *QueryDubbridgeUsecreditStatusResponse) SetRepayRef(v []*RepayRef) *QueryDubbridgeUsecreditStatusResponse {
 	s.RepayRef = v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditStatusResponse) SetDisburseContractNo(v string) *QueryDubbridgeUsecreditStatusResponse {
+	s.DisburseContractNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditStatusResponse) SetCreditContractNo(v string) *QueryDubbridgeUsecreditStatusResponse {
+	s.CreditContractNo = &v
 	return s
 }
 
@@ -10890,6 +10981,8 @@ type NotifyDubbridgeCallbackRequest struct {
 	BizParam *string `json:"biz_param,omitempty" xml:"biz_param,omitempty" require:"true"`
 	// 回调类型（1授信回调2用信回调）
 	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 对应授信/用信传给三方留存单号
+	SeqNo *string `json:"seq_no,omitempty" xml:"seq_no,omitempty" require:"true"`
 }
 
 func (s NotifyDubbridgeCallbackRequest) String() string {
@@ -10922,6 +11015,11 @@ func (s *NotifyDubbridgeCallbackRequest) SetBizParam(v string) *NotifyDubbridgeC
 
 func (s *NotifyDubbridgeCallbackRequest) SetBizType(v string) *NotifyDubbridgeCallbackRequest {
 	s.BizType = &v
+	return s
+}
+
+func (s *NotifyDubbridgeCallbackRequest) SetSeqNo(v string) *NotifyDubbridgeCallbackRequest {
+	s.SeqNo = &v
 	return s
 }
 
@@ -17446,6 +17544,16 @@ type SendUmktCardsmsBatchRequest struct {
 	SignNameJson *string `json:"sign_name_json,omitempty" xml:"sign_name_json,omitempty" require:"true"`
 	// 上行短信扩展码
 	SmsUpExtendCodeJson *string `json:"sms_up_extend_code_json,omitempty" xml:"sms_up_extend_code_json,omitempty"`
+	// 回落类型
+	FallbackType *string `json:"fallback_type,omitempty" xml:"fallback_type,omitempty"`
+	// 回落短信模版
+	FallbackTemplateCode *string `json:"fallback_template_code,omitempty" xml:"fallback_template_code,omitempty"`
+	// 回落短信模版参数
+	FallbackTemplateParamJson *string `json:"fallback_template_param_json,omitempty" xml:"fallback_template_param_json,omitempty"`
+	// 卡片短信对应的原始文本短信模板，不传则用默认文本
+	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty"`
+	// 默认文本对应参数
+	TemplateParamJson *string `json:"template_param_json,omitempty" xml:"template_param_json,omitempty"`
 }
 
 func (s SendUmktCardsmsBatchRequest) String() string {
@@ -17501,6 +17609,31 @@ func (s *SendUmktCardsmsBatchRequest) SetSmsUpExtendCodeJson(v string) *SendUmkt
 	return s
 }
 
+func (s *SendUmktCardsmsBatchRequest) SetFallbackType(v string) *SendUmktCardsmsBatchRequest {
+	s.FallbackType = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchRequest) SetFallbackTemplateCode(v string) *SendUmktCardsmsBatchRequest {
+	s.FallbackTemplateCode = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchRequest) SetFallbackTemplateParamJson(v string) *SendUmktCardsmsBatchRequest {
+	s.FallbackTemplateParamJson = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchRequest) SetTemplateCode(v string) *SendUmktCardsmsBatchRequest {
+	s.TemplateCode = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchRequest) SetTemplateParamJson(v string) *SendUmktCardsmsBatchRequest {
+	s.TemplateParamJson = &v
+	return s
+}
+
 type SendUmktCardsmsBatchResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -17514,6 +17647,10 @@ type SendUmktCardsmsBatchResponse struct {
 	MediaMobiles *string `json:"media_mobiles,omitempty" xml:"media_mobiles,omitempty"`
 	// 不支持的手机号
 	NotMediaMobiles *string `json:"not_media_mobiles,omitempty" xml:"not_media_mobiles,omitempty"`
+	// 回落文本短信回执id
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// 回落数字短信回执id
+	BizDigitalId *string `json:"biz_digital_id,omitempty" xml:"biz_digital_id,omitempty"`
 }
 
 func (s SendUmktCardsmsBatchResponse) String() string {
@@ -17551,6 +17688,16 @@ func (s *SendUmktCardsmsBatchResponse) SetMediaMobiles(v string) *SendUmktCardsm
 
 func (s *SendUmktCardsmsBatchResponse) SetNotMediaMobiles(v string) *SendUmktCardsmsBatchResponse {
 	s.NotMediaMobiles = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchResponse) SetBizId(v string) *SendUmktCardsmsBatchResponse {
+	s.BizId = &v
+	return s
+}
+
+func (s *SendUmktCardsmsBatchResponse) SetBizDigitalId(v string) *SendUmktCardsmsBatchResponse {
+	s.BizDigitalId = &v
 	return s
 }
 
@@ -17887,9 +18034,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.3"),
-				"_prod_code":       tea.String("RISKPLUS"),
-				"_prod_channel":    tea.String("undefined"),
+				"sdk_version":      tea.String("1.13.5"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
