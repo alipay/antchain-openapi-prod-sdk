@@ -137,7 +137,7 @@ namespace AntChain.SDK.MYCHARITY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.14"},
+                        {"sdk_version", "1.0.16"},
                         {"_prod_code", "MYCHARITY"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MYCHARITY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.14"},
+                        {"sdk_version", "1.0.16"},
                         {"_prod_code", "MYCHARITY"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1369,6 +1369,48 @@ namespace AntChain.SDK.MYCHARITY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchcreateCombinationResponse>(await DoRequestAsync("1.0", "antchain.mycharity.combination.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣签约账号批量创建接口
+         * Summary: 代扣签约账号批量创建接口
+         */
+        public BatchcreateAlipaysignResponse BatchcreateAlipaysign(BatchcreateAlipaysignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchcreateAlipaysignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣签约账号批量创建接口
+         * Summary: 代扣签约账号批量创建接口
+         */
+        public async Task<BatchcreateAlipaysignResponse> BatchcreateAlipaysignAsync(BatchcreateAlipaysignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchcreateAlipaysignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣签约账号批量创建接口
+         * Summary: 代扣签约账号批量创建接口
+         */
+        public BatchcreateAlipaysignResponse BatchcreateAlipaysignEx(BatchcreateAlipaysignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateAlipaysignResponse>(DoRequest("1.0", "antchain.mycharity.alipaysign.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣签约账号批量创建接口
+         * Summary: 代扣签约账号批量创建接口
+         */
+        public async Task<BatchcreateAlipaysignResponse> BatchcreateAlipaysignExAsync(BatchcreateAlipaysignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateAlipaysignResponse>(await DoRequestAsync("1.0", "antchain.mycharity.alipaysign.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
