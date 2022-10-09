@@ -1476,6 +1476,74 @@ func (s *TenantBindInfoReq) SetUserName(v string) *TenantBindInfoReq {
 	return s
 }
 
+// 设备注册 请求对象
+type IotBasicDeviceRegisterInfo struct {
+	// 设备规格
+	DeviceSpecs *string `json:"device_specs,omitempty" xml:"device_specs,omitempty" require:"true"`
+	// 设备型号
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty" require:"true"`
+	// 设备名称
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
+	// 设备sn
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+	// 设备标签
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+	// 安装位置
+	Location *string `json:"location,omitempty" xml:"location,omitempty"`
+	// 设备扩展信息
+	DeviceExt *string `json:"device_ext,omitempty" xml:"device_ext,omitempty"`
+	// 设备安全认证ID
+	SecId *string `json:"sec_id,omitempty" xml:"sec_id,omitempty"`
+}
+
+func (s IotBasicDeviceRegisterInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotBasicDeviceRegisterInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IotBasicDeviceRegisterInfo) SetDeviceSpecs(v string) *IotBasicDeviceRegisterInfo {
+	s.DeviceSpecs = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterInfo) SetDeviceModel(v string) *IotBasicDeviceRegisterInfo {
+	s.DeviceModel = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterInfo) SetDeviceName(v string) *IotBasicDeviceRegisterInfo {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterInfo) SetDeviceSn(v string) *IotBasicDeviceRegisterInfo {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterInfo) SetNickName(v string) *IotBasicDeviceRegisterInfo {
+	s.NickName = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterInfo) SetLocation(v string) *IotBasicDeviceRegisterInfo {
+	s.Location = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterInfo) SetDeviceExt(v string) *IotBasicDeviceRegisterInfo {
+	s.DeviceExt = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterInfo) SetSecId(v string) *IotBasicDeviceRegisterInfo {
+	s.SecId = &v
+	return s
+}
+
 // 信物链证据基本组成结构体
 type EvidenceBaseModel struct {
 	// 业务数据
@@ -3010,6 +3078,46 @@ func (s *Peripheral) SetReleaseTime(v string) *Peripheral {
 	return s
 }
 
+// 设备注册结果对象
+type IotBasicDeviceRegisterResult struct {
+	// 设备did
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 设备密钥
+	PrivateKey *string `json:"private_key,omitempty" xml:"private_key,omitempty" require:"true"`
+	// 设备名称
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
+	// 设备sn
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+}
+
+func (s IotBasicDeviceRegisterResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotBasicDeviceRegisterResult) GoString() string {
+	return s.String()
+}
+
+func (s *IotBasicDeviceRegisterResult) SetDeviceDid(v string) *IotBasicDeviceRegisterResult {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterResult) SetPrivateKey(v string) *IotBasicDeviceRegisterResult {
+	s.PrivateKey = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterResult) SetDeviceName(v string) *IotBasicDeviceRegisterResult {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterResult) SetDeviceSn(v string) *IotBasicDeviceRegisterResult {
+	s.DeviceSn = &v
+	return s
+}
+
 // 更新设备和空间关联请求结构体
 type UpdateDeviceSpaceReq struct {
 	// API要更新的设备DID
@@ -3121,6 +3229,46 @@ func (s *ThingsDidBaseRegisterRequest) SetBizType(v string) *ThingsDidBaseRegist
 
 func (s *ThingsDidBaseRegisterRequest) SetThingExtraParams(v string) *ThingsDidBaseRegisterRequest {
 	s.ThingExtraParams = &v
+	return s
+}
+
+// 设备注册失败对象
+type IotBasicDeviceRegisterFail struct {
+	// 设备名称
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
+	// 设备sn
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+	// 错误编码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 错误描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+}
+
+func (s IotBasicDeviceRegisterFail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotBasicDeviceRegisterFail) GoString() string {
+	return s.String()
+}
+
+func (s *IotBasicDeviceRegisterFail) SetDeviceName(v string) *IotBasicDeviceRegisterFail {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterFail) SetDeviceSn(v string) *IotBasicDeviceRegisterFail {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterFail) SetCode(v string) *IotBasicDeviceRegisterFail {
+	s.Code = &v
+	return s
+}
+
+func (s *IotBasicDeviceRegisterFail) SetMessage(v string) *IotBasicDeviceRegisterFail {
+	s.Message = &v
 	return s
 }
 
@@ -7441,6 +7589,503 @@ func (s *OperateIotbasicDeviceResponse) SetResultMsg(v string) *OperateIotbasicD
 
 func (s *OperateIotbasicDeviceResponse) SetSuccess(v bool) *OperateIotbasicDeviceResponse {
 	s.Success = &v
+	return s
+}
+
+type CreateIotbasicDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备厂商名称
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+	// 设备品类编码
+	DeviceCategoryCode *string `json:"device_category_code,omitempty" xml:"device_category_code,omitempty" require:"true"`
+	// A1
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty" require:"true"`
+	// xxx
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty" require:"true"`
+	// xe21d
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+	// standard
+	DeviceSpecs *string `json:"device_specs,omitempty" xml:"device_specs,omitempty" require:"true"`
+	// 安装位置
+	Location *string `json:"location,omitempty" xml:"location,omitempty"`
+	// 设备标签
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+	// secid
+	SecId *string `json:"sec_id,omitempty" xml:"sec_id,omitempty"`
+	// 设备扩展信息
+	DeviceExt *string `json:"device_ext,omitempty" xml:"device_ext,omitempty"`
+	// 业务场景编码
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 所属租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s CreateIotbasicDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateIotbasicDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateIotbasicDeviceRequest) SetAuthToken(v string) *CreateIotbasicDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceRequest) SetProductInstanceId(v string) *CreateIotbasicDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceRequest) SetCorpName(v string) *CreateIotbasicDeviceRequest {
+	s.CorpName = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceRequest) SetDeviceCategoryCode(v string) *CreateIotbasicDeviceRequest {
+	s.DeviceCategoryCode = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceRequest) SetDeviceModel(v string) *CreateIotbasicDeviceRequest {
+	s.DeviceModel = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceRequest) SetDeviceName(v string) *CreateIotbasicDeviceRequest {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceRequest) SetDeviceSn(v string) *CreateIotbasicDeviceRequest {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceRequest) SetDeviceSpecs(v string) *CreateIotbasicDeviceRequest {
+	s.DeviceSpecs = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceRequest) SetLocation(v string) *CreateIotbasicDeviceRequest {
+	s.Location = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceRequest) SetNickName(v string) *CreateIotbasicDeviceRequest {
+	s.NickName = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceRequest) SetSecId(v string) *CreateIotbasicDeviceRequest {
+	s.SecId = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceRequest) SetDeviceExt(v string) *CreateIotbasicDeviceRequest {
+	s.DeviceExt = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceRequest) SetBizScene(v string) *CreateIotbasicDeviceRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceRequest) SetTenantId(v string) *CreateIotbasicDeviceRequest {
+	s.TenantId = &v
+	return s
+}
+
+type CreateIotbasicDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// ddi
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty"`
+	// 设备私钥
+	PrivateKey *string `json:"private_key,omitempty" xml:"private_key,omitempty"`
+}
+
+func (s CreateIotbasicDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateIotbasicDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateIotbasicDeviceResponse) SetReqMsgId(v string) *CreateIotbasicDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceResponse) SetResultCode(v string) *CreateIotbasicDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceResponse) SetResultMsg(v string) *CreateIotbasicDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceResponse) SetDeviceDid(v string) *CreateIotbasicDeviceResponse {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *CreateIotbasicDeviceResponse) SetPrivateKey(v string) *CreateIotbasicDeviceResponse {
+	s.PrivateKey = &v
+	return s
+}
+
+type BatchcreateIotbasicDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备厂商
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+	// 设备品类编码
+	DeviceCategoryCode *string `json:"device_category_code,omitempty" xml:"device_category_code,omitempty" require:"true"`
+	// 业务场景码
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 所属租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 注册设备集合
+	DeviceList []*IotBasicDeviceRegisterInfo `json:"device_list,omitempty" xml:"device_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BatchcreateIotbasicDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchcreateIotbasicDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchcreateIotbasicDeviceRequest) SetAuthToken(v string) *BatchcreateIotbasicDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchcreateIotbasicDeviceRequest) SetProductInstanceId(v string) *BatchcreateIotbasicDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchcreateIotbasicDeviceRequest) SetCorpName(v string) *BatchcreateIotbasicDeviceRequest {
+	s.CorpName = &v
+	return s
+}
+
+func (s *BatchcreateIotbasicDeviceRequest) SetDeviceCategoryCode(v string) *BatchcreateIotbasicDeviceRequest {
+	s.DeviceCategoryCode = &v
+	return s
+}
+
+func (s *BatchcreateIotbasicDeviceRequest) SetBizScene(v string) *BatchcreateIotbasicDeviceRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *BatchcreateIotbasicDeviceRequest) SetTenantId(v string) *BatchcreateIotbasicDeviceRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *BatchcreateIotbasicDeviceRequest) SetDeviceList(v []*IotBasicDeviceRegisterInfo) *BatchcreateIotbasicDeviceRequest {
+	s.DeviceList = v
+	return s
+}
+
+type BatchcreateIotbasicDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 注册成功集合
+	SuccessList []*IotBasicDeviceRegisterResult `json:"success_list,omitempty" xml:"success_list,omitempty" type:"Repeated"`
+	// 注册失败集合
+	FailList *IotBasicDeviceRegisterFail `json:"fail_list,omitempty" xml:"fail_list,omitempty"`
+}
+
+func (s BatchcreateIotbasicDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchcreateIotbasicDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchcreateIotbasicDeviceResponse) SetReqMsgId(v string) *BatchcreateIotbasicDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchcreateIotbasicDeviceResponse) SetResultCode(v string) *BatchcreateIotbasicDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchcreateIotbasicDeviceResponse) SetResultMsg(v string) *BatchcreateIotbasicDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchcreateIotbasicDeviceResponse) SetSuccessList(v []*IotBasicDeviceRegisterResult) *BatchcreateIotbasicDeviceResponse {
+	s.SuccessList = v
+	return s
+}
+
+func (s *BatchcreateIotbasicDeviceResponse) SetFailList(v *IotBasicDeviceRegisterFail) *BatchcreateIotbasicDeviceResponse {
+	s.FailList = v
+	return s
+}
+
+type SyncIotbasicDevicestatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备did
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 设备状态
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty" require:"true"`
+}
+
+func (s SyncIotbasicDevicestatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncIotbasicDevicestatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncIotbasicDevicestatusRequest) SetAuthToken(v string) *SyncIotbasicDevicestatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicestatusRequest) SetProductInstanceId(v string) *SyncIotbasicDevicestatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicestatusRequest) SetDeviceDid(v string) *SyncIotbasicDevicestatusRequest {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicestatusRequest) SetDeviceStatus(v string) *SyncIotbasicDevicestatusRequest {
+	s.DeviceStatus = &v
+	return s
+}
+
+type SyncIotbasicDevicestatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncIotbasicDevicestatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncIotbasicDevicestatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncIotbasicDevicestatusResponse) SetReqMsgId(v string) *SyncIotbasicDevicestatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicestatusResponse) SetResultCode(v string) *SyncIotbasicDevicestatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicestatusResponse) SetResultMsg(v string) *SyncIotbasicDevicestatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type VerifyIotbasicIdentifyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备did
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 设备认证参数
+	VerifyParam *string `json:"verify_param,omitempty" xml:"verify_param,omitempty" require:"true"`
+}
+
+func (s VerifyIotbasicIdentifyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyIotbasicIdentifyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyIotbasicIdentifyRequest) SetAuthToken(v string) *VerifyIotbasicIdentifyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyIotbasicIdentifyRequest) SetProductInstanceId(v string) *VerifyIotbasicIdentifyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyIotbasicIdentifyRequest) SetDeviceDid(v string) *VerifyIotbasicIdentifyRequest {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *VerifyIotbasicIdentifyRequest) SetVerifyParam(v string) *VerifyIotbasicIdentifyRequest {
+	s.VerifyParam = &v
+	return s
+}
+
+type VerifyIotbasicIdentifyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证结果
+	VerifyResult *string `json:"verify_result,omitempty" xml:"verify_result,omitempty"`
+}
+
+func (s VerifyIotbasicIdentifyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyIotbasicIdentifyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyIotbasicIdentifyResponse) SetReqMsgId(v string) *VerifyIotbasicIdentifyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyIotbasicIdentifyResponse) SetResultCode(v string) *VerifyIotbasicIdentifyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyIotbasicIdentifyResponse) SetResultMsg(v string) *VerifyIotbasicIdentifyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyIotbasicIdentifyResponse) SetVerifyResult(v string) *VerifyIotbasicIdentifyResponse {
+	s.VerifyResult = &v
+	return s
+}
+
+type UpdateIotbasicDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备did
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 设备名称
+	DeviceName *string `json:"device_name,omitempty" xml:"device_name,omitempty"`
+	// 安装位置
+	Location *string `json:"location,omitempty" xml:"location,omitempty"`
+	// 设备扩展信息
+	DeviceExt *string `json:"device_ext,omitempty" xml:"device_ext,omitempty"`
+	// 设备标签
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+}
+
+func (s UpdateIotbasicDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateIotbasicDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateIotbasicDeviceRequest) SetAuthToken(v string) *UpdateIotbasicDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateIotbasicDeviceRequest) SetProductInstanceId(v string) *UpdateIotbasicDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateIotbasicDeviceRequest) SetDeviceDid(v string) *UpdateIotbasicDeviceRequest {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *UpdateIotbasicDeviceRequest) SetDeviceName(v string) *UpdateIotbasicDeviceRequest {
+	s.DeviceName = &v
+	return s
+}
+
+func (s *UpdateIotbasicDeviceRequest) SetLocation(v string) *UpdateIotbasicDeviceRequest {
+	s.Location = &v
+	return s
+}
+
+func (s *UpdateIotbasicDeviceRequest) SetDeviceExt(v string) *UpdateIotbasicDeviceRequest {
+	s.DeviceExt = &v
+	return s
+}
+
+func (s *UpdateIotbasicDeviceRequest) SetNickName(v string) *UpdateIotbasicDeviceRequest {
+	s.NickName = &v
+	return s
+}
+
+type UpdateIotbasicDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateIotbasicDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateIotbasicDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateIotbasicDeviceResponse) SetReqMsgId(v string) *UpdateIotbasicDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateIotbasicDeviceResponse) SetResultCode(v string) *UpdateIotbasicDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateIotbasicDeviceResponse) SetResultMsg(v string) *UpdateIotbasicDeviceResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -17488,7 +18133,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.18"),
+				"sdk_version":      tea.String("1.7.19"),
+				"_prod_code":       tea.String("BOT"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -18552,6 +19199,176 @@ func (client *Client) OperateIotbasicDeviceEx(request *OperateIotbasicDeviceRequ
 	}
 	_result = &OperateIotbasicDeviceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.device.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: biot设备注册-创建设备
+ * Summary: biot设备注册-创建设备
+ */
+func (client *Client) CreateIotbasicDevice(request *CreateIotbasicDeviceRequest) (_result *CreateIotbasicDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateIotbasicDeviceResponse{}
+	_body, _err := client.CreateIotbasicDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: biot设备注册-创建设备
+ * Summary: biot设备注册-创建设备
+ */
+func (client *Client) CreateIotbasicDeviceEx(request *CreateIotbasicDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateIotbasicDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateIotbasicDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.device.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: biot设备注册-批量创建设备
+ * Summary: biot设备注册-批量创建设备
+ */
+func (client *Client) BatchcreateIotbasicDevice(request *BatchcreateIotbasicDeviceRequest) (_result *BatchcreateIotbasicDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchcreateIotbasicDeviceResponse{}
+	_body, _err := client.BatchcreateIotbasicDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: biot设备注册-批量创建设备
+ * Summary: biot设备注册-批量创建设备
+ */
+func (client *Client) BatchcreateIotbasicDeviceEx(request *BatchcreateIotbasicDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchcreateIotbasicDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchcreateIotbasicDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.device.batchcreate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: biot设备状态同步
+ * Summary: biot设备状态同步
+ */
+func (client *Client) SyncIotbasicDevicestatus(request *SyncIotbasicDevicestatusRequest) (_result *SyncIotbasicDevicestatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncIotbasicDevicestatusResponse{}
+	_body, _err := client.SyncIotbasicDevicestatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: biot设备状态同步
+ * Summary: biot设备状态同步
+ */
+func (client *Client) SyncIotbasicDevicestatusEx(request *SyncIotbasicDevicestatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncIotbasicDevicestatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncIotbasicDevicestatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.devicestatus.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: biot设备-安全认证
+ * Summary: biot设备-安全认证
+ */
+func (client *Client) VerifyIotbasicIdentify(request *VerifyIotbasicIdentifyRequest) (_result *VerifyIotbasicIdentifyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyIotbasicIdentifyResponse{}
+	_body, _err := client.VerifyIotbasicIdentifyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: biot设备-安全认证
+ * Summary: biot设备-安全认证
+ */
+func (client *Client) VerifyIotbasicIdentifyEx(request *VerifyIotbasicIdentifyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyIotbasicIdentifyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyIotbasicIdentifyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.identify.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-更新设备信息
+ * Summary: IoT设备平台-更新设备信息
+ */
+func (client *Client) UpdateIotbasicDevice(request *UpdateIotbasicDeviceRequest) (_result *UpdateIotbasicDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateIotbasicDeviceResponse{}
+	_body, _err := client.UpdateIotbasicDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-更新设备信息
+ * Summary: IoT设备平台-更新设备信息
+ */
+func (client *Client) UpdateIotbasicDeviceEx(request *UpdateIotbasicDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateIotbasicDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateIotbasicDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.device.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
