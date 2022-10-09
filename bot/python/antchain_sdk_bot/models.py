@@ -2493,6 +2493,42 @@ class SendCollectorResult(TeaModel):
         return self
 
 
+class DeviceDisableData(TeaModel):
+    def __init__(
+        self,
+        device_sn: str = None,
+        corp_name: str = None,
+    ):
+        # 设备sn号
+        self.device_sn = device_sn
+        # 厂商
+        self.corp_name = corp_name
+
+    def validate(self):
+        self.validate_required(self.device_sn, 'device_sn')
+        self.validate_required(self.corp_name, 'corp_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_sn is not None:
+            result['device_sn'] = self.device_sn
+        if self.corp_name is not None:
+            result['corp_name'] = self.corp_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('device_sn') is not None:
+            self.device_sn = m.get('device_sn')
+        if m.get('corp_name') is not None:
+            self.corp_name = m.get('corp_name')
+        return self
+
+
 class IotDeviceAttributeRelationshipData(TeaModel):
     def __init__(
         self,
@@ -8648,6 +8684,7 @@ class OperateIotbasicCategoryRequest(TeaModel):
         action: str = None,
         operator_id: str = None,
         param_sign: str = None,
+        category_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8668,6 +8705,8 @@ class OperateIotbasicCategoryRequest(TeaModel):
         self.operator_id = operator_id
         # 参数签名校验
         self.param_sign = param_sign
+        # 品类code
+        self.category_code = category_code
 
     def validate(self):
         self.validate_required(self.category_name, 'category_name')
@@ -8704,6 +8743,8 @@ class OperateIotbasicCategoryRequest(TeaModel):
             result['operator_id'] = self.operator_id
         if self.param_sign is not None:
             result['param_sign'] = self.param_sign
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
         return result
 
     def from_map(self, m: dict = None):
@@ -8728,6 +8769,8 @@ class OperateIotbasicCategoryRequest(TeaModel):
             self.operator_id = m.get('operator_id')
         if m.get('param_sign') is not None:
             self.param_sign = m.get('param_sign')
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
         return self
 
 
@@ -8789,14 +8832,17 @@ class OperateIotbasicControlconfigRequest(TeaModel):
         corp_name: str = None,
         device_model: str = None,
         control_model: str = None,
-        if_put_chain: str = None,
-        if_standard_device: str = None,
-        if_generate_screct: str = None,
-        interface_address: str = None,
-        interface_params: str = None,
+        is_register_notify: str = None,
+        is_standard: str = None,
+        is_gen_secret: str = None,
+        service_provider: str = None,
+        control_param: str = None,
         action: str = None,
         operator_id: str = None,
         param_sign: str = None,
+        is_support_sec: str = None,
+        device_specs: int = None,
+        corp_id: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8810,32 +8856,40 @@ class OperateIotbasicControlconfigRequest(TeaModel):
         # 管控模式
         self.control_model = control_model
         # 是否上链--注册设备后需上链存证，记录存证hash
-        self.if_put_chain = if_put_chain
+        self.is_register_notify = is_register_notify
         # 是否标准设备-- 设备注册时 判断扩展属性 或展示时 显示扩展属性
-        self.if_standard_device = if_standard_device
+        self.is_standard = is_standard
         # 是否生成密钥--注册设备时 生成密钥对， 存到 设备公钥(public_key)、deviceSecrect
-        self.if_generate_screct = if_generate_screct
+        self.is_gen_secret = is_gen_secret
         # 接口地址
-        self.interface_address = interface_address
+        self.service_provider = service_provider
         # 接口参数
-        self.interface_params = interface_params
+        self.control_param = control_param
         # 操作类型
         self.action = action
         # 操作人id
         self.operator_id = operator_id
         # 参数签名校验
         self.param_sign = param_sign
+        # 是否接入安全认证
+        self.is_support_sec = is_support_sec
+        # 设备规格ID
+        self.device_specs = device_specs
+        # 厂商ID
+        self.corp_id = corp_id
 
     def validate(self):
         self.validate_required(self.category_code, 'category_code')
         self.validate_required(self.corp_name, 'corp_name')
         self.validate_required(self.control_model, 'control_model')
-        self.validate_required(self.if_put_chain, 'if_put_chain')
-        self.validate_required(self.if_standard_device, 'if_standard_device')
-        self.validate_required(self.if_generate_screct, 'if_generate_screct')
+        self.validate_required(self.is_register_notify, 'is_register_notify')
+        self.validate_required(self.is_standard, 'is_standard')
+        self.validate_required(self.is_gen_secret, 'is_gen_secret')
         self.validate_required(self.action, 'action')
         self.validate_required(self.operator_id, 'operator_id')
         self.validate_required(self.param_sign, 'param_sign')
+        self.validate_required(self.is_support_sec, 'is_support_sec')
+        self.validate_required(self.corp_id, 'corp_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -8855,22 +8909,28 @@ class OperateIotbasicControlconfigRequest(TeaModel):
             result['device_model'] = self.device_model
         if self.control_model is not None:
             result['control_model'] = self.control_model
-        if self.if_put_chain is not None:
-            result['if_put_chain'] = self.if_put_chain
-        if self.if_standard_device is not None:
-            result['if_standard_device'] = self.if_standard_device
-        if self.if_generate_screct is not None:
-            result['if_generate_screct'] = self.if_generate_screct
-        if self.interface_address is not None:
-            result['interface_address'] = self.interface_address
-        if self.interface_params is not None:
-            result['interface_params'] = self.interface_params
+        if self.is_register_notify is not None:
+            result['is_register_notify'] = self.is_register_notify
+        if self.is_standard is not None:
+            result['is_standard'] = self.is_standard
+        if self.is_gen_secret is not None:
+            result['is_gen_secret'] = self.is_gen_secret
+        if self.service_provider is not None:
+            result['service_provider'] = self.service_provider
+        if self.control_param is not None:
+            result['control_param'] = self.control_param
         if self.action is not None:
             result['action'] = self.action
         if self.operator_id is not None:
             result['operator_id'] = self.operator_id
         if self.param_sign is not None:
             result['param_sign'] = self.param_sign
+        if self.is_support_sec is not None:
+            result['is_support_sec'] = self.is_support_sec
+        if self.device_specs is not None:
+            result['device_specs'] = self.device_specs
+        if self.corp_id is not None:
+            result['corp_id'] = self.corp_id
         return result
 
     def from_map(self, m: dict = None):
@@ -8887,22 +8947,28 @@ class OperateIotbasicControlconfigRequest(TeaModel):
             self.device_model = m.get('device_model')
         if m.get('control_model') is not None:
             self.control_model = m.get('control_model')
-        if m.get('if_put_chain') is not None:
-            self.if_put_chain = m.get('if_put_chain')
-        if m.get('if_standard_device') is not None:
-            self.if_standard_device = m.get('if_standard_device')
-        if m.get('if_generate_screct') is not None:
-            self.if_generate_screct = m.get('if_generate_screct')
-        if m.get('interface_address') is not None:
-            self.interface_address = m.get('interface_address')
-        if m.get('interface_params') is not None:
-            self.interface_params = m.get('interface_params')
+        if m.get('is_register_notify') is not None:
+            self.is_register_notify = m.get('is_register_notify')
+        if m.get('is_standard') is not None:
+            self.is_standard = m.get('is_standard')
+        if m.get('is_gen_secret') is not None:
+            self.is_gen_secret = m.get('is_gen_secret')
+        if m.get('service_provider') is not None:
+            self.service_provider = m.get('service_provider')
+        if m.get('control_param') is not None:
+            self.control_param = m.get('control_param')
         if m.get('action') is not None:
             self.action = m.get('action')
         if m.get('operator_id') is not None:
             self.operator_id = m.get('operator_id')
         if m.get('param_sign') is not None:
             self.param_sign = m.get('param_sign')
+        if m.get('is_support_sec') is not None:
+            self.is_support_sec = m.get('is_support_sec')
+        if m.get('device_specs') is not None:
+            self.device_specs = m.get('device_specs')
+        if m.get('corp_id') is not None:
+            self.corp_id = m.get('corp_id')
         return self
 
 
@@ -9053,6 +9119,131 @@ class OperateIotbasicChainmodelRequest(TeaModel):
 
 
 class OperateIotbasicChainmodelResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class OperateIotbasicDeviceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_disable_list: List[DeviceDisableData] = None,
+        disable_operate_type: str = None,
+        status: str = None,
+        message: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备不可操作列表
+        self.device_disable_list = device_disable_list
+        # 不允许操作类型
+        # DISABLE_CHAGE：不允许变更租户
+        # DISABLE_EDIT：不允许编辑设备
+        # DISABLE_DEL：不允许删除设备
+        self.disable_operate_type = disable_operate_type
+        # 操作状态
+        self.status = status
+        # 不允许操作提示，操作状态为true时必须有值
+        self.message = message
+
+    def validate(self):
+        self.validate_required(self.device_disable_list, 'device_disable_list')
+        if self.device_disable_list:
+            for k in self.device_disable_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.disable_operate_type, 'disable_operate_type')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        result['device_disable_list'] = []
+        if self.device_disable_list is not None:
+            for k in self.device_disable_list:
+                result['device_disable_list'].append(k.to_map() if k else None)
+        if self.disable_operate_type is not None:
+            result['disable_operate_type'] = self.disable_operate_type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        self.device_disable_list = []
+        if m.get('device_disable_list') is not None:
+            for k in m.get('device_disable_list'):
+                temp_model = DeviceDisableData()
+                self.device_disable_list.append(temp_model.from_map(k))
+        if m.get('disable_operate_type') is not None:
+            self.disable_operate_type = m.get('disable_operate_type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
+class OperateIotbasicDeviceResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,

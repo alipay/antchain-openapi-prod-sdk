@@ -135,9 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.13',
-                    '_prod_code': 'BOT',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.7.18'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -239,9 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.13',
-                    '_prod_code': 'BOT',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.7.18'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1875,6 +1871,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.OperateIotbasicChainmodelResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.chainmodel.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_iotbasic_device(
+        self,
+        request: bot_models.OperateIotbasicDeviceRequest,
+    ) -> bot_models.OperateIotbasicDeviceResponse:
+        """
+        Description: IoT设备平台-设备不可操作标记更新
+        Summary: IoT设备平台-设备不可操作标记更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_iotbasic_device_ex(request, headers, runtime)
+
+    async def operate_iotbasic_device_async(
+        self,
+        request: bot_models.OperateIotbasicDeviceRequest,
+    ) -> bot_models.OperateIotbasicDeviceResponse:
+        """
+        Description: IoT设备平台-设备不可操作标记更新
+        Summary: IoT设备平台-设备不可操作标记更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_iotbasic_device_ex_async(request, headers, runtime)
+
+    def operate_iotbasic_device_ex(
+        self,
+        request: bot_models.OperateIotbasicDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateIotbasicDeviceResponse:
+        """
+        Description: IoT设备平台-设备不可操作标记更新
+        Summary: IoT设备平台-设备不可操作标记更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OperateIotbasicDeviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.device.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_iotbasic_device_ex_async(
+        self,
+        request: bot_models.OperateIotbasicDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateIotbasicDeviceResponse:
+        """
+        Description: IoT设备平台-设备不可操作标记更新
+        Summary: IoT设备平台-设备不可操作标记更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OperateIotbasicDeviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.device.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
