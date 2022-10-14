@@ -138,6 +138,8 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
                         {"sdk_version", "1.0.18"},
+                        {"_prod_code", "INTEGRATION_MACHINE"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -262,6 +264,8 @@ namespace AntChain.SDK.INTEGRATION_MACHINE
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
                         {"sdk_version", "1.0.18"},
+                        {"_prod_code", "INTEGRATION_MACHINE"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
