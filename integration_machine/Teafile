@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "INTEGRATION_MACHINE",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,7 +10,7 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-integration_machine:1.0.15",
+    "java": "com.antgroup.antchain.openapi:openapi-integration_machine:1.0.18",
     "go": "github.com/antchain-openapi-sdk-go/integration_machine/client:v1.0.18",
     "csharp": "AntChain.SDK.INTEGRATION_MACHINE:1.0.18",
     "ts": "@antchain/integration_machine:1.0.18",
