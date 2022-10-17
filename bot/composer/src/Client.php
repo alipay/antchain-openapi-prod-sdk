@@ -147,6 +147,8 @@ use AntChain\BOT\Models\OperateIotbasicDictionaryRequest;
 use AntChain\BOT\Models\OperateIotbasicDictionaryResponse;
 use AntChain\BOT\Models\OperateIotbasicPermissionRequest;
 use AntChain\BOT\Models\OperateIotbasicPermissionResponse;
+use AntChain\BOT\Models\OperateIotbasicProjectspaceRequest;
+use AntChain\BOT\Models\OperateIotbasicProjectspaceResponse;
 use AntChain\BOT\Models\OperateIotbasicRelrationRequest;
 use AntChain\BOT\Models\OperateIotbasicRelrationResponse;
 use AntChain\BOT\Models\OperateIotbasicUserRequest;
@@ -167,6 +169,14 @@ use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
 use AntChain\BOT\Models\PushCollectotBychainidRequest;
 use AntChain\BOT\Models\PushCollectotBychainidResponse;
+use AntChain\BOT\Models\PushRentBillRequest;
+use AntChain\BOT\Models\PushRentBillResponse;
+use AntChain\BOT\Models\PushRentHouseRequest;
+use AntChain\BOT\Models\PushRentHouseResponse;
+use AntChain\BOT\Models\PushRentMerchantRequest;
+use AntChain\BOT\Models\PushRentMerchantResponse;
+use AntChain\BOT\Models\PushRentRenterRequest;
+use AntChain\BOT\Models\PushRentRenterResponse;
 use AntChain\BOT\Models\QueryAiidentificationGoodspointRequest;
 use AntChain\BOT\Models\QueryAiidentificationGoodspointResponse;
 use AntChain\BOT\Models\QueryAiidentificationGoodsRequest;
@@ -213,6 +223,8 @@ use AntChain\BOT\Models\QueryTlsnotaryTaskRequest;
 use AntChain\BOT\Models\QueryTlsnotaryTaskResponse;
 use AntChain\BOT\Models\RecognizeIotbasicCustomerRequest;
 use AntChain\BOT\Models\RecognizeIotbasicCustomerResponse;
+use AntChain\BOT\Models\RegisterAiidentificationDigitalfingerprintRequest;
+use AntChain\BOT\Models\RegisterAiidentificationDigitalfingerprintResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidRequest;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidRequest;
@@ -255,6 +267,8 @@ use AntChain\BOT\Models\SyncLabelTransferrawRequest;
 use AntChain\BOT\Models\SyncLabelTransferrawResponse;
 use AntChain\BOT\Models\SyncLabelTransferRequest;
 use AntChain\BOT\Models\SyncLabelTransferResponse;
+use AntChain\BOT\Models\SyncRentRentpaymentRequest;
+use AntChain\BOT\Models\SyncRentRentpaymentResponse;
 use AntChain\BOT\Models\UpdateAlertStrategyRequest;
 use AntChain\BOT\Models\UpdateAlertStrategyResponse;
 use AntChain\BOT\Models\UpdateCustomerEntityRequest;
@@ -432,7 +446,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.24',
+                    'sdk_version'      => '1.7.26',
+                    '_prod_code'       => 'BOT',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -956,6 +972,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryAiidentificationGoodspointResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.goodspoint.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AI数字指纹注册
+     * Summary: AI数字指纹注册.
+     *
+     * @param RegisterAiidentificationDigitalfingerprintRequest $request
+     *
+     * @return RegisterAiidentificationDigitalfingerprintResponse
+     */
+    public function registerAiidentificationDigitalfingerprint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerAiidentificationDigitalfingerprintEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AI数字指纹注册
+     * Summary: AI数字指纹注册.
+     *
+     * @param RegisterAiidentificationDigitalfingerprintRequest $request
+     * @param string[]                                          $headers
+     * @param RuntimeOptions                                    $runtime
+     *
+     * @return RegisterAiidentificationDigitalfingerprintResponse
+     */
+    public function registerAiidentificationDigitalfingerprintEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterAiidentificationDigitalfingerprintResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.digitalfingerprint.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1649,6 +1698,204 @@ class Client
         Utils::validateModel($request);
 
         return OperateIotbasicDevicecollectResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.devicecollect.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-项目空间数据维护
+     * Summary: IoT设备平台-项目空间数据维护.
+     *
+     * @param OperateIotbasicProjectspaceRequest $request
+     *
+     * @return OperateIotbasicProjectspaceResponse
+     */
+    public function operateIotbasicProjectspace($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateIotbasicProjectspaceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-项目空间数据维护
+     * Summary: IoT设备平台-项目空间数据维护.
+     *
+     * @param OperateIotbasicProjectspaceRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return OperateIotbasicProjectspaceResponse
+     */
+    public function operateIotbasicProjectspaceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateIotbasicProjectspaceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.projectspace.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租房saas-企业信息同步(个人房东)
+     * Summary: 租房saas-企业信息同步(个人房东).
+     *
+     * @param PushRentMerchantRequest $request
+     *
+     * @return PushRentMerchantResponse
+     */
+    public function pushRentMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushRentMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租房saas-企业信息同步(个人房东)
+     * Summary: 租房saas-企业信息同步(个人房东).
+     *
+     * @param PushRentMerchantRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return PushRentMerchantResponse
+     */
+    public function pushRentMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushRentMerchantResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.rent.merchant.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租房saas-业主账单信息同步
+     * Summary: 租房saas-业主账单信息同步.
+     *
+     * @param PushRentBillRequest $request
+     *
+     * @return PushRentBillResponse
+     */
+    public function pushRentBill($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushRentBillEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租房saas-业主账单信息同步
+     * Summary: 租房saas-业主账单信息同步.
+     *
+     * @param PushRentBillRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return PushRentBillResponse
+     */
+    public function pushRentBillEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushRentBillResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.rent.bill.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租房saas-租客入住信息同步
+     * Summary: 租房saas-租客入住信息同步.
+     *
+     * @param PushRentRenterRequest $request
+     *
+     * @return PushRentRenterResponse
+     */
+    public function pushRentRenter($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushRentRenterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租房saas-租客入住信息同步
+     * Summary: 租房saas-租客入住信息同步.
+     *
+     * @param PushRentRenterRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return PushRentRenterResponse
+     */
+    public function pushRentRenterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushRentRenterResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.rent.renter.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租房saas-租金缴纳支付状态通知
+     * Summary: 租房saas-租金缴纳支付状态通知.
+     *
+     * @param SyncRentRentpaymentRequest $request
+     *
+     * @return SyncRentRentpaymentResponse
+     */
+    public function syncRentRentpayment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncRentRentpaymentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租房saas-租金缴纳支付状态通知
+     * Summary: 租房saas-租金缴纳支付状态通知.
+     *
+     * @param SyncRentRentpaymentRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return SyncRentRentpaymentResponse
+     */
+    public function syncRentRentpaymentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncRentRentpaymentResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.rent.rentpayment.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 租房saas-房源信息同步
+     * Summary: 租房saas-房源信息同步.
+     *
+     * @param PushRentHouseRequest $request
+     *
+     * @return PushRentHouseResponse
+     */
+    public function pushRentHouse($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushRentHouseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 租房saas-房源信息同步
+     * Summary: 租房saas-房源信息同步.
+     *
+     * @param PushRentHouseRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return PushRentHouseResponse
+     */
+    public function pushRentHouseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushRentHouseResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.rent.house.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
