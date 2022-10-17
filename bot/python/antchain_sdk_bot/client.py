@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.24'
+                    'sdk_version': '1.7.26',
+                    '_prod_code': 'BOT',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.24'
+                    'sdk_version': '1.7.26',
+                    '_prod_code': 'BOT',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1087,6 +1091,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryAiidentificationGoodspointResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.aiidentification.goodspoint.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_aiidentification_digitalfingerprint(
+        self,
+        request: bot_models.RegisterAiidentificationDigitalfingerprintRequest,
+    ) -> bot_models.RegisterAiidentificationDigitalfingerprintResponse:
+        """
+        Description: AI数字指纹注册
+        Summary: AI数字指纹注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_aiidentification_digitalfingerprint_ex(request, headers, runtime)
+
+    async def register_aiidentification_digitalfingerprint_async(
+        self,
+        request: bot_models.RegisterAiidentificationDigitalfingerprintRequest,
+    ) -> bot_models.RegisterAiidentificationDigitalfingerprintResponse:
+        """
+        Description: AI数字指纹注册
+        Summary: AI数字指纹注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_aiidentification_digitalfingerprint_ex_async(request, headers, runtime)
+
+    def register_aiidentification_digitalfingerprint_ex(
+        self,
+        request: bot_models.RegisterAiidentificationDigitalfingerprintRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.RegisterAiidentificationDigitalfingerprintResponse:
+        """
+        Description: AI数字指纹注册
+        Summary: AI数字指纹注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.RegisterAiidentificationDigitalfingerprintResponse(),
+            self.do_request('1.0', 'blockchain.bot.aiidentification.digitalfingerprint.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_aiidentification_digitalfingerprint_ex_async(
+        self,
+        request: bot_models.RegisterAiidentificationDigitalfingerprintRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.RegisterAiidentificationDigitalfingerprintResponse:
+        """
+        Description: AI数字指纹注册
+        Summary: AI数字指纹注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.RegisterAiidentificationDigitalfingerprintResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.aiidentification.digitalfingerprint.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_acs_device(
@@ -2263,6 +2323,342 @@ class Client:
         return TeaCore.from_map(
             bot_models.OperateIotbasicDevicecollectResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.devicecollect.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_iotbasic_projectspace(
+        self,
+        request: bot_models.OperateIotbasicProjectspaceRequest,
+    ) -> bot_models.OperateIotbasicProjectspaceResponse:
+        """
+        Description: IoT设备平台-项目空间数据维护
+        Summary: IoT设备平台-项目空间数据维护
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_iotbasic_projectspace_ex(request, headers, runtime)
+
+    async def operate_iotbasic_projectspace_async(
+        self,
+        request: bot_models.OperateIotbasicProjectspaceRequest,
+    ) -> bot_models.OperateIotbasicProjectspaceResponse:
+        """
+        Description: IoT设备平台-项目空间数据维护
+        Summary: IoT设备平台-项目空间数据维护
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_iotbasic_projectspace_ex_async(request, headers, runtime)
+
+    def operate_iotbasic_projectspace_ex(
+        self,
+        request: bot_models.OperateIotbasicProjectspaceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateIotbasicProjectspaceResponse:
+        """
+        Description: IoT设备平台-项目空间数据维护
+        Summary: IoT设备平台-项目空间数据维护
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OperateIotbasicProjectspaceResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.projectspace.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_iotbasic_projectspace_ex_async(
+        self,
+        request: bot_models.OperateIotbasicProjectspaceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OperateIotbasicProjectspaceResponse:
+        """
+        Description: IoT设备平台-项目空间数据维护
+        Summary: IoT设备平台-项目空间数据维护
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OperateIotbasicProjectspaceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.projectspace.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_rent_merchant(
+        self,
+        request: bot_models.PushRentMerchantRequest,
+    ) -> bot_models.PushRentMerchantResponse:
+        """
+        Description: 租房saas-企业信息同步(个人房东)
+        Summary: 租房saas-企业信息同步(个人房东)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_rent_merchant_ex(request, headers, runtime)
+
+    async def push_rent_merchant_async(
+        self,
+        request: bot_models.PushRentMerchantRequest,
+    ) -> bot_models.PushRentMerchantResponse:
+        """
+        Description: 租房saas-企业信息同步(个人房东)
+        Summary: 租房saas-企业信息同步(个人房东)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_rent_merchant_ex_async(request, headers, runtime)
+
+    def push_rent_merchant_ex(
+        self,
+        request: bot_models.PushRentMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushRentMerchantResponse:
+        """
+        Description: 租房saas-企业信息同步(个人房东)
+        Summary: 租房saas-企业信息同步(个人房东)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushRentMerchantResponse(),
+            self.do_request('1.0', 'blockchain.bot.rent.merchant.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_rent_merchant_ex_async(
+        self,
+        request: bot_models.PushRentMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushRentMerchantResponse:
+        """
+        Description: 租房saas-企业信息同步(个人房东)
+        Summary: 租房saas-企业信息同步(个人房东)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushRentMerchantResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.rent.merchant.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_rent_bill(
+        self,
+        request: bot_models.PushRentBillRequest,
+    ) -> bot_models.PushRentBillResponse:
+        """
+        Description: 租房saas-业主账单信息同步
+        Summary: 租房saas-业主账单信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_rent_bill_ex(request, headers, runtime)
+
+    async def push_rent_bill_async(
+        self,
+        request: bot_models.PushRentBillRequest,
+    ) -> bot_models.PushRentBillResponse:
+        """
+        Description: 租房saas-业主账单信息同步
+        Summary: 租房saas-业主账单信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_rent_bill_ex_async(request, headers, runtime)
+
+    def push_rent_bill_ex(
+        self,
+        request: bot_models.PushRentBillRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushRentBillResponse:
+        """
+        Description: 租房saas-业主账单信息同步
+        Summary: 租房saas-业主账单信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushRentBillResponse(),
+            self.do_request('1.0', 'blockchain.bot.rent.bill.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_rent_bill_ex_async(
+        self,
+        request: bot_models.PushRentBillRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushRentBillResponse:
+        """
+        Description: 租房saas-业主账单信息同步
+        Summary: 租房saas-业主账单信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushRentBillResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.rent.bill.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_rent_renter(
+        self,
+        request: bot_models.PushRentRenterRequest,
+    ) -> bot_models.PushRentRenterResponse:
+        """
+        Description: 租房saas-租客入住信息同步
+        Summary: 租房saas-租客入住信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_rent_renter_ex(request, headers, runtime)
+
+    async def push_rent_renter_async(
+        self,
+        request: bot_models.PushRentRenterRequest,
+    ) -> bot_models.PushRentRenterResponse:
+        """
+        Description: 租房saas-租客入住信息同步
+        Summary: 租房saas-租客入住信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_rent_renter_ex_async(request, headers, runtime)
+
+    def push_rent_renter_ex(
+        self,
+        request: bot_models.PushRentRenterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushRentRenterResponse:
+        """
+        Description: 租房saas-租客入住信息同步
+        Summary: 租房saas-租客入住信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushRentRenterResponse(),
+            self.do_request('1.0', 'blockchain.bot.rent.renter.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_rent_renter_ex_async(
+        self,
+        request: bot_models.PushRentRenterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushRentRenterResponse:
+        """
+        Description: 租房saas-租客入住信息同步
+        Summary: 租房saas-租客入住信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushRentRenterResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.rent.renter.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_rent_rentpayment(
+        self,
+        request: bot_models.SyncRentRentpaymentRequest,
+    ) -> bot_models.SyncRentRentpaymentResponse:
+        """
+        Description: 租房saas-租金缴纳支付状态通知
+        Summary: 租房saas-租金缴纳支付状态通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_rent_rentpayment_ex(request, headers, runtime)
+
+    async def sync_rent_rentpayment_async(
+        self,
+        request: bot_models.SyncRentRentpaymentRequest,
+    ) -> bot_models.SyncRentRentpaymentResponse:
+        """
+        Description: 租房saas-租金缴纳支付状态通知
+        Summary: 租房saas-租金缴纳支付状态通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_rent_rentpayment_ex_async(request, headers, runtime)
+
+    def sync_rent_rentpayment_ex(
+        self,
+        request: bot_models.SyncRentRentpaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncRentRentpaymentResponse:
+        """
+        Description: 租房saas-租金缴纳支付状态通知
+        Summary: 租房saas-租金缴纳支付状态通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SyncRentRentpaymentResponse(),
+            self.do_request('1.0', 'blockchain.bot.rent.rentpayment.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_rent_rentpayment_ex_async(
+        self,
+        request: bot_models.SyncRentRentpaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncRentRentpaymentResponse:
+        """
+        Description: 租房saas-租金缴纳支付状态通知
+        Summary: 租房saas-租金缴纳支付状态通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SyncRentRentpaymentResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.rent.rentpayment.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_rent_house(
+        self,
+        request: bot_models.PushRentHouseRequest,
+    ) -> bot_models.PushRentHouseResponse:
+        """
+        Description: 租房saas-房源信息同步
+        Summary: 租房saas-房源信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_rent_house_ex(request, headers, runtime)
+
+    async def push_rent_house_async(
+        self,
+        request: bot_models.PushRentHouseRequest,
+    ) -> bot_models.PushRentHouseResponse:
+        """
+        Description: 租房saas-房源信息同步
+        Summary: 租房saas-房源信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_rent_house_ex_async(request, headers, runtime)
+
+    def push_rent_house_ex(
+        self,
+        request: bot_models.PushRentHouseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushRentHouseResponse:
+        """
+        Description: 租房saas-房源信息同步
+        Summary: 租房saas-房源信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushRentHouseResponse(),
+            self.do_request('1.0', 'blockchain.bot.rent.house.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_rent_house_ex_async(
+        self,
+        request: bot_models.PushRentHouseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushRentHouseResponse:
+        """
+        Description: 租房saas-房源信息同步
+        Summary: 租房saas-房源信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushRentHouseResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.rent.house.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
