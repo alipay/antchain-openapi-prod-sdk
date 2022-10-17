@@ -100,9 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.26',
-    _prod_code = 'BOT',
-    _prod_channel = 'undefined'
+    sdk_version = '1.7.27',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -3557,7 +3555,7 @@ model PushRentBillRequest = {
   // 风险干预日期天数
   riskRange: string(name='risk_range'),
   // 账单租期集合
-  billItemList: string(name='bill_item_list'),
+  billItemList: RentBillItem(name='bill_item_list'),
 }
 
 model PushRentBillResponse = {
