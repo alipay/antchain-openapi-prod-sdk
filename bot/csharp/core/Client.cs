@@ -137,7 +137,9 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.24"},
+                        {"sdk_version", "1.7.26"},
+                        {"_prod_code", "BOT"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.24"},
+                        {"sdk_version", "1.7.26"},
+                        {"_prod_code", "BOT"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -949,6 +953,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAiidentificationGoodspointResponse>(await DoRequestAsync("1.0", "blockchain.bot.aiidentification.goodspoint.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AI数字指纹注册
+         * Summary: AI数字指纹注册
+         */
+        public RegisterAiidentificationDigitalfingerprintResponse RegisterAiidentificationDigitalfingerprint(RegisterAiidentificationDigitalfingerprintRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterAiidentificationDigitalfingerprintEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: AI数字指纹注册
+         * Summary: AI数字指纹注册
+         */
+        public async Task<RegisterAiidentificationDigitalfingerprintResponse> RegisterAiidentificationDigitalfingerprintAsync(RegisterAiidentificationDigitalfingerprintRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterAiidentificationDigitalfingerprintExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: AI数字指纹注册
+         * Summary: AI数字指纹注册
+         */
+        public RegisterAiidentificationDigitalfingerprintResponse RegisterAiidentificationDigitalfingerprintEx(RegisterAiidentificationDigitalfingerprintRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterAiidentificationDigitalfingerprintResponse>(DoRequest("1.0", "blockchain.bot.aiidentification.digitalfingerprint.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AI数字指纹注册
+         * Summary: AI数字指纹注册
+         */
+        public async Task<RegisterAiidentificationDigitalfingerprintResponse> RegisterAiidentificationDigitalfingerprintExAsync(RegisterAiidentificationDigitalfingerprintRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterAiidentificationDigitalfingerprintResponse>(await DoRequestAsync("1.0", "blockchain.bot.aiidentification.digitalfingerprint.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -1831,6 +1877,258 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OperateIotbasicDevicecollectResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.devicecollect.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-项目空间数据维护
+         * Summary: IoT设备平台-项目空间数据维护
+         */
+        public OperateIotbasicProjectspaceResponse OperateIotbasicProjectspace(OperateIotbasicProjectspaceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateIotbasicProjectspaceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-项目空间数据维护
+         * Summary: IoT设备平台-项目空间数据维护
+         */
+        public async Task<OperateIotbasicProjectspaceResponse> OperateIotbasicProjectspaceAsync(OperateIotbasicProjectspaceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateIotbasicProjectspaceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-项目空间数据维护
+         * Summary: IoT设备平台-项目空间数据维护
+         */
+        public OperateIotbasicProjectspaceResponse OperateIotbasicProjectspaceEx(OperateIotbasicProjectspaceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateIotbasicProjectspaceResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.projectspace.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-项目空间数据维护
+         * Summary: IoT设备平台-项目空间数据维护
+         */
+        public async Task<OperateIotbasicProjectspaceResponse> OperateIotbasicProjectspaceExAsync(OperateIotbasicProjectspaceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateIotbasicProjectspaceResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.projectspace.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租房saas-企业信息同步(个人房东)
+         * Summary: 租房saas-企业信息同步(个人房东)
+         */
+        public PushRentMerchantResponse PushRentMerchant(PushRentMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushRentMerchantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租房saas-企业信息同步(个人房东)
+         * Summary: 租房saas-企业信息同步(个人房东)
+         */
+        public async Task<PushRentMerchantResponse> PushRentMerchantAsync(PushRentMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushRentMerchantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租房saas-企业信息同步(个人房东)
+         * Summary: 租房saas-企业信息同步(个人房东)
+         */
+        public PushRentMerchantResponse PushRentMerchantEx(PushRentMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRentMerchantResponse>(DoRequest("1.0", "blockchain.bot.rent.merchant.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租房saas-企业信息同步(个人房东)
+         * Summary: 租房saas-企业信息同步(个人房东)
+         */
+        public async Task<PushRentMerchantResponse> PushRentMerchantExAsync(PushRentMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRentMerchantResponse>(await DoRequestAsync("1.0", "blockchain.bot.rent.merchant.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租房saas-业主账单信息同步
+         * Summary: 租房saas-业主账单信息同步
+         */
+        public PushRentBillResponse PushRentBill(PushRentBillRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushRentBillEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租房saas-业主账单信息同步
+         * Summary: 租房saas-业主账单信息同步
+         */
+        public async Task<PushRentBillResponse> PushRentBillAsync(PushRentBillRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushRentBillExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租房saas-业主账单信息同步
+         * Summary: 租房saas-业主账单信息同步
+         */
+        public PushRentBillResponse PushRentBillEx(PushRentBillRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRentBillResponse>(DoRequest("1.0", "blockchain.bot.rent.bill.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租房saas-业主账单信息同步
+         * Summary: 租房saas-业主账单信息同步
+         */
+        public async Task<PushRentBillResponse> PushRentBillExAsync(PushRentBillRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRentBillResponse>(await DoRequestAsync("1.0", "blockchain.bot.rent.bill.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租房saas-租客入住信息同步
+         * Summary: 租房saas-租客入住信息同步
+         */
+        public PushRentRenterResponse PushRentRenter(PushRentRenterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushRentRenterEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租房saas-租客入住信息同步
+         * Summary: 租房saas-租客入住信息同步
+         */
+        public async Task<PushRentRenterResponse> PushRentRenterAsync(PushRentRenterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushRentRenterExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租房saas-租客入住信息同步
+         * Summary: 租房saas-租客入住信息同步
+         */
+        public PushRentRenterResponse PushRentRenterEx(PushRentRenterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRentRenterResponse>(DoRequest("1.0", "blockchain.bot.rent.renter.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租房saas-租客入住信息同步
+         * Summary: 租房saas-租客入住信息同步
+         */
+        public async Task<PushRentRenterResponse> PushRentRenterExAsync(PushRentRenterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRentRenterResponse>(await DoRequestAsync("1.0", "blockchain.bot.rent.renter.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租房saas-租金缴纳支付状态通知
+         * Summary: 租房saas-租金缴纳支付状态通知
+         */
+        public SyncRentRentpaymentResponse SyncRentRentpayment(SyncRentRentpaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncRentRentpaymentEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租房saas-租金缴纳支付状态通知
+         * Summary: 租房saas-租金缴纳支付状态通知
+         */
+        public async Task<SyncRentRentpaymentResponse> SyncRentRentpaymentAsync(SyncRentRentpaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncRentRentpaymentExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租房saas-租金缴纳支付状态通知
+         * Summary: 租房saas-租金缴纳支付状态通知
+         */
+        public SyncRentRentpaymentResponse SyncRentRentpaymentEx(SyncRentRentpaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncRentRentpaymentResponse>(DoRequest("1.0", "blockchain.bot.rent.rentpayment.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租房saas-租金缴纳支付状态通知
+         * Summary: 租房saas-租金缴纳支付状态通知
+         */
+        public async Task<SyncRentRentpaymentResponse> SyncRentRentpaymentExAsync(SyncRentRentpaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncRentRentpaymentResponse>(await DoRequestAsync("1.0", "blockchain.bot.rent.rentpayment.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租房saas-房源信息同步
+         * Summary: 租房saas-房源信息同步
+         */
+        public PushRentHouseResponse PushRentHouse(PushRentHouseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushRentHouseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租房saas-房源信息同步
+         * Summary: 租房saas-房源信息同步
+         */
+        public async Task<PushRentHouseResponse> PushRentHouseAsync(PushRentHouseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushRentHouseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 租房saas-房源信息同步
+         * Summary: 租房saas-房源信息同步
+         */
+        public PushRentHouseResponse PushRentHouseEx(PushRentHouseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRentHouseResponse>(DoRequest("1.0", "blockchain.bot.rent.house.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 租房saas-房源信息同步
+         * Summary: 租房saas-房源信息同步
+         */
+        public async Task<PushRentHouseResponse> PushRentHouseExAsync(PushRentHouseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRentHouseResponse>(await DoRequestAsync("1.0", "blockchain.bot.rent.house.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
