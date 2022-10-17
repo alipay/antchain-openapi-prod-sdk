@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.24',
+    sdk_version = '1.7.26',
+    _prod_code = 'BOT',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -181,6 +183,14 @@ model IotBasicPermissionData {
   permissionType: string(name='permission_type', example='权限类型'),
   // 权限模块
   module: string(name='module', example='权限模块'),
+}
+
+// 商品数字指纹鉴定点
+model GoodsDigitalFingerprintPoint {
+  // 鉴定点子项
+  subPointName: string(name='sub_point_name', example='正面'),
+  // 鉴定点图片url
+  imageUrl: string(name='image_url', example='图片url'),
 }
 
 // 告警策略
@@ -401,6 +411,18 @@ model BaiGoodsPointIdentificationResult {
 model BaiQrcodeVerifyReqData {
   // 二维码图片url
   queryImageUrl: string(name='query_image_url', example='http://xxxxxx'),
+}
+
+// 租赁合同信息
+model RentContractInfo {
+  // 租赁合同ID
+  contractId: string(name='contract_id', example='2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2'),
+  // 租约时间 
+  leaseTime: string(name='lease_time', example='6个月 或 1年'),
+  // 入住时间
+  checkinDate: string(name='checkin_date', example='2006-01-02 15:04:05'),
+  // 退租时间
+  checkoutDate: string(name='checkout_date', example='2018-10-10T10:10:00Z'),
 }
 
 // Sdk分页查询结果
@@ -765,6 +787,12 @@ model SendCollectorResult {
   txHash: string(name='tx_hash', example='2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2'),
 }
 
+// 指纹图片入库是否成功
+model GoodsDigitalFingerprintRegisterResultData {
+  // 指纹图片入库是否成功
+  success: boolean(name='success', example='true'),
+}
+
 // 设备不可操作标识类
 model DeviceDisableData {
   // 设备sn号
@@ -841,6 +869,25 @@ model ScfLeaseEqpInfo {
   deviceAcceptanceDate?: string(name='device_acceptance_date', example='2021-07-20 11:33:59'),
   // 数据更新时间
   dataUpdateTime?: string(name='data_update_time', example='2021-07-20 11:32:35'),
+}
+
+// 房源信息同步实体类
+model HouseInfo {
+  // 房源唯一ID
+  houseId: string(name='house_id', example='a87'),
+  // 租赁模式
+  leaseMode?: string(name='lease_mode', example='合租'),
+  // 面积平方
+  acreage?: string(name='acreage', example='120㎡'),
+  // 房源类型：0住宅、1别墅、
+  // 2商铺、3写字楼
+  structure: long(name='structure', example='0'),
+  // 房屋地址
+  addr?: string(name='addr', example='hz'),
+  // 门锁设备DID
+  lockId: string(name='lock_id', example='L91923'),
+  // 电表设备DID
+  ammeterId: string(name='ammeter_id', example='A87345'),
 }
 
 // 设备硬件模块信息体
@@ -923,6 +970,22 @@ model CollectContent {
   extraData?: string(name='extra_data', example='{"extraKey":"extraValue"}'),
   // 数据模型Id
   dataModelId?: string(name='data_model_id', example='00000001'),
+}
+
+// 租期信息
+model RentBillItem {
+  // 租约分期ID
+  billItemId: string(name='bill_item_id', example='12321321'),
+  // 租约分期名称
+  billItemName?: string(name='bill_item_name', example='第几期'),
+  // 租期开始日期
+  billItemBegin: string(name='bill_item_begin', example='2006-01-02 15:04:05'),
+  // 租期结束日期 
+  billItemEnd: string(name='bill_item_end', example='2006-02-02 15:04:05'),
+  // 租约金额
+  billItemMoney: string(name='bill_item_money', example='5000'),
+  // 租约支付状态
+  paymentState?: string(name='payment_state', example='待支付，已支付，支付失败'),
 }
 
 // 溯源二维码生成请求的请求数据
@@ -1552,6 +1615,18 @@ model IotBasicDeviceSpecs {
   specsValue: string(name='specs_value', example='规格编码'),
   // 规格参数
   specsParam: string(name='specs_param', example='规格参数'),
+}
+
+// 商品数字指纹
+model GoodsDigitalFingerprintInfo {
+  // 品类
+  category: string(name='category', example='奢侈品'),
+  // 品牌
+  brand: string(name='brand', example='GUCCI'),
+  // 款式
+  style: string(name='style', example='Gucci Diana'),
+  // 商品数字指纹鉴定点列表
+  goodsPoints: GoodsDigitalFingerprintPoint(name='goods_points', example='{"sub_point_name":"正面","image_url":"http://xxxx1001"}'),
 }
 
 // 具备实体权限访问者更新请求
@@ -2218,6 +2293,46 @@ async function queryAiidentificationGoodspoint(request: QueryAiidentificationGoo
 async function queryAiidentificationGoodspointEx(request: QueryAiidentificationGoodspointRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAiidentificationGoodspointResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.aiidentification.goodspoint.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterAiidentificationDigitalfingerprintRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户身份标识
+  appKey: string(name='app_key'),
+  // 商品数字指纹信息
+  goodsInfo: GoodsDigitalFingerprintInfo(name='goods_info'),
+}
+
+model RegisterAiidentificationDigitalfingerprintResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 指纹图片入库是否成功
+  data?: GoodsDigitalFingerprintRegisterResultData(name='data'),
+}
+
+/**
+ * Description: AI数字指纹注册
+ * Summary: AI数字指纹注册
+ */
+async function registerAiidentificationDigitalfingerprint(request: RegisterAiidentificationDigitalfingerprintRequest): RegisterAiidentificationDigitalfingerprintResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerAiidentificationDigitalfingerprintEx(request, headers, runtime);
+}
+
+/**
+ * Description: AI数字指纹注册
+ * Summary: AI数字指纹注册
+ */
+async function registerAiidentificationDigitalfingerprintEx(request: RegisterAiidentificationDigitalfingerprintRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterAiidentificationDigitalfingerprintResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.aiidentification.digitalfingerprint.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAcsDeviceRequest = {
@@ -3307,6 +3422,304 @@ async function operateIotbasicDevicecollect(request: OperateIotbasicDevicecollec
 async function operateIotbasicDevicecollectEx(request: OperateIotbasicDevicecollectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateIotbasicDevicecollectResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.iotbasic.devicecollect.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateIotbasicProjectspaceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目空间id
+  id?: long(name='id'),
+  // 项目名称
+  projectName?: string(name='project_name'),
+  // 项目编码（device_base表字段biz_scene）
+  projectCode?: string(name='project_code'),
+  // 项目描述
+  projectDesc?: string(name='project_desc'),
+  // 项目负责人（PD）
+  projectLeader?: string(name='project_leader'),
+  // 上链ID（数据上到哪个业务链）
+  upchainId?: string(name='upchain_id'),
+  // 上链方式（通过IOT可信平台，banRest）
+  upchainType?: string(name='upchain_type'),
+  // 上链参数（账号，秘钥），json字符串格式
+  upchainParams?: string(name='upchain_params'),
+  // 是否上链
+  isUpchain?: boolean(name='is_upchain'),
+  // 操作类型
+  action: string(name='action'),
+  // 操作人id
+  operatorId: string(name='operator_id'),
+  // 参数签名校验
+  paramSign: string(name='param_sign'),
+}
+
+model OperateIotbasicProjectspaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: IoT设备平台-项目空间数据维护
+ * Summary: IoT设备平台-项目空间数据维护
+ */
+async function operateIotbasicProjectspace(request: OperateIotbasicProjectspaceRequest): OperateIotbasicProjectspaceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateIotbasicProjectspaceEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-项目空间数据维护
+ * Summary: IoT设备平台-项目空间数据维护
+ */
+async function operateIotbasicProjectspaceEx(request: OperateIotbasicProjectspaceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateIotbasicProjectspaceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.projectspace.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushRentMerchantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 企业法人名称(个人可空)
+  legalPersonName?: string(name='legal_person_name'),
+  // 企业法人证件号(个人可空)
+  legalPersionIdcard?: string(name='legal_persion_idcard'),
+  // 企业名称(个人名称)
+  merchantName: string(name='merchant_name'),
+  // 企业社会信用代码(个人身份证)
+  merchantCreditNo: string(name='merchant_credit_no'),
+  // 支付宝监管户账号
+  alipayAccount?: string(name='alipay_account'),
+  // 个人或企业
+  // 个人：P
+  // 企业：E
+  merchantType: string(name='merchant_type'),
+  // 企业联系人
+  contacts?: string(name='contacts'),
+  // 企业位置
+  addr?: string(name='addr'),
+}
+
+model PushRentMerchantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 租房saas-企业信息同步(个人房东)
+ * Summary: 租房saas-企业信息同步(个人房东)
+ */
+async function pushRentMerchant(request: PushRentMerchantRequest): PushRentMerchantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushRentMerchantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租房saas-企业信息同步(个人房东)
+ * Summary: 租房saas-企业信息同步(个人房东)
+ */
+async function pushRentMerchantEx(request: PushRentMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushRentMerchantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.rent.merchant.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushRentBillRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业主房屋账单ID(
+  leaseBillId: string(name='lease_bill_id'),
+  // 房源ID
+  houseId: string(name='house_id'),
+  // 总账单开始日期
+  billBeginDate: string(name='bill_begin_date'),
+  // 总账单结束日期
+  billEndDate: string(name='bill_end_date'),
+  // 总账单金额
+  billMoney: string(name='bill_money'),
+  // 提醒缴租日期范围(天数)
+  remindRange: string(name='remind_range'),
+  // 逾期未缴租警告日期范围(天数)
+  warnRange: string(name='warn_range'),
+  // 风险干预日期天数
+  riskRange: string(name='risk_range'),
+  // 账单租期集合
+  billItemList: string(name='bill_item_list'),
+}
+
+model PushRentBillResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 租房saas-业主账单信息同步
+ * Summary: 租房saas-业主账单信息同步
+ */
+async function pushRentBill(request: PushRentBillRequest): PushRentBillResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushRentBillEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租房saas-业主账单信息同步
+ * Summary: 租房saas-业主账单信息同步
+ */
+async function pushRentBillEx(request: PushRentBillRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushRentBillResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.rent.bill.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushRentRenterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租客id
+  renterId: string(name='renter_id'),
+  // 租客名称
+  renterName: string(name='renter_name'),
+  // 租客联系电话
+  renterPhone: string(name='renter_phone'),
+  // 租客身份证号
+  renterIdCard?: string(name='renter_id_card'),
+  // 房源唯一ID
+  houseId: string(name='house_id'),
+  // 租赁合同信息
+  rentContract: RentContractInfo(name='rent_contract'),
+  // 企业(业主)身份识别码
+  merchantIdCard: string(name='merchant_id_card'),
+}
+
+model PushRentRenterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 租房saas-租客入住信息同步
+ * Summary: 租房saas-租客入住信息同步
+ */
+async function pushRentRenter(request: PushRentRenterRequest): PushRentRenterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushRentRenterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租房saas-租客入住信息同步
+ * Summary: 租房saas-租客入住信息同步
+ */
+async function pushRentRenterEx(request: PushRentRenterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushRentRenterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.rent.renter.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncRentRentpaymentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租金缴纳账单ID
+  leaseBillId: string(name='lease_bill_id'),
+  // 租约分期ID
+  billItemId: string(name='bill_item_id'),
+  // 租约支付状态
+  paymentState: string(name='payment_state'),
+  // 支付操作日期，已支付或支付失败需要有值
+  paymentDate?: string(name='payment_date'),
+}
+
+model SyncRentRentpaymentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 租房saas-租金缴纳支付状态通知
+ * Summary: 租房saas-租金缴纳支付状态通知
+ */
+async function syncRentRentpayment(request: SyncRentRentpaymentRequest): SyncRentRentpaymentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncRentRentpaymentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租房saas-租金缴纳支付状态通知
+ * Summary: 租房saas-租金缴纳支付状态通知
+ */
+async function syncRentRentpaymentEx(request: SyncRentRentpaymentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncRentRentpaymentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.rent.rentpayment.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushRentHouseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 房源信息集合 数组
+  houseList: [ HouseInfo ](name='house_list'),
+  // 企业(业主)身份识别码
+  merchantIdCard: string(name='merchant_id_card'),
+  // 联系电话
+  phone?: string(name='phone'),
+  // 联系人
+  contract?: string(name='contract'),
+  // 对应会员用户id
+  userId?: string(name='user_id'),
+}
+
+model PushRentHouseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 租房saas-房源信息同步
+ * Summary: 租房saas-房源信息同步
+ */
+async function pushRentHouse(request: PushRentHouseRequest): PushRentHouseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushRentHouseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租房saas-房源信息同步
+ * Summary: 租房saas-房源信息同步
+ */
+async function pushRentHouseEx(request: PushRentHouseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushRentHouseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.rent.house.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
