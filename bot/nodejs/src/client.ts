@@ -142,6 +142,31 @@ export class IotBasicPermissionData extends $tea.Model {
   }
 }
 
+// 商品数字指纹鉴定点
+export class GoodsDigitalFingerprintPoint extends $tea.Model {
+  // 鉴定点子项
+  subPointName: string;
+  // 鉴定点图片url
+  imageUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      subPointName: 'sub_point_name',
+      imageUrl: 'image_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      subPointName: 'string',
+      imageUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 告警策略
 export class AlertStrategy extends $tea.Model {
   // 主键ID 
@@ -678,6 +703,39 @@ export class BaiQrcodeVerifyReqData extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       queryImageUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 租赁合同信息
+export class RentContractInfo extends $tea.Model {
+  // 租赁合同ID
+  contractId: string;
+  // 租约时间 
+  leaseTime: string;
+  // 入住时间
+  checkinDate: string;
+  // 退租时间
+  checkoutDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      contractId: 'contract_id',
+      leaseTime: 'lease_time',
+      checkinDate: 'checkin_date',
+      checkoutDate: 'checkout_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      contractId: 'string',
+      leaseTime: 'string',
+      checkinDate: 'string',
+      checkoutDate: 'string',
     };
   }
 
@@ -1557,6 +1615,27 @@ export class SendCollectorResult extends $tea.Model {
   }
 }
 
+// 指纹图片入库是否成功
+export class GoodsDigitalFingerprintRegisterResultData extends $tea.Model {
+  // 指纹图片入库是否成功
+  success: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 设备不可操作标识类
 export class DeviceDisableData extends $tea.Model {
   // 设备sn号
@@ -1758,6 +1837,52 @@ export class ScfLeaseEqpInfo extends $tea.Model {
   }
 }
 
+// 房源信息同步实体类
+export class HouseInfo extends $tea.Model {
+  // 房源唯一ID
+  houseId: string;
+  // 租赁模式
+  leaseMode?: string;
+  // 面积平方
+  acreage?: string;
+  // 房源类型：0住宅、1别墅、
+  // 2商铺、3写字楼
+  structure: number;
+  // 房屋地址
+  addr?: string;
+  // 门锁设备DID
+  lockId: string;
+  // 电表设备DID
+  ammeterId: string;
+  static names(): { [key: string]: string } {
+    return {
+      houseId: 'house_id',
+      leaseMode: 'lease_mode',
+      acreage: 'acreage',
+      structure: 'structure',
+      addr: 'addr',
+      lockId: 'lock_id',
+      ammeterId: 'ammeter_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      houseId: 'string',
+      leaseMode: 'string',
+      acreage: 'string',
+      structure: 'number',
+      addr: 'string',
+      lockId: 'string',
+      ammeterId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 设备硬件模块信息体
 export class IotBasicDeviceHardWareModule extends $tea.Model {
   // 所属规格
@@ -1945,6 +2070,47 @@ export class CollectContent extends $tea.Model {
       signature: 'string',
       extraData: 'string',
       dataModelId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 租期信息
+export class RentBillItem extends $tea.Model {
+  // 租约分期ID
+  billItemId: string;
+  // 租约分期名称
+  billItemName?: string;
+  // 租期开始日期
+  billItemBegin: string;
+  // 租期结束日期 
+  billItemEnd: string;
+  // 租约金额
+  billItemMoney: string;
+  // 租约支付状态
+  paymentState?: string;
+  static names(): { [key: string]: string } {
+    return {
+      billItemId: 'bill_item_id',
+      billItemName: 'bill_item_name',
+      billItemBegin: 'bill_item_begin',
+      billItemEnd: 'bill_item_end',
+      billItemMoney: 'bill_item_money',
+      paymentState: 'payment_state',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      billItemId: 'string',
+      billItemName: 'string',
+      billItemBegin: 'string',
+      billItemEnd: 'string',
+      billItemMoney: 'string',
+      paymentState: 'string',
     };
   }
 
@@ -3387,6 +3553,39 @@ export class IotBasicDeviceSpecs extends $tea.Model {
   }
 }
 
+// 商品数字指纹
+export class GoodsDigitalFingerprintInfo extends $tea.Model {
+  // 品类
+  category: string;
+  // 品牌
+  brand: string;
+  // 款式
+  style: string;
+  // 商品数字指纹鉴定点列表
+  goodsPoints: GoodsDigitalFingerprintPoint;
+  static names(): { [key: string]: string } {
+    return {
+      category: 'category',
+      brand: 'brand',
+      style: 'style',
+      goodsPoints: 'goods_points',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      category: 'string',
+      brand: 'string',
+      style: 'string',
+      goodsPoints: GoodsDigitalFingerprintPoint,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 具备实体权限访问者更新请求
 export class DidUpdateTenantReq extends $tea.Model {
   // 待更新实体身份did
@@ -4451,6 +4650,69 @@ export class QueryAiidentificationGoodspointResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: BaiGoodsPointQueryRespData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterAiidentificationDigitalfingerprintRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户身份标识
+  appKey: string;
+  // 商品数字指纹信息
+  goodsInfo: GoodsDigitalFingerprintInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appKey: 'app_key',
+      goodsInfo: 'goods_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appKey: 'string',
+      goodsInfo: GoodsDigitalFingerprintInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterAiidentificationDigitalfingerprintResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 指纹图片入库是否成功
+  data?: GoodsDigitalFingerprintRegisterResultData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: GoodsDigitalFingerprintRegisterResultData,
     };
   }
 
@@ -6255,6 +6517,498 @@ export class OperateIotbasicDevicecollectResponse extends $tea.Model {
       resultMsg: 'string',
       success: 'boolean',
       antchainId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateIotbasicProjectspaceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 项目空间id
+  id?: number;
+  // 项目名称
+  projectName?: string;
+  // 项目编码（device_base表字段biz_scene）
+  projectCode?: string;
+  // 项目描述
+  projectDesc?: string;
+  // 项目负责人（PD）
+  projectLeader?: string;
+  // 上链ID（数据上到哪个业务链）
+  upchainId?: string;
+  // 上链方式（通过IOT可信平台，banRest）
+  upchainType?: string;
+  // 上链参数（账号，秘钥），json字符串格式
+  upchainParams?: string;
+  // 是否上链
+  isUpchain?: boolean;
+  // 操作类型
+  action: string;
+  // 操作人id
+  operatorId: string;
+  // 参数签名校验
+  paramSign: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      id: 'id',
+      projectName: 'project_name',
+      projectCode: 'project_code',
+      projectDesc: 'project_desc',
+      projectLeader: 'project_leader',
+      upchainId: 'upchain_id',
+      upchainType: 'upchain_type',
+      upchainParams: 'upchain_params',
+      isUpchain: 'is_upchain',
+      action: 'action',
+      operatorId: 'operator_id',
+      paramSign: 'param_sign',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      id: 'number',
+      projectName: 'string',
+      projectCode: 'string',
+      projectDesc: 'string',
+      projectLeader: 'string',
+      upchainId: 'string',
+      upchainType: 'string',
+      upchainParams: 'string',
+      isUpchain: 'boolean',
+      action: 'string',
+      operatorId: 'string',
+      paramSign: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateIotbasicProjectspaceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRentMerchantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 企业法人名称(个人可空)
+  legalPersonName?: string;
+  // 企业法人证件号(个人可空)
+  legalPersionIdcard?: string;
+  // 企业名称(个人名称)
+  merchantName: string;
+  // 企业社会信用代码(个人身份证)
+  merchantCreditNo: string;
+  // 支付宝监管户账号
+  alipayAccount?: string;
+  // 个人或企业
+  // 个人：P
+  // 企业：E
+  merchantType: string;
+  // 企业联系人
+  contacts?: string;
+  // 企业位置
+  addr?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      legalPersonName: 'legal_person_name',
+      legalPersionIdcard: 'legal_persion_idcard',
+      merchantName: 'merchant_name',
+      merchantCreditNo: 'merchant_credit_no',
+      alipayAccount: 'alipay_account',
+      merchantType: 'merchant_type',
+      contacts: 'contacts',
+      addr: 'addr',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      legalPersonName: 'string',
+      legalPersionIdcard: 'string',
+      merchantName: 'string',
+      merchantCreditNo: 'string',
+      alipayAccount: 'string',
+      merchantType: 'string',
+      contacts: 'string',
+      addr: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRentMerchantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRentBillRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业主房屋账单ID(
+  leaseBillId: string;
+  // 房源ID
+  houseId: string;
+  // 总账单开始日期
+  billBeginDate: string;
+  // 总账单结束日期
+  billEndDate: string;
+  // 总账单金额
+  billMoney: string;
+  // 提醒缴租日期范围(天数)
+  remindRange: string;
+  // 逾期未缴租警告日期范围(天数)
+  warnRange: string;
+  // 风险干预日期天数
+  riskRange: string;
+  // 账单租期集合
+  billItemList: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      leaseBillId: 'lease_bill_id',
+      houseId: 'house_id',
+      billBeginDate: 'bill_begin_date',
+      billEndDate: 'bill_end_date',
+      billMoney: 'bill_money',
+      remindRange: 'remind_range',
+      warnRange: 'warn_range',
+      riskRange: 'risk_range',
+      billItemList: 'bill_item_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      leaseBillId: 'string',
+      houseId: 'string',
+      billBeginDate: 'string',
+      billEndDate: 'string',
+      billMoney: 'string',
+      remindRange: 'string',
+      warnRange: 'string',
+      riskRange: 'string',
+      billItemList: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRentBillResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRentRenterRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租客id
+  renterId: string;
+  // 租客名称
+  renterName: string;
+  // 租客联系电话
+  renterPhone: string;
+  // 租客身份证号
+  renterIdCard?: string;
+  // 房源唯一ID
+  houseId: string;
+  // 租赁合同信息
+  rentContract: RentContractInfo;
+  // 企业(业主)身份识别码
+  merchantIdCard: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      renterId: 'renter_id',
+      renterName: 'renter_name',
+      renterPhone: 'renter_phone',
+      renterIdCard: 'renter_id_card',
+      houseId: 'house_id',
+      rentContract: 'rent_contract',
+      merchantIdCard: 'merchant_id_card',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      renterId: 'string',
+      renterName: 'string',
+      renterPhone: 'string',
+      renterIdCard: 'string',
+      houseId: 'string',
+      rentContract: RentContractInfo,
+      merchantIdCard: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRentRenterResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncRentRentpaymentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租金缴纳账单ID
+  leaseBillId: string;
+  // 租约分期ID
+  billItemId: string;
+  // 租约支付状态
+  paymentState: string;
+  // 支付操作日期，已支付或支付失败需要有值
+  paymentDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      leaseBillId: 'lease_bill_id',
+      billItemId: 'bill_item_id',
+      paymentState: 'payment_state',
+      paymentDate: 'payment_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      leaseBillId: 'string',
+      billItemId: 'string',
+      paymentState: 'string',
+      paymentDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncRentRentpaymentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRentHouseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 房源信息集合 数组
+  houseList: HouseInfo[];
+  // 企业(业主)身份识别码
+  merchantIdCard: string;
+  // 联系电话
+  phone?: string;
+  // 联系人
+  contract?: string;
+  // 对应会员用户id
+  userId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      houseList: 'house_list',
+      merchantIdCard: 'merchant_id_card',
+      phone: 'phone',
+      contract: 'contract',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      houseList: { 'type': 'array', 'itemType': HouseInfo },
+      merchantIdCard: 'string',
+      phone: 'string',
+      contract: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRentHouseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -14108,7 +14862,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.24",
+          sdk_version: "1.7.26",
+          _prod_code: "BOT",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -14439,6 +15195,25 @@ export default class Client {
   async queryAiidentificationGoodspointEx(request: QueryAiidentificationGoodspointRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAiidentificationGoodspointResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAiidentificationGoodspointResponse>(await this.doRequest("1.0", "blockchain.bot.aiidentification.goodspoint.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAiidentificationGoodspointResponse({}));
+  }
+
+  /**
+   * Description: AI数字指纹注册
+   * Summary: AI数字指纹注册
+   */
+  async registerAiidentificationDigitalfingerprint(request: RegisterAiidentificationDigitalfingerprintRequest): Promise<RegisterAiidentificationDigitalfingerprintResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerAiidentificationDigitalfingerprintEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: AI数字指纹注册
+   * Summary: AI数字指纹注册
+   */
+  async registerAiidentificationDigitalfingerprintEx(request: RegisterAiidentificationDigitalfingerprintRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterAiidentificationDigitalfingerprintResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterAiidentificationDigitalfingerprintResponse>(await this.doRequest("1.0", "blockchain.bot.aiidentification.digitalfingerprint.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterAiidentificationDigitalfingerprintResponse({}));
   }
 
   /**
@@ -14838,6 +15613,120 @@ export default class Client {
   async operateIotbasicDevicecollectEx(request: OperateIotbasicDevicecollectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateIotbasicDevicecollectResponse> {
     Util.validateModel(request);
     return $tea.cast<OperateIotbasicDevicecollectResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.devicecollect.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateIotbasicDevicecollectResponse({}));
+  }
+
+  /**
+   * Description: IoT设备平台-项目空间数据维护
+   * Summary: IoT设备平台-项目空间数据维护
+   */
+  async operateIotbasicProjectspace(request: OperateIotbasicProjectspaceRequest): Promise<OperateIotbasicProjectspaceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateIotbasicProjectspaceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: IoT设备平台-项目空间数据维护
+   * Summary: IoT设备平台-项目空间数据维护
+   */
+  async operateIotbasicProjectspaceEx(request: OperateIotbasicProjectspaceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateIotbasicProjectspaceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateIotbasicProjectspaceResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.projectspace.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateIotbasicProjectspaceResponse({}));
+  }
+
+  /**
+   * Description: 租房saas-企业信息同步(个人房东)
+   * Summary: 租房saas-企业信息同步(个人房东)
+   */
+  async pushRentMerchant(request: PushRentMerchantRequest): Promise<PushRentMerchantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushRentMerchantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租房saas-企业信息同步(个人房东)
+   * Summary: 租房saas-企业信息同步(个人房东)
+   */
+  async pushRentMerchantEx(request: PushRentMerchantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRentMerchantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushRentMerchantResponse>(await this.doRequest("1.0", "blockchain.bot.rent.merchant.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRentMerchantResponse({}));
+  }
+
+  /**
+   * Description: 租房saas-业主账单信息同步
+   * Summary: 租房saas-业主账单信息同步
+   */
+  async pushRentBill(request: PushRentBillRequest): Promise<PushRentBillResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushRentBillEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租房saas-业主账单信息同步
+   * Summary: 租房saas-业主账单信息同步
+   */
+  async pushRentBillEx(request: PushRentBillRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRentBillResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushRentBillResponse>(await this.doRequest("1.0", "blockchain.bot.rent.bill.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRentBillResponse({}));
+  }
+
+  /**
+   * Description: 租房saas-租客入住信息同步
+   * Summary: 租房saas-租客入住信息同步
+   */
+  async pushRentRenter(request: PushRentRenterRequest): Promise<PushRentRenterResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushRentRenterEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租房saas-租客入住信息同步
+   * Summary: 租房saas-租客入住信息同步
+   */
+  async pushRentRenterEx(request: PushRentRenterRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRentRenterResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushRentRenterResponse>(await this.doRequest("1.0", "blockchain.bot.rent.renter.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRentRenterResponse({}));
+  }
+
+  /**
+   * Description: 租房saas-租金缴纳支付状态通知
+   * Summary: 租房saas-租金缴纳支付状态通知
+   */
+  async syncRentRentpayment(request: SyncRentRentpaymentRequest): Promise<SyncRentRentpaymentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncRentRentpaymentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租房saas-租金缴纳支付状态通知
+   * Summary: 租房saas-租金缴纳支付状态通知
+   */
+  async syncRentRentpaymentEx(request: SyncRentRentpaymentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncRentRentpaymentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncRentRentpaymentResponse>(await this.doRequest("1.0", "blockchain.bot.rent.rentpayment.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncRentRentpaymentResponse({}));
+  }
+
+  /**
+   * Description: 租房saas-房源信息同步
+   * Summary: 租房saas-房源信息同步
+   */
+  async pushRentHouse(request: PushRentHouseRequest): Promise<PushRentHouseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushRentHouseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租房saas-房源信息同步
+   * Summary: 租房saas-房源信息同步
+   */
+  async pushRentHouseEx(request: PushRentHouseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRentHouseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushRentHouseResponse>(await this.doRequest("1.0", "blockchain.bot.rent.house.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRentHouseResponse({}));
   }
 
   /**
