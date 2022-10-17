@@ -8815,7 +8815,7 @@ type PushRentBillRequest struct {
 	// 风险干预日期天数
 	RiskRange *string `json:"risk_range,omitempty" xml:"risk_range,omitempty" require:"true"`
 	// 账单租期集合
-	BillItemList *string `json:"bill_item_list,omitempty" xml:"bill_item_list,omitempty" require:"true"`
+	BillItemList *RentBillItem `json:"bill_item_list,omitempty" xml:"bill_item_list,omitempty" require:"true"`
 }
 
 func (s PushRentBillRequest) String() string {
@@ -8876,8 +8876,8 @@ func (s *PushRentBillRequest) SetRiskRange(v string) *PushRentBillRequest {
 	return s
 }
 
-func (s *PushRentBillRequest) SetBillItemList(v string) *PushRentBillRequest {
-	s.BillItemList = &v
+func (s *PushRentBillRequest) SetBillItemList(v *RentBillItem) *PushRentBillRequest {
+	s.BillItemList = v
 	return s
 }
 
@@ -19237,9 +19237,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.26"),
-				"_prod_code":       tea.String("BOT"),
-				"_prod_channel":    tea.String("undefined"),
+				"sdk_version":      tea.String("1.7.27"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
