@@ -10996,7 +10996,7 @@ class PushRentBillRequest(TeaModel):
         remind_range: str = None,
         warn_range: str = None,
         risk_range: str = None,
-        bill_item_list: str = None,
+        bill_item_list: RentBillItem = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11030,6 +11030,8 @@ class PushRentBillRequest(TeaModel):
         self.validate_required(self.warn_range, 'warn_range')
         self.validate_required(self.risk_range, 'risk_range')
         self.validate_required(self.bill_item_list, 'bill_item_list')
+        if self.bill_item_list:
+            self.bill_item_list.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -11058,7 +11060,7 @@ class PushRentBillRequest(TeaModel):
         if self.risk_range is not None:
             result['risk_range'] = self.risk_range
         if self.bill_item_list is not None:
-            result['bill_item_list'] = self.bill_item_list
+            result['bill_item_list'] = self.bill_item_list.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -11084,7 +11086,8 @@ class PushRentBillRequest(TeaModel):
         if m.get('risk_range') is not None:
             self.risk_range = m.get('risk_range')
         if m.get('bill_item_list') is not None:
-            self.bill_item_list = m.get('bill_item_list')
+            temp_model = RentBillItem()
+            self.bill_item_list = temp_model.from_map(m['bill_item_list'])
         return self
 
 
