@@ -6734,7 +6734,7 @@ export class PushRentBillRequest extends $tea.Model {
   // 风险干预日期天数
   riskRange: string;
   // 账单租期集合
-  billItemList: string;
+  billItemList: RentBillItem;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6763,7 +6763,7 @@ export class PushRentBillRequest extends $tea.Model {
       remindRange: 'string',
       warnRange: 'string',
       riskRange: 'string',
-      billItemList: 'string',
+      billItemList: RentBillItem,
     };
   }
 
@@ -14862,9 +14862,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.26",
-          _prod_code: "BOT",
-          _prod_channel: "undefined",
+          sdk_version: "1.7.27",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
