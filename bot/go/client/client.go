@@ -224,6 +224,32 @@ func (s *IotBasicPermissionData) SetModule(v string) *IotBasicPermissionData {
 	return s
 }
 
+// 商品数字指纹鉴定点
+type GoodsDigitalFingerprintPoint struct {
+	// 鉴定点子项
+	SubPointName *string `json:"sub_point_name,omitempty" xml:"sub_point_name,omitempty" require:"true"`
+	// 鉴定点图片url
+	ImageUrl *string `json:"image_url,omitempty" xml:"image_url,omitempty" require:"true"`
+}
+
+func (s GoodsDigitalFingerprintPoint) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsDigitalFingerprintPoint) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsDigitalFingerprintPoint) SetSubPointName(v string) *GoodsDigitalFingerprintPoint {
+	s.SubPointName = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintPoint) SetImageUrl(v string) *GoodsDigitalFingerprintPoint {
+	s.ImageUrl = &v
+	return s
+}
+
 // 告警策略
 type AlertStrategy struct {
 	// 主键ID
@@ -957,6 +983,46 @@ func (s BaiQrcodeVerifyReqData) GoString() string {
 
 func (s *BaiQrcodeVerifyReqData) SetQueryImageUrl(v string) *BaiQrcodeVerifyReqData {
 	s.QueryImageUrl = &v
+	return s
+}
+
+// 租赁合同信息
+type RentContractInfo struct {
+	// 租赁合同ID
+	ContractId *string `json:"contract_id,omitempty" xml:"contract_id,omitempty" require:"true"`
+	// 租约时间
+	LeaseTime *string `json:"lease_time,omitempty" xml:"lease_time,omitempty" require:"true"`
+	// 入住时间
+	CheckinDate *string `json:"checkin_date,omitempty" xml:"checkin_date,omitempty" require:"true"`
+	// 退租时间
+	CheckoutDate *string `json:"checkout_date,omitempty" xml:"checkout_date,omitempty" require:"true"`
+}
+
+func (s RentContractInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RentContractInfo) GoString() string {
+	return s.String()
+}
+
+func (s *RentContractInfo) SetContractId(v string) *RentContractInfo {
+	s.ContractId = &v
+	return s
+}
+
+func (s *RentContractInfo) SetLeaseTime(v string) *RentContractInfo {
+	s.LeaseTime = &v
+	return s
+}
+
+func (s *RentContractInfo) SetCheckinDate(v string) *RentContractInfo {
+	s.CheckinDate = &v
+	return s
+}
+
+func (s *RentContractInfo) SetCheckoutDate(v string) *RentContractInfo {
+	s.CheckoutDate = &v
 	return s
 }
 
@@ -2080,6 +2146,25 @@ func (s *SendCollectorResult) SetTxHash(v string) *SendCollectorResult {
 	return s
 }
 
+// 指纹图片入库是否成功
+type GoodsDigitalFingerprintRegisterResultData struct {
+	// 指纹图片入库是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+}
+
+func (s GoodsDigitalFingerprintRegisterResultData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsDigitalFingerprintRegisterResultData) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsDigitalFingerprintRegisterResultData) SetSuccess(v bool) *GoodsDigitalFingerprintRegisterResultData {
+	s.Success = &v
+	return s
+}
+
 // 设备不可操作标识类
 type DeviceDisableData struct {
 	// 设备sn号
@@ -2343,6 +2428,68 @@ func (s *ScfLeaseEqpInfo) SetDataUpdateTime(v string) *ScfLeaseEqpInfo {
 	return s
 }
 
+// 房源信息同步实体类
+type HouseInfo struct {
+	// 房源唯一ID
+	HouseId *string `json:"house_id,omitempty" xml:"house_id,omitempty" require:"true"`
+	// 租赁模式
+	LeaseMode *string `json:"lease_mode,omitempty" xml:"lease_mode,omitempty"`
+	// 面积平方
+	Acreage *string `json:"acreage,omitempty" xml:"acreage,omitempty"`
+	// 房源类型：0住宅、1别墅、
+	// 2商铺、3写字楼
+	Structure *int64 `json:"structure,omitempty" xml:"structure,omitempty" require:"true"`
+	// 房屋地址
+	Addr *string `json:"addr,omitempty" xml:"addr,omitempty"`
+	// 门锁设备DID
+	LockId *string `json:"lock_id,omitempty" xml:"lock_id,omitempty" require:"true"`
+	// 电表设备DID
+	AmmeterId *string `json:"ammeter_id,omitempty" xml:"ammeter_id,omitempty" require:"true"`
+}
+
+func (s HouseInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s HouseInfo) GoString() string {
+	return s.String()
+}
+
+func (s *HouseInfo) SetHouseId(v string) *HouseInfo {
+	s.HouseId = &v
+	return s
+}
+
+func (s *HouseInfo) SetLeaseMode(v string) *HouseInfo {
+	s.LeaseMode = &v
+	return s
+}
+
+func (s *HouseInfo) SetAcreage(v string) *HouseInfo {
+	s.Acreage = &v
+	return s
+}
+
+func (s *HouseInfo) SetStructure(v int64) *HouseInfo {
+	s.Structure = &v
+	return s
+}
+
+func (s *HouseInfo) SetAddr(v string) *HouseInfo {
+	s.Addr = &v
+	return s
+}
+
+func (s *HouseInfo) SetLockId(v string) *HouseInfo {
+	s.LockId = &v
+	return s
+}
+
+func (s *HouseInfo) SetAmmeterId(v string) *HouseInfo {
+	s.AmmeterId = &v
+	return s
+}
+
 // 设备硬件模块信息体
 type IotBasicDeviceHardWareModule struct {
 	// 所属规格
@@ -2582,6 +2729,60 @@ func (s *CollectContent) SetExtraData(v string) *CollectContent {
 
 func (s *CollectContent) SetDataModelId(v string) *CollectContent {
 	s.DataModelId = &v
+	return s
+}
+
+// 租期信息
+type RentBillItem struct {
+	// 租约分期ID
+	BillItemId *string `json:"bill_item_id,omitempty" xml:"bill_item_id,omitempty" require:"true"`
+	// 租约分期名称
+	BillItemName *string `json:"bill_item_name,omitempty" xml:"bill_item_name,omitempty"`
+	// 租期开始日期
+	BillItemBegin *string `json:"bill_item_begin,omitempty" xml:"bill_item_begin,omitempty" require:"true"`
+	// 租期结束日期
+	BillItemEnd *string `json:"bill_item_end,omitempty" xml:"bill_item_end,omitempty" require:"true"`
+	// 租约金额
+	BillItemMoney *string `json:"bill_item_money,omitempty" xml:"bill_item_money,omitempty" require:"true"`
+	// 租约支付状态
+	PaymentState *string `json:"payment_state,omitempty" xml:"payment_state,omitempty"`
+}
+
+func (s RentBillItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RentBillItem) GoString() string {
+	return s.String()
+}
+
+func (s *RentBillItem) SetBillItemId(v string) *RentBillItem {
+	s.BillItemId = &v
+	return s
+}
+
+func (s *RentBillItem) SetBillItemName(v string) *RentBillItem {
+	s.BillItemName = &v
+	return s
+}
+
+func (s *RentBillItem) SetBillItemBegin(v string) *RentBillItem {
+	s.BillItemBegin = &v
+	return s
+}
+
+func (s *RentBillItem) SetBillItemEnd(v string) *RentBillItem {
+	s.BillItemEnd = &v
+	return s
+}
+
+func (s *RentBillItem) SetBillItemMoney(v string) *RentBillItem {
+	s.BillItemMoney = &v
+	return s
+}
+
+func (s *RentBillItem) SetPaymentState(v string) *RentBillItem {
+	s.PaymentState = &v
 	return s
 }
 
@@ -4418,6 +4619,46 @@ func (s *IotBasicDeviceSpecs) SetSpecsParam(v string) *IotBasicDeviceSpecs {
 	return s
 }
 
+// 商品数字指纹
+type GoodsDigitalFingerprintInfo struct {
+	// 品类
+	Category *string `json:"category,omitempty" xml:"category,omitempty" require:"true"`
+	// 品牌
+	Brand *string `json:"brand,omitempty" xml:"brand,omitempty" require:"true"`
+	// 款式
+	Style *string `json:"style,omitempty" xml:"style,omitempty" require:"true"`
+	// 商品数字指纹鉴定点列表
+	GoodsPoints *GoodsDigitalFingerprintPoint `json:"goods_points,omitempty" xml:"goods_points,omitempty" require:"true"`
+}
+
+func (s GoodsDigitalFingerprintInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsDigitalFingerprintInfo) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsDigitalFingerprintInfo) SetCategory(v string) *GoodsDigitalFingerprintInfo {
+	s.Category = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintInfo) SetBrand(v string) *GoodsDigitalFingerprintInfo {
+	s.Brand = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintInfo) SetStyle(v string) *GoodsDigitalFingerprintInfo {
+	s.Style = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintInfo) SetGoodsPoints(v *GoodsDigitalFingerprintPoint) *GoodsDigitalFingerprintInfo {
+	s.GoodsPoints = v
+	return s
+}
+
 // 具备实体权限访问者更新请求
 type DidUpdateTenantReq struct {
 	// 待更新实体身份did
@@ -5765,6 +6006,83 @@ func (s *QueryAiidentificationGoodspointResponse) SetResultMsg(v string) *QueryA
 }
 
 func (s *QueryAiidentificationGoodspointResponse) SetData(v *BaiGoodsPointQueryRespData) *QueryAiidentificationGoodspointResponse {
+	s.Data = v
+	return s
+}
+
+type RegisterAiidentificationDigitalfingerprintRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户身份标识
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty" require:"true"`
+	// 商品数字指纹信息
+	GoodsInfo *GoodsDigitalFingerprintInfo `json:"goods_info,omitempty" xml:"goods_info,omitempty" require:"true"`
+}
+
+func (s RegisterAiidentificationDigitalfingerprintRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterAiidentificationDigitalfingerprintRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterAiidentificationDigitalfingerprintRequest) SetAuthToken(v string) *RegisterAiidentificationDigitalfingerprintRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterAiidentificationDigitalfingerprintRequest) SetProductInstanceId(v string) *RegisterAiidentificationDigitalfingerprintRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterAiidentificationDigitalfingerprintRequest) SetAppKey(v string) *RegisterAiidentificationDigitalfingerprintRequest {
+	s.AppKey = &v
+	return s
+}
+
+func (s *RegisterAiidentificationDigitalfingerprintRequest) SetGoodsInfo(v *GoodsDigitalFingerprintInfo) *RegisterAiidentificationDigitalfingerprintRequest {
+	s.GoodsInfo = v
+	return s
+}
+
+type RegisterAiidentificationDigitalfingerprintResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 指纹图片入库是否成功
+	Data *GoodsDigitalFingerprintRegisterResultData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s RegisterAiidentificationDigitalfingerprintResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterAiidentificationDigitalfingerprintResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterAiidentificationDigitalfingerprintResponse) SetReqMsgId(v string) *RegisterAiidentificationDigitalfingerprintResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterAiidentificationDigitalfingerprintResponse) SetResultCode(v string) *RegisterAiidentificationDigitalfingerprintResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterAiidentificationDigitalfingerprintResponse) SetResultMsg(v string) *RegisterAiidentificationDigitalfingerprintResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterAiidentificationDigitalfingerprintResponse) SetData(v *GoodsDigitalFingerprintRegisterResultData) *RegisterAiidentificationDigitalfingerprintResponse {
 	s.Data = v
 	return s
 }
@@ -8212,6 +8530,666 @@ func (s *OperateIotbasicDevicecollectResponse) SetSuccess(v bool) *OperateIotbas
 
 func (s *OperateIotbasicDevicecollectResponse) SetAntchainId(v string) *OperateIotbasicDevicecollectResponse {
 	s.AntchainId = &v
+	return s
+}
+
+type OperateIotbasicProjectspaceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 项目空间id
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty"`
+	// 项目名称
+	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty"`
+	// 项目编码（device_base表字段biz_scene）
+	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty"`
+	// 项目描述
+	ProjectDesc *string `json:"project_desc,omitempty" xml:"project_desc,omitempty"`
+	// 项目负责人（PD）
+	ProjectLeader *string `json:"project_leader,omitempty" xml:"project_leader,omitempty"`
+	// 上链ID（数据上到哪个业务链）
+	UpchainId *string `json:"upchain_id,omitempty" xml:"upchain_id,omitempty"`
+	// 上链方式（通过IOT可信平台，banRest）
+	UpchainType *string `json:"upchain_type,omitempty" xml:"upchain_type,omitempty"`
+	// 上链参数（账号，秘钥），json字符串格式
+	UpchainParams *string `json:"upchain_params,omitempty" xml:"upchain_params,omitempty"`
+	// 是否上链
+	IsUpchain *bool `json:"is_upchain,omitempty" xml:"is_upchain,omitempty"`
+	// 操作类型
+	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
+	// 操作人id
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty" require:"true"`
+	// 参数签名校验
+	ParamSign *string `json:"param_sign,omitempty" xml:"param_sign,omitempty" require:"true"`
+}
+
+func (s OperateIotbasicProjectspaceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicProjectspaceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetAuthToken(v string) *OperateIotbasicProjectspaceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetProductInstanceId(v string) *OperateIotbasicProjectspaceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetId(v int64) *OperateIotbasicProjectspaceRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetProjectName(v string) *OperateIotbasicProjectspaceRequest {
+	s.ProjectName = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetProjectCode(v string) *OperateIotbasicProjectspaceRequest {
+	s.ProjectCode = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetProjectDesc(v string) *OperateIotbasicProjectspaceRequest {
+	s.ProjectDesc = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetProjectLeader(v string) *OperateIotbasicProjectspaceRequest {
+	s.ProjectLeader = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetUpchainId(v string) *OperateIotbasicProjectspaceRequest {
+	s.UpchainId = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetUpchainType(v string) *OperateIotbasicProjectspaceRequest {
+	s.UpchainType = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetUpchainParams(v string) *OperateIotbasicProjectspaceRequest {
+	s.UpchainParams = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetIsUpchain(v bool) *OperateIotbasicProjectspaceRequest {
+	s.IsUpchain = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetAction(v string) *OperateIotbasicProjectspaceRequest {
+	s.Action = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetOperatorId(v string) *OperateIotbasicProjectspaceRequest {
+	s.OperatorId = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceRequest) SetParamSign(v string) *OperateIotbasicProjectspaceRequest {
+	s.ParamSign = &v
+	return s
+}
+
+type OperateIotbasicProjectspaceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s OperateIotbasicProjectspaceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateIotbasicProjectspaceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateIotbasicProjectspaceResponse) SetReqMsgId(v string) *OperateIotbasicProjectspaceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceResponse) SetResultCode(v string) *OperateIotbasicProjectspaceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceResponse) SetResultMsg(v string) *OperateIotbasicProjectspaceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateIotbasicProjectspaceResponse) SetSuccess(v bool) *OperateIotbasicProjectspaceResponse {
+	s.Success = &v
+	return s
+}
+
+type PushRentMerchantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 企业法人名称(个人可空)
+	LegalPersonName *string `json:"legal_person_name,omitempty" xml:"legal_person_name,omitempty"`
+	// 企业法人证件号(个人可空)
+	LegalPersionIdcard *string `json:"legal_persion_idcard,omitempty" xml:"legal_persion_idcard,omitempty"`
+	// 企业名称(个人名称)
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty" require:"true"`
+	// 企业社会信用代码(个人身份证)
+	MerchantCreditNo *string `json:"merchant_credit_no,omitempty" xml:"merchant_credit_no,omitempty" require:"true"`
+	// 支付宝监管户账号
+	AlipayAccount *string `json:"alipay_account,omitempty" xml:"alipay_account,omitempty"`
+	// 个人或企业
+	// 个人：P
+	// 企业：E
+	MerchantType *string `json:"merchant_type,omitempty" xml:"merchant_type,omitempty" require:"true"`
+	// 企业联系人
+	Contacts *string `json:"contacts,omitempty" xml:"contacts,omitempty"`
+	// 企业位置
+	Addr *string `json:"addr,omitempty" xml:"addr,omitempty"`
+}
+
+func (s PushRentMerchantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRentMerchantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushRentMerchantRequest) SetAuthToken(v string) *PushRentMerchantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushRentMerchantRequest) SetProductInstanceId(v string) *PushRentMerchantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushRentMerchantRequest) SetLegalPersonName(v string) *PushRentMerchantRequest {
+	s.LegalPersonName = &v
+	return s
+}
+
+func (s *PushRentMerchantRequest) SetLegalPersionIdcard(v string) *PushRentMerchantRequest {
+	s.LegalPersionIdcard = &v
+	return s
+}
+
+func (s *PushRentMerchantRequest) SetMerchantName(v string) *PushRentMerchantRequest {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *PushRentMerchantRequest) SetMerchantCreditNo(v string) *PushRentMerchantRequest {
+	s.MerchantCreditNo = &v
+	return s
+}
+
+func (s *PushRentMerchantRequest) SetAlipayAccount(v string) *PushRentMerchantRequest {
+	s.AlipayAccount = &v
+	return s
+}
+
+func (s *PushRentMerchantRequest) SetMerchantType(v string) *PushRentMerchantRequest {
+	s.MerchantType = &v
+	return s
+}
+
+func (s *PushRentMerchantRequest) SetContacts(v string) *PushRentMerchantRequest {
+	s.Contacts = &v
+	return s
+}
+
+func (s *PushRentMerchantRequest) SetAddr(v string) *PushRentMerchantRequest {
+	s.Addr = &v
+	return s
+}
+
+type PushRentMerchantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushRentMerchantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRentMerchantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushRentMerchantResponse) SetReqMsgId(v string) *PushRentMerchantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushRentMerchantResponse) SetResultCode(v string) *PushRentMerchantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushRentMerchantResponse) SetResultMsg(v string) *PushRentMerchantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PushRentBillRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业主房屋账单ID(
+	LeaseBillId *string `json:"lease_bill_id,omitempty" xml:"lease_bill_id,omitempty" require:"true"`
+	// 房源ID
+	HouseId *string `json:"house_id,omitempty" xml:"house_id,omitempty" require:"true"`
+	// 总账单开始日期
+	BillBeginDate *string `json:"bill_begin_date,omitempty" xml:"bill_begin_date,omitempty" require:"true"`
+	// 总账单结束日期
+	BillEndDate *string `json:"bill_end_date,omitempty" xml:"bill_end_date,omitempty" require:"true"`
+	// 总账单金额
+	BillMoney *string `json:"bill_money,omitempty" xml:"bill_money,omitempty" require:"true"`
+	// 提醒缴租日期范围(天数)
+	RemindRange *string `json:"remind_range,omitempty" xml:"remind_range,omitempty" require:"true"`
+	// 逾期未缴租警告日期范围(天数)
+	WarnRange *string `json:"warn_range,omitempty" xml:"warn_range,omitempty" require:"true"`
+	// 风险干预日期天数
+	RiskRange *string `json:"risk_range,omitempty" xml:"risk_range,omitempty" require:"true"`
+	// 账单租期集合
+	BillItemList *string `json:"bill_item_list,omitempty" xml:"bill_item_list,omitempty" require:"true"`
+}
+
+func (s PushRentBillRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRentBillRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushRentBillRequest) SetAuthToken(v string) *PushRentBillRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushRentBillRequest) SetProductInstanceId(v string) *PushRentBillRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushRentBillRequest) SetLeaseBillId(v string) *PushRentBillRequest {
+	s.LeaseBillId = &v
+	return s
+}
+
+func (s *PushRentBillRequest) SetHouseId(v string) *PushRentBillRequest {
+	s.HouseId = &v
+	return s
+}
+
+func (s *PushRentBillRequest) SetBillBeginDate(v string) *PushRentBillRequest {
+	s.BillBeginDate = &v
+	return s
+}
+
+func (s *PushRentBillRequest) SetBillEndDate(v string) *PushRentBillRequest {
+	s.BillEndDate = &v
+	return s
+}
+
+func (s *PushRentBillRequest) SetBillMoney(v string) *PushRentBillRequest {
+	s.BillMoney = &v
+	return s
+}
+
+func (s *PushRentBillRequest) SetRemindRange(v string) *PushRentBillRequest {
+	s.RemindRange = &v
+	return s
+}
+
+func (s *PushRentBillRequest) SetWarnRange(v string) *PushRentBillRequest {
+	s.WarnRange = &v
+	return s
+}
+
+func (s *PushRentBillRequest) SetRiskRange(v string) *PushRentBillRequest {
+	s.RiskRange = &v
+	return s
+}
+
+func (s *PushRentBillRequest) SetBillItemList(v string) *PushRentBillRequest {
+	s.BillItemList = &v
+	return s
+}
+
+type PushRentBillResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushRentBillResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRentBillResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushRentBillResponse) SetReqMsgId(v string) *PushRentBillResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushRentBillResponse) SetResultCode(v string) *PushRentBillResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushRentBillResponse) SetResultMsg(v string) *PushRentBillResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PushRentRenterRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租客id
+	RenterId *string `json:"renter_id,omitempty" xml:"renter_id,omitempty" require:"true"`
+	// 租客名称
+	RenterName *string `json:"renter_name,omitempty" xml:"renter_name,omitempty" require:"true"`
+	// 租客联系电话
+	RenterPhone *string `json:"renter_phone,omitempty" xml:"renter_phone,omitempty" require:"true"`
+	// 租客身份证号
+	RenterIdCard *string `json:"renter_id_card,omitempty" xml:"renter_id_card,omitempty"`
+	// 房源唯一ID
+	HouseId *string `json:"house_id,omitempty" xml:"house_id,omitempty" require:"true"`
+	// 租赁合同信息
+	RentContract *RentContractInfo `json:"rent_contract,omitempty" xml:"rent_contract,omitempty" require:"true"`
+	// 企业(业主)身份识别码
+	MerchantIdCard *string `json:"merchant_id_card,omitempty" xml:"merchant_id_card,omitempty" require:"true"`
+}
+
+func (s PushRentRenterRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRentRenterRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushRentRenterRequest) SetAuthToken(v string) *PushRentRenterRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushRentRenterRequest) SetProductInstanceId(v string) *PushRentRenterRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushRentRenterRequest) SetRenterId(v string) *PushRentRenterRequest {
+	s.RenterId = &v
+	return s
+}
+
+func (s *PushRentRenterRequest) SetRenterName(v string) *PushRentRenterRequest {
+	s.RenterName = &v
+	return s
+}
+
+func (s *PushRentRenterRequest) SetRenterPhone(v string) *PushRentRenterRequest {
+	s.RenterPhone = &v
+	return s
+}
+
+func (s *PushRentRenterRequest) SetRenterIdCard(v string) *PushRentRenterRequest {
+	s.RenterIdCard = &v
+	return s
+}
+
+func (s *PushRentRenterRequest) SetHouseId(v string) *PushRentRenterRequest {
+	s.HouseId = &v
+	return s
+}
+
+func (s *PushRentRenterRequest) SetRentContract(v *RentContractInfo) *PushRentRenterRequest {
+	s.RentContract = v
+	return s
+}
+
+func (s *PushRentRenterRequest) SetMerchantIdCard(v string) *PushRentRenterRequest {
+	s.MerchantIdCard = &v
+	return s
+}
+
+type PushRentRenterResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushRentRenterResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRentRenterResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushRentRenterResponse) SetReqMsgId(v string) *PushRentRenterResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushRentRenterResponse) SetResultCode(v string) *PushRentRenterResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushRentRenterResponse) SetResultMsg(v string) *PushRentRenterResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SyncRentRentpaymentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租金缴纳账单ID
+	LeaseBillId *string `json:"lease_bill_id,omitempty" xml:"lease_bill_id,omitempty" require:"true"`
+	// 租约分期ID
+	BillItemId *string `json:"bill_item_id,omitempty" xml:"bill_item_id,omitempty" require:"true"`
+	// 租约支付状态
+	PaymentState *string `json:"payment_state,omitempty" xml:"payment_state,omitempty" require:"true"`
+	// 支付操作日期，已支付或支付失败需要有值
+	PaymentDate *string `json:"payment_date,omitempty" xml:"payment_date,omitempty"`
+}
+
+func (s SyncRentRentpaymentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncRentRentpaymentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncRentRentpaymentRequest) SetAuthToken(v string) *SyncRentRentpaymentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncRentRentpaymentRequest) SetProductInstanceId(v string) *SyncRentRentpaymentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncRentRentpaymentRequest) SetLeaseBillId(v string) *SyncRentRentpaymentRequest {
+	s.LeaseBillId = &v
+	return s
+}
+
+func (s *SyncRentRentpaymentRequest) SetBillItemId(v string) *SyncRentRentpaymentRequest {
+	s.BillItemId = &v
+	return s
+}
+
+func (s *SyncRentRentpaymentRequest) SetPaymentState(v string) *SyncRentRentpaymentRequest {
+	s.PaymentState = &v
+	return s
+}
+
+func (s *SyncRentRentpaymentRequest) SetPaymentDate(v string) *SyncRentRentpaymentRequest {
+	s.PaymentDate = &v
+	return s
+}
+
+type SyncRentRentpaymentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncRentRentpaymentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncRentRentpaymentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncRentRentpaymentResponse) SetReqMsgId(v string) *SyncRentRentpaymentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncRentRentpaymentResponse) SetResultCode(v string) *SyncRentRentpaymentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncRentRentpaymentResponse) SetResultMsg(v string) *SyncRentRentpaymentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PushRentHouseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 房源信息集合 数组
+	HouseList []*HouseInfo `json:"house_list,omitempty" xml:"house_list,omitempty" require:"true" type:"Repeated"`
+	// 企业(业主)身份识别码
+	MerchantIdCard *string `json:"merchant_id_card,omitempty" xml:"merchant_id_card,omitempty" require:"true"`
+	// 联系电话
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
+	// 联系人
+	Contract *string `json:"contract,omitempty" xml:"contract,omitempty"`
+	// 对应会员用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s PushRentHouseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRentHouseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushRentHouseRequest) SetAuthToken(v string) *PushRentHouseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushRentHouseRequest) SetProductInstanceId(v string) *PushRentHouseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushRentHouseRequest) SetHouseList(v []*HouseInfo) *PushRentHouseRequest {
+	s.HouseList = v
+	return s
+}
+
+func (s *PushRentHouseRequest) SetMerchantIdCard(v string) *PushRentHouseRequest {
+	s.MerchantIdCard = &v
+	return s
+}
+
+func (s *PushRentHouseRequest) SetPhone(v string) *PushRentHouseRequest {
+	s.Phone = &v
+	return s
+}
+
+func (s *PushRentHouseRequest) SetContract(v string) *PushRentHouseRequest {
+	s.Contract = &v
+	return s
+}
+
+func (s *PushRentHouseRequest) SetUserId(v string) *PushRentHouseRequest {
+	s.UserId = &v
+	return s
+}
+
+type PushRentHouseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushRentHouseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRentHouseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushRentHouseResponse) SetReqMsgId(v string) *PushRentHouseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushRentHouseResponse) SetResultCode(v string) *PushRentHouseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushRentHouseResponse) SetResultMsg(v string) *PushRentHouseResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -18259,7 +19237,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.24"),
+				"sdk_version":      tea.String("1.7.26"),
+				"_prod_code":       tea.String("BOT"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -18813,6 +19793,40 @@ func (client *Client) QueryAiidentificationGoodspointEx(request *QueryAiidentifi
 	}
 	_result = &QueryAiidentificationGoodspointResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiidentification.goodspoint.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: AI数字指纹注册
+ * Summary: AI数字指纹注册
+ */
+func (client *Client) RegisterAiidentificationDigitalfingerprint(request *RegisterAiidentificationDigitalfingerprintRequest) (_result *RegisterAiidentificationDigitalfingerprintResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterAiidentificationDigitalfingerprintResponse{}
+	_body, _err := client.RegisterAiidentificationDigitalfingerprintEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: AI数字指纹注册
+ * Summary: AI数字指纹注册
+ */
+func (client *Client) RegisterAiidentificationDigitalfingerprintEx(request *RegisterAiidentificationDigitalfingerprintRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterAiidentificationDigitalfingerprintResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterAiidentificationDigitalfingerprintResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiidentification.digitalfingerprint.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -19527,6 +20541,210 @@ func (client *Client) OperateIotbasicDevicecollectEx(request *OperateIotbasicDev
 	}
 	_result = &OperateIotbasicDevicecollectResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.devicecollect.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-项目空间数据维护
+ * Summary: IoT设备平台-项目空间数据维护
+ */
+func (client *Client) OperateIotbasicProjectspace(request *OperateIotbasicProjectspaceRequest) (_result *OperateIotbasicProjectspaceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateIotbasicProjectspaceResponse{}
+	_body, _err := client.OperateIotbasicProjectspaceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-项目空间数据维护
+ * Summary: IoT设备平台-项目空间数据维护
+ */
+func (client *Client) OperateIotbasicProjectspaceEx(request *OperateIotbasicProjectspaceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateIotbasicProjectspaceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateIotbasicProjectspaceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.projectspace.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租房saas-企业信息同步(个人房东)
+ * Summary: 租房saas-企业信息同步(个人房东)
+ */
+func (client *Client) PushRentMerchant(request *PushRentMerchantRequest) (_result *PushRentMerchantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushRentMerchantResponse{}
+	_body, _err := client.PushRentMerchantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租房saas-企业信息同步(个人房东)
+ * Summary: 租房saas-企业信息同步(个人房东)
+ */
+func (client *Client) PushRentMerchantEx(request *PushRentMerchantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushRentMerchantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushRentMerchantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.rent.merchant.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租房saas-业主账单信息同步
+ * Summary: 租房saas-业主账单信息同步
+ */
+func (client *Client) PushRentBill(request *PushRentBillRequest) (_result *PushRentBillResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushRentBillResponse{}
+	_body, _err := client.PushRentBillEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租房saas-业主账单信息同步
+ * Summary: 租房saas-业主账单信息同步
+ */
+func (client *Client) PushRentBillEx(request *PushRentBillRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushRentBillResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushRentBillResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.rent.bill.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租房saas-租客入住信息同步
+ * Summary: 租房saas-租客入住信息同步
+ */
+func (client *Client) PushRentRenter(request *PushRentRenterRequest) (_result *PushRentRenterResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushRentRenterResponse{}
+	_body, _err := client.PushRentRenterEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租房saas-租客入住信息同步
+ * Summary: 租房saas-租客入住信息同步
+ */
+func (client *Client) PushRentRenterEx(request *PushRentRenterRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushRentRenterResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushRentRenterResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.rent.renter.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租房saas-租金缴纳支付状态通知
+ * Summary: 租房saas-租金缴纳支付状态通知
+ */
+func (client *Client) SyncRentRentpayment(request *SyncRentRentpaymentRequest) (_result *SyncRentRentpaymentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncRentRentpaymentResponse{}
+	_body, _err := client.SyncRentRentpaymentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租房saas-租金缴纳支付状态通知
+ * Summary: 租房saas-租金缴纳支付状态通知
+ */
+func (client *Client) SyncRentRentpaymentEx(request *SyncRentRentpaymentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncRentRentpaymentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncRentRentpaymentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.rent.rentpayment.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 租房saas-房源信息同步
+ * Summary: 租房saas-房源信息同步
+ */
+func (client *Client) PushRentHouse(request *PushRentHouseRequest) (_result *PushRentHouseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushRentHouseResponse{}
+	_body, _err := client.PushRentHouseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 租房saas-房源信息同步
+ * Summary: 租房saas-房源信息同步
+ */
+func (client *Client) PushRentHouseEx(request *PushRentHouseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushRentHouseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushRentHouseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.rent.house.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
