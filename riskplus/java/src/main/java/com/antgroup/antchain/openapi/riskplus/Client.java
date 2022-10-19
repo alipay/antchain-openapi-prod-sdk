@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.13.5")
+                    new TeaPair("sdk_version", "1.13.7")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -2635,6 +2635,44 @@ public class Client {
     public QueryUmktCardsmsSupportResponse queryUmktCardsmsSupportEx(QueryUmktCardsmsSupportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.cardsms.support.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktCardsmsSupportResponse());
+    }
+
+    /**
+     * Description: 文本短信批量发送接口
+     * Summary: 文本短信批量发送接口
+     */
+    public SendUmktTextsmsBatchResponse sendUmktTextsmsBatch(SendUmktTextsmsBatchRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendUmktTextsmsBatchEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 文本短信批量发送接口
+     * Summary: 文本短信批量发送接口
+     */
+    public SendUmktTextsmsBatchResponse sendUmktTextsmsBatchEx(SendUmktTextsmsBatchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.textsms.batch.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendUmktTextsmsBatchResponse());
+    }
+
+    /**
+     * Description: 数字短信批量发送接口（单模板）
+     * Summary: 数字短信批量发送接口（单模板）
+     */
+    public SendUmktDigitalsmsBatchResponse sendUmktDigitalsmsBatch(SendUmktDigitalsmsBatchRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendUmktDigitalsmsBatchEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字短信批量发送接口（单模板）
+     * Summary: 数字短信批量发送接口（单模板）
+     */
+    public SendUmktDigitalsmsBatchResponse sendUmktDigitalsmsBatchEx(SendUmktDigitalsmsBatchRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.digitalsms.batch.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendUmktDigitalsmsBatchResponse());
     }
 
     /**
