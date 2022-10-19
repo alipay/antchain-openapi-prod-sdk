@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.5',
+    sdk_version = '1.13.7',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -572,8 +572,6 @@ model UpdateCustomerRelationResponseData {
 
 // 回流事件记录
 model BackflowEventRecord {
-  // 回流事件记录分组，ACTION-触达属性组/SERVICE-业务属性组/CONVERSION-转化属性组
-  groupCode: string(name='group_code', example='BUSINESS'),
   // 回流事件部分分组后的记录list
   properties: [ BackflowEventRecordProperty ](name='properties', example=''),
 }
@@ -7610,6 +7608,106 @@ async function queryUmktCardsmsSupport(request: QueryUmktCardsmsSupportRequest):
 async function queryUmktCardsmsSupportEx(request: QueryUmktCardsmsSupportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktCardsmsSupportResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.cardsms.support.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendUmktTextsmsBatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // cpassAccessKey
+  cpassAk?: string(name='cpass_ak'),
+  // 行业标签
+  industryTag: string(name='industry_tag'),
+  // 手机号json
+  phoneNumberJson: string(name='phone_number_json'),
+  // 签名信息
+  signNameJson: string(name='sign_name_json'),
+  // 文本短信模板code
+  templateCode: string(name='template_code'),
+  // 文本短信模板参数
+  templateParamJson: string(name='template_param_json'),
+  // 上行短信扩展码
+  smsUpExtendCodeJson?: string(name='sms_up_extend_code_json'),
+  // 透传字段
+  outId?: string(name='out_id'),
+}
+
+model SendUmktTextsmsBatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 回执id
+  bizId?: string(name='biz_id'),
+}
+
+/**
+ * Description: 文本短信批量发送接口
+ * Summary: 文本短信批量发送接口
+ */
+async function sendUmktTextsmsBatch(request: SendUmktTextsmsBatchRequest): SendUmktTextsmsBatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendUmktTextsmsBatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文本短信批量发送接口
+ * Summary: 文本短信批量发送接口
+ */
+async function sendUmktTextsmsBatchEx(request: SendUmktTextsmsBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendUmktTextsmsBatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.textsms.batch.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendUmktDigitalsmsBatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // cpassAccessKey
+  cpassAk?: string(name='cpass_ak'),
+  // 行业标签
+  industryTag: string(name='industry_tag'),
+  // 手机号列表以,分隔
+  phoneNumbers: string(name='phone_numbers'),
+  // 数字短信模板code
+  templateCode: string(name='template_code'),
+  // 短信模板参数
+  templateParam: string(name='template_param'),
+  // 透传字段
+  outId?: string(name='out_id'),
+}
+
+model SendUmktDigitalsmsBatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 回执id
+  bizId?: string(name='biz_id'),
+}
+
+/**
+ * Description: 数字短信批量发送接口（单模板）
+ * Summary: 数字短信批量发送接口（单模板）
+ */
+async function sendUmktDigitalsmsBatch(request: SendUmktDigitalsmsBatchRequest): SendUmktDigitalsmsBatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendUmktDigitalsmsBatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字短信批量发送接口（单模板）
+ * Summary: 数字短信批量发送接口（单模板）
+ */
+async function sendUmktDigitalsmsBatchEx(request: SendUmktDigitalsmsBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendUmktDigitalsmsBatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.digitalsms.batch.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
