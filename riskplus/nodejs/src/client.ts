@@ -1109,20 +1109,16 @@ export class UpdateCustomerRelationResponseData extends $tea.Model {
 
 // 回流事件记录
 export class BackflowEventRecord extends $tea.Model {
-  // 回流事件记录分组，ACTION-触达属性组/SERVICE-业务属性组/CONVERSION-转化属性组
-  groupCode: string;
   // 回流事件部分分组后的记录list
   properties: BackflowEventRecordProperty[];
   static names(): { [key: string]: string } {
     return {
-      groupCode: 'group_code',
       properties: 'properties',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      groupCode: 'string',
       properties: { 'type': 'array', 'itemType': BackflowEventRecordProperty },
     };
   }
@@ -13375,6 +13371,172 @@ export class QueryUmktCardsmsSupportResponse extends $tea.Model {
   }
 }
 
+export class SendUmktTextsmsBatchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // cpassAccessKey
+  cpassAk?: string;
+  // 行业标签
+  industryTag: string;
+  // 手机号json
+  phoneNumberJson: string;
+  // 签名信息
+  signNameJson: string;
+  // 文本短信模板code
+  templateCode: string;
+  // 文本短信模板参数
+  templateParamJson: string;
+  // 上行短信扩展码
+  smsUpExtendCodeJson?: string;
+  // 透传字段
+  outId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      cpassAk: 'cpass_ak',
+      industryTag: 'industry_tag',
+      phoneNumberJson: 'phone_number_json',
+      signNameJson: 'sign_name_json',
+      templateCode: 'template_code',
+      templateParamJson: 'template_param_json',
+      smsUpExtendCodeJson: 'sms_up_extend_code_json',
+      outId: 'out_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      cpassAk: 'string',
+      industryTag: 'string',
+      phoneNumberJson: 'string',
+      signNameJson: 'string',
+      templateCode: 'string',
+      templateParamJson: 'string',
+      smsUpExtendCodeJson: 'string',
+      outId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendUmktTextsmsBatchResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 回执id
+  bizId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendUmktDigitalsmsBatchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // cpassAccessKey
+  cpassAk?: string;
+  // 行业标签
+  industryTag: string;
+  // 手机号列表以,分隔
+  phoneNumbers: string;
+  // 数字短信模板code
+  templateCode: string;
+  // 短信模板参数
+  templateParam: string;
+  // 透传字段
+  outId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      cpassAk: 'cpass_ak',
+      industryTag: 'industry_tag',
+      phoneNumbers: 'phone_numbers',
+      templateCode: 'template_code',
+      templateParam: 'template_param',
+      outId: 'out_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      cpassAk: 'string',
+      industryTag: 'string',
+      phoneNumbers: 'string',
+      templateCode: 'string',
+      templateParam: 'string',
+      outId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendUmktDigitalsmsBatchResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 回执id
+  bizId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -13576,7 +13738,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.5",
+          sdk_version: "1.13.7",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -16098,6 +16260,44 @@ export default class Client {
   async queryUmktCardsmsSupportEx(request: QueryUmktCardsmsSupportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktCardsmsSupportResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryUmktCardsmsSupportResponse>(await this.doRequest("1.0", "riskplus.umkt.cardsms.support.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktCardsmsSupportResponse({}));
+  }
+
+  /**
+   * Description: 文本短信批量发送接口
+   * Summary: 文本短信批量发送接口
+   */
+  async sendUmktTextsmsBatch(request: SendUmktTextsmsBatchRequest): Promise<SendUmktTextsmsBatchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendUmktTextsmsBatchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文本短信批量发送接口
+   * Summary: 文本短信批量发送接口
+   */
+  async sendUmktTextsmsBatchEx(request: SendUmktTextsmsBatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendUmktTextsmsBatchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendUmktTextsmsBatchResponse>(await this.doRequest("1.0", "riskplus.umkt.textsms.batch.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendUmktTextsmsBatchResponse({}));
+  }
+
+  /**
+   * Description: 数字短信批量发送接口（单模板）
+   * Summary: 数字短信批量发送接口（单模板）
+   */
+  async sendUmktDigitalsmsBatch(request: SendUmktDigitalsmsBatchRequest): Promise<SendUmktDigitalsmsBatchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendUmktDigitalsmsBatchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字短信批量发送接口（单模板）
+   * Summary: 数字短信批量发送接口（单模板）
+   */
+  async sendUmktDigitalsmsBatchEx(request: SendUmktDigitalsmsBatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendUmktDigitalsmsBatchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendUmktDigitalsmsBatchResponse>(await this.doRequest("1.0", "riskplus.umkt.digitalsms.batch.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendUmktDigitalsmsBatchResponse({}));
   }
 
   /**
