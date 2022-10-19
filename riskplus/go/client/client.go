@@ -1519,8 +1519,6 @@ func (s *UpdateCustomerRelationResponseData) SetUpdateTime(v string) *UpdateCust
 
 // 回流事件记录
 type BackflowEventRecord struct {
-	// 回流事件记录分组，ACTION-触达属性组/SERVICE-业务属性组/CONVERSION-转化属性组
-	GroupCode *string `json:"group_code,omitempty" xml:"group_code,omitempty" require:"true"`
 	// 回流事件部分分组后的记录list
 	Properties []*BackflowEventRecordProperty `json:"properties,omitempty" xml:"properties,omitempty" require:"true" type:"Repeated"`
 }
@@ -1531,11 +1529,6 @@ func (s BackflowEventRecord) String() string {
 
 func (s BackflowEventRecord) GoString() string {
 	return s.String()
-}
-
-func (s *BackflowEventRecord) SetGroupCode(v string) *BackflowEventRecord {
-	s.GroupCode = &v
-	return s
 }
 
 func (s *BackflowEventRecord) SetProperties(v []*BackflowEventRecordProperty) *BackflowEventRecord {
@@ -17792,6 +17785,230 @@ func (s *QueryUmktCardsmsSupportResponse) SetDatas(v string) *QueryUmktCardsmsSu
 	return s
 }
 
+type SendUmktTextsmsBatchRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// cpassAccessKey
+	CpassAk *string `json:"cpass_ak,omitempty" xml:"cpass_ak,omitempty"`
+	// 行业标签
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty" require:"true"`
+	// 手机号json
+	PhoneNumberJson *string `json:"phone_number_json,omitempty" xml:"phone_number_json,omitempty" require:"true"`
+	// 签名信息
+	SignNameJson *string `json:"sign_name_json,omitempty" xml:"sign_name_json,omitempty" require:"true"`
+	// 文本短信模板code
+	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty" require:"true"`
+	// 文本短信模板参数
+	TemplateParamJson *string `json:"template_param_json,omitempty" xml:"template_param_json,omitempty" require:"true"`
+	// 上行短信扩展码
+	SmsUpExtendCodeJson *string `json:"sms_up_extend_code_json,omitempty" xml:"sms_up_extend_code_json,omitempty"`
+	// 透传字段
+	OutId *string `json:"out_id,omitempty" xml:"out_id,omitempty"`
+}
+
+func (s SendUmktTextsmsBatchRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendUmktTextsmsBatchRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendUmktTextsmsBatchRequest) SetAuthToken(v string) *SendUmktTextsmsBatchRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendUmktTextsmsBatchRequest) SetProductInstanceId(v string) *SendUmktTextsmsBatchRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendUmktTextsmsBatchRequest) SetCpassAk(v string) *SendUmktTextsmsBatchRequest {
+	s.CpassAk = &v
+	return s
+}
+
+func (s *SendUmktTextsmsBatchRequest) SetIndustryTag(v string) *SendUmktTextsmsBatchRequest {
+	s.IndustryTag = &v
+	return s
+}
+
+func (s *SendUmktTextsmsBatchRequest) SetPhoneNumberJson(v string) *SendUmktTextsmsBatchRequest {
+	s.PhoneNumberJson = &v
+	return s
+}
+
+func (s *SendUmktTextsmsBatchRequest) SetSignNameJson(v string) *SendUmktTextsmsBatchRequest {
+	s.SignNameJson = &v
+	return s
+}
+
+func (s *SendUmktTextsmsBatchRequest) SetTemplateCode(v string) *SendUmktTextsmsBatchRequest {
+	s.TemplateCode = &v
+	return s
+}
+
+func (s *SendUmktTextsmsBatchRequest) SetTemplateParamJson(v string) *SendUmktTextsmsBatchRequest {
+	s.TemplateParamJson = &v
+	return s
+}
+
+func (s *SendUmktTextsmsBatchRequest) SetSmsUpExtendCodeJson(v string) *SendUmktTextsmsBatchRequest {
+	s.SmsUpExtendCodeJson = &v
+	return s
+}
+
+func (s *SendUmktTextsmsBatchRequest) SetOutId(v string) *SendUmktTextsmsBatchRequest {
+	s.OutId = &v
+	return s
+}
+
+type SendUmktTextsmsBatchResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 回执id
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+}
+
+func (s SendUmktTextsmsBatchResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendUmktTextsmsBatchResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendUmktTextsmsBatchResponse) SetReqMsgId(v string) *SendUmktTextsmsBatchResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendUmktTextsmsBatchResponse) SetResultCode(v string) *SendUmktTextsmsBatchResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendUmktTextsmsBatchResponse) SetResultMsg(v string) *SendUmktTextsmsBatchResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendUmktTextsmsBatchResponse) SetBizId(v string) *SendUmktTextsmsBatchResponse {
+	s.BizId = &v
+	return s
+}
+
+type SendUmktDigitalsmsBatchRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// cpassAccessKey
+	CpassAk *string `json:"cpass_ak,omitempty" xml:"cpass_ak,omitempty"`
+	// 行业标签
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty" require:"true"`
+	// 手机号列表以,分隔
+	PhoneNumbers *string `json:"phone_numbers,omitempty" xml:"phone_numbers,omitempty" require:"true"`
+	// 数字短信模板code
+	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty" require:"true"`
+	// 短信模板参数
+	TemplateParam *string `json:"template_param,omitempty" xml:"template_param,omitempty" require:"true"`
+	// 透传字段
+	OutId *string `json:"out_id,omitempty" xml:"out_id,omitempty"`
+}
+
+func (s SendUmktDigitalsmsBatchRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendUmktDigitalsmsBatchRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendUmktDigitalsmsBatchRequest) SetAuthToken(v string) *SendUmktDigitalsmsBatchRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendUmktDigitalsmsBatchRequest) SetProductInstanceId(v string) *SendUmktDigitalsmsBatchRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendUmktDigitalsmsBatchRequest) SetCpassAk(v string) *SendUmktDigitalsmsBatchRequest {
+	s.CpassAk = &v
+	return s
+}
+
+func (s *SendUmktDigitalsmsBatchRequest) SetIndustryTag(v string) *SendUmktDigitalsmsBatchRequest {
+	s.IndustryTag = &v
+	return s
+}
+
+func (s *SendUmktDigitalsmsBatchRequest) SetPhoneNumbers(v string) *SendUmktDigitalsmsBatchRequest {
+	s.PhoneNumbers = &v
+	return s
+}
+
+func (s *SendUmktDigitalsmsBatchRequest) SetTemplateCode(v string) *SendUmktDigitalsmsBatchRequest {
+	s.TemplateCode = &v
+	return s
+}
+
+func (s *SendUmktDigitalsmsBatchRequest) SetTemplateParam(v string) *SendUmktDigitalsmsBatchRequest {
+	s.TemplateParam = &v
+	return s
+}
+
+func (s *SendUmktDigitalsmsBatchRequest) SetOutId(v string) *SendUmktDigitalsmsBatchRequest {
+	s.OutId = &v
+	return s
+}
+
+type SendUmktDigitalsmsBatchResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 回执id
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+}
+
+func (s SendUmktDigitalsmsBatchResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendUmktDigitalsmsBatchResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendUmktDigitalsmsBatchResponse) SetReqMsgId(v string) *SendUmktDigitalsmsBatchResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendUmktDigitalsmsBatchResponse) SetResultCode(v string) *SendUmktDigitalsmsBatchResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendUmktDigitalsmsBatchResponse) SetResultMsg(v string) *SendUmktDigitalsmsBatchResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendUmktDigitalsmsBatchResponse) SetBizId(v string) *SendUmktDigitalsmsBatchResponse {
+	s.BizId = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -18034,7 +18251,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.5"),
+				"sdk_version":      tea.String("1.13.7"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -22490,6 +22707,74 @@ func (client *Client) QueryUmktCardsmsSupportEx(request *QueryUmktCardsmsSupport
 	}
 	_result = &QueryUmktCardsmsSupportResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.cardsms.support.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文本短信批量发送接口
+ * Summary: 文本短信批量发送接口
+ */
+func (client *Client) SendUmktTextsmsBatch(request *SendUmktTextsmsBatchRequest) (_result *SendUmktTextsmsBatchResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendUmktTextsmsBatchResponse{}
+	_body, _err := client.SendUmktTextsmsBatchEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文本短信批量发送接口
+ * Summary: 文本短信批量发送接口
+ */
+func (client *Client) SendUmktTextsmsBatchEx(request *SendUmktTextsmsBatchRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendUmktTextsmsBatchResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendUmktTextsmsBatchResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.textsms.batch.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字短信批量发送接口（单模板）
+ * Summary: 数字短信批量发送接口（单模板）
+ */
+func (client *Client) SendUmktDigitalsmsBatch(request *SendUmktDigitalsmsBatchRequest) (_result *SendUmktDigitalsmsBatchResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendUmktDigitalsmsBatchResponse{}
+	_body, _err := client.SendUmktDigitalsmsBatchEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字短信批量发送接口（单模板）
+ * Summary: 数字短信批量发送接口（单模板）
+ */
+func (client *Client) SendUmktDigitalsmsBatchEx(request *SendUmktDigitalsmsBatchRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendUmktDigitalsmsBatchResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendUmktDigitalsmsBatchResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.digitalsms.batch.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
