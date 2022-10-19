@@ -241,6 +241,10 @@ use AntChain\RISKPLUS\Models\SendSecurityDataRequest;
 use AntChain\RISKPLUS\Models\SendSecurityDataResponse;
 use AntChain\RISKPLUS\Models\SendUmktCardsmsBatchRequest;
 use AntChain\RISKPLUS\Models\SendUmktCardsmsBatchResponse;
+use AntChain\RISKPLUS\Models\SendUmktDigitalsmsBatchRequest;
+use AntChain\RISKPLUS\Models\SendUmktDigitalsmsBatchResponse;
+use AntChain\RISKPLUS\Models\SendUmktTextsmsBatchRequest;
+use AntChain\RISKPLUS\Models\SendUmktTextsmsBatchResponse;
 use AntChain\RISKPLUS\Models\StartRbbRegdatasyncScheduleRequest;
 use AntChain\RISKPLUS\Models\StartRbbRegdatasyncScheduleResponse;
 use AntChain\RISKPLUS\Models\SyncRpgwUserOrderinfoRequest;
@@ -414,7 +418,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.13.5',
+                    'sdk_version'      => '1.13.7',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -4705,6 +4709,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryUmktCardsmsSupportResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.cardsms.support.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文本短信批量发送接口
+     * Summary: 文本短信批量发送接口.
+     *
+     * @param SendUmktTextsmsBatchRequest $request
+     *
+     * @return SendUmktTextsmsBatchResponse
+     */
+    public function sendUmktTextsmsBatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendUmktTextsmsBatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文本短信批量发送接口
+     * Summary: 文本短信批量发送接口.
+     *
+     * @param SendUmktTextsmsBatchRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return SendUmktTextsmsBatchResponse
+     */
+    public function sendUmktTextsmsBatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendUmktTextsmsBatchResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.textsms.batch.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字短信批量发送接口（单模板）
+     * Summary: 数字短信批量发送接口（单模板）.
+     *
+     * @param SendUmktDigitalsmsBatchRequest $request
+     *
+     * @return SendUmktDigitalsmsBatchResponse
+     */
+    public function sendUmktDigitalsmsBatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendUmktDigitalsmsBatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字短信批量发送接口（单模板）
+     * Summary: 数字短信批量发送接口（单模板）.
+     *
+     * @param SendUmktDigitalsmsBatchRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SendUmktDigitalsmsBatchResponse
+     */
+    public function sendUmktDigitalsmsBatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendUmktDigitalsmsBatchResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.digitalsms.batch.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

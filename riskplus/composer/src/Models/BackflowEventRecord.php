@@ -8,14 +8,6 @@ use AlibabaCloud\Tea\Model;
 
 class BackflowEventRecord extends Model
 {
-    // 回流事件记录分组，ACTION-触达属性组/SERVICE-业务属性组/CONVERSION-转化属性组
-    /**
-     * @example BUSINESS
-     *
-     * @var string
-     */
-    public $groupCode;
-
     // 回流事件部分分组后的记录list
     /**
      * @example
@@ -24,22 +16,17 @@ class BackflowEventRecord extends Model
      */
     public $properties;
     protected $_name = [
-        'groupCode'  => 'group_code',
         'properties' => 'properties',
     ];
 
     public function validate()
     {
-        Model::validateRequired('groupCode', $this->groupCode, true);
         Model::validateRequired('properties', $this->properties, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->groupCode) {
-            $res['group_code'] = $this->groupCode;
-        }
         if (null !== $this->properties) {
             $res['properties'] = [];
             if (null !== $this->properties && \is_array($this->properties)) {
@@ -61,9 +48,6 @@ class BackflowEventRecord extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['group_code'])) {
-            $model->groupCode = $map['group_code'];
-        }
         if (isset($map['properties'])) {
             if (!empty($map['properties'])) {
                 $model->properties = [];
