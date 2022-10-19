@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.5'
+                    'sdk_version': '1.13.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.5'
+                    'sdk_version': '1.13.7'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -7487,6 +7487,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryUmktCardsmsSupportResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.cardsms.support.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_umkt_textsms_batch(
+        self,
+        request: riskplus_models.SendUmktTextsmsBatchRequest,
+    ) -> riskplus_models.SendUmktTextsmsBatchResponse:
+        """
+        Description: 文本短信批量发送接口
+        Summary: 文本短信批量发送接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_umkt_textsms_batch_ex(request, headers, runtime)
+
+    async def send_umkt_textsms_batch_async(
+        self,
+        request: riskplus_models.SendUmktTextsmsBatchRequest,
+    ) -> riskplus_models.SendUmktTextsmsBatchResponse:
+        """
+        Description: 文本短信批量发送接口
+        Summary: 文本短信批量发送接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_umkt_textsms_batch_ex_async(request, headers, runtime)
+
+    def send_umkt_textsms_batch_ex(
+        self,
+        request: riskplus_models.SendUmktTextsmsBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SendUmktTextsmsBatchResponse:
+        """
+        Description: 文本短信批量发送接口
+        Summary: 文本短信批量发送接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SendUmktTextsmsBatchResponse(),
+            self.do_request('1.0', 'riskplus.umkt.textsms.batch.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_umkt_textsms_batch_ex_async(
+        self,
+        request: riskplus_models.SendUmktTextsmsBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SendUmktTextsmsBatchResponse:
+        """
+        Description: 文本短信批量发送接口
+        Summary: 文本短信批量发送接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SendUmktTextsmsBatchResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.textsms.batch.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_umkt_digitalsms_batch(
+        self,
+        request: riskplus_models.SendUmktDigitalsmsBatchRequest,
+    ) -> riskplus_models.SendUmktDigitalsmsBatchResponse:
+        """
+        Description: 数字短信批量发送接口（单模板）
+        Summary: 数字短信批量发送接口（单模板）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_umkt_digitalsms_batch_ex(request, headers, runtime)
+
+    async def send_umkt_digitalsms_batch_async(
+        self,
+        request: riskplus_models.SendUmktDigitalsmsBatchRequest,
+    ) -> riskplus_models.SendUmktDigitalsmsBatchResponse:
+        """
+        Description: 数字短信批量发送接口（单模板）
+        Summary: 数字短信批量发送接口（单模板）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_umkt_digitalsms_batch_ex_async(request, headers, runtime)
+
+    def send_umkt_digitalsms_batch_ex(
+        self,
+        request: riskplus_models.SendUmktDigitalsmsBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SendUmktDigitalsmsBatchResponse:
+        """
+        Description: 数字短信批量发送接口（单模板）
+        Summary: 数字短信批量发送接口（单模板）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SendUmktDigitalsmsBatchResponse(),
+            self.do_request('1.0', 'riskplus.umkt.digitalsms.batch.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_umkt_digitalsms_batch_ex_async(
+        self,
+        request: riskplus_models.SendUmktDigitalsmsBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SendUmktDigitalsmsBatchResponse:
+        """
+        Description: 数字短信批量发送接口（单模板）
+        Summary: 数字短信批量发送接口（单模板）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SendUmktDigitalsmsBatchResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.digitalsms.batch.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

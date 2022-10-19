@@ -1884,16 +1884,12 @@ class UpdateCustomerRelationResponseData(TeaModel):
 class BackflowEventRecord(TeaModel):
     def __init__(
         self,
-        group_code: str = None,
         properties: List[BackflowEventRecordProperty] = None,
     ):
-        # 回流事件记录分组，ACTION-触达属性组/SERVICE-业务属性组/CONVERSION-转化属性组
-        self.group_code = group_code
         # 回流事件部分分组后的记录list
         self.properties = properties
 
     def validate(self):
-        self.validate_required(self.group_code, 'group_code')
         self.validate_required(self.properties, 'properties')
         if self.properties:
             for k in self.properties:
@@ -1906,8 +1902,6 @@ class BackflowEventRecord(TeaModel):
             return _map
 
         result = dict()
-        if self.group_code is not None:
-            result['group_code'] = self.group_code
         result['properties'] = []
         if self.properties is not None:
             for k in self.properties:
@@ -1916,8 +1910,6 @@ class BackflowEventRecord(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('group_code') is not None:
-            self.group_code = m.get('group_code')
         self.properties = []
         if m.get('properties') is not None:
             for k in m.get('properties'):
@@ -22253,6 +22245,277 @@ class QueryUmktCardsmsSupportResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('datas') is not None:
             self.datas = m.get('datas')
+        return self
+
+
+class SendUmktTextsmsBatchRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        cpass_ak: str = None,
+        industry_tag: str = None,
+        phone_number_json: str = None,
+        sign_name_json: str = None,
+        template_code: str = None,
+        template_param_json: str = None,
+        sms_up_extend_code_json: str = None,
+        out_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # cpassAccessKey
+        self.cpass_ak = cpass_ak
+        # 行业标签
+        self.industry_tag = industry_tag
+        # 手机号json
+        self.phone_number_json = phone_number_json
+        # 签名信息
+        self.sign_name_json = sign_name_json
+        # 文本短信模板code
+        self.template_code = template_code
+        # 文本短信模板参数
+        self.template_param_json = template_param_json
+        # 上行短信扩展码
+        self.sms_up_extend_code_json = sms_up_extend_code_json
+        # 透传字段
+        self.out_id = out_id
+
+    def validate(self):
+        self.validate_required(self.industry_tag, 'industry_tag')
+        self.validate_required(self.phone_number_json, 'phone_number_json')
+        self.validate_required(self.sign_name_json, 'sign_name_json')
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.template_param_json, 'template_param_json')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.cpass_ak is not None:
+            result['cpass_ak'] = self.cpass_ak
+        if self.industry_tag is not None:
+            result['industry_tag'] = self.industry_tag
+        if self.phone_number_json is not None:
+            result['phone_number_json'] = self.phone_number_json
+        if self.sign_name_json is not None:
+            result['sign_name_json'] = self.sign_name_json
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.template_param_json is not None:
+            result['template_param_json'] = self.template_param_json
+        if self.sms_up_extend_code_json is not None:
+            result['sms_up_extend_code_json'] = self.sms_up_extend_code_json
+        if self.out_id is not None:
+            result['out_id'] = self.out_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('cpass_ak') is not None:
+            self.cpass_ak = m.get('cpass_ak')
+        if m.get('industry_tag') is not None:
+            self.industry_tag = m.get('industry_tag')
+        if m.get('phone_number_json') is not None:
+            self.phone_number_json = m.get('phone_number_json')
+        if m.get('sign_name_json') is not None:
+            self.sign_name_json = m.get('sign_name_json')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('template_param_json') is not None:
+            self.template_param_json = m.get('template_param_json')
+        if m.get('sms_up_extend_code_json') is not None:
+            self.sms_up_extend_code_json = m.get('sms_up_extend_code_json')
+        if m.get('out_id') is not None:
+            self.out_id = m.get('out_id')
+        return self
+
+
+class SendUmktTextsmsBatchResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 回执id
+        self.biz_id = biz_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        return self
+
+
+class SendUmktDigitalsmsBatchRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        cpass_ak: str = None,
+        industry_tag: str = None,
+        phone_numbers: str = None,
+        template_code: str = None,
+        template_param: str = None,
+        out_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # cpassAccessKey
+        self.cpass_ak = cpass_ak
+        # 行业标签
+        self.industry_tag = industry_tag
+        # 手机号列表以,分隔
+        self.phone_numbers = phone_numbers
+        # 数字短信模板code
+        self.template_code = template_code
+        # 短信模板参数
+        self.template_param = template_param
+        # 透传字段
+        self.out_id = out_id
+
+    def validate(self):
+        self.validate_required(self.industry_tag, 'industry_tag')
+        self.validate_required(self.phone_numbers, 'phone_numbers')
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.template_param, 'template_param')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.cpass_ak is not None:
+            result['cpass_ak'] = self.cpass_ak
+        if self.industry_tag is not None:
+            result['industry_tag'] = self.industry_tag
+        if self.phone_numbers is not None:
+            result['phone_numbers'] = self.phone_numbers
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.template_param is not None:
+            result['template_param'] = self.template_param
+        if self.out_id is not None:
+            result['out_id'] = self.out_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('cpass_ak') is not None:
+            self.cpass_ak = m.get('cpass_ak')
+        if m.get('industry_tag') is not None:
+            self.industry_tag = m.get('industry_tag')
+        if m.get('phone_numbers') is not None:
+            self.phone_numbers = m.get('phone_numbers')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('template_param') is not None:
+            self.template_param = m.get('template_param')
+        if m.get('out_id') is not None:
+            self.out_id = m.get('out_id')
+        return self
+
+
+class SendUmktDigitalsmsBatchResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 回执id
+        self.biz_id = biz_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
         return self
 
 
