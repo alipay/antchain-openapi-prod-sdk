@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.5"},
+                        {"sdk_version", "1.13.7"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +261,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.5"},
+                        {"sdk_version", "1.13.7"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -5791,6 +5791,90 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryUmktCardsmsSupportResponse>(await DoRequestAsync("1.0", "riskplus.umkt.cardsms.support.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文本短信批量发送接口
+         * Summary: 文本短信批量发送接口
+         */
+        public SendUmktTextsmsBatchResponse SendUmktTextsmsBatch(SendUmktTextsmsBatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendUmktTextsmsBatchEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文本短信批量发送接口
+         * Summary: 文本短信批量发送接口
+         */
+        public async Task<SendUmktTextsmsBatchResponse> SendUmktTextsmsBatchAsync(SendUmktTextsmsBatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendUmktTextsmsBatchExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文本短信批量发送接口
+         * Summary: 文本短信批量发送接口
+         */
+        public SendUmktTextsmsBatchResponse SendUmktTextsmsBatchEx(SendUmktTextsmsBatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendUmktTextsmsBatchResponse>(DoRequest("1.0", "riskplus.umkt.textsms.batch.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文本短信批量发送接口
+         * Summary: 文本短信批量发送接口
+         */
+        public async Task<SendUmktTextsmsBatchResponse> SendUmktTextsmsBatchExAsync(SendUmktTextsmsBatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendUmktTextsmsBatchResponse>(await DoRequestAsync("1.0", "riskplus.umkt.textsms.batch.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字短信批量发送接口（单模板）
+         * Summary: 数字短信批量发送接口（单模板）
+         */
+        public SendUmktDigitalsmsBatchResponse SendUmktDigitalsmsBatch(SendUmktDigitalsmsBatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendUmktDigitalsmsBatchEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字短信批量发送接口（单模板）
+         * Summary: 数字短信批量发送接口（单模板）
+         */
+        public async Task<SendUmktDigitalsmsBatchResponse> SendUmktDigitalsmsBatchAsync(SendUmktDigitalsmsBatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendUmktDigitalsmsBatchExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字短信批量发送接口（单模板）
+         * Summary: 数字短信批量发送接口（单模板）
+         */
+        public SendUmktDigitalsmsBatchResponse SendUmktDigitalsmsBatchEx(SendUmktDigitalsmsBatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendUmktDigitalsmsBatchResponse>(DoRequest("1.0", "riskplus.umkt.digitalsms.batch.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字短信批量发送接口（单模板）
+         * Summary: 数字短信批量发送接口（单模板）
+         */
+        public async Task<SendUmktDigitalsmsBatchResponse> SendUmktDigitalsmsBatchExAsync(SendUmktDigitalsmsBatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendUmktDigitalsmsBatchResponse>(await DoRequestAsync("1.0", "riskplus.umkt.digitalsms.batch.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
