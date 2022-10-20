@@ -828,6 +828,8 @@ export class PersonalInfo extends $tea.Model {
   sex?: string;
   // 民族
   nation?: string;
+  // 婚姻状态：00-未婚，01-已婚，02-离婚，03-丧偶，99-未知
+  maritalStatus?: string;
   static names(): { [key: string]: string } {
     return {
       customName: 'custom_name',
@@ -844,6 +846,7 @@ export class PersonalInfo extends $tea.Model {
       address: 'address',
       sex: 'sex',
       nation: 'nation',
+      maritalStatus: 'marital_status',
     };
   }
 
@@ -863,6 +866,7 @@ export class PersonalInfo extends $tea.Model {
       address: 'string',
       sex: 'string',
       nation: 'string',
+      maritalStatus: 'string',
     };
   }
 
@@ -7518,12 +7522,15 @@ export class QueryDubbridgeSearchContractRequest extends $tea.Model {
   originalOrderNo: string;
   // 客户号
   customerNo: string;
+  // 合同类型
+  contractType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       originalOrderNo: 'original_order_no',
       customerNo: 'customer_no',
+      contractType: 'contract_type',
     };
   }
 
@@ -7533,6 +7540,7 @@ export class QueryDubbridgeSearchContractRequest extends $tea.Model {
       productInstanceId: 'string',
       originalOrderNo: 'string',
       customerNo: 'string',
+      contractType: 'string',
     };
   }
 
@@ -13738,7 +13746,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.7",
+          sdk_version: "1.13.9",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
