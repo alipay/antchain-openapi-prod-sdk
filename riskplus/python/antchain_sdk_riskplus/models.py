@@ -1340,6 +1340,7 @@ class PersonalInfo(TeaModel):
         address: str = None,
         sex: str = None,
         nation: str = None,
+        marital_status: str = None,
     ):
         # 客户姓名
         self.custom_name = custom_name
@@ -1371,6 +1372,8 @@ class PersonalInfo(TeaModel):
         self.sex = sex
         # 民族
         self.nation = nation
+        # 婚姻状态：00-未婚，01-已婚，02-离婚，03-丧偶，99-未知
+        self.marital_status = marital_status
 
     def validate(self):
         self.validate_required(self.custom_name, 'custom_name')
@@ -1416,6 +1419,8 @@ class PersonalInfo(TeaModel):
             result['sex'] = self.sex
         if self.nation is not None:
             result['nation'] = self.nation
+        if self.marital_status is not None:
+            result['marital_status'] = self.marital_status
         return result
 
     def from_map(self, m: dict = None):
@@ -1448,6 +1453,8 @@ class PersonalInfo(TeaModel):
             self.sex = m.get('sex')
         if m.get('nation') is not None:
             self.nation = m.get('nation')
+        if m.get('marital_status') is not None:
+            self.marital_status = m.get('marital_status')
         return self
 
 
@@ -12483,6 +12490,7 @@ class QueryDubbridgeSearchContractRequest(TeaModel):
         product_instance_id: str = None,
         original_order_no: str = None,
         customer_no: str = None,
+        contract_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -12491,6 +12499,8 @@ class QueryDubbridgeSearchContractRequest(TeaModel):
         self.original_order_no = original_order_no
         # 客户号
         self.customer_no = customer_no
+        # 合同类型
+        self.contract_type = contract_type
 
     def validate(self):
         self.validate_required(self.original_order_no, 'original_order_no')
@@ -12510,6 +12520,8 @@ class QueryDubbridgeSearchContractRequest(TeaModel):
             result['original_order_no'] = self.original_order_no
         if self.customer_no is not None:
             result['customer_no'] = self.customer_no
+        if self.contract_type is not None:
+            result['contract_type'] = self.contract_type
         return result
 
     def from_map(self, m: dict = None):
@@ -12522,6 +12534,8 @@ class QueryDubbridgeSearchContractRequest(TeaModel):
             self.original_order_no = m.get('original_order_no')
         if m.get('customer_no') is not None:
             self.customer_no = m.get('customer_no')
+        if m.get('contract_type') is not None:
+            self.contract_type = m.get('contract_type')
         return self
 
 
