@@ -82,6 +82,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string Nation { get; set; }
 
+        // 婚姻状态：00-未婚，01-已婚，02-离婚，03-丧偶，99-未知
+        [NameInMap("marital_status")]
+        [Validation(Required=false)]
+        public string MaritalStatus { get; set; }
+
     }
 
 }

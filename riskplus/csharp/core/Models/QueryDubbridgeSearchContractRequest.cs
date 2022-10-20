@@ -28,6 +28,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string CustomerNo { get; set; }
 
+        // 合同类型
+        [NameInMap("contract_type")]
+        [Validation(Required=false)]
+        public string ContractType { get; set; }
+
     }
 
 }
