@@ -70,6 +70,10 @@ public class PersonalInfo extends TeaModel {
     @NameInMap("nation")
     public String nation;
 
+    // 婚姻状态：00-未婚，01-已婚，02-离婚，03-丧偶，99-未知
+    @NameInMap("marital_status")
+    public String maritalStatus;
+
     public static PersonalInfo build(java.util.Map<String, ?> map) throws Exception {
         PersonalInfo self = new PersonalInfo();
         return TeaModel.build(map, self);
@@ -185,6 +189,14 @@ public class PersonalInfo extends TeaModel {
     }
     public String getNation() {
         return this.nation;
+    }
+
+    public PersonalInfo setMaritalStatus(String maritalStatus) {
+        this.maritalStatus = maritalStatus;
+        return this;
+    }
+    public String getMaritalStatus() {
+        return this.maritalStatus;
     }
 
 }

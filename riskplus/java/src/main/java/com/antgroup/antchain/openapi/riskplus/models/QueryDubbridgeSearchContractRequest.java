@@ -21,6 +21,10 @@ public class QueryDubbridgeSearchContractRequest extends TeaModel {
     @Validation(required = true)
     public String customerNo;
 
+    // 合同类型
+    @NameInMap("contract_type")
+    public String contractType;
+
     public static QueryDubbridgeSearchContractRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeSearchContractRequest self = new QueryDubbridgeSearchContractRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class QueryDubbridgeSearchContractRequest extends TeaModel {
     }
     public String getCustomerNo() {
         return this.customerNo;
+    }
+
+    public QueryDubbridgeSearchContractRequest setContractType(String contractType) {
+        this.contractType = contractType;
+        return this;
+    }
+    public String getContractType() {
+        return this.contractType;
     }
 
 }
