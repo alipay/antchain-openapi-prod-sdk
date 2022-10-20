@@ -30,11 +30,18 @@ class QueryDubbridgeSearchContractRequest extends Model
      * @var string
      */
     public $customerNo;
+
+    // 合同类型
+    /**
+     * @var string
+     */
+    public $contractType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'originalOrderNo'   => 'original_order_no',
         'customerNo'        => 'customer_no',
+        'contractType'      => 'contract_type',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class QueryDubbridgeSearchContractRequest extends Model
         }
         if (null !== $this->customerNo) {
             $res['customer_no'] = $this->customerNo;
+        }
+        if (null !== $this->contractType) {
+            $res['contract_type'] = $this->contractType;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class QueryDubbridgeSearchContractRequest extends Model
         }
         if (isset($map['customer_no'])) {
             $model->customerNo = $map['customer_no'];
+        }
+        if (isset($map['contract_type'])) {
+            $model->contractType = $map['contract_type'];
         }
 
         return $model;

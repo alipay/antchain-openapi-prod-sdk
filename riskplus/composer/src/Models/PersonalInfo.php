@@ -121,21 +121,30 @@ class PersonalInfo extends Model
      * @var string
      */
     public $nation;
+
+    // 婚姻状态：00-未婚，01-已婚，02-离婚，03-丧偶，99-未知
+    /**
+     * @example 00
+     *
+     * @var string
+     */
+    public $maritalStatus;
     protected $_name = [
-        'customName'   => 'custom_name',
-        'cardNo'       => 'card_no',
-        'idType'       => 'id_type',
-        'certSignDate' => 'cert_sign_date',
-        'certValidate' => 'cert_validate',
-        'certAdr'      => 'cert_adr',
-        'mobile'       => 'mobile',
-        'education'    => 'education',
-        'province'     => 'province',
-        'city'         => 'city',
-        'area'         => 'area',
-        'address'      => 'address',
-        'sex'          => 'sex',
-        'nation'       => 'nation',
+        'customName'    => 'custom_name',
+        'cardNo'        => 'card_no',
+        'idType'        => 'id_type',
+        'certSignDate'  => 'cert_sign_date',
+        'certValidate'  => 'cert_validate',
+        'certAdr'       => 'cert_adr',
+        'mobile'        => 'mobile',
+        'education'     => 'education',
+        'province'      => 'province',
+        'city'          => 'city',
+        'area'          => 'area',
+        'address'       => 'address',
+        'sex'           => 'sex',
+        'nation'        => 'nation',
+        'maritalStatus' => 'marital_status',
     ];
 
     public function validate()
@@ -195,6 +204,9 @@ class PersonalInfo extends Model
         if (null !== $this->nation) {
             $res['nation'] = $this->nation;
         }
+        if (null !== $this->maritalStatus) {
+            $res['marital_status'] = $this->maritalStatus;
+        }
 
         return $res;
     }
@@ -248,6 +260,9 @@ class PersonalInfo extends Model
         }
         if (isset($map['nation'])) {
             $model->nation = $map['nation'];
+        }
+        if (isset($map['marital_status'])) {
+            $model->maritalStatus = $map['marital_status'];
         }
 
         return $model;
