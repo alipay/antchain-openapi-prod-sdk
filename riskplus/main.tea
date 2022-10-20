@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.7',
+    sdk_version = '1.13.9',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -468,6 +468,8 @@ model PersonalInfo {
   sex?: string(name='sex', example='M'),
   // 民族
   nation?: string(name='nation', example='汉'),
+  // 婚姻状态：00-未婚，01-已婚，02-离婚，03-丧偶，99-未知
+  maritalStatus?: string(name='marital_status', example='00'),
 }
 
 // 天枢系统专用RepayResult结构体
@@ -3990,6 +3992,8 @@ model QueryDubbridgeSearchContractRequest = {
   originalOrderNo: string(name='original_order_no'),
   // 客户号
   customerNo: string(name='customer_no'),
+  // 合同类型
+  contractType?: string(name='contract_type'),
 }
 
 model QueryDubbridgeSearchContractResponse = {
