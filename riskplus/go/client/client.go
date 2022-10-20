@@ -1095,6 +1095,8 @@ type PersonalInfo struct {
 	Sex *string `json:"sex,omitempty" xml:"sex,omitempty"`
 	// 民族
 	Nation *string `json:"nation,omitempty" xml:"nation,omitempty"`
+	// 婚姻状态：00-未婚，01-已婚，02-离婚，03-丧偶，99-未知
+	MaritalStatus *string `json:"marital_status,omitempty" xml:"marital_status,omitempty"`
 }
 
 func (s PersonalInfo) String() string {
@@ -1172,6 +1174,11 @@ func (s *PersonalInfo) SetSex(v string) *PersonalInfo {
 
 func (s *PersonalInfo) SetNation(v string) *PersonalInfo {
 	s.Nation = &v
+	return s
+}
+
+func (s *PersonalInfo) SetMaritalStatus(v string) *PersonalInfo {
+	s.MaritalStatus = &v
 	return s
 }
 
@@ -10097,6 +10104,8 @@ type QueryDubbridgeSearchContractRequest struct {
 	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty" require:"true"`
 	// 客户号
 	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty" require:"true"`
+	// 合同类型
+	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty"`
 }
 
 func (s QueryDubbridgeSearchContractRequest) String() string {
@@ -10124,6 +10133,11 @@ func (s *QueryDubbridgeSearchContractRequest) SetOriginalOrderNo(v string) *Quer
 
 func (s *QueryDubbridgeSearchContractRequest) SetCustomerNo(v string) *QueryDubbridgeSearchContractRequest {
 	s.CustomerNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeSearchContractRequest) SetContractType(v string) *QueryDubbridgeSearchContractRequest {
+	s.ContractType = &v
 	return s
 }
 
@@ -18251,7 +18265,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.7"),
+				"sdk_version":      tea.String("1.13.9"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
