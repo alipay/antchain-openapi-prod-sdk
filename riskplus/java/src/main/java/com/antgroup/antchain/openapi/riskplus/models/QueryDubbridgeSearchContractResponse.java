@@ -16,33 +16,9 @@ public class QueryDubbridgeSearchContractResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 关联编号（授信/用信）
-    @NameInMap("relation_no")
-    public String relationNo;
-
-    // 合同编号
-    @NameInMap("contract_no")
-    public String contractNo;
-
-    // 合同名称
-    @NameInMap("contract_name")
-    public String contractName;
-
-    // 合同类型：0:电子合同签署授权协议 1:借款合同 2:抵押合同 3:担保合同 4:用信合同 5:通用合同 6:征信授权书
-    @NameInMap("contract_type")
-    public String contractType;
-
-    // 客户编号
-    @NameInMap("custom_no")
-    public String customNo;
-
-    // 下载地址
-    @NameInMap("save_path")
-    public String savePath;
-
-    // 合同金额
-    @NameInMap("contract_amount")
-    public Long contractAmount;
+    // 合同信息列表
+    @NameInMap("contract_response_list")
+    public java.util.List<Contract> contractResponseList;
 
     public static QueryDubbridgeSearchContractResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeSearchContractResponse self = new QueryDubbridgeSearchContractResponse();
@@ -73,60 +49,12 @@ public class QueryDubbridgeSearchContractResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDubbridgeSearchContractResponse setRelationNo(String relationNo) {
-        this.relationNo = relationNo;
+    public QueryDubbridgeSearchContractResponse setContractResponseList(java.util.List<Contract> contractResponseList) {
+        this.contractResponseList = contractResponseList;
         return this;
     }
-    public String getRelationNo() {
-        return this.relationNo;
-    }
-
-    public QueryDubbridgeSearchContractResponse setContractNo(String contractNo) {
-        this.contractNo = contractNo;
-        return this;
-    }
-    public String getContractNo() {
-        return this.contractNo;
-    }
-
-    public QueryDubbridgeSearchContractResponse setContractName(String contractName) {
-        this.contractName = contractName;
-        return this;
-    }
-    public String getContractName() {
-        return this.contractName;
-    }
-
-    public QueryDubbridgeSearchContractResponse setContractType(String contractType) {
-        this.contractType = contractType;
-        return this;
-    }
-    public String getContractType() {
-        return this.contractType;
-    }
-
-    public QueryDubbridgeSearchContractResponse setCustomNo(String customNo) {
-        this.customNo = customNo;
-        return this;
-    }
-    public String getCustomNo() {
-        return this.customNo;
-    }
-
-    public QueryDubbridgeSearchContractResponse setSavePath(String savePath) {
-        this.savePath = savePath;
-        return this;
-    }
-    public String getSavePath() {
-        return this.savePath;
-    }
-
-    public QueryDubbridgeSearchContractResponse setContractAmount(Long contractAmount) {
-        this.contractAmount = contractAmount;
-        return this;
-    }
-    public Long getContractAmount() {
-        return this.contractAmount;
+    public java.util.List<Contract> getContractResponseList() {
+        return this.contractResponseList;
     }
 
 }
