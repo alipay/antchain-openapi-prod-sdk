@@ -3603,6 +3603,82 @@ class SecurityResultInfos(TeaModel):
         return self
 
 
+class Contract(TeaModel):
+    def __init__(
+        self,
+        relation_no: str = None,
+        contract_no: str = None,
+        contract_name: str = None,
+        contract_type: str = None,
+        custom_no: str = None,
+        save_path: str = None,
+        contract_amount: int = None,
+    ):
+        # 关联编号
+        self.relation_no = relation_no
+        # 合同编号
+        self.contract_no = contract_no
+        # 合同名称
+        self.contract_name = contract_name
+        # 合同类型
+        self.contract_type = contract_type
+        # 客户编号
+        self.custom_no = custom_no
+        # 合同存放目录
+        self.save_path = save_path
+        # 合同金额
+        self.contract_amount = contract_amount
+
+    def validate(self):
+        self.validate_required(self.relation_no, 'relation_no')
+        self.validate_required(self.contract_no, 'contract_no')
+        self.validate_required(self.contract_name, 'contract_name')
+        self.validate_required(self.contract_type, 'contract_type')
+        self.validate_required(self.custom_no, 'custom_no')
+        self.validate_required(self.save_path, 'save_path')
+        self.validate_required(self.contract_amount, 'contract_amount')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.relation_no is not None:
+            result['relation_no'] = self.relation_no
+        if self.contract_no is not None:
+            result['contract_no'] = self.contract_no
+        if self.contract_name is not None:
+            result['contract_name'] = self.contract_name
+        if self.contract_type is not None:
+            result['contract_type'] = self.contract_type
+        if self.custom_no is not None:
+            result['custom_no'] = self.custom_no
+        if self.save_path is not None:
+            result['save_path'] = self.save_path
+        if self.contract_amount is not None:
+            result['contract_amount'] = self.contract_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('relation_no') is not None:
+            self.relation_no = m.get('relation_no')
+        if m.get('contract_no') is not None:
+            self.contract_no = m.get('contract_no')
+        if m.get('contract_name') is not None:
+            self.contract_name = m.get('contract_name')
+        if m.get('contract_type') is not None:
+            self.contract_type = m.get('contract_type')
+        if m.get('custom_no') is not None:
+            self.custom_no = m.get('custom_no')
+        if m.get('save_path') is not None:
+            self.save_path = m.get('save_path')
+        if m.get('contract_amount') is not None:
+            self.contract_amount = m.get('contract_amount')
+        return self
+
+
 class RtopAgeDistribution(TeaModel):
     def __init__(
         self,
@@ -12545,13 +12621,7 @@ class QueryDubbridgeSearchContractResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        relation_no: str = None,
-        contract_no: str = None,
-        contract_name: str = None,
-        contract_type: str = None,
-        custom_no: str = None,
-        save_path: str = None,
-        contract_amount: int = None,
+        contract_response_list: List[Contract] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -12559,23 +12629,14 @@ class QueryDubbridgeSearchContractResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 关联编号（授信/用信）
-        self.relation_no = relation_no
-        # 合同编号
-        self.contract_no = contract_no
-        # 合同名称
-        self.contract_name = contract_name
-        # 合同类型：0:电子合同签署授权协议 1:借款合同 2:抵押合同 3:担保合同 4:用信合同 5:通用合同 6:征信授权书
-        self.contract_type = contract_type
-        # 客户编号
-        self.custom_no = custom_no
-        # 下载地址
-        self.save_path = save_path
-        # 合同金额
-        self.contract_amount = contract_amount
+        # 合同信息列表
+        self.contract_response_list = contract_response_list
 
     def validate(self):
-        pass
+        if self.contract_response_list:
+            for k in self.contract_response_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -12589,20 +12650,10 @@ class QueryDubbridgeSearchContractResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.relation_no is not None:
-            result['relation_no'] = self.relation_no
-        if self.contract_no is not None:
-            result['contract_no'] = self.contract_no
-        if self.contract_name is not None:
-            result['contract_name'] = self.contract_name
-        if self.contract_type is not None:
-            result['contract_type'] = self.contract_type
-        if self.custom_no is not None:
-            result['custom_no'] = self.custom_no
-        if self.save_path is not None:
-            result['save_path'] = self.save_path
-        if self.contract_amount is not None:
-            result['contract_amount'] = self.contract_amount
+        result['contract_response_list'] = []
+        if self.contract_response_list is not None:
+            for k in self.contract_response_list:
+                result['contract_response_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -12613,20 +12664,11 @@ class QueryDubbridgeSearchContractResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('relation_no') is not None:
-            self.relation_no = m.get('relation_no')
-        if m.get('contract_no') is not None:
-            self.contract_no = m.get('contract_no')
-        if m.get('contract_name') is not None:
-            self.contract_name = m.get('contract_name')
-        if m.get('contract_type') is not None:
-            self.contract_type = m.get('contract_type')
-        if m.get('custom_no') is not None:
-            self.custom_no = m.get('custom_no')
-        if m.get('save_path') is not None:
-            self.save_path = m.get('save_path')
-        if m.get('contract_amount') is not None:
-            self.contract_amount = m.get('contract_amount')
+        self.contract_response_list = []
+        if m.get('contract_response_list') is not None:
+            for k in m.get('contract_response_list'):
+                temp_model = Contract()
+                self.contract_response_list.append(temp_model.from_map(k))
         return self
 
 
