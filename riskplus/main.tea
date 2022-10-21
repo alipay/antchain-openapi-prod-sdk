@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.9',
+    sdk_version = '1.13.11',
+    _prod_code = 'RISKPLUS',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -986,6 +988,24 @@ model SecurityResultInfos {
   riskScore: long(name='risk_score', example='100.0'),
   // 反欺诈风险数据服务场景码
   sceneCode: string(name='scene_code', example='EC_TEST'),
+}
+
+// 天枢合同
+model Contract {
+  // 关联编号
+  relationNo: string(name='relation_no', example='123123'),
+  // 合同编号
+  contractNo: string(name='contract_no', example='123123'),
+  // 合同名称
+  contractName: string(name='contract_name', example='用信合同'),
+  // 合同类型
+  contractType: string(name='contract_type', example='0'),
+  // 客户编号
+  customNo: string(name='custom_no', example='PCM123xxxx'),
+  // 合同存放目录
+  savePath: string(name='save_path', example='https://11111'),
+  // 合同金额
+  contractAmount: long(name='contract_amount', example=''),
 }
 
 // 企业影响人数年龄分布统计
@@ -4003,20 +4023,8 @@ model QueryDubbridgeSearchContractResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 关联编号（授信/用信）
-  relationNo?: string(name='relation_no'),
-  // 合同编号
-  contractNo?: string(name='contract_no'),
-  // 合同名称
-  contractName?: string(name='contract_name'),
-  // 合同类型：0:电子合同签署授权协议 1:借款合同 2:抵押合同 3:担保合同 4:用信合同 5:通用合同 6:征信授权书
-  contractType?: string(name='contract_type'),
-  // 客户编号
-  customNo?: string(name='custom_no'),
-  // 下载地址
-  savePath?: string(name='save_path'),
-  // 合同金额
-  contractAmount?: long(name='contract_amount'),
+  // 合同信息列表
+  contractResponseList?: [ Contract ](name='contract_response_list'),
 }
 
 /**
