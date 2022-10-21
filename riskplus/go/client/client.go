@@ -2914,6 +2914,67 @@ func (s *SecurityResultInfos) SetSceneCode(v string) *SecurityResultInfos {
 	return s
 }
 
+// 天枢合同
+type Contract struct {
+	// 关联编号
+	RelationNo *string `json:"relation_no,omitempty" xml:"relation_no,omitempty" require:"true"`
+	// 合同编号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty" require:"true"`
+	// 合同名称
+	ContractName *string `json:"contract_name,omitempty" xml:"contract_name,omitempty" require:"true"`
+	// 合同类型
+	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty" require:"true"`
+	// 客户编号
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
+	// 合同存放目录
+	SavePath *string `json:"save_path,omitempty" xml:"save_path,omitempty" require:"true"`
+	// 合同金额
+	ContractAmount *int64 `json:"contract_amount,omitempty" xml:"contract_amount,omitempty" require:"true"`
+}
+
+func (s Contract) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Contract) GoString() string {
+	return s.String()
+}
+
+func (s *Contract) SetRelationNo(v string) *Contract {
+	s.RelationNo = &v
+	return s
+}
+
+func (s *Contract) SetContractNo(v string) *Contract {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *Contract) SetContractName(v string) *Contract {
+	s.ContractName = &v
+	return s
+}
+
+func (s *Contract) SetContractType(v string) *Contract {
+	s.ContractType = &v
+	return s
+}
+
+func (s *Contract) SetCustomNo(v string) *Contract {
+	s.CustomNo = &v
+	return s
+}
+
+func (s *Contract) SetSavePath(v string) *Contract {
+	s.SavePath = &v
+	return s
+}
+
+func (s *Contract) SetContractAmount(v int64) *Contract {
+	s.ContractAmount = &v
+	return s
+}
+
 // 企业影响人数年龄分布统计
 type RtopAgeDistribution struct {
 	// 年龄
@@ -10148,20 +10209,8 @@ type QueryDubbridgeSearchContractResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 关联编号（授信/用信）
-	RelationNo *string `json:"relation_no,omitempty" xml:"relation_no,omitempty"`
-	// 合同编号
-	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty"`
-	// 合同名称
-	ContractName *string `json:"contract_name,omitempty" xml:"contract_name,omitempty"`
-	// 合同类型：0:电子合同签署授权协议 1:借款合同 2:抵押合同 3:担保合同 4:用信合同 5:通用合同 6:征信授权书
-	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty"`
-	// 客户编号
-	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty"`
-	// 下载地址
-	SavePath *string `json:"save_path,omitempty" xml:"save_path,omitempty"`
-	// 合同金额
-	ContractAmount *int64 `json:"contract_amount,omitempty" xml:"contract_amount,omitempty"`
+	// 合同信息列表
+	ContractResponseList []*Contract `json:"contract_response_list,omitempty" xml:"contract_response_list,omitempty" type:"Repeated"`
 }
 
 func (s QueryDubbridgeSearchContractResponse) String() string {
@@ -10187,38 +10236,8 @@ func (s *QueryDubbridgeSearchContractResponse) SetResultMsg(v string) *QueryDubb
 	return s
 }
 
-func (s *QueryDubbridgeSearchContractResponse) SetRelationNo(v string) *QueryDubbridgeSearchContractResponse {
-	s.RelationNo = &v
-	return s
-}
-
-func (s *QueryDubbridgeSearchContractResponse) SetContractNo(v string) *QueryDubbridgeSearchContractResponse {
-	s.ContractNo = &v
-	return s
-}
-
-func (s *QueryDubbridgeSearchContractResponse) SetContractName(v string) *QueryDubbridgeSearchContractResponse {
-	s.ContractName = &v
-	return s
-}
-
-func (s *QueryDubbridgeSearchContractResponse) SetContractType(v string) *QueryDubbridgeSearchContractResponse {
-	s.ContractType = &v
-	return s
-}
-
-func (s *QueryDubbridgeSearchContractResponse) SetCustomNo(v string) *QueryDubbridgeSearchContractResponse {
-	s.CustomNo = &v
-	return s
-}
-
-func (s *QueryDubbridgeSearchContractResponse) SetSavePath(v string) *QueryDubbridgeSearchContractResponse {
-	s.SavePath = &v
-	return s
-}
-
-func (s *QueryDubbridgeSearchContractResponse) SetContractAmount(v int64) *QueryDubbridgeSearchContractResponse {
-	s.ContractAmount = &v
+func (s *QueryDubbridgeSearchContractResponse) SetContractResponseList(v []*Contract) *QueryDubbridgeSearchContractResponse {
+	s.ContractResponseList = v
 	return s
 }
 
@@ -18265,7 +18284,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.9"),
+				"sdk_version":      tea.String("1.13.11"),
+				"_prod_code":       tea.String("RISKPLUS"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
