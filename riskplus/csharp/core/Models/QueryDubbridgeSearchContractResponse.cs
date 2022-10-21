@@ -24,40 +24,10 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 关联编号（授信/用信）
-        [NameInMap("relation_no")]
+        // 合同信息列表
+        [NameInMap("contract_response_list")]
         [Validation(Required=false)]
-        public string RelationNo { get; set; }
-
-        // 合同编号
-        [NameInMap("contract_no")]
-        [Validation(Required=false)]
-        public string ContractNo { get; set; }
-
-        // 合同名称
-        [NameInMap("contract_name")]
-        [Validation(Required=false)]
-        public string ContractName { get; set; }
-
-        // 合同类型：0:电子合同签署授权协议 1:借款合同 2:抵押合同 3:担保合同 4:用信合同 5:通用合同 6:征信授权书
-        [NameInMap("contract_type")]
-        [Validation(Required=false)]
-        public string ContractType { get; set; }
-
-        // 客户编号
-        [NameInMap("custom_no")]
-        [Validation(Required=false)]
-        public string CustomNo { get; set; }
-
-        // 下载地址
-        [NameInMap("save_path")]
-        [Validation(Required=false)]
-        public string SavePath { get; set; }
-
-        // 合同金额
-        [NameInMap("contract_amount")]
-        [Validation(Required=false)]
-        public long? ContractAmount { get; set; }
+        public List<Contract> ContractResponseList { get; set; }
 
     }
 
