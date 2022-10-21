@@ -2142,6 +2142,51 @@ export class SecurityResultInfos extends $tea.Model {
   }
 }
 
+// 天枢合同
+export class Contract extends $tea.Model {
+  // 关联编号
+  relationNo: string;
+  // 合同编号
+  contractNo: string;
+  // 合同名称
+  contractName: string;
+  // 合同类型
+  contractType: string;
+  // 客户编号
+  customNo: string;
+  // 合同存放目录
+  savePath: string;
+  // 合同金额
+  contractAmount: number;
+  static names(): { [key: string]: string } {
+    return {
+      relationNo: 'relation_no',
+      contractNo: 'contract_no',
+      contractName: 'contract_name',
+      contractType: 'contract_type',
+      customNo: 'custom_no',
+      savePath: 'save_path',
+      contractAmount: 'contract_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      relationNo: 'string',
+      contractNo: 'string',
+      contractName: 'string',
+      contractType: 'string',
+      customNo: 'string',
+      savePath: 'string',
+      contractAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 企业影响人数年龄分布统计
 export class RtopAgeDistribution extends $tea.Model {
   // 年龄
@@ -7556,32 +7601,14 @@ export class QueryDubbridgeSearchContractResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 关联编号（授信/用信）
-  relationNo?: string;
-  // 合同编号
-  contractNo?: string;
-  // 合同名称
-  contractName?: string;
-  // 合同类型：0:电子合同签署授权协议 1:借款合同 2:抵押合同 3:担保合同 4:用信合同 5:通用合同 6:征信授权书
-  contractType?: string;
-  // 客户编号
-  customNo?: string;
-  // 下载地址
-  savePath?: string;
-  // 合同金额
-  contractAmount?: number;
+  // 合同信息列表
+  contractResponseList?: Contract[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      relationNo: 'relation_no',
-      contractNo: 'contract_no',
-      contractName: 'contract_name',
-      contractType: 'contract_type',
-      customNo: 'custom_no',
-      savePath: 'save_path',
-      contractAmount: 'contract_amount',
+      contractResponseList: 'contract_response_list',
     };
   }
 
@@ -7590,13 +7617,7 @@ export class QueryDubbridgeSearchContractResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      relationNo: 'string',
-      contractNo: 'string',
-      contractName: 'string',
-      contractType: 'string',
-      customNo: 'string',
-      savePath: 'string',
-      contractAmount: 'number',
+      contractResponseList: { 'type': 'array', 'itemType': Contract },
     };
   }
 
@@ -13746,7 +13767,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.9",
+          sdk_version: "1.13.11",
+          _prod_code: "RISKPLUS",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
