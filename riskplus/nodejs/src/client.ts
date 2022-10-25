@@ -2158,6 +2158,10 @@ export class Contract extends $tea.Model {
   savePath: string;
   // 合同金额
   contractAmount: number;
+  // 用信合同编号
+  disburseContractNo: string;
+  // 授信合同编号
+  creditContractNo: string;
   static names(): { [key: string]: string } {
     return {
       relationNo: 'relation_no',
@@ -2167,6 +2171,8 @@ export class Contract extends $tea.Model {
       customNo: 'custom_no',
       savePath: 'save_path',
       contractAmount: 'contract_amount',
+      disburseContractNo: 'disburse_contract_no',
+      creditContractNo: 'credit_contract_no',
     };
   }
 
@@ -2179,6 +2185,8 @@ export class Contract extends $tea.Model {
       customNo: 'string',
       savePath: 'string',
       contractAmount: 'number',
+      disburseContractNo: 'string',
+      creditContractNo: 'string',
     };
   }
 
@@ -13771,7 +13779,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.12",
+          sdk_version: "1.13.13",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
