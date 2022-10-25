@@ -63,14 +63,32 @@ class Contract extends Model
      * @var int
      */
     public $contractAmount;
+
+    // 用信合同编号
+    /**
+     * @example 123123
+     *
+     * @var string
+     */
+    public $disburseContractNo;
+
+    // 授信合同编号
+    /**
+     * @example 123123
+     *
+     * @var string
+     */
+    public $creditContractNo;
     protected $_name = [
-        'relationNo'     => 'relation_no',
-        'contractNo'     => 'contract_no',
-        'contractName'   => 'contract_name',
-        'contractType'   => 'contract_type',
-        'customNo'       => 'custom_no',
-        'savePath'       => 'save_path',
-        'contractAmount' => 'contract_amount',
+        'relationNo'         => 'relation_no',
+        'contractNo'         => 'contract_no',
+        'contractName'       => 'contract_name',
+        'contractType'       => 'contract_type',
+        'customNo'           => 'custom_no',
+        'savePath'           => 'save_path',
+        'contractAmount'     => 'contract_amount',
+        'disburseContractNo' => 'disburse_contract_no',
+        'creditContractNo'   => 'credit_contract_no',
     ];
 
     public function validate()
@@ -82,6 +100,8 @@ class Contract extends Model
         Model::validateRequired('customNo', $this->customNo, true);
         Model::validateRequired('savePath', $this->savePath, true);
         Model::validateRequired('contractAmount', $this->contractAmount, true);
+        Model::validateRequired('disburseContractNo', $this->disburseContractNo, true);
+        Model::validateRequired('creditContractNo', $this->creditContractNo, true);
     }
 
     public function toMap()
@@ -107,6 +127,12 @@ class Contract extends Model
         }
         if (null !== $this->contractAmount) {
             $res['contract_amount'] = $this->contractAmount;
+        }
+        if (null !== $this->disburseContractNo) {
+            $res['disburse_contract_no'] = $this->disburseContractNo;
+        }
+        if (null !== $this->creditContractNo) {
+            $res['credit_contract_no'] = $this->creditContractNo;
         }
 
         return $res;
@@ -140,6 +166,12 @@ class Contract extends Model
         }
         if (isset($map['contract_amount'])) {
             $model->contractAmount = $map['contract_amount'];
+        }
+        if (isset($map['disburse_contract_no'])) {
+            $model->disburseContractNo = $map['disburse_contract_no'];
+        }
+        if (isset($map['credit_contract_no'])) {
+            $model->creditContractNo = $map['credit_contract_no'];
         }
 
         return $model;
