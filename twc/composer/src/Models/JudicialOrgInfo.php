@@ -48,6 +48,14 @@ class JudicialOrgInfo extends Model
      */
     public $orgAddress;
 
+    // 企业营业执照地址
+    /**
+     * @example 企业营业执照地址
+     *
+     * @var string
+     */
+    public $residenceAddress;
+
     // 企业或机构营业执照信息
     /**
      * @example
@@ -85,6 +93,7 @@ class JudicialOrgInfo extends Model
         'orgPhone'                      => 'org_phone',
         'orgEmail'                      => 'org_email',
         'orgAddress'                    => 'org_address',
+        'residenceAddress'              => 'residence_address',
         'orgBizLicenseInfo'             => 'org_biz_license_info',
         'orgLegalPersonInfo'            => 'org_legal_person_info',
         'orgSignatureManagerPersonInfo' => 'org_signature_manager_person_info',
@@ -115,6 +124,9 @@ class JudicialOrgInfo extends Model
         }
         if (null !== $this->orgAddress) {
             $res['org_address'] = $this->orgAddress;
+        }
+        if (null !== $this->residenceAddress) {
+            $res['residence_address'] = $this->residenceAddress;
         }
         if (null !== $this->orgBizLicenseInfo) {
             $res['org_biz_license_info'] = null !== $this->orgBizLicenseInfo ? $this->orgBizLicenseInfo->toMap() : null;
@@ -154,6 +166,9 @@ class JudicialOrgInfo extends Model
         }
         if (isset($map['org_address'])) {
             $model->orgAddress = $map['org_address'];
+        }
+        if (isset($map['residence_address'])) {
+            $model->residenceAddress = $map['residence_address'];
         }
         if (isset($map['org_biz_license_info'])) {
             $model->orgBizLicenseInfo = JudicialFileInfo::fromMap($map['org_biz_license_info']);

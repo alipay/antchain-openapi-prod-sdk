@@ -25,7 +25,7 @@ class VerifyRefinancePackageRequest extends Model
      */
     public $packageId;
 
-    // AUDIT_SUCCESS(审核通过), AUDIT_REFUSE（审核驳回）
+    // AUDIT_SUCCESS(审核通过), AUDIT_REFUSE(审核驳回), AUDITING(审核中，需要调无效资产推送将无效资产分批推送过来)
     /**
      * @var string
      */

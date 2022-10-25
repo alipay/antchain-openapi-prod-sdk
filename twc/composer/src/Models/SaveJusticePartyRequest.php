@@ -45,6 +45,12 @@ class SaveJusticePartyRequest extends Model
      * @var JudicialPersonInfo
      */
     public $coordinatorPersonInfo;
+
+    // 案件协同人银行账户信息
+    /**
+     * @var JudicialBankInfo
+     */
+    public $coordinatorBankInfo;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -52,13 +58,12 @@ class SaveJusticePartyRequest extends Model
         'partyType'             => 'party_type',
         'partyOrganizationInfo' => 'party_organization_info',
         'coordinatorPersonInfo' => 'coordinator_person_info',
+        'coordinatorBankInfo'   => 'coordinator_bank_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('partyType', $this->partyType, true);
-        Model::validateRequired('partyOrganizationInfo', $this->partyOrganizationInfo, true);
-        Model::validateRequired('coordinatorPersonInfo', $this->coordinatorPersonInfo, true);
     }
 
     public function toMap()
@@ -81,6 +86,9 @@ class SaveJusticePartyRequest extends Model
         }
         if (null !== $this->coordinatorPersonInfo) {
             $res['coordinator_person_info'] = null !== $this->coordinatorPersonInfo ? $this->coordinatorPersonInfo->toMap() : null;
+        }
+        if (null !== $this->coordinatorBankInfo) {
+            $res['coordinator_bank_info'] = null !== $this->coordinatorBankInfo ? $this->coordinatorBankInfo->toMap() : null;
         }
 
         return $res;
@@ -111,6 +119,9 @@ class SaveJusticePartyRequest extends Model
         }
         if (isset($map['coordinator_person_info'])) {
             $model->coordinatorPersonInfo = JudicialPersonInfo::fromMap($map['coordinator_person_info']);
+        }
+        if (isset($map['coordinator_bank_info'])) {
+            $model->coordinatorBankInfo = JudicialBankInfo::fromMap($map['coordinator_bank_info']);
         }
 
         return $model;

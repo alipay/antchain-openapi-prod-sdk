@@ -205,6 +205,8 @@ use AntChain\TWC\Models\CreateLeaseRentalRequest;
 use AntChain\TWC\Models\CreateLeaseRentalResponse;
 use AntChain\TWC\Models\CreateLeaseRepaymentRequest;
 use AntChain\TWC\Models\CreateLeaseRepaymentResponse;
+use AntChain\TWC\Models\CreateLeaseRiskRequest;
+use AntChain\TWC\Models\CreateLeaseRiskResponse;
 use AntChain\TWC\Models\CreateLeaseRouteRequest;
 use AntChain\TWC\Models\CreateLeaseRouteResponse;
 use AntChain\TWC\Models\CreateLeaseSupplierdynamicinfoRequest;
@@ -353,6 +355,8 @@ use AntChain\TWC\Models\OperateJusticeEventRequest;
 use AntChain\TWC\Models\OperateJusticeEventResponse;
 use AntChain\TWC\Models\PushPrivatecontractGaugeRequest;
 use AntChain\TWC\Models\PushPrivatecontractGaugeResponse;
+use AntChain\TWC\Models\PushRefinanceInvalidorderRequest;
+use AntChain\TWC\Models\PushRefinanceInvalidorderResponse;
 use AntChain\TWC\Models\QueryCertificationRequest;
 use AntChain\TWC\Models\QueryCertificationResponse;
 use AntChain\TWC\Models\QueryContractAccountRequest;
@@ -702,9 +706,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.86',
-                    '_prod_code'       => 'TWC',
-                    '_prod_channel'    => 'undefined',
+                    'sdk_version'      => '1.7.94',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -6527,6 +6529,72 @@ class Client
         Utils::validateModel($request);
 
         return CancelLeaseInsuranceResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.insurance.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+     * Summary: 再融资资产推送
+     *
+     * @param PushRefinanceInvalidorderRequest $request
+     *
+     * @return PushRefinanceInvalidorderResponse
+     */
+    public function pushRefinanceInvalidorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushRefinanceInvalidorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+     * Summary: 再融资资产推送
+     *
+     * @param PushRefinanceInvalidorderRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return PushRefinanceInvalidorderResponse
+     */
+    public function pushRefinanceInvalidorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushRefinanceInvalidorderResponse::fromMap($this->doRequest('1.0', 'twc.notary.refinance.invalidorder.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蚂蚁链租赁的风控
+     * Summary: 蚂蚁链租赁的风控.
+     *
+     * @param CreateLeaseRiskRequest $request
+     *
+     * @return CreateLeaseRiskResponse
+     */
+    public function createLeaseRisk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createLeaseRiskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蚂蚁链租赁的风控
+     * Summary: 蚂蚁链租赁的风控.
+     *
+     * @param CreateLeaseRiskRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return CreateLeaseRiskResponse
+     */
+    public function createLeaseRiskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateLeaseRiskResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.risk.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

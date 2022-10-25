@@ -6,7 +6,7 @@ namespace AntChain\TWC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelLeaseInsuranceResponse extends Model
+class CreateLeaseRiskResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,44 +26,25 @@ class CancelLeaseInsuranceResponse extends Model
      */
     public $resultMsg;
 
-    // 退保状态：CALCE_FAIL退保失败、CACEL_SUCCESS退保成功、CANCELING退保中
+    // 风控结果
+    // SUCCESS：通过
+    // FAIL：不通过
     /**
      * @var string
      */
-    public $status;
+    public $paas;
 
-    // 退保保单号
+    // 风控识别id，与订单id对应
     /**
      * @var string
      */
-    public $policyNo;
-
-    // 退还保费，单位：分
-    /**
-     * @var string
-     */
-    public $srdPremium;
-
-    // 结果码，00表示成功
-    /**
-     * @var string
-     */
-    public $code;
-
-    // 结果描述
-    /**
-     * @var string
-     */
-    public $message;
+    public $riskId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'status'     => 'status',
-        'policyNo'   => 'policy_no',
-        'srdPremium' => 'srd_premium',
-        'code'       => 'code',
-        'message'    => 'message',
+        'paas'       => 'paas',
+        'riskId'     => 'risk_id',
     ];
 
     public function validate()
@@ -82,20 +63,11 @@ class CancelLeaseInsuranceResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->paas) {
+            $res['paas'] = $this->paas;
         }
-        if (null !== $this->policyNo) {
-            $res['policy_no'] = $this->policyNo;
-        }
-        if (null !== $this->srdPremium) {
-            $res['srd_premium'] = $this->srdPremium;
-        }
-        if (null !== $this->code) {
-            $res['code'] = $this->code;
-        }
-        if (null !== $this->message) {
-            $res['message'] = $this->message;
+        if (null !== $this->riskId) {
+            $res['risk_id'] = $this->riskId;
         }
 
         return $res;
@@ -104,7 +76,7 @@ class CancelLeaseInsuranceResponse extends Model
     /**
      * @param array $map
      *
-     * @return CancelLeaseInsuranceResponse
+     * @return CreateLeaseRiskResponse
      */
     public static function fromMap($map = [])
     {
@@ -118,20 +90,11 @@ class CancelLeaseInsuranceResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
+        if (isset($map['paas'])) {
+            $model->paas = $map['paas'];
         }
-        if (isset($map['policy_no'])) {
-            $model->policyNo = $map['policy_no'];
-        }
-        if (isset($map['srd_premium'])) {
-            $model->srdPremium = $map['srd_premium'];
-        }
-        if (isset($map['code'])) {
-            $model->code = $map['code'];
-        }
-        if (isset($map['message'])) {
-            $model->message = $map['message'];
+        if (isset($map['risk_id'])) {
+            $model->riskId = $map['risk_id'];
         }
 
         return $model;
