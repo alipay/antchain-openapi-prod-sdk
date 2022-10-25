@@ -48,6 +48,12 @@ class ApplyDubbridgeCustomerAgreementsignRequest extends Model
      * @var string
      */
     public $idType;
+
+    // 资金方编号
+    /**
+     * @var string
+     */
+    public $fundCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class ApplyDubbridgeCustomerAgreementsignRequest extends Model
         'customName'        => 'custom_name',
         'cardNo'            => 'card_no',
         'idType'            => 'id_type',
+        'fundCode'          => 'fund_code',
     ];
 
     public function validate()
@@ -90,6 +97,9 @@ class ApplyDubbridgeCustomerAgreementsignRequest extends Model
         if (null !== $this->idType) {
             $res['id_type'] = $this->idType;
         }
+        if (null !== $this->fundCode) {
+            $res['fund_code'] = $this->fundCode;
+        }
 
         return $res;
     }
@@ -122,6 +132,9 @@ class ApplyDubbridgeCustomerAgreementsignRequest extends Model
         }
         if (isset($map['id_type'])) {
             $model->idType = $map['id_type'];
+        }
+        if (isset($map['fund_code'])) {
+            $model->fundCode = $map['fund_code'];
         }
 
         return $model;
