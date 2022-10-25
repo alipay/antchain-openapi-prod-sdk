@@ -6542,6 +6542,8 @@ export class ApplyDubbridgeCustomerAgreementsignRequest extends $tea.Model {
   cardNo: string;
   // 证件类型
   idType?: string;
+  // 资金方编号
+  fundCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6551,6 +6553,7 @@ export class ApplyDubbridgeCustomerAgreementsignRequest extends $tea.Model {
       customName: 'custom_name',
       cardNo: 'card_no',
       idType: 'id_type',
+      fundCode: 'fund_code',
     };
   }
 
@@ -6563,6 +6566,7 @@ export class ApplyDubbridgeCustomerAgreementsignRequest extends $tea.Model {
       customName: 'string',
       cardNo: 'string',
       idType: 'string',
+      fundCode: 'string',
     };
   }
 
@@ -13767,9 +13771,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.11",
-          _prod_code: "RISKPLUS",
-          _prod_channel: "undefined",
+          sdk_version: "1.13.12",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
