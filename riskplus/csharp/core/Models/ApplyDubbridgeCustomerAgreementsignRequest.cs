@@ -43,6 +43,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string IdType { get; set; }
 
+        // 资金方编号
+        [NameInMap("fund_code")]
+        [Validation(Required=false)]
+        public string FundCode { get; set; }
+
     }
 
 }
