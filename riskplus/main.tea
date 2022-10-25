@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.12',
+    sdk_version = '1.13.13',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1004,6 +1004,10 @@ model Contract {
   savePath: string(name='save_path', example='https://11111'),
   // 合同金额
   contractAmount: long(name='contract_amount', example=''),
+  // 用信合同编号
+  disburseContractNo: string(name='disburse_contract_no', example='123123'),
+  // 授信合同编号
+  creditContractNo: string(name='credit_contract_no', example='123123'),
 }
 
 // 企业影响人数年龄分布统计
