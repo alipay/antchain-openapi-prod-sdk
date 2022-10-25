@@ -100,9 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.86',
-    _prod_code = 'TWC',
-    _prod_channel = 'undefined'
+    sdk_version = '1.7.94',
   };
 
   if (!Util.empty(@securityToken)) {
@@ -1359,6 +1357,8 @@ model JudicialOrgInfo {
   orgEmail?: string(name='org_email', example='email@org.com'),
   // 企业通讯地址
   orgAddress?: string(name='org_address', example='上海市黄浦区外马路618号'),
+  // 企业营业执照地址
+  residenceAddress?: string(name='residence_address', example='企业营业执照地址'),
   // 企业或机构营业执照信息
   orgBizLicenseInfo?: JudicialFileInfo(name='org_biz_license_info', example=''),
   // 企业法人信息
@@ -1575,6 +1575,16 @@ model LeaseOrderProductInfo {
   productPrice: long(name='product_price', example='123400'),
   // 供应商Id，用以做索引 长度不可超过50
   supplierIsvAccount: string(name='supplier_isv_account', example='小米'),
+}
+
+// 租赁风控查询的实体描述
+model LesseePerson {
+  // 承租人姓名
+  name: string(name='name', example='王一'),
+  // 承租人身份证号
+  certNo: string(name='cert_no', example='11000000XXX'),
+  // 承租人手机号
+  mobile: string(name='mobile', example='130XXXX0123'),
 }
 
 // 数字票根一键全流程存证相关参数
@@ -8852,9 +8862,11 @@ model SaveJusticePartyRequest = {
   partyType: string(name='party_type'),
   // 企业信息实体;
   // 当申请方类型为企业时,该字段必填;
-  partyOrganizationInfo: JudicialOrgInfo(name='party_organization_info'),
+  partyOrganizationInfo?: JudicialOrgInfo(name='party_organization_info'),
   // 案件协同工作联系人信息实体
-  coordinatorPersonInfo: JudicialPersonInfo(name='coordinator_person_info'),
+  coordinatorPersonInfo?: JudicialPersonInfo(name='coordinator_person_info'),
+  // 案件协同人银行账户信息
+  coordinatorBankInfo?: JudicialBankInfo(name='coordinator_bank_info'),
 }
 
 model SaveJusticePartyResponse = {
@@ -10587,7 +10599,7 @@ model VerifyRefinancePackageRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 资产包id
   packageId: string(name='package_id'),
-  // AUDIT_SUCCESS(审核通过), AUDIT_REFUSE（审核驳回）
+  // AUDIT_SUCCESS(审核通过), AUDIT_REFUSE(审核驳回), AUDITING(审核中，需要调无效资产推送将无效资产分批推送过来)
   auditStatus: string(name='audit_status'),
   // 放款金额，单位毫厘
   recreditLimit?: long(name='recredit_limit'),
@@ -10886,11 +10898,9 @@ model CancelLeaseInsuranceResponse = {
   status?: string(name='status'),
   // 退保保单号
   policyNo?: string(name='policy_no'),
-  // 是否为实收保单退保：ture实收退保，涉及实体账户退费；false未实收退保，不涉及账户退费；
-  repayFlag?: string(name='repay_flag'),
   // 退还保费，单位：分
   srdPremium?: string(name='srd_premium'),
-  // 结果码
+  // 结果码，00表示成功
   code?: string(name='code'),
   // 结果描述
   message?: string(name='message'),
@@ -10913,6 +10923,94 @@ async function cancelLeaseInsurance(request: CancelLeaseInsuranceRequest): Cance
 async function cancelLeaseInsuranceEx(request: CancelLeaseInsuranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelLeaseInsuranceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.lease.insurance.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushRefinanceInvalidorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资产包id
+  packageId: string(maxLength=64, name='package_id'),
+  // 无效资产订单id列表，单次不限笔数，如果没有无效资产，传空列表即可
+  orderIdList?: [ string ](name='order_id_list'),
+}
+
+model PushRefinanceInvalidorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否受让成功
+  acceptSuccess?: boolean(name='accept_success'),
+}
+
+/**
+ * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+ * Summary: 再融资资产推送
+ */
+async function pushRefinanceInvalidorder(request: PushRefinanceInvalidorderRequest): PushRefinanceInvalidorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushRefinanceInvalidorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+ * Summary: 再融资资产推送
+ */
+async function pushRefinanceInvalidorderEx(request: PushRefinanceInvalidorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushRefinanceInvalidorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.refinance.invalidorder.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeaseRiskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(name='order_id'),
+  // 承租人信息
+  person: LesseePerson(name='person'),
+  // 承租人类型，目前仅支持个人类型
+  // PERSONAL 个人
+  // ENTERPRISE 企业
+  lesseeType: string(name='lessee_type'),
+}
+
+model CreateLeaseRiskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风控结果
+  // SUCCESS：通过
+  // FAIL：不通过
+  paas?: string(name='paas'),
+  // 风控识别id，与订单id对应
+  riskId?: string(name='risk_id'),
+}
+
+/**
+ * Description: 蚂蚁链租赁的风控
+ * Summary: 蚂蚁链租赁的风控
+ */
+async function createLeaseRisk(request: CreateLeaseRiskRequest): CreateLeaseRiskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeaseRiskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 蚂蚁链租赁的风控
+ * Summary: 蚂蚁链租赁的风控
+ */
+async function createLeaseRiskEx(request: CreateLeaseRiskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeaseRiskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.risk.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateWitnessFlowRequest = {
