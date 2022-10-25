@@ -35,6 +35,10 @@ public class ApplyDubbridgeCustomerAgreementsignRequest extends TeaModel {
     @NameInMap("id_type")
     public String idType;
 
+    // 资金方编号
+    @NameInMap("fund_code")
+    public String fundCode;
+
     public static ApplyDubbridgeCustomerAgreementsignRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeCustomerAgreementsignRequest self = new ApplyDubbridgeCustomerAgreementsignRequest();
         return TeaModel.build(map, self);
@@ -94,6 +98,14 @@ public class ApplyDubbridgeCustomerAgreementsignRequest extends TeaModel {
     }
     public String getIdType() {
         return this.idType;
+    }
+
+    public ApplyDubbridgeCustomerAgreementsignRequest setFundCode(String fundCode) {
+        this.fundCode = fundCode;
+        return this;
+    }
+    public String getFundCode() {
+        return this.fundCode;
     }
 
 }
