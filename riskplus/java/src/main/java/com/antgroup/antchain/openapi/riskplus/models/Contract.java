@@ -39,6 +39,16 @@ public class Contract extends TeaModel {
     @Validation(required = true)
     public Long contractAmount;
 
+    // 用信合同编号
+    @NameInMap("disburse_contract_no")
+    @Validation(required = true)
+    public String disburseContractNo;
+
+    // 授信合同编号
+    @NameInMap("credit_contract_no")
+    @Validation(required = true)
+    public String creditContractNo;
+
     public static Contract build(java.util.Map<String, ?> map) throws Exception {
         Contract self = new Contract();
         return TeaModel.build(map, self);
@@ -98,6 +108,22 @@ public class Contract extends TeaModel {
     }
     public Long getContractAmount() {
         return this.contractAmount;
+    }
+
+    public Contract setDisburseContractNo(String disburseContractNo) {
+        this.disburseContractNo = disburseContractNo;
+        return this;
+    }
+    public String getDisburseContractNo() {
+        return this.disburseContractNo;
+    }
+
+    public Contract setCreditContractNo(String creditContractNo) {
+        this.creditContractNo = creditContractNo;
+        return this;
+    }
+    public String getCreditContractNo() {
+        return this.creditContractNo;
     }
 
 }
