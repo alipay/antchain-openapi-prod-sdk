@@ -10876,6 +10876,7 @@ class ApplyDubbridgeCustomerAgreementsignRequest(TeaModel):
         custom_name: str = None,
         card_no: str = None,
         id_type: str = None,
+        fund_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10890,6 +10891,8 @@ class ApplyDubbridgeCustomerAgreementsignRequest(TeaModel):
         self.card_no = card_no
         # 证件类型
         self.id_type = id_type
+        # 资金方编号
+        self.fund_code = fund_code
 
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
@@ -10917,6 +10920,8 @@ class ApplyDubbridgeCustomerAgreementsignRequest(TeaModel):
             result['card_no'] = self.card_no
         if self.id_type is not None:
             result['id_type'] = self.id_type
+        if self.fund_code is not None:
+            result['fund_code'] = self.fund_code
         return result
 
     def from_map(self, m: dict = None):
@@ -10935,6 +10940,8 @@ class ApplyDubbridgeCustomerAgreementsignRequest(TeaModel):
             self.card_no = m.get('card_no')
         if m.get('id_type') is not None:
             self.id_type = m.get('id_type')
+        if m.get('fund_code') is not None:
+            self.fund_code = m.get('fund_code')
         return self
 
 
