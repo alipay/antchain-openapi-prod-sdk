@@ -25,13 +25,15 @@ public class SaveJusticePartyRequest extends TeaModel {
     // 企业信息实体;
     // 当申请方类型为企业时,该字段必填;
     @NameInMap("party_organization_info")
-    @Validation(required = true)
     public JudicialOrgInfo partyOrganizationInfo;
 
     // 案件协同工作联系人信息实体
     @NameInMap("coordinator_person_info")
-    @Validation(required = true)
     public JudicialPersonInfo coordinatorPersonInfo;
+
+    // 案件协同人银行账户信息
+    @NameInMap("coordinator_bank_info")
+    public JudicialBankInfo coordinatorBankInfo;
 
     public static SaveJusticePartyRequest build(java.util.Map<String, ?> map) throws Exception {
         SaveJusticePartyRequest self = new SaveJusticePartyRequest();
@@ -84,6 +86,14 @@ public class SaveJusticePartyRequest extends TeaModel {
     }
     public JudicialPersonInfo getCoordinatorPersonInfo() {
         return this.coordinatorPersonInfo;
+    }
+
+    public SaveJusticePartyRequest setCoordinatorBankInfo(JudicialBankInfo coordinatorBankInfo) {
+        this.coordinatorBankInfo = coordinatorBankInfo;
+        return this;
+    }
+    public JudicialBankInfo getCoordinatorBankInfo() {
+        return this.coordinatorBankInfo;
     }
 
 }

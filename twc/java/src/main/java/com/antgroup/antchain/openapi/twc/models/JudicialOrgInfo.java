@@ -27,6 +27,10 @@ public class JudicialOrgInfo extends TeaModel {
     @NameInMap("org_address")
     public String orgAddress;
 
+    // 企业营业执照地址
+    @NameInMap("residence_address")
+    public String residenceAddress;
+
     // 企业或机构营业执照信息
     @NameInMap("org_biz_license_info")
     public JudicialFileInfo orgBizLicenseInfo;
@@ -86,6 +90,14 @@ public class JudicialOrgInfo extends TeaModel {
     }
     public String getOrgAddress() {
         return this.orgAddress;
+    }
+
+    public JudicialOrgInfo setResidenceAddress(String residenceAddress) {
+        this.residenceAddress = residenceAddress;
+        return this;
+    }
+    public String getResidenceAddress() {
+        return this.residenceAddress;
     }
 
     public JudicialOrgInfo setOrgBizLicenseInfo(JudicialFileInfo orgBizLicenseInfo) {

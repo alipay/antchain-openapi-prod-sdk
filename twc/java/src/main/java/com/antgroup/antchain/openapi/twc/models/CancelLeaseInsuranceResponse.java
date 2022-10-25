@@ -24,15 +24,11 @@ public class CancelLeaseInsuranceResponse extends TeaModel {
     @NameInMap("policy_no")
     public String policyNo;
 
-    // 是否为实收保单退保：ture实收退保，涉及实体账户退费；false未实收退保，不涉及账户退费；
-    @NameInMap("repay_flag")
-    public String repayFlag;
-
     // 退还保费，单位：分
     @NameInMap("srd_premium")
     public String srdPremium;
 
-    // 结果码
+    // 结果码，00表示成功
     @NameInMap("code")
     public String code;
 
@@ -83,14 +79,6 @@ public class CancelLeaseInsuranceResponse extends TeaModel {
     }
     public String getPolicyNo() {
         return this.policyNo;
-    }
-
-    public CancelLeaseInsuranceResponse setRepayFlag(String repayFlag) {
-        this.repayFlag = repayFlag;
-        return this;
-    }
-    public String getRepayFlag() {
-        return this.repayFlag;
     }
 
     public CancelLeaseInsuranceResponse setSrdPremium(String srdPremium) {

@@ -110,9 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.86"),
-                    new TeaPair("_prod_code", "TWC"),
-                    new TeaPair("_prod_channel", "undefined")
+                    new TeaPair("sdk_version", "1.7.94")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -3488,6 +3486,44 @@ public class Client {
     public CancelLeaseInsuranceResponse cancelLeaseInsuranceEx(CancelLeaseInsuranceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.insurance.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelLeaseInsuranceResponse());
+    }
+
+    /**
+     * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+     * Summary: 再融资资产推送
+     */
+    public PushRefinanceInvalidorderResponse pushRefinanceInvalidorder(PushRefinanceInvalidorderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushRefinanceInvalidorderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+     * Summary: 再融资资产推送
+     */
+    public PushRefinanceInvalidorderResponse pushRefinanceInvalidorderEx(PushRefinanceInvalidorderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.refinance.invalidorder.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushRefinanceInvalidorderResponse());
+    }
+
+    /**
+     * Description: 蚂蚁链租赁的风控
+     * Summary: 蚂蚁链租赁的风控
+     */
+    public CreateLeaseRiskResponse createLeaseRisk(CreateLeaseRiskRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createLeaseRiskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 蚂蚁链租赁的风控
+     * Summary: 蚂蚁链租赁的风控
+     */
+    public CreateLeaseRiskResponse createLeaseRiskEx(CreateLeaseRiskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.risk.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateLeaseRiskResponse());
     }
 
     /**
