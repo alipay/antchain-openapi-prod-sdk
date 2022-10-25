@@ -135,9 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.86',
-                    '_prod_code': 'TWC',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.7.94'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -239,9 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.86',
-                    '_prod_code': 'TWC',
-                    '_prod_channel': 'undefined'
+                    'sdk_version': '1.7.94'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -10081,6 +10077,118 @@ class Client:
         return TeaCore.from_map(
             twc_models.CancelLeaseInsuranceResponse(),
             await self.do_request_async('1.0', 'twc.notary.lease.insurance.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_refinance_invalidorder(
+        self,
+        request: twc_models.PushRefinanceInvalidorderRequest,
+    ) -> twc_models.PushRefinanceInvalidorderResponse:
+        """
+        Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+        Summary: 再融资资产推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_refinance_invalidorder_ex(request, headers, runtime)
+
+    async def push_refinance_invalidorder_async(
+        self,
+        request: twc_models.PushRefinanceInvalidorderRequest,
+    ) -> twc_models.PushRefinanceInvalidorderResponse:
+        """
+        Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+        Summary: 再融资资产推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_refinance_invalidorder_ex_async(request, headers, runtime)
+
+    def push_refinance_invalidorder_ex(
+        self,
+        request: twc_models.PushRefinanceInvalidorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.PushRefinanceInvalidorderResponse:
+        """
+        Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+        Summary: 再融资资产推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.PushRefinanceInvalidorderResponse(),
+            self.do_request('1.0', 'twc.notary.refinance.invalidorder.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_refinance_invalidorder_ex_async(
+        self,
+        request: twc_models.PushRefinanceInvalidorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.PushRefinanceInvalidorderResponse:
+        """
+        Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+        Summary: 再融资资产推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.PushRefinanceInvalidorderResponse(),
+            await self.do_request_async('1.0', 'twc.notary.refinance.invalidorder.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_lease_risk(
+        self,
+        request: twc_models.CreateLeaseRiskRequest,
+    ) -> twc_models.CreateLeaseRiskResponse:
+        """
+        Description: 蚂蚁链租赁的风控
+        Summary: 蚂蚁链租赁的风控
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_lease_risk_ex(request, headers, runtime)
+
+    async def create_lease_risk_async(
+        self,
+        request: twc_models.CreateLeaseRiskRequest,
+    ) -> twc_models.CreateLeaseRiskResponse:
+        """
+        Description: 蚂蚁链租赁的风控
+        Summary: 蚂蚁链租赁的风控
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_lease_risk_ex_async(request, headers, runtime)
+
+    def create_lease_risk_ex(
+        self,
+        request: twc_models.CreateLeaseRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseRiskResponse:
+        """
+        Description: 蚂蚁链租赁的风控
+        Summary: 蚂蚁链租赁的风控
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseRiskResponse(),
+            self.do_request('1.0', 'twc.notary.lease.risk.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_lease_risk_ex_async(
+        self,
+        request: twc_models.CreateLeaseRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CreateLeaseRiskResponse:
+        """
+        Description: 蚂蚁链租赁的风控
+        Summary: 蚂蚁链租赁的风控
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CreateLeaseRiskResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.risk.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_witness_flow(

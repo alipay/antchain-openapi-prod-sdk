@@ -4954,6 +4954,7 @@ class JudicialOrgInfo(TeaModel):
         org_phone: str = None,
         org_email: str = None,
         org_address: str = None,
+        residence_address: str = None,
         org_biz_license_info: JudicialFileInfo = None,
         org_legal_person_info: JudicialPersonInfo = None,
         org_signature_manager_person_info: JudicialPersonInfo = None,
@@ -4969,6 +4970,8 @@ class JudicialOrgInfo(TeaModel):
         self.org_email = org_email
         # 企业通讯地址
         self.org_address = org_address
+        # 企业营业执照地址
+        self.residence_address = residence_address
         # 企业或机构营业执照信息
         self.org_biz_license_info = org_biz_license_info
         # 企业法人信息
@@ -5007,6 +5010,8 @@ class JudicialOrgInfo(TeaModel):
             result['org_email'] = self.org_email
         if self.org_address is not None:
             result['org_address'] = self.org_address
+        if self.residence_address is not None:
+            result['residence_address'] = self.residence_address
         if self.org_biz_license_info is not None:
             result['org_biz_license_info'] = self.org_biz_license_info.to_map()
         if self.org_legal_person_info is not None:
@@ -5029,6 +5034,8 @@ class JudicialOrgInfo(TeaModel):
             self.org_email = m.get('org_email')
         if m.get('org_address') is not None:
             self.org_address = m.get('org_address')
+        if m.get('residence_address') is not None:
+            self.residence_address = m.get('residence_address')
         if m.get('org_biz_license_info') is not None:
             temp_model = JudicialFileInfo()
             self.org_biz_license_info = temp_model.from_map(m['org_biz_license_info'])
@@ -5897,6 +5904,50 @@ class LeaseOrderProductInfo(TeaModel):
             self.product_price = m.get('product_price')
         if m.get('supplier_isv_account') is not None:
             self.supplier_isv_account = m.get('supplier_isv_account')
+        return self
+
+
+class LesseePerson(TeaModel):
+    def __init__(
+        self,
+        name: str = None,
+        cert_no: str = None,
+        mobile: str = None,
+    ):
+        # 承租人姓名
+        self.name = name
+        # 承租人身份证号
+        self.cert_no = cert_no
+        # 承租人手机号
+        self.mobile = mobile
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.cert_no, 'cert_no')
+        self.validate_required(self.mobile, 'mobile')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
         return self
 
 
@@ -26220,6 +26271,7 @@ class SaveJusticePartyRequest(TeaModel):
         party_type: str = None,
         party_organization_info: JudicialOrgInfo = None,
         coordinator_person_info: JudicialPersonInfo = None,
+        coordinator_bank_info: JudicialBankInfo = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -26235,15 +26287,17 @@ class SaveJusticePartyRequest(TeaModel):
         self.party_organization_info = party_organization_info
         # 案件协同工作联系人信息实体
         self.coordinator_person_info = coordinator_person_info
+        # 案件协同人银行账户信息
+        self.coordinator_bank_info = coordinator_bank_info
 
     def validate(self):
         self.validate_required(self.party_type, 'party_type')
-        self.validate_required(self.party_organization_info, 'party_organization_info')
         if self.party_organization_info:
             self.party_organization_info.validate()
-        self.validate_required(self.coordinator_person_info, 'coordinator_person_info')
         if self.coordinator_person_info:
             self.coordinator_person_info.validate()
+        if self.coordinator_bank_info:
+            self.coordinator_bank_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -26263,6 +26317,8 @@ class SaveJusticePartyRequest(TeaModel):
             result['party_organization_info'] = self.party_organization_info.to_map()
         if self.coordinator_person_info is not None:
             result['coordinator_person_info'] = self.coordinator_person_info.to_map()
+        if self.coordinator_bank_info is not None:
+            result['coordinator_bank_info'] = self.coordinator_bank_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -26281,6 +26337,9 @@ class SaveJusticePartyRequest(TeaModel):
         if m.get('coordinator_person_info') is not None:
             temp_model = JudicialPersonInfo()
             self.coordinator_person_info = temp_model.from_map(m['coordinator_person_info'])
+        if m.get('coordinator_bank_info') is not None:
+            temp_model = JudicialBankInfo()
+            self.coordinator_bank_info = temp_model.from_map(m['coordinator_bank_info'])
         return self
 
 
@@ -31015,7 +31074,7 @@ class VerifyRefinancePackageRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 资产包id
         self.package_id = package_id
-        # AUDIT_SUCCESS(审核通过), AUDIT_REFUSE（审核驳回）
+        # AUDIT_SUCCESS(审核通过), AUDIT_REFUSE(审核驳回), AUDITING(审核中，需要调无效资产推送将无效资产分批推送过来)
         self.audit_status = audit_status
         # 放款金额，单位毫厘
         self.recredit_limit = recredit_limit
@@ -31807,7 +31866,6 @@ class CancelLeaseInsuranceResponse(TeaModel):
         result_msg: str = None,
         status: str = None,
         policy_no: str = None,
-        repay_flag: str = None,
         srd_premium: str = None,
         code: str = None,
         message: str = None,
@@ -31822,11 +31880,9 @@ class CancelLeaseInsuranceResponse(TeaModel):
         self.status = status
         # 退保保单号
         self.policy_no = policy_no
-        # 是否为实收保单退保：ture实收退保，涉及实体账户退费；false未实收退保，不涉及账户退费；
-        self.repay_flag = repay_flag
         # 退还保费，单位：分
         self.srd_premium = srd_premium
-        # 结果码
+        # 结果码，00表示成功
         self.code = code
         # 结果描述
         self.message = message
@@ -31850,8 +31906,6 @@ class CancelLeaseInsuranceResponse(TeaModel):
             result['status'] = self.status
         if self.policy_no is not None:
             result['policy_no'] = self.policy_no
-        if self.repay_flag is not None:
-            result['repay_flag'] = self.repay_flag
         if self.srd_premium is not None:
             result['srd_premium'] = self.srd_premium
         if self.code is not None:
@@ -31872,14 +31926,231 @@ class CancelLeaseInsuranceResponse(TeaModel):
             self.status = m.get('status')
         if m.get('policy_no') is not None:
             self.policy_no = m.get('policy_no')
-        if m.get('repay_flag') is not None:
-            self.repay_flag = m.get('repay_flag')
         if m.get('srd_premium') is not None:
             self.srd_premium = m.get('srd_premium')
         if m.get('code') is not None:
             self.code = m.get('code')
         if m.get('message') is not None:
             self.message = m.get('message')
+        return self
+
+
+class PushRefinanceInvalidorderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        package_id: str = None,
+        order_id_list: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 资产包id
+        self.package_id = package_id
+        # 无效资产订单id列表，单次不限笔数，如果没有无效资产，传空列表即可
+        self.order_id_list = order_id_list
+
+    def validate(self):
+        self.validate_required(self.package_id, 'package_id')
+        if self.package_id is not None:
+            self.validate_max_length(self.package_id, 'package_id', 64)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.package_id is not None:
+            result['package_id'] = self.package_id
+        if self.order_id_list is not None:
+            result['order_id_list'] = self.order_id_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('package_id') is not None:
+            self.package_id = m.get('package_id')
+        if m.get('order_id_list') is not None:
+            self.order_id_list = m.get('order_id_list')
+        return self
+
+
+class PushRefinanceInvalidorderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        accept_success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否受让成功
+        self.accept_success = accept_success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.accept_success is not None:
+            result['accept_success'] = self.accept_success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('accept_success') is not None:
+            self.accept_success = m.get('accept_success')
+        return self
+
+
+class CreateLeaseRiskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        person: LesseePerson = None,
+        lessee_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单id
+        self.order_id = order_id
+        # 承租人信息
+        self.person = person
+        # 承租人类型，目前仅支持个人类型
+        # PERSONAL 个人
+        # ENTERPRISE 企业
+        self.lessee_type = lessee_type
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.person, 'person')
+        if self.person:
+            self.person.validate()
+        self.validate_required(self.lessee_type, 'lessee_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.person is not None:
+            result['person'] = self.person.to_map()
+        if self.lessee_type is not None:
+            result['lessee_type'] = self.lessee_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('person') is not None:
+            temp_model = LesseePerson()
+            self.person = temp_model.from_map(m['person'])
+        if m.get('lessee_type') is not None:
+            self.lessee_type = m.get('lessee_type')
+        return self
+
+
+class CreateLeaseRiskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        paas: str = None,
+        risk_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 风控结果
+        # SUCCESS：通过
+        # FAIL：不通过
+        self.paas = paas
+        # 风控识别id，与订单id对应
+        self.risk_id = risk_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.paas is not None:
+            result['paas'] = self.paas
+        if self.risk_id is not None:
+            result['risk_id'] = self.risk_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('paas') is not None:
+            self.paas = m.get('paas')
+        if m.get('risk_id') is not None:
+            self.risk_id = m.get('risk_id')
         return self
 
 
