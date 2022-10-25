@@ -3022,6 +3022,8 @@ export class JudicialOrgInfo extends $tea.Model {
   orgEmail?: string;
   // 企业通讯地址
   orgAddress?: string;
+  // 企业营业执照地址
+  residenceAddress?: string;
   // 企业或机构营业执照信息
   orgBizLicenseInfo?: JudicialFileInfo;
   // 企业法人信息
@@ -3037,6 +3039,7 @@ export class JudicialOrgInfo extends $tea.Model {
       orgPhone: 'org_phone',
       orgEmail: 'org_email',
       orgAddress: 'org_address',
+      residenceAddress: 'residence_address',
       orgBizLicenseInfo: 'org_biz_license_info',
       orgLegalPersonInfo: 'org_legal_person_info',
       orgSignatureManagerPersonInfo: 'org_signature_manager_person_info',
@@ -3051,6 +3054,7 @@ export class JudicialOrgInfo extends $tea.Model {
       orgPhone: 'string',
       orgEmail: 'string',
       orgAddress: 'string',
+      residenceAddress: 'string',
       orgBizLicenseInfo: JudicialFileInfo,
       orgLegalPersonInfo: JudicialPersonInfo,
       orgSignatureManagerPersonInfo: JudicialPersonInfo,
@@ -3588,6 +3592,35 @@ export class LeaseOrderProductInfo extends $tea.Model {
       productName: 'string',
       productPrice: 'number',
       supplierIsvAccount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 租赁风控查询的实体描述
+export class LesseePerson extends $tea.Model {
+  // 承租人姓名
+  name: string;
+  // 承租人身份证号
+  certNo: string;
+  // 承租人手机号
+  mobile: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      certNo: 'cert_no',
+      mobile: 'mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      certNo: 'string',
+      mobile: 'string',
     };
   }
 
@@ -16037,9 +16070,11 @@ export class SaveJusticePartyRequest extends $tea.Model {
   partyType: string;
   // 企业信息实体;
   // 当申请方类型为企业时,该字段必填;
-  partyOrganizationInfo: JudicialOrgInfo;
+  partyOrganizationInfo?: JudicialOrgInfo;
   // 案件协同工作联系人信息实体
-  coordinatorPersonInfo: JudicialPersonInfo;
+  coordinatorPersonInfo?: JudicialPersonInfo;
+  // 案件协同人银行账户信息
+  coordinatorBankInfo?: JudicialBankInfo;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16048,6 +16083,7 @@ export class SaveJusticePartyRequest extends $tea.Model {
       partyType: 'party_type',
       partyOrganizationInfo: 'party_organization_info',
       coordinatorPersonInfo: 'coordinator_person_info',
+      coordinatorBankInfo: 'coordinator_bank_info',
     };
   }
 
@@ -16059,6 +16095,7 @@ export class SaveJusticePartyRequest extends $tea.Model {
       partyType: 'string',
       partyOrganizationInfo: JudicialOrgInfo,
       coordinatorPersonInfo: JudicialPersonInfo,
+      coordinatorBankInfo: JudicialBankInfo,
     };
   }
 
@@ -18900,7 +18937,7 @@ export class VerifyRefinancePackageRequest extends $tea.Model {
   productInstanceId?: string;
   // 资产包id
   packageId: string;
-  // AUDIT_SUCCESS(审核通过), AUDIT_REFUSE（审核驳回）
+  // AUDIT_SUCCESS(审核通过), AUDIT_REFUSE(审核驳回), AUDITING(审核中，需要调无效资产推送将无效资产分批推送过来)
   auditStatus: string;
   // 放款金额，单位毫厘
   recreditLimit?: number;
@@ -19402,11 +19439,9 @@ export class CancelLeaseInsuranceResponse extends $tea.Model {
   status?: string;
   // 退保保单号
   policyNo?: string;
-  // 是否为实收保单退保：ture实收退保，涉及实体账户退费；false未实收退保，不涉及账户退费；
-  repayFlag?: string;
   // 退还保费，单位：分
   srdPremium?: string;
-  // 结果码
+  // 结果码，00表示成功
   code?: string;
   // 结果描述
   message?: string;
@@ -19417,7 +19452,6 @@ export class CancelLeaseInsuranceResponse extends $tea.Model {
       resultMsg: 'result_msg',
       status: 'status',
       policyNo: 'policy_no',
-      repayFlag: 'repay_flag',
       srdPremium: 'srd_premium',
       code: 'code',
       message: 'message',
@@ -19431,10 +19465,147 @@ export class CancelLeaseInsuranceResponse extends $tea.Model {
       resultMsg: 'string',
       status: 'string',
       policyNo: 'string',
-      repayFlag: 'string',
       srdPremium: 'string',
       code: 'string',
       message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRefinanceInvalidorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资产包id
+  packageId: string;
+  // 无效资产订单id列表，单次不限笔数，如果没有无效资产，传空列表即可
+  orderIdList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      packageId: 'package_id',
+      orderIdList: 'order_id_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      packageId: 'string',
+      orderIdList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRefinanceInvalidorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否受让成功
+  acceptSuccess?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      acceptSuccess: 'accept_success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      acceptSuccess: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseRiskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id
+  orderId: string;
+  // 承租人信息
+  person: LesseePerson;
+  // 承租人类型，目前仅支持个人类型
+  // PERSONAL 个人
+  // ENTERPRISE 企业
+  lesseeType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      person: 'person',
+      lesseeType: 'lessee_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      person: LesseePerson,
+      lesseeType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateLeaseRiskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 风控结果
+  // SUCCESS：通过
+  // FAIL：不通过
+  paas?: string;
+  // 风控识别id，与订单id对应
+  riskId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      paas: 'paas',
+      riskId: 'risk_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      paas: 'string',
+      riskId: 'string',
     };
   }
 
@@ -28285,9 +28456,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.86",
-          _prod_code: "TWC",
-          _prod_channel: "undefined",
+          sdk_version: "1.7.94",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -31660,6 +31829,44 @@ export default class Client {
   async cancelLeaseInsuranceEx(request: CancelLeaseInsuranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelLeaseInsuranceResponse> {
     Util.validateModel(request);
     return $tea.cast<CancelLeaseInsuranceResponse>(await this.doRequest("1.0", "twc.notary.lease.insurance.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelLeaseInsuranceResponse({}));
+  }
+
+  /**
+   * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+   * Summary: 再融资资产推送
+   */
+  async pushRefinanceInvalidorder(request: PushRefinanceInvalidorderRequest): Promise<PushRefinanceInvalidorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushRefinanceInvalidorderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+   * Summary: 再融资资产推送
+   */
+  async pushRefinanceInvalidorderEx(request: PushRefinanceInvalidorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRefinanceInvalidorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushRefinanceInvalidorderResponse>(await this.doRequest("1.0", "twc.notary.refinance.invalidorder.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRefinanceInvalidorderResponse({}));
+  }
+
+  /**
+   * Description: 蚂蚁链租赁的风控
+   * Summary: 蚂蚁链租赁的风控
+   */
+  async createLeaseRisk(request: CreateLeaseRiskRequest): Promise<CreateLeaseRiskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createLeaseRiskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 蚂蚁链租赁的风控
+   * Summary: 蚂蚁链租赁的风控
+   */
+  async createLeaseRiskEx(request: CreateLeaseRiskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateLeaseRiskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateLeaseRiskResponse>(await this.doRequest("1.0", "twc.notary.lease.risk.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateLeaseRiskResponse({}));
   }
 
   /**
