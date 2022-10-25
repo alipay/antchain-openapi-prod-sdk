@@ -137,9 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.86"},
-                        {"_prod_code", "TWC"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.7.94"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -263,9 +261,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.86"},
-                        {"_prod_code", "TWC"},
-                        {"_prod_channel", "undefined"},
+                        {"sdk_version", "1.7.94"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -7677,6 +7673,90 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CancelLeaseInsuranceResponse>(await DoRequestAsync("1.0", "twc.notary.lease.insurance.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+         * Summary: 再融资资产推送
+         */
+        public PushRefinanceInvalidorderResponse PushRefinanceInvalidorder(PushRefinanceInvalidorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushRefinanceInvalidorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+         * Summary: 再融资资产推送
+         */
+        public async Task<PushRefinanceInvalidorderResponse> PushRefinanceInvalidorderAsync(PushRefinanceInvalidorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushRefinanceInvalidorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+         * Summary: 再融资资产推送
+         */
+        public PushRefinanceInvalidorderResponse PushRefinanceInvalidorderEx(PushRefinanceInvalidorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRefinanceInvalidorderResponse>(DoRequest("1.0", "twc.notary.refinance.invalidorder.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二级资方调用，通过此接口将资产包中的无效或者有效资产推送至租赁平台
+         * Summary: 再融资资产推送
+         */
+        public async Task<PushRefinanceInvalidorderResponse> PushRefinanceInvalidorderExAsync(PushRefinanceInvalidorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRefinanceInvalidorderResponse>(await DoRequestAsync("1.0", "twc.notary.refinance.invalidorder.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蚂蚁链租赁的风控
+         * Summary: 蚂蚁链租赁的风控
+         */
+        public CreateLeaseRiskResponse CreateLeaseRisk(CreateLeaseRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateLeaseRiskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蚂蚁链租赁的风控
+         * Summary: 蚂蚁链租赁的风控
+         */
+        public async Task<CreateLeaseRiskResponse> CreateLeaseRiskAsync(CreateLeaseRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateLeaseRiskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蚂蚁链租赁的风控
+         * Summary: 蚂蚁链租赁的风控
+         */
+        public CreateLeaseRiskResponse CreateLeaseRiskEx(CreateLeaseRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseRiskResponse>(DoRequest("1.0", "twc.notary.lease.risk.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蚂蚁链租赁的风控
+         * Summary: 蚂蚁链租赁的风控
+         */
+        public async Task<CreateLeaseRiskResponse> CreateLeaseRiskExAsync(CreateLeaseRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateLeaseRiskResponse>(await DoRequestAsync("1.0", "twc.notary.lease.risk.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

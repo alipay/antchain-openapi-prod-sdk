@@ -33,13 +33,18 @@ namespace AntChain.SDK.TWC.Models
         // 企业信息实体;
         // 当申请方类型为企业时,该字段必填;
         [NameInMap("party_organization_info")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public JudicialOrgInfo PartyOrganizationInfo { get; set; }
 
         // 案件协同工作联系人信息实体
         [NameInMap("coordinator_person_info")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public JudicialPersonInfo CoordinatorPersonInfo { get; set; }
+
+        // 案件协同人银行账户信息
+        [NameInMap("coordinator_bank_info")]
+        [Validation(Required=false)]
+        public JudicialBankInfo CoordinatorBankInfo { get; set; }
 
     }
 

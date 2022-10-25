@@ -34,17 +34,12 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string PolicyNo { get; set; }
 
-        // 是否为实收保单退保：ture实收退保，涉及实体账户退费；false未实收退保，不涉及账户退费；
-        [NameInMap("repay_flag")]
-        [Validation(Required=false)]
-        public string RepayFlag { get; set; }
-
         // 退还保费，单位：分
         [NameInMap("srd_premium")]
         [Validation(Required=false)]
         public string SrdPremium { get; set; }
 
-        // 结果码
+        // 结果码，00表示成功
         [NameInMap("code")]
         [Validation(Required=false)]
         public string Code { get; set; }

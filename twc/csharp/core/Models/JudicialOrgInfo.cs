@@ -35,6 +35,11 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public string OrgAddress { get; set; }
 
+        // 企业营业执照地址
+        [NameInMap("residence_address")]
+        [Validation(Required=false)]
+        public string ResidenceAddress { get; set; }
+
         // 企业或机构营业执照信息
         [NameInMap("org_biz_license_info")]
         [Validation(Required=false)]
