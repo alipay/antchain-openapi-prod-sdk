@@ -3613,6 +3613,8 @@ class Contract(TeaModel):
         custom_no: str = None,
         save_path: str = None,
         contract_amount: int = None,
+        disburse_contract_no: str = None,
+        credit_contract_no: str = None,
     ):
         # 关联编号
         self.relation_no = relation_no
@@ -3628,6 +3630,10 @@ class Contract(TeaModel):
         self.save_path = save_path
         # 合同金额
         self.contract_amount = contract_amount
+        # 用信合同编号
+        self.disburse_contract_no = disburse_contract_no
+        # 授信合同编号
+        self.credit_contract_no = credit_contract_no
 
     def validate(self):
         self.validate_required(self.relation_no, 'relation_no')
@@ -3637,6 +3643,8 @@ class Contract(TeaModel):
         self.validate_required(self.custom_no, 'custom_no')
         self.validate_required(self.save_path, 'save_path')
         self.validate_required(self.contract_amount, 'contract_amount')
+        self.validate_required(self.disburse_contract_no, 'disburse_contract_no')
+        self.validate_required(self.credit_contract_no, 'credit_contract_no')
 
     def to_map(self):
         _map = super().to_map()
@@ -3658,6 +3666,10 @@ class Contract(TeaModel):
             result['save_path'] = self.save_path
         if self.contract_amount is not None:
             result['contract_amount'] = self.contract_amount
+        if self.disburse_contract_no is not None:
+            result['disburse_contract_no'] = self.disburse_contract_no
+        if self.credit_contract_no is not None:
+            result['credit_contract_no'] = self.credit_contract_no
         return result
 
     def from_map(self, m: dict = None):
@@ -3676,6 +3688,10 @@ class Contract(TeaModel):
             self.save_path = m.get('save_path')
         if m.get('contract_amount') is not None:
             self.contract_amount = m.get('contract_amount')
+        if m.get('disburse_contract_no') is not None:
+            self.disburse_contract_no = m.get('disburse_contract_no')
+        if m.get('credit_contract_no') is not None:
+            self.credit_contract_no = m.get('credit_contract_no')
         return self
 
 
