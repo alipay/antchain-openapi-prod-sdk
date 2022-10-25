@@ -8799,6 +8799,8 @@ type ApplyDubbridgeCustomerAgreementsignRequest struct {
 	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty" require:"true"`
 	// 证件类型
 	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty"`
+	// 资金方编号
+	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty"`
 }
 
 func (s ApplyDubbridgeCustomerAgreementsignRequest) String() string {
@@ -8841,6 +8843,11 @@ func (s *ApplyDubbridgeCustomerAgreementsignRequest) SetCardNo(v string) *ApplyD
 
 func (s *ApplyDubbridgeCustomerAgreementsignRequest) SetIdType(v string) *ApplyDubbridgeCustomerAgreementsignRequest {
 	s.IdType = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCustomerAgreementsignRequest) SetFundCode(v string) *ApplyDubbridgeCustomerAgreementsignRequest {
+	s.FundCode = &v
 	return s
 }
 
@@ -18284,9 +18291,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.11"),
-				"_prod_code":       tea.String("RISKPLUS"),
-				"_prod_channel":    tea.String("undefined"),
+				"sdk_version":      tea.String("1.13.12"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
