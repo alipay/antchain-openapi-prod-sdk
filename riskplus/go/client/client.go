@@ -2930,6 +2930,10 @@ type Contract struct {
 	SavePath *string `json:"save_path,omitempty" xml:"save_path,omitempty" require:"true"`
 	// 合同金额
 	ContractAmount *int64 `json:"contract_amount,omitempty" xml:"contract_amount,omitempty" require:"true"`
+	// 用信合同编号
+	DisburseContractNo *string `json:"disburse_contract_no,omitempty" xml:"disburse_contract_no,omitempty" require:"true"`
+	// 授信合同编号
+	CreditContractNo *string `json:"credit_contract_no,omitempty" xml:"credit_contract_no,omitempty" require:"true"`
 }
 
 func (s Contract) String() string {
@@ -2972,6 +2976,16 @@ func (s *Contract) SetSavePath(v string) *Contract {
 
 func (s *Contract) SetContractAmount(v int64) *Contract {
 	s.ContractAmount = &v
+	return s
+}
+
+func (s *Contract) SetDisburseContractNo(v string) *Contract {
+	s.DisburseContractNo = &v
+	return s
+}
+
+func (s *Contract) SetCreditContractNo(v string) *Contract {
+	s.CreditContractNo = &v
 	return s
 }
 
@@ -18291,7 +18305,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.12"),
+				"sdk_version":      tea.String("1.13.13"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
