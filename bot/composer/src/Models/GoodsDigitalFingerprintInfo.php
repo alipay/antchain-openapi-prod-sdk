@@ -34,9 +34,9 @@ class GoodsDigitalFingerprintInfo extends Model
 
     // 商品数字指纹鉴定点列表
     /**
-     * @example {"sub_point_name":"正面","image_url":"http://xxxx1001"}
+     * @example [{"sub_point_name":"正面","image_url":"http://xxxx1001"},{"sub_point_name":"背面","image_url":"http://xxxx1002"}]
      *
-     * @var GoodsDigitalFingerprintPoint
+     * @var GoodsDigitalFingerprintPoint[]
      */
     public $goodsPoints;
     protected $_name = [
@@ -67,7 +67,13 @@ class GoodsDigitalFingerprintInfo extends Model
             $res['style'] = $this->style;
         }
         if (null !== $this->goodsPoints) {
-            $res['goods_points'] = null !== $this->goodsPoints ? $this->goodsPoints->toMap() : null;
+            $res['goods_points'] = [];
+            if (null !== $this->goodsPoints && \is_array($this->goodsPoints)) {
+                $n = 0;
+                foreach ($this->goodsPoints as $item) {
+                    $res['goods_points'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -91,7 +97,13 @@ class GoodsDigitalFingerprintInfo extends Model
             $model->style = $map['style'];
         }
         if (isset($map['goods_points'])) {
-            $model->goodsPoints = GoodsDigitalFingerprintPoint::fromMap($map['goods_points']);
+            if (!empty($map['goods_points'])) {
+                $model->goodsPoints = [];
+                $n                  = 0;
+                foreach ($map['goods_points'] as $item) {
+                    $model->goodsPoints[$n++] = null !== $item ? GoodsDigitalFingerprintPoint::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

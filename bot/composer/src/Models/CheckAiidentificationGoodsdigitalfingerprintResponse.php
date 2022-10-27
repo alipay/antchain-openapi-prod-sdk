@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RegisterAiidentificationDigitalfingerprintResponse extends Model
+class CheckAiidentificationGoodsdigitalfingerprintResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,9 +26,9 @@ class RegisterAiidentificationDigitalfingerprintResponse extends Model
      */
     public $resultMsg;
 
-    // 指纹图片入库是否成功
+    // 商品数字指纹整体鉴定结果
     /**
-     * @var GoodsDigitalFingerprintRegisterResultData
+     * @var GoodsDigitalFingerprintIdentifyResultData
      */
     public $data;
     protected $_name = [
@@ -64,7 +64,7 @@ class RegisterAiidentificationDigitalfingerprintResponse extends Model
     /**
      * @param array $map
      *
-     * @return RegisterAiidentificationDigitalfingerprintResponse
+     * @return CheckAiidentificationGoodsdigitalfingerprintResponse
      */
     public static function fromMap($map = [])
     {
@@ -79,7 +79,7 @@ class RegisterAiidentificationDigitalfingerprintResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['data'])) {
-            $model->data = GoodsDigitalFingerprintRegisterResultData::fromMap($map['data']);
+            $model->data = GoodsDigitalFingerprintIdentifyResultData::fromMap($map['data']);
         }
 
         return $model;

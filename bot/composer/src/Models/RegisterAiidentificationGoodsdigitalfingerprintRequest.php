@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RegisterAiidentificationDigitalfingerprintRequest extends Model
+class RegisterAiidentificationGoodsdigitalfingerprintRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -30,17 +30,25 @@ class RegisterAiidentificationDigitalfingerprintRequest extends Model
      * @var GoodsDigitalFingerprintInfo
      */
     public $goodsInfo;
+
+    // 商品数字指纹用户信息
+    /**
+     * @var GoodsDigitalFingerprintUserInfo
+     */
+    public $userInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'appKey'            => 'app_key',
         'goodsInfo'         => 'goods_info',
+        'userInfo'          => 'user_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('appKey', $this->appKey, true);
         Model::validateRequired('goodsInfo', $this->goodsInfo, true);
+        Model::validateRequired('userInfo', $this->userInfo, true);
     }
 
     public function toMap()
@@ -58,6 +66,9 @@ class RegisterAiidentificationDigitalfingerprintRequest extends Model
         if (null !== $this->goodsInfo) {
             $res['goods_info'] = null !== $this->goodsInfo ? $this->goodsInfo->toMap() : null;
         }
+        if (null !== $this->userInfo) {
+            $res['user_info'] = null !== $this->userInfo ? $this->userInfo->toMap() : null;
+        }
 
         return $res;
     }
@@ -65,7 +76,7 @@ class RegisterAiidentificationDigitalfingerprintRequest extends Model
     /**
      * @param array $map
      *
-     * @return RegisterAiidentificationDigitalfingerprintRequest
+     * @return RegisterAiidentificationGoodsdigitalfingerprintRequest
      */
     public static function fromMap($map = [])
     {
@@ -81,6 +92,9 @@ class RegisterAiidentificationDigitalfingerprintRequest extends Model
         }
         if (isset($map['goods_info'])) {
             $model->goodsInfo = GoodsDigitalFingerprintInfo::fromMap($map['goods_info']);
+        }
+        if (isset($map['user_info'])) {
+            $model->userInfo = GoodsDigitalFingerprintUserInfo::fromMap($map['user_info']);
         }
 
         return $model;

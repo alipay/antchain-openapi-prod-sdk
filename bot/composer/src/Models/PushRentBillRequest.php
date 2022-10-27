@@ -69,7 +69,7 @@ class PushRentBillRequest extends Model
 
     // 账单租期集合
     /**
-     * @var RentBillItem
+     * @var RentBillItem[]
      */
     public $billItemList;
     protected $_name = [
@@ -133,7 +133,13 @@ class PushRentBillRequest extends Model
             $res['risk_range'] = $this->riskRange;
         }
         if (null !== $this->billItemList) {
-            $res['bill_item_list'] = null !== $this->billItemList ? $this->billItemList->toMap() : null;
+            $res['bill_item_list'] = [];
+            if (null !== $this->billItemList && \is_array($this->billItemList)) {
+                $n = 0;
+                foreach ($this->billItemList as $item) {
+                    $res['bill_item_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -178,7 +184,13 @@ class PushRentBillRequest extends Model
             $model->riskRange = $map['risk_range'];
         }
         if (isset($map['bill_item_list'])) {
-            $model->billItemList = RentBillItem::fromMap($map['bill_item_list']);
+            if (!empty($map['bill_item_list'])) {
+                $model->billItemList = [];
+                $n                   = 0;
+                foreach ($map['bill_item_list'] as $item) {
+                    $model->billItemList[$n++] = null !== $item ? RentBillItem::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

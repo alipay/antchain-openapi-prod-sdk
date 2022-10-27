@@ -54,15 +54,22 @@ class AddSceneRequest extends Model
      * @var bool
      */
     public $mock;
+
+    // 拉块解析后是否推送至业务方
+    /**
+     * @var bool
+     */
+    public $ledgerstreamPushEnable;
     protected $_name = [
-        'authToken'          => 'auth_token',
-        'productInstanceId'  => 'product_instance_id',
-        'sceneName'          => 'scene_name',
-        'escrowed'           => 'escrowed',
-        'privateKeyPassword' => 'private_key_password',
-        'tenantName'         => 'tenant_name',
-        'sceneType'          => 'scene_type',
-        'mock'               => 'mock',
+        'authToken'              => 'auth_token',
+        'productInstanceId'      => 'product_instance_id',
+        'sceneName'              => 'scene_name',
+        'escrowed'               => 'escrowed',
+        'privateKeyPassword'     => 'private_key_password',
+        'tenantName'             => 'tenant_name',
+        'sceneType'              => 'scene_type',
+        'mock'                   => 'mock',
+        'ledgerstreamPushEnable' => 'ledgerstream_push_enable',
     ];
 
     public function validate()
@@ -101,6 +108,9 @@ class AddSceneRequest extends Model
         if (null !== $this->mock) {
             $res['mock'] = $this->mock;
         }
+        if (null !== $this->ledgerstreamPushEnable) {
+            $res['ledgerstream_push_enable'] = $this->ledgerstreamPushEnable;
+        }
 
         return $res;
     }
@@ -136,6 +146,9 @@ class AddSceneRequest extends Model
         }
         if (isset($map['mock'])) {
             $model->mock = $map['mock'];
+        }
+        if (isset($map['ledgerstream_push_enable'])) {
+            $model->ledgerstreamPushEnable = $map['ledgerstream_push_enable'];
         }
 
         return $model;

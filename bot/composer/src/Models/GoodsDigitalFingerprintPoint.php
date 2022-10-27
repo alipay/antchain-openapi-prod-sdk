@@ -16,22 +16,32 @@ class GoodsDigitalFingerprintPoint extends Model
      */
     public $subPointName;
 
-    // 鉴定点图片url
+    // 微观图片url
     /**
-     * @example 图片url
+     * @example http://1001
      *
      * @var string
      */
-    public $imageUrl;
+    public $microImageUrl;
+
+    // 宏观图片url
+    /**
+     * @example http://xxxx1002
+     *
+     * @var string
+     */
+    public $macroImageUrl;
     protected $_name = [
-        'subPointName' => 'sub_point_name',
-        'imageUrl'     => 'image_url',
+        'subPointName'  => 'sub_point_name',
+        'microImageUrl' => 'micro_image_url',
+        'macroImageUrl' => 'macro_image_url',
     ];
 
     public function validate()
     {
         Model::validateRequired('subPointName', $this->subPointName, true);
-        Model::validateRequired('imageUrl', $this->imageUrl, true);
+        Model::validateRequired('microImageUrl', $this->microImageUrl, true);
+        Model::validateRequired('macroImageUrl', $this->macroImageUrl, true);
     }
 
     public function toMap()
@@ -40,8 +50,11 @@ class GoodsDigitalFingerprintPoint extends Model
         if (null !== $this->subPointName) {
             $res['sub_point_name'] = $this->subPointName;
         }
-        if (null !== $this->imageUrl) {
-            $res['image_url'] = $this->imageUrl;
+        if (null !== $this->microImageUrl) {
+            $res['micro_image_url'] = $this->microImageUrl;
+        }
+        if (null !== $this->macroImageUrl) {
+            $res['macro_image_url'] = $this->macroImageUrl;
         }
 
         return $res;
@@ -58,8 +71,11 @@ class GoodsDigitalFingerprintPoint extends Model
         if (isset($map['sub_point_name'])) {
             $model->subPointName = $map['sub_point_name'];
         }
-        if (isset($map['image_url'])) {
-            $model->imageUrl = $map['image_url'];
+        if (isset($map['micro_image_url'])) {
+            $model->microImageUrl = $map['micro_image_url'];
+        }
+        if (isset($map['macro_image_url'])) {
+            $model->macroImageUrl = $map['macro_image_url'];
         }
 
         return $model;

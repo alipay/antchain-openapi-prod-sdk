@@ -72,6 +72,12 @@ class OperateIotbasicRelrationRequest extends Model
      * @var string
      */
     public $paramSign;
+
+    // 项目空间
+    /**
+     * @var string
+     */
+    public $projectSpace;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -84,6 +90,7 @@ class OperateIotbasicRelrationRequest extends Model
         'hardwareModule'    => 'hardware_module',
         'operate'           => 'operate',
         'paramSign'         => 'param_sign',
+        'projectSpace'      => 'project_space',
     ];
 
     public function validate()
@@ -129,6 +136,9 @@ class OperateIotbasicRelrationRequest extends Model
         if (null !== $this->paramSign) {
             $res['param_sign'] = $this->paramSign;
         }
+        if (null !== $this->projectSpace) {
+            $res['project_space'] = $this->projectSpace;
+        }
 
         return $res;
     }
@@ -173,6 +183,9 @@ class OperateIotbasicRelrationRequest extends Model
         }
         if (isset($map['param_sign'])) {
             $model->paramSign = $map['param_sign'];
+        }
+        if (isset($map['project_space'])) {
+            $model->projectSpace = $map['project_space'];
         }
 
         return $model;

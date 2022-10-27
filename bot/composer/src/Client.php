@@ -37,6 +37,8 @@ use AntChain\BOT\Models\BatchcreateIotbasicDeviceRequest;
 use AntChain\BOT\Models\BatchcreateIotbasicDeviceResponse;
 use AntChain\BOT\Models\CertifyIotbasicDeviceRequest;
 use AntChain\BOT\Models\CertifyIotbasicDeviceResponse;
+use AntChain\BOT\Models\CheckAiidentificationGoodsdigitalfingerprintRequest;
+use AntChain\BOT\Models\CheckAiidentificationGoodsdigitalfingerprintResponse;
 use AntChain\BOT\Models\CheckAiidentificationGoodspointRequest;
 use AntChain\BOT\Models\CheckAiidentificationGoodspointResponse;
 use AntChain\BOT\Models\CheckAiidentificationQrcodeRequest;
@@ -223,8 +225,8 @@ use AntChain\BOT\Models\QueryTlsnotaryTaskRequest;
 use AntChain\BOT\Models\QueryTlsnotaryTaskResponse;
 use AntChain\BOT\Models\RecognizeIotbasicCustomerRequest;
 use AntChain\BOT\Models\RecognizeIotbasicCustomerResponse;
-use AntChain\BOT\Models\RegisterAiidentificationDigitalfingerprintRequest;
-use AntChain\BOT\Models\RegisterAiidentificationDigitalfingerprintResponse;
+use AntChain\BOT\Models\RegisterAiidentificationGoodsdigitalfingerprintRequest;
+use AntChain\BOT\Models\RegisterAiidentificationGoodsdigitalfingerprintResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidRequest;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidRequest;
@@ -261,6 +263,8 @@ use AntChain\BOT\Models\StartTlsnotaryTaskRequest;
 use AntChain\BOT\Models\StartTlsnotaryTaskResponse;
 use AntChain\BOT\Models\StopAcecContractRequest;
 use AntChain\BOT\Models\StopAcecContractResponse;
+use AntChain\BOT\Models\SyncIotbasicDevicegenerateRequest;
+use AntChain\BOT\Models\SyncIotbasicDevicegenerateResponse;
 use AntChain\BOT\Models\SyncIotbasicDevicestatusRequest;
 use AntChain\BOT\Models\SyncIotbasicDevicestatusResponse;
 use AntChain\BOT\Models\SyncLabelTransferrawRequest;
@@ -446,7 +450,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.27',
+                    'sdk_version'      => '1.7.34',
+                    '_prod_code'       => 'BOT',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -973,36 +979,69 @@ class Client
     }
 
     /**
-     * Description: AI数字指纹注册
+     * Description: AI商品数字指纹注册
      * Summary: AI数字指纹注册.
      *
-     * @param RegisterAiidentificationDigitalfingerprintRequest $request
+     * @param RegisterAiidentificationGoodsdigitalfingerprintRequest $request
      *
-     * @return RegisterAiidentificationDigitalfingerprintResponse
+     * @return RegisterAiidentificationGoodsdigitalfingerprintResponse
      */
-    public function registerAiidentificationDigitalfingerprint($request)
+    public function registerAiidentificationGoodsdigitalfingerprint($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->registerAiidentificationDigitalfingerprintEx($request, $headers, $runtime);
+        return $this->registerAiidentificationGoodsdigitalfingerprintEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: AI数字指纹注册
+     * Description: AI商品数字指纹注册
      * Summary: AI数字指纹注册.
      *
-     * @param RegisterAiidentificationDigitalfingerprintRequest $request
-     * @param string[]                                          $headers
-     * @param RuntimeOptions                                    $runtime
+     * @param RegisterAiidentificationGoodsdigitalfingerprintRequest $request
+     * @param string[]                                               $headers
+     * @param RuntimeOptions                                         $runtime
      *
-     * @return RegisterAiidentificationDigitalfingerprintResponse
+     * @return RegisterAiidentificationGoodsdigitalfingerprintResponse
      */
-    public function registerAiidentificationDigitalfingerprintEx($request, $headers, $runtime)
+    public function registerAiidentificationGoodsdigitalfingerprintEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return RegisterAiidentificationDigitalfingerprintResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.digitalfingerprint.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return RegisterAiidentificationGoodsdigitalfingerprintResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.goodsdigitalfingerprint.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AI商品数字指纹鉴定
+     * Summary: AI商品数字指纹鉴定.
+     *
+     * @param CheckAiidentificationGoodsdigitalfingerprintRequest $request
+     *
+     * @return CheckAiidentificationGoodsdigitalfingerprintResponse
+     */
+    public function checkAiidentificationGoodsdigitalfingerprint($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkAiidentificationGoodsdigitalfingerprintEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AI商品数字指纹鉴定
+     * Summary: AI商品数字指纹鉴定.
+     *
+     * @param CheckAiidentificationGoodsdigitalfingerprintRequest $request
+     * @param string[]                                            $headers
+     * @param RuntimeOptions                                      $runtime
+     *
+     * @return CheckAiidentificationGoodsdigitalfingerprintResponse
+     */
+    public function checkAiidentificationGoodsdigitalfingerprintEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckAiidentificationGoodsdigitalfingerprintResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiidentification.goodsdigitalfingerprint.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1894,6 +1933,39 @@ class Client
         Utils::validateModel($request);
 
         return PushRentHouseResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.rent.house.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: IoT设备平台-生成设备认证密钥
+     * Summary: IoT设备平台-生成设备认证密钥.
+     *
+     * @param SyncIotbasicDevicegenerateRequest $request
+     *
+     * @return SyncIotbasicDevicegenerateResponse
+     */
+    public function syncIotbasicDevicegenerate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncIotbasicDevicegenerateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-生成设备认证密钥
+     * Summary: IoT设备平台-生成设备认证密钥.
+     *
+     * @param SyncIotbasicDevicegenerateRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return SyncIotbasicDevicegenerateResponse
+     */
+    public function syncIotbasicDevicegenerateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncIotbasicDevicegenerateResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.devicegenerate.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
