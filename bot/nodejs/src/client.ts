@@ -146,19 +146,23 @@ export class IotBasicPermissionData extends $tea.Model {
 export class GoodsDigitalFingerprintPoint extends $tea.Model {
   // 鉴定点子项
   subPointName: string;
-  // 鉴定点图片url
-  imageUrl: string;
+  // 微观图片url
+  microImageUrl: string;
+  // 宏观图片url
+  macroImageUrl: string;
   static names(): { [key: string]: string } {
     return {
       subPointName: 'sub_point_name',
-      imageUrl: 'image_url',
+      microImageUrl: 'micro_image_url',
+      macroImageUrl: 'macro_image_url',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       subPointName: 'string',
-      imageUrl: 'string',
+      microImageUrl: 'string',
+      macroImageUrl: 'string',
     };
   }
 
@@ -682,6 +686,64 @@ export class BaiGoodsPointIdentificationResult extends $tea.Model {
       userPointId: 'string',
       appraiseMessage: 'string',
       resourceLocation: BaiResourceLocation,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商品数字指纹子鉴定项鉴定结果
+export class GoodsDigitalFingerprintPointIdentificationResult extends $tea.Model {
+  // 子鉴定项
+  subPointName: string;
+  // 商品数字指纹鉴定子项鉴定结果
+  result: string;
+  // 鉴定子项鉴定得分
+  grade: string;
+  static names(): { [key: string]: string } {
+    return {
+      subPointName: 'sub_point_name',
+      result: 'result',
+      grade: 'grade',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      subPointName: 'string',
+      result: 'string',
+      grade: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商品数字指纹鉴定结果
+export class GoodsDigitalFingerprintIdentifyResultData extends $tea.Model {
+  // 鉴定结果
+  identificationResult: string;
+  // 鉴定结果描述
+  description: string;
+  // 商品数字指纹鉴定点鉴定结果列表
+  pointIdentificationResults: GoodsDigitalFingerprintPointIdentificationResult[];
+  static names(): { [key: string]: string } {
+    return {
+      identificationResult: 'identification_result',
+      description: 'description',
+      pointIdentificationResults: 'point_identification_results',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      identificationResult: 'string',
+      description: 'string',
+      pointIdentificationResults: { 'type': 'array', 'itemType': GoodsDigitalFingerprintPointIdentificationResult },
     };
   }
 
@@ -3197,6 +3259,39 @@ export class DidBaseQueryReq extends $tea.Model {
   }
 }
 
+// 商品数字指纹注册用户信息
+export class GoodsDigitalFingerprintUserInfo extends $tea.Model {
+  // 平台注册用户id
+  userId: string;
+  // 用户角色
+  userRole: string;
+  // 用户登录id来源
+  channel: string;
+  // 作为平台使用方，提供对应的渠道用户id列表
+  relationUserIdList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      userRole: 'user_role',
+      channel: 'channel',
+      relationUserIdList: 'relation_user_id_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      userRole: 'string',
+      channel: 'string',
+      relationUserIdList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 商品鉴定返回结果
 export class BaiGoodsComparisonResponse extends $tea.Model {
   // 鉴定结果（REAL：为真   FAKE：为假   UNABLE_IDENTIFY：无法鉴定）
@@ -3553,7 +3648,7 @@ export class IotBasicDeviceSpecs extends $tea.Model {
   }
 }
 
-// 商品数字指纹
+// 商品数字指纹信息
 export class GoodsDigitalFingerprintInfo extends $tea.Model {
   // 品类
   category: string;
@@ -3562,7 +3657,7 @@ export class GoodsDigitalFingerprintInfo extends $tea.Model {
   // 款式
   style: string;
   // 商品数字指纹鉴定点列表
-  goodsPoints: GoodsDigitalFingerprintPoint;
+  goodsPoints: GoodsDigitalFingerprintPoint[];
   static names(): { [key: string]: string } {
     return {
       category: 'category',
@@ -3577,7 +3672,7 @@ export class GoodsDigitalFingerprintInfo extends $tea.Model {
       category: 'string',
       brand: 'string',
       style: 'string',
-      goodsPoints: GoodsDigitalFingerprintPoint,
+      goodsPoints: { 'type': 'array', 'itemType': GoodsDigitalFingerprintPoint },
     };
   }
 
@@ -4658,7 +4753,7 @@ export class QueryAiidentificationGoodspointResponse extends $tea.Model {
   }
 }
 
-export class RegisterAiidentificationDigitalfingerprintRequest extends $tea.Model {
+export class RegisterAiidentificationGoodsdigitalfingerprintRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -4666,12 +4761,15 @@ export class RegisterAiidentificationDigitalfingerprintRequest extends $tea.Mode
   appKey: string;
   // 商品数字指纹信息
   goodsInfo: GoodsDigitalFingerprintInfo;
+  // 商品数字指纹用户信息
+  userInfo: GoodsDigitalFingerprintUserInfo;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       appKey: 'app_key',
       goodsInfo: 'goods_info',
+      userInfo: 'user_info',
     };
   }
 
@@ -4681,6 +4779,7 @@ export class RegisterAiidentificationDigitalfingerprintRequest extends $tea.Mode
       productInstanceId: 'string',
       appKey: 'string',
       goodsInfo: GoodsDigitalFingerprintInfo,
+      userInfo: GoodsDigitalFingerprintUserInfo,
     };
   }
 
@@ -4689,7 +4788,7 @@ export class RegisterAiidentificationDigitalfingerprintRequest extends $tea.Mode
   }
 }
 
-export class RegisterAiidentificationDigitalfingerprintResponse extends $tea.Model {
+export class RegisterAiidentificationGoodsdigitalfingerprintResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -4713,6 +4812,73 @@ export class RegisterAiidentificationDigitalfingerprintResponse extends $tea.Mod
       resultCode: 'string',
       resultMsg: 'string',
       data: GoodsDigitalFingerprintRegisterResultData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckAiidentificationGoodsdigitalfingerprintRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户身份标识
+  appKey: string;
+  // 商品数字指纹鉴定信息
+  goodsInfo: GoodsDigitalFingerprintInfo;
+  // 商品数字指纹注册用户信息
+  userInfo: GoodsDigitalFingerprintUserInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appKey: 'app_key',
+      goodsInfo: 'goods_info',
+      userInfo: 'user_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appKey: 'string',
+      goodsInfo: GoodsDigitalFingerprintInfo,
+      userInfo: GoodsDigitalFingerprintUserInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckAiidentificationGoodsdigitalfingerprintResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商品数字指纹整体鉴定结果
+  data?: GoodsDigitalFingerprintIdentifyResultData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: GoodsDigitalFingerprintIdentifyResultData,
     };
   }
 
@@ -5528,6 +5694,8 @@ export class OperateIotbasicRelrationRequest extends $tea.Model {
   operate: string;
   // 参数签名校验
   paramSign?: string;
+  // 项目空间
+  projectSpace?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5541,6 +5709,7 @@ export class OperateIotbasicRelrationRequest extends $tea.Model {
       hardwareModule: 'hardware_module',
       operate: 'operate',
       paramSign: 'param_sign',
+      projectSpace: 'project_space',
     };
   }
 
@@ -5557,6 +5726,7 @@ export class OperateIotbasicRelrationRequest extends $tea.Model {
       hardwareModule: 'string',
       operate: 'string',
       paramSign: 'string',
+      projectSpace: 'string',
     };
   }
 
@@ -6734,7 +6904,7 @@ export class PushRentBillRequest extends $tea.Model {
   // 风险干预日期天数
   riskRange: string;
   // 账单租期集合
-  billItemList: RentBillItem;
+  billItemList: RentBillItem[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6763,7 +6933,7 @@ export class PushRentBillRequest extends $tea.Model {
       remindRange: 'string',
       warnRange: 'string',
       riskRange: 'string',
-      billItemList: RentBillItem,
+      billItemList: { 'type': 'array', 'itemType': RentBillItem },
     };
   }
 
@@ -7009,6 +7179,81 @@ export class PushRentHouseResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncIotbasicDevicegenerateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备厂商名称
+  corpName: string;
+  // 设备sn
+  deviceSn: string;
+  // 公钥
+  pubKey: string;
+  // 所属业务
+  bizScene: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      corpName: 'corp_name',
+      deviceSn: 'device_sn',
+      pubKey: 'pub_key',
+      bizScene: 'biz_scene',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      corpName: 'string',
+      deviceSn: 'string',
+      pubKey: 'string',
+      bizScene: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncIotbasicDevicegenerateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 设备私钥
+  deviceKey?: string;
+  // 设备认证id
+  secId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      deviceKey: 'device_key',
+      secId: 'sec_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      deviceKey: 'string',
+      secId: 'string',
     };
   }
 
@@ -11202,6 +11447,8 @@ export class AddSceneRequest extends $tea.Model {
   sceneType: string;
   // 是否为测试数据
   mock?: boolean;
+  // 拉块解析后是否推送至业务方
+  ledgerstreamPushEnable?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11212,6 +11459,7 @@ export class AddSceneRequest extends $tea.Model {
       tenantName: 'tenant_name',
       sceneType: 'scene_type',
       mock: 'mock',
+      ledgerstreamPushEnable: 'ledgerstream_push_enable',
     };
   }
 
@@ -11225,6 +11473,7 @@ export class AddSceneRequest extends $tea.Model {
       tenantName: 'string',
       sceneType: 'string',
       mock: 'boolean',
+      ledgerstreamPushEnable: 'boolean',
     };
   }
 
@@ -14862,7 +15111,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.27",
+          sdk_version: "1.7.34",
+          _prod_code: "BOT",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -15196,22 +15447,41 @@ export default class Client {
   }
 
   /**
-   * Description: AI数字指纹注册
+   * Description: AI商品数字指纹注册
    * Summary: AI数字指纹注册
    */
-  async registerAiidentificationDigitalfingerprint(request: RegisterAiidentificationDigitalfingerprintRequest): Promise<RegisterAiidentificationDigitalfingerprintResponse> {
+  async registerAiidentificationGoodsdigitalfingerprint(request: RegisterAiidentificationGoodsdigitalfingerprintRequest): Promise<RegisterAiidentificationGoodsdigitalfingerprintResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.registerAiidentificationDigitalfingerprintEx(request, headers, runtime);
+    return await this.registerAiidentificationGoodsdigitalfingerprintEx(request, headers, runtime);
   }
 
   /**
-   * Description: AI数字指纹注册
+   * Description: AI商品数字指纹注册
    * Summary: AI数字指纹注册
    */
-  async registerAiidentificationDigitalfingerprintEx(request: RegisterAiidentificationDigitalfingerprintRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterAiidentificationDigitalfingerprintResponse> {
+  async registerAiidentificationGoodsdigitalfingerprintEx(request: RegisterAiidentificationGoodsdigitalfingerprintRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterAiidentificationGoodsdigitalfingerprintResponse> {
     Util.validateModel(request);
-    return $tea.cast<RegisterAiidentificationDigitalfingerprintResponse>(await this.doRequest("1.0", "blockchain.bot.aiidentification.digitalfingerprint.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterAiidentificationDigitalfingerprintResponse({}));
+    return $tea.cast<RegisterAiidentificationGoodsdigitalfingerprintResponse>(await this.doRequest("1.0", "blockchain.bot.aiidentification.goodsdigitalfingerprint.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterAiidentificationGoodsdigitalfingerprintResponse({}));
+  }
+
+  /**
+   * Description: AI商品数字指纹鉴定
+   * Summary: AI商品数字指纹鉴定
+   */
+  async checkAiidentificationGoodsdigitalfingerprint(request: CheckAiidentificationGoodsdigitalfingerprintRequest): Promise<CheckAiidentificationGoodsdigitalfingerprintResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkAiidentificationGoodsdigitalfingerprintEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: AI商品数字指纹鉴定
+   * Summary: AI商品数字指纹鉴定
+   */
+  async checkAiidentificationGoodsdigitalfingerprintEx(request: CheckAiidentificationGoodsdigitalfingerprintRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckAiidentificationGoodsdigitalfingerprintResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckAiidentificationGoodsdigitalfingerprintResponse>(await this.doRequest("1.0", "blockchain.bot.aiidentification.goodsdigitalfingerprint.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckAiidentificationGoodsdigitalfingerprintResponse({}));
   }
 
   /**
@@ -15725,6 +15995,25 @@ export default class Client {
   async pushRentHouseEx(request: PushRentHouseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRentHouseResponse> {
     Util.validateModel(request);
     return $tea.cast<PushRentHouseResponse>(await this.doRequest("1.0", "blockchain.bot.rent.house.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRentHouseResponse({}));
+  }
+
+  /**
+   * Description: IoT设备平台-生成设备认证密钥
+   * Summary: IoT设备平台-生成设备认证密钥
+   */
+  async syncIotbasicDevicegenerate(request: SyncIotbasicDevicegenerateRequest): Promise<SyncIotbasicDevicegenerateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncIotbasicDevicegenerateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: IoT设备平台-生成设备认证密钥
+   * Summary: IoT设备平台-生成设备认证密钥
+   */
+  async syncIotbasicDevicegenerateEx(request: SyncIotbasicDevicegenerateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncIotbasicDevicegenerateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncIotbasicDevicegenerateResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.devicegenerate.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncIotbasicDevicegenerateResponse({}));
   }
 
   /**
