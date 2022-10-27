@@ -61,7 +61,7 @@ namespace AntChain.SDK.BOT.Models
         // 账单租期集合
         [NameInMap("bill_item_list")]
         [Validation(Required=true)]
-        public RentBillItem BillItemList { get; set; }
+        public List<RentBillItem> BillItemList { get; set; }
 
     }
 

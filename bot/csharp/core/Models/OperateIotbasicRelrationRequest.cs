@@ -63,6 +63,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ParamSign { get; set; }
 
+        // 项目空间
+        [NameInMap("project_space")]
+        [Validation(Required=false)]
+        public string ProjectSpace { get; set; }
+
     }
 
 }

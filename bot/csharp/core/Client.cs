@@ -137,7 +137,9 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.27"},
+                        {"sdk_version", "1.7.34"},
+                        {"_prod_code", "BOT"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -261,7 +263,9 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.27"},
+                        {"sdk_version", "1.7.34"},
+                        {"_prod_code", "BOT"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -952,45 +956,87 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: AI数字指纹注册
+         * Description: AI商品数字指纹注册
          * Summary: AI数字指纹注册
          */
-        public RegisterAiidentificationDigitalfingerprintResponse RegisterAiidentificationDigitalfingerprint(RegisterAiidentificationDigitalfingerprintRequest request)
+        public RegisterAiidentificationGoodsdigitalfingerprintResponse RegisterAiidentificationGoodsdigitalfingerprint(RegisterAiidentificationGoodsdigitalfingerprintRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return RegisterAiidentificationDigitalfingerprintEx(request, headers, runtime);
+            return RegisterAiidentificationGoodsdigitalfingerprintEx(request, headers, runtime);
         }
 
         /**
-         * Description: AI数字指纹注册
+         * Description: AI商品数字指纹注册
          * Summary: AI数字指纹注册
          */
-        public async Task<RegisterAiidentificationDigitalfingerprintResponse> RegisterAiidentificationDigitalfingerprintAsync(RegisterAiidentificationDigitalfingerprintRequest request)
+        public async Task<RegisterAiidentificationGoodsdigitalfingerprintResponse> RegisterAiidentificationGoodsdigitalfingerprintAsync(RegisterAiidentificationGoodsdigitalfingerprintRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await RegisterAiidentificationDigitalfingerprintExAsync(request, headers, runtime);
+            return await RegisterAiidentificationGoodsdigitalfingerprintExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: AI数字指纹注册
+         * Description: AI商品数字指纹注册
          * Summary: AI数字指纹注册
          */
-        public RegisterAiidentificationDigitalfingerprintResponse RegisterAiidentificationDigitalfingerprintEx(RegisterAiidentificationDigitalfingerprintRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public RegisterAiidentificationGoodsdigitalfingerprintResponse RegisterAiidentificationGoodsdigitalfingerprintEx(RegisterAiidentificationGoodsdigitalfingerprintRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<RegisterAiidentificationDigitalfingerprintResponse>(DoRequest("1.0", "blockchain.bot.aiidentification.digitalfingerprint.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<RegisterAiidentificationGoodsdigitalfingerprintResponse>(DoRequest("1.0", "blockchain.bot.aiidentification.goodsdigitalfingerprint.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: AI数字指纹注册
+         * Description: AI商品数字指纹注册
          * Summary: AI数字指纹注册
          */
-        public async Task<RegisterAiidentificationDigitalfingerprintResponse> RegisterAiidentificationDigitalfingerprintExAsync(RegisterAiidentificationDigitalfingerprintRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<RegisterAiidentificationGoodsdigitalfingerprintResponse> RegisterAiidentificationGoodsdigitalfingerprintExAsync(RegisterAiidentificationGoodsdigitalfingerprintRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<RegisterAiidentificationDigitalfingerprintResponse>(await DoRequestAsync("1.0", "blockchain.bot.aiidentification.digitalfingerprint.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<RegisterAiidentificationGoodsdigitalfingerprintResponse>(await DoRequestAsync("1.0", "blockchain.bot.aiidentification.goodsdigitalfingerprint.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AI商品数字指纹鉴定
+         * Summary: AI商品数字指纹鉴定
+         */
+        public CheckAiidentificationGoodsdigitalfingerprintResponse CheckAiidentificationGoodsdigitalfingerprint(CheckAiidentificationGoodsdigitalfingerprintRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckAiidentificationGoodsdigitalfingerprintEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: AI商品数字指纹鉴定
+         * Summary: AI商品数字指纹鉴定
+         */
+        public async Task<CheckAiidentificationGoodsdigitalfingerprintResponse> CheckAiidentificationGoodsdigitalfingerprintAsync(CheckAiidentificationGoodsdigitalfingerprintRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckAiidentificationGoodsdigitalfingerprintExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: AI商品数字指纹鉴定
+         * Summary: AI商品数字指纹鉴定
+         */
+        public CheckAiidentificationGoodsdigitalfingerprintResponse CheckAiidentificationGoodsdigitalfingerprintEx(CheckAiidentificationGoodsdigitalfingerprintRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAiidentificationGoodsdigitalfingerprintResponse>(DoRequest("1.0", "blockchain.bot.aiidentification.goodsdigitalfingerprint.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: AI商品数字指纹鉴定
+         * Summary: AI商品数字指纹鉴定
+         */
+        public async Task<CheckAiidentificationGoodsdigitalfingerprintResponse> CheckAiidentificationGoodsdigitalfingerprintExAsync(CheckAiidentificationGoodsdigitalfingerprintRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAiidentificationGoodsdigitalfingerprintResponse>(await DoRequestAsync("1.0", "blockchain.bot.aiidentification.goodsdigitalfingerprint.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -2125,6 +2171,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PushRentHouseResponse>(await DoRequestAsync("1.0", "blockchain.bot.rent.house.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-生成设备认证密钥
+         * Summary: IoT设备平台-生成设备认证密钥
+         */
+        public SyncIotbasicDevicegenerateResponse SyncIotbasicDevicegenerate(SyncIotbasicDevicegenerateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncIotbasicDevicegenerateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-生成设备认证密钥
+         * Summary: IoT设备平台-生成设备认证密钥
+         */
+        public async Task<SyncIotbasicDevicegenerateResponse> SyncIotbasicDevicegenerateAsync(SyncIotbasicDevicegenerateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncIotbasicDevicegenerateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: IoT设备平台-生成设备认证密钥
+         * Summary: IoT设备平台-生成设备认证密钥
+         */
+        public SyncIotbasicDevicegenerateResponse SyncIotbasicDevicegenerateEx(SyncIotbasicDevicegenerateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncIotbasicDevicegenerateResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.devicegenerate.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: IoT设备平台-生成设备认证密钥
+         * Summary: IoT设备平台-生成设备认证密钥
+         */
+        public async Task<SyncIotbasicDevicegenerateResponse> SyncIotbasicDevicegenerateExAsync(SyncIotbasicDevicegenerateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncIotbasicDevicegenerateResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.devicegenerate.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

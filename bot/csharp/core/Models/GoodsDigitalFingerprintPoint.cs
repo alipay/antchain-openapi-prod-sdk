@@ -15,10 +15,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string SubPointName { get; set; }
 
-        // 鉴定点图片url
-        [NameInMap("image_url")]
+        // 微观图片url
+        [NameInMap("micro_image_url")]
         [Validation(Required=true)]
-        public string ImageUrl { get; set; }
+        public string MicroImageUrl { get; set; }
+
+        // 宏观图片url
+        [NameInMap("macro_image_url")]
+        [Validation(Required=true)]
+        public string MacroImageUrl { get; set; }
 
     }
 

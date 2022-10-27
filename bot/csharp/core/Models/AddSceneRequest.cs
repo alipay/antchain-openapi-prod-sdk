@@ -48,6 +48,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public bool? Mock { get; set; }
 
+        // 拉块解析后是否推送至业务方
+        [NameInMap("ledgerstream_push_enable")]
+        [Validation(Required=false)]
+        public bool? LedgerstreamPushEnable { get; set; }
+
     }
 
 }

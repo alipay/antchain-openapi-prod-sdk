@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    // 商品数字指纹
+    // 商品数字指纹信息
     public class GoodsDigitalFingerprintInfo : TeaModel {
         // 品类
         [NameInMap("category")]
@@ -28,7 +28,7 @@ namespace AntChain.SDK.BOT.Models
         // 商品数字指纹鉴定点列表
         [NameInMap("goods_points")]
         [Validation(Required=true)]
-        public GoodsDigitalFingerprintPoint GoodsPoints { get; set; }
+        public List<GoodsDigitalFingerprintPoint> GoodsPoints { get; set; }
 
     }
 

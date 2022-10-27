@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class RegisterAiidentificationDigitalfingerprintRequest : TeaModel {
+    public class SyncIotbasicDevicegenerateRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,25 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 用户身份标识
-        [NameInMap("app_key")]
+        // 设备厂商名称
+        [NameInMap("corp_name")]
         [Validation(Required=true)]
-        public string AppKey { get; set; }
+        public string CorpName { get; set; }
 
-        // 商品数字指纹信息
-        [NameInMap("goods_info")]
+        // 设备sn
+        [NameInMap("device_sn")]
         [Validation(Required=true)]
-        public GoodsDigitalFingerprintInfo GoodsInfo { get; set; }
+        public string DeviceSn { get; set; }
+
+        // 公钥
+        [NameInMap("pub_key")]
+        [Validation(Required=true)]
+        public string PubKey { get; set; }
+
+        // 所属业务
+        [NameInMap("biz_scene")]
+        [Validation(Required=true)]
+        public string BizScene { get; set; }
 
     }
 
