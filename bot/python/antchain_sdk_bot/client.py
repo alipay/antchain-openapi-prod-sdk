@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.27'
+                    'sdk_version': '1.7.34',
+                    '_prod_code': 'BOT',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.27'
+                    'sdk_version': '1.7.34',
+                    '_prod_code': 'BOT',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -1089,60 +1093,116 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bot.aiidentification.goodspoint.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def register_aiidentification_digitalfingerprint(
+    def register_aiidentification_goodsdigitalfingerprint(
         self,
-        request: bot_models.RegisterAiidentificationDigitalfingerprintRequest,
-    ) -> bot_models.RegisterAiidentificationDigitalfingerprintResponse:
+        request: bot_models.RegisterAiidentificationGoodsdigitalfingerprintRequest,
+    ) -> bot_models.RegisterAiidentificationGoodsdigitalfingerprintResponse:
         """
-        Description: AI数字指纹注册
+        Description: AI商品数字指纹注册
         Summary: AI数字指纹注册
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.register_aiidentification_digitalfingerprint_ex(request, headers, runtime)
+        return self.register_aiidentification_goodsdigitalfingerprint_ex(request, headers, runtime)
 
-    async def register_aiidentification_digitalfingerprint_async(
+    async def register_aiidentification_goodsdigitalfingerprint_async(
         self,
-        request: bot_models.RegisterAiidentificationDigitalfingerprintRequest,
-    ) -> bot_models.RegisterAiidentificationDigitalfingerprintResponse:
+        request: bot_models.RegisterAiidentificationGoodsdigitalfingerprintRequest,
+    ) -> bot_models.RegisterAiidentificationGoodsdigitalfingerprintResponse:
         """
-        Description: AI数字指纹注册
+        Description: AI商品数字指纹注册
         Summary: AI数字指纹注册
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.register_aiidentification_digitalfingerprint_ex_async(request, headers, runtime)
+        return await self.register_aiidentification_goodsdigitalfingerprint_ex_async(request, headers, runtime)
 
-    def register_aiidentification_digitalfingerprint_ex(
+    def register_aiidentification_goodsdigitalfingerprint_ex(
         self,
-        request: bot_models.RegisterAiidentificationDigitalfingerprintRequest,
+        request: bot_models.RegisterAiidentificationGoodsdigitalfingerprintRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.RegisterAiidentificationDigitalfingerprintResponse:
+    ) -> bot_models.RegisterAiidentificationGoodsdigitalfingerprintResponse:
         """
-        Description: AI数字指纹注册
+        Description: AI商品数字指纹注册
         Summary: AI数字指纹注册
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.RegisterAiidentificationDigitalfingerprintResponse(),
-            self.do_request('1.0', 'blockchain.bot.aiidentification.digitalfingerprint.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.RegisterAiidentificationGoodsdigitalfingerprintResponse(),
+            self.do_request('1.0', 'blockchain.bot.aiidentification.goodsdigitalfingerprint.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def register_aiidentification_digitalfingerprint_ex_async(
+    async def register_aiidentification_goodsdigitalfingerprint_ex_async(
         self,
-        request: bot_models.RegisterAiidentificationDigitalfingerprintRequest,
+        request: bot_models.RegisterAiidentificationGoodsdigitalfingerprintRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.RegisterAiidentificationDigitalfingerprintResponse:
+    ) -> bot_models.RegisterAiidentificationGoodsdigitalfingerprintResponse:
         """
-        Description: AI数字指纹注册
+        Description: AI商品数字指纹注册
         Summary: AI数字指纹注册
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.RegisterAiidentificationDigitalfingerprintResponse(),
-            await self.do_request_async('1.0', 'blockchain.bot.aiidentification.digitalfingerprint.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.RegisterAiidentificationGoodsdigitalfingerprintResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.aiidentification.goodsdigitalfingerprint.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_aiidentification_goodsdigitalfingerprint(
+        self,
+        request: bot_models.CheckAiidentificationGoodsdigitalfingerprintRequest,
+    ) -> bot_models.CheckAiidentificationGoodsdigitalfingerprintResponse:
+        """
+        Description: AI商品数字指纹鉴定
+        Summary: AI商品数字指纹鉴定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_aiidentification_goodsdigitalfingerprint_ex(request, headers, runtime)
+
+    async def check_aiidentification_goodsdigitalfingerprint_async(
+        self,
+        request: bot_models.CheckAiidentificationGoodsdigitalfingerprintRequest,
+    ) -> bot_models.CheckAiidentificationGoodsdigitalfingerprintResponse:
+        """
+        Description: AI商品数字指纹鉴定
+        Summary: AI商品数字指纹鉴定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_aiidentification_goodsdigitalfingerprint_ex_async(request, headers, runtime)
+
+    def check_aiidentification_goodsdigitalfingerprint_ex(
+        self,
+        request: bot_models.CheckAiidentificationGoodsdigitalfingerprintRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CheckAiidentificationGoodsdigitalfingerprintResponse:
+        """
+        Description: AI商品数字指纹鉴定
+        Summary: AI商品数字指纹鉴定
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CheckAiidentificationGoodsdigitalfingerprintResponse(),
+            self.do_request('1.0', 'blockchain.bot.aiidentification.goodsdigitalfingerprint.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_aiidentification_goodsdigitalfingerprint_ex_async(
+        self,
+        request: bot_models.CheckAiidentificationGoodsdigitalfingerprintRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CheckAiidentificationGoodsdigitalfingerprintResponse:
+        """
+        Description: AI商品数字指纹鉴定
+        Summary: AI商品数字指纹鉴定
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CheckAiidentificationGoodsdigitalfingerprintResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.aiidentification.goodsdigitalfingerprint.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_acs_device(
@@ -2655,6 +2715,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.PushRentHouseResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.rent.house.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_iotbasic_devicegenerate(
+        self,
+        request: bot_models.SyncIotbasicDevicegenerateRequest,
+    ) -> bot_models.SyncIotbasicDevicegenerateResponse:
+        """
+        Description: IoT设备平台-生成设备认证密钥
+        Summary: IoT设备平台-生成设备认证密钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_iotbasic_devicegenerate_ex(request, headers, runtime)
+
+    async def sync_iotbasic_devicegenerate_async(
+        self,
+        request: bot_models.SyncIotbasicDevicegenerateRequest,
+    ) -> bot_models.SyncIotbasicDevicegenerateResponse:
+        """
+        Description: IoT设备平台-生成设备认证密钥
+        Summary: IoT设备平台-生成设备认证密钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_iotbasic_devicegenerate_ex_async(request, headers, runtime)
+
+    def sync_iotbasic_devicegenerate_ex(
+        self,
+        request: bot_models.SyncIotbasicDevicegenerateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncIotbasicDevicegenerateResponse:
+        """
+        Description: IoT设备平台-生成设备认证密钥
+        Summary: IoT设备平台-生成设备认证密钥
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SyncIotbasicDevicegenerateResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.devicegenerate.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_iotbasic_devicegenerate_ex_async(
+        self,
+        request: bot_models.SyncIotbasicDevicegenerateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncIotbasicDevicegenerateResponse:
+        """
+        Description: IoT设备平台-生成设备认证密钥
+        Summary: IoT设备平台-生成设备认证密钥
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SyncIotbasicDevicegenerateResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.devicegenerate.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(

@@ -256,16 +256,20 @@ class GoodsDigitalFingerprintPoint(TeaModel):
     def __init__(
         self,
         sub_point_name: str = None,
-        image_url: str = None,
+        micro_image_url: str = None,
+        macro_image_url: str = None,
     ):
         # 鉴定点子项
         self.sub_point_name = sub_point_name
-        # 鉴定点图片url
-        self.image_url = image_url
+        # 微观图片url
+        self.micro_image_url = micro_image_url
+        # 宏观图片url
+        self.macro_image_url = macro_image_url
 
     def validate(self):
         self.validate_required(self.sub_point_name, 'sub_point_name')
-        self.validate_required(self.image_url, 'image_url')
+        self.validate_required(self.micro_image_url, 'micro_image_url')
+        self.validate_required(self.macro_image_url, 'macro_image_url')
 
     def to_map(self):
         _map = super().to_map()
@@ -275,16 +279,20 @@ class GoodsDigitalFingerprintPoint(TeaModel):
         result = dict()
         if self.sub_point_name is not None:
             result['sub_point_name'] = self.sub_point_name
-        if self.image_url is not None:
-            result['image_url'] = self.image_url
+        if self.micro_image_url is not None:
+            result['micro_image_url'] = self.micro_image_url
+        if self.macro_image_url is not None:
+            result['macro_image_url'] = self.macro_image_url
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('sub_point_name') is not None:
             self.sub_point_name = m.get('sub_point_name')
-        if m.get('image_url') is not None:
-            self.image_url = m.get('image_url')
+        if m.get('micro_image_url') is not None:
+            self.micro_image_url = m.get('micro_image_url')
+        if m.get('macro_image_url') is not None:
+            self.macro_image_url = m.get('macro_image_url')
         return self
 
 
@@ -1169,6 +1177,103 @@ class BaiGoodsPointIdentificationResult(TeaModel):
         if m.get('resource_location') is not None:
             temp_model = BaiResourceLocation()
             self.resource_location = temp_model.from_map(m['resource_location'])
+        return self
+
+
+class GoodsDigitalFingerprintPointIdentificationResult(TeaModel):
+    def __init__(
+        self,
+        sub_point_name: str = None,
+        result: str = None,
+        grade: str = None,
+    ):
+        # 子鉴定项
+        self.sub_point_name = sub_point_name
+        # 商品数字指纹鉴定子项鉴定结果
+        self.result = result
+        # 鉴定子项鉴定得分
+        self.grade = grade
+
+    def validate(self):
+        self.validate_required(self.sub_point_name, 'sub_point_name')
+        self.validate_required(self.result, 'result')
+        self.validate_required(self.grade, 'grade')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sub_point_name is not None:
+            result['sub_point_name'] = self.sub_point_name
+        if self.result is not None:
+            result['result'] = self.result
+        if self.grade is not None:
+            result['grade'] = self.grade
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('sub_point_name') is not None:
+            self.sub_point_name = m.get('sub_point_name')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        if m.get('grade') is not None:
+            self.grade = m.get('grade')
+        return self
+
+
+class GoodsDigitalFingerprintIdentifyResultData(TeaModel):
+    def __init__(
+        self,
+        identification_result: str = None,
+        description: str = None,
+        point_identification_results: List[GoodsDigitalFingerprintPointIdentificationResult] = None,
+    ):
+        # 鉴定结果
+        self.identification_result = identification_result
+        # 鉴定结果描述
+        self.description = description
+        # 商品数字指纹鉴定点鉴定结果列表
+        self.point_identification_results = point_identification_results
+
+    def validate(self):
+        self.validate_required(self.identification_result, 'identification_result')
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.point_identification_results, 'point_identification_results')
+        if self.point_identification_results:
+            for k in self.point_identification_results:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.identification_result is not None:
+            result['identification_result'] = self.identification_result
+        if self.description is not None:
+            result['description'] = self.description
+        result['point_identification_results'] = []
+        if self.point_identification_results is not None:
+            for k in self.point_identification_results:
+                result['point_identification_results'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('identification_result') is not None:
+            self.identification_result = m.get('identification_result')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        self.point_identification_results = []
+        if m.get('point_identification_results') is not None:
+            for k in m.get('point_identification_results'):
+                temp_model = GoodsDigitalFingerprintPointIdentificationResult()
+                self.point_identification_results.append(temp_model.from_map(k))
         return self
 
 
@@ -5129,6 +5234,57 @@ class DidBaseQueryReq(TeaModel):
         return self
 
 
+class GoodsDigitalFingerprintUserInfo(TeaModel):
+    def __init__(
+        self,
+        user_id: str = None,
+        user_role: str = None,
+        channel: str = None,
+        relation_user_id_list: List[str] = None,
+    ):
+        # 平台注册用户id
+        self.user_id = user_id
+        # 用户角色
+        self.user_role = user_role
+        # 用户登录id来源
+        self.channel = channel
+        # 作为平台使用方，提供对应的渠道用户id列表
+        self.relation_user_id_list = relation_user_id_list
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.user_role, 'user_role')
+        self.validate_required(self.channel, 'channel')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_role is not None:
+            result['user_role'] = self.user_role
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.relation_user_id_list is not None:
+            result['relation_user_id_list'] = self.relation_user_id_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_role') is not None:
+            self.user_role = m.get('user_role')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('relation_user_id_list') is not None:
+            self.relation_user_id_list = m.get('relation_user_id_list')
+        return self
+
+
 class BaiGoodsComparisonResponse(TeaModel):
     def __init__(
         self,
@@ -5728,7 +5884,7 @@ class GoodsDigitalFingerprintInfo(TeaModel):
         category: str = None,
         brand: str = None,
         style: str = None,
-        goods_points: GoodsDigitalFingerprintPoint = None,
+        goods_points: List[GoodsDigitalFingerprintPoint] = None,
     ):
         # 品类
         self.category = category
@@ -5745,7 +5901,9 @@ class GoodsDigitalFingerprintInfo(TeaModel):
         self.validate_required(self.style, 'style')
         self.validate_required(self.goods_points, 'goods_points')
         if self.goods_points:
-            self.goods_points.validate()
+            for k in self.goods_points:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -5759,8 +5917,10 @@ class GoodsDigitalFingerprintInfo(TeaModel):
             result['brand'] = self.brand
         if self.style is not None:
             result['style'] = self.style
+        result['goods_points'] = []
         if self.goods_points is not None:
-            result['goods_points'] = self.goods_points.to_map()
+            for k in self.goods_points:
+                result['goods_points'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -5771,9 +5931,11 @@ class GoodsDigitalFingerprintInfo(TeaModel):
             self.brand = m.get('brand')
         if m.get('style') is not None:
             self.style = m.get('style')
+        self.goods_points = []
         if m.get('goods_points') is not None:
-            temp_model = GoodsDigitalFingerprintPoint()
-            self.goods_points = temp_model.from_map(m['goods_points'])
+            for k in m.get('goods_points'):
+                temp_model = GoodsDigitalFingerprintPoint()
+                self.goods_points.append(temp_model.from_map(k))
         return self
 
 
@@ -7506,13 +7668,14 @@ class QueryAiidentificationGoodspointResponse(TeaModel):
         return self
 
 
-class RegisterAiidentificationDigitalfingerprintRequest(TeaModel):
+class RegisterAiidentificationGoodsdigitalfingerprintRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
         app_key: str = None,
         goods_info: GoodsDigitalFingerprintInfo = None,
+        user_info: GoodsDigitalFingerprintUserInfo = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -7521,12 +7684,17 @@ class RegisterAiidentificationDigitalfingerprintRequest(TeaModel):
         self.app_key = app_key
         # 商品数字指纹信息
         self.goods_info = goods_info
+        # 商品数字指纹用户信息
+        self.user_info = user_info
 
     def validate(self):
         self.validate_required(self.app_key, 'app_key')
         self.validate_required(self.goods_info, 'goods_info')
         if self.goods_info:
             self.goods_info.validate()
+        self.validate_required(self.user_info, 'user_info')
+        if self.user_info:
+            self.user_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -7542,6 +7710,8 @@ class RegisterAiidentificationDigitalfingerprintRequest(TeaModel):
             result['app_key'] = self.app_key
         if self.goods_info is not None:
             result['goods_info'] = self.goods_info.to_map()
+        if self.user_info is not None:
+            result['user_info'] = self.user_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -7555,10 +7725,13 @@ class RegisterAiidentificationDigitalfingerprintRequest(TeaModel):
         if m.get('goods_info') is not None:
             temp_model = GoodsDigitalFingerprintInfo()
             self.goods_info = temp_model.from_map(m['goods_info'])
+        if m.get('user_info') is not None:
+            temp_model = GoodsDigitalFingerprintUserInfo()
+            self.user_info = temp_model.from_map(m['user_info'])
         return self
 
 
-class RegisterAiidentificationDigitalfingerprintResponse(TeaModel):
+class RegisterAiidentificationGoodsdigitalfingerprintResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -7605,6 +7778,120 @@ class RegisterAiidentificationDigitalfingerprintResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
             temp_model = GoodsDigitalFingerprintRegisterResultData()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class CheckAiidentificationGoodsdigitalfingerprintRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        app_key: str = None,
+        goods_info: GoodsDigitalFingerprintInfo = None,
+        user_info: GoodsDigitalFingerprintUserInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户身份标识
+        self.app_key = app_key
+        # 商品数字指纹鉴定信息
+        self.goods_info = goods_info
+        # 商品数字指纹注册用户信息
+        self.user_info = user_info
+
+    def validate(self):
+        self.validate_required(self.app_key, 'app_key')
+        self.validate_required(self.goods_info, 'goods_info')
+        if self.goods_info:
+            self.goods_info.validate()
+        self.validate_required(self.user_info, 'user_info')
+        if self.user_info:
+            self.user_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.app_key is not None:
+            result['app_key'] = self.app_key
+        if self.goods_info is not None:
+            result['goods_info'] = self.goods_info.to_map()
+        if self.user_info is not None:
+            result['user_info'] = self.user_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('app_key') is not None:
+            self.app_key = m.get('app_key')
+        if m.get('goods_info') is not None:
+            temp_model = GoodsDigitalFingerprintInfo()
+            self.goods_info = temp_model.from_map(m['goods_info'])
+        if m.get('user_info') is not None:
+            temp_model = GoodsDigitalFingerprintUserInfo()
+            self.user_info = temp_model.from_map(m['user_info'])
+        return self
+
+
+class CheckAiidentificationGoodsdigitalfingerprintResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: GoodsDigitalFingerprintIdentifyResultData = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 商品数字指纹整体鉴定结果
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = GoodsDigitalFingerprintIdentifyResultData()
             self.data = temp_model.from_map(m['data'])
         return self
 
@@ -8987,6 +9274,7 @@ class OperateIotbasicRelrationRequest(TeaModel):
         hardware_module: str = None,
         operate: str = None,
         param_sign: str = None,
+        project_space: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -9009,6 +9297,8 @@ class OperateIotbasicRelrationRequest(TeaModel):
         self.operate = operate
         # 参数签名校验
         self.param_sign = param_sign
+        # 项目空间
+        self.project_space = project_space
 
     def validate(self):
         self.validate_required(self.device_category, 'device_category')
@@ -9043,6 +9333,8 @@ class OperateIotbasicRelrationRequest(TeaModel):
             result['operate'] = self.operate
         if self.param_sign is not None:
             result['param_sign'] = self.param_sign
+        if self.project_space is not None:
+            result['project_space'] = self.project_space
         return result
 
     def from_map(self, m: dict = None):
@@ -9069,6 +9361,8 @@ class OperateIotbasicRelrationRequest(TeaModel):
             self.operate = m.get('operate')
         if m.get('param_sign') is not None:
             self.param_sign = m.get('param_sign')
+        if m.get('project_space') is not None:
+            self.project_space = m.get('project_space')
         return self
 
 
@@ -10996,7 +11290,7 @@ class PushRentBillRequest(TeaModel):
         remind_range: str = None,
         warn_range: str = None,
         risk_range: str = None,
-        bill_item_list: RentBillItem = None,
+        bill_item_list: List[RentBillItem] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11031,7 +11325,9 @@ class PushRentBillRequest(TeaModel):
         self.validate_required(self.risk_range, 'risk_range')
         self.validate_required(self.bill_item_list, 'bill_item_list')
         if self.bill_item_list:
-            self.bill_item_list.validate()
+            for k in self.bill_item_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -11059,8 +11355,10 @@ class PushRentBillRequest(TeaModel):
             result['warn_range'] = self.warn_range
         if self.risk_range is not None:
             result['risk_range'] = self.risk_range
+        result['bill_item_list'] = []
         if self.bill_item_list is not None:
-            result['bill_item_list'] = self.bill_item_list.to_map()
+            for k in self.bill_item_list:
+                result['bill_item_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -11085,9 +11383,11 @@ class PushRentBillRequest(TeaModel):
             self.warn_range = m.get('warn_range')
         if m.get('risk_range') is not None:
             self.risk_range = m.get('risk_range')
+        self.bill_item_list = []
         if m.get('bill_item_list') is not None:
-            temp_model = RentBillItem()
-            self.bill_item_list = temp_model.from_map(m['bill_item_list'])
+            for k in m.get('bill_item_list'):
+                temp_model = RentBillItem()
+                self.bill_item_list.append(temp_model.from_map(k))
         return self
 
 
@@ -11490,6 +11790,127 @@ class PushRentHouseResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class SyncIotbasicDevicegenerateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        corp_name: str = None,
+        device_sn: str = None,
+        pub_key: str = None,
+        biz_scene: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备厂商名称
+        self.corp_name = corp_name
+        # 设备sn
+        self.device_sn = device_sn
+        # 公钥
+        self.pub_key = pub_key
+        # 所属业务
+        self.biz_scene = biz_scene
+
+    def validate(self):
+        self.validate_required(self.corp_name, 'corp_name')
+        self.validate_required(self.device_sn, 'device_sn')
+        self.validate_required(self.pub_key, 'pub_key')
+        self.validate_required(self.biz_scene, 'biz_scene')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.corp_name is not None:
+            result['corp_name'] = self.corp_name
+        if self.device_sn is not None:
+            result['device_sn'] = self.device_sn
+        if self.pub_key is not None:
+            result['pub_key'] = self.pub_key
+        if self.biz_scene is not None:
+            result['biz_scene'] = self.biz_scene
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('corp_name') is not None:
+            self.corp_name = m.get('corp_name')
+        if m.get('device_sn') is not None:
+            self.device_sn = m.get('device_sn')
+        if m.get('pub_key') is not None:
+            self.pub_key = m.get('pub_key')
+        if m.get('biz_scene') is not None:
+            self.biz_scene = m.get('biz_scene')
+        return self
+
+
+class SyncIotbasicDevicegenerateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        device_key: str = None,
+        sec_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 设备私钥
+        self.device_key = device_key
+        # 设备认证id
+        self.sec_id = sec_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.device_key is not None:
+            result['device_key'] = self.device_key
+        if self.sec_id is not None:
+            result['sec_id'] = self.sec_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('device_key') is not None:
+            self.device_key = m.get('device_key')
+        if m.get('sec_id') is not None:
+            self.sec_id = m.get('sec_id')
         return self
 
 
@@ -18190,6 +18611,7 @@ class AddSceneRequest(TeaModel):
         tenant_name: str = None,
         scene_type: str = None,
         mock: bool = None,
+        ledgerstream_push_enable: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -18206,6 +18628,8 @@ class AddSceneRequest(TeaModel):
         self.scene_type = scene_type
         # 是否为测试数据
         self.mock = mock
+        # 拉块解析后是否推送至业务方
+        self.ledgerstream_push_enable = ledgerstream_push_enable
 
     def validate(self):
         self.validate_required(self.scene_name, 'scene_name')
@@ -18236,6 +18660,8 @@ class AddSceneRequest(TeaModel):
             result['scene_type'] = self.scene_type
         if self.mock is not None:
             result['mock'] = self.mock
+        if self.ledgerstream_push_enable is not None:
+            result['ledgerstream_push_enable'] = self.ledgerstream_push_enable
         return result
 
     def from_map(self, m: dict = None):
@@ -18256,6 +18682,8 @@ class AddSceneRequest(TeaModel):
             self.scene_type = m.get('scene_type')
         if m.get('mock') is not None:
             self.mock = m.get('mock')
+        if m.get('ledgerstream_push_enable') is not None:
+            self.ledgerstream_push_enable = m.get('ledgerstream_push_enable')
         return self
 
 
