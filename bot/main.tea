@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.27',
+    sdk_version = '1.7.34',
+    _prod_code = 'BOT',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -187,8 +189,10 @@ model IotBasicPermissionData {
 model GoodsDigitalFingerprintPoint {
   // 鉴定点子项
   subPointName: string(name='sub_point_name', example='正面'),
-  // 鉴定点图片url
-  imageUrl: string(name='image_url', example='图片url'),
+  // 微观图片url
+  microImageUrl: string(name='micro_image_url', example='http://1001'),
+  // 宏观图片url
+  macroImageUrl: string(name='macro_image_url', example='http://xxxx1002'),
 }
 
 // 告警策略
@@ -403,6 +407,26 @@ model BaiGoodsPointIdentificationResult {
   appraiseMessage?: string(name='appraise_message', example='完全同一，趋于同一，不同一'),
   // 鉴定点图片资源定位符
   resourceLocation?: BaiResourceLocation(name='resource_location', example=''),
+}
+
+// 商品数字指纹子鉴定项鉴定结果
+model GoodsDigitalFingerprintPointIdentificationResult {
+  // 子鉴定项
+  subPointName: string(name='sub_point_name', example='子鉴定项'),
+  // 商品数字指纹鉴定子项鉴定结果
+  result: string(name='result', example='REAL'),
+  // 鉴定子项鉴定得分
+  grade: string(name='grade', example='0.92'),
+}
+
+// 商品数字指纹鉴定结果
+model GoodsDigitalFingerprintIdentifyResultData {
+  // 鉴定结果
+  identificationResult: string(name='identification_result', example='REAL'),
+  // 鉴定结果描述
+  description: string(name='description', example='描述'),
+  // 商品数字指纹鉴定点鉴定结果列表
+  pointIdentificationResults: [ GoodsDigitalFingerprintPointIdentificationResult ](name='point_identification_results', example='{"sub_point_name":"正面","result":"REAL","grade":"0.92"}'),
 }
 
 // 溯源防伪码质检请求的请求数据
@@ -1479,6 +1503,18 @@ model DidBaseQueryReq {
   thingsDidList: [ string ](name='things_did_list', example='["did:iot:xxxx","did:iot:yyyyy"]'),
 }
 
+// 商品数字指纹注册用户信息
+model GoodsDigitalFingerprintUserInfo {
+  // 平台注册用户id
+  userId: string(name='user_id', example='12207'),
+  // 用户角色
+  userRole: string(name='user_role', example='渠道商/平台'),
+  // 用户登录id来源
+  channel: string(name='channel', example='用户登录id来源'),
+  // 作为平台使用方，提供对应的渠道用户id列表
+  relationUserIdList?: [ string ](name='relation_user_id_list', example='["1001","1002"]'),
+}
+
 // 商品鉴定返回结果
 model BaiGoodsComparisonResponse {
   // 鉴定结果（REAL：为真   FAKE：为假   UNABLE_IDENTIFY：无法鉴定）
@@ -1615,7 +1651,7 @@ model IotBasicDeviceSpecs {
   specsParam: string(name='specs_param', example='规格参数'),
 }
 
-// 商品数字指纹
+// 商品数字指纹信息
 model GoodsDigitalFingerprintInfo {
   // 品类
   category: string(name='category', example='奢侈品'),
@@ -1624,7 +1660,7 @@ model GoodsDigitalFingerprintInfo {
   // 款式
   style: string(name='style', example='Gucci Diana'),
   // 商品数字指纹鉴定点列表
-  goodsPoints: GoodsDigitalFingerprintPoint(name='goods_points', example='{"sub_point_name":"正面","image_url":"http://xxxx1001"}'),
+  goodsPoints: [ GoodsDigitalFingerprintPoint ](name='goods_points', example='[{"sub_point_name":"正面","image_url":"http://xxxx1001"},{"sub_point_name":"背面","image_url":"http://xxxx1002"}]'),
 }
 
 // 具备实体权限访问者更新请求
@@ -2293,7 +2329,7 @@ async function queryAiidentificationGoodspointEx(request: QueryAiidentificationG
   return doRequest('1.0' ,'blockchain.bot.aiidentification.goodspoint.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model RegisterAiidentificationDigitalfingerprintRequest = {
+model RegisterAiidentificationGoodsdigitalfingerprintRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -2301,9 +2337,11 @@ model RegisterAiidentificationDigitalfingerprintRequest = {
   appKey: string(name='app_key'),
   // 商品数字指纹信息
   goodsInfo: GoodsDigitalFingerprintInfo(name='goods_info'),
+  // 商品数字指纹用户信息
+  userInfo: GoodsDigitalFingerprintUserInfo(name='user_info'),
 }
 
-model RegisterAiidentificationDigitalfingerprintResponse = {
+model RegisterAiidentificationGoodsdigitalfingerprintResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -2315,22 +2353,64 @@ model RegisterAiidentificationDigitalfingerprintResponse = {
 }
 
 /**
- * Description: AI数字指纹注册
+ * Description: AI商品数字指纹注册
  * Summary: AI数字指纹注册
  */
-async function registerAiidentificationDigitalfingerprint(request: RegisterAiidentificationDigitalfingerprintRequest): RegisterAiidentificationDigitalfingerprintResponse {
+async function registerAiidentificationGoodsdigitalfingerprint(request: RegisterAiidentificationGoodsdigitalfingerprintRequest): RegisterAiidentificationGoodsdigitalfingerprintResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return registerAiidentificationDigitalfingerprintEx(request, headers, runtime);
+  return registerAiidentificationGoodsdigitalfingerprintEx(request, headers, runtime);
 }
 
 /**
- * Description: AI数字指纹注册
+ * Description: AI商品数字指纹注册
  * Summary: AI数字指纹注册
  */
-async function registerAiidentificationDigitalfingerprintEx(request: RegisterAiidentificationDigitalfingerprintRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterAiidentificationDigitalfingerprintResponse {
+async function registerAiidentificationGoodsdigitalfingerprintEx(request: RegisterAiidentificationGoodsdigitalfingerprintRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterAiidentificationGoodsdigitalfingerprintResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.aiidentification.digitalfingerprint.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.aiidentification.goodsdigitalfingerprint.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckAiidentificationGoodsdigitalfingerprintRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户身份标识
+  appKey: string(name='app_key'),
+  // 商品数字指纹鉴定信息
+  goodsInfo: GoodsDigitalFingerprintInfo(name='goods_info'),
+  // 商品数字指纹注册用户信息
+  userInfo: GoodsDigitalFingerprintUserInfo(name='user_info'),
+}
+
+model CheckAiidentificationGoodsdigitalfingerprintResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品数字指纹整体鉴定结果
+  data?: GoodsDigitalFingerprintIdentifyResultData(name='data'),
+}
+
+/**
+ * Description: AI商品数字指纹鉴定
+ * Summary: AI商品数字指纹鉴定
+ */
+async function checkAiidentificationGoodsdigitalfingerprint(request: CheckAiidentificationGoodsdigitalfingerprintRequest): CheckAiidentificationGoodsdigitalfingerprintResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkAiidentificationGoodsdigitalfingerprintEx(request, headers, runtime);
+}
+
+/**
+ * Description: AI商品数字指纹鉴定
+ * Summary: AI商品数字指纹鉴定
+ */
+async function checkAiidentificationGoodsdigitalfingerprintEx(request: CheckAiidentificationGoodsdigitalfingerprintRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckAiidentificationGoodsdigitalfingerprintResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.aiidentification.goodsdigitalfingerprint.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAcsDeviceRequest = {
@@ -2831,6 +2911,8 @@ model OperateIotbasicRelrationRequest = {
   operate: string(name='operate'),
   // 参数签名校验
   paramSign?: string(name='param_sign'),
+  // 项目空间
+  projectSpace?: string(name='project_space'),
 }
 
 model OperateIotbasicRelrationResponse = {
@@ -3555,7 +3637,7 @@ model PushRentBillRequest = {
   // 风险干预日期天数
   riskRange: string(name='risk_range'),
   // 账单租期集合
-  billItemList: RentBillItem(name='bill_item_list'),
+  billItemList: [ RentBillItem ](name='bill_item_list'),
 }
 
 model PushRentBillResponse = {
@@ -3718,6 +3800,52 @@ async function pushRentHouse(request: PushRentHouseRequest): PushRentHouseRespon
 async function pushRentHouseEx(request: PushRentHouseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushRentHouseResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.rent.house.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncIotbasicDevicegenerateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备厂商名称
+  corpName: string(name='corp_name'),
+  // 设备sn
+  deviceSn: string(name='device_sn'),
+  // 公钥
+  pubKey: string(name='pub_key'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+}
+
+model SyncIotbasicDevicegenerateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 设备私钥
+  deviceKey?: string(name='device_key'),
+  // 设备认证id
+  secId?: string(name='sec_id'),
+}
+
+/**
+ * Description: IoT设备平台-生成设备认证密钥
+ * Summary: IoT设备平台-生成设备认证密钥
+ */
+async function syncIotbasicDevicegenerate(request: SyncIotbasicDevicegenerateRequest): SyncIotbasicDevicegenerateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncIotbasicDevicegenerateEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-生成设备认证密钥
+ * Summary: IoT设备平台-生成设备认证密钥
+ */
+async function syncIotbasicDevicegenerateEx(request: SyncIotbasicDevicegenerateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncIotbasicDevicegenerateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.devicegenerate.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
@@ -6403,6 +6531,8 @@ model AddSceneRequest = {
   sceneType: string(name='scene_type'),
   // 是否为测试数据
   mock?: boolean(name='mock'),
+  // 拉块解析后是否推送至业务方
+  ledgerstreamPushEnable?: boolean(name='ledgerstream_push_enable'),
 }
 
 model AddSceneResponse = {
