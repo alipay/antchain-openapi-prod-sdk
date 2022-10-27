@@ -9,10 +9,15 @@ public class GoodsDigitalFingerprintPoint extends TeaModel {
     @Validation(required = true)
     public String subPointName;
 
-    // 鉴定点图片url
-    @NameInMap("image_url")
+    // 微观图片url
+    @NameInMap("micro_image_url")
     @Validation(required = true)
-    public String imageUrl;
+    public String microImageUrl;
+
+    // 宏观图片url
+    @NameInMap("macro_image_url")
+    @Validation(required = true)
+    public String macroImageUrl;
 
     public static GoodsDigitalFingerprintPoint build(java.util.Map<String, ?> map) throws Exception {
         GoodsDigitalFingerprintPoint self = new GoodsDigitalFingerprintPoint();
@@ -27,12 +32,20 @@ public class GoodsDigitalFingerprintPoint extends TeaModel {
         return this.subPointName;
     }
 
-    public GoodsDigitalFingerprintPoint setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public GoodsDigitalFingerprintPoint setMicroImageUrl(String microImageUrl) {
+        this.microImageUrl = microImageUrl;
         return this;
     }
-    public String getImageUrl() {
-        return this.imageUrl;
+    public String getMicroImageUrl() {
+        return this.microImageUrl;
+    }
+
+    public GoodsDigitalFingerprintPoint setMacroImageUrl(String macroImageUrl) {
+        this.macroImageUrl = macroImageUrl;
+        return this;
+    }
+    public String getMacroImageUrl() {
+        return this.macroImageUrl;
     }
 
 }

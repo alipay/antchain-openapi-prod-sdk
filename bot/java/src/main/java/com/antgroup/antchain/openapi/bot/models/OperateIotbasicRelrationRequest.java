@@ -50,6 +50,10 @@ public class OperateIotbasicRelrationRequest extends TeaModel {
     @NameInMap("param_sign")
     public String paramSign;
 
+    // 项目空间
+    @NameInMap("project_space")
+    public String projectSpace;
+
     public static OperateIotbasicRelrationRequest build(java.util.Map<String, ?> map) throws Exception {
         OperateIotbasicRelrationRequest self = new OperateIotbasicRelrationRequest();
         return TeaModel.build(map, self);
@@ -141,6 +145,14 @@ public class OperateIotbasicRelrationRequest extends TeaModel {
     }
     public String getParamSign() {
         return this.paramSign;
+    }
+
+    public OperateIotbasicRelrationRequest setProjectSpace(String projectSpace) {
+        this.projectSpace = projectSpace;
+        return this;
+    }
+    public String getProjectSpace() {
+        return this.projectSpace;
     }
 
 }

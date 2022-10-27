@@ -40,6 +40,10 @@ public class AddSceneRequest extends TeaModel {
     @NameInMap("mock")
     public Boolean mock;
 
+    // 拉块解析后是否推送至业务方
+    @NameInMap("ledgerstream_push_enable")
+    public Boolean ledgerstreamPushEnable;
+
     public static AddSceneRequest build(java.util.Map<String, ?> map) throws Exception {
         AddSceneRequest self = new AddSceneRequest();
         return TeaModel.build(map, self);
@@ -107,6 +111,14 @@ public class AddSceneRequest extends TeaModel {
     }
     public Boolean getMock() {
         return this.mock;
+    }
+
+    public AddSceneRequest setLedgerstreamPushEnable(Boolean ledgerstreamPushEnable) {
+        this.ledgerstreamPushEnable = ledgerstreamPushEnable;
+        return this;
+    }
+    public Boolean getLedgerstreamPushEnable() {
+        return this.ledgerstreamPushEnable;
     }
 
 }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class RegisterAiidentificationDigitalfingerprintResponse extends TeaModel {
+public class CheckAiidentificationGoodsdigitalfingerprintResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class RegisterAiidentificationDigitalfingerprintResponse extends TeaModel
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 指纹图片入库是否成功
+    // 商品数字指纹整体鉴定结果
     @NameInMap("data")
-    public GoodsDigitalFingerprintRegisterResultData data;
+    public GoodsDigitalFingerprintIdentifyResultData data;
 
-    public static RegisterAiidentificationDigitalfingerprintResponse build(java.util.Map<String, ?> map) throws Exception {
-        RegisterAiidentificationDigitalfingerprintResponse self = new RegisterAiidentificationDigitalfingerprintResponse();
+    public static CheckAiidentificationGoodsdigitalfingerprintResponse build(java.util.Map<String, ?> map) throws Exception {
+        CheckAiidentificationGoodsdigitalfingerprintResponse self = new CheckAiidentificationGoodsdigitalfingerprintResponse();
         return TeaModel.build(map, self);
     }
 
-    public RegisterAiidentificationDigitalfingerprintResponse setReqMsgId(String reqMsgId) {
+    public CheckAiidentificationGoodsdigitalfingerprintResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class RegisterAiidentificationDigitalfingerprintResponse extends TeaModel
         return this.reqMsgId;
     }
 
-    public RegisterAiidentificationDigitalfingerprintResponse setResultCode(String resultCode) {
+    public CheckAiidentificationGoodsdigitalfingerprintResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class RegisterAiidentificationDigitalfingerprintResponse extends TeaModel
         return this.resultCode;
     }
 
-    public RegisterAiidentificationDigitalfingerprintResponse setResultMsg(String resultMsg) {
+    public CheckAiidentificationGoodsdigitalfingerprintResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class RegisterAiidentificationDigitalfingerprintResponse extends TeaModel
         return this.resultMsg;
     }
 
-    public RegisterAiidentificationDigitalfingerprintResponse setData(GoodsDigitalFingerprintRegisterResultData data) {
+    public CheckAiidentificationGoodsdigitalfingerprintResponse setData(GoodsDigitalFingerprintIdentifyResultData data) {
         this.data = data;
         return this;
     }
-    public GoodsDigitalFingerprintRegisterResultData getData() {
+    public GoodsDigitalFingerprintIdentifyResultData getData() {
         return this.data;
     }
 

@@ -54,7 +54,7 @@ public class PushRentBillRequest extends TeaModel {
     // 账单租期集合
     @NameInMap("bill_item_list")
     @Validation(required = true)
-    public RentBillItem billItemList;
+    public java.util.List<RentBillItem> billItemList;
 
     public static PushRentBillRequest build(java.util.Map<String, ?> map) throws Exception {
         PushRentBillRequest self = new PushRentBillRequest();
@@ -141,11 +141,11 @@ public class PushRentBillRequest extends TeaModel {
         return this.riskRange;
     }
 
-    public PushRentBillRequest setBillItemList(RentBillItem billItemList) {
+    public PushRentBillRequest setBillItemList(java.util.List<RentBillItem> billItemList) {
         this.billItemList = billItemList;
         return this;
     }
-    public RentBillItem getBillItemList() {
+    public java.util.List<RentBillItem> getBillItemList() {
         return this.billItemList;
     }
 

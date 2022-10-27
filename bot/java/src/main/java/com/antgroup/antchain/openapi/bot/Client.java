@@ -110,7 +110,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.27")
+                    new TeaPair("sdk_version", "1.7.34"),
+                    new TeaPair("_prod_code", "BOT"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -447,22 +449,41 @@ public class Client {
     }
 
     /**
-     * Description: AI数字指纹注册
+     * Description: AI商品数字指纹注册
      * Summary: AI数字指纹注册
      */
-    public RegisterAiidentificationDigitalfingerprintResponse registerAiidentificationDigitalfingerprint(RegisterAiidentificationDigitalfingerprintRequest request) throws Exception {
+    public RegisterAiidentificationGoodsdigitalfingerprintResponse registerAiidentificationGoodsdigitalfingerprint(RegisterAiidentificationGoodsdigitalfingerprintRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.registerAiidentificationDigitalfingerprintEx(request, headers, runtime);
+        return this.registerAiidentificationGoodsdigitalfingerprintEx(request, headers, runtime);
     }
 
     /**
-     * Description: AI数字指纹注册
+     * Description: AI商品数字指纹注册
      * Summary: AI数字指纹注册
      */
-    public RegisterAiidentificationDigitalfingerprintResponse registerAiidentificationDigitalfingerprintEx(RegisterAiidentificationDigitalfingerprintRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public RegisterAiidentificationGoodsdigitalfingerprintResponse registerAiidentificationGoodsdigitalfingerprintEx(RegisterAiidentificationGoodsdigitalfingerprintRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiidentification.digitalfingerprint.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterAiidentificationDigitalfingerprintResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiidentification.goodsdigitalfingerprint.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterAiidentificationGoodsdigitalfingerprintResponse());
+    }
+
+    /**
+     * Description: AI商品数字指纹鉴定
+     * Summary: AI商品数字指纹鉴定
+     */
+    public CheckAiidentificationGoodsdigitalfingerprintResponse checkAiidentificationGoodsdigitalfingerprint(CheckAiidentificationGoodsdigitalfingerprintRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkAiidentificationGoodsdigitalfingerprintEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: AI商品数字指纹鉴定
+     * Summary: AI商品数字指纹鉴定
+     */
+    public CheckAiidentificationGoodsdigitalfingerprintResponse checkAiidentificationGoodsdigitalfingerprintEx(CheckAiidentificationGoodsdigitalfingerprintRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiidentification.goodsdigitalfingerprint.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAiidentificationGoodsdigitalfingerprintResponse());
     }
 
     /**
@@ -976,6 +997,25 @@ public class Client {
     public PushRentHouseResponse pushRentHouseEx(PushRentHouseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.rent.house.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushRentHouseResponse());
+    }
+
+    /**
+     * Description: IoT设备平台-生成设备认证密钥
+     * Summary: IoT设备平台-生成设备认证密钥
+     */
+    public SyncIotbasicDevicegenerateResponse syncIotbasicDevicegenerate(SyncIotbasicDevicegenerateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncIotbasicDevicegenerateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: IoT设备平台-生成设备认证密钥
+     * Summary: IoT设备平台-生成设备认证密钥
+     */
+    public SyncIotbasicDevicegenerateResponse syncIotbasicDevicegenerateEx(SyncIotbasicDevicegenerateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.devicegenerate.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncIotbasicDevicegenerateResponse());
     }
 
     /**
