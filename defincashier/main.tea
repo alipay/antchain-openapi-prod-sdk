@@ -1,0 +1,742 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.5',
+    _prod_code = 'DEFINCASHIER',
+    _prod_channel = 'undefined'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDurationMillis = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 账号
+model AccountVO {
+  // 账号
+  accountNo: string(name='account_no', example='755936042810703'),
+  // 户名
+  accountName: string(name='account_name', example='测试账户'),
+  // 开户网点
+  officalName: string(name='offical_name', example='中国工商银行股份有限公司北京德外支行'),
+  // 联行号
+  officalNumber: string(name='offical_number', example='102100000136'),
+  // 账号状态
+  // 
+  status: string(name='status', example='INIT'),
+  // 分类 BUYER付款账户； SELLER收款账户
+  category?: [ string ](name='category', example='[“SELLER”,"BUYER"]'),
+  // 上次支付是否失败
+  lastPayFail?: boolean(name='last_pay_fail', example='true, false'),
+  // 支付方式 BALANCE余额账户；BILL票据账户
+  payMethod?: [ string ](name='pay_method', example='[“BALANCE”,"BILL"]'),
+  // 账户类型 MAIN 对公账户；ECOLLECTION e收宝
+  type?: string(name='type', example='MAIN'),
+}
+
+// 账号模型
+model AccountDTO {
+  // 账号
+  accountNo: string(name='account_no', example='755936042810703'),
+  // 户名
+  accountName: string(name='account_name', example='测试账户'),
+  // 开户网点
+  officalName?: string(name='offical_name', example='中国工商银行股份有限公司北京德外支行'),
+  // 联行号
+  officalNumber?: string(name='offical_number', example='102100000136'),
+}
+
+// 账户查询结果
+model AccountQueryResult {
+  // 外部业务平台会员ID
+  outMemberId: string(name='out_member_id', example='8899900004655511'),
+  // 账号列表
+  accounts?: [ AccountVO ](name='accounts', example='[{"account_no":"755936042810703","account_name":"测试账户","offical_name":"中国工商银行股份有限公司北京德外支行","offical_number":"102100000136","status":"INIT","category":"[“SELLER”,\"BUYER\"]","last_pay_fail":"true"}]'),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg?: string(name='sub_msg', example='参数不全'),
+}
+
+// 支付请款结果
+model PaymentCaptureResult {
+  // 外部业务平台原始交易号
+  outOrderId: string(name='out_order_id', example='20200801000000001'),
+  // 描述资金流的模型，通常资金流分为：SALE 销售模；AUTH_CAPTURE 预授权模式；
+  // 
+  fundMode?: string(name='fund_mode', example='SALE'),
+  // 交易状态。PAYING(支付处理中);PAY_SUCCESS(支付成功);PAY_FAIL(支付失败); CAPTURING(请款中);CAPTURE_SUCCESS(请款成功);CAPTURE_FAIL(请款失败); REFUNDING(退款中);REFUND_SUCCESS(退款成功);REFUND_FAIL(退款失败); CLOSING(关单中);CLOSE_SUCCESS(关单成功);CLOSE_FAIL(关单失败);
+  orderState?: string(name='order_state', example='SUCCESS'),
+  // 可用金额，单位为元。可用金额=总金额-已请款金额-已撤销金额。精确到小数点后两位，取值范围[0.01,100000000]
+  availableAmount?: long(name='available_amount', example='100.00'),
+  // 支付币种三位字母编码。（编码规则遵循https://zh.wikipedia.org/wiki/ISO_4217）
+  availableCurrency?: string(name='available_currency', example='CNY'),
+  // 资金操作状态。PROCESSING(处理中);SUCCESS(成功);FAIL(失败);
+  state?: string(name='state', example='PROCESSING'),
+  // 外部请求ID，需要支持部分请款/退款的平台必填
+  // 
+  outRequestId?: string(name='out_request_id', example='20120000000'),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg?: string(name='sub_msg', example='参数不全'),
+}
+
+// 机构代码查询结果
+model InstCodeResult {
+  // 机构编码
+  // 
+  channelMemberCode?: string(name='channel_member_code', example='CCB'),
+  // 机构网点联行号
+  // 
+  channelOfficialNumber?: string(name='channel_official_number', example='310581000017'),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg?: string(name='sub_msg', example='参数不全'),
+}
+
+// 创建交易结果
+model PaymentCreateResult {
+  // 	
+  // 会员所属业务平台在智能科技的会员ID
+  platformMemberId: string(name='platform_member_id', example='268800000000001'),
+  // 付款方在外部业务平台的用户ID
+  outPayerId: string(name='out_payer_id', example='8899900004655511'),
+  // 收款方外部业务平台会员ID，收单场景表示卖家，纯资金场景表示收款方
+  outPayeeId?: string(name='out_payee_id', example='8899900004655511'),
+  // 外部业务平台原始交易号
+  outOrderId: string(name='out_order_id', example='20200801000000001'),
+  // 交易状态。PAYING(支付处理中);PAY_SUCCESS(支付成功);PAY_FAIL(支付失败); CAPTURING(请款中);CAPTURE_SUCCESS(请款成功);CAPTURE_FAIL(请款失败); REFUNDING(退款中);REFUND_SUCCESS(退款成功);REFUND_FAIL(退款失败); CLOSING(关单中);CLOSE_SUCCESS(关单成功);CLOSE_FAIL(关单失败);
+  orderState?: string(name='order_state', example='PAYING'),
+  // 描述资金流的模型，通常资金流分为：SALE 销售模；AUTH_CAPTURE 预授权模式；
+  fundMode?: string(name='fund_mode', example='SALE'),
+  // 收款方账号
+  payeeAccount?: AccountDTO(name='payee_account', example=''),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg?: string(name='sub_msg', example='参数不全'),
+}
+
+// 交易查询结果
+model PaymentQueryResult {
+  // 会员所属业务平台在智能科技的会员ID
+  platformMemberId: string(name='platform_member_id', example='268800000000001'),
+  // 付款方在外部业务平台的用户ID
+  outPayerId: string(name='out_payer_id', example='8899900004655511'),
+  // 收款方在外部业务平台的用户ID；收单场景表示卖家，纯资金场景表示收款方
+  outPayeeId?: string(name='out_payee_id', example='8899900004655511'),
+  // 外部业务平台原始交易号
+  outOrderId: string(name='out_order_id', example='20200801000000001'),
+  // 描述资金流的模型，通常资金流分为：SALE 销售模；AUTH_CAPTURE 预授权模式；
+  fundMode?: string(name='fund_mode', example='SALE'),
+  // 交易状态。INIT(初始创建);PAYING(支付处理中);PAY_SUCCESS(支付成功);PAY_FAIL(支付失败); CAPTURING(请款中);CAPTURE_SUCCESS(请款成功);CAPTURE_FAIL(请款失败); REFUNDING(退款中);REFUND_SUCCESS(退款成功);REFUND_FAIL(退款失败); CLOSING(关单中);CLOSE_SUCCESS(关单成功);CLOSE_FAIL(关单失败);PART_PROCESSING(部分处理中);PART_SUCCESS(部分请款部分退款)
+  orderState?: string(name='order_state', example='SUCCESS'),
+  // 银行或其他支付服务提供方结果码
+  paymentResultCode?: string(name='payment_result_code', example='SUCCESS'),
+  // 银行或其他支付服务提供方支付结果描述
+  paymentResultMessage?: string(name='payment_result_message', example='成功'),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg?: string(name='sub_msg', example='参数不全'),
+}
+
+// 客户产品签约结果
+model AgreementQueryResult {
+  // 会员所属业务平台在智能科技的会员ID
+  platformMemberId: string(name='platform_member_id', example='268800000000001'),
+  // 外部业务平台的用户ID
+  outMemberId: string(name='out_member_id', example='8899900004655511'),
+  // 签约产品的产品码
+  productCode?: string(name='product_code', example='YQF_PRODUCT'),
+  // 签约产品的产品名称
+  productName?: string(name='product_name', example='云企付'),
+  // 签约的产品类型
+  // 
+  productType?: string(name='product_type', example='YQF'),
+  // 签约时间
+  // 
+  signingTime?: string(name='signing_time', example='2011-11-11'),
+  // 到期时间
+  endTime?: string(name='end_time', example='2011-11-11'),
+  // 是否有效
+  // 
+  activeFlag?: boolean(name='active_flag', example='true, false'),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg?: string(name='sub_msg', example='参数不全'),
+}
+
+// 资金操作明细查询结果
+model FundItemQueryResult {
+  // 会员所属业务平台在智能科技的会员ID
+  platformMemberId: string(name='platform_member_id', example='268800000000001'),
+  // 外部业务平台原始交易号
+  outOrderId: string(name='out_order_id', example='20200801000000001'),
+  // 外部请求ID
+  // 
+  outRequestId?: string(name='out_request_id', example='20120000000'),
+  // 资金操作类型。CAPTURE(请款);CANCEL(撤销/退款);
+  fundType: string(name='fund_type', example='CAPTURE'),
+  // 资金操作状态。PROCESSING(处理中);SUCCESS(成功);FAIL(失败);
+  state?: string(name='state', example='PROCESSING'),
+  // 本次请求金额，单位为元。
+  requestAmount?: long(name='request_amount', example='100.00'),
+  // 支付币种三位字母编码。（编码规则遵循https://zh.wikipedia.org/wiki/ISO_4217）
+  requestCurrency?: string(name='request_currency', example='CNY'),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg?: string(name='sub_msg', example='参数不全'),
+}
+
+// 交易撤销结果
+model PaymentCancelResult {
+  // 外部业务平台原始交易号
+  outOrderId: string(name='out_order_id', example='20200801000000001'),
+  // 描述资金流的模型，通常资金流分为：SALE 销售模；AUTH_CAPTURE 预授权模式；
+  // 
+  fundMode?: string(name='fund_mode', example='SALE'),
+  // 交易状态。PAYING(支付处理中);PAY_SUCCESS(支付成功);PAY_FAIL(支付失败); CAPTURING(请款中);CAPTURE_SUCCESS(请款成功);CAPTURE_FAIL(请款失败); REFUNDING(退款中);REFUND_SUCCESS(退款成功);REFUND_FAIL(退款失败); CLOSING(关单中);CLOSE_SUCCESS(关单成功);CLOSE_FAIL(关单失败);
+  orderState?: string(name='order_state', example='SUCCESS'),
+  // 可用金额，单位为元。可用金额=总金额-已请款金额-已撤销金额。精确到小数点后两位，取值范围[0.01,100000000]
+  availableAmount?: long(name='available_amount', example='100.00'),
+  // 支付币种三位字母编码。（编码规则遵循https://zh.wikipedia.org/wiki/ISO_4217）
+  availableCurrency?: string(name='available_currency', example='CNY'),
+  // 资金操作状态。PROCESSING(处理中);SUCCESS(成功);FAIL(失败);
+  state?: string(name='state', example='PROCESSING'),
+  // 外部请求ID，需要支持部分请款/退款的平台必填
+  // 
+  outRequestId?: string(name='out_request_id', example='20102000000'),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg?: string(name='sub_msg', example='参数不全'),
+}
+
+// 创建交易前检查结果
+model PaymentCreateCheckResult {
+  // 检查是否通过。PASS(检查通过);NOT_PASS(检查不通过)
+  result: string(name='result', example='PASS'),
+  // 业务错误码(为空表示成功，否则为业务错误码)
+  subCode?: string(name='sub_code', example='PARAM_MISSING'),
+  // 业务错误描述
+  subMsg?: string(name='sub_msg', example='参数不全'),
+}
+
+model QuerySaasPaymentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // json请求参数
+  bizContent: string(name='biz_content'),
+  // 编排版本
+  serviceVersion: string(name='service_version'),
+}
+
+model QuerySaasPaymentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易查询结果
+  data?: PaymentQueryResult(name='data'),
+}
+
+/**
+ * Description: 适用于创建交易后，查询交易详情。
+ * Summary: B2B资金服务查询交易
+ */
+async function querySaasPayment(request: QuerySaasPaymentRequest): QuerySaasPaymentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySaasPaymentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 适用于创建交易后，查询交易详情。
+ * Summary: B2B资金服务查询交易
+ */
+async function querySaasPaymentEx(request: QuerySaasPaymentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasPaymentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.defincashier.saas.payment.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckSaasPaymentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // json请求参数
+  bizContent: string(name='biz_content'),
+  // 版本号
+  serviceVersion: string(name='service_version'),
+}
+
+model CheckSaasPaymentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易前检查结果
+  data?: PaymentCreateCheckResult(name='data'),
+}
+
+/**
+ * Description: B2B支付场景，创建交易前检查
+ * Summary: B2B资金服务交易前检查
+ */
+async function checkSaasPayment(request: CheckSaasPaymentRequest): CheckSaasPaymentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkSaasPaymentEx(request, headers, runtime);
+}
+
+/**
+ * Description: B2B支付场景，创建交易前检查
+ * Summary: B2B资金服务交易前检查
+ */
+async function checkSaasPaymentEx(request: CheckSaasPaymentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckSaasPaymentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.defincashier.saas.payment.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateSaasPaymentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // json请求参数
+  bizContent: string(name='biz_content'),
+  // 版本号
+  serviceVersion: string(name='service_version'),
+}
+
+model CreateSaasPaymentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易创建结果
+  data?: PaymentCreateResult(name='data'),
+}
+
+/**
+ * Description: B2B支付场景，创建交易服务
+ * Summary: B2B资金服务创建交易
+ */
+async function createSaasPayment(request: CreateSaasPaymentRequest): CreateSaasPaymentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createSaasPaymentEx(request, headers, runtime);
+}
+
+/**
+ * Description: B2B支付场景，创建交易服务
+ * Summary: B2B资金服务创建交易
+ */
+async function createSaasPaymentEx(request: CreateSaasPaymentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateSaasPaymentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.defincashier.saas.payment.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelSaasPaymentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // json请求参数
+  bizContent: string(name='biz_content'),
+  // 版本号
+  serviceVersion: string(name='service_version'),
+}
+
+model CancelSaasPaymentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易撤销结果
+  data?: PaymentCancelResult(name='data'),
+}
+
+/**
+ * Description: 撤销适用于商户、用户创建交易后，业务上不需要继续完成支付或放款。由业务平台或商户发起交易撤销动作，当交易未支付成功时，直接关单；当担保交易模式预授权成功时，完成预授权资金的解冻或退回。系统内部同步受理，异步处理，以异步处理结果为准。未支付交易只能撤销一次，已支付交易支持部分金额撤销，总撤销金额不超过支付金额。
+ * Summary: B2B资金服务交易撤销
+ */
+async function cancelSaasPayment(request: CancelSaasPaymentRequest): CancelSaasPaymentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelSaasPaymentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 撤销适用于商户、用户创建交易后，业务上不需要继续完成支付或放款。由业务平台或商户发起交易撤销动作，当交易未支付成功时，直接关单；当担保交易模式预授权成功时，完成预授权资金的解冻或退回。系统内部同步受理，异步处理，以异步处理结果为准。未支付交易只能撤销一次，已支付交易支持部分金额撤销，总撤销金额不超过支付金额。
+ * Summary: B2B资金服务交易撤销
+ */
+async function cancelSaasPaymentEx(request: CancelSaasPaymentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelSaasPaymentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.defincashier.saas.payment.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySaasAccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // json请求参数
+  bizContent: string(name='biz_content'),
+  // 版本号
+  serviceVersion: string(name='service_version'),
+}
+
+model QuerySaasAccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 账户查询结果
+  data?: AccountQueryResult(name='data'),
+}
+
+/**
+ * Description: 用于外部业务平台会员查询已绑定账号
+ * Summary: B2B资金服务账号查询
+ */
+async function querySaasAccount(request: QuerySaasAccountRequest): QuerySaasAccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySaasAccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于外部业务平台会员查询已绑定账号
+ * Summary: B2B资金服务账号查询
+ */
+async function querySaasAccountEx(request: QuerySaasAccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasAccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.defincashier.saas.account.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySaasFunditemRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // json请求参数
+  bizContent: string(name='biz_content'),
+  // 版本号
+  serviceVersion: string(name='service_version'),
+}
+
+model QuerySaasFunditemResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 资金操作明细查询结果
+  data?: FundItemQueryResult(name='data'),
+}
+
+/**
+ * Description: 可以根据流水号查询请款，退款等资金操作明细
+ * Summary: B2B资金服务交易资金操作明细查询
+ */
+async function querySaasFunditem(request: QuerySaasFunditemRequest): QuerySaasFunditemResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySaasFunditemEx(request, headers, runtime);
+}
+
+/**
+ * Description: 可以根据流水号查询请款，退款等资金操作明细
+ * Summary: B2B资金服务交易资金操作明细查询
+ */
+async function querySaasFunditemEx(request: QuerySaasFunditemRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasFunditemResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.defincashier.saas.funditem.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySaasAgreementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // json请求参数
+  bizContent: string(name='biz_content'),
+  // 版本号
+  serviceVersion: string(name='service_version'),
+}
+
+model QuerySaasAgreementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户产品签约结果
+  // 
+  data?: AgreementQueryResult(name='data'),
+}
+
+/**
+ * Description: 查询会员的产品签约协议
+ * Summary: B2B资金服务签约查询
+ */
+async function querySaasAgreement(request: QuerySaasAgreementRequest): QuerySaasAgreementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySaasAgreementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询会员的产品签约协议
+ * Summary: B2B资金服务签约查询
+ */
+async function querySaasAgreementEx(request: QuerySaasAgreementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasAgreementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.defincashier.saas.agreement.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CaptureSaasPaymentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // json请求参数
+  bizContent: string(name='biz_content'),
+  // 版本号
+  serviceVersion: string(name='service_version'),
+}
+
+model CaptureSaasPaymentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付请款结果
+  // 
+  data?: PaymentCaptureResult(name='data'),
+}
+
+/**
+ * Description: 请款适用于商户、用户创建担保交易(预授权资金模式)，用户预授权成功完成资金冻结后，由业务平台确认到达打款给商户的时机后发起请款。完成预授权冻结资金解冻，并打款给商户。系统内部同步受理，异步处理，以异步交易结果通知为准。每笔交易支持多次部分请款，总请款金额不超过支付金额。
+ * Summary: B2B资金服务交易请款
+ */
+async function captureSaasPayment(request: CaptureSaasPaymentRequest): CaptureSaasPaymentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return captureSaasPaymentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 请款适用于商户、用户创建担保交易(预授权资金模式)，用户预授权成功完成资金冻结后，由业务平台确认到达打款给商户的时机后发起请款。完成预授权冻结资金解冻，并打款给商户。系统内部同步受理，异步处理，以异步交易结果通知为准。每笔交易支持多次部分请款，总请款金额不超过支付金额。
+ * Summary: B2B资金服务交易请款
+ */
+async function captureSaasPaymentEx(request: CaptureSaasPaymentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CaptureSaasPaymentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.defincashier.saas.payment.capture', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySaasInstRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // json请求参数
+  bizContent: string(name='biz_content'),
+  // 版本号
+  serviceVersion: string(name='service_version'),
+}
+
+model QuerySaasInstResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 机构代码查询结果
+  // 
+  data?: InstCodeResult(name='data'),
+}
+
+/**
+ * Description: 用于外部业务平台会员查询机构（银行）的联行号和机构编码
+ * Summary: B2B资金服务机构信息查询
+ */
+async function querySaasInst(request: QuerySaasInstRequest): QuerySaasInstResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySaasInstEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于外部业务平台会员查询机构（银行）的联行号和机构编码
+ * Summary: B2B资金服务机构信息查询
+ */
+async function querySaasInstEx(request: QuerySaasInstRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySaasInstResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.defincashier.saas.inst.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
