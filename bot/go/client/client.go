@@ -228,8 +228,10 @@ func (s *IotBasicPermissionData) SetModule(v string) *IotBasicPermissionData {
 type GoodsDigitalFingerprintPoint struct {
 	// 鉴定点子项
 	SubPointName *string `json:"sub_point_name,omitempty" xml:"sub_point_name,omitempty" require:"true"`
-	// 鉴定点图片url
-	ImageUrl *string `json:"image_url,omitempty" xml:"image_url,omitempty" require:"true"`
+	// 微观图片url
+	MicroImageUrl *string `json:"micro_image_url,omitempty" xml:"micro_image_url,omitempty" require:"true"`
+	// 宏观图片url
+	MacroImageUrl *string `json:"macro_image_url,omitempty" xml:"macro_image_url,omitempty" require:"true"`
 }
 
 func (s GoodsDigitalFingerprintPoint) String() string {
@@ -245,8 +247,13 @@ func (s *GoodsDigitalFingerprintPoint) SetSubPointName(v string) *GoodsDigitalFi
 	return s
 }
 
-func (s *GoodsDigitalFingerprintPoint) SetImageUrl(v string) *GoodsDigitalFingerprintPoint {
-	s.ImageUrl = &v
+func (s *GoodsDigitalFingerprintPoint) SetMicroImageUrl(v string) *GoodsDigitalFingerprintPoint {
+	s.MicroImageUrl = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintPoint) SetMacroImageUrl(v string) *GoodsDigitalFingerprintPoint {
+	s.MacroImageUrl = &v
 	return s
 }
 
@@ -964,6 +971,72 @@ func (s *BaiGoodsPointIdentificationResult) SetAppraiseMessage(v string) *BaiGoo
 
 func (s *BaiGoodsPointIdentificationResult) SetResourceLocation(v *BaiResourceLocation) *BaiGoodsPointIdentificationResult {
 	s.ResourceLocation = v
+	return s
+}
+
+// 商品数字指纹子鉴定项鉴定结果
+type GoodsDigitalFingerprintPointIdentificationResult struct {
+	// 子鉴定项
+	SubPointName *string `json:"sub_point_name,omitempty" xml:"sub_point_name,omitempty" require:"true"`
+	// 商品数字指纹鉴定子项鉴定结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true"`
+	// 鉴定子项鉴定得分
+	Grade *string `json:"grade,omitempty" xml:"grade,omitempty" require:"true"`
+}
+
+func (s GoodsDigitalFingerprintPointIdentificationResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsDigitalFingerprintPointIdentificationResult) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsDigitalFingerprintPointIdentificationResult) SetSubPointName(v string) *GoodsDigitalFingerprintPointIdentificationResult {
+	s.SubPointName = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintPointIdentificationResult) SetResult(v string) *GoodsDigitalFingerprintPointIdentificationResult {
+	s.Result = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintPointIdentificationResult) SetGrade(v string) *GoodsDigitalFingerprintPointIdentificationResult {
+	s.Grade = &v
+	return s
+}
+
+// 商品数字指纹鉴定结果
+type GoodsDigitalFingerprintIdentifyResultData struct {
+	// 鉴定结果
+	IdentificationResult *string `json:"identification_result,omitempty" xml:"identification_result,omitempty" require:"true"`
+	// 鉴定结果描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 商品数字指纹鉴定点鉴定结果列表
+	PointIdentificationResults []*GoodsDigitalFingerprintPointIdentificationResult `json:"point_identification_results,omitempty" xml:"point_identification_results,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s GoodsDigitalFingerprintIdentifyResultData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsDigitalFingerprintIdentifyResultData) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsDigitalFingerprintIdentifyResultData) SetIdentificationResult(v string) *GoodsDigitalFingerprintIdentifyResultData {
+	s.IdentificationResult = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintIdentifyResultData) SetDescription(v string) *GoodsDigitalFingerprintIdentifyResultData {
+	s.Description = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintIdentifyResultData) SetPointIdentificationResults(v []*GoodsDigitalFingerprintPointIdentificationResult) *GoodsDigitalFingerprintIdentifyResultData {
+	s.PointIdentificationResults = v
 	return s
 }
 
@@ -4178,6 +4251,46 @@ func (s *DidBaseQueryReq) SetThingsDidList(v []*string) *DidBaseQueryReq {
 	return s
 }
 
+// 商品数字指纹注册用户信息
+type GoodsDigitalFingerprintUserInfo struct {
+	// 平台注册用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户角色
+	UserRole *string `json:"user_role,omitempty" xml:"user_role,omitempty" require:"true"`
+	// 用户登录id来源
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+	// 作为平台使用方，提供对应的渠道用户id列表
+	RelationUserIdList []*string `json:"relation_user_id_list,omitempty" xml:"relation_user_id_list,omitempty" type:"Repeated"`
+}
+
+func (s GoodsDigitalFingerprintUserInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GoodsDigitalFingerprintUserInfo) GoString() string {
+	return s.String()
+}
+
+func (s *GoodsDigitalFingerprintUserInfo) SetUserId(v string) *GoodsDigitalFingerprintUserInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintUserInfo) SetUserRole(v string) *GoodsDigitalFingerprintUserInfo {
+	s.UserRole = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintUserInfo) SetChannel(v string) *GoodsDigitalFingerprintUserInfo {
+	s.Channel = &v
+	return s
+}
+
+func (s *GoodsDigitalFingerprintUserInfo) SetRelationUserIdList(v []*string) *GoodsDigitalFingerprintUserInfo {
+	s.RelationUserIdList = v
+	return s
+}
+
 // 商品鉴定返回结果
 type BaiGoodsComparisonResponse struct {
 	// 鉴定结果（REAL：为真   FAKE：为假   UNABLE_IDENTIFY：无法鉴定）
@@ -4619,7 +4732,7 @@ func (s *IotBasicDeviceSpecs) SetSpecsParam(v string) *IotBasicDeviceSpecs {
 	return s
 }
 
-// 商品数字指纹
+// 商品数字指纹信息
 type GoodsDigitalFingerprintInfo struct {
 	// 品类
 	Category *string `json:"category,omitempty" xml:"category,omitempty" require:"true"`
@@ -4628,7 +4741,7 @@ type GoodsDigitalFingerprintInfo struct {
 	// 款式
 	Style *string `json:"style,omitempty" xml:"style,omitempty" require:"true"`
 	// 商品数字指纹鉴定点列表
-	GoodsPoints *GoodsDigitalFingerprintPoint `json:"goods_points,omitempty" xml:"goods_points,omitempty" require:"true"`
+	GoodsPoints []*GoodsDigitalFingerprintPoint `json:"goods_points,omitempty" xml:"goods_points,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s GoodsDigitalFingerprintInfo) String() string {
@@ -4654,7 +4767,7 @@ func (s *GoodsDigitalFingerprintInfo) SetStyle(v string) *GoodsDigitalFingerprin
 	return s
 }
 
-func (s *GoodsDigitalFingerprintInfo) SetGoodsPoints(v *GoodsDigitalFingerprintPoint) *GoodsDigitalFingerprintInfo {
+func (s *GoodsDigitalFingerprintInfo) SetGoodsPoints(v []*GoodsDigitalFingerprintPoint) *GoodsDigitalFingerprintInfo {
 	s.GoodsPoints = v
 	return s
 }
@@ -6010,7 +6123,7 @@ func (s *QueryAiidentificationGoodspointResponse) SetData(v *BaiGoodsPointQueryR
 	return s
 }
 
-type RegisterAiidentificationDigitalfingerprintRequest struct {
+type RegisterAiidentificationGoodsdigitalfingerprintRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -6018,37 +6131,44 @@ type RegisterAiidentificationDigitalfingerprintRequest struct {
 	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty" require:"true"`
 	// 商品数字指纹信息
 	GoodsInfo *GoodsDigitalFingerprintInfo `json:"goods_info,omitempty" xml:"goods_info,omitempty" require:"true"`
+	// 商品数字指纹用户信息
+	UserInfo *GoodsDigitalFingerprintUserInfo `json:"user_info,omitempty" xml:"user_info,omitempty" require:"true"`
 }
 
-func (s RegisterAiidentificationDigitalfingerprintRequest) String() string {
+func (s RegisterAiidentificationGoodsdigitalfingerprintRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RegisterAiidentificationDigitalfingerprintRequest) GoString() string {
+func (s RegisterAiidentificationGoodsdigitalfingerprintRequest) GoString() string {
 	return s.String()
 }
 
-func (s *RegisterAiidentificationDigitalfingerprintRequest) SetAuthToken(v string) *RegisterAiidentificationDigitalfingerprintRequest {
+func (s *RegisterAiidentificationGoodsdigitalfingerprintRequest) SetAuthToken(v string) *RegisterAiidentificationGoodsdigitalfingerprintRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *RegisterAiidentificationDigitalfingerprintRequest) SetProductInstanceId(v string) *RegisterAiidentificationDigitalfingerprintRequest {
+func (s *RegisterAiidentificationGoodsdigitalfingerprintRequest) SetProductInstanceId(v string) *RegisterAiidentificationGoodsdigitalfingerprintRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *RegisterAiidentificationDigitalfingerprintRequest) SetAppKey(v string) *RegisterAiidentificationDigitalfingerprintRequest {
+func (s *RegisterAiidentificationGoodsdigitalfingerprintRequest) SetAppKey(v string) *RegisterAiidentificationGoodsdigitalfingerprintRequest {
 	s.AppKey = &v
 	return s
 }
 
-func (s *RegisterAiidentificationDigitalfingerprintRequest) SetGoodsInfo(v *GoodsDigitalFingerprintInfo) *RegisterAiidentificationDigitalfingerprintRequest {
+func (s *RegisterAiidentificationGoodsdigitalfingerprintRequest) SetGoodsInfo(v *GoodsDigitalFingerprintInfo) *RegisterAiidentificationGoodsdigitalfingerprintRequest {
 	s.GoodsInfo = v
 	return s
 }
 
-type RegisterAiidentificationDigitalfingerprintResponse struct {
+func (s *RegisterAiidentificationGoodsdigitalfingerprintRequest) SetUserInfo(v *GoodsDigitalFingerprintUserInfo) *RegisterAiidentificationGoodsdigitalfingerprintRequest {
+	s.UserInfo = v
+	return s
+}
+
+type RegisterAiidentificationGoodsdigitalfingerprintResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -6059,30 +6179,114 @@ type RegisterAiidentificationDigitalfingerprintResponse struct {
 	Data *GoodsDigitalFingerprintRegisterResultData `json:"data,omitempty" xml:"data,omitempty"`
 }
 
-func (s RegisterAiidentificationDigitalfingerprintResponse) String() string {
+func (s RegisterAiidentificationGoodsdigitalfingerprintResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RegisterAiidentificationDigitalfingerprintResponse) GoString() string {
+func (s RegisterAiidentificationGoodsdigitalfingerprintResponse) GoString() string {
 	return s.String()
 }
 
-func (s *RegisterAiidentificationDigitalfingerprintResponse) SetReqMsgId(v string) *RegisterAiidentificationDigitalfingerprintResponse {
+func (s *RegisterAiidentificationGoodsdigitalfingerprintResponse) SetReqMsgId(v string) *RegisterAiidentificationGoodsdigitalfingerprintResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *RegisterAiidentificationDigitalfingerprintResponse) SetResultCode(v string) *RegisterAiidentificationDigitalfingerprintResponse {
+func (s *RegisterAiidentificationGoodsdigitalfingerprintResponse) SetResultCode(v string) *RegisterAiidentificationGoodsdigitalfingerprintResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *RegisterAiidentificationDigitalfingerprintResponse) SetResultMsg(v string) *RegisterAiidentificationDigitalfingerprintResponse {
+func (s *RegisterAiidentificationGoodsdigitalfingerprintResponse) SetResultMsg(v string) *RegisterAiidentificationGoodsdigitalfingerprintResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *RegisterAiidentificationDigitalfingerprintResponse) SetData(v *GoodsDigitalFingerprintRegisterResultData) *RegisterAiidentificationDigitalfingerprintResponse {
+func (s *RegisterAiidentificationGoodsdigitalfingerprintResponse) SetData(v *GoodsDigitalFingerprintRegisterResultData) *RegisterAiidentificationGoodsdigitalfingerprintResponse {
+	s.Data = v
+	return s
+}
+
+type CheckAiidentificationGoodsdigitalfingerprintRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户身份标识
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty" require:"true"`
+	// 商品数字指纹鉴定信息
+	GoodsInfo *GoodsDigitalFingerprintInfo `json:"goods_info,omitempty" xml:"goods_info,omitempty" require:"true"`
+	// 商品数字指纹注册用户信息
+	UserInfo *GoodsDigitalFingerprintUserInfo `json:"user_info,omitempty" xml:"user_info,omitempty" require:"true"`
+}
+
+func (s CheckAiidentificationGoodsdigitalfingerprintRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAiidentificationGoodsdigitalfingerprintRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAiidentificationGoodsdigitalfingerprintRequest) SetAuthToken(v string) *CheckAiidentificationGoodsdigitalfingerprintRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodsdigitalfingerprintRequest) SetProductInstanceId(v string) *CheckAiidentificationGoodsdigitalfingerprintRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodsdigitalfingerprintRequest) SetAppKey(v string) *CheckAiidentificationGoodsdigitalfingerprintRequest {
+	s.AppKey = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodsdigitalfingerprintRequest) SetGoodsInfo(v *GoodsDigitalFingerprintInfo) *CheckAiidentificationGoodsdigitalfingerprintRequest {
+	s.GoodsInfo = v
+	return s
+}
+
+func (s *CheckAiidentificationGoodsdigitalfingerprintRequest) SetUserInfo(v *GoodsDigitalFingerprintUserInfo) *CheckAiidentificationGoodsdigitalfingerprintRequest {
+	s.UserInfo = v
+	return s
+}
+
+type CheckAiidentificationGoodsdigitalfingerprintResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商品数字指纹整体鉴定结果
+	Data *GoodsDigitalFingerprintIdentifyResultData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CheckAiidentificationGoodsdigitalfingerprintResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAiidentificationGoodsdigitalfingerprintResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAiidentificationGoodsdigitalfingerprintResponse) SetReqMsgId(v string) *CheckAiidentificationGoodsdigitalfingerprintResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodsdigitalfingerprintResponse) SetResultCode(v string) *CheckAiidentificationGoodsdigitalfingerprintResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodsdigitalfingerprintResponse) SetResultMsg(v string) *CheckAiidentificationGoodsdigitalfingerprintResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckAiidentificationGoodsdigitalfingerprintResponse) SetData(v *GoodsDigitalFingerprintIdentifyResultData) *CheckAiidentificationGoodsdigitalfingerprintResponse {
 	s.Data = v
 	return s
 }
@@ -7173,6 +7377,8 @@ type OperateIotbasicRelrationRequest struct {
 	Operate *string `json:"operate,omitempty" xml:"operate,omitempty" require:"true"`
 	// 参数签名校验
 	ParamSign *string `json:"param_sign,omitempty" xml:"param_sign,omitempty"`
+	// 项目空间
+	ProjectSpace *string `json:"project_space,omitempty" xml:"project_space,omitempty"`
 }
 
 func (s OperateIotbasicRelrationRequest) String() string {
@@ -7235,6 +7441,11 @@ func (s *OperateIotbasicRelrationRequest) SetOperate(v string) *OperateIotbasicR
 
 func (s *OperateIotbasicRelrationRequest) SetParamSign(v string) *OperateIotbasicRelrationRequest {
 	s.ParamSign = &v
+	return s
+}
+
+func (s *OperateIotbasicRelrationRequest) SetProjectSpace(v string) *OperateIotbasicRelrationRequest {
+	s.ProjectSpace = &v
 	return s
 }
 
@@ -8815,7 +9026,7 @@ type PushRentBillRequest struct {
 	// 风险干预日期天数
 	RiskRange *string `json:"risk_range,omitempty" xml:"risk_range,omitempty" require:"true"`
 	// 账单租期集合
-	BillItemList *RentBillItem `json:"bill_item_list,omitempty" xml:"bill_item_list,omitempty" require:"true"`
+	BillItemList []*RentBillItem `json:"bill_item_list,omitempty" xml:"bill_item_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s PushRentBillRequest) String() string {
@@ -8876,7 +9087,7 @@ func (s *PushRentBillRequest) SetRiskRange(v string) *PushRentBillRequest {
 	return s
 }
 
-func (s *PushRentBillRequest) SetBillItemList(v *RentBillItem) *PushRentBillRequest {
+func (s *PushRentBillRequest) SetBillItemList(v []*RentBillItem) *PushRentBillRequest {
 	s.BillItemList = v
 	return s
 }
@@ -9190,6 +9401,104 @@ func (s *PushRentHouseResponse) SetResultCode(v string) *PushRentHouseResponse {
 
 func (s *PushRentHouseResponse) SetResultMsg(v string) *PushRentHouseResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type SyncIotbasicDevicegenerateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备厂商名称
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+	// 设备sn
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+	// 公钥
+	PubKey *string `json:"pub_key,omitempty" xml:"pub_key,omitempty" require:"true"`
+	// 所属业务
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+}
+
+func (s SyncIotbasicDevicegenerateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncIotbasicDevicegenerateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncIotbasicDevicegenerateRequest) SetAuthToken(v string) *SyncIotbasicDevicegenerateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicegenerateRequest) SetProductInstanceId(v string) *SyncIotbasicDevicegenerateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicegenerateRequest) SetCorpName(v string) *SyncIotbasicDevicegenerateRequest {
+	s.CorpName = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicegenerateRequest) SetDeviceSn(v string) *SyncIotbasicDevicegenerateRequest {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicegenerateRequest) SetPubKey(v string) *SyncIotbasicDevicegenerateRequest {
+	s.PubKey = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicegenerateRequest) SetBizScene(v string) *SyncIotbasicDevicegenerateRequest {
+	s.BizScene = &v
+	return s
+}
+
+type SyncIotbasicDevicegenerateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备私钥
+	DeviceKey *string `json:"device_key,omitempty" xml:"device_key,omitempty"`
+	// 设备认证id
+	SecId *string `json:"sec_id,omitempty" xml:"sec_id,omitempty"`
+}
+
+func (s SyncIotbasicDevicegenerateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncIotbasicDevicegenerateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncIotbasicDevicegenerateResponse) SetReqMsgId(v string) *SyncIotbasicDevicegenerateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicegenerateResponse) SetResultCode(v string) *SyncIotbasicDevicegenerateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicegenerateResponse) SetResultMsg(v string) *SyncIotbasicDevicegenerateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicegenerateResponse) SetDeviceKey(v string) *SyncIotbasicDevicegenerateResponse {
+	s.DeviceKey = &v
+	return s
+}
+
+func (s *SyncIotbasicDevicegenerateResponse) SetSecId(v string) *SyncIotbasicDevicegenerateResponse {
+	s.SecId = &v
 	return s
 }
 
@@ -14524,6 +14833,8 @@ type AddSceneRequest struct {
 	SceneType *string `json:"scene_type,omitempty" xml:"scene_type,omitempty" require:"true"`
 	// 是否为测试数据
 	Mock *bool `json:"mock,omitempty" xml:"mock,omitempty"`
+	// 拉块解析后是否推送至业务方
+	LedgerstreamPushEnable *bool `json:"ledgerstream_push_enable,omitempty" xml:"ledgerstream_push_enable,omitempty"`
 }
 
 func (s AddSceneRequest) String() string {
@@ -14571,6 +14882,11 @@ func (s *AddSceneRequest) SetSceneType(v string) *AddSceneRequest {
 
 func (s *AddSceneRequest) SetMock(v bool) *AddSceneRequest {
 	s.Mock = &v
+	return s
+}
+
+func (s *AddSceneRequest) SetLedgerstreamPushEnable(v bool) *AddSceneRequest {
+	s.LedgerstreamPushEnable = &v
 	return s
 }
 
@@ -19237,7 +19553,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.27"),
+				"sdk_version":      tea.String("1.7.34"),
+				"_prod_code":       tea.String("BOT"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -19799,14 +20117,14 @@ func (client *Client) QueryAiidentificationGoodspointEx(request *QueryAiidentifi
 }
 
 /**
- * Description: AI数字指纹注册
+ * Description: AI商品数字指纹注册
  * Summary: AI数字指纹注册
  */
-func (client *Client) RegisterAiidentificationDigitalfingerprint(request *RegisterAiidentificationDigitalfingerprintRequest) (_result *RegisterAiidentificationDigitalfingerprintResponse, _err error) {
+func (client *Client) RegisterAiidentificationGoodsdigitalfingerprint(request *RegisterAiidentificationGoodsdigitalfingerprintRequest) (_result *RegisterAiidentificationGoodsdigitalfingerprintResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &RegisterAiidentificationDigitalfingerprintResponse{}
-	_body, _err := client.RegisterAiidentificationDigitalfingerprintEx(request, headers, runtime)
+	_result = &RegisterAiidentificationGoodsdigitalfingerprintResponse{}
+	_body, _err := client.RegisterAiidentificationGoodsdigitalfingerprintEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -19815,16 +20133,50 @@ func (client *Client) RegisterAiidentificationDigitalfingerprint(request *Regist
 }
 
 /**
- * Description: AI数字指纹注册
+ * Description: AI商品数字指纹注册
  * Summary: AI数字指纹注册
  */
-func (client *Client) RegisterAiidentificationDigitalfingerprintEx(request *RegisterAiidentificationDigitalfingerprintRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterAiidentificationDigitalfingerprintResponse, _err error) {
+func (client *Client) RegisterAiidentificationGoodsdigitalfingerprintEx(request *RegisterAiidentificationGoodsdigitalfingerprintRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterAiidentificationGoodsdigitalfingerprintResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &RegisterAiidentificationDigitalfingerprintResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiidentification.digitalfingerprint.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &RegisterAiidentificationGoodsdigitalfingerprintResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiidentification.goodsdigitalfingerprint.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: AI商品数字指纹鉴定
+ * Summary: AI商品数字指纹鉴定
+ */
+func (client *Client) CheckAiidentificationGoodsdigitalfingerprint(request *CheckAiidentificationGoodsdigitalfingerprintRequest) (_result *CheckAiidentificationGoodsdigitalfingerprintResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckAiidentificationGoodsdigitalfingerprintResponse{}
+	_body, _err := client.CheckAiidentificationGoodsdigitalfingerprintEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: AI商品数字指纹鉴定
+ * Summary: AI商品数字指纹鉴定
+ */
+func (client *Client) CheckAiidentificationGoodsdigitalfingerprintEx(request *CheckAiidentificationGoodsdigitalfingerprintRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckAiidentificationGoodsdigitalfingerprintResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckAiidentificationGoodsdigitalfingerprintResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiidentification.goodsdigitalfingerprint.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -20743,6 +21095,40 @@ func (client *Client) PushRentHouseEx(request *PushRentHouseRequest, headers map
 	}
 	_result = &PushRentHouseResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.rent.house.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-生成设备认证密钥
+ * Summary: IoT设备平台-生成设备认证密钥
+ */
+func (client *Client) SyncIotbasicDevicegenerate(request *SyncIotbasicDevicegenerateRequest) (_result *SyncIotbasicDevicegenerateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncIotbasicDevicegenerateResponse{}
+	_body, _err := client.SyncIotbasicDevicegenerateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: IoT设备平台-生成设备认证密钥
+ * Summary: IoT设备平台-生成设备认证密钥
+ */
+func (client *Client) SyncIotbasicDevicegenerateEx(request *SyncIotbasicDevicegenerateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncIotbasicDevicegenerateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncIotbasicDevicegenerateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.devicegenerate.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
