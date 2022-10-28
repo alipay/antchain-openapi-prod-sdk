@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 	"io"
@@ -4458,6 +4458,32 @@ func (s *BaseRequest) SetProductCode(v string) *BaseRequest {
 	return s
 }
 
+// 商家信息
+type ServiceProvider struct {
+	// 账户ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 商家名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s ServiceProvider) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ServiceProvider) GoString() string {
+	return s.String()
+}
+
+func (s *ServiceProvider) SetAccountId(v string) *ServiceProvider {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ServiceProvider) SetName(v string) *ServiceProvider {
+	s.Name = &v
+	return s
+}
+
 // 链上交易结构
 type Transaction struct {
 	// 交易数据，转换位十六进制
@@ -5734,6 +5760,10 @@ type IPCodeScannedInfo struct {
 	CheckEmptyTime *int64 `json:"check_empty_time,omitempty" xml:"check_empty_time,omitempty"`
 	// 同一批次已被领取的数量
 	ReceiveCount *int64 `json:"receive_count,omitempty" xml:"receive_count,omitempty"`
+	// 描述
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+	// 外部客户自定义客户ID
+	ExternalUserId *string `json:"external_user_id,omitempty" xml:"external_user_id,omitempty"`
 }
 
 func (s IPCodeScannedInfo) String() string {
@@ -5881,6 +5911,16 @@ func (s *IPCodeScannedInfo) SetCheckEmptyTime(v int64) *IPCodeScannedInfo {
 
 func (s *IPCodeScannedInfo) SetReceiveCount(v int64) *IPCodeScannedInfo {
 	s.ReceiveCount = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetMemo(v string) *IPCodeScannedInfo {
+	s.Memo = &v
+	return s
+}
+
+func (s *IPCodeScannedInfo) SetExternalUserId(v string) *IPCodeScannedInfo {
+	s.ExternalUserId = &v
 	return s
 }
 
@@ -6204,6 +6244,8 @@ type IPSimpleScannedInfo struct {
 	ScannedTime *string `json:"scanned_time,omitempty" xml:"scanned_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 扫码地址
 	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
+	// 外部自定义账号
+	ExternalUserId *string `json:"external_user_id,omitempty" xml:"external_user_id,omitempty"`
 }
 
 func (s IPSimpleScannedInfo) String() string {
@@ -6226,6 +6268,11 @@ func (s *IPSimpleScannedInfo) SetScannedTime(v string) *IPSimpleScannedInfo {
 
 func (s *IPSimpleScannedInfo) SetGps(v string) *IPSimpleScannedInfo {
 	s.Gps = &v
+	return s
+}
+
+func (s *IPSimpleScannedInfo) SetExternalUserId(v string) *IPSimpleScannedInfo {
+	s.ExternalUserId = &v
 	return s
 }
 
@@ -29240,13 +29287,22 @@ type PagequeryIpCodeinfoRequest struct {
 	// 基础参数
 	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
 	// 用户ID
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// phone_number、external_user_id、user_id 三个条件至少必填一个
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
 	// 页码
 	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty" require:"true"`
 	// 每页数据量大小(请小于等于100)
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 	// 0 扫描过的数字凭证，1 领取过的数字凭证
 	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 商家ID筛选
+	BuyerId *string `json:"buyer_id,omitempty" xml:"buyer_id,omitempty"`
+	// 手机号筛选
+	// phone_number、external_user_id、user_id 三个条件至少必填一个
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty"`
+	// 外部客户自定义客户ID
+	// phone_number、external_user_id、user_id 三个条件至少必填一个
+	ExternalUserId *string `json:"external_user_id,omitempty" xml:"external_user_id,omitempty"`
 }
 
 func (s PagequeryIpCodeinfoRequest) String() string {
@@ -29289,6 +29345,21 @@ func (s *PagequeryIpCodeinfoRequest) SetPageSize(v int64) *PagequeryIpCodeinfoRe
 
 func (s *PagequeryIpCodeinfoRequest) SetType(v int64) *PagequeryIpCodeinfoRequest {
 	s.Type = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoRequest) SetBuyerId(v string) *PagequeryIpCodeinfoRequest {
+	s.BuyerId = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoRequest) SetPhoneNumber(v string) *PagequeryIpCodeinfoRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *PagequeryIpCodeinfoRequest) SetExternalUserId(v string) *PagequeryIpCodeinfoRequest {
+	s.ExternalUserId = &v
 	return s
 }
 
@@ -35790,6 +35861,496 @@ func (s *QueryIpTradeviewResponse) SetResult(v string) *QueryIpTradeviewResponse
 	return s
 }
 
+type CheckIpCodebyphoneRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 支持数字凭证的加密编码及UNI序列号
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 核验用户的手机号
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 核验用户的名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 外部客户自定义客户ID
+	ExternalUserId *string `json:"external_user_id,omitempty" xml:"external_user_id,omitempty"`
+	// 核验用户的位置信息
+	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
+	// 核验用户头像地址
+	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty"`
+}
+
+func (s CheckIpCodebyphoneRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckIpCodebyphoneRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckIpCodebyphoneRequest) SetAuthToken(v string) *CheckIpCodebyphoneRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckIpCodebyphoneRequest) SetProductInstanceId(v string) *CheckIpCodebyphoneRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckIpCodebyphoneRequest) SetBaseRequest(v *BaseRequestInfo) *CheckIpCodebyphoneRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *CheckIpCodebyphoneRequest) SetCode(v string) *CheckIpCodebyphoneRequest {
+	s.Code = &v
+	return s
+}
+
+func (s *CheckIpCodebyphoneRequest) SetPhoneNumber(v string) *CheckIpCodebyphoneRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *CheckIpCodebyphoneRequest) SetUserName(v string) *CheckIpCodebyphoneRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *CheckIpCodebyphoneRequest) SetExternalUserId(v string) *CheckIpCodebyphoneRequest {
+	s.ExternalUserId = &v
+	return s
+}
+
+func (s *CheckIpCodebyphoneRequest) SetGps(v string) *CheckIpCodebyphoneRequest {
+	s.Gps = &v
+	return s
+}
+
+func (s *CheckIpCodebyphoneRequest) SetAvatar(v string) *CheckIpCodebyphoneRequest {
+	s.Avatar = &v
+	return s
+}
+
+type CheckIpCodebyphoneResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 被扫描的次数(包含本次)
+	ScannedCount *int64 `json:"scanned_count,omitempty" xml:"scanned_count,omitempty"`
+	// 暂不使用该值//扫描历史列表(仅展示最近扫描的50次信息)
+	ScannedList []*IPCodeScannedInfo `json:"scanned_list,omitempty" xml:"scanned_list,omitempty" type:"Repeated"`
+	// 数字凭证的详情，始终不为空，如果类型中的user_name为空，则数字凭证未领取，如果不为空，则数字凭证已领取
+	CodeDetail *IPCodeScannedInfo `json:"code_detail,omitempty" xml:"code_detail,omitempty"`
+	// 首次扫码信息
+	FirstScannedInfo *IPSimpleScannedInfo `json:"first_scanned_info,omitempty" xml:"first_scanned_info,omitempty"`
+	// 扫码信息
+	ScannedInfoList []*IPSimpleScannedInfo `json:"scanned_info_list,omitempty" xml:"scanned_info_list,omitempty" type:"Repeated"`
+}
+
+func (s CheckIpCodebyphoneResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckIpCodebyphoneResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckIpCodebyphoneResponse) SetReqMsgId(v string) *CheckIpCodebyphoneResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckIpCodebyphoneResponse) SetResultCode(v string) *CheckIpCodebyphoneResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckIpCodebyphoneResponse) SetResultMsg(v string) *CheckIpCodebyphoneResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckIpCodebyphoneResponse) SetScannedCount(v int64) *CheckIpCodebyphoneResponse {
+	s.ScannedCount = &v
+	return s
+}
+
+func (s *CheckIpCodebyphoneResponse) SetScannedList(v []*IPCodeScannedInfo) *CheckIpCodebyphoneResponse {
+	s.ScannedList = v
+	return s
+}
+
+func (s *CheckIpCodebyphoneResponse) SetCodeDetail(v *IPCodeScannedInfo) *CheckIpCodebyphoneResponse {
+	s.CodeDetail = v
+	return s
+}
+
+func (s *CheckIpCodebyphoneResponse) SetFirstScannedInfo(v *IPSimpleScannedInfo) *CheckIpCodebyphoneResponse {
+	s.FirstScannedInfo = v
+	return s
+}
+
+func (s *CheckIpCodebyphoneResponse) SetScannedInfoList(v []*IPSimpleScannedInfo) *CheckIpCodebyphoneResponse {
+	s.ScannedInfoList = v
+	return s
+}
+
+type ReplaceIpCodecirculationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 数字凭证加密编码或UNI序列号
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 领取用户的名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 领取用户的手机号
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 当前持有人手机号
+	SellerPhoneNumber *string `json:"seller_phone_number,omitempty" xml:"seller_phone_number,omitempty" require:"true"`
+	// 外部客户自定义客户ID
+	ExternalUserId *string `json:"external_user_id,omitempty" xml:"external_user_id,omitempty"`
+	// 用户头像地址
+	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty"`
+	// 领取用户的位置信息
+	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
+	// 交易单ID
+	FlowOrderId *string `json:"flow_order_id,omitempty" xml:"flow_order_id,omitempty" require:"true"`
+	// 交易金额
+	FlowAmount *string `json:"flow_amount,omitempty" xml:"flow_amount,omitempty" require:"true"`
+	// 流转交易平台
+	FlowTradePlatform *string `json:"flow_trade_platform,omitempty" xml:"flow_trade_platform,omitempty" require:"true"`
+	// 商品名称
+	FlowGoodsName *string `json:"flow_goods_name,omitempty" xml:"flow_goods_name,omitempty"`
+	// 交易时间戳
+	FlowTransactionTime *int64 `json:"flow_transaction_time,omitempty" xml:"flow_transaction_time,omitempty" require:"true"`
+	// 流转信息jsonstring
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s ReplaceIpCodecirculationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReplaceIpCodecirculationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetAuthToken(v string) *ReplaceIpCodecirculationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetProductInstanceId(v string) *ReplaceIpCodecirculationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetBaseRequest(v *BaseRequestInfo) *ReplaceIpCodecirculationRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetCode(v string) *ReplaceIpCodecirculationRequest {
+	s.Code = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetUserName(v string) *ReplaceIpCodecirculationRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetPhoneNumber(v string) *ReplaceIpCodecirculationRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetSellerPhoneNumber(v string) *ReplaceIpCodecirculationRequest {
+	s.SellerPhoneNumber = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetExternalUserId(v string) *ReplaceIpCodecirculationRequest {
+	s.ExternalUserId = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetAvatar(v string) *ReplaceIpCodecirculationRequest {
+	s.Avatar = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetGps(v string) *ReplaceIpCodecirculationRequest {
+	s.Gps = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetFlowOrderId(v string) *ReplaceIpCodecirculationRequest {
+	s.FlowOrderId = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetFlowAmount(v string) *ReplaceIpCodecirculationRequest {
+	s.FlowAmount = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetFlowTradePlatform(v string) *ReplaceIpCodecirculationRequest {
+	s.FlowTradePlatform = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetFlowGoodsName(v string) *ReplaceIpCodecirculationRequest {
+	s.FlowGoodsName = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetFlowTransactionTime(v int64) *ReplaceIpCodecirculationRequest {
+	s.FlowTransactionTime = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationRequest) SetExtInfo(v string) *ReplaceIpCodecirculationRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type ReplaceIpCodecirculationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ReplaceIpCodecirculationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReplaceIpCodecirculationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReplaceIpCodecirculationResponse) SetReqMsgId(v string) *ReplaceIpCodecirculationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationResponse) SetResultCode(v string) *ReplaceIpCodecirculationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReplaceIpCodecirculationResponse) SetResultMsg(v string) *ReplaceIpCodecirculationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ReceiveIpCodebyphoneRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 数字凭证加密编码或UNI序列号
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 领取用户的名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 领取用户的手机号
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 外部客户自定义客户ID
+	ExternalUserId *string `json:"external_user_id,omitempty" xml:"external_user_id,omitempty"`
+	// 是否空投
+	LaunchEn *bool `json:"launch_en,omitempty" xml:"launch_en,omitempty" require:"true"`
+	// 备注
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+	// 领取用户的位置信息
+	Gps *string `json:"gps,omitempty" xml:"gps,omitempty"`
+	// 用户头像地址
+	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty"`
+}
+
+func (s ReceiveIpCodebyphoneRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveIpCodebyphoneRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveIpCodebyphoneRequest) SetAuthToken(v string) *ReceiveIpCodebyphoneRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReceiveIpCodebyphoneRequest) SetProductInstanceId(v string) *ReceiveIpCodebyphoneRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ReceiveIpCodebyphoneRequest) SetBaseRequest(v *BaseRequestInfo) *ReceiveIpCodebyphoneRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *ReceiveIpCodebyphoneRequest) SetCode(v string) *ReceiveIpCodebyphoneRequest {
+	s.Code = &v
+	return s
+}
+
+func (s *ReceiveIpCodebyphoneRequest) SetUserName(v string) *ReceiveIpCodebyphoneRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *ReceiveIpCodebyphoneRequest) SetPhoneNumber(v string) *ReceiveIpCodebyphoneRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *ReceiveIpCodebyphoneRequest) SetExternalUserId(v string) *ReceiveIpCodebyphoneRequest {
+	s.ExternalUserId = &v
+	return s
+}
+
+func (s *ReceiveIpCodebyphoneRequest) SetLaunchEn(v bool) *ReceiveIpCodebyphoneRequest {
+	s.LaunchEn = &v
+	return s
+}
+
+func (s *ReceiveIpCodebyphoneRequest) SetMemo(v string) *ReceiveIpCodebyphoneRequest {
+	s.Memo = &v
+	return s
+}
+
+func (s *ReceiveIpCodebyphoneRequest) SetGps(v string) *ReceiveIpCodebyphoneRequest {
+	s.Gps = &v
+	return s
+}
+
+func (s *ReceiveIpCodebyphoneRequest) SetAvatar(v string) *ReceiveIpCodebyphoneRequest {
+	s.Avatar = &v
+	return s
+}
+
+type ReceiveIpCodebyphoneResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ReceiveIpCodebyphoneResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveIpCodebyphoneResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveIpCodebyphoneResponse) SetReqMsgId(v string) *ReceiveIpCodebyphoneResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReceiveIpCodebyphoneResponse) SetResultCode(v string) *ReceiveIpCodebyphoneResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReceiveIpCodebyphoneResponse) SetResultMsg(v string) *ReceiveIpCodebyphoneResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ListIpCodeserviceproviderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 基础参数
+	BaseRequest *BaseRequestInfo `json:"base_request,omitempty" xml:"base_request,omitempty" require:"true"`
+	// 用户的手机号
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+}
+
+func (s ListIpCodeserviceproviderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListIpCodeserviceproviderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListIpCodeserviceproviderRequest) SetAuthToken(v string) *ListIpCodeserviceproviderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListIpCodeserviceproviderRequest) SetProductInstanceId(v string) *ListIpCodeserviceproviderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListIpCodeserviceproviderRequest) SetBaseRequest(v *BaseRequestInfo) *ListIpCodeserviceproviderRequest {
+	s.BaseRequest = v
+	return s
+}
+
+func (s *ListIpCodeserviceproviderRequest) SetPhoneNumber(v string) *ListIpCodeserviceproviderRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+type ListIpCodeserviceproviderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 服务商列表
+	ServiceProviderList []*ServiceProvider `json:"service_provider_list,omitempty" xml:"service_provider_list,omitempty" type:"Repeated"`
+}
+
+func (s ListIpCodeserviceproviderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListIpCodeserviceproviderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListIpCodeserviceproviderResponse) SetReqMsgId(v string) *ListIpCodeserviceproviderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListIpCodeserviceproviderResponse) SetResultCode(v string) *ListIpCodeserviceproviderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListIpCodeserviceproviderResponse) SetResultMsg(v string) *ListIpCodeserviceproviderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListIpCodeserviceproviderResponse) SetServiceProviderList(v []*ServiceProvider) *ListIpCodeserviceproviderResponse {
+	s.ServiceProviderList = v
+	return s
+}
+
 type QueryBlockanalysisBlockRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -38111,7 +38672,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.74"),
+				"sdk_version":      tea.String("1.3.77"),
+				"_prod_code":       tea.String("BAASDT"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -38137,8 +38700,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -47413,6 +47984,142 @@ func (client *Client) QueryIpTradeviewEx(request *QueryIpTradeviewRequest, heade
 	}
 	_result = &QueryIpTradeviewResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.tradeview.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 以手机号为主体的UNI码校验接口
+ * Summary: 数字商品服务-IP服务-UNI码校验
+ */
+func (client *Client) CheckIpCodebyphone(request *CheckIpCodebyphoneRequest) (_result *CheckIpCodebyphoneResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckIpCodebyphoneResponse{}
+	_body, _err := client.CheckIpCodebyphoneEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 以手机号为主体的UNI码校验接口
+ * Summary: 数字商品服务-IP服务-UNI码校验
+ */
+func (client *Client) CheckIpCodebyphoneEx(request *CheckIpCodebyphoneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckIpCodebyphoneResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckIpCodebyphoneResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codebyphone.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: UNI码信息流转
+ * Summary: 数字商品服务-IP授权服务-数字凭证流转
+ */
+func (client *Client) ReplaceIpCodecirculation(request *ReplaceIpCodecirculationRequest) (_result *ReplaceIpCodecirculationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReplaceIpCodecirculationResponse{}
+	_body, _err := client.ReplaceIpCodecirculationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: UNI码信息流转
+ * Summary: 数字商品服务-IP授权服务-数字凭证流转
+ */
+func (client *Client) ReplaceIpCodecirculationEx(request *ReplaceIpCodecirculationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReplaceIpCodecirculationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReplaceIpCodecirculationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codecirculation.replace"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 领取数字凭证，以手机号为主体
+ * Summary: 数字商品服务-IP授权服务-数字凭证领取
+ */
+func (client *Client) ReceiveIpCodebyphone(request *ReceiveIpCodebyphoneRequest) (_result *ReceiveIpCodebyphoneResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReceiveIpCodebyphoneResponse{}
+	_body, _err := client.ReceiveIpCodebyphoneEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 领取数字凭证，以手机号为主体
+ * Summary: 数字商品服务-IP授权服务-数字凭证领取
+ */
+func (client *Client) ReceiveIpCodebyphoneEx(request *ReceiveIpCodebyphoneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReceiveIpCodebyphoneResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReceiveIpCodebyphoneResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codebyphone.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户查询名下uni码服务提供商家列表
+ * Summary: 数字商品服务-IP服务-服务商家列表
+ */
+func (client *Client) ListIpCodeserviceprovider(request *ListIpCodeserviceproviderRequest) (_result *ListIpCodeserviceproviderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListIpCodeserviceproviderResponse{}
+	_body, _err := client.ListIpCodeserviceproviderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户查询名下uni码服务提供商家列表
+ * Summary: 数字商品服务-IP服务-服务商家列表
+ */
+func (client *Client) ListIpCodeserviceproviderEx(request *ListIpCodeserviceproviderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListIpCodeserviceproviderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListIpCodeserviceproviderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.antdao.ip.codeserviceprovider.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
